@@ -23,8 +23,6 @@ The code is presented here in its current for to facilitate discussion and early
 We have been making some structural changes prior to migrating to this repository, updating from Python 2 to Python 3 and removing some legacy. There may well be some rough edges so bear with us whilst we get things ship-shape.
 
 ### TODO List
- - Migrate todo's and existing RFCs to GitHub
- - Re-visit existing in-code documentation to sanity check post-refactor
  - Migrate documentation
  - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop investigations
  - Migrate `ManagerPlugin` test harness
