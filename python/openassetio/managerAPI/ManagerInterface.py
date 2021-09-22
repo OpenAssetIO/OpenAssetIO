@@ -231,7 +231,7 @@ class ManagerInterface(object):
     neither of these fields are set, then isEntityReference will always be used
     to determine if a string is an entityReference or not. Note, not all hosts
     support this optimisation, so @ref isEntityReference should be implemented
-    regardless. @ref containsEntityReferences will always be called regardless.
+    regardless.
 
       @li FnAssetAPI.constants.kField_EntityReferencesMatchPrefix
       @li FnAssetAPI.constants.kField_EntityReferencesMatchRegex
@@ -407,42 +407,6 @@ class ManagerInterface(object):
 
 
   @abc.abstractmethod
-  def containsEntityReference(self, string, context, hostSession):
-    """
-
-    Determines if the string contains a @ref entity_reference.
-
-    There may be occasion to operate on a more complex input string, that
-    combines one or more @ref entity_reference and free-form text.
-    For example, the following strings should cause isEntityReference()
-    to return false, but this function to return true:
-
-    @li `{fnasset://job?t=scriptsDir}/fileInDirectory.nk`
-    @li `source fnasset://myScript?v=1 fnasset://myOtherScript?v=2`
-
-    Positive matches here inform the Host that the string may need to
-    be resolved using resolveEntityReferences() prior to use.
-
-    @param str The input to parse for @ref entity_reference occurrences
-
-    @return bool, True if one or more @ref entitry_reference is found within the
-    string, otherwise False.
-
-    @param context, The calling context, this may be None.
-
-    @warning The result of this call should not depend on the context Locale,
-    as these results may be cached by access pattern.
-
-    @note This call does not verify that any of the referenced entities exit,
-    just that the string contains one or more @ref entity_reference.
-
-    @see resolveEntityReferences()
-
-    """
-    raise NotImplementedError
-
-
-  @abc.abstractmethod
   def entityExists(self, entityRef, context, hostSession):
     """
 
@@ -554,31 +518,6 @@ class ManagerInterface(object):
     for r in references:
       resolved.append(self.resolveEntityReference(r, context, hostSession))
     return resolved
-
-
-  @abc.abstractmethod
-  def resolveInlineEntityReferences(self, string, context, hostSession):
-    """
-
-    Returns a copy of the input string will all references resolved in-place.
-    The same rules of resolution apply for each @ref entity_reference in the
-    input string as noted in resolveEntityReference().
-
-    If no entity references are present, the input string should be returned.
-
-    @return str
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    @ref entity_reference is not recognised by the asset management system.
-    @exception FnAssetAPI.exceptions.EntityResolutionError If any supplied @ref
-    entity_reference does not have a meaningful string representation, or any
-    supplied reference points to a non-existent entity.
-
-    @see resolveEntityReference()
-    @see containsEntityReference()
-
-    """
-    raise NotImplementedError
 
 
   def getDefaultEntityReference(self, specification, context, hostSession):

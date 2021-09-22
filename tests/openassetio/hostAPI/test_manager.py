@@ -117,8 +117,6 @@ class TestManager():
 		assert manager.isEntityReference(a_ref, a_context) == method.return_value
 		method.assert_called_once_with(a_ref, a_context, host_session)
 
-	# Not testing containsEntityReference as it will be removed
-
 	def test_entityExists(self, manager, mock_manager_interface, host_session, a_ref, a_context):
 		method = mock_manager_interface.entityExists
 		assert manager.entityExists(a_ref, a_context) == method.return_value
@@ -256,8 +254,6 @@ class TestManager():
 		method = mock_manager_interface.resolveEntityReferences
 		assert manager.resolveEntityReferences(some_refs, a_context) == method.return_value
 		method.assert_called_once_with(some_refs, a_context, host_session)
-
-	# Not testing resolveInlineEntityReferences as they will be removed
 
 	def test_managementPolicy(self, manager, mock_manager_interface, host_session, an_entity_spec, a_context, a_ref):
 
