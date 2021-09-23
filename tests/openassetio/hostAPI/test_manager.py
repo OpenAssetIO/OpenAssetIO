@@ -18,7 +18,7 @@ import pytest
 from unittest import mock
 
 from openassetio import Context
-from openassetio.specifications import CommandSpecification, EntitySpecification
+from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import Manager
 from openassetio.managerAPI import HostSession, ManagerInterface
 
@@ -38,11 +38,6 @@ def host_session():
 @pytest.fixture
 def manager(mock_manager_interface, host_session):
 	return Manager(mock_manager_interface, host_session)
-
-
-@pytest.fixture
-def a_command_spec():
-	return CommandSpecification()
 
 
 @pytest.fixture
@@ -317,18 +312,3 @@ class TestManager():
 		method = mock_manager_interface.registerMultiple
 		assert manager.registerMultiple(two_strings, two_refs, two_specs, a_context) == method.return_value
 		method.assert_called_once_with(two_strings, two_refs, two_specs, a_context, host_session)
-
-	def test_commandSupported(self, manager, mock_manager_interface, host_session, a_command_spec, a_context):
-		method = mock_manager_interface.commandSupported
-		assert manager.commandSupported(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context, host_session)
-
-	def test_commandAvailable(self, manager, mock_manager_interface, host_session, a_command_spec, a_context):
-		method = mock_manager_interface.commandAvailable
-		assert manager.commandAvailable(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context, host_session)
-
-	def test_runCommand(self, manager, mock_manager_interface, host_session, a_command_spec, a_context):
-		method = mock_manager_interface.runCommand
-		assert manager.runCommand(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context, host_session)

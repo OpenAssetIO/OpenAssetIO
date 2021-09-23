@@ -15,7 +15,6 @@
 #
 
 from .._core.audit import auditApiCall
-from ..exceptions import InvalidCommand
 
 
 __all__ = ['HostInterface']
@@ -104,84 +103,6 @@ class HostInterface(object):
     """
     return {}
 
-
-  ## @}
-
-
-  ##
-  # @name Commands
-  #
-  # The commands mechanism provides a means for hosts and managers to
-  # extend functionality of the API, without requiring any new methods.
-  #
-  # The  API represents commands via a @ref
-  # openassetio.specifications.CommandSpecification, which maps to a 'name' and
-  # some 'arguments'.
-  #
-  ## @{
-
-  @auditApiCall("HostInterface")
-  def commandSupported(self, command, context):
-    """
-
-    Determines if a specified command is supported by the Host.
-
-    @return bool, True if the Host implements the command, else False.
-
-    @see commandIsSupported()
-    @see runCommand()
-
-    """
-    return False
-
-
-  @auditApiCall("HostInterface")
-  def commandAvailable(self, command, context):
-    """
-
-    Determines if specified command is permitted or should succeed in the
-    current context. This call can be used to test whether a command can
-    be carried out, generally to provide some meaningful feedback to a user
-    so that they don't perform an action that would consequently error.
-
-    For example, the 'checkout' command for an asset may return false here
-    if that asset is already checked out by another user, or the current
-    user is not allowed to check the asset out.
-
-    @exception openassetio.exceptions.InvalidCommand If an un-supported command is
-    passed.
-
-    @return (bool, str), True if the command should complete successfully if
-    called, False if it is known to fail or is not permitted. The second part
-    of the tuple will contain any meaningful information from the system to
-    qualify the status.
-
-    @see commandIsSupported()
-    @see runCommand()
-
-    """
-    return False, "Unsupported command"
-
-
-  @auditApiCall("HostInterface")
-  def runCommand(self, command, context):
-    """
-
-    Instructs the Host to perform the specified command.
-
-    @exception openassetio.exceptions.InvalidCommand If the command is not
-    implemented by the system.
-
-    @exception openassetio.exceptions.CommandError if any other run-time error
-    occurs during execution of the command
-
-    @return Any result of the command.
-
-    @see commandSupported()
-    @see commandAvailable()
-
-    """
-    raise InvalidCommand
 
   ## @}
 

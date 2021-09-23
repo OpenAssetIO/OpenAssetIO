@@ -18,7 +18,7 @@ import pytest
 from unittest import mock
 
 from openassetio import Context
-from openassetio.specifications import CommandSpecification, EntitySpecification
+from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import HostInterface
 from openassetio.managerAPI import Host
 
@@ -26,14 +26,9 @@ from openassetio.managerAPI import Host
 def mock_host_interface():
 	return mock.create_autospec(spec=HostInterface)
 
-
 @pytest.fixture
 def host(mock_host_interface):
 	return Host(mock_host_interface)
-
-@pytest.fixture()
-def a_command_spec():
-	return CommandSpecification()
 
 @pytest.fixture()
 def an_entity_spec():
@@ -67,21 +62,6 @@ class TestHost():
 		method = mock_host_interface.getInfo
 		assert host.getInfo() == method.return_value
 		method.assert_called_once_with()
-
-	def test_commandSupported(self, host, mock_host_interface, a_command_spec, a_context):
-		method = mock_host_interface.commandSupported
-		assert host.commandSupported(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context)
-
-	def test_commandAvailable(self, host, mock_host_interface, a_command_spec, a_context):
-		method = mock_host_interface.commandAvailable
-		assert host.commandAvailable(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context)
-
-	def test_runCommand(self, host, mock_host_interface, a_command_spec, a_context):
-		method = mock_host_interface.runCommand
-		assert host.runCommand(a_command_spec, a_context) == method.return_value
-		method.assert_called_once_with(a_command_spec, a_context)
 
 	def test_getDocumentReference(self, host, mock_host_interface):
 		method = mock_host_interface.getDocumentReference
