@@ -47,40 +47,40 @@ class Session(Debuggable):
   and it's settings. This can be useful for persisting the configuration
   across host process invocations.
 
-  @see FnAssetAPI.Session.getSettings
-  @see FnAssetAPI.Session.setSettings
+  @see openassetio.hostAPI.Session.getSettings
+  @see openassetio.hostAPI.Session.setSettings
 
   The Session class is suitable for all Hosts, but in cases where a UI is
   presented to the user, it may be desirable to use the UISession instead, as
   it permits access to a Managers widgets etc...
 
-  @see FnAssetAPI.SessionManager
-  @see FnAssetAPI.ui.UISessionManager
-  @see FnAssetAPI.ui.UISession
+  @see openassetio.hostAPI.SessionManager
+  @see openassetio-ui.UISessionManager
+  @see openassetio-ui.UISession
 
   """
 
   def __init__(self, hostInterface: HostInterface, logger: LoggerInterface, managerFactory:  ManagerFactoryInterface):
     """
 
-    @param host FnAssetAPI.HostInterface The current HostInterface instance (note: only a single
+    @param host openassetio.hostAPI.HostInterface The current HostInterface instance (note: only a single
     currently active HostInterface is supported, so if multiple sessions are created,
     they should all use the same HostInterface instance).
 
-    @param logger FnAssetAPI.logging.LoggerInterface The target for all logging output from
+    @param logger openassetio.logging.LoggerInterface The target for all logging output from
     the session API-level or Manager level messages will all be routed through this object.
     No severity filtering is performed. Hosts wishing to filter the messages can use the
-    @ref FnAssetAPI.logging.SeverityFilter wrapper if desired.
+    @ref openassetio.logging.SeverityFilter wrapper if desired.
 
-    @param managerFactory FnAssetAPI.ManagerFactoryInterface An in stance of some factory
+    @param managerFactory openassetio.hostAPI.ManagerFactoryInterface An in stance of some factory
     that will provide instances of a manager's ManagerInterface as required by the session.
 
       @see useManager()
       @see currentManager()
-      @see FnAssetAPI.logging
-      @see FnAssetAPI.ManagerFactoryInterface
-      @see FnAssetAPI.core.PluginSystsemManagerFactory
-      @see FnAssetAPI.SessionManager.SessionManager.currentSession()
+      @see openassetio.logging
+      @see openassetio.hostAPI.ManagerFactoryInterface
+      @see openassetio.pluginSystem.PluginSystsemManagerFactory
+      @see openassetio.hostAPI.SessionManager.SessionManager.currentSession()
 
     """
     super(Session, self).__init__()
@@ -121,7 +121,7 @@ class Session(Debuggable):
   def getRegisteredManagers(self):
     """
 
-    @see FnAssetAPI.PluginSystemManagerFactory.managers()
+    @see openassetio.pluginSystem.PluginSystemManagerFactory.managers()
 
     """
     return self._factory.managers()
@@ -195,7 +195,7 @@ class Session(Debuggable):
     @warning Contexts should never be directly constructed, always use this
     method to create a new one.
 
-    @param parent FnAssetAPI.Context If supplied, the new context will clone
+    @param parent openassetio.Context If supplied, the new context will clone
     the supplied Context, and the Manager will be given a chance to migrate any
     meaningful state etc... This can be useful when certain UI elements
     need to 'take a copy' of a context in its current state. It is not linked
@@ -203,7 +203,7 @@ class Session(Debuggable):
     lifetime of any context's transactions are only ever controlled by the
     context that created them.
 
-    @see FnAssetAPI.Context
+    @see openassetio.Context
 
     @exception RuntimeError if called when the session has no current manager.
 
@@ -237,7 +237,7 @@ class Session(Debuggable):
 
     A convenience for persisting a session. It retrieves all session settings,
     and the manager's settings in one dictionary. The @ref
-    FnAssetAPI.constants.kSetting_ManagerIdentifier key is used to hold the
+    openassetio.constants.kSetting_ManagerIdentifier key is used to hold the
     identifier of the active manager.
 
     @return dict
@@ -258,7 +258,7 @@ class Session(Debuggable):
     """
 
     A convenience to restore the settings for a Session, the @ref
-    FnAssetAPI.constants.kSetting_ManagerIdentifier key is used to determine which
+    openassetio.constants.kSetting_ManagerIdentifier key is used to determine which
     Manager to instantiate. All other keys are passed to the Manager prior to
     initialization. If the Manager Identifier key is not present, no manager
     will be restored.
@@ -274,7 +274,7 @@ class Session(Debuggable):
   def _hostSession(self):
     """
 
-    @returns a FnAssetAPI.implementation.HostSession object to proxy
+    @returns a openassetio.managerAPI.HostSession object to proxy
     this session.
 
     """

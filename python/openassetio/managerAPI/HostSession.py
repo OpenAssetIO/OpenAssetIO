@@ -31,13 +31,13 @@ class HostSession(object):
     persisted by a Manager.
 
     The HostSession provides access to:
-      - A concrete instance of the @ref FnAssetAPI.HostInterface.HostInterface,
+      - A concrete instance of the @ref openassetio.hostAPI.HostInterface,
         implemented by the tool or application that initiated the API session.
       - A logging callback. All user-facing messaging should be directed through
         this entrypoint. This ensures it will be appropriately presented to the user.
 
     @see log()
-    @see FnAssetAPI.HostInterface.HostInterface
+    @see openassetio.HostInterface.HostInterface
 
     """
     kDebugAPI = LoggerInterface.kDebugAPI
@@ -63,7 +63,7 @@ class HostSession(object):
     def host(self):
         """
 
-        @returns A @ref FnAssetAPI.HostInterface.HostInterface implementation.
+        @returns A @ref openassetio.HostInterface.HostInterface implementation.
 
         """
         return self.__host
@@ -76,7 +76,7 @@ class HostSession(object):
         All user-facing messaging should be routed though this method. It will be mapped to the
         correct host sub-systems to ensure that it is presented correctly.
 
-        @see FnAssetAPI.logging
+        @see openassetio.logging
 
         """
         self.__logger.log(message, severity)

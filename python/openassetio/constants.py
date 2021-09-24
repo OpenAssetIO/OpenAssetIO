@@ -18,7 +18,7 @@
 kSupportedMetadataTypes = ( str, int, float, bool, type(None) )
 
 ## @name Management States
-## @see @ref FnAssetAPI.Manager.Manager.managemetPolicy
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managemetPolicy
 ## @{
 
 ## The Manager has no interest in participating in the management of this kind
@@ -40,7 +40,7 @@ kStateMask = 7
 ## @}
 
 ## @name Path Handling
-## @see @ref FnAssetAPI.Manager.Manager.managementPolicy
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 ## @{
 
 ## If False, The manager is not capable of determining the path for the item,
@@ -52,8 +52,8 @@ kWillManagePath = 8
 
 
 ## @name Batch Processing
-## @see FnAssetAPI.Manager.Manager.preflightMultiple
-## @see FnAssetAPI.Manager.Manager.registerMultiple
+## @see openassetio.managerAPI.ManagerInterface.ManagerInterface.preflightMultiple
+## @see openassetio.managerAPI.ManagerInterface.ManagerInterface.registerMultiple
 ## @{
 
 ## Some Managers may implement the 'batched' API methods, this flag should be
@@ -147,14 +147,14 @@ kThumbnail_DefaultPixelHeight = 270
 ## Name for keys in the session settings dict, where applicable.
 ## @{
 
-kSetting_ManagerIdentifier = 'FnAssetAPI:managerIdentifier'
-kSetting_LoggingSeverity = 'FnAssetAPI:loggingSeverity'
+kSetting_ManagerIdentifier = 'OAIO:managerIdentifier'
+kSetting_LoggingSeverity = 'OAIO:loggingSeverity'
 
 ## @}
 
 
 ## @name Document actions
-## @see FnAssetAPI.specifications.DocumentLocale
+## @see DocumentLocale
 ## @{
 
 kDocumentAction_Save = 'save'

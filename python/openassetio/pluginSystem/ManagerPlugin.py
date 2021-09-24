@@ -27,7 +27,7 @@ class ManagerPlugin(PluginSystemPlugin):
   a @ref asset_management_system.
 
   It used by the dynamic plug-in discovery mechanism (@ref
-  FnAssetAPI.PluginSystem) to instantiate the main classes in an implementation.
+  openassetio.pluginSystem.PluginSystem) to instantiate the main classes in an implementation.
 
   The class will never be instantiated itself, so all functionality is via
   class methods.
@@ -40,7 +40,7 @@ class ManagerPlugin(PluginSystemPlugin):
   it is imperative that no ui libraries (QtCore, QtGui etc...) are imported
   unless @ref getUIDelegate() is called, and ideally, even then, this should be
   deferred until something is requested from the @ref
-  FnAssetAPI.ui.implementation.ManagerUIDelegate.
+  openassetio-ui.implementation.ManagerUIDelegate.
 
   """
 
@@ -58,7 +58,7 @@ class ManagerPlugin(PluginSystemPlugin):
 
     @return str
 
-    @see FnAssetAPI.implementation.ManagerInterface
+    @see openassetio.managerAPI.ManagerInterface
 
     """
     raise NotImplementedError
@@ -68,13 +68,12 @@ class ManagerPlugin(PluginSystemPlugin):
   def getInterface(cls):
     """
 
-    Constructs an instance of the @ref FnAssetAPI.implementation.ManagerInterface.
+    Constructs an instance of the @ref openassetio.managerAPI.ManagerInterface.
 
     This is an instance of some class derived from ManagerInterface to be
-    bound to the Host-facing @ref FnAssetAPI.Manager and @ref FnAssetAPI.Entity
-    objects.
+    bound to the Host-facing @ref openassetio.hostAPI.Manager.
 
-    Generally this is only directly called by the @ref FnAssetAPI.PluginSystemManagerFactory.
+    Generally this is only directly called by the @ref openassetio.pluginSystem.PluginSystemManagerFactory.
     It may be called multiple times in a session, but there as the
     ManagerInterface API itself is specified as being stateless (aside from
     any internal caching/etc...) then there is no pre-requisite to always
@@ -91,7 +90,7 @@ class ManagerPlugin(PluginSystemPlugin):
     """
 
     Constructs an instance of the @ref
-    FnAssetAPI.ui.implementation.ManagerUIDelegate
+    openassetio-ui.implementation.ManagerUIDelegate
 
     This is an instance of some class derived from ManagerUIDelegate that is
     used by the @ref UISessionManager to provide widgets to a host that may

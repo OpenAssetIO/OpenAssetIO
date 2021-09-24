@@ -16,11 +16,11 @@
 
 from .._core.audit import auditApiCall
 
-## @namespace FnAssetAPI.localization
+## @namespace openassetio.localization
 #
 # The localization mechanism allows Managers to customise terminology
 # used within the host application.
-# The @ref FnAssetAPI.localization.Localizer class allows for
+# The @ref openassetio.localization.Localizer class allows for
 # more efficitent access to string localization during a Host session,
 # and for the host to provide additional terminology keys.
 #
@@ -41,7 +41,7 @@ kLocalizationKey_Shots = 'shots'
 
 ## Default terminology for the API.
 # Hosts may choose to add aditional terminiology keys when
-# construting a @ref FnAssetAPi.localization.Localizer,
+# construting a @ref openassetio.hostAPI.localization.Localizer,
 # but there is no expectation that any given manager would
 # customise keys other than the defaultTerminology.
 defaultTerminology = {
@@ -81,7 +81,7 @@ class Localizer :
 
         Substitutes any valid localizable tokens in the input string with those
         appropriate to the current Manager. These tokens are as per python format
-        convention, using the constants defined in @ref FnAssetAPI.constants under
+        convention, using the constants defined in @ref openassetio.constants under
         kLocalizationKey_*. For example:
 
           @li "{publish} to {manager}..."
@@ -106,7 +106,7 @@ class Localizer :
     def getLocalizedString(self, key, default=''):
         """
 
-        Returns the localized version of the supplied key, @ref FnAssetAPI.constants
+        Returns the localized version of the supplied key, @ref openassetio.constants
         under kLocalizationKey_*
 
         @return str or the supplied default if the key is unknown.

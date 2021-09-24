@@ -147,7 +147,7 @@ class Specification(SpecificationBase):
     @param typeOrTypes, [str or Specification, or list of] The types to
     compare against. eg:
      @code
-        spec.isOfType(FnAssetAPI.specifications.FileSpecification)
+        spec.isOfType(openassetio.specifications.FileSpecification)
         spec.isOfType(('file', 'group.shot'), includeDerived=True)
      @endcode
 
