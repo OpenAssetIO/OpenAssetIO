@@ -17,11 +17,6 @@
 import abc
 from .. import exceptions
 
-## @todo Should we just assume all validation of supplied entity references,
-## etc is taken care of in the Manager/Entity abstraction, to avoid doubling
-## the work, if a host already tests whether or not something is a ref before
-## acting upon it.
-
 
 __all__ = ['ManagerInterface', ]
 
@@ -29,19 +24,21 @@ __all__ = ['ManagerInterface', ]
 class ManagerInterface(object):
   """
 
-  @brief This Interface binds a @ref asset_management_system into the
-  Asset API. It is not called directly by a @ref host, but by the
-  middle-ware that presents a more object-oriented model of this the a @ref
-  host - namely, the @ref FnAssetAPI.Manager.Manager and @ref
-  FnAssetAPI.Entity.Entity classes.
+  @brief This Interface binds a @ref asset_management_system into OpenAssetIO.
+  It is not called directly by a @ref host, but by the middle-ware that
+  presents a more object-oriented model of this to the @ref host - namely, the
+  @ref openassetio.hostAPI.Manager.
 
   It is structured around the following principals:
 
     @li The currency of the API is either data, or an @ref entity_reference.
-    objects should not be used to represent an Entity or its properties.
+    objects should not be used to represent an @ref entity or its properties.
 
-    @li All calls should be atomic, to facilitate concurrency (see the @ref
-    threading section for more details).
+	@li The interface is stateless as far as the host-facing API is concerned.
+	The result of any method should solely depend on its inputs. This class
+	could be static. In practice though, in a real-world session with a host,
+	there are benefits to having an 'instance' with a managed lifetime. This
+	can be used to facilitate caching etc.
 
     @li The implementation of this class should have no UI dependencies, so
     that it can be used in command-line only hosts/batch process etc...
@@ -53,7 +50,7 @@ class ManagerInterface(object):
   Logging and Error Handling
   --------------------------
 
-  The supplied @ref FnAssetAPI.implementation.HostSession object provides
+  The supplied @ref openassetio.managerAPI.HostSession object provides
   logging methods that allow messages and progress to be reported back to
   the user. All logging should go through these methods otherwise it may
   not be correctly presented to the user. The loose term "user" also covers
@@ -63,30 +60,31 @@ class ManagerInterface(object):
   machine, the HostSession bridge takes care of relaying messages accordingly.
   Using custom logging mechanisms may well result in output being lost.
 
-  @see FnAssetAPI.implementation.HostSession.log
-  @see FnAssetAPI.implementation.HostSession.progress
+  @see openassetio.managerAPI.HostSession.log
+  @see openassetio.managerAPI.HostSession.progress
 
-  Exceptions should be thrown to handle any in-flight errors that occur.
-  The error should be mapped to a derived class of
-  FnAssetAPI.exceptions.BaseException, and thrown.  All exceptions of this kind,
-  will be correctly passed across the plug-in C boundary, and re-thrown. Other
-  exceptions should not be used.
+  Exceptions should be thrown to handle any in-flight errors that occur.  The
+  error should be mapped to a derived class of
+  openassetio.exceptions.BaseException, and thrown.  All exceptions of this
+  kind, will be correctly passed across the plug-in C boundary, and re-thrown.
+  Other exceptions should not be used.
 
-   @see python::exceptions
+   @see openassetio.exceptions
 
   Threading
   ---------
   Any implementation of the ManagerInterface should be thread safe. The one
-  exception being Manager::initialize, this will never be called
-  concurrently.
+  exception being Manager::initialize, this will never be called concurrently.
 
-  When a @ref FnAssetAPI.Context.Context object is constructed by @ref
-  FnAssetAPI.Session.Session.createContext, the createState method will be called,
-  and the resulting state object stored in the context.
-  This context will then be re-used across related API calls to the
-  ManagerInterface implementation. You can use this to determine which
-  calls may be part of a specific 'action' in the Host, or to store any
-  transaction-persistent data.
+  When a @ref openassetio.Context object is constructed by @ref
+  openassetio.hostAPI.Session.Session.createContext, the @ref createState
+  method will be called, and the resulting state object stored in the context.
+  This context will then be re-used across related API calls to your
+  implementation of the ManagerInterface. You can use this to determine which
+  calls may be part of a specific 'action' in the same host, or logically
+  grouped processes such as a batch render. This should allow you to
+  implement stable resolution of @ref meta-versions or other resolve-time
+  concepts.
 
   One exception to the treading rule is that the transaction managing functions
   won't be called from multiple threads with the same transaction object.
@@ -95,35 +93,38 @@ class ManagerInterface(object):
   as getError(), etc.. for example should not be used.
 
 
-  Context
-  -------
-
-  The Context object is passed to many methods of this class.  Though in the
-  majority of situations this will be well defined, it should not cause an
-  error if this is ever None.
-
-
   Hosts
   -----
 
   Sometimes you may need to know more information about the API host. A
-  @ref FnAssetAPI.implementation.Host object is available through the
-  @ref FnAssetAPI.implementation.HostSession object passed to each
+  @ref openassetio.managerAPI.Host object is available through the
+  @ref openassetio.managerAPI.HostSession object passed to each
   method of this class. This provides a standardised interface that
   all API hosts guarantee to implement. This can be used to identify
   exactly which host you are being called for, and query various
   entity related specifics of the hosts data model.
 
-  @see FnAssetPI.implementation.Host
+  @see openassetio.managerAPI.Host
 
 
   Initialization
   --------------
 
-  The constructor makes a new instance, but at this point it is not ready for use.
-  The implementation shouldn't do any work in the constructor, so that it is
-  its is cheap to create one. This means that only the informational
-  methods need to be available until initialize() has been called.
+  The constructor makes a new instance, but at this point it is not ready for
+  use. Instances of this class should be light weight to create, but don't
+  have to be lightweight to initialize. The informational methods must be
+  available pre-initialization, so that UI and other display-type queries can
+  be made relatively cheaply to provide users with a list of managers and their
+  settings. None of the entity-related methods will be called until after @ref
+  initialize has been called. The following methods must be callable prior to
+  initialization:
+
+     @li @ref getIdentifier()
+     @li @ref getDisplayName()
+     @li @ref getInfo()
+     @li @ref localizeStrings()
+     @li @ref getSettings()
+     @li @ref setSettings()
 
   @todo Finish/Document settings mechanism.
 
@@ -170,7 +171,8 @@ class ManagerInterface(object):
   ##
   # @name Asset Management System Information
   #
-  # These functions provide general information about the @ref asset_management_system itself.
+  # These functions provide hosts with general information about the @ref
+  # asset_management_system itself.
   #
   # @{
 
@@ -179,13 +181,15 @@ class ManagerInterface(object):
     """
 
     Returns an identifier to uniquely identify a specific asset manager.
-    This may be used by a Host to persist the users preferred manager via a
+    This may be used by a host to persist the users preferred manager via a
     preferences mechanism, or when spawning child processes, etc...
-    It should match the name used to register the plug-in with the plug-in host.
-    The identifier should use only alpha-numeric characters and '.', '_' or '-'.
-    For example:
 
-        "uk.co.foundry.asset.testAssetManager"
+	It should match the name used to register the plug-in with the plug-in
+	host.  The identifier should use only alpha-numeric characters and '.', '_'
+	or '-'.  Generally speaking, we recommend using the 'reverse-DNS'
+	convention, for example:
+
+        "org.openassetio.manager.test"
 
     @return str
 
@@ -198,11 +202,11 @@ class ManagerInterface(object):
     """
 
     Returns a human readable name to be used to reference this specific
-    asset manager.
-    Once instance of its use may be in a Host's Preferences UI or logging.
+    asset manager in UIs or other user-facing messaging.
+    One instance of its use may be in a host's preferences UI or logging.
     For example:
 
-        "The Foundry Test Asset Manager"
+        "OpenAssetIO Test Asset Manager"
 
     """
     raise NotImplementedError
@@ -212,31 +216,31 @@ class ManagerInterface(object):
     """
 
     Returns other information that may be useful about this @ref
-    asset_management_system.  This can contain arbitrary key/value pairs.For
+    asset_management_system. This can contain arbitrary key/value pairs.For
     example:
 
         { 'version' : '1.1v3',
-          'server' : 'am.thefoundry.co.uk' }
+          'server' : 'assets.openassetio.org' }
 
     There are certain optional keys that may be used by a host or the API:
 
-      @li FnAssetAPI.constants.kField_SmallIcon (upto 32x32)
-      @li FnAssetAPI.constants.kField_Icon (any size)
+      @li openassetio.constants.kField_SmallIcon (upto 32x32)
+      @li openassetio.constants.kField_Icon (any size)
 
-    Because it can often be expensive to bridge between languages, info can
-    also contain one of two additional fields - a prefix, or perl regex
-    compatible string to identify a valid entity reference. Only one should be
-    set at once. If supplied, this may be used by the API to optimise calls to
-    isEntityReference when bridging between C/Python etc... can be slow. If
-    neither of these fields are set, then isEntityReference will always be used
-    to determine if a string is an entityReference or not. Note, not all hosts
-    support this optimisation, so @ref isEntityReference should be implemented
-    regardless.
+	Because it can often be expensive to bridge between languages, info can
+	also contain one of two additional fields - a prefix, or perl regex
+	compatible string to identify a valid entity reference. Only one should be
+	set at once. If supplied, this may be used by the API to optimise calls to
+	isEntityReference when bridging between C/Python etc... can be slow. If
+	neither of these fields are set, then isEntityReference will always be used
+	to determine if a string is an entityReference or not. Note, not all hosts
+	support this optimisation, so @ref isEntityReference should be implemented
+	regardless.
 
-      @li FnAssetAPI.constants.kField_EntityReferencesMatchPrefix
-      @li FnAssetAPI.constants.kField_EntityReferencesMatchRegex
+      @li openassetio.constants.kField_EntityReferencesMatchPrefix
+      @li openassetio.constants.kField_EntityReferencesMatchRegex
 
-    @note Keys should always be UTF-8 stings, and values must be
+    @note Keys should always be UTF-8 encoded strings, and values must be
     plain-old-data types (ie: str, int, float, bool).
 
     """
@@ -246,18 +250,18 @@ class ManagerInterface(object):
   def localizeStrings(self, stringDict, hostSession):
     """
 
-    This call gives the Host a chance to customise certain strings used in it's
-    UI/messages. @see FnAssetAPI.constants for known keys. The values in stringDict
-    can be freely updated to match the terminology of the asset management
-    system you are representing.
+	This call gives the manager a chance to customise certain strings used in
+	a host's UI/messages. @see openassetio.constants for known keys. The values
+	in stringDict can be freely updated to match the terminology of the asset
+	management system you are representing.
 
-    For example, you may way a Host's "Publish Clip" menu item to read "Release
-    Clip", so you would set the kLocalizationKey_Publish value to "Release".
+    For example, you may way a host's "Publish Clip" menu item to read "Release
+    Clip", so you would set the @ref kLocalizationKey_Publish value to "Release".
 
     @return None
 
-    @see @ref FnAssetAPI.constants
-    @see @ref FnAssetAPI.Session.Session.__terminology
+    @see @ref openassetio.constants
+    @see @ref openassetio.hostAPI.localization.defaultTerminology
 
     """
     pass
@@ -271,31 +275,38 @@ class ManagerInterface(object):
   ## @{
 
   def getSettings(self, hostSession):
+    """
+    @todo Document settings mechanism
+    """
     return {}
 
   def setSettings(self, settings, hostSession):
+    """
+    @todo Document settings mechanism
+    """
     pass
 
   @abc.abstractmethod
   def initialize(self, hostSession):
     """
 
-    Prepares for interaction with a Host.
+    Prepares for interaction with a host.
 
-    This is a good opportunity to initialize connections to a back end
-    implementation, as @ref setSettings will have already been called (if
-    applicable). This may result in this call blocking for a period of time.
+	This is a good opportunity to initialize any persistent connections to a
+	back end implementation, as @ref setSettings will have already been called
+	(if applicable). It is fine for this call to block for a period of
+	time.
 
-    If an exception is raised by this call, its is safe to assume that a fatal
-    error occurred, and this @ref asset_management_system is not available, and
-    should be retried later.
+	If an exception is raised by this call, it signifies to the host that a
+	fatal error occurred, and this @ref asset_management_system is not
+	available with the current settings.
 
-    If no exception is raised, it can be assumed that the @ref asset_management_system is
-    ready. It is the implementations responsibility to deal with transient
-    connection errors (if applicable) once initialized.
+	If no exception is raised, it can be assumed that the @ref
+	asset_management_system is ready. It is the implementations responsibility
+	to deal with transient connection errors (if applicable) once initialized.
 
     The behaviour of calling initialize() on an already initialized
-    Manager should be a no-op, but if an error was raised previously, then
+    instance should be a no-op, but if an error was raised previously, then
     initialization should be re-attempted.
 
     @note This will always be called prior to any Entity-related calls.
@@ -319,25 +330,25 @@ class ManagerInterface(object):
   def prefetch(self, entitRefs, context, hostSession):
     """
 
-    Called by a Host to express interest in the supplied @ref
-    entity_reference list. This usually means that the Host is about to make
+    Called by a host to express interest in the supplied @ref
+    entity_reference list. This usually means that the host is about to make
     multiple queries to the same references.  This can be left unimplemented,
     but it is advisable to batch request the data for resolveEntityReference,
-    getEntityMetadata here if possible to minimize server load.
+    getEntityMetadata here if possible.
 
-    The implementation should ignore any unrecognised strings, or any entities
-    to which no action is applicable (maybe as they don't exist yet).
+	The implementation should ignore any entities to which no action is
+	applicable (maybe as they don't exist yet).
 
     @warning Because the majority of the resolution API itself is designated
     thread stafe, it is important to implement any pre-fetch mechanism with
     suitable locks/etc... if required.
 
-    @param context FnAssetAPI.contexts.Context, may be None, but if present, you
-    may wish to make use of the managerInterfaceState object (if you supplied
-    one on construction of the context), to simplify scoping any caching of
-    data. Otherwise, it's up to you how to manage the lifetime of the data to
-    avoid inconsistencies, but the @ref flushCaches method should clear any
-    otherwise sorted data for this call.
+	@param context openassetio.Context, You may wish to make use of the
+	managerInterfaceState object (if you supplied one on construction of the
+	context), to simplify scoping any caching of data. Otherwise, it's up to
+	you how to manage the lifetime of the data to avoid inconsistencies, but
+	the @ref flushCaches method should clear any otherwise sorted data for this
+	call.
 
     @return None
 
@@ -349,9 +360,9 @@ class ManagerInterface(object):
     """
 
     Clears any internal caches.  Only applicable if the implementation makes
-    use of any caching, otherwise it is a no-op.  In caching interfaces, this
+    use of any caching, otherwise it is a no-op. In caching interfaces, this
     should cause any retained data to be discarded to ensure future queries are
-    fresh.  This should have no effect on any open @ref transaction.
+    fresh. This should have no effect on any open @ref transaction.
 
     """
     pass
@@ -373,30 +384,27 @@ class ManagerInterface(object):
   def isEntityReference(self, token, context, hostSession):
     """
 
-    Determines if a supplied token (in its entirety) matches the pattern of
-    an @ref entity_reference.
-    It does not verify that it points to a valid entity in the system,
-    simply that the pattern of the token is recognised by this implementation.
+	Determines if a supplied token (in its entirety) matches the pattern of a
+	valid @ref entity_reference in your system.  It does not need to verify
+	that it points to a valid entity in the system, simply that the pattern of
+	the token is recognised by this implementation.
 
     If this returns True, the token is an @ref entity_reference and should
-    be considered as a managed entity. Consequently, it should be resolved
-    before use. It also confirms that it can be passed to any other
-    method that requires an @ref entity_reference.
+    be considered usable with the other methods of this interface.
 
     If false, this manager should no longer be involved in actions relating
     to the token.
 
-    @warning The result of this call should not depend on the context Locale,
-    as these results may be cached by access pattern.
+    @warning The result of this call should not depend on the context Locale.
 
-    @param token The string to be inspected.
+    @param token The UTF-8 encoded string to be inspected.
 
-    @param context, The calling context, this may be None.
+    @param openassetio.Context, The calling context.
 
     @return bool, True if the supplied token should be considered as an @ref
     entityReference, False if the pattern is not recognised.
 
-    @note This call does not verify the entity exits, just that the format of
+    @note This call should not verify the entity exits, just that the format of
     the string is recognised.
 
     @see entityExists()
@@ -411,10 +419,10 @@ class ManagerInterface(object):
     """
 
     Called to determine if the supplied @ref entity_reference points to an
-    Entity that exists in the @ref asset_management_system, and that it can be
-    resolved into a meaningful string.
+    entity that does exist in the @ref asset_management_system, and that it can be
+    resolved into a meaningful string or otherwise queried.
 
-    By 'Exist' we mean 'is ready to be read'. For example, entityExists may be
+    By 'exist' we mean 'is ready to be read'. For example, entityExists may be
     called before attempting to read from a reference that is believed to point
     to an image sequence, so that alternatives can be found.
 
@@ -428,11 +436,8 @@ class ManagerInterface(object):
     disambiguating this subtle definition of 'exists' in some cases too, as it
     better explains the use-case of the call.
 
-    @return bool, True if it points to an existing entity, False if the Entity
+    @return bool, True if it points to an existing entity, False if the entity
     is not known or ready yet.
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If the input string is
-    not a valid entity reference.
 
     """
     raise NotImplementedError
@@ -460,30 +465,31 @@ class ManagerInterface(object):
 
     Returns the 'finalized' string represented by the @ref entity_reference.
 
+	If the string points to some data, then it should always be in the form
+	of a valid URL. File paths should be returned as a <tt>file<tt> scheme URL.
+
     When the @ref entity_reference points to a sequence of files, the frame
     token should be preserved, and in the sptintf compatible syntax.
 
-    This function should attempt to take into account the current Host/Context
+    This function should attempt to take into account the current host/Context
     to ensure that any other substitution tokens are presented in a suitable
     form. The Context should also be carefully considered to ensure that the
     access does not violate any rules of the system - for example, resolving an
     existing entity reference for write.
 
-    The caller should have first called isEntityReference() on the supplied
+    The caller will have first called isEntityReference() on the supplied
     string.
 
     @note You may need to call getFinalizedEntityVersion() within this function
     to ensure any @ref meta_versions are resolved prior to resolution.
 
-    @return str, The UTF-8 ASCII compatible string that that is represented by
-    the reference.
+	@return str, The UTF-8 encoded string that that is represented by the
+	reference.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If the supplied @ref
-    entity_reference is not known by the asset management system.
-    @exception FnAssetAPI.exceptions.EntityResolutionError If the supplied @ref
+    @exception openassetio.exceptions.EntityResolutionError If the supplied @ref
     entity_reference does not have a meaningful string representation, or it is
     a valid reference format, that doesn't exist.
-    @exception FnAssetAPI.exceptions.InvalidEntityReference if the supplied
+    @exception openassetio.exceptions.InvalidEntityReference if the supplied
     entity_reference should not be resolved for that context, for example, if
     the context access is kWrite and the entity is an existing version -
     raising will ensure that a Host will not attempt to write to that location.
@@ -502,7 +508,7 @@ class ManagerInterface(object):
     Batch-resolves a list of entityReferences, following the same pattern as
     @ref resolveEntityReference.
 
-    @return list, A list of strings, corresponding to the source reference
+    @return List[str], A list of strings, corresponding to the source reference
     with the same index.
 
     This will be called by hosts when they wish to batch-resolve many
@@ -511,7 +517,7 @@ class ManagerInterface(object):
     loop.
 
     The base class implementation simply calls resolveEntityReference
-    repeatedly for each suppled reference.
+    repeatedly for each supplied reference.
 
     """
     resolved = []
@@ -524,17 +530,17 @@ class ManagerInterface(object):
     """
 
     Returns an @ref entity_reference considered to be a sensible default for
-    the given Specification and Context. This is often used in a host to ensure
+    the given specification and Context. This is often used in a host to ensure
     dialogs, prompts or publish locations default to some sensible value,
     avoiding the need for a user to re-enter such information when a Host is
     being run in some known environment.
 
-    For example, a Host may request the default ref for
+    For example, a host may request the default ref for
     'ShotSpecification/kWriteMultiple'. If the Manager has some concept of the
-    'current sqeuence' it may wish to return this so that a 'Create Shots'
+    'current sequence' it may wish to return this so that a 'Create Shots'
     starts somewhere meaningful.
 
-    @return str, A valid entity reference, or empty string.
+    @return str, A valid @ref entity_reference, or empty string.
 
     """
     return ''
@@ -564,14 +570,12 @@ class ManagerInterface(object):
 
     For example:
 
-     @li `"1"` - for a version of an asset
+     @li `"Cuttlefish v1"` - for a version of an asset
      @li `"seq003"` - for a sequence in a hierarchy
 
-    @return str, An UTF-8 ASCII string containing any valid characters for the
+    @return str, A UTF-8 encoded string containing any valid characters for the
     manager's implementation.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
 
     """
     raise NotImplementedError
@@ -584,9 +588,9 @@ class ManagerInterface(object):
 
     Returns an unambiguous, humanised display name for the entity.
 
-    The display name may consider the Host, and any other relevant Context
-    information to form a display name for an entity that can uniquely
-    identify the entity in that context.
+	The display name may want to consider the host, and any other relevant
+	Context information to form a display name for an entity that can uniquely
+	identify the entity in that context.
 
     For example:
 
@@ -595,10 +599,10 @@ class ManagerInterface(object):
      @li `"Sequence 003 [ Dive / Episode 1 ]"` - for a sequence in
      an hierarchy as a window title.
 
-    @return str, an ASCII string containing any valid characters for the
+    @return str, A UTF-8 encoded string containing any valid characters for the
     @ref asset_management_system's implementation.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
+    @exception openassetio.exceptions.InvalidEntityReference If any supplied
     reference is not recognised by the asset management system.
 
     """
@@ -611,20 +615,18 @@ class ManagerInterface(object):
 
     Retrieve @ref metadata for an entity.
 
-    It may be required here to bridge between certain perhaps 'first-class'
-    properties of the asset management system in question, and keys in the
+    It may be required to bridge between certain 'first-class'
+    properties of your asset management system and the well-known keys in the
     metadata dictionary. For example, if the asset system represents a 'Shot'
     with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the
-    @ref FnAssetAPI.kField_FrameIn/Out metadata keys as appropriate.
+    @ref openassetio.constants.kField_FrameIn/Out metadata keys as appropriate.
 
     @warning See @ref setEntityMetadata for important notes on metadata and its
     role in the system.
 
-    @return dict, with the entities meta-data. Values must be P.O.D types, keys
-    must be UTF-8 ASCII strings.
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
+	@return Dict[str,primitive], with the entity's meta-data. Values
+	must be singular plain-old-data types (ie. string, int, float, bool),
+	keys must be UTF-8 encoded strings.
 
     """
     raise NotImplementedError
@@ -640,25 +642,17 @@ class ManagerInterface(object):
     merged with the new data (the new data taking precedence). If false,
     its metadata will entirely replaced by the new data.
 
-    @note It is a vital that the implementation faithfully stores and recalls
-    metadata. It is the underlying binding to any stronger Entity types within
-    this API, that simply wrap the metadata dictionary to allow hosts a more
-    sophisticated interaction. Specific key named and value types should be
-    maintained. To ensure entities created by other facilities of the asset
-    sysetem, It may also be necessary to bridge data between its native
-    representation in the system, and well-known keys here, based on the
-    Entity's type.
+	@note It is a vital that the implementation faithfully stores and recalls
+	metadata. It is the underlying mechanism by which hosts may round-trip non
+	file-based entities within this API.
+	Specific key names and value types should be maintained, even if they are
+	re-mapped to an internal name for persistence.
 
     If any value is 'None' it should be assumed that that key should be un-set
     on the object.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
-
     @exception ValueError if any of the metadata values are of an un-storable
     type. Presently it is only required to store str, float, int, bool
-
-    @exception KeyError if any of the metadata keys are non-strings.
 
     """
     raise NotImplementedError
@@ -669,17 +663,19 @@ class ManagerInterface(object):
 
     Returns the value for the specified metadata key.
 
+    @see getEntityMetadata
+
     @param key str, The key to look up
-    @param defaultValue p.o.d If not None, this value will be returned in the
+    @param defaultValue primitive, If not None, this value will be returned in the
     case of the specified key not being set for the entity.
 
-    @return p.o.d, The value for the specific key.
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
+    @return primitive, The value for the specific key.
 
     @exception KeyError If no defaultValue is supplied, and the entity has no
     metadata for the specified key.
+
+	The default implementation retrieves all metadata for an entity and
+	extracts the requested key.
 
     """
     value = defaultValue
@@ -713,15 +709,12 @@ class ManagerInterface(object):
     Retrieves the name of the version pointed to by the supplied @ref
     entity_reference.
 
-    @return str, A UTF-8 ASCII string representing the version or an empty
+    @return str, A UTF-8 encoded string representing the version or an empty
     string if the entity was not versioned.
 
     @note It is not necessarily a requirement that the entity exists, if, for
     example, the version name can be determined from the reference itself (in
     systems that implement a human-readable url, for example)
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
 
     @see getEntityVersions()
     @see getFinalizedEntityVersion()
@@ -738,20 +731,17 @@ class ManagerInterface(object):
 
     @param includeMetaVersions bool, if true, @ref meta_versions such as
     'latest', etc... should be included, otherwise, only concrete versions
-    will be retrieved.
+    need to be returned.
 
     @param maxResults int, Limits the number of results collected, if more
-    results are available than the limit, then the newest versions will be
-    returned. If a value of -1 is used, then all results will be returned.
+    results are available than the limit, then the newest versions should be
+    returned. If a value of -1 is used, then all results should be returned.
 
-    @return dict, Where the keys are ASCII string versions, and the values are
-    an @ref entity_reference that points to its entity. Additionally the
-    FnAssetAPI.constants.kVersionDict_OrderKey can be set to a list of the
-    version names (ie: dict keys) in their natural ascending order, that may be
-    used by UI elements, etc...
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
+	@return Dict[str,str], Where the keys are UTF-8 encoded string versions,
+	and the values are an @ref entity_reference that points to that versions
+	entity.  Additionally the openassetio.constants.kVersionDict_OrderKey can
+	be set to a list of the version names (ie: dict keys) in their natural
+	ascending order, that may be used by UI elements, etc...
 
     @see getEntityVersionName()
     @see getFinalizedEntityVersion()
@@ -763,14 +753,14 @@ class ManagerInterface(object):
   def getFinalizedEntityVersion(self, entityRef, context, hostSession, overrideVersionName=None):
     """
 
-    Retrieves a @ref entity_reference that points to the concrete version
-    of a @ref meta-version @ref entity_reference.
+    Retrieves an @ref entity_reference that points to the concrete version
+    of a @ref meta-version or otherwise unstable @ref entity_reference.
 
     If the supplied entity reference is not versioned, or already has a
-    concrete version, the input reference is passed-through.
+    concrete version, the input reference should be passed-through.
 
     If versioning is unsupported for the given @ref entity_reference, then the
-    input reference is returned.
+    input reference should be returned.
 
     @param overrideVersionName str If supplied, then the call should return the
     entity reference for the version of the referenced asset that matches the
@@ -778,14 +768,11 @@ class ManagerInterface(object):
 
     @return str
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
-
-    @exception FnAssetAPI.exceptions.EntityResolutionError should be thrown if the
-    entityReference is ambiguously versioned (for example if the version is
-    missing from a reference to a versioned entity, and that behaviour is
-    undefined in the system managers model. It may be that it makes sense in
-    the specific asset manager to fall back on 'latest' in this case...)
+	@exception FnAssetAPI.exceptions.EntityResolutionError should be thrown if
+	the entityReference is ambiguously versioned (for example if the version is
+	missing from a reference to a versioned entity, and that behaviour is
+	undefined in the system managers model. It may be that it makes sense in
+	the specific asset manager to fall back on 'latest' in this case...)
 
     @exception FnAssetAPI.exception.EntityResolutionError if the supplied
     overrideVersionName does not exist for that entity.
@@ -881,21 +868,16 @@ class ManagerInterface(object):
     If any specification is unknown, then an empty list should be returned for
     that specificaion, and no errors should be raised.
 
-    @param entityRefs str list
+    @param entityRefs List[str]
 
-    @param relationshipSpecs FnAssetAPI.specifications.Specification or
-    FnAssetAPI.specifications.RelationshipSpecification list
+    @param relationshipSpecs List[RelationshipSpecification]
 
     @param resultSpec FnAssetAPI.specifications.EntitySpecification or None, a hint
     as to what kind of entity the caller is expecting to be returned. May be
     None.
 
-    @return list of str lists, this MUST be the correct length, returning an
+    @return List[List[str]] This MUST be the correct length, returning an
     empty outer list is NOT valid. (ie: max(len(refs), len(specs)))
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not known by the @ref asset_management_system. However, no exception should be
-    thrown if it is a recognised reference, but has no applicable relations.
 
     @exception ValueError If more than one reference and specification is
     provided, but they lists are not equal in length, ie: not a 1:1 mapping of
@@ -920,22 +902,19 @@ class ManagerInterface(object):
     any existing ones. If False, then any existing relationships with the
     supplied specification will first be removed.
 
-    Though getRelatedReferences is an essential call, there is some asymetry
-    here, as it is not neccesarily required to be able to setRelatedReferences
+    Though getRelatedReferences is an essential call, there is some asymmetry
+    here, as it is not necessarily required to be able to setRelatedReferences
     directly. For example, in the case of a 'shot' (as illustrated in the docs
     for getRelatedReferences) - any new shots would be created by registering a
-    new @ref FnAssetAPI.specifications.ShotSpecification under the parent, rather
-    than using this call. The best way to think of it is that this call is
-    reserved for defining relationships between existing assets (Such as
-    connecting multiple image sequences published under the same shot, as being
-    part of the same render.) and 'register' as being defining the relationship
-    between a new asset and some existing one.
+    new ShotSpecification under the parent, rather than using this call. The
+    best way to think of it is that this call is reserved for defining
+    relationships between existing assets (Such as connecting multiple image
+    sequences published under the same shot, as being part of the same render.)
+    and 'register' as being defining the relationship between a new asset and
+    some existing one.
 
     In systems that don't support post-creation adjustment of relationships,
     this can simply be a no-op.
-
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not recognised by the asset management system.
 
     @return None
 
@@ -956,8 +935,8 @@ class ManagerInterface(object):
   ##
   # @name Publishing
   #
-  # The publishing functions allow a Host create entities within the
-  # @ref asset_management_system represented by this impementation. The API
+  # The publishing functions allow a host create entities within the
+  # @ref asset_management_system represented by this implementation. The API
   # is designed to accommodate the broad variety of roles that
   # different asset managers embody. Some are 'librarians' that simply
   # catalog the locations of existing media. Others take an active role
@@ -1027,9 +1006,9 @@ class ManagerInterface(object):
     """
 
     Determines if the asset manager is interested in participating in
-    interactions with the specified type of @ref Entity.
+    interactions with the specified specification of @ref entity.
 
-    For example, a Host may call this in order to see if it would
+    For example, a host may call this in order to see if the manager would
     like to manage the path of a scene file whilst choosing a destination to
     save to.
 
@@ -1043,18 +1022,18 @@ class ManagerInterface(object):
     the asset management system.
 
     @note One very important attribute returned as part of this policy is the
-    @ref FnAssetAPI.constants.kWillManagePath bit. If set, this instructs the Host
+    @ref openassetio.constants.kWillManagePath bit. If set, this instructs the host
     that the asset management system will manage the path use for the creation
     of any new assets. When set, @ref preflight will be called before any file
     creation to allow the asset management system to determine and prepare the
     work path. If this bit if off, then only @ref register will ever be called,
     and the user will be tasked with determining where new files should be
-    located. In many cases, this greatly reduces the sophisticaion of the
+    located. In many cases, this greatly reduces the sophistication of the
     integration as registering the asset becomes a partially manual task,
     rather than one that can be fully automated for new assets.
 
-    Additionally, the @ref FnAssetAPI.constants.kSupportsBatchOperations bit is
-    important if you want Hosts to call the *Multiple variants of the
+    Additionally, the @ref openassetio.constants.kSupportsBatchOperations bit is
+    important if you want hosts to call the *Multiple variants of the
     @ref preflight and @ref register methods.
 
     @param entityRef str, If supplied, then the call should be interpreted as a
@@ -1063,7 +1042,7 @@ class ManagerInterface(object):
     to an entity reference that refers to the top level project may be
     meaningless, so in this case kIgnored should be returned.
 
-    @return int, a bitfield, see @ref FnAssetAPI.constants
+    @return int, a bitfield, see @ref openassetio.constants
 
     """
     raise NotImplementedError
@@ -1077,7 +1056,7 @@ class ManagerInterface(object):
     thumbnails will be generated. The arguments to this call are the same as
     those that will be passed to the register call.
 
-    If a thumbnail is requested, its path will be set in the specfication
+    If a thumbnail is requested, its path will be set in the specification
     property 'thumbnailPath' passed to a register call at a later date if it
     was possible to create one.
 
@@ -1088,10 +1067,10 @@ class ManagerInterface(object):
       @li kField_PixelHeight ('height') : The pixel height of the thumbnail
 
     The keys may be set to the default set by the Host. It will try to best
-    match the requested specfications, but it should not be assumed that all
+    match the requested specifications, but it should not be assumed that all
     requested properties are honoured.
 
-    @return bool, If True, a Thumbnail is desired by the Manager, if False, the
+    @return bool, If True, a Thumbnail is desired by the manager, if False, the
     host should not waste time making one.
 
     """
@@ -1101,35 +1080,32 @@ class ManagerInterface(object):
   def preflight(self, targetEntityRef, entitySpec, context, hostSession):
     """
 
-    Prepares for some work to be done, to the referenced entity.
-    The entity referenced may not yet exist (@ref entity_reference). This
+    Prepares for some work to be done to create data for the referenced entity.
+    The entity may not yet exist (@ref entity_reference). This
     call is designed to allow sanity checking, placeholder creation or
     any other sundry preparatory actions to be carried out.
 
-    Generally, this will be called before register() in any Host that
+    Generally, this will be called before register() in any host that
     creates media, where the return to @ref managementPolicy has the @ref
-    FnAssetAPI.constants.kWillManagePath bit set.
+    openassetio.constants.kWillManagePath bit set.
 
     @param targetEntityRef str, a @ref entity_reference that it is desired to
-    pubish the forthcoming media to. See the notes in the API documentation for
+    publish the forthcoming data to. See the notes in the API documentation for
     the specifics of this.
 
     @note it is important for the implementation to pay attention to
-    FnAssetAPI.contexts.Context.retention, as not all Hosts will support the
+    @ref Context.retention, as not all hosts will support the
     reference changing at this point.
 
     @return str, An @ref entity_reference, that the host should resolve to
     determine the path to write media too. This may or may not be the same as
-    the input reference. A Host should resolve this reference to get the
-    working filepath before writing any files.
+    the input reference. A host will resolve this reference to get the
+    working URL before writing any files or other data.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not suitable for the supplied specification.
-
-    @exception FnAssetAPI.exceptions.PreflightError if some fatal exception happens
+    @exception openassetio.exceptions.PreflightError if some fatal exception happens
     during preflight, indicating the process should be aborted.
 
-    @exception FnAssetAPI.exceptions.RetryableError If any non-fatal error occurs
+    @exception openassetio.exceptions.RetryableError If any non-fatal error occurs
     that means the host should re-try from the beginning of any given process.
 
     @see register()
@@ -1154,7 +1130,7 @@ class ManagerInterface(object):
     potential to be extremely complex if different contexts are allowed.
 
 
-    @return list str, A list of working entity references.
+    @return List[str], A list of working entity references.
 
     """
     result = []
@@ -1167,46 +1143,56 @@ class ManagerInterface(object):
   def register(self, stringData, targetEntityRef, entitySpec, context, hostSession):
     """
 
-    Publish an entity to the @ref asset_management_system
-    Instructs the implementation to ensure a valid entity exists for the given
-    reference and spec. This will be called either in isolation or after
-    calling preflight, depending on the nature of the data being published and
-    the kWillManagePath bit of the returned @ref managementPolicy.
+    Publish an entity to the @ref asset_management_system.
+
+	This instructs the implementation to ensure a valid entity exists for the
+	given reference and spec. This will be called either in isolation or after
+	calling preflight, depending on the nature of the data being published and
+	the kWillManagePath bit of the returned @ref managementPolicy.
+
+	This is an opportunity to do other things in the host as part of publishing
+	if required. The context's locale will tell you more about the specifics
+	of the calling application. Depending on the implementation of your
+	plugin, you can use this opportunity to make use of the host-native
+	SDK to extract additional information or schedule additional processes
+	to produce derivative data.
 
     @param stringData str, The string that the entity should resolve to if
     passed to a call to resolveEntityReference(). This may be left blank, if
     there is no meaningful string representation of that entity (eg: a
-    'sequence' in a hierarchy). This must be stored by the Manager.
+    'sequence' in a hierarchy). This must be stored by the manager and
+    a logically equivalent value returned by @ref resolveEntityReference for
+    the same reference. The meaning of 'logical' here, is that in the case of
+    a URL, that it points to the same data. The manager is free to relocate
+    data as required. If stringData is not an URL, then it should be
+    returned verbatim.
 
     @param targetReference The @ref entity_reference to publish to. It is
-    up to the Manager to ensure that this is meaningful, as it is most
+    up to the manager to ensure that this is meaningful, as it is most
     likely implementation specific. For example, if a 'Shot' specification
     is requested to be published to a reference that points to a 'Sequence'
     it makes sense to interpret this as a 'add a shot of this spec to the
     sequence'. For other types of entity, there may be different
     constraints on what makes sense.
 
-    @param entitySpec FnAssetAPI.specifications.EntitySpecification A description
+    @param entitySpec openassetio.specifications.EntitySpecification A description
     of the Entity (or 'asset') that is being published. It is *not* required
     for the implementation to store any information contained in the specification,
-    though it may choose to use it if it is meaningful. A Host will separately
+    though it may choose to use it if it is meaningful. The host will separately
     call setEntityMetadata() if it wishes to persist any other information in
     the entity.
 
     @return str, An @ref entity_reference to the 'final' entity created by the
-    publish action. It may or may not be the same as targetReference.
+    publish action. It does not need to be the same as targetReference.
 
     @note it is important for the implementation to pay attention to
-    FnAssetAPI.contexts.Context.retention, as not all Hosts will support the
+    openassetio.contexts.Context.retention, as not all Hosts will support the
     reference changing at this point.
 
-    @exception FnAssetAPI.exceptions.InvalidEntityReference If any supplied
-    reference is not suitable for the supplied specification.
+    @exception openassetio.exceptions.RegistrationError if some fatal exception
+    happens during publishing, indicating the process should be aborted.
 
-    @exception FnAssetAPI.exceptions.RegistrationError if some fatal exception happens
-    during publishing, indicating the process should be aborted.
-
-    @exception FnAssetAPI.exceptions.RetryableError If any non-fatal error occurs
+    @exception openassetio.exceptions.RetryableError If any non-fatal error occurs
     that means the host should re-try from the beginning of any given process.
 
     @see preflight()
@@ -1232,7 +1218,7 @@ class ManagerInterface(object):
     potential to be extremely complex if different contexts are allowed.
 
 
-    @return list str, A list of finalized entity references.
+    @return List[str], A list of finalized entity references.
 
     """
     result = []
@@ -1283,7 +1269,7 @@ class ManagerInterface(object):
     if that asset is already checked out by another user, or the current
     user is not allowed to check the asset out.
 
-    @exception FnAssetAPI.exceptions.InvalidCommand If an un-supported command is
+    @exception openassetio.exceptions.InvalidCommand If an un-supported command is
     passed.
 
     @return (bool, str), True if the command should complete stressfully if
@@ -1303,10 +1289,10 @@ class ManagerInterface(object):
 
     Instructs the asset system to perform the specified command.
 
-    @exception FnAssetAPI.exceptions.InvalidCommand If the command is not
+    @exception openassetio.exceptions.InvalidCommand If the command is not
     implemented by the system.
 
-    @exception FnAssetAPI.exceptions.CommandError if any other run-time error
+    @exception openassetio.exceptions.CommandError if any other run-time error
     occurs during execution of the command
 
     @return Any result of the command.
@@ -1324,13 +1310,13 @@ class ManagerInterface(object):
   ##
   # @name Manager State
   #
-  # A single 'task' in a Host, may require more than one interaction with
+  # A single 'task' in a host, may require more than one interaction with
   # the asset management system.
   #
-  # Because the @ref ManagerInterface is largely state-less. To simplify error
-  # handling, and allow an implementation to know which interactions are
-  # related, this API supports the concept of a @ref manager_state
-  # object. This is contained in every @ref Context and passed to relevant
+  # Because the @ref ManagerInterface is effectively state-less. To simplify
+  # error handling, and allow an implementation to know which interactions are
+  # related, this API supports the concept of a @ref manager_state object. This
+  # is contained in every @ref Context and passed to relevant
   # calls.
   #
   # This mechanism may be used for a variety of purposes. For example, it
@@ -1353,13 +1339,13 @@ class ManagerInterface(object):
     implement this however you like, as long as it can be uniquely represented
     by the object returned from this function.
 
-    A new state object is created whenever a @ref Context is made by a @ref
-    FnAssetAPI.Session.Session.
-
-    This object is then stored in the newly created Context, and is
-    consequently available to all the API calls in the ManagerInterface that
-    take a Context instance.  The implementation of a ManagerInterface can
-    then use this internally to control its behaviour.
+    This method is called whenever a new @ref Context is made by a @ref
+    openassetio.Session.Session.createContext. The return is then stored in
+    the newly created Context, and is consequently available to all the API
+    calls in the ManagerInterface that take a Context instance via @ref
+    Context.managerInterfaceState. Your implementation can then use this
+    to anchor the api call to a particular snapshot of the state of the
+    asset inventory.
 
     This object is also extracted from the context and passed directly to any
     of the 'transactional' calls in this API.  For more on the transactional
@@ -1370,8 +1356,8 @@ class ManagerInterface(object):
     is considered a 'child' of the supplied state. This may be used when
     creating a child Context for persistence somewhere in a UI, etc... when
     further processing may change the access/retention of the Context. It is
-    expected that the Manager will migrate any applicable state components to
-    this child context, for example - a timestamp used for 'vlatest'. Hoewver
+    expected that the manager will migrate any applicable state components to
+    this child context, for example - a timestamp used for 'vlatest'. However
     is it *not* expected to link the new state with any transaction that is
     open in the parent state. So the returned state should have any open
     transactions.
@@ -1380,7 +1366,7 @@ class ManagerInterface(object):
     ManagerInterface. This will be passed to future calls and to the
     transactional methods. Presently this can be any hashable object.
 
-    @exceptions FnAssetAPI.exceptions.StateError If for some reason creation
+    @exceptions openassetio.exceptions.StateError If for some reason creation
     fails.
 
     @see startTransaction()
@@ -1416,7 +1402,7 @@ class ManagerInterface(object):
 
     @return None
 
-    @exception FnAssetAPI.exceptions.StateError If for some reason the
+    @exception openassetio.exceptions.StateError If for some reason the
     action fails.
 
     @see createState()
@@ -1445,7 +1431,7 @@ class ManagerInterface(object):
 
     @return None
 
-    @exception FnAssetAPI.exceptions.StateError If for some reason the
+    @exception openassetio.exceptions.StateError If for some reason the
     action fails, or finish is called before start.
 
     @see createState()
@@ -1511,14 +1497,14 @@ class ManagerInterface(object):
     """
 
     Returns a string that encapsulates the current state of the
-    ManagerInterface represented by the supplied state object, so that
-    can be restored later, or in another process.
+    ManagerInterface represented by the supplied state object,(created by @ref
+    createState) so that can be restored later, or in another process.
 
     After calling this, the state should be considered frozen, and any further
-    cancel/finish calls should throw a @ref FnAssetAPI.exceptions.StateError if
+    cancel/finish calls should throw a @ref openassetio.exceptions.StateError if
     made without first thawing the stack.
 
-    @return An ASCII compatible string that can be used to restore the
+    @return A UTF-8 encoded string that can be used to restore the
     stack.
 
     @see thawState()
@@ -1537,7 +1523,7 @@ class ManagerInterface(object):
     previous state encapsulated in the token, which is the same string as
     returned by freezeState.
 
-    @exception FnAssetAPI.exceptions.StateError If the supplied token is not
+    @exception openassetio.exceptions.StateError If the supplied token is not
     meaningful, or that a state has already been thawed.
 
     """
