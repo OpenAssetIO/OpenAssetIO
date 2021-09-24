@@ -37,7 +37,7 @@ class Context(object):
   to be used directly.
 
   @warning Contexts should never be directly constructed. Hosts should use
-  @ref FnAssetAPI.Session.createContext. A Manager implementation should never
+  @ref openassetio.hostAPI.Session.Session.createContext. A Manager implementation should never
   need to create a context of it's own, one will always be supplied through
   the ManagerInterface entry points.
 
@@ -105,7 +105,7 @@ class Context(object):
     be preserved in many situations by many hosts. Instead, the host will ask
     you for this information on occasions that it can be suitable propagated to
     other API calls. This will be generally be done using a @ref
-    FnAssetAPI.ui.widgets.ManagerOptionsWidget.
+    openassetio-ui.widgets.ManagerOptionsWidget.
 
     """
     return self.__managerOptions
@@ -161,7 +161,7 @@ class Context(object):
 
     This is a concession to the fact that it's not always possible to fully
     implement the spec of this API. For example, @ref
-    FnAssetAPI.Manager.Manager.register "Manager.register()" can return an
+    openassetio.managerAPI.ManagerInterface.ManagerInterface.register "Manager.register()" can return an
     @ref entity_reference that points to the newly published @ref Entity.
     This is often not the same as the reference that was passed to the call.
     The Host is expected to store this new reference for future use. For
@@ -204,7 +204,7 @@ class Context(object):
     render catalog, rather than a 'Write node' from a comp tree could result in
     different behaviour.
 
-    The Locale uses a @ref FnAssetAPI.specifications.LocaleSpecification to
+    The Locale uses a @ref openassetio.specifications.LocaleSpecification to
     describe in more detail, what specific part of a @ref Host is requesting an
     action. In the case of a file browser for example, it may also include
     information such as whether or not multi-selection is required.

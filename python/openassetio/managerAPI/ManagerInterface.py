@@ -466,7 +466,7 @@ class ManagerInterface(object):
     Returns the 'finalized' string represented by the @ref entity_reference.
 
 	If the string points to some data, then it should always be in the form
-	of a valid URL. File paths should be returned as a <tt>file<tt> scheme URL.
+	of a valid URL. File paths should be returned as a <tt>file</tt> scheme URL.
 
     When the @ref entity_reference points to a sequence of files, the frame
     token should be preserved, and in the sptintf compatible syntax.
@@ -768,13 +768,13 @@ class ManagerInterface(object):
 
     @return str
 
-	@exception FnAssetAPI.exceptions.EntityResolutionError should be thrown if
+	@exception openassetio.exceptions.EntityResolutionError should be thrown if
 	the entityReference is ambiguously versioned (for example if the version is
 	missing from a reference to a versioned entity, and that behaviour is
 	undefined in the system managers model. It may be that it makes sense in
 	the specific asset manager to fall back on 'latest' in this case...)
 
-    @exception FnAssetAPI.exception.EntityResolutionError if the supplied
+    @exception openassetio.exceptions.EntityResolutionError if the supplied
     overrideVersionName does not exist for that entity.
 
     @see getEntityVersionName()
@@ -872,7 +872,7 @@ class ManagerInterface(object):
 
     @param relationshipSpecs List[RelationshipSpecification]
 
-    @param resultSpec FnAssetAPI.specifications.EntitySpecification or None, a hint
+    @param resultSpec openassetio.specifications.EntitySpecification or None, a hint
     as to what kind of entity the caller is expecting to be returned. May be
     None.
 
@@ -885,7 +885,7 @@ class ManagerInterface(object):
     class does cursory validation that this is the case before calling this
     function.
 
-    @see FnAssetAPI.specifications
+    @see openassetio.specifications
     @see setRelatedReferences()
 
     """
@@ -1237,7 +1237,7 @@ class ManagerInterface(object):
   # extend functionality of the API, without requiring any new methods.
   #
   # The API represents commands via a @ref
-  # FnAssetAPI.specifications.CommandSpecification, which maps to a 'name' and some
+  # openassetio.specifications.CommandSpecification, which maps to a 'name' and some
   # 'arguments'.
   #
   # @todo Reference any core module commands

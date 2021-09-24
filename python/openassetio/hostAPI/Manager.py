@@ -58,10 +58,10 @@ class Manager(Debuggable):
 	A Manager should never be constructed directly by a host, instead use
 	the @ref Session class, which takes care of their instantiation.
 
-    @param interfaceInstance FnAssetAPI.implementation.ManagerInterface An
+    @param interfaceInstance openassetio.managerAPI.ManagerInterface An
     instance of a Manager Interface to wrap.
 
-    @param hostSession FnAssetAPI.implementation.HostSession the host session
+    @param hostSession openassetio.managerAPI.HostSession the host session
     the manager is part of.
 
     """
@@ -180,9 +180,9 @@ class Manager(Debuggable):
 	@ref openassetio.hostAPI.localization API provides more utility for
 	far less effort.
 
-    @see @ref FnAssetAPI.localization
-    @see @ref FnAssetAPI.localization.Localizer.localizeString
-    @see @ref FnAssetAPI.localization.defaultTerminology
+    @see @ref openassetio.hostAPI.localization
+    @see @ref openassetio.hostAPI.localization.Localizer.localizeString
+    @see @ref openassetio.hostAPI.localization.defaultTerminology
 
 	@param stringDict Dict[str, str] this will be modified in-place by
 	the manager if it has any alternate terminology.
@@ -996,7 +996,7 @@ class Manager(Debuggable):
     to an entity reference that refers to the top level project may be
     meaningless, so in this case kIgnored would be returned.
 
-    @return int, a bitfield, see @ref FnAssetAPI.constants
+    @return int, a bitfield, see @ref openassetio.constants
 
     """
     return self.__impl.managementPolicy(specification, context, self.__hostSession, entityRef=entityRef)
@@ -1075,10 +1075,10 @@ class Manager(Debuggable):
     as the input reference. It should be resolved to get a working file path
     before writing any files.
 
-    @exception FnAssetAPI.exceptions.PreflightError if some fatal exception happens
+    @exception openassetio.exceptions.PreflightError if some fatal exception happens
     during preflight, this Exception indicates the process should be aborted.
 
-    @exception FnAssetAPI.exceptions.RetryableError If any non-fatal error occurs
+    @exception openassetio.exceptions.RetryableError If any non-fatal error occurs
     that means the call can be re-tried.
 
     @see preflightMultiple

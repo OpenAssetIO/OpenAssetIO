@@ -115,7 +115,7 @@ class HostInterface(object):
   # extend functionality of the API, without requiring any new methods.
   #
   # The  API represents commands via a @ref
-  # FnAssetAPI.specifications.CommandSpecification, which maps to a 'name' and
+  # openassetio.specifications.CommandSpecification, which maps to a 'name' and
   # some 'arguments'.
   #
   ## @{
@@ -148,7 +148,7 @@ class HostInterface(object):
     if that asset is already checked out by another user, or the current
     user is not allowed to check the asset out.
 
-    @exception FnAssetAPI.exceptions.InvalidCommand If an un-supported command is
+    @exception openassetio.exceptions.InvalidCommand If an un-supported command is
     passed.
 
     @return (bool, str), True if the command should complete successfully if
@@ -169,10 +169,10 @@ class HostInterface(object):
 
     Instructs the Host to perform the specified command.
 
-    @exception FnAssetAPI.exceptions.InvalidCommand If the command is not
+    @exception openassetio.exceptions.InvalidCommand If the command is not
     implemented by the system.
 
-    @exception FnAssetAPI.exceptions.CommandError if any other run-time error
+    @exception openassetio.exceptions.CommandError if any other run-time error
     occurs during execution of the command
 
     @return Any result of the command.
@@ -215,7 +215,7 @@ class HostInterface(object):
     Returns an @ref entity_reference for each Entities known to the host
     that are used in the current document, or an empty list if none are known.
 
-    @param specification FnAssetAPI.specifications.Specification [None] If
+    @param specification openassetio.Specification [None] If
     supplied, then only entities of the supplied specification should be
     returned.
 
