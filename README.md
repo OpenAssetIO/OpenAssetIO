@@ -15,12 +15,6 @@ The API covers the following areas:
 
 The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html), addressing several common integration challenges and adding support for a wider range of asset types and publishing workflows.
 
-> **An aside...**
->
-> Modern pipelines are incredibly nuanced. Finding a common framework that brings value in this space is challenging to say the least. Prototypes built during the development of `OAIO` over the last few years have demonstrated significant developer and artist value.
->
-> We hope the API forms a practical starting point that addresses many real-world use cases, and as an industry, we can evolve the standard over time to support any additional requirements. We are currently investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html), which appears to overlap with a subset of `OAIO`s concerns.
-
 ## Project status
 
 > **Important:** The project is currently in early beta stage and is subject to change. Do not deploy the API in production critical situations without careful thought.
@@ -47,8 +41,9 @@ Within the Media and Entertainment sector, digital content (such as images, mode
 
 OpenAssetIO provides an abstraction layer that generalises the dialog between a 'host' (eg. a Digital Content Creation application such as Maya&reg; or Nuke) and one of these systems - a 'manager' (eg. ShotGrid, ftrack or other proprietary systems).
 
-This project first began in 2013, taking inspiration from the production tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html) to make it more suitable for a wider variety of uses.
+This project first began in 2013, taking inspiration from the production tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html) to make it more suitable for a wider variety of uses. Modern pipelines are incredibly nuanced. Finding a common framework that brings value in this space is challenging to say the least. Prototypes built during the development of `OAIO` over the last few years have demonstrated significant developer and artist value.
 
+We hope the API forms a practical starting point that addresses many real-world use cases, and as an industry, we can evolve the standard over time to support any additional requirements. We are currently investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html), which appears to overlap with a subset of `OAIO`s concerns.
 
 ## Getting started
 
