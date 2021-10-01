@@ -24,9 +24,21 @@ __all__ = ['HostInterface']
 class HostInterface(object):
   """
 
-  The HostInterface provides an abstraction of the caller of API functions. Largely to
-  provide information about the Document state to the Manager, without
-  requiring specific knowledge of which host it is currently running in.
+  The HostInterface provides an abstraction of the 'caller of the API'.
+  Colloquially, we refer to this as the '@ref host'. This may be a simple
+  pipeline tool, or a full content creation application.
+
+  The HostInterface provides a generic mechanism for a @ref manager
+  to query information about the identity of the host, its available
+  documents and the @ref entities they may reference.
+
+  In order for a host to use the API, it must provide an implementation
+  of the HostInterface to the @ref openassetio.hostAPI.Session class
+  upon construction.
+
+  A @ref manager does not call the HostInterface directly, it is always
+  accessed via the @ref openassetio.managerAPI.Host wrapper. This allows the
+  API to insert suitable house-keeping and auditing functionality in between.
 
   """
 
@@ -42,14 +54,16 @@ class HostInterface(object):
   def getIdentifier(self):
     """
 
-    Returns an identifier to uniquely identify a Host.
+    Returns an identifier that uniquely identifies the Host.
+
     This may be used by a Manager's @ref ManagerInterface adjust its behaviour
     accordingly. The identifier should be unique for any application, but
     common to all versions.
-    The identifier should use only alpha-numeric characters and '.', '_' or '-'.
-    For example:
 
-        "uk.co.foundry.hiero"
+    The identifier should use only alpha-numeric characters and '.', '_' or '-'.
+    We suggest using the "reverse DNS" style, for example:
+
+        "com.foundry.katana"
 
     @return str
 
@@ -62,9 +76,11 @@ class HostInterface(object):
     """
 
     Returns a human readable name to be used to reference this specific
-    host.
+    host in user-facing presentations.
 
-        "Hiero"
+        "Katana"
+
+	@return str
 
     """
     raise NotImplementedError
@@ -74,12 +90,16 @@ class HostInterface(object):
   def getInfo(self):
     """
 
-    Returns other information that may be useful about this Host.
-    This can contain arbitrary key/value pairs. Managers never rely directly
-    on any particular keys being set here, but the information may be
-    useful for diagnostic or debugging purposes. For example:
+	Returns other information that may be useful about this Host.  This can
+	contain arbitrary key/value pairs. Managers never rely directly on any
+	particular keys being set here, but the information may be useful for
+	diagnostic or debugging purposes. For example:
 
         { 'version' : '1.1v3' }
+
+    @return Dict[str, pod]
+
+    @todo Definitions for well-known keys such as 'version' etc.
 
     """
     return {}
@@ -91,12 +111,12 @@ class HostInterface(object):
   ##
   # @name Commands
   #
-  # The commands mechanism provides a means for Hosts and asset managers to
+  # The commands mechanism provides a means for hosts and managers to
   # extend functionality of the API, without requiring any new methods.
   #
   # The  API represents commands via a @ref
-  # FnAssetAPI.specifications.CommandSpecification, which maps to a 'name' and some
-  # 'arguments'.
+  # FnAssetAPI.specifications.CommandSpecification, which maps to a 'name' and
+  # some 'arguments'.
   #
   ## @{
 
@@ -120,7 +140,7 @@ class HostInterface(object):
     """
 
     Determines if specified command is permitted or should succeed in the
-    current context.  This call can be used to test whether a command can
+    current context. This call can be used to test whether a command can
     be carried out, generally to provide some meaningful feedback to a user
     so that they don't perform an action that would consequently error.
 
@@ -131,7 +151,7 @@ class HostInterface(object):
     @exception FnAssetAPI.exceptions.InvalidCommand If an un-supported command is
     passed.
 
-    @return (bool, str), True if the command should complete stressfully if
+    @return (bool, str), True if the command should complete successfully if
     called, False if it is known to fail or is not permitted. The second part
     of the tuple will contain any meaningful information from the system to
     qualify the status.
@@ -170,12 +190,14 @@ class HostInterface(object):
   def getDocumentReference(self):
     """
 
-    @return str, The path, or @ref entity_reference of the current document, or
+    Returns the path, or @ref entity_reference of the current document, or
     an empty string if not applicable. If a Host supports multiple concurrent
-    documents, it should be the 'frontmost' one. If there is no meaningful
+    documents, it should be the 'front-most' one. If there is no meaningful
     document reference, then an empty string should be returned.
 
 	@todo Update to properly support multiple documents
+
+    @return str A path or @ref entity_reference.
 
     """
     return ''
@@ -190,12 +212,14 @@ class HostInterface(object):
   def getKnownEntityReferences(self, specification=None):
     """
 
-    @return list, An @ref entity_reference for each Entities known to the host
-    to be used in the current document, or an empty list if none are known.
+    Returns an @ref entity_reference for each Entities known to the host
+    that are used in the current document, or an empty list if none are known.
 
     @param specification FnAssetAPI.specifications.Specification [None] If
     supplied, then only entities of the supplied specification should be
     returned.
+
+    @return List[str] @ref entity_references discovered in the current document.
 
 	@todo Update to support multiple documents
 

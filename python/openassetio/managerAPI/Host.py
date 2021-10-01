@@ -26,8 +26,8 @@ __all__ = ['Host']
 class Host(Debuggable):
 	"""
 
-	The Host is the manager facing representation of the tool or application
-	that wants to query or store information within it.
+	The Host object represents the tool or application that created a session with OAIO,
+	and wants to query or store information within a @ref manager.
 
 	The Host provides a generalised API to query entities used within a current document
 	and its side of the generalised command interface.
@@ -69,15 +69,14 @@ class Host(Debuggable):
 	def getIdentifier(self):
 		"""
 
-		Returns an identifier to uniquely identify a Host.
+		Returns an identifier to uniquely identify the Host.
 
-		This may be used by a Manager's @ref ManagerInterface to adjust its behavior
-		accordingly. The identifier should be unique for any application, but
-		common to all versions.
-		The identifier should use only alpha-numeric characters and '.', '_' or '-'.
-		For example:
+		The identifier will be different for each tool or application, but common
+		to all versions of any one. The identifier will use only alpha-numeric
+		characters and '.', '_' or '-', commonly in the form of a 'reverse-DNS'
+		style string, for example:
 
-			"uk.co.foundry.hiero"
+			"uk.co.foundry.katana"
 
 		@return str
 
@@ -89,9 +88,10 @@ class Host(Debuggable):
 	def getDisplayName(self):
 		"""
 
-		Returns a human readable name to be used to reference this specific host.
+		Returns a human readable name to be used to reference this specific host in
+		user-facing messaging, for example:
 
-			"Hiero"
+			"Katana"
 
 		"""
 		return self.__impl.getDisplayName()
@@ -101,12 +101,15 @@ class Host(Debuggable):
 	def getInfo(self):
 		"""
 
-		Returns other information that may be useful about this host.
-		This can contain arbitrary key/value pairs. A manager should never
-		rely directly on any particular keys being set here, but the
-		information may be useful for diagnostic or debugging purposes. For example:
+		Returns other information that may be useful about the host.
+		This can contain arbitrary key/value pairs. There should be no reliance on
+		a specific key being supplied by all hosts. The information
+		may be more generally useful for diagnostic or debugging purposes.
+		For example:
 
 			{ 'version' : '1.1v3' }
+
+		@return Dict[str, pod]
 
 		"""
 		return self.__impl.getInfo()
@@ -147,20 +150,16 @@ class Host(Debuggable):
 		iteritems
 
 		Determines if specified command is permitted or should succeed in the
-		current context.  This call can be used to test whether a command can
+		current context. This call can be used to test whether a command can
 		be carried out, generally to provide some meaningful feedback to a user
 		so that they don't perform an action that would consequently error.
-
-		For example, the 'checkout' command for an asset may return false here
-		if that asset is already checked out by another user, or the current
-		user is not allowed to check the asset out.
 
 		@exception FnAssetAPI.exceptions.InvalidCommand If an un-supported command is
 		passed.
 
 		@return (bool, str), True if the command should complete successfully if
 		called, False if it is known to fail or is not permitted. The second part
-		of the tuple will contain any meaningful information from the system to
+		of the tuple will contain any meaningful information from the host to
 		qualify the status.
 
 		@see commandIsSupported()
@@ -197,10 +196,12 @@ class Host(Debuggable):
 	def getDocumentReference(self):
 		"""
 
-		@return str, The path, or @ref entity_reference of the current document, or
+		The path, or @ref entity_reference of the current document, or
 		an empty string if not applicable. If a Host supports multiple concurrent
-		documents, it should be the 'frontmost' one. If there is no meaningful
-		document reference, then an empty string should be returned.
+		documents, it will be the 'frontmost' one. If there is no meaningful
+		document reference, then an empty string will be returned.
+
+		@return str
 
 		"""
 		return self.__impl.getDocumentReference()
@@ -215,11 +216,11 @@ class Host(Debuggable):
 	def getKnownEntityReferences(self, specification=None):
 		"""
 
-		@return list, An @ref entity_reference for each Entities known to the host
+		@return list, An @ref entity_reference for each Entities known by the host
 		to be used in the current document, or an empty list if none are known.
 
 		@param specification FnAssetAPI.specifications.Specification [None] If
-		supplied, then only entities of the supplied specification should be
+		supplied, then only entities of the supplied specification will be
 		returned.
 
 		"""
