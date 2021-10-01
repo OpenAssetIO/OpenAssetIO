@@ -24,7 +24,7 @@ __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 
 
 
 ##
-# @namespace FnAssetAPI.audit
+# @namespace openassetio._core.audit
 # This module permits auditing of the use of the various API calls during a
 # series of oparations.
 # @envvar **FOUNDRY_ASSET_API_AUDIT** *int* [0] If non-zero API calls will be
@@ -95,7 +95,7 @@ def auditApiCall(group=None, static=False):
 
   A decorator to log a method as long as auditCalls is True, parsing the
   methods args and kwargs with an understanding of the various objects used in
-  the FnAssetAPI. This of this as being analogous to 'statefull packet
+  the openassetio. This of this as being analogous to 'statefull packet
   inspection'.
 
   If auditCalls is False, functions will not be wrapped so docstrings are not

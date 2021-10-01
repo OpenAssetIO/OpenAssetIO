@@ -53,7 +53,7 @@ class LoggerInterface(object):
 
 		@param message str, The message string to be logged.
 
-		@param severity int, One of the severity constants defined in @ref FnAssetAPI.logging
+		@param severity int, One of the severity constants defined in @ref openassetio.logging
 
 		"""
 		raise NotImplementedError

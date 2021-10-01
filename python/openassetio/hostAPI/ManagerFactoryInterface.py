@@ -25,8 +25,8 @@ class ManagerFactoryInterface(object):
 	"""
 
 	Manager Factories are responsible for instantiating classes that
-	derive from @ref FnAssetAPI.implementation.ManagerInterface
-	or @ref FnAssetAIP.ui.implementation.ManagerUIDelegate for use
+	derive from @ref openassetio.managerAPI.ManagerInterface
+	or @ref openassetio-ui.implementation.ManagerUIDelegate for use
 	within an host.
 
 	ManagerFactoryInterface defines the abstract interface that any
@@ -46,7 +46,7 @@ class ManagerFactoryInterface(object):
 		"""
 
 		@return list, all identifiers known to the factory.
-		@see FnAssetAPI.implementation.ManagerPlugin
+		@see openassetio.pluginSystem.ManagerPlugin
 
 		"""
 		raise NotImplementedError
@@ -61,10 +61,10 @@ class ManagerFactoryInterface(object):
 			@li **name** The display name of the Manager suitable for UI use.
 			@li **identifier** It's identifier
 			@li **info** The info dict from the Manager (see: @ref
-			FnAssetAPI.implementation.ManagerInterface.getInfo
+			openassetio.managerAPI.ManagerInterface.getInfo
 			"ManagerInterface.getInfo()")
 			@li **plugin** The plugin class that represents the Manager (see: @ref
-			FnAssetAPI.implementation.ManagerPlugin)
+			openassetio.pluginSystem.ManagerPlugin)
 
 		"""
 		raise NotImplementedError
@@ -90,7 +90,7 @@ class ManagerFactoryInterface(object):
 		identifier - instead of creating a new instance. If False, a new instance
 		will be created each, and never retained.
 
-		@returns FnAssetAPI.implementation.ManagerInterface
+		@returns openassetio.managerAPI.ManagerInterface
 
 		"""
 		raise NotImplementedError
