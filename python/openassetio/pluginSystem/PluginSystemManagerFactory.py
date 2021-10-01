@@ -30,7 +30,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
   A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin derived plugins
   and instantiation of Manager and UIDelegate instances. Not usually used
-  directly by a @ref Host, which instead uses the @ref openassetio.hostAPI.Session
+  directly by a @ref host, which instead uses the @ref openassetio.hostAPI.Session
 
   @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of directories to
   search for @ref openassetio.pluginSystem.ManagerPlugin based plugins. It uses
@@ -153,7 +153,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
   def instantiate(self, identifier, cache=True):
     """
 
-    Creates an instance of the @ref ManagerInterface with the specified
+    Creates an instance of the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" with the specified
     identifier.
 
     @param cache bool, When True the created instance will be cached, and

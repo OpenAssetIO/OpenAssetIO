@@ -82,7 +82,7 @@ class ManagerFactoryInterface(object):
 	def instantiate(self, identifier, cache=True):
 		"""
 
-		Creates an instance of the @ref ManagerInterface with the specified
+		Creates an instance of the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" with the specified
 		identifier.
 
 		@param cache bool, When True the created instance will be cached, and

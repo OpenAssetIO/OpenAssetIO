@@ -24,7 +24,7 @@ class SpecificationFactory(type):
   """
 
   The Factory provides facility to create Specifications of the most derived
-  class. Useful when restoring data from an @ref Entity for specific use.
+  class. Useful when restoring data from an @ref entity for specific use.
 
   """
 

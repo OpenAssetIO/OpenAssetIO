@@ -42,8 +42,8 @@ class Manager(Debuggable):
 
   A Manager instance is the single point of interaction with an asset
   management system. It provides methods to uniquely identify the underlying
-  implementation, querying and resolving @ref entity_references and publishing
-  new data.
+  implementation, querying and resolving @ref entity_reference "entity references"
+  and publishing new data.
 
   The Manager API is threadsafe and can be called from multiple threads
   concurrently.
@@ -278,7 +278,7 @@ class Manager(Debuggable):
     key, so that the cache lifetime is inherently well-managed by your
     persistence (or not) of the context.
 
-    @param references List[str] A list of @ref entity_references to
+    @param references List[@ref entity_reference] A list of references to
     prefetch data for.
 
     @param context openassetio.Context
@@ -509,7 +509,7 @@ class Manager(Debuggable):
     @warning See @ref setEntityMetadata for important notes on metadata and its
     role in the system.
 
-    @return Dict[str,primitive], with the entity's meta-data. Values
+    @return Dict[str,primitive], with the entity's metadata. Values
     will be singular plain-old-data types (ie. string, int, float, bool),
     keys will be UTF-8 encoded strings.
 
@@ -578,8 +578,8 @@ class Manager(Debuggable):
   # Most asset_management_systems allow multiple revisions of certain
   # entities to be tracked simultaneously. This API exposes this as
   # a generalised concept, and its necessary for the caller to make sure
-  # only @ref entity_references that are meaningfully versioned are
-  # queried.
+  # only @ref entity_reference "entity references" that are meaningfully
+  # versioned are queried.
   #
   # @{
 
@@ -596,7 +596,7 @@ class Manager(Debuggable):
 
     @note It is not necessarily a requirement that the entity exists, if, for
     example, the version name can be determined from the reference itself,
-    or is a @ref meta-version.
+    or is a @ref meta_version.
 
     @see getEntityVersions()
     @see getFinalizedEntityVersion()
@@ -613,7 +613,7 @@ class Manager(Debuggable):
     Retrieves all available versions of the supplied @ref entity_reference
     (including the supplied ref, if it points to a specific version).
 
-    @param includeMetaVersions bool, if true, @ref meta_versions such as
+    @param includeMetaVersions bool, if true, @ref meta_version "meta-versions" such as
     'latest', etc... should be included, otherwise, only concrete versions
     will be retrieved.
 
@@ -640,7 +640,7 @@ class Manager(Debuggable):
     """
 
     Retrieves a @ref entity_reference that points to the concrete version
-    of a @ref meta-version @ref entity_reference.
+    of a @ref meta_version @ref entity_reference.
 
     If the supplied entity reference is not versioned, or already has a
     concrete version, the input reference is passed-through.
@@ -655,7 +655,7 @@ class Manager(Debuggable):
     @return str
 
     @exception openassetio.exceptions.EntityResolutionError should be thrown if the
-    entityReference is ambiguously versioned (for example if the version is
+    @ref entity_reference is ambiguously versioned (for example if the version is
     missing from a reference to a versioned entity, and that behaviour is
     undefined in the system managers model. It may be that it makes sense in
     the specific asset manager to fall back on 'latest' in this case...)
@@ -918,7 +918,7 @@ class Manager(Debuggable):
   # that needs to be stored by the manager.
   #
   # For more on the relationship between Entities, Specifications and
-  # Meta-data, please see @ref entities_specifications_and_metadata
+  # metadata, please see @ref entities_specifications_and_metadata
   # "this" page.
   #
   # The action of 'publishing' itself, is split into two parts, depending on
