@@ -1,0 +1,3 @@
+# If you see `error: invalid command 'bdist_wheel'` on some distros
+# (despite doxypy installing correctly) run `pip install wheel` first.
+git+https://github.com/TheFoundryVisionmongers/doxypy.git@a548b8b#egg=doxypy&subdirectory=src

@@ -28,12 +28,12 @@ __all__ = ['PluginSystemManagerFactory', ]
 class PluginSystemManagerFactory(ManagerFactoryInterface):
   """
 
-  A Factory to manage @ref FnAssetAPI.implementation.ManagerPlugin derived plugins
+  A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin derived plugins
   and instantiation of Manager and UIDelegate instances. Not usually used
-  directly by a @ref Host, which instead uses the @ref FnAssetAPI.SessionManager
+  directly by a @ref Host, which instead uses the @ref openassetio.hostAPI.Session
 
   @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of directories to
-  search for @ref FnAssetAPI.implementation.ManagerPlugin based plugins. It uses
+  search for @ref openassetio.pluginSystem.ManagerPlugin based plugins. It uses
   the platform-native delimiter.  Searched left to right.
 
   """
@@ -81,7 +81,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     """
 
     @return list, all identifiers known to the factory.
-    @see FnAssetAPI.implementation.ManagerPlugin
+    @see openassetio.pluginSystem.ManagerPlugin
 
     """
     if not self.__pluginManager:
@@ -99,10 +99,10 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
       @li **name** The display name of the Manager suitable for UI use.
       @li **identifier** It's identifier
       @li **info** The info dict from the Manager (see: @ref
-      FnAssetAPI.implementation.ManagerInterface.getInfo
+      openassetio.managerAPI.ManagerInterface.getInfo
       "ManagerInterface.getInfo()")
       @li **plugin** The plugin class that represents the Manager (see: @ref
-      FnAssetAPI.implementation.ManagerPlugin)
+      openassetio.pluginSystem.ManagerPlugin)
 
     """
 
@@ -161,7 +161,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     identifier - instead of creating a new instance. If False, a new instance
     will be created each, and never retained.
 
-    @returns FnAssetAPI.implementation.ManagerInterface
+    @returns openassetio.managerAPI.ManagerInterface
 
     """
 
