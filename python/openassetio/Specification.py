@@ -92,7 +92,7 @@ class Specification(SpecificationBase):
   The simplest form of Specification in common use. It extends the base
   specification to better define the schema.
 
-  If introduces the notion that the @ref specification_schema consists of two
+  If introduces the notion that the @ref specification schema consists of two
   parts, separated by a token - the 'prefix' and 'type'. For example:
 
     @li `core.locale:image.catalog`

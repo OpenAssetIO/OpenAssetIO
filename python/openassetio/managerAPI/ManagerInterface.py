@@ -83,8 +83,8 @@ class ManagerInterface(object):
   implementation of the ManagerInterface. You can use this to determine which
   calls may be part of a specific 'action' in the same host, or logically
   grouped processes such as a batch render. This should allow you to
-  implement stable resolution of @ref meta-versions or other resolve-time
-  concepts.
+  implement stable resolution of @ref meta_version "meta-versions" or other
+  resolve-time concepts.
 
   One exception to the treading rule is that the transaction managing functions
   won't be called from multiple threads with the same transaction object.
@@ -146,7 +146,7 @@ class ManagerInterface(object):
   # def _test_getReference(self, specification):
   #  """
   #
-  #  Returns an entityReference that can be used for testing purposes, the
+  #  Returns an @ref entity_reference that can be used for testing purposes, the
   #  specification will be a TestEntitySpecification. The current test can be
   #  queried using specification.testName(). Some tests require a reference to
   #  an existing entity, so specification.shouldExist() should be respected.
@@ -233,7 +233,7 @@ class ManagerInterface(object):
 	set at once. If supplied, this may be used by the API to optimise calls to
 	isEntityReference when bridging between C/Python etc... can be slow. If
 	neither of these fields are set, then isEntityReference will always be used
-	to determine if a string is an entityReference or not. Note, not all hosts
+	to determine if a string is an @ref entity_reference or not. Note, not all hosts
 	support this optimisation, so @ref isEntityReference should be implemented
 	regardless.
 
@@ -376,7 +376,7 @@ class ManagerInterface(object):
   #
   # Because of the nature of an @ref entity_reference, it is often
   # necessary to determine if some working string is actually an @ref
-  # entityReference or not, to ensure it is handled correctly.
+  # entity_reference or not, to ensure it is handled correctly.
   #
   # @{
 
@@ -481,7 +481,7 @@ class ManagerInterface(object):
     string.
 
     @note You may need to call getFinalizedEntityVersion() within this function
-    to ensure any @ref meta_versions are resolved prior to resolution.
+    to ensure any @ref meta_version "meta-versions" are resolved prior to resolution.
 
 	@return str, The UTF-8 encoded string that that is represented by the
 	reference.
@@ -505,7 +505,7 @@ class ManagerInterface(object):
   def resolveEntityReferences(self, references, context, hostSession):
     """
 
-    Batch-resolves a list of entityReferences, following the same pattern as
+    Batch-resolves a list of @ref entity_reference "entity references", following the same pattern as
     @ref resolveEntityReference.
 
     @return List[str], A list of strings, corresponding to the source reference
@@ -624,7 +624,7 @@ class ManagerInterface(object):
     @warning See @ref setEntityMetadata for important notes on metadata and its
     role in the system.
 
-	@return Dict[str,primitive], with the entity's meta-data. Values
+	@return Dict[str,primitive], with the entity's metadata. Values
 	must be singular plain-old-data types (ie. string, int, float, bool),
 	keys must be UTF-8 encoded strings.
 
@@ -695,11 +695,11 @@ class ManagerInterface(object):
   ##
   # @name Versioning
   #
-  # Most asset_management_systems allow multiple revisions of certain
-  # entities to be tracked simultaneously. This API exposes this as
-  # a generalised concept, and its necessary for the caller to make sure
-  # only @ref entity_references that are meaningfully versioned are
-  # queried.
+  # Most @ref asset_management_system "asset management systems" allow
+  # multiple revisions of certain entities to be tracked simultaneously.
+  # This API exposes this as a generalised concept, and its necessary
+  # for the caller to make sure only @ref entity_reference "references"
+  # that are meaningfully versioned are queried.
   #
   # @{
 
@@ -729,8 +729,8 @@ class ManagerInterface(object):
     Retrieves all available versions of the supplied @ref entity_reference
     (including the supplied ref, if it points to a specific version).
 
-    @param includeMetaVersions bool, if true, @ref meta_versions such as
-    'latest', etc... should be included, otherwise, only concrete versions
+    @param includeMetaVersions bool, if true, @ref meta_version "meta-versions"
+    such as 'latest', etc... should be included, otherwise, only concrete versions
     need to be returned.
 
     @param maxResults int, Limits the number of results collected, if more
@@ -754,7 +754,7 @@ class ManagerInterface(object):
     """
 
     Retrieves an @ref entity_reference that points to the concrete version
-    of a @ref meta-version or otherwise unstable @ref entity_reference.
+    of a @ref meta_version or otherwise unstable @ref entity_reference.
 
     If the supplied entity reference is not versioned, or already has a
     concrete version, the input reference should be passed-through.
@@ -979,7 +979,7 @@ class ManagerInterface(object):
   # that needs to persist.
   #
   # For more on the relationship between Entities, Specifications and
-  # Meta-data, please see @ref entities_specifications_and_metadata
+  # metadata, please see @ref entities_specifications_and_metadata
   # "this" page.
   #
   # The action of 'publishing' itself, is split into two parts, depending on
@@ -1236,7 +1236,7 @@ class ManagerInterface(object):
   # A single 'task' in a host, may require more than one interaction with
   # the asset management system.
   #
-  # Because the @ref ManagerInterface is effectively state-less. To simplify
+  # Because the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" is effectively state-less. To simplify
   # error handling, and allow an implementation to know which interactions are
   # related, this API supports the concept of a @ref manager_state object. This
   # is contained in every @ref Context and passed to relevant

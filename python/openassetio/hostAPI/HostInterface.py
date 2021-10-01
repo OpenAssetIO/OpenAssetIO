@@ -55,7 +55,7 @@ class HostInterface(object):
 
     Returns an identifier that uniquely identifies the Host.
 
-    This may be used by a Manager's @ref ManagerInterface adjust its behaviour
+    This may be used by a Manager's @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" adjust its behaviour
     accordingly. The identifier should be unique for any application, but
     common to all versions.
 
@@ -140,7 +140,7 @@ class HostInterface(object):
     supplied, then only entities of the supplied specification should be
     returned.
 
-    @return List[str] @ref entity_references discovered in the current document.
+    @return List[@ref entity_reference] References discovered in the current document.
 
 	@todo Update to support multiple documents
 

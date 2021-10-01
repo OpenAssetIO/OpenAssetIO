@@ -131,7 +131,7 @@ class Session(Debuggable):
   def useManager(self, identifier, settings=None):
     """
 
-    Configures the session to use the @ref Manager with the specified
+    Configures the session to use the @ref manager with the specified
     identifier. The managerChanged Event is trigged if the resulting Manager is
     different to the previous one.
 

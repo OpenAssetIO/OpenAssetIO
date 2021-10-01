@@ -25,10 +25,10 @@ class Context(object):
   """
 
   The Context object is used to convey information about the calling
-  environment to a @ref Manager. It encapsulates several key access
-  properties, as well as providing additional information about the @ref Host
-  that may be useful to the @ref Manager to decorate or extend the metadata
-  associated with the stored @ref Entity.
+  environment to a @ref manager. It encapsulates several key access
+  properties, as well as providing additional information about the @ref host
+  that may be useful to the @ref manager to decorate or extend the metadata
+  associated with the stored @ref entity.
 
   A Manager will also use this information to ensure it presents the
   correct UI, or behaviour.
@@ -138,8 +138,8 @@ class Context(object):
   def __getAccess(self):
     """
 
-    This covers what the @ref Host is intending to do with the data. For example,
-    when passed to resolveEntityReference, it infers if the @ref Host is about
+    This covers what the @ref host is intending to do with the data. For example,
+    when passed to resolveEntityReference, it infers if the @ref host is about
     to read or write. When configuring a BrowserWidget, then it will hint as to
     whether the Host is wanting to choose a new file name to save, or open an
     existing one.
@@ -162,7 +162,7 @@ class Context(object):
     This is a concession to the fact that it's not always possible to fully
     implement the spec of this API. For example, @ref
     openassetio.managerAPI.ManagerInterface.ManagerInterface.register "Manager.register()" can return an
-    @ref entity_reference that points to the newly published @ref Entity.
+    @ref entity_reference that points to the newly published @ref entity.
     This is often not the same as the reference that was passed to the call.
     The Host is expected to store this new reference for future use. For
     example in the case of a Scene File added to an 'open recent' menu. A
@@ -172,7 +172,7 @@ class Context(object):
     possible to store this final reference, due to constraints of the
     distributed natured of such a render. Often, it is not actually of
     consequence.
-    To allow the @ref Manager to handle these situations correctly, Hosts are
+    To allow the @ref manager to handle these situations correctly, Hosts are
     required to set this property to reflect their ability to persist this
     information.
 
@@ -197,7 +197,7 @@ class Context(object):
   def __getLocale(self):
     """
 
-    In many situations, the Specification of the desired @ref Entity itself is
+    In many situations, the Specification of the desired @ref entity itself is
     not entirely sufficient information to realize many functions that a @ref
     Manager wishes to implement. For example, when determining the final file
     path for an Image that is about to be published - knowing it came from a
@@ -205,7 +205,7 @@ class Context(object):
     different behaviour.
 
     The Locale uses a @ref openassetio.specifications.LocaleSpecification to
-    describe in more detail, what specific part of a @ref Host is requesting an
+    describe in more detail, what specific part of a @ref host is requesting an
     action. In the case of a file browser for example, it may also include
     information such as whether or not multi-selection is required.
 
