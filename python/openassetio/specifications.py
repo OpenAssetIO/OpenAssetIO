@@ -17,7 +17,7 @@
 from .Specification import Specification, TypedProperty
 
 
-__all__ = ['CommandSpecification', 'EntitySpecification', 'LocaleSpecification', 'RelationshipSpecification']
+__all__ = ['EntitySpecification', 'LocaleSpecification', 'RelationshipSpecification']
 
 
 class EntitySpecification(Specification):
@@ -72,22 +72,3 @@ class RelationshipSpecification(Specification):
 
   """
   _prefix = "core.relationship"
-
-
-class CommandSpecification(Specification):
-  """
-
-  CommandSpecifications are used to define commands that may be executed
-  though the API's command mechanism. Not all Hosts or Managers may support a
-  particular command.
-
-  @see openassetio.managerAPI.ManagerInterface.ManagerInterface.commandSupported
-  @see openassetio.managerAPI.ManagerInterface.ManagerInterface.commandAvailable
-  @see openassetio.managerAPI.ManagerInterface.ManagerInterface.runCommand
-
-  @see openassetio.hostAPI.HostInterface.HostInterface.commandSupported
-  @see openassetio.hostAPI.HostInterface.HostInterface.commandAvailable
-  @see openassetio.hostAPI.HostInterface.HostInterface.runCommand
-
-  """
-  _prefix = "core.command"

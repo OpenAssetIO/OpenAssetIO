@@ -29,8 +29,8 @@ class Host(Debuggable):
 	The Host object represents the tool or application that created a session with OAIO,
 	and wants to query or store information within a @ref manager.
 
-	The Host provides a generalised API to query entities used within a current document
-	and its side of the generalised command interface.
+	The Host provides a generalised API to query the identity of the caller
+	of the API, as well as which entities are used within the current document.
 
 	Hosts should never be directly constructed by the Manager's implementation.
 	Instead, the @ref HostSession class provided to all manager API entry points
@@ -116,81 +116,6 @@ class Host(Debuggable):
 
 	## @}
 
-	##
-	# @name Commands
-	#
-	# The commands mechanism provides a means for Hosts and asset managers to
-	# extend functionality of the API, without requiring any new methods.
-	#
-	# The  API represents commands via a @ref
-	# openassetio.specifications.CommandSpecification, which maps to a 'name' and some
-	# 'arguments'.
-	#
-	## @{
-
-	@debugApiCall
-	@auditApiCall("Host methods")
-	def commandSupported(self, command, context):
-		"""
-
-		Determines if a specified command is supported by the Host.
-
-		@return bool, True if the Host implements the command, else False.
-
-		@see commandIsSupported()
-		@see runCommand()
-
-		"""
-		return self.__impl.commandSupported(command, context)
-
-	@debugApiCall
-	@auditApiCall("Host methods")
-	def commandAvailable(self, command, context):
-		"""
-		iteritems
-
-		Determines if specified command is permitted or should succeed in the
-		current context. This call can be used to test whether a command can
-		be carried out, generally to provide some meaningful feedback to a user
-		so that they don't perform an action that would consequently error.
-
-		@exception openassetio.exceptions.InvalidCommand If an un-supported command is
-		passed.
-
-		@return (bool, str), True if the command should complete successfully if
-		called, False if it is known to fail or is not permitted. The second part
-		of the tuple will contain any meaningful information from the host to
-		qualify the status.
-
-		@see commandIsSupported()
-		@see runCommand()
-
-		"""
-		return self.__impl.commandAvailable(command, context)
-
-	@debugApiCall
-	@auditApiCall("Host methods")
-	def runCommand(self, command, context):
-		"""
-
-		Instructs the Host to perform the specified command.
-
-		@exception openassetio.exceptions.InvalidCommand If the command is not
-		implemented by the system.
-
-		@exception openassetio.exceptions.CommandError if any other run-time error
-		occurs during execution of the command
-
-		@return Any result of the command.
-
-		@see commandSupported()
-		@see commandAvailable()
-
-		"""
-		return self.__impl.runCommand(command, context)
-
-	## @}
-
 	@debugApiCall
 	@auditApiCall("Host methods")
 	def getDocumentReference(self):
@@ -225,3 +150,5 @@ class Host(Debuggable):
 
 		"""
 		return self.__impl.getKnownEntityReferences(specification=specification)
+
+	## @}
