@@ -1163,7 +1163,7 @@ class ManagerInterface(object):
     'sequence' in a hierarchy). This must be stored by the manager and
     a logically equivalent value returned by @ref resolveEntityReference for
     the same reference. The meaning of 'logical' here, is that in the case of
-    a URL, that it points to the same data. The manager is free to relocate
+    an URL, that it points to the same data. The manager is free to relocate
     data as required. If stringData is not an URL, then it should be
     returned verbatim.
 
