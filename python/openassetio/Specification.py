@@ -99,10 +99,11 @@ class Specification(SpecificationBase):
     @li **prefix**: `core.locale`
     @li **type**: `image.catalog`
 
-  This is to allow common prefixes to be best represented by a single derived
-  class. For example, several commands would have different types, but the same
-  prefix, which allows the generic @ref CommandSpecification class to be used
-  to manipulate these objects.
+  This is to allow common prefixes to be best represented by a single
+  derived class. For example, several locales would have different
+  types, but the same prefix. This allows the generic @ref
+  openassetio.specifications.LocaleSpecification to be used to
+  manipulate these objects.
 
   Types should also be hierarchical, in a way that indicates compatibility with
   the class hierarchy.  It should be that a file.image.texture can degenerate

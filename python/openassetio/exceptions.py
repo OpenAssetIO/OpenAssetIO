@@ -141,8 +141,3 @@ class RetryableError(BaseException):
 
 class PluginError(BaseException):
   pass
-
-
-class InvalidCommand(BaseException):
-  pass
-
