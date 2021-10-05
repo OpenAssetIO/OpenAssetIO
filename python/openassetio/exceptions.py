@@ -43,7 +43,7 @@ class UserCanceled(BaseException):
 class BaseEntityException(BaseException):
   """
 
-  A base Exception for any @ref Entity related errors to ensure consistent
+  A base Exception for any @ref entity related errors to ensure consistent
   presentation and encapsulation of the associated @ref entity_reference.
 
   """
@@ -80,7 +80,7 @@ class InvalidEntityReference(BaseEntityException):
 class EntityResolutionError(BaseEntityException):
   """
 
-  Thrown during @ref Entity resolution,  if the
+  Thrown during @ref entity resolution,  if the
   Entity is valid, but has no meaningful @ref primary_string, or it can't be
   retrieved for some other reason. It is also used during version finalisation
   and any other entity-based operations on a valid @ref entity_reference that
