@@ -50,18 +50,19 @@ class ManagerInterface(object):
   Logging and Error Handling
   --------------------------
 
-  The supplied @ref openassetio.managerAPI.HostSession object provides
-  logging methods that allow messages and progress to be reported back to
-  the user. All logging should go through these methods otherwise it may
-  not be correctly presented to the user. The loose term "user" also covers
-  developers, who may need to see log output for debugging and other purposes.
+  The supplied @ref openassetio.managerAPI.HostSession.HostSession "HostSession"
+  object provides logging methods that allow messages and progress to be
+  reported back to the user. All logging should go through these methods
+  otherwise it may not be correctly presented to the user. The loose
+  term "user" also covers developers, who may need to see log output for
+  debugging and other purposes.
 
   @important Your plugin may be hosted out of process, or even on another
   machine, the HostSession bridge takes care of relaying messages accordingly.
   Using custom logging mechanisms may well result in output being lost.
 
-  @see openassetio.managerAPI.HostSession.log
-  @see openassetio.managerAPI.HostSession.progress
+  @see openassetio.managerAPI.HostSession.HostSession.log
+  @see openassetio.managerAPI.HostSession.HostSession.progress
 
   Exceptions should be thrown to handle any in-flight errors that occur.  The
   error should be mapped to a derived class of
@@ -219,8 +220,10 @@ class ManagerInterface(object):
     asset_management_system. This can contain arbitrary key/value pairs.For
     example:
 
-        { 'version' : '1.1v3',
-          'server' : 'assets.openassetio.org' }
+        {
+          'version' : '1.1v3',
+          'server' : 'assets.openassetio.org'
+        }
 
     There are certain optional keys that may be used by a host or the API:
 
@@ -399,7 +402,7 @@ class ManagerInterface(object):
 
     @param token The UTF-8 encoded string to be inspected.
 
-    @param openassetio.Context, The calling context.
+    @param context openassetio.Context, The calling context.
 
     @return bool, True if the supplied token should be considered as an @ref
     entityReference, False if the pattern is not recognised.
@@ -836,23 +839,20 @@ class ManagerInterface(object):
     for batch optimisations in the implementation and prevent excessive query
     times with high-latency services.
 
-      a)  A single entity reference, a list of specifications.
-      b)  A list of entity references and a single specification.
-      c)  Equal length lists of references and specifications.
+     - a)  A single entity reference, a list of specifications.
+     - b)  A list of entity references and a single specification.
+     - c)  Equal length lists of references and specifications.
 
     In all cases, the return value is a list of lists, for example:
 
-    a)  getRelatedReferencess( [ r1 ], [ s1, s2, s3 ] )
+        getRelatedReferences( [r1], [s1, s2, s3] ) # (a)
+        > [ [r1-s1-matches, ...], [r1-s2-matches, ...], [r1-s3-matches, ...] ]
 
-    > [ [ r1-s1-matches, ... ], [ r1-s2-matches, ... ], [ r1-s3-matches, ... ] ]
+        getRelatedReferences( [r1, r2, r3], [s1] ) # (b)
+        > [ [r1-s1-matches, ...], [r2-s1-matches, ...], [r3-s1-matches, ...] ]
 
-    b)  getRelatedReferences( [ r1, r2, r3 ], [ s1 ] )
-
-    > [ [ r1-s1-matches, ... ], [ r2-s1-matches, ... ], [ r3-s1-matches, ... ] ]
-
-    c)  getRelatedReferences( [ r1, r2, r3 ], [ s1, s2, s3 ] )
-
-    > [ [ r1-s1-matches, ... ], [ r2-s2-matches, ... ], [ r3-s3-matches, ... ] ]
+        getRelatedReferences( [r1, r2, r3], [s1, s2, s3] ) # (c)
+        > [ [r1-s1-matches, ...], [r2-s2-matches, ...], [r3-s3-matches, ...] ]
 
     @note The order of entities in the inner lists of matching references will
     not be considered meaningful, but the outer list should match the input
@@ -944,7 +944,7 @@ class ManagerInterface(object):
   #
   # There are two key components to publishing within this API.
   #
-  # *1 - The Entity Reference*
+  # **1 - The Entity Reference**
   #
   # As with the other entry points in this API, it is assumed that an @ref
   # entity_reference is known ahead of time. How this reference is determined
@@ -962,7 +962,7 @@ class ManagerInterface(object):
   # this asset to implicitly state which version it will be written to. Other
   # entity types may not have this flexibility.
   #
-  # *2 - The Specification*
+  # **2 - The Specification**
   #
   # The Specification allows ancillary information to be provided to help the
   # implementation better interpret what type of entity may be best suited in
