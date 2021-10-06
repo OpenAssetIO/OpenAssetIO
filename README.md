@@ -41,6 +41,10 @@ The API builds upon the production-tested [Katana Asset API](https://learn.found
 addressing several common integration challenges and adding support
 for a wider range of asset types and publishing workflows.
 
+## API documentation
+
+The documentation for OpenAssetIO can be found here: [https://thefoundryvisionmongers.github.io/OpenAssetIO](https://thefoundryvisionmongers.github.io/OpenAssetIO/).
+
 ## Project status
 
 > **Important:** The project is currently in early beta stage and is
