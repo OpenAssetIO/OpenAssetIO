@@ -1,20 +1,24 @@
 /* The standard CSS for doxygen 1.8.3.1 */
 
+$oaio-main: #666666;
 $oaio-orange: #F9B41B;
 $oaio-orange-light: lighten($oaio-orange, 40%);
 $oaio-orange-dark: desaturate(darken($oaio-orange, 10%), 30%);
-$link: #666666;
+$link: #444444;
+
 $tab-vatiation-ammount: 10%;
-$border-style: 1px black dotted;
-$font-family: sans-serif;
+$border-style: 1px $oaio-main dotted;
+
+$font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+$font-family-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
 @mixin title-format {
-	text-transform: uppercase;
-	font-weight: normal;
+	font-weight: 600;
 }
 
 body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 	font-family: $font-family;
+	line-height: 1.5;
 }
 
 #body-content {
@@ -47,7 +51,7 @@ body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 	background-color: inherit;
 	height: auto !important;
 
-	a { color: black; }
+	a { color: $link; }
 
 	#selected {
 		color: $oaio-orange;
@@ -85,7 +89,7 @@ h1.groupheader {
 h2.groupheader {
 	border-top: $border-style;
 	border-bottom: $border-style;
-	color: black;
+	color: $oaio-main;
 	font-size: 150%;
 	font-weight: normal;
 	margin-top: 1.75em;
@@ -227,9 +231,7 @@ pre.fragment {
 	overflow: auto;
 	word-wrap: break-word;
 	font-size:  9pt;
-	line-height: 125%;
-	font-family: monospace, fixed;
-	font-size: 105%;
+	font-family: $font-family-mono;
 }
 
 .fragment {
@@ -244,13 +246,11 @@ div.fragment {
 	padding: 4px;
 	margin: 4px;
 	background-color: #FBFCFD;
-	font-family: monospace, fixed;
+	font-family: $font-family-mono;
 }
 
 div.line {
-	font-family: monospace, fixed;
-	font-size: 13px;
-	min-height: 13px;
+	font-family: $font-family-mono;
 	line-height: 1.0;
 	text-wrap: unrestricted;
 	white-space: pre-wrap;
@@ -301,6 +301,7 @@ div.groupHeader {
 	margin-left: 16px;
 	margin-top: 12px;
 	font-weight: bold;
+	border-bottom: 1px $oaio-main dotted;
 }
 
 div.groupText {
@@ -310,7 +311,7 @@ div.groupText {
 
 body {
 	background-color: white;
-	color: black;
+	color: $oaio-main;
 	margin: 0;
 }
 
@@ -337,7 +338,6 @@ div.contents {
 		padding: 0.75em 30px 0.8em 28px;
 		border-top: $border-style;
 		border-bottom: $border-style;
-		color: black;
 	}
 
 	h2 {
@@ -595,6 +595,7 @@ table.memberdecls {
 	@extend .proto;
 	padding-top: 6px;
 	padding-bottom: 6px;
+	color: $oaio-main;
 }
 
 .memdoc, dl.reflist dd {
@@ -647,7 +648,7 @@ dl.reflist dd {
 }
 
 .params .paramdir {
-	font-family: "courier new",courier,monospace;
+	font-family: $font-family-mono;
 	vertical-align: top;
 }
 
@@ -829,7 +830,7 @@ table.fieldtable {
 	background-repeat:repeat-x;
 	background-color: #E2E8F2;
 	font-size: 90%;
-	color: #253555;
+	color: $oaio-main;
 	padding-bottom: 4px;
 	padding-top: 5px;
 	text-align:left;
@@ -1028,31 +1029,28 @@ dl.section
 	padding-left: 0px;
 }
 
-$bubble-contrast: 10%;
-$note: #CCFF99;
-$warn: #FF9999;
-$todo: #9999FF;
+$bubble: #eeeeee;
+$note: #e4f6df;
+$warn: #f7d1d1;
+$todo: #e6f0fa;
 
 .bubble {
 	padding: 10px 20px;
-	border:1px solid #dddddd;
-	background-color: lighten(#dddddd, $bubble-contrast);
+	background-color: $bubble; 
 	border-radius: 8px;
+	border: none;
 }
-
 
 dl.note
 {
 	@extend .bubble;
-	border:1px solid $note;
-	background-color: lighten($note, $bubble-contrast);
+	background-color: $note;
 }
 
 dl.warning, dl.attention
 {
 	@extend .bubble;
-	border:1px solid $warn;
-	background-color: lighten($warn, $bubble-contrast);
+	background-color: $warn;
 }
 
 dl.pre, dl.post, dl.invariant
@@ -1066,16 +1064,14 @@ dl.pre, dl.post, dl.invariant
 dl.deprecated
 {
 	@extend .bubble;
-	border:1px solid $warn;
-	background-color: lighten($warn, $bubble-contrast);
+	background-color: $warn;
 
 }
 
 dl.todo
 {
 	@extend .bubble;
-	border:1px solid $todo;
-	background-color: lighten($todo, $bubble-contrast);
+	background-color: $todo;
 }
 
 dl.test
@@ -1116,6 +1112,7 @@ dl.section dd {
 	margin: 0px;
 	padding: 2px 0px;
 	font-family: $font-family;
+	font-weight: 800;
 }
 
 #projectbrief
