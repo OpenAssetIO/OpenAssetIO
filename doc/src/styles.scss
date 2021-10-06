@@ -28,6 +28,10 @@ body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 #doc-content {
 	border-left: $border-style;
 	height: auto !important;
+
+	img {
+		max-width: 100%;
+	}
 }
 
 #side-nav {
