@@ -69,6 +69,11 @@ body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 	clear:both;
 }
 
+#copyright {
+	width: 100%;
+	text-align: center;
+}
+
 .ui-resizable-e {
 	background-image: none;
 }
@@ -478,6 +483,7 @@ hr {
 
 hr.footer {
 	height: 1px;
+	border-top: 1px dotted $oaio-main;
 }
 
 /* @group Member Descriptions */
