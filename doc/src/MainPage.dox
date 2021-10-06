@@ -1,0 +1,193 @@
+/*! @mainpage An Introduction
+ *
+ * OpenAssetIO defines a standardized set of interactions between a
+ * '@ref host' (eg: a Digital Content Creation tool or pipeline script)
+ * and an @ref asset_management_system.
+ *
+ * It aims to reduce the integration effort and maintenance overhead of
+ * modern CGI pipelines, and pioneer new, standardized asset-centric
+ * workflows in post-production tooling.
+ *
+ * @warning The API is has a long history. The OAIO release version is
+ * currently in a beta stage and is subject to some refinements over the
+ * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
+ * target="_blank">project tracker</a> for more details.
+ *
+ * @section Approach
+ *
+ * If an @ref asset_management_system implements this well-defined
+ * interface, it can be guaranteed to be compatible with any @ref host
+ * that uses the API, and vice versa. This means that neither party
+ * needs to pay any specific attention to who it is talking to, unless
+ * it specifically desires to do so.
+ *
+ * To make sense of this, we elaborate a little on what is meant by an
+ * 'Asset Management System'
+ *
+ *  @li An @ref asset_management_system - a system that tracks, and
+ *  potentially manages, the existence of a number of '@ref entity
+ *  "entities"'. It may introduce concepts such as relationships
+ *  between entities, hierarchies and version management. For
+ *  simplicity, we make no differentiation between 'Shot Tracking' and
+ *  'Asset Management' it is assumed that an Asset Manager in this
+ *  context may perform one or more of these roles.
+ *
+ *  @li An @ref entity - something that is managed by an Asset
+ *  Management System. Within post-production, these entities are often
+ *  things like project, sequences, shots, clips, image sequences, 3d
+ *  models, etc. that are used to produce final content. Entities are
+ *  referred to using an @ref entity_reference.
+ *
+ * @note We use the term 'entity' in the API, rather than 'asset' to
+ * avoid confusion. Asset is a very loaded term. Most systems we have
+ * encountered seem to use the term 'Asset' to refer to a sub-set of the
+ * data they manage. For example, a 'shot' may not be considered to be
+ * an asset, but is an addressable 'entity' as far as the API is
+ * concerned.
+ *
+ * We introduce two more concepts that help us define behaviour in the
+ * API:
+ *
+ *  @li A @ref host - some (generally user-facing) application or tool that
+ *  needs to communicate with an @ref asset_management_system to query or
+ *  create one or more @ref entity "entities". These are usually
+ *  Digital Content Creation applications (DCCs), but the API can be
+ *  used by any tool, script or other code that wishes to query or
+ *  @ref publish content to the @ref asset_management_system.
+ *
+ *  @li The @ref manager - a intermediary to represent some specific
+ *  @ref asset_management_system through the generalised terms of the
+ *  API. The implementation of the manager bridges the well-known OAIO
+ *  concepts into the system's internal structures and terminology.
+ *
+ * @note This API does *not* define, specify or implement either the
+ * asset management system or the host themselves, rather a set of
+ * generalised queries and actions and concepts that have been found to
+ * be common across the majority of known workflows and 'back-end'
+ * implementations.
+ *
+ * @section architecture_overview Architecture
+ *
+ * Depending on whether you are reading this as a @ref host author, or
+ * as an @ref asset_management_system integrator, it is worth
+ * understanding the high-level architecture of the system. After this,
+ * the documentation (and code base) is separated depending on your
+ * focus. The following diagram shows a simplified version of the
+ * architecture:
+ *
+ * @dot
+ * digraph {
+ *
+ *   rankdir=LR
+ *   fontname=Dialog
+ *   fontsize=9
+ *
+ *   node [ shape="rectangle", fontname=Dialog, fontsize=9 ];
+ *
+ *   "App or Tool" [ shape=box3d ];
+ *
+ *   subgraph cluster_app {
+ *       style=dotted
+ *       label="openassetio.hostAPI"
+ *       "HostInterface" [ color="#F9B41B" ];
+ *       "Manager" [ color=black ];
+ *   }
+ *
+ *   subgraph cluster_manager {
+ *       style=dotted;
+ *       label="openassetio.managerAPI"
+ *       "ManagerInterface" [ color="#F9B41B" ];
+ *       "Host" [ color=black ];
+ *   }
+ *
+ *   "Asset Management System" [ shape=folder ];
+ *
+ *   "App or Tool" -> "HostInterface";
+ *   "App or Tool" -> "Manager" [ dir=both ];
+ *   "HostInterface" -> "Host";
+ *   "Manager" -> "ManagerInterface" [ dir=back ];
+ *   "ManagerInterface" -> "Asset Management System" [ dir=back ];
+ *   "Host" -> "Asset Management System" [ dir=both ];
+ * }
+ * @enddot
+ *
+ * The API is organised into two main namespaces, the
+ * @ref openassetio.hostAPI "hostAPI" and @ref openassetio.managerAPI
+ * "managerAPI". Within each of these, you will find the components
+ * you need depending on whether you are adopting the API in a @ref host
+ * or providing support for a @ref manager through a @ref ManagerPlugin.
+ *
+ * The first task, is to write an implementation of one of the two
+ * abstract interfaces defined by the API, illustrated in yellow above -
+ * either the @ref openassetio.hostAPI.HostInterface.HostInterface
+ * "HostInterface" or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * "ManagerInterface".
+ *
+ * @li The @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * "ManagerInterface" is a stateless, re-entrant interface that is the
+ * sole entry point for all interaction with an @ref asset_management_system.
+ *
+ * @li the @ref openassetio.hostAPI.HostInterface.HostInterface
+ * "HostInterface" represents the caller of the API. It allows the
+ * @ref asset_management_system to customize the @ref publishing process
+ * if desired and/or query additional information about the host and it's
+ * documents.
+ *
+ * The @ref openassetio.managerAPI.Host.Host "Host" and
+ * @ref openassetio.hostAPI.Manager.Manager "Manager" classes are
+ * implemented within this API to provide state management and audit
+ * functionality.
+ *
+ * @section host_implementation_concept The Host Implementation Concept
+ *
+ * One of the design goals of this API was for it to be (relatively)
+ * easy to retro-fit into an existing application or tool. A minimal
+ * implementation follows two simple rules:
+ *
+ *  @li Wherever a file path is stored, store an @ref entity_reference instead.
+ *
+ *  @li Before the stored string is used, resolve it through OAIO and
+ *  use the returned value instead.
+ *
+ * This is the reason for limiting an entity reference to an ASCII-compatible
+ * string - its simple to use in place of a standard file path in the majority
+ * of application code as they are already storing that type of data in some
+ * form.
+ *
+ * @note The API is by no means limited to just file paths, they form a
+ * sensible 'first step'. Any string used in an application, can be
+ * 'asset managed' in the same way. With further imagination, many other more
+ * complex application concepts can also be round-tripped, assuming they can be
+ * sensibly encoded in either a string, or a p.o.d typed key-value store.
+ *
+ * One example of an extended implementation of the API in an application could
+ * be store/recall of nodes in a nodal compositor by encoding the type and
+ * parameter values in the @ref metadata of an ref @Entity, bringing the
+ * additional benefit that values are easy to inspect/modify outside of the
+ * host application*. In this case, the primary string is largely redundant.
+ *
+ * We'd also like to see cross-application standardizations of metadata to
+ * better define say the colorspace and interpretation of image data, or to
+ * represent models such as (common-algorithm) lens correction co-efficients.
+ * Helping move away from application-specific file formats and data.
+ *
+ * <em>*Forgoing keyed values and other complex parameter types for a moment.</em>
+ *
+ * @section manager_implementation_concept The Asset Manager's Commitment
+ *
+ * Another design goal of this API is to make it possible for an @ref
+ * asset_management_system to support any @ref host application without specific
+ * knowledge. This is achieved though the use of common specifications and
+ * descriptions and three simple rules for the manager:
+ *
+ *  @li Store and recall a @ref primary_string
+ *  @li Store and recall @ref metadata
+ *  @li Allow filtering by @ref Specification
+ *
+ *  If these rules are followed, then arbitrary assets from arbitrary
+ *  hosts can be round-tripped thorough an asset manager without
+ *  specific support. However, there is scope to build more exciting
+ *  and interesting functionality by mapping OAIO @ref specification
+ *  "specifications" to the manager's native asset types, and well-known
+ *  @ref metadata to it's asset fields.
+ */
