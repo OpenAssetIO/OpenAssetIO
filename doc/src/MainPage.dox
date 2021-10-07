@@ -8,7 +8,7 @@
  * modern CGI pipelines, and pioneer new, standardized asset-centric
  * workflows in post-production tooling.
  *
- * @warning The API is has a long history. The OAIO release version is
+ * @warning The API has a long history. The OAIO release version is
  * currently in a beta stage and is subject to some refinements over the
  * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
  * target="_blank">project tracker</a> for more details.
