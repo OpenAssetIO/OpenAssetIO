@@ -34,11 +34,11 @@ class ManagerInterface(object):
     @li The currency of the API is either data, or an @ref entity_reference.
     objects should not be used to represent an @ref entity or its properties.
 
-	@li The interface is stateless as far as the host-facing API is concerned.
-	The result of any method should solely depend on its inputs. This class
-	could be static. In practice though, in a real-world session with a host,
-	there are benefits to having an 'instance' with a managed lifetime. This
-	can be used to facilitate caching etc.
+    @li The interface is stateless as far as the host-facing API is concerned.
+    The result of any method should solely depend on its inputs. This class
+    could be static. In practice though, in a real-world session with a host,
+    there are benefits to having an 'instance' with a managed lifetime. This
+    can be used to facilitate caching etc.
 
     @li The implementation of this class should have no UI dependencies, so
     that it can be used in command-line only hosts/batch process etc...
@@ -185,10 +185,10 @@ class ManagerInterface(object):
     This may be used by a host to persist the users preferred manager via a
     preferences mechanism, or when spawning child processes, etc...
 
-	It should match the name used to register the plug-in with the plug-in
-	host.  The identifier should use only alpha-numeric characters and '.', '_'
-	or '-'.  Generally speaking, we recommend using the 'reverse-DNS'
-	convention, for example:
+    It should match the name used to register the plug-in with the plug-in
+    host.  The identifier should use only alpha-numeric characters and '.', '_'
+    or '-'.  Generally speaking, we recommend using the 'reverse-DNS'
+    convention, for example:
 
         "org.openassetio.manager.test"
 
@@ -230,15 +230,15 @@ class ManagerInterface(object):
       @li openassetio.constants.kField_SmallIcon (upto 32x32)
       @li openassetio.constants.kField_Icon (any size)
 
-	Because it can often be expensive to bridge between languages, info can
-	also contain one of two additional fields - a prefix, or perl regex
-	compatible string to identify a valid entity reference. Only one should be
-	set at once. If supplied, this may be used by the API to optimise calls to
-	isEntityReference when bridging between C/Python etc... can be slow. If
-	neither of these fields are set, then isEntityReference will always be used
-	to determine if a string is an @ref entity_reference or not. Note, not all hosts
-	support this optimisation, so @ref isEntityReference should be implemented
-	regardless.
+    Because it can often be expensive to bridge between languages, info can
+    also contain one of two additional fields - a prefix, or perl regex
+    compatible string to identify a valid entity reference. Only one should be
+    set at once. If supplied, this may be used by the API to optimise calls to
+    isEntityReference when bridging between C/Python etc... can be slow. If
+    neither of these fields are set, then isEntityReference will always be used
+    to determine if a string is an @ref entity_reference or not. Note, not all hosts
+    support this optimisation, so @ref isEntityReference should be implemented
+    regardless.
 
       @li openassetio.constants.kField_EntityReferencesMatchPrefix
       @li openassetio.constants.kField_EntityReferencesMatchRegex
@@ -253,10 +253,10 @@ class ManagerInterface(object):
   def localizeStrings(self, stringDict, hostSession):
     """
 
-	This call gives the manager a chance to customise certain strings used in
-	a host's UI/messages. @see openassetio.constants for known keys. The values
-	in stringDict can be freely updated to match the terminology of the asset
-	management system you are representing.
+    This call gives the manager a chance to customise certain strings used in
+    a host's UI/messages. @see openassetio.constants for known keys. The values
+    in stringDict can be freely updated to match the terminology of the asset
+    management system you are representing.
 
     For example, you may way a host's "Publish Clip" menu item to read "Release
     Clip", so you would set the @ref kLocalizationKey_Publish value to "Release".
@@ -295,18 +295,18 @@ class ManagerInterface(object):
 
     Prepares for interaction with a host.
 
-	This is a good opportunity to initialize any persistent connections to a
-	back end implementation, as @ref setSettings will have already been called
-	(if applicable). It is fine for this call to block for a period of
-	time.
+    This is a good opportunity to initialize any persistent connections to a
+    back end implementation, as @ref setSettings will have already been called
+    (if applicable). It is fine for this call to block for a period of
+    time.
 
-	If an exception is raised by this call, it signifies to the host that a
-	fatal error occurred, and this @ref asset_management_system is not
-	available with the current settings.
+    If an exception is raised by this call, it signifies to the host that a
+    fatal error occurred, and this @ref asset_management_system is not
+    available with the current settings.
 
-	If no exception is raised, it can be assumed that the @ref
-	asset_management_system is ready. It is the implementations responsibility
-	to deal with transient connection errors (if applicable) once initialized.
+    If no exception is raised, it can be assumed that the @ref
+    asset_management_system is ready. It is the implementations responsibility
+    to deal with transient connection errors (if applicable) once initialized.
 
     The behaviour of calling initialize() on an already initialized
     instance should be a no-op, but if an error was raised previously, then
@@ -339,19 +339,19 @@ class ManagerInterface(object):
     but it is advisable to batch request the data for resolveEntityReference,
     getEntityMetadata here if possible.
 
-	The implementation should ignore any entities to which no action is
-	applicable (maybe as they don't exist yet).
+    The implementation should ignore any entities to which no action is
+    applicable (maybe as they don't exist yet).
 
     @warning Because the majority of the resolution API itself is designated
     thread stafe, it is important to implement any pre-fetch mechanism with
     suitable locks/etc... if required.
 
-	@param context openassetio.Context, You may wish to make use of the
-	managerInterfaceState object (if you supplied one on construction of the
-	context), to simplify scoping any caching of data. Otherwise, it's up to
-	you how to manage the lifetime of the data to avoid inconsistencies, but
-	the @ref flushCaches method should clear any otherwise sorted data for this
-	call.
+    @param context openassetio.Context, You may wish to make use of the
+    managerInterfaceState object (if you supplied one on construction of the
+    context), to simplify scoping any caching of data. Otherwise, it's up to
+    you how to manage the lifetime of the data to avoid inconsistencies, but
+    the @ref flushCaches method should clear any otherwise sorted data for this
+    call.
 
     @return None
 
@@ -387,10 +387,10 @@ class ManagerInterface(object):
   def isEntityReference(self, token, context, hostSession):
     """
 
-	Determines if a supplied token (in its entirety) matches the pattern of a
-	valid @ref entity_reference in your system.  It does not need to verify
-	that it points to a valid entity in the system, simply that the pattern of
-	the token is recognised by this implementation.
+    Determines if a supplied token (in its entirety) matches the pattern of a
+    valid @ref entity_reference in your system.  It does not need to verify
+    that it points to a valid entity in the system, simply that the pattern of
+    the token is recognised by this implementation.
 
     If this returns True, the token is an @ref entity_reference and should
     be considered usable with the other methods of this interface.
@@ -468,8 +468,8 @@ class ManagerInterface(object):
 
     Returns the 'finalized' string represented by the @ref entity_reference.
 
-	If the string points to some data, then it should always be in the form
-	of a valid URL. File paths should be returned as a <tt>file</tt> scheme URL.
+    If the string points to some data, then it should always be in the form
+    of a valid URL. File paths should be returned as a <tt>file</tt> scheme URL.
 
     When the @ref entity_reference points to a sequence of files, the frame
     token should be preserved, and in the sptintf compatible syntax.
@@ -486,8 +486,8 @@ class ManagerInterface(object):
     @note You may need to call getFinalizedEntityVersion() within this function
     to ensure any @ref meta_version "meta-versions" are resolved prior to resolution.
 
-	@return str, The UTF-8 encoded string that that is represented by the
-	reference.
+    @return str, The UTF-8 encoded string that that is represented by the
+    reference.
 
     @exception openassetio.exceptions.EntityResolutionError If the supplied @ref
     entity_reference does not have a meaningful string representation, or it is
@@ -591,9 +591,9 @@ class ManagerInterface(object):
 
     Returns an unambiguous, humanised display name for the entity.
 
-	The display name may want to consider the host, and any other relevant
-	Context information to form a display name for an entity that can uniquely
-	identify the entity in that context.
+    The display name may want to consider the host, and any other relevant
+    Context information to form a display name for an entity that can uniquely
+    identify the entity in that context.
 
     For example:
 
@@ -627,9 +627,9 @@ class ManagerInterface(object):
     @warning See @ref setEntityMetadata for important notes on metadata and its
     role in the system.
 
-	@return Dict[str,primitive], with the entity's metadata. Values
-	must be singular plain-old-data types (ie. string, int, float, bool),
-	keys must be UTF-8 encoded strings.
+    @return Dict[str,primitive], with the entity's metadata. Values
+    must be singular plain-old-data types (ie. string, int, float, bool),
+    keys must be UTF-8 encoded strings.
 
     """
     raise NotImplementedError
@@ -645,11 +645,11 @@ class ManagerInterface(object):
     merged with the new data (the new data taking precedence). If false,
     its metadata will entirely replaced by the new data.
 
-	@note It is a vital that the implementation faithfully stores and recalls
-	metadata. It is the underlying mechanism by which hosts may round-trip non
-	file-based entities within this API.
-	Specific key names and value types should be maintained, even if they are
-	re-mapped to an internal name for persistence.
+    @note It is a vital that the implementation faithfully stores and recalls
+    metadata. It is the underlying mechanism by which hosts may round-trip non
+    file-based entities within this API.
+    Specific key names and value types should be maintained, even if they are
+    re-mapped to an internal name for persistence.
 
     If any value is 'None' it should be assumed that that key should be un-set
     on the object.
@@ -677,8 +677,8 @@ class ManagerInterface(object):
     @exception KeyError If no defaultValue is supplied, and the entity has no
     metadata for the specified key.
 
-	The default implementation retrieves all metadata for an entity and
-	extracts the requested key.
+    The default implementation retrieves all metadata for an entity and
+    extracts the requested key.
 
     """
     value = defaultValue
@@ -740,11 +740,11 @@ class ManagerInterface(object):
     results are available than the limit, then the newest versions should be
     returned. If a value of -1 is used, then all results should be returned.
 
-	@return Dict[str,str], Where the keys are UTF-8 encoded string versions,
-	and the values are an @ref entity_reference that points to that versions
-	entity.  Additionally the openassetio.constants.kVersionDict_OrderKey can
-	be set to a list of the version names (ie: dict keys) in their natural
-	ascending order, that may be used by UI elements, etc...
+    @return Dict[str,str], Where the keys are UTF-8 encoded string versions,
+    and the values are an @ref entity_reference that points to that versions
+    entity.  Additionally the openassetio.constants.kVersionDict_OrderKey can
+    be set to a list of the version names (ie: dict keys) in their natural
+    ascending order, that may be used by UI elements, etc...
 
     @see getEntityVersionName()
     @see getFinalizedEntityVersion()
@@ -771,11 +771,11 @@ class ManagerInterface(object):
 
     @return str
 
-	@exception openassetio.exceptions.EntityResolutionError should be thrown if
-	the entityReference is ambiguously versioned (for example if the version is
-	missing from a reference to a versioned entity, and that behaviour is
-	undefined in the system managers model. It may be that it makes sense in
-	the specific asset manager to fall back on 'latest' in this case...)
+    @exception openassetio.exceptions.EntityResolutionError should be thrown if
+    the entityReference is ambiguously versioned (for example if the version is
+    missing from a reference to a versioned entity, and that behaviour is
+    undefined in the system managers model. It may be that it makes sense in
+    the specific asset manager to fall back on 'latest' in this case...)
 
     @exception openassetio.exceptions.EntityResolutionError if the supplied
     overrideVersionName does not exist for that entity.
@@ -1145,17 +1145,17 @@ class ManagerInterface(object):
 
     Publish an entity to the @ref asset_management_system.
 
-	This instructs the implementation to ensure a valid entity exists for the
-	given reference and spec. This will be called either in isolation or after
-	calling preflight, depending on the nature of the data being published and
-	the kWillManagePath bit of the returned @ref managementPolicy.
+    This instructs the implementation to ensure a valid entity exists for the
+    given reference and spec. This will be called either in isolation or after
+    calling preflight, depending on the nature of the data being published and
+    the kWillManagePath bit of the returned @ref managementPolicy.
 
-	This is an opportunity to do other things in the host as part of publishing
-	if required. The context's locale will tell you more about the specifics
-	of the calling application. Depending on the implementation of your
-	plugin, you can use this opportunity to make use of the host-native
-	SDK to extract additional information or schedule additional processes
-	to produce derivative data.
+    This is an opportunity to do other things in the host as part of publishing
+    if required. The context's locale will tell you more about the specifics
+    of the calling application. Depending on the implementation of your
+    plugin, you can use this opportunity to make use of the host-native
+    SDK to extract additional information or schedule additional processes
+    to produce derivative data.
 
     @param stringData str, The string that the entity should resolve to if
     passed to a call to resolveEntityReference(). This may be left blank, if

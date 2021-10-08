@@ -23,41 +23,41 @@ from openassetio.managerAPI import Host, HostSession
 
 @pytest.fixture
 def mock_host():
-	return mock.create_autospec(spec=Host)
+    return mock.create_autospec(spec=Host)
 
 @pytest.fixture
 def mock_logger():
-	return mock.create_autospec(spec=logging.LoggerInterface)
+    return mock.create_autospec(spec=logging.LoggerInterface)
 
 @pytest.fixture
 def host_session(mock_host, mock_logger):
-	return  HostSession(mock_host, mock_logger)
+    return  HostSession(mock_host, mock_logger)
 
 
 class TestHostSession():
 
-	def test_construction(self, host_session, mock_host):
-		assert host_session.host() is mock_host
+    def test_construction(self, host_session, mock_host):
+        assert host_session.host() is mock_host
 
 
-	def test_log(self, host_session, mock_logger):
+    def test_log(self, host_session, mock_logger):
 
-		mock_logger.reset_mock()
+        mock_logger.reset_mock()
 
-		a_message = "A message"
-		a_severity = logging.LoggerInterface.kCritical
+        a_message = "A message"
+        a_severity = logging.LoggerInterface.kCritical
 
-		host_session.log(a_message, a_severity)
-		mock_logger.log.assert_called_once_with(a_message, a_severity)
+        host_session.log(a_message, a_severity)
+        mock_logger.log.assert_called_once_with(a_message, a_severity)
 
-	def test_progress(self, host_session, mock_logger):
+    def test_progress(self, host_session, mock_logger):
 
-		a_progress = 0.1
+        a_progress = 0.1
 
-		host_session.progress(a_progress)
-		mock_logger.progress.assert_called_once_with(a_progress, None)
+        host_session.progress(a_progress)
+        mock_logger.progress.assert_called_once_with(a_progress, None)
 
-		for message in ("A message", "", None):
-			mock_logger.reset_mock()
-			host_session.progress(a_progress, message=message)
-			mock_logger.progress.assert_called_once_with(a_progress, message=message)
+        for message in ("A message", "", None):
+            mock_logger.reset_mock()
+            host_session.progress(a_progress, message=message)
+            mock_logger.progress.assert_called_once_with(a_progress, message=message)

@@ -79,7 +79,7 @@ class HostInterface(object):
 
         "Katana"
 
-	@return str
+    @return str
 
     """
     raise NotImplementedError
@@ -89,10 +89,10 @@ class HostInterface(object):
   def getInfo(self):
     """
 
-	Returns other information that may be useful about this Host.  This can
-	contain arbitrary key/value pairs. Managers never rely directly on any
-	particular keys being set here, but the information may be useful for
-	diagnostic or debugging purposes. For example:
+    Returns other information that may be useful about this Host.  This can
+    contain arbitrary key/value pairs. Managers never rely directly on any
+    particular keys being set here, but the information may be useful for
+    diagnostic or debugging purposes. For example:
 
         { 'version' : '1.1v3' }
 
@@ -116,7 +116,7 @@ class HostInterface(object):
     documents, it should be the 'front-most' one. If there is no meaningful
     document reference, then an empty string should be returned.
 
-	@todo Update to properly support multiple documents
+    @todo Update to properly support multiple documents
 
     @return str A path or @ref entity_reference.
 
@@ -142,7 +142,7 @@ class HostInterface(object):
 
     @return List[@ref entity_reference] References discovered in the current document.
 
-	@todo Update to support multiple documents
+    @todo Update to support multiple documents
 
     """
     return []
