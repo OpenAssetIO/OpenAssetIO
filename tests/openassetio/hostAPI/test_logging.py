@@ -30,83 +30,83 @@ import openassetio.logging as l
 
 def test_LoggerInterface_progress():
 
-	logger = l.LoggerInterface()
-	logger.log = mock.create_autospec(logger.log)
+    logger = l.LoggerInterface()
+    logger.log = mock.create_autospec(logger.log)
 
-	msg = "I am a message"
-	expected_log_msg = f" 10% {msg}"
-	logger.progress(0.1, msg)
-	logger.log.assert_called_once_with(expected_log_msg, l.LoggerInterface.kProgress)
+    msg = "I am a message"
+    expected_log_msg = f" 10% {msg}"
+    logger.progress(0.1, msg)
+    logger.log.assert_called_once_with(expected_log_msg, l.LoggerInterface.kProgress)
 
 
 @pytest.fixture
 def mock_logger():
-	return mock.create_autospec(spec=l.LoggerInterface)
+    return mock.create_autospec(spec=l.LoggerInterface)
 
 @pytest.fixture
 def severity_filter(mock_logger):
-	return l.SeverityFilter(mock_logger)
+    return l.SeverityFilter(mock_logger)
 
 
 class TestSeverityFilter():
 
-	all_severities = (
-		l.LoggerInterface.kDebugAPI,
-		l.LoggerInterface.kDebug,
-		l.LoggerInterface.kInfo,
-		l.LoggerInterface.kProgress,
-		l.LoggerInterface.kWarning,
-		l.LoggerInterface.kError,
-		l.LoggerInterface.kCritical
-	)
+    all_severities = (
+        l.LoggerInterface.kDebugAPI,
+        l.LoggerInterface.kDebug,
+        l.LoggerInterface.kInfo,
+        l.LoggerInterface.kProgress,
+        l.LoggerInterface.kWarning,
+        l.LoggerInterface.kError,
+        l.LoggerInterface.kCritical
+    )
 
-	def test_constructor(self, mock_logger, monkeypatch):
+    def test_constructor(self, mock_logger, monkeypatch):
 
-		var = "FOUNDRY_ASSET_LOGGING_SEVERITY"
+        var = "FOUNDRY_ASSET_LOGGING_SEVERITY"
 
-		# Unset
+        # Unset
 
-		monkeypatch.delenv(var, raising=False)
-		f = l.SeverityFilter(mock_logger)
-		assert f.getSeverity() == l.LoggerInterface.kWarning
+        monkeypatch.delenv(var, raising=False)
+        f = l.SeverityFilter(mock_logger)
+        assert f.getSeverity() == l.LoggerInterface.kWarning
 
-		# Set
+        # Set
 
-		for value, expected in (
-			("", l.LoggerInterface.kWarning),
-			("not a valid value", l.LoggerInterface.kWarning),
-			(l.LoggerInterface.kDebugAPI, l.LoggerInterface.kDebugAPI),
-			(l.LoggerInterface.kDebug, l.LoggerInterface.kDebug),
-			(l.LoggerInterface.kInfo, l.LoggerInterface.kInfo),
-			(l.LoggerInterface.kProgress, l.LoggerInterface.kProgress),
-			(l.LoggerInterface.kWarning, l.LoggerInterface.kWarning),
-			(l.LoggerInterface.kError, l.LoggerInterface.kError),
-			(l.LoggerInterface.kCritical, l.LoggerInterface.kCritical)
-		):
+        for value, expected in (
+            ("", l.LoggerInterface.kWarning),
+            ("not a valid value", l.LoggerInterface.kWarning),
+            (l.LoggerInterface.kDebugAPI, l.LoggerInterface.kDebugAPI),
+            (l.LoggerInterface.kDebug, l.LoggerInterface.kDebug),
+            (l.LoggerInterface.kInfo, l.LoggerInterface.kInfo),
+            (l.LoggerInterface.kProgress, l.LoggerInterface.kProgress),
+            (l.LoggerInterface.kWarning, l.LoggerInterface.kWarning),
+            (l.LoggerInterface.kError, l.LoggerInterface.kError),
+            (l.LoggerInterface.kCritical, l.LoggerInterface.kCritical)
+        ):
 
-			monkeypatch.setenv(var, str(value))
-			f = l.SeverityFilter(mock_logger)
-			assert f.getSeverity() == expected
+            monkeypatch.setenv(var, str(value))
+            f = l.SeverityFilter(mock_logger)
+            assert f.getSeverity() == expected
 
-	def test_severity_acessors(self, severity_filter):
-		for severity in self.all_severities:
-			severity_filter.setSeverity(severity)
-			assert severity_filter.getSeverity() == severity
+    def test_severity_acessors(self, severity_filter):
+        for severity in self.all_severities:
+            severity_filter.setSeverity(severity)
+            assert severity_filter.getSeverity() == severity
 
-	def test_filtering(self, severity_filter):
+    def test_filtering(self, severity_filter):
 
-		mock_logger = severity_filter.upstreamLogger()
+        mock_logger = severity_filter.upstreamLogger()
 
-		msg = "A message"
+        msg = "A message"
 
-		for filter_severity in self.all_severities:
+        for filter_severity in self.all_severities:
 
-			severity_filter.setSeverity(filter_severity)
+            severity_filter.setSeverity(filter_severity)
 
-			for message_severity in self.all_severities:
-				mock_logger.reset_mock()
-				severity_filter.log(msg, message_severity)
-				if message_severity <= filter_severity:
-					mock_logger.log.assert_called_once_with(msg, message_severity)
-				else:
-					mock_logger.log.assert_not_called()
+            for message_severity in self.all_severities:
+                mock_logger.reset_mock()
+                severity_filter.log(msg, message_severity)
+                if message_severity <= filter_severity:
+                    mock_logger.log.assert_called_once_with(msg, message_severity)
+                else:
+                    mock_logger.log.assert_not_called()

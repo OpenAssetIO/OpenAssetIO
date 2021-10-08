@@ -53,10 +53,10 @@ class Manager(Debuggable):
   def __init__(self, interfaceInstance, hostSession: HostSession):
     """
 
-	@private
+    @private
 
-	A Manager should never be constructed directly by a host, instead use
-	the @ref Session class, which takes care of their instantiation.
+    A Manager should never be constructed directly by a host, instead use
+    the @ref Session class, which takes care of their instantiation.
 
     @param interfaceInstance openassetio.managerAPI.ManagerInterface An
     instance of a Manager Interface to wrap.
@@ -130,7 +130,7 @@ class Manager(Debuggable):
 
         "OpenAssetIO Test Manager"
 
-	@return str
+    @return str
 
     """
     return self.__impl.getDisplayName()
@@ -147,8 +147,8 @@ class Manager(Debuggable):
 
         { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
 
-	There is no requirement to use any of the information in the info dict, but
-	it may be useful for optimisations or display customisation.
+    There is no requirement to use any of the information in the info dict, but
+    it may be useful for optimisations or display customisation.
 
     There are certain well-known keys that may be set by the Manager. They
     include things such as:
@@ -170,22 +170,22 @@ class Manager(Debuggable):
   def localizeStrings(self, stringDict):
     """
 
-	This call gives the Manager a chance to customise certain strings that you
-	might want to use in your UI/messages. @see openassetio.constants for
-	well-known keys. These keys are updated in-place to the most appropriate
-	term for the Manager. You should then use these substitutions in any
-	user-facing messages or display text so that they feel at home.
+    This call gives the Manager a chance to customise certain strings that you
+    might want to use in your UI/messages. @see openassetio.constants for
+    well-known keys. These keys are updated in-place to the most appropriate
+    term for the Manager. You should then use these substitutions in any
+    user-facing messages or display text so that they feel at home.
 
-	It's rare that you need to call this method directly, the
-	@ref openassetio.hostAPI.localization API provides more utility for
-	far less effort.
+    It's rare that you need to call this method directly, the
+    @ref openassetio.hostAPI.localization API provides more utility for
+    far less effort.
 
     @see @ref openassetio.hostAPI.localization
     @see @ref openassetio.hostAPI.localization.Localizer.localizeString
     @see @ref openassetio.hostAPI.localization.defaultTerminology
 
-	@param stringDict Dict[str, str] this will be modified in-place by
-	the manager if it has any alternate terminology.
+    @param stringDict Dict[str, str] this will be modified in-place by
+    the manager if it has any alternate terminology.
 
     """
     self.__impl.localizeStrings(stringDict, self.__hostSession)
@@ -248,7 +248,7 @@ class Manager(Debuggable):
     @note This must be called prior to any entity-related calls or an Exception
     will be raised.
 
-	@note This method may block for extended periods of time.
+    @note This method may block for extended periods of time.
 
     @protected
 
@@ -496,11 +496,11 @@ class Manager(Debuggable):
     There are some well-known keys defined in the core API - @see
     openassetio.constants. These have universally agreed meaning.
 
-	As a host, you can also advertise well-known keys of your own as
-	part of any first-class asset based workflows you may have. For
-	example, a compositor may choose to consume the `colourspace` key
-	(if present) and adjust the input space of an image reader node
-	accordingly.
+    As a host, you can also advertise well-known keys of your own as
+    part of any first-class asset based workflows you may have. For
+    example, a compositor may choose to consume the `colourspace` key
+    (if present) and adjust the input space of an image reader node
+    accordingly.
 
     These new keys should be clearly explained in your documentation.
     A manager may then be able to provide this information, based on
@@ -524,10 +524,10 @@ class Manager(Debuggable):
 
     Sets an entities metadata.
 
-	A Manager guarantees that it will round-trip metadata, such that the
-	return of @ref getMetadata for those keys will be the same.
-	Managers may remap keys internally to their own native names, but a
-	set/get should be transparent.
+    A Manager guarantees that it will round-trip metadata, such that the
+    return of @ref getMetadata for those keys will be the same.
+    Managers may remap keys internally to their own native names, but a
+    set/get should be transparent.
 
     @param merge, bool If true, then the entity's existing metadata will be
     merged with the new data (the new data taking precedence). If false,
