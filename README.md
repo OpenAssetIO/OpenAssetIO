@@ -30,9 +30,10 @@ Please see the [project board](https://github.com/TheFoundryVisionmongers/OpenAs
 
 ### TODO list
  - Migrate documentation
+ - Migrate example code
+ - Migrate M&E related Entity/Relationship specifications
  - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop investigations
  - Migrate `ManagerPlugin` test harness
- - Migrate example code
  - C++ port of Core API
  - Katana Asset API migration guide/shims
 
