@@ -9,9 +9,10 @@ It aims to reduce integration and maintenance overhead in modern production pipe
 ## Scope
 
 The API covers the following areas:
- - The resolution of asset references (URIs) into locatable data (URLs).
- - The publishing and retrieval of data for non-file based 'assets' such as Shots and Sequences.
- - Delegation of in-application UI elements such as browsers and other panels/controls.
+ - Resolution of asset references (URIs) into locatable data (URLs).
+ - Publishing and retrieval of data for file-based and non-file-based 'assets'.
+ - Discovery and registration of related assets.
+ - Replacement/augmentation of in-application UI elements such as browsers and other panels/controls.
 
 The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html), addressing several common integration challenges and adding support for a wider range of asset types and publishing workflows.
 
@@ -19,7 +20,7 @@ The API builds upon the production-tested [Katana Asset API](https://learn.found
 
 > **Important:** The project is currently in early beta stage and is subject to change. Do not deploy the API in production critical situations without careful thought.
 
-We are currently working towards a v1.0.0 release. At present, the API is implemented in pure `Python`, whilst some structural revisions are being made. Once the surface area has stabilised, the Core API will be ported to `C++` with bindings to `Python`.
+We are currently working towards a v1.0.0 release. At present, the API is sketched in pure `Python`, whilst some structural revisions are being made. Once the surface area has stabilised, the Core API will be ported to `C++` with bindings to `Python`.
 
 The code is presented here in its current form to facilitate discussion and early-adopter testing. We actively encourage engagement in the [discussion](https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions) and to give feedback on current [Issues](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues) and [Pull Requests](https://github.com/TheFoundryVisionmongers/OpenAssetIO/pulls).
 
@@ -29,9 +30,10 @@ Please see the [project board](https://github.com/TheFoundryVisionmongers/OpenAs
 
 ### TODO list
  - Migrate documentation
+ - Migrate example code
+ - Migrate M&E related Entity/Relationship specifications
  - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop investigations
  - Migrate `ManagerPlugin` test harness
- - Migrate example code
  - C++ port of Core API
  - Katana Asset API migration guide/shims
 
