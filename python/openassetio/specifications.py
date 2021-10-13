@@ -22,14 +22,12 @@ __all__ = ['EntitySpecification', 'LocaleSpecification', 'RelationshipSpecificat
 
 class EntitySpecification(Specification):
     """
-
-    EntitySpecifications are used to 'type' a \ref entity. In their simplest
-    form, the _type can be used as a simple string-matched filter. In more
-    advanced cases, the other properties of the Specification may be useful to
-    further refine selection. During registration, the Specification may also
-    provide valuable information to the Manager to help it best represent the
-    Hosts data.
-
+    EntitySpecifications are used to 'type' a \ref entity. In their
+    simplest form, the _type can be used as a simple string-matched
+    filter. In more advanced cases, the other properties of the
+    Specification may be useful to further refine selection. During
+    registration, the Specification may also provide valuable
+    information to the Manager to help it best represent the Hosts data.
     """
     _prefix = "core.entity"
 
@@ -53,25 +51,21 @@ class EntitySpecification(Specification):
 
 class LocaleSpecification(Specification):
     """
-
     LocaleSpecifications are used by a Host to define which part of the
-    application is interacting with the Manager. For example, the DocumentLocale
-    should be used when dealing with scene files, projects, etc... This
-    information is generally useful to Managers as it allows them to better
-    handle the resulting Entity data.
-
+    application is interacting with the Manager. For example, the
+    DocumentLocale should be used when dealing with scene files,
+    projects, etc... This information is generally useful to Managers as
+    it allows them to better handle the resulting Entity data.
     """
     _prefix = "core.locale"
 
 
 class RelationshipSpecification(Specification):
     """
-
     RelationshipSpecifications are used mainly with \ref
     python.implementation.ManagerInterface.ManagerInterface.getRelatedReferences
-    "ManagerInterface.getRelatedReferences", in order to describe the kind of
-    relation that is being requested, when a simply EntitySpecification will not
-    suffice.
-
+    "ManagerInterface.getRelatedReferences", in order to describe the
+    kind of relation that is being requested, when a simply
+    EntitySpecification will not suffice.
     """
     _prefix = "core.relationship"

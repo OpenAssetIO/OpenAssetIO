@@ -27,15 +27,15 @@ __all__ = ['PluginSystemManagerFactory', ]
 
 class PluginSystemManagerFactory(ManagerFactoryInterface):
     """
+    A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
+    derived plugins and instantiation of Manager and UIDelegate
+    instances. Not usually used directly by a @ref host, which instead
+    uses the @ref openassetio.hostAPI.Session
 
-    A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin derived plugins
-    and instantiation of Manager and UIDelegate instances. Not usually used
-    directly by a @ref host, which instead uses the @ref openassetio.hostAPI.Session
-
-    @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of directories to
-    search for @ref openassetio.pluginSystem.ManagerPlugin based plugins. It uses
-    the platform-native delimiter.  Searched left to right.
-
+    @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of
+    directories to search for @ref
+    openassetio.pluginSystem.ManagerPlugin based plugins. It uses the
+    platform-native delimiter.  Searched left to right.
     """
 
     ## The Environment Variable to read the plug-in search path from
@@ -52,12 +52,12 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def __scan(self):
         """
+        Scans for ManagerPlugins, and registers them with the factory
+        instance.
 
-        Scans for ManagerPlugins, and registers them with the factory instance.
-
-        @param paths str, A searchpath string to search for plug-ins. If None, then
-        the contents of the Environment Variable @ref kPluginEnvVar is used instead.
-
+        @param paths str, A searchpath string to search for plug-ins. If
+        None, then the contents of the Environment Variable @ref
+        kPluginEnvVar is used instead.
         """
 
         if not self.__paths:
@@ -76,10 +76,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def identifiers(self):
         """
-
         @return list, all identifiers known to the factory.
         @see openassetio.pluginSystem.ManagerPlugin
-
         """
         if not self.__pluginManager:
             self.__scan()
@@ -88,18 +86,17 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def managers(self):
         """
-
-        @return dict, Keyed by identifiers, each value is a dict containing
-        information about the Manager provided by the plugin. This dict has the
-        following keys:
-          @li **name** The display name of the Manager suitable for UI use.
+        @return dict, Keyed by identifiers, each value is a dict
+        containing information about the Manager provided by the plugin.
+        This dict has the following keys:
+          @li **name** The display name of the Manager suitable for UI
+          use.
           @li **identifier** It's identifier
           @li **info** The info dict from the Manager (see: @ref
           openassetio.managerAPI.ManagerInterface.getInfo
           "ManagerInterface.getInfo()")
-          @li **plugin** The plugin class that represents the Manager (see: @ref
-          openassetio.pluginSystem.ManagerPlugin)
-
+          @li **plugin** The plugin class that represents the Manager
+          (see: @ref openassetio.pluginSystem.ManagerPlugin)
         """
 
         if not self.__pluginManager:
@@ -136,9 +133,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def managerRegistered(self, identifier):
         """
-
-        @return bool, True if the supplied identifier is known to the factory.
-
+        @return bool, True if the supplied identifier is known to the
+        factory.
         """
         if not self.__pluginManager:
             self.__scan()
@@ -147,17 +143,17 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def instantiate(self, identifier, cache=True):
         """
+        Creates an instance of the @ref
+        openassetio.managerAPI.ManagerInterface "ManagerInterface" with
+        the specified identifier.
 
-        Creates an instance of the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" with the specified
-        identifier.
-
-        @param cache bool, When True the created instance will be cached, and
-        immediately returned by subsequence calls to this function with the same
-        identifier - instead of creating a new instance. If False, a new instance
-        will be created each, and never retained.
+        @param cache bool, When True the created instance will be
+        cached, and immediately returned by subsequence calls to this
+        function with the same identifier - instead of creating a new
+        instance. If False, a new instance will be created each, and
+        never retained.
 
         @returns openassetio.managerAPI.ManagerInterface
-
         """
 
         if not self.__pluginManager:
@@ -177,17 +173,17 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
         """
+        Creates an instance of the @ref ManagerUIDelegate for the
+        specified identifier.
 
-        Creates an instance of the @ref ManagerUIDelegate for the specified
-        identifier.
+        @param the instance of a ManagerInterface to retrieve the UI
+        delegate for.
 
-        @param the instance of a ManagerInterface to retrieve the UI delegate for.
-
-        @param cache bool, When True the created instance will be cached, and
-        immediately returned by subsequence calls to this function with the same
-        identifier - instead of creating a new instance. If False, a new instance
-        will be created each, and never retained.
-
+        @param cache bool, When True the created instance will be
+        cached, and immediately returned by subsequence calls to this
+        function with the same identifier - instead of creating a new
+        instance. If False, a new instance will be created each, and
+        never retained.
         """
 
         if not self.__pluginManager:

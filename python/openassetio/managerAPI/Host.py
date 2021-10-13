@@ -25,24 +25,23 @@ __all__ = ['Host']
 
 class Host(Debuggable):
     """
+    The Host object represents the tool or application that created a
+    session with OAIO, and wants to query or store information within a
+    @ref manager.
 
-    The Host object represents the tool or application that created a session with OAIO,
-    and wants to query or store information within a @ref manager.
+    The Host provides a generalised API to query the identity of the
+    caller of the API, as well as which entities are used within the
+    current document.
 
-    The Host provides a generalised API to query the identity of the caller
-    of the API, as well as which entities are used within the current document.
-
-    Hosts should never be directly constructed by the Manager's implementation.
-    Instead, the @ref HostSession class provided to all manager API entry points
-    provides access to the current host through the @ref HostSession.host() method.
-
+    Hosts should never be directly constructed by the Manager's
+    implementation. Instead, the @ref HostSession class provided to all
+    manager API entry points provides access to the current host through
+    the @ref HostSession.host() method.
     """
 
     def __init__(self, hostInterface: HostInterface):
         """"
-
         @private
-
         """
         super(Host, self).__init__()
 
@@ -69,18 +68,16 @@ class Host(Debuggable):
     @auditApiCall("Host methods")
     def getIdentifier(self):
         """
-
         Returns an identifier to uniquely identify the Host.
 
-        The identifier will be different for each tool or application, but common
-        to all versions of any one. The identifier will use only alpha-numeric
-        characters and '.', '_' or '-', commonly in the form of a 'reverse-DNS'
-        style string, for example:
+        The identifier will be different for each tool or application,
+        but common to all versions of any one. The identifier will use
+        only alpha-numeric characters and '.', '_' or '-', commonly in
+        the form of a 'reverse-DNS' style string, for example:
 
             "uk.co.foundry.katana"
 
         @return str
-
         """
         return self.__impl.getIdentifier()
 
@@ -88,12 +85,10 @@ class Host(Debuggable):
     @auditApiCall("Host methods")
     def getDisplayName(self):
         """
-
-        Returns a human readable name to be used to reference this specific host in
-        user-facing messaging, for example:
+        Returns a human readable name to be used to reference this
+        specific host in user-facing messaging, for example:
 
             "Katana"
-
         """
         return self.__impl.getDisplayName()
 
@@ -101,17 +96,15 @@ class Host(Debuggable):
     @auditApiCall("Host methods")
     def getInfo(self):
         """
-
         Returns other information that may be useful about the host.
-        This can contain arbitrary key/value pairs. There should be no reliance on
-        a specific key being supplied by all hosts. The information
-        may be more generally useful for diagnostic or debugging purposes.
-        For example:
+        This can contain arbitrary key/value pairs. There should be no
+        reliance on a specific key being supplied by all hosts. The
+        information may be more generally useful for diagnostic or
+        debugging purposes. For example:
 
             { 'version' : '1.1v3' }
 
         @return Dict[str, pod]
-
         """
         return self.__impl.getInfo()
 
@@ -121,14 +114,13 @@ class Host(Debuggable):
     @auditApiCall("Host methods")
     def getDocumentReference(self):
         """
-
         The path, or @ref entity_reference of the current document, or
-        an empty string if not applicable. If a Host supports multiple concurrent
-        documents, it will be the 'frontmost' one. If there is no meaningful
-        document reference, then an empty string will be returned.
+        an empty string if not applicable. If a Host supports multiple
+        concurrent documents, it will be the 'frontmost' one. If there
+        is no meaningful document reference, then an empty string will
+        be returned.
 
         @return str
-
         """
         return self.__impl.getDocumentReference()
 
@@ -141,14 +133,13 @@ class Host(Debuggable):
     @auditApiCall("Host methods")
     def getKnownEntityReferences(self, specification=None):
         """
-
-        @return list, An @ref entity_reference for each Entities known by the host
-        to be used in the current document, or an empty list if none are known.
+        @return list, An @ref entity_reference for each Entities known
+        by the host to be used in the current document, or an empty list
+        if none are known.
 
         @param specification openassetio.Specification [None] If
-        supplied, then only entities of the supplied specification will be
-        returned.
-
+        supplied, then only entities of the supplied specification will
+        be returned.
         """
         return self.__impl.getKnownEntityReferences(specification=specification)
 

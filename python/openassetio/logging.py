@@ -44,37 +44,34 @@ class LoggerInterface(object):
     @abc.abstractmethod
     def log(self, message, severity):
         """
-
         Logs a message to the user.
 
-        This method must be implemented to present the supplied message to
-        the user in an appropriate fashion.
+        This method must be implemented to present the supplied message
+        to the user in an appropriate fashion.
 
         @param message str, The message string to be logged.
 
-        @param severity int, One of the severity constants defined in @ref openassetio.logging
-
+        @param severity int, One of the severity constants defined in
+        @ref openassetio.logging
         """
         raise NotImplementedError
 
     def progress(self, decimalProgress, message=""):
         """
-
         Logs the progress of a task.
 
         This method should be overridden if you wish to customise the
-        presentation of progress messages beyond the default implementation
-        that simply logs them as any other message.
+        presentation of progress messages beyond the default
+        implementation that simply logs them as any other message.
 
-        @param decimalProgress float, Normalised progress between 0 and 1, if set to
-        a value less than 0 it should be considered cancelled, if greater than one,
-        complete.
+        @param decimalProgress float, Normalised progress between 0 and
+        1, if set to a value less than 0 it should be considered
+        cancelled, if greater than one, complete.
 
-        @param message str, A UTF-8 ASCII string message to display with the
-        progress. If None is supplied, assume that there is no message and any
-        previous message may remain. Set to an empty string if it is desired to
-        always clear any previous message.
-
+        @param message str, A UTF-8 ASCII string message to display with
+        the progress. If None is supplied, assume that there is no
+        message and any previous message may remain. Set to an empty
+        string if it is desired to always clear any previous message.
         """
         msg = "%3d%% %s" % (int(100 * decimalProgress), message if message is not None else "")
         self.log(msg, self.kProgress)
@@ -82,13 +79,12 @@ class LoggerInterface(object):
 
 class SeverityFilter(LoggerInterface):
     """
+    The SeverityFilter is a wrapper for a logger that drops messages
+    below a requested severity. More severe messages are relayed.
 
-    The SeverityFilter is a wrapper for a logger that drops messages below a
-    requested severity. More severe messages are relayed.
-
-    @envvar **FOUNDRY_ASSET_LOGGING_SEVERITY** *[int]* If set, the default
-    displaySeverity for the filter is set to the value of the env var.
-
+    @envvar **FOUNDRY_ASSET_LOGGING_SEVERITY** *[int]* If set, the
+    default displaySeverity for the filter is set to the value of the
+    env var.
     """
 
     def __init__(self, upstreamLogger):
@@ -142,17 +138,16 @@ class ConsoleLogger(LoggerInterface):
 
     def __init__(self, colorOutput=True, forceDefaultStreams=False):
         """
-
         A simple filtered Logger that prints messages to stdout/stderr.
 
-        @param colorOutput bool [True] Make a vague attempt to colour the output using
-        terminal escape codes.
+        @param colorOutput bool [True] Make a vague attempt to colour
+        the output using terminal escape codes.
 
-        @param forceDefaultStreams bool [False] Some applications remap the std outputs. When set,
-        logging will attempt to write to the 'real' sys.stderr and sys.stdout instead
-        of the remapped outputs. If these have been closed, it will fall back to the
+        @param forceDefaultStreams bool [False] Some applications remap
+        the std outputs. When set, logging will attempt to write to the
+        'real' sys.stderr and sys.stdout instead of the remapped
+        outputs. If these have been closed, it will fall back to the
         remapped outputs.
-
         """
         self.__colorOutput = colorOutput
 
