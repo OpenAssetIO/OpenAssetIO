@@ -34,7 +34,8 @@ class Manager(Debuggable):
     session with the appropriate manager @ref identifier.
 
     @code
-    session = openassetio.hostAPI.Session(hostImpl, consoleLogger, pluginFactory)
+    session = openassetio.hostAPI.Session(
+        hostImpl, consoleLogger, pluginFactory)
     session.useManager("org.openassetio.test")
     manager = session.currentManager()
     @endcode
