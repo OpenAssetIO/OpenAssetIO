@@ -47,16 +47,16 @@ class PluginSystem(object):
 
             if not os.path.isdir(path):
                 self.__logger.log(
-                    ("PluginSystem: Omitting '%s' from plug-in search as its not a " + \
-                     "directory") % path, self.__logger.kDebug)
+                    "PluginSystem: Omitting '%s' from plug-in search as"
+                    " its not a directory" % path, self.__logger.kDebug)
 
             for bundle in os.listdir(path):
 
                 bundlePath = os.path.join(path, bundle)
                 if not os.path.isdir(bundlePath):
                     self.__logger.log(
-                        ("PluginSystem: Omitting '%s' as its not a package " + \
-                         "directory") % path, self.__logger.kDebug)
+                        "PluginSystem: Omitting '%s' as its not a package directory" % path,
+                        self.__logger.kDebug)
                     continue
 
                 # Make a unique namespace to ensure the plugin identifier is all that
@@ -72,7 +72,7 @@ class PluginSystem(object):
 
                 except Exception as e:
                     msg = "PluginSystem: Caught exception loading plug-in from '%s':\n%s" % (
-                    bundlePath, e)
+                        bundlePath, e)
                     self.__logger.log(msg, self.__logger.kError)
 
     def identifiers(self):

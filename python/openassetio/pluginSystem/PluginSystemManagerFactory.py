@@ -124,9 +124,9 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
             }
 
             if i != managerIdentifier:
-                msg = ("Manager '%s' is not registered with the same identifier as " + \
-                       "it's plugin ('%s' instead of '%s')") % (interface.getDisplayName(),
-                                                                managerIdentifier, i)
+                msg = ("Manager '%s' is not registered with the same identifier as it's plugin"
+                       " ('%s' instead of '%s')"
+                       % (interface.getDisplayName(), managerIdentifier, i))
                 self._logger.log(msg, self._logger.kWarning)
 
         return managers

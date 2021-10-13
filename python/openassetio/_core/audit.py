@@ -299,7 +299,7 @@ class Auditor(object):
             argsList = methodDict.setdefault(self.kKey_Args, [])
             try:
                 argsList.append(copy.deepcopy(arg))
-            except:
+            except BaseException:
                 pass
 
         # If we have a group, count the method there too. We don't keep args here,
@@ -375,7 +375,8 @@ class Auditor(object):
                 for m, d in itemDict.items():
                     # m will be a method or function (or the count key for the class)
                     # d will be the data for that method
-                    if m == self.kKey_Count: continue
+                    if m == self.kKey_Count:
+                        continue
                     n = m.__name__ if hasattr(m, '__name__') else m
                     s += "    %s (%s)\n" % (n, d.get(self.kKey_Count, 0))
                     # Print the args list for each invocation if we have the data
@@ -385,7 +386,7 @@ class Auditor(object):
                             # Some hosts will raise here based on binding issues, etc...
                             try:
                                 s += "        %r\n" % (a,)
-                            except:
+                            except BaseException:
                                 pass
                         s += "\n"
 
