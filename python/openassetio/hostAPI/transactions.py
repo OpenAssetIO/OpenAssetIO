@@ -84,7 +84,6 @@ class TransactionCoordinator(Debuggable):
         context.actionGroupDepth += 1
         return context.actionGroupDepth
 
-
     @debugApiCall
     @auditApiCall("Transactions")
     def popActionGroup(self, context):
@@ -107,7 +106,6 @@ class TransactionCoordinator(Debuggable):
             self.__manager._finishTransaction(context.managerInterfaceState)
 
         return context.actionGroupDepth
-
 
     @debugApiCall
     @auditApiCall("Transactions")
@@ -135,7 +133,6 @@ class TransactionCoordinator(Debuggable):
 
         return status
 
-
     def actionGroupDepth(self, context):
         """
 
@@ -143,7 +140,6 @@ class TransactionCoordinator(Debuggable):
 
         """
         return context.actionGroupDepth
-
 
     ## @}
 
@@ -177,7 +173,6 @@ class TransactionCoordinator(Debuggable):
         token = self.__manager._freezeState(context.managerInterfaceState)
         return "%i_%s" % (context.actionGroupDepth, token)
 
-
     @auditApiCall("Transactions")
     def thawManagerState(self, token, context):
         """
@@ -209,6 +204,7 @@ class TransactionCoordinator(Debuggable):
 
     ## @}
 
+
 class ScopedActionGroup(object):
     """
 
@@ -233,4 +229,3 @@ class ScopedActionGroup(object):
             self.__transactionCoordinator.cancelActions(self.__context)
         else:
             self.__transactionCoordinator.popActionGroup(self.__context)
-

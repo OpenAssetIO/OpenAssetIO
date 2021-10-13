@@ -29,254 +29,248 @@ from ..exceptions import ManagerError
 from ..logging import LoggerInterface
 
 
-
 __all__ = ['Session']
 
 
 class Session(Debuggable):
-  """
-
-  The Session is the primary mechanism for managing the lifetime of a Manager.
-  A Session should be constructed and persisted for each individual Manager
-  a host wishes to communicate with.
-
-  The useManager() function defines which Manager a session should use, and
-  allows the current manager to be switched, deallocating the old one.
-
-  Session settings can be saved and recalled, this includes the active manager
-  and it's settings. This can be useful for persisting the configuration
-  across host process invocations.
-
-  @see openassetio.hostAPI.Session.getSettings
-  @see openassetio.hostAPI.Session.setSettings
-
-  The Session class is suitable for all Hosts, but in cases where a UI is
-  presented to the user, it may be desirable to use the UISession instead, as
-  it permits access to a Managers widgets etc...
-
-  @see openassetio.hostAPI.SessionManager
-  @see openassetio-ui.UISessionManager
-  @see openassetio-ui.UISession
-
-  """
-
-  def __init__(self, hostInterface: HostInterface, logger: LoggerInterface, managerFactory:  ManagerFactoryInterface):
     """
 
-    @param host openassetio.hostAPI.HostInterface The current HostInterface instance (note: only a single
-    currently active HostInterface is supported, so if multiple sessions are created,
-    they should all use the same HostInterface instance).
+    The Session is the primary mechanism for managing the lifetime of a Manager.
+    A Session should be constructed and persisted for each individual Manager
+    a host wishes to communicate with.
 
-    @param logger openassetio.logging.LoggerInterface The target for all logging output from
-    the session API-level or Manager level messages will all be routed through this object.
-    No severity filtering is performed. Hosts wishing to filter the messages can use the
-    @ref openassetio.logging.SeverityFilter wrapper if desired.
+    The useManager() function defines which Manager a session should use, and
+    allows the current manager to be switched, deallocating the old one.
 
-    @param managerFactory openassetio.hostAPI.ManagerFactoryInterface An in stance of some factory
-    that will provide instances of a manager's ManagerInterface as required by the session.
+    Session settings can be saved and recalled, this includes the active manager
+    and it's settings. This can be useful for persisting the configuration
+    across host process invocations.
 
-      @see useManager()
-      @see currentManager()
-      @see openassetio.logging
-      @see openassetio.hostAPI.ManagerFactoryInterface
-      @see openassetio.pluginSystem.PluginSystsemManagerFactory
-      @see openassetio.hostAPI.SessionManager.SessionManager.currentSession()
+    @see openassetio.hostAPI.Session.getSettings
+    @see openassetio.hostAPI.Session.setSettings
 
-    """
-    super(Session, self).__init__()
+    The Session class is suitable for all Hosts, but in cases where a UI is
+    presented to the user, it may be desirable to use the UISession instead, as
+    it permits access to a Managers widgets etc...
 
-    if not isinstance(hostInterface, HostInterface):
-      raise ValueError( ("The supplied host must be a HostInterface derived "+
-          "class (%s)") % type(hostInterface) )
-
-    self._debugLogFn = logger.log
-
-    ## @todo Should we wrap this here, let the Manager do that? Doing it here
-    # as it means that auditing will account any use of the Host, not just via the Manager
-    self._host = Host(hostInterface)
-    self._host._debugLogFn = logger.log
-
-    self._logger = logger
-
-    self._managerId = None
-    self._managerSettings = None
-
-    self._manager = None
-
-    self._factory = managerFactory
-
-
-  @auditApiCall("Session")
-  def getHost(self):
-    """
-
-    @return HostInterface, the HostInterface that the session was started by.
-
-    """
-    return self._host
-
-
-  @debugApiCall
-  @auditApiCall("Session")
-  def getRegisteredManagers(self):
-    """
-
-    @see openassetio.pluginSystem.PluginSystemManagerFactory.managers()
-
-    """
-    return self._factory.managers()
-
-
-  @auditApiCall("Session")
-  def useManager(self, identifier, settings=None):
-    """
-
-    Configures the session to use the @ref manager with the specified
-    identifier. The managerChanged Event is trigged if the resulting Manager is
-    different to the previous one.
-
-    @param identifier str The Identifier for the desired manager, available
-    from @ref getRegisteredManagers.
-
-    @param settings dict [None], Any settings to pass to the managed before calling
-    initialize. This will be shallow-copied and retained in order to support
-    deferred initialization of the Manager.
-
-    @note The Manager not instantiated until @ref currentManager() is actually
-    called. If the suppled identifier matches the current manager, then the
-    call is ignored.
+    @see openassetio.hostAPI.SessionManager
+    @see openassetio-ui.UISessionManager
+    @see openassetio-ui.UISession
 
     """
 
-    if identifier and not self._factory.managerRegistered(identifier):
-      raise ManagerError( "Unknown Manager '%s'" % identifier )
+    def __init__(
+            self, hostInterface: HostInterface, logger: LoggerInterface,
+            managerFactory: ManagerFactoryInterface):
+        """
 
-    # No need to do anything if its the same
-    if identifier == self._managerId:
-      return
+        @param host openassetio.hostAPI.HostInterface The current HostInterface instance (note: only a single
+        currently active HostInterface is supported, so if multiple sessions are created,
+        they should all use the same HostInterface instance).
 
-    oldId = self._managerId if self._managerId else ''
-    newId = identifier if identifier else ''
+        @param logger openassetio.logging.LoggerInterface The target for all logging output from
+        the session API-level or Manager level messages will all be routed through this object.
+        No severity filtering is performed. Hosts wishing to filter the messages can use the
+        @ref openassetio.logging.SeverityFilter wrapper if desired.
 
-    self._managerId = identifier
-    self._managerSettings = dict(settings) if settings else None
-    self._manager = None
+        @param managerFactory openassetio.hostAPI.ManagerFactoryInterface An in stance of some factory
+        that will provide instances of a manager's ManagerInterface as required by the session.
 
+          @see useManager()
+          @see currentManager()
+          @see openassetio.logging
+          @see openassetio.hostAPI.ManagerFactoryInterface
+          @see openassetio.pluginSystem.PluginSystsemManagerFactory
+          @see openassetio.hostAPI.SessionManager.SessionManager.currentSession()
 
-  def currentManager(self):
-    """
+        """
+        super(Session, self).__init__()
 
-    @return Manager, an instance of the Manager that has been set for this
-    session using @ref useManager(). This will be lazily constructed the first
-    time this function is called, then retained.
+        if not isinstance(hostInterface, HostInterface):
+            raise ValueError(
+                ("The supplied host must be a HostInterface derived " +
+                 "class (%s)") % type(hostInterface))
 
-    """
-    if not self._managerId:
-      return None
+        self._debugLogFn = logger.log
 
-    # Cache this internally to avoid double initializations
-    if not self._manager:
-      interface = self._factory.instantiate(self._managerId)
-      self._manager = Manager(interface, self._hostSession())
-      self._manager._debugLogFn = self._debugLogFn
-      if self._managerSettings:
-        self._manager.setSettings(self._managerSettings)
-      self._manager.initialize()
+        ## @todo Should we wrap this here, let the Manager do that? Doing it here
+        # as it means that auditing will account any use of the Host, not just via the Manager
+        self._host = Host(hostInterface)
+        self._host._debugLogFn = logger.log
 
-    return self._manager
+        self._logger = logger
 
+        self._managerId = None
+        self._managerSettings = None
 
-  @auditApiCall("Session")
-  def createContext(self, parent=None):
-    """
+        self._manager = None
 
-    Creates a new Context with the Session's current Manager.
+        self._factory = managerFactory
 
-    @warning Contexts should never be directly constructed, always use this
-    method to create a new one.
+    @auditApiCall("Session")
+    def getHost(self):
+        """
 
-    @param parent openassetio.Context If supplied, the new context will clone
-    the supplied Context, and the Manager will be given a chance to migrate any
-    meaningful state etc... This can be useful when certain UI elements
-    need to 'take a copy' of a context in its current state. It is not linked
-    to the parent's transaction if one has been created in the parent. The
-    lifetime of any context's transactions are only ever controlled by the
-    context that created them.
+        @return HostInterface, the HostInterface that the session was started by.
 
-    @see openassetio.Context
+        """
+        return self._host
 
-    @exception RuntimeError if called when the session has no current manager.
+    @debugApiCall
+    @auditApiCall("Session")
+    def getRegisteredManagers(self):
+        """
 
-    """
-    c = Context()
+        @see openassetio.pluginSystem.PluginSystemManagerFactory.managers()
 
-    # If we have a parent, copy its setup
-    if parent:
-      c.access = parent.access
-      c.retention = parent.retention
-      c.locale = parent.locale
-      c.managerOptions = parent.managerOptions
+        """
+        return self._factory.managers()
 
-    manager = self.currentManager()
-    if manager is None:
-      raise RuntimeError("Session.createContext called with no current manager")
+    @auditApiCall("Session")
+    def useManager(self, identifier, settings=None):
+        """
 
-    parentState = None
-    if parent:
-      parentState = parent.managerInterfaceState
+        Configures the session to use the @ref manager with the specified
+        identifier. The managerChanged Event is trigged if the resulting Manager is
+        different to the previous one.
 
-    c.managerInterfaceState = manager._createState(parentState)
-    c.actionGroupDepth = 0
+        @param identifier str The Identifier for the desired manager, available
+        from @ref getRegisteredManagers.
 
-    return c
+        @param settings dict [None], Any settings to pass to the managed before calling
+        initialize. This will be shallow-copied and retained in order to support
+        deferred initialization of the Manager.
 
+        @note The Manager not instantiated until @ref currentManager() is actually
+        called. If the suppled identifier matches the current manager, then the
+        call is ignored.
 
-  @auditApiCall("Session")
-  def getSettings(self):
-    """
+        """
 
-    A convenience for persisting a session. It retrieves all session settings,
-    and the manager's settings in one dictionary. The @ref
-    openassetio.constants.kSetting_ManagerIdentifier key is used to hold the
-    identifier of the active manager.
+        if identifier and not self._factory.managerRegistered(identifier):
+            raise ManagerError("Unknown Manager '%s'" % identifier)
 
-    @return dict
+        # No need to do anything if its the same
+        if identifier == self._managerId:
+            return
 
-    """
-    settings = {}
+        oldId = self._managerId if self._managerId else ''
+        newId = identifier if identifier else ''
 
-    manager = self.currentManager()
-    if manager:
-      settings.update(manager.getSettings())
+        self._managerId = identifier
+        self._managerSettings = dict(settings) if settings else None
+        self._manager = None
 
-    settings[constants.kSetting_ManagerIdentifier]  = self._managerId
-    return settings
+    def currentManager(self):
+        """
 
+        @return Manager, an instance of the Manager that has been set for this
+        session using @ref useManager(). This will be lazily constructed the first
+        time this function is called, then retained.
 
-  @auditApiCall("Session")
-  def setSettings(self, settingsDict):
-    """
+        """
+        if not self._managerId:
+            return None
 
-    A convenience to restore the settings for a Session, the @ref
-    openassetio.constants.kSetting_ManagerIdentifier key is used to determine which
-    Manager to instantiate. All other keys are passed to the Manager prior to
-    initialization. If the Manager Identifier key is not present, no manager
-    will be restored.
+        # Cache this internally to avoid double initializations
+        if not self._manager:
+            interface = self._factory.instantiate(self._managerId)
+            self._manager = Manager(interface, self._hostSession())
+            self._manager._debugLogFn = self._debugLogFn
+            if self._managerSettings:
+                self._manager.setSettings(self._managerSettings)
+            self._manager.initialize()
 
-    """
+        return self._manager
 
-    managerIdentifier  = settingsDict.get(constants.kSetting_ManagerIdentifier, None)
-    if managerIdentifier:
-      settingsDict = dict(settingsDict)
-      del settingsDict[constants.kSetting_ManagerIdentifier]
-    self.useManager(managerIdentifier, settingsDict)
+    @auditApiCall("Session")
+    def createContext(self, parent=None):
+        """
 
-  def _hostSession(self):
-    """
+        Creates a new Context with the Session's current Manager.
 
-    @returns a openassetio.managerAPI.HostSession object to proxy
-    this session.
+        @warning Contexts should never be directly constructed, always use this
+        method to create a new one.
 
-    """
-    return HostSession(self._host, self._logger)
-  
+        @param parent openassetio.Context If supplied, the new context will clone
+        the supplied Context, and the Manager will be given a chance to migrate any
+        meaningful state etc... This can be useful when certain UI elements
+        need to 'take a copy' of a context in its current state. It is not linked
+        to the parent's transaction if one has been created in the parent. The
+        lifetime of any context's transactions are only ever controlled by the
+        context that created them.
+
+        @see openassetio.Context
+
+        @exception RuntimeError if called when the session has no current manager.
+
+        """
+        c = Context()
+
+        # If we have a parent, copy its setup
+        if parent:
+            c.access = parent.access
+            c.retention = parent.retention
+            c.locale = parent.locale
+            c.managerOptions = parent.managerOptions
+
+        manager = self.currentManager()
+        if manager is None:
+            raise RuntimeError("Session.createContext called with no current manager")
+
+        parentState = None
+        if parent:
+            parentState = parent.managerInterfaceState
+
+        c.managerInterfaceState = manager._createState(parentState)
+        c.actionGroupDepth = 0
+
+        return c
+
+    @auditApiCall("Session")
+    def getSettings(self):
+        """
+
+        A convenience for persisting a session. It retrieves all session settings,
+        and the manager's settings in one dictionary. The @ref
+        openassetio.constants.kSetting_ManagerIdentifier key is used to hold the
+        identifier of the active manager.
+
+        @return dict
+
+        """
+        settings = {}
+
+        manager = self.currentManager()
+        if manager:
+            settings.update(manager.getSettings())
+
+        settings[constants.kSetting_ManagerIdentifier] = self._managerId
+        return settings
+
+    @auditApiCall("Session")
+    def setSettings(self, settingsDict):
+        """
+
+        A convenience to restore the settings for a Session, the @ref
+        openassetio.constants.kSetting_ManagerIdentifier key is used to determine which
+        Manager to instantiate. All other keys are passed to the Manager prior to
+        initialization. If the Manager Identifier key is not present, no manager
+        will be restored.
+
+        """
+
+        managerIdentifier = settingsDict.get(constants.kSetting_ManagerIdentifier, None)
+        if managerIdentifier:
+            settingsDict = dict(settingsDict)
+            del settingsDict[constants.kSetting_ManagerIdentifier]
+        self.useManager(managerIdentifier, settingsDict)
+
+    def _hostSession(self):
+        """
+
+        @returns a openassetio.managerAPI.HostSession object to proxy
+        this session.
+
+        """
+        return HostSession(self._host, self._logger)

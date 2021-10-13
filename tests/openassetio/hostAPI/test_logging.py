@@ -19,6 +19,7 @@ from unittest import mock
 
 import openassetio.logging as l
 
+
 # The logging mechanism is very much in flux right now, as we move away from
 # singleton/global loggers and to a per-session mechanism. Consequently we are
 # investing in minimal testing here until this has stabilised. Both the design
@@ -29,7 +30,6 @@ import openassetio.logging as l
 # the old API.
 
 def test_LoggerInterface_progress():
-
     logger = l.LoggerInterface()
     logger.log = mock.create_autospec(logger.log)
 
@@ -43,13 +43,13 @@ def test_LoggerInterface_progress():
 def mock_logger():
     return mock.create_autospec(spec=l.LoggerInterface)
 
+
 @pytest.fixture
 def severity_filter(mock_logger):
     return l.SeverityFilter(mock_logger)
 
 
 class TestSeverityFilter():
-
     all_severities = (
         l.LoggerInterface.kDebugAPI,
         l.LoggerInterface.kDebug,
@@ -73,17 +73,16 @@ class TestSeverityFilter():
         # Set
 
         for value, expected in (
-            ("", l.LoggerInterface.kWarning),
-            ("not a valid value", l.LoggerInterface.kWarning),
-            (l.LoggerInterface.kDebugAPI, l.LoggerInterface.kDebugAPI),
-            (l.LoggerInterface.kDebug, l.LoggerInterface.kDebug),
-            (l.LoggerInterface.kInfo, l.LoggerInterface.kInfo),
-            (l.LoggerInterface.kProgress, l.LoggerInterface.kProgress),
-            (l.LoggerInterface.kWarning, l.LoggerInterface.kWarning),
-            (l.LoggerInterface.kError, l.LoggerInterface.kError),
-            (l.LoggerInterface.kCritical, l.LoggerInterface.kCritical)
+                ("", l.LoggerInterface.kWarning),
+                ("not a valid value", l.LoggerInterface.kWarning),
+                (l.LoggerInterface.kDebugAPI, l.LoggerInterface.kDebugAPI),
+                (l.LoggerInterface.kDebug, l.LoggerInterface.kDebug),
+                (l.LoggerInterface.kInfo, l.LoggerInterface.kInfo),
+                (l.LoggerInterface.kProgress, l.LoggerInterface.kProgress),
+                (l.LoggerInterface.kWarning, l.LoggerInterface.kWarning),
+                (l.LoggerInterface.kError, l.LoggerInterface.kError),
+                (l.LoggerInterface.kCritical, l.LoggerInterface.kCritical)
         ):
-
             monkeypatch.setenv(var, str(value))
             f = l.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected

@@ -15,7 +15,7 @@
 #
 
 
-kSupportedMetadataTypes = ( str, int, float, bool, type(None) )
+kSupportedMetadataTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
 ## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managemetPolicy
@@ -106,7 +106,7 @@ kField_HintName = 'nameHint'
 # Image data
 
 kField_PixelColorspace = 'colorspace'
-kField_PixelAspectRatio= 'aspectRatio'
+kField_PixelAspectRatio = 'aspectRatio'
 kField_PixelWidth = 'width'
 kField_PixelHeight = 'height'
 kField_PixelNumChannels = 'numChannels'
@@ -129,7 +129,7 @@ kField_DropFrame = 'dropFrame'
 kField_FieldDominance = 'fieldDominance'
 
 kField_MediaFrameIn = 'mediaInFrame'
-kField_MediaFrameOut ='mediaOutFrame'
+kField_MediaFrameOut = 'mediaOutFrame'
 
 ## @}
 
@@ -170,5 +170,3 @@ kDocumentAction_SaveNewVersion = 'saveNewVersion'
 kVersionDict_OrderKey = '__order__'
 
 ## @}
-
-

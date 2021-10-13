@@ -27,9 +27,11 @@ from openassetio.managerAPI import Host, ManagerInterface
 def mock_host_interface():
     return mock.create_autospec(spec=HostInterface)
 
+
 @pytest.fixture
 def mock_manager_interface():
     return mock.create_autospec(spec=ManagerInterface)
+
 
 @pytest.fixture
 def mock_manager_factory(mock_manager_interface):
@@ -37,9 +39,11 @@ def mock_manager_factory(mock_manager_interface):
     factory.instantiate.return_value = mock_manager_interface
     return factory
 
+
 @pytest.fixture
 def mock_logger():
     return mock.create_autospec(spec=logging.LoggerInterface)
+
 
 @pytest.fixture
 def a_session(mock_host_interface, mock_logger, mock_manager_factory):
@@ -67,7 +71,6 @@ class TestSession():
         mock_manager_factory.managers.assert_called_once_with()
 
     def test_useManager(self, a_session, mock_manager_factory):
-
         # Not testing lifetime management of manager instances here in too much detail
         # As this isn't set in stone, and will change with the `cpp` implementation.
 
@@ -97,7 +100,6 @@ class TestSession():
         mock_manager_factory.managerRegistered.reset_mock()
 
     def test_currentManager(self, a_session, mock_manager_factory, mock_manager_interface):
-
         # Not testing lifetime management of manager instances here in too much detail
         # As this isn't set in stone, and will change with the `cpp` implementation.
 
@@ -156,7 +158,6 @@ class TestSession():
         mock_manager_factory.reset_mock()
 
     def test_createContext(self, a_session, mock_manager_interface):
-
         # No active manager
 
         with pytest.raises(RuntimeError):
@@ -201,10 +202,10 @@ class TestSession():
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
         assert context_b.actionGroupDepth == 0
-        mock_manager_interface.createState.assert_called_once_with(a_host_session, parentState=state_a)
+        mock_manager_interface.createState.assert_called_once_with(
+            a_host_session, parentState=state_a)
 
     def test_getSettings(self, a_session, mock_manager_interface):
-
         settings = a_session.getSettings()
         assert settings == {constants.kSetting_ManagerIdentifier: None}
 
@@ -220,7 +221,6 @@ class TestSession():
         mock_manager_interface.getSettings.assert_called_once()
 
     def test_setSettings(self, a_session, mock_manager_interface, mock_manager_factory):
-
         an_id = "com.manager"
         manager_settings = {"k": "v"}
         some_settings = {constants.kSetting_ManagerIdentifier: an_id}

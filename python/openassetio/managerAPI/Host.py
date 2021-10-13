@@ -37,6 +37,7 @@ class Host(Debuggable):
     provides access to the current host through the @ref HostSession.host() method.
 
     """
+
     def __init__(self, hostInterface: HostInterface):
         """"
 

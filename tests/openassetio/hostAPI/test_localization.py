@@ -19,6 +19,7 @@ import pytest
 import openassetio.hostAPI.localization as l
 from openassetio.managerAPI import ManagerInterface
 
+
 all_localization_keys = (
     l.kLocalizationKey_Asset,
     l.kLocalizationKey_Assets,
@@ -32,7 +33,6 @@ all_localization_keys = (
 
 
 class MockLocalizationManager(ManagerInterface):
-
     kLocalizationKey_custom = "custom"
     kLocalizationValue_custom = "alternative"
 
@@ -87,10 +87,11 @@ def test_defaultTerminology():
 class TestLocalizer:
 
     def test_construction(self, mock_manager):
-
-        custom_terminology = {mock_manager.kLocalizationKey_custom: mock_manager.kLocalizationValue_custom}
+        custom_terminology = {
+            mock_manager.kLocalizationKey_custom: mock_manager.kLocalizationValue_custom}
         a_localizer = l.Localizer(mock_manager, terminology=custom_terminology)
-        assert a_localizer.localizeString("{%s}" % mock_manager.kLocalizationKey_custom) == mock_manager.kLocalizationValue_custom
+        assert a_localizer.localizeString(
+            "{%s}" % mock_manager.kLocalizationKey_custom) == mock_manager.kLocalizationValue_custom
 
     def test_localizeString(self, mock_manager, localizer):
         input = ", ".join(["{%s}" % k for k in all_localization_keys])
