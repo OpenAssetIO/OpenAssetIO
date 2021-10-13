@@ -23,7 +23,7 @@ __all__ = ['TransactionCoordinator', 'ScopedActionGroup']
 
 class TransactionCoordinator(Debuggable):
     """
-    The TransationCoordinator simplifies Host implementation by
+    The TransactionCoordinator simplifies Host implementation by
     providing a stack-like interface around the simple start/stop/cancel
     transaction API exposed by the ManagerInterface.
     """
@@ -139,7 +139,7 @@ class TransactionCoordinator(Debuggable):
     ## restored. A common use of this in in distributed rendering scenarios, where
     ## it is desired to provide stable asset resolution over time.
     ## By distributing the Managers state token to each of job, the Manager can
-    ## snapshot resolution at the time the orignating Context was first created.
+    ## snapshot resolution at the time the originating Context was first created.
     ## @{
 
     @auditApiCall("Transactions")

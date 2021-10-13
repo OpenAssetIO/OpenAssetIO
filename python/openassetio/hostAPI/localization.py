@@ -22,7 +22,7 @@ from .._core.audit import auditApiCall
 # The localization mechanism allows Managers to customise terminology
 # used within the host application.
 # The @ref openassetio.localization.Localizer class allows for
-# more efficitent access to string localization during a Host session,
+# more efficient access to string localization during a Host session,
 # and for the host to provide additional terminology keys.
 #
 
@@ -41,8 +41,8 @@ kLocalizationKey_Shots = 'shots'
 ## @}
 
 ## Default terminology for the API.
-# Hosts may choose to add aditional terminiology keys when
-# construting a @ref openassetio.hostAPI.localization.Localizer,
+# Hosts may choose to add additional terminology keys when
+# constructing a @ref openassetio.hostAPI.localization.Localizer,
 # but there is no expectation that any given manager would
 # customise keys other than the defaultTerminology.
 defaultTerminology = {

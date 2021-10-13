@@ -40,14 +40,14 @@ class UntypedProperty(object):
     is desired.
 
     @param dataName str ['__<id(self)>'] The key to use when storing a
-    value in dataVar. If ommited, this defaults to a prefixed version of
+    value in dataVar. If omitted, this defaults to a prefixed version of
     the id of the object, though this may cause serialisation issues -
     so its recommended that this is set to something meaningful. Some
     objects use Metaclasses to take care of this automatically to avoid
     the developer having to manually match the dataName to the actual
     attribute name.
 
-    @oaram order int [-1] A UI hint as to the 'natural ordering' for
+    @param order int [-1] A UI hint as to the 'natural ordering' for
     this property when it's displayed in a list.
     """
 
