@@ -16,6 +16,7 @@
 
 from .._core.audit import auditApiCall
 
+
 ## @namespace openassetio.localization
 #
 # The localization mechanism allows Managers to customise terminology
@@ -55,7 +56,8 @@ defaultTerminology = {
     kLocalizationKey_Shots: 'Shots',
 }
 
-class Localizer :
+
+class Localizer:
 
     def __init__(self, manager, terminology=defaultTerminology):
         """
@@ -101,7 +103,6 @@ class Localizer :
             pass
         return sourceStr.replace("{", "").replace("}", "")
 
-
     @auditApiCall("Localization")
     def getLocalizedString(self, key, default=''):
         """
@@ -113,7 +114,6 @@ class Localizer :
 
         """
         return self.__terminology.get(key, default)
-
 
     def __localize(self, manager):
 

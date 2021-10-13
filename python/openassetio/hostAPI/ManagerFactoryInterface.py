@@ -18,6 +18,7 @@ from ..logging import LoggerInterface
 
 import abc
 
+
 __all__ = ['ManagerFactoryInterface']
 
 
@@ -39,7 +40,6 @@ class ManagerFactoryInterface(object):
     def __init__(self, logger: LoggerInterface):
         super(ManagerFactoryInterface, self).__init__()
         self._logger = logger
-
 
     @abc.abstractmethod
     def identifiers(self):

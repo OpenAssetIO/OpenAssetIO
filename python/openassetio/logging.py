@@ -22,7 +22,6 @@ import sys
 ##
 # @name Logger Interface
 class LoggerInterface(object):
-
     __metaclass__ = abc.ABCMeta
 
     ##
@@ -91,6 +90,7 @@ class SeverityFilter(LoggerInterface):
     displaySeverity for the filter is set to the value of the env var.
 
     """
+
     def __init__(self, upstreamLogger):
 
         self.__maxSeverity = self.kWarning

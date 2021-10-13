@@ -28,227 +28,213 @@ __all__ = ['SpecificationBase', 'Specification', 'UntypedProperty', 'TypedProper
 
 
 class SpecificationBase(FixedInterfaceObject):
-
-  """
-
-  The simplest of Specifications that just holds the data store, and schema
-  type. This can be used in cases that have no need to work with the data in
-  any type-specific way.
-
-  """
-
-  _data = {}
-
-  def __init__(self, schema, data=None):
-
-    self.__schema = schema
-    # The default for data is None, not {} to avoid mutable defaults issues
-    # This data is written to by the SpecificationProperty class
-    self._data = data if data else {}
-
-
-  def getSchema(self):
     """
 
-    @return str, The schema identifier for the data held in the specification.
+    The simplest of Specifications that just holds the data store, and schema
+    type. This can be used in cases that have no need to work with the data in
+    any type-specific way.
 
     """
-    return self.__schema
 
+    _data = {}
 
-  def getData(self, copy=True):
-    """
+    def __init__(self, schema, data=None):
 
-    @param copy bool, When True (default) then a copy of the data will be
-    returned, rather than a reference, to help avoid mutating the
-    specifications data by accident.
+        self.__schema = schema
+        # The default for data is None, not {} to avoid mutable defaults issues
+        # This data is written to by the SpecificationProperty class
+        self._data = data if data else {}
 
-    @return dict, The data of the specification.
+    def getSchema(self):
+        """
 
-    """
-    if copy:
-      return dict(self._data)
-    else:
-      return self._data
+        @return str, The schema identifier for the data held in the specification.
 
-  def _setSchema(self, schema):
-    self.__schema = schema
+        """
+        return self.__schema
 
-  def __str__(self):
-    data = []
-    for k,v in self._data.items():
-      if v is not None:
-        data.append("'%s':%s" % (k,repr(v)))
-    return "SpecificationBase('%s', {%s})" % (self.__schema, ", ".join(data))
+    def getData(self, copy=True):
+        """
 
+        @param copy bool, When True (default) then a copy of the data will be
+        returned, rather than a reference, to help avoid mutating the
+        specifications data by accident.
 
-  def __repr__(self):
-    return str(self)
+        @return dict, The data of the specification.
+
+        """
+        if copy:
+            return dict(self._data)
+        else:
+            return self._data
+
+    def _setSchema(self, schema):
+        self.__schema = schema
+
+    def __str__(self):
+        data = []
+        for k, v in self._data.items():
+            if v is not None:
+                data.append("'%s':%s" % (k, repr(v)))
+        return "SpecificationBase('%s', {%s})" % (self.__schema, ", ".join(data))
+
+    def __repr__(self):
+        return str(self)
 
 
 class Specification(SpecificationBase):
-  """
-
-  The simplest form of Specification in common use. It extends the base
-  specification to better define the schema.
-
-  If introduces the notion that the @ref specification schema consists of two
-  parts, separated by a token - the 'prefix' and 'type'. For example:
-
-    @li `core.locale:image.catalog`
-    @li **prefix**: `core.locale`
-    @li **type**: `image.catalog`
-
-  This is to allow common prefixes to be best represented by a single
-  derived class. For example, several locales would have different
-  types, but the same prefix. This allows the generic @ref
-  openassetio.specifications.LocaleSpecification to be used to
-  manipulate these objects.
-
-  Types should also be hierarchical, in a way that indicates compatibility with
-  the class hierarchy.  It should be that a file.image.texture can degenerate
-  into a file.image if necessary. As such, a properties of a more derived
-  specification should always be a superset of any other specification
-  indicated by its 'type'.
-
-  The @ref SpecificationFactory understands the concept of prefixes, etc...
-  when wrapping on instantiating a Specification from data.
-
-  """
-  __metaclass__ = SpecificationFactory
-
-  _prefix = "core"
-  _type = ""
-  __kPrefixSeparator = ':'
-
-
-  def __init__(self, data=None):
-    schema = self.generateSchema(self._prefix, self._type)
-    super(Specification, self).__init__(schema, data)
-
-
-  def __str__(self):
-    data = []
-    for k,v in self._data.items():
-      if v is not None:
-        data.append("'%s':%s" % (k,repr(v)))
-    return "%s({%s})" % (self.__class__.__name__, ", ".join(data))
-
-
-  def __repr__(self):
-    return str(self)
-
-
-  def isOfType(self, typeOrTypes, includeDerived=True, prefix=None):
     """
 
-    Returns whether the specification is of a requested type, by comparison of
-    the type string.
+    The simplest form of Specification in common use. It extends the base
+    specification to better define the schema.
 
-    @param typeOrTypes, [str or Specification, or list of] The types to
-    compare against. eg:
-     @code
-        spec.isOfType(openassetio.specifications.FileSpecification)
-        spec.isOfType(('file', 'group.shot'), includeDerived=True)
-     @endcode
+    If introduces the notion that the @ref specification schema consists of two
+    parts, separated by a token - the 'prefix' and 'type'. For example:
 
-    @param includeDerived bool, If True, then the match will include any
-    specifialisations of the supplied type. For example if you used a
-    typeString of "file", a specification of type "file.image" would still
-    match. If this is false, it must be the exact type match.
+      @li `core.locale:image.catalog`
+      @li **prefix**: `core.locale`
+      @li **type**: `image.catalog`
 
-    @param prefix str, An optional prefix string, to allow complete comparison
-    of the schema, not just the type.
+    This is to allow common prefixes to be best represented by a single
+    derived class. For example, several locales would have different
+    types, but the same prefix. This allows the generic @ref
+    openassetio.specifications.LocaleSpecification to be used to
+    manipulate these objects.
 
-    @note This call doesn't not consider the 'prefix' of the Specification,
-    unless the additional 'prefix' argument is supplied.
+    Types should also be hierarchical, in a way that indicates compatibility with
+    the class hierarchy.  It should be that a file.image.texture can degenerate
+    into a file.image if necessary. As such, a properties of a more derived
+    specification should always be a superset of any other specification
+    indicated by its 'type'.
 
-    """
-    if self._type and self._prefix:
-      ourPrefix = self._prefix
-      ourType = self._type
-    else:
-      ourPrefix, ourType = self.schemaComponents()
-
-    if prefix and not prefix == ourPrefix:
-      return False
-
-    if not isinstance(typeOrTypes, (list, tuple)):
-      typeOrTypes = (typeOrTypes,)
-
-    for t in typeOrTypes:
-      if inspect.isclass(t) and issubclass(t, Specification):
-        t = t._type
-      if includeDerived:
-        if ourType.startswith(t):
-          return True
-      elif ourType == t:
-          return True
-
-    return False
-
-
-  def getField(self, name, defaultValue=None):
-    """
-
-    Fetches the property from the specification, if present, otherwise returns
-    the default value.
-
-    This is short hand for the following code, that avoids either copying the
-    data, or exposing the mutable data dictionary. Consequently, it should be
-    used by preference.
-
-    @code
-    data = specification.getData(copy=False).get(name, defaultValue)
-    @endcode
+    The @ref SpecificationFactory understands the concept of prefixes, etc...
+    when wrapping on instantiating a Specification from data.
 
     """
-    return self._data.get(name, defaultValue)
+    __metaclass__ = SpecificationFactory
 
-  @classmethod
-  def generateSchema(cls, prefix, type):
-    """
+    _prefix = "core"
+    _type = ""
+    __kPrefixSeparator = ':'
 
-    To be used over naive string concatenation to build a schema string.
+    def __init__(self, data=None):
+        schema = self.generateSchema(self._prefix, self._type)
+        super(Specification, self).__init__(schema, data)
 
-    @return str, The schema string for the given prefix and type.
+    def __str__(self):
+        data = []
+        for k, v in self._data.items():
+            if v is not None:
+                data.append("'%s':%s" % (k, repr(v)))
+        return "%s({%s})" % (self.__class__.__name__, ", ".join(data))
 
-    """
-    return "%s%s%s" % (prefix, cls.__kPrefixSeparator, type)
+    def __repr__(self):
+        return str(self)
 
+    def isOfType(self, typeOrTypes, includeDerived=True, prefix=None):
+        """
 
-  @classmethod
-  def schemaComponents(cls, schema):
-    """
+        Returns whether the specification is of a requested type, by comparison of
+        the type string.
 
-    Splits a schema string into a prefix, type tuple. Should be used over
-    manual attempts at tokenization.
+        @param typeOrTypes, [str or Specification, or list of] The types to
+        compare against. eg:
+         @code
+            spec.isOfType(openassetio.specifications.FileSpecification)
+            spec.isOfType(('file', 'group.shot'), includeDerived=True)
+         @endcode
 
-    @return tuple, (prefix, type), The prefix will be an empty string if there
-    is none.
+        @param includeDerived bool, If True, then the match will include any
+        specifialisations of the supplied type. For example if you used a
+        typeString of "file", a specification of type "file.image" would still
+        match. If this is false, it must be the exact type match.
 
-    """
-    if cls.__kPrefixSeparator in schema:
-      return schema.rsplit(cls.__kPrefixSeparator, 1)
-    else:
-      return "", schema
+        @param prefix str, An optional prefix string, to allow complete comparison
+        of the schema, not just the type.
 
+        @note This call doesn't not consider the 'prefix' of the Specification,
+        unless the additional 'prefix' argument is supplied.
 
-  def getPrefix(self):
-    """
+        """
+        if self._type and self._prefix:
+            ourPrefix = self._prefix
+            ourType = self._type
+        else:
+            ourPrefix, ourType = self.schemaComponents()
 
-    @return str, the prefix of this specifications schema, or an empty string.
+        if prefix and not prefix == ourPrefix:
+            return False
 
-    """
-    return self.schemaComponents(self.__schema)[0]
+        if not isinstance(typeOrTypes, (list, tuple)):
+            typeOrTypes = (typeOrTypes,)
 
+        for t in typeOrTypes:
+            if inspect.isclass(t) and issubclass(t, Specification):
+                t = t._type
+            if includeDerived:
+                if ourType.startswith(t):
+                    return True
+            elif ourType == t:
+                return True
 
-  def getType(self):
-    """
+        return False
 
-    @return str, the schemas type, without prefix or separator token.
+    def getField(self, name, defaultValue=None):
+        """
 
-    """
-    return self.schemaComponents(self.__schema)[1]
+        Fetches the property from the specification, if present, otherwise returns
+        the default value.
 
+        This is short hand for the following code, that avoids either copying the
+        data, or exposing the mutable data dictionary. Consequently, it should be
+        used by preference.
 
+        @code
+        data = specification.getData(copy=False).get(name, defaultValue)
+        @endcode
+
+        """
+        return self._data.get(name, defaultValue)
+
+    @classmethod
+    def generateSchema(cls, prefix, type):
+        """
+
+        To be used over naive string concatenation to build a schema string.
+
+        @return str, The schema string for the given prefix and type.
+
+        """
+        return "%s%s%s" % (prefix, cls.__kPrefixSeparator, type)
+
+    @classmethod
+    def schemaComponents(cls, schema):
+        """
+
+        Splits a schema string into a prefix, type tuple. Should be used over
+        manual attempts at tokenization.
+
+        @return tuple, (prefix, type), The prefix will be an empty string if there
+        is none.
+
+        """
+        if cls.__kPrefixSeparator in schema:
+            return schema.rsplit(cls.__kPrefixSeparator, 1)
+        else:
+            return "", schema
+
+    def getPrefix(self):
+        """
+
+        @return str, the prefix of this specifications schema, or an empty string.
+
+        """
+        return self.schemaComponents(self.__schema)[0]
+
+    def getType(self):
+        """
+
+        @return str, the schemas type, without prefix or separator token.
+
+        """
+        return self.schemaComponents(self.__schema)[1]

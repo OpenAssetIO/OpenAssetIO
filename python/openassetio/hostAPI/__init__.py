@@ -22,6 +22,6 @@
 # If you are wanting to provide support for an asset management system, @see openassetio.managerAPI
 #
 from .HostInterface import HostInterface
-from .Manager import  Manager
+from .Manager import Manager
 from .ManagerFactoryInterface import ManagerFactoryInterface
 from .Session import Session

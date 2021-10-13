@@ -22,17 +22,21 @@ from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import HostInterface
 from openassetio.managerAPI import Host
 
+
 @pytest.fixture
 def mock_host_interface():
     return mock.create_autospec(spec=HostInterface)
+
 
 @pytest.fixture
 def host(mock_host_interface):
     return Host(mock_host_interface)
 
+
 @pytest.fixture()
 def an_entity_spec():
     return EntitySpecification()
+
 
 @pytest.fixture()
 def a_context():

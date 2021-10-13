@@ -21,151 +21,145 @@ __all__ = ['HostInterface']
 
 
 class HostInterface(object):
-  """
-
-  The HostInterface provides an abstraction of the 'caller of the API'.
-  Colloquially, we refer to this as the '@ref host'. This may be a simple
-  pipeline tool, or a full content creation application.
-
-  The HostInterface provides a generic mechanism for a @ref manager
-  to query information about the identity of the host, its available
-  documents and the @ref entities they may reference.
-
-  In order for a host to use the API, it must provide an implementation
-  of the HostInterface to the @ref openassetio.hostAPI.Session class
-  upon construction.
-
-  A @ref manager does not call the HostInterface directly, it is always
-  accessed via the @ref openassetio.managerAPI.Host wrapper. This allows the
-  API to insert suitable house-keeping and auditing functionality in between.
-
-  """
-
-  def __init__(self):
-    super(HostInterface, self).__init__()
-
-  ##
-  # @name Host Information
-  #
-  ## @{
-
-  @auditApiCall("HostInterface")
-  def getIdentifier(self):
     """
 
-    Returns an identifier that uniquely identifies the Host.
+    The HostInterface provides an abstraction of the 'caller of the API'.
+    Colloquially, we refer to this as the '@ref host'. This may be a simple
+    pipeline tool, or a full content creation application.
 
-    This may be used by a Manager's @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" adjust its behaviour
-    accordingly. The identifier should be unique for any application, but
-    common to all versions.
+    The HostInterface provides a generic mechanism for a @ref manager
+    to query information about the identity of the host, its available
+    documents and the @ref entities they may reference.
 
-    The identifier should use only alpha-numeric characters and '.', '_' or '-'.
-    We suggest using the "reverse DNS" style, for example:
+    In order for a host to use the API, it must provide an implementation
+    of the HostInterface to the @ref openassetio.hostAPI.Session class
+    upon construction.
 
-        "com.foundry.katana"
-
-    @return str
-
-    """
-    raise NotImplementedError
-
-
-  @auditApiCall("HostInterface")
-  def getDisplayName(self):
-    """
-
-    Returns a human readable name to be used to reference this specific
-    host in user-facing presentations.
-
-        "Katana"
-
-    @return str
+    A @ref manager does not call the HostInterface directly, it is always
+    accessed via the @ref openassetio.managerAPI.Host wrapper. This allows the
+    API to insert suitable house-keeping and auditing functionality in between.
 
     """
-    raise NotImplementedError
 
+    def __init__(self):
+        super(HostInterface, self).__init__()
 
-  @auditApiCall("HostInterface")
-  def getInfo(self):
-    """
+    ##
+    # @name Host Information
+    #
+    ## @{
 
-    Returns other information that may be useful about this Host.  This can
-    contain arbitrary key/value pairs. Managers never rely directly on any
-    particular keys being set here, but the information may be useful for
-    diagnostic or debugging purposes. For example:
+    @auditApiCall("HostInterface")
+    def getIdentifier(self):
+        """
 
-        { 'version' : '1.1v3' }
+        Returns an identifier that uniquely identifies the Host.
 
-    @return Dict[str, pod]
+        This may be used by a Manager's @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" adjust its behaviour
+        accordingly. The identifier should be unique for any application, but
+        common to all versions.
 
-    @todo Definitions for well-known keys such as 'version' etc.
+        The identifier should use only alpha-numeric characters and '.', '_' or '-'.
+        We suggest using the "reverse DNS" style, for example:
 
-    """
-    return {}
+            "com.foundry.katana"
 
+        @return str
 
-  ## @}
+        """
+        raise NotImplementedError
 
+    @auditApiCall("HostInterface")
+    def getDisplayName(self):
+        """
 
-  @auditApiCall("HostInterface")
-  def getDocumentReference(self):
-    """
+        Returns a human readable name to be used to reference this specific
+        host in user-facing presentations.
 
-    Returns the path, or @ref entity_reference of the current document, or
-    an empty string if not applicable. If a Host supports multiple concurrent
-    documents, it should be the 'front-most' one. If there is no meaningful
-    document reference, then an empty string should be returned.
+            "Katana"
 
-    @todo Update to properly support multiple documents
+        @return str
 
-    @return str A path or @ref entity_reference.
+        """
+        raise NotImplementedError
 
-    """
-    return ''
+    @auditApiCall("HostInterface")
+    def getInfo(self):
+        """
 
+        Returns other information that may be useful about this Host.  This can
+        contain arbitrary key/value pairs. Managers never rely directly on any
+        particular keys being set here, but the information may be useful for
+        diagnostic or debugging purposes. For example:
 
-  ##
-  # @name Entity Reference retrieval
-  #
-  ## @{
+            { 'version' : '1.1v3' }
 
-  @auditApiCall("HostInterface")
-  def getKnownEntityReferences(self, specification=None):
-    """
+        @return Dict[str, pod]
 
-    Returns an @ref entity_reference for each Entities known to the host
-    that are used in the current document, or an empty list if none are known.
+        @todo Definitions for well-known keys such as 'version' etc.
 
-    @param specification openassetio.Specification [None] If
-    supplied, then only entities of the supplied specification should be
-    returned.
+        """
+        return {}
 
-    @return List[@ref entity_reference] References discovered in the current document.
+    ## @}
 
-    @todo Update to support multiple documents
+    @auditApiCall("HostInterface")
+    def getDocumentReference(self):
+        """
 
-    """
-    return []
+        Returns the path, or @ref entity_reference of the current document, or
+        an empty string if not applicable. If a Host supports multiple concurrent
+        documents, it should be the 'front-most' one. If there is no meaningful
+        document reference, then an empty string should be returned.
 
+        @todo Update to properly support multiple documents
 
-  @auditApiCall("HostInterface")
-  def getEntityReferenceForItem(self, item, allowRelated=False):
-    """
+        @return str A path or @ref entity_reference.
 
-    This should be capable of taking any item that may be set in a
-    locale/etc... or a Host-native API object and returning an @ref
-    entity_reference for it, if applicable.
+        """
+        return ''
 
-    @param allowRelated bool, If True, the Host can return a reference for some
-    parent or child or relation of the supplied item, if applicable. This can
-    be useful for broadening the area of search in less specific cases.
+    ##
+    # @name Entity Reference retrieval
+    #
+    ## @{
 
-    @return str, An @ref entity_reference of an empty string if no applicable
-    Entity Reference could be determined for the supplied item.
+    @auditApiCall("HostInterface")
+    def getKnownEntityReferences(self, specification=None):
+        """
 
-    @todo Update to support multiple documents
+        Returns an @ref entity_reference for each Entities known to the host
+        that are used in the current document, or an empty list if none are known.
 
-    """
-    return ''
+        @param specification openassetio.Specification [None] If
+        supplied, then only entities of the supplied specification should be
+        returned.
 
-  ## @}
+        @return List[@ref entity_reference] References discovered in the current document.
+
+        @todo Update to support multiple documents
+
+        """
+        return []
+
+    @auditApiCall("HostInterface")
+    def getEntityReferenceForItem(self, item, allowRelated=False):
+        """
+
+        This should be capable of taking any item that may be set in a
+        locale/etc... or a Host-native API object and returning an @ref
+        entity_reference for it, if applicable.
+
+        @param allowRelated bool, If True, the Host can return a reference for some
+        parent or child or relation of the supplied item, if applicable. This can
+        be useful for broadening the area of search in less specific cases.
+
+        @return str, An @ref entity_reference of an empty string if no applicable
+        Entity Reference could be determined for the supplied item.
+
+        @todo Update to support multiple documents
+
+        """
+        return ''
+
+    ## @}
