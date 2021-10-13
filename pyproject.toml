@@ -1,0 +1,22 @@
+[tool.pylint.format]
+max-line-length = 99
+
+[tool.pylint.basic]
+#module-naming-style = "camelCase"
+argument-naming-style = "camelCase"
+#attr-naming-style = "camelCase"
+#function-naming-style = "camelCase"
+#method-naming-style = "camelCase"
+#const-naming-style = "camelCase"
+class-const-naming-style = "camelCase"
+variable-naming-style = "camelCase"
+
+# Support both camelCase and PascalCase for modules
+module-rgx = "_?([a-z]|[A-Z])+([A-Z][a-z0-9]*)*"
+# camelCase doesn't include "__camelCase" or "test_camelCase"
+attr-rgx = "_?_?[a-z0-9]+([A-Z][a-z0-9]*)*"
+method-rgx = "(_?_|test_)?[a-z0-9]+([A-Z][a-z0-9]*)*"
+function-rgx = "(_|test_)?[a-z0-9]+([A-Z][a-z0-9]*)*"
+# C++ style constants, e.g. `kThing_SubThing`.
+const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
+class-const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
