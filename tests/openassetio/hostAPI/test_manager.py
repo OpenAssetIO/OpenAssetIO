@@ -324,7 +324,8 @@ class TestManager():
         some_string = "primary string"
         some_meta = {"k": "v"}
 
-        # the return value is used in the setEntityMetadata call so we need it to provide an actual ref we know
+        # the return value is used in the setEntityMetadata call so we
+        # need it to provide an actual ref we know
         mutated_ref = f"{a_ref}-registered"
         register_method.return_value = mutated_ref
 

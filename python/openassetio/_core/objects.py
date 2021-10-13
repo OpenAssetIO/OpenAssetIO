@@ -112,9 +112,13 @@ class FixedInterfaceObject(object):
 
     def __init__(self):
         super(FixedInterfaceObject, self).__init__()
+
         # We need to set any default values of the properties here, so that they
         # will be available in the data var by default too
-        predicate = lambda m: isinstance(m, objectSystem.UntypedProperty)
+
+        def predicate(m):
+            return isinstance(m, objectSystem.UntypedProperty)
+
         members = inspect.getmembers(self.__class__, predicate)
         for name, prop in members:
             if prop.initialValue is not None:
@@ -139,11 +143,16 @@ class FixedInterfaceObject(object):
         @return list, A list of property names, sorted by their
         specified order.
         """
-        predicate = lambda m: isinstance(m, objectSystem.UntypedProperty)
+
+        def predicate(m):
+            return isinstance(m, objectSystem.UntypedProperty)
+
         members = inspect.getmembers(cls, predicate)
 
         # We want to sort by the 'order' key if its greater than -1
-        sortFn = lambda p: p[1].order if p[1].order > -1 else 9999999
+        def sortFn(p):
+            return p[1].order if p[1].order > -1 else 9999999
+
         members.sort(key=sortFn)
 
         # Extract the names from the now sorted tuple list

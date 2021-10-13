@@ -1226,11 +1226,12 @@ class ManagerInterface(object):
     # A single 'task' in a host, may require more than one interaction with
     # the asset management system.
     #
-    # Because the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" is effectively state-less. To simplify
-    # error handling, and allow an implementation to know which interactions are
-    # related, this API supports the concept of a @ref manager_state object. This
-    # is contained in every @ref Context and passed to relevant
-    # calls.
+    # Because the @ref openassetio.managerAPI.ManagerInterface
+    # "ManagerInterface" is effectively state-less. To simplify error
+    # handling, and allow an implementation to know which interactions
+    # are related, this API supports the concept of a @ref manager_state
+    # object. This is contained in every @ref Context and passed to
+    # relevant calls.
     #
     # This mechanism may be used for a variety of purposes. For example, it
     # could ensure that queries are made from a coherent time stamp during a

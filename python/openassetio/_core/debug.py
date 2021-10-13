@@ -118,7 +118,8 @@ def debugApiCall(function):
 def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     if not isinstance(self, Debuggable):
         raise RuntimeError(
-            "Debug tracing methods can only be used on instances of a class derived from Debuggable")
+            "Debug tracing methods can only be used on instances of a"
+            " class derived from Debuggable")
 
     # function and traceFn are provided so that when the function is wrapped,
     # traceFn is printed to the log, but function (usually the wrapper) is
