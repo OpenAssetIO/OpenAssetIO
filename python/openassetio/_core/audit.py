@@ -51,10 +51,7 @@ reprArgs = False
 
 def auditor():
     """
-
     Returns a singleton Auditor, created on demand.
-
-
     """
     global __auditor
     if not __auditor:
@@ -67,10 +64,8 @@ def auditor():
 
 def auditCall(function):
     """
-
-    A decorator to log a method, as long as auditCalls is True, with no other
-    special logic.
-
+    A decorator to log a method, as long as auditCalls is True, with no
+    other special logic.
     """
 
     @functools.wraps(function)
@@ -91,22 +86,20 @@ def auditCall(function):
 
 def auditApiCall(group=None, static=False):
     """
+    A decorator to log a method as long as auditCalls is True, parsing
+    the methods args and kwargs with an understanding of the various
+    objects used in the openassetio. This of this as being analogous to
+    'statefull packet inspection'.
 
-    A decorator to log a method as long as auditCalls is True, parsing the
-    methods args and kwargs with an understanding of the various objects used in
-    the openassetio. This of this as being analogous to 'statefull packet
-    inspection'.
-
-    If auditCalls is False, functions will not be wrapped so docstrings are not
-    obfuscated and the call stack isn't bloated. Because wrapping happens when
-    the Class is parsed, for auditing to ever be enabled, it has to be set by the
-    environment variable so that it's true before other classes are loaded from
-    their modules. Otherwise, its too late to turn it on once the import has
-    completed.
+    If auditCalls is False, functions will not be wrapped so docstrings
+    are not obfuscated and the call stack isn't bloated. Because
+    wrapping happens when the Class is parsed, for auditing to ever be
+    enabled, it has to be set by the environment variable so that it's
+    true before other classes are loaded from their modules. Otherwise,
+    its too late to turn it on once the import has completed.
 
     @param group str, an optional group name to log the call under @ref
     Auditor.addMethod
-
     """
 
     def _wrapAuditApiCall(function):
@@ -150,12 +143,10 @@ def auditApiCall(group=None, static=False):
 
 def __auditObj(a, obj):
     """
-
-    Performs additional auditing of the supplied argument, including inspection
-    of lists/dicts, and the various properties of a Context.
+    Performs additional auditing of the supplied argument, including
+    inspection of lists/dicts, and the various properties of a Context.
 
     @param a Auditor, The Auditor to receive data
-
     """
 
     # Here to prevent cyclic dependencies
@@ -205,13 +196,11 @@ def __prepareArgs(args, kwargs):
 
 class Auditor(object):
     """
-
-    This class provides a quick-and-dirty accounting mechanism for Class,
-    method and object usage. The idea is to look at the extents of usage, rather
-    than any kind of realtime reporting.
+    This class provides a quick-and-dirty accounting mechanism for
+    Class, method and object usage. The idea is to look at the extents
+    of usage, rather than any kind of realtime reporting.
 
     Raw coverage data is accessible, or can be sprinted to a string.
-
     """
 
     kKey_Count = '__count__'
@@ -235,17 +224,16 @@ class Auditor(object):
 
     def addClass(self, obj, group=None):
         """
-
         Adds usage of the supplied Class.
 
-        @param obj instance or class, The Class to record will ultimately be
-        determined by inspection of __class__ or type() on this object or its base.
+        @param obj instance or class, The Class to record will
+        ultimately be determined by inspection of __class__ or type() on
+        this object or its base.
 
-        @param group str [None], If supplied, the Class's usage will also be counted in
-        the supplied group.
+        @param group str [None], If supplied, the Class's usage will
+        also be counted in the supplied group.
 
         @return dict, The coverage data dict for the Class
-
         """
         if not self.__enabled:
             return
@@ -268,26 +256,24 @@ class Auditor(object):
 
     def addMethod(self, instanceMethod, obj=None, group=None, arg=None):
         """
-
         Adds usage of a method.
 
-        @param instanceMethod object, The function or bound method that you will to
-        count.
+        @param instanceMethod object, The function or bound method that
+        you will to count.
 
-        @param obj object [None], If supplied the parent Class for the method will
-        be determined from this object, rather than from introspection of the
-        instanceMethod arg.
+        @param obj object [None], If supplied the parent Class for the
+        method will be determined from this object, rather than from
+        introspection of the instanceMethod arg.
 
-        @prarm group str, If supplied, a count will also be registered for the
-        method under this group (note: for groups, the parent Class usage isn't
-        recorded).
+        @prarm group str, If supplied, a count will also be registered
+        for the method under this group (note: for groups, the parent
+        Class usage isn't recorded).
 
-        @param arg dict [{}] Can contain the args passed to the method at the time
-        of invocation, these will be stored as an array under the kKey_Args key in
-        the functions coverage dict.
+        @param arg dict [{}] Can contain the args passed to the method
+        at the time of invocation, these will be stored as an array
+        under the kKey_Args key in the functions coverage dict.
 
         @return dict, The coverage data dict for the method
-
         """
 
         if not self.__enabled:
@@ -328,15 +314,13 @@ class Auditor(object):
 
     def addObj(self, obj, group=None):
         """
+        Simply count the usage of 'something'. Doesn't really matter
+        what, as long as its hashable so can be used as a key in a dict.
 
-        Simply count the usage of 'something'. Doesn't really matter what, as long
-        as its hashable so can be used as a key in a dict.
-
-        @param group str [None], If supplied, a count will also be recorded under
-        the named group.
+        @param group str [None], If supplied, a count will also be
+        recorded under the named group.
 
         @return dict, The coverage dict for the object.
-
         """
 
         if not self.__enabled:
@@ -354,33 +338,29 @@ class Auditor(object):
 
     def coverage(self):
         """
-
-        @return dict, The main coverage data dict with all data since the last
-        reset. It is a hierarchical dictionary where at any level two keys
-        represent the coverage data: kKey_Count (int) and kKey_Args (list). Other
-        keys in the dict represent child counts. For example top-level keys are
-        Classes or arbitrary objects. Other keys under a Class dict are the methods
-        of that Class.
-
+        @return dict, The main coverage data dict with all data since
+        the last reset. It is a hierarchical dictionary where at any
+        level two keys represent the coverage data: kKey_Count (int) and
+        kKey_Args (list). Other keys in the dict represent child counts.
+        For example top-level keys are Classes or arbitrary objects.
+        Other keys under a Class dict are the methods of that Class.
         """
         return self.__coverage
 
     def groups(self):
         """
-
-        @return dict, As per coverage, except the Grouping dict is returned. If no
-        grouped counts have been made, this will be empty. Otherwise, the top-level
-        keys will be group names, and values will be a dictionary of coverage dicts
-        for arbitrary objects.
-
+        @return dict, As per coverage, except the Grouping dict is
+        returned. If no grouped counts have been made, this will be
+        empty. Otherwise, the top-level keys will be group names, and
+        values will be a dictionary of coverage dicts for arbitrary
+        objects.
         """
         return self.__groups
 
     def sprintCoverage(self, groupsOnly=False):
         """
-
-        @return str, A multi-line formatted string containing recorded coverage.
-
+        @return str, A multi-line formatted string containing recorded
+        coverage.
         """
 
         s = ""

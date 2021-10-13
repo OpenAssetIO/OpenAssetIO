@@ -50,10 +50,8 @@ enableDebugDecorators = os.environ.get("FOUNDRY_ASSET_API_DEBUG", "1") != "0"
 
 class Debuggable:
     """
-
-    A base class for any objects that you with to make use of the debug decorators
-    with.
-
+    A base class for any objects that you with to make use of the debug
+    decorators with.
     """
 
     ## If enabled, decorated calls on the object will be logged
@@ -64,10 +62,9 @@ class Debuggable:
 
 def debugCall(function):
     """
-
-    Use as a decorator to trace usage of the decorated function though the kDebug
-    logging severity. This should only be used on bound methods.
-
+    Use as a decorator to trace usage of the decorated function though
+    the kDebug logging severity. This should only be used on bound
+    methods.
     """
 
     # Early out if we're not enabled
@@ -157,10 +154,8 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
 
 class _Timer(object):
     """
-
-    A simple timer object that can be used, for, er, timing things from a
-    wall-clock point of view.
-
+    A simple timer object that can be used, for, er, timing things from
+    a wall-clock point of view.
     """
 
     def __init__(self):

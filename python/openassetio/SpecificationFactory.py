@@ -22,10 +22,9 @@ __all__ = ['SpecificationFactory']
 
 class SpecificationFactory(type):
     """
-
-    The Factory provides facility to create Specifications of the most derived
-    class. Useful when restoring data from an @ref entity for specific use.
-
+    The Factory provides facility to create Specifications of the most
+    derived class. Useful when restoring data from an @ref entity for
+    specific use.
     """
 
     classMap = {}
@@ -50,13 +49,11 @@ class SpecificationFactory(type):
     @classmethod
     def instantiate(cls, schema, data):
         """
-
-        Creates a new Specification that contains the supplied data. The most
-        derived class that matches the schema will be used. If no class has been
-        registered with the exact scheme, then attempts will be made to find a
-        class that matches the prefix. If all attempts fail, a @ref
-        SpecificationBase will be used.
-
+        Creates a new Specification that contains the supplied data. The
+        most derived class that matches the schema will be used. If no
+        class has been registered with the exact scheme, then attempts
+        will be made to find a class that matches the prefix. If all
+        attempts fail, a @ref SpecificationBase will be used.
         """
 
         from .Specification import SpecificationBase, Specification

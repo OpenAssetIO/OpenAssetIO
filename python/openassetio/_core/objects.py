@@ -23,30 +23,32 @@ __all__ = ['UntypedProperty', 'TypedProperty', 'FixedInterfaceObject']
 
 class UntypedProperty(object):
     """
+    The Property classes form the basis for the FixedInterfaceObject.
+    They implement a Python property, and store the data in the
+    instances dataVar. Docstrings can also be provided to improve help()
+    output.
 
-    The Property classes form the basis for the FixedInterfaceObject. They
-    implement a Python property, and store the data in the instances dataVar.
-    Docstrings can also be provided to improve help() output.
+    @param initVal, An initial value for the property if None is not
+    supported.
 
-    @param initVal, An initial value for the property if None is not supported.
+    @param doc str, A docstring for the property that will be printed
+    when help() is called on the object.
 
-    @param doc str, A docstring for the property that will be printed when
-    help() is called on the object.
+    @param dataVar str ['__dict__'] The instance dict attribute that
+    should be used to hold the properties data. It defaults to the
+    objects __dict__, but could be something else if de-coupled storage
+    is desired.
 
-    @param dataVar str ['__dict__'] The instance dict attribute that should be
-    used to hold the properties data. It defaults to the objects __dict__, but
-    could be something else if de-coupled storage is desired.
+    @param dataName str ['__<id(self)>'] The key to use when storing a
+    value in dataVar. If ommited, this defaults to a prefixed version of
+    the id of the object, though this may cause serialisation issues -
+    so its recommended that this is set to something meaningful. Some
+    objects use Metaclasses to take care of this automatically to avoid
+    the developer having to manually match the dataName to the actual
+    attribute name.
 
-    @param dataName str ['__<id(self)>'] The key to use when storing a value in
-    dataVar. If ommited, this defaults to a prefixed version of the id of the
-    object, though this may cause serialisation issues - so its recommended that
-    this is set to something meaningful. Some objects use Metaclasses to take care
-    of this automatically to avoid the developer having to manually match the
-    dataName to the actual attribute name.
-
-    @oaram order int [-1] A UI hint as to the 'natural ordering' for this
-    property when it's displayed in a list.
-
+    @oaram order int [-1] A UI hint as to the 'natural ordering' for
+    this property when it's displayed in a list.
     """
 
     def __init__(self, initVal=None, doc=None, dataVar=None, dataName=None, order=-1):
@@ -73,15 +75,13 @@ class UntypedProperty(object):
 
 class TypedProperty(UntypedProperty):
     """
-
     Extends the UntypedProperty to allow strict type checking of values.
 
-    @param typ Class, Sets will be conformed to being instances of this type of
-    None.
+    @param typ Class, Sets will be conformed to being instances of this
+    type of None.
 
-    @exception ValueError or other as per constructing an instance of the
-    property's typ from the supplied value. ie: typ(value).
-
+    @exception ValueError or other as per constructing an instance of
+    the property's typ from the supplied value. ie: typ(value).
     """
 
     def __init__(
@@ -101,17 +101,13 @@ class TypedProperty(UntypedProperty):
 
 class FixedInterfaceObject(object):
     """
+    This class is a simple extension to object, to dis-allow get/set of
+    any attributes not defined with the class. This can be useful to
+    make introspectable objects with meaningful help() messages by
+    creating data members like so:
 
-    This class is a simple extension to object, to dis-allow get/set of any
-    attributes not defined with the class. This can be useful to make
-    introspectable objects with meaningful help() messages by creating data
-    members like so:
-
-    /code
-    numCakes = TypedProperty(int, doc="Some member variable")
-    edible = UntypedProperty()
-    /endcode
-
+    /code numCakes = TypedProperty(int, doc="Some member variable")
+    edible = UntypedProperty() /endcode
     """
 
     def __init__(self):
@@ -140,9 +136,8 @@ class FixedInterfaceObject(object):
     @classmethod
     def getDefinedPropertyNames(cls):
         """
-
-        @return list, A list of property names, sorted by their specified order.
-
+        @return list, A list of property names, sorted by their
+        specified order.
         """
         predicate = lambda m: isinstance(m, objectSystem.UntypedProperty)
         members = inspect.getmembers(cls, predicate)

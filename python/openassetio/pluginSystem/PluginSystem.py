@@ -23,13 +23,11 @@ __all__ = ['PluginSystem']
 
 class PluginSystem(object):
     """
-
-    Loads Python Packages on a custom search path. If they manager a top-level
-    'plugin' attribute, that holds a class derived from PluginSystemPlugin,
-    it will be registered with its identifier.
-    Once a plug-in has registered an identifier, any subsequent registrations
+    Loads Python Packages on a custom search path. If they manager a
+    top-level 'plugin' attribute, that holds a class derived from
+    PluginSystemPlugin, it will be registered with its identifier. Once
+    a plug-in has registered an identifier, any subsequent registrations
     with that id will be skipped.
-
     """
 
     def __init__(self, logger: LoggerInterface):

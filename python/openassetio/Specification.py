@@ -29,11 +29,9 @@ __all__ = ['SpecificationBase', 'Specification', 'UntypedProperty', 'TypedProper
 
 class SpecificationBase(FixedInterfaceObject):
     """
-
-    The simplest of Specifications that just holds the data store, and schema
-    type. This can be used in cases that have no need to work with the data in
-    any type-specific way.
-
+    The simplest of Specifications that just holds the data store, and
+    schema type. This can be used in cases that have no need to work
+    with the data in any type-specific way.
     """
 
     _data = {}
@@ -47,21 +45,18 @@ class SpecificationBase(FixedInterfaceObject):
 
     def getSchema(self):
         """
-
-        @return str, The schema identifier for the data held in the specification.
-
+        @return str, The schema identifier for the data held in the
+        specification.
         """
         return self.__schema
 
     def getData(self, copy=True):
         """
-
-        @param copy bool, When True (default) then a copy of the data will be
-        returned, rather than a reference, to help avoid mutating the
-        specifications data by accident.
+        @param copy bool, When True (default) then a copy of the data
+        will be returned, rather than a reference, to help avoid
+        mutating the specifications data by accident.
 
         @return dict, The data of the specification.
-
         """
         if copy:
             return dict(self._data)
@@ -84,12 +79,12 @@ class SpecificationBase(FixedInterfaceObject):
 
 class Specification(SpecificationBase):
     """
+    The simplest form of Specification in common use. It extends the
+    base specification to better define the schema.
 
-    The simplest form of Specification in common use. It extends the base
-    specification to better define the schema.
-
-    If introduces the notion that the @ref specification schema consists of two
-    parts, separated by a token - the 'prefix' and 'type'. For example:
+    If introduces the notion that the @ref specification schema consists
+    of two parts, separated by a token - the 'prefix' and 'type'. For
+    example:
 
       @li `core.locale:image.catalog`
       @li **prefix**: `core.locale`
@@ -101,15 +96,14 @@ class Specification(SpecificationBase):
     openassetio.specifications.LocaleSpecification to be used to
     manipulate these objects.
 
-    Types should also be hierarchical, in a way that indicates compatibility with
-    the class hierarchy.  It should be that a file.image.texture can degenerate
-    into a file.image if necessary. As such, a properties of a more derived
-    specification should always be a superset of any other specification
-    indicated by its 'type'.
+    Types should also be hierarchical, in a way that indicates
+    compatibility with the class hierarchy.  It should be that a
+    file.image.texture can degenerate into a file.image if necessary. As
+    such, a properties of a more derived specification should always be
+    a superset of any other specification indicated by its 'type'.
 
-    The @ref SpecificationFactory understands the concept of prefixes, etc...
-    when wrapping on instantiating a Specification from data.
-
+    The @ref SpecificationFactory understands the concept of prefixes,
+    etc... when wrapping on instantiating a Specification from data.
     """
     __metaclass__ = SpecificationFactory
 
@@ -133,28 +127,28 @@ class Specification(SpecificationBase):
 
     def isOfType(self, typeOrTypes, includeDerived=True, prefix=None):
         """
+        Returns whether the specification is of a requested type, by
+        comparison of the type string.
 
-        Returns whether the specification is of a requested type, by comparison of
-        the type string.
-
-        @param typeOrTypes, [str or Specification, or list of] The types to
-        compare against. eg:
+        @param typeOrTypes, [str or Specification, or list of] The types
+        to compare against. eg:
          @code
             spec.isOfType(openassetio.specifications.FileSpecification)
             spec.isOfType(('file', 'group.shot'), includeDerived=True)
          @endcode
 
-        @param includeDerived bool, If True, then the match will include any
-        specifialisations of the supplied type. For example if you used a
-        typeString of "file", a specification of type "file.image" would still
-        match. If this is false, it must be the exact type match.
+        @param includeDerived bool, If True, then the match will include
+        any specifialisations of the supplied type. For example if you
+        used a typeString of "file", a specification of type
+        "file.image" would still match. If this is false, it must be the
+        exact type match.
 
-        @param prefix str, An optional prefix string, to allow complete comparison
-        of the schema, not just the type.
+        @param prefix str, An optional prefix string, to allow complete
+        comparison of the schema, not just the type.
 
-        @note This call doesn't not consider the 'prefix' of the Specification,
-        unless the additional 'prefix' argument is supplied.
-
+        @note This call doesn't not consider the 'prefix' of the
+        Specification, unless the additional 'prefix' argument is
+        supplied.
         """
         if self._type and self._prefix:
             ourPrefix = self._prefix
@@ -181,42 +175,37 @@ class Specification(SpecificationBase):
 
     def getField(self, name, defaultValue=None):
         """
+        Fetches the property from the specification, if present,
+        otherwise returns the default value.
 
-        Fetches the property from the specification, if present, otherwise returns
-        the default value.
-
-        This is short hand for the following code, that avoids either copying the
-        data, or exposing the mutable data dictionary. Consequently, it should be
-        used by preference.
+        This is short hand for the following code, that avoids either
+        copying the data, or exposing the mutable data dictionary.
+        Consequently, it should be used by preference.
 
         @code
         data = specification.getData(copy=False).get(name, defaultValue)
         @endcode
-
         """
         return self._data.get(name, defaultValue)
 
     @classmethod
     def generateSchema(cls, prefix, type):
         """
-
-        To be used over naive string concatenation to build a schema string.
+        To be used over naive string concatenation to build a schema
+        string.
 
         @return str, The schema string for the given prefix and type.
-
         """
         return "%s%s%s" % (prefix, cls.__kPrefixSeparator, type)
 
     @classmethod
     def schemaComponents(cls, schema):
         """
+        Splits a schema string into a prefix, type tuple. Should be used
+        over manual attempts at tokenization.
 
-        Splits a schema string into a prefix, type tuple. Should be used over
-        manual attempts at tokenization.
-
-        @return tuple, (prefix, type), The prefix will be an empty string if there
-        is none.
-
+        @return tuple, (prefix, type), The prefix will be an empty
+        string if there is none.
         """
         if cls.__kPrefixSeparator in schema:
             return schema.rsplit(cls.__kPrefixSeparator, 1)
@@ -225,16 +214,14 @@ class Specification(SpecificationBase):
 
     def getPrefix(self):
         """
-
-        @return str, the prefix of this specifications schema, or an empty string.
-
+        @return str, the prefix of this specifications schema, or an
+        empty string.
         """
         return self.schemaComponents(self.__schema)[0]
 
     def getType(self):
         """
-
-        @return str, the schemas type, without prefix or separator token.
-
+        @return str, the schemas type, without prefix or separator
+        token.
         """
         return self.schemaComponents(self.__schema)[1]

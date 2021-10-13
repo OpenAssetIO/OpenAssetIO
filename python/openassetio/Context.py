@@ -23,24 +23,23 @@ __all__ = ['Context']
 
 class Context(object):
     """
-
     The Context object is used to convey information about the calling
     environment to a @ref manager. It encapsulates several key access
-    properties, as well as providing additional information about the @ref host
-    that may be useful to the @ref manager to decorate or extend the metadata
-    associated with the stored @ref entity.
+    properties, as well as providing additional information about the
+    @ref host that may be useful to the @ref manager to decorate or
+    extend the metadata associated with the stored @ref entity.
 
     A Manager will also use this information to ensure it presents the
     correct UI, or behaviour.
 
-    The Context is passed to many calls in this API, and it may, or may not need
-    to be used directly.
+    The Context is passed to many calls in this API, and it may, or may
+    not need to be used directly.
 
-    @warning Contexts should never be directly constructed. Hosts should use
-    @ref openassetio.hostAPI.Session.Session.createContext. A Manager implementation should never
-    need to create a context of it's own, one will always be supplied through
-    the ManagerInterface entry points.
-
+    @warning Contexts should never be directly constructed. Hosts should
+    use @ref openassetio.hostAPI.Session.Session.createContext. A
+    Manager implementation should never need to create a context of it's
+    own, one will always be supplied through the ManagerInterface entry
+    points.
     """
 
     ##
@@ -97,14 +96,13 @@ class Context(object):
 
     def __getManagerOptions(self):
         """
-
-        The manager options may contain custom locale data specific to your
-        implementation. You should never attempt to set this your self, it will not
-        be preserved in many situations by many hosts. Instead, the host will ask
-        you for this information on occasions that it can be suitable propagated to
-        other API calls. This will be generally be done using a @ref
+        The manager options may contain custom locale data specific to
+        your implementation. You should never attempt to set this your
+        self, it will not be preserved in many situations by many hosts.
+        Instead, the host will ask you for this information on occasions
+        that it can be suitable propagated to other API calls. This will
+        be generally be done using a @ref
         openassetio-ui.widgets.ManagerOptionsWidget.
-
         """
         return self.__managerOptions
 
@@ -134,13 +132,12 @@ class Context(object):
 
     def __getAccess(self):
         """
-
-        This covers what the @ref host is intending to do with the data. For example,
-        when passed to resolveEntityReference, it infers if the @ref host is about
-        to read or write. When configuring a BrowserWidget, then it will hint as to
-        whether the Host is wanting to choose a new file name to save, or open an
-        existing one.
-
+        This covers what the @ref host is intending to do with the data.
+        For example, when passed to resolveEntityReference, it infers if
+        the @ref host is about to read or write. When configuring a
+        BrowserWidget, then it will hint as to whether the Host is
+        wanting to choose a new file name to save, or open an existing
+        one.
         """
         return self.__access
 
@@ -155,24 +152,22 @@ class Context(object):
 
     def __getRetention(self):
         """
-
-        This is a concession to the fact that it's not always possible to fully
-        implement the spec of this API. For example, @ref
-        openassetio.managerAPI.ManagerInterface.ManagerInterface.register "Manager.register()" can return an
-        @ref entity_reference that points to the newly published @ref entity.
-        This is often not the same as the reference that was passed to the call.
-        The Host is expected to store this new reference for future use. For
-        example in the case of a Scene File added to an 'open recent' menu. A
-        Manager may rely on this to ensure a reference that points to a specific
-        version is used in the future.
-        In some cases - such as batch rendering of an image sequence, it may not be
-        possible to store this final reference, due to constraints of the
-        distributed natured of such a render. Often, it is not actually of
-        consequence.
-        To allow the @ref manager to handle these situations correctly, Hosts are
-        required to set this property to reflect their ability to persist this
-        information.
-
+        This is a concession to the fact that it's not always possible
+        to fully implement the spec of this API. For example, @ref
+        openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+        "Manager.register()" can return an @ref entity_reference that
+        points to the newly published @ref entity. This is often not the
+        same as the reference that was passed to the call. The Host is
+        expected to store this new reference for future use. For example
+        in the case of a Scene File added to an 'open recent' menu. A
+        Manager may rely on this to ensure a reference that points to a
+        specific version is used in the future. In some cases - such as
+        batch rendering of an image sequence, it may not be possible to
+        store this final reference, due to constraints of the
+        distributed natured of such a render. Often, it is not actually
+        of consequence. To allow the @ref manager to handle these
+        situations correctly, Hosts are required to set this property to
+        reflect their ability to persist this information.
         """
         return self.__retention
 
@@ -193,19 +188,20 @@ class Context(object):
 
     def __getLocale(self):
         """
+        In many situations, the Specification of the desired @ref entity
+        itself is not entirely sufficient information to realize many
+        functions that a @ref Manager wishes to implement. For example,
+        when determining the final file path for an Image that is about
+        to be published - knowing it came from a render catalog, rather
+        than a 'Write node' from a comp tree could result in different
+        behaviour.
 
-        In many situations, the Specification of the desired @ref entity itself is
-        not entirely sufficient information to realize many functions that a @ref
-        Manager wishes to implement. For example, when determining the final file
-        path for an Image that is about to be published - knowing it came from a
-        render catalog, rather than a 'Write node' from a comp tree could result in
-        different behaviour.
-
-        The Locale uses a @ref openassetio.specifications.LocaleSpecification to
-        describe in more detail, what specific part of a @ref host is requesting an
-        action. In the case of a file browser for example, it may also include
-        information such as whether or not multi-selection is required.
-
+        The Locale uses a @ref
+        openassetio.specifications.LocaleSpecification to describe in
+        more detail, what specific part of a @ref host is requesting an
+        action. In the case of a file browser for example, it may also
+        include information such as whether or not multi-selection is
+        required.
         """
         return self.__locale
 
@@ -235,30 +231,24 @@ class Context(object):
 
     def isForRead(self):
         """
-
-        @return bool, True if the context is any of the 'Read' based access
-        patterns. If the access is unknown (context.kOther), then False is
-        returned.
-
+        @return bool, True if the context is any of the 'Read' based
+        access patterns. If the access is unknown (context.kOther), then
+        False is returned.
         """
         return self.__access in (self.kRead, self.kReadMultiple)
 
     def isForWrite(self):
         """
-
-        @return bool, True if the context is any of the 'Write' based access
-        patterns. If the access is unknown (context.kOther), then False is
-        returned.
-
+        @return bool, True if the context is any of the 'Write' based
+        access patterns. If the access is unknown (context.kOther), then
+        False is returned.
         """
         return self.__access in (self.kWrite, self.kWriteMultiple)
 
     def isForMultiple(self):
         """
-
-        @return bool, True if the context is any of the 'Multiple' based access
-        patterns. If the access is unknown (context.kOther), then False is
-        returned.
-
+        @return bool, True if the context is any of the 'Multiple' based
+        access patterns. If the access is unknown (context.kOther), then
+        False is returned.
         """
         return self.__access in (self.kReadMultiple, self.kWriteMultiple)
