@@ -81,7 +81,7 @@ class Session(Debuggable):
           @see currentManager()
           @see openassetio.logging
           @see openassetio.hostAPI.ManagerFactoryInterface
-          @see openassetio.pluginSystem.PluginSystsemManagerFactory
+          @see openassetio.pluginSystem.PluginSystemManagerFactory
           @see
           openassetio.hostAPI.SessionManager.SessionManager.currentSession()
         """
@@ -129,8 +129,8 @@ class Session(Debuggable):
     def useManager(self, identifier, settings=None):
         """
         Configures the session to use the @ref manager with the
-        specified identifier. The managerChanged Event is trigged if the
-        resulting Manager is different to the previous one.
+        specified identifier. The managerChanged Event is triggered if
+        the resulting Manager is different to the previous one.
 
         @param identifier str The Identifier for the desired manager,
         available from @ref getRegisteredManagers.
@@ -141,7 +141,7 @@ class Session(Debuggable):
         Manager.
 
         @note The Manager not instantiated until @ref currentManager()
-        is actually called. If the suppled identifier matches the
+        is actually called. If the supplied identifier matches the
         current manager, then the call is ignored.
         """
 

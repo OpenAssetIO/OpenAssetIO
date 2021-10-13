@@ -228,7 +228,7 @@ class TestManager():
         method.assert_called_once_with(
             a_ref, a_context, host_session, overrideVersionName=a_version_name)
 
-    def test_getRelatedEntites(
+    def test_getRelatedEntities(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
 
         method = mock_manager_interface.getRelatedReferences

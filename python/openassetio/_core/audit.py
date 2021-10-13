@@ -26,7 +26,7 @@ __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 
 ##
 # @namespace openassetio._core.audit
 # This module permits auditing of the use of the various API calls during a
-# series of oparations.
+# series of operations.
 # @envvar **FOUNDRY_ASSET_API_AUDIT** *int* [0] If non-zero API calls will be
 # audited by default
 # @envvar **FOUNDRY_ASSET_API_AUDIT_ARGS** *int* [0] If non-zero args will be
@@ -89,7 +89,7 @@ def auditApiCall(group=None, static=False):
     A decorator to log a method as long as auditCalls is True, parsing
     the methods args and kwargs with an understanding of the various
     objects used in the openassetio. This of this as being analogous to
-    'statefull packet inspection'.
+    'stateful packet inspection'.
 
     If auditCalls is False, functions will not be wrapped so docstrings
     are not obfuscated and the call stack isn't bloated. Because
@@ -265,7 +265,7 @@ class Auditor(object):
         method will be determined from this object, rather than from
         introspection of the instanceMethod arg.
 
-        @prarm group str, If supplied, a count will also be registered
+        @param group str, If supplied, a count will also be registered
         for the method under this group (note: for groups, the parent
         Class usage isn't recorded).
 

@@ -164,7 +164,7 @@ class ManagerInterface(object):
     #
     #  Called by the test harness to clean up any references that it requested.
     #  This is called after any test that has requested a reference completes.
-    #  You could use this to remove any temporary database entires, etc... that
+    #  You could use this to remove any temporary database entries, etc... that
     #  were necessary to satisfy a request for a reference to an 'existing'
     #  asset.
     #
@@ -335,7 +335,7 @@ class ManagerInterface(object):
         is applicable (maybe as they don't exist yet).
 
         @warning Because the majority of the resolution API itself is
-        designated thread stafe, it is important to implement any
+        designated thread safe, it is important to implement any
         pre-fetch mechanism with suitable locks/etc... if required.
 
         @param context openassetio.Context, You may wish to make use of
@@ -460,7 +460,7 @@ class ManagerInterface(object):
         <tt>file</tt> scheme URL.
 
         When the @ref entity_reference points to a sequence of files,
-        the frame token should be preserved, and in the sptintf
+        the frame token should be preserved, and in the sprintf
         compatible syntax.
 
         This function should attempt to take into account the current
@@ -848,7 +848,7 @@ class ManagerInterface(object):
         If this is not the case, ValueErrors should be thrown.
 
         If any specification is unknown, then an empty list should be
-        returned for that specificaion, and no errors should be raised.
+        returned for that specification, and no errors should be raised.
 
         @param entityRefs List[str]
 

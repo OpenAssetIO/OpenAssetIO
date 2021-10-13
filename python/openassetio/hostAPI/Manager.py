@@ -145,8 +145,8 @@ class Manager(Debuggable):
 
           @li openassetio.constants.kField_SmallIcon (upto 32x32)
           @li openassetio.constants.kField_Icon (any size)
-          @li openassetio.constants.kField_EntityRefrencesMatchPrefix
-          @li openassetio.constants.kField_EntityRefrencesMatchRegex
+          @li openassetio.constants.kField_EntityReferencesMatchPrefix
+          @li openassetio.constants.kField_EntityReferencesMatchRegex
 
         Keys will always be UTF8 strings, and Values will be int, bool,
         float or str.
@@ -397,7 +397,7 @@ class Manager(Debuggable):
         situation.
 
         @param specification
-        openassetoi.specifications.EntitySpecification The relevant
+        openassetio.specifications.EntitySpecification The relevant
         specification for the type of entity required, this will be
         interpreted in conjunction with the context to determine the
         most sensible default.
@@ -480,7 +480,7 @@ class Manager(Debuggable):
 
         As a host, you can also advertise well-known keys of your own as
         part of any first-class asset based workflows you may have. For
-        example, a compositor may choose to consume the `colourspace`
+        example, a compositor may choose to consume the `colorspace`
         key (if present) and adjust the input space of an image reader
         node accordingly.
 
@@ -732,7 +732,7 @@ class Manager(Debuggable):
         If this is not the case, ValueErrors will be thrown.
 
         If any specification is unknown, then an empty list will be
-        returned for that specificaion, and no errors should be raised.
+        returned for that specification, and no errors should be raised.
 
         @param references List[str] A list of @ref entity_reference, see
         the notes on array length above.
@@ -833,7 +833,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def resolveEntityReferences(self, refrences, context):
+    def resolveEntityReferences(self, references, context):
         """
         As-per resolveEntityReference but it will resolve all of the
         references in the supplied list.
@@ -846,7 +846,7 @@ class Manager(Debuggable):
 
         @see resolveEntityReference for exceptions, etc...
         """
-        return self.__impl.resolveEntityReferences(refrences, context, self.__hostSession)
+        return self.__impl.resolveEntityReferences(references, context, self.__hostSession)
 
     ## @}
 
@@ -1051,7 +1051,7 @@ class Manager(Debuggable):
 
         This call is designed to allow sanity checking, placeholder
         creation or any other sundry preparatory actions to be carried
-        out by the Manager. In the case of file-based entites, the
+        out by the Manager. In the case of file-based entities, the
         Manage may even use this opportunity to switch to some temporary
         working path or some such.
 
@@ -1137,17 +1137,17 @@ class Manager(Debuggable):
 
         @param stringData str, The @ref primary_string for this entity.
         It is the string the resulting @ref entity_reference will
-        resolve to. In the case of file-based entites, this is the file
+        resolve to. In the case of file-based entities, this is the file
         path, and may be further modified by Managers that take care of
         relocating or managing the storage of files. The API defines
         that in the case of paths representing file sequences, frame
-        tokens should be left un-subsituted, in a sprintf compatible
+        tokens should be left un-substituted, in a sprintf compatible
         format, eg. "%04d", rather than say, the #### based method. If
         your application uses hashes, or some other scheme, it should be
         converted to/from the sprintf format as part of your
         integration.
 
-        @param spec openassetio.specifications.EntitySpecfication the
+        @param spec openassetio.specifications.EntitySpecification the
         EntitySpecification for the new registration.
 
         @see openassetio.specifications
@@ -1155,13 +1155,13 @@ class Manager(Debuggable):
         @see preflight
         @see preflightMultiple
         """
-        ## At the mo, metatdata is deliberately not passed to register in the
+        ## At the mo, metadata is deliberately not passed to register in the
         ## ManagerInterface. This helps ensure that no Manager ever places a
         ## requirement that metadata is known on creation. This is a bad state to
         ## be in, as it places severe limitations on a host so its worth leaving it
         ## this way so people will moan at us if its a problem.
         ## @todo ... but conversely, setMetadata doesn't allow that data to be versioned
-        ## This needs revisitiong, as its not even really 'metadata' as we encourage
+        ## This needs revisiting, as its not even really 'metadata' as we encourage
         ## hosts to treat it as first-class asset data.
         entityRef = self.__impl.register(
             stringData, targetEntityRef, entitySpec, context, self.__hostSession)
