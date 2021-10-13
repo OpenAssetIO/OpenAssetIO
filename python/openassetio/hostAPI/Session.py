@@ -58,9 +58,7 @@ class Session(Debuggable):
     @see openassetio-ui.UISession
     """
 
-    def __init__(
-            self, hostInterface: HostInterface, logger: LoggerInterface,
-            managerFactory: ManagerFactoryInterface):
+    def __init__(self, hostInterface, logger, managerFactory):
         """
         @param host openassetio.hostAPI.HostInterface The current
         HostInterface instance (note: only a single currently active
