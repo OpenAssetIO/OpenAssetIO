@@ -39,10 +39,7 @@ class Host(Debuggable):
     the @ref HostSession.host() method.
     """
 
-    def __init__(self, hostInterface: HostInterface):
-        """"
-        @private
-        """
+    def __init__(self, hostInterface):
         super(Host, self).__init__()
 
         self.__impl = hostInterface
@@ -86,7 +83,8 @@ class Host(Debuggable):
     def getDisplayName(self):
         """
         Returns a human readable name to be used to reference this
-        specific host in user-facing messaging, for example:
+        specific host in user-facing messaging.
+        For example:
 
             "Katana"
         """

@@ -98,7 +98,6 @@ class ManagerInterface(object):
     There should be no persistent state in the implementation, concepts
     such as getError(), etc.. for example should not be used.
 
-
     Hosts
     -----
 
@@ -111,7 +110,6 @@ class ManagerInterface(object):
     related specifics of the hosts data model.
 
     @see openassetio.managerAPI.Host
-
 
     Initialization
     --------------
@@ -134,7 +132,6 @@ class ManagerInterface(object):
        @li @ref setSettings()
 
     @todo Finish/Document settings mechanism.
-
     @see initialize()
     """
 
@@ -501,8 +498,8 @@ class ManagerInterface(object):
 
     def resolveEntityReferences(self, references, context, hostSession):
         """
-        Batch-resolves a list of @ref entity_reference "entity
-        references", following the same pattern as @ref
+        Batch-resolves a list of @ref entity_reference
+        "entity references", following the same pattern as @ref
         resolveEntityReference.
 
         @return List[str], A list of strings, corresponding to the
@@ -826,17 +823,17 @@ class ManagerInterface(object):
 
         In all cases, the return value is a list of lists, for example:
 
-            getRelatedReferences( [r1], [s1, s2, s3] ) # (a)
-            > [ [r1-s1-matches, ...], [r1-s2-matches, ...],
-              [r1-s3-matches, ...] ]
+            a)  getRelatedReferences([ r1 ], [ s1, s2, s3 ])
 
-            getRelatedReferences( [r1, r2, r3], [s1] ) # (b)
-            > [ [r1-s1-matches, ...], [r2-s1-matches, ...],
-              [r3-s1-matches, ...] ]
+            > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
 
-            getRelatedReferences( [r1, r2, r3], [s1, s2, s3] ) # (c)
-            > [ [r1-s1-matches, ...], [r2-s2-matches, ...],
-              [r3-s3-matches, ...] ]
+            b)  getRelatedReferences([ r1, r2, r3 ], [ s1 ])
+
+            > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
+
+            c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
+
+            > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
 
         @note The order of entities in the inner lists of matching
         references will not be considered meaningful, but the outer list

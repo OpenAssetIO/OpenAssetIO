@@ -117,7 +117,8 @@ class Manager(Debuggable):
     def getDisplayName(self):
         """
         Returns a human readable name to be used to reference this
-        specific asset manager in user-facing displays. For example:
+        specific asset manager in user-facing displays.
+        For example:
 
             "OpenAssetIO Test Manager"
 
@@ -706,20 +707,17 @@ class Manager(Debuggable):
 
         In all cases, the return value is a list of lists, for example:
 
-        a)  getRelatedReferencess( [ r1 ], [ s1, s2, s3 ] )
+            a)  getRelatedEntities([ r1 ], [ s1, s2, s3 ])
 
-        > [ [ r1-s1-matches, ... ], [ r1-s2-matches, ... ], [
-          r1-s3-matches, ... ] ]
+            > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
 
-        b)  getRelatedReferences( [ r1, r2, r3 ], [ s1 ] )
+            b)  getRelatedEntities([ r1, r2, r3 ], [ s1 ])
 
-        > [ [ r1-s1-matches, ... ], [ r2-s1-matches, ... ], [
-          r3-s1-matches, ... ] ]
+            > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
 
-        c)  getRelatedReferences( [ r1, r2, r3 ], [ s1, s2, s3 ] )
+            c)  getRelatedEntities([ r1, r2, r3 ], [ s1, s2, s3 ])
 
-        > [ [ r1-s1-matches, ... ], [ r2-s2-matches, ... ], [
-          r3-s3-matches, ... ] ]
+            > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
 
         @note The order of entities in the inner lists of matching
         references should not be considered meaningful, but the outer
