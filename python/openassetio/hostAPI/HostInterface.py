@@ -109,7 +109,6 @@ class HostInterface(object):
         then an empty string should be returned.
 
         @todo Update to properly support multiple documents
-
         @return str A path or @ref entity_reference.
         """
         return ''

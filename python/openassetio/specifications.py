@@ -32,21 +32,24 @@ class EntitySpecification(Specification):
     _prefix = "core.entity"
 
     nameHint = TypedProperty(
-        str, doc="A hint as to the name of the entity"
-                 + ", used in cases where this is not implicit in the reference.")
+        str,
+        doc="A hint as to the name of the entity, used in cases where"
+            " this is not implicit in the reference.")
 
     referenceHint = TypedProperty(
-        str, doc="A hint for the entity reference, "
-                 + "useful for default browser path, etc... This may, or may not "
-                 + "ultimately be relevant. The Asset Management system should check its "
-                 + "applicability before using it, and may freely ignore it if it has "
-                 + "a better idea about a suitable reference.")
+        str,
+        doc="A hint for the entity reference, useful for default"
+            " browser path, etc... This may, or may not ultimately be"
+            " relevant. The Asset Management system should check its"
+            " applicability before using it, and may freely ignore it"
+            " if it has a better idea about a suitable reference.")
 
     thumbnailPath = TypedProperty(
-        str, initVal="", doc="If a thumbnail was " +
-                             "requested for the registration, then this may be set to a path, " +
-                             "pointing to a thumbnail. If, for any reason, the thumbnail isn't " +
-                             "available, then this will be an empty string.")
+        str, initVal="",
+        doc="If a thumbnail was requested for the registration, then"
+            " this may be set to a path, pointing to a thumbnail. If,"
+            " for any reason, the thumbnail isn't available, then this"
+            " will be an empty string.")
 
 
 class LocaleSpecification(Specification):
