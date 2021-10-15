@@ -5,9 +5,11 @@ $oaio-orange: #F9B41B;
 $oaio-orange-light: lighten($oaio-orange, 40%);
 $oaio-orange-dark: desaturate(darken($oaio-orange, 10%), 30%);
 $link: #444444;
+$alt-background: #fbfbfb;
 
 $tab-vatiation-ammount: 10%;
 $border-style: 1px $oaio-main dotted;
+$rounded-corner-radius: 6px;
 
 $font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 $font-family-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
@@ -229,8 +231,7 @@ dl.el {
 }
 
 pre.fragment {
-	border: 1px solid #C4CFE5;
-	background-color: #FBFCFD;
+	border: none;
 	padding: 4px 6px;
 	margin: 4px 8px 4px 2px;
 	overflow: auto;
@@ -240,6 +241,8 @@ pre.fragment {
 }
 
 .fragment {
+	border-radius: $rounded-corner-radius;
+	background-color: $alt-background;
 	.title {
 		font-size: 100% !important;
 		text-transform: none !important;
@@ -248,15 +251,17 @@ pre.fragment {
 }
 
 div.fragment {
+	border: none;
+	border-radius: $rounded-corner-radius;
 	padding: 4px;
 	margin: 4px;
-	background-color: #FBFCFD;
 	font-family: $font-family-mono;
+	background-color: $alt-background;
 }
 
 div.line {
 	font-family: $font-family-mono;
-	line-height: 1.0;
+	line-height: 1.5;
 	text-wrap: unrestricted;
 	white-space: pre-wrap;
 	word-wrap: break-word;
@@ -275,18 +280,13 @@ div.line.glow {
 
 
 span.lineno {
+	background: inherit;
+	color: darken($alt-background, 10%);
+	border: none;
 	padding-right: 4px;
 	text-align: right;
-	border-right: 2px solid #0F0;
-	background-color: #E8E8E8;
+	background-color: none;
 	white-space: pre;
-}
-span.lineno a {
-	background-color: #D8D8D8;
-}
-
-span.lineno a:hover {
-	background-color: #C8C8C8;
 }
 
 div.ah {
@@ -423,7 +423,7 @@ span.keywordflow {
 }
 
 span.comment {
-	color: #800000
+	color: #adadad
 }
 
 span.preprocessor {
@@ -431,7 +431,7 @@ span.preprocessor {
 }
 
 span.stringliteral {
-	color: #002080
+	color: #7c87a7
 }
 
 span.charliteral {
