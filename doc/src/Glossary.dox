@@ -103,13 +103,13 @@
  * thought of as being analogous to a primary key in a database of
  * entities, for various reasons detailed below.
  *
- * An entity reference can be any UTF-8 encoded ASCII compatible string,
- * and there are no constraints on the content of the reference other
- * than that of a std::string. It's worth noting however, that if no
- * custom UI widgets are supplied by a manager, a @ref host will simply
- * display it as a standard string. It is up to the design of the @ref
- * manager to decide on the format for it's entity references, and
- * whether they are in a human readable form.
+ * An entity reference can be any string, and there are no constraints
+ * on the content of the reference other than that of a std::string.
+ * It's worth noting however, that if no custom UI widgets are supplied
+ * by a manager, a @ref host will simply display it as a standard
+ * string. It is up to the design of the @ref manager to decide on the
+ * format for it's entity references, and whether they are in a human
+ * readable form.
  *
  * > Note: We strongly recommend using a human-readable form that
  * > follows <a href=https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#cite_ref-FOOTNOTERFC_3986,_section_32005_23-0" target="_blank">RFC_3986</a>.
@@ -294,7 +294,6 @@
  * names internally, as long as the mapping is reversed for queries.
  *
  * Metadata is limited to **string** keys, and **plain old data** typed values.
- * String data should be UTF-8 encoded.
  *
  * > Note: The length of a value is yet to be defined, but ideally it
  * > will be something suitably large - this will only be restricted if
