@@ -26,199 +26,178 @@ __all__ = ['PluginSystemManagerFactory', ]
 
 
 class PluginSystemManagerFactory(ManagerFactoryInterface):
-  """
+    """
+    A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
+    derived plugins and instantiation of Manager and UIDelegate
+    instances. Not usually used directly by a @ref host, which instead
+    uses the @ref openassetio.hostAPI.Session
 
-  A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin derived plugins
-  and instantiation of Manager and UIDelegate instances. Not usually used
-  directly by a @ref host, which instead uses the @ref openassetio.hostAPI.Session
-
-  @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of directories to
-  search for @ref openassetio.pluginSystem.ManagerPlugin based plugins. It uses
-  the platform-native delimiter.  Searched left to right.
-
-  """
-
-  ## The Environment Variable to read the plug-in search path from
-  kPluginEnvVar = "FOUNDRY_ASSET_PLUGIN_PATH"
-
-
-  def __init__(self, logger: LoggerInterface, paths=None):
-
-    super(PluginSystemManagerFactory, self).__init__(logger)
-
-    self.__pluginManager = None
-    self.__instances = {}
-    self.__delegates = {}
-    self.__paths = paths
-
-
-  def __scan(self):
+    @envvar **FOUNDRY_ASSET_PLUGIN_PATH** *str* A PATH-style list of
+    directories to search for @ref
+    openassetio.pluginSystem.ManagerPlugin based plugins. It uses the
+    platform-native delimiter.  Searched left to right.
     """
 
-    Scans for ManagerPlugins, and registers them with the factory instance.
+    ## The Environment Variable to read the plug-in search path from
+    kPluginEnvVar = "FOUNDRY_ASSET_PLUGIN_PATH"
 
-    @param paths str, A searchpath string to search for plug-ins. If None, then
-    the contents of the Environment Variable @ref kPluginEnvVar is used instead.
+    def __init__(self, logger: LoggerInterface, paths=None):
 
-    """
+        super(PluginSystemManagerFactory, self).__init__(logger)
 
-    if not self.__paths:
-      self.__paths = os.environ.get(self.kPluginEnvVar, "")
-      if not self.__paths:
-        self._logger.log(("%s is not set. Its somewhat unlikely that you will "
-          +"find any plugins...") % self.kPluginEnvVar, self._logger.kWarning)
+        self.__pluginManager = None
+        self.__instances = {}
+        self.__delegates = {}
+        self.__paths = paths
 
+    def __scan(self):
+        """
+        Scans for ManagerPlugins, and registers them with the factory
+        instance.
 
-    self.__pluginManager = PluginSystem(self._logger)
+        @param paths str, A searchpath string to search for plug-ins. If
+        None, then the contents of the Environment Variable @ref
+        kPluginEnvVar is used instead.
+        """
 
-    # We do this after instantiating, so that the lifetime of the manager is
-    # consistent with cases where some paths were set.
-    if self.__paths:
-      self.__pluginManager.scan(self.__paths)
+        if not self.__paths:
+            self.__paths = os.environ.get(self.kPluginEnvVar, "")
+            if not self.__paths:
+                self._logger.log(
+                    ("%s is not set. Its somewhat unlikely that you will "
+                     + "find any plugins...") % self.kPluginEnvVar, self._logger.kWarning)
 
+        self.__pluginManager = PluginSystem(self._logger)
 
-  def identifiers(self):
-    """
+        # We do this after instantiating, so that the lifetime of the manager is
+        # consistent with cases where some paths were set.
+        if self.__paths:
+            self.__pluginManager.scan(self.__paths)
 
-    @return list, all identifiers known to the factory.
-    @see openassetio.pluginSystem.ManagerPlugin
+    def identifiers(self):
+        """
+        @return list, all identifiers known to the factory.
+        @see openassetio.pluginSystem.ManagerPlugin
+        """
+        if not self.__pluginManager:
+            self.__scan()
 
-    """
-    if not self.__pluginManager:
-      self.__scan()
+        return self.__pluginManager.identifiers()
 
-    return self.__pluginManager.identifiers()
+    def managers(self):
+        """
+        @return dict, Keyed by identifiers, each value is a dict
+        containing information about the Manager provided by the plugin.
+        This dict has the following keys:
+          @li **name** The display name of the Manager suitable for UI
+          use.
+          @li **identifier** It's identifier
+          @li **info** The info dict from the Manager (see: @ref
+          openassetio.managerAPI.ManagerInterface.getInfo
+          "ManagerInterface.getInfo()")
+          @li **plugin** The plugin class that represents the Manager
+          (see: @ref openassetio.pluginSystem.ManagerPlugin)
+        """
 
+        if not self.__pluginManager:
+            self.__scan()
 
-  def managers(self):
-    """
+        managers = {}
 
-    @return dict, Keyed by identifiers, each value is a dict containing
-    information about the Manager provided by the plugin. This dict has the
-    following keys:
-      @li **name** The display name of the Manager suitable for UI use.
-      @li **identifier** It's identifier
-      @li **info** The info dict from the Manager (see: @ref
-      openassetio.managerAPI.ManagerInterface.getInfo
-      "ManagerInterface.getInfo()")
-      @li **plugin** The plugin class that represents the Manager (see: @ref
-      openassetio.pluginSystem.ManagerPlugin)
+        identifiers = self.__pluginManager.identifiers()
+        for i in identifiers:
 
-    """
+            try:
+                p = self.__pluginManager.getPlugin(i)
+                interface = p.getInterface()
+            except Exception as e:
+                self._logger.log(
+                    "Error loading plugin for '%s': %s" % (i, e), self._logger.kCritical)
+                continue
 
-    if not self.__pluginManager:
-      self.__scan()
+            managerIdentifier = interface.getIdentifier()
+            managers[i] = {
+                'name': interface.getDisplayName(),
+                'identifier': managerIdentifier,
+                'info': interface.getInfo(),
+                'plugin': p
+            }
 
-    managers = {}
+            if i != managerIdentifier:
+                msg = ("Manager '%s' is not registered with the same identifier as it's plugin"
+                       " ('%s' instead of '%s')"
+                       % (interface.getDisplayName(), managerIdentifier, i))
+                self._logger.log(msg, self._logger.kWarning)
 
-    identifiers = self.__pluginManager.identifiers()
-    for i in identifiers:
+        return managers
 
-      try:
-        p = self.__pluginManager.getPlugin(i)
-        interface = p.getInterface()
-      except Exception as e:
-        self._logger.log("Error loading plugin for '%s': %s" % (i, e), self._logger.kCritical)
-        continue
+    def managerRegistered(self, identifier):
+        """
+        @return bool, True if the supplied identifier is known to the
+        factory.
+        """
+        if not self.__pluginManager:
+            self.__scan()
 
-      managerIdentifier = interface.getIdentifier()
-      managers[i] = {
-          'name' : interface.getDisplayName(),
-          'identifier' : managerIdentifier,
-          'info' : interface.getInfo(),
-          'plugin' : p
-      }
+        return identifier in self.__pluginManager.identifiers()
 
-      if i != managerIdentifier:
-        msg = ("Manager '%s' is not registered with the same identifier as "+\
-          "it's plugin ('%s' instead of '%s')") % (interface.getDisplayName(),
-        managerIdentifier, i)
-        self._logger.log(msg, self._logger.kWarning)
+    def instantiate(self, identifier, cache=True):
+        """
+        Creates an instance of the @ref
+        openassetio.managerAPI.ManagerInterface "ManagerInterface" with
+        the specified identifier.
 
-    return managers
+        @param cache bool, When True the created instance will be
+        cached, and immediately returned by subsequence calls to this
+        function with the same identifier - instead of creating a new
+        instance. If False, a new instance will be created each, and
+        never retained.
 
+        @returns openassetio.managerAPI.ManagerInterface
+        """
 
-  def managerRegistered(self, identifier):
-    """
+        if not self.__pluginManager:
+            self.__scan()
 
-    @return bool, True if the supplied identifier is known to the factory.
+        if cache and identifier in self.__instances:
+            return self.__instances[identifier]
 
-    """
-    if not self.__pluginManager:
-      self.__scan()
+        self._logger.log(f"Instantiating {identifier}", self._logger.kDebug)
+        plugin = self.__pluginManager.getPlugin(identifier)
+        interface = plugin.getInterface()
 
-    return identifier in self.__pluginManager.identifiers()
+        if cache:
+            self.__instances[identifier] = interface
 
+        return interface
 
-  def instantiate(self, identifier, cache=True):
-    """
+    def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
+        """
+        Creates an instance of the @ref ManagerUIDelegate for the
+        specified identifier.
 
-    Creates an instance of the @ref openassetio.managerAPI.ManagerInterface "ManagerInterface" with the specified
-    identifier.
+        @param the instance of a ManagerInterface to retrieve the UI
+        delegate for.
 
-    @param cache bool, When True the created instance will be cached, and
-    immediately returned by subsequence calls to this function with the same
-    identifier - instead of creating a new instance. If False, a new instance
-    will be created each, and never retained.
+        @param cache bool, When True the created instance will be
+        cached, and immediately returned by subsequence calls to this
+        function with the same identifier - instead of creating a new
+        instance. If False, a new instance will be created each, and
+        never retained.
+        """
 
-    @returns openassetio.managerAPI.ManagerInterface
+        if not self.__pluginManager:
+            self.__scan()
 
-    """
+        ## @todo This probably has some retention issues we need to deal with
+        if cache and managerInterfaceInstance in self.__delegates:
+            return self.__delegates[managerInterfaceInstance]
 
-    if not self.__pluginManager:
-      self.__scan()
+        identifier = managerInterfaceInstance.getIdentifier()
+        plugin = self.__pluginManager.getPlugin(identifier)
+        delegateInstance = plugin.getUIDelegate(managerInterfaceInstance)
 
-    if cache and identifier in self.__instances:
-      return self.__instances[identifier]
+        if cache:
+            self.__delegates[managerInterfaceInstance] = delegateInstance
 
-    self._logger.log(f"Instantiating {identifier}", self._logger.kDebug)
-    plugin = self.__pluginManager.getPlugin(identifier)
-    interface = plugin.getInterface()
-
-    if cache:
-      self.__instances[identifier] = interface
-
-    return interface
-
-
-  def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
-    """
-
-    Creates an instance of the @ref ManagerUIDelegate for the specified
-    identifier.
-
-    @param the instance of a ManagerInterface to retrieve the UI delegate for.
-
-    @param cache bool, When True the created instance will be cached, and
-    immediately returned by subsequence calls to this function with the same
-    identifier - instead of creating a new instance. If False, a new instance
-    will be created each, and never retained.
-
-    """
-
-    if not self.__pluginManager:
-      self.__scan()
-
-    ## @todo This probably has some retention issues we need to deal with
-    if cache and managerInterfaceInstance in self.__delegates:
-      return self.__delegates[managerInterfaceInstance]
-
-    identifier = managerInterfaceInstance.getIdentifier()
-    plugin = self.__pluginManager.getPlugin(identifier)
-    delegateInstance = plugin.getUIDelegate(managerInterfaceInstance)
-
-    if cache:
-      self.__delegates[managerInterfaceInstance] = delegateInstance
-
-    return delegateInstance
-
-
-
-
-
-
-
-
-
-
-
+        return delegateInstance
