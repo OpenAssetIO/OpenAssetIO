@@ -16,35 +16,35 @@
 
 import pytest
 
-import openassetio.hostAPI.localization as l
+import openassetio.hostAPI.localization as lzn
 from openassetio.managerAPI import ManagerInterface
 
+
 all_localization_keys = (
-    l.kLocalizationKey_Asset,
-    l.kLocalizationKey_Assets,
-    l.kLocalizationKey_Manager,
-    l.kLocalizationKey_Publish,
-    l.kLocalizationKey_Publishing,
-    l.kLocalizationKey_Published,
-    l.kLocalizationKey_Shot,
-    l.kLocalizationKey_Shots
+    lzn.kLocalizationKey_Asset,
+    lzn.kLocalizationKey_Assets,
+    lzn.kLocalizationKey_Manager,
+    lzn.kLocalizationKey_Publish,
+    lzn.kLocalizationKey_Publishing,
+    lzn.kLocalizationKey_Published,
+    lzn.kLocalizationKey_Shot,
+    lzn.kLocalizationKey_Shots
 )
 
 
 class MockLocalizationManager(ManagerInterface):
-
     kLocalizationKey_custom = "custom"
     kLocalizationValue_custom = "alternative"
 
     __mockDisplayName = "Mock Localizing Manager"
     __mockTerminology = {
-        l.kLocalizationKey_Asset: 'mock-asset',
-        l.kLocalizationKey_Assets: 'mock-assets',
-        l.kLocalizationKey_Publish: 'mock-publish',
-        l.kLocalizationKey_Publishing: 'mock-publishing',
-        l.kLocalizationKey_Published: 'mock-published',
-        l.kLocalizationKey_Shot: 'mock-shot',
-        l.kLocalizationKey_Shots: 'mock-shots',
+        lzn.kLocalizationKey_Asset: 'mock-asset',
+        lzn.kLocalizationKey_Assets: 'mock-assets',
+        lzn.kLocalizationKey_Publish: 'mock-publish',
+        lzn.kLocalizationKey_Publishing: 'mock-publishing',
+        lzn.kLocalizationKey_Published: 'mock-published',
+        lzn.kLocalizationKey_Shot: 'mock-shot',
+        lzn.kLocalizationKey_Shots: 'mock-shots',
         kLocalizationKey_custom: kLocalizationValue_custom
     }
 
@@ -61,7 +61,7 @@ class MockLocalizationManager(ManagerInterface):
     @classmethod
     def expectedTerminology(cls):
         expected = dict(cls.__mockTerminology)
-        expected[l.kLocalizationKey_Manager] = cls.__mockDisplayName
+        expected[lzn.kLocalizationKey_Manager] = cls.__mockDisplayName
         return expected
 
 
@@ -72,14 +72,14 @@ def mock_manager():
 
 @pytest.fixture
 def localizer(mock_manager):
-    return l.Localizer(mock_manager)
+    return lzn.Localizer(mock_manager)
 
 
 def test_defaultTerminology():
     # Ensure we have pre-defined keys for anything in the default dictionary
-    assert set(all_localization_keys) == set(l.defaultTerminology.keys())
+    assert set(all_localization_keys) == set(lzn.defaultTerminology.keys())
 
-    for value in l.defaultTerminology.values():
+    for value in lzn.defaultTerminology.values():
         assert isinstance(value, str)
         assert value != ""
 
@@ -87,10 +87,11 @@ def test_defaultTerminology():
 class TestLocalizer:
 
     def test_construction(self, mock_manager):
-
-        custom_terminology = {mock_manager.kLocalizationKey_custom: mock_manager.kLocalizationValue_custom}
-        a_localizer = l.Localizer(mock_manager, terminology=custom_terminology)
-        assert a_localizer.localizeString("{%s}" % mock_manager.kLocalizationKey_custom) == mock_manager.kLocalizationValue_custom
+        custom_terminology = {
+            mock_manager.kLocalizationKey_custom: mock_manager.kLocalizationValue_custom}
+        a_localizer = lzn.Localizer(mock_manager, terminology=custom_terminology)
+        assert (a_localizer.localizeString("{%s}" % mock_manager.kLocalizationKey_custom) ==
+                mock_manager.kLocalizationValue_custom)
 
     def test_localizeString(self, mock_manager, localizer):
         input = ", ".join(["{%s}" % k for k in all_localization_keys])

@@ -24,7 +24,6 @@ from ..logging import LoggerInterface
 
 __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
 
-
 ## @class decorators
 ## Assorted decorators to help with API development. For the sake of
 ## optimisation, and help(fn) still making sense, then they may be disabled by
@@ -48,81 +47,79 @@ __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
 
 enableDebugDecorators = os.environ.get("FOUNDRY_ASSET_API_DEBUG", "1") != "0"
 
+
 class Debuggable:
-  """
+    """
+    A base class for any objects that you with to make use of the debug
+    decorators with.
+    """
 
-  A base class for any objects that you with to make use of the debug decorators
-  with.
-
-  """
-
-  ## If enabled, decorated calls on the object will be logged
-  _debugCalls = True
-  ## Set to a callable that matches @ref openassetio.logging.LoggerInterface.log
-  _debugLogFn = None
+    ## If enabled, decorated calls on the object will be logged
+    _debugCalls = True
+    ## Set to a callable that matches @ref openassetio.logging.LoggerInterface.log
+    _debugLogFn = None
 
 
 def debugCall(function):
-  """
+    """
+    Use as a decorator to trace usage of the decorated function though
+    the kDebug logging severity. This should only be used on bound
+    methods.
+    """
 
-  Use as a decorator to trace usage of the decorated function though the kDebug
-  logging severity. This should only be used on bound methods.
+    # Early out if we're not enabled
+    if not enableDebugDecorators:
+        return function
 
-  """
+    # Because some of our decorators get chained, let see if we have the
+    # original function, otherwise we just log the decorator, which is
+    # useful to neither man nor beast (only our decorators bother to set this).
+    debugFn = function
+    if hasattr(function, 'func_wrapped'):
+        debugFn = function.func_wrapped
 
-  # Early out if we're not enabled
-  if not enableDebugDecorators:
-    return function
+    @functools.wraps(function)
+    def _debugCall(*args, **kwargs):
+        return __debugCall(function, debugFn, LoggerInterface.kDebug, *args, **kwargs)
 
-  # Because some of our decorators get chained, let see if we have the
-  # original function, otherwise we just log the decorator, which is
-  # useful to neither man nor beast (only our decorators bother to set this).
-  debugFn = function
-  if hasattr(function, 'func_wrapped'):
-    debugFn = function.func_wrapped
+    # Ensure the docstring is updated so the help() messages are meaningful,
+    # otherwise, we obscure the signature of the underlying function
+    params = inspect.formatargspec(*inspect.getfullargspec(debugFn))
+    sig = "(Debug) %s%s" % (debugFn.__name__, params)
+    d = function.__doc__
+    _debugCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
 
-  @functools.wraps(function)
-  def _debugCall(*args, **kwargs):
-    return __debugCall(function, debugFn, LoggerInterface.kDebug, *args, **kwargs)
-
-  # Ensure the docstring is updated so the help() messages are meaningful,
-  # otherwise, we obscure the signature of the underlying function
-  params = inspect.formatargspec(*inspect.getfullargspec(debugFn))
-  sig = "(Debug) %s%s" % (debugFn.__name__,  params)
-  d = function.__doc__
-  _debugCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
-
-  return _debugCall
+    return _debugCall
 
 
 def debugApiCall(function):
+    # See notes in debugCall
 
-  # See notes in debugCall
+    # Early out if we're not enabled
+    if not enableDebugDecorators:
+        return function
 
-  # Early out if we're not enabled
-  if not enableDebugDecorators:
-    return function
+    debugFn = function
+    if hasattr(function, 'func_wrapped'):
+        debugFn = function.func_wrapped
 
-  debugFn = function
-  if hasattr(function, 'func_wrapped'):
-    debugFn = function.func_wrapped
+    @functools.wraps(function)
+    def _debugApiCall(*args, **kwargs):
+        return __debugCall(function, debugFn, LoggerInterface.kDebugAPI, *args, **kwargs)
 
-  @functools.wraps(function)
-  def _debugApiCall(*args, **kwargs):
-    return __debugCall(function, debugFn, LoggerInterface.kDebugAPI, *args, **kwargs)
+    params = inspect.signature(debugFn)
+    sig = "(DebugAPI) %s%s" % (debugFn.__name__, params)
+    d = function.__doc__
+    _debugApiCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
 
-  params = inspect.signature(debugFn)
-  sig = "(DebugAPI) %s%s" % (debugFn.__name__,  params)
-  d = function.__doc__
-  _debugApiCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
-
-  return _debugApiCall
+    return _debugApiCall
 
 
 def __debugCall(function, traceFn, severity, self, *args, **kwargs):
-
     if not isinstance(self, Debuggable):
-      raise RuntimeError("Debug tracing methods can only be used on instances of a class derived from Debuggable")
+        raise RuntimeError(
+            "Debug tracing methods can only be used on instances of a"
+            " class derived from Debuggable")
 
     # function and traceFn are provided so that when the function is wrapped,
     # traceFn is printed to the log, but function (usually the wrapper) is
@@ -133,57 +130,50 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     enabled = self._debugCalls and self._debugLogFn is not None
     if enabled:
 
-      allArgs = [repr(a) for a in args]
-      allArgs.extend(["%s=%r" % (k,v) for k,v in kwargs.items()])
+        allArgs = [repr(a) for a in args]
+        allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
 
-      msg = "-> %x %r.%s( %s )" % (
-          id(self), self, traceFn.__name__, ", ".join(allArgs))
-      self._debugLogFn(msg, severity)
-
-      result = "<exception>"
-      timer = _Timer()
-      try:
-        with timer:
-          result = function(self, *args, **kwargs)
-      finally:
-        msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
-            timer, result)
+        msg = "-> %x %r.%s( %s )" % (
+            id(self), self, traceFn.__name__, ", ".join(allArgs))
         self._debugLogFn(msg, severity)
 
-      return result
+        result = "<exception>"
+        timer = _Timer()
+        try:
+            with timer:
+                result = function(self, *args, **kwargs)
+        finally:
+            msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
+                                           timer, result)
+            self._debugLogFn(msg, severity)
+
+        return result
 
     else:
-      return function(self, *args, **kwargs)
+        return function(self, *args, **kwargs)
 
 
 class _Timer(object):
-  """
+    """
+    A simple timer object that can be used, for, er, timing things from
+    a wall-clock point of view.
+    """
 
-  A simple timer object that can be used, for, er, timing things from a
-  wall-clock point of view.
+    def __init__(self):
+        object.__init__(self)
+        self.start = 0
+        self.end = None
 
-  """
+    def __enter__(self):
+        self.start = time.time()
+        return self
 
-  def __init__(self):
-    object.__init__(self)
-    self.start = 0
-    self.end = None
+    def __exit__(self, *args):
+        self.end = time.time()
 
-  def __enter__(self):
-    self.start = time.time()
-    return self
+    def interval(self):
+        end = self.end if self.end is not None else time.time()
+        return end - self.start
 
-  def __exit__(self, *args):
-    self.end = time.time()
-
-  def interval(self):
-    end = self.end if self.end is not None else time.time()
-    return end - self.start
-
-  def __str__(self):
-    return "%.05fs" % self.interval()
-
-
-
-
-
+    def __str__(self):
+        return "%.05fs" % self.interval()

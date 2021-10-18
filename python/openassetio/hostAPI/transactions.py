@@ -23,11 +23,9 @@ __all__ = ['TransactionCoordinator', 'ScopedActionGroup']
 
 class TransactionCoordinator(Debuggable):
     """
-
-    The TransationCoordinator simplifies Host implementation by providing a
-    stack-like interface around the simple start/stop/cancel transaction API
-    exposed by the ManagerInterface.
-
+    The TransationCoordinator simplifies Host implementation by
+    providing a stack-like interface around the simple start/stop/cancel
+    transaction API exposed by the ManagerInterface.
     """
 
     def __init__(self, manager):
@@ -37,9 +35,7 @@ class TransactionCoordinator(Debuggable):
 
     def manager(self):
         """
-
         @returns the Manager for which transactions are being managed.
-
         """
         return self.__manager
 
@@ -53,17 +49,16 @@ class TransactionCoordinator(Debuggable):
     @auditApiCall("Transactions")
     def scopedActionGroup(self, context):
         """
-
-        @return A python context manager that pushes an action group on creation,
-        and pops it when the scope is exit. Use with a 'with' statement, to
-        simplify implementing action groups in a host. for example:
+        @return A python context manager that pushes an action group on
+        creation, and pops it when the scope is exit. Use with a 'with'
+        statement, to simplify implementing action groups in a host. for
+        example:
 
         @code
         with transactionCoordinator.scopedActionGroup(context):
           for t in textures:
             publish(t)
         @endcode
-
         """
         return ScopedActionGroup(self, context)
 
@@ -71,12 +66,11 @@ class TransactionCoordinator(Debuggable):
     @auditApiCall("Transactions")
     def pushActionGroup(self, context):
         """
-
-        Push an ActionGroup onto the supplied Context. This will increase the depth
-        by 1, and a @ref transaction started if necessary.
+        Push an ActionGroup onto the supplied Context. This will
+        increase the depth by 1, and a @ref transaction started if
+        necessary.
 
         @return int The new depth of the Action Group stack
-
         """
         if context.actionGroupDepth == 0:
             self.__manager._startTransaction(context.managerInterfaceState)
@@ -84,20 +78,18 @@ class TransactionCoordinator(Debuggable):
         context.actionGroupDepth += 1
         return context.actionGroupDepth
 
-
     @debugApiCall
     @auditApiCall("Transactions")
     def popActionGroup(self, context):
         """
-
-        Pops an ActionGroup from the supplied Context. This will decrease the depth
-        by 1 and the current @ref transaction will be finished if necessary.
+        Pops an ActionGroup from the supplied Context. This will
+        decrease the depth by 1 and the current @ref transaction will be
+        finished if necessary.
 
         @return int The new depth of the Action Group stack
 
-        @exception RuntimeError If pop is called before push (ie: the stack depth
-        is 0)
-
+        @exception RuntimeError If pop is called before push (ie: the
+        stack depth is 0)
         """
         if context.actionGroupDepth == 0:
             raise RuntimeError("Action group popped with none on the stack")
@@ -108,21 +100,18 @@ class TransactionCoordinator(Debuggable):
 
         return context.actionGroupDepth
 
-
     @debugApiCall
     @auditApiCall("Transactions")
     def cancelActions(self, context):
         """
+        Clears the current ActionGroup stack (if one has been started),
+        cancelling the @ref transaction if one has been started.
 
-        Clears the current ActionGroup stack (if one has been started), cancelling
-        the @ref transaction if one has been started.
-
-        @return bool True if the current cancelled successfully and any actions
-        performed since it began have been undone, or if there was nothing to
-        cancel. Otherwise False - which indicates the Manager may not have been
-        able to undo-unwind any actions that occurred since the first ActionGroup
-        was pushed onto the stack.
-
+        @return bool True if the current cancelled successfully and any
+        actions performed since it began have been undone, or if there
+        was nothing to cancel. Otherwise False - which indicates the
+        Manager may not have been able to undo-unwind any actions that
+        occurred since the first ActionGroup was pushed onto the stack.
         """
         status = True
 
@@ -135,15 +124,11 @@ class TransactionCoordinator(Debuggable):
 
         return status
 
-
     def actionGroupDepth(self, context):
         """
-
         @return int The current ActionGroup depth in the context.
-
         """
         return context.actionGroupDepth
-
 
     ## @}
 
@@ -160,9 +145,9 @@ class TransactionCoordinator(Debuggable):
     @auditApiCall("Transactions")
     def freezeManagerState(self, context):
         """
-
-        Returns a serialized representation of the @ref manager_state held in the
-        supplied Context, so that it can be distributed to other processes/etc...
+        Returns a serialized representation of the @ref manager_state
+        held in the supplied Context, so that it can be distributed to
+        other processes/etc...
 
         @warning From this point, the context should not be used further
         without first thawing the state back into the context.
@@ -170,36 +155,33 @@ class TransactionCoordinator(Debuggable):
         @return str an ASCII compatible string
 
         @see thawManagerState
-
         """
         ## @todo Ensure that other actions error after this point
         ## @todo Should this clear out the state/dept from the Context?
         token = self.__manager._freezeState(context.managerInterfaceState)
         return "%i_%s" % (context.actionGroupDepth, token)
 
-
     @auditApiCall("Transactions")
     def thawManagerState(self, token, context):
         """
-
-        Restores the @ref manager_state in the supplied Context so that it
-        represents the context as previously frozen.
+        Restores the @ref manager_state in the supplied Context so that
+        it represents the context as previously frozen.
 
         @param token str The string returned by @ref freezeManagerState
 
         @param context Context The context to restore the state into.
 
-        @note It is perfectly legal to thaw the same context multiple times in
-        parallel, as long as the ActionGroup depth is not changed - ie:
-        push/pop/cancelActionGroup should not be called. This is because it quickly
-        creates an incoherent state for the Manager.  The Host *must* guarantee
-        that a given state has only been thawed to a single active Context before
-        such actions are performed.
+        @note It is perfectly legal to thaw the same context multiple
+        times in parallel, as long as the ActionGroup depth is not
+        changed - ie: push/pop/cancelActionGroup should not be called.
+        This is because it quickly creates an incoherent state for the
+        Manager.  The Host *must* guarantee that a given state has only
+        been thawed to a single active Context before such actions are
+        performed.
 
-        @warning This call only handles the opaque @ref manager_state object, it
-        does *not* restore other properties of the Context (ie: access/retention,
-        etc...)
-
+        @warning This call only handles the opaque @ref manager_state
+        object, it does *not* restore other properties of the Context
+        (ie: access/retention, etc...)
         """
         ## @todo Sanitise input
         depth, managerToken = token.split('_', 1)
@@ -209,12 +191,12 @@ class TransactionCoordinator(Debuggable):
 
     ## @}
 
+
 class ScopedActionGroup(object):
     """
-
-    A convenience class to push/pop an action group based on the lifetime of the
-    object, useful when combined with a 'with' statement.
-
+    A convenience class to push/pop an action group based on the
+    lifetime of the object, useful when combined with a 'with'
+    statement.
     """
 
     def __init__(self, transactionCoordinator, context, cancelOnException=True):
@@ -233,4 +215,3 @@ class ScopedActionGroup(object):
             self.__transactionCoordinator.cancelActions(self.__context)
         else:
             self.__transactionCoordinator.popActionGroup(self.__context)
-

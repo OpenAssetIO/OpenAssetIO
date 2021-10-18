@@ -17,90 +17,86 @@
 from ..logging import LoggerInterface
 from .. import exceptions
 
+
 __all__ = ['PluginSystem']
 
 
 class PluginSystem(object):
-  """
+    """
+    Loads Python Packages on a custom search path. If they manager a
+    top-level 'plugin' attribute, that holds a class derived from
+    PluginSystemPlugin, it will be registered with its identifier. Once
+    a plug-in has registered an identifier, any subsequent registrations
+    with that id will be skipped.
+    """
 
-  Loads Python Packages on a custom search path. If they manager a top-level
-  'plugin' attribute, that holds a class derived from PluginSystemPlugin,
-  it will be registered with its identifier.
-  Once a plug-in has registered an identifier, any subsequent registrations
-  with that id will be skipped.
+    def __init__(self, logger: LoggerInterface):
+        self.__map = {}
+        self.__paths = {}
+        self.__logger = logger
 
-  """
-  def __init__(self, logger: LoggerInterface):
-    self.__map = {}
-    self.__paths = {}
-    self.__logger = logger
+    def scan(self, paths):
+        import os.path
+        import imp
+        import hashlib
 
+        self.__logger.log(
+            "PluginSystem: Looking for packages on: %s" % paths, self.__logger.kDebug)
 
-  def scan(self, paths):
-    import os.path
-    import imp
-    import hashlib
+        for path in paths.split(os.pathsep):
 
-    self.__logger.log("PluginSystem: Looking for packages on: %s" % paths, self.__logger.kDebug)
+            if not os.path.isdir(path):
+                self.__logger.log(
+                    "PluginSystem: Omitting '%s' from plug-in search as"
+                    " its not a directory" % path, self.__logger.kDebug)
 
-    for path in paths.split(os.pathsep):
+            for bundle in os.listdir(path):
 
-      if not os.path.isdir(path):
-        self.__logger.log(("PluginSystem: Omitting '%s' from plug-in search as its not a "+\
-            "directory") % path, self.__logger.kDebug)
+                bundlePath = os.path.join(path, bundle)
+                if not os.path.isdir(bundlePath):
+                    self.__logger.log(
+                        "PluginSystem: Omitting '%s' as its not a package directory" % path,
+                        self.__logger.kDebug)
+                    continue
 
-      for bundle in os.listdir(path):
+                # Make a unique namespace to ensure the plugin identifier is all that
+                # really matters
+                moduleName = hashlib.md5(bundlePath.encode("utf-8")).hexdigest()
 
-        bundlePath = os.path.join(path, bundle)
-        if not os.path.isdir(bundlePath):
-          self.__logger.log(("PluginSystem: Omitting '%s' as its not a package "+\
-            "directory") % path, self.__logger.kDebug)
-          continue
+                try:
 
-        # Make a unique namespace to ensure the plugin identifier is all that
-        # really matters
-        moduleName = hashlib.md5(bundlePath.encode("utf-8")).hexdigest()
+                    module = imp.load_module(
+                        moduleName, None, bundlePath, ("", "", imp.PKG_DIRECTORY))
+                    if hasattr(module, 'plugin'):
+                        self.register(module.plugin, bundlePath)
 
-        try:
+                except Exception as e:
+                    msg = "PluginSystem: Caught exception loading plug-in from '%s':\n%s" % (
+                        bundlePath, e)
+                    self.__logger.log(msg, self.__logger.kError)
 
-          module = imp.load_module(moduleName, None, bundlePath, ("","",imp.PKG_DIRECTORY))
-          if hasattr(module, 'plugin'):
-            self.register(module.plugin, bundlePath)
+    def identifiers(self):
+        return self.__map.keys()
 
-        except Exception as e:
-          msg = "PluginSystem: Caught exception loading plug-in from '%s':\n%s" % (bundlePath, e)
-          self.__logger.log(msg, self.__logger.kError)
+    def getPlugin(self, identifier):
 
+        if identifier not in self.__map:
+            msg = "PluginSystem: No plug-in registered with the identifier '%s'" % identifier
+            raise exceptions.PluginError(msg)
 
-  def identifiers(self):
-    return self.__map.keys()
+        return self.__map[identifier]
 
+    def register(self, cls, path="<unknown>"):
 
-  def getPlugin(self, identifier):
+        identifier = cls.getIdentifier()
+        if identifier in self.__map:
+            msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \
+                  % (cls, path, self.__paths[identifier])
+            self.__logger.log(msg, self.__logger.kDebug)
+            return
 
-    if identifier not in self.__map:
-      msg = "PluginSystem: No plug-in registered with the identifier '%s'" % identifier
-      raise exceptions.PluginError(msg)
+        msg = "PluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
+        self.__logger.log(msg, self.__logger.kDebug)
 
-    return self.__map[identifier]
-
-
-  def register(self, cls, path="<unknown>"):
-
-    identifier = cls.getIdentifier()
-    if identifier in self.__map:
-      msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \
-          % (cls, path, self.__paths[identifier] )
-      self.__logger.log(msg, self.__logger.kDebug)
-      return
-
-    msg = "PluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
-    self.__logger.log(msg, self.__logger.kDebug)
-
-    self.__map[identifier] = cls
-    self.__paths[identifier] = path
-
-
-
-
-
+        self.__map[identifier] = cls
+        self.__paths[identifier] = path

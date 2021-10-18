@@ -16,6 +16,7 @@
 
 from .._core.audit import auditApiCall
 
+
 ## @namespace openassetio.localization
 #
 # The localization mechanism allows Managers to customise terminology
@@ -55,22 +56,23 @@ defaultTerminology = {
     kLocalizationKey_Shots: 'Shots',
 }
 
-class Localizer :
+
+class Localizer:
 
     def __init__(self, manager, terminology=defaultTerminology):
         """
-
         Constructs a new Localizer using terminology overrides defined
-        by the supplied Manager. The manager is queried during construction
-        and it's results cached for the lifetime of the Localizer.
+        by the supplied Manager. The manager is queried during
+        construction and it's results cached for the lifetime of the
+        Localizer.
 
         @param terminology A dict of terms that will be localized by
         this instance. If left unspecified, the default API terminology
-        will be used. Hosts may take a copy of this dictionary and append
-        to it before passing to the Localizer to allow managers to customise
-        additional host-specific terms. There is no expectation that a manager
-        would handle new terms without specific knowledge in advance.
-
+        will be used. Hosts may take a copy of this dictionary and
+        append to it before passing to the Localizer to allow managers
+        to customise additional host-specific terms. There is no
+        expectation that a manager would handle new terms without
+        specific knowledge in advance.
         """
         self.__terminology = dict(terminology)
         self.__localize(manager)
@@ -78,21 +80,21 @@ class Localizer :
     @auditApiCall("Localization")
     def localizeString(self, sourceStr):
         """
-
-        Substitutes any valid localizable tokens in the input string with those
-        appropriate to the current Manager. These tokens are as per python format
-        convention, using the constants defined in @ref openassetio.constants under
-        kLocalizationKey_*. For example:
+        Substitutes any valid localizable tokens in the input string
+        with those appropriate to the current Manager. These tokens are
+        as per python format convention, using the constants defined in
+        @ref openassetio.constants under kLocalizationKey_*. For
+        example:
 
           @li "{publish} to {manager}..."
 
-        @important Escaping brace literals with `{{` is not currently supported.
+        @important Escaping brace literals with `{{` is not currently
+        supported.
 
         @param sourceStr a UTF-8 ASCII string to localize.
 
-        @return str The input string with all applicable terms localized, any remaining
-        braces ({}) will be removed.
-
+        @return str The input string with all applicable terms
+        localized, any remaining braces ({}) will be removed.
         """
         try:
             # Make sure we dont abort if there is an unknown string
@@ -101,19 +103,15 @@ class Localizer :
             pass
         return sourceStr.replace("{", "").replace("}", "")
 
-
     @auditApiCall("Localization")
     def getLocalizedString(self, key, default=''):
         """
-
-        Returns the localized version of the supplied key, @ref openassetio.constants
-        under kLocalizationKey_*
+        Returns the localized version of the supplied key, @ref
+        openassetio.constants under kLocalizationKey_*
 
         @return str or the supplied default if the key is unknown.
-
         """
         return self.__terminology.get(key, default)
-
 
     def __localize(self, manager):
 

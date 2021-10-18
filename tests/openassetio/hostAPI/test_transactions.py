@@ -68,15 +68,18 @@ class TestTransactionCoordinator:
         state = a_context.managerInterfaceState
 
         assert a_context.actionGroupDepth == 0
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
 
         transaction_coordinator.pushActionGroup(a_context)
         assert a_context.actionGroupDepth == 1
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=state, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=state, finish=None, cancel=None)
 
         transaction_coordinator.pushActionGroup(a_context)
         assert a_context.actionGroupDepth == 2
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
 
     def test_popActionGroup(self, transaction_coordinator, mock_host_session, a_context):
 
@@ -87,15 +90,18 @@ class TestTransactionCoordinator:
 
         transaction_coordinator.popActionGroup(a_context)
         assert a_context.actionGroupDepth == 1
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
 
         transaction_coordinator.popActionGroup(a_context)
         assert a_context.actionGroupDepth == 0
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=state, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=state, cancel=None)
 
         with pytest.raises(RuntimeError):
             transaction_coordinator.popActionGroup(a_context)
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
 
     def test_cancelActions(self, transaction_coordinator, mock_host_session, a_context):
 
@@ -108,14 +114,16 @@ class TestTransactionCoordinator:
 
         a_context.actionGroupDepth = 2
         assert transaction_coordinator.cancelActions(a_context) is True
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=state)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=state)
         assert a_context.actionGroupDepth == 0
 
         mock_manager.cancelTransaction.return_value = False
 
         a_context.actionGroupDepth = 2
         assert transaction_coordinator.cancelActions(a_context) is False
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=state)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=state)
         assert a_context.actionGroupDepth == 0
 
         # Check depth == 0 is an early-out
@@ -124,7 +132,8 @@ class TestTransactionCoordinator:
 
         a_context.actionGroupDepth = 0
         assert transaction_coordinator.cancelActions(a_context) is True
-        self.__assertTransactionCalls(mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        self.__assertTransactionCalls(
+            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
         assert a_context.actionGroupDepth == 0
 
     def test_actionGroupDepth(self, transaction_coordinator, a_context):
@@ -138,7 +147,8 @@ class TestTransactionCoordinator:
         a_context.actionGroupDepth = 77
         assert transaction_coordinator.actionGroupDepth(a_context) == 77
 
-    def test_managerInterfaceState_freeze_thaw(self, transaction_coordinator, mock_host_session, a_context):
+    def test_managerInterfaceState_freeze_thaw(
+            self, transaction_coordinator, mock_host_session, a_context):
 
         mock_manager = transaction_coordinator.manager()._getInterface()
 
@@ -205,7 +215,8 @@ class TestScopedActionGroup:
 
         with pytest.raises(RuntimeError):
             with a_scoped_group:
-                self.__assertActionGroupCalls(mock_coordinator, push=a_context, pop=None, cancel=None)
+                self.__assertActionGroupCalls(
+                    mock_coordinator, push=a_context, pop=None, cancel=None)
                 raise RuntimeError
 
             self.__assertActionGroupCalls(mock_coordinator, push=None, pop=None, cancel=a_context)
@@ -219,7 +230,8 @@ class TestScopedActionGroup:
 
         with pytest.raises(RuntimeError):
             with a_scoped_group:
-                self.__assertActionGroupCalls(mock_coordinator, push=a_context, pop=None, cancel=None)
+                self.__assertActionGroupCalls(
+                    mock_coordinator, push=a_context, pop=None, cancel=None)
                 raise RuntimeError
 
             self.__assertActionGroupCalls(mock_coordinator, push=None, pop=a_context, cancel=None)
