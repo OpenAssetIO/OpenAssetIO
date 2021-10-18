@@ -52,8 +52,42 @@ Regardless of which mechanism you use, the resulting docs bundle will be
 created in a `html` folder in this directory.  You can view the main
 index page via `html/index.html`.
 
+## Deploying the docs
+
+Public facing documentation is served via GitHub Pages from the `docs`
+branch of https://github.com/TheFoundryVisionmongers/OpenAssetIO. This 
+branch should be updated using the standard Pull Request process.
+
+Specifically,
+1. Check out the latest `main` branch.
+2. Generate the documentation (see above), resulting in a `html` 
+   directory.
+3. Check out the latest `docs` branch.
+4. Replace the `docs` directory in the `docs` branch checkout with 
+   the generated `html` directory (i.e. renamed to `docs`).
+5. Commit and push the updated `docs` branch to your fork of the 
+   repository, placing the (short) commit hash that the documentation 
+   was generated from in the commit message.
+6. Create a Pull Request against the `docs` branch in the main 
+   repository.
+
+For convenience, much of this can be automated using the `deploy` 
+target of the included `Makefile`, i.e.
+```shell
+make deploy
+```
+which will commit a previously generated `html` directory to a `docs` 
+directory in the `docs` branch, then push that branch to `origin`.
+
 ## Tidying up
 
 Running `make clean` will remove any generated docs or automatically
 installed tooling.
 
+## Future work
+
+Once the repository is stable, we will need to publish to a release
+version subdirectory in the repository, so that documentation remains
+available for older stable versions. This will necessitate changes to
+the landing page to perform the appropriate redirect to the latest
+documentation (and ideally offer a dropdown to switch versions).
