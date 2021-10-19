@@ -49,7 +49,7 @@ class Manager(Debuggable):
     threads concurrently.
     """
 
-    def __init__(self, interfaceInstance, hostSession: HostSession):
+    def __init__(self, interfaceInstance, hostSession):
         """
         @private
 

@@ -30,7 +30,7 @@ class PluginSystem(object):
     with that id will be skipped.
     """
 
-    def __init__(self, logger: LoggerInterface):
+    def __init__(self, logger):
         self.__map = {}
         self.__paths = {}
         self.__logger = logger

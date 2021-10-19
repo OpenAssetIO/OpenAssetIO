@@ -49,7 +49,7 @@ class HostSession(object):
     kError = LoggerInterface.kError
     kCritical = LoggerInterface.kCritical
 
-    def __init__(self, host: Host, logger: LoggerInterface):
+    def __init__(self, host, logger):
         """
         The HostSession should not be directly constructed. They will be
         automatically managed by the API middleware.
