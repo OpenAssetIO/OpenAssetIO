@@ -52,7 +52,7 @@ def a_session(mock_host_interface, mock_logger, mock_manager_factory):
 
 class TestSession():
 
-    def test_constructory(self, a_session, mock_logger, mock_manager_factory):
+    def test_constructor(self, a_session, mock_logger, mock_manager_factory):
         assert a_session._debugLogFn is mock_logger.log
         with pytest.raises(ValueError):
             Session(None, mock_logger, mock_manager_factory)
@@ -191,7 +191,7 @@ class TestSession():
 
         state_b = "state-b"
         mock_manager_interface.createState.return_value = state_b
-        ## @todo We should spy on the Managaer instead of this fudgery
+        ## @todo We should spy on the Manager instead of this fudgery
         a_host_session = a_session.currentManager()._Manager__hostSession
 
         context_b = a_session.createContext(parent=context_a)
