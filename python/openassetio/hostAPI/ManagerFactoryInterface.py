@@ -35,7 +35,7 @@ class ManagerFactoryInterface(object):
 
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, logger: LoggerInterface):
+    def __init__(self, logger):
         super(ManagerFactoryInterface, self).__init__()
         self._logger = logger
 

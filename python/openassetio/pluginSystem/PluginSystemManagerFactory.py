@@ -41,7 +41,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     ## The Environment Variable to read the plug-in search path from
     kPluginEnvVar = "FOUNDRY_ASSET_PLUGIN_PATH"
 
-    def __init__(self, logger: LoggerInterface, paths=None):
+    def __init__(self, logger, paths=None):
 
         super(PluginSystemManagerFactory, self).__init__(logger)
 
