@@ -19,7 +19,7 @@ import inspect
 from .SpecificationFactory import SpecificationFactory
 
 # We want these properties to be available here, so people just deriving a
-# 'Specificaion' don't need to worry about where these properties really come
+# 'Specification' don't need to worry about where these properties really come
 # from - we don't want most people to have to care about the 'core' module.
 from ._core.objects import UntypedProperty, TypedProperty, FixedInterfaceObject
 
@@ -138,7 +138,7 @@ class Specification(SpecificationBase):
          @endcode
 
         @param includeDerived bool, If True, then the match will include
-        any specifialisations of the supplied type. For example if you
+        any specializations of the supplied type. For example if you
         used a typeString of "file", a specification of type
         "file.image" would still match. If this is false, it must be the
         exact type match.

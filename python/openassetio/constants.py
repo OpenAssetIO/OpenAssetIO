@@ -18,7 +18,7 @@
 kSupportedMetadataTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managemetPolicy
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 ## @{
 
 ## The Manager has no interest in participating in the management of this kind
@@ -57,7 +57,7 @@ kWillManagePath = 8
 ## @{
 
 ## Some Managers may implement the 'batched' API methods, this flag should be
-## set to indicate that the Manage prefferes batch oparations where possible.
+## set to indicate that the Manage prefers batch operations where possible.
 kSupportsBatchOperations = 16
 
 ## @}

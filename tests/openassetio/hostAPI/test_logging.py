@@ -87,7 +87,7 @@ class TestSeverityFilter():
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
-    def test_severity_acessors(self, severity_filter):
+    def test_severity_accessors(self, severity_filter):
         for severity in self.all_severities:
             severity_filter.setSeverity(severity)
             assert severity_filter.getSeverity() == severity
