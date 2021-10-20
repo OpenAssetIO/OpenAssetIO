@@ -89,9 +89,9 @@ class HostSession(object):
         1, if set to a value less than 0 it will be considered
         cancelled, if greater than one, complete.
 
-        @param message str, A UTF-8 ASCII string message to display with
-        the progress. If None is supplied, it is assumed that there is
-        no message and the previous message may remain. Set to an empty
+        @param message str, A string message to display with the
+        progress. If None is supplied, it is assumed that there is no
+        message and the previous message may remain. Set to an empty
         string if it is desired to always clear the previous message.
         """
         self.__logger.progress(decimalProgress, message=message)
