@@ -68,10 +68,10 @@ class LoggerInterface(object):
         1, if set to a value less than 0 it should be considered
         cancelled, if greater than one, complete.
 
-        @param message str, A UTF-8 ASCII string message to display with
-        the progress. If None is supplied, assume that there is no
-        message and any previous message may remain. Set to an empty
-        string if it is desired to always clear any previous message.
+        @param message str, A message to display with the progress. If
+        None is supplied, assume that there is no message and any
+        previous message may remain. Set to an empty string if it is
+        desired to always clear any previous message.
         """
         msg = "%3d%% %s" % (int(100 * decimalProgress), message if message is not None else "")
         self.log(msg, self.kProgress)

@@ -148,8 +148,8 @@ class Manager(Debuggable):
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
           @li openassetio.constants.kField_EntityReferencesMatchRegex
 
-        Keys will always be UTF8 strings, and Values will be int, bool,
-        float or str.
+        Keys will always be str, and Values will be int, bool, float or
+        str.
         """
         return self.__impl.getInfo()
 
@@ -324,7 +324,7 @@ class Manager(Debuggable):
         If False, this manager should no longer be involved in actions
         relating to the token.
 
-        @param token The UTF-8 encoded string to be inspected.
+        @param token The string to be inspected.
 
         @return bool, True if the supplied token should be considered as
         an @ref entity_reference, False if the pattern is not
@@ -438,8 +438,8 @@ class Manager(Debuggable):
          @li `"Cuttlefish v1"` - for a versioned asset
          @li `"seq003"` - for a sequence in a hierarchy
 
-        @return str, An UTF-8 encoded string containing any valid
-        characters for the manager's implementation.
+        @return str, A string containing any valid characters for the
+        manager's implementation.
         """
         return self.__impl.getEntityName(reference, context, self.__hostSession)
 
@@ -460,9 +460,8 @@ class Manager(Debuggable):
          @li `"Sequence 003 [ Dive / Episode 1 ]"` - for a sequence in
          an hierarchy as a window title.
 
-        @return str, a UTF-8 encoded string containing any valid
-        characters for the @ref asset_management_system's
-        implementation.
+        @return str, a string containing any valid characters for the
+        @ref asset_management_system's implementation.
         """
         return self.__impl.getEntityDisplayName(reference, context, self.__hostSession)
 
@@ -494,7 +493,7 @@ class Manager(Debuggable):
 
         @return Dict[str,primitive], with the entity's metadata. Values
         will be singular plain-old-data types (ie. string, int, float,
-        bool), keys will be UTF-8 encoded strings.
+        bool), keys will be strings.
         """
         return self.__impl.getEntityMetadata(reference, context, self.__hostSession)
 
@@ -571,8 +570,8 @@ class Manager(Debuggable):
         Retrieves the name of the version pointed to by the supplied
         @ref entity_reference.
 
-        @return str, A UTF-8 encoded string representing the version or
-        an empty string if the entity was not versioned.
+        @return str, A string representing the version or an empty
+        string if the entity was not versioned.
 
         @note It is not necessarily a requirement that the entity
         exists, if, for example, the version name can be determined from
@@ -600,12 +599,11 @@ class Manager(Debuggable):
         versions will be returned. If a value of -1 is used, then all
         results will be returned.
 
-        @return dict, Where the keys are UTF8 encoded ASCII string
-        versions, and the values are an @ref entity_reference that
-        points to its entity. Additionally the
-        openassetio.constants.kVersionDict_OrderKey can be set to a list
-        of the version names (ie: dict keys) in their natural ascending
-        order, that may be used by UI elements, etc...
+        @return dict, Where the keys are string versions, and the values
+        are an @ref entity_reference that points to its entity.
+        Additionally the openassetio.constants.kVersionDict_OrderKey can
+        be set to a list of the version names (ie: dict keys) in their
+        natural ascending order, that may be used by UI elements, etc...
 
         @see getEntityVersionName()
         @see getFinalizedEntityVersion()
@@ -816,8 +814,7 @@ class Manager(Debuggable):
         represent file sequences should use the 'format' syntax,
         compatible with sprintf, etc... (eg.  %04d").
 
-        @return str, The UTF-8 encoded string that that is represented
-        by the entity.
+        @return str, The string that that is represented by the entity.
 
         @exception openassetio.exceptions.EntityResolutionError If the
         @ref entity_reference does not have a meaningful string

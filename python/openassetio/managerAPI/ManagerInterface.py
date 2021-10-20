@@ -237,8 +237,8 @@ class ManagerInterface(object):
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
           @li openassetio.constants.kField_EntityReferencesMatchRegex
 
-        @note Keys should always be UTF-8 encoded strings, and values
-        must be plain-old-data types (ie: str, int, float, bool).
+        @note Keys should always be strings, and values must be
+        plain-old-data types (ie: str, int, float, bool).
         """
         return {}
 
@@ -389,7 +389,7 @@ class ManagerInterface(object):
         @warning The result of this call should not depend on the
         context Locale.
 
-        @param token The UTF-8 encoded string to be inspected.
+        @param token The string to be inspected.
 
         @param context openassetio.Context, The calling context.
 
@@ -477,8 +477,8 @@ class ManagerInterface(object):
         this function to ensure any @ref meta_version "meta-versions"
         are resolved prior to resolution.
 
-        @return str, The UTF-8 encoded string that that is represented
-        by the reference.
+        @return str, The string that that is represented by the
+        reference.
 
         @exception openassetio.exceptions.EntityResolutionError If the
         supplied @ref entity_reference does not have a meaningful string
@@ -562,8 +562,8 @@ class ManagerInterface(object):
          @li `"Cuttlefish v1"` - for a version of an asset
          @li `"seq003"` - for a sequence in a hierarchy
 
-        @return str, A UTF-8 encoded string containing any valid
-        characters for the manager's implementation.
+        @return str, A string containing any valid characters for the
+        manager's implementation.
         """
         raise NotImplementedError
 
@@ -583,9 +583,8 @@ class ManagerInterface(object):
          @li `"Sequence 003 [ Dive / Episode 1 ]"` - for a sequence in
          an hierarchy as a window title.
 
-        @return str, A UTF-8 encoded string containing any valid
-        characters for the @ref asset_management_system's
-        implementation.
+        @return str, A string containing any valid characters for the
+        @ref asset_management_system's implementation.
 
         @exception openassetio.exceptions.InvalidEntityReference If any
         supplied reference is not recognised by the asset management
@@ -611,7 +610,7 @@ class ManagerInterface(object):
 
         @return Dict[str,primitive], with the entity's metadata. Values
         must be singular plain-old-data types (ie. string, int, float,
-        bool), keys must be UTF-8 encoded strings.
+        bool), keys must be strings.
         """
         raise NotImplementedError
 
@@ -688,8 +687,8 @@ class ManagerInterface(object):
         Retrieves the name of the version pointed to by the supplied
         @ref entity_reference.
 
-        @return str, A UTF-8 encoded string representing the version or
-        an empty string if the entity was not versioned.
+        @return str, A string representing the version or an empty
+        string if the entity was not versioned.
 
         @note It is not necessarily a requirement that the entity
         exists, if, for example, the version name can be determined from
@@ -717,9 +716,9 @@ class ManagerInterface(object):
         versions should be returned. If a value of -1 is used, then all
         results should be returned.
 
-        @return Dict[str,str], Where the keys are UTF-8 encoded string
-        versions, and the values are an @ref entity_reference that
-        points to that versions entity.  Additionally the
+        @return Dict[str,str], Where the keys are string versions, and
+        the values are an @ref entity_reference that points to that
+        versions entity. Additionally the
         openassetio.constants.kVersionDict_OrderKey can be set to a list
         of the version names (ie: dict keys) in their natural ascending
         order, that may be used by UI elements, etc...
@@ -1411,8 +1410,7 @@ class ManagerInterface(object):
         openassetio.exceptions.StateError if made without first thawing
         the stack.
 
-        @return A UTF-8 encoded string that can be used to restore the
-        stack.
+        @return A string that can be used to restore the stack.
 
         @see thawState()
         @see The @ref transactions page.

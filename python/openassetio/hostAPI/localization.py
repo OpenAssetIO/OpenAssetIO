@@ -91,7 +91,7 @@ class Localizer:
         @important Escaping brace literals with `{{` is not currently
         supported.
 
-        @param sourceStr a UTF-8 ASCII string to localize.
+        @param sourceStr a string to localize.
 
         @return str The input string with all applicable terms
         localized, any remaining braces ({}) will be removed.
