@@ -235,16 +235,16 @@ pre.fragment {
 	margin: 4px 8px 4px 2px;
 	overflow: auto;
 	word-wrap: break-word;
-	font-size:  9pt;
+	font-size: 9pt;
 	font-family: $font-family-mono;
 }
 
 .fragment {
-  .title {
-    font-size: 100% !important;
-    text-transform: none !important;
-    font-weight: normal !important;
-  }
+	.title {
+		font-size: 100% !important;
+		text-transform: none !important;
+		font-weight: normal !important;
+	}
 }
 
 div.fragment {
@@ -937,20 +937,20 @@ $tab4-colour: lighten($oaio-orange, 4*$tab-vatiation-ammount);
 
 .navpath {
 
-  li {
-	@include title-format;
-    list-style-type:none;
-    float:left;
-    padding-left:10px;
-    padding-right:5px;
-    background-image: none;
-    color:#999999;
+	li {
+		@include title-format;
+		list-style-type:none;
+		float:left;
+		padding-left:10px;
+		padding-right:5px;
+		background-image: none;
+		color:#999999;
 
-	a:before {
-		content: ">";
-		margin-right: 1em;
+		a:before {
+			content: ">";
+			margin-right: 1em;
+		}
 	}
-  }
 }
 
 .navpath {
@@ -1015,7 +1015,7 @@ div.ingroups a
 div.header
 {
 	background: none;
-	margin:  0px;
+	margin: 0px;
 	border-bottom: $border-style;
 }
 
@@ -1260,20 +1260,40 @@ tr.heading h2 {
 
 @media print
 {
-  #top { display: none; }
-  #side-nav { display: none; }
-  #nav-path { display: none; }
-  body { overflow:visible; }
-  h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
-  .summary { display: none; }
-  .memitem { page-break-inside: avoid; }
-  #doc-content
-  {
-    margin-left:0 !important;
-    height:auto !important;
-    width:auto !important;
-    overflow:inherit;
-    display:inline;
-  }
+	#top {
+		display: none;
+	}
+
+	#side-nav {
+		display: none;
+	}
+
+	#nav-path {
+		display: none;
+	}
+
+	body {
+		overflow:visible;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		page-break-after: avoid;
+	}
+
+	.summary {
+		display: none;
+	}
+
+	.memitem {
+		page-break-inside: avoid;
+	}
+
+	#doc-content {
+		margin-left:0 !important;
+		height:auto !important;
+		width:auto !important;
+		overflow:inherit;
+		display:inline;
+	}
 }
 
