@@ -1,0 +1,153 @@
+/*!
+ * @page notes_for_hosts Notes for API Host Developers
+ *
+ * @section host_architecture Architecture Summary
+ *
+ * - In OAIO, a '@ref host' is an application, tool or script that
+ *   makes use of the API to interact with an @ref
+ *   asset_management_system. This could be a anything from a simple
+ *   pipeline script to a full-blown Digital Content Creation
+ *   application. We use this term as the host is the thing responsible
+ *   for 'hosting' the API, and instantiating one or more instances of
+ *   the API classes that represent an asset management system.
+ *
+ * - Hosts interact with an @ref asset_management_system through an
+ *   instance of the @ref openassetio.hostAPI.Manager "Manager" class.
+ *   The @ref openassetio.hostAPI.Session "Session" class is used to
+ *   instantiate and access this instance for any given manager. The
+ *   Manager class wraps the implementation of the API by a specific
+ *   asset manager to help with state management.
+ *
+ * - In order to use the API, every host must provide an
+ *   implementation of the @ref HostInterface class. This represents the
+ *   application or tool in a generic fashion <i>to</i> the asset
+ *   management system. This allows the manager to adapt its behavior
+ *   if necessary, or query information about entity usage within the
+ *   host's data model (if applicable) without needing to use a
+ *   proprietary API.
+ *
+ * - The specific implementation of the @ref HostInterface class
+ *   provided by a host when starting a @ref session is wrapped in the
+ *   @ref Host class before being exposed to the manager. This is to
+ *   allow for assorted middleware auditing/logging functionality, and
+ *   provide a degree of isolation against future API changes.
+ *
+ * - The main currency in the interactions with a @ref manager is the
+ *   @ref entity_reference. These are URIs that uniquely identify an
+ *   @ref entity within the management system. The form of an entity
+ *   reference is entirely determined by the manager. They are
+ *   considered to be opaque to the host.
+ *
+ * - Nearly all interactions with a @ref openassetio.hostAPI.Manager
+ *   "Manager" require an appropriately configured @ref Context. This
+ *   tells the @ref asset_management_system about the intended actions
+ *   of the host. For example, whether an @ref entity_reference is being
+ *   @ref resolve "resolved" for read or for write.
+ *
+ * - The lifetime of the Context can be carefully managed by the host
+ *   to allow the manager to correlate and time-lock disparate API calls.
+ *
+ * - It's in the host's interest to provide as much information in the
+ *   @ref Context and any @ref entity or @ref locale @ref Specification
+ *   "Specifications" supplied to API calls as possible. For example,
+ *   it is strongly advised to use or derive from standard @ref locale
+ *   "locales" depending on which part of a host is making API calls.
+ *   This allows the manager to correctly filter assets or adapt its
+ *   behaviour as required.
+ *
+ * - You should query an entity's @ref metadata wherever possible,
+ *   and use it as the authoritative source of information about an asset.
+ *   For example, to determine the colorspace of an image.
+ *
+ * @section host_reading Recommended Reading
+ *
+ * @see @ref entities_specifications_and_metadata
+ * @see @ref transactions
+ * @see openassetio.hostAPI.Session.Session
+ * @see openassetio.hostAPI.Manager.Manager
+ * @see openassetio.Context.Context
+ *
+ * @section host_todo Implementation check list
+ *
+ * @subsection host_todo_required_resolution Required for simple resolution
+ *
+ * - Implement the @ref openassetio.hostAPI.HostInterface class
+ *   methods:
+ *   @ref openassetio.hostAPI.HostInterface.HostInterface.getIdentifier
+ *   "getIdentifier" and @ref
+ *   openassetio.hostAPI.HostInterface.HostInterface.getDisplayName
+ *   "getDisplayName".
+ *
+ * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
+ *   provide the following objects:
+ *    - An instance of the custom class derived from
+ *      @ref openassetio.hostAPI.HostInterface "HostInterface".
+ *    - A <tt>logger</tt> (derived from
+ *      @ref openassetio.logging.LoggerInterface "LoggerInterface"), for
+ *      simple console logging you can use a
+ *      @ref openassetio.logging.ConsoleLogger "ConsoleLogger" wrapped
+ *      in a @ref openassetio.logging.SeverityFilter "SeverityFilter".
+ *    - A <tt>managerFactory</tt> capable of instantiating managers,
+ *      in the majority of cases a default-configured @ref
+ *      openassetio.pluginSystem.PluginSystemManagerFactory
+ *      "PluginSystemManagerFactory" will be sufficient.
+ *
+ * - Always check any suspected entity references with @ref
+ *   openassetio.hostAPI.Manager.Manager.isEntityReference
+ *   "Manager.isEntityReference" before passing to any other API calls.
+ *
+ * - Create, persist and configure a @ref Context as appropriate for
+ *   all calls to the API.
+ *
+ * @see @ref examples_api_initialization
+ * @see @ref examples_picking_a_manager
+ * @see @ref examples_resolving_a_reference
+ *
+ * @subsection host_todo_required_publishing Required for publishing
+ *
+ * - Ask the @ref manager if they are interested in managing any
+ *   relevant data via
+ *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "Manager.managementPolicy" and respect the returned flags.
+ *
+ * - Follow the @ref management_policy "policy", @ref preflight,
+ *   resolve, write, @ref register process illustrated
+ *   @ref example_publishing_a_file "here" whenever generating new data.
+ *
+ * @see @ref example_publishing_a_file
+ *
+ * @subsection host_todo_recommended Recommended
+ *
+ * - Present users with the ability to enable and select a @ref
+ *   manager to use to interact with an @ref asset_management_system,
+ *   storing applicable options, etc...
+ *
+ * - @ref openassetio.hostAPI.Manager.Manager.isEntityReference "Test"
+ *   and resolve any strings that may represent file system locations
+ *   (@ref openassetio.hostAPI.Manager.Manager.resolveEntityReference
+ *   "Manager.resolveEntityReference")
+ *
+ * - Ensure the use of a correctly configured @ref Context for all
+ *   calls to the API.
+ *
+ * - Allow the @ref ManagerUIDelegate to participate in browsing/etc...
+ *   for any data types they have expressed an interest in managing via
+ *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "Manager.managementPolicy".
+ *
+ * - Make the drawing of any parameters that may hold an @ref
+ *   entity_reference delegatable to the @ref ManagerUIDeleagate.
+ *
+ * - Derive @ref openassetio.specifications "Specifications" for any
+ *   custom 'asset types' you may deal with.
+ *
+ * - If you have a document model, implement the entity query methods
+ *   in your @ref openassetio.hostAPI.HostInterface class.
+ *
+ * - You should map any widgets returned by @ref ManagerUIDelegate.getWidgets
+ *   with the @ref ui.widgets.attributes.kCreateApplicationPanel flag set to
+ *   some native panel type, if you have one.
+ *
+ * @note The UI classes have not yet been migrated from the
+ * <tt>FnAssetAPI</tt> code base.
+ */
