@@ -1,0 +1,204 @@
+/*!
+ * @page examples Examples
+ *
+ * @note This section is a work-in-progress. Over time we will add
+ * flow diagrams for key operations that happen through the API, along
+ * with more extensive sample implementations for both @ref host "hosts"
+ * and @ref manager "managers". Currently it is limited to illustrating a
+ * few common operations that a host of the API may perform.
+ *
+ * @warning At this stage, until we ship a sample manager
+ * implementation, the code for later examples won't actually function.
+ *
+ * @section examples_api_initialization Initializing the API in a Host
+ *
+ * This example covers the steps required to initialize the API within a
+ * @ref host "'host'" tool, script or application that wishes to
+ * interact with an @ref asset_management_system.
+ *
+ * It makes use of the @ref openassetio.pluginSystem "Plugin System" to
+ * discover available @ref ManagerPlugin "ManagerPlugins".
+ *
+ * It also includes a bare-minimum example of a @ref
+ * openassetio.hostAPI.HostInterface "HostInterface" implementation.
+ *
+ * @code{.py}
+ * from openassetio.logging import ConsoleLogger, SeverityFilter
+ * from openassetio.hostAPI import HostInterface, Manager, Session
+ * from openassetio.pluginSystem import PluginSystemManagerFactory
+ *
+ * class ExampleHost(HostInterface):
+ *     """
+ *     A minimal host implementation with no document model.
+ *     """
+ *     def getIdentifier(self):
+ *         return "org.openassetio.example.host"
+ *
+ *
+ *     def getDisplayName(self):
+ *         return "OpenAssetIO Example Host"
+ *
+ * # For simplicity, use a filtered console logger, this logs to
+ * # std::out/err based on the value of FOUNDRY_ASSET_LOGGING_SEVERITY.
+ * # Practically you may wish to provide a bridge to your own logging
+ * # mechanism if you have one.
+ * logger = SeverityFilter(ConsoleLogger())
+ *
+ * # We need to provide the mechanism by which managers are created, the
+ * # built-in plugin system allows these to be loaded from
+ * # FOUNDRY_ASSET_PLUGIN_PATH.
+ * factory = PluginSystemManagerFactory(logger)
+ *
+ * # We then need out implementation of the HostInterface class
+ * host_interface = ExampleHost()
+ *
+ * # We can now start a session with OpenAssetIO. The Session is
+ * # the heart of all our interactions with a the API. It allows
+ * # us to query the available managers, and pick one to talk to.
+ * session = Session(host_interface, logger, factory)
+ * @endcode
+ *
+ * @section examples_picking_a_manager Setting up a Manager
+ *
+ * This example makes use of the newly initialized session to show how to
+ * configure a @ref session to use a specific manager (it assumes that
+ * some example @ref asset_management_system has a plugin, installed on
+ * @ref plugin_path_var).
+ *
+ * We will be providing an example manager implementation soon!
+ *
+ * @code{.py}
+ * managers = session.getRegisteredManagers()
+ * > {
+ * >    'org.openassetio.example.manager': {
+ * >         'name': 'Example Asset Manager',
+ * >         'identifier': 'org.openassetio.example.manager',
+ * >         'info': {},
+ * >         'plugin': <class '5709f502e48331b76857b0f7274cbcf5.ExampleManagerPlugin'>
+ * >    }
+ * > }
+ *
+ * # We then tell the session which manager we'd like to use.
+ * # Each session can only communicate with one manager at once.
+ * # If we wanted to bridge between two, we'd create two sessions.
+ * session.useManager('org.openassetio.example.manager')
+ *
+ * # At this point the manager hasn't yet been initialized. This is
+ * # done lazily when it's first needed. This might seem odd here, but
+ * # it makes life easier in practice in real-world integrations as often
+ * # numerous call sites may wish to obtain access to the manager.
+ * manager = session.currentManager()
+ * @endcode
+ *
+ * @section examples_resolving_a_reference Resolving a reference
+ *
+ * This example shows how to use the instantiated manager to resolve a
+ * string that may be an entity reference - covering use of the correct
+ * context and a custom @ref locale to describe the call site.
+ *
+ * @info Note how it is the callers responsibility to validate
+ * that a string is a @ref entity_reference before passing it to any
+ * other OAIO API that expects one.
+ *
+ * This is to reduce the validation overhead in the manager's
+ * implementation of the API. This affords significant gains in
+ * real-world production use cases where thousands of references
+ * may be operated upon in time-critical scenarios.
+ *
+ * The API middleware provides assorted short-circuit validation
+ * optimisations that can reduce the number of inter-language hops
+ * required. See @ref
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface.getInfo
+ * "ManagerInterface.getInfo" and the <tt>kField_EntityReferenceMatch*</tt>
+ * keys.
+ *
+ * @code{.py}
+ * from openassetio import Context
+ * from openassetio.specifications import LocaleSpecification
+ *
+ * class APIDocumentationExampleLocale(LocaleSpecification):
+ *     """
+ *      A locale to represent code run as part of a documentation example
+ *     """
+ *     _type = "documentation.example"
+ *
+ * # We must **ALWAYS** validate that a string is an entity reference
+ * # before passing it to any other manager API call.
+ * if not manager.isEntityReference(some_string):
+ *    raise ValueError(f'"{some_string}" isn't an entity reference.')
+ *
+ * # All calls to the manager must have a Context, these should always
+ * # be created by the session, so that state is properly managed.
+ * context = session.createContext()
+ *
+ * # We describe what we want to do with the asset
+ * context.access = context.kRead
+ *
+ * # We tell the manager something about which part of our code is
+ * # working with the asset.
+ * context.locale = APIDocumentationExampleLocale()
+ *
+ * # We describe the lifetime of the returned reference
+ * # as persistent retention may require a more stable value.
+ * context.retention = context.kTransient
+ *
+ * # We can now resolve a token we may have if it is a reference.
+ * resolved_asset = manager.resolveEntityReference(some_string, context)
+ * @endcode
+ *
+ * @section example_publishing_a_file Publishing a file
+ *
+ * This example demonstrates how an API host should involve the manager in
+ * the creation of new data. In this case, a simple text file.
+ *
+ * @code{.py}
+ * from openassetio import constants
+ * from openassetio.specifications import FileSpecification
+ *
+ * # We first need to describe the kind of entity we're about
+ * # to publish. It's going to be a text file. In reality you
+ * # would use one of the more derived, concrete specification types.
+ * file_spec = FileSpecification()
+ * file_spec.extensions = ('txt',)
+ *
+ * # As ever, an appropriately configured context is required
+ * context = session.createContext()
+ * context.access = context.kWrite
+ * context.locale = APIDocumentationExampleLocale()
+ *
+ * # The first step is to see if the manager wants to manage text files
+ * policy = manager.managementPolicy(file_spec, context)
+ *
+ * if not policy & constants.kManaged:
+ *   # The manager doesn't care about this type of asset
+ *   return
+ *
+ * # Not all managers can tell us where to put files (irksome).
+ * # The reality of handling this is somewhat more challenging, and
+ * # depends on the nature of the task in hand. One for further discussion.
+ * save_path = os.path.join(os.path.expanduser('~'), 'greeting.txt')
+ *
+ * # Whenever we make new data, we always tell the manager first,
+ * # This allows it to create a placeholder version or similar.
+ * # NOTE: It is critical to always use the working_ref from now on.
+ * working_ref = manager.preflight(entity_ref, file_spec, context)
+ *
+ * # We then check if the manager can tell us where to save the file
+ * if policy & constants.kWillManagePath:
+ *     save_path = manager.resolveEntityReference(working_ref, context)
+ *
+ * # Now we can write the file
+ * with open(save_path, 'w') as f:
+ *    f.write("Hello from the documentation example\n")
+ *
+ * # Now the data has been written, we register the file and the publish
+ * # is complete. Update the context retention to denote that we're going
+ * # to save a reference to this entity in our user's history.
+ * context.retention = context.kPermanent
+ * final_ref = manager.register(save_path, working_ref, file_spec, context)
+ *
+ * # We can persist this reference as we used the kPermanent retention
+ * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
+ *     f.write(f"{final_ref}\n")
+ * @endcode
+ */
