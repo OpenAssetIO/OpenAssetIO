@@ -24,7 +24,7 @@ default: container-build
 ## PHONY TARGETS
 ##
 
-.PHONY: clean clean-html clean-tooling clean-docker container-build docker-image html tooling
+.PHONY: clean clean-html clean-tooling clean-docker container-build deploy docker-image html tooling
 
 #
 # Container build - Runs this Makefile via docker
@@ -52,6 +52,42 @@ html: clean-html src/styles.css tooling
 	. $(VENV)/bin/activate && doxygen ./Doxyfile
 
 tooling: $(SASS) $(VENV)
+
+#
+# Deployment to GH Pages
+#
+
+# Docs repo constants for GitHub Pages branch.
+DOCSREPO_BRANCH = docs
+DOCSREPO_DIR = /tmp/repo
+DOCSREPO_HTML_DIR = docs
+
+# The `deploy` target takes an existing `html` directory and updates
+# the `docs` branch on `origin` via a temporary checkout.
+deploy:
+	# Ensure there are no uncommitted changes
+	git diff --quiet HEAD ||\
+		(echo "Please commit all changes and rebuild documentation before deploying."; exit 1)
+	# Get current source (short) commit hash, for adding to docs commit message.
+	$(eval commit_hash=$(shell git rev-parse --short HEAD))
+	# Get origin remote URL for use in pushing updated docs branch.
+	$(eval remote_url=$(shell git remote get-url origin))
+	# Create a clone of this repo with the docs branch checked out.
+	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(DOCSREPO_DIR)
+	# Remove any previous documentation.
+	rm -rf $(DOCSREPO_DIR)/$(DOCSREPO_HTML_DIR)
+	# Copy in the new documentation.
+	cp -r ./html $(DOCSREPO_DIR)/$(DOCSREPO_HTML_DIR)
+	# Commit and push the new documentation.
+	cd $(DOCSREPO_DIR) && git add . && git commit -m "Update docs to $(commit_hash)" && git push
+	# Remove the clone.
+	rm -rf $(DOCSREPO_DIR)
+	# Pull local docs branch, if one exists.
+	git show-branch docs 2>/dev/null && git fetch origin docs:docs || true
+
+#
+# Cleaning
+#
 
 clean: clean-html clean-tooling
 
