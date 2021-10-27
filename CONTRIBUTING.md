@@ -29,6 +29,11 @@ for docstrings.
 For markdown documents, line wrapping is also performed at 72
 characters, where possible.
 
+### Example code
+
+An exception to the above is for code examples written in Python. Here,
+PEP8 should be strictly followed, including it's naming conventions.
+
 ### IDE configuration
 
 To aid in conforming to our coding style a [`.editorconfig`](https://editorconfig.org/)
