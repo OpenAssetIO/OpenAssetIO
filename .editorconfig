@@ -57,6 +57,9 @@ indent_size = 2
 # ij_json_spaces_within_brackets = false
 # ij_json_wrap_long_lines = false
 
+[*.dox]
+max_line_length = 72
+
 [*.md]
 max_line_length = 72
 # ij_markdown_force_one_space_after_blockquote_symbol = true
