@@ -222,7 +222,7 @@
  * to be performed by the API middleware.
  *
  *
- * @section ManagerPlugin Manager Plugin.
+ * @section ManagerPlugin Manager Plugin
  *
  * The Plug-in mechanism implemented by the @ref
  * openassetio.pluginSystem automatically discovers packages that
