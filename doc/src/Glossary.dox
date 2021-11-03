@@ -237,7 +237,7 @@
  * "ManagerInterface".
  *
  *
- * @section plugin_path_var $FOUNDRY_ASSETMGR_PLUGINPATH
+ * @section plugin_path_var $OAIO_PLUGIN_PATH
  *
  * This is the environment variable used to discover @ref ManagerPlugin
  * "ManagerPlugins", it is searched left-to-right, using standard
