@@ -29,7 +29,7 @@ __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 
 # series of operations.
 # @envvar **OAIO_AUDIT** *int* [0] If non-zero API calls will be
 # audited by default
-# @envvar **FOUNDRY_ASSET_API_AUDIT_ARGS** *int* [0] If non-zero args will be
+# @envvar **OAIO_AUDIT_ARGS** *int* [0] If non-zero args will be
 # captured during audit, if auditing is disabled, this has no effect.
 
 ## Will hold the singleton Auditor object
@@ -42,7 +42,7 @@ auditCalls = os.environ.get('OAIO_AUDIT', "0") != "0"
 
 ## If True, the args for each invocation of a function will be recorded, to
 ## aide debugging
-captureArgs = os.environ.get('FOUNDRY_ASSET_API_AUDIT_ARGS', "0") != "0"
+captureArgs = os.environ.get('OAIO_AUDIT_ARGS', "0") != "0"
 
 ## Some hosts have issues with us holding onto objects. Setting this to True
 ## will ensure that we repr the objects whilst they are still alive.
