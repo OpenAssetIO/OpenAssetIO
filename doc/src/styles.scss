@@ -76,6 +76,15 @@ body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 	text-align: center;
 }
 
+.textblock {
+    li {
+        margin-bottom: 0.5em;
+        li {
+            margin-bottom: 0.25em;
+        }
+    }
+}
+
 .ui-resizable-e {
 	background-image: none;
 }

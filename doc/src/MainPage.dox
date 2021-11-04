@@ -133,6 +133,8 @@
  * if desired and/or query additional information about the host and it's
  * documents.
  *
+ * @see @ref notes_for_hosts
+ *
  * The @ref openassetio.managerAPI.Host.Host "Host" and
  * @ref openassetio.hostAPI.Manager.Manager "Manager" classes are
  * implemented within this API to provide state management and audit
