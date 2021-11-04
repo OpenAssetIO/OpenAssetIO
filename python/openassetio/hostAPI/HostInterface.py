@@ -49,7 +49,7 @@ class HostInterface(object):
     ## @{
 
     @auditApiCall("HostInterface")
-    def getIdentifier(self):
+    def identifier(self):
         """
         Returns an identifier that uniquely identifies the Host.
 
@@ -69,7 +69,7 @@ class HostInterface(object):
         raise NotImplementedError
 
     @auditApiCall("HostInterface")
-    def getDisplayName(self):
+    def displayName(self):
         """
         Returns a human readable name to be used to reference this
         specific host in user-facing presentations.
@@ -81,9 +81,9 @@ class HostInterface(object):
         raise NotImplementedError
 
     @auditApiCall("HostInterface")
-    def getInfo(self):
+    def info(self):
         """
-        Returns other information that may be useful about this Host. 
+        Returns other information that may be useful about this Host.
         This can contain arbitrary key/value pairs. Managers never rely
         directly on any particular keys being set here, but the
         information may be useful for diagnostic or debugging purposes.
@@ -100,7 +100,7 @@ class HostInterface(object):
     ## @}
 
     @auditApiCall("HostInterface")
-    def getDocumentReference(self):
+    def documentReference(self):
         """
         Returns the path, or @ref entity_reference of the current
         document, or an empty string if not applicable. If a Host
@@ -119,7 +119,7 @@ class HostInterface(object):
     ## @{
 
     @auditApiCall("HostInterface")
-    def getKnownEntityReferences(self, specification=None):
+    def knownEntityReferences(self, specification=None):
         """
         Returns an @ref entity_reference for each Entities known to the
         host that are used in the current document, or an empty list if
@@ -137,7 +137,7 @@ class HostInterface(object):
         return []
 
     @auditApiCall("HostInterface")
-    def getEntityReferenceForItem(self, item, allowRelated=False):
+    def entityReferenceForItem(self, item, allowRelated=False):
         """
         This should be capable of taking any item that may be set in a
         locale/etc... or a Host-native API object and returning an @ref

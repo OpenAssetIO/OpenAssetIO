@@ -17,7 +17,7 @@
 class PluginSystemPlugin(object):
 
     @classmethod
-    def getIdentifier(cls):
+    def identifier(cls):
         """
         This method is required by all plugins, in order to uniquely
         identify this plugin. If there are duplicate plugins with the

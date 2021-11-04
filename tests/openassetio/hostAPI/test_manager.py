@@ -65,13 +65,13 @@ class TestManager():
     # __str__ and __repr__ aren't tested as they're debug tricks that need
     # assessing when this is ported to cpp
 
-    def test__getInterface(self, mock_manager_interface, host_session):
+    def test__interface(self, mock_manager_interface, host_session):
         a_manager = Manager(mock_manager_interface, host_session)
-        assert a_manager._getInterface() is mock_manager_interface
+        assert a_manager._interface() is mock_manager_interface
 
-    def test_getIdentifier(self, manager, mock_manager_interface):
-        method = mock_manager_interface.getIdentifier
-        assert manager.getIdentifier() == method.return_value
+    def test_identifier(self, manager, mock_manager_interface):
+        method = mock_manager_interface.identifier
+        assert manager.identifier() == method.return_value
         method.assert_called_once_with()
 
     def test_localizeStrings(self, manager, mock_manager_interface, host_session):
@@ -120,21 +120,21 @@ class TestManager():
 
     # Not testing getEntity as it will be removed
 
-    def test_getDefaultEntityReference(
+    def test_defaultEntityReference(
             self, manager, mock_manager_interface, host_session, an_entity_spec):
-        method = mock_manager_interface.getDefaultEntityReference
-        assert manager.getDefaultEntityReference(an_entity_spec, a_context) == method.return_value
+        method = mock_manager_interface.defaultEntityReference
+        assert manager.defaultEntityReference(an_entity_spec, a_context) == method.return_value
         method.assert_called_once_with(an_entity_spec, a_context, host_session)
 
-    def test_getEntityName(self, manager, mock_manager_interface, host_session, a_ref, a_context):
-        method = mock_manager_interface.getEntityName
-        assert manager.getEntityName(a_ref, a_context) == method.return_value
+    def test_entityName(self, manager, mock_manager_interface, host_session, a_ref, a_context):
+        method = mock_manager_interface.entityName
+        assert manager.entityName(a_ref, a_context) == method.return_value
         method.assert_called_once_with(a_ref, a_context, host_session)
 
-    def test_getEntityDisplayName(
+    def test_entityDisplayName(
             self, manager, mock_manager_interface, host_session, a_ref, a_context):
-        method = mock_manager_interface.getEntityDisplayName
-        assert manager.getEntityDisplayName(a_ref, a_context) == method.return_value
+        method = mock_manager_interface.entityDisplayName
+        assert manager.entityDisplayName(a_ref, a_context) == method.return_value
         method.assert_called_once_with(a_ref, a_context, host_session)
 
     def test_getEntityMetadata(
@@ -182,31 +182,31 @@ class TestManager():
             a_ref, a_key, a_value, a_context) == method.return_value
         method.assert_called_once_with(a_ref, a_key, a_value, a_context, host_session)
 
-    def test_getEntityVersionName(
+    def test_entityVersionName(
             self, manager, mock_manager_interface, host_session, a_ref, a_context):
-        method = mock_manager_interface.getEntityVersionName
-        assert manager.getEntityVersionName(a_ref, a_context) == method.return_value
+        method = mock_manager_interface.entityVersionName
+        assert manager.entityVersionName(a_ref, a_context) == method.return_value
         method.assert_called_once_with(a_ref, a_context, host_session)
 
-    def test_getEntityVersions(
+    def test_entityVersions(
             self, manager, mock_manager_interface, host_session, a_ref, a_context):
 
-        method = mock_manager_interface.getEntityVersions
+        method = mock_manager_interface.entityVersions
 
-        assert manager.getEntityVersions(a_ref, a_context) == method.return_value
+        assert manager.entityVersions(a_ref, a_context) == method.return_value
         method.assert_called_once_with(
             a_ref, a_context, host_session, includeMetaVersions=False, maxResults=-1)
         method.reset_mock()
 
         max_results = 5
-        assert manager.getEntityVersions(
+        assert manager.entityVersions(
             a_ref, a_context, maxResults=max_results) == method.return_value
         method.assert_called_once_with(
             a_ref, a_context, host_session, includeMetaVersions=False, maxResults=max_results)
         method.reset_mock()
 
         include_meta = True
-        assert manager.getEntityVersions(
+        assert manager.entityVersions(
             a_ref, a_context, maxResults=max_results,
             includeMetaVersions=include_meta) == method.return_value
         method.assert_called_once_with(
@@ -214,21 +214,21 @@ class TestManager():
             maxResults=max_results)
         method.reset_mock()
 
-    def test_getFinalizedEntityVersion(
+    def test_finalizedEntityVersion(
             self, manager, mock_manager_interface, host_session, a_ref, a_context):
-        method = mock_manager_interface.getFinalizedEntityVersion
-        assert manager.getFinalizedEntityVersion(a_ref, a_context) == method.return_value
+        method = mock_manager_interface.finalizedEntityVersion
+        assert manager.finalizedEntityVersion(a_ref, a_context) == method.return_value
         method.assert_called_once_with(a_ref, a_context, host_session, overrideVersionName=None)
         method.reset_mock()
 
         a_version_name = "aVersion"
-        method = mock_manager_interface.getFinalizedEntityVersion
-        assert manager.getFinalizedEntityVersion(
+        method = mock_manager_interface.finalizedEntityVersion
+        assert manager.finalizedEntityVersion(
             a_ref, a_context, overrideVersionName=a_version_name) == method.return_value
         method.assert_called_once_with(
             a_ref, a_context, host_session, overrideVersionName=a_version_name)
 
-    def test_getRelatedEntities(
+    def test_relatedEntities(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
 
         method = mock_manager_interface.getRelatedReferences
@@ -247,7 +247,7 @@ class TestManager():
                 (three_refs, two_specs)
         ):
             with pytest.raises(ValueError):
-                manager.getRelatedEntities(refs_arg, specs_arg, a_context)
+                manager.relatedEntities(refs_arg, specs_arg, a_context)
             method.assert_not_called()
             method.reset_mock()
 
@@ -256,14 +256,14 @@ class TestManager():
                 (three_refs, one_spec, three_refs, [one_spec]),
                 (three_refs, three_specs, three_refs, three_specs)
         ):
-            assert manager.getRelatedEntities(
+            assert manager.relatedEntities(
                 refs_arg, specs_arg, a_context) == method.return_value
             method.assert_called_once_with(
                 expected_refs_arg, expected_specs_arg, a_context, host_session, resultSpec=None)
             method.reset_mock()
 
         # Check optional resultSpec
-        assert manager.getRelatedEntities(
+        assert manager.relatedEntities(
             one_ref, one_spec, a_context, resultSpec=an_entity_spec) == method.return_value
         method.assert_called_once_with(
             [one_ref], [one_spec], a_context, host_session, resultSpec=an_entity_spec)

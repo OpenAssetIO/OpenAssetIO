@@ -93,8 +93,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
           use.
           @li **identifier** It's identifier
           @li **info** The info dict from the Manager (see: @ref
-          openassetio.managerAPI.ManagerInterface.getInfo
-          "ManagerInterface.getInfo()")
+          openassetio.managerAPI.ManagerInterface.info
+          "ManagerInterface.info()")
           @li **plugin** The plugin class that represents the Manager
           (see: @ref openassetio.pluginSystem.ManagerPlugin)
         """
@@ -108,25 +108,25 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         for i in identifiers:
 
             try:
-                p = self.__pluginManager.getPlugin(i)
-                interface = p.getInterface()
+                p = self.__pluginManager.plugin(i)
+                interface = p.interface()
             except Exception as e:
                 self._logger.log(
                     "Error loading plugin for '%s': %s" % (i, e), self._logger.kCritical)
                 continue
 
-            managerIdentifier = interface.getIdentifier()
+            managerIdentifier = interface.identifier()
             managers[i] = {
-                'name': interface.getDisplayName(),
+                'name': interface.displayName(),
                 'identifier': managerIdentifier,
-                'info': interface.getInfo(),
+                'info': interface.info(),
                 'plugin': p
             }
 
             if i != managerIdentifier:
                 msg = ("Manager '%s' is not registered with the same identifier as it's plugin"
                        " ('%s' instead of '%s')"
-                       % (interface.getDisplayName(), managerIdentifier, i))
+                       % (interface.displayName(), managerIdentifier, i))
                 self._logger.log(msg, self._logger.kWarning)
 
         return managers
@@ -163,8 +163,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
             return self.__instances[identifier]
 
         self._logger.log(f"Instantiating {identifier}", self._logger.kDebug)
-        plugin = self.__pluginManager.getPlugin(identifier)
-        interface = plugin.getInterface()
+        plugin = self.__pluginManager.plugin(identifier)
+        interface = plugin.interface()
 
         if cache:
             self.__instances[identifier] = interface
@@ -193,9 +193,9 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         if cache and managerInterfaceInstance in self.__delegates:
             return self.__delegates[managerInterfaceInstance]
 
-        identifier = managerInterfaceInstance.getIdentifier()
-        plugin = self.__pluginManager.getPlugin(identifier)
-        delegateInstance = plugin.getUIDelegate(managerInterfaceInstance)
+        identifier = managerInterfaceInstance.identifier()
+        plugin = self.__pluginManager.plugin(identifier)
+        delegateInstance = plugin.uiDelegate(managerInterfaceInstance)
 
         if cache:
             self.__delegates[managerInterfaceInstance] = delegateInstance

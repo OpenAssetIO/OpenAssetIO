@@ -55,7 +55,7 @@ class MockLocalizationManager(Manager):
     def localizeStrings(self, strings):
         strings.update(self.__mockTerminology)
 
-    def getDisplayName(self):
+    def displayName(self):
         return self.__mockDisplayName
 
     # Test helpers

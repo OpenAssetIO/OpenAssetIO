@@ -124,9 +124,9 @@ class ManagerInterface(object):
     initialize has been called. The following methods must be callable
     prior to initialization:
 
-       @li @ref getIdentifier()
-       @li @ref getDisplayName()
-       @li @ref getInfo()
+       @li @ref identifier()
+       @li @ref displayName()
+       @li @ref info()
        @li @ref localizeStrings()
        @li @ref getSettings()
        @li @ref setSettings()
@@ -179,7 +179,7 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def getIdentifier(self):
+    def identifier(self):
         """
         Returns an identifier to uniquely identify a specific asset
         manager. This may be used by a host to persist the users
@@ -198,7 +198,7 @@ class ManagerInterface(object):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def getDisplayName(self):
+    def displayName(self):
         """
         Returns a human readable name to be used to reference this
         specific asset manager in UIs or other user-facing messaging.
@@ -209,7 +209,7 @@ class ManagerInterface(object):
         """
         raise NotImplementedError
 
-    def getInfo(self):
+    def info(self):
         """
         Returns other information that may be useful about this @ref
         asset_management_system. This can contain arbitrary key/value
@@ -309,9 +309,9 @@ class ManagerInterface(object):
         is however, the following functions may be called prior to
         initialization:
 
-         @li @ref getIdentifier()
-         @li @ref getDisplayName()
-         @li @ref getInfo()
+         @li @ref identifier()
+         @li @ref displayName()
+         @li @ref info()
          @li @ref localizeStrings()
          @li @ref getSettings()
          @li @ref setSettings()
@@ -473,7 +473,7 @@ class ManagerInterface(object):
         The caller will have first called isEntityReference() on the
         supplied string.
 
-        @note You may need to call getFinalizedEntityVersion() within
+        @note You may need to call finalizedEntityVersion() within
         this function to ensure any @ref meta_version "meta-versions"
         are resolved prior to resolution.
 
@@ -518,7 +518,7 @@ class ManagerInterface(object):
             resolved.append(self.resolveEntityReference(r, context, hostSession))
         return resolved
 
-    def getDefaultEntityReference(self, specification, context, hostSession):
+    def defaultEntityReference(self, specification, context, hostSession):
         """
         Returns an @ref entity_reference considered to be a sensible
         default for the given specification and Context. This is often
@@ -552,7 +552,7 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def getEntityName(self, entityRef, context, hostSession):
+    def entityName(self, entityRef, context, hostSession):
         """
         Returns the name of the entity itself, not including any
         hierarchy or classification.
@@ -568,7 +568,7 @@ class ManagerInterface(object):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def getEntityDisplayName(self, entityRef, context, hostSession):
+    def entityDisplayName(self, entityRef, context, hostSession):
         """
         Returns an unambiguous, humanised display name for the entity.
 
@@ -682,7 +682,7 @@ class ManagerInterface(object):
     #
     # @{
 
-    def getEntityVersionName(self, entityRef, context, hostSession):
+    def entityVersionName(self, entityRef, context, hostSession):
         """
         Retrieves the name of the version pointed to by the supplied
         @ref entity_reference.
@@ -695,12 +695,12 @@ class ManagerInterface(object):
         the reference itself (in systems that implement a human-readable
         url, for example)
 
-        @see getEntityVersions()
-        @see getFinalizedEntityVersion()
+        @see entityVersions()
+        @see finalizedEntityVersion()
         """
         return ""
 
-    def getEntityVersions(
+    def entityVersions(
             self, entityRef, context, hostSession, includeMetaVersions=False, maxResults=-1):
         """
         Retrieves all available versions of the supplied @ref
@@ -723,12 +723,12 @@ class ManagerInterface(object):
         of the version names (ie: dict keys) in their natural ascending
         order, that may be used by UI elements, etc...
 
-        @see getEntityVersionName()
-        @see getFinalizedEntityVersion()
+        @see entityVersionName()
+        @see finalizedEntityVersion()
         """
         return {}
 
-    def getFinalizedEntityVersion(self, entityRef, context, hostSession, overrideVersionName=None):
+    def finalizedEntityVersion(self, entityRef, context, hostSession, overrideVersionName=None):
         """
         Retrieves an @ref entity_reference that points to the concrete
         version of a @ref meta_version or otherwise unstable @ref
@@ -758,8 +758,8 @@ class ManagerInterface(object):
         @exception openassetio.exceptions.EntityResolutionError if the
         supplied overrideVersionName does not exist for that entity.
 
-        @see getEntityVersionName()
-        @see getEntityVersions()
+        @see entityVersionName()
+        @see entityVersions()
         """
         return entityRef
 

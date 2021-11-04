@@ -104,7 +104,7 @@ class Localizer:
         return sourceStr.replace("{", "").replace("}", "")
 
     @auditApiCall("Localization")
-    def getLocalizedString(self, key, default=''):
+    def localizedString(self, key, default=''):
         """
         Returns the localized version of the supplied key, @ref
         openassetio.constants under kLocalizationKey_*
@@ -119,4 +119,4 @@ class Localizer:
         # this is to allow a consistent terminology across implementations of a
         # specific asset management system.
         manager.localizeStrings(self.__terminology)
-        self.__terminology[kLocalizationKey_Manager] = manager.getDisplayName()
+        self.__terminology[kLocalizationKey_Manager] = manager.displayName()

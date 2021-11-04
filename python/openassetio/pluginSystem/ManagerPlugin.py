@@ -38,14 +38,14 @@ class ManagerPlugin(PluginSystemPlugin):
 
     @warning This class, may be used in a batch, or UI session, so
     consequently, it is imperative that no ui libraries (QtCore, QtGui
-    etc...) are imported unless @ref getUIDelegate() is called, and
+    etc...) are imported unless @ref uiDelegate() is called, and
     ideally, even then, this should be deferred until something is
     requested from the @ref
     openassetio-ui.implementation.ManagerUIDelegate.
     """
 
     @classmethod
-    def getIdentifier(cls):
+    def identifier(cls):
         """
         Returns an identifier to uniquely identify the plug-in.
         Generally, this should be the identifier used by the manager.
@@ -61,7 +61,7 @@ class ManagerPlugin(PluginSystemPlugin):
         raise NotImplementedError
 
     @classmethod
-    def getInterface(cls):
+    def interface(cls):
         """
         Constructs an instance of the @ref
         openassetio.managerAPI.ManagerInterface.
@@ -81,7 +81,7 @@ class ManagerPlugin(PluginSystemPlugin):
         raise NotImplementedError
 
     @classmethod
-    def getUIDelegate(cls, interfaceInstance):
+    def uiDelegate(cls, interfaceInstance):
         """
         Constructs an instance of the @ref
         openassetio-ui.implementation.ManagerUIDelegate
@@ -92,7 +92,7 @@ class ManagerPlugin(PluginSystemPlugin):
         the application to delegate asset browsing/picking etc...
 
         @param interfaceInstance An instance of the plugins interface as
-        returned by @ref getInterface(), this is to allow UI to be
+        returned by @ref interface(), this is to allow UI to be
         configured in relation to a specific instantiation, which may
         perhaps target a different endpoint due to its settings, etc...
 

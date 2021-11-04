@@ -48,31 +48,31 @@ class TestHost():
     # __str__ and __repr__ aren't tested as they're debug tricks that need
     # assessing when this is ported to cpp
 
-    def test__getInterface(self, mock_host_interface):
+    def test__interface(self, mock_host_interface):
         a_host = Host(mock_host_interface)
-        assert a_host._getInterface() is mock_host_interface
+        assert a_host._interface() is mock_host_interface
 
-    def test_getIdentifier(self, host, mock_host_interface):
-        method = mock_host_interface.getIdentifier
-        assert host.getIdentifier() == method.return_value
+    def test_identifier(self, host, mock_host_interface):
+        method = mock_host_interface.identifier
+        assert host.identifier() == method.return_value
         method.assert_called_once_with()
 
-    def test_getDisplayName(self, host, mock_host_interface):
-        method = mock_host_interface.getDisplayName
-        assert host.getDisplayName() == method.return_value
+    def test_displayName(self, host, mock_host_interface):
+        method = mock_host_interface.displayName
+        assert host.displayName() == method.return_value
         method.assert_called_once_with()
 
-    def test_getInfo(self, host, mock_host_interface):
-        method = mock_host_interface.getInfo
-        assert host.getInfo() == method.return_value
+    def test_info(self, host, mock_host_interface):
+        method = mock_host_interface.info
+        assert host.info() == method.return_value
         method.assert_called_once_with()
 
-    def test_getDocumentReference(self, host, mock_host_interface):
-        method = mock_host_interface.getDocumentReference
-        assert host.getDocumentReference() == method.return_value
+    def test_documentReference(self, host, mock_host_interface):
+        method = mock_host_interface.documentReference
+        assert host.documentReference() == method.return_value
         method.assert_called_once_with()
 
-    def test_getKnownEntityReferences(self, host, mock_host_interface, an_entity_spec):
-        method = mock_host_interface.getKnownEntityReferences
-        assert host.getKnownEntityReferences(an_entity_spec) == method.return_value
+    def test_knownEntityReferences(self, host, mock_host_interface, an_entity_spec):
+        method = mock_host_interface.knownEntityReferences
+        assert host.knownEntityReferences(an_entity_spec) == method.return_value
         method.assert_called_once_with(specification=an_entity_spec)
