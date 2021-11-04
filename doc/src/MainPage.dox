@@ -142,6 +142,7 @@
  *   documents.
  *
  * @see @ref notes_for_hosts
+ * @see @ref notes_for_managers
  *
  * The @ref openassetio.managerAPI.Host.Host "Host" and
  * @ref openassetio.hostAPI.Manager.Manager "Manager" classes are
