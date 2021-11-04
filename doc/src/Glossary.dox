@@ -327,8 +327,8 @@
  * version managed. Some systems also allow the concept of what we call a
  * 'meta-version'. For example "latest" or "latestApprovedForLighting".  These
  * are version strings that need to be further resolved using @ref
- * openassetio.hostAPI.Manager.Manager.getFinalizedEntityVersion
- * "getFinalizedEntityVersion()" before they can be assumed to be
+ * openassetio.hostAPI.Manager.Manager.finalizedEntityVersion
+ * "finalizedEntityVersion()" before they can be assumed to be
  * pointing to a specific 'concrete' version of an entity.
  *
  * Stable resolution of meta-versions over time, or across a

@@ -131,14 +131,14 @@ class FixedInterfaceObject(object):
         raise AttributeError("%s does not have an attribute '%s'" % (classname, name))
 
     def __setattr__(self, name, value):
-        if name.startswith('_') or name in self.getDefinedPropertyNames():
+        if name.startswith('_') or name in self.definedPropertyNames():
             object.__setattr__(self, name, value)
         else:
             classname = self.__class__.__name__
             raise AttributeError("%s does not have an attribute '%s'" % (classname, name))
 
     @classmethod
-    def getDefinedPropertyNames(cls):
+    def definedPropertyNames(cls):
         """
         @return list, A list of property names, sorted by their
         specified order.

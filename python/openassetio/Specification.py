@@ -43,14 +43,14 @@ class SpecificationBase(FixedInterfaceObject):
         # This data is written to by the SpecificationProperty class
         self._data = data if data else {}
 
-    def getSchema(self):
+    def schema(self):
         """
         @return str, The schema identifier for the data held in the
         specification.
         """
         return self.__schema
 
-    def getData(self, copy=True):
+    def data(self, copy=True):
         """
         @param copy bool, When True (default) then a copy of the data
         will be returned, rather than a reference, to help avoid
@@ -173,7 +173,7 @@ class Specification(SpecificationBase):
 
         return False
 
-    def getField(self, name, defaultValue=None):
+    def field(self, name, defaultValue=None):
         """
         Fetches the property from the specification, if present,
         otherwise returns the default value.
@@ -183,7 +183,7 @@ class Specification(SpecificationBase):
         Consequently, it should be used by preference.
 
         @code
-        data = specification.getData(copy=False).get(name, defaultValue)
+        data = specification.data(copy=False).get(name, defaultValue)
         @endcode
         """
         return self._data.get(name, defaultValue)
@@ -212,14 +212,14 @@ class Specification(SpecificationBase):
         else:
             return "", schema
 
-    def getPrefix(self):
+    def prefix(self):
         """
         @return str, the prefix of this specifications schema, or an
         empty string.
         """
         return self.schemaComponents(self.__schema)[0]
 
-    def getType(self):
+    def type(self):
         """
         @return str, the schemas type, without prefix or separator
         token.
