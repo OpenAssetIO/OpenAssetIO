@@ -13,10 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+from unittest import mock
 
 import pytest
 
 import openassetio.hostAPI.localization as lzn
+from openassetio.hostAPI import Manager, Session
 from openassetio.managerAPI import ManagerInterface
 
 
@@ -32,7 +34,7 @@ all_localization_keys = (
 )
 
 
-class MockLocalizationManager(ManagerInterface):
+class MockLocalizationManager(Manager):
     kLocalizationKey_custom = "custom"
     kLocalizationValue_custom = "alternative"
 
@@ -67,7 +69,8 @@ class MockLocalizationManager(ManagerInterface):
 
 @pytest.fixture
 def mock_manager():
-    return MockLocalizationManager()
+    return MockLocalizationManager(
+        mock.create_autospec(ManagerInterface), mock.create_autospec(Session))
 
 
 @pytest.fixture
