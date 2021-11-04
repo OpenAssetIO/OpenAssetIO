@@ -998,6 +998,12 @@ class ManagerInterface(object):
         hide or disable menu items that relate to publish or loading of
         assetised scene files.
 
+        @warning The @ref openassetio.Context.Context.access "access"
+        specified in the supplied context should be carefully considered.
+        A host will independently query the policy for both read and
+        write access to determine if resolution and publishing features
+        are applicable to this implementation.
+
         Calls with an accompanying @ref entity_reference may be used to
         prevent users from attempting to perform an asset-action that is
         not supported by the asset management system.

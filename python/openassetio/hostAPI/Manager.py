@@ -932,10 +932,10 @@ class Manager(Debuggable):
     def managementPolicy(self, specification, context, entityRef=None):
         """
         Determines if the manager is interested in participating in
-        interactions with the specified type of @ref entity. It is
-        *vital* to call this before attempting to publish data to the
-        manager, as the entity specification you desire to work with may
-        not be supported.
+        interactions with the specified type of @ref entity, either
+        for resolution or publishing. It is *vital* to call this before
+        attempting to publish data to the manager, as the entity
+        specification you desire to work with may not be supported.
 
         For example, a you would call this in order to see if the
         manager would like to manage the path of a scene file whilst
@@ -946,6 +946,13 @@ class Manager(Debuggable):
         returned for a query as to the management of scene files, a you
         should hide or disable menu items that relate to publish or
         loading of assetised scene files.
+
+        @warning The @ref openassetio.Context.access "access" of the
+        supplied context will be considered by the manager. If it is
+        set to read, then it's response applies to resolution and
+        @ref metadata queries. If write, then it applies to publishing.
+        Ignored reads can allow optimisations in a host as there is no
+        longer a need to test/resolve applicable strings.
 
         Calls with an accompanying @ref entity_reference should be used
         when one is known, to ensure that the manager has the
