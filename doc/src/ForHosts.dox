@@ -121,6 +121,12 @@
  *   resolve, write, @ref register process illustrated
  *   @ref example_publishing_a_file "here" whenever generating new data.
  *
+ * - Include in your documentation, any scenarios in which entities are
+ *   registered to references known to be of a different @ref Specification.
+ *   For example, an editorial application registering an
+ *   ImageSpecification to a ShotSpecification reference to indicate
+ *   that the images should be published "under" that shot.
+ *
  * @see @ref example_publishing_a_file
  *
  * @subsection host_todo_recommended Recommended
