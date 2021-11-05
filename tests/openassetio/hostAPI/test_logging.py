@@ -62,7 +62,7 @@ class TestSeverityFilter():
 
     def test_constructor(self, mock_logger, monkeypatch):
 
-        var = "FOUNDRY_ASSET_LOGGING_SEVERITY"
+        var = "OAIO_LOGGING_SEVERITY"
 
         # Unset
 
