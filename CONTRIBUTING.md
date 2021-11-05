@@ -48,6 +48,16 @@ Common file types that we expect to encounter during development of OAIO
 have their own settings, many of which remain commented out for
 reference and may be enabled and tweaked in future.
 
+### Environment variables
+
+All environment variables should be prefixed with `OAIO_`. For example,
+`OAIO_LOGGING_SEVERITY`. 
+
+When documenting environment variables in docstrings or doxygen comment
+blocks, precede the variable name with the `@envvar` tag, which will
+cause the variable and its description to be listed in the _Environment 
+Variable List_ page of the generated documentation.
+
 ## Trusted Committers
 
 ### Foundry
