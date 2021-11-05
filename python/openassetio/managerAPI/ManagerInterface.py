@@ -614,7 +614,6 @@ class ManagerInterface(object):
         """
         raise NotImplementedError
 
-    @abc.abstractmethod
     def setEntityMetadata(self, entityRef, data, context, hostSession, merge=True):
         """
         Sets an entities metadata.
@@ -1123,7 +1122,6 @@ class ManagerInterface(object):
             result.append(self.preflight(t, s, context, hostSession))
         return result
 
-    @abc.abstractmethod
     def register(self, stringData, targetEntityRef, entitySpec, context, hostSession):
         """
         Publish an entity to the @ref asset_management_system.
