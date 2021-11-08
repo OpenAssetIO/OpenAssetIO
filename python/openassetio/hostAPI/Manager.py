@@ -688,9 +688,10 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def relatedEntities(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
+    def relatedReferences(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
         """
-        Returns related Entities, based on a relationship specification.
+        Returns related entity references, based on a relationship
+        specification.
 
         This is an essential function in this API - as it is widely used
         to query organisational hierarchy, etc...
@@ -705,15 +706,15 @@ class Manager(Debuggable):
 
         In all cases, the return value is a list of lists, for example:
 
-            a)  relatedEntities([ r1 ], [ s1, s2, s3 ])
+            a)  relatedReferences([ r1 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
 
-            b)  relatedEntities([ r1, r2, r3 ], [ s1 ])
+            b)  relatedReferences([ r1, r2, r3 ], [ s1 ])
 
             > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
 
-            c)  relatedEntities([ r1, r2, r3 ], [ s1, s2, s3 ])
+            c)  relatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
 
@@ -745,7 +746,7 @@ class Manager(Debuggable):
         @return list of str lists The return is *always* a list of lists
         regardless of which form of invocation is used. The outer list
         is for each supplied entity or specification. The inner lists
-        are all the matching Entities for that source entity.
+        are all the matching entities for that source entity.
 
         @exception ValueError If more than one reference and
         specification is provided, but they lists are not equal in
