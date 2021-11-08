@@ -228,7 +228,7 @@ class TestManager():
         method.assert_called_once_with(
             a_ref, a_context, host_session, overrideVersionName=a_version_name)
 
-    def test_relatedEntities(
+    def test_relatedReferences(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
 
         method = mock_manager_interface.getRelatedReferences
@@ -247,7 +247,7 @@ class TestManager():
                 (three_refs, two_specs)
         ):
             with pytest.raises(ValueError):
-                manager.relatedEntities(refs_arg, specs_arg, a_context)
+                manager.relatedReferences(refs_arg, specs_arg, a_context)
             method.assert_not_called()
             method.reset_mock()
 
@@ -256,14 +256,14 @@ class TestManager():
                 (three_refs, one_spec, three_refs, [one_spec]),
                 (three_refs, three_specs, three_refs, three_specs)
         ):
-            assert manager.relatedEntities(
+            assert manager.relatedReferences(
                 refs_arg, specs_arg, a_context) == method.return_value
             method.assert_called_once_with(
                 expected_refs_arg, expected_specs_arg, a_context, host_session, resultSpec=None)
             method.reset_mock()
 
         # Check optional resultSpec
-        assert manager.relatedEntities(
+        assert manager.relatedReferences(
             one_ref, one_spec, a_context, resultSpec=an_entity_spec) == method.return_value
         method.assert_called_once_with(
             [one_ref], [one_spec], a_context, host_session, resultSpec=an_entity_spec)
