@@ -257,7 +257,7 @@ class ManagerInterface(object):
         @return None
 
         @see @ref openassetio.constants
-        @see @ref openassetio.hostAPI.localization.defaultTerminology
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
         """
         pass
 

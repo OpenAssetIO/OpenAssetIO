@@ -17,20 +17,20 @@ from unittest import mock
 
 import pytest
 
-import openassetio.hostAPI.localization as lzn
+import openassetio.hostAPI.terminology as tgy
 from openassetio.hostAPI import Manager, Session
 from openassetio.managerAPI import ManagerInterface
 
 
 all_terminology_keys = (
-    lzn.kTerm_Asset,
-    lzn.kTerm_Assets,
-    lzn.kTerm_Manager,
-    lzn.kTerm_Publish,
-    lzn.kTerm_Publishing,
-    lzn.kTerm_Published,
-    lzn.kTerm_Shot,
-    lzn.kTerm_Shots
+    tgy.kTerm_Asset,
+    tgy.kTerm_Assets,
+    tgy.kTerm_Manager,
+    tgy.kTerm_Publish,
+    tgy.kTerm_Publishing,
+    tgy.kTerm_Published,
+    tgy.kTerm_Shot,
+    tgy.kTerm_Shots
 )
 
 
@@ -40,13 +40,13 @@ class MockTerminologyManager(Manager):
 
     __mockDisplayName = "Mock Terminology Manager"
     __mockTerminology = {
-        lzn.kTerm_Asset: 'mock-asset',
-        lzn.kTerm_Assets: 'mock-assets',
-        lzn.kTerm_Publish: 'mock-publish',
-        lzn.kTerm_Publishing: 'mock-publishing',
-        lzn.kTerm_Published: 'mock-published',
-        lzn.kTerm_Shot: 'mock-shot',
-        lzn.kTerm_Shots: 'mock-shots',
+        tgy.kTerm_Asset: 'mock-asset',
+        tgy.kTerm_Assets: 'mock-assets',
+        tgy.kTerm_Publish: 'mock-publish',
+        tgy.kTerm_Publishing: 'mock-publishing',
+        tgy.kTerm_Published: 'mock-published',
+        tgy.kTerm_Shot: 'mock-shot',
+        tgy.kTerm_Shots: 'mock-shots',
         kTerm_custom: kTermValue_custom
     }
 
@@ -63,7 +63,7 @@ class MockTerminologyManager(Manager):
     @classmethod
     def expectedTerminology(cls):
         expected = dict(cls.__mockTerminology)
-        expected[lzn.kTerm_Manager] = cls.__mockDisplayName
+        expected[tgy.kTerm_Manager] = cls.__mockDisplayName
         return expected
 
 
@@ -75,14 +75,14 @@ def mock_manager():
 
 @pytest.fixture
 def mapper(mock_manager):
-    return lzn.Mapper(mock_manager)
+    return tgy.Mapper(mock_manager)
 
 
 def test_defaultTerminology():
     # Ensure we have pre-defined keys for anything in the default dictionary
-    assert set(all_terminology_keys) == set(lzn.defaultTerminology.keys())
+    assert set(all_terminology_keys) == set(tgy.defaultTerminology.keys())
 
-    for value in lzn.defaultTerminology.values():
+    for value in tgy.defaultTerminology.values():
         assert isinstance(value, str)
         assert value != ""
 
@@ -92,7 +92,7 @@ class TestMapper:
     def test_construction(self, mock_manager):
         custom_terminology = {
             mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
-        a_mapper = lzn.Mapper(mock_manager, terminology=custom_terminology)
+        a_mapper = tgy.Mapper(mock_manager, terminology=custom_terminology)
         assert (a_mapper.replaceTerms("{%s}" % mock_manager.kTerm_custom) ==
                 mock_manager.kTermValue_custom)
 

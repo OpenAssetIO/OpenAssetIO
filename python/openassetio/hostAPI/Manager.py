@@ -165,13 +165,13 @@ class Manager(Debuggable):
         messages or display text so that they feel at home.
 
         It's rare that you need to call this method directly, the @ref
-        openassetio.hostAPI.localization API provides more utility for
+        openassetio.hostAPI.terminology API provides more utility for
         far less effort.
 
-        @see @ref openassetio.hostAPI.localization
+        @see @ref openassetio.hostAPI.terminology
         @see @ref
-        openassetio.hostAPI.localization.Mapper.replaceTerms
-        @see @ref openassetio.hostAPI.localization.defaultTerminology
+        openassetio.hostAPI.terminology.Mapper.replaceTerms
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
 
         @param stringDict Dict[str, str] this will be modified in-place
         by the manager if it has any alternate terminology.
