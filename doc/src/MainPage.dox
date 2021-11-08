@@ -45,7 +45,7 @@
  * an asset, but is an addressable 'entity' as far as the API is
  * concerned.
  *
- * We introduce two more concepts that help us define behaviour in the
+ * We introduce two more concepts that help us define behavior in the
  * API:
  *
  *  @li A @ref host - some (generally user-facing) application or tool that
@@ -56,13 +56,13 @@
  *  @ref publish content to the @ref asset_management_system.
  *
  *  @li The @ref manager - a intermediary to represent some specific
- *  @ref asset_management_system through the generalised terms of the
+ *  @ref asset_management_system through the generalized terms of the
  *  API. The implementation of the manager bridges the well-known OAIO
  *  concepts into the system's internal structures and terminology.
  *
  * @note This API does *not* define, specify or implement either the
  * asset management system or the host themselves, rather a set of
- * generalised queries and actions and concepts that have been found to
+ * generalized queries and actions and concepts that have been found to
  * be common across the majority of known workflows and 'back-end'
  * implementations.
  *
@@ -111,7 +111,7 @@
  * }
  * @enddot
  *
- * The API is organised into two main namespaces, the
+ * The API is organized into two main namespaces, the
  * @ref openassetio.hostAPI "hostAPI" and @ref openassetio.managerAPI
  * "managerAPI". Within each of these, you will find the components
  * you need depending on whether you are adopting the API in a @ref host
@@ -170,7 +170,7 @@
  *
  * We'd also like to see cross-application standardizations of metadata to
  * better define say the colorspace and interpretation of image data, or to
- * represent models such as (common-algorithm) lens correction co-efficients.
+ * represent models such as (common-algorithm) lens correction coefficients.
  * Helping move away from application-specific file formats and data.
  *
  * <em>*Forgoing keyed values and other complex parameter types for a moment.</em>
