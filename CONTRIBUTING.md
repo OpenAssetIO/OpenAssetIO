@@ -23,6 +23,8 @@ exceptions. Of these exceptions, the most obvious is that the naming
 scheme is designed to more closely mirror our C++ naming conventions,
 to ease C++ interop implementation and readability.
 
+### Line wrapping
+
 Line wrapping is performed at 99 characters for code, and 72 characters
 for docstrings.
 
@@ -32,7 +34,19 @@ characters, where possible.
 ### Example code
 
 An exception to the above is for code examples written in Python. Here,
-PEP8 should be strictly followed, including it's naming conventions.
+PEP8 should be strictly followed, including its naming conventions.
+
+### Method/function naming
+
+Accessor (getter) methods that do not have a corresponding mutator
+(setter) method at the same or higher access level (e.g. public getter
+vs. private setter) _should not_ be prefixed with `get`.
+
+If a getter does have a corresponding setter at the same or higher
+access level (e.g. protected getter vs. public setter), then they
+_should_ be prefixed with `get` and `set`, respectively. 
+
+This makes it easier to determine the API surface at a glance.
 
 ### IDE configuration
 

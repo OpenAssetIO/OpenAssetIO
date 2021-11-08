@@ -78,12 +78,12 @@ class Manager(Debuggable):
         self._debugCalls = True
 
     def __str__(self):
-        return self.__impl.getIdentifier()
+        return self.__impl.identifier()
 
     def __repr__(self):
-        return "Manager(%r)" % self.__impl.getIdentifier()
+        return "Manager(%r)" % self.__impl.identifier()
 
-    def _getInterface(self):
+    def _interface(self):
         return self.__impl
 
     ##
@@ -97,7 +97,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getIdentifier(self):
+    def identifier(self):
         """
         Returns an identifier to uniquely identify the Manager. This
         identifier is used with the Session class to select which
@@ -110,11 +110,11 @@ class Manager(Debuggable):
 
         @return str
         """
-        return self.__impl.getIdentifier()
+        return self.__impl.identifier()
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getDisplayName(self):
+    def displayName(self):
         """
         Returns a human readable name to be used to reference this
         specific asset manager in user-facing displays.
@@ -124,11 +124,11 @@ class Manager(Debuggable):
 
         @return str
         """
-        return self.__impl.getDisplayName()
+        return self.__impl.displayName()
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getInfo(self):
+    def info(self):
         """
         Returns other information that may be useful about this @ref
         asset_management_system.  This can contain arbitrary key/value
@@ -151,7 +151,7 @@ class Manager(Debuggable):
         Keys will always be str, and Values will be int, bool, float or
         str.
         """
-        return self.__impl.getInfo()
+        return self.__impl.info()
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -386,7 +386,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getDefaultEntityReference(self, specification, context):
+    def defaultEntityReference(self, specification, context):
         """
         Returns an @ref entity_reference considered to be a sensible
         default for the given Specification and Context. This can be
@@ -409,7 +409,7 @@ class Manager(Debuggable):
 
         @return str, An @ref entity_reference or empty string.
         """
-        return self.__impl.getDefaultEntityReference(specification, context, self.__hostSession)
+        return self.__impl.defaultEntityReference(specification, context, self.__hostSession)
 
     ## @}
 
@@ -428,7 +428,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getEntityName(self, reference, context):
+    def entityName(self, reference, context):
         """
         Returns the concise name of the entity itself, not including any
         hierarchy or classification.
@@ -441,11 +441,11 @@ class Manager(Debuggable):
         @return str, A string containing any valid characters for the
         manager's implementation.
         """
-        return self.__impl.getEntityName(reference, context, self.__hostSession)
+        return self.__impl.entityName(reference, context, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getEntityDisplayName(self, reference, context):
+    def entityDisplayName(self, reference, context):
         """
         Returns an unambiguous, humanised display name for the entity.
 
@@ -463,7 +463,7 @@ class Manager(Debuggable):
         @return str, a string containing any valid characters for the
         @ref asset_management_system's implementation.
         """
-        return self.__impl.getEntityDisplayName(reference, context, self.__hostSession)
+        return self.__impl.entityDisplayName(reference, context, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -486,7 +486,7 @@ class Manager(Debuggable):
         These new keys should be clearly explained in your
         documentation. A manager may then be able to provide this
         information, based on introspection of your identifier (@see
-        Host.getIdentifier).
+        Host.identifier).
 
         @warning See @ref setEntityMetadata for important notes on
         metadata and its role in the system.
@@ -565,7 +565,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getEntityVersionName(self, reference, context):
+    def entityVersionName(self, reference, context):
         """
         Retrieves the name of the version pointed to by the supplied
         @ref entity_reference.
@@ -577,14 +577,14 @@ class Manager(Debuggable):
         exists, if, for example, the version name can be determined from
         the reference itself, or is a @ref meta_version.
 
-        @see getEntityVersions()
-        @see getFinalizedEntityVersion()
+        @see entityVersions()
+        @see finalizedEntityVersion()
         """
-        return self.__impl.getEntityVersionName(reference, context, self.__hostSession)
+        return self.__impl.entityVersionName(reference, context, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getEntityVersions(self, reference, context, includeMetaVersions=False, maxResults=-1):
+    def entityVersions(self, reference, context, includeMetaVersions=False, maxResults=-1):
         """
         Retrieves all available versions of the supplied @ref
         entity_reference (including the supplied ref, if it points to a
@@ -605,16 +605,16 @@ class Manager(Debuggable):
         be set to a list of the version names (ie: dict keys) in their
         natural ascending order, that may be used by UI elements, etc...
 
-        @see getEntityVersionName()
-        @see getFinalizedEntityVersion()
+        @see entityVersionName()
+        @see finalizedEntityVersion()
         """
-        return self.__impl.getEntityVersions(
+        return self.__impl.entityVersions(
             reference, context, self.__hostSession, includeMetaVersions=includeMetaVersions,
             maxResults=maxResults)
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getFinalizedEntityVersion(self, reference, context, overrideVersionName=None):
+    def finalizedEntityVersion(self, reference, context, overrideVersionName=None):
         """
         Retrieves a @ref entity_reference that points to the concrete
         version of a @ref meta_version @ref entity_reference.
@@ -642,10 +642,10 @@ class Manager(Debuggable):
         @exception openassetio.exceptions.EntityResolutionError if the
         supplied overrideVersionName does not exist for that entity.
 
-        @see getEntityVersionName()
-        @see getEntityVersions()
+        @see entityVersionName()
+        @see entityVersions()
         """
-        return self.__impl.getFinalizedEntityVersion(
+        return self.__impl.finalizedEntityVersion(
             reference, context, self.__hostSession, overrideVersionName=overrideVersionName)
 
     ## @}
@@ -688,7 +688,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getRelatedEntities(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
+    def relatedEntities(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
         """
         Returns related Entities, based on a relationship specification.
 
@@ -705,15 +705,15 @@ class Manager(Debuggable):
 
         In all cases, the return value is a list of lists, for example:
 
-            a)  getRelatedEntities([ r1 ], [ s1, s2, s3 ])
+            a)  relatedEntities([ r1 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
 
-            b)  getRelatedEntities([ r1, r2, r3 ], [ s1 ])
+            b)  relatedEntities([ r1, r2, r3 ], [ s1 ])
 
             > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
 
-            c)  getRelatedEntities([ r1, r2, r3 ], [ s1, s2, s3 ])
+            c)  relatedEntities([ r1, r2, r3 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
 

@@ -57,8 +57,8 @@ class ManagerFactoryInterface(object):
             use.
             @li **identifier** It's identifier
             @li **info** The info dict from the Manager (see: @ref
-            openassetio.managerAPI.ManagerInterface.getInfo
-            "ManagerInterface.getInfo()")
+            openassetio.managerAPI.ManagerInterface.info
+            "ManagerInterface.info()")
             @li **plugin** The plugin class that represents the Manager
             (see: @ref openassetio.pluginSystem.ManagerPlugin)
         """

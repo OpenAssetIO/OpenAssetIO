@@ -109,7 +109,7 @@ class Session(Debuggable):
         self._factory = managerFactory
 
     @auditApiCall("Session")
-    def getHost(self):
+    def host(self):
         """
         @return HostInterface, the HostInterface that the session was
         started by.
@@ -118,7 +118,7 @@ class Session(Debuggable):
 
     @debugApiCall
     @auditApiCall("Session")
-    def getRegisteredManagers(self):
+    def registeredManagers(self):
         """
         @see
         openassetio.pluginSystem.PluginSystemManagerFactory.managers()
@@ -133,7 +133,7 @@ class Session(Debuggable):
         the resulting Manager is different to the previous one.
 
         @param identifier str The Identifier for the desired manager,
-        available from @ref getRegisteredManagers.
+        available from @ref registeredManagers.
 
         @param settings dict [None], Any settings to pass to the managed
         before calling initialize. This will be shallow-copied and

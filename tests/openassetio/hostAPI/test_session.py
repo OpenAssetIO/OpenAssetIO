@@ -59,15 +59,15 @@ class TestSession():
         with pytest.raises(ValueError):
             Session(mock_logger, mock_logger, mock_manager_factory)
 
-    def test_getHost(self, a_session, mock_host_interface):
-        host = a_session.getHost()
+    def test_host(self, a_session, mock_host_interface):
+        host = a_session.host()
         assert isinstance(host, Host)
-        assert host._getInterface() is mock_host_interface
+        assert host._interface() is mock_host_interface
         assert host._debugLogFn is a_session._debugLogFn
 
-    def test_getRegisteredManagers(self, a_session, mock_manager_factory):
+    def test_registeredManagers(self, a_session, mock_manager_factory):
         mock_manager_factory.managers.assert_not_called()
-        assert a_session.getRegisteredManagers() == mock_manager_factory.managers.return_value
+        assert a_session.registeredManagers() == mock_manager_factory.managers.return_value
         mock_manager_factory.managers.assert_called_once_with()
 
     def test_useManager(self, a_session, mock_manager_factory):
@@ -114,7 +114,7 @@ class TestSession():
         manager = a_session.currentManager()
 
         assert isinstance(manager, Manager)
-        assert manager._getInterface() is mock_manager_interface
+        assert manager._interface() is mock_manager_interface
         assert manager._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.initialize.assert_called_once()
@@ -135,7 +135,7 @@ class TestSession():
         mock_manager_factory.instantiate.assert_not_called()
         manager_b = a_session.currentManager()
         assert manager_b is not manager
-        assert manager_b._getInterface() is mock_manager_interface
+        assert manager_b._interface() is mock_manager_interface
         assert manager_b._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(another_id)
         mock_manager_interface.initialize.assert_called_once()

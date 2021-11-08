@@ -64,7 +64,7 @@ class TestTransactionCoordinator:
 
     def test_pushActionGroup(self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._getInterface()
+        mock_manager = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
         assert a_context.actionGroupDepth == 0
@@ -83,7 +83,7 @@ class TestTransactionCoordinator:
 
     def test_popActionGroup(self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._getInterface()
+        mock_manager = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
         a_context.actionGroupDepth = 2
@@ -105,7 +105,7 @@ class TestTransactionCoordinator:
 
     def test_cancelActions(self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._getInterface()
+        mock_manager = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
         # Check return values and depth management
@@ -150,7 +150,7 @@ class TestTransactionCoordinator:
     def test_managerInterfaceState_freeze_thaw(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._getInterface()
+        mock_manager = transaction_coordinator.manager()._interface()
 
         state = a_context.managerInterfaceState
         mock_frozen_state = f"frozen-{state}"

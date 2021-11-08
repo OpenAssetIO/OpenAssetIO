@@ -76,5 +76,5 @@ class SpecificationFactory(type):
 
     @classmethod
     def upcast(cls, specification):
-        schema = specification.getSchema()
-        return cls.instantiate(schema, specification.getData(copy=False))
+        schema = specification.schema()
+        return cls.instantiate(schema, specification.data(copy=False))

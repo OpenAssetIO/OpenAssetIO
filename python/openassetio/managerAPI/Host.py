@@ -48,12 +48,12 @@ class Host(Debuggable):
         self._debugCalls = True
 
     def __str__(self):
-        return self.__impl.getIdentifier()
+        return self.__impl.identifier()
 
     def __repr__(self):
         return "Host(%r)" % self.__impl
 
-    def _getInterface(self):
+    def _interface(self):
         return self.__impl
 
     ##
@@ -63,7 +63,7 @@ class Host(Debuggable):
 
     @debugApiCall
     @auditApiCall("Host methods")
-    def getIdentifier(self):
+    def identifier(self):
         """
         Returns an identifier to uniquely identify the Host.
 
@@ -76,11 +76,11 @@ class Host(Debuggable):
 
         @return str
         """
-        return self.__impl.getIdentifier()
+        return self.__impl.identifier()
 
     @debugApiCall
     @auditApiCall("Host methods")
-    def getDisplayName(self):
+    def displayName(self):
         """
         Returns a human readable name to be used to reference this
         specific host in user-facing messaging.
@@ -88,11 +88,11 @@ class Host(Debuggable):
 
             "Katana"
         """
-        return self.__impl.getDisplayName()
+        return self.__impl.displayName()
 
     @debugApiCall
     @auditApiCall("Host methods")
-    def getInfo(self):
+    def info(self):
         """
         Returns other information that may be useful about the host.
         This can contain arbitrary key/value pairs. There should be no
@@ -104,13 +104,13 @@ class Host(Debuggable):
 
         @return Dict[str, pod]
         """
-        return self.__impl.getInfo()
+        return self.__impl.info()
 
     ## @}
 
     @debugApiCall
     @auditApiCall("Host methods")
-    def getDocumentReference(self):
+    def documentReference(self):
         """
         The path, or @ref entity_reference of the current document, or
         an empty string if not applicable. If a Host supports multiple
@@ -120,7 +120,7 @@ class Host(Debuggable):
 
         @return str
         """
-        return self.__impl.getDocumentReference()
+        return self.__impl.documentReference()
 
     ##
     # @name Entity Reference retrieval
@@ -129,7 +129,7 @@ class Host(Debuggable):
 
     @debugApiCall
     @auditApiCall("Host methods")
-    def getKnownEntityReferences(self, specification=None):
+    def knownEntityReferences(self, specification=None):
         """
         @return list, An @ref entity_reference for each Entities known
         by the host to be used in the current document, or an empty list
@@ -139,6 +139,6 @@ class Host(Debuggable):
         supplied, then only entities of the supplied specification will
         be returned.
         """
-        return self.__impl.getKnownEntityReferences(specification=specification)
+        return self.__impl.knownEntityReferences(specification=specification)
 
     ## @}

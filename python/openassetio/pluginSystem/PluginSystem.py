@@ -78,7 +78,7 @@ class PluginSystem(object):
     def identifiers(self):
         return self.__map.keys()
 
-    def getPlugin(self, identifier):
+    def plugin(self, identifier):
 
         if identifier not in self.__map:
             msg = "PluginSystem: No plug-in registered with the identifier '%s'" % identifier
@@ -88,7 +88,7 @@ class PluginSystem(object):
 
     def register(self, cls, path="<unknown>"):
 
-        identifier = cls.getIdentifier()
+        identifier = cls.identifier()
         if identifier in self.__map:
             msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \
                   % (cls, path, self.__paths[identifier])
