@@ -74,10 +74,10 @@ class TestManager():
         assert manager.identifier() == method.return_value
         method.assert_called_once_with()
 
-    def test_localizeStrings(self, manager, mock_manager_interface, host_session):
-        method = mock_manager_interface.localizeStrings
+    def test_updateTerminology(self, manager, mock_manager_interface, host_session):
+        method = mock_manager_interface.updateTerminology
         a_dict = {"k", "v"}
-        assert manager.localizeStrings(a_dict) is a_dict
+        assert manager.updateTerminology(a_dict) is a_dict
         method.assert_called_once_with(a_dict, host_session)
 
     def test_getSettings(self, manager, mock_manager_interface, host_session):

@@ -22,37 +22,37 @@ from openassetio.hostAPI import Manager, Session
 from openassetio.managerAPI import ManagerInterface
 
 
-all_localization_keys = (
-    lzn.kLocalizationKey_Asset,
-    lzn.kLocalizationKey_Assets,
-    lzn.kLocalizationKey_Manager,
-    lzn.kLocalizationKey_Publish,
-    lzn.kLocalizationKey_Publishing,
-    lzn.kLocalizationKey_Published,
-    lzn.kLocalizationKey_Shot,
-    lzn.kLocalizationKey_Shots
+all_terminology_keys = (
+    lzn.kTerm_Asset,
+    lzn.kTerm_Assets,
+    lzn.kTerm_Manager,
+    lzn.kTerm_Publish,
+    lzn.kTerm_Publishing,
+    lzn.kTerm_Published,
+    lzn.kTerm_Shot,
+    lzn.kTerm_Shots
 )
 
 
-class MockLocalizationManager(Manager):
-    kLocalizationKey_custom = "custom"
-    kLocalizationValue_custom = "alternative"
+class MockTerminologyManager(Manager):
+    kTerm_custom = "custom"
+    kTermValue_custom = "alternative"
 
-    __mockDisplayName = "Mock Localizing Manager"
+    __mockDisplayName = "Mock Terminology Manager"
     __mockTerminology = {
-        lzn.kLocalizationKey_Asset: 'mock-asset',
-        lzn.kLocalizationKey_Assets: 'mock-assets',
-        lzn.kLocalizationKey_Publish: 'mock-publish',
-        lzn.kLocalizationKey_Publishing: 'mock-publishing',
-        lzn.kLocalizationKey_Published: 'mock-published',
-        lzn.kLocalizationKey_Shot: 'mock-shot',
-        lzn.kLocalizationKey_Shots: 'mock-shots',
-        kLocalizationKey_custom: kLocalizationValue_custom
+        lzn.kTerm_Asset: 'mock-asset',
+        lzn.kTerm_Assets: 'mock-assets',
+        lzn.kTerm_Publish: 'mock-publish',
+        lzn.kTerm_Publishing: 'mock-publishing',
+        lzn.kTerm_Published: 'mock-published',
+        lzn.kTerm_Shot: 'mock-shot',
+        lzn.kTerm_Shots: 'mock-shots',
+        kTerm_custom: kTermValue_custom
     }
 
     # ManagerInterface methods
 
-    def localizeStrings(self, strings):
+    def updateTerminology(self, strings):
         strings.update(self.__mockTerminology)
 
     def displayName(self):
@@ -63,45 +63,45 @@ class MockLocalizationManager(Manager):
     @classmethod
     def expectedTerminology(cls):
         expected = dict(cls.__mockTerminology)
-        expected[lzn.kLocalizationKey_Manager] = cls.__mockDisplayName
+        expected[lzn.kTerm_Manager] = cls.__mockDisplayName
         return expected
 
 
 @pytest.fixture
 def mock_manager():
-    return MockLocalizationManager(
+    return MockTerminologyManager(
         mock.create_autospec(ManagerInterface), mock.create_autospec(Session))
 
 
 @pytest.fixture
-def localizer(mock_manager):
-    return lzn.Localizer(mock_manager)
+def mapper(mock_manager):
+    return lzn.Mapper(mock_manager)
 
 
 def test_defaultTerminology():
     # Ensure we have pre-defined keys for anything in the default dictionary
-    assert set(all_localization_keys) == set(lzn.defaultTerminology.keys())
+    assert set(all_terminology_keys) == set(lzn.defaultTerminology.keys())
 
     for value in lzn.defaultTerminology.values():
         assert isinstance(value, str)
         assert value != ""
 
 
-class TestLocalizer:
+class TestMapper:
 
     def test_construction(self, mock_manager):
         custom_terminology = {
-            mock_manager.kLocalizationKey_custom: mock_manager.kLocalizationValue_custom}
-        a_localizer = lzn.Localizer(mock_manager, terminology=custom_terminology)
-        assert (a_localizer.localizeString("{%s}" % mock_manager.kLocalizationKey_custom) ==
-                mock_manager.kLocalizationValue_custom)
+            mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
+        a_mapper = lzn.Mapper(mock_manager, terminology=custom_terminology)
+        assert (a_mapper.replaceTerms("{%s}" % mock_manager.kTerm_custom) ==
+                mock_manager.kTermValue_custom)
 
-    def test_localizeString(self, mock_manager, localizer):
-        input = ", ".join(["{%s}" % k for k in all_localization_keys])
+    def test_replaceTerms(self, mock_manager, mapper):
+        input = ", ".join(["{%s}" % k for k in all_terminology_keys])
         expected = input.format(**mock_manager.expectedTerminology())
-        assert localizer.localizeString(input) == expected
+        assert mapper.replaceTerms(input) == expected
 
-    def test_localizeStringUnknownTokensDebraced(self, localizer):
+    def test_replaceTermsUnknownTokensDebraced(self, mapper):
         input = "{an} unknown {token}"
         expected = "an unknown token"
-        assert localizer.localizeString(input) == expected
+        assert mapper.replaceTerms(input) == expected
