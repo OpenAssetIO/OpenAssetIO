@@ -92,12 +92,18 @@
  *      openassetio.pluginSystem.PluginSystemManagerFactory
  *      "PluginSystemManagerFactory" will be sufficient.
  *
+ * - Create, persist and configure a @ref Context as appropriate for
+ *   all calls to the API.
+ *
+ * - Ask the @ref manager if they manage relevant data via
+ *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "Manager.managementPolicy" using a suitably configured @ref
+ *   Specification and a @ref Context with <tt>kRead</tt> access, and
+ *   respect the returned flags.
+ *
  * - Always check any suspected entity references with @ref
  *   openassetio.hostAPI.Manager.Manager.isEntityReference
  *   "Manager.isEntityReference" before passing to any other API calls.
- *
- * - Create, persist and configure a @ref Context as appropriate for
- *   all calls to the API.
  *
  * @see @ref examples_api_initialization
  * @see @ref examples_picking_a_manager
@@ -105,10 +111,11 @@
  *
  * @subsection host_todo_required_publishing Required for publishing
  *
- * - Ask the @ref manager if they are interested in managing any
- *   relevant data via
+ * - Ask the @ref manager if they support publishing relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" and respect the returned flags.
+ *   "Manager.managementPolicy" using a suitable configured @ref
+ *   Specification and a @ref Context with <tt>kWrite</tt> access, and
+ *   respect the returned flags.
  *
  * - Follow the @ref management_policy "policy", @ref preflight,
  *   resolve, write, @ref register process illustrated
