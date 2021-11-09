@@ -421,8 +421,8 @@
  * allows a @ref manager to provide generic support for a given entity
  * specification, without needing to know anything about the @ref host
  * that is producing or consuming it. Conversely, a @ref host can query
- * a well-known specification without having to know the localized name
- * for it in any given @ref manager "manager's" native dialect.
+ * a well-known specification without having to know the @ref manager
+ * "manager's" native terminology.
  *
  * At hear, specifications are simply a set of key-value pairs, with an
  * additional 'schema' - a string that can be used to convey what keys
