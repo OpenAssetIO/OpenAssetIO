@@ -688,7 +688,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def relatedReferences(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
+    def getRelatedReferences(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
         """
         Returns related entity references, based on a relationship
         specification.
@@ -706,15 +706,15 @@ class Manager(Debuggable):
 
         In all cases, the return value is a list of lists, for example:
 
-            a)  relatedReferences([ r1 ], [ s1, s2, s3 ])
+            a)  getRelatedReferences([ r1 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
 
-            b)  relatedReferences([ r1, r2, r3 ], [ s1 ])
+            b)  getRelatedReferences([ r1, r2, r3 ], [ s1 ])
 
             > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
 
-            c)  relatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
+            c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
             > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
 
@@ -753,7 +753,7 @@ class Manager(Debuggable):
         length, ie: not a 1:1 mapping of entities to specs.
 
         @see openassetio.specifications
-        @see setRelatedReferences()
+        @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
             references = [references, ]
