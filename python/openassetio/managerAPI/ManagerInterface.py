@@ -362,6 +362,68 @@ class ManagerInterface(object):
     ## @}
 
     ##
+    # @name Policy
+    #
+    # @{
+
+    @abc.abstractmethod
+    def managementPolicy(self, specification, context, hostSession, entityRef=None):
+        """
+        Determines if the asset manager is interested in participating
+        in interactions with the specified specification of @ref entity.
+
+        For example, a host may call this in order to see if the manager
+        would like to manage the path of a scene file whilst choosing a
+        destination to save to.
+
+        This information is then used to determine which options should
+        be presented to the user. For example, if kIgnored was returned
+        for a query as to the management of scene files, a Host will
+        hide or disable menu items that relate to publish or loading of
+        assetised scene files.
+
+        @warning The @ref openassetio.Context.Context.access "access"
+        specified in the supplied context should be carefully considered.
+        A host will independently query the policy for both read and
+        write access to determine if resolution and publishing features
+        are applicable to this implementation.
+
+        Calls with an accompanying @ref entity_reference may be used to
+        prevent users from attempting to perform an asset-action that is
+        not supported by the asset management system.
+
+        @note One very important attribute returned as part of this
+        policy is the @ref openassetio.constants.kWillManagePath bit. If
+        set, this instructs the host that the asset management system
+        will manage the path use for the creation of any new assets.
+        When set, @ref preflight will be called before any file creation
+        to allow the asset management system to determine and prepare
+        the work path. If this bit if off, then only @ref register will
+        ever be called, and the user will be tasked with determining
+        where new files should be located. In many cases, this greatly
+        reduces the sophistication of the integration as registering the
+        asset becomes a partially manual task, rather than one that can
+        be fully automated for new assets.
+
+        Additionally, the @ref
+        openassetio.constants.kSupportsBatchOperations bit is important
+        if you want hosts to call the *Multiple variants of the @ref
+        preflight and @ref register methods.
+
+        @param entityRef str, If supplied, then the call should be
+        interpreted as a query as to the applicability of the given
+        specification if registered to the supplied entity. For example,
+        attempts to register an ImageSpecification to an entity
+        reference that refers to the top level project may be
+        meaningless, so in this case kIgnored should be returned.
+
+        @return int, a bitfield, see @ref openassetio.constants
+        """
+        raise NotImplementedError
+
+    ## @}
+
+    ##
     # @name Entity Reference inspection
     #
     # Because of the nature of an @ref entity_reference, it is often
@@ -981,61 +1043,6 @@ class ManagerInterface(object):
     # of the system.
     #
     # @{
-
-    @abc.abstractmethod
-    def managementPolicy(self, specification, context, hostSession, entityRef=None):
-        """
-        Determines if the asset manager is interested in participating
-        in interactions with the specified specification of @ref entity.
-
-        For example, a host may call this in order to see if the manager
-        would like to manage the path of a scene file whilst choosing a
-        destination to save to.
-
-        This information is then used to determine which options should
-        be presented to the user. For example, if kIgnored was returned
-        for a query as to the management of scene files, a Host will
-        hide or disable menu items that relate to publish or loading of
-        assetised scene files.
-
-        @warning The @ref openassetio.Context.Context.access "access"
-        specified in the supplied context should be carefully considered.
-        A host will independently query the policy for both read and
-        write access to determine if resolution and publishing features
-        are applicable to this implementation.
-
-        Calls with an accompanying @ref entity_reference may be used to
-        prevent users from attempting to perform an asset-action that is
-        not supported by the asset management system.
-
-        @note One very important attribute returned as part of this
-        policy is the @ref openassetio.constants.kWillManagePath bit. If
-        set, this instructs the host that the asset management system
-        will manage the path use for the creation of any new assets.
-        When set, @ref preflight will be called before any file creation
-        to allow the asset management system to determine and prepare
-        the work path. If this bit if off, then only @ref register will
-        ever be called, and the user will be tasked with determining
-        where new files should be located. In many cases, this greatly
-        reduces the sophistication of the integration as registering the
-        asset becomes a partially manual task, rather than one that can
-        be fully automated for new assets.
-
-        Additionally, the @ref
-        openassetio.constants.kSupportsBatchOperations bit is important
-        if you want hosts to call the *Multiple variants of the @ref
-        preflight and @ref register methods.
-
-        @param entityRef str, If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specification if registered to the supplied entity. For example,
-        attempts to register an ImageSpecification to an entity
-        reference that refers to the top level project may be
-        meaningless, so in this case kIgnored should be returned.
-
-        @return int, a bitfield, see @ref openassetio.constants
-        """
-        raise NotImplementedError
 
     def thumbnailSpecification(self, specification, context, options, hostSession):
         """
