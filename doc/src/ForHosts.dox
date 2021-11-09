@@ -73,10 +73,10 @@
  *
  * - Implement the @ref openassetio.hostAPI.HostInterface class
  *   methods:
- *   @ref openassetio.hostAPI.HostInterface.HostInterface.getIdentifier
- *   "getIdentifier" and @ref
- *   openassetio.hostAPI.HostInterface.HostInterface.getDisplayName
- *   "getDisplayName".
+ *   @ref openassetio.hostAPI.HostInterface.HostInterface.identifier
+ *   "identifier" and @ref
+ *   openassetio.hostAPI.HostInterface.HostInterface.displayName
+ *   "displayName".
  *
  * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
  *   provide the following objects:
@@ -151,7 +151,7 @@
  * - If you have a document model, implement the entity query methods
  *   in your @ref openassetio.hostAPI.HostInterface class.
  *
- * - You should map any widgets returned by @ref ManagerUIDelegate.getWidgets
+ * - You should map any widgets returned by @ref ManagerUIDelegate.widgets
  *   with the @ref ui.widgets.attributes.kCreateApplicationPanel flag set to
  *   some native panel type, if you have one.
  *
