@@ -155,7 +155,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def localizeStrings(self, stringDict):
+    def updateTerminology(self, stringDict):
         """
         This call gives the Manager a chance to customise certain
         strings that you might want to use in your UI/messages. @see
@@ -165,18 +165,18 @@ class Manager(Debuggable):
         messages or display text so that they feel at home.
 
         It's rare that you need to call this method directly, the @ref
-        openassetio.hostAPI.localization API provides more utility for
+        openassetio.hostAPI.terminology API provides more utility for
         far less effort.
 
-        @see @ref openassetio.hostAPI.localization
+        @see @ref openassetio.hostAPI.terminology
         @see @ref
-        openassetio.hostAPI.localization.Localizer.localizeString
-        @see @ref openassetio.hostAPI.localization.defaultTerminology
+        openassetio.hostAPI.terminology.Mapper.replaceTerms
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
 
         @param stringDict Dict[str, str] this will be modified in-place
         by the manager if it has any alternate terminology.
         """
-        self.__impl.localizeStrings(stringDict, self.__hostSession)
+        self.__impl.updateTerminology(stringDict, self.__hostSession)
         # This is purely so we can see it in the debug log, the
         # return value of this function should be discarded.
         return stringDict
@@ -980,7 +980,7 @@ class Manager(Debuggable):
     # @note The term '@ref publish' is somewhat loaded. It generally means
     # something different depending on who you are talking to. See the @ref
     # publish "Glossary entry" for more on this, but to help avoid confusion,
-    # this API provides the @ref localizeStrings call, in order to allow the
+    # this API provides the @ref updateTerminology call, in order to allow the
     # Manager to standardise some of the language and terminology used in your
     # presentation of the asset management system with other integrations of the
     # system.

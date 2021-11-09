@@ -127,7 +127,7 @@ class ManagerInterface(object):
        @li @ref identifier()
        @li @ref displayName()
        @li @ref info()
-       @li @ref localizeStrings()
+       @li @ref updateTerminology()
        @li @ref getSettings()
        @li @ref setSettings()
 
@@ -242,7 +242,7 @@ class ManagerInterface(object):
         """
         return {}
 
-    def localizeStrings(self, stringDict, hostSession):
+    def updateTerminology(self, stringDict, hostSession):
         """
         This call gives the manager a chance to customise certain
         strings used in a host's UI/messages. @see openassetio.constants
@@ -252,12 +252,12 @@ class ManagerInterface(object):
 
         For example, you may way a host's "Publish Clip" menu item to
         read "Release Clip", so you would set the @ref
-        kLocalizationKey_Publish value to "Release".
+        kTerm_Publish value to "Release".
 
         @return None
 
         @see @ref openassetio.constants
-        @see @ref openassetio.hostAPI.localization.defaultTerminology
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
         """
         pass
 
@@ -312,7 +312,7 @@ class ManagerInterface(object):
          @li @ref identifier()
          @li @ref displayName()
          @li @ref info()
-         @li @ref localizeStrings()
+         @li @ref updateTerminology()
          @li @ref getSettings()
          @li @ref setSettings()
 
@@ -1037,7 +1037,7 @@ class ManagerInterface(object):
     # @note The term '@ref publish' is somewhat loaded. It generally means
     # something different depending on who you are talking to. See the @ref
     # publish "Glossary entry" for more on this, but to help avoid confusion,
-    # this API provides the @ref localizeStrings call, in order to allow the
+    # this API provides the @ref updateTerminology call, in order to allow the
     # implementation to standardise some of the language and terminology used in a
     # Hosts presentation of the asset management system with other integrations
     # of the system.
