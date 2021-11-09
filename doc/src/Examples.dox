@@ -31,11 +31,11 @@
  *     """
  *     A minimal host implementation with no document model.
  *     """
- *     def getIdentifier(self):
+ *     def identifier(self):
  *         return "org.openassetio.example.host"
  *
  *
- *     def getDisplayName(self):
+ *     def displayName(self):
  *         return "OpenAssetIO Example Host"
  *
  * # For simplicity, use a filtered console logger, this logs to
@@ -68,7 +68,7 @@
  * We will be providing an example manager implementation soon!
  *
  * @code{.py}
- * managers = session.getRegisteredManagers()
+ * managers = session.registeredManagers()
  * > {
  * >    'org.openassetio.example.manager': {
  * >         'name': 'Example Asset Manager',
@@ -108,8 +108,8 @@
  * The API middleware provides assorted short-circuit validation
  * optimisations that can reduce the number of inter-language hops
  * required. See @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.getInfo
- * "ManagerInterface.getInfo" and the <tt>kField_EntityReferenceMatch*</tt>
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface.info
+ * "ManagerInterface.info" and the <tt>kField_EntityReferenceMatch*</tt>
  * keys.
  *
  * @code{.py}
