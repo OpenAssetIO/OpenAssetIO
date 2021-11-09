@@ -293,6 +293,76 @@ class Manager(Debuggable):
     ## @}
 
     ##
+    # @name Policy
+    #
+    # @{
+
+    @debugApiCall
+    @auditApiCall("Manager methods")
+    def managementPolicy(self, specification, context, entityRef=None):
+        """
+        Determines if the manager is interested in participating in
+        interactions with the specified type of @ref entity, either
+        for resolution or publishing. It is *vital* to call this before
+        attempting to publish data to the manager, as the entity
+        specification you desire to work with may not be supported.
+
+        For example, a you would call this in order to see if the
+        manager would like to manage the path of a scene file whilst
+        choosing a destination to save to.
+
+        This information should then be used to determine which options
+        should be presented to the user. For example, if kIgnored was
+        returned for a query as to the management of scene files, a you
+        should hide or disable menu items that relate to publish or
+        loading of assetised scene files.
+
+        @warning The @ref openassetio.Context.access "access" of the
+        supplied context will be considered by the manager. If it is
+        set to read, then it's response applies to resolution and
+        @ref metadata queries. If write, then it applies to publishing.
+        Ignored reads can allow optimisations in a host as there is no
+        longer a need to test/resolve applicable strings.
+
+        Calls with an accompanying @ref entity_reference should be used
+        when one is known, to ensure that the manager has the
+        opportunity to prohibit users from attempting to perform an
+        asset-specific action that is not supported by the asset
+        management system.
+
+        @note One very important attribute returned as part of this
+        policy is the @ref openassetio.constants.kWillManagePath bit. If
+        set, you can assume the asset management system will manage the
+        path to use for the creation of any new assets. you must then
+        always call @ref preflight before any file creation to allow the
+        asset management system to determine and prepare the work path,
+        and then use this path to write data to, prior to calling @ref
+        register.. If this bit if off, then you should take care of
+        writing data yourself (maybe prompting the user for a location
+        on disk), and then only call @ref register to create the new
+        entity.
+
+        Additionally, if you are ever dealing with multiple assets at
+        one, the @ref openassetio.constants.kSupportsBatchOperations bit
+        is important as it indicates that it is beneficial to call the
+        *Multiple variants of the @ref preflight and @ref register
+        methods.
+
+        @param entityRef str, If supplied, then the call should be
+        interpreted as a query as to the applicability of the given
+        specification if registered to the supplied entity. For example,
+        attempts to register an ImageSpecification to an entity
+        reference that refers to the top level project may be
+        meaningless, so in this case kIgnored would be returned.
+
+        @return int, a bitfield, see @ref openassetio.constants
+        """
+        return self.__impl.managementPolicy(
+            specification, context, self.__hostSession, entityRef=entityRef)
+
+    ## @}
+
+    ##
     # @name Entity Reference inspection
     #
     # Because of the nature of an @ref entity_reference, it is often
@@ -926,69 +996,6 @@ class Manager(Debuggable):
     # possible to make one, simply leave this field blank.
     #
     # @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def managementPolicy(self, specification, context, entityRef=None):
-        """
-        Determines if the manager is interested in participating in
-        interactions with the specified type of @ref entity, either
-        for resolution or publishing. It is *vital* to call this before
-        attempting to publish data to the manager, as the entity
-        specification you desire to work with may not be supported.
-
-        For example, a you would call this in order to see if the
-        manager would like to manage the path of a scene file whilst
-        choosing a destination to save to.
-
-        This information should then be used to determine which options
-        should be presented to the user. For example, if kIgnored was
-        returned for a query as to the management of scene files, a you
-        should hide or disable menu items that relate to publish or
-        loading of assetised scene files.
-
-        @warning The @ref openassetio.Context.access "access" of the
-        supplied context will be considered by the manager. If it is
-        set to read, then it's response applies to resolution and
-        @ref metadata queries. If write, then it applies to publishing.
-        Ignored reads can allow optimisations in a host as there is no
-        longer a need to test/resolve applicable strings.
-
-        Calls with an accompanying @ref entity_reference should be used
-        when one is known, to ensure that the manager has the
-        opportunity to prohibit users from attempting to perform an
-        asset-specific action that is not supported by the asset
-        management system.
-
-        @note One very important attribute returned as part of this
-        policy is the @ref openassetio.constants.kWillManagePath bit. If
-        set, you can assume the asset management system will manage the
-        path to use for the creation of any new assets. you must then
-        always call @ref preflight before any file creation to allow the
-        asset management system to determine and prepare the work path,
-        and then use this path to write data to, prior to calling @ref
-        register.. If this bit if off, then you should take care of
-        writing data yourself (maybe prompting the user for a location
-        on disk), and then only call @ref register to create the new
-        entity.
-
-        Additionally, if you are ever dealing with multiple assets at
-        one, the @ref openassetio.constants.kSupportsBatchOperations bit
-        is important as it indicates that it is beneficial to call the
-        *Multiple variants of the @ref preflight and @ref register
-        methods.
-
-        @param entityRef str, If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specification if registered to the supplied entity. For example,
-        attempts to register an ImageSpecification to an entity
-        reference that refers to the top level project may be
-        meaningless, so in this case kIgnored would be returned.
-
-        @return int, a bitfield, see @ref openassetio.constants
-        """
-        return self.__impl.managementPolicy(
-            specification, context, self.__hostSession, entityRef=entityRef)
 
     @debugApiCall
     @auditApiCall("Manager methods")
