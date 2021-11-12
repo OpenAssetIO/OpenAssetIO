@@ -1,0 +1,179 @@
+/*!
+ * @page stable_resolution Stable Entity Resolution
+ *
+ * @section stable_resolution_overview Overview
+ * One of the main design principles of the @ref ManagerInterface is
+ * that it should be stateless, in the sense that any session state is
+ * held by the caller and supplied to the manager as part of the method
+ * signature. This is to allow multi-threaded access to the @ref ManagerInterface
+ * and avoid the need for any additional internal state to exist within
+ * its implementation. The @ref openassetio.hostAPI.Manager "Manager"
+ * class wraps the interface implementation to help the @ref host
+ * with basic session state management.
+ *
+ * Many common use cases require multiple calls to the API to complete a
+ * task. Several textures need to be published together, or multiple
+ * frames of a render need to be distributed to a render-farm.
+ *
+ * If a manager wants to support the concept of a @ref meta_version, it
+ * becomes essential that there is some way for the manager to know that
+ * disparate calls to the API are part of the same conceptual action, so
+ * that the resolution of references is stable.
+ *
+ * To achieve this, we introduce the idea of a @ref
+ * manager_state token.
+ *
+ * @note Generating a state token is optional for the manager. However,
+ * without one, it is not possible to know if any two API calls are
+ * being made from a related process.
+ *
+ * @section stable_resolution_manager_state Manager State
+ *
+ * The manager state mechanism allows a @ref manager to embed state
+ * within the @ref host, such that it can correlate API calls.
+ *
+ * Whenever a @ref Context is created by the host, the
+ * @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
+ * "ManagerInterface.createState" method will be called, and the
+ * returned token stored in the Context's @ref openassetio.Context.Context.managerInterfaceState
+ * "managerInterfaceState" property.
+ *
+ * @startuml
+ * actor host
+ * host -> Session : createContext()
+ * Session -> Manager : _createState()
+ * Manager -> ManagerInterface : createState(hostSession)
+ * ManagerInterface -> ManagerInterface : __createSnapshotToken()
+ * ManagerInterface --> Manager : token
+ * Manager --> Session : token
+ * Session -> Session : new Context()
+ * Session -> Session : context.managerInterfaceState = token
+ * Session --> host : context
+ * ...
+ * host -> Manager : register(..., context)
+ * Manager -> ManagerInterface : register(..., context, hostSession)
+ * ManagerInterface -> ManagerInterface : state = context.managerInterfaceState
+ * ...
+ * @enduml
+ *
+ * @warning The host must treat the token as being opaque, and is solely
+ * responsible for managing the lifetime of each Context such that it is
+ * re-used for logically correlated series of actions. The API
+ * middleware takes care of requesting and persisting the state token.
+ *
+ * @section stable_resolution_manager_state_distribution Distributed processing
+ *
+ * Distributed processing requires the same context to be shared by
+ * multiple discrete working processes.
+ *
+ * The @ref openassetio.hostAPI.transactions.TransactionCoordinator
+ * "TransactionCoordinator's" @ref openassetio.hostAPI.transactions.TransactionCoordinator.freezeManagerState
+ * "freezeManagerState" and @ref openassetio.hostAPI.transactions.TransactionCoordinator.thawManagerState
+ * "thawManagerState" methods provide a mechanism by which a @ref host
+ * can obtain a portable version of the manager's state token for a
+ * given context for distribution to other processes that are logically
+ * connected.
+ *
+ * @startuml
+ * actor user
+ * actor scheduler
+ * actor worker
+ * user -> scheduler : submit("a_job.script")
+ * scheduler --> user :
+ * ...
+ * == preflight task ==
+ * scheduler -> worker : someApp a_job.script ~--preflight --stateFile oaio.json
+ * activate worker
+ * activate Session
+ * activate Manager
+ * worker -> Session : createContext()
+ * Session --> worker : context
+ * worker -> worker : context.access = context.kWrite
+ * worker -> Manager : working_reference = preflight("ref://asset", context)
+ * Manager --> worker : "ref://asset=v4&state=inflight"
+ * worker -> TransactionCoordinator : freezeManagerState(context)
+ * activate TransactionCoordinator
+ * TransactionCoordinator --> worker : token
+ * deactivate TransactionCoordinator
+ * worker -> worker : write_state_file(token, {"ref://asset": working_entity_reference})
+ * worker --> scheduler
+ * deactivate Session
+ * deactivate Manager
+ * deactivate worker
+ * ...
+ * == processing tasks ==
+ * group distribute to n
+ *     scheduler -> worker : someApp a_job.script ~--run ~--frame n --stateFile oaio.json
+ *     activate worker
+ *     activate Session
+ *     activate Manager
+ *     worker -> worker : token, ref_map = read_state_file("oaio.json")
+ *     worker -> TransactionCoordinator : thawManagerState(token)
+ *     activate TransactionCoordinator
+ *     TransactionCoordinator --> worker : context
+ *     deactivate TransactionCoordinator
+ *     worker -> worker : context.access = context.kWrite
+ *     worker -> worker : working_reference = ref_map["ref://asset"]
+ *     worker -> Manager : path = resolveEntityReference(working_reference, context)
+ *     Manager --> worker : "file://out.####.exr"
+ *     worker -> worker : write_data(path)
+ *     worker --> scheduler
+ *     deactivate Session
+ *     deactivate Manager
+ *     deactivate worker
+ * end
+ * ...
+ * == register task ==
+ * scheduler -> worker : someApp a_job.script ~--register --stateFile oaio.json
+ * activate worker
+ * activate Session
+ * activate Manager
+ * worker -> worker : token, ref_map = read_state_file("oaio.json")
+ * worker -> TransactionCoordinator : thawManagerState(token)
+ * activate TransactionCoordinator
+ * TransactionCoordinator --> worker : context
+ * deactivate TransactionCoordinator
+ * worker -> worker : context.access = context.kWrite
+ * worker -> worker : working_reference = ref_map["ref://asset"]
+ * worker -> Manager : path = resolveEntityReference(working_reference, context)
+ * Manager --> worker : "file://out.####.exr"
+ * worker -> Manager : final_reference = register(path, {}, spec, context)
+ * Manager --> worker : "ref://asset=v4"
+ * worker -> worker : update_state_file({"ref://asset": final_reference})
+ * worker --> scheduler
+ * deactivate Session
+ * deactivate Manager
+ * deactivate worker
+ * @enduml
+ *
+ * @note The above diagram omits the interaction between the Manager and
+ * ManagerInterface classes for readability. Right-click to open in a
+ * larger view.
+ *
+ * This mechanism allows for distributed API calls to be anchored to
+ * specific snapshot of a manager's view of the world. It is not
+ * intended to be used to group discrete publishing actions into a
+ * batch. This is covered by the separate transaction API.
+ *
+ * The reason for this is that a host may need to perform multiple
+ * independent transactions during the lifetime of a single context.
+ *
+ * @section stable_resolution_manager_state_guidelines Implementation Guidelines
+ *
+ * - Because a thawed state may be passed to multiple child processes,
+ *   the manager must be prepared for the state to be restored more than once, at
+ *   the same time.
+ *
+ * - The current transaction state is encoded in the token. A @ref host
+ *   is responsible for making sure that in a distributed context
+ *   scenario, where the same state is used in multiple processes, no
+ *   @ref transactions_action_groups are pushed/popped in these parallel
+ *   contexts such that a transaction would be started, cancelled or
+ *   finished. In other words, the Host must ensure that there is only
+ *   ever, globally, a single instance of any particular state object
+ *   when controlling a transaction - either manually, or via an action
+ *   group. This is to ensure that the transaction state does not
+ *   become inconsistent across threads/processes.
+ *
+ * @see @ref transactions
+ */
