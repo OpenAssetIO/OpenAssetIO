@@ -16,8 +16,8 @@ RUN apt-get update && \
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs
 
-# Graphviz for in-code dot diagrams
-RUN apt-get install -y graphviz
+# Graphviz and plantuml for in-code diagrams
+RUN apt-get install -y graphviz plantuml
 
 # N.B. `configure && make install` is broken as doxytag is missing in the
 # distribution for this version for unknown reasons.
