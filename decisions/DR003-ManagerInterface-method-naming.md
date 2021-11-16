@@ -85,8 +85,6 @@ multiple versions. We could disambiguate this by making changing the
 pluralization to `entitiesName` and `entitiesVersions`, but this leads
 to method names that are ugly and hard to read.
 
-Estimated cost: Small
-
 ### Option 2
 
 Batch methods should have singular names (i.e. there is no naming 
@@ -105,8 +103,6 @@ convention to differentiate batch & non-batch methods).
 method name. However, given that most `ManagerInterface` methods 
 (including all its methods related to entities) this is unlikely to 
 create much confusion.
-
-Estimated cost: Small
 
 ### Option 3
 
@@ -131,8 +127,6 @@ more readable than `getEntityRelatedEntityReferences`, but for
 consistency, this would also require changing `isEntityReference` to 
 `isReference`.
  - Method names do not read like natural English.
-
-Estimated cost: Small
 
 ## Outcome
 
