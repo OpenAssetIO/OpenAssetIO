@@ -28,9 +28,10 @@
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
- *   @ref Host class before being exposed to the manager. This is to
- *   allow for assorted middleware auditing/logging functionality, and
- *   provide a degree of isolation against future API changes.
+ *   @ref openassetio.managerAPI.Host.Host "Host" class before being
+ *   exposed to the manager. This is to allow for assorted middleware
+ *   auditing/logging functionality, and provide a degree of isolation
+ *   against future API changes.
  *
  * - The main currency in the interactions with a @ref manager is the
  *   @ref entity_reference. These are URIs that uniquely identify an
@@ -117,9 +118,10 @@
  *   Specification and a @ref Context with <tt>kWrite</tt> access, and
  *   respect the returned flags.
  *
- * - Follow the @ref management_policy "policy", @ref preflight,
- *   resolve, write, @ref register process illustrated
- *   @ref example_publishing_a_file "here" whenever generating new data.
+ * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "policy", @ref preflight, resolve, write, @ref register process
+ *   illustrated @ref example_publishing_a_file "here" whenever
+ *   generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
  *   registered to references known to be of a different @ref Specification.

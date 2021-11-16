@@ -28,7 +28,7 @@ class HostInterface(object):
 
     The HostInterface provides a generic mechanism for a @ref manager to
     query information about the identity of the host, its available
-    documents and the @ref entities they may reference.
+    documents and the @ref entity "entities" they may reference.
 
     In order for a host to use the API, it must provide an
     implementation of the HostInterface to the @ref

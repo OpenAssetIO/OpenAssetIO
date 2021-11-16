@@ -61,7 +61,7 @@ class HostSession(object):
 
     def host(self):
         """
-        @returns A @ref openassetio.HostInterface.HostInterface
+        @returns A @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
         implementation.
         """
         return self.__host

@@ -133,7 +133,7 @@ class TransactionCoordinator(Debuggable):
     ## @}
 
     ## @name State Distribution
-    ## @ref state_distribution Management.
+    ## @ref stable_resolution_manager_state_distribution Management.
     ## In order to correlate a series of distributed tasks, the Manager's state
     ## held in a Context can be serialised, shared with other processes and
     ## restored. A common use of this in in distributed rendering scenarios, where

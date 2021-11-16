@@ -36,7 +36,8 @@ class Host(Debuggable):
     Hosts should never be directly constructed by the Manager's
     implementation. Instead, the @ref HostSession class provided to all
     manager API entry points provides access to the current host through
-    the @ref HostSession.host() method.
+    the @ref openassetio.managerAPI.HostSession.HostSession.host
+    "HostSession.host" method.
     """
 
     def __init__(self, hostInterface):

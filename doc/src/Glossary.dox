@@ -124,7 +124,7 @@
  * Each of them have their relative merits in different situations, and
  * <b>it is no concern of this set of APIs which one is used</b>. There
  * are only three requirements of the format, and the way it is
- * interpreted by the @ref ManagerInterface:
+ * interpreted by the @ref ManagerInterface "ManagerInterface":
  *
  * 1. Discoverability
  * ------------------
@@ -265,7 +265,7 @@
  *
  * The ManagerPlugin instance is then respoisible for constructing an
  * instance of the respective @ref asset_management_system's
- * implementation of the openassetio.managerAPI.ManagerInterface
+ * implementation of the @ref openassetio.managerAPI.ManagerInterface
  * "ManagerInterface".
  *
  *

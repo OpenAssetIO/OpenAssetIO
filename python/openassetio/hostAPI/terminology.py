@@ -17,13 +17,13 @@
 from .._core.audit import auditApiCall
 
 
-## @namespace openassetio.terminology
+## @namespace openassetio.hostAPI.terminology
 #
 # The terminology mapping mechanism allows Managers to customise
 # terminology used within the host application.
-# The @ref openassetio.terminology.Mapper class allows for
-# more efficient access to term mapping during a Host session,
-# and for the host to provide additional terminology keys.
+# The Mapper class allows for more efficient access to term
+# mapping during a Host session, and for the host to provide
+# additional terminology keys.
 #
 
 ## @name Terminology dict keys
@@ -42,9 +42,9 @@ kTerm_Shots = 'shots'
 
 ## Default terminology for the API.
 # Hosts may choose to add additional terminology keys when
-# constructing a @ref openassetio.hostAPI.terminology.Mapper,
-# but there is no expectation that any given manager would
-# customise keys other than the defaultTerminology.
+# constructing a Mapper, but there is no expectation that
+# any given manager would customise keys other than the
+# defaultTerminology.
 defaultTerminology = {
     kTerm_Asset: 'Asset',
     kTerm_Assets: 'Assets',
@@ -83,7 +83,7 @@ class Mapper:
         Substitutes any valid terminology tokens in the input string
         with those appropriate to the current Manager. These tokens are
         as per python format convention, using the constants defined in
-        @ref openassetio.constants under kTerm_*. For
+        @ref openassetio.hostAPI.terminology under kTerm_*. For
         example:
 
           @li "{publish} to {manager}..."
@@ -107,7 +107,7 @@ class Mapper:
     def term(self, key, default=''):
         """
         Returns the term corresponding to the supplied key, @ref
-        openassetio.constants under kTerm_*
+        openassetio.hostAPI.terminology under kTerm_*
 
         @return str or the supplied default if the key is unknown.
         """
