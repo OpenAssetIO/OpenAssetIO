@@ -57,76 +57,87 @@ are
 
 ## Options considered
 
+| Current Name           | Option 1                | Option 2                   | Option 3                   |
+|------------------------|-------------------------|----------------------------|----------------------------|
+| isEntityReference      | areEntityReferences     | isEntityReference          | isReference                |
+| defaultEntityReference | defaultEntityReferences | defaultEntityReference     | entityDefaultReference     |
+| getRelatedReferences   | getRelatedReferences    | getRelatedEntityReferences | getEntityRelatedReferences |
+| entityName             | entityNames             | entityName                 | entityName                 |
+| entityVersions         | entityVersions          | entityVersions             | entityVersions             |
+
 ### Option 1
 
-Singular Convention
+Batch methods should have plural names.
 
 #### Pros
 
- - Pro 1
+ - Intuitive for people that are unfamiliar with OAIO conventions. 
+ - Easy to see whether a given method is batch or singular.
+ - Method names read like natural English.
 
 #### Cons
 
- - Con 1
+ - Plural method names introduce ambiguity. For example, `entityNames` 
+and `entityVersions` look similar, but they are semantically different.
+For `entityNames` there are multiple entities and each has one name, 
+while for `entityVersions` there are also multiple entities but each has
+multiple versions. We could disambiguate this by making changing the
+pluralization to `entitiesName` and `entitiesVersions`, but this leads
+to method names that are ugly and hard to read.
 
 Estimated cost: Small
 
 ### Option 2
 
-Singular entity prefix convention
+Batch methods should have singular names (i.e. there is no naming 
+convention to differentiate batch & non-batch methods).
 
 #### Pros
 
- - Pro 1
+ - Unaffected by the ambiguous pluralization problem described above 
+(see [Option 1](#option-1)).
+ - Method names read like natural English.
 
 #### Cons
 
- - Con 1
+ - Potentially confusing for newcomers unfamiliar with OAIO conventions.
+ - Whether a method is singular or batch cannot be inferred from the 
+method name. However, given that most `ManagerInterface` methods 
+(including all its methods related to entities) this is unlikely to 
+create much confusion.
 
 Estimated cost: Small
 
 ### Option 3
 
-No entity prefix convention
+Batch methods should have singular names. And methods that relate to 
+entities should have the prefix "entity". For example, method 
+`defaultEntityReference` in [Option 2](#option-2) would instead be  
+`entityDefaultReference`. For methods with a verb prefix, the entity
+prefix should go after the verb (e.g. `getEntityRelatedReferences`).
 
 #### Pros
 
- - Pro 1
+- Unaffected by the ambiguous pluralization problem described above 
+(see [Option 1](#option-1)).
+- Obvious which methods are related to entities, and which are not.
 
 #### Cons
 
- - Con 1
-
-Estimated cost: Small
-
-### Option 4
-
-Plural Entities Convention
-
-#### Pros
-
- - Pro 1
-
-#### Cons
-
- - Con 1
-
-Estimated cost: Small
-
-### Option 5
-
-Plural Noun Convention
-
-#### Pros
-
- - Pro 1
-
-#### Cons
-
- - Con 1
+ - More difficult to explain the [Option 2](#option-2)
+ - Requires use of "Reference" instead of "EntityReference", in order to 
+prevent illegible names. For example, `getEntityRelatedReferences` is 
+more readable than `getEntityRelatedEntityReferences`, but for 
+consistency, this would also require changing `isEntityReference` to 
+`isReference`.
+ - Method names do not read like natural English.
 
 Estimated cost: Small
 
 ## Outcome
 
-Summarize the outcome, stating which option was chosen and why.
+We choose [Option 2](#option-2), batch methods should have singular 
+names. This is preferred to [Option 1](#option-1) because it doesn't 
+lead to the ambiguous pluralization problem. And it is preferred to 
+[Option 3](#option-3) because it is simpler, and leads to more readable
+method names.
