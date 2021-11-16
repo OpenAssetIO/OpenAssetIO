@@ -50,8 +50,6 @@ Please see the [project board](https://github.com/TheFoundryVisionmongers/OpenAs
 for work in progress, as well as up-coming topics.
 
 ### TODO list
- - Migrate documentation
- - Migrate example code
  - Migrate M&E related Entity/Relationship specifications
  - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop 
    investigations
