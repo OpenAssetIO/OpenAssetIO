@@ -96,7 +96,7 @@
  * string that may be an entity reference - covering use of the correct
  * context and a custom @ref locale to describe the call site.
  *
- * @info Note how it is the callers responsibility to validate
+ * @note Note how it is the callers responsibility to validate
  * that a string is a @ref entity_reference before passing it to any
  * other OAIO API that expects one.
  *
