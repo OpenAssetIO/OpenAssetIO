@@ -75,7 +75,5 @@ Variable List_ page of the generated documentation.
 ## Trusted Committers
 
 ### Foundry
-- @foundrytom
+- @foundrytom [tom@foundry.com](mailto:tom@foundry.com)
 - @feltech
-- @fn-yves
-- @TomFoundry
