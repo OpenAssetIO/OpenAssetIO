@@ -88,7 +88,7 @@ class Mapper:
 
           @li "{publish} to {manager}..."
 
-        @important Escaping brace literals with `{{` is not currently
+        @warning Escaping brace literals with `{{` is not currently
         supported.
 
         @param sourceStr a string to substitute.

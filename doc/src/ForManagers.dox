@@ -165,7 +165,7 @@
  *   the registration (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
  *
- * @info An example of a situation where the manager is allowed to mutate the
+ * @note An example of a situation where the manager is allowed to mutate the
  * @ref primary_string is for all specifications derived from
  * FileSpecification. In this case, the primary string is known to be a
  * URL so may be rewritten at will providing it still points to
