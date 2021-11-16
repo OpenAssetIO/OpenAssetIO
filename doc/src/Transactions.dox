@@ -21,7 +21,7 @@
  * in relation to transaction handling, see the @ref transactions_for_the_manager
  * section below.
  *
- * @section transactions_example Example Host code
+ * @section transactions_example Example Host Code
  *
  * Lets take the case of publishing a shot and it's clips from an
  * editorial application. Simplified pseudo-code within a host for the
