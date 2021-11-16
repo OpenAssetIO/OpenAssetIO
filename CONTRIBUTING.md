@@ -16,6 +16,25 @@ surprises later on. This helps avoid churn/frustration for all involved.
 More details on the development process will be provided soon. In the
 meantime, please open an Issue or contact one of the Trusted Committers.
 
+## Contribution sign off
+
+OAIO is licensed under the [Apache 2.0 license](LICENSE). All
+contributions to the project must abide by that license.
+
+Contributions to OAIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
+All commits must be signed-off as follows, before merge, to indicate
+that the submitter accepts the DCO:
+
+```
+Signed-off-by: Jóna Jónsdóttir <jona.jonsdottir@example.com>
+```
+
+This can be added automatically to a commit using `git commit -s`.
+
+In addition, contributors are required to complete either the Individual
+or Corporate Contribution License Agreement. Please contact one of the
+trusted committers for more information.
+
 ## Code style
 
 For Python code we aim to adhere to the PEP8 convention, with a few
