@@ -13,6 +13,17 @@
  * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
  * target="_blank">project tracker</a> for more details.
  *
+ * @section intro_scope Scope
+ *
+ * The API covers the following areas:
+ * - @ref resolve "Resolution" of asset references (URIs) into locatable
+ *   data (URLs).
+ * - @ref publish "Publishing" and retrieval of data for file-based and
+ *   non-file-based 'assets'.
+ * - Discovery and registration of related assets.
+ * - Replacement/augmentation of in-application UI elements such as
+ *   browsers and other panels/controls.
+ *
  * @section intro_approach The Approach
  *
  * Once we have a common standard, any @ref asset_management_system or
