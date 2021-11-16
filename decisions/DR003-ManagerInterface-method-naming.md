@@ -57,13 +57,13 @@ are
 
 ## Options considered
 
-| Current Name           | Option 1                | Option 2                   | Option 3                   |
-|------------------------|-------------------------|----------------------------|----------------------------|
-| isEntityReference      | areEntityReferences     | isEntityReference          | isReference                |
-| defaultEntityReference | defaultEntityReferences | defaultEntityReference     | entityDefaultReference     |
-| getRelatedReferences   | getRelatedReferences    | getRelatedEntityReferences | getEntityRelatedReferences |
-| entityName             | entityNames             | entityName                 | entityName                 |
-| entityVersions         | entityVersions          | entityVersions             | entityVersions             |
+| Current Name             | Option 1                  | Option 2                     | Option 3                     |
+|--------------------------|---------------------------|------------------------------|------------------------------|
+| `isEntityReference`      | `areEntityReferences`     | `isEntityReference`          | `isReference`                |
+| `defaultEntityReference` | `defaultEntityReferences` | `defaultEntityReference`     | `entityDefaultReference`     |
+| `getRelatedReferences`   | `getRelatedReferences`    | `getRelatedEntityReferences` | `getEntityRelatedReferences` |
+| `entityName`             | `entityNames`             | `entityName`                 | `entityName`                 |
+| `entityVersions`         | `entityVersions`          | `entityVersions`             | `entityVersions`             |
 
 ### Option 1
 
