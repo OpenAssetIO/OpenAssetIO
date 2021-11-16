@@ -19,7 +19,7 @@ from .._core.audit import auditApiCall
 
 ## @namespace openassetio.hostAPI.terminology
 #
-# The terminology mapping mechanism allows Managers to customise
+# The terminology mapping mechanism allows Managers to customize
 # terminology used within the host application.
 # The Mapper class allows for more efficient access to term
 # mapping during a Host session, and for the host to provide
@@ -43,7 +43,7 @@ kTerm_Shots = 'shots'
 ## Default terminology for the API.
 # Hosts may choose to add additional terminology keys when
 # constructing a Mapper, but there is no expectation that
-# any given manager would customise keys other than the
+# any given manager would customize keys other than the
 # defaultTerminology.
 defaultTerminology = {
     kTerm_Asset: 'Asset',
@@ -70,7 +70,7 @@ class Mapper:
         this instance. If left unspecified, the default API terminology
         will be used. Hosts may take a copy of this dictionary and
         append to it before passing to the Mapper to allow managers
-        to customise additional host-specific terms. There is no
+        to customize additional host-specific terms. There is no
         expectation that a manager would handle new terms without
         specific knowledge in advance.
         """

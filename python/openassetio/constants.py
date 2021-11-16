@@ -84,7 +84,7 @@ kField_ThumbnailPath = 'thumbnailPath'
 
 # Entity Reference Properties
 
-## These fields may be used by the API/Host to optimise queries to
+## These fields may be used by the API/Host to optimize queries to
 ## isEntityReference in situations where bridging languages, etc.. can be
 ## expensive (particularly in the case of python plug-ins called from
 ## multi-threaded C). Only one should be set at once.

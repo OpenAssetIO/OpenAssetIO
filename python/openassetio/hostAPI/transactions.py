@@ -135,7 +135,7 @@ class TransactionCoordinator(Debuggable):
     ## @name State Distribution
     ## @ref stable_resolution_manager_state_distribution Management.
     ## In order to correlate a series of distributed tasks, the Manager's state
-    ## held in a Context can be serialised, shared with other processes and
+    ## held in a Context can be serialized, shared with other processes and
     ## restored. A common use of this in in distributed rendering scenarios, where
     ## it is desired to provide stable asset resolution over time.
     ## By distributing the Managers state token to each of job, the Manager can
@@ -183,7 +183,7 @@ class TransactionCoordinator(Debuggable):
         object, it does *not* restore other properties of the Context
         (ie: access/retention, etc...)
         """
-        ## @todo Sanitise input
+        ## @todo Sanitize input
         depth, managerToken = token.split('_', 1)
         context.actionGroupDepth = int(depth)
         state = self.__manager._thawState(managerToken)

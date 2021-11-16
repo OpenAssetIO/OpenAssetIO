@@ -65,10 +65,10 @@
  * entities, but not all entities are assets.
  *
  * As a simplified example, an 'asset' may always require to exist in
- * some organisational hierarchy, and be the only thing that can be
+ * some organizational hierarchy, and be the only thing that can be
  * version managed. An entity however, can refer to anything that the
  * Asset Management System knows about, including a part of the
- * organisational hierarchy, or a specific version or component part of
+ * organizational hierarchy, or a specific version or component part of
  * an 'asset'.
  *
  * In the core API there are only three properties needed to represent any
@@ -190,7 +190,7 @@
  * user-facing Digital Content Creation application or a pipeline
  * tool or script.
  *
- * The purpose of OAIO is to standarise the interaction between a host
+ * The purpose of OAIO is to standardize the interaction between a host
  * and an @ref asset_management_system in order to persis or query data.
  * A host commnunicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
  *
@@ -203,7 +203,7 @@
  * The host itself is made available to a @ref manager "manager's" @ref
  * ManagerInterface via the @ref
  * openassetio.managerAPI.HostSession "HostSession" supplied to each API
- * call. This allows the manager to adapt its behaviour accordingly (if
+ * call. This allows the manager to adapt its behavior accordingly (if
  * required), and perform any additional actions it may wish to as part
  * of @ref publish "publishing".
  *
@@ -231,7 +231,7 @@
  * "locale" property of the @ref openassetio.Context.Context, which is
  * in turn supplied to most @ref ManagerInterface method calls.
  *
- * The locale may be used by a manager to customise its behaviour if
+ * The locale may be used by a manager to customize its behavior if
  * desired. The locale may contain references to specific objects in the
  * host's native SDK that can be used to determine more information
  * about the origin of the API request.
@@ -371,10 +371,10 @@
  *
  * A 'manager' represents some @ref asset_management_system that forms
  * a source of truth for some number of entities. They usually consist
- * of some centralised database that tracks assets - known here as @ref
+ * of some centralized database that tracks assets - known here as @ref
  * entity "entities", managing their versions and relationships.
  *
- * The purpose of OAIO is to standardise the interactions between a @ref
+ * The purpose of OAIO is to standardize the interactions between a @ref
  * host and one of these systems in order to query or persist data.
  *
  * Asset managers will generally re-map the well-known OAIO concepts
@@ -563,14 +563,14 @@
  * schema <tt>core.entity:file.image</tt> states that it is a
  * <tt>core.entity</tt> of type <tt>file.image</tt>.  It can be inferred
  * that this should have all the properties of a <tt>file</tt>, but will
- * have additional specialised properties only associated with a
+ * have additional specialized properties only associated with a
  * <tt>file.image</tt>.
  *
  * This approach allows any new Specification to be supported in a generic
  * fashion by simply saving/recalling the key/value pairs.
  * Specification schemas can also be decomposed hierarchically to allow
  * more general type-specific functionality to be automatically applied
- * to any more specialised derivations.
+ * to any more specialized derivations.
  *
  * Factory methods are provided, that use the schema to automatically
  * wrap higher-level objects to around the key-value pairs, to give a
