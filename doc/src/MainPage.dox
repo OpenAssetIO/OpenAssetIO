@@ -57,7 +57,7 @@
  * an asset, but is an addressable entity as far as the API is
  * concerned.
  *
- * @subsection intro_host What is a host?
+ * @subsection intro_host What is a Host?
  *
  * A @ref host is a tool, script or application that either consumes or
  * produces data, that needs to be managed by an asset management
@@ -160,7 +160,7 @@
  * implemented within this API to provide state management and audit
  * functionality.
  *
- * @section host_implementation_concept The basic design for a Host
+ * @section host_implementation_concept The Basic Design for a Host
  *
  * A design goal of this API was for it to be (relatively) easy to
  * retro-fit into an existing application or tool. In a minimal

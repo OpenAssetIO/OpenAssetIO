@@ -68,9 +68,9 @@
  * @see openassetio.hostAPI.Manager.Manager
  * @see openassetio.Context.Context
  *
- * @section host_todo Implementation check list
+ * @section host_todo Implementation Check List
  *
- * @subsection host_todo_required_resolution Required for simple resolution
+ * @subsection host_todo_required_resolution Required for Simple Resolution
  *
  * - Implement the @ref openassetio.hostAPI.HostInterface class
  *   methods:
@@ -110,7 +110,7 @@
  * @see @ref examples_picking_a_manager
  * @see @ref examples_resolving_a_reference
  *
- * @subsection host_todo_required_publishing Required for publishing
+ * @subsection host_todo_required_publishing Required for Publishing
  *
  * - Ask the @ref manager if they support publishing relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
