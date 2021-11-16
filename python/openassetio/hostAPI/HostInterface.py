@@ -55,7 +55,7 @@ class HostInterface(object):
 
         This may be used by a Manager's @ref
         openassetio.managerAPI.ManagerInterface "ManagerInterface"
-        adjust its behaviour accordingly. The identifier should be
+        adjust its behavior accordingly. The identifier should be
         unique for any application, but common to all versions.
 
         The identifier should use only alpha-numeric characters and '.',

@@ -54,7 +54,7 @@
  *   it is strongly advised to use or derive from standard @ref locale
  *   "locales" depending on which part of a host is making API calls.
  *   This allows the manager to correctly filter assets or adapt its
- *   behaviour as required.
+ *   behavior as required.
  *
  * - You should query an entity's @ref metadata wherever possible,
  *   and use it as the authoritative source of information about an asset.

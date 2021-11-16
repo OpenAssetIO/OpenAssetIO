@@ -158,7 +158,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def updateTerminology(self, stringDict):
         """
-        This call gives the Manager a chance to customise certain
+        This call gives the Manager a chance to customize certain
         strings that you might want to use in your UI/messages. @see
         openassetio.constants for well-known keys. These keys are
         updated in-place to the most appropriate term for the Manager.
@@ -231,7 +231,7 @@ class Manager(Debuggable):
         responsibility to deal with transient connection errors (if
         applicable) once initialized.
 
-        The behaviour of calling initialize() on an already initialized
+        The behavior of calling initialize() on an already initialized
         Manager should be a no-op, but if an error was raised
         previously, then initialization will be re-attempted.
 
@@ -541,14 +541,14 @@ class Manager(Debuggable):
     def getEntityMetadata(self, reference, context):
         """
         Retrieve @ref metadata for an entity. This may contain
-        well-known keys that you can then use to further customise your
+        well-known keys that you can then use to further customize your
         handling of the entity. Some types of entity may only have
         metadata, and no meaningful @ref primary_string.
 
         There are some well-known keys defined in the core API - @see
         openassetio.constants. These have universally agreed meaning.
 
-        As a host, you can also advertise well-known keys of your own as
+        As a host, you can also advertize well-known keys of your own as
         part of any first-class asset based workflows you may have. For
         example, a compositor may choose to consume the `colorspace`
         key (if present) and adjust the input space of an image reader
@@ -706,7 +706,7 @@ class Manager(Debuggable):
         @exception openassetio.exceptions.EntityResolutionError should
         be thrown if the @ref entity_reference is ambiguously versioned
         (for example if the version is missing from a reference to a
-        versioned entity, and that behaviour is undefined in the system
+        versioned entity, and that behavior is undefined in the system
         managers model. It may be that it makes sense in the specific
         asset manager to fall back on 'latest' in this case...)
 
@@ -855,7 +855,7 @@ class Manager(Debuggable):
     #
     # The concept of resolution is turning an @ref entity_reference into a
     # 'finalized' or 'primary' string. This, ultimately, is anything meaningful
-    # to the situation. It could be a colour space, a directory, a script or
+    # to the situation. It could be a color space, a directory, a script or
     # image sequence. A rule of thumb is that a resolved @ref entity_reference
     # should be the string you would have anyway, in a unmanaged environment.
     #
@@ -954,7 +954,7 @@ class Manager(Debuggable):
     # The Specification allows ancillary information to be provided to help the
     # implementation better interpret what type of entity may be best suited in
     # any given situation. For example, a path to an image will generally be
-    # accompanied by with an spec, that details the file type, colour space,
+    # accompanied by with an spec, that details the file type, color space,
     # resolution etc...
     #
     # @note The Specification should *not* be confused with @ref metadata.  The
@@ -982,7 +982,7 @@ class Manager(Debuggable):
     # something different depending on who you are talking to. See the @ref
     # publish "Glossary entry" for more on this, but to help avoid confusion,
     # this API provides the @ref updateTerminology call, in order to allow the
-    # Manager to standardise some of the language and terminology used in your
+    # Manager to standardize some of the language and terminology used in your
     # presentation of the asset management system with other integrations of the
     # system.
     #
@@ -1073,7 +1073,7 @@ class Manager(Debuggable):
         "Context.retention". See @ref example_publishing_a_file,
         but the importance of using the working @ref entity_reference,
         rather than the initial @ref entity_reference is essential to
-        proper behaviour.
+        proper behavior.
 
         @return str, A working @ref entity_reference, that the you
         should resolve to determine the path to write media too. This

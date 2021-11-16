@@ -36,7 +36,7 @@ __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 
 __auditor = None
 
 ## When set to True, decorated calls will be audited. When False, minimal
-## additional code is run, to minimise performance impact. This should always
+## additional code is run, to minimize performance impact. This should always
 ## be False by default.
 auditCalls = os.environ.get('OAIO_AUDIT', "0") != "0"
 
