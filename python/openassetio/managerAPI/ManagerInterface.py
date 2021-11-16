@@ -251,8 +251,8 @@ class ManagerInterface(object):
         representing.
 
         For example, you may way a host's "Publish Clip" menu item to
-        read "Release Clip", so you would set the @ref
-        kTerm_Publish value to "Release".
+        read "Release Clip", so you would set the @ref openassetio.hostAPI.terminology.kTerm_Publish
+        value to "Release".
 
         @return None
 
@@ -456,7 +456,7 @@ class ManagerInterface(object):
         @param context openassetio.Context, The calling context.
 
         @return bool, True if the supplied token should be considered as
-        an @ref entityReference, False if the pattern is not recognised.
+        an @ref entity_reference, False if the pattern is not recognised.
 
         @note This call should not verify the entity exits, just that
         the format of the string is recognised.
@@ -664,7 +664,7 @@ class ManagerInterface(object):
         keys in the metadata dictionary. For example, if the asset
         system represents a 'Shot' with 'cutIn' and 'cutOut' properties
         or accessors, these should be remapped to the @ref
-        openassetio.constants.kField_FrameIn/Out metadata keys as
+        openassetio.constants.kField_FrameIn and Out metadata keys as
         appropriate.
 
         @warning See @ref setEntityMetadata for important notes on
@@ -831,7 +831,7 @@ class ManagerInterface(object):
     #
     # A 'related' entity could take many forms. For example:
     #
-    #  @li In 3D CGI, Multiple @ref aovs may be related to a 'beauty' render.
+    #  @li In 3D CGI, Multiple AOVs or layers may be related to a 'beauty' render.
     #  @li In Compositing, an image sequence may be related to the script
     #  that created it.
     #  @li An asset may be related to a task that specifies work to be done.
@@ -841,7 +841,7 @@ class ManagerInterface(object):
     # In the this API, these relationships are represented by a generic
     # Specification, this may just be a 'type', but can additionally have
     # arbitrary attributes to further define the relationship. For example in
-    # the case of @ref aovs, the type might be 'alternate output' and the
+    # the case of AOVs, the type might be 'alternate output' and the
     # attributes may be that the 'channel' is 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
@@ -1090,8 +1090,8 @@ class ManagerInterface(object):
         API documentation for the specifics of this.
 
         @note it is important for the implementation to pay attention to
-        @ref Context.retention, as not all hosts will support the
-        reference changing at this point.
+        @ref openassetio.Context.Context.retention "Context.retention",
+        as not all hosts will support the reference changing at this point.
 
         @return str, An @ref entity_reference, that the host should
         resolve to determine the path to write media too. This may or
@@ -1185,7 +1185,7 @@ class ManagerInterface(object):
         as targetReference.
 
         @note it is important for the implementation to pay attention to
-        openassetio.contexts.Context.retention, as not all Hosts will
+        openassetio.Context.Context.retention, as not all Hosts will
         support the reference changing at this point.
 
         @exception openassetio.exceptions.RegistrationError if some
@@ -1261,12 +1261,13 @@ class ManagerInterface(object):
         from this function.
 
         This method is called whenever a new @ref Context is made by a
-        @ref openassetio.Session.Session.createContext. The return is
+        @ref openassetio.hostAPI.Session.Session.createContext. The return is
         then stored in the newly created Context, and is consequently
         available to all the API calls in the ManagerInterface that take
-        a Context instance via @ref Context.managerInterfaceState. Your
-        implementation can then use this to anchor the api call to a
-        particular snapshot of the state of the asset inventory.
+        a Context instance via @ref openassetio.Context.Context.managerInterfaceState
+        "managerInterfaceState". Your implementation can then use this
+        to anchor the api call to a particular snapshot of the state of
+        the asset inventory.
 
         This object is also extracted from the context and passed
         directly to any of the 'transactional' calls in this API.  For

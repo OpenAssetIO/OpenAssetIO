@@ -148,9 +148,9 @@
  *
  * - The @ref openassetio.hostAPI.HostInterface.HostInterface
  *   "HostInterface" represents the caller of the API. It allows the
- *   asset management system to customize the @ref publishing process
- *   if desired and/or query additional information about the host and its
- *   documents.
+ *   asset management system to customize the @ref publish "publishing"
+ *   process if desired and/or query additional information about the
+ *   host and its documents.
  *
  * @see @ref notes_for_hosts
  * @see @ref notes_for_managers
@@ -210,7 +210,7 @@
  * If these rules are followed, then arbitrary assets from arbitrary
  * hosts can be round-tripped thorough an asset manager without
  * specific support. However, there is scope to build more advanced and
- * useful functionality by mapping OAIO @ref specification
+ * useful functionality by mapping OAIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
  * @ref metadata to its asset fields.
  */

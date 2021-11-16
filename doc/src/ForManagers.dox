@@ -249,7 +249,7 @@
  * @note The UI layer of OAIO is yet to be ported to this code base,
  * this documentation section is currently in-progress.
  *
- * - Filter any browsers based on the supplied @ref specification.
+ * - Filter any browsers based on the supplied @ref Specification.
  *
  * @section manager_reading Recommended Reading
  *

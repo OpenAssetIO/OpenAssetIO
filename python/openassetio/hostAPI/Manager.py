@@ -30,8 +30,9 @@ class Manager(Debuggable):
     asset_management_system. The Manager class shouldn't be directly
     constructed by the host.  An instance of the class for any given
     asset management system can be retrieved from an API @ref Session,
-    using the @ref Session.currentManager method, after configuring the
-    session with the appropriate manager @ref identifier.
+    using the @ref openassetio.hostAPI.Session.Session.currentManager
+    "Session.currentManager" method, after configuring the session with
+    the appropriate manager @ref identifier.
 
     @code
     session = openassetio.hostAPI.Session(
@@ -317,7 +318,7 @@ class Manager(Debuggable):
         should hide or disable menu items that relate to publish or
         loading of assetised scene files.
 
-        @warning The @ref openassetio.Context.access "access" of the
+        @warning The @ref openassetio.Context.Context.access "access" of the
         supplied context will be considered by the manager. If it is
         set to read, then it's response applies to resolution and
         @ref metadata queries. If write, then it applies to publishing.
@@ -574,7 +575,7 @@ class Manager(Debuggable):
         Sets an entities metadata.
 
         A Manager guarantees that it will round-trip metadata, such that
-        the return of @ref getMetadata for those keys will be the same.
+        the return of @ref getEntityMetadata for those keys will be the same.
         Managers may remap keys internally to their own native names,
         but a set/get should be transparent.
 
@@ -725,7 +726,7 @@ class Manager(Debuggable):
     #
     # A 'related' entity could take many forms. For example:
     #
-    #  @li In 3D CGI, Multiple @ref aovs may be related to a 'beauty' render.
+    #  @li In 3D CGI, Multiple AOVs or layers may be related to a 'beauty' render.
     #  @li In Compositing, an image sequence may be related to the script
     #  that created it.
     #  @li An asset may be related to a task that specifies work to be done.
@@ -735,7 +736,7 @@ class Manager(Debuggable):
     # In the this API, these relationships are represented by a generic
     # Specification, this may just be a 'type', but can additionally have
     # arbitrary attributes to further define the relationship. For example in
-    # the case of @ref aovs, the type might be 'alternate output' and the
+    # the case of AOVs, the type might be 'alternate output' and the
     # attributes may be that the 'channel' is 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
@@ -1068,10 +1069,11 @@ class Manager(Debuggable):
         working path or some such.
 
         \note Its vital that the \ref Context is well configured here,
-        in particular the @ref Context.retention.  See @ref
-        examples_save, but the importance of using the working @ref
-        entity_reference, rather than the initial @ref entity_reference
-        is essential to proper behaviour.
+        in particular the @ref openassetio.Context.Context.retention
+        "Context.retention". See @ref example_publishing_a_file,
+        but the importance of using the working @ref entity_reference,
+        rather than the initial @ref entity_reference is essential to
+        proper behaviour.
 
         @return str, A working @ref entity_reference, that the you
         should resolve to determine the path to write media too. This

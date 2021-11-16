@@ -82,7 +82,7 @@ class Specification(SpecificationBase):
     The simplest form of Specification in common use. It extends the
     base specification to better define the schema.
 
-    If introduces the notion that the @ref specification schema consists
+    If introduces the notion that the @ref Specification schema consists
     of two parts, separated by a token - the 'prefix' and 'type'. For
     example:
 

@@ -53,7 +53,7 @@ class SpecificationFactory(type):
         most derived class that matches the schema will be used. If no
         class has been registered with the exact scheme, then attempts
         will be made to find a class that matches the prefix. If all
-        attempts fail, a @ref SpecificationBase will be used.
+        attempts fail, a @ref openassetio.Specification.SpecificationBase will be used.
         """
 
         from .Specification import SpecificationBase, Specification
