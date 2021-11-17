@@ -63,7 +63,7 @@ vs. private setter) _should not_ be prefixed with `get`.
 
 If a getter does have a corresponding setter at the same or higher
 access level (e.g. protected getter vs. public setter), then they
-_should_ be prefixed with `get` and `set`, respectively. 
+_should_ be prefixed with `get` and `set`, respectively.
 
 This makes it easier to determine the API surface at a glance.
 
@@ -84,11 +84,11 @@ reference and may be enabled and tweaked in future.
 ### Environment variables
 
 All environment variables should be prefixed with `OAIO_`. For example,
-`OAIO_LOGGING_SEVERITY`. 
+`OAIO_LOGGING_SEVERITY`.
 
 When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
-cause the variable and its description to be listed in the _Environment 
+cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
 
 ## Trusted Committers
