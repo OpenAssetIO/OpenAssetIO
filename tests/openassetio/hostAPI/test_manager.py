@@ -13,6 +13,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+import inspect
 
 import pytest
 from unittest import mock
@@ -25,9 +26,154 @@ from openassetio.managerAPI import HostSession, ManagerInterface
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
 
+
+class ValidatingMockManagerInterface(ManagerInterface):
+    """
+    `ManagerInterface` implementation that asserts parameter types.
+
+    Using this (wrapped in a mock) then allows us to update the API
+    test-first, i.e. provide a failing test that gives a starting point
+    for TDD.
+
+    @see mock_manager_interface
+    """
+
+    def info(self):
+        return mock.DEFAULT
+
+    def updateTerminology(self, stringDict, hostSession):
+        return mock.DEFAULT
+
+    def getSettings(self, hostSession):
+        return mock.DEFAULT
+
+    def setSettings(self, settings, hostSession):
+        return mock.DEFAULT
+
+    def prefetch(self, entitRefs, context, hostSession):
+        return mock.DEFAULT
+
+    def flushCaches(self, hostSession):
+        return mock.DEFAULT
+
+    def resolveEntityReferences(self, references, context, hostSession):
+        return mock.DEFAULT
+
+    def defaultEntityReference(self, specification, context, hostSession):
+        return mock.DEFAULT
+
+    def getEntityMetadataEntry(self, entityRef, key, context, hostSession, defaultValue=None):
+        return mock.DEFAULT
+
+    def setEntityMetadataEntry(self, entityRef, key, value, context, hostSession):
+        return mock.DEFAULT
+
+    def entityVersionName(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def entityVersions(
+            self, entityRef, context, hostSession, includeMetaVersions=False, maxResults=-1):
+        return mock.DEFAULT
+
+    def finalizedEntityVersion(self, entityRef, context, hostSession, overrideVersionName=None):
+        return mock.DEFAULT
+
+    def setRelatedReferences(
+            self, entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True):
+        return mock.DEFAULT
+
+    def thumbnailSpecification(self, specification, context, options, hostSession):
+        return mock.DEFAULT
+
+    def preflight(self, targetEntityRef, entitySpec, context, hostSession):
+        return mock.DEFAULT
+
+    def preflightMultiple(self, targetEntityRefs, entitySpecs, context, hostSession):
+        return mock.DEFAULT
+
+    def registerMultiple(self, strings, targetEntityRefs, entitySpecs, context, hostSession):
+        return mock.DEFAULT
+
+    def createState(self, hostSession, parentState=None):
+        return mock.DEFAULT
+
+    def startTransaction(self, state, hostSession):
+        return mock.DEFAULT
+
+    def finishTransaction(self, state, hostSession):
+        return mock.DEFAULT
+
+    def cancelTransaction(self, state, hostSession):
+        return mock.DEFAULT
+
+    def freezeState(self, state, hostSession):
+        return mock.DEFAULT
+
+    def thawState(self, token, hostSession):
+        return mock.DEFAULT
+
+    def identifier(self):
+        return mock.DEFAULT
+
+    def displayName(self):
+        return mock.DEFAULT
+
+    def initialize(self, hostSession):
+        return mock.DEFAULT
+
+    def managementPolicy(self, specification, context, hostSession, entityRef=None):
+        return mock.DEFAULT
+
+    def isEntityReference(self, token, context, hostSession):
+        return mock.DEFAULT
+
+    def entityExists(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def resolveEntityReference(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def entityName(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def entityDisplayName(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def getEntityMetadata(self, entityRef, context, hostSession):
+        return mock.DEFAULT
+
+    def setEntityMetadata(self, entityRef, data, context, hostSession, merge=True):
+        return mock.DEFAULT
+
+    def getRelatedReferences(
+            self, entityRefs, relationshipSpecs, context, hostSession, resultSpec=None):
+        return mock.DEFAULT
+
+    def register(self, stringData, targetEntityRef, entitySpec, context, hostSession):
+        return mock.DEFAULT
+
+
 @pytest.fixture
 def mock_manager_interface():
-    return mock.create_autospec(spec=ManagerInterface)
+    """
+    Fixture for a mock `ManagerInterface` that asserts parameter types.
+
+    Return a mock `autospec`ed to the `ManagerInterface`, with each
+    mocked method set up to `side_effect` to the corresponding
+    method in `ValidatingMockManagerInterface`.
+
+    This then means method parameter types will be `assert`ed, whilst
+    still providing full `MagicMock` functionality.
+    """
+    interface = ValidatingMockManagerInterface()
+    mockInterface = mock.create_autospec(spec=interface, spec_set=True)
+    # Set the `side_effect` of each mocked method to call through to
+    # the concrete instance.
+    methods = inspect.getmembers(interface, predicate=inspect.ismethod)
+    for name, method in methods:
+        getattr(mockInterface, name).side_effect = method
+
+    return mockInterface
 
 
 @pytest.fixture
