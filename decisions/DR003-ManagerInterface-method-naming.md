@@ -101,7 +101,7 @@ convention to differentiate batch & non-batch methods).
  - Potentially confusing for newcomers unfamiliar with OAIO conventions.
  - Whether a method is singular or batch cannot be inferred from the 
 method name. However, given that most `ManagerInterface` methods 
-(including all its methods related to entities) this is unlikely to 
+(including all its methods related to entities) will be batch methods, this is unlikely to 
 create much confusion.
 
 ### Option 3
