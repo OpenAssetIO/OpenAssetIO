@@ -66,7 +66,7 @@ class LocaleSpecification(Specification):
 class RelationshipSpecification(Specification):
     """
     RelationshipSpecifications are used mainly with \ref
-    python.implementation.ManagerInterface.ManagerInterface.getRelatedReferences
+    openassetio.managerAPI.ManagerInterface.ManagerInterface.getRelatedReferences
     "ManagerInterface.getRelatedReferences", in order to describe the
     kind of relation that is being requested, when a simply
     EntitySpecification will not suffice.

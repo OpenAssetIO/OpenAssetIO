@@ -17,26 +17,26 @@ The API covers the following areas:
  - Publishing and retrieval of data for file-based and non-file-based
    'assets'.
  - Discovery and registration of related assets.
- - Replacement/augmentation of in-application UI elements such as 
+ - Replacement/augmentation of in-application UI elements such as
    browsers and other panels/controls.
 
-The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html), 
+The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html),
 addressing several common integration challenges and adding support
 for a wider range of asset types and publishing workflows.
 
 ## Project status
 
-> **Important:** The project is currently in early beta stage and is 
-> subject to change. Do not deploy the API in production critical 
+> **Important:** The project is currently in early beta stage and is
+> subject to change. Do not deploy the API in production critical
 > situations without careful thought.
 
-We are currently working towards a v1.0.0 release. At present, the API 
+We are currently working towards a v1.0.0 release. At present, the API
 is sketched in pure `Python`, whilst some structural revisions are being
 made. Once the surface area has stabilised, the Core API will be ported
 to `C++` with bindings to `Python`.
 
 The code is presented here in its current form to facilitate discussion
-and early-adopter testing. We actively encourage engagement in the 
+and early-adopter testing. We actively encourage engagement in the
 [discussion](https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions)
 and to give feedback on current [Issues](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues)
 and [Pull Requests](https://github.com/TheFoundryVisionmongers/OpenAssetIO/pulls).
@@ -50,10 +50,8 @@ Please see the [project board](https://github.com/TheFoundryVisionmongers/OpenAs
 for work in progress, as well as up-coming topics.
 
 ### TODO list
- - Migrate documentation
- - Migrate example code
  - Migrate M&E related Entity/Relationship specifications
- - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop 
+ - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop
    investigations
  - Migrate `ManagerPlugin` test harness
  - C++ port of Core API
@@ -82,7 +80,7 @@ significant developer and artist value.
 We hope the API forms a practical starting point that addresses many
 real-world use cases, and as an industry, we can evolve the standard
 over time to support any additional requirements. We are currently
-investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html), 
+investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html),
 which appears to overlap with a subset of `OAIO`s concerns.
 
 ## Getting started
@@ -112,5 +110,5 @@ pytest
 
 - See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-> Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its 
+> Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.

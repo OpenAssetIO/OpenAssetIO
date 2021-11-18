@@ -97,9 +97,9 @@
  * @note The UI classes have not yet been migrated from the
  * <tt>FnAssetAPI</tt> code base.
  *
- * @section manager_todo Implementation check list
+ * @section manager_todo Implementation Check List
  *
- * @subsection manager_todo_basic_resolution Required for resolution only
+ * @subsection manager_todo_basic_resolution Required for Resolution Only
  *
  * - Implement the @ref openassetio.managerAPI.ManagerInterface
  *   "ManagerInterface" class methods
@@ -125,7 +125,7 @@
  * - Implement a @ref ManagerPlugin and install this on
  *   @ref plugin_path_var.
  *
- * @subsection manager_todo_metadata Required for extended functionality
+ * @subsection manager_todo_metadata Required for Extended Functionality
  *
  *  Some hosts may make use of an entity's metadata to provide
  *  extended functionality. Such as automating the settings of read
@@ -136,7 +136,7 @@
  *   "getEntityMetadata" to bridge any internal asset data to the
  *   well-known @ref metadata keys if possible.
  *
- * @subsection manager_todo_publishing Required for publishing
+ * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
@@ -165,7 +165,7 @@
  *   the registration (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
  *
- * @info An example of a situation where the manager is allowed to mutate the
+ * @note An example of a situation where the manager is allowed to mutate the
  * @ref primary_string is for all specifications derived from
  * FileSpecification. In this case, the primary string is known to be a
  * URL so may be rewritten at will providing it still points to
@@ -184,7 +184,7 @@
  *   preferential source of truth. For example, for the colorspace or
  *   frame range of an image sequence.
  *
- * @subsection manager_todo_related_entities Supporting relationships
+ * @subsection manager_todo_related_entities Supporting Relationships
  *
  * Relationship support is not a pre-requisite, but allows for advanced
  * functionality in many hosts.
@@ -244,12 +244,12 @@
  * sets at all, please contribute to the discussion here if you have any
  * opinion on the matter: https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/18
  *
- * @subsection manager_todo_ui Embedding custom UI within the host
+ * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *
  * @note The UI layer of OAIO is yet to be ported to this code base,
  * this documentation section is currently in-progress.
  *
- * - Filter any browsers based on the supplied @ref specification.
+ * - Filter any browsers based on the supplied @ref Specification.
  *
  * @section manager_reading Recommended Reading
  *

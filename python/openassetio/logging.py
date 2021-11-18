@@ -60,7 +60,7 @@ class LoggerInterface(object):
         """
         Logs the progress of a task.
 
-        This method should be overridden if you wish to customise the
+        This method should be overridden if you wish to customize the
         presentation of progress messages beyond the default
         implementation that simply logs them as any other message.
 
@@ -140,7 +140,7 @@ class ConsoleLogger(LoggerInterface):
         """
         A simple filtered Logger that prints messages to stdout/stderr.
 
-        @param colorOutput bool [True] Make a vague attempt to colour
+        @param colorOutput bool [True] Make a vague attempt to color
         the output using terminal escape codes.
 
         @param forceDefaultStreams bool [False] Some applications remap

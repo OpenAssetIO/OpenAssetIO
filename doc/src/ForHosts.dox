@@ -28,9 +28,10 @@
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
- *   @ref Host class before being exposed to the manager. This is to
- *   allow for assorted middleware auditing/logging functionality, and
- *   provide a degree of isolation against future API changes.
+ *   @ref openassetio.managerAPI.Host.Host "Host" class before being
+ *   exposed to the manager. This is to allow for assorted middleware
+ *   auditing/logging functionality, and provide a degree of isolation
+ *   against future API changes.
  *
  * - The main currency in the interactions with a @ref manager is the
  *   @ref entity_reference. These are URIs that uniquely identify an
@@ -53,7 +54,7 @@
  *   it is strongly advised to use or derive from standard @ref locale
  *   "locales" depending on which part of a host is making API calls.
  *   This allows the manager to correctly filter assets or adapt its
- *   behaviour as required.
+ *   behavior as required.
  *
  * - You should query an entity's @ref metadata wherever possible,
  *   and use it as the authoritative source of information about an asset.
@@ -67,9 +68,9 @@
  * @see openassetio.hostAPI.Manager.Manager
  * @see openassetio.Context.Context
  *
- * @section host_todo Implementation check list
+ * @section host_todo Implementation Check List
  *
- * @subsection host_todo_required_resolution Required for simple resolution
+ * @subsection host_todo_required_resolution Required for Simple Resolution
  *
  * - Implement the @ref openassetio.hostAPI.HostInterface class
  *   methods:
@@ -109,7 +110,7 @@
  * @see @ref examples_picking_a_manager
  * @see @ref examples_resolving_a_reference
  *
- * @subsection host_todo_required_publishing Required for publishing
+ * @subsection host_todo_required_publishing Required for Publishing
  *
  * - Ask the @ref manager if they support publishing relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
@@ -117,9 +118,10 @@
  *   Specification and a @ref Context with <tt>kWrite</tt> access, and
  *   respect the returned flags.
  *
- * - Follow the @ref management_policy "policy", @ref preflight,
- *   resolve, write, @ref register process illustrated
- *   @ref example_publishing_a_file "here" whenever generating new data.
+ * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "policy", @ref preflight, resolve, write, @ref register process
+ *   illustrated @ref example_publishing_a_file "here" whenever
+ *   generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
  *   registered to references known to be of a different @ref Specification.

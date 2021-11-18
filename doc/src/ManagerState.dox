@@ -61,7 +61,7 @@
  * re-used for logically correlated series of actions. The API
  * middleware takes care of requesting and persisting the state token.
  *
- * @section stable_resolution_manager_state_distribution Distributed processing
+ * @section stable_resolution_manager_state_distribution Distributed Processing
  *
  * Distributed processing requires the same context to be shared by
  * multiple discrete working processes.

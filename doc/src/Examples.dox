@@ -90,13 +90,13 @@
  * manager = session.currentManager()
  * @endcode
  *
- * @section examples_resolving_a_reference Resolving a reference
+ * @section examples_resolving_a_reference Resolving a Reference
  *
  * This example shows how to use the instantiated manager to resolve a
  * string that may be an entity reference - covering use of the correct
  * context and a custom @ref locale to describe the call site.
  *
- * @info Note how it is the callers responsibility to validate
+ * @note Note how it is the callers responsibility to validate
  * that a string is a @ref entity_reference before passing it to any
  * other OAIO API that expects one.
  *
@@ -146,7 +146,7 @@
  * resolved_asset = manager.resolveEntityReference(some_string, context)
  * @endcode
  *
- * @section example_publishing_a_file Publishing a file
+ * @section example_publishing_a_file Publishing a File
  *
  * This example demonstrates how an API host should involve the manager in
  * the creation of new data. In this case, a simple text file.

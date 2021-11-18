@@ -65,10 +65,10 @@
  * entities, but not all entities are assets.
  *
  * As a simplified example, an 'asset' may always require to exist in
- * some organisational hierarchy, and be the only thing that can be
+ * some organizational hierarchy, and be the only thing that can be
  * version managed. An entity however, can refer to anything that the
  * Asset Management System knows about, including a part of the
- * organisational hierarchy, or a specific version or component part of
+ * organizational hierarchy, or a specific version or component part of
  * an 'asset'.
  *
  * In the core API there are only three properties needed to represent any
@@ -124,7 +124,7 @@
  * Each of them have their relative merits in different situations, and
  * <b>it is no concern of this set of APIs which one is used</b>. There
  * are only three requirements of the format, and the way it is
- * interpreted by the @ref ManagerInterface:
+ * interpreted by the @ref ManagerInterface "ManagerInterface":
  *
  * 1. Discoverability
  * ------------------
@@ -190,9 +190,9 @@
  * user-facing Digital Content Creation application or a pipeline
  * tool or script.
  *
- * The purpose of OAIO is to standarise the interaction between a host
+ * The purpose of OAIO is to standardize the interaction between a host
  * and an @ref asset_management_system in order to persis or query data.
- * A host commnunicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
+ * A host communicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
  *
  * > Note: The Manager class is an abstraction, that takes care of
  * > sundry housekeeping and helps manage session state. Internally it
@@ -203,9 +203,41 @@
  * The host itself is made available to a @ref manager "manager's" @ref
  * ManagerInterface via the @ref
  * openassetio.managerAPI.HostSession "HostSession" supplied to each API
- * call. This allows the manager to adapt its behaviour accordingly (if
+ * call. This allows the manager to adapt its behavior accordingly (if
  * required), and perform any additional actions it may wish to as part
  * of @ref publish "publishing".
+ *
+ * @section HostInterface
+ *
+ * The @ref openassetio.hostAPI.HostInterface.HostInterface
+ * "HostInterface" class is the abstract interface that any @ref host
+ * must implement in order to initialize the API. It will usually
+ * contain logic to map native features of the host into the
+ * well-known terms defined by this API.
+ *
+ * The HostInterface is never used directly by a @ref manager, and is
+ * instead accessed through the @ref openassetio.managerAPI.Host
+ * abstraction, provided by the @ref openassetio.managerAPI.HostSession
+ * passed to the manager's implementation. This allows assorted
+ * house-keeping and auditing to be performed by the API middleware.
+ *
+ *
+ * @section locale locale
+ *
+ * Within OAIO, the term "locale" is used to define which part of a
+ * @ref host "host's" implementation is making a particular call to the API.
+ * A suitably configured @ref openassetio.specifications.LocaleSpecification
+ * "LocaleSpecification", is supplied through the @ref openassetio.Context.Context.locale
+ * "locale" property of the @ref openassetio.Context.Context, which is
+ * in turn supplied to most @ref ManagerInterface method calls.
+ *
+ * The locale may be used by a manager to customize its behavior if
+ * desired. The locale may contain references to specific objects in the
+ * host's native SDK that can be used to determine more information
+ * about the origin of the API request.
+ *
+ * A common use of the locale by a manager is to obtain further
+ * information about the originating document during a publish.
  *
  *
  * @section ManagerInterface
@@ -214,7 +246,7 @@
  * "ManagerInterface" class is the abstract interface that any @ref
  * asset_management_system must implement in order to be used by the
  * API. It will usually contain appropriate logic to map native features
- * on the asset manager into the well-known terms defined by this API.
+ * of the asset manager into the well-known terms defined by this API.
  *
  * The ManagerInterface is never used directly by a @ref host, and is
  * instead accessed through the @ref openassetio.hostAPI.Manager
@@ -231,9 +263,9 @@
  * $PYTHONPATH, and presently searches using the environment variable
  * @ref plugin_path_var
  *
- * The ManagerPlugin instance is then respoisible for constructing an
+ * The ManagerPlugin instance is then responsible for constructing an
  * instance of the respective @ref asset_management_system's
- * implementation of the openassetio.managerAPI.ManagerInterface
+ * implementation of the @ref openassetio.managerAPI.ManagerInterface
  * "ManagerInterface".
  *
  *
@@ -339,10 +371,10 @@
  *
  * A 'manager' represents some @ref asset_management_system that forms
  * a source of truth for some number of entities. They usually consist
- * of some centralised database that tracks assets - known here as @ref
+ * of some centralized database that tracks assets - known here as @ref
  * entity "entities", managing their versions and relationships.
  *
- * The purpose of OAIO is to standardise the interactions between a @ref
+ * The purpose of OAIO is to standardize the interactions between a @ref
  * host and one of these systems in order to query or persist data.
  *
  * Asset managers will generally re-map the well-known OAIO concepts
@@ -357,13 +389,104 @@
  * indirection allows sundry house keeping and state management.
  *
  *
+ * @section preflight preflight
+ *
+ * @ref asset_management_system "Asset management systems" are roughly
+ * divided into two camps - those that can tell a @ref host in advance
+ * the location at which data should be created, and those that simply
+ * track data at its existing location. A @ref manager implementation
+ * declares its behavior to the host via the @ref
+ * openassetio.hostAPI.Manager.Manager.managementPolicy
+ * "managementPolicy" method.
+ *
+ * If a manager has said it is capable of defining the location for
+ * future data ahead of time, the host must call the @ref
+ * openassetio.hostAPI.Manager.Manager.preflight "preflight" method and
+ * resolve the returned @ref entity_reference to determine the manager's
+ * chosen location for the data and use this for any write operations.
+ *
+ * The <tt>preflight</tt> method is also allowed to change the entity
+ * reference as required. This mechanism serves several purposes:
+ *
+ * - It allows the manager to dictate if an existing target entity is
+ *   mutable. It can return an updated entity reference if the
+ *   original entity should be left untouched (ie. creating a new
+ *   version).
+ * - It allows the manager to allocate a placeholder version for a
+ *   reference containing a @ref meta_version "meta-version".
+ * - If appropriate, it can avoid the need to retrospectively copy data
+ *   to its intended destination immediately after creation.
+ *
+ * There are two scenarios where <tt>preflight</tt> will not be called:
+ *
+ * - When the manager has declared that it is not capable of providing
+ *   the location for future data in advance (via managementPolicy).
+ * - When the data already exists at some target location, such as when
+ *   assetizing an existing file.
+ *
+ * In these situations, only @ref register will be called by the host.
+ * In the first situation, calling <tt>preflight</tt> would be pointless
+ * as the manager has no way to provide a meaningful answer.
+ *
+ * In the second situation it removes the responsibility for the host to
+ * transfer the data from its current location to that specified by
+ * <tt>preflight</tt>. Doing so would force the transfer mechanics into
+ * the host. Given the size of data frequently involved, and the myriad
+ * of potential transfer technologies, it was deemed leaving this up to
+ * the manager was a more flexible solution.
+ *
+ * In summary, for a manager capable of determining the location for
+ * data, a host won't call <tt>preflight</tt> if it can't honor the
+ * specified location.
+ *
+ *
  * @section publish publish
  *
- * 'Publish' is an ambiguous term, if there was ever one. It seems to mean so many
- * completely different things depending on who you ask. As such, we defined it
- * in this API, and documentation, as the 'process of creating a new asset in
- * an @ref asset_management_system, or 'updating' an existing one -
- * which usually means a new version should be created.
+ * 'Publish' is an ambiguous term, if ever there was one. It seems to
+ * mean so many completely different things depending on who you ask. As
+ * such, we defined it in this API, and documentation, as the process
+ * of creating a new asset in an @ref asset_management_system, or
+ * updating an existing one - which usually means a new version should
+ * be created.
+ *
+ * The canonical publishing process for new data from a @ref host
+ * requires it to:
+ *
+ * - Check whether the @ref manager is interested in that particular
+ *   @ref Specification of @ref entity, via the manager's @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   "managementPolicy".
+ * - Call @ref preflight to allow any prerequisite housekeeping
+ *   to be performed, and a working @ref entity_reference returned.
+ * - Resolve the working reference to determine the URL for new data to
+ *   be written to.
+ * - Write the data accordingly.
+ * - Call @ref register to finalize the publish and confirm to the
+ *   manager that the data has been written.
+ *
+ * @note Some managers may not be able to determine the path for data to
+ * be written to, and act more as librarians. This is indicated in the
+ * returned management policy. Hosts must act according to this.
+ *
+ * When publishing existing data, the preflight step is omitted.
+ *
+ *
+ * @section register register
+ *
+ * The registration mechanism allows for a @ref host to create or update
+ * an @ref entity. This is the sole mechanism by which data can be
+ * mutated within the system.
+ *
+ * It is up to the @ref manager to decide what the registration of new
+ * data to an existing entity should mean. The API has no opinion as to
+ * whether it is permitted to update in-place, or to require the
+ * creation of a new version. The manager should apply its own rules,
+ * and return an @ref entity_reference that points to the result of the
+ * registration - whether this be a new version, or the same entity that
+ * was subject to the registration.
+ *
+ * For compound entities, the registration call signifies the completion
+ * of the registration of any child entities.
+ *
  *
  * @section resolve resolve
  *
@@ -406,6 +529,16 @@
  * resolve a reference to the best location for any given entities data
  * based on the current context.
  *
+ * @section session session
+ *
+ * OAIO is instantiated by a @ref host in order to talk to one or more
+ * @ref asset_management_system "asset management systems". To do so,
+ * the host creates a new @ref openassetio.hostAPI.Session "Session" for
+ * each manager it wishes to communicate with. The Session object
+ * is responsible for managing the lifetime of a @ref manager and
+ * provides mechanisms for creating a @ref Context and persisting
+ * details of which manager is currently in use.
+ *
  *
  * @section Specification Specification
  *
@@ -430,14 +563,14 @@
  * schema <tt>core.entity:file.image</tt> states that it is a
  * <tt>core.entity</tt> of type <tt>file.image</tt>.  It can be inferred
  * that this should have all the properties of a <tt>file</tt>, but will
- * have additional specialised properties only associated with a
+ * have additional specialized properties only associated with a
  * <tt>file.image</tt>.
  *
  * This approach allows any new Specification to be supported in a generic
  * fashion by simply saving/recalling the key/value pairs.
  * Specification schemas can also be decomposed hierarchically to allow
  * more general type-specific functionality to be automatically applied
- * to any more specialised derivations.
+ * to any more specialized derivations.
  *
  * Factory methods are provided, that use the schema to automatically
  * wrap higher-level objects to around the key-value pairs, to give a
