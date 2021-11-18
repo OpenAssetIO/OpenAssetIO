@@ -89,7 +89,7 @@
  * worker -> Session : createContext()
  * Session --> worker : context
  * worker -> worker : context.access = context.kWrite
- * worker -> Manager : working_reference = preflight("ref://asset", context)
+ * worker -> Manager : working_reference = preflight(["ref://asset"], context)[0]
  * Manager --> worker : "ref://asset=v4&state=inflight"
  * worker -> TransactionCoordinator : freezeManagerState(context)
  * activate TransactionCoordinator
@@ -114,7 +114,7 @@
  *     deactivate TransactionCoordinator
  *     worker -> worker : context.access = context.kWrite
  *     worker -> worker : working_reference = ref_map["ref://asset"]
- *     worker -> Manager : path = resolveEntityReference(working_reference, context)
+ *     worker -> Manager : path = resolveEntityReference([working_reference], context)[0]
  *     Manager --> worker : "file://out.####.exr"
  *     worker -> worker : write_data(path)
  *     worker --> scheduler
@@ -135,9 +135,9 @@
  * deactivate TransactionCoordinator
  * worker -> worker : context.access = context.kWrite
  * worker -> worker : working_reference = ref_map["ref://asset"]
- * worker -> Manager : path = resolveEntityReference(working_reference, context)
+ * worker -> Manager : path = resolveEntityReference([working_reference], context)[0]
  * Manager --> worker : "file://out.####.exr"
- * worker -> Manager : final_reference = register(path, {}, spec, context)
+ * worker -> Manager : final_reference = register([path], [working_reference], [spec], context)[0]
  * Manager --> worker : "ref://asset=v4"
  * worker -> worker : update_state_file({"ref://asset": final_reference})
  * worker --> scheduler

@@ -51,17 +51,6 @@ kWillManagePath = 8
 ## @}
 
 
-## @name Batch Processing
-## @see openassetio.managerAPI.ManagerInterface.ManagerInterface.preflightMultiple
-## @see openassetio.managerAPI.ManagerInterface.ManagerInterface.registerMultiple
-## @{
-
-## Some Managers may implement the 'batched' API methods, this flag should be
-## set to indicate that the Manage prefers batch operations where possible.
-kSupportsBatchOperations = 16
-
-## @}
-
 ## @name Field Names
 ## Field names are to be used whenever data is get or set from a dictionary by
 ## key, rather than through an accessor in some wrapper class (eg:
