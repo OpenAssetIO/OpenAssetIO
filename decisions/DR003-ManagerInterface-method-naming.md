@@ -120,7 +120,7 @@ prefix should go after the verb (e.g. `getEntityRelatedReferences`).
 
 #### Cons
 
- - More difficult to explain the [Option 2](#option-2)
+ - More difficult to explain than [Option 2](#option-2)
  - Requires use of "Reference" instead of "EntityReference", in order to 
 prevent illegible names. For example, `getEntityRelatedReferences` is 
 more readable than `getEntityRelatedEntityReferences`, but for 
