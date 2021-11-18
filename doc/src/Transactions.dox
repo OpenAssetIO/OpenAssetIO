@@ -21,7 +21,7 @@
  * in relation to transaction handling, see the @ref transactions_for_the_manager
  * section below.
  *
- * @section transactions_example Example Host code
+ * @section transactions_example Example Host Code
  *
  * Lets take the case of publishing a shot and it's clips from an
  * editorial application. Simplified pseudo-code within a host for the
@@ -135,7 +135,7 @@
  * opportunity to insert a persistent state object. This object is persisted
  * for as long as the context is kept alive.
  *
- * The first time a host calls @ref openassetio.transactions.TransactionCoordinator.pushActionGroup()
+ * The first time a host calls @ref openassetio.hostAPI.transactions.TransactionCoordinator.pushActionGroup()
  * "pushActionGroup" then the TransactionCoordinator will start a new
  * transaction via @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction
  * "startTransaction".  This call is passed the state token from the
@@ -149,7 +149,7 @@
  *
  * Should an fatal error arise in the host, then it will call
  * openassetio.transactions.TransactionCoordinator.cancelActions with the Context,
- * which in turn, will call @ref FnAssetAPI.implementation.ManagerInterface.ManagerInterface.cancelTransaction
+ * which in turn, will call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction
  * "cancelTransaction" to instruct the manager to attempt to
  * undo/rollback any changes made during the transaction.
  *

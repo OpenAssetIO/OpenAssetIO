@@ -13,6 +13,17 @@
  * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
  * target="_blank">project tracker</a> for more details.
  *
+ * @section intro_scope Scope
+ *
+ * The API covers the following areas:
+ * - @ref resolve "Resolution" of asset references (URIs) into locatable
+ *   data (URLs).
+ * - @ref publish "Publishing" and retrieval of data for file-based and
+ *   non-file-based 'assets'.
+ * - Discovery and registration of related assets.
+ * - Replacement/augmentation of in-application UI elements such as
+ *   browsers and other panels/controls.
+ *
  * @section intro_approach The Approach
  *
  * Once we have a common standard, any @ref asset_management_system or
@@ -46,7 +57,7 @@
  * an asset, but is an addressable entity as far as the API is
  * concerned.
  *
- * @subsection intro_host What is a host?
+ * @subsection intro_host What is a Host?
  *
  * A @ref host is a tool, script or application that either consumes or
  * produces data, that needs to be managed by an asset management
@@ -137,9 +148,9 @@
  *
  * - The @ref openassetio.hostAPI.HostInterface.HostInterface
  *   "HostInterface" represents the caller of the API. It allows the
- *   asset management system to customize the @ref publishing process
- *   if desired and/or query additional information about the host and its
- *   documents.
+ *   asset management system to customize the @ref publish "publishing"
+ *   process if desired and/or query additional information about the
+ *   host and its documents.
  *
  * @see @ref notes_for_hosts
  * @see @ref notes_for_managers
@@ -149,7 +160,7 @@
  * implemented within this API to provide state management and audit
  * functionality.
  *
- * @section host_implementation_concept The basic design for a Host
+ * @section host_implementation_concept The Basic Design for a Host
  *
  * A design goal of this API was for it to be (relatively) easy to
  * retro-fit into an existing application or tool. In a minimal
@@ -199,7 +210,7 @@
  * If these rules are followed, then arbitrary assets from arbitrary
  * hosts can be round-tripped thorough an asset manager without
  * specific support. However, there is scope to build more advanced and
- * useful functionality by mapping OAIO @ref specification
+ * useful functionality by mapping OAIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
  * @ref metadata to its asset fields.
  */

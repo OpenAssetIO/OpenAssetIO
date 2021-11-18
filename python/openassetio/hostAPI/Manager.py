@@ -30,8 +30,9 @@ class Manager(Debuggable):
     asset_management_system. The Manager class shouldn't be directly
     constructed by the host.  An instance of the class for any given
     asset management system can be retrieved from an API @ref Session,
-    using the @ref Session.currentManager method, after configuring the
-    session with the appropriate manager @ref identifier.
+    using the @ref openassetio.hostAPI.Session.Session.currentManager
+    "Session.currentManager" method, after configuring the session with
+    the appropriate manager @ref identifier.
 
     @code
     session = openassetio.hostAPI.Session(
@@ -157,7 +158,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def updateTerminology(self, stringDict):
         """
-        This call gives the Manager a chance to customise certain
+        This call gives the Manager a chance to customize certain
         strings that you might want to use in your UI/messages. @see
         openassetio.constants for well-known keys. These keys are
         updated in-place to the most appropriate term for the Manager.
@@ -230,7 +231,7 @@ class Manager(Debuggable):
         responsibility to deal with transient connection errors (if
         applicable) once initialized.
 
-        The behaviour of calling initialize() on an already initialized
+        The behavior of calling initialize() on an already initialized
         Manager should be a no-op, but if an error was raised
         previously, then initialization will be re-attempted.
 
@@ -317,7 +318,7 @@ class Manager(Debuggable):
         should hide or disable menu items that relate to publish or
         loading of assetised scene files.
 
-        @warning The @ref openassetio.Context.access "access" of the
+        @warning The @ref openassetio.Context.Context.access "access" of the
         supplied context will be considered by the manager. If it is
         set to read, then it's response applies to resolution and
         @ref metadata queries. If write, then it applies to publishing.
@@ -540,14 +541,14 @@ class Manager(Debuggable):
     def getEntityMetadata(self, reference, context):
         """
         Retrieve @ref metadata for an entity. This may contain
-        well-known keys that you can then use to further customise your
+        well-known keys that you can then use to further customize your
         handling of the entity. Some types of entity may only have
         metadata, and no meaningful @ref primary_string.
 
         There are some well-known keys defined in the core API - @see
         openassetio.constants. These have universally agreed meaning.
 
-        As a host, you can also advertise well-known keys of your own as
+        As a host, you can also advertize well-known keys of your own as
         part of any first-class asset based workflows you may have. For
         example, a compositor may choose to consume the `colorspace`
         key (if present) and adjust the input space of an image reader
@@ -574,7 +575,7 @@ class Manager(Debuggable):
         Sets an entities metadata.
 
         A Manager guarantees that it will round-trip metadata, such that
-        the return of @ref getMetadata for those keys will be the same.
+        the return of @ref getEntityMetadata for those keys will be the same.
         Managers may remap keys internally to their own native names,
         but a set/get should be transparent.
 
@@ -705,7 +706,7 @@ class Manager(Debuggable):
         @exception openassetio.exceptions.EntityResolutionError should
         be thrown if the @ref entity_reference is ambiguously versioned
         (for example if the version is missing from a reference to a
-        versioned entity, and that behaviour is undefined in the system
+        versioned entity, and that behavior is undefined in the system
         managers model. It may be that it makes sense in the specific
         asset manager to fall back on 'latest' in this case...)
 
@@ -725,7 +726,7 @@ class Manager(Debuggable):
     #
     # A 'related' entity could take many forms. For example:
     #
-    #  @li In 3D CGI, Multiple @ref aovs may be related to a 'beauty' render.
+    #  @li In 3D CGI, Multiple AOVs or layers may be related to a 'beauty' render.
     #  @li In Compositing, an image sequence may be related to the script
     #  that created it.
     #  @li An asset may be related to a task that specifies work to be done.
@@ -735,7 +736,7 @@ class Manager(Debuggable):
     # In the this API, these relationships are represented by a generic
     # Specification, this may just be a 'type', but can additionally have
     # arbitrary attributes to further define the relationship. For example in
-    # the case of @ref aovs, the type might be 'alternate output' and the
+    # the case of AOVs, the type might be 'alternate output' and the
     # attributes may be that the 'channel' is 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
@@ -854,7 +855,7 @@ class Manager(Debuggable):
     #
     # The concept of resolution is turning an @ref entity_reference into a
     # 'finalized' or 'primary' string. This, ultimately, is anything meaningful
-    # to the situation. It could be a colour space, a directory, a script or
+    # to the situation. It could be a color space, a directory, a script or
     # image sequence. A rule of thumb is that a resolved @ref entity_reference
     # should be the string you would have anyway, in a unmanaged environment.
     #
@@ -953,7 +954,7 @@ class Manager(Debuggable):
     # The Specification allows ancillary information to be provided to help the
     # implementation better interpret what type of entity may be best suited in
     # any given situation. For example, a path to an image will generally be
-    # accompanied by with an spec, that details the file type, colour space,
+    # accompanied by with an spec, that details the file type, color space,
     # resolution etc...
     #
     # @note The Specification should *not* be confused with @ref metadata.  The
@@ -981,7 +982,7 @@ class Manager(Debuggable):
     # something different depending on who you are talking to. See the @ref
     # publish "Glossary entry" for more on this, but to help avoid confusion,
     # this API provides the @ref updateTerminology call, in order to allow the
-    # Manager to standardise some of the language and terminology used in your
+    # Manager to standardize some of the language and terminology used in your
     # presentation of the asset management system with other integrations of the
     # system.
     #
@@ -1068,10 +1069,11 @@ class Manager(Debuggable):
         working path or some such.
 
         \note Its vital that the \ref Context is well configured here,
-        in particular the @ref Context.retention.  See @ref
-        examples_save, but the importance of using the working @ref
-        entity_reference, rather than the initial @ref entity_reference
-        is essential to proper behaviour.
+        in particular the @ref openassetio.Context.Context.retention
+        "Context.retention". See @ref example_publishing_a_file,
+        but the importance of using the working @ref entity_reference,
+        rather than the initial @ref entity_reference is essential to
+        proper behavior.
 
         @return str, A working @ref entity_reference, that the you
         should resolve to determine the path to write media too. This

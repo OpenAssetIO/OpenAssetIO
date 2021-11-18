@@ -30,7 +30,7 @@ class Context(object):
     extend the metadata associated with the stored @ref entity.
 
     A Manager will also use this information to ensure it presents the
-    correct UI, or behaviour.
+    correct UI, or behavior.
 
     The Context is passed to many calls in this API, and it may, or may
     not need to be used directly.
@@ -194,7 +194,7 @@ class Context(object):
         when determining the final file path for an Image that is about
         to be published - knowing it came from a render catalog, rather
         than a 'Write node' from a comp tree could result in different
-        behaviour.
+        behavior.
 
         The Locale uses a @ref
         openassetio.specifications.LocaleSpecification to describe in

@@ -43,9 +43,9 @@ kStateMask = 7
 ## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 ## @{
 
-## If False, The manager is not capable of determining the path for the item,
-## and will only keep track of existing items. If True, the manager will
-## determine the path for new assets
+## If False, the manager is not capable of determining the URL for a new @ref entity
+## "entity's" data, and will only keep track of existing data. If True, the manager
+## will determine the URL to use for writing data for new entities
 kWillManagePath = 8
 
 ## @}
@@ -69,7 +69,7 @@ kSupportsBatchOperations = 16
 ## protect against inconsistencies and future changes.
 ##
 ## These fields should also be used, if necessary, when declaring derived
-## classes of an @ref Item or @ref Specification.
+## classes of a @ref Specification.
 ## @{
 
 kField_ItemType = 'fnItemType'
@@ -84,7 +84,7 @@ kField_ThumbnailPath = 'thumbnailPath'
 
 # Entity Reference Properties
 
-## These fields may be used by the API/Host to optimise queries to
+## These fields may be used by the API/Host to optimize queries to
 ## isEntityReference in situations where bridging languages, etc.. can be
 ## expensive (particularly in the case of python plug-ins called from
 ## multi-threaded C). Only one should be set at once.

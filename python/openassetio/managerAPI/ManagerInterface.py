@@ -227,7 +227,7 @@ class ManagerInterface(object):
         info can also contain one of two additional fields - a prefix,
         or perl regex compatible string to identify a valid entity
         reference. Only one should be set at once. If supplied, this may
-        be used by the API to optimise calls to isEntityReference when
+        be used by the API to optimize calls to isEntityReference when
         bridging between C/Python etc... can be slow. If neither of
         these fields are set, then isEntityReference will always be used
         to determine if a string is an @ref entity_reference or not.
@@ -244,15 +244,15 @@ class ManagerInterface(object):
 
     def updateTerminology(self, stringDict, hostSession):
         """
-        This call gives the manager a chance to customise certain
+        This call gives the manager a chance to customize certain
         strings used in a host's UI/messages. @see openassetio.constants
         for known keys. The values in stringDict can be freely updated
         to match the terminology of the asset management system you are
         representing.
 
         For example, you may way a host's "Publish Clip" menu item to
-        read "Release Clip", so you would set the @ref
-        kTerm_Publish value to "Release".
+        read "Release Clip", so you would set the @ref openassetio.hostAPI.terminology.kTerm_Publish
+        value to "Release".
 
         @return None
 
@@ -300,7 +300,7 @@ class ManagerInterface(object):
         responsibility to deal with transient connection errors (if
         applicable) once initialized.
 
-        The behaviour of calling initialize() on an already initialized
+        The behavior of calling initialize() on an already initialized
         instance should be a no-op, but if an error was raised
         previously, then initialization should be re-attempted.
 
@@ -456,7 +456,7 @@ class ManagerInterface(object):
         @param context openassetio.Context, The calling context.
 
         @return bool, True if the supplied token should be considered as
-        an @ref entityReference, False if the pattern is not recognised.
+        an @ref entity_reference, False if the pattern is not recognised.
 
         @note This call should not verify the entity exits, just that
         the format of the string is recognised.
@@ -502,7 +502,7 @@ class ManagerInterface(object):
     #
     # The concept of resolution is turning an @ref entity_reference into a
     # 'finalized' string. This, ultimately, is anything meaningful to the
-    # situation. It could be a colour space, a directory, a script or image
+    # situation. It could be a color space, a directory, a script or image
     # sequence. A rule of thumb is that a resolved @ref entity_reference
     # should be the string that the application would have anyway, in a
     # unmanaged environment. For some kind of Entity - such as a 'Shot', for
@@ -569,7 +569,7 @@ class ManagerInterface(object):
 
         This will be called by hosts when they wish to batch-resolve
         many references with an eye to performance, or server hits, and
-        so should be re-implemented to minimise the number of queries
+        so should be re-implemented to minimize the number of queries
         over a standard 'for' loop.
 
         The base class implementation simply calls
@@ -664,7 +664,7 @@ class ManagerInterface(object):
         keys in the metadata dictionary. For example, if the asset
         system represents a 'Shot' with 'cutIn' and 'cutOut' properties
         or accessors, these should be remapped to the @ref
-        openassetio.constants.kField_FrameIn/Out metadata keys as
+        openassetio.constants.kField_FrameIn and Out metadata keys as
         appropriate.
 
         @warning See @ref setEntityMetadata for important notes on
@@ -812,7 +812,7 @@ class ManagerInterface(object):
         @exception openassetio.exceptions.EntityResolutionError should
         be thrown if the entityReference is ambiguously versioned (for
         example if the version is missing from a reference to a
-        versioned entity, and that behaviour is undefined in the system
+        versioned entity, and that behavior is undefined in the system
         managers model. It may be that it makes sense in the specific
         asset manager to fall back on 'latest' in this case...)
 
@@ -831,7 +831,7 @@ class ManagerInterface(object):
     #
     # A 'related' entity could take many forms. For example:
     #
-    #  @li In 3D CGI, Multiple @ref aovs may be related to a 'beauty' render.
+    #  @li In 3D CGI, Multiple AOVs or layers may be related to a 'beauty' render.
     #  @li In Compositing, an image sequence may be related to the script
     #  that created it.
     #  @li An asset may be related to a task that specifies work to be done.
@@ -841,7 +841,7 @@ class ManagerInterface(object):
     # In the this API, these relationships are represented by a generic
     # Specification, this may just be a 'type', but can additionally have
     # arbitrary attributes to further define the relationship. For example in
-    # the case of @ref aovs, the type might be 'alternate output' and the
+    # the case of AOVs, the type might be 'alternate output' and the
     # attributes may be that the 'channel' is 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
@@ -1010,7 +1010,7 @@ class ManagerInterface(object):
     # The Specification allows ancillary information to be provided to help the
     # implementation better interpret what type of entity may be best suited in
     # any given situation. For example, a path to an image will generally be
-    # accompanied by with an spec, that details the file type, colour space,
+    # accompanied by with an spec, that details the file type, color space,
     # resolution etc...
     #
     # @note The Specification should *not* be confused with @ref metadata.  The
@@ -1038,7 +1038,7 @@ class ManagerInterface(object):
     # something different depending on who you are talking to. See the @ref
     # publish "Glossary entry" for more on this, but to help avoid confusion,
     # this API provides the @ref updateTerminology call, in order to allow the
-    # implementation to standardise some of the language and terminology used in a
+    # implementation to standardize some of the language and terminology used in a
     # Hosts presentation of the asset management system with other integrations
     # of the system.
     #
@@ -1090,8 +1090,8 @@ class ManagerInterface(object):
         API documentation for the specifics of this.
 
         @note it is important for the implementation to pay attention to
-        @ref Context.retention, as not all hosts will support the
-        reference changing at this point.
+        @ref openassetio.Context.Context.retention "Context.retention",
+        as not all hosts will support the reference changing at this point.
 
         @return str, An @ref entity_reference, that the host should
         resolve to determine the path to write media too. This may or
@@ -1114,7 +1114,7 @@ class ManagerInterface(object):
     def preflightMultiple(self, targetEntityRefs, entitySpecs, context, hostSession):
         """
         A batch version of @ref preflight, where most arguments are
-        replaced by arrays of equal length. Exception behaviour, etc...
+        replaced by arrays of equal length. Exception behavior, etc...
         is the same as per preflight, and should be thrown mid way
         though preflight if necessary.
 
@@ -1185,7 +1185,7 @@ class ManagerInterface(object):
         as targetReference.
 
         @note it is important for the implementation to pay attention to
-        openassetio.contexts.Context.retention, as not all Hosts will
+        openassetio.Context.Context.retention, as not all Hosts will
         support the reference changing at this point.
 
         @exception openassetio.exceptions.RegistrationError if some
@@ -1204,7 +1204,7 @@ class ManagerInterface(object):
     def registerMultiple(self, strings, targetEntityRefs, entitySpecs, context, hostSession):
         """
         A batch version of @ref register, where most arguments are
-        replaced by arrays of equal length. Exception behaviour, etc...
+        replaced by arrays of equal length. Exception behavior, etc...
         is the same as per register, and should be thrown mid way though
         registration if necessary.
 
@@ -1261,12 +1261,13 @@ class ManagerInterface(object):
         from this function.
 
         This method is called whenever a new @ref Context is made by a
-        @ref openassetio.Session.Session.createContext. The return is
+        @ref openassetio.hostAPI.Session.Session.createContext. The return is
         then stored in the newly created Context, and is consequently
         available to all the API calls in the ManagerInterface that take
-        a Context instance via @ref Context.managerInterfaceState. Your
-        implementation can then use this to anchor the api call to a
-        particular snapshot of the state of the asset inventory.
+        a Context instance via @ref openassetio.Context.Context.managerInterfaceState
+        "managerInterfaceState". Your implementation can then use this
+        to anchor the api call to a particular snapshot of the state of
+        the asset inventory.
 
         This object is also extracted from the context and passed
         directly to any of the 'transactional' calls in this API.  For
