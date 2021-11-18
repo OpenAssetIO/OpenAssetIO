@@ -192,7 +192,7 @@
  *
  * The purpose of OAIO is to standardize the interaction between a host
  * and an @ref asset_management_system in order to persis or query data.
- * A host commnunicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
+ * A host communicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
  *
  * > Note: The Manager class is an abstraction, that takes care of
  * > sundry housekeeping and helps manage session state. Internally it
@@ -263,7 +263,7 @@
  * $PYTHONPATH, and presently searches using the environment variable
  * @ref plugin_path_var
  *
- * The ManagerPlugin instance is then respoisible for constructing an
+ * The ManagerPlugin instance is then responsible for constructing an
  * instance of the respective @ref asset_management_system's
  * implementation of the @ref openassetio.managerAPI.ManagerInterface
  * "ManagerInterface".

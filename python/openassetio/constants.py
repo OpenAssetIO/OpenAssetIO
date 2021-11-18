@@ -43,7 +43,7 @@ kStateMask = 7
 ## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 ## @{
 
-## If False, The manager is not capable of determining the URL for a new @ref entity
+## If False, the manager is not capable of determining the URL for a new @ref entity
 ## "entity's" data, and will only keep track of existing data. If True, the manager
 ## will determine the URL to use for writing data for new entities
 kWillManagePath = 8
