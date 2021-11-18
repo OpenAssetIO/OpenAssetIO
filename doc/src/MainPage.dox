@@ -1,17 +1,42 @@
 /*! @mainpage An Introduction
  *
- * OpenAssetIO defines a standardized set of interactions between a
- * @ref host of the API (eg: a Digital Content Creation tool or
- * pipeline script) and an @ref asset_management_system.
+ * @warning The API has a long history. The OAIO release version is
+ * currently in a beta stage and is subject to some refinements over the
+ * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
+ * target="_blank">project tracker</a> for more details.
+ *
+ * OpenAssetIO defines a common set of interactions between a @ref host
+ * of the API (eg: a Digital Content Creation tool or pipeline script)
+ * and an @ref asset_management_system.
+ *
+ * @startuml
+ * node Host {
+ *   package OpenAssetIO {
+ *     collections ManagerPlugin
+ *   }
+ * }
+ *
+ * cloud "Asset Management System" as ams {
+ *   database Database
+ *   collections "Resolver, etc..."
+ * }
+ *
+ * ManagerPlugin -right-> ams
+ * ams -left-> ManagerPlugin
+ * @enduml
  *
  * It aims to reduce the integration effort and maintenance overhead of
  * modern CGI pipelines, and pioneer new, standardized asset-centric
  * workflows in post-production tooling.
  *
- * @warning The API has a long history. The OAIO release version is
- * currently in a beta stage and is subject to some refinements over the
- * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
- * target="_blank">project tracker</a> for more details.
+ * OpenAssetIO enabled tools and asset management systems can freely
+ * communicate with each other, without needing to know any specifics of
+ * their respective implementations.
+ *
+ * The API has no inherent functionality. It exists as a bridge - at the
+ * boundary between a process that consumes or produces data (the host),
+ * and the systems that provide data coordination and version management
+ * functionality.
  *
  * @section intro_scope Scope
  *
@@ -19,10 +44,16 @@
  * - @ref resolve "Resolution" of asset references (URIs) into locatable
  *   data (URLs).
  * - @ref publish "Publishing" and retrieval of data for file-based and
- *   non-file-based 'assets'.
+ *   non-file-based assets.
  * - Discovery and registration of related assets.
  * - Replacement/augmentation of in-application UI elements such as
  *   browsers and other panels/controls.
+ *
+ * The API, by design, does _not_:
+ * - Define any standardized data structures for the storage or
+ *   description of assets or asset hierarchies.
+ * - Dictate any aspect of how an asset management system operates,
+ *   organizes, locates or manages asset data and versions.
  *
  * @section intro_approach The Approach
  *
