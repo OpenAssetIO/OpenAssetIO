@@ -49,7 +49,7 @@ for a wider range of asset types and publishing workflows.
 
 We are currently working towards a v1.0.0 release. At present, the API
 is sketched in pure `Python`, whilst some structural revisions are being
-made. Once the surface area has stabilised, the Core API will be ported
+made. Once the surface area has stabilized, the Core API will be ported
 to `C++` with bindings to `Python`.
 
 The code is presented here in its current form to facilitate discussion
@@ -81,7 +81,7 @@ images, models and editorial data) is usually managed by a central
 catalog. This catalog is commonly known as an "Asset Management System",
 and forms a singular source of truth for a project.
 
-OpenAssetIO provides an abstraction layer that generalises the dialog
+OpenAssetIO provides an abstraction layer that generalizes the dialog
 between a 'host' (eg. a Digital Content Creation application such as
 Maya&reg; or Nuke) and one of these systems - a 'manager' (eg. ShotGrid,
 ftrack or other proprietary systems).
