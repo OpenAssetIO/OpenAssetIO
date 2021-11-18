@@ -3,22 +3,39 @@
 An open-source interoperability standard for tools and content
 management systems used in media production.
 
-It aims to reduce integration and maintenance overhead in modern
-production pipelines.
+OpenAssetIO defines a common set of interactions between a host of the
+API (eg: a Digital Content Creation tool or pipeline script) and an
+Asset Management System.
 
-`OpenAssetIO` enabled tools and asset management systems can freely
+It aims to reduce the integration effort and maintenance overhead of
+modern CGI pipelines, and pioneer new, standardized asset-centric
+workflows in post-production tooling.
+
+OpenAssetIO enabled tools and asset management systems can freely
 communicate with each other, without needing to know any specifics of
 their respective implementations.
+
+The API has no inherent functionality. It exists as a bridge - at the
+boundary between a process that consumes or produces data (the host),
+and the systems that provide data coordination and version management
+functionality.
 
 ## Scope
 
 The API covers the following areas:
  - Resolution of asset references (URIs) into locatable data (URLs).
  - Publishing and retrieval of data for file-based and non-file-based
-   'assets'.
+   assets.
  - Discovery and registration of related assets.
  - Replacement/augmentation of in-application UI elements such as
    browsers and other panels/controls.
+
+The API, by design, does not:
+ - Define any standardized data structures for the storage or
+   description of assets or
+   asset hierarchies.
+ - Dictate any aspect of how an asset management system operates,
+   organizes, locates or manages asset data and versions.
 
 The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html),
 addressing several common integration challenges and adding support
