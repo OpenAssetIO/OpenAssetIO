@@ -79,7 +79,7 @@ deploy:
 	# Copy in the new documentation.
 	cp -r ./html $(DOCSREPO_DIR)/$(DOCSREPO_HTML_DIR)
 	# Commit and push the new documentation.
-	cd $(DOCSREPO_DIR) && git add . && git commit -m "Update docs to $(commit_hash)" && git push
+	cd $(DOCSREPO_DIR) && git add . && git commit -s -m "Update docs to $(commit_hash)" && git push
 	# Remove the clone.
 	rm -rf $(DOCSREPO_DIR)
 	# Pull local docs branch, if one exists.
