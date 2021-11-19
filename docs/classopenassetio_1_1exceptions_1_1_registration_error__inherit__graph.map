@@ -1,0 +1,5 @@
+<map id="RegistrationError" name="RegistrationError">
+<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="BaseEntityInteractionError" alt="" coords="5,229,199,256"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="24,155,180,181"/>
+<area shape="rect" id="node4" href="$classopenassetio_1_1exceptions_1_1_base_exception.html" title="The BaseException class should be used for all exceptions raise by Managers and any API&#45;related excep..." alt="" coords="43,80,161,107"/>
+</map>
