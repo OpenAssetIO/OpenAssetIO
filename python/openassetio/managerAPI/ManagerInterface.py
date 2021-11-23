@@ -519,7 +519,7 @@ class ManagerInterface(object):
 
         If the string points to some data, then it should always be in
         the form of a valid URL. File paths should be returned as a
-        <tt>file</tt> scheme URL.
+        `file` scheme URL.
 
         When the @ref entity_reference points to a sequence of files,
         the frame token should be preserved, and in the sprintf

@@ -116,10 +116,9 @@
  *
  * The following are examples of perfectly valid entity references:
  *
- *  @li <tt>myasset://DVR/ep01/build/prop/table?v=6&t=model&f=alembic</tt>
- *  @li <tt>e1d2e41c-9594-11e2-9619-f23c91ae2917</tt>
- *  @li <tt>{'job':'DVR', 'path':['ep01','build','prop','table'],
- *  'version':'6', 'type':'model', 'format':'alembic'}</tt>
+ *  @li `myasset://DVR/ep01/build/prop/table?v=6&t=model&f=alembic`
+ *  @li `e1d2e41c-9594-11e2-9619-f23c91ae2917`
+ *  @li <tt>{'job':'DVR', 'path':['ep01','build','prop','table'], 'version':'6', 'type':'model', 'format':'alembic'}</tt>
  *
  * Each of them have their relative merits in different situations, and
  * <b>it is no concern of this set of APIs which one is used</b>. There
@@ -143,9 +142,9 @@
  * target="_blank">URL</a> and a <a
  * href="http://en.wikipedia.org/wiki/Uniform_resource_name"
  * target="_blank">URN</a> (both being URIs) may not be relevant. Both a
- * 'UUID' style reference such as <tt>"e1d2e41c-9594-11e2-9619-f23c91ae2917"</tt>
+ * 'UUID' style reference such as `"e1d2e41c-9594-11e2-9619-f23c91ae2917"`
  * and an URL such as
- * <tt>"myasset://DVR/ep01/build/prop/table?v=1&t=model&f=alembic"</tt> may both
+ * `"myasset://DVR/ep01/build/prop/table?v=1&t=model&f=alembic"` may both
  * resolve to the same entity.
  *
  * However, if the @ref asset_management_system allows an entity to be 'aliased'
@@ -155,9 +154,9 @@
  * definition. For example, if the same underlying Entity UUID was
  * available through the following paths:
  *
- *  @li <tt>myasset://DVR/ep01/build/prop/table?v=6...</tt>
- *  @li <tt>myasset://library/furniture/table?v=2...</tt>
- *  @li <tt>myasset://TTL/library/prop/cottageTabl?v=1...</tt>
+ *  @li `myasset://DVR/ep01/build/prop/table?v=6...`
+ *  @li `myasset://library/furniture/table?v=2...`
+ *  @li `myasset://TTL/library/prop/cottageTabl?v=1...`
  *
  * The entity reference passed through this API must always uniquely locate
  * the entity via a specific path, such that relationship queries
@@ -273,8 +272,8 @@
  *
  * This is the environment variable used to discover @ref ManagerPlugin
  * "ManagerPlugins", it is searched left-to-right, using standard
- * <tt>$PATH</tt> semantics (delimited by <tt>:</tt> on POSIX systems and
- * <tt>;</tt> on Windows). The first package that registers a specific
+ * `$PATH` semantics (delimited by `:` on POSIX systems and
+ * `;` on Windows). The first package that registers a specific
  * identifier wins.
  *
  * So to override a plug-in with a dev version, ensure it is to the left
@@ -405,7 +404,7 @@
  * resolve the returned @ref entity_reference to determine the manager's
  * chosen location for the data and use this for any write operations.
  *
- * The <tt>preflight</tt> method is also allowed to change the entity
+ * The `preflight` method is also allowed to change the entity
  * reference as required. This mechanism serves several purposes:
  *
  * - It allows the manager to dictate if an existing target entity is
@@ -417,7 +416,7 @@
  * - If appropriate, it can avoid the need to retrospectively copy data
  *   to its intended destination immediately after creation.
  *
- * There are two scenarios where <tt>preflight</tt> will not be called:
+ * There are two scenarios where `preflight` will not be called:
  *
  * - When the manager has declared that it is not capable of providing
  *   the location for future data in advance (via managementPolicy).
@@ -425,18 +424,18 @@
  *   assetizing an existing file.
  *
  * In these situations, only @ref register will be called by the host.
- * In the first situation, calling <tt>preflight</tt> would be pointless
+ * In the first situation, calling `preflight` would be pointless
  * as the manager has no way to provide a meaningful answer.
  *
  * In the second situation it removes the responsibility for the host to
  * transfer the data from its current location to that specified by
- * <tt>preflight</tt>. Doing so would force the transfer mechanics into
+ * `preflight`. Doing so would force the transfer mechanics into
  * the host. Given the size of data frequently involved, and the myriad
  * of potential transfer technologies, it was deemed leaving this up to
  * the manager was a more flexible solution.
  *
  * In summary, for a manager capable of determining the location for
- * data, a host won't call <tt>preflight</tt> if it can't honor the
+ * data, a host won't call `preflight` if it can't honor the
  * specified location.
  *
  *
@@ -560,11 +559,11 @@
  * At hear, specifications are simply a set of key-value pairs, with an
  * additional 'schema' - a string that can be used to convey what keys
  * to expect to be present. The schema is hierarchical. For example the
- * schema <tt>core.entity:file.image</tt> states that it is a
- * <tt>core.entity</tt> of type <tt>file.image</tt>.  It can be inferred
- * that this should have all the properties of a <tt>file</tt>, but will
+ * schema `core.entity:file.image` states that it is a
+ * `core.entity` of type `file.image`.  It can be inferred
+ * that this should have all the properties of a `file`, but will
  * have additional specialized properties only associated with a
- * <tt>file.image</tt>.
+ * `file.image`.
  *
  * This approach allows any new Specification to be supported in a generic
  * fashion by simply saving/recalling the key/value pairs.

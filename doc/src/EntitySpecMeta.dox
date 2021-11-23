@@ -68,23 +68,23 @@
  * @subsection specification_hierarchy The Specification Hierarchy
  *
  * The specification's schema identifier uses a prefix + type pair, for
- * example <tt>entity:file.image</tt>.
+ * example `entity:file.image`.
  *
  * - The **prefix** defines its broad categorization into one of several
- *   discrete classifications. eg: <tt>entity</tt>, <tt>relationship</tt>,
+ *   discrete classifications. eg: `entity`, `relationship`,
  *   etc.
  * - The **type** is a simple dot-delimited hierarchy of types within the
- *   specification's classification. eg: <tt>file.image</tt>.
+ *   specification's classification. eg: `file.image`.
  *
  * The hierarchical nature of the specification type system allows for a
  * host or manager's behavior to be determined at a base level, and
  * applied to any derived specification schemas automatically.
  *
  * For example, a manager may customize the publishing of all
- * <tt>entity:file.document</tt> specifications to store them in a
+ * `entity:file.document` specifications to store them in a
  * different location and adjust the versioning strategy. A new host may
  * choose to represent its documents via a
- * <tt>entity:file.document.nodegraph.someapp</tt> schema identifier.
+ * `entity:file.document.nodegraph.someapp` schema identifier.
  * The manager handling publishing can temporarily upcast to the
  * document base to determine its behavior, treating it similarly to other
  * documents, or choose to add specific functionality if desired.
@@ -98,11 +98,11 @@
  * parameters.
  *
  * To continue the example above, a browser requested for the
- * <tt>entity:file.document.nodegraph.someapp</tt> specification, should
- * not list any other entities derived from <tt>entity:file.document</tt>.
+ * `entity:file.document.nodegraph.someapp` specification, should
+ * not list any other entities derived from `entity:file.document`.
  * The same would be true for a query for related references using the
  * application specific specification - even if some aspect of the
- * manager's internal behavior switches on <tt>entity:file.document</tt>,
+ * manager's internal behavior switches on `entity:file.document`,
  * only references for the node graphs produced by someapp should be
  * returned.
  *
