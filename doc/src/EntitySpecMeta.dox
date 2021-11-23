@@ -60,7 +60,7 @@
  * mapped to a manager's internal classification mechanisms. Additional
  * data from the specification's key/value pairs is not persisted beyond
  * the lifetime of the related API calls in any literal form. If a host
- * wishes to persist any other information about an entity, the @ref
+ * wishes to persist any other information about an entity, use the @ref
  * metadata mechanism instead.
  *
  * @see openassetio.Specification
