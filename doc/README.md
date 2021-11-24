@@ -55,8 +55,14 @@ index page via `html/index.html`.
 ## Deploying the docs
 
 Public facing documentation is served via GitHub Pages from the `docs`
-branch of https://github.com/TheFoundryVisionmongers/OpenAssetIO. This
-branch should be updated using the standard Pull Request process.
+branch of [TheFoundryVisionmongers/OpenAssetIO](https://github.com/TheFoundryVisionmongers/OpenAssetIO).
+This is automatically deployed whenever the `main` branch of the repository
+is pushed via GitHub Actions (see [workflows/docs.yml](../.github/workflows/docs.yml)).
+
+### Manual deployment
+
+Should GitHub Actions be unavailable, the deployment can be updated
+manually, using the standard Pull Request process.
 
 Specifically,
 1. Check out the latest `main` branch.
