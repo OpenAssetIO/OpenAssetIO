@@ -165,7 +165,7 @@
  * In such a system, the ManagerInterface may provide access to
  * alternate paths from any one of these path-specific references via
  * the @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getRelatedReferences
- * "getRelatedReferences method(), with a suitable @ref Specification.
+ * "getRelatedReferences" method, with a suitable @ref Specification.
  *
  * 3. 'Potential' entity representation
  * ------------------------------------
@@ -493,7 +493,7 @@
  * back into the entity's @ref primary_string. Resolution is usually
  * performed just-in-time. This is the fundamental mechanism that makes
  * documents portable, and where OAIO (and other resolution systems)
- * bring their value - the @manager backing the resolution process is
+ * bring their value - the @ref manager backing the resolution process is
  * free to use any contextual information to vary the result of the
  * resolution such that it is as correct/appropriate as it can be for the
  * current resolution @ref Context.
@@ -502,7 +502,7 @@
  *
  * If this API was to do just one thing, it would be to turn an @ref
  * entity_reference into some other string - the thing a @ref host would
- * have used as currency without the API (see @ref @resolve
+ * have used as currency without the API (see @ref resolve
  * "resolution"). More often than not, this is a file path, but it
  * could be anything.
  *

@@ -154,12 +154,11 @@
  * from an @ref asset_management_system without the need for side-car
  * files.
  *
- * @info An example of this is within a tool that displays image
- * sequences. The @ref primary_string is resolved to provide the path to
- * the images on disk, and the manager-provided metadata queried to
- * control the colorspace and frame range used for playback. This can avoid
- * fragile mechanisms such as extension-based mappings and directory
- * searches.
+ * An example of this is within a tool that displays image sequences.
+ * The @ref primary_string is resolved to provide the path to the images
+ * on disk, and the manager-provided metadata queried to control the
+ * colorspace and frame range used for playback. This can avoid fragile
+ * mechanisms such as extension-based mappings and directory searches.
  *
  * Extending this further, an entity's primary string does not have to
  * be a file path, or even a URL.
@@ -168,7 +167,7 @@
  * string, and/or set of keys and values, OAIO can be used directly to
  * publish or query entities of this type.
  *
- * @info A common application of this is its use in a timeline based
+ * A common application of this is its use in a timeline based
  * application to query and publish shot timing information directly to
  * a production tracking system.
  *
