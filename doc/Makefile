@@ -111,7 +111,7 @@ src/styles.css: src/styles.scss $(SASS)
 #
 
 $(SASS):
-	npm install .
+	npm ci
 
 # `pip install wheel` avoids "error: invalid command 'bdist_wheel'"
 $(VENV): requirements.txt
