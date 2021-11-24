@@ -109,7 +109,7 @@ class Manager(Debuggable):
 
             "org.openassetio.manager.test"
 
-        @return str
+        @return `str`
         """
         return self.__impl.identifier()
 
@@ -123,7 +123,7 @@ class Manager(Debuggable):
 
             "OpenAssetIO Test Manager"
 
-        @return str
+        @return `str`
         """
         return self.__impl.displayName()
 
@@ -174,8 +174,9 @@ class Manager(Debuggable):
         openassetio.hostAPI.terminology.Mapper.replaceTerms
         @see @ref openassetio.hostAPI.terminology.defaultTerminology
 
-        @param stringDict Dict[str, str] this will be modified in-place
-        by the manager if it has any alternate terminology.
+        @param[out] stringDict `Dict[str, str]` Dictionary that is
+        modified in-place by the manager if it has any alternate
+        terminology.
         """
         self.__impl.updateTerminology(stringDict, self.__hostSession)
         # This is purely so we can see it in the debug log, the
@@ -268,12 +269,12 @@ class Manager(Debuggable):
         lifetime is inherently well-managed by your persistence (or not)
         of the context.
 
-        @param references List[@ref entity_reference] A list of
+        @param references `List[` @ref entity_reference `]` A list of
         references to prefetch data for.
 
-        @param context openassetio.Context
+        @param context Context
 
-        @return None
+        @return `None`
         """
         if not isinstance(references, (list, tuple)):
             references = [references, ]

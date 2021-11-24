@@ -77,8 +77,8 @@ class ManagerInterface(object):
 
     Exceptions should be thrown to handle any in-flight errors that
     occur.  The error should be mapped to a derived class of
-    openassetio.exceptions.OAIOException, and thrown.  All exceptions of
-    this kind, will be correctly passed across the plug-in C boundary,
+    exceptions.OAIOException, and thrown.  All exceptions of this
+    kind, will be correctly passed across the plug-in C boundary,
     and re-thrown. Other exceptions should not be used.
 
      @see openassetio.exceptions
@@ -201,7 +201,7 @@ class ManagerInterface(object):
 
             "org.openassetio.manager.test"
 
-        @return str
+        @return `str`
         """
         raise NotImplementedError
 
@@ -262,7 +262,7 @@ class ManagerInterface(object):
         read "Release Clip", so you would set the @ref openassetio.hostAPI.terminology.kTerm_Publish
         value to "Release".
 
-        @return None
+        @return `None`
 
         @see @ref openassetio.constants
         @see @ref openassetio.hostAPI.terminology.defaultTerminology
@@ -346,14 +346,14 @@ class ManagerInterface(object):
         designated thread safe, it is important to implement any
         pre-fetch mechanism with suitable locks/etc... if required.
 
-        @param context openassetio.Context, You may wish to make use of
+        @param context openassetio.Context You may wish to make use of
         the managerInterfaceState object (if you supplied one on
         construction of the context), to simplify scoping any caching of
         data. Otherwise, it's up to you how to manage the lifetime of
         the data to avoid inconsistencies, but the @ref flushCaches
         method should clear any otherwise sorted data for this call.
 
-        @return None
+        @return `None`
         """
         pass
 
@@ -1320,13 +1320,13 @@ class ManagerInterface(object):
         that is open in the parent state. So the returned state should
         have any open transactions.
 
-        @return object, Some object that represents self-contained state
-        of the ManagerInterface. This will be passed to future calls and
-        to the transactional methods. Presently this can be any hashable
-        object.
+        @return `object` Some object that represents self-contained
+        state of the ManagerInterface. This will be passed to future
+        calls and to the transactional methods. Presently this can be
+        any hashable object.
 
-        @exception openassetio.exceptions.StateError If for some reason
-        creation fails.
+        @exception exceptions.StateError If for some reason creation
+        fails.
 
         @see startTransaction()
         @see finishTransaction()
@@ -1357,10 +1357,10 @@ class ManagerInterface(object):
         any state relating to the transaction within the
         ManagerInterface instance itself.
 
-        @return None
+        @return `None`
 
-        @exception openassetio.exceptions.StateError If for some reason
-        the action fails.
+        @exception exceptions.StateError If for some reason the action
+        fails.
 
         @see createState()
         @see finishTransaction()
@@ -1384,10 +1384,10 @@ class ManagerInterface(object):
         This method **must** only use or store any persistent state from
         the supplied state object to ensure the API is stateless.
 
-        @return None
+        @return `None`
 
-        @exception openassetio.exceptions.StateError If for some reason
-        the action fails, or finish is called before start.
+        @exception exceptions.StateError If for some reason the action
+        fails, or finish is called before start.
 
         @see createState()
         @see startTransaction()
@@ -1452,12 +1452,11 @@ class ManagerInterface(object):
         object,(created by @ref createState) so that can be restored
         later, or in another process.
 
-        After calling this, the state should be considered frozen, and
-        any further cancel/finish calls should throw a @ref
-        openassetio.exceptions.StateError if made without first thawing
-        the stack.
+        After calling this, the state should be considered frozen,
+        and any further cancel/finish calls should throw a @ref
+        exceptions.StateError if made without first thawing the stack.
 
-        @return A string that can be used to restore the stack.
+        @return `str` A string that can be used to restore the stack.
 
         @see thawState()
         @see The @ref transactions page.
@@ -1468,13 +1467,12 @@ class ManagerInterface(object):
         """
         Restores the supplied state object to a previously frozen state.
 
-        @return object A state object, as per createState(), except
+        @return `object` A state object, as per createState(), except
         restored to the previous state encapsulated in the token, which
         is the same string as returned by freezeState.
 
-        @exception openassetio.exceptions.StateError If the supplied
-        token is not meaningful, or that a state has already been
-        thawed.
+        @exception exceptions.StateError If the supplied token is not
+        meaningful, or that a state has already been thawed.
         """
         return None
 
