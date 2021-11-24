@@ -34,6 +34,14 @@ class ManagerInterface(object):
       entity_reference. objects should not be used to represent an @ref
       entity or its properties.
 
+      @li The manager plugin is expected to be batch-first. That is,
+      where relevant, methods expect lists as their primary input
+      parameters, and return a list as the result. This means a host
+      can batch together multiple items and execute the same command
+      on every item in the list in a single call, saving on
+      potentially expensive round-trips and allowing the manager to
+      use other back-end optimisations.
+
       @li The interface is stateless as far as the host-facing API is
       concerned. The result of any method should solely depend on its
       inputs. This class could be static. In practice though, in a
