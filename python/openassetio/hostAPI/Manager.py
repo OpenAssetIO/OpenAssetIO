@@ -1069,6 +1069,9 @@ class Manager(Debuggable):
 
         @return bool, If True, a Thumbnail is desired by the manager, if
         False, the host should not waste time making one.
+
+        @todo Remove this method in favour of using the
+        `preflight`/`register` procedure as with any other entity.
         """
         return self.__impl.thumbnailSpecification(
             specification, context, options, self.__hostSession)
