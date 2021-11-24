@@ -57,33 +57,45 @@ tooling: $(SASS) $(VENV)
 # Deployment to GH Pages
 #
 
+# $OAIO_DOCS_REPO_DIR can be set to point to an existing checkout
+# of the target branch to deploy to.
+# If unset, a temporary checkout will be created.
+ifndef OAIO_DOCS_REPO_DIR
+OAIO_DOCS_REPO_DIR = /tmp/repo
+DOCSREPO_CLEANUP = true
+else
+DOCSREPO_CLEANUP = false
+endif
+
 # Docs repo constants for GitHub Pages branch.
 DOCSREPO_BRANCH = docs
-DOCSREPO_DIR = /tmp/repo
 DOCSREPO_HTML_DIR = docs
 
 # The `deploy` target takes an existing `html` directory and updates
 # the `docs` branch on `origin` via a temporary checkout.
-deploy:
+deploy: $(OAIO_DOCS_REPO_DIR)
 	# Ensure there are no uncommitted changes
 	git diff --quiet HEAD ||\
 		(echo "Please commit all changes and rebuild documentation before deploying."; exit 1)
 	# Get current source (short) commit hash, for adding to docs commit message.
 	$(eval commit_hash=$(shell git rev-parse --short HEAD))
+	# Remove any previous documentation.
+	rm -rf $(OAIO_DOCS_REPO_DIR)/$(DOCSREPO_HTML_DIR)
+	# Copy in the new documentation.
+	cp -r ./html $(OAIO_DOCS_REPO_DIR)/$(DOCSREPO_HTML_DIR)
+	# Commit and push the new documentation.
+	cd $(OAIO_DOCS_REPO_DIR) && git add . && git commit -s -m "Update docs to $(commit_hash)" && git push
+	# Remove the clone if we made it.
+	$(DOCSREPO_CLEANUP) && rm -rf $(OAIO_DOCS_REPO_DIR) || true
+	# Pull local docs branch, if one exists.
+	git show-branch docs 2>/dev/null && git fetch origin docs:docs || true
+
+
+$(OAIO_DOCS_REPO_DIR):
 	# Get origin remote URL for use in pushing updated docs branch.
 	$(eval remote_url=$(shell git remote get-url origin))
 	# Create a clone of this repo with the docs branch checked out.
-	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(DOCSREPO_DIR)
-	# Remove any previous documentation.
-	rm -rf $(DOCSREPO_DIR)/$(DOCSREPO_HTML_DIR)
-	# Copy in the new documentation.
-	cp -r ./html $(DOCSREPO_DIR)/$(DOCSREPO_HTML_DIR)
-	# Commit and push the new documentation.
-	cd $(DOCSREPO_DIR) && git add . && git commit -s -m "Update docs to $(commit_hash)" && git push
-	# Remove the clone.
-	rm -rf $(DOCSREPO_DIR)
-	# Pull local docs branch, if one exists.
-	git show-branch docs 2>/dev/null && git fetch origin docs:docs || true
+	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(OAIO_DOCS_REPO_DIR)
 
 #
 # Cleaning
