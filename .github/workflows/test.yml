@@ -33,3 +33,27 @@ jobs:
       run: |
         pytest
 
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+
+    - name: Test
+      run: |
+        echo "::add-matcher::./.github/workflows/problem-matchers/doxygen.json"
+        # Problem matches don't actually error a step, so we have to
+        # manually check for warnings/errors at the end. Capture the
+        # output so we can parse it later.
+        make -C doc 2>&1 | tee doxygen-log.txt
+        # Remove to prevent the error summary from the grep below from
+        # being matched too.
+        echo "::remove-matcher owner=doxygen::"
+        # Fail the job if we have Doxygen warning/error lines in the
+        # output We don't suppress the output as it forms an easier
+        # to digest error summary.
+        # NB: This is the same regex as doxygen.json, adapted to work
+        # with GNU grep.
+        ! grep -E "^/src/([^:]+):([0-9]+): ?([a-zA-Z]+): ?(.*)$" doxygen-log.txt
+
