@@ -91,6 +91,9 @@ ij_continuation_indent_size = 4
 # ij_prototext_spaces_within_braces = true
 # ij_prototext_spaces_within_brackets = false
 
+[*.js]
+ij_continuation_indent_size = 4
+
 [*.py]
 ij_python_align_collections_and_comprehensions = true
 ij_python_align_multiline_imports = false
