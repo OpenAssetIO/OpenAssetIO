@@ -127,13 +127,8 @@ function annotationProperties(message) {
  * @returns string Message to display on annotation.
  */
 function annotationMessage(message) {
-    if (message.obj) {
-        return `${message.message}\n\n` +
-            `${message.obj} (${message.path}:${message.line}:${message.column})`;
-    } else {
-        return `${message.message}\n\n` +
-            `${message.module} (${message.path}:${message.line}:${message.column})`;
-    }
+    return `${message.message}\n\n` +
+        `${message.obj || message.module} (${message.path}:${message.line}:${message.column})`;
 }
 
 run();
