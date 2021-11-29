@@ -83,12 +83,12 @@
  *   provide the following objects:
  *    - An instance of the custom class derived from
  *      @ref openassetio.hostAPI.HostInterface "HostInterface".
- *    - A <tt>logger</tt> (derived from
+ *    - A `logger` (derived from
  *      @ref openassetio.logging.LoggerInterface "LoggerInterface"), for
  *      simple console logging you can use a
  *      @ref openassetio.logging.ConsoleLogger "ConsoleLogger" wrapped
  *      in a @ref openassetio.logging.SeverityFilter "SeverityFilter".
- *    - A <tt>managerFactory</tt> capable of instantiating managers,
+ *    - A `managerFactory` capable of instantiating managers,
  *      in the majority of cases a default-configured @ref
  *      openassetio.pluginSystem.PluginSystemManagerFactory
  *      "PluginSystemManagerFactory" will be sufficient.
@@ -99,7 +99,7 @@
  * - Ask the @ref manager if they manage relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" using a suitably configured @ref
- *   Specification and a @ref Context with <tt>kRead</tt> access, and
+ *   Specification and a @ref Context with `kRead` access, and
  *   respect the returned flags.
  *
  * - Always check any suspected entity references with @ref
@@ -115,7 +115,7 @@
  * - Ask the @ref manager if they support publishing relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" using a suitable configured @ref
- *   Specification and a @ref Context with <tt>kWrite</tt> access, and
+ *   Specification and a @ref Context with `kWrite` access, and
  *   respect the returned flags.
  *
  * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
@@ -164,5 +164,5 @@
  *   some native panel type, if you have one.
  *
  * @note The UI classes have not yet been migrated from the
- * <tt>FnAssetAPI</tt> code base.
+ * `FnAssetAPI` code base.
  */

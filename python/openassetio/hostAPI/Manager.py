@@ -376,7 +376,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def isEntityReference(self, token, context):
         """
-        @important It is essential, as a host, that only valid
+        @warning It is essential, as a host, that only valid
         references are supplied to Manager API calls. Before any
         reference is passed to any other methods of this class, they
         must first be validated through this method.

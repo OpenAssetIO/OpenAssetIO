@@ -60,7 +60,7 @@
  * mapped to a manager's internal classification mechanisms. Additional
  * data from the specification's key/value pairs is not persisted beyond
  * the lifetime of the related API calls in any literal form. If a host
- * wishes to persist any other information about an entity, the @ref
+ * wishes to persist any other information about an entity, use the @ref
  * metadata mechanism instead.
  *
  * @see openassetio.Specification
@@ -68,23 +68,23 @@
  * @subsection specification_hierarchy The Specification Hierarchy
  *
  * The specification's schema identifier uses a prefix + type pair, for
- * example <tt>entity:file.image</tt>.
+ * example `entity:file.image`.
  *
  * - The **prefix** defines its broad categorization into one of several
- *   discrete classifications. eg: <tt>entity</tt>, <tt>relationship</tt>,
+ *   discrete classifications. eg: `entity`, `relationship`,
  *   etc.
  * - The **type** is a simple dot-delimited hierarchy of types within the
- *   specification's classification. eg: <tt>file.image</tt>.
+ *   specification's classification. eg: `file.image`.
  *
  * The hierarchical nature of the specification type system allows for a
  * host or manager's behavior to be determined at a base level, and
  * applied to any derived specification schemas automatically.
  *
  * For example, a manager may customize the publishing of all
- * <tt>entity:file.document</tt> specifications to store them in a
+ * `entity:file.document` specifications to store them in a
  * different location and adjust the versioning strategy. A new host may
  * choose to represent its documents via a
- * <tt>entity:file.document.nodegraph.someapp</tt> schema identifier.
+ * `entity:file.document.nodegraph.someapp` schema identifier.
  * The manager handling publishing can temporarily upcast to the
  * document base to determine its behavior, treating it similarly to other
  * documents, or choose to add specific functionality if desired.
@@ -98,11 +98,11 @@
  * parameters.
  *
  * To continue the example above, a browser requested for the
- * <tt>entity:file.document.nodegraph.someapp</tt> specification, should
- * not list any other entities derived from <tt>entity:file.document</tt>.
+ * `entity:file.document.nodegraph.someapp` specification, should
+ * not list any other entities derived from `entity:file.document`.
  * The same would be true for a query for related references using the
  * application specific specification - even if some aspect of the
- * manager's internal behavior switches on <tt>entity:file.document</tt>,
+ * manager's internal behavior switches on `entity:file.document`,
  * only references for the node graphs produced by someapp should be
  * returned.
  *
@@ -154,12 +154,11 @@
  * from an @ref asset_management_system without the need for side-car
  * files.
  *
- * @info An example of this is within a tool that displays image
- * sequences. The @ref primary_string is resolved to provide the path to
- * the images on disk, and the manager-provided metadata queried to
- * control the colorspace and frame range used for playback. This can avoid
- * fragile mechanisms such as extension-based mappings and directory
- * searches.
+ * An example of this is within a tool that displays image sequences.
+ * The @ref primary_string is resolved to provide the path to the images
+ * on disk, and the manager-provided metadata queried to control the
+ * colorspace and frame range used for playback. This can avoid fragile
+ * mechanisms such as extension-based mappings and directory searches.
  *
  * Extending this further, an entity's primary string does not have to
  * be a file path, or even a URL.
@@ -168,7 +167,7 @@
  * string, and/or set of keys and values, OAIO can be used directly to
  * publish or query entities of this type.
  *
- * @info A common application of this is its use in a timeline based
+ * A common application of this is its use in a timeline based
  * application to query and publish shot timing information directly to
  * a production tracking system.
  *

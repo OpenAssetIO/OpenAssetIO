@@ -59,7 +59,7 @@ class ManagerInterface(object):
     the user. The loose term "user" also covers developers, who may need
     to see log output for debugging and other purposes.
 
-    @important Your plugin may be hosted out of process, or even on
+    @warning Your plugin may be hosted out of process, or even on
     another machine, the HostSession bridge takes care of relaying
     messages accordingly. Using custom logging mechanisms may well
     result in output being lost.
@@ -519,7 +519,7 @@ class ManagerInterface(object):
 
         If the string points to some data, then it should always be in
         the form of a valid URL. File paths should be returned as a
-        <tt>file</tt> scheme URL.
+        `file` scheme URL.
 
         When the @ref entity_reference points to a sequence of files,
         the frame token should be preserved, and in the sprintf
@@ -1290,7 +1290,7 @@ class ManagerInterface(object):
         to the transactional methods. Presently this can be any hashable
         object.
 
-        @exceptions openassetio.exceptions.StateError If for some reason
+        @exception openassetio.exceptions.StateError If for some reason
         creation fails.
 
         @see startTransaction()

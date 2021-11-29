@@ -95,7 +95,7 @@
  *   flags set in @ref BaseWidget.getAttributes.
  *
  * @note The UI classes have not yet been migrated from the
- * <tt>FnAssetAPI</tt> code base.
+ * `FnAssetAPI` code base.
  *
  * @section manager_todo Implementation Check List
  *
@@ -110,8 +110,8 @@
  *
  * - Implement @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to control which Host-side data types you wish to be
- *   involved in managing. Return <tt>kIgnored</tt> for any queries with
- *   a context with <tt>kWrite</tt> access (this disables publishing).
+ *   involved in managing. Return `kIgnored` for any queries with
+ *   a context with `kWrite` access (this disables publishing).
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
@@ -141,7 +141,7 @@
  * - Update the implementation of
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to return a suitable mask for contexts with a
- *   <tt>kWrite</tt> access.
+ *   `kWrite` access.
  *
  * - Implement the methods grouped under the "Publishing" section, and
  *   the remaining methods in the "Entity Information" section of
