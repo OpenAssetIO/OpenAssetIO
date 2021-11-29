@@ -16,6 +16,7 @@ var searchData=
   ['managerfactoryinterface',['ManagerFactoryInterface',['../namespaceopenassetio_1_1host_a_p_i_1_1_manager_factory_interface.html',1,'openassetio::hostAPI']]],
   ['managerinterface',['ManagerInterface',['../namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html',1,'openassetio::managerAPI']]],
   ['managerplugin',['ManagerPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html',1,'openassetio::pluginSystem']]],
+  ['oaioexception',['OAIOException',['../classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html',1,'openassetio::exceptions']]],
   ['objects',['objects',['../namespaceopenassetio_1_1__core_1_1objects.html',1,'openassetio::_core']]],
   ['openassetio',['openassetio',['../namespaceopenassetio.html',1,'']]],
   ['order',['order',['../classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html#a9f4e8630516f3da89537313b4c828759',1,'openassetio::_core::objects::UntypedProperty']]],

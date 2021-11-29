@@ -135,9 +135,44 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <area shape="rect" id="node13" href="classopenassetio_1_1logging_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="353,436,462,463"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_1.png" border="0" alt="" usemap="#_base_exception"/>
-<map name="_base_exception" id="_base_exception">
-<area shape="rect" id="node2" href="classopenassetio_1_1exceptions_1_1_base_exception.html" title="The BaseException class should be used for all exceptions raise by Managers and any API&#45;related excep..." alt="" coords="161,233,280,260"/>
+<tr><td><img src="inherit_graph_1.png" border="0" alt="" usemap="#_debuggable"/>
+<map name="_debuggable" id="_debuggable">
+<area shape="rect" id="node1" href="classopenassetio_1_1__core_1_1debug_1_1_debuggable.html" title="A base class for any objects that you with to make use of the debug decorators with. " alt="" coords="5,5,105,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#decorators"/>
+<map name="decorators" id="decorators">
+<area shape="rect" id="node1" href="classdecorators.html" title="Assorted decorators to help with API development. " alt="" coords="5,5,96,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#_entity_specification"/>
+<map name="_entity_specification" id="_entity_specification">
+<area shape="rect" id="node2" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. " alt="" coords="181,5,323,32"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1specifications_1_1_locale_specification.html" title="LocaleSpecifications are used by a Host to define which part of the application is interacting with t..." alt="" coords="179,56,325,83"/>
+<area shape="rect" id="node4" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. " alt="" coords="159,107,345,133"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_manager"/>
+<map name="_manager" id="_manager">
+<area shape="rect" id="node2" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="200,5,279,32"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. " alt="" coords="203,56,275,83"/>
+<area shape="rect" id="node4" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html" title="The TransactionCoordinator simplifies Host implementation by providing a stack&#45;like interface around ..." alt="" coords="153,107,325,133"/>
+<area shape="rect" id="node5" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OAIO, and wants to query or store information within a manager. " alt="" coords="213,157,265,184"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_manager_plugin"/>
+<map name="_manager_plugin" id="_manager_plugin">
+<area shape="rect" id="node2" href="classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html" title="This class represents the various derived classes that make up the binding to a Asset Management Syst..." alt="" coords="204,5,323,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_mapper"/>
+<map name="_mapper" id="_mapper">
+<area shape="rect" id="node1" href="classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html" title="Mapper" alt="" coords="5,5,76,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_o_a_i_o_exception"/>
+<map name="_o_a_i_o_exception" id="_o_a_i_o_exception">
+<area shape="rect" id="node2" href="classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html" title="The OAIOException class should be used for all exceptions raise by Managers and any API&#45;related excep..." alt="" coords="161,233,280,260"/>
 <area shape="rect" id="node3" href="classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="328,107,484,133"/>
 <area shape="rect" id="node10" href="classopenassetio_1_1exceptions_1_1_manager_error.html" title="ManagerError" alt="" coords="351,157,461,184"/>
 <area shape="rect" id="node11" href="classopenassetio_1_1exceptions_1_1_plugin_error.html" title="PluginError" alt="" coords="359,208,453,235"/>
@@ -150,41 +185,6 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <area shape="rect" id="node9" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity&#45;based action is performed on a mal&#45;formed or unrecognised Entity Reference..." alt="" coords="543,183,714,209"/>
 <area shape="rect" id="node5" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre&#45;flight that isn&#39;t due to any specific of the Entity Referen..." alt="" coords="786,5,893,32"/>
 <area shape="rect" id="node6" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer..." alt="" coords="773,56,905,83"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#_debuggable"/>
-<map name="_debuggable" id="_debuggable">
-<area shape="rect" id="node1" href="classopenassetio_1_1__core_1_1debug_1_1_debuggable.html" title="A base class for any objects that you with to make use of the debug decorators with. " alt="" coords="5,5,105,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#decorators"/>
-<map name="decorators" id="decorators">
-<area shape="rect" id="node1" href="classdecorators.html" title="Assorted decorators to help with API development. " alt="" coords="5,5,96,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_entity_specification"/>
-<map name="_entity_specification" id="_entity_specification">
-<area shape="rect" id="node2" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. " alt="" coords="181,5,323,32"/>
-<area shape="rect" id="node3" href="classopenassetio_1_1specifications_1_1_locale_specification.html" title="LocaleSpecifications are used by a Host to define which part of the application is interacting with t..." alt="" coords="179,56,325,83"/>
-<area shape="rect" id="node4" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. " alt="" coords="159,107,345,133"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_manager"/>
-<map name="_manager" id="_manager">
-<area shape="rect" id="node2" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="200,5,279,32"/>
-<area shape="rect" id="node3" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. " alt="" coords="203,56,275,83"/>
-<area shape="rect" id="node4" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html" title="The TransactionCoordinator simplifies Host implementation by providing a stack&#45;like interface around ..." alt="" coords="153,107,325,133"/>
-<area shape="rect" id="node5" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OAIO, and wants to query or store information within a manager. " alt="" coords="213,157,265,184"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_manager_plugin"/>
-<map name="_manager_plugin" id="_manager_plugin">
-<area shape="rect" id="node2" href="classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html" title="This class represents the various derived classes that make up the binding to a Asset Management Syst..." alt="" coords="204,5,323,32"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_mapper"/>
-<map name="_mapper" id="_mapper">
-<area shape="rect" id="node1" href="classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html" title="Mapper" alt="" coords="5,5,76,32"/>
 </map>
 </td></tr>
 <tr><td><img src="inherit_graph_8.png" border="0" alt="" usemap="#_plugin_system_manager_factory"/>

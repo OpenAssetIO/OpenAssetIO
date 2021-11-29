@@ -1,4 +1,4 @@
-<map id="BaseException" name="BaseException">
+<map id="OAIOException" name="OAIOException">
 <area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="328,107,484,133"/>
 <area shape="rect" id="node10" href="$classopenassetio_1_1exceptions_1_1_manager_error.html" title="ManagerError" alt="" coords="351,157,461,184"/>
 <area shape="rect" id="node11" href="$classopenassetio_1_1exceptions_1_1_plugin_error.html" title="PluginError" alt="" coords="359,208,453,235"/>

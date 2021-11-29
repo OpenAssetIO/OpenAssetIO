@@ -24,7 +24,7 @@ var hierarchy =
       [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", null ]
     ] ],
     [ "RuntimeError", null, [
-      [ "BaseException", "classopenassetio_1_1exceptions_1_1_base_exception.html", [
+      [ "OAIOException", "classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html", [
         [ "BaseEntityException", "classopenassetio_1_1exceptions_1_1_base_entity_exception.html", [
           [ "BaseEntityInteractionError", "classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html", [
             [ "PreflightError", "classopenassetio_1_1exceptions_1_1_preflight_error.html", null ],
