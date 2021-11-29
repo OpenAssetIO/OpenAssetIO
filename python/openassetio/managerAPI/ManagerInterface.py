@@ -69,7 +69,7 @@ class ManagerInterface(object):
 
     Exceptions should be thrown to handle any in-flight errors that
     occur.  The error should be mapped to a derived class of
-    openassetio.exceptions.BaseException, and thrown.  All exceptions of
+    openassetio.exceptions.OAIOException, and thrown.  All exceptions of
     this kind, will be correctly passed across the plug-in C boundary,
     and re-thrown. Other exceptions should not be used.
 

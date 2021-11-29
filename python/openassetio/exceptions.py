@@ -14,9 +14,9 @@
 #   limitations under the License.
 #
 
-class BaseException(RuntimeError):
+class OAIOException(RuntimeError):
     """
-    The BaseException class should be used for all exceptions raise by
+    The OAIOException class should be used for all exceptions raise by
     Managers and any API-related exceptions raised in a Host. These
     exceptions are guaranteed to properly bridge across the C plugin
     divide...
@@ -24,7 +24,7 @@ class BaseException(RuntimeError):
     pass
 
 
-class UserCanceled(BaseException):
+class UserCanceled(OAIOException):
     """
     Thrown by the progress mechanism to interrupt execution whenever the
     user cancels an action (perhaps using an on-screen button).
@@ -39,7 +39,7 @@ class UserCanceled(BaseException):
 #
 ## @{
 
-class BaseEntityException(BaseException):
+class BaseEntityException(OAIOException):
     """
     A base Exception for any @ref entity related errors to ensure
     consistent presentation and encapsulation of the associated @ref
@@ -54,11 +54,11 @@ class BaseEntityException(BaseException):
         there is no need to embedded the entity reference in the message
         when using this exception type.
         """
-        BaseException.__init__(self, message)
+        OAIOException.__init__(self, message)
         self.ref = entityReference
 
     def __str__(self):
-        string = BaseException.__str__(self)
+        string = OAIOException.__str__(self)
         return "%s (%s)" % (string, self.ref)
 
 
@@ -112,11 +112,11 @@ class RegistrationError(BaseEntityInteractionError):
 ## @}
 
 
-class ManagerError(BaseException):
+class ManagerError(OAIOException):
     pass
 
 
-class StateError(BaseException):
+class StateError(OAIOException):
     """
     Thrown by Managers in error situations relating to the
     managerInterfaceState object.
@@ -124,9 +124,9 @@ class StateError(BaseException):
     pass
 
 
-class RetryableError(BaseException):
+class RetryableError(OAIOException):
     pass
 
 
-class PluginError(BaseException):
+class PluginError(OAIOException):
     pass
