@@ -18,11 +18,11 @@ const exec = require('@actions/exec');
  * Execute pylint and report issues, if any found.
  */
 async function run() {
-    let pylintOutput = "";  // Pylint process output.
     const pylintDisable = core.getInput('pylint-disable') || "";
     const pylintRCFile = core.getInput('pylint-rcfile') || "";
     const pylintPaths = core.getInput('pylint-paths');
 
+    let pylintOutput = "";  // Pylint process output.
     try {
         // Run pylint
         await exec.exec("pylint", [
