@@ -1,3 +1,6 @@
+// Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+// SPDX-License-Identifier: Apache-2.0
+
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 
