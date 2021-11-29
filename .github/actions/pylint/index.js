@@ -1,5 +1,15 @@
 // Copyright 2013-2021 [The Foundry Visionmongers Ltd]
 // SPDX-License-Identifier: Apache-2.0
+/**
+ * GitHub Action to execute pylint and annotate discovered issues.
+ *
+ * Can be configured with severity levels to disable, the location of
+ * a pylint config file, as well as the paths to scan.
+ *
+ * The number of issues of each severity level is reported in the action
+ * log/summary, followed by annotations for individual issues associated
+ * to the appropriate source line in the codebase.
+ */
 
 const core = require('@actions/core');
 const exec = require('@actions/exec');
