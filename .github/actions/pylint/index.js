@@ -24,7 +24,10 @@ async function run() {
 
     let pylintOutput = "";  // Pylint process output.
     try {
-        // Run pylint
+        // Run pylint via `exec()`, which throws an exception if the
+        // process exits with a non-zero exit code. Here, we assume a
+        // non-zero exit code (and hence exception) means pylint has
+        // detected issues in the code that we need to report.
         await exec.exec("pylint", [
             `--disable=${pylintDisable}`,
             `--rcfile=${pylintRCFile}`,
