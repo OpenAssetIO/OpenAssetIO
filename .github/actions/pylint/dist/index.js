@@ -2967,6 +2967,19 @@ module.exports = require("util");
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+// Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+// SPDX-License-Identifier: Apache-2.0
+/**
+ * GitHub Action to execute pylint and annotate discovered issues.
+ *
+ * Can be configured with severity levels to disable, the location of
+ * a pylint config file, as well as the paths to scan.
+ *
+ * The number of issues of each severity level is reported in the action
+ * log/summary, followed by annotations for individual issues associated
+ * to the appropriate source line in the codebase.
+ */
+
 const core = __nccwpck_require__(186);
 const exec = __nccwpck_require__(514);
 
@@ -2974,13 +2987,16 @@ const exec = __nccwpck_require__(514);
  * Execute pylint and report issues, if any found.
  */
 async function run() {
-    let pylintOutput = "";  // Pylint process output.
     const pylintDisable = core.getInput('pylint-disable') || "";
     const pylintRCFile = core.getInput('pylint-rcfile') || "";
     const pylintPaths = core.getInput('pylint-paths');
 
+    let pylintOutput = "";  // Pylint process output.
     try {
-        // Run pylint
+        // Run pylint via `exec()`, which throws an exception if the
+        // process exits with a non-zero exit code. Here, we assume a
+        // non-zero exit code (and hence exception) means pylint has
+        // detected issues in the code that we need to report.
         await exec.exec("pylint", [
             `--disable=${pylintDisable}`,
             `--rcfile=${pylintRCFile}`,
@@ -2993,7 +3009,7 @@ async function run() {
         });
     } catch (pylintError) {
         try {
-            reportResults(JSON.parse(pylintOutput));
+            reportResults(JSON.parse(pylintOutput), pylintDisable);
         } catch (reportingError) {
             // The exception thrown by `exec` doesn't include the exit
             // code as a field (we'd have to parse the error message).
@@ -3011,31 +3027,37 @@ async function run() {
  * Report a summary followed by per-line annotations.
  *
  * @param pylintMessages List of Pylint messages decoded from JSON.
+ * @param pylintDisable Disabled checks to add to summary, potentially
+ *  useful for debugging.
+ *
  */
-function reportResults(pylintMessages) {
+function reportResults(pylintMessages, pylintDisable) {
     const pylintErrors = pylintMessages.filter(message => message.type === 'error');
     const pylintWarnings = pylintMessages.filter(message => message.type === 'warning');
     const pylintConvention = pylintMessages.filter(message => message.type === 'convention');
     const pylintRefactor = pylintMessages.filter(message => message.type === 'refactor');
     const pylintInfo = pylintMessages.filter(message => message.type === 'info');
 
-    const prAnnotationMsg = `\n${pylintErrors.length} error\n\n` +
-        `${pylintWarnings.length} warning\n\n` +
-        `${pylintConvention.length} convention\n\n` +
-        `${pylintRefactor.length} refactor\n\n` +
-        `${pylintInfo.length} info`;
+    // Construct summary report.
 
-    const prAnnotationProps = {
-        title: "Linting summary"
-    };
-
-    core.setFailed("Pylint linter issues detected");
-
-    if (pylintErrors.length) {
-        core.error(prAnnotationMsg, prAnnotationProps);
-    } else {
-        core.warning(prAnnotationMsg, prAnnotationProps);
+    let summaryTitle = "Pylint linter issues detected";
+    if (pylintDisable) {
+        summaryTitle += ` (disabled checks '${pylintDisable}')`;
     }
+    const summaryLines = [summaryTitle];
+
+    const appendToSummaryIfNonEmpty = (messages, severity) => messages.length &&
+        summaryLines.push(`${messages.length} ${severity}`);
+
+    appendToSummaryIfNonEmpty(pylintErrors, "error");
+    appendToSummaryIfNonEmpty(pylintWarnings, "warning");
+    appendToSummaryIfNonEmpty(pylintConvention, "convention");
+    appendToSummaryIfNonEmpty(pylintRefactor, "refactor");
+    appendToSummaryIfNonEmpty(pylintInfo, "info");
+
+    core.setFailed(summaryLines.join("\n\n"));
+
+    // Annotate individual issues.
 
     pylintErrors.forEach(
         message => core.error(
@@ -3077,13 +3099,8 @@ function annotationProperties(message) {
  * @returns string Message to display on annotation.
  */
 function annotationMessage(message) {
-    if (message.obj) {
-        return `${message.message}\n\n` +
-            `${message.obj} (${message.path}:${message.line}:${message.column})`;
-    } else {
-        return `${message.message}\n\n` +
-            `${message.module} (${message.path}:${message.line}:${message.column})`;
-    }
+    return `${message.message}\n\n` +
+        `${message.obj || message.module} (${message.path}:${message.line}:${message.column})`;
 }
 
 run();
