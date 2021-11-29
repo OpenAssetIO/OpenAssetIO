@@ -320,7 +320,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 <h2>Logging and Error Handling </h2>
 <p>The supplied <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html">HostSession</a> object provides logging methods that allow messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
-<p>Your plugin may be hosted out of process, or even on another machine, the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Your plugin may be hosted out of process, or even on another machine, the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426" title="Logs a message to the user. ">openassetio.managerAPI.HostSession.HostSession.log</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b" title="Logs the supplied progress. ">openassetio.managerAPI.HostSession.HostSession.progress</a></dd></dl>
@@ -432,7 +432,12 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>object, Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls and to the transactional methods. Presently this can be any hashable object.</dd></dl>
-<p><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a> If for some reason creation fails.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704" title="Called to indicate the start of a series of connected actions. ">startTransaction()</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a" title="Called at the end of a group of actions to inform the ManagerInterface that any pending internal mana...">finishTransaction()</a> </dd>
