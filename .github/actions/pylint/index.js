@@ -37,7 +37,7 @@ async function run() {
         });
     } catch (pylintError) {
         try {
-            reportResults(JSON.parse(pylintOutput));
+            reportResults(JSON.parse(pylintOutput), pylintDisable);
         } catch (reportingError) {
             // The exception thrown by `exec` doesn't include the exit
             // code as a field (we'd have to parse the error message).
@@ -55,31 +55,37 @@ async function run() {
  * Report a summary followed by per-line annotations.
  *
  * @param pylintMessages List of Pylint messages decoded from JSON.
+ * @param pylintDisable Disabled checks to add to summary, potentially
+ *  useful for debugging.
+ *
  */
-function reportResults(pylintMessages) {
+function reportResults(pylintMessages, pylintDisable) {
     const pylintErrors = pylintMessages.filter(message => message.type === 'error');
     const pylintWarnings = pylintMessages.filter(message => message.type === 'warning');
     const pylintConvention = pylintMessages.filter(message => message.type === 'convention');
     const pylintRefactor = pylintMessages.filter(message => message.type === 'refactor');
     const pylintInfo = pylintMessages.filter(message => message.type === 'info');
 
-    const prAnnotationMsg = `\n${pylintErrors.length} error\n\n` +
-        `${pylintWarnings.length} warning\n\n` +
-        `${pylintConvention.length} convention\n\n` +
-        `${pylintRefactor.length} refactor\n\n` +
-        `${pylintInfo.length} info`;
+    // Construct summary report.
 
-    const prAnnotationProps = {
-        title: "Linting summary"
-    };
-
-    core.setFailed("Pylint linter issues detected");
-
-    if (pylintErrors.length) {
-        core.error(prAnnotationMsg, prAnnotationProps);
-    } else {
-        core.warning(prAnnotationMsg, prAnnotationProps);
+    let summaryTitle = "Pylint linter issues detected";
+    if (pylintDisable) {
+        summaryTitle += ` (disabled checks '${pylintDisable}')`;
     }
+    const summaryLines = [summaryTitle];
+
+    const appendToSummaryIfNonEmpty = (messages, severity) => messages.length &&
+        summaryLines.push(`${messages.length} ${severity}`);
+
+    appendToSummaryIfNonEmpty(pylintErrors, "error");
+    appendToSummaryIfNonEmpty(pylintWarnings, "warning");
+    appendToSummaryIfNonEmpty(pylintConvention, "convention");
+    appendToSummaryIfNonEmpty(pylintRefactor, "refactor");
+    appendToSummaryIfNonEmpty(pylintInfo, "info");
+
+    core.setFailed(summaryLines.join("\n\n"));
+
+    // Annotate individual issues.
 
     pylintErrors.forEach(
         message => core.error(
