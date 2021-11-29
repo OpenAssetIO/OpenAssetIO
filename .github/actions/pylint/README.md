@@ -30,3 +30,14 @@ with:
   pylint-rcfile: "./pyproject.toml"
   pylint-paths: "python tests"
 ```
+
+## Building
+
+To bundle the source for use as a GitHub Action, assuming the current
+working directory contains `package.json` run
+```shell
+npm install
+npm run build
+```
+This will create a bundled build under `dist`, which is referenced by
+the `action.yml`.
