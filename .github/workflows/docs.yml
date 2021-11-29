@@ -1,0 +1,46 @@
+name: "Docs"
+
+concurrency:
+  group: docs
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        path: src
+
+      # The checkout action ensures the correct auth tokens
+      # are set in the repo so we can push. We will pass
+      # this path to the deploy stage to use instead of
+      # its own temporary checkout.
+    - name: Checkout docs branch
+      uses: actions/checkout@v2
+      with:
+        path: target
+        ref: docs
+
+    - name: Build
+      run: |
+        # TODO [tc] We should really publish the Docker
+        # image to the GitHub registry
+        make -C src/doc
+
+    - name: Deploy
+      run: |
+        # Global means we don't need hop around the checkouts to set this
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions@github.com"
+        # Pass the path to the actions/checkout@v2 docs branch checkout
+        OAIO_DOCS_REPO_DIR=`pwd`/target make -C src/doc deploy
