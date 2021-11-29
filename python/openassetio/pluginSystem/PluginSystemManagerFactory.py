@@ -173,7 +173,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
         """
-        Creates an instance of the @ref ManagerUIDelegate for the
+        Creates an instance of the @needsref ManagerUIDelegate for the
         specified identifier.
 
         @param the instance of a ManagerInterface to retrieve the UI

@@ -25,7 +25,7 @@ __all__ = ['ManagerFactoryInterface']
 class ManagerFactoryInterface(object):
     """
     Manager Factories are responsible for instantiating classes that
-    derive from @ref openassetio.managerAPI.ManagerInterface or @ref
+    derive from @ref openassetio.managerAPI.ManagerInterface or @needsref
     openassetio-ui.implementation.ManagerUIDelegate for use within an
     host.
 
@@ -91,7 +91,7 @@ class ManagerFactoryInterface(object):
     @abc.abstractmethod
     def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
         """
-        Creates an instance of the @ref ManagerUIDelegate for the
+        Creates an instance of the @needsref ManagerUIDelegate for the
         specified manager interface.
 
         @param the instance of a ManagerInterface to retrieve the UI

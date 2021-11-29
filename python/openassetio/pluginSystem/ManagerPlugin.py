@@ -40,7 +40,7 @@ class ManagerPlugin(PluginSystemPlugin):
     consequently, it is imperative that no ui libraries (QtCore, QtGui
     etc...) are imported unless @ref uiDelegate() is called, and
     ideally, even then, this should be deferred until something is
-    requested from the @ref
+    requested from the @needsref
     openassetio-ui.implementation.ManagerUIDelegate.
     """
 
@@ -83,11 +83,11 @@ class ManagerPlugin(PluginSystemPlugin):
     @classmethod
     def uiDelegate(cls, interfaceInstance):
         """
-        Constructs an instance of the @ref
+        Constructs an instance of the @needsref
         openassetio-ui.implementation.ManagerUIDelegate
 
         This is an instance of some class derived from ManagerUIDelegate
-        that is used by the @ref UISessionManager to provide widgets to
+        that is used by the @needsref UISessionManager to provide widgets to
         a host that may bind into panels in the application, or to allow
         the application to delegate asset browsing/picking etc...
 
@@ -100,7 +100,7 @@ class ManagerPlugin(PluginSystemPlugin):
         this call*, but generally you may want to deffer this to methods
         in the delegate.
 
-        @return An instance of some class derived from @ref
+        @return An instance of some class derived from @needsref
         ManagerUIDelegate.
         """
         return None

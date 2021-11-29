@@ -90,9 +90,9 @@
  *   shared across distributed multi-host renders.
  *
  * - A manager can provide additional UI elements that interact
- *   with the host, by returning them from @ref ManagerUIDelegate.getWidgets.
+ *   with the host, by returning them from @needsref ManagerUIDelegate.getWidgets.
  *   The host will create suitable panels, etc. for them, based on the
- *   flags set in @ref BaseWidget.getAttributes.
+ *   flags set in @needsref BaseWidget.getAttributes.
  *
  * @note The UI classes have not yet been migrated from the
  * `FnAssetAPI` code base.
