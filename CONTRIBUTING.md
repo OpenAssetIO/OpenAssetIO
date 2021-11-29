@@ -67,6 +67,38 @@ _should_ be prefixed with `get` and `set`, respectively.
 
 This makes it easier to determine the API surface at a glance.
 
+### Test cases
+
+Where feasible, Python unit test cases should use a class for each unit,
+where the methods of the test class are the test cases for that unit. In
+addition, test cases should ideally be written using `when` and `then`
+to delineate action/input and postcondition. The name of the test class
+itself should begin with `Test_`. For example,
+
+```python
+class Test_UnitName:
+    def test_when_action_then_postcondition(self, ...):
+        ...
+```
+
+Often the unit under test is a class method, in which case the test
+class name should include the method under test preceded by its class, 
+separated by an underscore. For example,
+
+```python
+class Test_ManagerInterface_entityVersionName:
+    ...
+```
+
+Don't be afraid of long test case names (up to the 99 character line 
+length limit).
+
+Sometimes the test is trivial, in that the unit is small and only has 
+one code path. In that case shoehorning a test case description into a 
+`when`/`then` style may be less readable than a simpler ad-hoc 
+alternative. Best judgement should be used, bearing in mind readability
+and consistency tradeoffs.
+
 ### IDE configuration
 
 To aid in conforming to our coding style a [`.editorconfig`](https://editorconfig.org/)
