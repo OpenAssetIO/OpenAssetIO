@@ -238,8 +238,12 @@ TAB_SIZE               = 2
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
+# '@needsref' is aliased to nothing to allow easy tracking of things we need
+# to provide a link for. xrefitem doesn't work too well as it consumes
+# too much of the subsequent text.
 ALIASES                = "envvar=\xrefitem envvar \"Environment Variables\" \"Environment Variable List\"" \
-                         "event=\xrefitem event \"Events\" \"Event List\""
+                         "event=\xrefitem event \"Events\" \"Event List\"" \
+                         "needsref="
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
