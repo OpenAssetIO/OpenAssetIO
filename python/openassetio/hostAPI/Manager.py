@@ -607,6 +607,9 @@ class Manager(Debuggable):
 
         @param entityRefs List[str] Entity references to update.
 
+        @param data List[dict] The metadata to set for each referenced
+        entity.
+
         @param context Context The calling context.
 
         @param merge bool If true, then each entity's existing metadata
@@ -855,12 +858,14 @@ class Manager(Debuggable):
         @param references List[str] A list of @ref entity_reference, see
         the notes on array length above.
 
-        @param relationshipSpecs
+        @param relationshipSpecOrSpecs
         List[openassetio.specifications.RelationshipSpecification]
 
         @param resultSpec openassetio.specifications.EntitySpecification
         or None, a hint as to what kind of entity you want to be
         returned. May be None.
+
+        @param context Context The calling context.
 
         @return list of str lists The return is *always* a list of lists
         regardless of which form of invocation is used. The outer list
@@ -1118,6 +1123,9 @@ class Manager(Debuggable):
         reference supplied to `preflight` for resolves or metadata
         queries prior to registration, and for the final call to @ref
         register itself. See @ref example_publishing_a_file.
+
+        @param targetEntityRefs `List[str]` The entity references to
+        preflight prior to registration.
 
         @param entitySpecs `List[`
             specifications.EntitySpecification `]`

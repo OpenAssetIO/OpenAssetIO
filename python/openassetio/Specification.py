@@ -130,7 +130,7 @@ class Specification(SpecificationBase):
         Returns whether the specification is of a requested type, by
         comparison of the type string.
 
-        @param typeOrTypes, [str or Specification, or list of] The types
+        @param typeOrTypes [str or Specification, or list of], The types
         to compare against. eg:
          @code
             spec.isOfType(openassetio.specifications.FileSpecification)

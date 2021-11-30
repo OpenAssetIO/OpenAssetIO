@@ -66,6 +66,9 @@ class Mapper:
         construction and it's results cached for the lifetime of the
         Mapper.
 
+        @param manager Manager, A Manager instance, whose terminology
+        should be applied by the mapper.
+
         @param terminology A dict of terms that will be substituted by
         this instance. If left unspecified, the default API terminology
         will be used. Hosts may take a copy of this dictionary and
