@@ -157,66 +157,63 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a53834a673004e2d1a4ad57a9b126e5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a53834a673004e2d1a4ad57a9b126e5d7">More...</a><br /></td></tr>
 <tr class="separator:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Policy</div></td></tr>
-<tr class="memitem:a48eda229d48397b96f53feae1fc65f9f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a48eda229d48397b96f53feae1fc65f9f">managementPolicy</a> (self, specification, context, hostSession, entityRef=None)</td></tr>
-<tr class="memdesc:a48eda229d48397b96f53feae1fc65f9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the asset manager is interested in participating in interactions with the specified specification of <a class="el" href="glossary.html#entity">entity</a>.  <a href="#a48eda229d48397b96f53feae1fc65f9f">More...</a><br /></td></tr>
-<tr class="separator:a48eda229d48397b96f53feae1fc65f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655c21345f3f7cc584991bb6ddca73df"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a> (self, specifications, context, hostSession, entityRef=None)</td></tr>
+<tr class="memdesc:a655c21345f3f7cc584991bb6ddca73df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the asset manager is interested in participating in interactions with the specified specifications of <a class="el" href="glossary.html#entity">entity</a>.  <a href="#a655c21345f3f7cc584991bb6ddca73df">More...</a><br /></td></tr>
+<tr class="separator:a655c21345f3f7cc584991bb6ddca73df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
-<tr class="memitem:a684280636081853d4f5c31f11270fc48"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a684280636081853d4f5c31f11270fc48">isEntityReference</a> (self, token, context, hostSession)</td></tr>
-<tr class="memdesc:a684280636081853d4f5c31f11270fc48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#a684280636081853d4f5c31f11270fc48">More...</a><br /></td></tr>
-<tr class="separator:a684280636081853d4f5c31f11270fc48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1847fc911b445cf078e39ee59f01e6c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af1847fc911b445cf078e39ee59f01e6c">entityExists</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:af1847fc911b445cf078e39ee59f01e6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that does exist in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that it can be resolved into a meaningful string or otherwise queried.  <a href="#af1847fc911b445cf078e39ee59f01e6c">More...</a><br /></td></tr>
-<tr class="separator:af1847fc911b445cf078e39ee59f01e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af105eb1db7d52f126848417428742120"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> (self, tokens, context, hostSession)</td></tr>
+<tr class="memdesc:af105eb1db7d52f126848417428742120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if each supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#af105eb1db7d52f126848417428742120">More...</a><br /></td></tr>
+<tr class="separator:af105eb1db7d52f126848417428742120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21510517947f62a366e873af29218229"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:a21510517947f62a366e873af29218229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a21510517947f62a366e873af29218229">More...</a><br /></td></tr>
+<tr class="separator:a21510517947f62a366e873af29218229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference Resolution</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into a 'finalized' string.</p>
 <p>This, ultimately, is anything meaningful to the situation. It could be a color space, a directory, a script or image sequence. A rule of thumb is that a resolved <a class="el" href="glossary.html#entity_reference">Entity Reference</a> should be the string that the application would have anyway, in a unmanaged environment. For some kind of Entity - such as a 'Shot', for example, there may not be a meaningful string, though often some sensible value can be returned. </p>
 </div></td></tr>
-<tr class="memitem:ae8053ee7d9ededf253e907e702876add"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add">resolveEntityReference</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:ae8053ee7d9ededf253e907e702876add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 'finalized' string represented by the <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ae8053ee7d9ededf253e907e702876add">More...</a><br /></td></tr>
-<tr class="separator:ae8053ee7d9ededf253e907e702876add"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dabfbedbbb8d535f3b33e32bd9361ee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a9dabfbedbbb8d535f3b33e32bd9361ee">resolveEntityReferences</a> (self, references, context, hostSession)</td></tr>
-<tr class="memdesc:a9dabfbedbbb8d535f3b33e32bd9361ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batch-resolves a list of <a class="el" href="glossary.html#entity_reference">entity references</a>, following the same pattern as <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add">resolveEntityReference</a>.  <a href="#a9dabfbedbbb8d535f3b33e32bd9361ee">More...</a><br /></td></tr>
-<tr class="separator:a9dabfbedbbb8d535f3b33e32bd9361ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d9cde6684ef9bf41c8bfaefe4e295f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ab1d9cde6684ef9bf41c8bfaefe4e295f">defaultEntityReference</a> (self, specification, context, hostSession)</td></tr>
-<tr class="memdesc:ab1d9cde6684ef9bf41c8bfaefe4e295f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for the given specification and <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>.  <a href="#ab1d9cde6684ef9bf41c8bfaefe4e295f">More...</a><br /></td></tr>
-<tr class="separator:ab1d9cde6684ef9bf41c8bfaefe4e295f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e57a188f9b01b2def2cf8e353cd7c84"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84">resolveEntityReference</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:a5e57a188f9b01b2def2cf8e353cd7c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="glossary.html#primary_string">Primary String</a> represented by each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a5e57a188f9b01b2def2cf8e353cd7c84">More...</a><br /></td></tr>
+<tr class="separator:a5e57a188f9b01b2def2cf8e353cd7c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2907c7734edf11191a93fceefa48d92b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2907c7734edf11191a93fceefa48d92b">defaultEntityReference</a> (self, specifications, context, hostSession)</td></tr>
+<tr class="memdesc:a2907c7734edf11191a93fceefa48d92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given specifications and <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>.  <a href="#a2907c7734edf11191a93fceefa48d92b">More...</a><br /></td></tr>
+<tr class="separator:a2907c7734edf11191a93fceefa48d92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>There are several common requests for basic, generic information about an entity that is assumed to be valid for all entity types.</p>
 <p>This suite of methods query information for a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#metadata">Metadata</a> </dd></dl>
 </div></td></tr>
-<tr class="memitem:a0e49830816c977597d5485841dfd95c5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a0e49830816c977597d5485841dfd95c5">entityName</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:a0e49830816c977597d5485841dfd95c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the entity itself, not including any hierarchy or classification.  <a href="#a0e49830816c977597d5485841dfd95c5">More...</a><br /></td></tr>
-<tr class="separator:a0e49830816c977597d5485841dfd95c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02049cd032b10b1ac3494ca43405f429"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a02049cd032b10b1ac3494ca43405f429">entityDisplayName</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:a02049cd032b10b1ac3494ca43405f429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an unambiguous, humanised display name for the entity.  <a href="#a02049cd032b10b1ac3494ca43405f429">More...</a><br /></td></tr>
-<tr class="separator:a02049cd032b10b1ac3494ca43405f429"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8050370bfe31f65ab7a078ab99d93cbf"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a8050370bfe31f65ab7a078ab99d93cbf">getEntityMetadata</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:a8050370bfe31f65ab7a078ab99d93cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for an entity.  <a href="#a8050370bfe31f65ab7a078ab99d93cbf">More...</a><br /></td></tr>
-<tr class="separator:a8050370bfe31f65ab7a078ab99d93cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e8698bfea926e8623c6f4282f01f06a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e8698bfea926e8623c6f4282f01f06a">setEntityMetadata</a> (self, entityRef, data, context, hostSession, merge=True)</td></tr>
-<tr class="memdesc:a5e8698bfea926e8623c6f4282f01f06a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets an entities metadata.  <a href="#a5e8698bfea926e8623c6f4282f01f06a">More...</a><br /></td></tr>
-<tr class="separator:a5e8698bfea926e8623c6f4282f01f06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe082d08a13a42e8f82d7c7a1bf8d9aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#afe082d08a13a42e8f82d7c7a1bf8d9aa">getEntityMetadataEntry</a> (self, entityRef, key, context, hostSession, defaultValue=None)</td></tr>
-<tr class="memdesc:afe082d08a13a42e8f82d7c7a1bf8d9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value for the specified metadata key.  <a href="#afe082d08a13a42e8f82d7c7a1bf8d9aa">More...</a><br /></td></tr>
-<tr class="separator:afe082d08a13a42e8f82d7c7a1bf8d9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02575a1c5b6daba9fd99d7a3f7951008"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a02575a1c5b6daba9fd99d7a3f7951008">setEntityMetadataEntry</a> (self, entityRef, key, value, context, hostSession)</td></tr>
-<tr class="separator:a02575a1c5b6daba9fd99d7a3f7951008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa56b821c07983c243b5455859c3d3fa8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa56b821c07983c243b5455859c3d3fa8">entityName</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:aa56b821c07983c243b5455859c3d3fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of each entity itself, not including any hierarchy or classification.  <a href="#aa56b821c07983c243b5455859c3d3fa8">More...</a><br /></td></tr>
+<tr class="separator:aa56b821c07983c243b5455859c3d3fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf0a35b634c24ef90a37b7caff3b9398"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398">entityDisplayName</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:abf0a35b634c24ef90a37b7caff3b9398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an unambiguous, humanised display name for each entity.  <a href="#abf0a35b634c24ef90a37b7caff3b9398">More...</a><br /></td></tr>
+<tr class="separator:abf0a35b634c24ef90a37b7caff3b9398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84fcd5a71605432b42a320c72ec3d41"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ab84fcd5a71605432b42a320c72ec3d41">getEntityMetadata</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:ab84fcd5a71605432b42a320c72ec3d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for each given entity.  <a href="#ab84fcd5a71605432b42a320c72ec3d41">More...</a><br /></td></tr>
+<tr class="separator:ab84fcd5a71605432b42a320c72ec3d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78f4ca198ac5ef3e15259feb53710036"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata</a> (self, entityRefs, data, context, hostSession, merge=True)</td></tr>
+<tr class="memdesc:a78f4ca198ac5ef3e15259feb53710036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets metadata on each given entity.  <a href="#a78f4ca198ac5ef3e15259feb53710036">More...</a><br /></td></tr>
+<tr class="separator:a78f4ca198ac5ef3e15259feb53710036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ac58fa8b9b98cc5dc92cca2596d1e0f9e">getEntityMetadataEntry</a> (self, entityRefs, key, context, hostSession, defaultValue=None)</td></tr>
+<tr class="memdesc:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the value of the given metadata key for each given entity.  <a href="#ac58fa8b9b98cc5dc92cca2596d1e0f9e">More...</a><br /></td></tr>
+<tr class="separator:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ef0fd67b1d39e4ba366a15d336e020"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a25ef0fd67b1d39e4ba366a15d336e020">setEntityMetadataEntry</a> (self, entityRefs, key, value, context, hostSession)</td></tr>
+<tr class="separator:a25ef0fd67b1d39e4ba366a15d336e020"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Versioning</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Most <a class="el" href="glossary.html#asset_management_system">asset management systems</a> allow multiple revisions of certain entities to be tracked simultaneously.</p>
 <p>This API exposes this as a generalised concept, and its necessary for the caller to make sure only <a class="el" href="glossary.html#entity_reference">references</a> that are meaningfully versioned are queried. </p>
 </div></td></tr>
-<tr class="memitem:a5d1310af32fa2415060115d8aba799ef"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5d1310af32fa2415060115d8aba799ef">entityVersionName</a> (self, entityRef, context, hostSession)</td></tr>
-<tr class="memdesc:a5d1310af32fa2415060115d8aba799ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the name of the version pointed to by the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a5d1310af32fa2415060115d8aba799ef">More...</a><br /></td></tr>
-<tr class="separator:a5d1310af32fa2415060115d8aba799ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac36e7e76c42a16ad877fedc9701fbf00"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ac36e7e76c42a16ad877fedc9701fbf00">entityVersions</a> (self, entityRef, context, hostSession, includeMetaVersions=False, maxResults=-1)</td></tr>
-<tr class="memdesc:ac36e7e76c42a16ad877fedc9701fbf00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all available versions of the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version).  <a href="#ac36e7e76c42a16ad877fedc9701fbf00">More...</a><br /></td></tr>
-<tr class="separator:ac36e7e76c42a16ad877fedc9701fbf00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaf8627a8f477663af9cf34536f778bd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaaf8627a8f477663af9cf34536f778bd">finalizedEntityVersion</a> (self, entityRef, context, hostSession, overrideVersionName=None)</td></tr>
-<tr class="memdesc:aaaf8627a8f477663af9cf34536f778bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the concrete version of a <a class="el" href="glossary.html#meta_version">Meta-version</a> or otherwise unstable <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#aaaf8627a8f477663af9cf34536f778bd">More...</a><br /></td></tr>
-<tr class="separator:aaaf8627a8f477663af9cf34536f778bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa70f95a3a89276264f692109283ddec"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec">entityVersionName</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:aaa70f95a3a89276264f692109283ddec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the name of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#aaa70f95a3a89276264f692109283ddec">More...</a><br /></td></tr>
+<tr class="separator:aaa70f95a3a89276264f692109283ddec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a630c9ee5a964b96c25b7bb1ba2c1a9e5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5">entityVersions</a> (self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1)</td></tr>
+<tr class="memdesc:a630c9ee5a964b96c25b7bb1ba2c1a9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all available versions of each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version).  <a href="#a630c9ee5a964b96c25b7bb1ba2c1a9e5">More...</a><br /></td></tr>
+<tr class="separator:a630c9ee5a964b96c25b7bb1ba2c1a9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23498c21ff0f25f453c2af2a6b101938"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938">finalizedEntityVersion</a> (self, entityRefs, context, hostSession, overrideVersionName=None)</td></tr>
+<tr class="memdesc:a23498c21ff0f25f453c2af2a6b101938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the concrete version for each given <a class="el" href="glossary.html#meta_version">Meta-version</a> or otherwise unstable <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a23498c21ff0f25f453c2af2a6b101938">More...</a><br /></td></tr>
+<tr class="separator:a23498c21ff0f25f453c2af2a6b101938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Related Entities</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>A 'related' entity could take many forms.</p>
 <p>For example:</p>
@@ -244,7 +241,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>'Meaningful' is best defined by the asset manager itself. For example, in a system that versions each 'asset' by creating children of the asset for each version, when talking about where to publish an image sequence of a render to, it may make sense to reference to the Asset itself, so that the system can determine the 'next' version number at the time of publish. It may also make sense to reference a specific version of this asset to implicitly state which version it will be written to. Other entity types may not have this flexibility.</dd></dl>
 <p><b>2 - The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a></b></p>
 <p>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> allows ancillary information to be provided to help the implementation better interpret what type of entity may be best suited in any given situation. For example, a path to an image will generally be accompanied by with an spec, that details the file type, color space, resolution etc...</p>
-<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> should <em>not</em> be confused with <a class="el" href="glossary.html#metadata">Metadata</a>. The implementation must not directly store any information contained within the <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a>, though it may be used to better define the type of entity. Hosts that wish to persist other properties of the published entity, will call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e8698bfea926e8623c6f4282f01f06a">setEntityMetadata()</a> directly instead, and as described in the metadata section, it is assumed that this is the channel for information that needs to persist.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> should <em>not</em> be confused with <a class="el" href="glossary.html#metadata">Metadata</a>. The implementation must not directly store any information contained within the <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a>, though it may be used to better define the type of entity. Hosts that wish to persist other properties of the published entity, will call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata()</a> directly instead, and as described in the metadata section, it is assumed that this is the channel for information that needs to persist.</dd></dl>
 <p>For more on the relationship between Entities, Specifications and metadata, please see <a class="el" href="entities_specifications_and_metadata.html">this</a> page.</p>
 <p>The action of 'publishing' itself, is split into two parts, depending on the nature of the item to be published.</p>
 <ul>
@@ -257,18 +254,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acb82be6f9d3a34b9191a894557e9625c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#acb82be6f9d3a34b9191a894557e9625c">thumbnailSpecification</a> (self, specification, context, options, hostSession)</td></tr>
 <tr class="memdesc:acb82be6f9d3a34b9191a894557e9625c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be called prior to registration of an asset to determine if the asset system would like a thumbnail preparing.  <a href="#acb82be6f9d3a34b9191a894557e9625c">More...</a><br /></td></tr>
 <tr class="separator:acb82be6f9d3a34b9191a894557e9625c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3494de1360f07fab4e190e19cf42844"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa3494de1360f07fab4e190e19cf42844">preflight</a> (self, targetEntityRef, entitySpec, context, hostSession)</td></tr>
-<tr class="memdesc:aa3494de1360f07fab4e190e19cf42844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for some work to be done to create data for the referenced entity.  <a href="#aa3494de1360f07fab4e190e19cf42844">More...</a><br /></td></tr>
-<tr class="separator:aa3494de1360f07fab4e190e19cf42844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65522524ae6f9ba135f8e4f2719d3b92"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a65522524ae6f9ba135f8e4f2719d3b92">preflightMultiple</a> (self, targetEntityRefs, entitySpecs, context, hostSession)</td></tr>
-<tr class="memdesc:a65522524ae6f9ba135f8e4f2719d3b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">A batch version of <a class="el" href="glossary.html#preflight">preflight</a>, where most arguments are replaced by arrays of equal length.  <a href="#a65522524ae6f9ba135f8e4f2719d3b92">More...</a><br /></td></tr>
-<tr class="separator:a65522524ae6f9ba135f8e4f2719d3b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ab3f28b92af9b5c4ba91d18b9c3568a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5ab3f28b92af9b5c4ba91d18b9c3568a">register</a> (self, stringData, targetEntityRef, entitySpec, context, hostSession)</td></tr>
-<tr class="memdesc:a5ab3f28b92af9b5c4ba91d18b9c3568a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish an entity to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a5ab3f28b92af9b5c4ba91d18b9c3568a">More...</a><br /></td></tr>
-<tr class="separator:a5ab3f28b92af9b5c4ba91d18b9c3568a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca9d6763e5360141e523bd80a59468b1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aca9d6763e5360141e523bd80a59468b1">registerMultiple</a> (self, strings, targetEntityRefs, entitySpecs, context, hostSession)</td></tr>
-<tr class="memdesc:aca9d6763e5360141e523bd80a59468b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A batch version of <a class="el" href="glossary.html#register">register</a>, where most arguments are replaced by arrays of equal length.  <a href="#aca9d6763e5360141e523bd80a59468b1">More...</a><br /></td></tr>
-<tr class="separator:aca9d6763e5360141e523bd80a59468b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3989036d52c978a4db5ab96b22f2c130"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a3989036d52c978a4db5ab96b22f2c130">preflight</a> (self, targetEntityRefs, entitySpecs, context, hostSession)</td></tr>
+<tr class="memdesc:a3989036d52c978a4db5ab96b22f2c130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for some work to be done to create data for the referenced entity.  <a href="#a3989036d52c978a4db5ab96b22f2c130">More...</a><br /></td></tr>
+<tr class="separator:a3989036d52c978a4db5ab96b22f2c130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707562acf3c83a743d45eb451bddf0c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9">register</a> (self, primaryStrings, targetEntityRefs, entitySpecs, context, hostSession)</td></tr>
+<tr class="memdesc:a707562acf3c83a743d45eb451bddf0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish entities to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a707562acf3c83a743d45eb451bddf0c9">More...</a><br /></td></tr>
+<tr class="separator:a707562acf3c83a743d45eb451bddf0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Manager State</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>A single 'task' in a host, may require more than one interaction with the asset management system.</p>
 <p>Because the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
@@ -310,6 +301,9 @@ Public Member Functions</h2></td></tr>
 <li>The currency of the API is either data, or an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. objects should not be used to represent an <a class="el" href="glossary.html#entity">entity</a> or its properties.</li>
 </ul>
 <ul>
+<li>The manager plugin is expected to be batch-first. That is, where relevant, methods expect lists as their primary input parameters, and return a list as the result. This means a host can batch together multiple items and execute the same command on every item in the list in a single call, saving on potentially expensive round-trips and allowing the manager to use other back-end optimisations.</li>
+</ul>
+<ul>
 <li>The interface is stateless as far as the host-facing API is concerned. The result of any method should solely depend on its inputs. This class could be static. In practice though, in a real-world session with a host, there are benefits to having an 'instance' with a managed lifetime. This can be used to facilitate caching etc.</li>
 </ul>
 <ul>
@@ -324,7 +318,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426" title="Logs a message to the user. ">openassetio.managerAPI.HostSession.HostSession.log</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b" title="Logs the supplied progress. ">openassetio.managerAPI.HostSession.HostSession.progress</a></dd></dl>
-<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html" title="The OAIOException class should be used for all exceptions raise by Managers and any API-related excep...">openassetio.exceptions.OAIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
+<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html" title="The OAIOException class should be used for all exceptions raise by Managers and any API-related excep...">exceptions.OAIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">openassetio.exceptions</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
@@ -344,7 +338,7 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc" title="Prepares for interaction with a host. ">initialize()</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
@@ -431,10 +425,10 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>object, Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls and to the transactional methods. Presently this can be any hashable object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls and to the transactional methods. Presently this can be any hashable object.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
   </table>
   </dd>
 </dl>
@@ -452,7 +446,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab1d9cde6684ef9bf41c8bfaefe4e295f"></a>
+<a class="anchor" id="a2907c7734edf11191a93fceefa48d92b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -466,7 +460,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>specification</em>, </td>
+          <td class="paramname"><em>specifications</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -488,10 +482,17 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for the given specification and <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>. </p>
+<p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given specifications and <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>. </p>
 <p>This is often used in a host to ensure dialogs, prompts or publish locations default to some sensible value, avoiding the need for a user to re-enter such information when a <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a> is being run in some known environment.</p>
 <p>For example, a host may request the default ref for 'ShotSpecification/kWriteMultiple'. If the Manager has some concept of the 'current sequence' it may wish to return this so that a 'Create Shots' starts somewhere meaningful.</p>
-<dl class="section return"><dt>Returns</dt><dd>str, A valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, or empty string. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">specifications</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> The relevant specifications for the type of entities a host is about to work with. These should be interpreted in conjunction with the context to determine the most sensible default.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The context the resulting reference will be used in. When determining a suitable reference to return, it is important to pay particular attention to the access pattern. It differentiates between a reference that will be used for reading or writing, and critically single or multiple entities.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or empty string for each given specification. </dd></dl>
 
 </div>
 </div>
@@ -513,7 +514,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>One instance of its use may be in a host's preferences UI or logging. For example: </p><pre class="fragment">"OpenAssetIO Test Asset Manager"</pre> 
 </div>
 </div>
-<a class="anchor" id="a02049cd032b10b1ac3494ca43405f429"></a>
+<a class="anchor" id="abf0a35b634c24ef90a37b7caff3b9398"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -527,7 +528,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -549,24 +550,26 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns an unambiguous, humanised display name for the entity. </p>
+<p>Returns an unambiguous, humanised display name for each entity. </p>
 <p>The display name may want to consider the host, and any other relevant <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> information to form a display name for an entity that can uniquely identify the entity in that context.</p>
 <p>For example:</p>
 <ul>
 <li><code>"dive / build / cuttlefish / model / v1"</code> - for a version of an asset in an 'open recent' menu. </li>
 <li><code>"Sequence 003 [ Dive / Episode 1 ]"</code> - for a sequence in an hierarchy as a window title.</li>
 </ul>
-<dl class="section return"><dt>Returns</dt><dd>str, A string containing any valid characters for the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">openassetio.exceptions.InvalidEntityReference</a></td><td>If any supplied reference is not recognised by the asset management system. </td></tr>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> For each given entity, either a string containing any valid characters for the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation; or an <code>InvalidEntityReference</code> if the supplied reference is not recognised by the asset management system. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="af1847fc911b445cf078e39ee59f01e6c"></a>
+<a class="anchor" id="a21510517947f62a366e873af29218229"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -580,7 +583,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -602,15 +605,23 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Called to determine if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that does exist in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that it can be resolved into a meaningful string or otherwise queried. </p>
+<p>Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried. </p>
 <p>By 'exist' we mean 'is ready to be read'. For example, entityExists may be called before attempting to read from a reference that is believed to point to an image sequence, so that alternatives can be found.</p>
-<p>In the future, this may need to be extended to cover a more complex definition of 'existence' (for example, known to the system, but not yet finalized). For now however, it should be assumed to simply mean, 'ready to be consumed', and if only a placeholder or un-finalized asset is available, False should be returned.</p>
+<p>In the future, this may need to be extended to cover a more complex definition of 'existence' (for example, known to the system, but not yet finalized). For now however, it should be assumed to simply mean, 'ready to be consumed', and if only a placeholder or un-finalized asset is available, <code>False</code> should be returned.</p>
 <p>The supplied context's locale may contain information pertinent to disambiguating this subtle definition of 'exists' in some cases too, as it better explains the use-case of the call.</p>
-<dl class="section return"><dt>Returns</dt><dd>bool, True if it points to an existing entity, False if the entity is not known or ready yet. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the corresponding element in entityRefs points to an existing entity, <code>False</code> if the entity is not known or ready yet. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a0e49830816c977597d5485841dfd95c5"></a>
+<a class="anchor" id="aa56b821c07983c243b5455859c3d3fa8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -624,7 +635,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -646,17 +657,25 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the name of the entity itself, not including any hierarchy or classification. </p>
+<p>Returns the name of each entity itself, not including any hierarchy or classification. </p>
 <p>For example:</p>
 <ul>
 <li><code>"Cuttlefish v1"</code> - for a version of an asset </li>
 <li><code>"seq003"</code> - for a sequence in a hierarchy</li>
 </ul>
-<dl class="section return"><dt>Returns</dt><dd>str, A string containing any valid characters for the manager's implementation. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> Strings containing any valid characters for the manager's implementation. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a5d1310af32fa2415060115d8aba799ef"></a>
+<a class="anchor" id="aaa70f95a3a89276264f692109283ddec"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -670,7 +689,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -692,16 +711,24 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the name of the version pointed to by the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>str, A string representing the version or an empty string if the entity was not versioned.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>It is not necessarily a requirement that the entity exists, if, for example, the version name can be determined from the reference itself (in systems that implement a human-readable url, for example)</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ac36e7e76c42a16ad877fedc9701fbf00" title="Retrieves all available versions of the supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd>
+<p>Retrieves the name of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> A string for each entity representing its version, or an empty string if the entity was not versioned.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is not necessarily a requirement that the entity exists, if, for example, the version name can be determined from the reference itself (in systems that implement a human-readable URL, for example)</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5" title="Retrieves all available versions of each supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaaf8627a8f477663af9cf34536f778bd" title="Retrieves an Entity Reference that points to the concrete version of a Meta-version or otherwise unst...">finalizedEntityVersion()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ac36e7e76c42a16ad877fedc9701fbf00"></a>
+<a class="anchor" id="a630c9ee5a964b96c25b7bb1ba2c1a9e5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -715,7 +742,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -739,7 +766,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>maxResults</em> = <code>-1</code>&#160;</td>
+          <td class="paramname"><em>maxNumVersions</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -749,22 +776,25 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves all available versions of the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version). </p>
+<p>Retrieves all available versions of each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">includeMetaVersions</td><td>bool, if true, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions need to be returned.</td></tr>
-    <tr><td class="paramname">maxResults</td><td>int, Limits the number of results collected, if more results are available than the limit, then the newest versions should be returned. If a value of -1 is used, then all results should be returned.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">includeMetaVersions</td><td><code>bool</code> If <code>True</code>, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions need to be returned.</td></tr>
+    <tr><td class="paramname">maxNumVersions</td><td><code>int</code> Limits the number of versions collected for each entity. If more results are available than the limit, then the newest versions should be returned. If a value of -1 is used, then all results should be returned.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Dict[str,str], Where the keys are string versions, and the values are an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to that versions entity. Additionally the <a class="el" href="namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3">openassetio.constants.kVersionDict_OrderKey</a> can be set to a list of the version names (ie: dict keys) in their natural ascending order, that may be used by UI elements, etc...</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5d1310af32fa2415060115d8aba799ef" title="Retrieves the name of the version pointed to by the supplied Entity Reference. ">entityVersionName()</a> </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, str]]</code> A dictionary for each entity, where the keys are string versions, and the values are an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to its entity. Additionally the <a class="el" href="namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3">openassetio.constants.kVersionDict_OrderKey</a> can be set to a list of the version names (ie: dict keys) in their natural ascending order, that may be used by UI elements, etc.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec" title="Retrieves the name of the version pointed to by each supplied Entity Reference. ">entityVersionName()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaaf8627a8f477663af9cf34536f778bd" title="Retrieves an Entity Reference that points to the concrete version of a Meta-version or otherwise unst...">finalizedEntityVersion()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aaaf8627a8f477663af9cf34536f778bd"></a>
+<a class="anchor" id="a23498c21ff0f25f453c2af2a6b101938"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -778,7 +808,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -806,26 +836,19 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the concrete version of a <a class="el" href="glossary.html#meta_version">Meta-version</a> or otherwise unstable <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>If the supplied entity reference is not versioned, or already has a concrete version, the input reference should be passed-through.</p>
-<p>If versioning is unsupported for the given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, then the input reference should be returned.</p>
+<p>Retrieves an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the concrete version for each given <a class="el" href="glossary.html#meta_version">Meta-version</a> or otherwise unstable <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>If a supplied entity reference is not versioned, or already has a concrete version, the input reference should be passed-through.</p>
+<p>If versioning is unsupported for a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, then the input reference should be returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">overrideVersionName</td><td>str If supplied, then the call should return the entity reference for the version of the referenced asset that matches the name specified here, ignoring any version inferred by the input reference.</td></tr>
+    <tr><td class="paramname">overrideVersionName</td><td><code>str</code> If supplied, then the call should return entity references for the version of the referenced assets that match the name specified here, ignoring any version inferred by the input reference.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>str</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">openassetio.exceptions.EntityResolutionError</a></td><td>should be thrown if the entityReference is ambiguously versioned (for example if the version is missing from a reference to a versioned entity, and that behavior is undefined in the system managers model. It may be that it makes sense in the specific asset manager to fall back on 'latest' in this case...)</td></tr>
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">openassetio.exceptions.EntityResolutionError</a></td><td>if the supplied overrideVersionName does not exist for that entity.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5d1310af32fa2415060115d8aba799ef" title="Retrieves the name of the version pointed to by the supplied Entity Reference. ">entityVersionName()</a> </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a> <code>]]</code> A list where each element is either the concretely versioned reference, or <code>EntityResolutionError</code>. An <code>EntityResolutionError</code> should be returned if the entity reference is ambiguously versioned or if the supplied <code>overrideVersionName</code> does not exist for that entity. For example, if the version is missing from a reference to a versioned entity, and that behavior is undefined in the manager's model, then an <code>EntityResolutionError</code> should be returned. It may be that it makes sense in the specific asset manager to fall back on 'latest' in this case.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec" title="Retrieves the name of the version pointed to by each supplied Entity Reference. ">entityVersionName()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ac36e7e76c42a16ad877fedc9701fbf00" title="Retrieves all available versions of the supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5" title="Retrieves all available versions of each supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd></dl>
 
 </div>
 </div>
@@ -863,10 +886,10 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>For more on the transactional model in this API, and how these functions will be called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
 <p>This will never be called with the same state from multiple threads, but may be called with different state objects.</p>
 <p>This method <b>must</b> only use or store any persistent state from the supplied state object to ensure the API is stateless.</p>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a></td><td>If for some reason the action fails, or finish is called before start.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails, or finish is called before start.</td></tr>
   </table>
   </dd>
 </dl>
@@ -940,15 +963,15 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process. </p>
-<p>After calling this, the state should be considered frozen, and any further cancel/finish calls should throw a <a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html">openassetio.exceptions.StateError</a> if made without first thawing the stack.</p>
-<dl class="section return"><dt>Returns</dt><dd>A string that can be used to restore the stack.</dd></dl>
+<p>After calling this, the state should be considered frozen, and any further cancel/finish calls should throw a <a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html">exceptions.StateError</a> if made without first thawing the stack.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707" title="Restores the supplied state object to a previously frozen state. ">thawState()</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a8050370bfe31f65ab7a078ab99d93cbf"></a>
+<a class="anchor" id="ab84fcd5a71605432b42a320c72ec3d41"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -962,7 +985,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -984,14 +1007,22 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for an entity. </p>
+<p>Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for each given entity. </p>
 <p>It may be required to bridge between certain 'first-class' properties of your asset management system and the well-known keys in the metadata dictionary. For example, if the asset system represents a 'Shot' with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the <a class="el" href="namespaceopenassetio_1_1constants.html#a325f0f50330dda8d62c7b98a165115b9">openassetio.constants.kField_FrameIn</a> and Out metadata keys as appropriate.</p>
-<dl class="section warning"><dt>Warning</dt><dd>See <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e8698bfea926e8623c6f4282f01f06a">setEntityMetadata</a> for important notes on metadata and its role in the system.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>Dict[str,primitive], with the entity's metadata. Values must be singular plain-old-data types (ie. string, int, float, bool), keys must be strings. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>See <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata</a> for important notes on metadata and its role in the system.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, primitive]]</code> Metadata for each entity. Values must be singular plain-old-data types (ie. string, int, float, bool), keys must be strings. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="afe082d08a13a42e8f82d7c7a1bf8d9aa"></a>
+<a class="anchor" id="ac58fa8b9b98cc5dc92cca2596d1e0f9e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1005,7 +1036,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1039,23 +1070,20 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the value for the specified metadata key. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a8050370bfe31f65ab7a078ab99d93cbf" title="Retrieve Metadata for an entity. ">getEntityMetadata</a></dd></dl>
+<p>Retrieve the value of the given metadata key for each given entity. </p>
+<p>The default implementation retrieves all metadata for each entity and extracts the requested key.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ab84fcd5a71605432b42a320c72ec3d41" title="Retrieve Metadata for each given entity. ">getEntityMetadata</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>str, The key to look up </td></tr>
-    <tr><td class="paramname">defaultValue</td><td>primitive, If not None, this value will be returned in the case of the specified key not being set for the entity.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">key</td><td><code>str</code> The key to look up</td></tr>
+    <tr><td class="paramname">defaultValue</td><td><code>primitive</code> If not None, this value should be returned in the case of the specified key not being set for an entity.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>primitive, The value for the specific key.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">KeyError</td><td>If no defaultValue is supplied, and the entity has no metadata for the specified key.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>The default implementation retrieves all metadata for an entity and extracts the requested key. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>Union[primitive, KeyError]</code> The value for the specific key, or <code>KeyError</code> if not found and no defaultValue is supplied. </dd></dl>
 
 </div>
 </div>
@@ -1173,7 +1201,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1194,7 +1222,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <p>Returns an identifier to uniquely identify a specific asset manager. </p>
 <p>This may be used by a host to persist the users preferred manager via a preferences mechanism, or when spawning child processes, etc...</p>
 <p>It should match the name used to register the plug-in with the plug-in host. The identifier should use only alpha-numeric characters and '.', '_' or '-'. Generally speaking, we recommend using the 'reverse-DNS' convention, for example: </p><pre class="fragment">"org.openassetio.manager.test"
-</pre><dl class="section return"><dt>Returns</dt><dd>str </dd></dl>
+</pre><dl class="section return"><dt>Returns</dt><dd><code>str</code> </dd></dl>
 
 </div>
 </div>
@@ -1219,7 +1247,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain one of two additional fields - a prefix, or perl regex compatible string to identify a valid entity reference. Only one should be set at once. If supplied, this may be used by the API to optimize calls to isEntityReference when bridging between C/Python etc... can be slow. If neither of these fields are set, then isEntityReference will always be used to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all hosts support this optimisation, so <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a684280636081853d4f5c31f11270fc48">isEntityReference</a> should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain one of two additional fields - a prefix, or perl regex compatible string to identify a valid entity reference. Only one should be set at once. If supplied, this may be used by the API to optimize calls to isEntityReference when bridging between C/Python etc... can be slow. If neither of these fields are set, then isEntityReference will always be used to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all hosts support this optimisation, so <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> should be implemented regardless.</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="These fields may be used by the API/Host to optimize queries to isEntityReference in situations where...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#aed031d06104755047d96020c8d834efa">openassetio.constants.kField_EntityReferencesMatchRegex</a></li>
@@ -1266,11 +1294,11 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a684280636081853d4f5c31f11270fc48"></a>
+<a class="anchor" id="af105eb1db7d52f126848417428742120"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1284,7 +1312,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>token</em>, </td>
+          <td class="paramname"><em>tokens</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1306,27 +1334,28 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Determines if a supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system. </p>
+<p>Determines if each supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system. </p>
 <p>It does not need to verify that it points to a valid entity in the system, simply that the pattern of the token is recognised by this implementation.</p>
-<p>If this returns True, the token is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered usable with the other methods of this interface.</p>
-<p>If false, this manager should no longer be involved in actions relating to the token.</p>
+<p>If this returns <code>True</code>, the token is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered usable with the other methods of this interface.</p>
+<p>If <code>False</code>, this manager should no longer be involved in actions relating to the token.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The result of this call should not depend on the context Locale.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">token</td><td>The string to be inspected.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a>, The calling context.</td></tr>
+    <tr><td class="paramname">tokens</td><td><code>List[str]</code> The strings to be inspected.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool, True if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, False if the pattern is not recognised.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This call should not verify the entity exits, just that the format of the string is recognised.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af1847fc911b445cf078e39ee59f01e6c" title="Called to determine if the supplied Entity Reference points to an entity that does exist in the Asset...">entityExists()</a> </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This call should not verify an entity exits, just that the format of the string is recognised.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229" title="Called to determine if each Entity Reference supplied points to an entity that exists in the Asset Ma...">entityExists()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add" title="Returns the &#39;finalized&#39; string represented by the Entity Reference. ">resolveEntityReference()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a48eda229d48397b96f53feae1fc65f9f"></a>
+<a class="anchor" id="a655c21345f3f7cc584991bb6ddca73df"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1340,7 +1369,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>specification</em>, </td>
+          <td class="paramname"><em>specifications</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1368,20 +1397,22 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Determines if the asset manager is interested in participating in interactions with the specified specification of <a class="el" href="glossary.html#entity">entity</a>. </p>
+<p>Determines if the asset manager is interested in participating in interactions with the specified specifications of <a class="el" href="glossary.html#entity">entity</a>. </p>
 <p>For example, a host may call this in order to see if the manager would like to manage the path of a scene file whilst choosing a destination to save to.</p>
-<p>This information is then used to determine which options should be presented to the user. For example, if kIgnored was returned for a query as to the management of scene files, a <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a> will hide or disable menu items that relate to publish or loading of assetised scene files.</p>
+<p>This information is then used to determine which options should be presented to the user. For example, if <code>kIgnored</code> was returned for a query as to the management of scene files, a <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a> will hide or disable menu items that relate to publish or loading of assetized scene files.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="classopenassetio_1_1_context_1_1_context.html#a6bd9cab4f3703fc4c54ffff337306931">access</a> specified in the supplied context should be carefully considered. A host will independently query the policy for both read and write access to determine if resolution and publishing features are applicable to this implementation.</dd></dl>
 <p>Calls with an accompanying <a class="el" href="glossary.html#entity_reference">Entity Reference</a> may be used to prevent users from attempting to perform an asset-action that is not supported by the asset management system.</p>
 <dl class="section note"><dt>Note</dt><dd>One very important attribute returned as part of this policy is the <a class="el" href="namespaceopenassetio_1_1constants.html#aee1f51159c5e4ddb759d0ba4566bf638">openassetio.constants.kWillManagePath</a> bit. If set, this instructs the host that the asset management system will manage the path use for the creation of any new assets. When set, <a class="el" href="glossary.html#preflight">preflight</a> will be called before any file creation to allow the asset management system to determine and prepare the work path. If this bit if off, then only <a class="el" href="glossary.html#register">register</a> will ever be called, and the user will be tasked with determining where new files should be located. In many cases, this greatly reduces the sophistication of the integration as registering the asset becomes a partially manual task, rather than one that can be fully automated for new assets.</dd></dl>
-<p>Additionally, the <a class="el" href="namespaceopenassetio_1_1constants.html#a6527a942a40d4bc7c01701a2a9556c63">openassetio.constants.kSupportsBatchOperations</a> bit is important if you want hosts to call the *Multiple variants of the <a class="el" href="glossary.html#preflight">preflight</a> and <a class="el" href="glossary.html#register">register</a> methods.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRef</td><td>str, If supplied, then the call should be interpreted as a query as to the applicability of the given specification if registered to the supplied entity. For example, attempts to register an ImageSpecification to an entity reference that refers to the top level project may be meaningless, so in this case kIgnored should be returned.</td></tr>
+    <tr><td class="paramname">specifications</td><td><code>List[<a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a>]</code> Specifications to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">entityRef</td><td><code>str</code> If supplied, then the call should be interpreted as a query as to the applicability of the given specifications if registered to the supplied entity. For example, attempts to register an ImageSpecification to an entity reference that refers to the top level project may be meaningless, so in this case <code>kIgnored</code> should be returned.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int, a bitfield, see <a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[int]</code> Bitfields, one for each element in <code>specifications</code>. See <a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a>. </dd></dl>
 
 </div>
 </div>
@@ -1427,15 +1458,15 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="section warning"><dt>Warning</dt><dd>Because the majority of the resolution API itself is designated thread safe, it is important to implement any pre-fetch mechanism with suitable locks/etc... if required.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a>, You may wish to make use of the managerInterfaceState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> You may wish to make use of the managerInterfaceState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>None</code> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aa3494de1360f07fab4e190e19cf42844"></a>
+<a class="anchor" id="a3989036d52c978a4db5ab96b22f2c130"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1449,13 +1480,13 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>targetEntityRef</em>, </td>
+          <td class="paramname"><em>targetEntityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entitySpec</em>, </td>
+          <td class="paramname"><em>entitySpecs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1479,81 +1510,23 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 <p>Prepares for some work to be done to create data for the referenced entity. </p>
 <p>The entity may not yet exist (<a class="el" href="glossary.html#entity_reference">Entity Reference</a>). This call is designed to allow sanity checking, placeholder creation or any other sundry preparatory actions to be carried out.</p>
-<p>Generally, this will be called before <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5ab3f28b92af9b5c4ba91d18b9c3568a" title="Publish an entity to the Asset Management System. ">register()</a> in any host that creates media, where the return to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a48eda229d48397b96f53feae1fc65f9f">managementPolicy</a> has the <a class="el" href="namespaceopenassetio_1_1constants.html#aee1f51159c5e4ddb759d0ba4566bf638">openassetio.constants.kWillManagePath</a> bit set.</p>
+<p>Generally, this will be called before <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9" title="Publish entities to the Asset Management System. ">register()</a> in any host that creates media, where the return to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a> has the <a class="el" href="namespaceopenassetio_1_1constants.html#aee1f51159c5e4ddb759d0ba4566bf638" title="If False, the manager is not capable of determining the URL for a new entity&#39;s data, and will only keep track of existing data. ">constants.kWillManagePath</a> bit set.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetEntityRef</td><td>str, a <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
+    <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each entity that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
+    <tr><td class="paramname">entitySpecs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> A description of each entity that is being published.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">exceptions.PreflightError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The preflight result for each corresponding entity. If successful, this should be an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that the host should resolve to determine the path to write media to. This may or may not be the same as the input reference. A host will resolve this reference to get the working URL before writing any files or other data. If preflight was unsuccessful, the result for an entity should be either a <code>PreflightError</code> if some fatal exception happens during preflight, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">Context.retention</a>, as not all hosts will support the reference changing at this point.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>str, An <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, that the host should resolve to determine the path to write media too. This may or may not be the same as the input reference. A host will resolve this reference to get the working URL before writing any files or other data.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">openassetio.exceptions.PreflightError</a></td><td>if some fatal exception happens during preflight, indicating the process should be aborted.</td></tr>
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">openassetio.exceptions.RetryableError</a></td><td>If any non-fatal error occurs that means the host should re-try from the beginning of any given process.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5ab3f28b92af9b5c4ba91d18b9c3568a" title="Publish an entity to the Asset Management System. ">register()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9" title="Publish entities to the Asset Management System. ">register()</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a65522524ae6f9ba135f8e4f2719d3b92"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def preflightMultiple </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>targetEntityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entitySpecs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A batch version of <a class="el" href="glossary.html#preflight">preflight</a>, where most arguments are replaced by arrays of equal length. </p>
-<p>Exception behavior, etc... is the same as per preflight, and should be thrown mid way though preflight if necessary.</p>
-<p>This will be used in preference to calling preflight many times in succession to allow the implementation to optimise communication with the back end asset management system.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>, is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
-  </table>
-  </dd>
-</dl>
-<pre class="fragment">     @return List[str], A list of working entity references.</pre> 
-</div>
-</div>
-<a class="anchor" id="a5ab3f28b92af9b5c4ba91d18b9c3568a"></a>
+<a class="anchor" id="a707562acf3c83a743d45eb451bddf0c9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1567,81 +1540,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>stringData</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>targetEntityRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entitySpec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Publish an entity to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
-<p>This instructs the implementation to ensure a valid entity exists for the given reference and spec. This will be called either in isolation or after calling preflight, depending on the nature of the data being published and the kWillManagePath bit of the returned <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a48eda229d48397b96f53feae1fc65f9f">managementPolicy</a>.</p>
-<p>This is an opportunity to do other things in the host as part of publishing if required. The context's locale will tell you more about the specifics of the calling application. Depending on the implementation of your plugin, you can use this opportunity to make use of the host-native SDK to extract additional information or schedule additional processes to produce derivative data.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stringData</td><td>str, The string that the entity should resolve to if passed to a call to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add" title="Returns the &#39;finalized&#39; string represented by the Entity Reference. ">resolveEntityReference()</a>. This may be left blank, if there is no meaningful string representation of that entity (eg: a 'sequence' in a hierarchy). This must be stored by the manager and a logically equivalent value returned by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add">resolveEntityReference</a> for the same reference. The meaning of 'logical' here, is that in the case of an URL, that it points to the same data. The manager is free to relocate data as required. If stringData is not an URL, then it should be returned verbatim.</td></tr>
-    <tr><td class="paramname">targetReference</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to publish to. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
-    <tr><td class="paramname">entitySpec</td><td><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">openassetio.specifications.EntitySpecification</a> A description of the Entity (or 'asset') that is being published. It is <em>not</em> required for the implementation to store any information contained in the specification, though it may choose to use it if it is meaningful. The host will separately call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e8698bfea926e8623c6f4282f01f06a" title="Sets an entities metadata. ">setEntityMetadata()</a> if it wishes to persist any other information in the entity.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>str, An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action. It does not need to be the same as targetReference.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">openassetio.Context.Context.retention</a>, as not all Hosts will support the reference changing at this point.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">openassetio.exceptions.RegistrationError</a></td><td>if some fatal exception happens during publishing, indicating the process should be aborted.</td></tr>
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">openassetio.exceptions.RetryableError</a></td><td>If any non-fatal error occurs that means the host should re-try from the beginning of any given process.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa3494de1360f07fab4e190e19cf42844" title="Prepares for some work to be done to create data for the referenced entity. ">preflight()</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add" title="Returns the &#39;finalized&#39; string represented by the Entity Reference. ">resolveEntityReference()</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aca9d6763e5360141e523bd80a59468b1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def registerMultiple </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>strings</em>, </td>
+          <td class="paramname"><em>primaryStrings</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1675,19 +1574,28 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>A batch version of <a class="el" href="glossary.html#register">register</a>, where most arguments are replaced by arrays of equal length. </p>
-<p>Exception behavior, etc... is the same as per register, and should be thrown mid way though registration if necessary.</p>
-<p>This will be used in preference to calling register many times in succession to allow the implementation to optimise communication with the back end asset management system.</p>
+<p>Publish entities to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
+<p>This instructs the implementation to ensure a valid entity exists for each given reference and spec. This will be called either in isolation or after calling preflight, depending on the nature of the data being published and the <code>kWillManagePath</code> bit of the returned <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a>.</p>
+<p>This is an opportunity to do other things in the host as part of publishing if required. The context's locale will tell you more about the specifics of the calling application. Depending on the implementation of your plugin, you can use this opportunity to make use of the host-native SDK to extract additional information or schedule additional processes to produce derivative data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>, is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
+    <tr><td class="paramname">primaryStrings</td><td><code>List[str]</code> The <a class="el" href="glossary.html#primary_string">Primary String</a> that each entity should resolve to if passed to a call to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a>. This may be left blank if there is no meaningful string representation of that entity (eg: a 'sequence' in a hierarchy). This must be stored by the manager and a logically equivalent value returned by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84">resolveEntityReference</a> for the same reference. The meaning of 'logical' here, in the case of a URL, is that it points to the same data. The manager is free to relocate data as required. If a primary string is not a URL, then it should be returned verbatim.</td></tr>
+    <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of each entity to publish. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
+    <tr><td class="paramname">entitySpecs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> A description of each entity (or 'asset') that is being published. It is <em>not</em> required for the implementation to store any information contained in the specification, though it may choose to use it if it is meaningful. The host will separately call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036" title="Sets metadata on each given entity. ">setEntityMetadata()</a> if it wishes to persist any other information in an entity.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
-<pre class="fragment">     @return List[str], A list of finalized entity references.</pre> 
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">exceptions.RegistrationError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The publish result for each corresponding entity. This is either an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action (which does not need to be the same as the corresponding entry in <code>targetEntityRefs</code>); a <code>RegistrationError</code> if some fatal exception happens during publishing, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">openassetio.Context.Context.retention</a>, as not all Hosts will support the reference changing at this point.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a3989036d52c978a4db5ab96b22f2c130" title="Prepares for some work to be done to create data for the referenced entity. ">preflight()</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a> </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="ae8053ee7d9ededf253e907e702876add"></a>
+<a class="anchor" id="a5e57a188f9b01b2def2cf8e353cd7c84"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1701,7 +1609,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1723,72 +1631,28 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Returns the 'finalized' string represented by the <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>If the string points to some data, then it should always be in the form of a valid URL. File paths should be returned as a <code>file</code> scheme URL.</p>
-<p>When the <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame token should be preserved, and in the sprintf compatible syntax.</p>
+<p>Returns the <a class="el" href="glossary.html#primary_string">Primary String</a> represented by each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>If a primary string points to some data, then it should always be in the form of a valid URL. File paths should be returned as a <code>file</code> scheme URL.</p>
+<p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
 <p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The caller will have first called <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a684280636081853d4f5c31f11270fc48" title="Determines if a supplied token (in its entirety) matches the pattern of a valid Entity Reference in y...">isEntityReference()</a> on the supplied string.</p>
-<dl class="section note"><dt>Note</dt><dd>You may need to call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaaf8627a8f477663af9cf34536f778bd" title="Retrieves an Entity Reference that points to the concrete version of a Meta-version or otherwise unst...">finalizedEntityVersion()</a> within this function to ensure any <a class="el" href="glossary.html#meta_version">meta-versions</a> are resolved prior to resolution.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>str, The string that that is represented by the reference.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">openassetio.exceptions.EntityResolutionError</a></td><td>If the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> does not have a meaningful string representation, or it is a valid reference format, that doesn't exist. </td></tr>
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">openassetio.exceptions.InvalidEntityReference</a></td><td>if the supplied entity_reference should not be resolved for that context, for example, if the context access is kWrite and the entity is an existing version - raising will ensure that a <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a> will not attempt to write to that location.</td></tr>
+<p>The caller will have first called <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120" title="Determines if each supplied token (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReference()</a> on the supplied strings.</p>
+<dl class="section note"><dt>Note</dt><dd>You may need to call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> within this function to ensure any <a class="el" href="glossary.html#meta_version">meta-versions</a> are resolved prior to resolution.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af1847fc911b445cf078e39ee59f01e6c" title="Called to determine if the supplied Entity Reference points to an entity that does exist in the Asset...">entityExists()</a> </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either the primary string for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229" title="Called to determine if each Entity Reference supplied points to an entity that exists in the Asset Ma...">entityExists()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a684280636081853d4f5c31f11270fc48" title="Determines if a supplied token (in its entirety) matches the pattern of a valid Entity Reference in y...">isEntityReference()</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a9dabfbedbbb8d535f3b33e32bd9361ee" title="Batch-resolves a list of entity references, following the same pattern as resolveEntityReference. ">resolveEntityReferences()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120" title="Determines if each supplied token (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReference()</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a9dabfbedbbb8d535f3b33e32bd9361ee"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def resolveEntityReferences </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>references</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Batch-resolves a list of <a class="el" href="glossary.html#entity_reference">entity references</a>, following the same pattern as <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ae8053ee7d9ededf253e907e702876add">resolveEntityReference</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>List[str], A list of strings, corresponding to the source reference with the same index.</dd></dl>
-<p>This will be called by hosts when they wish to batch-resolve many references with an eye to performance, or server hits, and so should be re-implemented to minimize the number of queries over a standard 'for' loop.</p>
-<p>The base class implementation simply calls resolveEntityReference repeatedly for each supplied reference. </p>
-
-</div>
-</div>
-<a class="anchor" id="a5e8698bfea926e8623c6f4282f01f06a"></a>
+<a class="anchor" id="a78f4ca198ac5ef3e15259feb53710036"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1802,7 +1666,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1836,15 +1700,18 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Sets an entities metadata. </p>
+<p>Sets metadata on each given entity. </p>
+<dl class="section note"><dt>Note</dt><dd>It is a vital that the implementation faithfully stores and recalls metadata. It is the underlying mechanism by which hosts may round-trip non file-based entities within this API. Specific key names and value types should be maintained, even if they are re-mapped to an internal name for persistence.</dd></dl>
+<p>If any value is 'None' it should be assumed that that key should be un-set on the object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">merge,bool</td><td>If true, then the entity's existing metadata will be merged with the new data (the new data taking precedence). If false, its metadata will entirely replaced by the new data.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td>List[str] Entity references to update.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">merge</td><td>bool If true, then each entity's existing metadata will be merged with the new data (the new data taking precedence). If false, its metadata will entirely replaced by the new data.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>It is a vital that the implementation faithfully stores and recalls metadata. It is the underlying mechanism by which hosts may round-trip non file-based entities within this API. Specific key names and value types should be maintained, even if they are re-mapped to an internal name for persistence.</dd></dl>
-<p>If any value is 'None' it should be assumed that that key should be un-set on the object.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">ValueError</td><td>if any of the metadata values are of an un-storable type. Presently it is only required to store str, float, int, bool </td></tr>
@@ -1854,7 +1721,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 </div>
 </div>
-<a class="anchor" id="a02575a1c5b6daba9fd99d7a3f7951008"></a>
+<a class="anchor" id="a25ef0fd67b1d39e4ba366a15d336e020"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1868,7 +1735,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1970,7 +1837,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a58d0d3cf925eeecd93c316903e99d95c">getRelatedReferences()</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5ab3f28b92af9b5c4ba91d18b9c3568a">register()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9">register()</a> </dd></dl>
 
 </div>
 </div>
@@ -2003,7 +1870,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -2042,10 +1909,10 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <p>For more on the transactional model in this API, and how these functions are called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
 <p>This will never be called with the same state from multiple threads, but may be called with different state objects.</p>
 <p>This method <b>must</b> store any persistent state in the supplied state object to ensure the API is stateless. It should not store any state relating to the transaction within the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> instance itself.</p>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a></td><td>If for some reason the action fails.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails.</td></tr>
   </table>
   </dd>
 </dl>
@@ -2090,10 +1957,10 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </div><div class="memdoc">
 
 <p>Restores the supplied state object to a previously frozen state. </p>
-<dl class="section return"><dt>Returns</dt><dd>object A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">openassetio.exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2156,7 +2023,8 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <li>kField_PixelHeight ('height') : The pixel height of the thumbnail</li>
 </ul>
 <p>The keys may be set to the default set by the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a>. It will try to best match the requested specifications, but it should not be assumed that all requested properties are honoured.</p>
-<dl class="section return"><dt>Returns</dt><dd>bool, If True, a Thumbnail is desired by the manager, if False, the host should not waste time making one. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool, If True, a Thumbnail is desired by the manager, if False, the host should not waste time making one.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Remove this method in favour of using the <code>preflight</code>/<code>register</code> procedure as with any other entity. </dd></dl>
 
 </div>
 </div>
@@ -2193,7 +2061,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>This call gives the manager a chance to customize certain strings used in a host's UI/messages. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a> for known keys. The values in stringDict can be freely updated to match the terminology of the asset management system you are representing.</dd></dl>
 <p>For example, you may way a host's "Publish Clip" menu item to read "Release Clip", so you would set the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1terminology.html#adb9e44a678f1da2e5715737230ef4452">openassetio.hostAPI.terminology.kTerm_Publish</a> value to "Release".</p>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a> </dd>
 <dd>
 <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1terminology.html#a3ca0224c160b353a1d4eb93be8f98a34">openassetio.hostAPI.terminology.defaultTerminology</a> </dd></dl>

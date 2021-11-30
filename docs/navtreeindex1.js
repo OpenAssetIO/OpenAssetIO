@@ -1,11 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"entities_specifications_and_metadata.html":[1],
-"entities_specifications_and_metadata.html#Entities":[1,0],
-"entities_specifications_and_metadata.html#Metadata":[1,2],
-"entities_specifications_and_metadata.html#Specifications":[1,1],
-"entities_specifications_and_metadata.html#specification_hierarchy":[1,1,0],
-"entities_specifications_and_metadata.html#specification_mapping":[1,1,1],
 "entities_specifications_and_metadata.html#specification_selection":[1,1,2],
 "envvar.html":[9],
 "examples.html":[2],
@@ -61,8 +55,8 @@ var NAVTREEINDEX1 =
 "glossary.html#session":[5,20],
 "glossary.html#transaction":[5,22],
 "hierarchy.html":[11,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],
