@@ -24,7 +24,7 @@ default: container-build
 ## PHONY TARGETS
 ##
 
-.PHONY: clean clean-html clean-tooling clean-docker container-build deploy docker-image html tooling
+.PHONY: clean clean-html clean-tooling clean-docker container-build deploy docker-image html todo tooling
 
 #
 # Container build - Runs this Makefile via docker
@@ -99,6 +99,12 @@ clean-tooling:
 	rm -rf node_modules
 	rm -rf $(VENV)
 
+#
+# Docs TODO list
+# As annotated by @needsref, outputs a unique file -> ref table.
+#
+todo:
+	@grep -Eor "@needsref [a-zA-Z._-]+" ../ | sort | uniq | sed 's|..//||' | column -s ':' -t
 
 ##
 ## File targets

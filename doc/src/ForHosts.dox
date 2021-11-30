@@ -145,13 +145,13 @@
  * - Ensure the use of a correctly configured @ref Context for all
  *   calls to the API.
  *
- * - Allow the @ref ManagerUIDelegate to participate in browsing/etc...
+ * - Allow the @needsref ManagerUIDelegate to participate in browsing/etc...
  *   for any data types they have expressed an interest in managing via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy".
  *
  * - Make the drawing of any parameters that may hold an @ref
- *   entity_reference delegatable to the @ref ManagerUIDeleagate.
+ *   entity_reference delegatable to the @needsref ManagerUIDeleagate.
  *
  * - Derive @ref openassetio.specifications "Specifications" for any
  *   custom 'asset types' you may deal with.
@@ -159,8 +159,8 @@
  * - If you have a document model, implement the entity query methods
  *   in your @ref openassetio.hostAPI.HostInterface class.
  *
- * - You should map any widgets returned by @ref ManagerUIDelegate.widgets
- *   with the @ref ui.widgets.attributes.kCreateApplicationPanel flag set to
+ * - You should map any widgets returned by @needsref ManagerUIDelegate.widgets
+ *   with the @needsref ui.widgets.attributes.kCreateApplicationPanel flag set to
  *   some native panel type, if you have one.
  *
  * @note The UI classes have not yet been migrated from the
