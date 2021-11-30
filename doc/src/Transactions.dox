@@ -35,8 +35,8 @@
  *    manager.startTransaction(context)
  *    try:
  *        # Create the shot first, so we can then publish the clips to it
- *        shot_ref = manager.register(shot.name, shot.metadata,
- *                                    shot.spec, entity_ref, context)
+ *        shot_ref = manager.register([shot.name], [shot.metadata],
+ *                                    [shot.spec], [entity_ref], context)[0]
  *        # Register the clips to the shot's entity reference
  *        register_clips(shot.clips, shot_ref, context)
  *    except Exception as e:
@@ -82,8 +82,8 @@
  *    """
  *    with coordinator.scopedActionGroup(context):
  *        # Create the shot so we can publish
- *        shot_ref = manager.register(shot.name, shot.metadata,
- *                                    shot.spec, entity_ref, context)
+ *        shot_ref = manager.register([shot.name], [shot.metadata],
+ *                                    [shot.spec], [entity_ref], context)[0]
  *        # Register the clips to the shots entity reference
  *        register_clips(shot.clips, shot_ref, context)
  *

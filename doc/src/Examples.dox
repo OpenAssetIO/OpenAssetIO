@@ -125,7 +125,7 @@
  *
  * # We must **ALWAYS** validate that a string is an entity reference
  * # before passing it to any other manager API call.
- * if not manager.isEntityReference(some_string):
+ * if not manager.isEntityReference([some_string])[0]:
  *    raise ValueError(f'"{some_string}" isn't an entity reference.')
  *
  * # All calls to the manager must have a Context, these should always
@@ -144,7 +144,7 @@
  * context.retention = context.kTransient
  *
  * # We can now resolve a token we may have if it is a reference.
- * resolved_asset = manager.resolveEntityReference(some_string, context)
+ * resolved_asset = manager.resolveEntityReference([some_string], context)[0]
  * @endcode
  *
  * @section example_publishing_a_file Publishing a File
@@ -168,7 +168,7 @@
  * context.locale = APIDocumentationExampleLocale()
  *
  * # The first step is to see if the manager wants to manage text files
- * policy = manager.managementPolicy(file_spec, context)
+ * policy = manager.managementPolicy([file_spec], context)[0]
  *
  * if not policy & constants.kManaged:
  *   # The manager doesn't care about this type of asset
@@ -182,11 +182,11 @@
  * # Whenever we make new data, we always tell the manager first,
  * # This allows it to create a placeholder version or similar.
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight(entity_ref, file_spec, context)
+ * working_ref = manager.preflight([entity_ref], [file_spec], context)[0]
  *
  * # We then check if the manager can tell us where to save the file
  * if policy & constants.kWillManagePath:
- *     save_path = manager.resolveEntityReference(working_ref, context)
+ *     save_path = manager.resolveEntityReference([working_ref], context)[0]
  *
  * # Now we can write the file
  * with open(save_path, 'w') as f:
@@ -196,7 +196,7 @@
  * # is complete. Update the context retention to denote that we're going
  * # to save a reference to this entity in our user's history.
  * context.retention = context.kPermanent
- * final_ref = manager.register(save_path, working_ref, file_spec, context)
+ * final_ref = manager.register([save_path], [working_ref], [file_spec], context)[0]
  *
  * # We can persist this reference as we used the kPermanent retention
  * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
