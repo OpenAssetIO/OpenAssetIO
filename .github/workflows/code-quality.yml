@@ -1,0 +1,31 @@
+name: Code quality
+on: pull_request
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    name: Pylint
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pylint==2.12.1
+          python -m pip install -r tests/requirements.txt
+
+      - name: Build
+        run: |
+          python -m pip install .
+
+      - name: Lint
+        uses: TheFoundryVisionmongers/fn-pylint-action@v1
+        with:
+          pylint-disable: "C,I,R"  # Only errors and warnings, for now.
+          pylint-rcfile: "./pyproject.toml"
+          pylint-paths: "python/openassetio tests"
