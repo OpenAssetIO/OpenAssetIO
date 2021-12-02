@@ -239,6 +239,7 @@ Static Public Attributes</h2></td></tr>
 <p>Creates an instance of the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> with the specified identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">identifier</td><td>str, The identifier of the ManagerInterface to instantiate.</td></tr>
     <tr><td class="paramname">cache</td><td>bool, When True the created instance will be cached, and immediately returned by subsequence calls to this function with the same identifier - instead of creating a new instance. If False, a new instance will be created each, and never retained.</td></tr>
   </table>
   </dd>
@@ -280,7 +281,7 @@ Static Public Attributes</h2></td></tr>
 <p>Creates an instance of the ManagerUIDelegate for the specified identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">the</td><td>instance of a ManagerInterface to retrieve the UI delegate for.</td></tr>
+    <tr><td class="paramname">managerInterfaceInstance</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">openassetio.managerAPI.ManagerInterface</a>, the instance of a ManagerInterface to retrieve the UI delegate for.</td></tr>
     <tr><td class="paramname">cache</td><td>bool, When True the created instance will be cached, and immediately returned by subsequence calls to this function with the same identifier - instead of creating a new instance. If False, a new instance will be created each, and never retained. </td></tr>
   </table>
   </dd>

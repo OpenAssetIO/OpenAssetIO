@@ -150,9 +150,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a783b8b2ee266936a68ed27f9329b2efc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> (self, hostSession)</td></tr>
 <tr class="memdesc:a783b8b2ee266936a68ed27f9329b2efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#a783b8b2ee266936a68ed27f9329b2efc">More...</a><br /></td></tr>
 <tr class="separator:a783b8b2ee266936a68ed27f9329b2efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbda51ca210bb21fa5e5c54a95a9462e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#acbda51ca210bb21fa5e5c54a95a9462e">prefetch</a> (self, entitRefs, context, hostSession)</td></tr>
-<tr class="memdesc:acbda51ca210bb21fa5e5c54a95a9462e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list.  <a href="#acbda51ca210bb21fa5e5c54a95a9462e">More...</a><br /></td></tr>
-<tr class="separator:acbda51ca210bb21fa5e5c54a95a9462e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd4fd3fc6ab34519967e7396c429801"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a8bd4fd3fc6ab34519967e7396c429801">prefetch</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:a8bd4fd3fc6ab34519967e7396c429801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list.  <a href="#a8bd4fd3fc6ab34519967e7396c429801">More...</a><br /></td></tr>
+<tr class="separator:a8bd4fd3fc6ab34519967e7396c429801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> (self, hostSession)</td></tr>
 <tr class="memdesc:a53834a673004e2d1a4ad57a9b126e5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a53834a673004e2d1a4ad57a9b126e5d7">More...</a><br /></td></tr>
 <tr class="separator:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -338,7 +338,7 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc" title="Prepares for interaction with a host. ">initialize()</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
@@ -421,6 +421,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>This object is also extracted from the context and passed directly to any of the 'transactional' calls in this API. For more on the transactional model in this API, and how these will be called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">parentState</td><td>obj, If present, it is to be assumed that the new state is considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access/retention of the <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'. However is it <em>not</em> expected to link the new state with any transaction that is open in the parent state. So the returned state should have any open transactions.</td></tr>
   </table>
   </dd>
@@ -489,6 +490,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">specifications</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> The relevant specifications for the type of entities a host is about to work with. These should be interpreted in conjunction with the context to determine the most sensible default.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The context the resulting reference will be used in. When determining a suitable reference to return, it is important to pay particular attention to the access pattern. It differentiates between a reference that will be used for reading or writing, and critically single or multiple entities.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -561,7 +563,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -667,7 +669,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -781,7 +783,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">includeMetaVersions</td><td><code>bool</code> If <code>True</code>, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions need to be returned.</td></tr>
     <tr><td class="paramname">maxNumVersions</td><td><code>int</code> Limits the number of versions collected for each entity. If more results are available than the limit, then the newest versions should be returned. If a value of -1 is used, then all results should be returned.</td></tr>
   </table>
@@ -841,6 +843,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>If versioning is unsupported for a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, then the input reference should be returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entity references to finalize.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">overrideVersionName</td><td><code>str</code> If supplied, then the call should return entity references for the version of the referenced assets that match the name specified here, ignoring any version inferred by the input reference.</td></tr>
   </table>
   </dd>
@@ -1014,7 +1019,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1077,9 +1082,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">key</td><td><code>str</code> The key to look up</td></tr>
-    <tr><td class="paramname">defaultValue</td><td><code>primitive</code> If not None, this value should be returned in the case of the specified key not being set for an entity.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">defaultValue</td><td><code>primitive</code> If not None, this value should be returned in the case of the specified key not being set for an entity.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1161,6 +1166,8 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td>List[str]</td></tr>
     <tr><td class="paramname">relationshipSpecs</td><td>List[RelationshipSpecification]</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">resultSpec</td><td><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">openassetio.specifications.EntitySpecification</a> or None, a hint as to what kind of entity the caller is expecting to be returned. May be None.</td></tr>
   </table>
   </dd>
@@ -1201,7 +1208,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1294,7 +1301,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1416,7 +1423,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 </div>
 </div>
-<a class="anchor" id="acbda51ca210bb21fa5e5c54a95a9462e"></a>
+<a class="anchor" id="a8bd4fd3fc6ab34519967e7396c429801"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1430,7 +1437,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entitRefs</em>, </td>
+          <td class="paramname"><em>entityRefs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1458,7 +1465,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="section warning"><dt>Warning</dt><dd>Because the majority of the resolution API itself is designated thread safe, it is important to implement any pre-fetch mechanism with suitable locks/etc... if required.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entities whose data should be prefetched.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> You may wish to make use of the managerInterfaceState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1706,8 +1715,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td>List[str] Entity references to update.</td></tr>
+    <tr><td class="paramname">data</td><td>List[dict] The data for each supplied entity reference.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">merge</td><td>bool If true, then each entity's existing metadata will be merged with the new data (the new data taking precedence). If false, its metadata will entirely replaced by the new data.</td></tr>
   </table>
   </dd>
@@ -1826,14 +1836,19 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </div><div class="memdoc">
 
 <p>Creates a new relationship between the referenced entities. </p>
+<p>Though getRelatedReferences is an essential call, there is some asymmetry here, as it is not necessarily required to be able to setRelatedReferences directly. For example, in the case of a 'shot' (as illustrated in the docs for getRelatedReferences) - any new shots would be created by registering a new ShotSpecification under the parent, rather than using this call. The best way to think of it is that this call is reserved for defining relationships between existing assets (such as connecting the script used to define a render, with the image sequences it creates) and 'register' as being defining the relationship between a new asset and some existing one.</p>
+<p>In systems that don't support post-creation adjustment of relationships, this can simply be a no-op.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">entityRef</td><td><code>str</code> The entity to which the relationship should be established.</td></tr>
+    <tr><td class="paramname">relationshipSpec</td><td><a class="el" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. ">openassetio.specifications.RelationshipSpecification</a>, The type of relationship to establish.</td></tr>
+    <tr><td class="paramname">relatedRefs</td><td>List[str], The related entities for the given relationship.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">append</td><td>bool, When True (default) new relationships will be added to any existing ones. If False, then any existing relationships with the supplied specification will first be removed.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Though getRelatedReferences is an essential call, there is some asymmetry here, as it is not necessarily required to be able to setRelatedReferences directly. For example, in the case of a 'shot' (as illustrated in the docs for getRelatedReferences) - any new shots would be created by registering a new ShotSpecification under the parent, rather than using this call. The best way to think of it is that this call is reserved for defining relationships between existing assets (Such as connecting multiple image sequences published under the same shot, as being part of the same render.) and 'register' as being defining the relationship between a new asset and some existing one.</p>
-<p>In systems that don't support post-creation adjustment of relationships, this can simply be a no-op.</p>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a58d0d3cf925eeecd93c316903e99d95c">getRelatedReferences()</a> </dd>
 <dd>
@@ -1870,7 +1885,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -2014,6 +2029,8 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>If a thumbnail is requested, its path will be set in the specification property 'thumbnailPath' passed to a register call at a later date if it was possible to create one.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">specification</td><td><a class="el" href="namespaceopenassetio_1_1_specification.html">openassetio.Specification</a>, The type of entity that will be registered.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
     <tr><td class="paramname">options</td><td>dict, The thumbnail process can be customised, by setting the following keys in the options dict.</td></tr>
   </table>
   </dd>
@@ -2023,8 +2040,14 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <li>kField_PixelHeight ('height') : The pixel height of the thumbnail</li>
 </ul>
 <p>The keys may be set to the default set by the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a>. It will try to best match the requested specifications, but it should not be assumed that all requested properties are honoured.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>bool, If True, a Thumbnail is desired by the manager, if False, the host should not waste time making one.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Remove this method in favour of using the <code>preflight</code>/<code>register</code> procedure as with any other entity. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Remove this method in favour of using the <code>preflight</code>/<code>register</code> procedure as with any other entity. </dd></dl>
 
 </div>
 </div>

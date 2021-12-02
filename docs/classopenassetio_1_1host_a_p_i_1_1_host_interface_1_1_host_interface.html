@@ -250,12 +250,13 @@ Public Member Functions</h2></td></tr>
 <p>or a Host-native API object and returning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for it, if applicable.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">item</td><td>object, a Host-native SDK object.</td></tr>
     <tr><td class="paramname">allowRelated</td><td>bool, If True, the Host can return a reference for some parent or child or relation of the supplied item, if applicable. This can be useful for broadening the area of search in less specific cases.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>str, An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of an empty string if no applicable Entity Reference could be determined for the supplied item.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Update to support multiple documents </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Evaluate whether this method makes sense and is properly implementable through Python/C++. </dd></dl>
 
 </div>
 </div>

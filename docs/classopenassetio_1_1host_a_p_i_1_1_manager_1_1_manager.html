@@ -903,8 +903,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">references</td><td>List[str] A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, see the notes on array length above.</td></tr>
-    <tr><td class="paramname">relationshipSpecs</td><td>List[<a class="el" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. ">openassetio.specifications.RelationshipSpecification</a>]</td></tr>
+    <tr><td class="paramname">relationshipSpecOrSpecs</td><td>List[<a class="el" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. ">openassetio.specifications.RelationshipSpecification</a>]</td></tr>
     <tr><td class="paramname">resultSpec</td><td><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">openassetio.specifications.EntitySpecification</a> or None, a hint as to what kind of entity you want to be returned. May be None.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1219,6 +1220,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned by this method should <em>always</em> be used in place of the original reference supplied to <code>preflight</code> for resolves or metadata queries prior to registration, and for the final call to <a class="el" href="glossary.html#register">register</a> itself. See <a class="el" href="examples.html#example_publishing_a_file">Publishing a File</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> The entity references to preflight prior to registration.</td></tr>
     <tr><td class="paramname">entitySpecs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> A description of each entity that is being published.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
   </table>
@@ -1407,6 +1409,7 @@ setMetadata </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td>List[str] Entity references to update.</td></tr>
+    <tr><td class="paramname">data</td><td>List[dict] The metadata to set for each referenced entity.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
     <tr><td class="paramname">merge</td><td>bool If true, then each entity's existing metadata will be merged with the new data (the new data taking precedence). If false, its metadata will entirely replaced by the new data.</td></tr>
   </table>

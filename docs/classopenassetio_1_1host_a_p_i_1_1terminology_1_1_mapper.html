@@ -163,6 +163,7 @@ Public Member Functions</h2></td></tr>
 <p>The manager is queried during construction and it's results cached for the lifetime of the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html">Mapper</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">manager</td><td><a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a>, A <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a> instance, whose terminology should be applied by the mapper.</td></tr>
     <tr><td class="paramname">terminology</td><td>A dict of terms that will be substituted by this instance. If left unspecified, the default API terminology will be used. Hosts may take a copy of this dictionary and append to it before passing to the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html">Mapper</a> to allow managers to customize additional host-specific terms. There is no expectation that a manager would handle new terms without specific knowledge in advance. </td></tr>
   </table>
   </dd>

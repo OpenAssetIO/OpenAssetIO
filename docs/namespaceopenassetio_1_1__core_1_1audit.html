@@ -183,7 +183,8 @@ Variables</h2></td></tr>
 <p>If auditCalls is False, functions will not be wrapped so docstrings are not obfuscated and the call stack isn't bloated. Because wrapping happens when the Class is parsed, for auditing to ever be enabled, it has to be set by the environment variable so that it's true before other classes are loaded from their modules. Otherwise, its too late to turn it on once the import has completed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">group</td><td>str, an optional group name to log the call under <a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ac5aa86eff765712798b1aa1006e919a8">Auditor.addMethod</a> </td></tr>
+    <tr><td class="paramname">group</td><td>str, an optional group name to log the call under <a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ac5aa86eff765712798b1aa1006e919a8">Auditor.addMethod</a></td></tr>
+    <tr><td class="paramname">static</td><td>bool, set to True if the decorated function is a static method. </td></tr>
   </table>
   </dd>
 </dl>
