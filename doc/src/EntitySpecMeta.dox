@@ -119,7 +119,7 @@
  *
  * For example, a compositor may map an ImageSequenceSpecification to
  * its native image read and write nodes, and a manager map the same to
- * its own supported clip format so thumbnails are generated and
+ * its own supported clip format so transcodes are generated and
  * displayed in its browser.
  *
  * @subsection specification_selection Picking a Specification to Use
