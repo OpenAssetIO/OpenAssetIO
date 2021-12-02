@@ -330,7 +330,7 @@ class ManagerInterface(object):
         """
         raise NotImplementedError
 
-    def prefetch(self, entitRefs, context, hostSession):
+    def prefetch(self, entityRefs, context, hostSession):
         """
         Called by a host to express interest in the supplied @ref
         entity_reference list. This usually means that the host is about
@@ -346,12 +346,20 @@ class ManagerInterface(object):
         designated thread safe, it is important to implement any
         pre-fetch mechanism with suitable locks/etc... if required.
 
+        @param entityRefs `List[str]` The entities whose data should be
+        prefetched.
+
         @param context openassetio.Context You may wish to make use of
         the managerInterfaceState object (if you supplied one on
         construction of the context), to simplify scoping any caching of
         data. Otherwise, it's up to you how to manage the lifetime of
         the data to avoid inconsistencies, but the @ref flushCaches
         method should clear any otherwise sorted data for this call.
+
+        @param hostSession HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @return `None`
         """
@@ -610,6 +618,11 @@ class ManagerInterface(object):
         will be used for reading or writing, and critically single or
         multiple entities.
 
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+
         @return `List[str]` An @ref entity_reference or empty string for
         each given specification.
         """
@@ -645,7 +658,10 @@ class ManagerInterface(object):
 
         @param context Context The calling context.
 
-        @param hostSession HostSession The API session.
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @return `List[str]` Strings containing any valid characters for
         the manager's implementation.
@@ -672,7 +688,10 @@ class ManagerInterface(object):
 
         @param context Context The calling context.
 
-        @param hostSession HostSession The API session.
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @return `List[Union[str,` exceptions.InvalidEntityReference `]]`
         For each given entity, either a string containing any valid
@@ -702,7 +721,10 @@ class ManagerInterface(object):
 
         @param context Context The calling context.
 
-        @param hostSession HostSession The API session.
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @return `List[Dict[str, primitive]]` Metadata for each entity.
         Values must be singular plain-old-data types (ie. string,
@@ -725,9 +747,14 @@ class ManagerInterface(object):
 
         @param entityRefs List[str] Entity references to update.
 
+        @param data List[dict] The data for each supplied entity reference.
+
         @param context Context The calling context.
 
-        @param hostSession HostSession The API session.
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @param merge bool If true, then each entity's existing metadata
         will be merged with the new data (the new data taking
@@ -754,13 +781,16 @@ class ManagerInterface(object):
 
         @param key `str` The key to look up
 
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+
         @param defaultValue `primitive` If not None, this value should
         be returned in the case of the specified key not being set for
         an entity.
-
-        @param context Context The calling context.
-
-        @param hostSession HostSession The API session.
 
         @return `Union[primitive, KeyError]` The value for the specific
         key, or `KeyError` if not found and no defaultValue is supplied.
@@ -824,7 +854,10 @@ class ManagerInterface(object):
 
         @param context Context The calling context.
 
-        @param hostSession HostSession The API session.
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @param includeMetaVersions `bool` If `True`, @ref meta_version
         "meta-versions" such as 'latest', etc... should be included,
@@ -859,6 +892,15 @@ class ManagerInterface(object):
 
         If versioning is unsupported for a given @ref
         entity_reference, then the input reference should be returned.
+
+        @param entityRefs `List[str]` The entity references to finalize.
+
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @param overrideVersionName `str` If supplied, then the call
         should return entity references for the version of the
@@ -972,6 +1014,13 @@ class ManagerInterface(object):
 
         @param relationshipSpecs List[RelationshipSpecification]
 
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+
         @param resultSpec openassetio.specifications.EntitySpecification
         or None, a hint as to what kind of entity the caller is
         expecting to be returned. May be None.
@@ -998,11 +1047,6 @@ class ManagerInterface(object):
         """
         Creates a new relationship between the referenced entities.
 
-        @param append bool, When True (default) new relationships will
-        be added to any existing ones. If False, then any existing
-        relationships with the supplied specification will first be
-        removed.
-
         Though getRelatedReferences is an essential call, there is some
         asymmetry here, as it is not necessarily required to be able to
         setRelatedReferences directly. For example, in the case of a
@@ -1010,14 +1054,34 @@ class ManagerInterface(object):
         any new shots would be created by registering a new
         ShotSpecification under the parent, rather than using this call.
         The best way to think of it is that this call is reserved for
-        defining relationships between existing assets (Such as
-        connecting multiple image sequences published under the same
-        shot, as being part of the same render.) and 'register' as being
-        defining the relationship between a new asset and some existing
-        one.
+        defining relationships between existing assets (such as
+        connecting the script used to define a render, with the image
+        sequences it creates) and 'register' as being defining the
+        relationship between a new asset and some existing one.
 
         In systems that don't support post-creation adjustment of
         relationships, this can simply be a no-op.
+
+        @param entityRef `str` The entity to which the relationship
+        should be established.
+
+        @param relationshipSpec openassetio.specifications.RelationshipSpecification,
+        The type of relationship to establish.
+
+        @param relatedRefs List[str], The related entities for the
+        given relationship.
+
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+
+        @param append bool, When True (default) new relationships will
+        be added to any existing ones. If False, then any existing
+        relationships with the supplied specification will first be
+        removed.
 
         @return None
 
@@ -1114,6 +1178,11 @@ class ManagerInterface(object):
         specification property 'thumbnailPath' passed to a register call
         at a later date if it was possible to create one.
 
+        @param specification openassetio.Specification, The type of
+        entity that will be registered.
+
+        @param context Context The calling context.
+
         @param options dict, The thumbnail process can be customised, by
         setting the following keys in the options dict.
 
@@ -1125,6 +1194,11 @@ class ManagerInterface(object):
         The keys may be set to the default set by the Host. It will try
         to best match the requested specifications, but it should not be
         assumed that all requested properties are honoured.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @return bool, If True, a Thumbnail is desired by the manager, if
         False, the host should not waste time making one.
@@ -1308,6 +1382,11 @@ class ManagerInterface(object):
         directly to any of the 'transactional' calls in this API.  For
         more on the transactional model in this API, and how these will
         be called, see the @ref transactions Page.
+
+        @param hostSession openassetio.managerAPI.HostSession, The host
+        session that maps to the caller. This should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
 
         @param parentState obj, If present, it is to be assumed that the
         new state is considered a 'child' of the supplied state. This

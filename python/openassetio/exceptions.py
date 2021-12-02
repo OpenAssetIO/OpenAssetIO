@@ -48,6 +48,8 @@ class BaseEntityException(OAIOException):
 
     def __init__(self, message, entityReference=None):
         """
+        @param message str, The message of the exception.
+
         @param entityReference str, The entity reference associated with
         the error. This should be provided wherever known, and will be
         printed along with the message in any traceback/etc... As such,

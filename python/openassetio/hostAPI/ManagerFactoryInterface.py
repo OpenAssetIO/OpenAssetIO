@@ -78,6 +78,9 @@ class ManagerFactoryInterface(object):
         openassetio.managerAPI.ManagerInterface "ManagerInterface" with
         the specified identifier.
 
+        @param identifier str, The identifier of the ManagerInterface
+        to instantiate.
+
         @param cache bool, When True the created instance will be
         cached, and immediately returned by subsequence calls to this
         function with the same identifier - instead of creating a new
@@ -85,6 +88,9 @@ class ManagerFactoryInterface(object):
         never retained.
 
         @returns openassetio.managerAPI.ManagerInterface
+
+        @todo[tc] Should 'cache' be removed, or set to False by default?
+        It prevents a Session managing the lifetime of an instance.
         """
         raise NotImplementedError
 
@@ -94,8 +100,8 @@ class ManagerFactoryInterface(object):
         Creates an instance of the @needsref ManagerUIDelegate for the
         specified manager interface.
 
-        @param the instance of a ManagerInterface to retrieve the UI
-        delegate for.
+        @param managerInterfaceInstance openassetio.managerAPI.ManagerInterface,
+        the instance of a ManagerInterface to retrieve the UI delegate for.
 
         @param cache bool, When True the created instance will be
         cached, and immediately returned by subsequence calls to this

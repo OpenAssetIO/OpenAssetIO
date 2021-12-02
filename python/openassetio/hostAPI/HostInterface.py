@@ -143,6 +143,8 @@ class HostInterface(object):
         locale/etc... or a Host-native API object and returning an @ref
         entity_reference for it, if applicable.
 
+        @param item object, a Host-native SDK object.
+
         @param allowRelated bool, If True, the Host can return a
         reference for some parent or child or relation of the supplied
         item, if applicable. This can be useful for broadening the area
@@ -152,7 +154,8 @@ class HostInterface(object):
         applicable Entity Reference could be determined for the supplied
         item.
 
-        @todo Update to support multiple documents
+        @todo Evaluate whether this method makes sense and is properly
+        implementable through Python/C++.
         """
         return ''
 

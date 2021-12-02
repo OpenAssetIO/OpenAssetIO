@@ -147,6 +147,9 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         openassetio.managerAPI.ManagerInterface "ManagerInterface" with
         the specified identifier.
 
+        @param identifier str, The identifier of the ManagerInterface
+        to instantiate.
+
         @param cache bool, When True the created instance will be
         cached, and immediately returned by subsequence calls to this
         function with the same identifier - instead of creating a new
@@ -176,7 +179,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         Creates an instance of the @needsref ManagerUIDelegate for the
         specified identifier.
 
-        @param the instance of a ManagerInterface to retrieve the UI
+        @param managerInterfaceInstance openassetio.managerAPI.ManagerInterface,
+        the instance of a ManagerInterface to retrieve the UI
         delegate for.
 
         @param cache bool, When True the created instance will be

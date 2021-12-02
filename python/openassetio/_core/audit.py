@@ -100,6 +100,9 @@ def auditApiCall(group=None, static=False):
 
     @param group str, an optional group name to log the call under @ref
     Auditor.addMethod
+
+    @param static bool, set to True if the decorated function is a
+    static method.
     """
 
     def _wrapAuditApiCall(function):
@@ -316,6 +319,8 @@ class Auditor(object):
         """
         Simply count the usage of 'something'. Doesn't really matter
         what, as long as its hashable so can be used as a key in a dict.
+
+        @param obj hashable, The object to count a use of.
 
         @param group str [None], If supplied, a count will also be
         recorded under the named group.
