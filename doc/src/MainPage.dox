@@ -235,7 +235,7 @@
  * rules for the manager:
  *
  * - Store and recall a @ref primary_string
- * - Store and recall @ref metadata
+ * - Store and recall @ref attributes
  * - Allow filtering by @ref Specification
  *
  * If these rules are followed, then arbitrary assets from arbitrary
@@ -243,5 +243,5 @@
  * specific support. However, there is scope to build more advanced and
  * useful functionality by mapping OAIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
- * @ref metadata to its asset fields.
+ * @ref attributes to its asset fields.
  */

@@ -76,7 +76,7 @@
  *
  * @li name
  * @li @ref primary_string
- * @li @ref metadata
+ * @li @ref attributes
  *
  * This makes it relatively straightforward for an @ref
  * asset_management_system to provide support for any entity that a @ref
@@ -314,42 +314,44 @@
  *   @see openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState
  *
  *
- * @section metadata Metadata
+ * @section attributes Attributes
  *
- * Within the core API, Metadata is used to persist additional properties
- * of an @ref entity. This is particularly useful when there is no
- * meaningful @ref primary_string for any given type of entity.
+ * Within the core API, Attributes are used to persist additional
+ * properties of an @ref entity. This is particularly useful when there
+ * is no meaningful @ref primary_string for any given type of entity.
  *
- * The @ref manager must guarantee to store and recall any metadata set
- * by the @ref host. They may freely re-map any keys to their local
- * names internally, as long as the mapping is reversed for queries.
+ * The @ref manager must guarantee to store and recall any attributes set
+ * by the @ref host. They may freely re-map any attribute names to their
+ * local names internally, as long as the mapping is reversed for
+ * queries.
  *
- * Metadata is limited to **string** keys, and **plain old data** typed values.
+ * Attributes names are strings, and their values are simple **plain
+ * old data** types (ie. int, float, string, bool).
  *
  * > Note: The length of a value is yet to be defined, but ideally it
  * > will be something suitably large - this will only be restricted if
  * > common host applications and/or managers have recurring practical
  * > limits.
  *
- * A simple example of where metadata brings great value is something
- * as humble as an ImageSpecification entity that resolves to an image
- * sequence.
- *  - When a host wishes to read the sequence, if the entity's metadata
- *  has the well-known key for colorspace, then it can ensure the data
- *  is correctly interpreted, without relying on fragile mechanisms such
- *  as the file extension.
- *  - When a host wishes to write image data, if the entity's metadata
- *  has the well-known keys for the file format and associated encoding
- *  options, the data can be reliably written with the correct format,
- *  bit-depth and compression.
+ * A simple example of where entity attributes bring great value is
+ * something as humble as an ImageSpecification entity that resolves to
+ * an image sequence.
+ *  - When a host wishes to read the sequence, if the entity has a
+ *  colorspace attribute then it can ensure the data is correctly
+ *  interpreted, without relying on fragile mechanisms such as the file
+ *  extension.
+ *  - When a host wishes to write image data, the entity's file format
+ *  attribute (along with any associated encoding options) can be used
+ *  to ensure the data is reliably written with the correct format,
+ *  bit-depth and compression, etc.
  *
  * Shots are another type of entity that makes use of this mechanism. As
  * there is no real meaningful @ref primary_string, all relevant data
  * about its frame range, handles, etc. are persisted via the entity's
- * metadata.
+ * attributes.
  *
  * The @ref Specification of any given entity is used to determine the
- * applicable specific set of well-known OAIO metadata keys.
+ * applicable specific set of well-known OAIO attribute names.
  *
  *
  * @section meta_version Meta-version
@@ -377,7 +379,7 @@
  * host and one of these systems in order to query or persist data.
  *
  * Asset managers will generally re-map the well-known OAIO concepts
- * (@ref Specification, @ref metadata) into their own internal
+ * (@ref Specification, @ref attributes) into their own internal
  * structures, and back again when queried.
  *
  * Managers are made available via a @ref ManagerPlugin, that ultimately
@@ -578,7 +580,7 @@
  *
  * The best way to think of a Specification in general use is simply as
  * a glorified 'type string'. The fact that is also can contain
- * key-value metadata is in some ways irrelevant to understanding its
+ * key-value pairs is in some ways irrelevant to understanding its
  * main purpose. A Manager guarantees to be able to 'filter' Entities
  * based on a Specification, and a Host always Registers a new Entity by
  * identifying it with a Specification.

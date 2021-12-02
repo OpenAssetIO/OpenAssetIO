@@ -1,5 +1,5 @@
 /*!
- * @page entities_specifications_and_metadata Entities, Specifications and Metadata
+ * @page entities_specifications_and_attributes Entities, Specifications and Attributes
  *
  * The concepts discussed on this page are key to understanding how OAIO
  * extends beyond the simple resolution of an @ref entity_reference into
@@ -61,7 +61,7 @@
  * data from the specification's key/value pairs is not persisted beyond
  * the lifetime of the related API calls in any literal form. If a host
  * wishes to persist any other information about an entity, use the @ref
- * metadata mechanism instead.
+ * attributes mechanism instead.
  *
  * @see openassetio.Specification
  *
@@ -144,27 +144,28 @@
  * @warning The library of well-known OAIO base schemas is yet to be
  * ported from `FnAssetAPI`, and will be available soon.
  *
- * @section Metadata
+ * @section Attributes
  *
  * Entities are generally more than just a file on disk, they have
  * additional data that defines their properties or interpretation.
  *
- * In its simplest form, OpenAssetIO's @ref metadata system can be used
+ * In its simplest form, OpenAssetIO's @ref attributes system can be used
  * by a @ref host to store and retrieve additional data about an entity
  * from an @ref asset_management_system without the need for side-car
  * files.
  *
  * An example of this is within a tool that displays image sequences.
  * The @ref primary_string is resolved to provide the path to the images
- * on disk, and the manager-provided metadata queried to control the
- * colorspace and frame range used for playback. This can avoid fragile
- * mechanisms such as extension-based mappings and directory searches.
+ * on disk, and the attributes provided by the manager used to control
+ * the colorspace and frame range used for playback. This can avoid
+ * fragile mechanisms such as extension-based mappings and directory
+ * searches.
  *
  * Extending this further, an entity's primary string does not have to
  * be a file path, or even a URL.
  *
  * If it's possible to break down the description of an entity into a
- * string, and/or set of keys and values, OAIO can be used directly to
+ * string, and/or set of named values, OAIO can be used directly to
  * publish or query entities of this type.
  *
  * A common application of this is its use in a timeline based
@@ -172,18 +173,18 @@
  * a production tracking system.
  *
  * The API contract states that a @ref manager **must** guarantee to
- * store and recall any key/value pairs registered by this
- * mechanism for supported specifications. This allows a host to manage
- * arbitrary data through the asset management system without any
- * special handling by the manager itself.
+ * store and recall any value registered by this mechanism for supported
+ * specifications. This allows a host to manage arbitrary data through
+ * the asset management system without any special handling by the
+ * manager itself.
  *
  * If a Manager holds entities created by means other than OAIO
  * (its own interface, other APIs, etc...) then it is important that it
- * 'bridges' any keys from the well-known OAIO names to its
+ * 'bridges' any attributes from the well-known OAIO names to its
  * corresponding internal name, for both set and get.
  *
- * @warning Metadata in OAIO is limited to simple constants using basic
- * types such as string, float, int and bool. Time-varying data is
+ * @warning In OAIO, attributes are limited to simple constants using
+ * basic types such as string, float, int and bool. Time-varying data is
  * beyond the scope of this API and should be managed through alternate
  * means such as <a href="http://opentimeline.io" target="_blank">OpenTimelineIO</a>
  * or similar.
