@@ -44,13 +44,6 @@ class EntitySpecification(Specification):
             " applicability before using it, and may freely ignore it"
             " if it has a better idea about a suitable reference.")
 
-    thumbnailPath = TypedProperty(
-        str, initVal="",
-        doc="If a thumbnail was requested for the registration, then"
-            " this may be set to a path, pointing to a thumbnail. If,"
-            " for any reason, the thumbnail isn't available, then this"
-            " will be an empty string.")
-
 
 class LocaleSpecification(Specification):
     """
