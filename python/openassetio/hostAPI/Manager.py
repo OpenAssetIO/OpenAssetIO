@@ -1032,55 +1032,9 @@ class Manager(Debuggable):
     # *3 - Thumbnails*
     #
     # The API provides a mechanism for a manager to request a thumbnail for an
-    # entity as it is being published. If as a Host you are capable of making a
-    # suitable thumbnail for whatever it is you are wanting to publish, you
-    # should call @ref thumbnailSpecification. If this returns True, then a
-    # thumbnail should be prepared, and saved to disk in some temporary location.
-    # It's path should then be set in the 'thumbnailPath' field of the
-    # EntitySpecification that you pass to the final register call. If it was not
-    # possible to make one, simply leave this field blank.
+    # entity as it is being published, see: @ref thumbnails.
     #
     # @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def thumbnailSpecification(self, specification, context, options):
-        """
-        This should be called prior to registration of an asset to
-        determine if the asset system would like a thumbnail preparing.
-        Presently, only JPEG thumbnails will be generated. The arguments
-        to this call should be the same as those that will be passed to
-        the register call.
-
-        @param specification
-        openassetio.specifications.EntitySpecification The spec of the
-        Entity that is about to be published, etc...
-
-        @param context openassetio.Context the Context in which the
-        publishing will occur.
-
-        @param options dict, A dictionary that will be modifier in place
-        by the manager to reflect the desired thumbnail specification.
-        You may set suitable 'defaults' that best fit the host
-        application before making the call.
-
-          @li kField_PixelWidth ('width') : The pixel width of the
-          thumbnail
-          @li kField_PixelHeight ('height') : The pixel height of the
-          thumbnail
-
-        Best attempts should be made to satisfy the specifications as
-        requested, but if it is not possible, return the best possible
-        match.
-
-        @return bool, If True, a Thumbnail is desired by the manager, if
-        False, the host should not waste time making one.
-
-        @todo Remove this method in favour of using the
-        `preflight`/`register` procedure as with any other entity.
-        """
-        return self.__impl.thumbnailSpecification(
-            specification, context, options, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")

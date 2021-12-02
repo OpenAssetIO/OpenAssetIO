@@ -73,7 +73,6 @@ kField_DisplayName = 'displayName'
 kField_Attributes = 'attributes'
 kField_SmallIcon = 'smallIcon'
 kField_Icon = 'icon'
-kField_ThumbnailPath = 'thumbnailPath'
 
 # Entity Reference Properties
 
@@ -123,15 +122,6 @@ kField_FieldDominance = 'fieldDominance'
 
 kField_MediaFrameIn = 'mediaInFrame'
 kField_MediaFrameOut = 'mediaOutFrame'
-
-## @}
-
-
-## @name Thumbnail Defaults
-## @{
-
-kThumbnail_DefaultPixelWidth = 360
-kThumbnail_DefaultPixelHeight = 270
 
 ## @}
 
