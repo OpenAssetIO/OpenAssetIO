@@ -16,8 +16,6 @@
 
 from ..logging import LoggerInterface
 
-from .Host import Host
-
 
 class HostSession(object):
     """
