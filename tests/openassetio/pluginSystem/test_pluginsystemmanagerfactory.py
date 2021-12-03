@@ -48,7 +48,7 @@ class Test_PluginSystemManagerFactory_init:
             self, a_logger, plugin_path_var_name, monkeypatch):
 
         expected_msg = f"{plugin_path_var_name} is not set. " \
-                       "Its somewhat unlikely that you will find any plugins..."
+                       "It is somewhat unlikely that you will find any plugins..."
         expected_severity = a_logger.kWarning
 
         if plugin_path_var_name in os.environ:
