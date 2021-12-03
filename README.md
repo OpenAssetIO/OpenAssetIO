@@ -37,7 +37,7 @@ The API, by design, does not:
  - Dictate any aspect of how an asset management system operates,
    organizes, locates or manages asset data and versions.
 
-The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html),
+The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html),
 addressing several common integration challenges and adding support
 for a wider range of asset types and publishing workflows.
 
@@ -91,7 +91,7 @@ Maya&reg; or Nuke) and one of these systems - a 'manager' (eg. ShotGrid,
 ftrack or other proprietary systems).
 
 This project first began in 2013, taking inspiration from the production
-tested [Katana Asset API](https://learn.foundry.com/test/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html)
+tested [Katana Asset API](https://learn.foundry.com/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html)
 to make it more suitable for a wider variety of uses. Modern pipelines
 are incredibly nuanced. Finding a common framework that brings value in
 this space is challenging to say the least. Prototypes built during the
