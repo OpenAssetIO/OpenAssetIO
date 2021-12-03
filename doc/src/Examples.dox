@@ -31,7 +31,8 @@
  *     """
  *     A minimal host implementation with no document model.
  *     """
- *     def identifier(self):
+ *     @staticmethod
+ *     def identifier():
  *         return "org.openassetio.example.host"
  *
  *

@@ -186,8 +186,8 @@ class ManagerInterface(object):
     #
     # @{
 
-    @abc.abstractmethod
-    def identifier(self):
+    @staticmethod
+    def identifier():
         """
         Returns an identifier to uniquely identify a specific asset
         manager. This may be used by a host to persist the users
