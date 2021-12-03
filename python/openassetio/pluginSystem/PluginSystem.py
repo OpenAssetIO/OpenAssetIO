@@ -76,7 +76,7 @@ class PluginSystem(object):
                     self.__logger.log(msg, self.__logger.kError)
 
     def identifiers(self):
-        return self.__map.keys()
+        return list(self.__map.keys())
 
     def plugin(self, identifier):
 
