@@ -14,9 +14,6 @@
 #   limitations under the License.
 #
 
-from .._core.audit import auditApiCall
-
-
 __all__ = ['HostInterface']
 
 
@@ -48,7 +45,6 @@ class HostInterface(object):
     #
     ## @{
 
-    @auditApiCall("HostInterface")
     def identifier(self):
         """
         Returns an identifier that uniquely identifies the Host.
@@ -68,7 +64,6 @@ class HostInterface(object):
         """
         raise NotImplementedError
 
-    @auditApiCall("HostInterface")
     def displayName(self):
         """
         Returns a human readable name to be used to reference this
@@ -80,7 +75,6 @@ class HostInterface(object):
         """
         raise NotImplementedError
 
-    @auditApiCall("HostInterface")
     def info(self):
         """
         Returns other information that may be useful about this Host.
@@ -99,7 +93,6 @@ class HostInterface(object):
 
     ## @}
 
-    @auditApiCall("HostInterface")
     def documentReference(self):
         """
         Returns the path, or @ref entity_reference of the current
@@ -118,7 +111,6 @@ class HostInterface(object):
     #
     ## @{
 
-    @auditApiCall("HostInterface")
     def knownEntityReferences(self, specification=None):
         """
         Returns an @ref entity_reference for each Entities known to the
@@ -136,7 +128,6 @@ class HostInterface(object):
         """
         return []
 
-    @auditApiCall("HostInterface")
     def entityReferenceForItem(self, item, allowRelated=False):
         """
         This should be capable of taking any item that may be set in a
