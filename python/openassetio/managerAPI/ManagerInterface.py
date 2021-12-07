@@ -1166,48 +1166,6 @@ class ManagerInterface(object):
     #
     # @{
 
-    def thumbnailSpecification(self, specification, context, options, hostSession):
-        """
-        This will be called prior to registration of an asset to
-        determine if the asset system would like a thumbnail preparing.
-        Presently, only JPEG thumbnails will be generated. The arguments
-        to this call are the same as those that will be passed to the
-        register call.
-
-        If a thumbnail is requested, its path will be set in the
-        specification property 'thumbnailPath' passed to a register call
-        at a later date if it was possible to create one.
-
-        @param specification openassetio.Specification, The type of
-        entity that will be registered.
-
-        @param context Context The calling context.
-
-        @param options dict, The thumbnail process can be customised, by
-        setting the following keys in the options dict.
-
-          @li kField_PixelWidth ('width') : The pixel width of the
-          thumbnail
-          @li kField_PixelHeight ('height') : The pixel height of the
-          thumbnail
-
-        The keys may be set to the default set by the Host. It will try
-        to best match the requested specifications, but it should not be
-        assumed that all requested properties are honoured.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @return bool, If True, a Thumbnail is desired by the manager, if
-        False, the host should not waste time making one.
-
-        @todo Remove this method in favour of using the
-        `preflight`/`register` procedure as with any other entity.
-        """
-        return False
-
     def preflight(self, targetEntityRefs, entitySpecs, context, hostSession):
         """
         Prepares for some work to be done to create data for the

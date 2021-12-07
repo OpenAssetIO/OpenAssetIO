@@ -98,9 +98,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
             self, entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True):
         return mock.DEFAULT
 
-    def thumbnailSpecification(self, specification, context, options, hostSession):
-        return mock.DEFAULT
-
     def preflight(self, targetEntityRefs, entitySpecs, context, hostSession):
         self.__assertIsIterableOf(targetEntityRefs, str)
         self.__assertIsIterableOf(entitySpecs, EntitySpecification)
@@ -513,14 +510,6 @@ class TestManager():
         assert manager.managementPolicy(
             some_entity_specs, a_context, entityRef=a_ref) == method.return_value
         method.assert_called_once_with(some_entity_specs, a_context, host_session, entityRef=a_ref)
-
-    def test_thumbnailSpecification(
-            self, manager, mock_manager_interface, host_session, an_entity_spec, a_context):
-        some_options = {"k": "v"}
-        method = mock_manager_interface.thumbnailSpecification
-        assert manager.thumbnailSpecification(
-            an_entity_spec, a_context, some_options) == method.return_value
-        method.assert_called_once_with(an_entity_spec, a_context, some_options, host_session)
 
     def test_preflight(
             self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
