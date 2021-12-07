@@ -64,7 +64,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
             self.__paths = os.environ.get(self.kPluginEnvVar, "")
             if not self.__paths:
                 self._logger.log(
-                    ("%s is not set. Its somewhat unlikely that you will "
+                    ("%s is not set. It is somewhat unlikely that you will "
                      + "find any plugins...") % self.kPluginEnvVar, self._logger.kWarning)
 
         self.__pluginManager = PluginSystem(self._logger)
