@@ -56,13 +56,13 @@
  *   This allows the manager to correctly filter assets or adapt its
  *   behavior as required.
  *
- * - You should query an entity's @ref metadata wherever possible,
- *   and use it as the authoritative source of information about an asset.
- *   For example, to determine the colorspace of an image.
+ * - You should query an entity's @ref attributes wherever possible,
+ *   and use them as the authoritative source of information about an
+ *   asset. For example, to determine the colorspace of an image.
  *
  * @section host_reading Recommended Reading
  *
- * @see @ref entities_specifications_and_metadata
+ * @see @ref entities_specifications_and_attributes
  * @see @ref transactions
  * @see openassetio.hostAPI.Session.Session
  * @see openassetio.hostAPI.Manager.Manager

@@ -44,16 +44,16 @@
  *   opaque by the host.
  *
  * - The manager is expected to store and recall the
- *   @ref primary_string and @ref metadata
+ *   @ref primary_string and @ref attributes
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "registered" to any given @ref entity_reference,
  *   grouped by its @ref Specification "specification", and return these
  *   values from the relevant query methods when supplied the
  *   reference returned from the registration.
  *
- * - A @ref host may query other well-known or host-specific @ref
- *   metadata keys to provide additional customization of behavior or the
- *   handling of data referenced by an @ref entity_reference. For example,
+ * - A @ref host may query other well-known or host-specific @ref attributes
+ *   to provide additional customization of behavior or the handling of
+ *   data referenced by an @ref entity_reference. For example,
  *   determining the correct frame range and colorspace of an image
  *   sequence.
  *
@@ -66,7 +66,7 @@
  *   strong hierarchical type mechanism. It is not expected for a manager
  *   to persist any data contained within a specification - but they must
  *   be respected as a filter predicate for browsing/query operations, and
- *   as a type specifier for creation operations. See @ref entities_specifications_and_metadata
+ *   as a type specifier for creation operations. See @ref entities_specifications_and_attributes
  *   for more details on this mechanism.
  *
  * - The @ref ManagerInterface implementation will be passed a
@@ -125,16 +125,16 @@
  * - Implement a @ref ManagerPlugin and install this on
  *   @ref plugin_path_var.
  *
- * @subsection manager_todo_metadata Required for Extended Functionality
+ * @subsection manager_todo_attributes Required for Extended Functionality
  *
- *  Some hosts may make use of an entity's metadata to provide
+ *  Some hosts may make use of an entity's attributes to provide
  *  extended functionality. Such as automating the settings of read
  *  nodes or improving handling of the asset's data.
  *
  * - Implement
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityMetadata
- *   "getEntityMetadata" to bridge any internal asset data to the
- *   well-known @ref metadata keys if possible.
+ *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
+ *   "getEntityAttributes" to bridge any internal asset data to the
+ *   well-known @ref attributes if possible.
  *
  * @subsection manager_todo_publishing Required for Publishing
  *
@@ -173,16 +173,16 @@
  * registered as appropriate.
  *
  * - In a similar way to @ref primary_string "primary strings", the @ref
- *   metadata set for the entity via @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setEntityMetadata
- *   "setEntityMetadata" should be stored. This can be freely remapped
+ *   attributes set for the entity via @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setEntityAttributes
+ *   "setEntityAttributes" should be stored. This can be freely remapped
  *   to internal fields, but should always be returned via the same
- *   source keys. The data should be persisted verbatim unless the
+ *   name used when set. The data should be persisted verbatim unless the
  *   specification is understood.
  *
- * - Bridge any internal asset data to the well-known @ref metadata
- *   keys wherever possible. This will be used by the host as a
- *   preferential source of truth. For example, for the colorspace or
- *   frame range of an image sequence.
+ * - Bridge any internal asset data to the well-known @ref attributes
+ *   wherever possible. This will be used by the host as a preferential
+ *   source of truth. For example, for the colorspace or frame range of
+ *   an image sequence.
  *
  * @subsection manager_todo_related_entities Supporting Relationships
  *
@@ -253,7 +253,7 @@
  *
  * @section manager_reading Recommended Reading
  *
- * @see @ref entities_specifications_and_metadata
+ * @see @ref entities_specifications_and_attributes
  * @see @ref transactions
  * @see openassetio.managerAPI.ManagerInterface
  * @see openassetio.pluginSystem.ManagerPlugin

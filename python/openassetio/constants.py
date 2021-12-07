@@ -15,7 +15,7 @@
 #
 
 
-kSupportedMetadataTypes = (str, int, float, bool, type(None))
+kSupportedAttributeTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
 ## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
@@ -66,7 +66,7 @@ kField_ItemType = 'fnItemType'
 # General
 
 kField_DisplayName = 'displayName'
-kField_Metadata = 'metadata'
+kField_Attributes = 'attributes'
 kField_SmallIcon = 'smallIcon'
 kField_Icon = 'icon'
 kField_ThumbnailPath = 'thumbnailPath'

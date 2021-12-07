@@ -15,7 +15,7 @@
 #
 
 from .specifications import LocaleSpecification
-from .constants import kSupportedMetadataTypes
+from .constants import kSupportedAttributeTypes
 
 
 __all__ = ['Context']
@@ -27,7 +27,7 @@ class Context(object):
     environment to a @ref manager. It encapsulates several key access
     properties, as well as providing additional information about the
     @ref host that may be useful to the @ref manager to decorate or
-    extend the metadata associated with the stored @ref entity.
+    extend the attributes associated with the stored @ref entity.
 
     A Manager will also use this information to ensure it presents the
     correct UI, or behavior.
@@ -112,11 +112,11 @@ class Context(object):
             raise ValueError("The managerOptions must be a dict (not %s)" % type(options))
 
         for key, value in options.items():
-            if type(value) not in kSupportedMetadataTypes:
+            if type(value) not in kSupportedAttributeTypes:
                 raise ValueError(
                     ("Manager Options '%s' is not of a " +
                      "supported type '%s' must be %s")
-                    % (key, type(value), kSupportedMetadataTypes))
+                    % (key, type(value), kSupportedAttributeTypes))
 
         self.__managerOptions = options
 
