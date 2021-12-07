@@ -14,7 +14,6 @@
 #   limitations under the License.
 #
 
-from ..managerAPI.HostSession import HostSession
 from ..managerAPI.ManagerInterface import ManagerInterface
 
 from .._core.debug import debugApiCall, Debuggable

@@ -17,8 +17,6 @@
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
-from ..hostAPI import HostInterface
-
 
 __all__ = ['Host']
 
