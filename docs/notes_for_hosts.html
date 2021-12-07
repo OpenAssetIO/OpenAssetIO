@@ -115,11 +115,11 @@ Architecture Summary</h1>
 <li>Nearly all interactions with a <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a> require an appropriately configured <a class="el" href="glossary.html#Context">Context</a>. This tells the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> about the intended actions of the host. For example, whether an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is being <a class="el" href="glossary.html#resolve">resolved</a> for read or for write.</li>
 <li>The lifetime of the Context can be carefully managed by the host to allow the manager to correlate and time-lock disparate API calls.</li>
 <li>It's in the host's interest to provide as much information in the <a class="el" href="glossary.html#Context">Context</a> and any <a class="el" href="glossary.html#entity">entity</a> or <a class="el" href="glossary.html#locale">locale</a> <a class="el" href="glossary.html#Specification">Specifications</a> supplied to API calls as possible. For example, it is strongly advised to use or derive from standard <a class="el" href="glossary.html#locale">locales</a> depending on which part of a host is making API calls. This allows the manager to correctly filter assets or adapt its behavior as required.</li>
-<li>You should query an entity's <a class="el" href="glossary.html#metadata">Metadata</a> wherever possible, and use it as the authoritative source of information about an asset. For example, to determine the colorspace of an image.</li>
+<li>You should query an entity's <a class="el" href="glossary.html#attributes">Attributes</a> wherever possible, and use them as the authoritative source of information about an asset. For example, to determine the colorspace of an image.</li>
 </ul>
 <h1><a class="anchor" id="host_reading"></a>
 Recommended Reading</h1>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_specifications_and_metadata.html">Entities, Specifications and Metadata</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_specifications_and_attributes.html">Entities, Specifications and Attributes</a> </dd>
 <dd>
 <a class="el" href="transactions.html">Transactions</a> </dd>
 <dd>

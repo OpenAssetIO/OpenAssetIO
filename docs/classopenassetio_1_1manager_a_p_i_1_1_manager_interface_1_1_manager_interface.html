@@ -167,7 +167,7 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>There are several common requests for basic, generic information about an entity that is assumed to be valid for all entity types.</p>
 <p>This suite of methods query information for a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#metadata">Metadata</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#attributes">Attributes</a> </dd></dl>
 </div></td></tr>
 <tr class="memitem:aa56b821c07983c243b5455859c3d3fa8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa56b821c07983c243b5455859c3d3fa8">entityName</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:aa56b821c07983c243b5455859c3d3fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of each entity itself, not including any hierarchy or classification.  <a href="#aa56b821c07983c243b5455859c3d3fa8">More...</a><br /></td></tr>
@@ -175,17 +175,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abf0a35b634c24ef90a37b7caff3b9398"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398">entityDisplayName</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:abf0a35b634c24ef90a37b7caff3b9398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an unambiguous, humanised display name for each entity.  <a href="#abf0a35b634c24ef90a37b7caff3b9398">More...</a><br /></td></tr>
 <tr class="separator:abf0a35b634c24ef90a37b7caff3b9398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab84fcd5a71605432b42a320c72ec3d41"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ab84fcd5a71605432b42a320c72ec3d41">getEntityMetadata</a> (self, entityRefs, context, hostSession)</td></tr>
-<tr class="memdesc:ab84fcd5a71605432b42a320c72ec3d41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for each given entity.  <a href="#ab84fcd5a71605432b42a320c72ec3d41">More...</a><br /></td></tr>
-<tr class="separator:ab84fcd5a71605432b42a320c72ec3d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f4ca198ac5ef3e15259feb53710036"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata</a> (self, entityRefs, data, context, hostSession, merge=True)</td></tr>
-<tr class="memdesc:a78f4ca198ac5ef3e15259feb53710036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets metadata on each given entity.  <a href="#a78f4ca198ac5ef3e15259feb53710036">More...</a><br /></td></tr>
-<tr class="separator:a78f4ca198ac5ef3e15259feb53710036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ac58fa8b9b98cc5dc92cca2596d1e0f9e">getEntityMetadataEntry</a> (self, entityRefs, key, context, hostSession, defaultValue=None)</td></tr>
-<tr class="memdesc:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the value of the given metadata key for each given entity.  <a href="#ac58fa8b9b98cc5dc92cca2596d1e0f9e">More...</a><br /></td></tr>
-<tr class="separator:ac58fa8b9b98cc5dc92cca2596d1e0f9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25ef0fd67b1d39e4ba366a15d336e020"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a25ef0fd67b1d39e4ba366a15d336e020">setEntityMetadataEntry</a> (self, entityRefs, key, value, context, hostSession)</td></tr>
-<tr class="separator:a25ef0fd67b1d39e4ba366a15d336e020"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab06419d88f8d1fbe089a3fe84d0595"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abab06419d88f8d1fbe089a3fe84d0595">getEntityAttributes</a> (self, entityRefs, context, hostSession)</td></tr>
+<tr class="memdesc:abab06419d88f8d1fbe089a3fe84d0595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve <a class="el" href="glossary.html#attributes">Attributes</a> for each given entity.  <a href="#abab06419d88f8d1fbe089a3fe84d0595">More...</a><br /></td></tr>
+<tr class="separator:abab06419d88f8d1fbe089a3fe84d0595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3029ff43857f9ee39ae48b91ffbb93c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c">setEntityAttributes</a> (self, entityRefs, data, context, hostSession, merge=True)</td></tr>
+<tr class="memdesc:ad3029ff43857f9ee39ae48b91ffbb93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets attributes on each given entity.  <a href="#ad3029ff43857f9ee39ae48b91ffbb93c">More...</a><br /></td></tr>
+<tr class="separator:ad3029ff43857f9ee39ae48b91ffbb93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4d8c2dcca7164595aa3d33f009956d8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad4d8c2dcca7164595aa3d33f009956d8">getEntityAttribute</a> (self, entityRefs, name, context, hostSession, defaultValue=None)</td></tr>
+<tr class="memdesc:ad4d8c2dcca7164595aa3d33f009956d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the value of the given attribute for each given entity.  <a href="#ad4d8c2dcca7164595aa3d33f009956d8">More...</a><br /></td></tr>
+<tr class="separator:ad4d8c2dcca7164595aa3d33f009956d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b9b3da5759ec5231fda7a172b14057"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53b9b3da5759ec5231fda7a172b14057">setEntityAttribute</a> (self, entityRefs, name, value, context, hostSession)</td></tr>
+<tr class="separator:a53b9b3da5759ec5231fda7a172b14057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Versioning</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Most <a class="el" href="glossary.html#asset_management_system">asset management systems</a> allow multiple revisions of certain entities to be tracked simultaneously.</p>
 <p>This API exposes this as a generalised concept, and its necessary for the caller to make sure only <a class="el" href="glossary.html#entity_reference">references</a> that are meaningfully versioned are queried. </p>
@@ -226,8 +226,8 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>'Meaningful' is best defined by the asset manager itself. For example, in a system that versions each 'asset' by creating children of the asset for each version, when talking about where to publish an image sequence of a render to, it may make sense to reference to the Asset itself, so that the system can determine the 'next' version number at the time of publish. It may also make sense to reference a specific version of this asset to implicitly state which version it will be written to. Other entity types may not have this flexibility.</dd></dl>
 <p><b>2 - The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a></b></p>
 <p>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> allows ancillary information to be provided to help the implementation better interpret what type of entity may be best suited in any given situation. For example, a path to an image will generally be accompanied by with an spec, that details the file type, color space, resolution etc...</p>
-<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> should <em>not</em> be confused with <a class="el" href="glossary.html#metadata">Metadata</a>. The implementation must not directly store any information contained within the <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a>, though it may be used to better define the type of entity. Hosts that wish to persist other properties of the published entity, will call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata()</a> directly instead, and as described in the metadata section, it is assumed that this is the channel for information that needs to persist.</dd></dl>
-<p>For more on the relationship between Entities, Specifications and metadata, please see <a class="el" href="entities_specifications_and_metadata.html">this</a> page.</p>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> should <em>not</em> be confused with <a class="el" href="glossary.html#attributes">Attributes</a>. The implementation must not directly store any information contained within the <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a>, though it may be used to better define the type of entity. Hosts that wish to persist other properties of the published entity, will call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c">setEntityAttributes()</a> directly instead, and as described in the attributes section, it is assumed that this is the channel for information that needs to persist.</dd></dl>
+<p>For more on the relationship between Entities, Specifications and attributes, please see <a class="el" href="entities_specifications_and_attributes.html">this</a> page.</p>
 <p>The action of 'publishing' itself, is split into two parts, depending on the nature of the item to be published.</p>
 <ul>
 <li><b>Preflight</b> When a <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a> is about to create some new media/asset. </li>
@@ -978,12 +978,77 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab84fcd5a71605432b42a320c72ec3d41"></a>
+<a class="anchor" id="ad4d8c2dcca7164595aa3d33f009956d8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def getEntityMetadata </td>
+          <td class="memname">def getEntityAttribute </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>entityRefs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hostSession</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>defaultValue</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieve the value of the given attribute for each given entity. </p>
+<p>The default implementation retrieves all attributes for each entity and extracts the requested name.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abab06419d88f8d1fbe089a3fe84d0595" title="Retrieve Attributes for each given entity. ">getEntityAttributes</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">name</td><td><code>str</code> The attribute to look up</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">defaultValue</td><td><code>primitive</code> If not None, this value should be returned in the case of the specified attribute not being set for an entity.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>Union[primitive, KeyError]</code> The value for the specific attribute, or <code>KeyError</code> if not found and no defaultValue is supplied. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abab06419d88f8d1fbe089a3fe84d0595"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def getEntityAttributes </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1014,9 +1079,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve <a class="el" href="glossary.html#metadata">Metadata</a> for each given entity. </p>
-<p>It may be required to bridge between certain 'first-class' properties of your asset management system and the well-known keys in the metadata dictionary. For example, if the asset system represents a 'Shot' with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the <a class="el" href="namespaceopenassetio_1_1constants.html#a325f0f50330dda8d62c7b98a165115b9">openassetio.constants.kField_FrameIn</a> and Out metadata keys as appropriate.</p>
-<dl class="section warning"><dt>Warning</dt><dd>See <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036">setEntityMetadata</a> for important notes on metadata and its role in the system.</dd></dl>
+<p>Retrieve <a class="el" href="glossary.html#attributes">Attributes</a> for each given entity. </p>
+<p>It may be required to bridge between certain 'first-class' properties of your asset management system and the well-known OAIO attributes. For example, if the asset system represents a 'Shot' with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the <a class="el" href="namespaceopenassetio_1_1constants.html#a325f0f50330dda8d62c7b98a165115b9">openassetio.constants.kField_FrameIn</a> and Out attributes as appropriate.</p>
+<dl class="section warning"><dt>Warning</dt><dd>See <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c">setEntityAttributes</a> for important notes on attributes and its role in the system.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
@@ -1025,72 +1090,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, primitive]]</code> Metadata for each entity. Values must be singular plain-old-data types (ie. string, int, float, bool), keys must be strings. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ac58fa8b9b98cc5dc92cca2596d1e0f9e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def getEntityMetadataEntry </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>defaultValue</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the value of the given metadata key for each given entity. </p>
-<p>The default implementation retrieves all metadata for each entity and extracts the requested key.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ab84fcd5a71605432b42a320c72ec3d41" title="Retrieve Metadata for each given entity. ">getEntityMetadata</a></dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">key</td><td><code>str</code> The key to look up</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">defaultValue</td><td><code>primitive</code> If not None, this value should be returned in the case of the specified key not being set for an entity.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>Union[primitive, KeyError]</code> The value for the specific key, or <code>KeyError</code> if not found and no defaultValue is supplied. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, primitive]]</code> Attributes for each entity. Values must be singular plain-old-data types (ie. string, int, float, bool), keys must be strings. </dd></dl>
 
 </div>
 </div>
@@ -1469,7 +1469,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </div><div class="memdoc">
 
 <p>Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list. </p>
-<p>This usually means that the host is about to make multiple queries to the same references. This can be left unimplemented, but it is advisable to batch request the data for resolveEntityReference, getEntityMetadata here if possible.</p>
+<p>This usually means that the host is about to make multiple queries to the same references. This can be left unimplemented, but it is advisable to batch request the data for resolveEntityReference, getEntityAttributes here if possible.</p>
 <p>The implementation should ignore any entities to which no action is applicable (maybe as they don't exist yet).</p>
 <dl class="section warning"><dt>Warning</dt><dd>Because the majority of the resolution API itself is designated thread safe, it is important to implement any pre-fetch mechanism with suitable locks/etc... if required.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1599,7 +1599,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   <table class="params">
     <tr><td class="paramname">primaryStrings</td><td><code>List[str]</code> The <a class="el" href="glossary.html#primary_string">Primary String</a> that each entity should resolve to if passed to a call to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a>. This may be left blank if there is no meaningful string representation of that entity (eg: a 'sequence' in a hierarchy). This must be stored by the manager and a logically equivalent value returned by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84">resolveEntityReference</a> for the same reference. The meaning of 'logical' here, in the case of a URL, is that it points to the same data. The manager is free to relocate data as required. If a primary string is not a URL, then it should be returned verbatim.</td></tr>
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of each entity to publish. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
-    <tr><td class="paramname">entitySpecs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> A description of each entity (or 'asset') that is being published. It is <em>not</em> required for the implementation to store any information contained in the specification, though it may choose to use it if it is meaningful. The host will separately call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a78f4ca198ac5ef3e15259feb53710036" title="Sets metadata on each given entity. ">setEntityMetadata()</a> if it wishes to persist any other information in an entity.</td></tr>
+    <tr><td class="paramname">entitySpecs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">specifications.EntitySpecification</a> <code>]</code> A description of each entity (or 'asset') that is being published. It is <em>not</em> required for the implementation to store any information contained in the specification, though it may choose to use it if it is meaningful. The host will separately call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c" title="Sets attributes on each given entity. ">setEntityAttributes()</a> if it wishes to persist any other information in an entity.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> The API session.</td></tr>
   </table>
@@ -1670,12 +1670,62 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 </div>
 </div>
-<a class="anchor" id="a78f4ca198ac5ef3e15259feb53710036"></a>
+<a class="anchor" id="a53b9b3da5759ec5231fda7a172b14057"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def setEntityMetadata </td>
+          <td class="memname">def setEntityAttribute </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>entityRefs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad3029ff43857f9ee39ae48b91ffbb93c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def setEntityAttributes </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1718,75 +1768,25 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Sets metadata on each given entity. </p>
-<dl class="section note"><dt>Note</dt><dd>It is a vital that the implementation faithfully stores and recalls metadata. It is the underlying mechanism by which hosts may round-trip non file-based entities within this API. Specific key names and value types should be maintained, even if they are re-mapped to an internal name for persistence.</dd></dl>
-<p>If any value is 'None' it should be assumed that that key should be un-set on the object.</p>
+<p>Sets attributes on each given entity. </p>
+<dl class="section note"><dt>Note</dt><dd>It is a vital that the implementation faithfully stores and recalls attributes. It is the underlying mechanism by which hosts may round-trip non file-based entities within this API. Specific attribute names and value types should be maintained, even if they are re-mapped to an internal name for persistence.</dd></dl>
+<p>If any value is 'None' it should be assumed that that attribute should be un-set on the object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td>List[str] Entity references to update.</td></tr>
     <tr><td class="paramname">data</td><td>List[dict] The data for each supplied entity reference.</td></tr>
     <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">merge</td><td>bool If true, then each entity's existing metadata will be merged with the new data (the new data taking precedence). If false, its metadata will entirely replaced by the new data.</td></tr>
+    <tr><td class="paramname">merge</td><td>bool If true, then each entity's existing attributes will be merged with the new data (the new data taking precedence). If false, its attributes will entirely replaced by the new data.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ValueError</td><td>if any of the metadata values are of an un-storable type. Presently it is only required to store str, float, int, bool </td></tr>
+    <tr><td class="paramname">ValueError</td><td>if any of the attributes values are of an un-storable type. Presently it is only required to store str, float, int, bool </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="a25ef0fd67b1d39e4ba366a15d336e020"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def setEntityMetadataEntry </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

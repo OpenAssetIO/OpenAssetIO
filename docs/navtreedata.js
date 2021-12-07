@@ -11,14 +11,14 @@ var NAVTREE =
       [ "The Basic Design for a Host", "index.html#host_implementation_concept", null ],
       [ "The Asset Manager's Commitment", "index.html#manager_implementation_concept", null ]
     ] ],
-    [ "Entities, Specifications and Metadata", "entities_specifications_and_metadata.html", [
-      [ "Entities", "entities_specifications_and_metadata.html#Entities", null ],
-      [ "Specifications", "entities_specifications_and_metadata.html#Specifications", [
-        [ "The Specification Hierarchy", "entities_specifications_and_metadata.html#specification_hierarchy", null ],
-        [ "Mapping to Native Types", "entities_specifications_and_metadata.html#specification_mapping", null ],
-        [ "Picking a Specification to Use", "entities_specifications_and_metadata.html#specification_selection", null ]
+    [ "Entities, Specifications and Attributes", "entities_specifications_and_attributes.html", [
+      [ "Entities", "entities_specifications_and_attributes.html#Entities", null ],
+      [ "Specifications", "entities_specifications_and_attributes.html#Specifications", [
+        [ "The Specification Hierarchy", "entities_specifications_and_attributes.html#specification_hierarchy", null ],
+        [ "Mapping to Native Types", "entities_specifications_and_attributes.html#specification_mapping", null ],
+        [ "Picking a Specification to Use", "entities_specifications_and_attributes.html#specification_selection", null ]
       ] ],
-      [ "Metadata", "entities_specifications_and_metadata.html#Metadata", null ]
+      [ "Attributes", "entities_specifications_and_attributes.html#Attributes", null ]
     ] ],
     [ "Examples", "examples.html", [
       [ "Initializing the API in a Host", "examples.html#examples_api_initialization", null ],
@@ -39,7 +39,7 @@ var NAVTREE =
       [ "Architecture Summary", "notes_for_managers.html#manager_architecture_summary", null ],
       [ "Implementation Check List", "notes_for_managers.html#manager_todo", [
         [ "Required for Resolution Only", "notes_for_managers.html#manager_todo_basic_resolution", null ],
-        [ "Required for Extended Functionality", "notes_for_managers.html#manager_todo_metadata", null ],
+        [ "Required for Extended Functionality", "notes_for_managers.html#manager_todo_attributes", null ],
         [ "Required for Publishing", "notes_for_managers.html#manager_todo_publishing", null ],
         [ "Supporting Relationships", "notes_for_managers.html#manager_todo_related_entities", null ],
         [ "Embedding Custom UI Within the Host", "notes_for_managers.html#manager_todo_ui", null ]
@@ -59,7 +59,7 @@ var NAVTREE =
       [ "Manager Plugin", "glossary.html#ManagerPlugin", null ],
       [ "$OAIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
-      [ "Metadata", "glossary.html#metadata", null ],
+      [ "Attributes", "glossary.html#attributes", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
       [ "preflight", "glossary.html#preflight", null ],

@@ -114,8 +114,8 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1constants.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ac47e50d0dc072698435a71bfd40d9117"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#ac47e50d0dc072698435a71bfd40d9117">kSupportedMetadataTypes</a> = (str, int, float, bool, type(None))</td></tr>
-<tr class="separator:ac47e50d0dc072698435a71bfd40d9117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae23f5269edf384900b19dc73af80e45d"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#ae23f5269edf384900b19dc73af80e45d">kSupportedAttributeTypes</a> = (str, int, float, bool, type(None))</td></tr>
+<tr class="separator:ae23f5269edf384900b19dc73af80e45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Management States</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy</a> </dd></dl>
 </div></td></tr>
@@ -145,8 +145,8 @@ Variables</h2></td></tr>
 <tr class="separator:a9d6c3b62bc7dab01f69fdbfcb692ee2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24860557832616158a6274e8a9938c4b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a24860557832616158a6274e8a9938c4b">kField_DisplayName</a> = 'displayName'</td></tr>
 <tr class="separator:a24860557832616158a6274e8a9938c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbb6f6c2b0a4595a4f7fee5de7000a90"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#afbb6f6c2b0a4595a4f7fee5de7000a90">kField_Metadata</a> = 'metadata'</td></tr>
-<tr class="separator:afbb6f6c2b0a4595a4f7fee5de7000a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10845244d8bab08231ec44f3fbd998b7"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a10845244d8bab08231ec44f3fbd998b7">kField_Attributes</a> = 'attributes'</td></tr>
+<tr class="separator:a10845244d8bab08231ec44f3fbd998b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28d52d2087daf3359f67b85733f66abe"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">kField_SmallIcon</a> = 'smallIcon'</td></tr>
 <tr class="separator:a28d52d2087daf3359f67b85733f66abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d4624d3aa8813f8a792a4956f93cc0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">kField_Icon</a> = 'icon'</td></tr>
@@ -280,6 +280,18 @@ Variables</h2></td></tr>
 
 <p>The Manager takes exclusive control over this asset type, and any st host interfaces/etc... </p>
 <p>should be suppressed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a10845244d8bab08231ec44f3fbd998b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string kField_Attributes = 'attributes'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -526,18 +538,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afbb6f6c2b0a4595a4f7fee5de7000a90"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">string kField_Metadata = 'metadata'</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a946605e217212e638658b85a98392ac5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -734,12 +734,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac47e50d0dc072698435a71bfd40d9117"></a>
+<a class="anchor" id="ae23f5269edf384900b19dc73af80e45d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">tuple kSupportedMetadataTypes = (str, int, float, bool, type(None))</td>
+          <td class="memname">tuple kSupportedAttributeTypes = (str, int, float, bool, type(None))</td>
         </tr>
       </table>
 </div><div class="memdoc">
