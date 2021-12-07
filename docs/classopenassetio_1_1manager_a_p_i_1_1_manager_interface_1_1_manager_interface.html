@@ -127,21 +127,6 @@ Inheritance diagram for ManagerInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These functions provide hosts with general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself. </p>
-</div></td></tr>
-<tr class="memitem:aff783e93ec4792177046b6554946b14e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aff783e93ec4792177046b6554946b14e">identifier</a> (self)</td></tr>
-<tr class="memdesc:aff783e93ec4792177046b6554946b14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an identifier to uniquely identify a specific asset manager.  <a href="#aff783e93ec4792177046b6554946b14e">More...</a><br /></td></tr>
-<tr class="separator:aff783e93ec4792177046b6554946b14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a4467cab41dcb4719599e307c77d045"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a4467cab41dcb4719599e307c77d045">displayName</a> (self)</td></tr>
-<tr class="memdesc:a4a4467cab41dcb4719599e307c77d045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a human readable name to be used to reference this specific asset manager in UIs or other user-facing messaging.  <a href="#a4a4467cab41dcb4719599e307c77d045">More...</a><br /></td></tr>
-<tr class="separator:a4a4467cab41dcb4719599e307c77d045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4cbc8f16a0b6cd68f685de5561a0c618">info</a> (self)</td></tr>
-<tr class="memdesc:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a4cbc8f16a0b6cd68f685de5561a0c618">More...</a><br /></td></tr>
-<tr class="separator:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23a64984e32921a6eaacc5e1c960910"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology</a> (self, stringDict, hostSession)</td></tr>
-<tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
-<tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
 <tr class="memitem:a6515f7c39c44ed9c5367a2b9a000d9e9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings</a> (self, hostSession)</td></tr>
 <tr class="separator:a6515f7c39c44ed9c5367a2b9a000d9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -292,6 +277,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e0cfcd6931793d50252248e670e4707"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> (self, token, hostSession)</td></tr>
 <tr class="memdesc:a1e0cfcd6931793d50252248e670e4707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously frozen state.  <a href="#a1e0cfcd6931793d50252248e670e4707">More...</a><br /></td></tr>
 <tr class="separator:a1e0cfcd6931793d50252248e670e4707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Asset Management System Information</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrpc00f6a64d9e5841822b304863e2ac763"></a>These functions provide hosts with general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself. </p>
+</td></tr>
+<tr class="memitem:a940fe1b11692b151eeb47b1663417f28"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a940fe1b11692b151eeb47b1663417f28">identifier</a> ()</td></tr>
+<tr class="memdesc:a940fe1b11692b151eeb47b1663417f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an identifier to uniquely identify a specific asset manager.  <a href="#a940fe1b11692b151eeb47b1663417f28">More...</a><br /></td></tr>
+<tr class="separator:a940fe1b11692b151eeb47b1663417f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a4467cab41dcb4719599e307c77d045"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a4467cab41dcb4719599e307c77d045">displayName</a> (self)</td></tr>
+<tr class="memdesc:a4a4467cab41dcb4719599e307c77d045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a human readable name to be used to reference this specific asset manager in UIs or other user-facing messaging.  <a href="#a4a4467cab41dcb4719599e307c77d045">More...</a><br /></td></tr>
+<tr class="separator:a4a4467cab41dcb4719599e307c77d045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4cbc8f16a0b6cd68f685de5561a0c618">info</a> (self)</td></tr>
+<tr class="memdesc:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a4cbc8f16a0b6cd68f685de5561a0c618">More...</a><br /></td></tr>
+<tr class="separator:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23a64984e32921a6eaacc5e1c960910"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology</a> (self, stringDict, hostSession)</td></tr>
+<tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
+<tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -331,7 +333,7 @@ Public Member Functions</h2></td></tr>
 <h2>Initialization </h2>
 <p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
 <ul>
-<li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aff783e93ec4792177046b6554946b14e">identifier()</a> </li>
+<li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a940fe1b11692b151eeb47b1663417f28">identifier()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a4467cab41dcb4719599e307c77d045">displayName()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4cbc8f16a0b6cd68f685de5561a0c618">info()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology()</a> </li>
@@ -1212,18 +1214,25 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 </div>
 </div>
-<a class="anchor" id="aff783e93ec4792177046b6554946b14e"></a>
+<a class="anchor" id="a940fe1b11692b151eeb47b1663417f28"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">def identifier </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns an identifier to uniquely identify a specific asset manager. </p>
@@ -1294,7 +1303,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <p>The behavior of calling <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc" title="Prepares for interaction with a host. ">initialize()</a> on an already initialized instance should be a no-op, but if an error was raised previously, then initialization should be re-attempted.</p>
 <dl class="section note"><dt>Note</dt><dd>This will always be called prior to any Entity-related calls. An exception should be raised if this is not the case. It is however, the following functions may be called prior to initialization:</dd></dl>
 <ul>
-<li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aff783e93ec4792177046b6554946b14e">identifier()</a> </li>
+<li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a940fe1b11692b151eeb47b1663417f28">identifier()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a4467cab41dcb4719599e307c77d045">displayName()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4cbc8f16a0b6cd68f685de5561a0c618">info()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology()</a> </li>

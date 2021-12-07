@@ -109,7 +109,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"entities_specifications_and_metadata.html#specification_selection"
+"examples.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
