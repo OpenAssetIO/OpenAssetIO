@@ -31,6 +31,5 @@ var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interfac
     [ "setSettings", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430", null ],
     [ "startTransaction", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704", null ],
     [ "thawState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707", null ],
-    [ "thumbnailSpecification", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#acb82be6f9d3a34b9191a894557e9625c", null ],
     [ "updateTerminology", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910", null ]
 ];

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>OpenAssetIO [beta]: Member List</title>
+<title>OpenAssetIO [beta]: Thumbnails</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,8 +50,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -70,14 +70,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -90,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('classopenassetio_1_1specifications_1_1_entity_specification.html','');});
+$(document).ready(function(){initNavTree('thumbnails.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -109,15 +101,31 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1specifications_1_1
 
 <div class="header">
   <div class="headertitle">
-<div class="title">EntitySpecification Member List</div>  </div>
+<div class="title">Thumbnails </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html">EntitySpecification</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html#a29d6a73cf377260ad7bbd9ca1f7f346b">nameHint</a></td><td class="entry"><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html">EntitySpecification</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html#aba5553c9b2ead9e2f55f02a34c58bd4d">referenceHint</a></td><td class="entry"><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html">EntitySpecification</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><h1><a class="anchor" id="thumbnails_overview"></a>
+Overview</h1>
+<p>OAIO provides a mechanism for a <a class="el" href="glossary.html#manager">manager</a> to request a thumbnail from the <a class="el" href="glossary.html#host">host</a> when a new <a class="el" href="glossary.html#entity">entity</a> is created, and for a host to look up a thumbnail for an existing entity.</p>
+<h1><a class="anchor" id="thumbnails_creation_during_publish"></a>
+Requesting Thumbnail Creation During Publishing</h1>
+<p>In many situations, it is difficult for a <a class="el" href="glossary.html#manager">manager</a> to retrospectively generate a thumbnail for any given <a class="el" href="glossary.html#entity">entity</a>. It usually requires first-class knowledge of how the specific entity type can be rendered to into an image.</p>
+<p>For image-based entities, this is potentially straightforward. The whole purpose of OAIO though is to allow generic handling of new entity types without specific logic within the manager.</p>
+<p>It seems fair then, to ask the <a class="el" href="glossary.html#host">host</a> to provide a thumbnail with the entity when it is <a class="el" href="glossary.html#publish">published</a>. More often than not, the host not only understands how this might be done, but has the relevant data to hand to do it.</p>
+<p>To this end, a <a class="el" href="glossary.html#manager">manager</a> can set the <a class="el" href="namespaceopenassetio_1_1constants.html#aa58867bc9f0e28ae40ae99d5a1c7906a">kWantsThumbnail</a> flag in it's response to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a> for any given entity <a class="el" href="glossary.html#Specification">Specification</a>.</p>
+<p>If supported by the host, it will then:</p><ul>
+<li>Call <a class="el" href="glossary.html#preflight">preflight</a> with the target entity and a ThumbnailSpecification that describes supported formats.</li>
+<li>Call getEntityMetadata on the returned reference to determine the desired width/height/format for the thumbnail.</li>
+<li>Generate a thumbnail and <a class="el" href="glossary.html#register">register</a> it to the same reference.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>The thumbnail generation process may be carried out asynchronously by the host and registration may occur at an arbitrary time in the future.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="examples.html#example_generating_a_thumbnail">Generating a Thumbnail During Publish</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>Document the attributes used to determine width/hight/format, these should be the same as the fields of the ThumbnailSpecification.</dd></dl>
+<h1><a class="anchor" id="thumbnails_lookup"></a>
+Looking Up Existing Thumbnails</h1>
+<p>A host can use the standard <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a45ba2d7d80d152f7f35671de7f23b696">getRelatedReferences</a> method of the <a class="el" href="glossary.html#manager">manager</a> to request the <a class="el" href="glossary.html#entity_reference">entity references</a> of any existing thumbnails that depict a particular <a class="el" href="glossary.html#entity">entity</a>.</p>
+<p>The call should supply a ThumbnailSpecification, configured with the desired size/format of the thumbnail. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->

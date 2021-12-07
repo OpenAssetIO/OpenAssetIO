@@ -24,7 +24,8 @@ var NAVTREE =
       [ "Initializing the API in a Host", "examples.html#examples_api_initialization", null ],
       [ "Setting up a Manager", "examples.html#examples_picking_a_manager", null ],
       [ "Resolving a Reference", "examples.html#examples_resolving_a_reference", null ],
-      [ "Publishing a File", "examples.html#example_publishing_a_file", null ]
+      [ "Publishing a File", "examples.html#example_publishing_a_file", null ],
+      [ "Generating a Thumbnail During Publish", "examples.html#example_generating_a_thumbnail", null ]
     ] ],
     [ "Notes for API Host Developers", "notes_for_hosts.html", [
       [ "Architecture Summary", "notes_for_hosts.html#host_architecture", null ],
@@ -77,6 +78,11 @@ var NAVTREE =
       [ "Distributed Processing", "stable_resolution.html#stable_resolution_manager_state_distribution", null ],
       [ "Implementation Guidelines", "stable_resolution.html#stable_resolution_manager_state_guidelines", null ]
     ] ],
+    [ "Thumbnails", "thumbnails.html", [
+      [ "Overview", "thumbnails.html#thumbnails_overview", null ],
+      [ "Requesting Thumbnail Creation During Publishing", "thumbnails.html#thumbnails_creation_during_publish", null ],
+      [ "Looking Up Existing Thumbnails", "thumbnails.html#thumbnails_lookup", null ]
+    ] ],
     [ "Transactions", "transactions.html", [
       [ "Background", "transactions.html#transactions_background", null ],
       [ "Example Host Code", "transactions.html#transactions_example", null ],
@@ -109,7 +115,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"examples.html"
+"examples.html#example_publishing_a_file"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

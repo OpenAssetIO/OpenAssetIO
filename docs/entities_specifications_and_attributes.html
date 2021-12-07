@@ -142,7 +142,7 @@ The Specification Hierarchy</h2>
 <h2><a class="anchor" id="specification_mapping"></a>
 Mapping to Native Types</h2>
 <p>Where possible, both hosts and managers should attempt to map well-known specifications to their native types. A manager with no UI of its own may not need to, but in most situations, a consistent mapping of specifications to first-class concepts is essential for a well-formed user experience.</p>
-<p>For example, a compositor may map an ImageSequenceSpecification to its native image read and write nodes, and a manager map the same to its own supported clip format so thumbnails are generated and displayed in its browser.</p>
+<p>For example, a compositor may map an ImageSequenceSpecification to its native image read and write nodes, and a manager map the same to its own supported clip format so transcodes are generated and displayed in its browser.</p>
 <h2><a class="anchor" id="specification_selection"></a>
 Picking a Specification to Use</h2>
 <p>As a <a class="el" href="glossary.html#host">host</a>, it is important to use the correct specification when making calls to a <a class="el" href="glossary.html#manager">manager</a>. This ensures the expected type of entity is returned or registered. A manager must also accurately describe any entities when requested. In order to facilitate a common dialog between OAIO compatible systems, the project provides a set of well-known specifications. Always use one of these where possible as they are, by definition, also known to other tools in the OAIO ecosystem.</p>

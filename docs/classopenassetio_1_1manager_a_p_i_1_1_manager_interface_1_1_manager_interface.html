@@ -236,9 +236,6 @@ Public Member Functions</h2></td></tr>
 <p>For examples of how to correctly call these parts of the API within a host, see the <a class="el" href="examples.html">Examples</a> page.</p>
 <dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology</a> call, in order to allow the implementation to standardize some of the language and terminology used in a Hosts presentation of the asset management system with other integrations of the system. </dd></dl>
 </div></td></tr>
-<tr class="memitem:acb82be6f9d3a34b9191a894557e9625c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#acb82be6f9d3a34b9191a894557e9625c">thumbnailSpecification</a> (self, specification, context, options, hostSession)</td></tr>
-<tr class="memdesc:acb82be6f9d3a34b9191a894557e9625c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This will be called prior to registration of an asset to determine if the asset system would like a thumbnail preparing.  <a href="#acb82be6f9d3a34b9191a894557e9625c">More...</a><br /></td></tr>
-<tr class="separator:acb82be6f9d3a34b9191a894557e9625c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3989036d52c978a4db5ab96b22f2c130"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a3989036d52c978a4db5ab96b22f2c130">preflight</a> (self, targetEntityRefs, entitySpecs, context, hostSession)</td></tr>
 <tr class="memdesc:a3989036d52c978a4db5ab96b22f2c130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for some work to be done to create data for the referenced entity.  <a href="#a3989036d52c978a4db5ab96b22f2c130">More...</a><br /></td></tr>
 <tr class="separator:a3989036d52c978a4db5ab96b22f2c130"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -340,7 +337,7 @@ Asset Management System Information</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc" title="Prepares for interaction with a host. ">initialize()</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
@@ -1210,7 +1207,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1310,7 +1307,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1894,7 +1891,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1988,75 +1985,6 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="acb82be6f9d3a34b9191a894557e9625c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def thumbnailSpecification </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>specification</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>options</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This will be called prior to registration of an asset to determine if the asset system would like a thumbnail preparing. </p>
-<p>Presently, only JPEG thumbnails will be generated. The arguments to this call are the same as those that will be passed to the register call.</p>
-<p>If a thumbnail is requested, its path will be set in the specification property 'thumbnailPath' passed to a register call at a later date if it was possible to create one.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">specification</td><td><a class="el" href="namespaceopenassetio_1_1_specification.html">openassetio.Specification</a>, The type of entity that will be registered.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">options</td><td>dict, The thumbnail process can be customised, by setting the following keys in the options dict.</td></tr>
-  </table>
-  </dd>
-</dl>
-<ul>
-<li>kField_PixelWidth ('width') : The pixel width of the thumbnail </li>
-<li>kField_PixelHeight ('height') : The pixel height of the thumbnail</li>
-</ul>
-<p>The keys may be set to the default set by the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a>. It will try to best match the requested specifications, but it should not be assumed that all requested properties are honoured.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool, If True, a Thumbnail is desired by the manager, if False, the host should not waste time making one.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Remove this method in favour of using the <code>preflight</code>/<code>register</code> procedure as with any other entity. </dd></dl>
 
 </div>
 </div>

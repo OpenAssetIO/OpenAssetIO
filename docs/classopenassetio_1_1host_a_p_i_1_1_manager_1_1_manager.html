@@ -244,11 +244,8 @@ Public Member Functions</h2></td></tr>
 <p>For examples of how to correctly call these parts of the API, see the <a class="el" href="examples.html">Examples</a> page.</p>
 <dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8">updateTerminology</a> call, in order to allow the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to standardize some of the language and terminology used in your presentation of the asset management system with other integrations of the system.</dd></dl>
 <p><em>3 - Thumbnails</em></p>
-<p>The API provides a mechanism for a manager to request a thumbnail for an entity as it is being published. If as a Host you are capable of making a suitable thumbnail for whatever it is you are wanting to publish, you should call <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a98e210d071a7450bbba16b4234904f2d">thumbnailSpecification</a>. If this returns True, then a thumbnail should be prepared, and saved to disk in some temporary location. It's path should then be set in the 'thumbnailPath' field of the EntitySpecification that you pass to the final register call. If it was not possible to make one, simply leave this field blank. </p>
+<p>The API provides a mechanism for a manager to request a thumbnail for an entity as it is being published, see: <a class="el" href="thumbnails.html">Thumbnails</a>. </p>
 </div></td></tr>
-<tr class="memitem:a98e210d071a7450bbba16b4234904f2d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a98e210d071a7450bbba16b4234904f2d">thumbnailSpecification</a> (self, specification, context, options)</td></tr>
-<tr class="memdesc:a98e210d071a7450bbba16b4234904f2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This should be called prior to registration of an asset to determine if the asset system would like a thumbnail preparing.  <a href="#a98e210d071a7450bbba16b4234904f2d">More...</a><br /></td></tr>
-<tr class="separator:a98e210d071a7450bbba16b4234904f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5248fac5ed5dd706669740247bf269c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ae5248fac5ed5dd706669740247bf269c">preflight</a> (self, targetEntityRefs, entitySpecs, context)</td></tr>
 <tr class="separator:ae5248fac5ed5dd706669740247bf269c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6fc5389f5bc0f370df74050daac6bb3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#af6fc5389f5bc0f370df74050daac6bb3">register</a> (self, primaryStrings, targetEntityRefs, entitySpecs, context, attributes=None)</td></tr>
@@ -1502,62 +1499,6 @@ setAttributes </dd></dl>
 </div><div class="memdoc">
 
 <p><pre class="fragment"></pre> </p>
-
-</div>
-</div>
-<a class="anchor" id="a98e210d071a7450bbba16b4234904f2d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def thumbnailSpecification </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>specification</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>options</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This should be called prior to registration of an asset to determine if the asset system would like a thumbnail preparing. </p>
-<p>Presently, only JPEG thumbnails will be generated. The arguments to this call should be the same as those that will be passed to the register call.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">specification</td><td><a class="el" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. ">openassetio.specifications.EntitySpecification</a> The spec of the Entity that is about to be published, etc...</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> the <a class="el" href="namespaceopenassetio_1_1_context.html">Context</a> in which the publishing will occur.</td></tr>
-    <tr><td class="paramname">options</td><td>dict, A dictionary that will be modifier in place by the manager to reflect the desired thumbnail specification. You may set suitable 'defaults' that best fit the host application before making the call.</td></tr>
-  </table>
-  </dd>
-</dl>
-<ul>
-<li>kField_PixelWidth ('width') : The pixel width of the thumbnail </li>
-<li>kField_PixelHeight ('height') : The pixel height of the thumbnail</li>
-</ul>
-<p>Best attempts should be made to satisfy the specifications as requested, but if it is not possible, return the best possible match.</p>
-<dl class="section return"><dt>Returns</dt><dd>bool, If True, a Thumbnail is desired by the manager, if False, the host should not waste time making one.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Remove this method in favour of using the <code>preflight</code>/<code>register</code> procedure as with any other entity. </dd></dl>
 
 </div>
 </div>

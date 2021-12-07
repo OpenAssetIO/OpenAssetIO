@@ -28,6 +28,5 @@ var classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager =
     [ "setEntityAttribute", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a10dd75fa4d1922a019f19a23757b6573", null ],
     [ "setEntityAttributes", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#af9b2469a5878f987339d5484301c8850", null ],
     [ "setSettings", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#af2868b38666ef26da26225236a50631c", null ],
-    [ "thumbnailSpecification", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a98e210d071a7450bbba16b4234904f2d", null ],
     [ "updateTerminology", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8", null ]
 ];
