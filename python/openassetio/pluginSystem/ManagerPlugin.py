@@ -44,8 +44,8 @@ class ManagerPlugin(PluginSystemPlugin):
     openassetio-ui.implementation.ManagerUIDelegate.
     """
 
-    @classmethod
-    def identifier(cls):
+    @staticmethod
+    def identifier():
         """
         Returns an identifier to uniquely identify the plug-in.
         Generally, this should be the identifier used by the manager.
