@@ -108,7 +108,7 @@ class Context(object):
 
     def __setManagerOptions(self, options):
 
-        if not isinstance(options, (dict, None)):
+        if options is None or not isinstance(options, dict):
             raise ValueError("The managerOptions must be a dict (not %s)" % type(options))
 
         for key, value in options.items():
