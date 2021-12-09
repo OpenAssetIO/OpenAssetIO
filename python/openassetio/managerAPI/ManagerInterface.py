@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the ManagerInterface class.
+"""
 
 import abc
 from .. import exceptions
@@ -804,6 +807,24 @@ class ManagerInterface(object):
         return value
 
     def setEntityAttribute(self, entityRefs, name, value, context, hostSession):
+        """
+        Sets a single attribute for each given entity.
+
+        @see getEntityAttributes
+
+        @param entityRefs `List[str]` Entity references to set attributes for.
+
+        @param name `str` The attribute name to set.
+
+        @param value `primitive` The values to set for each referenced entity.
+
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+        """
         self.setEntityAttributes(entityRefs, {name: value}, context, hostSession, merge=True)
 
     ## @}

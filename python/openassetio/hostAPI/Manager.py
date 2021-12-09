@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the Manager class.
+"""
 
 from ..managerAPI.ManagerInterface import ManagerInterface
 
@@ -654,6 +657,19 @@ class Manager(Debuggable):
     @debugApiCall
     @auditApiCall("Manager methods")
     def setEntityAttribute(self, entityRefs, name, value, context):
+        """
+        Sets a single attribute for each given entity.
+
+        @see getEntityAttributes
+
+        @param entityRefs `List[str]` Entity references to set attributes for.
+
+        @param name `str` The attribute name to set.
+
+        @param value `primitive` The values to set for each referenced entity.
+
+        @param context Context The calling context.
+        """
         return self.__impl.setEntityAttribute(
             entityRefs, name, value, context, self.__hostSession)
 
