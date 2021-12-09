@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.managerAPI.host class.
+"""
 
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
