@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the Context class.
+"""
 
 from .specifications import LocaleSpecification
 from .constants import kSupportedAttributeTypes
@@ -87,6 +90,12 @@ class Context(object):
         self.__actionGroupDepth = actionGroupDepth
 
     def __getManagerInterfaceState(self):
+        """
+        The opaque state token owned by the @ref manager, used to
+        correlate all API calls made using this context.
+
+        @see @ref stable_resolution
+        """
         return self.__managerState
 
     def __setManagerInterfaceState(self, state):
@@ -123,6 +132,12 @@ class Context(object):
     managerOptions = property(__getManagerOptions, __setManagerOptions)
 
     def __getActionGroupDepth(self):
+        """
+        @protected
+        Defines the number of action groups in the stack managed by the @ref
+        openassetio.hostAPI.transactions.TransactionCoordinator "TransactionCoordinator".
+        @todo https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/135
+        """
         return self.__actionGroupDepth
 
     def __setActionGroupDepth(self, depth):
