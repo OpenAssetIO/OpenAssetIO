@@ -30,8 +30,8 @@
  * If supported by the host, it will then:
  * - Call @ref preflight with the target entity and a @needsref ThumbnailSpecification
  *   that describes supported formats.
- * - Call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityMetadata
- *   "getEntityMetadata" on the returned reference to determine the desired width/height/format
+ * - Call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
+ *   "getEntityAttributes" on the returned reference to determine the desired width/height/format
  *   for the thumbnail.
  * - Generate a thumbnail and @ref register it to the same reference.
  *
