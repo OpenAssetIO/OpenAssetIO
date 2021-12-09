@@ -90,6 +90,7 @@ class Context(object):
         self.__actionGroupDepth = actionGroupDepth
 
     def __getManagerInterfaceState(self):
+        # pylint: disable=unused-private-member
         """
         The opaque state token owned by the @ref manager, used to
         correlate all API calls made using this context.
@@ -99,6 +100,7 @@ class Context(object):
         return self.__managerState
 
     def __setManagerInterfaceState(self, state):
+        # pylint: disable=unused-private-member
         self.__managerState = state
 
     managerInterfaceState = property(__getManagerInterfaceState, __setManagerInterfaceState)
@@ -113,9 +115,11 @@ class Context(object):
         be generally be done using a @ref
         openassetio-ui.widgets.ManagerOptionsWidget.
         """
+        # pylint: disable=unused-private-member
         return self.__managerOptions
 
     def __setManagerOptions(self, options):
+        # pylint: disable=unused-private-member
 
         if options is None or not isinstance(options, dict):
             raise ValueError("The managerOptions must be a dict (not %s)" % type(options))
@@ -138,9 +142,11 @@ class Context(object):
         openassetio.hostAPI.transactions.TransactionCoordinator "TransactionCoordinator".
         @todo https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/135
         """
+        # pylint: disable=unused-private-member
         return self.__actionGroupDepth
 
     def __setActionGroupDepth(self, depth):
+        # pylint: disable=unused-private-member
         self.__actionGroupDepth = depth
 
     actionGroupDepth = property(__getActionGroupDepth, __setActionGroupDepth)
@@ -154,9 +160,11 @@ class Context(object):
         wanting to choose a new file name to save, or open an existing
         one.
         """
+        # pylint: disable=unused-private-member
         return self.__access
 
     def __setAccess(self, access):
+        # pylint: disable=unused-private-member
         if access not in self.__validAccess:
             raise ValueError(
                 "'%s' is not a valid Access Pattern (%s)"
@@ -184,9 +192,11 @@ class Context(object):
         situations correctly, Hosts are required to set this property to
         reflect their ability to persist this information.
         """
+        # pylint: disable=unused-private-member
         return self.__retention
 
     def __setRetention(self, retention):
+        # pylint: disable=unused-private-member
         finalVal = -1
         if isinstance(retention, str):
             if retention in self.kRetentionNames:
@@ -218,9 +228,11 @@ class Context(object):
         include information such as whether or not multi-selection is
         required.
         """
+        # pylint: disable=unused-private-member
         return self.__locale
 
     def __setLocale(self, locale):
+        # pylint: disable=unused-private-member
         if locale is not None and not isinstance(locale, LocaleSpecification):
             raise ValueError(
                 "Locale must be an instance of %s (not %s)"
