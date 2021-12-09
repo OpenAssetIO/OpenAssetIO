@@ -196,7 +196,7 @@ class Context(object):
         if finalVal < self.kIgnored or finalVal > self.kPermanent:
             raise ValueError(
                 "%i (%s) is not a valid Retention (%s)"
-                % (finalVal, retention, ", ".join(range(self.kPermanent + 1))))
+                % (finalVal, retention, ", ".join(self.kRetentionNames)))
         self.__retention = finalVal
 
     retention = property(__getRetention, __setRetention)
