@@ -187,17 +187,17 @@ class Context(object):
         return self.__retention
 
     def __setRetention(self, retention):
-        r = -1
+        finalVal = -1
         if isinstance(retention, str):
             if retention in self.kRetentionNames:
-                r = self.kRetentionNames.index(retention)
+                finalVal = self.kRetentionNames.index(retention)
         else:
-            r = int(retention)
-        if r < self.kIgnored or r > self.kPermanent:
+            finalVal = int(retention)
+        if finalVal < self.kIgnored or finalVal > self.kPermanent:
             raise ValueError(
                 "%i (%s) is not a valid Retention (%s)"
-                % (r, retention, ", ".join(range(self.kPermanent + 1))))
-        self.__retention = r
+                % (finalVal, retention, ", ".join(range(self.kPermanent + 1))))
+        self.__retention = finalVal
 
     retention = property(__getRetention, __setRetention)
 
