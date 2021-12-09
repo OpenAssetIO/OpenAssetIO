@@ -158,7 +158,7 @@ class TestSession():
         mock_manager_factory.instantiate.assert_not_called()
         mock_manager_interface.setSettings.assert_not_called()
 
-        manager_c = a_session.currentManager()
+        _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.initialize.assert_called_once()
@@ -170,7 +170,7 @@ class TestSession():
         # No active manager
 
         with pytest.raises(RuntimeError):
-            some_context = a_session.createContext()
+            _ = a_session.createContext()
 
         mock_manager_interface.createState.assert_not_called()
 
