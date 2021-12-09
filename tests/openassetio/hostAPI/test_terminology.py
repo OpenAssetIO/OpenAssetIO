@@ -101,11 +101,11 @@ class TestMapper:
         custom_terminology = {
             mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
         a_mapper = tgy.Mapper(mock_manager, terminology=custom_terminology)
-        assert (a_mapper.replaceTerms("{%s}" % mock_manager.kTerm_custom) ==
+        assert (a_mapper.replaceTerms(f"{{{mock_manager.kTerm_custom}}}") ==
                 mock_manager.kTermValue_custom)
 
     def test_replaceTerms(self, mock_manager, mapper):
-        all_terms_str = ", ".join(["{%s}" % k for k in all_terminology_keys])
+        all_terms_str = ", ".join([f"{k}" for k in all_terminology_keys])
         expected = all_terms_str.format(**mock_manager.expectedTerminology())
         assert mapper.replaceTerms(all_terms_str) == expected
 
