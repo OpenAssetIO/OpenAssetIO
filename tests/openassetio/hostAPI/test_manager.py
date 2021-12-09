@@ -282,6 +282,7 @@ class TestManager():
     # assessing when this is ported to cpp
 
     def test__interface(self, mock_manager_interface, host_session):
+        # pylint: disable=protected-access
         a_manager = Manager(mock_manager_interface, host_session)
         assert a_manager._interface() is mock_manager_interface
 

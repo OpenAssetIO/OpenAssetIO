@@ -56,6 +56,7 @@ class TestHost():
     # assessing when this is ported to cpp
 
     def test__interface(self, mock_host_interface):
+        # pylint: disable=protected-access
         a_host = Host(mock_host_interface)
         assert a_host._interface() is mock_host_interface
 

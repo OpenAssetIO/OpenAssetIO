@@ -60,6 +60,8 @@ def a_scoped_group(a_context):
 
 class TestTransactionCoordinator:
 
+    # pylint: disable=protected-access
+
     def test_construction(self, mock_manager):
         coordinator = t.TransactionCoordinator(mock_manager)
         assert coordinator.manager() is mock_manager
@@ -207,6 +209,8 @@ class TestTransactionCoordinator:
 
 
 class TestScopedActionGroup:
+
+    # pylint: disable=protected-access
 
     def test_scope(self, a_scoped_group):
 

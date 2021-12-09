@@ -59,6 +59,8 @@ def a_session(mock_host_interface, mock_logger, mock_manager_factory):
 
 class TestSession():
 
+    # pylint: disable=protected-access
+
     def test_constructor(self, a_session, mock_logger, mock_manager_factory):
         assert a_session._debugLogFn is mock_logger.log
         with pytest.raises(ValueError):
