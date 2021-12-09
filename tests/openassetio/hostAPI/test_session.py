@@ -21,8 +21,9 @@ Tests that cover the openassetio.hostAPI.Session class.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-import pytest
 from unittest import mock
+
+import pytest
 
 from openassetio import constants, exceptions, logging, Context
 from openassetio.specifications import LocaleSpecification

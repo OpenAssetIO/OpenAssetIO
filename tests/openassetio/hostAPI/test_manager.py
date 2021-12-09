@@ -22,9 +22,9 @@ Tests that cover the openassetio.hostAPI.Manager wrapper class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import inspect
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import Context
 from openassetio.specifications import EntitySpecification

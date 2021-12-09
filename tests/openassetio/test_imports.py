@@ -21,6 +21,7 @@ duplicate namespaces to match the future C++ implementation appearance.
 """
 
 import sys
+
 import pytest
 
 # pylint: disable=no-self-use

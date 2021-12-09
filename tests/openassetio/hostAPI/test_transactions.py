@@ -21,8 +21,9 @@ Tests that cover the openassetio.hostAPI.transactions module.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-import pytest
 from unittest import mock
+
+import pytest
 
 from openassetio import Context
 from openassetio.hostAPI import transactions as t, Manager

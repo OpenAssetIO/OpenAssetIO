@@ -21,8 +21,9 @@ Tests that cover the openassetio.logging module.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-import pytest
 from unittest import mock
+
+import pytest
 
 import openassetio.logging as lg
 
