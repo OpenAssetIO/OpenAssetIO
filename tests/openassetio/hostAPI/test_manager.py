@@ -60,7 +60,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def setSettings(self, settings, hostSession):
         return mock.DEFAULT
 
-    def prefetch(self, entitRefs, context, hostSession):
+    def prefetch(self, entityRefs, context, hostSession):
         return mock.DEFAULT
 
     def flushCaches(self, hostSession):

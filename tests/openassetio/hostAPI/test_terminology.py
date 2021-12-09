@@ -60,8 +60,8 @@ class MockTerminologyManager(Manager):
 
     # ManagerInterface methods
 
-    def updateTerminology(self, strings):
-        strings.update(self.__mockTerminology)
+    def updateTerminology(self, stringDict):
+        stringDict.update(self.__mockTerminology)
 
     def displayName(self):
         return self.__mockDisplayName
