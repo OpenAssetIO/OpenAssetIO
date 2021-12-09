@@ -278,7 +278,6 @@ class ManagerInterface(object):
         @see @ref openassetio.constants
         @see @ref openassetio.hostAPI.terminology.defaultTerminology
         """
-        pass
 
     ## @}
 
@@ -297,7 +296,6 @@ class ManagerInterface(object):
         """
         @todo Document settings mechanism
         """
-        pass
 
     @abc.abstractmethod
     def initialize(self, hostSession):
@@ -374,7 +372,6 @@ class ManagerInterface(object):
 
         @return `None`
         """
-        pass
 
     def flushCaches(self, hostSession):
         """
@@ -384,7 +381,6 @@ class ManagerInterface(object):
         data to be discarded to ensure future queries are fresh. This
         should have no effect on any open @ref transaction.
         """
-        pass
 
     ## @}
 
@@ -1433,7 +1429,6 @@ class ManagerInterface(object):
         @see cancelTransaction()
         @see The @ref transactions page.
         """
-        pass
 
     def finishTransaction(self, state, hostSession):
         """
@@ -1460,7 +1455,6 @@ class ManagerInterface(object):
         @see cancelTransaction()
         @see The @ref transactions page.
         """
-        pass
 
     def cancelTransaction(self, state, hostSession):
         """
