@@ -105,11 +105,11 @@ class TestMapper:
                 mock_manager.kTermValue_custom)
 
     def test_replaceTerms(self, mock_manager, mapper):
-        input = ", ".join(["{%s}" % k for k in all_terminology_keys])
-        expected = input.format(**mock_manager.expectedTerminology())
-        assert mapper.replaceTerms(input) == expected
+        all_terms_str = ", ".join(["{%s}" % k for k in all_terminology_keys])
+        expected = all_terms_str.format(**mock_manager.expectedTerminology())
+        assert mapper.replaceTerms(all_terms_str) == expected
 
     def test_replaceTermsUnknownTokensDebraced(self, mapper):
-        input = "{an} unknown {token}"
+        input_str = "{an} unknown {token}"
         expected = "an unknown token"
-        assert mapper.replaceTerms(input) == expected
+        assert mapper.replaceTerms(input_str) == expected
