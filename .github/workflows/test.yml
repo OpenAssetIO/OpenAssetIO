@@ -51,5 +51,5 @@ jobs:
         # Fail the job if we have Doxygen warning/error lines in the
         # output. NB: This is the same regex as doxygen.json, adapted
         # to work with GNU grep.
-        ! grep -qE "^/src/([^:]+):([0-9]+): ?([a-zA-Z]+): ?(.*)$" doxygen-log.txt
+        ! grep -qE "^.*?/src/([^:]+):([0-9]+): ?([a-zA-Z]+): ?(.*)$" doxygen-log.txt
 
