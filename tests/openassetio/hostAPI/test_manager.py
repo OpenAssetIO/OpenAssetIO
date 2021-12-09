@@ -46,6 +46,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
     @see mock_manager_interface
     """
 
+    # pylint: disable=too-many-public-methods,too-many-arguments
+
     def info(self):
         return mock.DEFAULT
 
@@ -278,6 +280,8 @@ def some_refs():
 
 class TestManager():
 
+    # pylint: disable=too-many-public-methods,too-many-arguments
+
     # __str__ and __repr__ aren't tested as they're debug tricks that need
     # assessing when this is ported to cpp
 
@@ -462,6 +466,8 @@ class TestManager():
 
     def test_getRelatedReferences(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
+
+        # pylint: disable=too-many-locals
 
         method = mock_manager_interface.getRelatedReferences
 

@@ -69,6 +69,8 @@ class Test_ManagerInterface_entityVersions:
 
 class Test_ManagerInterface_finalizedEntityVersion:
 
+    # pylint: disable=too-few-public-methods
+
     def test_when_given_refs_then_returns_refs_unaltered(self, manager_interface):
         refs = Mock()
 
