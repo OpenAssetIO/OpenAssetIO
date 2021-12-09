@@ -164,7 +164,7 @@ class TestSession():
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.initialize.assert_called_once()
         mock_manager_interface.setSettings.assert_called_once()
-        mock_manager_interface.setSettings.call_args[0][0] is some_settings
+        assert mock_manager_interface.setSettings.call_args[0][0] == some_settings
         mock_manager_factory.reset_mock()
 
     def test_createContext(self, a_session, mock_manager_interface):
