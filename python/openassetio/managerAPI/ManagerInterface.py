@@ -17,6 +17,14 @@
 A single-class module, providing the ManagerInterface class.
 """
 
+# Most of this module is documentation, which hopefully is a good thing.
+# pylint: disable=too-many-lines
+# We discussed splitting the interface up, but it ends up making most
+# implementations more complicated.
+# pylint: disable=too-many-public-methods
+# As this is an abstract base class, there are many of these.
+# pylint: disable=unused-argument,no-self-use
+
 import abc
 from .. import exceptions
 
