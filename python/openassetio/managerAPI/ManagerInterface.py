@@ -233,9 +233,12 @@ class ManagerInterface(object):
         """
         Returns other information that may be useful about this @ref
         asset_management_system. This can contain arbitrary key/value
-        pairs.For example:
+        pairs. For example:
 
             { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
+
+        @note Keys should always be strings, and values must be
+        plain-old-data types (ie: str, int, float, bool).
 
         There are certain optional keys that may be used by a host or
         the API:
