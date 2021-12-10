@@ -111,8 +111,8 @@
  * optimisations that can reduce the number of inter-language hops
  * required. See @ref
  * openassetio.managerAPI.ManagerInterface.ManagerInterface.info
- * "ManagerInterface.info" and the `kField_EntityReferenceMatch*`
- * keys.
+ * "ManagerInterface.info" and the `kField_EntityReferencesMatchPrefix`
+ * key.
  *
  * @code{.py}
  * from openassetio import Context

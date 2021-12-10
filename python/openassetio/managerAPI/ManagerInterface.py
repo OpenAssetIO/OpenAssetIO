@@ -232,18 +232,16 @@ class ManagerInterface(object):
           @li openassetio.constants.kField_Icon (any size)
 
         Because it can often be expensive to bridge between languages,
-        info can also contain one of two additional fields - a prefix,
-        or perl regex compatible string to identify a valid entity
-        reference. Only one should be set at once. If supplied, this may
-        be used by the API to optimize calls to isEntityReference when
-        bridging between C/Python etc... can be slow. If neither of
-        these fields are set, then isEntityReference will always be used
-        to determine if a string is an @ref entity_reference or not.
-        Note, not all hosts support this optimisation, so @ref
-        isEntityReference should be implemented regardless.
+        info can also contain an additional field - a prefix that
+        identifies a string as a valid entity reference. If supplied,
+        this will be used by the API to optimize calls to
+        isEntityReference when bridging between C/Python etc.
+        If this isn't supplied, then isEntityReference will always be
+        called to determine if a string is an @ref entity_reference or
+        not. Note, not all invocations require this optimization, so
+        @ref isEntityReference should be implemented regardless.
 
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
-          @li openassetio.constants.kField_EntityReferencesMatchRegex
 
         @note Keys should always be strings, and values must be
         plain-old-data types (ie: str, int, float, bool).
