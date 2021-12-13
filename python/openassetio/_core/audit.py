@@ -26,8 +26,9 @@ import os
 # Support the existing names for module-level vars
 # pylint: disable=invalid-name
 
-__all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 'reprArgs',
-           'Auditor']
+
+__all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls',
+           'captureArgs', 'reprArgs', 'Auditor']
 
 ##
 # @namespace openassetio._core.audit
