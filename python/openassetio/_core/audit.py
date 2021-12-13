@@ -169,7 +169,7 @@ def __auditObj(aud, obj):
             __auditObj(aud, element)
         return
 
-    elif isinstance(obj, dict):
+    if isinstance(obj, dict):
         for value in obj.values():
             __auditObj(aud, value)
         return
