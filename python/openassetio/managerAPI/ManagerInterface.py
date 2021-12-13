@@ -1116,9 +1116,9 @@ class ManagerInterface(object):
         if not self.entityExists(entityRef, context, hostSession):
             raise exceptions.InvalidEntityReference(entityReference=entityRef)
 
-        for r in relatedRefs:
-            if not self.entityExists(r, context, hostSession):
-                raise exceptions.InvalidEntityReference(entityReference=r)
+        for ref in relatedRefs:
+            if not self.entityExists(ref, context, hostSession):
+                raise exceptions.InvalidEntityReference(entityReference=ref)
 
     ## @}
 
