@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+This module provides utility code that allows method and object usage
+to be audited.
+"""
 
 import copy
 import functools
@@ -216,12 +220,25 @@ class Auditor(object):
         self.reset()
 
     def getEnabled(self):
+        """
+        @returns `bool`, The enabled state of the Auditor.
+        """
         return self.__enabled
 
     def setEnabled(self, enabled):
+        """
+        Sets the state of the auditor.
+
+        When disabled, all audit calls will be lightweight no-ops.
+
+        @param enabled `bool` The new enabled state.
+        """
         self.__enabled = enabled
 
     def reset(self):
+        """
+        Clears any recorded usage.
+        """
         self.__coverage = {}
         self.__groups = {}
 
