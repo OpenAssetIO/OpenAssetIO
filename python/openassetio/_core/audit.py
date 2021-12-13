@@ -431,7 +431,8 @@ class Auditor(object):
         # and ensure it has the count key, and its initialized to 0
         return parentDict.setdefault(obj, {self.kKey_Count: 0})
 
-    def __classFromObj(self, obj):
+    @staticmethod
+    def __classFromObj(obj):
 
         # If its an instance method then get self, which will be an instance, or a
         # class in the case of @classmethods
