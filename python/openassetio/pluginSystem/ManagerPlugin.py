@@ -56,7 +56,7 @@ class ManagerPlugin(PluginSystemPlugin):
 
         @return str
 
-        @see openassetio.managerAPI.ManagerInterface
+        @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
         """
         raise NotImplementedError
 

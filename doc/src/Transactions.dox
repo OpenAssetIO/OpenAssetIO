@@ -13,9 +13,9 @@
  * has been completed. Canceling a transaction mid way should discard
  * the effects of any previous actions it included.
  *
- * @see openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction
- * @see openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction
- * @see openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction
+ * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction "ManagerInterface.startTransaction"
+ * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction "ManagerInterface.finishTransaction"
+ * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction "ManagerInterface.cancelTransaction"
  *
  * For more details on the requirements of the @ref asset_management_system
  * in relation to transaction handling, see the @ref transactions_for_the_manager

@@ -36,8 +36,8 @@ class HostSession(object):
         through this entrypoint. This ensures it will be appropriately
         presented to the user.
 
-    @see log()
-    @see openassetio.HostInterface.HostInterface
+    @see @ref log
+    @see @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
     """
     kDebugAPI = LoggerInterface.kDebugAPI
     kDebug = LoggerInterface.kDebug
@@ -72,7 +72,7 @@ class HostSession(object):
         It will be mapped to the correct host sub-systems to ensure that
         it is presented correctly.
 
-        @see openassetio.logging
+        @see @ref openassetio.logging "logging"
         """
         self.__logger.log(message, severity)
 
