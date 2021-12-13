@@ -13,6 +13,15 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the Manager class.
+"""
+
+# Most of this module is documentation, which hopefully is a good thing.
+# pylint: disable=too-many-lines
+# We discussed splitting the interface up, but it ends up making most
+# implementations more complicated.
+# pylint: disable=too-many-public-methods
 
 from ..managerAPI.ManagerInterface import ManagerInterface
 
@@ -654,6 +663,19 @@ class Manager(Debuggable):
     @debugApiCall
     @auditApiCall("Manager methods")
     def setEntityAttribute(self, entityRefs, name, value, context):
+        """
+        Sets a single attribute for each given entity.
+
+        @see getEntityAttributes
+
+        @param entityRefs `List[str]` Entity references to set attributes for.
+
+        @param name `str` The attribute name to set.
+
+        @param value `primitive` The values to set for each referenced entity.
+
+        @param context Context The calling context.
+        """
         return self.__impl.setEntityAttribute(
             entityRefs, name, value, context, self.__hostSession)
 
