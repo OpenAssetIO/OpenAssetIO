@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+# Copyright 2013-2021 The Foundry Visionmongers Ltd
 # SPDX-License-Identifier: Apache-2.0
 
 # A script to deploy an existing documentation build in
