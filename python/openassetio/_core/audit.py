@@ -157,9 +157,9 @@ def __auditObj(a, obj):
     """
 
     # Here to prevent cyclic dependencies
-    from . import specifications
-    from . import items
-    from . import Context
+    # pylint: disable=import-outside-toplevel
+    from .. import Specification
+    from .. import Context
 
     # Look inside sequence types / dicts
     if isinstance(obj, (list, tuple)):
@@ -172,7 +172,7 @@ def __auditObj(a, obj):
             __auditObj(a, o)
         return
 
-    if isinstance(obj, specifications.Specification):
+    if isinstance(obj, Specification):
         # If its a spec, just add the spec class
         a.addClass(obj, group="Specifications")
 
