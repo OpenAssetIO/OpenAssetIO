@@ -21,7 +21,7 @@ A single-class module, providing the SampleAssetManagerInterface class.
 # the this class. See the notes under the "Initialization" section of:
 #   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
 # As such, any expensive module imports should be deferred.
-
+from openassetio.constants import kField_EntityReferencesMatchPrefix
 from openassetio.managerAPI import ManagerInterface
 
 __all__ = ['SampleAssetManagerInterface', ]
@@ -43,5 +43,17 @@ class SampleAssetManagerInterface(ManagerInterface):
     def identifier():
         return "org.openassetio.examples.manager.sam"
 
+    def initialize(self, hostSession):
+        pass
+
     def displayName(self):
         return "Sample Asset Manager (SAM)"
+
+    def info(self):
+        # This hint allows the API middleware to short-circuit calls to `isEntityReference`
+        # using string prefix comparisons. If your implementation's entity reference format
+        # supports this kind of matching, you should set this key. It allows for multi-threaded
+        # reference testing in C++ as it avoids the need to acquire the GIL and enter Python.
+        return {
+            kField_EntityReferencesMatchPrefix: "sam://"
+        }
