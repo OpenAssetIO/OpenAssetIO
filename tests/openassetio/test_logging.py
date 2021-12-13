@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.logging module.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 import openassetio.logging as lg
 

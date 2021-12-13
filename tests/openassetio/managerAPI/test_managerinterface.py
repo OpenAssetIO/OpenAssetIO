@@ -16,6 +16,11 @@
 """
 Tests for the default implementations of ManagerInterface methods.
 """
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
 from unittest.mock import Mock
 
 import pytest
@@ -63,6 +68,8 @@ class Test_ManagerInterface_entityVersions:
 
 
 class Test_ManagerInterface_finalizedEntityVersion:
+
+    # pylint: disable=too-few-public-methods
 
     def test_when_given_refs_then_returns_refs_unaltered(self, manager_interface):
         refs = Mock()

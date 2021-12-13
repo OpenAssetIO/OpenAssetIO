@@ -44,6 +44,8 @@ def plugin_path_var_name():
 
 class Test_PluginSystemManagerFactory_init:
 
+    # pylint: disable=too-few-public-methods
+
     def test_when_env_var_not_set_then_logs_warning(
             self, a_logger, plugin_path_var_name, monkeypatch):
 
