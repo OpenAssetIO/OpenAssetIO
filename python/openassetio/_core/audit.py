@@ -59,6 +59,7 @@ def auditor():
     """
     Returns a singleton Auditor, created on demand.
     """
+    # pylint: disable=global-statement
     global __auditor
     if not __auditor:
         __auditor = Auditor()
@@ -318,7 +319,7 @@ class Auditor(object):
             argsList = methodDict.setdefault(self.kKey_Args, [])
             try:
                 argsList.append(copy.deepcopy(arg))
-            except BaseException:
+            except BaseException: # pylint: disable=broad-except
                 pass
 
         # If we have a group, count the method there too. We don't keep args here,
@@ -383,6 +384,7 @@ class Auditor(object):
         @return str, A multi-line formatted string containing recorded
         coverage.
         """
+        # pylint: disable=too-many-nested-blocks
 
         outputStr = ""
 
@@ -407,7 +409,7 @@ class Auditor(object):
                             # Some hosts will raise here based on binding issues, etc...
                             try:
                                 outputStr += "        %r\n" % (arg,)
-                            except BaseException:
+                            except BaseException: # pylint: disable=broad-except
                                 pass
                         outputStr += "\n"
 
