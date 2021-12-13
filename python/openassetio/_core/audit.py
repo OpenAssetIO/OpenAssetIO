@@ -255,7 +255,7 @@ class Auditor(object):
         @return dict, The coverage data dict for the Class
         """
         if not self.__enabled:
-            return
+            return {}
 
         cls = self.__classFromObj(obj)
 
@@ -296,7 +296,7 @@ class Auditor(object):
         """
 
         if not self.__enabled:
-            return
+            return {}
 
         # Count a usage of the methods Class, which will conveniently give us back
         # the right dictionary for any child methods, etc....
@@ -345,7 +345,7 @@ class Auditor(object):
         """
 
         if not self.__enabled:
-            return
+            return {}
 
         objDict = self.__getObjDict(self.__coverage, obj)
         objDict[self.kKey_Count] += 1
