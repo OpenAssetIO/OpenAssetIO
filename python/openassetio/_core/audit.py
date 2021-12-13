@@ -23,6 +23,8 @@ import functools
 import inspect
 import os
 
+# Support the existing names for module-level vars
+# pylint: disable=invalid-name
 
 __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 'reprArgs',
            'Auditor']
@@ -75,10 +77,10 @@ def auditCall(function):
     @functools.wraps(function)
     def _auditCall(self, *args, **kwargs):
         if auditCalls:
-            a = auditor()
+            sharedAuditor = auditor()
 
             arg = __prepareArgs(args, kwargs)
-            a.addMethod(function, arg=arg)
+            sharedAuditor.addMethod(function, arg=arg)
 
         return function(self, *args, **kwargs)
 
@@ -121,19 +123,19 @@ def auditApiCall(group=None, static=False):
         def _auditApiCall(*args, **kwargs):
 
             if auditCalls:
-                a = auditor()
+                sharedAuditor = auditor()
 
                 instance = None
                 if not static and args:
                     instance = args[0]
 
                 arg = __prepareArgs(args if static else args[1:], kwargs)
-                a.addMethod(function, obj=instance, group=group, arg=arg)
+                sharedAuditor.addMethod(function, obj=instance, group=group, arg=arg)
 
                 for arg in args:
-                    __auditObj(a, arg)
+                    __auditObj(sharedAuditor, arg)
                 for arg in kwargs.values():
-                    __auditObj(a, arg)
+                    __auditObj(sharedAuditor, arg)
 
             return function(*args, **kwargs)
 
@@ -148,12 +150,12 @@ def auditApiCall(group=None, static=False):
 ## @}
 
 
-def __auditObj(a, obj):
+def __auditObj(aud, obj):
     """
     Performs additional auditing of the supplied argument, including
     inspection of lists/dicts, and the various properties of a Context.
 
-    @param a Auditor, The Auditor to receive data
+    @param aud Auditor, The Auditor to receive data
     """
 
     # Here to prevent cyclic dependencies
@@ -163,31 +165,28 @@ def __auditObj(a, obj):
 
     # Look inside sequence types / dicts
     if isinstance(obj, (list, tuple)):
-        for o in obj:
-            __auditObj(a, o)
+        for element in obj:
+            __auditObj(aud, element)
         return
 
     elif isinstance(obj, dict):
-        for o in obj.values():
-            __auditObj(a, o)
+        for value in obj.values():
+            __auditObj(aud, value)
         return
 
     if isinstance(obj, Specification):
         # If its a spec, just add the spec class
-        a.addClass(obj, group="Specifications")
+        aud.addClass(obj, group="Specifications")
 
     elif isinstance(obj, Context):
         # If its a Context, add the context, and its options
-        a.addClass(obj)
-        a.addObj('Context.%s' % obj.access, group="Context Access")
-        a.addObj(
+        aud.addClass(obj)
+        aud.addObj('Context.%s' % obj.access, group="Context Access")
+        aud.addObj(
             'Context.%s' % obj.kRetentionNames[obj.retention],
             group="Context Retention")
         if obj.locale:
-            a.addClass(obj.locale, group="Locales")
-
-    elif isinstance(obj, items.Item):
-        a.addClass(obj)
+            aud.addClass(obj.locale, group="Locales")
 
 
 def __prepareArgs(args, kwargs):
@@ -385,47 +384,47 @@ class Auditor(object):
         coverage.
         """
 
-        s = ""
+        outputStr = ""
 
         if not groupsOnly and self.__coverage:
-            s += "Coverage:\n\n"
-            for c in sorted(self.__coverage.keys()):
-                # c will be a Class or arbitrary object
-                itemDict = self.__coverage[c]
-                n = c.__name__ if hasattr(c, '__name__') else c
-                s += "  %s (%d)\n" % (n, itemDict.get(self.kKey_Count, 0))
-                for m, d in itemDict.items():
-                    # m will be a method or function (or the count key for the class)
-                    # d will be the data for that method
-                    if m == self.kKey_Count:
+            outputStr += "Coverage:\n\n"
+            for key in sorted(self.__coverage.keys()):
+                # key will be a Class or arbitrary object
+                itemDict = self.__coverage[key]
+                objName = key.__name__ if hasattr(key, '__name__') else key
+                outputStr += "  %s (%d)\n" % (objName, itemDict.get(self.kKey_Count, 0))
+                for method, data in itemDict.items():
+                    # method will be a method or function (or the count key for the class)
+                    # data will be the data for that method
+                    if method == self.kKey_Count:
                         continue
-                    n = m.__name__ if hasattr(m, '__name__') else m
-                    s += "    %s (%s)\n" % (n, d.get(self.kKey_Count, 0))
+                    objName = method.__name__ if hasattr(method, '__name__') else method
+                    outputStr += "    %s (%s)\n" % (objName, data.get(self.kKey_Count, 0))
                     # Print the args list for each invocation if we have the data
-                    args = d.get(self.kKey_Args, [])
+                    args = data.get(self.kKey_Args, [])
                     if args:
-                        for a in args:
+                        for arg in args:
                             # Some hosts will raise here based on binding issues, etc...
                             try:
-                                s += "        %r\n" % (a,)
+                                outputStr += "        %r\n" % (arg,)
                             except BaseException:
                                 pass
-                        s += "\n"
+                        outputStr += "\n"
 
         if self.__groups:
-            s += "\n"
-            s += "Groups:\n\n"
-            for g in sorted(self.__groups.keys()):
+            outputStr += "\n"
+            outputStr += "Groups:\n\n"
+            for coverageGroup in sorted(self.__groups.keys()):
                 # Groups are just arbitrary string keys
-                s += "  %s:\n" % g
-                gDict = self.__groups[g]
-                for c in sorted(gDict.keys()):
-                    # c could be a class, or anything really
-                    n = c.__name__ if hasattr(c, '__name__') else c
-                    s += "    %s (%d)\n" % (n, gDict[c].get(self.kKey_Count, 0))
-                s += "\n"
+                outputStr += "  %s:\n" % coverageGroup
+                gDict = self.__groups[coverageGroup]
+                for key in sorted(gDict.keys()):
+                    # key could be a class, or anything really
+                    objName = key.__name__ if hasattr(key, '__name__') else key
+                    outputStr += "    %s (%d)\n" % (objName, gDict[key].get(self.kKey_Count, 0))
+                outputStr += "\n"
 
-        return s
+        return outputStr
 
     def __getObjDict(self, parentDict, obj):
         # Presently, we simply create a child dict for the obj if there isn't one,
