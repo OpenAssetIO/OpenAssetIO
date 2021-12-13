@@ -427,10 +427,10 @@ class Auditor(object):
 
         return s
 
-    def __getObjDict(self, dict, obj):
+    def __getObjDict(self, parentDict, obj):
         # Presently, we simply create a child dict for the obj if there isn't one,
         # and ensure it has the count key, and its initialized to 0
-        return dict.setdefault(obj, {self.kKey_Count: 0})
+        return parentDict.setdefault(obj, {self.kKey_Count: 0})
 
     def __classFromObj(self, obj):
 
