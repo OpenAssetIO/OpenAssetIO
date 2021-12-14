@@ -12,7 +12,6 @@ var searchData=
   ['kfield_5fdisplayname',['kField_DisplayName',['../namespaceopenassetio_1_1constants.html#a24860557832616158a6274e8a9938c4b',1,'openassetio::constants']]],
   ['kfield_5fdropframe',['kField_DropFrame',['../namespaceopenassetio_1_1constants.html#a2d90c12922e009085461fe30fa08842a',1,'openassetio::constants']]],
   ['kfield_5fentityreferencesmatchprefix',['kField_EntityReferencesMatchPrefix',['../namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098',1,'openassetio::constants']]],
-  ['kfield_5fentityreferencesmatchregex',['kField_EntityReferencesMatchRegex',['../namespaceopenassetio_1_1constants.html#aed031d06104755047d96020c8d834efa',1,'openassetio::constants']]],
   ['kfield_5ffielddominance',['kField_FieldDominance',['../namespaceopenassetio_1_1constants.html#a2e31347b56d8db837cb024f8d1205dc0',1,'openassetio::constants']]],
   ['kfield_5ffileextensions',['kField_FileExtensions',['../namespaceopenassetio_1_1constants.html#acc88df6ef1eec15342c3c28c2e151924',1,'openassetio::constants']]],
   ['kfield_5ffileisenumerated',['kField_FileIsEnumerated',['../namespaceopenassetio_1_1constants.html#a0149895b528ab221a91cb309ba9d0ede',1,'openassetio::constants']]],

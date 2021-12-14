@@ -985,8 +985,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size) </li>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="These fields may be used by the API/Host to optimize queries to isEntityReference in situations where...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> </li>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#aed031d06104755047d96020c8d834efa">openassetio.constants.kField_EntityReferencesMatchRegex</a></li>
+<li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
 </ul>
 <p>Keys will always be str, and Values will be int, bool, float or str. </p>
 
@@ -1070,7 +1069,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aa4931c7349835e00d2fd25f15e189052" title="Called to determine if each Entity Reference supplied points to an entity that exists in the Asset Ma...">entityExists</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#abcd32aae251fea3e2cce1de7e143e4d3" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Make use of openassetio.constants.kField_EntityReferenceMatchPrefix or openassetio.constants.kField_EntityReferenceMatchRegex if supplied, especially when bridging between C/python. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
 
 </div>
 </div>
