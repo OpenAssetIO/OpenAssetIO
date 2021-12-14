@@ -115,7 +115,7 @@ Requesting Thumbnail Creation During Publishing</h1>
 <p>To this end, a <a class="el" href="glossary.html#manager">manager</a> can set the <a class="el" href="namespaceopenassetio_1_1constants.html#aa58867bc9f0e28ae40ae99d5a1c7906a">kWantsThumbnail</a> flag in it's response to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a> for any given entity <a class="el" href="glossary.html#Specification">Specification</a>.</p>
 <p>If supported by the host, it will then:</p><ul>
 <li>Call <a class="el" href="glossary.html#preflight">preflight</a> with the target entity and a ThumbnailSpecification that describes supported formats.</li>
-<li>Call getEntityMetadata on the returned reference to determine the desired width/height/format for the thumbnail.</li>
+<li>Call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abab06419d88f8d1fbe089a3fe84d0595">getEntityAttributes</a> on the returned reference to determine the desired width/height/format for the thumbnail.</li>
 <li>Generate a thumbnail and <a class="el" href="glossary.html#register">register</a> it to the same reference.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>The thumbnail generation process may be carried out asynchronously by the host and registration may occur at an arbitrary time in the future.</dd></dl>
