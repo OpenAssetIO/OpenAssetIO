@@ -18,6 +18,15 @@ import inspect
 
 from .SpecificationFactory import SpecificationFactory
 
+## @todo [TC] Though the behavior of Specification is largely correct, the
+## implementation needs re-thinking. The relationship between
+## SpecificationBase and Specification doesn't really make sense.
+## Especially the declaration of `_type` and `_prefix` which then end
+## up duplicated in `__schema`. We still need those components, but
+## there should be a cleaner way to implement this. It's going to need
+## to be re-thought to allow runtime extensions in python or C++ anyway
+## so we can hopefully pick it up then.
+
 # We want these properties to be available here, so people just deriving a
 # 'Specification' don't need to worry about where these properties really come
 # from - we don't want most people to have to care about the 'core' module.
