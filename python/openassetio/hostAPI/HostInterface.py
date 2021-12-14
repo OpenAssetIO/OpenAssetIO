@@ -17,6 +17,9 @@
 A single-class module, providing the HostInterface class.
 """
 
+# As this is an abstract base class, there are many of these.
+# pylint: disable=unused-argument,no-self-use
+
 __all__ = ['HostInterface']
 
 
