@@ -21,7 +21,6 @@ Decorators to aid the debugging of OAIO integrations within a host.
 # pylint: disable=invalid-name
 
 import functools
-import inspect
 import os
 import time
 
@@ -88,13 +87,6 @@ def debugCall(function):
     def _debugCall(*args, **kwargs):
         return __debugCall(function, debugFn, LoggerInterface.kDebug, *args, **kwargs)
 
-    # Ensure the docstring is updated so the help() messages are meaningful,
-    # otherwise, we obscure the signature of the underlying function
-    params = inspect.formatargspec(*inspect.getfullargspec(debugFn))
-    sig = "(Debug) %s%s" % (debugFn.__name__, params)
-    doc = function.__doc__
-    _debugCall.__doc__ = "%s\n%s" % (sig, doc) if doc else sig
-
     return _debugCall
 
 
@@ -117,11 +109,6 @@ def debugApiCall(function):
     @functools.wraps(function)
     def _debugApiCall(*args, **kwargs):
         return __debugCall(function, debugFn, LoggerInterface.kDebugAPI, *args, **kwargs)
-
-    params = inspect.signature(debugFn)
-    sig = "(DebugAPI) %s%s" % (debugFn.__name__, params)
-    doc = function.__doc__
-    _debugApiCall.__doc__ = "%s\n%s" % (sig, doc) if doc else sig
 
     return _debugApiCall
 
