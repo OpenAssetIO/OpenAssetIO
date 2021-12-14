@@ -141,29 +141,27 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     # Debugging can be disabled on-the-fly if the object has a _debugCalls
     # attribute who's value casts to False
     enabled = self._debugCalls and self._debugLogFn is not None
-    if enabled:
+    if not enabled:
+        return function(self, *args, **kwargs)
 
-        allArgs = [repr(a) for a in args]
-        allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
+    allArgs = [repr(a) for a in args]
+    allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
 
-        msg = "-> %x %r.%s( %s )" % (
-            id(self), self, traceFn.__name__, ", ".join(allArgs))
+    msg = "-> %x %r.%s( %s )" % (
+        id(self), self, traceFn.__name__, ", ".join(allArgs))
+    self._debugLogFn(msg, severity)
+
+    result = "<exception>"
+    timer = _Timer()
+    try:
+        with timer:
+            result = function(self, *args, **kwargs)
+    finally:
+        msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
+                                       timer, result)
         self._debugLogFn(msg, severity)
 
-        result = "<exception>"
-        timer = _Timer()
-        try:
-            with timer:
-                result = function(self, *args, **kwargs)
-        finally:
-            msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
-                                           timer, result)
-            self._debugLogFn(msg, severity)
-
-        return result
-
-    else:
-        return function(self, *args, **kwargs)
+    return result
 
 
 class _Timer(object):
