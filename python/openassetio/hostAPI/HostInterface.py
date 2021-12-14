@@ -43,9 +43,6 @@ class HostInterface(object):
     functionality in between.
     """
 
-    def __init__(self):
-        super(HostInterface, self).__init__()
-
     ##
     # @name Host Information
     #
