@@ -17,6 +17,9 @@
 Decorators to aid the debugging of OAIO integrations within a host.
 """
 
+# For private decorator implementation methods
+# pylint: disable=invalid-name
+
 import functools
 import inspect
 import os
@@ -89,8 +92,8 @@ def debugCall(function):
     # otherwise, we obscure the signature of the underlying function
     params = inspect.formatargspec(*inspect.getfullargspec(debugFn))
     sig = "(Debug) %s%s" % (debugFn.__name__, params)
-    d = function.__doc__
-    _debugCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
+    doc = function.__doc__
+    _debugCall.__doc__ = "%s\n%s" % (sig, doc) if doc else sig
 
     return _debugCall
 
@@ -117,8 +120,8 @@ def debugApiCall(function):
 
     params = inspect.signature(debugFn)
     sig = "(DebugAPI) %s%s" % (debugFn.__name__, params)
-    d = function.__doc__
-    _debugApiCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
+    doc = function.__doc__
+    _debugApiCall.__doc__ = "%s\n%s" % (sig, doc) if doc else sig
 
     return _debugApiCall
 
