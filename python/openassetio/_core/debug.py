@@ -13,9 +13,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Decorators to aid the debugging of OAIO integrations within a host.
+"""
+
+# For private decorator implementation methods
+# pylint: disable=invalid-name
 
 import functools
-import inspect
 import os
 import time
 
@@ -82,17 +87,15 @@ def debugCall(function):
     def _debugCall(*args, **kwargs):
         return __debugCall(function, debugFn, LoggerInterface.kDebug, *args, **kwargs)
 
-    # Ensure the docstring is updated so the help() messages are meaningful,
-    # otherwise, we obscure the signature of the underlying function
-    params = inspect.formatargspec(*inspect.getfullargspec(debugFn))
-    sig = "(Debug) %s%s" % (debugFn.__name__, params)
-    d = function.__doc__
-    _debugCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
-
     return _debugCall
 
 
 def debugApiCall(function):
+    """
+    Use as a decorator to trace usage of the decorated API functions though
+    the kDebugAPI logging severity. This should only be used on bound
+    methods.
+    """
     # See notes in debugCall
 
     # Early out if we're not enabled
@@ -107,11 +110,6 @@ def debugApiCall(function):
     def _debugApiCall(*args, **kwargs):
         return __debugCall(function, debugFn, LoggerInterface.kDebugAPI, *args, **kwargs)
 
-    params = inspect.signature(debugFn)
-    sig = "(DebugAPI) %s%s" % (debugFn.__name__, params)
-    d = function.__doc__
-    _debugApiCall.__doc__ = "%s\n%s" % (sig, d) if d else sig
-
     return _debugApiCall
 
 
@@ -121,6 +119,8 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
             "Debug tracing methods can only be used on instances of a"
             " class derived from Debuggable")
 
+    # pylint: disable=protected-access
+
     # function and traceFn are provided so that when the function is wrapped,
     # traceFn is printed to the log, but function (usually the wrapper) is
     # still executed.
@@ -128,29 +128,27 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     # Debugging can be disabled on-the-fly if the object has a _debugCalls
     # attribute who's value casts to False
     enabled = self._debugCalls and self._debugLogFn is not None
-    if enabled:
+    if not enabled:
+        return function(self, *args, **kwargs)
 
-        allArgs = [repr(a) for a in args]
-        allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
+    allArgs = [repr(a) for a in args]
+    allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
 
-        msg = "-> %x %r.%s( %s )" % (
-            id(self), self, traceFn.__name__, ", ".join(allArgs))
+    msg = "-> %x %r.%s( %s )" % (
+        id(self), self, traceFn.__name__, ", ".join(allArgs))
+    self._debugLogFn(msg, severity)
+
+    result = "<exception>"
+    timer = _Timer()
+    try:
+        with timer:
+            result = function(self, *args, **kwargs)
+    finally:
+        msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
+                                       timer, result)
         self._debugLogFn(msg, severity)
 
-        result = "<exception>"
-        timer = _Timer()
-        try:
-            with timer:
-                result = function(self, *args, **kwargs)
-        finally:
-            msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
-                                           timer, result)
-            self._debugLogFn(msg, severity)
-
-        return result
-
-    else:
-        return function(self, *args, **kwargs)
+    return result
 
 
 class _Timer(object):
@@ -172,6 +170,13 @@ class _Timer(object):
         self.end = time.time()
 
     def interval(self):
+        """
+        Returns ths interval of time the timer ran for. If the timer
+        is still running, then it will report the interval to the
+        time the method was called.
+
+        @returns float THe time interval as per `time.time()`
+        """
         end = self.end if self.end is not None else time.time()
         return end - self.start
 
