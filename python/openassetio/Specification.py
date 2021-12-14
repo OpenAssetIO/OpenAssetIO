@@ -229,11 +229,11 @@ class Specification(SpecificationBase):
         @return str, the prefix of this specifications schema, or an
         empty string.
         """
-        return self.schemaComponents(self.__schema)[0]
+        return self.schemaComponents(self.schema())[0]
 
     def type(self):
         """
         @return str, the schemas type, without prefix or separator
         token.
         """
-        return self.schemaComponents(self.__schema)[1]
+        return self.schemaComponents(self.schema())[1]
