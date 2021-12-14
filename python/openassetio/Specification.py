@@ -135,7 +135,7 @@ class Specification(SpecificationBase, metaclass=SpecificationFactory):
     def __repr__(self):
         return str(self)
 
-    def isOfType(self, typeOrTypes, includeDerived=True, prefix=None):
+    def isOfType(self, typeOrTypes, includeDerived=True):
         """
         Returns whether the specification is of a requested type, by
         comparison of the type string.
@@ -153,12 +153,10 @@ class Specification(SpecificationBase, metaclass=SpecificationFactory):
         "file.image" would still match. If this is false, it must be the
         exact type match.
 
-        @param prefix str, An optional prefix string, to allow complete
-        comparison of the schema, not just the type.
-
         @note This call doesn't not consider the 'prefix' of the
-        Specification, unless the additional 'prefix' argument is
-        supplied.
+        Specification when type strings are provided. When comparing
+        against another Specification class, then the prefix must
+        also match that of the supplied class.
         """
         if self._type and self._prefix:
             ourPrefix = self._prefix
@@ -166,15 +164,15 @@ class Specification(SpecificationBase, metaclass=SpecificationFactory):
         else:
             ourPrefix, ourType = self.schemaComponents(self.schema())
 
-        if prefix and not prefix == ourPrefix:
-            return False
-
         if not isinstance(typeOrTypes, (list, tuple)):
             typeOrTypes = (typeOrTypes,)
 
         for typ in typeOrTypes:
             if inspect.isclass(typ) and issubclass(typ, Specification):
-                typ = typ._type # pylint: disable=protected-access
+                # pylint: disable=protected-access
+                if typ._prefix != ourPrefix:
+                    continue
+                typ = typ._type
             if includeDerived:
                 if ourType.startswith(typ):
                     return True

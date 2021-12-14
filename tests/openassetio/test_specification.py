@@ -34,6 +34,16 @@ class PrefixASpec(Specification):
     anInt = Specification.TypedProperty(int)
 
 
+class PrefixAChildSpec(Specification):
+    _prefix = "prefixA"
+    _type = "spec.child"
+
+
+class PrefixBSpec(Specification):
+    _prefix = "prefixB"
+    _type = "spec"
+
+
 class Test_Specification_construction:
 
     def test_when_constructed_then_has_expected_schema_components(self):
@@ -58,3 +68,41 @@ class Test_Specification_construction:
         with pytest.raises(AttributeError):
             a_spec.cat = 5  # pylint: disable=attribute-defined-outside-init
 
+
+class Test_Specification_isOfType:
+
+    def test_when_called_with_own_type_then_returns_true(self):
+        a_spec = PrefixASpec()
+        assert a_spec.isOfType("spec") is True
+
+    def test_when_called_with_another_type_then_returns_false(self):
+        a_spec = PrefixASpec()
+        assert a_spec.isOfType("another") is False
+
+    def test_when_called_with_own_class_then_returns_true(self):
+        a_spec = PrefixASpec()
+        assert a_spec.isOfType(PrefixASpec) is True
+
+    def test_when_called_with_another_class_with_same_type_then_returns_false(self):
+        a_spec = PrefixASpec()
+        assert a_spec.isOfType(PrefixBSpec) is False
+
+    def test_when_called_with_child_of_own_type_then_returns_false(self):
+        a_spec = PrefixASpec()
+        assert a_spec.isOfType("spec.child") is False
+
+    def test_when_called_with_parent_of_own_type_then_returns_true(self):
+        a_spec = PrefixAChildSpec()
+        assert a_spec.isOfType("spec") is True
+
+    def test_when_called_with_parent_of_own_type_and_derived_disabled_then_returns_false(self):
+        a_spec = PrefixAChildSpec()
+        assert a_spec.isOfType("spec", includeDerived=False) is False
+
+    def test_when_called_with_class_with_parent_of_own_type_then_returns_true(self):
+        a_spec = PrefixAChildSpec()
+        assert a_spec.isOfType(PrefixASpec) is True
+
+    def test_when_called_with_class_with_parent_of_own_type_and_derived_disabled_then_returns_false(self):  # pylint: disable=line-too-long
+        a_spec = PrefixAChildSpec()
+        assert a_spec.isOfType(PrefixASpec, includeDerived=False) is False
