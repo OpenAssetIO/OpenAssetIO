@@ -66,6 +66,7 @@ class SpecificationFactory(type):
         if not customCls:
             customCls = cls.classMap.get(prefix)
         if customCls:
+            # pylint: disable=protected-access
             instance = customCls(data)
             instance._setSchema(schema)
             instance._type = type

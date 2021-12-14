@@ -164,7 +164,7 @@ class Specification(SpecificationBase):
 
         for typ in typeOrTypes:
             if inspect.isclass(typ) and issubclass(typ, Specification):
-                typ = typ._type
+                typ = typ._type # pylint: disable=protected-access
             if includeDerived:
                 if ourType.startswith(typ):
                     return True
