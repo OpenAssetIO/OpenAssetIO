@@ -117,7 +117,7 @@ class FixedInterfaceObject(object):
         # will be available in the data var by default too
 
         def predicate(m):
-            return isinstance(m, objectSystem.UntypedProperty)
+            return isinstance(m, UntypedProperty)
 
         members = inspect.getmembers(self.__class__, predicate)
         for name, prop in members:
@@ -145,7 +145,7 @@ class FixedInterfaceObject(object):
         """
 
         def predicate(m):
-            return isinstance(m, objectSystem.UntypedProperty)
+            return isinstance(m, UntypedProperty)
 
         members = inspect.getmembers(cls, predicate)
 
