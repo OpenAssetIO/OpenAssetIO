@@ -27,13 +27,10 @@ from .SpecificationFactory import SpecificationFactory
 ## to be re-thought to allow runtime extensions in python or C++ anyway
 ## so we can hopefully pick it up then.
 
-# We want these properties to be available here, so people just deriving a
-# 'Specification' don't need to worry about where these properties really come
-# from - we don't want most people to have to care about the 'core' module.
-from ._core.objects import UntypedProperty, TypedProperty, FixedInterfaceObject
+from ._core.objects import TypedProperty, FixedInterfaceObject
 
 
-__all__ = ['SpecificationBase', 'Specification', 'UntypedProperty', 'TypedProperty']
+__all__ = ['SpecificationBase', 'Specification']
 
 
 class SpecificationBase(FixedInterfaceObject):
@@ -42,6 +39,12 @@ class SpecificationBase(FixedInterfaceObject):
     schema type. This can be used in cases that have no need to work
     with the data in any type-specific way.
     """
+
+    # We want TypedProperty to be available here, so people just
+    # deriving a 'Specification' don't need to worry about where these
+    # properties really come from - we don't want most people to have to
+    # care about the 'core' module.
+    TypedProperty = TypedProperty
 
     _data = {}
 
