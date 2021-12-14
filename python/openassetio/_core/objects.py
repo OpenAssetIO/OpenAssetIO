@@ -13,6 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+The OAIO API is built using the core FixedInterfaceObject class. This
+provides python objects that reject the addition of any new attributes
+at runtime, and provide type validation for their predefined
+properties when their values are set.
+"""
 
 import copy
 import inspect
