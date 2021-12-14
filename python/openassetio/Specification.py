@@ -60,8 +60,8 @@ class SpecificationBase(FixedInterfaceObject):
         """
         if copy:
             return dict(self._data)
-        else:
-            return self._data
+
+        return self._data
 
     def _setSchema(self, schema):
         self.__schema = schema
@@ -209,8 +209,8 @@ class Specification(SpecificationBase):
         """
         if cls.__kPrefixSeparator in schema:
             return schema.rsplit(cls.__kPrefixSeparator, 1)
-        else:
-            return "", schema
+
+        return "", schema
 
     def prefix(self):
         """

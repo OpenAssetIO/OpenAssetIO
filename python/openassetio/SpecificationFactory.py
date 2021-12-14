@@ -70,9 +70,9 @@ class SpecificationFactory(type):
             instance._setSchema(schema)
             instance._type = type
             return instance
-        else:
-            ## @todo re-instate logging for missing custom class
-            return SpecificationBase(schema, data)
+
+        ## @todo re-instate logging for missing custom class
+        return SpecificationBase(schema, data)
 
     @classmethod
     def upcast(cls, specification):
