@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Decorators to aid the debugging of OAIO integrations within a host.
+"""
 
 import functools
 import inspect
@@ -93,6 +96,11 @@ def debugCall(function):
 
 
 def debugApiCall(function):
+    """
+    Use as a decorator to trace usage of the decorated API functions though
+    the kDebugAPI logging severity. This should only be used on bound
+    methods.
+    """
     # See notes in debugCall
 
     # Early out if we're not enabled
@@ -174,6 +182,13 @@ class _Timer(object):
         self.end = time.time()
 
     def interval(self):
+        """
+        Returns ths interval of time the timer ran for. If the timer
+        is still running, then it will report the interval to the
+        time the method was called.
+
+        @returns float THe time interval as per `time.time()`
+        """
         end = self.end if self.end is not None else time.time()
         return end - self.start
 
