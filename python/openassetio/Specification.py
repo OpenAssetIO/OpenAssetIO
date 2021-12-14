@@ -68,9 +68,9 @@ class SpecificationBase(FixedInterfaceObject):
 
     def __str__(self):
         data = []
-        for k, v in self._data.items():
-            if v is not None:
-                data.append("'%s':%s" % (k, repr(v)))
+        for key, value in self._data.items():
+            if value is not None:
+                data.append("'%s':%s" % (key, repr(value)))
         return "SpecificationBase('%s', {%s})" % (self.__schema, ", ".join(data))
 
     def __repr__(self):
@@ -117,9 +117,9 @@ class Specification(SpecificationBase):
 
     def __str__(self):
         data = []
-        for k, v in self._data.items():
-            if v is not None:
-                data.append("'%s':%s" % (k, repr(v)))
+        for key, value in self._data.items():
+            if value is not None:
+                data.append("'%s':%s" % (key, repr(value)))
         return "%s({%s})" % (self.__class__.__name__, ", ".join(data))
 
     def __repr__(self):
@@ -162,13 +162,13 @@ class Specification(SpecificationBase):
         if not isinstance(typeOrTypes, (list, tuple)):
             typeOrTypes = (typeOrTypes,)
 
-        for t in typeOrTypes:
-            if inspect.isclass(t) and issubclass(t, Specification):
-                t = t._type
+        for typ in typeOrTypes:
+            if inspect.isclass(typ) and issubclass(typ, Specification):
+                typ = typ._type
             if includeDerived:
-                if ourType.startswith(t):
+                if ourType.startswith(typ):
                     return True
-            elif ourType == t:
+            elif ourType == typ:
                 return True
 
         return False
@@ -189,14 +189,14 @@ class Specification(SpecificationBase):
         return self._data.get(name, defaultValue)
 
     @classmethod
-    def generateSchema(cls, prefix, type):
+    def generateSchema(cls, prefix, typ):
         """
         To be used over naive string concatenation to build a schema
         string.
 
         @return str, The schema string for the given prefix and type.
         """
-        return "%s%s%s" % (prefix, cls.__kPrefixSeparator, type)
+        return "%s%s%s" % (prefix, cls.__kPrefixSeparator, typ)
 
     @classmethod
     def schemaComponents(cls, schema):

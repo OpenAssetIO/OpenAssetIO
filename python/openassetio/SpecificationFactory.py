@@ -32,10 +32,10 @@ class SpecificationFactory(type):
     def __new__(cls, name, bases, namespace):
 
         # Make sure properties have a suitable data name and store
-        for k, v in namespace.items():
-            if isinstance(v, UntypedProperty):
-                v.dataVar = '_data'
-                v.dataName = k
+        for key, value in namespace.items():
+            if isinstance(value, UntypedProperty):
+                value.dataVar = '_data'
+                value.dataName = key
 
         newcls = super(SpecificationFactory, cls).__new__(cls, name, bases, namespace)
         if not hasattr(newcls, '__factoryIgnore'):
