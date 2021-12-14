@@ -89,7 +89,7 @@ class SpecificationBase(FixedInterfaceObject):
         return str(self)
 
 
-class Specification(SpecificationBase):
+class Specification(SpecificationBase, metaclass=SpecificationFactory):
     """
     The simplest form of Specification in common use. It extends the
     base specification to better define the schema.
@@ -117,8 +117,6 @@ class Specification(SpecificationBase):
     The @ref SpecificationFactory understands the concept of prefixes,
     etc... when wrapping on instantiating a Specification from data.
     """
-    __metaclass__ = SpecificationFactory
-
     _prefix = "core"
     _type = ""
     __kPrefixSeparator = ':'

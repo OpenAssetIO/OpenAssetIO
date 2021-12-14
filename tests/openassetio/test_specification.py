@@ -43,3 +43,18 @@ class Test_Specification_construction:
         assert a_spec.prefix() == "prefixA"
         assert a_spec.type() == "spec"
 
+    def test_when_constructed_with_data_then_has_corresponding_fields(self):
+        a_spec = PrefixASpec(data={"aString": "cat", "anInt": 5})
+
+        assert a_spec.field("aString") == "cat"
+        assert a_spec.aString == "cat"
+
+        assert a_spec.field("anInt") == 5
+        assert a_spec.anInt == 5
+
+    def test_when_adding_attributes_after_construction_then_an_attribute_error_is_raised(self):
+        a_spec = PrefixASpec()
+
+        with pytest.raises(AttributeError):
+            a_spec.cat = 5  # pylint: disable=attribute-defined-outside-init
+
