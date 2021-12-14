@@ -1,6 +1,7 @@
 [tool.pylint.messages_control]
 disable = [
     "too-many-arguments",
+    "too-few-public-methods",
     # Disable Python 3 improvements:
     # - We've not definitely ruled 2 out
     # - Much of this code will move to C++
