@@ -154,7 +154,7 @@ class Specification(SpecificationBase):
             ourPrefix = self._prefix
             ourType = self._type
         else:
-            ourPrefix, ourType = self.schemaComponents()
+            ourPrefix, ourType = self.schemaComponents(self.schema())
 
         if prefix and not prefix == ourPrefix:
             return False
