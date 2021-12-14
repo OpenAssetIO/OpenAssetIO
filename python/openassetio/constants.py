@@ -76,12 +76,11 @@ kField_Icon = 'icon'
 
 # Entity Reference Properties
 
-## These fields may be used by the API/Host to optimize queries to
-## isEntityReference in situations where bridging languages, etc.. can be
-## expensive (particularly in the case of python plug-ins called from
-## multi-threaded C). Only one should be set at once.
+## This field may be used by the API to optimize queries to
+## isEntityReference in situations where bridging languages, etc.
+## can be expensive (particularly in the case of python plug-ins
+## called from multi-threaded C++).
 kField_EntityReferencesMatchPrefix = "entityReferencesMatchPrefix"
-kField_EntityReferencesMatchRegex = "entityReferencesMatchRegex"
 
 # Files
 

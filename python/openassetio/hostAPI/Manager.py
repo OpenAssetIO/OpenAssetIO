@@ -146,7 +146,6 @@ class Manager(Debuggable):
           @li openassetio.constants.kField_SmallIcon (upto 32x32)
           @li openassetio.constants.kField_Icon (any size)
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
-          @li openassetio.constants.kField_EntityReferencesMatchRegex
 
         Keys will always be str, and Values will be int, bool, float or
         str.
@@ -410,8 +409,7 @@ class Manager(Debuggable):
         @see resolveEntityReference
 
         @todo Make use of
-        openassetio.constants.kField_EntityReferenceMatchPrefix or
-        openassetio.constants.kField_EntityReferenceMatchRegex if
+        openassetio.constants.kField_EntityReferencesMatchPrefix if
         supplied, especially when bridging between C/python.
         """
         # We need to add support here for using the supplied prefix match string,
