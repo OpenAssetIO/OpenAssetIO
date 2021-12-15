@@ -34,7 +34,7 @@ class PrefixASpec(Specification):
     anInt = Specification.TypedProperty(int, initVal=10)
 
 
-class PrefixAChildSpec(Specification):
+class PrefixAChildSpec(PrefixASpec):
     _prefix = "prefixA"
     _type = "spec.child"
 
@@ -79,11 +79,23 @@ class Test_Specification_construction:
         with pytest.raises(ValueError):
             PrefixASpec(data={"anInt": "notAnInt"})
 
+
+class Test_Specification_properties:
+
     def test_when_adding_attributes_after_construction_then_an_attribute_error_is_raised(self):
         a_spec = PrefixASpec()
-
         with pytest.raises(AttributeError):
             a_spec.cat = 5  # pylint: disable=attribute-defined-outside-init
+
+    def test_when_setting_typed_property_to_invalid_value_type_then_a_value_error_is_raised(self):
+        a_spec = PrefixASpec()
+        with pytest.raises(ValueError):
+            a_spec.anInt = "not an int"
+
+    def test_when_class_inherits_another_spec_then_properties_are_inherited(self):
+        parent = PrefixASpec()
+        child = PrefixAChildSpec()
+        assert set(parent.definedPropertyNames()).issubset(set(child.definedPropertyNames()))
 
 
 class Test_Specification_isOfType:
