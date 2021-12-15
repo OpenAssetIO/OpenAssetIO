@@ -154,15 +154,11 @@ Public Member Functions</h2></td></tr>
 <p>A <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">Session</a> should be constructed and persisted for each individual <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a> a host wishes to communicate with.</p>
 <p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a7becbf9ac0660d5aae6976ab13730849" title="Configures the session to use the manager with the specified identifier. ">useManager()</a> function defines which <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a> a session should use, and allows the current manager to be switched, deallocating the old one.</p>
 <p><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">Session</a> settings can be saved and recalled, this includes the active manager and it's settings. This can be useful for persisting the configuration across host process invocations.</p>
-<dl class="section see"><dt>See also</dt><dd>openassetio.hostAPI.Session.getSettings </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a38bcbd14698c0804e581d39e85f4bd73">getSettings</a> </dd>
 <dd>
-openassetio.hostAPI.Session.setSettings</dd></dl>
+<a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a9bd3c8457f9430f3166a246fb55bcbb5">setSettings</a></dd></dl>
 <p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">Session</a> class is suitable for all Hosts, but in cases where a UI is presented to the user, it may be desirable to use the UISession instead, as it permits access to a Managers widgets etc...</p>
-<dl class="section see"><dt>See also</dt><dd>openassetio.hostAPI.SessionManager </dd>
-<dd>
-openassetio-ui.UISessionManager </dd>
-<dd>
-openassetio-ui.UISession </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>openassetio-ui.UISession </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a03ee176e3c2f158283d1d2c78619ed04"></a>
 <div class="memitem">
@@ -207,17 +203,15 @@ openassetio-ui.UISession </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a7becbf9ac0660d5aae6976ab13730849" title="Configures the session to use the manager with the specified identifier. ">useManager()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a7becbf9ac0660d5aae6976ab13730849">useManager</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0c06bdf8317346e8a3330d36b93f5dd7">currentManager()</a> </dd>
+<a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0c06bdf8317346e8a3330d36b93f5dd7">currentManager</a> </dd>
 <dd>
-<a class="el" href="namespaceopenassetio_1_1logging.html">openassetio.logging</a> </dd>
+<a class="el" href="namespaceopenassetio_1_1logging.html">logging</a> </dd>
 <dd>
-<a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager_factory_interface.html">openassetio.hostAPI.ManagerFactoryInterface</a> </dd>
+<a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager_factory_interface.html">ManagerFactoryInterface</a> </dd>
 <dd>
-<a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory.html">openassetio.pluginSystem.PluginSystemManagerFactory</a> </dd>
-<dd>
-openassetio.hostAPI.SessionManager.SessionManager.currentSession() </dd></dl>
+<a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory.html">PluginSystemManagerFactory</a> </dd></dl>
 
 </div>
 </div>
@@ -254,7 +248,7 @@ openassetio.hostAPI.SessionManager.SessionManager.currentSession() </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1_context_1_1_context.html">Context</a></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">RuntimeError</td><td>if called when the session has no current manager. </td></tr>
@@ -331,7 +325,7 @@ openassetio.hostAPI.SessionManager.SessionManager.currentSession() </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd>openassetio.pluginSystem.PluginSystemManagerFactory.managers() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#ac54bcb4b38f5f1214843debbf26f6784">managers</a> </dd></dl>
 
 </div>
 </div>

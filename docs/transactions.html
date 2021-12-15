@@ -108,11 +108,11 @@ $(document).ready(function(){initNavTree('transactions.html','');});
 Background</h1>
 <p>When a host needs to register multiple assets as part of a compound structure or logical group, the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> includes methods to bookend a series of API calls as a single transaction.</p>
 <p>Transactions behave similarly to those in a database, in that any changes made within any given transaction should be considered atomic, and not exposed to the public state until the transaction has been completed. Canceling a transaction mid way should discard the effects of any previous actions it included.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704" title="Called to indicate the start of a series of connected actions. ">openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">ManagerInterface.startTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a" title="Called at the end of a group of actions to inform the ManagerInterface that any pending internal mana...">openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">ManagerInterface.finishTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31" title="Can be called at any point after startTransaction to undo actions and reset the transaction state...">openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction</a></dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">ManagerInterface.cancelTransaction</a></dd></dl>
 <p>For more details on the requirements of the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> in relation to transaction handling, see the <a class="el" href="transactions.html#transactions_for_the_manager">Transaction Support in a Manager</a> section below.</p>
 <h1><a class="anchor" id="transactions_example"></a>
 Example Host Code</h1>

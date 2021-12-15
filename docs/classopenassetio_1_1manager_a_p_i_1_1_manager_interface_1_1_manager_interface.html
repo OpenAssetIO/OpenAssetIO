@@ -314,11 +314,11 @@ Asset Management System Information</h2></td></tr>
 <h2>Logging and Error Handling </h2>
 <p>The supplied <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html">HostSession</a> object provides logging methods that allow messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
 <dl class="section warning"><dt>Warning</dt><dd>Your plugin may be hosted out of process, or even on another machine, the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426" title="Logs a message to the user. ">openassetio.managerAPI.HostSession.HostSession.log</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426">HostSession.log</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b" title="Logs the supplied progress. ">openassetio.managerAPI.HostSession.HostSession.progress</a></dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b">HostSession.progress</a></dd></dl>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html" title="The OAIOException class should be used for all exceptions raise by Managers and any API-related excep...">exceptions.OAIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">openassetio.exceptions</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
 <p>When a <a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> object is constructed by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Session.Session.createContext</a>, the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
@@ -326,7 +326,7 @@ Asset Management System Information</h2></td></tr>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
 <p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">Host</a></dd></dl>
 <h2>Initialization </h2>
 <p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
 <ul>
@@ -338,7 +338,7 @@ Asset Management System Information</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc" title="Prepares for interaction with a host. ">initialize()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
 <div class="memitem">
@@ -374,11 +374,11 @@ Asset Management System Information</h2></td></tr>
 <p>Generally called in response to some fatal error, in order to request the implementation to unroll, or revert any changes made since <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a></p>
 <p>The state should also be re-configured so that it is then safe to call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a></p>
 <dl class="section return"><dt>Returns</dt><dd>Bool True if roll-back was successful, False in all other cases.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704" title="Called to indicate the start of a series of connected actions. ">startTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a" title="Called at the end of a group of actions to inform the ManagerInterface that any pending internal mana...">finishTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
@@ -432,15 +432,15 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704" title="Called to indicate the start of a series of connected actions. ">startTransaction()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a" title="Called at the end of a group of actions to inform the ManagerInterface that any pending internal mana...">finishTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31" title="Can be called at any point after startTransaction to undo actions and reset the transaction state...">cancelTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9" title="Returns a string that encapsulates the current state of the ManagerInterface represented by the suppl...">freezeState()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707" title="Restores the supplied state object to a previously frozen state. ">thawState()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
@@ -723,9 +723,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> A string for each entity representing its version, or an empty string if the entity was not versioned.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>It is not necessarily a requirement that the entity exists, if, for example, the version name can be determined from the reference itself (in systems that implement a human-readable URL, for example)</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5" title="Retrieves all available versions of each supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5">entityVersions</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938">finalizedEntityVersion</a> </dd></dl>
 
 </div>
 </div>
@@ -789,9 +789,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, str]]</code> A dictionary for each entity, where the keys are string versions, and the values are an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to its entity. Additionally the <a class="el" href="namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3">openassetio.constants.kVersionDict_OrderKey</a> can be set to a list of the version names (ie: dict keys) in their natural ascending order, that may be used by UI elements, etc.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec" title="Retrieves the name of the version pointed to by each supplied Entity Reference. ">entityVersionName()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec">entityVersionName</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938">finalizedEntityVersion</a> </dd></dl>
 
 </div>
 </div>
@@ -850,9 +850,9 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a> <code>]]</code> A list where each element is either the concretely versioned reference, or <code>EntityResolutionError</code>. An <code>EntityResolutionError</code> should be returned if the entity reference is ambiguously versioned or if the supplied <code>overrideVersionName</code> does not exist for that entity. For example, if the version is missing from a reference to a versioned entity, and that behavior is undefined in the manager's model, then an <code>EntityResolutionError</code> should be returned. It may be that it makes sense in the specific asset manager to fall back on 'latest' in this case.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec" title="Retrieves the name of the version pointed to by each supplied Entity Reference. ">entityVersionName()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec">entityVersionName</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5" title="Retrieves all available versions of each supplied Entity Reference (including the supplied ref...">entityVersions()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5">entityVersions</a> </dd></dl>
 
 </div>
 </div>
@@ -897,11 +897,11 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704" title="Called to indicate the start of a series of connected actions. ">startTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31" title="Can be called at any point after startTransaction to undo actions and reset the transaction state...">cancelTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
@@ -969,7 +969,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process. </p>
 <p>After calling this, the state should be considered frozen, and any further cancel/finish calls should throw a <a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html">exceptions.StateError</a> if made without first thawing the stack.</p>
 <dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707" title="Restores the supplied state object to a previously frozen state. ">thawState()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
@@ -1025,7 +1025,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
 <p>Retrieve the value of the given attribute for each given entity. </p>
 <p>The default implementation retrieves all attributes for each entity and extracts the requested name.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abab06419d88f8d1fbe089a3fe84d0595" title="Retrieve Attributes for each given entity. ">getEntityAttributes</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abab06419d88f8d1fbe089a3fe84d0595">getEntityAttributes</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
@@ -1178,9 +1178,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1specifications.html">openassetio.specifications</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1specifications.html">specifications</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6502e82f327a076a72e41a0dd647eb26" title="Creates a new relationship between the referenced entities. ">setRelatedReferences()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6502e82f327a076a72e41a0dd647eb26">setRelatedReferences</a> </dd></dl>
 
 </div>
 </div>
@@ -1361,9 +1361,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call should not verify an entity exits, just that the format of the string is recognised.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229" title="Called to determine if each Entity Reference supplied points to an entity that exists in the Asset Ma...">entityExists()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84">resolveEntityReference</a> </dd></dl>
 
 </div>
 </div>
@@ -1536,7 +1536,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">exceptions.PreflightError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The preflight result for each corresponding entity. If successful, this should be an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that the host should resolve to determine the path to write media to. This may or may not be the same as the input reference. A host will resolve this reference to get the working URL before writing any files or other data. If preflight was unsuccessful, the result for an entity should be either a <code>PreflightError</code> if some fatal exception happens during preflight, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">Context.retention</a>, as not all hosts will support the reference changing at this point.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9" title="Publish entities to the Asset Management System. ">register()</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#register">register</a> </dd></dl>
 
 </div>
 </div>
@@ -1603,9 +1603,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">exceptions.RegistrationError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The publish result for each corresponding entity. This is either an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action (which does not need to be the same as the corresponding entry in <code>targetEntityRefs</code>); a <code>RegistrationError</code> if some fatal exception happens during publishing, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">openassetio.Context.Context.retention</a>, as not all Hosts will support the reference changing at this point.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a3989036d52c978a4db5ab96b22f2c130" title="Prepares for some work to be done to create data for the referenced entity. ">preflight()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#preflight">preflight</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84" title="Returns the Primary String represented by each given Entity Reference. ">resolveEntityReference()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a5e57a188f9b01b2def2cf8e353cd7c84">resolveEntityReference</a> </dd></dl>
 
 </div>
 </div>
@@ -1660,9 +1660,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either the primary string for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229" title="Called to determine if each Entity Reference supplied points to an entity that exists in the Asset Ma...">entityExists()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120" title="Determines if each supplied token (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReference()</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> </dd></dl>
 
 </div>
 </div>
@@ -1855,9 +1855,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a58d0d3cf925eeecd93c316903e99d95c">getRelatedReferences()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a58d0d3cf925eeecd93c316903e99d95c">getRelatedReferences</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9">register()</a> </dd></dl>
+<a class="el" href="glossary.html#register">register</a> </dd></dl>
 
 </div>
 </div>
@@ -1936,11 +1936,11 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a" title="Called at the end of a group of actions to inform the ManagerInterface that any pending internal mana...">finishTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31" title="Can be called at any point after startTransaction to undo actions and reset the transaction state...">cancelTransaction()</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
 <dd>
 The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
@@ -2018,12 +2018,12 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call gives the manager a chance to customize certain strings used in a host's UI/messages. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a> for known keys. The values in stringDict can be freely updated to match the terminology of the asset management system you are representing.</dd></dl>
+<p>See <a class="el" href="namespaceopenassetio_1_1constants.html">constants</a> for known keys. The values in stringDict can be freely updated to match the terminology of the asset management system you are representing.</p>
 <p>For example, you may way a host's "Publish Clip" menu item to read "Release Clip", so you would set the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1terminology.html#adb9e44a678f1da2e5715737230ef4452">openassetio.hostAPI.terminology.kTerm_Publish</a> value to "Release".</p>
 <dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1constants.html">constants</a> </dd>
 <dd>
-<a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1terminology.html#a3ca0224c160b353a1d4eb93be8f98a34">openassetio.hostAPI.terminology.defaultTerminology</a> </dd></dl>
+<a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1terminology.html#a3ca0224c160b353a1d4eb93be8f98a34">terminology.defaultTerminology</a> </dd></dl>
 
 </div>
 </div>
