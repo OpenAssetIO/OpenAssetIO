@@ -18,8 +18,9 @@ A single-class module, providing the PluginSystem class.
 """
 
 import os.path
-import imp
+import importlib.util
 import hashlib
+import sys
 
 from .. import exceptions
 
@@ -35,11 +36,18 @@ class PluginSystem(object):
     a plug-in has registered an identifier, any subsequent registrations
     with that id will be skipped.
     """
+    __validModuleExtensions = (".py", ".pyc")
 
     def __init__(self, logger):
+        self.__logger = logger
+        self.reset()
+
+    def reset(self):
+        """
+        Clears any previously loaded plugins.
+        """
         self.__map = {}
         self.__paths = {}
-        self.__logger = logger
 
     def scan(self, paths):
         """
@@ -51,43 +59,49 @@ class PluginSystem(object):
         registrations ignored. This means entries to the left of the
         paths list take precedence over ones to the right.
 
+        Any existing plugins registered with the PluginSystem will be
+        cleared before scanning.
+
         @param paths `str` A list of paths to search, delimited by
         `os.pathsep`.
         """
-        self.__logger.log(
-            "PluginSystem: Looking for packages on: %s" % paths, self.__logger.kDebug)
+        self.reset()
+
+        self.__logger.log("PluginSystem: Searching %s" % paths, self.__logger.kDebug)
 
         for path in paths.split(os.pathsep):
 
             if not os.path.isdir(path):
+                msg = "PluginSystem: Skipping as it is not a directory %s" % path
+                self.__logger.log(msg, self.__logger.kDebug)
+
+            for item in os.listdir(path):
+
+                itemPath = os.path.join(path, item)
+
+                if os.path.isdir(itemPath):
+                    # The directory could be a package, check for __init__.py
+                    initFile = os.path.join(itemPath, "__init__.py")
+                    if os.path.exists(initFile):
+                        itemPath = initFile
+                    else:
+                        msg = "PluginSystem: Ignoring as it is not a python package " \
+                              "contianing __init__.py %s" % itemPath
+                        self.__logger.log(msg, self.__logger.kDebug)
+                        continue
+                else:
+                    # Its a file, check if it is a .py/.pyc module
+                    _, ext = os.path.splitext(itemPath)
+                    if ext not in self.__validModuleExtensions:
+                        msg = "PluginSystem: Ignoring as its not a python module %s" % itemPath
+                        self.__logger.log(msg, self.__logger.kDebug)
+                        continue
+
                 self.__logger.log(
-                    "PluginSystem: Omitting '%s' from plug-in search as"
-                    " its not a directory" % path, self.__logger.kDebug)
+                    "PluginSystem: Attempting to load %s" % itemPath,
+                    self.__logger.kDebug)
 
-            for bundle in os.listdir(path):
-
-                bundlePath = os.path.join(path, bundle)
-                if not os.path.isdir(bundlePath):
-                    self.__logger.log(
-                        "PluginSystem: Omitting '%s' as its not a package directory" % path,
-                        self.__logger.kDebug)
-                    continue
-
-                # Make a unique namespace to ensure the plugin identifier is all that
-                # really matters
-                moduleName = hashlib.md5(bundlePath.encode("utf-8")).hexdigest()
-
-                try:
-
-                    module = imp.load_module(
-                        moduleName, None, bundlePath, ("", "", imp.PKG_DIRECTORY))
-                    if hasattr(module, 'plugin'):
-                        self.register(module.plugin, bundlePath)
-
-                except Exception as e:
-                    msg = "PluginSystem: Caught exception loading plug-in from '%s':\n%s" % (
-                        bundlePath, e)
-                    self.__logger.log(msg, self.__logger.kError)
+                self.__load(itemPath)
 
     def identifiers(self):
         """
@@ -143,3 +157,45 @@ class PluginSystem(object):
 
         self.__map[identifier] = cls
         self.__paths[identifier] = path
+
+    def __load(self, path):
+        """
+        Loads the specified python file and registers it's plugin.
+        The file must expose a top-level 'plugin' variable.
+
+        @param path `str` This can be either a single-file module,
+        or the __init__.py at the root of a package.
+        """
+
+        # Make a unique namespace to ensure the plugin identifier is
+        # all that really matters
+        moduleName = hashlib.md5(path.encode("utf-8")).hexdigest()
+
+        try:
+
+            spec = importlib.util.spec_from_file_location(moduleName, path)
+            if spec is None:
+                raise RuntimeError("Unable to determine module spec")
+
+            module = importlib.util.module_from_spec(spec)
+
+            # Without this, for package imports we get:
+            #   'No module named '<moduleName>'
+            sys.modules[spec.name] = module
+
+            spec.loader.exec_module(module)
+
+            # Avoid polluting the module cache long-term
+            del sys.modules[spec.name]
+
+        except Exception as ex:  # pylint: disable=broad-except
+            msg = "PluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
+            self.__logger.log(msg, self.__logger.kWarning)
+            return
+
+        if not hasattr(module, 'plugin'):
+            msg = "PluginSystem: No top-level 'plugin' variable %s" % path
+            self.__logger.log(msg, self.__logger.kWarning)
+            return
+
+        self.register(module.plugin, path)

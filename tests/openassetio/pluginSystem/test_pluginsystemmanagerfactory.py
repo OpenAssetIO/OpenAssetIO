@@ -14,7 +14,8 @@
 #   limitations under the License.
 #
 """
-These tests check the functionality of the plugin system.
+These tests check the functionality of the plugin system based
+ManagerFactoryInterface implementation.
 """
 
 # pylint: disable=no-self-use
