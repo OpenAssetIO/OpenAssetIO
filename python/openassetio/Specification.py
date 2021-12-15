@@ -62,18 +62,16 @@ class SpecificationBase(FixedInterfaceObject):
         """
         return self.__schema
 
-    def data(self, copy=True):
+    def data(self):
         """
-        @param copy bool, When True (default) then a copy of the data
-        will be returned, rather than a reference, to help avoid
-        mutating the specifications data by accident.
+        Returns a dict containing the values for the Specification's
+        properties.
 
-        @return dict, The data of the specification.
+        @return dict
+
+        @todo [tc] Do we actually need this method?
         """
-        if copy:
-            return dict(self._data)
-
-        return self._data
+        return {key: getattr(self, key) for key in self.definedPropertyNames()}
 
     def _setSchema(self, schema):
         self.__schema = schema

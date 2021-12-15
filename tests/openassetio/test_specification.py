@@ -130,3 +130,30 @@ class Test_Specification_schemaComponents:
         a_schema = "prefix:type"
         assert Specification.generateSchema(
             *Specification.schemaComponents(a_schema)) == a_schema
+class Test_Specification_data:
+
+    def test_when_called_then_returns_default_constructed_property_values(self):
+        a_spec = PrefixASpec()
+
+        assert a_spec.data() == {
+                "aString": PrefixASpec.aString.initialValue,
+                "anInt": PrefixASpec.anInt.initialValue}
+
+    def test_when_called_then_returns_specified_constructed_property_values(self):
+        initial_values = {"aString": "mouse", "anInt": 3}
+        another_spec = PrefixASpec(data=initial_values)
+
+        assert another_spec.data() == initial_values
+
+    def test_when_properties_set_and_called_then_returns_current_values(self):
+        a_spec = PrefixASpec()
+        a_spec.aString = "herring"
+        a_spec.anInt = 42
+
+        assert a_spec.data() == {"aString": "herring", "anInt": 42}
+
+    def test_when_called_then_all_property_keys_are_present_in_the_returned_value(self):
+        a_spec = PrefixASpec()
+        spec_data = a_spec.data()
+
+        assert set(a_spec.definedPropertyNames()) == set(spec_data.keys())
