@@ -14,7 +14,6 @@
 #   limitations under the License.
 #
 
-from ..logging import LoggerInterface
 from .. import exceptions
 
 

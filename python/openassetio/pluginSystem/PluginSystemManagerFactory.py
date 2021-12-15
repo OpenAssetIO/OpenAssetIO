@@ -17,7 +17,6 @@
 import os
 
 from ..hostAPI.ManagerFactoryInterface import ManagerFactoryInterface
-from ..logging import LoggerInterface
 
 from .PluginSystem import PluginSystem
 
