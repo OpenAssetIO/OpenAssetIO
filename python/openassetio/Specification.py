@@ -185,16 +185,8 @@ class Specification(SpecificationBase, metaclass=SpecificationFactory):
         """
         Fetches the property from the specification, if present,
         otherwise returns the default value.
-
-        This is short hand for the following code, that avoids either
-        copying the data, or exposing the mutable data dictionary.
-        Consequently, it should be used by preference.
-
-        @code
-        data = specification.data(copy=False).get(name, defaultValue)
-        @endcode
         """
-        return self._data.get(name, defaultValue)
+        return getattr(self, name, defaultValue)
 
     @classmethod
     def generateSchema(cls, prefix, typ):

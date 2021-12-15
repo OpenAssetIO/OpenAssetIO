@@ -31,7 +31,7 @@ class PrefixASpec(Specification):
     _type = "spec"
     # Properties
     aString = Specification.TypedProperty(str)
-    anInt = Specification.TypedProperty(int)
+    anInt = Specification.TypedProperty(int, initVal=10)
 
 
 class PrefixAChildSpec(Specification):
@@ -52,6 +52,15 @@ class Test_Specification_construction:
         assert a_spec.schema() == "prefixA:spec"
         assert a_spec.prefix() == "prefixA"
         assert a_spec.type() == "spec"
+
+    def test_when_constructed_then_has_default_property_values(self):
+        a_spec = PrefixASpec()
+
+        assert a_spec.field("aString") == ""
+        assert a_spec.aString == ""
+
+        assert a_spec.field("anInt") == 10
+        assert a_spec.anInt == 10
 
     def test_when_constructed_with_data_then_has_corresponding_fields(self):
         a_spec = PrefixASpec(data={"aString": "cat", "anInt": 5})
