@@ -198,4 +198,9 @@ class PluginSystem(object):
             self.__logger.log(msg, self.__logger.kWarning)
             return
 
+        # Store where this plugin was loaded from. Not entirely
+        # accurate, but more useful for debugging than it not being
+        # there.
+        module.plugin.__file__ = path
+
         self.register(module.plugin, path)
