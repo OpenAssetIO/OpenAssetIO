@@ -71,6 +71,14 @@ class Test_Specification_construction:
         assert a_spec.field("anInt") == 5
         assert a_spec.anInt == 5
 
+    def test_when_constructed_with_invalid_data_key_then_attribute_error_is_raised(self):
+        with pytest.raises(AttributeError):
+            PrefixASpec(data={"aString": "cat", "unknown": "value"})
+
+    def test_when_constructed_with_invalid_data_value_then_value_error_is_raised(self):
+        with pytest.raises(ValueError):
+            PrefixASpec(data={"anInt": "notAnInt"})
+
     def test_when_adding_attributes_after_construction_then_an_attribute_error_is_raised(self):
         a_spec = PrefixASpec()
 

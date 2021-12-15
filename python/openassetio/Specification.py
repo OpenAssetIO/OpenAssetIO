@@ -51,9 +51,12 @@ class SpecificationBase(FixedInterfaceObject):
     def __init__(self, schema, data=None):
 
         self.__schema = schema
+        self._data = data if data else {}
         # The default for data is None, not {} to avoid mutable defaults issues
         # This data is written to by the SpecificationProperty class
-        self._data = data if data else {}
+        if data is not None :
+            for key, value in data.items():
+                setattr(self, key, value)
 
     def schema(self):
         """
