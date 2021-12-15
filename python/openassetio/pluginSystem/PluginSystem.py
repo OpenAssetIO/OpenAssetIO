@@ -17,6 +17,10 @@
 A single-class module, providing the PluginSystem class.
 """
 
+import os.path
+import imp
+import hashlib
+
 from .. import exceptions
 
 
@@ -50,10 +54,6 @@ class PluginSystem(object):
         @param paths `str` A list of paths to search, delimited by
         `os.pathsep`.
         """
-        import os.path
-        import imp
-        import hashlib
-
         self.__logger.log(
             "PluginSystem: Looking for packages on: %s" % paths, self.__logger.kDebug)
 
