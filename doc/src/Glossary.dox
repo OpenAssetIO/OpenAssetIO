@@ -54,7 +54,7 @@
  * by the @ref ManagerInterface, that contains any persistent state its
  * implementation wishes to store.
  *
- * @see @ref openassetio.Context
+ * @see @ref openassetio.Context "Context"
  *
  * @section entity entity
  *
@@ -309,9 +309,9 @@
  *
  * The manager's state object is opaque to the host.
  *
- *   @see openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
- *   @see openassetio.managerAPI.ManagerInterface.ManagerInterface.freezeState
- *   @see openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState
+ *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState "ManagerInterface.createState"
+ *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.freezeState "ManagerInterface.freezeState"
+ *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState "ManagerInterface.thawState"
  *
  *
  * @section attributes Attributes
@@ -589,7 +589,7 @@
  * an API call should be considered a 'hint' rather than required or
  * storable information.
  *
- *  @see openassetio.specifications
+ *  @see @ref openassetio.specifications "specifications"
  *
  *
  * @section transaction Transaction

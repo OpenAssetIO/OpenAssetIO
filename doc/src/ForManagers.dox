@@ -255,11 +255,11 @@
  *
  * @see @ref entities_specifications_and_attributes
  * @see @ref transactions
- * @see openassetio.managerAPI.ManagerInterface
- * @see openassetio.pluginSystem.ManagerPlugin
- * @see openassetio.Context
- * @see openassetio.specifications
- * @see openassetio.managerAPI.Host
- * @see ManagerUIDelegate
- * @see ui.widgets
+ * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
+ * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
+ * @see @ref openassetio.Context "Context"
+ * @see @ref openassetio.specifications "specifications"
+ * @see @ref openassetio.managerAPI.Host "Host"
+ * @see @needsref ManagerUIDelegate
+ * @see @needsref ui.widgets
  */

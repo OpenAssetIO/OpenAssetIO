@@ -77,7 +77,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     def identifiers(self):
         """
         @return list, all identifiers known to the factory.
-        @see openassetio.pluginSystem.ManagerPlugin
+        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
         """
         if not self.__pluginManager:
             self.__scan()
@@ -96,7 +96,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
           openassetio.managerAPI.ManagerInterface.ManagerInterface.info
           "ManagerInterface.info")
           @li **plugin** The plugin class that represents the Manager
-          (see: @ref openassetio.pluginSystem.ManagerPlugin)
+          (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")
         """
 
         if not self.__pluginManager:

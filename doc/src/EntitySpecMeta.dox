@@ -63,7 +63,7 @@
  * wishes to persist any other information about an entity, use the @ref
  * attributes mechanism instead.
  *
- * @see openassetio.Specification
+ * @see @ref openassetio.Specification.Specification "Specification"
  *
  * @subsection specification_hierarchy The Specification Hierarchy
  *

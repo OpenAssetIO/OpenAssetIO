@@ -154,7 +154,7 @@ class TransactionCoordinator(Debuggable):
 
         @return str an ASCII compatible string
 
-        @see thawManagerState
+        @see @ref thawManagerState
         """
         ## @todo Ensure that other actions error after this point
         ## @todo Should this clear out the state/dept from the Context?

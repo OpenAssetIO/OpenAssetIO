@@ -43,7 +43,7 @@ class ManagerFactoryInterface(object):
     def identifiers(self):
         """
         @return list, all identifiers known to the factory.
-        @see openassetio.pluginSystem.ManagerPlugin
+        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
         """
         raise NotImplementedError
 
@@ -59,7 +59,7 @@ class ManagerFactoryInterface(object):
             @li **info** The info dict from the Manager (see: @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.info
             "ManagerInterface.info")
             @li **plugin** The plugin class that represents the Manager
-            (see: @ref openassetio.pluginSystem.ManagerPlugin)
+            (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")
         """
         raise NotImplementedError
 
