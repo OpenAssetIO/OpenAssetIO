@@ -138,6 +138,19 @@ class Test_Specification_schemaComponents:
         a_schema = "prefix:type"
         assert Specification.generateSchema(
             *Specification.schemaComponents(a_schema)) == a_schema
+
+
+class Test_Specification_generateSchema:
+
+    def test_when_called_with_valid_input_then_returns_expected_schema(self):
+        assert Specification.generateSchema("prefix", "type") == "prefix:type"
+
+    def test_when_called_with_schemaComponents_then_result_is_same_as_input(self):
+        components = ("prefix", "type")
+        assert Specification.schemaComponents(
+            Specification.generateSchema(*components)) == components
+
+
 class Test_Specification_data:
 
     def test_when_called_then_returns_default_constructed_property_values(self):
