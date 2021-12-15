@@ -59,6 +59,9 @@ class PluginSystem(object):
         registrations ignored. This means entries to the left of the
         paths list take precedence over ones to the right.
 
+        @note Precedence order is undefined for plugins sharing the
+        same identifier within the same directory.
+
         Any existing plugins registered with the PluginSystem will be
         cleared before scanning.
 

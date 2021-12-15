@@ -53,6 +53,28 @@ class Test_PluginSystem_scan:
         expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
+    def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
+            self, a_plugin_system, the_resources_directory_path, module_plugin_identifier ):
+
+        # The module plugin exists in pathA and pathC
+        path_a = os.path.join(the_resources_directory_path, "pathA")
+        path_c = os.path.join(the_resources_directory_path, "pathC")
+
+        a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
+        assert "/pathA/" in a_plugin_system.plugin(module_plugin_identifier).__file__
+
+        a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
+        assert "/pathC/" in a_plugin_system.plugin(module_plugin_identifier).__file__
+
+    def test_when_path_contains_symlinks_then_plugins_are_loaded(
+            self, a_plugin_system, a_plugin_path_with_symlinks,
+            package_plugin_identifier, module_plugin_identifier):
+
+        a_plugin_system.scan(a_plugin_path_with_symlinks)
+
+        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        assert set(a_plugin_system.identifiers()) == expected_identifiers
+
 
 @pytest.fixture
 def a_plugin_system(a_logger):
@@ -75,6 +97,11 @@ def module_plugin_identifier():
 @pytest.fixture
 def package_plugin_identifier():
     return "org.openassetio.test.pluginSystem.resources.packagePlugin"
+
+
+@pytest.fixture
+def a_plugin_path_with_symlinks(the_resources_directory_path):
+    return os.path.join(the_resources_directory_path, "symlinkPath")
 
 
 @pytest.fixture
