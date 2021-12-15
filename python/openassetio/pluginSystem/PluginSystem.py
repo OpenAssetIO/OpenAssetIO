@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the PluginSystem class.
+"""
 
 from .. import exceptions
 
@@ -35,6 +38,18 @@ class PluginSystem(object):
         self.__logger = logger
 
     def scan(self, paths):
+        """
+        Searches the supplied paths for modules that define a
+        PluginSystemPlugin through a top-level `plugin` variable.
+
+        Paths are searched right-to-left, but only the first instance of
+        any given plugin identifier will be used, and subsequent
+        registrations ignored. This means entries to the left of the
+        paths list take precedence over ones to the right.
+
+        @param paths `str` A list of paths to search, delimited by
+        `os.pathsep`.
+        """
         import os.path
         import imp
         import hashlib
@@ -75,9 +90,25 @@ class PluginSystem(object):
                     self.__logger.log(msg, self.__logger.kError)
 
     def identifiers(self):
+        """
+        Returns the identifiers known to the plugin system.
+
+        If @ref scan has not been called, then this will be empty.
+
+        @return `List[str]`
+        """
         return list(self.__map.keys())
 
     def plugin(self, identifier):
+        """
+        Retrieves the plugin that provides the given identifier.
+
+        @return @ref openassetio.pluginSystem.PluginSystemPlugin
+        "PluginSystemPlugin"
+
+        @exception openassetio.exceptions.PluginError Raised if no
+        plugin provides the specified identifier.
+        """
 
         if identifier not in self.__map:
             msg = "PluginSystem: No plug-in registered with the identifier '%s'" % identifier
@@ -86,7 +117,20 @@ class PluginSystem(object):
         return self.__map[identifier]
 
     def register(self, cls, path="<unknown>"):
+        """
+        Allows manual registration of a PluginSystemPlugin derived
+        class.
 
+        This can be used to register plugins using means other than
+        the built-in file system scanning.
+
+        @param cls @ref openassetio.pluginSystem.PluginSystemPlugin
+        "PluginSystemPlugin"
+
+        @param path `str` Some reference to where this plugin
+        originated, used for debug messaging when duplicate
+        registrations of the same identifier are encountered.
+        """
         identifier = cls.identifier()
         if identifier in self.__map:
             msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \

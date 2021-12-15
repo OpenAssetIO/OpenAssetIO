@@ -19,6 +19,12 @@
 # This module provides a manager factory that loads plugins found on a search path.
 # Each plugin can provide support for a new asset management system.
 #
+"""
+This module provides a plugin system that can be used to register and
+instantiate manager plugins from code that lives outside of the
+openassetio package.
+"""
+
 from .ManagerPlugin import ManagerPlugin
 from .PluginSystem import PluginSystem
 from .PluginSystemPlugin import PluginSystemPlugin

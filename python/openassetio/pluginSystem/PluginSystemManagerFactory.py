@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the PluginSystemManagerFactory class.
+"""
 
 import os
 
@@ -54,9 +57,9 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         Scans for ManagerPlugins, and registers them with the factory
         instance.
 
-        @param paths str, A searchpath string to search for plug-ins. If
-        None, then the contents of the Environment Variable @ref
-        kPluginEnvVar is used instead.
+        @param paths `str` A searchpath string to search for plug-ins.
+        If None, then the contents of the Environment Variable
+        @ref kPluginEnvVar is used instead.
         """
 
         if not self.__paths:
@@ -95,7 +98,8 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
           openassetio.managerAPI.ManagerInterface.ManagerInterface.info
           "ManagerInterface.info")
           @li **plugin** The plugin class that represents the Manager
-          (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")
+          (see: @ref openassetio.pluginSystem.ManagerPlugin
+          "ManagerPlugin")
         """
 
         if not self.__pluginManager:
@@ -146,10 +150,10 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         openassetio.managerAPI.ManagerInterface "ManagerInterface" with
         the specified identifier.
 
-        @param identifier str, The identifier of the ManagerInterface
+        @param identifier `str` The identifier of the ManagerInterface
         to instantiate.
 
-        @param cache bool, When True the created instance will be
+        @param cache `bool` When True the created instance will be
         cached, and immediately returned by subsequence calls to this
         function with the same identifier - instead of creating a new
         instance. If False, a new instance will be created each, and
@@ -178,11 +182,11 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         Creates an instance of the @needsref ManagerUIDelegate for the
         specified identifier.
 
-        @param managerInterfaceInstance openassetio.managerAPI.ManagerInterface,
-        the instance of a ManagerInterface to retrieve the UI
+        @param managerInterfaceInstance openassetio.managerAPI.ManagerInterface
+        The instance of a ManagerInterface to retrieve the UI
         delegate for.
 
-        @param cache bool, When True the created instance will be
+        @param cache `bool` When True the created instance will be
         cached, and immediately returned by subsequence calls to this
         function with the same identifier - instead of creating a new
         instance. If False, a new instance will be created each, and
