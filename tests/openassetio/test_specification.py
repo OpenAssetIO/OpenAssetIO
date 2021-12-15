@@ -106,3 +106,18 @@ class Test_Specification_isOfType:
     def test_when_called_with_class_with_parent_of_own_type_and_derived_disabled_then_returns_false(self):  # pylint: disable=line-too-long
         a_spec = PrefixAChildSpec()
         assert a_spec.isOfType(PrefixASpec, includeDerived=False) is False
+
+
+class Test_Specification_schemaComponents:
+
+    def test_when_called_with_valid_schmea_then_returns_prefix_and_type(self):
+        assert Specification.schemaComponents(
+            "prefix:type") == ("prefix", "type")
+
+    def test_when_called_without_a_prefix_then_returns_empty_prefix(self):
+        assert Specification.schemaComponents("type") == ("", "type")
+
+    def test_when_called_with_generateSchema_then_result_is_same_as_input(self):
+        a_schema = "prefix:type"
+        assert Specification.generateSchema(
+            *Specification.schemaComponents(a_schema)) == a_schema

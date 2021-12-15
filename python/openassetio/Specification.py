@@ -216,7 +216,7 @@ class Specification(SpecificationBase, metaclass=SpecificationFactory):
         string if there is none.
         """
         if cls.__kPrefixSeparator in schema:
-            return schema.rsplit(cls.__kPrefixSeparator, 1)
+            return tuple(schema.rsplit(cls.__kPrefixSeparator, 1))
 
         return "", schema
 
