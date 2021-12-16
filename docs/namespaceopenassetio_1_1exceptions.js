@@ -6,7 +6,7 @@ var namespaceopenassetio_1_1exceptions =
     [ "EntityResolutionError", "classopenassetio_1_1exceptions_1_1_entity_resolution_error.html", "classopenassetio_1_1exceptions_1_1_entity_resolution_error" ],
     [ "InvalidEntityReference", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference" ],
     [ "ManagerError", "classopenassetio_1_1exceptions_1_1_manager_error.html", null ],
-    [ "OAIOException", "classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html", null ],
+    [ "OpenAssetIOException", "classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html", null ],
     [ "PluginError", "classopenassetio_1_1exceptions_1_1_plugin_error.html", null ],
     [ "PreflightError", "classopenassetio_1_1exceptions_1_1_preflight_error.html", null ],
     [ "RegistrationError", "classopenassetio_1_1exceptions_1_1_registration_error.html", null ],

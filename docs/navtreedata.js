@@ -58,7 +58,7 @@ var NAVTREE =
       [ "locale", "glossary.html#locale", null ],
       [ "ManagerInterface", "glossary.html#ManagerInterface", null ],
       [ "Manager Plugin", "glossary.html#ManagerPlugin", null ],
-      [ "$OAIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
+      [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Attributes", "glossary.html#attributes", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],

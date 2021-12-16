@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">An Introduction </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><dl class="section warning"><dt>Warning</dt><dd>The API has a long history. The OAIO release version is currently in a beta stage and is subject to some refinements over the coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1" target="_blank">project tracker</a> for more details.</dd></dl>
+<div class="textblock"><dl class="section warning"><dt>Warning</dt><dd>The API has a long history. The OpenAssetIO release version is currently in a beta stage and is subject to some refinements over the coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1" target="_blank">project tracker</a> for more details.</dd></dl>
 <p>OpenAssetIO defines a common set of interactions between a <a class="el" href="glossary.html#host">host</a> of the API (eg: a Digital Content Creation tool or pipeline script) and an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.</p>
 <div align="center">
 <img src="inline_umlgraph_3.png" />
@@ -130,7 +130,7 @@ The Approach</h1>
 <p>Our hope is that a common baseline level of support for the key operations performed within multi-site production pipelines will greatly simplify integration and allow innovative new workflows to be developed. Bridging tool vendors, asset management system authors and facility pipelines.</p>
 <h2><a class="anchor" id="intro_ams"></a>
 What is an Asset Management System</h2>
-<p>We define an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> as a system that tracks, and potentially manages, the state and location of digital media. Within the Media and Entertainment sector, these are often known as assets. Within OAIO, we call anything managed by the system an <a class="el" href="glossary.html#entity">entity</a>.</p>
+<p>We define an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> as a system that tracks, and potentially manages, the state and location of digital media. Within the Media and Entertainment sector, these are often known as assets. Within OpenAssetIO, we call anything managed by the system an <a class="el" href="glossary.html#entity">entity</a>.</p>
 <p>Within post-production, entities are often things like project, sequences, shots, clips, image sequences and 3d models that are used to produce final content. In the API, entities are referred to using an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>We use the term "entity" in the API, rather than "asset" to avoid confusion. Asset is a very loaded term. Most systems we have encountered seem to use the term "asset" to refer to a sub-set of the data they manage. For example, a shot may not be considered to be an asset, but is an addressable entity as far as the API is concerned.</dd></dl>
 <h2><a class="anchor" id="intro_host"></a>
@@ -158,13 +158,13 @@ The Basic Design for a Host</h1>
 <p>A design goal of this API was for it to be (relatively) easy to retro-fit into an existing application or tool. In a minimal implementation, the host follows a few simple rules:</p>
 <ul>
 <li>Wherever a file path was stored, store an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</li>
-<li>Before the stored string is used, resolve it through OAIO and use the returned value instead.</li>
+<li>Before the stored string is used, resolve it through OpenAssetIO and use the returned value instead.</li>
 <li>Involve the manager in creation of data through the <a class="el" href="examples.html#example_publishing_a_file">publishing</a> workflow.</li>
 </ul>
-<p>For this reason, OAIO has the concept of mapping an <a class="el" href="glossary.html#entity">entity</a> to a <a class="el" href="glossary.html#primary_string">Primary String</a> - which can be thought of as "the string a
-host would have used before". It is this string that is returned when an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is resolved. In many cases in the initial adoption of OAIO, the primary string for an entity will be a file URL.</p>
+<p>For this reason, OpenAssetIO has the concept of mapping an <a class="el" href="glossary.html#entity">entity</a> to a <a class="el" href="glossary.html#primary_string">Primary String</a> - which can be thought of as "the string a
+host would have used before". It is this string that is returned when an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is resolved. In many cases in the initial adoption of OpenAssetIO, the primary string for an entity will be a file URL.</p>
 <dl class="section note"><dt>Note</dt><dd>The API is by no means limited to just file paths, they form a sensible first step. Any string used in an application, can be asset managed in the same way.</dd></dl>
-<p>OAIO also allows arbitrary key/value pairs to be associated with an entity. This means other more complex data structures can be managed by the asset management system. The only prerequisite being that they can be sensibly encoded in a string and/or simple typed key/value pairs.</p>
+<p>OpenAssetIO also allows arbitrary key/value pairs to be associated with an entity. This means other more complex data structures can be managed by the asset management system. The only prerequisite being that they can be sensibly encoded in a string and/or simple typed key/value pairs.</p>
 <p>A renderer for example, could query the correct file format, colorspace and compression options from the manager for the images it is about to create.</p>
 <h1><a class="anchor" id="manager_implementation_concept"></a>
 The Asset Manager's Commitment</h1>
@@ -174,7 +174,7 @@ The Asset Manager's Commitment</h1>
 <li>Store and recall <a class="el" href="glossary.html#attributes">Attributes</a></li>
 <li>Allow filtering by <a class="el" href="glossary.html#Specification">Specification</a></li>
 </ul>
-<p>If these rules are followed, then arbitrary assets from arbitrary hosts can be round-tripped thorough an asset manager without specific support. However, there is scope to build more advanced and useful functionality by mapping OAIO <a class="el" href="glossary.html#Specification">specifications</a> to the manager's native asset types, and well-known <a class="el" href="glossary.html#attributes">Attributes</a> to its asset fields. </p>
+<p>If these rules are followed, then arbitrary assets from arbitrary hosts can be round-tripped thorough an asset manager without specific support. However, there is scope to build more advanced and useful functionality by mapping OpenAssetIO <a class="el" href="glossary.html#Specification">specifications</a> to the manager's native asset types, and well-known <a class="el" href="glossary.html#attributes">Attributes</a> to its asset fields. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

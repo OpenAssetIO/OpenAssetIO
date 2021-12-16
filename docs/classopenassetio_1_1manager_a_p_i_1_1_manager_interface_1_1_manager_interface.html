@@ -317,7 +317,7 @@ Asset Management System Information</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426">HostSession.log</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b">HostSession.progress</a></dd></dl>
-<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html" title="The OAIOException class should be used for all exceptions raise by Managers and any API-related excep...">exceptions.OAIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
+<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
@@ -1077,7 +1077,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </div><div class="memdoc">
 
 <p>Retrieve <a class="el" href="glossary.html#attributes">Attributes</a> for each given entity. </p>
-<p>It may be required to bridge between certain 'first-class' properties of your asset management system and the well-known OAIO attributes. For example, if the asset system represents a 'Shot' with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the <a class="el" href="namespaceopenassetio_1_1constants.html#a325f0f50330dda8d62c7b98a165115b9">openassetio.constants.kField_FrameIn</a> and Out attributes as appropriate.</p>
+<p>It may be required to bridge between certain 'first-class' properties of your asset management system and the well-known OpenAssetIO attributes. For example, if the asset system represents a 'Shot' with 'cutIn' and 'cutOut' properties or accessors, these should be remapped to the <a class="el" href="namespaceopenassetio_1_1constants.html#a325f0f50330dda8d62c7b98a165115b9">openassetio.constants.kField_FrameIn</a> and Out attributes as appropriate.</p>
 <dl class="section warning"><dt>Warning</dt><dd>See <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c">setEntityAttributes</a> for important notes on attributes and its role in the system.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

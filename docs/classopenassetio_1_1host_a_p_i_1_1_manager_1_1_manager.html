@@ -1343,7 +1343,7 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns the <a class="el" href="glossary.html#primary_string">Primary String</a> represented by each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens will be preserved and need handling as if OAIO was never involved.</p>
+<p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens will be preserved and need handling as if OpenAssetIO was never involved.</p>
 <dl class="section note"><dt>Note</dt><dd>You should always call <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9ce05436797dd24b433e15c3ded492ea">isEntityReference</a> first if there is any doubt as to whether or not a string you have is a valid reference for the manager, and only call resolve, or any other methods, if it is a reference recognised by the manager.</dd></dl>
 <p>The API defines that all file paths passed though the API that represent file sequences should use the 'format' syntax, compatible with sprintf (eg. %04d").</p>
 <dl class="params"><dt>Parameters</dt><dd>

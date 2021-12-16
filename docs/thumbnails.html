@@ -106,11 +106,11 @@ $(document).ready(function(){initNavTree('thumbnails.html','');});
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="thumbnails_overview"></a>
 Overview</h1>
-<p>OAIO provides a mechanism for a <a class="el" href="glossary.html#manager">manager</a> to request a thumbnail from the <a class="el" href="glossary.html#host">host</a> when a new <a class="el" href="glossary.html#entity">entity</a> is created, and for a host to look up a thumbnail for an existing entity.</p>
+<p>OpenAssetIO provides a mechanism for a <a class="el" href="glossary.html#manager">manager</a> to request a thumbnail from the <a class="el" href="glossary.html#host">host</a> when a new <a class="el" href="glossary.html#entity">entity</a> is created, and for a host to look up a thumbnail for an existing entity.</p>
 <h1><a class="anchor" id="thumbnails_creation_during_publish"></a>
 Requesting Thumbnail Creation During Publishing</h1>
 <p>In many situations, it is difficult for a <a class="el" href="glossary.html#manager">manager</a> to retrospectively generate a thumbnail for any given <a class="el" href="glossary.html#entity">entity</a>. It usually requires first-class knowledge of how the specific entity type can be rendered to into an image.</p>
-<p>For image-based entities, this is potentially straightforward. The whole purpose of OAIO though is to allow generic handling of new entity types without specific logic within the manager.</p>
+<p>For image-based entities, this is potentially straightforward. The whole purpose of OpenAssetIO though is to allow generic handling of new entity types without specific logic within the manager.</p>
 <p>It seems fair then, to ask the <a class="el" href="glossary.html#host">host</a> to provide a thumbnail with the entity when it is <a class="el" href="glossary.html#publish">published</a>. More often than not, the host not only understands how this might be done, but has the relevant data to hand to do it.</p>
 <p>To this end, a <a class="el" href="glossary.html#manager">manager</a> can set the <a class="el" href="namespaceopenassetio_1_1constants.html#aa58867bc9f0e28ae40ae99d5a1c7906a">kWantsThumbnail</a> flag in it's response to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df">managementPolicy</a> for any given entity <a class="el" href="glossary.html#Specification">Specification</a>.</p>
 <p>If supported by the host, it will then:</p><ul>

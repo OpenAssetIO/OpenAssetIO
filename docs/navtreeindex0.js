@@ -78,7 +78,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html":[12,0,0,2,4],
 "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html#a6d3532d572d68b732ad715371a1bcf05":[12,0,0,2,4,0],
 "classopenassetio_1_1exceptions_1_1_manager_error.html":[12,0,0,2,5],
-"classopenassetio_1_1exceptions_1_1_o_a_i_o_exception.html":[12,0,0,2,6],
+"classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html":[12,0,0,2,6],
 "classopenassetio_1_1exceptions_1_1_plugin_error.html":[12,0,0,2,7],
 "classopenassetio_1_1exceptions_1_1_preflight_error.html":[12,0,0,2,8],
 "classopenassetio_1_1exceptions_1_1_registration_error.html":[12,0,0,2,9],
