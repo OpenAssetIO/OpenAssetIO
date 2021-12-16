@@ -87,10 +87,6 @@ class EntityResolutionError(BaseEntityException):
         super(EntityResolutionError, self).__init__(message, entityReference)
 
 
-class DuplicateEntityError(BaseEntityException):
-    pass
-
-
 class BaseEntityInteractionError(BaseEntityException):
     pass
 
