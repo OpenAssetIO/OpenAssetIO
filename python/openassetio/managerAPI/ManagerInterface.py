@@ -83,16 +83,16 @@ class ManagerInterface(object):
     messages accordingly. Using custom logging mechanisms may well
     result in output being lost.
 
-    @see openassetio.managerAPI.HostSession.HostSession.log
-    @see openassetio.managerAPI.HostSession.HostSession.progress
+    @see @ref openassetio.managerAPI.HostSession.HostSession.log "HostSession.log"
+    @see @ref openassetio.managerAPI.HostSession.HostSession.progress "HostSession.progress"
 
     Exceptions should be thrown to handle any in-flight errors that
     occur.  The error should be mapped to a derived class of
-    exceptions.OAIOException, and thrown.  All exceptions of this
+    exceptions.OpenAssetIOException, and thrown.  All exceptions of this
     kind, will be correctly passed across the plug-in C boundary,
     and re-thrown. Other exceptions should not be used.
 
-     @see openassetio.exceptions
+     @see @ref openassetio.exceptions "exceptions"
 
     Threading
     ---------
@@ -128,7 +128,7 @@ class ManagerInterface(object):
     which host you are being called for, and query various entity
     related specifics of the hosts data model.
 
-    @see openassetio.managerAPI.Host
+    @see @ref openassetio.managerAPI.Host "Host"
 
     Initialization
     --------------
@@ -151,7 +151,7 @@ class ManagerInterface(object):
        @li @ref setSettings()
 
     @todo Finish/Document settings mechanism.
-    @see initialize()
+    @see @ref initialize
     """
 
     __metaclass__ = abc.ABCMeta
@@ -243,18 +243,16 @@ class ManagerInterface(object):
           @li openassetio.constants.kField_Icon (any size)
 
         Because it can often be expensive to bridge between languages,
-        info can also contain one of two additional fields - a prefix,
-        or perl regex compatible string to identify a valid entity
-        reference. Only one should be set at once. If supplied, this may
-        be used by the API to optimize calls to isEntityReference when
-        bridging between C/Python etc... can be slow. If neither of
-        these fields are set, then isEntityReference will always be used
-        to determine if a string is an @ref entity_reference or not.
-        Note, not all hosts support this optimisation, so @ref
-        isEntityReference should be implemented regardless.
+        info can also contain an additional field - a prefix that
+        identifies a string as a valid entity reference. If supplied,
+        this will be used by the API to optimize calls to
+        isEntityReference when bridging between C/Python etc.
+        If this isn't supplied, then isEntityReference will always be
+        called to determine if a string is an @ref entity_reference or
+        not. Note, not all invocations require this optimization, so
+        @ref isEntityReference should be implemented regardless.
 
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
-          @li openassetio.constants.kField_EntityReferencesMatchRegex
 
         @note Keys should always be strings, and values must be
         plain-old-data types (ie: str, int, float, bool).
@@ -264,7 +262,7 @@ class ManagerInterface(object):
     def updateTerminology(self, stringDict, hostSession):
         """
         This call gives the manager a chance to customize certain
-        strings used in a host's UI/messages. @see openassetio.constants
+        strings used in a host's UI/messages. See @ref openassetio.constants "constants"
         for known keys. The values in stringDict can be freely updated
         to match the terminology of the asset management system you are
         representing.
@@ -275,8 +273,8 @@ class ManagerInterface(object):
 
         @return `None`
 
-        @see @ref openassetio.constants
-        @see @ref openassetio.hostAPI.terminology.defaultTerminology
+        @see @ref openassetio.constants "constants"
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology "terminology.defaultTerminology"
         """
 
     ## @}
@@ -491,8 +489,8 @@ class ManagerInterface(object):
         @note This call should not verify an entity exits, just that
         the format of the string is recognised.
 
-        @see entityExists()
-        @see resolveEntityReference()
+        @see @ref entityExists
+        @see @ref resolveEntityReference
         """
         raise NotImplementedError
 
@@ -593,8 +591,8 @@ class ManagerInterface(object):
         not be resolved for that context, for example, if the context
         access is `kWrite` and the entity is an existing version.
 
-        @see entityExists()
-        @see isEntityReference()
+        @see @ref entityExists
+        @see @ref isEntityReference
         """
         raise NotImplementedError
 
@@ -715,10 +713,11 @@ class ManagerInterface(object):
 
         It may be required to bridge between certain 'first-class'
         properties of your asset management system and the well-known
-        OAIO attributes. For example, if the asset system represents a
-        'Shot' with 'cutIn' and 'cutOut' properties or accessors, these
-        should be remapped to the @ref openassetio.constants.kField_FrameIn
-        and Out attributes as appropriate.
+        OpenAssetIO attributes. For example, if the asset system
+        represents a 'Shot' with 'cutIn' and 'cutOut' properties or
+        accessors, these should be remapped to the
+        @ref openassetio.constants.kField_FrameIn and Out attributes as
+        appropriate.
 
         @warning See @ref setEntityAttributes for important notes on
         attributes and its role in the system.
@@ -781,7 +780,7 @@ class ManagerInterface(object):
         The default implementation retrieves all attributes for each
         entity and extracts the requested name.
 
-        @see getEntityAttributes
+        @see @ref getEntityAttributes
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -863,8 +862,8 @@ class ManagerInterface(object):
         the reference itself (in systems that implement a human-readable
         URL, for example)
 
-        @see entityVersions()
-        @see finalizedEntityVersion()
+        @see @ref entityVersions
+        @see @ref finalizedEntityVersion
         """
         return ["" for _ in entityRefs]
 
@@ -900,8 +899,8 @@ class ManagerInterface(object):
         a list of the version names (ie: dict keys) in their natural
         ascending order, that may be used by UI elements, etc.
 
-        @see entityVersionName()
-        @see finalizedEntityVersion()
+        @see @ref entityVersionName
+        @see @ref finalizedEntityVersion
         """
         return [{} for _ in entityRefs]
 
@@ -944,8 +943,8 @@ class ManagerInterface(object):
         returned. It may be that it makes sense in the specific asset
         manager to fall back on 'latest' in this case.
 
-        @see entityVersionName()
-        @see entityVersions()
+        @see @ref entityVersionName
+        @see @ref entityVersions
         """
         return entityRefs
 
@@ -1061,8 +1060,8 @@ class ManagerInterface(object):
         cursory validation that this is the case before calling this
         function.
 
-        @see openassetio.specifications
-        @see setRelatedReferences()
+        @see @ref openassetio.specifications "specifications"
+        @see @ref setRelatedReferences
         """
         raise NotImplementedError
 
@@ -1110,8 +1109,8 @@ class ManagerInterface(object):
 
         @return None
 
-        @see @ref getRelatedReferences()
-        @see @ref register()
+        @see @ref getRelatedReferences
+        @see @ref register
         """
         if not self.entityExists(entityRef, context, hostSession):
             raise exceptions.InvalidEntityReference(entityReference=entityRef)
@@ -1238,7 +1237,7 @@ class ManagerInterface(object):
         "Context.retention", as not all hosts will support the
         reference changing at this point.
 
-        @see register()
+        @see @ref register
         """
         return targetEntityRefs
 
@@ -1312,8 +1311,8 @@ class ManagerInterface(object):
         openassetio.Context.Context.retention, as not all Hosts will
         support the reference changing at this point.
 
-        @see preflight()
-        @see resolveEntityReference()
+        @see @ref preflight
+        @see @ref resolveEntityReference
         """
         raise NotImplementedError
 
@@ -1390,11 +1389,11 @@ class ManagerInterface(object):
         @exception exceptions.StateError If for some reason creation
         fails.
 
-        @see startTransaction()
-        @see finishTransaction()
-        @see cancelTransaction()
-        @see freezeState()
-        @see thawState()
+        @see @ref startTransaction
+        @see @ref finishTransaction
+        @see @ref cancelTransaction
+        @see @ref freezeState
+        @see @ref thawState
         @see The @ref transactions page.
         """
         return None
@@ -1424,9 +1423,9 @@ class ManagerInterface(object):
         @exception exceptions.StateError If for some reason the action
         fails.
 
-        @see createState()
-        @see finishTransaction()
-        @see cancelTransaction()
+        @see @ref createState
+        @see @ref finishTransaction
+        @see @ref cancelTransaction
         @see The @ref transactions page.
         """
 
@@ -1450,9 +1449,9 @@ class ManagerInterface(object):
         @exception exceptions.StateError If for some reason the action
         fails, or finish is called before start.
 
-        @see createState()
-        @see startTransaction()
-        @see cancelTransaction()
+        @see @ref createState
+        @see @ref startTransaction
+        @see @ref cancelTransaction
         @see The @ref transactions page.
         """
 
@@ -1471,9 +1470,9 @@ class ManagerInterface(object):
         @return Bool True if roll-back was successful, False in all
         other cases.
 
-        @see createState()
-        @see startTransaction()
-        @see finishTransaction()
+        @see @ref createState
+        @see @ref startTransaction
+        @see @ref finishTransaction
         @see The @ref transactions page.
         """
         return False
@@ -1518,7 +1517,7 @@ class ManagerInterface(object):
 
         @return `str` A string that can be used to restore the stack.
 
-        @see thawState()
+        @see @ref thawState
         @see The @ref transactions page.
         """
         return ""

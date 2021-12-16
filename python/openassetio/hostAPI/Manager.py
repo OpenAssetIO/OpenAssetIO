@@ -155,7 +155,6 @@ class Manager(Debuggable):
           @li openassetio.constants.kField_SmallIcon (upto 32x32)
           @li openassetio.constants.kField_Icon (any size)
           @li openassetio.constants.kField_EntityReferencesMatchPrefix
-          @li openassetio.constants.kField_EntityReferencesMatchRegex
 
         Keys will always be str, and Values will be int, bool, float or
         str.
@@ -167,20 +166,19 @@ class Manager(Debuggable):
     def updateTerminology(self, stringDict):
         """
         This call gives the Manager a chance to customize certain
-        strings that you might want to use in your UI/messages. @see
-        openassetio.constants for well-known keys. These keys are
-        updated in-place to the most appropriate term for the Manager.
-        You should then use these substitutions in any user-facing
-        messages or display text so that they feel at home.
+        strings that you might want to use in your UI/messages. See
+        @ref openassetio.constants "constants" for well-known keys.
+        These keys are updated in-place to the most appropriate term
+        for the Manager. You should then use these substitutions in any
+        user-facing messages or display text so that they feel at home.
 
         It's rare that you need to call this method directly, the @ref
         openassetio.hostAPI.terminology API provides more utility for
         far less effort.
 
-        @see @ref openassetio.hostAPI.terminology
-        @see @ref
-        openassetio.hostAPI.terminology.Mapper.replaceTerms
-        @see @ref openassetio.hostAPI.terminology.defaultTerminology
+        @see @ref openassetio.hostAPI.terminology "terminology"
+        @see @ref openassetio.hostAPI.terminology.Mapper.replaceTerms "Mapper.replaceTerms"
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology "terminology.defaultTerminology"
 
         @param[out] stringDict `Dict[str, str]` Dictionary that is
         modified in-place by the manager if it has any alternate
@@ -415,12 +413,11 @@ class Manager(Debuggable):
         @note This call does not verify an entity exits, just that the
         format of the string is recognised.
 
-        @see entityExists
-        @see resolveEntityReference
+        @see @ref entityExists
+        @see @ref resolveEntityReference
 
         @todo Make use of
-        openassetio.constants.kField_EntityReferenceMatchPrefix or
-        openassetio.constants.kField_EntityReferenceMatchRegex if
+        openassetio.constants.kField_EntityReferencesMatchPrefix if
         supplied, especially when bridging between C/python.
         """
         # We need to add support here for using the supplied prefix match string,
@@ -573,8 +570,8 @@ class Manager(Debuggable):
         attributes, and no meaningful @ref primary_string.
 
         There are some well-known attribute names defined in the core
-        API - @see openassetio.constants. These have universally agreed
-        meaning.
+        API - see @ref openassetio.constants "constants". These have
+        universally agreed meaning.
 
         As a host, you can also advertize well-known attribute names of
         your own as part of any first-class asset based workflows you
@@ -584,8 +581,8 @@ class Manager(Debuggable):
 
         These new attribute names should be clearly explained in your
         documentation. A manager may then be able to provide this
-        information, based on introspection of your identifier (@see
-        Host.identifier).
+        information, based on introspection of your identifier (see
+        @ref openassetio.managerAPI.Host.Host.identifier "Host.identifier").
 
         @warning See @ref setEntityAttributes for important notes on
         attributes and their role in the system.
@@ -641,7 +638,7 @@ class Manager(Debuggable):
         """
         Retrieve the value of the given attribute for each given entity.
 
-        @see getEntityAttributes
+        @see @ref getEntityAttributes
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -710,8 +707,8 @@ class Manager(Debuggable):
         exists, if, for example, the version name can be determined from
         the reference itself, or is a @ref meta_version.
 
-        @see entityVersions()
-        @see finalizedEntityVersion()
+        @see @ref entityVersions
+        @see @ref finalizedEntityVersion
         """
         return self.__impl.entityVersionName(entityRefs, context, self.__hostSession)
 
@@ -743,8 +740,8 @@ class Manager(Debuggable):
         a list of the version names (ie: dict keys) in their natural
         ascending order, that may be used by UI elements, etc.
 
-        @see entityVersionName()
-        @see finalizedEntityVersion()
+        @see @ref entityVersionName
+        @see @ref finalizedEntityVersion
         """
         return self.__impl.entityVersions(
             entityRefs, context, self.__hostSession, includeMetaVersions=includeMetaVersions,
@@ -786,8 +783,8 @@ class Manager(Debuggable):
         returned. It may be that it makes sense in the specific asset
         manager to fall back on 'latest' in this case.
 
-        @see entityVersionName()
-        @see entityVersions()
+        @see @ref entityVersionName
+        @see @ref entityVersions
         """
         return self.__impl.finalizedEntityVersion(
             entityRefs, context, self.__hostSession, overrideVersionName=overrideVersionName)
@@ -898,7 +895,7 @@ class Manager(Debuggable):
         specification is provided, but they lists are not equal in
         length, ie: not a 1:1 mapping of entities to specs.
 
-        @see openassetio.specifications
+        @see @ref openassetio.specifications "specifications"
         @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
@@ -952,7 +949,7 @@ class Manager(Debuggable):
 
         When an @ref entity_reference points to a sequence of files,
         the frame, view, etc substitution tokens will be preserved
-        and need handling as if OAIO was never involved.
+        and need handling as if OpenAssetIO was never involved.
 
         @note You should always call @ref isEntityReference first if
         there is any doubt as to whether or not a string you have is a
@@ -1129,7 +1126,7 @@ class Manager(Debuggable):
         @exception `IndexError` If `targetEntityRefs` and `entitySpecs`
         are not lists of the same length.
 
-        @see register
+        @see @ref register
         """
         if len(targetEntityRefs) != len(entitySpecs):
             raise IndexError("Parameter lists must be of the same length")
@@ -1215,9 +1212,9 @@ class Manager(Debuggable):
         @exception `IndexError` If `primaryStrings`, `targetEntityRefs`
         and `entitySpecs` are not lists of the same length.
 
-        @see openassetio.specifications
-        @see preflight
-        @see setAttributes
+        @see @ref openassetio.specifications "specifications"
+        @see @ref preflight
+        @see @ref setEntityAttributes
         """
         ## At the mo, attributes are deliberately not passed to register in the
         ## ManagerInterface. This helps ensure that no Manager ever places a
@@ -1252,7 +1249,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _startTransaction(self, state):
         """
-        @see openassetio.managerAPI.ManagerInterface._startTransaction
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction "startTransaction"
         """
         return self.__impl.startTransaction(state, self.__hostSession)
 
@@ -1260,7 +1257,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _finishTransaction(self, state):
         """
-        @see openassetio.managerAPI.ManagerInterface._finishTransaction
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction "finishTransaction"
         """
         return self.__impl.finishTransaction(state, self.__hostSession)
 
@@ -1268,7 +1265,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _cancelTransaction(self, state):
         """
-        @see openassetio.managerAPI.ManagerInterface._cancelTransaction
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction "cancelTransaction"
         """
         return self.__impl.cancelTransaction(state, self.__hostSession)
 
@@ -1285,7 +1282,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _createState(self, parentState=None):
         """
-        @see openassetio.managerAPI.ManagerInterface.createState
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState "ManagerInterface.createState"
         """
         return self.__impl.createState(self.__hostSession, parentState=parentState)
 
@@ -1293,7 +1290,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _freezeState(self, state):
         """
-        @see openassetio.managerAPI.ManagerInterface.freezeState
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.freezeState "ManagerInterface.freezeState"
         """
         return self.__impl.freezeState(state, self.__hostSession)
 
@@ -1301,7 +1298,7 @@ class Manager(Debuggable):
     @auditApiCall("Manager methods")
     def _thawState(self, token):
         """
-        @see openassetio.managerAPI.ManagerInterface.thawState
+        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState "ManagerInterface.thawState"
         """
         return self.__impl.thawState(token, self.__hostSession)
 

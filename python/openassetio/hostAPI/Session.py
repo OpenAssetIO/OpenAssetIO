@@ -46,16 +46,14 @@ class Session(Debuggable):
     manager and it's settings. This can be useful for persisting the
     configuration across host process invocations.
 
-    @see openassetio.hostAPI.Session.getSettings
-    @see openassetio.hostAPI.Session.setSettings
+    @see @ref getSettings
+    @see @ref setSettings
 
     The Session class is suitable for all Hosts, but in cases where a UI
     is presented to the user, it may be desirable to use the UISession
     instead, as it permits access to a Managers widgets etc...
 
-    @see openassetio.hostAPI.SessionManager
-    @see openassetio-ui.UISessionManager
-    @see openassetio-ui.UISession
+    @see @needsref openassetio-ui.UISession
     """
 
     def __init__(self, hostInterface, logger, managerFactory):
@@ -77,13 +75,11 @@ class Session(Debuggable):
         factory that will provide instances of a manager's
         ManagerInterface as required by the session.
 
-          @see useManager()
-          @see currentManager()
-          @see openassetio.logging
-          @see openassetio.hostAPI.ManagerFactoryInterface
-          @see openassetio.pluginSystem.PluginSystemManagerFactory
-          @see
-          openassetio.hostAPI.SessionManager.SessionManager.currentSession()
+          @see @ref useManager
+          @see @ref currentManager
+          @see @ref openassetio.logging "logging"
+          @see @ref openassetio.hostAPI.ManagerFactoryInterface "ManagerFactoryInterface"
+          @see @ref openassetio.pluginSystem.PluginSystemManagerFactory "PluginSystemManagerFactory"
         """
         super(Session, self).__init__()
 
@@ -120,8 +116,7 @@ class Session(Debuggable):
     @auditApiCall("Session")
     def registeredManagers(self):
         """
-        @see
-        openassetio.pluginSystem.PluginSystemManagerFactory.managers()
+        @see @ref openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managers "managers"
         """
         return self._factory.managers()
 
@@ -197,7 +192,7 @@ class Session(Debuggable):
         context's transactions are only ever controlled by the context
         that created them.
 
-        @see openassetio.Context
+        @see @ref openassetio.Context.Context "Context"
 
         @exception RuntimeError if called when the session has no
         current manager.

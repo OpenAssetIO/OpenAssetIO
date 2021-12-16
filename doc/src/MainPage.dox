@@ -1,6 +1,6 @@
 /*! @mainpage An Introduction
  *
- * @warning The API has a long history. The OAIO release version is
+ * @warning The API has a long history. The OpenAssetIO release version is
  * currently in a beta stage and is subject to some refinements over the
  * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
  * target="_blank">project tracker</a> for more details.
@@ -73,7 +73,7 @@
  * We define an @ref asset_management_system as a system that tracks,
  * and potentially manages, the state and location of digital media.
  * Within the Media and Entertainment sector, these are often known as
- * assets. Within OAIO, we call anything managed by the system an
+ * assets. Within OpenAssetIO, we call anything managed by the system an
  * @ref entity.
  *
  * Within post-production, entities are often things like project,
@@ -199,28 +199,28 @@
  *
  * - Wherever a file path was stored, store an @ref entity_reference.
  *
- * - Before the stored string is used, resolve it through OAIO and
- *   use the returned value instead.
+ * - Before the stored string is used, resolve it through OpenAssetIO
+ *   and use the returned value instead.
  *
  * - Involve the manager in creation of data through the
  *   @ref example_publishing_a_file "publishing" workflow.
  *
- * For this reason, OAIO has the concept of mapping an @ref entity to
- * a @ref primary_string - which can be thought of as "the string a
+ * For this reason, OpenAssetIO has the concept of mapping an @ref entity
+ * to a @ref primary_string - which can be thought of as "the string a
  * host would have used before". It is this string that is returned when
  * an @ref entity_reference is resolved. In many cases in the initial
- * adoption of OAIO, the primary string for an entity will be a file
- * URL.
+ * adoption of OpenAssetIO, the primary string for an entity will be a
+ * file URL.
  *
  * @note The API is by no means limited to just file paths, they form a
  * sensible first step. Any string used in an application, can be
  * asset managed in the same way.
  *
- * OAIO also allows arbitrary key/value pairs to be associated with an
- * entity. This means other more complex data structures can be
- * managed by the asset management system. The only prerequisite
- * being that they can be sensibly encoded in a string and/or simple
- * typed key/value pairs.
+ * OpenAssetIO also allows arbitrary key/value pairs to be associated
+ * with an entity. This means other more complex data structures can be
+ * managed by the asset management system. The only prerequisite being
+ * that they can be sensibly encoded in a string and/or simple typed
+ * key/value pairs.
  *
  * A renderer for example, could query the correct file format,
  * colorspace and compression options from the manager for the images it
@@ -241,7 +241,7 @@
  * If these rules are followed, then arbitrary assets from arbitrary
  * hosts can be round-tripped thorough an asset manager without
  * specific support. However, there is scope to build more advanced and
- * useful functionality by mapping OAIO @ref Specification
+ * useful functionality by mapping OpenAssetIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
  * @ref attributes to its asset fields.
  */

@@ -70,7 +70,7 @@ class TestSeverityFilter():
 
     def test_constructor(self, mock_logger, monkeypatch):
 
-        var = "OAIO_LOGGING_SEVERITY"
+        var = "OPENASSETIO_LOGGING_SEVERITY"
 
         # Unset
 

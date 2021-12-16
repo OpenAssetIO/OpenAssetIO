@@ -32,8 +32,8 @@ import pytest
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 
-audit_env_var_name = "OAIO_AUDIT"
-audit_args_capture_env_var_name = "OAIO_AUDIT_ARGS"
+audit_env_var_name = "OPENASSETIO_AUDIT"
+audit_args_capture_env_var_name = "OPENASSETIO_AUDIT_ARGS"
 
 
 # Global toggle tests required a clean slate for each import.

@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-Decorators to aid the debugging of OAIO integrations within a host.
+Decorators to aid the debugging of OpenAssetIO integrations within a host.
 """
 
 # For private decorator implementation methods
@@ -34,7 +34,7 @@ __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
 ## optimisation, and help(fn) still making sense, then they may be disabled by
 ## default.
 ##
-## @envvar **OAIO_DEBUG** *int* [1] when non-zero, debug decorators
+## @envvar **OPENASSETIO_DEBUG** *int* [1] when non-zero, debug decorators
 ## will be enabled, allowing API calls to be monitored and timed using the
 ## kDebug and kDebugAPI logging severity displays
 ##
@@ -50,7 +50,7 @@ __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
 ## to cpp, then we may wish to adjust how we enable/disable this functionality to
 ## avoid any unwanted overhead per-call.
 
-enableDebugDecorators = os.environ.get("OAIO_DEBUG", "1") != "0"
+enableDebugDecorators = os.environ.get("OPENASSETIO_DEBUG", "1") != "0"
 
 
 class Debuggable:

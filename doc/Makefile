@@ -1,7 +1,7 @@
 default: container-build
 
 ##
-# This Makefile builds the OAIO documentation bundle.
+# This Makefile builds the OpenAssetIO documentation bundle.
 #
 # By default it uses a Docker container and builds into the working
 # directory. A local build can be run using `make html`.
@@ -31,13 +31,13 @@ default: container-build
 #
 
 container-build: docker-image
-	docker run --rm -v `pwd`/../:/src oaio-doc-build bash -c 'make -C /src/doc html'
+	docker run --rm -v `pwd`/../:/src openassetio-doc-build bash -c 'make -C /src/doc html'
 
 docker-image: Dockerfile
-	docker build . -t oaio-doc-build
+	docker build . -t openassetio-doc-build
 
 clean-docker:
-	docker image rm oaio-doc-build --force
+	docker image rm openassetio-doc-build --force
 
 #
 # Local build - Invokes Doxygen locally
@@ -57,11 +57,11 @@ tooling: $(SASS) $(VENV)
 # Deployment to GH Pages
 #
 
-# $OAIO_DOCS_REPO_DIR can be set to point to an existing checkout
+# $OPENASSETIO_DOCS_REPO_DIR can be set to point to an existing checkout
 # of the target branch to deploy to.
 # If unset, a temporary checkout will be created.
-ifndef OAIO_DOCS_REPO_DIR
-OAIO_DOCS_REPO_DIR = /tmp/repo
+ifndef OPENASSETIO_DOCS_REPO_DIR
+OPENASSETIO_DOCS_REPO_DIR = /tmp/repo
 DOCSREPO_CLEANUP = true
 else
 DOCSREPO_CLEANUP = false
@@ -73,18 +73,18 @@ DOCSREPO_HTML_DIR = docs
 
 # The `deploy` target takes an existing `html` directory and updates
 # the `docs` branch on `origin` via a temporary checkout.
-deploy: $(OAIO_DOCS_REPO_DIR)
+deploy: $(OPENASSETIO_DOCS_REPO_DIR)
 	# Deploy the local docs build to the target repo
-	./deploy.sh $(OAIO_DOCS_REPO_DIR)
+	./deploy.sh $(OPENASSETIO_DOCS_REPO_DIR)
 	# Remove the clone if we made it.
-	$(DOCSREPO_CLEANUP) && rm -rf $(OAIO_DOCS_REPO_DIR) || true
+	$(DOCSREPO_CLEANUP) && rm -rf $(OPENASSETIO_DOCS_REPO_DIR) || true
 
 
-$(OAIO_DOCS_REPO_DIR):
+$(OPENASSETIO_DOCS_REPO_DIR):
 	# Get origin remote URL for use in pushing updated docs branch.
 	$(eval remote_url=$(shell git remote get-url origin))
 	# Create a clone of this repo with the docs branch checked out.
-	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(OAIO_DOCS_REPO_DIR)
+	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(OPENASSETIO_DOCS_REPO_DIR)
 
 #
 # Cleaning

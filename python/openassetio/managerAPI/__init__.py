@@ -16,10 +16,10 @@
 
 ##
 # @namespace openassetio.managerAPI
-# This module contains code relevant to anyone wanting to add support for an asset management
-# system.
+# This module contains code relevant to anyone wanting to add support
+# for an asset management system.
 #
-# If you are a tool or application developer, @see openassetio.hostAPI
+# If you are a tool or application developer, see @ref openassetio.hostAPI
 #
 from .Host import Host
 from .HostSession import HostSession

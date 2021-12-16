@@ -32,14 +32,14 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     instances. Not usually used directly by a @ref host, which instead
     uses the @ref openassetio.hostAPI.Session
 
-    @envvar **OAIO_PLUGIN_PATH** *str* A PATH-style list of
+    @envvar **OPENASSETIO_PLUGIN_PATH** *str* A PATH-style list of
     directories to search for @ref
     openassetio.pluginSystem.ManagerPlugin based plugins. It uses the
     platform-native delimiter.  Searched left to right.
     """
 
     ## The Environment Variable to read the plug-in search path from
-    kPluginEnvVar = "OAIO_PLUGIN_PATH"
+    kPluginEnvVar = "OPENASSETIO_PLUGIN_PATH"
 
     def __init__(self, logger, paths=None):
 
@@ -77,7 +77,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     def identifiers(self):
         """
         @return list, all identifiers known to the factory.
-        @see openassetio.pluginSystem.ManagerPlugin
+        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
         """
         if not self.__pluginManager:
             self.__scan()
@@ -96,7 +96,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
           openassetio.managerAPI.ManagerInterface.ManagerInterface.info
           "ManagerInterface.info")
           @li **plugin** The plugin class that represents the Manager
-          (see: @ref openassetio.pluginSystem.ManagerPlugin)
+          (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")
         """
 
         if not self.__pluginManager:
