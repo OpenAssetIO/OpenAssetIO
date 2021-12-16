@@ -1,8 +1,8 @@
 # OpenAssetIO Tests
 
-The OAIO test infrastructure is currently in flux whilst the core API
-stabilizes. At present, coverage is limited to simple unit tests of core
-API components.
+The OpenAssetIO test infrastructure is currently in flux whilst the core
+API stabilizes. At present, coverage is limited to simple unit tests of
+core API components.
 
 Over time, we aim to provide:
 

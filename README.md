@@ -95,14 +95,14 @@ tested [Katana Asset API](https://learn.foundry.com/katana/4.0/Content/tg/asset_
 to make it more suitable for a wider variety of uses. Modern pipelines
 are incredibly nuanced. Finding a common framework that brings value in
 this space is challenging to say the least. Prototypes built during the
-development of `OAIO` over the last few years have demonstrated
+development of `OpenAssetIO` over the last few years have demonstrated
 significant developer and artist value.
 
 We hope the API forms a practical starting point that addresses many
 real-world use cases, and as an industry, we can evolve the standard
 over time to support any additional requirements. We are currently
 investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html),
-which appears to overlap with a subset of `OAIO`s concerns.
+which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ## Getting started
 

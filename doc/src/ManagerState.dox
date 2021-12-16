@@ -82,7 +82,7 @@
  * scheduler --> user :
  * ...
  * == preflight task ==
- * scheduler -> worker : someApp a_job.script ~--preflight --stateFile oaio.json
+ * scheduler -> worker : someApp a_job.script ~--preflight --stateFile openassetio.json
  * activate worker
  * activate Session
  * activate Manager
@@ -103,11 +103,11 @@
  * ...
  * == processing tasks ==
  * group distribute to n
- *     scheduler -> worker : someApp a_job.script ~--run ~--frame n --stateFile oaio.json
+ *     scheduler -> worker : someApp a_job.script ~--run ~--frame n --stateFile openassetio.json
  *     activate worker
  *     activate Session
  *     activate Manager
- *     worker -> worker : token, ref_map = read_state_file("oaio.json")
+ *     worker -> worker : token, ref_map = read_state_file("openassetio.json")
  *     worker -> TransactionCoordinator : thawManagerState(token)
  *     activate TransactionCoordinator
  *     TransactionCoordinator --> worker : context
@@ -124,11 +124,11 @@
  * end
  * ...
  * == register task ==
- * scheduler -> worker : someApp a_job.script ~--register --stateFile oaio.json
+ * scheduler -> worker : someApp a_job.script ~--register --stateFile openassetio.json
  * activate worker
  * activate Session
  * activate Manager
- * worker -> worker : token, ref_map = read_state_file("oaio.json")
+ * worker -> worker : token, ref_map = read_state_file("openassetio.json")
  * worker -> TransactionCoordinator : thawManagerState(token)
  * activate TransactionCoordinator
  * TransactionCoordinator --> worker : context

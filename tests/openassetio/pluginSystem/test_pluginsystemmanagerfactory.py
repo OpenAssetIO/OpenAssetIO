@@ -39,7 +39,7 @@ def a_logger():
 # higher level later, if needed by other tests.
 @pytest.fixture
 def plugin_path_var_name():
-    return "OAIO_PLUGIN_PATH"
+    return "OPENASSETIO_PLUGIN_PATH"
 
 
 class Test_PluginSystemManagerFactory_init:

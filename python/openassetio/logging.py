@@ -82,7 +82,7 @@ class SeverityFilter(LoggerInterface):
     The SeverityFilter is a wrapper for a logger that drops messages
     below a requested severity. More severe messages are relayed.
 
-    @envvar **OAIO_LOGGING_SEVERITY** *[int]* If set, the
+    @envvar **OPENASSETIO_LOGGING_SEVERITY** *[int]* If set, the
     default displaySeverity for the filter is set to the value of the
     env var.
     """
@@ -91,9 +91,9 @@ class SeverityFilter(LoggerInterface):
 
         self.__maxSeverity = self.kWarning
 
-        if "OAIO_LOGGING_SEVERITY" in os.environ:
+        if "OPENASSETIO_LOGGING_SEVERITY" in os.environ:
             try:
-                self.__maxSeverity = int(os.environ["OAIO_LOGGING_SEVERITY"])
+                self.__maxSeverity = int(os.environ["OPENASSETIO_LOGGING_SEVERITY"])
             except ValueError:
                 pass
 

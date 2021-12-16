@@ -77,7 +77,7 @@ class ManagerInterface(object):
 
     Exceptions should be thrown to handle any in-flight errors that
     occur.  The error should be mapped to a derived class of
-    exceptions.OAIOException, and thrown.  All exceptions of this
+    exceptions.OpenAssetIOException, and thrown.  All exceptions of this
     kind, will be correctly passed across the plug-in C boundary,
     and re-thrown. Other exceptions should not be used.
 
@@ -706,10 +706,11 @@ class ManagerInterface(object):
 
         It may be required to bridge between certain 'first-class'
         properties of your asset management system and the well-known
-        OAIO attributes. For example, if the asset system represents a
-        'Shot' with 'cutIn' and 'cutOut' properties or accessors, these
-        should be remapped to the @ref openassetio.constants.kField_FrameIn
-        and Out attributes as appropriate.
+        OpenAssetIO attributes. For example, if the asset system
+        represents a 'Shot' with 'cutIn' and 'cutOut' properties or
+        accessors, these should be remapped to the
+        @ref openassetio.constants.kField_FrameIn and Out attributes as
+        appropriate.
 
         @warning See @ref setEntityAttributes for important notes on
         attributes and its role in the system.

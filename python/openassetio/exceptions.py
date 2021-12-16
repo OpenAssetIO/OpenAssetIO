@@ -14,9 +14,9 @@
 #   limitations under the License.
 #
 
-class OAIOException(RuntimeError):
+class OpenAssetIOException(RuntimeError):
     """
-    The OAIOException class should be used for all exceptions raise by
+    The OpenAssetIOException class should be used for all exceptions raise by
     Managers and any API-related exceptions raised in a Host. These
     exceptions are guaranteed to properly bridge across the C plugin
     divide...
@@ -24,7 +24,7 @@ class OAIOException(RuntimeError):
     pass
 
 
-class UserCanceled(OAIOException):
+class UserCanceled(OpenAssetIOException):
     """
     Thrown by the progress mechanism to interrupt execution whenever the
     user cancels an action (perhaps using an on-screen button).
@@ -39,7 +39,7 @@ class UserCanceled(OAIOException):
 #
 ## @{
 
-class BaseEntityException(OAIOException):
+class BaseEntityException(OpenAssetIOException):
     """
     A base Exception for any @ref entity related errors to ensure
     consistent presentation and encapsulation of the associated @ref
@@ -56,11 +56,11 @@ class BaseEntityException(OAIOException):
         there is no need to embedded the entity reference in the message
         when using this exception type.
         """
-        OAIOException.__init__(self, message)
+        OpenAssetIOException.__init__(self, message)
         self.ref = entityReference
 
     def __str__(self):
-        string = OAIOException.__str__(self)
+        string = OpenAssetIOException.__str__(self)
         return "%s (%s)" % (string, self.ref)
 
 
@@ -114,11 +114,11 @@ class RegistrationError(BaseEntityInteractionError):
 ## @}
 
 
-class ManagerError(OAIOException):
+class ManagerError(OpenAssetIOException):
     pass
 
 
-class StateError(OAIOException):
+class StateError(OpenAssetIOException):
     """
     Thrown by Managers in error situations relating to the
     managerInterfaceState object.
@@ -126,9 +126,9 @@ class StateError(OAIOException):
     pass
 
 
-class RetryableError(OAIOException):
+class RetryableError(OpenAssetIOException):
     pass
 
 
-class PluginError(OAIOException):
+class PluginError(OpenAssetIOException):
     pass

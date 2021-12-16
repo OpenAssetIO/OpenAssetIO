@@ -27,9 +27,9 @@ __all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls', 'captureArgs', 
 # @namespace openassetio._core.audit
 # This module permits auditing of the use of the various API calls during a
 # series of operations.
-# @envvar **OAIO_AUDIT** *int* [0] If non-zero API calls will be
+# @envvar **OPENASSETIO_AUDIT** *int* [0] If non-zero API calls will be
 # audited by default
-# @envvar **OAIO_AUDIT_ARGS** *int* [0] If non-zero args will be
+# @envvar **OPENASSETIO_AUDIT_ARGS** *int* [0] If non-zero args will be
 # captured during audit, if auditing is disabled, this has no effect.
 
 ## Will hold the singleton Auditor object
@@ -38,11 +38,11 @@ __auditor = None
 ## When set to True, decorated calls will be audited. When False, minimal
 ## additional code is run, to minimize performance impact. This should always
 ## be False by default.
-auditCalls = os.environ.get('OAIO_AUDIT', "0") != "0"
+auditCalls = os.environ.get('OPENASSETIO_AUDIT', "0") != "0"
 
 ## If True, the args for each invocation of a function will be recorded, to
 ## aide debugging
-captureArgs = os.environ.get('OAIO_AUDIT_ARGS', "0") != "0"
+captureArgs = os.environ.get('OPENASSETIO_AUDIT_ARGS', "0") != "0"
 
 ## Some hosts have issues with us holding onto objects. Setting this to True
 ## will ensure that we repr the objects whilst they are still alive.

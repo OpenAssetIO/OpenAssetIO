@@ -3,15 +3,16 @@
  *
  * @section action_group Action Group
  *
- * Within the transaction model used by this API, on the host side, multiple
- * Action Groups can be pushed onto a 'stack'. This greatly simplifies the
- * handling of transactions within a @ref host.
+ * Within the transaction model used by this API, on the host side,
+ * multiple Action Groups can be pushed onto a 'stack'. This greatly
+ * simplifies the handling of transactions within a @ref host.
  *
- * Each group represents a logical action. If this is a compound
- * action that re-uses several atomic actions, each of these may be represented
- * by their own Action Group on the stack. For example, publishing a texture
- * may be a single action group, publishing all textures could simply re-use
- * this function many times, wrapping the whole thing in enclosing action group.
+ * Each group represents a logical action. If this is a compound action
+ * that re-uses several atomic actions, each of these may be represented
+ * by their own Action Group on the stack. For example, publishing a
+ * texture may be a single action group, publishing all textures could
+ * simply re-use this function many times, wrapping the whole thing in
+ * enclosing action group.
  *
  * The @ref openassetio.hostAPI.transactions.TransactionCoordinator
  * "TransactionCoordinator" class takes care of starting, ending or
@@ -71,8 +72,8 @@
  * organizational hierarchy, or a specific version or component part of
  * an 'asset'.
  *
- * In the core API there are only three properties needed to represent any
- * possible entity:
+ * In the core API there are only three properties needed to represent
+ * any possible entity:
  *
  * @li name
  * @li @ref primary_string
@@ -147,19 +148,19 @@
  * `"myasset://DVR/ep01/build/prop/table?v=1&t=model&f=alembic"` may both
  * resolve to the same entity.
  *
- * However, if the @ref asset_management_system allows an entity to be 'aliased'
- * within the system (perhaps analogous to a symbolic link in a POSIX file
- * system), then the UUID approach may no longer comply with the
- * 'single immediate parent' constraint of the original entity reference
- * definition. For example, if the same underlying Entity UUID was
- * available through the following paths:
+ * However, if the @ref asset_management_system allows an entity to be
+ * 'aliased' within the system (perhaps analogous to a symbolic link in
+ * a POSIX file system), then the UUID approach may no longer comply
+ * with the 'single immediate parent' constraint of the original
+ * entity reference definition. For example, if the same underlying
+ * Entity UUID was available through the following paths:
  *
  *  @li `myasset://DVR/ep01/build/prop/table?v=6...`
  *  @li `myasset://library/furniture/table?v=2...`
  *  @li `myasset://TTL/library/prop/cottageTabl?v=1...`
  *
- * The entity reference passed through this API must always uniquely locate
- * the entity via a specific path, such that relationship queries
+ * The entity reference passed through this API must always uniquely
+ * locate the entity via a specific path, such that relationship queries
  * produce the expected results.
  *
  * In such a system, the ManagerInterface may provide access to
@@ -189,7 +190,7 @@
  * user-facing Digital Content Creation application or a pipeline
  * tool or script.
  *
- * The purpose of OAIO is to standardize the interaction between a host
+ * The purpose of OpenAssetIO is to standardize the interaction between a host
  * and an @ref asset_management_system in order to persis or query data.
  * A host communicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
  *
@@ -223,7 +224,7 @@
  *
  * @section locale locale
  *
- * Within OAIO, the term "locale" is used to define which part of a
+ * Within OpenAssetIO, the term "locale" is used to define which part of a
  * @ref host "host's" implementation is making a particular call to the API.
  * A suitably configured @ref openassetio.specifications.LocaleSpecification
  * "LocaleSpecification", is supplied through the @ref openassetio.Context.Context.locale
@@ -268,7 +269,7 @@
  * "ManagerInterface".
  *
  *
- * @section plugin_path_var $OAIO_PLUGIN_PATH
+ * @section plugin_path_var $OPENASSETIO_PLUGIN_PATH
  *
  * This is the environment variable used to discover @ref ManagerPlugin
  * "ManagerPlugins", it is searched left-to-right, using standard
@@ -297,7 +298,7 @@
  * A far simpler example of associating API calls is to provide caching
  * relative to the lifetime of a specific action.
  *
- * OAIO provides a mechanism to support the entire range of use cases
+ * OpenAssetIO provides a mechanism to support the entire range of use cases
  * for 'session state' whilst keeping the interface itself stateless.
  *
  * This is achieved by allowing the manager to inject state into each
@@ -351,7 +352,7 @@
  * attributes.
  *
  * The @ref Specification of any given entity is used to determine the
- * applicable specific set of well-known OAIO attribute names.
+ * applicable specific set of well-known OpenAssetIO attribute names.
  *
  *
  * @section meta_version Meta-version
@@ -375,12 +376,12 @@
  * of some centralized database that tracks assets - known here as @ref
  * entity "entities", managing their versions and relationships.
  *
- * The purpose of OAIO is to standardize the interactions between a @ref
+ * The purpose of OpenAssetIO is to standardize the interactions between a @ref
  * host and one of these systems in order to query or persist data.
  *
- * Asset managers will generally re-map the well-known OAIO concepts
- * (@ref Specification, @ref attributes) into their own internal
- * structures, and back again when queried.
+ * Asset managers will generally re-map the well-known OpenAssetIO
+ * concepts (@ref Specification, @ref attributes) into their own
+ * internal structures, and back again when queried.
  *
  * Managers are made available via a @ref ManagerPlugin, that ultimately
  * registers classes derived from the @ref ManagerInterface.
@@ -494,11 +495,11 @@
  * 'Resolving' an @ref entity_reference is the process of turning it
  * back into the entity's @ref primary_string. Resolution is usually
  * performed just-in-time. This is the fundamental mechanism that makes
- * documents portable, and where OAIO (and other resolution systems)
- * bring their value - the @ref manager backing the resolution process is
- * free to use any contextual information to vary the result of the
- * resolution such that it is as correct/appropriate as it can be for the
- * current resolution @ref Context.
+ * documents portable, and where OpenAssetIO (and other resolution
+ * systems) bring their value - the @ref manager backing the resolution
+ * process is free to use any contextual information to vary the result
+ * of the resolution such that it is as correct/appropriate as it can be
+ * for the current resolution @ref Context.
  *
  * @section primary_string Primary String
  *
@@ -532,31 +533,31 @@
  *
  * @section session session
  *
- * OAIO is instantiated by a @ref host in order to talk to one or more
- * @ref asset_management_system "asset management systems". To do so,
- * the host creates a new @ref openassetio.hostAPI.Session "Session" for
- * each manager it wishes to communicate with. The Session object
- * is responsible for managing the lifetime of a @ref manager and
- * provides mechanisms for creating a @ref Context and persisting
- * details of which manager is currently in use.
+ * OpenAssetIO is instantiated by a @ref host in order to talk to one or
+ * more @ref asset_management_system "asset management systems". To do
+ * so, the host creates a new @ref openassetio.hostAPI.Session "Session"
+ * for each manager it wishes to communicate with. The Session object is
+ * responsible for managing the lifetime of a @ref manager and provides
+ * mechanisms for creating a @ref Context and persisting details of
+ * which manager is currently in use.
  *
  *
  * @section Specification Specification
  *
  * Within this API, it is often required to describe the 'type' of
  * something. This could be some data a @ref host wishes to query or @ref publish,
- * or the nature of a relationship between two assets. OAIO provides a
- * rich, hierarchical classification mechanism through the @ref
- * openassetio.Specification system.
+ * or the nature of a relationship between two assets. OpenAssetIO
+ * provides a rich, hierarchical classification mechanism through the
+ * @ref openassetio.Specification system.
  *
  * Specifications are key to allowing an arbitrary @ref host to
  * talk to an arbitrary @ref manager. Specifications serve as a filter.
- * OAIO provides well-known specifications for common asset types. This
- * allows a @ref manager to provide generic support for a given entity
- * specification, without needing to know anything about the @ref host
- * that is producing or consuming it. Conversely, a @ref host can query
- * a well-known specification without having to know the @ref manager
- * "manager's" native terminology.
+ * OpenAssetIO provides well-known specifications for common asset
+ * types. This allows a @ref manager to provide generic support for a
+ * given entity specification, without needing to know anything about
+ * the @ref host that is producing or consuming it. Conversely, a @ref host
+ * can query a well-known specification without having to know the
+ * @ref manager "manager's" native terminology.
  *
  * At hear, specifications are simply a set of key-value pairs, with an
  * additional 'schema' - a string that can be used to convey what keys
@@ -594,9 +595,9 @@
  *
  * @section transaction Transaction
  *
- * See the @ref transactions page for a full description of the transactional
- * model used in this API. In brief, The @ref manager_state is used to help a
- * @ref manager connect multiple calls to the API. Often this is to allow a
- * series of actions to be undone, or to ensure that queries spread over time,
- * produce coherent results.
+ * See the @ref transactions page for a full description of the
+ * transactional model used in this API. In brief, The @ref manager_state
+ * is used to help a @ref manager connect multiple calls to the API.
+ * Often this is to allow a series of actions to be undone, or to ensure
+ * that queries spread over time, produce coherent results.
  */

@@ -43,4 +43,4 @@ jobs:
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions@github.com"
         # Pass the path to the actions/checkout@v2 docs branch checkout
-        OAIO_DOCS_REPO_DIR=`pwd`/target make -C src/doc deploy
+        OPENASSETIO_DOCS_REPO_DIR=`pwd`/target make -C src/doc deploy

@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 #
-# A docker container for building OAIO documentaiton.
+# A docker container for building OpenAssetIO documentaiton.
 # Provides Doxygen, doxypy and graphviz, plus npm and python 3 venvs.
 #
 
