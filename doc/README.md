@@ -35,10 +35,10 @@ If Docker is not available, you can build the documentation locally, but
 there are a number of dependencies that must first be installed, and
 available on `$PATH`:
 
-- [GNU Make](https://www.gnu.org/software/make/)
-- [Doxygen](https://www.doxygen.nl) 1.8.11 (exact version, see [this
-  issue](https://github.com/doxygen/doxygen/issues/7096))
-- [npm](https://nodejs.org/en/)
+-   [GNU Make](https://www.gnu.org/software/make/)
+-   [Doxygen](https://www.doxygen.nl) 1.8.11 (exact version, see [this
+    issue](https://github.com/doxygen/doxygen/issues/7096))
+-   [npm](https://nodejs.org/en/)
 
 Once `doxygen` and `npm` are available on `$PATH`, the included
 `Makefile` will build the docs bundle, simply run:
@@ -53,7 +53,7 @@ such as `sass` and `doxypy.py` for you.
 ## Viewing the docs
 
 Regardless of which mechanism you use, the resulting docs bundle will be
-created in a `html` folder in this directory.  You can view the main
+created in a `html` folder in this directory. You can view the main
 index page via `html/index.html`.
 
 ## Deploying the docs
@@ -69,6 +69,7 @@ Should GitHub Actions be unavailable, the deployment can be updated
 manually, using the standard Pull Request process.
 
 Specifically,
+
 1. Check out the latest `main` branch.
 2. Generate the documentation (see above), resulting in a `html`
    directory.
@@ -83,9 +84,11 @@ Specifically,
 
 For convenience, much of this can be automated using the `deploy`
 target of the included `Makefile`, i.e.
+
 ```shell
 make deploy
 ```
+
 which will commit a previously generated `html` directory to a `docs`
 directory in the `docs` branch, then push that branch to `origin`.
 
