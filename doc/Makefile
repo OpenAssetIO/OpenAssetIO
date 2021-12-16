@@ -19,7 +19,7 @@ default: container-build
 # should not be used with `make -f`.
 ##
 
-CONTAINER_VERSION=1.1.0
+CONTAINER_VERSION=1.1.1
 CONTAINER_NAME=openassetio-doc-build
 
 ##

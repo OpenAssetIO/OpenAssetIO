@@ -1,6 +1,13 @@
 Changes
 =======
 
+v1.1.1
+------
+
+### Improvements
+
+- Switched to single-layer image.
+
 v1.1.0
 ------
 
