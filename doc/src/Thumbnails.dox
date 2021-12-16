@@ -3,9 +3,9 @@
  *
  * @section thumbnails_overview Overview
  *
- * OAIO provides a mechanism for a @ref manager to request a thumbnail
- * from the @ref host when a new @ref entity is created, and for a host
- * to look up a thumbnail for an existing entity.
+ * OpenAssetIO provides a mechanism for a @ref manager to request a
+ * thumbnail from the @ref host when a new @ref entity is created, and
+ * for a host to look up a thumbnail for an existing entity.
  *
  * @section thumbnails_creation_during_publish Requesting Thumbnail Creation During Publishing
  *
@@ -15,8 +15,8 @@
  * type can be rendered to into an image.
  *
  * For image-based entities, this is potentially straightforward. The
- * whole purpose of OAIO though is to allow generic handling of new
- * entity types without specific logic within the manager.
+ * whole purpose of OpenAssetIO though is to allow generic handling of
+ * new entity types without specific logic within the manager.
  *
  * It seems fair then, to ask the @ref host to provide a thumbnail with
  * the entity when it is @ref publish "published". More often than not,
@@ -31,8 +31,8 @@
  * - Call @ref preflight with the target entity and a @needsref ThumbnailSpecification
  *   that describes supported formats.
  * - Call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
- *   "getEntityAttributes" on the returned reference to determine the desired width/height/format
- *   for the thumbnail.
+ *   "getEntityAttributes" on the returned reference to determine the
+ *   desired width/height/format for the thumbnail.
  * - Generate a thumbnail and @ref register it to the same reference.
  *
  * @note The thumbnail generation process may be carried out

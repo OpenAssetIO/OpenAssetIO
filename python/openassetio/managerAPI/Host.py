@@ -24,8 +24,8 @@ __all__ = ['Host']
 class Host(Debuggable):
     """
     The Host object represents the tool or application that created a
-    session with OAIO, and wants to query or store information within a
-    @ref manager.
+    session with OpenAssetIO, and wants to query or store information
+    within a @ref manager.
 
     The Host provides a generalised API to query the identity of the
     caller of the API, as well as which entities are used within the

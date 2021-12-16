@@ -18,10 +18,10 @@ meantime, please open an Issue or contact one of the Trusted Committers.
 
 ## Contribution sign off
 
-OAIO is licensed under the [Apache 2.0 license](LICENSE). All
+OpenAssetIO is licensed under the [Apache 2.0 license](LICENSE). All
 contributions to the project must abide by that license.
 
-Contributions to OAIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
+Contributions to OpenAssetIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
 All commits must be signed-off as follows, before merge, to indicate
 that the submitter accepts the DCO:
 
@@ -109,14 +109,14 @@ the default settings for inspections and formatting refactors.
 In particular, more granular settings are included for IntelliJ-based
 IDEs (for example, PyCharm) via the `ij_*` extensions.
 
-Common file types that we expect to encounter during development of OAIO
-have their own settings, many of which remain commented out for
-reference and may be enabled and tweaked in future.
+Common file types that we expect to encounter during development of
+OpenAssetIO have their own settings, many of which remain commented out
+for reference and may be enabled and tweaked in future.
 
 ### Environment variables
 
-All environment variables should be prefixed with `OAIO_`. For example,
-`OAIO_LOGGING_SEVERITY`.
+All environment variables should be prefixed with `OPENASSETIO_`.
+For example, `OPENASSETIO_LOGGING_SEVERITY`.
 
 When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will

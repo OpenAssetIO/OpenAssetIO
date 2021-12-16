@@ -13,16 +13,16 @@ We aim to create a codebase that is as easy to mentally parse as
 possible. Naming schemes for symbols are crucial in aiding readability.
 
 A common pattern for accessor (getter) methods/functions is to begin the
-function name with `get`, and historically OAIO liberally used this
-convention for such functions. However, there are alternative schemes
-that might help developers viewing a cross-section of the codebase to
-make better inferences about the wider codebase.
+function name with `get`, and historically OpenAssetIO liberally used
+this convention for such functions. However, there are alternative
+schemes that might help developers viewing a cross-section of the
+codebase to make better inferences about the wider codebase.
 
 ## Relevant data
 
 This decision was made with reference
 to [one of the early RFCs](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/5)
-for OAIO.
+for OpenAssetIO.
 
 Alternative coding conventions include
 

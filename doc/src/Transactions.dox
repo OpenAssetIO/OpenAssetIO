@@ -124,7 +124,7 @@
  * default implementation makes it simply a no-op.
  *
  * If a manager natively supports the concept of transactions, mapping
- * them to the OAIO model can make state management around error cases
+ * them to the OpenAssetIO model can make state management around error cases
  * more straightforward in supporting hosts.
  *
  * The @ref stable_resolution_manager_state mechanism allows between API

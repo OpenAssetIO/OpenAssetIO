@@ -1,23 +1,23 @@
 /*!
  * @page entities_specifications_and_attributes Entities, Specifications and Attributes
  *
- * The concepts discussed on this page are key to understanding how OAIO
- * extends beyond the simple resolution of an @ref entity_reference into
- * a file path into first-class asset centric workflows.
+ * The concepts discussed on this page are key to understanding how
+ * OpenAssetIO extends beyond the simple resolution of an @ref entity_reference
+ * into a file path into first-class asset centric workflows.
  *
  * @section Entities
  *
- * To recap, within OAIO, a @ref host communicates with an
+ * To recap, within OpenAssetIO, a @ref host communicates with an
  * @ref asset_management_system to query and manage the existence of
  * @ref entity "entities". An entity is a logical thing managed within
  * a pipeline or workflow by the asset manager. Within the Media and
  * Entertainment sector, this could be a shot, an image sequence, a 3D
  * model or a script.
  *
- * At its core OAIO has no detailed understanding of the specifics of
- * any given entity, only that conceptually they may or may not exist,
- * and may or may not have multiple versions or relationships to other
- * entities.
+ * At its core OpenAssetIO has no detailed understanding of the
+ * specifics of any given entity, only that conceptually they may or may
+ * not exist, and may or may not have multiple versions or relationships
+ * to other entities.
  *
  * @section Specifications
  *
@@ -35,14 +35,14 @@
  * publishing data to an asset management system, it needs to be able to
  * inform the manager what kind of data is being registered.
  *
- * Within OAIO, type identification is accomplished by the
+ * Within OpenAssetIO, type identification is accomplished by the
  * @ref openassetio.Specification.Specification "Specification"
  * mechanism. Specifications are a hierarchical type system that can
  * carry arbitrary additional data to refine its description. An example
  * of this being an ImageSequenceSpecification, that additionally
  * describes a colorspace or frame range.
  *
- * Specifications are used within OAIO in several ways:
+ * Specifications are used within OpenAssetIO in several ways:
  *
  * - To define the type of an entity:
  *   - When a host needs correctly loaded referenced data.
@@ -86,8 +86,8 @@
  * choose to represent its documents via a
  * `entity:file.document.nodegraph.someapp` schema identifier.
  * The manager handling publishing can temporarily upcast to the
- * document base to determine its behavior, treating it similarly to other
- * documents, or choose to add specific functionality if desired.
+ * document base to determine its behavior, treating it similarly to
+ * other documents, or choose to add specific functionality if desired.
  *
  * Regardless of whether a manager customizes its internal behavior for
  * any given specification (beyond the baseline required by the API),
@@ -128,10 +128,10 @@
  * making calls to a @ref manager. This ensures the expected type of
  * entity is returned or registered. A manager must also accurately
  * describe any entities when requested. In order to facilitate a common
- * dialog between OAIO compatible systems, the project provides a set of
- * well-known specifications. Always use one of these where possible as
- * they are, by definition, also known to other tools in the OAIO
- * ecosystem.
+ * dialog between OpenAssetIO compatible systems, the project provides a
+ * set of well-known specifications. Always use one of these where
+ * possible as they are, by definition, also known to other tools in the
+ * OpenAssetIO ecosystem.
  *
  * Hosts and managers are also free to make their own specifications for
  * native types. For example, deriving from the DocumentSpecification to
@@ -141,8 +141,8 @@
  * manager or vendor specific schemas should be listed in the
  * appropriate technical documentation supplied with the software.
  *
- * @warning The library of well-known OAIO base schemas is yet to be
- * ported from `FnAssetAPI`, and will be available soon.
+ * @warning The library of well-known OpenAssetIO base schemas is yet to
+ * be ported from `FnAssetAPI`, and will be available soon.
  *
  * @section Attributes
  *
@@ -165,8 +165,8 @@
  * be a file path, or even a URL.
  *
  * If it's possible to break down the description of an entity into a
- * string, and/or set of named values, OAIO can be used directly to
- * publish or query entities of this type.
+ * string, and/or set of named values, OpenAssetIO can be used directly
+ * to publish or query entities of this type.
  *
  * A common application of this is its use in a timeline based
  * application to query and publish shot timing information directly to
@@ -178,14 +178,14 @@
  * the asset management system without any special handling by the
  * manager itself.
  *
- * If a Manager holds entities created by means other than OAIO
+ * If a Manager holds entities created by means other than OpenAssetIO
  * (its own interface, other APIs, etc...) then it is important that it
- * 'bridges' any attributes from the well-known OAIO names to its
+ * 'bridges' any attributes from the well-known OpenAssetIO names to its
  * corresponding internal name, for both set and get.
  *
- * @warning In OAIO, attributes are limited to simple constants using
- * basic types such as string, float, int and bool. Time-varying data is
- * beyond the scope of this API and should be managed through alternate
- * means such as <a href="http://opentimeline.io" target="_blank">OpenTimelineIO</a>
+ * @warning In OpenAssetIO, attributes are limited to simple constants
+ * using basic types such as string, float, int and bool. Time-varying
+ * data is beyond the scope of this API and should be managed through
+ * alternate means such as <a href="http://opentimeline.io" target="_blank">OpenTimelineIO</a>
  * or similar.
  */

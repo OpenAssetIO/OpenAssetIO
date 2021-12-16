@@ -100,7 +100,7 @@
  *
  * @note Note how it is the callers responsibility to validate
  * that a string is a @ref entity_reference before passing it to any
- * other OAIO API that expects one.
+ * other OpenAssetIO API that expects one.
  *
  * This is to reduce the validation overhead in the manager's
  * implementation of the API. This affords significant gains in

@@ -927,7 +927,7 @@ class Manager(Debuggable):
 
         When an @ref entity_reference points to a sequence of files,
         the frame, view, etc substitution tokens will be preserved
-        and need handling as if OAIO was never involved.
+        and need handling as if OpenAssetIO was never involved.
 
         @note You should always call @ref isEntityReference first if
         there is any doubt as to whether or not a string you have is a

@@ -130,8 +130,8 @@ kField_MediaFrameOut = 'mediaOutFrame'
 ## Name for keys in the session settings dict, where applicable.
 ## @{
 
-kSetting_ManagerIdentifier = 'OAIO:managerIdentifier'
-kSetting_LoggingSeverity = 'OAIO:loggingSeverity'
+kSetting_ManagerIdentifier = 'OpenAssetIO:managerIdentifier'
+kSetting_LoggingSeverity = 'OpenAssetIO:loggingSeverity'
 
 ## @}
 

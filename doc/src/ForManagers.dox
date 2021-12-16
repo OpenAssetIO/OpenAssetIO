@@ -3,7 +3,7 @@
  *
  * @section manager_architecture_summary Architecture Summary
  *
- * - In OAIO, a @ref manager is some centralized system that serves
+ * - In OpenAssetIO, a @ref manager is some centralized system that serves
  *   as a source of truth regarding the status and/or location of digital
  *   media and other organizational aspects of a project. The goal of the
  *   API is to allow these systems to be more easily integrated, and
@@ -11,7 +11,7 @@
  *   as it moves between various tools and applications.
  *
  * - The implementation of any given manager may consist of
- *   several discrete services, but within any OAIO session, it is
+ *   several discrete services, but within any OpenAssetIO session, it is
  *   represented though a singular @ref ManagerPlugin.
  *
  * - The API is initialized and managed by a @ref host. The host may
@@ -148,11 +148,11 @@
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
  *   "ManagerInterface", to support the registration of new assets.
  *
- * - Map supported OAIO specifications to internal asset types where
- *   possible.
+ * - Map supported OpenAssetIO specifications to internal asset types
+ *   where possible.
  *
- * - Persist the exact OAIO-specific specification schema identifier
- *   supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ * - Persist the exact OpenAssetIO specific specification schema
+ *   identifier supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "register". This allows new asset types to be registered and
  *   filtered, even if they don't have a unique type within a managers
  *   implementation - see @ref specification_hierarchy.
@@ -210,10 +210,10 @@
  * references known to be of another, such as the editorial example
  * above.
  *
- * This approach is critical to ensure that OAIO has no inherent concept
- * of any specific entity hierarchy, which ensures it never places any
- * constraints on the implementation of any given asset management
- * system.
+ * This approach is critical to ensure that OpenAssetIO has no inherent
+ * concept of any specific entity hierarchy, which ensures it never
+ * places any constraints on the implementation of any given asset
+ * management system.
  *
  * There are however times when a host will explicitly add a
  * relationship to an entity. Generally speaking, this is when an
@@ -246,7 +246,7 @@
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *
- * @note The UI layer of OAIO is yet to be ported to this code base,
+ * @note The UI layer of OpenAssetIO is yet to be ported to this code base,
  * this documentation section is currently in-progress.
  *
  * - Filter any browsers based on the supplied @ref Specification.

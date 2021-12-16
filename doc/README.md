@@ -1,7 +1,7 @@
 # OpenAssetIO Documentation
 
-The OAIO docs are currently built with Doxygen - chosen as it is the
-simplest solution for a mixed Python and C++ project.
+The OpenAssetIO docs are currently built with Doxygen - chosen as it is
+the simplest solution for a mixed Python and C++ project.
 
 They make use of [doxypy](https://github.com/0xCAFEBABE/doxypy) to
 better document Python code with docstrings containing Doxygen
@@ -14,8 +14,8 @@ Python classes.
 The simplest way to build the documentation is via Docker:
 
 ```
-docker build . -t oaio-doc-build
-docker run -v `pwd`/../:/src oaio-doc-build bash -c 'make -C /src/doc html'
+docker build . -t openassetio-doc-build
+docker run -v `pwd`/../:/src openassetio-doc-build bash -c 'make -C /src/doc html'
 ```
 
 If you have GNU Make installed on your system, the included `Makefile`

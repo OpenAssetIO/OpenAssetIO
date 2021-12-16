@@ -3,13 +3,13 @@
  *
  * @section host_architecture Architecture Summary
  *
- * - In OAIO, a '@ref host' is an application, tool or script that
- *   makes use of the API to interact with an @ref
- *   asset_management_system. This could be a anything from a simple
- *   pipeline script to a full-blown Digital Content Creation
- *   application. We use this term as the host is the thing responsible
- *   for 'hosting' the API, and instantiating one or more instances of
- *   the API classes that represent an asset management system.
+ * - In OpenAssetIO, a '@ref host' is an application, tool or script
+ *   that makes use of the API to interact with an @ref asset_management_system.
+ *   This could be a anything from a simple pipeline script to a
+ *   full-blown Digital Content Creation application. We use this term
+ *   as the host is the thing responsible for 'hosting' the API, and
+ *   instantiating one or more instances of the API classes that
+ *   represent an asset management system.
  *
  * - Hosts interact with an @ref asset_management_system through an
  *   instance of the @ref openassetio.hostAPI.Manager "Manager" class.
