@@ -25,7 +25,7 @@ from ..managerAPI import Host, HostSession
 
 from .. import constants
 from ..Context import Context
-from ..exceptions import ManagerError
+from ..exceptions import ManagerException
 from ..logging import LoggerInterface
 
 
@@ -141,7 +141,7 @@ class Session(Debuggable):
         """
 
         if identifier and not self._factory.managerRegistered(identifier):
-            raise ManagerError("Unknown Manager '%s'" % identifier)
+            raise ManagerException("Unknown Manager '%s'" % identifier)
 
         # No need to do anything if its the same
         if identifier == self._managerId:

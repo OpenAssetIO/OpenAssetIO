@@ -38,13 +38,39 @@ class UserCanceled(OpenAssetIOException):
     def __str__(self):
         return "Operation Canceled"
 
+##
+# @name Manager related Exceptions
+#
+## @{
+
+class ManagerException(OpenAssetIOException):
+    """
+    A base class for exceptions relating to, or raised by a manager.
+    """
+
+
+class StateError(ManagerException):
+    """
+    Thrown by managers in error situations relating to the
+    managerInterfaceState object.
+    """
+
+
+class RetryableError(ManagerException):
+    """
+    Thrown by managers in error situations that can be safely retried
+    with idempotent behavior.
+    """
+
+## @}
+
 
 ##
 # @name Entity related Exceptions
 #
 ## @{
 
-class BaseEntityException(OpenAssetIOException):
+class BaseEntityException(ManagerException):
     """
     A base Exception for any @ref entity related errors to ensure
     consistent presentation and encapsulation of the associated @ref
@@ -113,26 +139,6 @@ class RegistrationError(BaseEntityInteractionError):
 
 
 ## @}
-
-
-class ManagerError(OpenAssetIOException):
-    A base class for exceptions relating to, or raised by a manager.
-    """
-    """
-
-
-class StateError(OpenAssetIOException):
-    """
-    Thrown by managers in error situations relating to the
-    managerInterfaceState object.
-    """
-
-
-class RetryableError(OpenAssetIOException):
-    """
-    Thrown by managers in error situations that can be safely retried
-    with idempotent behavior.
-    """
 
 
 class PluginError(OpenAssetIOException):
