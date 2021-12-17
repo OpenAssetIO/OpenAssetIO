@@ -18,7 +18,8 @@
 kSupportedAttributeTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy "ManagerInterface.managementPolicy"
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## "ManagerInterface.managementPolicy"
 ## @{
 
 ## The Manager has no interest in participating in the management of this kind
@@ -40,7 +41,8 @@ kStateMask = 7
 ## @}
 
 ## @name Publishing control
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy "ManagerInterface.managementPolicy"
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## "ManagerInterface.managementPolicy"
 ## @{
 
 ## If False, the manager is not capable of determining the URL for a new @ref entity

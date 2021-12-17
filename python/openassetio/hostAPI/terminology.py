@@ -77,6 +77,9 @@ class Mapper:
         expectation that a manager would handle new terms without
         specific knowledge in advance.
         """
+        # As we take a copy, the default of the shared
+        # dict isn't dangerous.
+        # pylint: disable=dangerous-default-value
         self.__terminology = dict(terminology)
         self.__updateTerminology(manager)
 

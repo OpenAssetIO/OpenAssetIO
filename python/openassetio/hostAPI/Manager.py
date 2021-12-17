@@ -18,7 +18,7 @@ A single-class module, providing the Manager class.
 """
 
 # Most of this module is documentation, which hopefully is a good thing.
-# pylint: disable=too-many-lines
+# pylint: disable=too-many-lines,line-too-long
 # We discussed splitting the interface up, but it ends up making most
 # implementations more complicated.
 # pylint: disable=too-many-public-methods
