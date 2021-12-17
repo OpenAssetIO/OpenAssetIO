@@ -1,9 +1,11 @@
-<map id="BaseEntityException" name="BaseEntityException">
+<map id="ManagerException" name="ManagerException">
+<area shape="rect" id="node4" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="254,229,410,256"/>
+<area shape="rect" id="node10" href="$classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior..." alt="" coords="434,229,550,256"/>
+<area shape="rect" id="node11" href="$classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. " alt="" coords="574,229,661,256"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="Defines exceptions used in the OpenAssetIO codebase. " alt="" coords="407,80,577,107"/>
 <area shape="rect" id="node5" href="$classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="A base class for errors relating to entity&#45;centric actions. " alt="" coords="34,304,227,331"/>
 <area shape="rect" id="node8" href="$classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String..." alt="" coords="252,304,412,331"/>
 <area shape="rect" id="node9" href="$classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity&#45;based action is performed on a mal&#45;formed or unrecognized Entity Reference..." alt="" coords="436,304,607,331"/>
-<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="261,155,403,181"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="Defines exceptions used in the OpenAssetIO codebase. " alt="" coords="247,80,417,107"/>
 <area shape="rect" id="node6" href="$classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre&#45;flight that isn&#39;t due to any specific of the Entity Referen..." alt="" coords="5,379,112,405"/>
 <area shape="rect" id="node7" href="$classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer..." alt="" coords="137,379,269,405"/>
 </map>

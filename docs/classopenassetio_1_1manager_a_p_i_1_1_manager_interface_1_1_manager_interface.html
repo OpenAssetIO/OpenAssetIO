@@ -317,7 +317,7 @@ Asset Management System Information</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426">HostSession.log</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b">HostSession.progress</a></dd></dl>
-<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
+<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="Defines exceptions used in the OpenAssetIO codebase. ">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
@@ -337,7 +337,7 @@ Asset Management System Information</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
@@ -428,7 +428,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>object</code> Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls and to the transactional methods. Presently this can be any hashable object.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
   </table>
   </dd>
 </dl>
@@ -566,7 +566,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> For each given entity, either a string containing any valid characters for the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation; or an <code>InvalidEntityReference</code> if the supplied reference is not recognised by the asset management system. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> For each given entity, either a string containing any valid characters for the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation; or an <code>InvalidEntityReference</code> if the supplied reference is not recognised by the asset management system. </dd></dl>
 
 </div>
 </div>
@@ -893,7 +893,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails, or finish is called before start.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails, or finish is called before start.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1207,7 +1207,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1306,7 +1306,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1534,7 +1534,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">exceptions.PreflightError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The preflight result for each corresponding entity. If successful, this should be an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that the host should resolve to determine the path to write media to. This may or may not be the same as the input reference. A host will resolve this reference to get the working URL before writing any files or other data. If preflight was unsuccessful, the result for an entity should be either a <code>PreflightError</code> if some fatal exception happens during preflight, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">exceptions.PreflightError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior...">exceptions.RetryableError</a> <code>]]</code> The preflight result for each corresponding entity. If successful, this should be an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that the host should resolve to determine the path to write media to. This may or may not be the same as the input reference. A host will resolve this reference to get the working URL before writing any files or other data. If preflight was unsuccessful, the result for an entity should be either a <code>PreflightError</code> if some fatal exception happens during preflight, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">Context.retention</a>, as not all hosts will support the reference changing at this point.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#register">register</a> </dd></dl>
 
@@ -1601,7 +1601,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">exceptions.RegistrationError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html">exceptions.RetryableError</a> <code>]]</code> The publish result for each corresponding entity. This is either an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action (which does not need to be the same as the corresponding entry in <code>targetEntityRefs</code>); a <code>RegistrationError</code> if some fatal exception happens during publishing, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">exceptions.RegistrationError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior...">exceptions.RetryableError</a> <code>]]</code> The publish result for each corresponding entity. This is either an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action (which does not need to be the same as the corresponding entry in <code>targetEntityRefs</code>); a <code>RegistrationError</code> if some fatal exception happens during publishing, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">openassetio.Context.Context.retention</a>, as not all Hosts will support the reference changing at this point.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#preflight">preflight</a> </dd>
 <dd>
@@ -1659,7 +1659,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognised Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either the primary string for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either the primary string for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> </dd></dl>
@@ -1890,7 +1890,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1932,7 +1932,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails.</td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1980,7 +1980,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by Managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>
   </table>
   </dd>
 </dl>
