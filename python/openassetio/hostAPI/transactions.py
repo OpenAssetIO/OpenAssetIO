@@ -127,9 +127,11 @@ class TransactionCoordinator(Debuggable):
 
         return status
 
-    def actionGroupDepth(self, context):
+    @staticmethod
+    def actionGroupDepth(context):
         """
         @return int The current ActionGroup depth in the context.
+        @todo Should this even be public? Conceptually this is probably API-internal.
         """
         return context.actionGroupDepth
 
