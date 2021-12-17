@@ -57,6 +57,7 @@ class Session(Debuggable):
     """
 
     def __init__(self, hostInterface, logger, managerFactory):
+        # pylint: disable=line-too-long
         """
         @param hostInterface openassetio.hostAPI.HostInterface The current
         HostInterface instance (note: only a single currently active
@@ -115,6 +116,7 @@ class Session(Debuggable):
     @debugApiCall
     @auditApiCall("Session")
     def registeredManagers(self):
+        # pylint: disable=line-too-long
         """
         @see @ref openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managers "managers"
         """
