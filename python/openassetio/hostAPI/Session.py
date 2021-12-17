@@ -147,9 +147,6 @@ class Session(Debuggable):
         if identifier == self._managerId:
             return
 
-        oldId = self._managerId if self._managerId else ''
-        newId = identifier if identifier else ''
-
         self._managerId = identifier
         self._managerSettings = dict(settings) if settings else None
         self._manager = None
