@@ -19,14 +19,12 @@ from .._core.audit import auditApiCall
 
 from .HostInterface import HostInterface
 from .Manager import Manager
-from .ManagerFactoryInterface import ManagerFactoryInterface
 
 from ..managerAPI import Host, HostSession
 
 from .. import constants
 from ..Context import Context
 from ..exceptions import ManagerError
-from ..logging import LoggerInterface
 
 
 __all__ = ['Session']
