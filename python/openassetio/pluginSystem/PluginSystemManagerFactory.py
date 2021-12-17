@@ -105,28 +105,30 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         managers = {}
 
         identifiers = self.__pluginManager.identifiers()
-        for i in identifiers:
+        for identifier in identifiers:
 
             try:
+                plugin = self.__pluginManager.plugin(identifier)
+                interface = plugin.interface()
                 p = self.__pluginManager.plugin(i)
                 interface = p.interface()
-            except Exception as e:  # pylint: disable=broad-except
+            except Exception as ex:  # pylint: disable=broad-except
                 self._logger.log(
-                    "Error loading plugin for '%s': %s" % (i, e), self._logger.kCritical)
+                    "Error loading plugin for '%s': %s" % (identifier, ex), self._logger.kCritical)
                 continue
 
             managerIdentifier = interface.identifier()
-            managers[i] = {
+            managers[identifier] = {
                 'name': interface.displayName(),
                 'identifier': managerIdentifier,
                 'info': interface.info(),
-                'plugin': p
+                'plugin': plugin
             }
 
-            if i != managerIdentifier:
+            if identifier != managerIdentifier:
                 msg = ("Manager '%s' is not registered with the same identifier as it's plugin"
                        " ('%s' instead of '%s')"
-                       % (interface.displayName(), managerIdentifier, i))
+                       % (interface.displayName(), managerIdentifier, identifier))
                 self._logger.log(msg, self._logger.kWarning)
 
         return managers
