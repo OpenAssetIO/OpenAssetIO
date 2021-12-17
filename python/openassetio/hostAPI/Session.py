@@ -194,14 +194,14 @@ class Session(Debuggable):
         @exception RuntimeError if called when the session has no
         current manager.
         """
-        c = Context()
+        ctx = Context()
 
         # If we have a parent, copy its setup
         if parent:
-            c.access = parent.access
-            c.retention = parent.retention
-            c.locale = parent.locale
-            c.managerOptions = parent.managerOptions
+            ctx.access = parent.access
+            ctx.retention = parent.retention
+            ctx.locale = parent.locale
+            ctx.managerOptions = parent.managerOptions
 
         manager = self.currentManager()
         if manager is None:
@@ -211,10 +211,11 @@ class Session(Debuggable):
         if parent:
             parentState = parent.managerInterfaceState
 
-        c.managerInterfaceState = manager._createState(parentState)
-        c.actionGroupDepth = 0
+        # pylint: disable=protected-access
+        ctx.managerInterfaceState = manager._createState(parentState)
+        ctx.actionGroupDepth = 0
 
-        return c
+        return ctx
 
     @auditApiCall("Session")
     def getSettings(self):
