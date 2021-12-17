@@ -92,7 +92,7 @@ class TestSession():
 
         mock_manager_factory.managerRegistered.return_value = False
 
-        with pytest.raises(exceptions.ManagerError):
+        with pytest.raises(exceptions.ManagerException):
             a_session.useManager(an_id)
 
         mock_manager_factory.managerRegistered.assert_called_once_with(an_id)
