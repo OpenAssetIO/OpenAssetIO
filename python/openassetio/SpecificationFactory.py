@@ -64,13 +64,13 @@ class SpecificationFactory(type):
             return None
 
         customCls = cls.classMap.get(schema, None)
-        prefix, type = Specification.schemaComponents(schema)
+        prefix, typ = Specification.schemaComponents(schema)
         if not customCls:
             customCls = cls.classMap.get(prefix)
         if customCls:
             instance = customCls(data)
             instance._setSchema(schema)
-            instance._type = type
+            instance._type = typ
             return instance
         else:
             ## @todo re-instate logging for missing custom class
