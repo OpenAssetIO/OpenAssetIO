@@ -165,7 +165,7 @@ class Session(Debuggable):
         if not self._manager:
             interface = self._factory.instantiate(self._managerId)
             self._manager = Manager(interface, self._hostSession())
-            self._manager._debugLogFn = self._debugLogFn
+            self._manager._debugLogFn = self._debugLogFn  # pylint: disable=protected-access
             if self._managerSettings:
                 self._manager.setSettings(self._managerSettings)
             self._manager.initialize()
