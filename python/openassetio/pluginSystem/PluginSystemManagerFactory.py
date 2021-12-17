@@ -110,7 +110,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
             try:
                 p = self.__pluginManager.plugin(i)
                 interface = p.interface()
-            except Exception as e:
+            except Exception as e:  # pylint: disable=broad-except
                 self._logger.log(
                     "Error loading plugin for '%s': %s" % (i, e), self._logger.kCritical)
                 continue
