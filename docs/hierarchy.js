@@ -1,8 +1,19 @@
 var hierarchy =
 [
+    [ "ABCMeta", null, [
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
+      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", [
+        [ "ConsoleLogger", "classopenassetio_1_1logging_1_1_console_logger.html", null ],
+        [ "SeverityFilter", "classopenassetio_1_1logging_1_1_severity_filter.html", null ]
+      ] ]
+    ] ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "decorators", "classdecorators.html", null ],
     [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
+    [ "metaclass", null, [
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
+      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", null ]
+    ] ],
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
       [ "_Timer", "classopenassetio_1_1__core_1_1debug_1_1___timer.html", null ],
@@ -14,10 +25,7 @@ var hierarchy =
       [ "HostInterface", "classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html", null ],
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
       [ "ScopedActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", [
-        [ "ConsoleLogger", "classopenassetio_1_1logging_1_1_console_logger.html", null ],
-        [ "SeverityFilter", "classopenassetio_1_1logging_1_1_severity_filter.html", null ]
-      ] ],
+      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", null ],
       [ "HostSession", "classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html", null ],
       [ "ManagerInterface", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
