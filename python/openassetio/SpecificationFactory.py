@@ -56,6 +56,8 @@ class SpecificationFactory(type):
         attempts fail, a @ref openassetio.Specification.SpecificationBase will be used.
         """
 
+        # Prevents circular imports
+        # pylint: disable=import-outside-toplevel, cyclic-import
         from .Specification import SpecificationBase, Specification
 
         if not schema:
