@@ -82,5 +82,14 @@ class SpecificationFactory(type):
 
     @classmethod
     def upcast(cls, specification):
+        """
+        Casts the supplied Specification to the most derived
+        implementation available.
+
+        This is done by introspection of the specification's schema
+        against all registered specifications.
+
+        @param specification @ref openassetio.Specification.Specification "Specification"
+        """
         schema = specification.schema()
         return cls.instantiate(schema, specification.data(copy=False))

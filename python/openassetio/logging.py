@@ -23,9 +23,11 @@ import os
 import sys
 
 
-##
-# @name Logger Interface
 class LoggerInterface(object):
+    """
+    An abstract base class that defines the receiving interface for log
+    messages generated a @ref manager or the API middleware.
+    """
     __metaclass__ = abc.ABCMeta
 
     ##
@@ -104,6 +106,11 @@ class SeverityFilter(LoggerInterface):
         self.__upstreamLogger = upstreamLogger
 
     def upstreamLogger(self):
+        """
+        Returns the logger wrapped by the filter.
+
+        @return LoggerInterface
+        """
         return self.__upstreamLogger
 
     ## @name Filter Severity
@@ -114,9 +121,26 @@ class SeverityFilter(LoggerInterface):
     ## @{
 
     def setSeverity(self, severity):
+        """
+        Sets the minimum severity of message that will be passed on to
+        the @ref upstreamLogger.
+
+        @param severity `int`, one of the LoggerInterface severity
+        constants.
+
+        @see @ref LoggerInterface
+        """
         self.__maxSeverity = severity
 
     def getSeverity(self):
+        """
+        Returns the minimum seveirty of message that will be passed on
+        to the @ref upstreamLogger by the filter.
+
+        @return `int`
+
+        @see @ref LoggerInterface
+        """
         return self.__maxSeverity
 
     ## @}
@@ -139,11 +163,12 @@ class SeverityFilter(LoggerInterface):
 
 
 class ConsoleLogger(LoggerInterface):
+    """
+    A simple logger that prints messages to stdout/stderr.
+    """
 
     def __init__(self, colorOutput=True, forceDefaultStreams=False):
         """
-        A simple filtered Logger that prints messages to stdout/stderr.
-
         @param colorOutput bool [True] Make a vague attempt to color
         the output using terminal escape codes.
 

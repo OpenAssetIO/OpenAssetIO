@@ -64,6 +64,10 @@ defaultTerminology = {
 
 
 class Mapper:
+    """
+    The Mapper class provides string substitution methods and lookups to
+    determine the correct terminology for the supplied @ref manager.
+    """
 
     def __init__(self, manager, terminology=defaultTerminology):
         """
