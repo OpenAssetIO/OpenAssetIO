@@ -13,6 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.transactions
+This module provides convenience functionality for a @ref host to aid
+working managing transactions when interacting with a @ref manager.
+"""
 
 from .._core.audit import auditApiCall
 from .._core.debug import debugApiCall, Debuggable

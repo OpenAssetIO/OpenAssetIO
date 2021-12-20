@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio._core.objects
 The OpenAssetIO API is built using the core FixedInterfaceObject class. This
 provides python objects that reject the addition of any new attributes
 at runtime, and provide type validation for their predefined

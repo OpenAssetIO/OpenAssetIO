@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.managerAPI.ManagerInterface
 A single-class module, providing the ManagerInterface class.
 """
 

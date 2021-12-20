@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.hostAPI.HostInterface
 A single-class module, providing the HostInterface class.
 """
 

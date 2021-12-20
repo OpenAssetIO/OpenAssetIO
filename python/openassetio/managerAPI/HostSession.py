@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.managerAPI.HostSession
+A single-class module, providing the HostSession class.
+"""
 
 from ..logging import LoggerInterface
 

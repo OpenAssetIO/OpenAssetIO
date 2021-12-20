@@ -13,12 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.pluginSystem
+This module provides a manager factory that loads plugins found on a search path.
+Each plugin can provide support for a new asset management system.
+"""
 
-##
-# @namespace openassetio.pluginSystem
-# This module provides a manager factory that loads plugins found on a search path.
-# Each plugin can provide support for a new asset management system.
-#
 from .ManagerPlugin import ManagerPlugin
 from .PluginSystem import PluginSystem
 from .PluginSystemPlugin import PluginSystemPlugin

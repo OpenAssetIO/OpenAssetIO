@@ -13,6 +13,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.constants
+Constants used throughout the OpenAssetIO API.
+
+@todo [tc] Should these live here, or with their owning declarations,
+See @ref openassetio.logging.LoggerInterface for example.
+"""
 
 
 kSupportedAttributeTypes = (str, int, float, bool, type(None))
