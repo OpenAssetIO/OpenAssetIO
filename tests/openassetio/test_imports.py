@@ -20,8 +20,6 @@ dependencies between packages due to the hoisting required to hide
 duplicate namespaces to match the future C++ implementation appearance.
 """
 
-import sys
-
 import pytest
 
 # pylint: disable=no-self-use
@@ -31,15 +29,11 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def unload_openassetio_modules():
+def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: disable=unused-argument
     """
     Removes openassetio modules from the sys.modules cache that
     otherwise mask cyclic dependencies.
     """
-    to_delete = [
-        name for name in sys.modules if name.startswith("openassetio")]
-    for name in to_delete:
-        del sys.modules[name]
 
 
 class Test_package_imports:

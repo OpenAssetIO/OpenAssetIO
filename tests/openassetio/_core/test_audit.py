@@ -22,7 +22,6 @@ works at a basic level.
 """
 
 import os
-import sys
 
 import pytest
 
@@ -36,17 +35,12 @@ audit_env_var_name = "OPENASSETIO_AUDIT"
 audit_args_capture_env_var_name = "OPENASSETIO_AUDIT_ARGS"
 
 
-# Global toggle tests required a clean slate for each import.
 @pytest.fixture(autouse=True)
-def unload_openassetio_modules():
+def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: disable=unused-argument
     """
-    Removes openassetio modules from the sys.modules cache that
-    otherwise mask cyclic dependencies.
+    Removes openassetio modules from the sys.modules cache to
+    ensure we have a clean module state for each test.
     """
-    to_delete = [
-        name for name in sys.modules if name.startswith("openassetio")]
-    for name in to_delete:
-        del sys.modules[name]
 
 
 class Test_global_toggles:
