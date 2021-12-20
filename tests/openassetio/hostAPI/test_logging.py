@@ -30,7 +30,13 @@ import openassetio.logging as lg
 # the old API.
 
 def test_LoggerInterface_progress():
-    logger = lg.LoggerInterface()
+
+    # LoggerInterface.log is pure virtual
+    class TestLogger(lg.LoggerInterface):
+        def log(self, message, severity):
+            pass
+
+    logger = TestLogger()
     logger.log = mock.create_autospec(logger.log)
 
     msg = "I am a message"
