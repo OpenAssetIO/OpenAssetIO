@@ -49,6 +49,7 @@ class SpecificationBase(FixedInterfaceObject):
     _data = {}
 
     def __init__(self, schema, data=None):
+        super(SpecificationBase, self).__init__()
 
         self.__schema = schema
         self._data = data if data else {}
