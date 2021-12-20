@@ -21,8 +21,7 @@ import sys
 
 ##
 # @name Logger Interface
-class LoggerInterface(object):
-    __metaclass__ = abc.ABCMeta
+class LoggerInterface(object, metaclass=abc.ABCMeta):
 
     ##
     # @name Log Severity
