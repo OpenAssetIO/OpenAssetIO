@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.Context
 A single-class module, providing the Context class.
 """
 

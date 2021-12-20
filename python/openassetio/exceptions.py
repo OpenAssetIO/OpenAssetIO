@@ -14,7 +14,9 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.exceptions
 Defines exceptions used in the OpenAssetIO codebase.
+
 @todo [tc] Should these all live here, or in their respective homes
 eg: pluginSystem, ManagerInterface, etc.
 """

@@ -13,6 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.terminology
+This module provides utilities for a @ref host that simplify the
+integration of a @ref manager "manager's" custom terminology into its
+user-facing components.
+"""
 
 from .._core.audit import auditApiCall
 

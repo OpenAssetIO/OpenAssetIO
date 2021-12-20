@@ -13,16 +13,16 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI
+This module contains code relevant to anyone hosting the API in a
+tool or application, wanting to communicate with some asset management
+system.
 
-##
-# @namespace openassetio.hostAPI
-# This module contains code relevant to anyone hosting the API in a
-# tool or application, wanting to communicate with some asset management
-# system.
-#
-# If you are wanting to provide support for an asset management system,
-# see @ref openassetio.managerAPI.
-#
+If you are wanting to provide support for an asset management system,
+see @ref openassetio.managerAPI.
+"""
+
 from .HostInterface import HostInterface
 from .Manager import Manager
 from .ManagerFactoryInterface import ManagerFactoryInterface

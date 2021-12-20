@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio._core.audit
 This module provides utility code that allows method and object usage
 to be audited.
 """

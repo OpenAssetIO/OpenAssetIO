@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.Session
+A single-class module, providing the Session class.
+"""
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall

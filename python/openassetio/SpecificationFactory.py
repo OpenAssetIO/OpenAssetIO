@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.SpecificationFactory
+A single-class module, providing the SpecificationFactory class.
+"""
 
 from ._core.objects import UntypedProperty
 

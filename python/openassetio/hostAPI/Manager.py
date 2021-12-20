@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.hostAPI.Manager
 A single-class module, providing the Manager class.
 """
 

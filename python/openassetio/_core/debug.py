@@ -14,7 +14,26 @@
 #   limitations under the License.
 #
 """
-Decorators to aid the debugging of OpenAssetIO integrations within a host.
+@namespace openassetio._core.debug
+Assorted decorators to help with API development. For the sake of
+optimisation, and help(fn) still making sense, then they may be disabled by
+default.
+
+@envvar **OPENASSETIO_DEBUG** *int* [1] when non-zero, debug decorators
+will be enabled, allowing API calls to be monitored and timed using the
+kDebug and kDebugAPI logging severity displays
+
+In order to use these decorators the target class must derive from Debuggable, and
+have its `_debugLogFn` set to an callable that matches the
+@ref openassetio.logging.LoggerInterface.log signature. This callback will be used
+to output debug information. If no callback is set, no debug output will be
+produced.
+
+@todo The current logging implementation doesn't have any global 'display severity'
+concept (for good reasons), this has precluded any of the optimisations we used to
+make earlying-out when we're at kInfo or less. Once we port this implementation
+to cpp, then we may wish to adjust how we enable/disable this functionality to
+avoid any unwanted overhead per-call.
 """
 
 # For private decorator implementation methods
@@ -29,26 +48,6 @@ from ..logging import LoggerInterface
 
 __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
 
-## @class decorators
-## Assorted decorators to help with API development. For the sake of
-## optimisation, and help(fn) still making sense, then they may be disabled by
-## default.
-##
-## @envvar **OPENASSETIO_DEBUG** *int* [1] when non-zero, debug decorators
-## will be enabled, allowing API calls to be monitored and timed using the
-## kDebug and kDebugAPI logging severity displays
-##
-## In order to use these decorators the target class must derive from Debuggable, and
-## have its `_debugLogFn` set to an callable that matches the
-## @ref openassetio.logging.LoggerInterface.log signature. This callback will be used
-## to output debug information. If no callback is set, no debug output will be
-## produced.
-##
-## @todo The current logging implementation doesn't have any global 'display severity'
-## concept (for good reasons), this has precluded any of the optimisations we used to
-## make earlying-out when we're at kInfo or less. Once we port this implementation
-## to cpp, then we may wish to adjust how we enable/disable this functionality to
-## avoid any unwanted overhead per-call.
 
 enableDebugDecorators = os.environ.get("OPENASSETIO_DEBUG", "1") != "0"
 
