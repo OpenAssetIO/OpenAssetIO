@@ -1,16 +1,20 @@
 """
-Provides a test PluginSystemPlugin implemented within a single file
-module.
+Provides a plugin that uses the same identifier as the ModulePlugin in
+the `pathA` folder.
 """
 
 from openassetio.pluginSystem import PluginSystemPlugin
 
 class ModulePlugin(PluginSystemPlugin):
-    # pylint: disable=missing-class-docstring
+    """
+    Provides an alternate implementation of the ModulePlugin
+    to aid testing of path precedence.
+    """
 
     @classmethod
     def identifier(cls):
-        return "org.openassetio.test.pluginSystem.resources.modulePlugin"
+        identifier = "org.openassetio.test.pluginSystem.resources.modulePlugin"
+        return identifier
 
 # pylint: disable=invalid-name
 plugin = ModulePlugin
