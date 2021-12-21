@@ -444,11 +444,6 @@ class Test_Manager_getEntityAttribute:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        # TODO(DF): This test doesn't cover the default implementation
-        #   in ManagerInterface. We will redesign the attributes mechanism
-        #   soon (including removing this method), so deliberately
-        #   leaving untested.
-
         method = mock_manager_interface.getEntityAttribute
         a_key = "key"
         a_default = 2
@@ -468,11 +463,6 @@ class Test_Manager_setEntityAttribute:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
-
-        # TODO(DF): This test doesn't cover the default implementation
-        #   in ManagerInterface. We will redesign the attributes mechanism
-        #   soon (including removing this method), so deliberately
-        #   leaving untested.
 
         a_key = "key"
         a_value = "value"
