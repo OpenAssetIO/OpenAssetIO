@@ -154,10 +154,10 @@ class Test_Specification_schemaComponents:
 
 class Test_Specification_generateSchema:
 
-    def test_when_called_with_valid_input_then_returns_expected_schema(self):
+    def test_schema_formatting(self):
         assert Specification.generateSchema("prefix", "type") == "prefix:type"
 
-    def test_when_called_with_schemaComponents_then_result_is_same_as_input(self):
+    def test_decomposes_back_to_input_components(self):
         components = ("prefix", "type")
         assert Specification.schemaComponents(
             Specification.generateSchema(*components)) == components
@@ -165,27 +165,27 @@ class Test_Specification_generateSchema:
 
 class Test_Specification_data:
 
-    def test_when_called_then_returns_default_constructed_property_values(self):
+    def test_default_constructed_values_returned(self):
         a_spec = PrefixASpec()
 
         assert a_spec.data() == {
                 "aString": PrefixASpec.aString.initialValue,
                 "anInt": PrefixASpec.anInt.initialValue}
 
-    def test_when_called_then_returns_specified_constructed_property_values(self):
+    def test_constructor_provided_values_returned(self):
         initial_values = {"aString": "mouse", "anInt": 3}
         another_spec = PrefixASpec(data=initial_values)
 
         assert another_spec.data() == initial_values
 
-    def test_when_properties_set_and_called_then_returns_current_values(self):
+    def test_current_values_returned(self):
         a_spec = PrefixASpec()
         a_spec.aString = "herring"
         a_spec.anInt = 42
 
         assert a_spec.data() == {"aString": "herring", "anInt": 42}
 
-    def test_when_called_then_all_property_keys_are_present_in_the_returned_value(self):
+    def test_all_defined_property_keys_are_returned(self):
         a_spec = PrefixASpec()
         spec_data = a_spec.data()
 

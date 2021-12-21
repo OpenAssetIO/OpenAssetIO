@@ -86,30 +86,41 @@ def mapper(mock_manager):
     return tgy.Mapper(mock_manager)
 
 
-def test_defaultTerminology():
-    # Ensure we have pre-defined keys for anything in the default dictionary
-    assert set(all_terminology_keys) == set(tgy.defaultTerminology.keys())
+class Test_defaultTerminology:
 
-    for value in tgy.defaultTerminology.values():
-        assert isinstance(value, str)
-        assert value != ""
+    def test_has_expected_keys(self):
+        # Ensure we have pre-defined keys for anything in the default dictionary
+        assert set(all_terminology_keys) == set(tgy.defaultTerminology.keys())
+
+    def test_values_are_strings_and_not_empty(self):
+
+        for value in tgy.defaultTerminology.values():
+            assert isinstance(value, str)
+            assert value != ""
 
 
-class TestMapper:
+class Test_Mapper_init:
 
-    def test_construction(self, mock_manager):
+    def test_when_constructed_with_custom_terminology_then_it_is_used_for_replacement(
+            self, mock_manager):
+
         custom_terminology = {
             mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
         a_mapper = tgy.Mapper(mock_manager, terminology=custom_terminology)
         assert (a_mapper.replaceTerms(f"{{{mock_manager.kTerm_custom}}}") ==
                 mock_manager.kTermValue_custom)
 
-    def test_replaceTerms(self, mock_manager, mapper):
+
+class Test_Mapper_replaceTerms:
+
+    def test_when_called_with_known_terms_then_they_are_replaced_with_target_terminology(
+            self, mock_manager, mapper):
+
         all_terms_str = ", ".join([f"{k}" for k in all_terminology_keys])
         expected = all_terms_str.format(**mock_manager.expectedTerminology())
         assert mapper.replaceTerms(all_terms_str) == expected
 
-    def test_replaceTermsUnknownTokensDebraced(self, mapper):
+    def test_when_called_with_unknown_terms_then_their_braces_are_removed(self, mapper):
         input_str = "{an} unknown {token}"
         expected = "an unknown token"
         assert mapper.replaceTerms(input_str) == expected

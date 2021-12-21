@@ -63,28 +63,30 @@ def severity_filter(mock_logger):
     return lg.SeverityFilter(mock_logger)
 
 
-class TestSeverityFilter():
-    all_severities = (
-        lg.LoggerInterface.kDebugAPI,
-        lg.LoggerInterface.kDebug,
-        lg.LoggerInterface.kInfo,
-        lg.LoggerInterface.kProgress,
-        lg.LoggerInterface.kWarning,
-        lg.LoggerInterface.kError,
-        lg.LoggerInterface.kCritical
-    )
+all_severities = (
+    lg.LoggerInterface.kDebugAPI,
+    lg.LoggerInterface.kDebug,
+    lg.LoggerInterface.kInfo,
+    lg.LoggerInterface.kProgress,
+    lg.LoggerInterface.kWarning,
+    lg.LoggerInterface.kError,
+    lg.LoggerInterface.kCritical
+)
 
-    def test_constructor(self, mock_logger, monkeypatch):
+severity_control_envvar = "OPENASSETIO_LOGGING_SEVERITY"
 
-        var = "OPENASSETIO_LOGGING_SEVERITY"
 
-        # Unset
+class Test_SeverityFilter_init:
 
-        monkeypatch.delenv(var, raising=False)
+    def test_when_severity_envvar_not_set_then_initial_severity_is_warning(
+            self, mock_logger, monkeypatch):
+
+        monkeypatch.delenv(severity_control_envvar, raising=False)
         f = lg.SeverityFilter(mock_logger)
         assert f.getSeverity() == lg.LoggerInterface.kWarning
 
-        # Set
+    def test_when_severity_envvar_set_then_initial_severity_matches_envvar_value(
+            self, mock_logger, monkeypatch):
 
         for value, expected in (
                 ("", lg.LoggerInterface.kWarning),
@@ -97,29 +99,37 @@ class TestSeverityFilter():
                 (lg.LoggerInterface.kError, lg.LoggerInterface.kError),
                 (lg.LoggerInterface.kCritical, lg.LoggerInterface.kCritical)
         ):
-            monkeypatch.setenv(var, str(value))
+            monkeypatch.setenv(severity_control_envvar, str(value))
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
-    def test_severity_accessors(self, severity_filter):
-        for severity in self.all_severities:
+
+class Test_SeverityFilter_setSeverity_getSeverity:
+
+    def test_when_severity_is_set_then_get_returns_the_new_value(self, severity_filter):
+        for severity in all_severities:
             severity_filter.setSeverity(severity)
             assert severity_filter.getSeverity() == severity
 
-    def test_filtering(self, severity_filter):
+
+class Test_SeverityFilter_log:
+
+    def test_only_messages_of_equal_or_greater_severity_are_relayed(
+            self, severity_filter):
 
         mock_logger = severity_filter.upstreamLogger()
 
         msg = "A message"
 
-        for filter_severity in self.all_severities:
+        for filter_severity in all_severities:
 
             severity_filter.setSeverity(filter_severity)
 
-            for message_severity in self.all_severities:
+            for message_severity in all_severities:
                 mock_logger.reset_mock()
                 severity_filter.log(msg, message_severity)
                 if message_severity <= filter_severity:
-                    mock_logger.log.assert_called_once_with(msg, message_severity)
+                    mock_logger.log.assert_called_once_with(
+                        msg, message_severity)
                 else:
                     mock_logger.log.assert_not_called()
