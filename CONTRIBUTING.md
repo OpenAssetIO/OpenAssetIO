@@ -123,6 +123,25 @@ blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
 
+### Parameter documentation
+
+All method parameters should be documented in docstrings or doxygen
+comment blocks.
+
+In Python, as our configuration can't determine parameter types, we must
+manually specify those. This should be in the following form for
+OpenAssetIO defined types:
+
+```
+@param <name> <path> "<short.path>" Description text.
+```
+
+And the following, for built-ins or external types (note the backticks):
+
+```
+@param <name> `<external_type>` Description text.
+```
+
 ## Trusted Committers
 
 ### Foundry
