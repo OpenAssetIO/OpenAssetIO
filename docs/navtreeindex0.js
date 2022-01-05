@@ -221,7 +221,8 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[12,0,0,6,0,0,0],
 "classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce":[12,0,0,6,0,0,1],
 "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html":[12,0,0,6,1,0],
-"classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e":[12,0,0,6,1,0,4],
+"classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a51829b63adb24ac48d350dee60181002":[12,0,0,6,1,0,4],
+"classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e":[12,0,0,6,1,0,5],
 "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a8bef8dba8f08056f70b6ec9e4ad9f907":[12,0,0,6,1,0,3],
 "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de":[12,0,0,6,1,0,2],
 "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#aac3cdede3d1da7dd5e392212b10c4cf5":[12,0,0,6,1,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "envvar.html":[10],
 "examples.html":[2],
 "examples.html#example_generating_a_thumbnail":[2,4],
-"examples.html#example_publishing_a_file":[2,3],
-"examples.html#examples_api_initialization":[2,0]
+"examples.html#example_publishing_a_file":[2,3]
 };

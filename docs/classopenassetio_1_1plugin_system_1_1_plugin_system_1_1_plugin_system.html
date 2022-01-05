@@ -130,13 +130,20 @@ Inheritance diagram for PluginSystem:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aac3cdede3d1da7dd5e392212b10c4cf5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#aac3cdede3d1da7dd5e392212b10c4cf5">__init__</a> (self, logger)</td></tr>
 <tr class="separator:aac3cdede3d1da7dd5e392212b10c4cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51829b63adb24ac48d350dee60181002"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a51829b63adb24ac48d350dee60181002">reset</a> (self)</td></tr>
+<tr class="memdesc:a51829b63adb24ac48d350dee60181002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any previously loaded plugins.  <a href="#a51829b63adb24ac48d350dee60181002">More...</a><br /></td></tr>
+<tr class="separator:a51829b63adb24ac48d350dee60181002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6423e8313300165e964a9c468adb897e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e">scan</a> (self, paths)</td></tr>
+<tr class="memdesc:a6423e8313300165e964a9c468adb897e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a> through a top-level <code>plugin</code> variable.  <a href="#a6423e8313300165e964a9c468adb897e">More...</a><br /></td></tr>
 <tr class="separator:a6423e8313300165e964a9c468adb897e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a497055ee194e573cd76f9957782cb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#ac5a497055ee194e573cd76f9957782cb">identifiers</a> (self)</td></tr>
+<tr class="memdesc:ac5a497055ee194e573cd76f9957782cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the identifiers known to the plugin system.  <a href="#ac5a497055ee194e573cd76f9957782cb">More...</a><br /></td></tr>
 <tr class="separator:ac5a497055ee194e573cd76f9957782cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa537d4a3d4b4c472862d9c815d9686de"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de">plugin</a> (self, identifier)</td></tr>
+<tr class="memdesc:aa537d4a3d4b4c472862d9c815d9686de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the plugin that provides the given identifier.  <a href="#aa537d4a3d4b4c472862d9c815d9686de">More...</a><br /></td></tr>
 <tr class="separator:aa537d4a3d4b4c472862d9c815d9686de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bef8dba8f08056f70b6ec9e4ad9f907"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a8bef8dba8f08056f70b6ec9e4ad9f907">register</a> (self, cls, path=&quot;&lt;unknown&gt;&quot;)</td></tr>
+<tr class="memdesc:a8bef8dba8f08056f70b6ec9e4ad9f907"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows manual registration of a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a> derived class.  <a href="#a8bef8dba8f08056f70b6ec9e4ad9f907">More...</a><br /></td></tr>
 <tr class="separator:a8bef8dba8f08056f70b6ec9e4ad9f907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -184,6 +191,10 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the identifiers known to the plugin system. </p>
+<p>If <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e">scan</a> has not been called, then this will be empty.</p>
+<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> </dd></dl>
+
 </div>
 </div>
 <a class="anchor" id="aa537d4a3d4b4c472862d9c815d9686de"></a>
@@ -209,6 +220,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Retrieves the plugin that provides the given identifier. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">openassetio.exceptions.PluginError</td><td>Raised if no plugin provides the specified identifier. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -242,6 +262,34 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Allows manual registration of a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a> derived class. </p>
+<p>This can be used to register plugins using means other than the built-in file system scanning.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cls</td><td><a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a></td></tr>
+    <tr><td class="paramname">path</td><td><code>str</code> Some reference to where this plugin originated, used for debug messaging when duplicate registrations of the same identifier are encountered. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a51829b63adb24ac48d350dee60181002"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def reset </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears any previously loaded plugins. </p>
+
 </div>
 </div>
 <a class="anchor" id="a6423e8313300165e964a9c468adb897e"></a>
@@ -267,6 +315,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html">PluginSystemPlugin</a> through a top-level <code>plugin</code> variable. </p>
+<p>Paths are searched right-to-left, but only the first instance of any given plugin identifier will be used, and subsequent registrations ignored. This means entries to the left of the paths list take precedence over ones to the right.</p>
+<dl class="section note"><dt>Note</dt><dd>Precedence order is undefined for plugins sharing the same identifier within the same directory.</dd></dl>
+<p>Any existing plugins registered with the <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html" title="Loads Python Packages on a custom search path. ">PluginSystem</a> will be cleared before scanning.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paths</td><td><code>str</code> A list of paths to search, delimited by <code>os.pathsep</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

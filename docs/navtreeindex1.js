@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"examples.html#examples_api_initialization":[2,0],
 "examples.html#examples_picking_a_manager":[2,1],
 "examples.html#examples_resolving_a_reference":[2,2],
 "functions.html":[12,3,0,0],
