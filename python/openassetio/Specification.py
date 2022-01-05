@@ -18,13 +18,19 @@ import inspect
 
 from .SpecificationFactory import SpecificationFactory
 
-# We want these properties to be available here, so people just deriving a
-# 'Specification' don't need to worry about where these properties really come
-# from - we don't want most people to have to care about the 'core' module.
-from ._core.objects import UntypedProperty, TypedProperty, FixedInterfaceObject
+## @todo [TC] Though the behavior of Specification is largely correct, the
+## implementation needs re-thinking. The relationship between
+## SpecificationBase and Specification doesn't really make sense.
+## Especially the declaration of `_type` and `_prefix` which then end
+## up duplicated in `__schema`. We still need those components, but
+## there should be a cleaner way to implement this. It's going to need
+## to be re-thought to allow runtime extensions in python or C++ anyway
+## so we can hopefully pick it up then.
+
+from ._core.objects import TypedProperty, FixedInterfaceObject
 
 
-__all__ = ['SpecificationBase', 'Specification', 'UntypedProperty', 'TypedProperty']
+__all__ = ['SpecificationBase', 'Specification']
 
 
 class SpecificationBase(FixedInterfaceObject):
@@ -34,14 +40,24 @@ class SpecificationBase(FixedInterfaceObject):
     with the data in any type-specific way.
     """
 
+    # We want TypedProperty to be available here, so people just
+    # deriving a 'Specification' don't need to worry about where these
+    # properties really come from - we don't want most people to have to
+    # care about the 'core' module.
+    TypedProperty = TypedProperty
+
     _data = {}
 
     def __init__(self, schema, data=None):
+        super(SpecificationBase, self).__init__()
 
         self.__schema = schema
+        self._data = data if data else {}
         # The default for data is None, not {} to avoid mutable defaults issues
         # This data is written to by the SpecificationProperty class
-        self._data = data if data else {}
+        if data is not None :
+            for key, value in data.items():
+                setattr(self, key, value)
 
     def schema(self):
         """
@@ -50,34 +66,32 @@ class SpecificationBase(FixedInterfaceObject):
         """
         return self.__schema
 
-    def data(self, copy=True):
+    def data(self):
         """
-        @param copy bool, When True (default) then a copy of the data
-        will be returned, rather than a reference, to help avoid
-        mutating the specifications data by accident.
+        Returns a dict containing the values for the Specification's
+        properties.
 
-        @return dict, The data of the specification.
+        @return dict
+
+        @todo [tc] Do we actually need this method?
         """
-        if copy:
-            return dict(self._data)
-        else:
-            return self._data
+        return {key: getattr(self, key) for key in self.definedPropertyNames()}
 
     def _setSchema(self, schema):
         self.__schema = schema
 
     def __str__(self):
         data = []
-        for k, v in self._data.items():
-            if v is not None:
-                data.append("'%s':%s" % (k, repr(v)))
+        for key, value in self._data.items():
+            if value is not None:
+                data.append("'%s':%s" % (key, repr(value)))
         return "SpecificationBase('%s', {%s})" % (self.__schema, ", ".join(data))
 
     def __repr__(self):
         return str(self)
 
 
-class Specification(SpecificationBase):
+class Specification(SpecificationBase, metaclass=SpecificationFactory):
     """
     The simplest form of Specification in common use. It extends the
     base specification to better define the schema.
@@ -105,8 +119,6 @@ class Specification(SpecificationBase):
     The @ref SpecificationFactory understands the concept of prefixes,
     etc... when wrapping on instantiating a Specification from data.
     """
-    __metaclass__ = SpecificationFactory
-
     _prefix = "core"
     _type = ""
     __kPrefixSeparator = ':'
@@ -117,15 +129,15 @@ class Specification(SpecificationBase):
 
     def __str__(self):
         data = []
-        for k, v in self._data.items():
-            if v is not None:
-                data.append("'%s':%s" % (k, repr(v)))
+        for key, value in self._data.items():
+            if value is not None:
+                data.append("'%s':%s" % (key, repr(value)))
         return "%s({%s})" % (self.__class__.__name__, ", ".join(data))
 
     def __repr__(self):
         return str(self)
 
-    def isOfType(self, typeOrTypes, includeDerived=True, prefix=None):
+    def isOfType(self, typeOrTypes, includeDerived=True):
         """
         Returns whether the specification is of a requested type, by
         comparison of the type string.
@@ -143,32 +155,30 @@ class Specification(SpecificationBase):
         "file.image" would still match. If this is false, it must be the
         exact type match.
 
-        @param prefix str, An optional prefix string, to allow complete
-        comparison of the schema, not just the type.
-
         @note This call doesn't not consider the 'prefix' of the
-        Specification, unless the additional 'prefix' argument is
-        supplied.
+        Specification when type strings are provided. When comparing
+        against another Specification class, then the prefix must
+        also match that of the supplied class.
         """
         if self._type and self._prefix:
             ourPrefix = self._prefix
             ourType = self._type
         else:
-            ourPrefix, ourType = self.schemaComponents()
-
-        if prefix and not prefix == ourPrefix:
-            return False
+            ourPrefix, ourType = self.schemaComponents(self.schema())
 
         if not isinstance(typeOrTypes, (list, tuple)):
             typeOrTypes = (typeOrTypes,)
 
-        for t in typeOrTypes:
-            if inspect.isclass(t) and issubclass(t, Specification):
-                t = t._type
+        for typ in typeOrTypes:
+            if inspect.isclass(typ) and issubclass(typ, Specification):
+                # pylint: disable=protected-access
+                if typ._prefix != ourPrefix:
+                    continue
+                typ = typ._type
             if includeDerived:
-                if ourType.startswith(t):
+                if ourType.startswith(typ):
                     return True
-            elif ourType == t:
+            elif ourType == typ:
                 return True
 
         return False
@@ -177,26 +187,18 @@ class Specification(SpecificationBase):
         """
         Fetches the property from the specification, if present,
         otherwise returns the default value.
-
-        This is short hand for the following code, that avoids either
-        copying the data, or exposing the mutable data dictionary.
-        Consequently, it should be used by preference.
-
-        @code
-        data = specification.data(copy=False).get(name, defaultValue)
-        @endcode
         """
-        return self._data.get(name, defaultValue)
+        return getattr(self, name, defaultValue)
 
     @classmethod
-    def generateSchema(cls, prefix, type):
+    def generateSchema(cls, prefix, typ):
         """
         To be used over naive string concatenation to build a schema
         string.
 
         @return str, The schema string for the given prefix and type.
         """
-        return "%s%s%s" % (prefix, cls.__kPrefixSeparator, type)
+        return "%s%s%s" % (prefix, cls.__kPrefixSeparator, typ)
 
     @classmethod
     def schemaComponents(cls, schema):
@@ -208,20 +210,20 @@ class Specification(SpecificationBase):
         string if there is none.
         """
         if cls.__kPrefixSeparator in schema:
-            return schema.rsplit(cls.__kPrefixSeparator, 1)
-        else:
-            return "", schema
+            return tuple(schema.rsplit(cls.__kPrefixSeparator, 1))
+
+        return "", schema
 
     def prefix(self):
         """
         @return str, the prefix of this specifications schema, or an
         empty string.
         """
-        return self.schemaComponents(self.__schema)[0]
+        return self.schemaComponents(self.schema())[0]
 
     def type(self):
         """
         @return str, the schemas type, without prefix or separator
         token.
         """
-        return self.schemaComponents(self.__schema)[1]
+        return self.schemaComponents(self.schema())[1]
