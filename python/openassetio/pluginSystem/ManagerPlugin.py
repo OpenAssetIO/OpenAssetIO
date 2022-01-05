@@ -13,6 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the ManagerPlugin class.
+"""
 
 from .PluginSystemPlugin import PluginSystemPlugin
 
@@ -58,7 +61,8 @@ class ManagerPlugin(PluginSystemPlugin):
 
         @return str
 
-        @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
+        @see @ref openassetio.managerAPI.ManagerInterface
+        "ManagerInterface"
         """
         raise NotImplementedError
 
@@ -89,9 +93,10 @@ class ManagerPlugin(PluginSystemPlugin):
         openassetio-ui.implementation.ManagerUIDelegate
 
         This is an instance of some class derived from ManagerUIDelegate
-        that is used by the @needsref UISessionManager to provide widgets to
-        a host that may bind into panels in the application, or to allow
-        the application to delegate asset browsing/picking etc...
+        that is used by the @needsref UISessionManager to provide
+        widgets to a host that may bind into panels in the application,
+        or to allow the application to delegate asset browsing/picking
+        etc...
 
         @param interfaceInstance An instance of the plugins interface as
         returned by @ref interface(), this is to allow UI to be

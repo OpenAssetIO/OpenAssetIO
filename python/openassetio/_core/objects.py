@@ -74,7 +74,7 @@ class UntypedProperty(object):
         # Allow access to ourself if we're called on the class
         if obj is None:
             return self
-        return getattr(obj, self.dataVar).get(self.dataName, None)
+        return getattr(obj, self.dataVar).get(self.dataName, self.initialValue)
 
     def __set__(self, obj, value):
         getattr(obj, self.dataVar)[self.dataName] = value
@@ -94,6 +94,8 @@ class TypedProperty(UntypedProperty):
     def __init__(
             self, typ, initVal=None, doc=None, dataVar=None, dataName=None,
             order=-1):
+        if initVal is None:
+            initVal = typ()
         super(TypedProperty, self).__init__(initVal, doc, dataVar, dataName, order)
         self.__doc__ = "[%s]" % typ.__name__
         if doc:

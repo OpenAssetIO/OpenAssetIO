@@ -33,8 +33,6 @@ jobs:
 
     - name: Build
       run: |
-        # TODO [tc] We should really publish the Docker
-        # image to the GitHub registry
         make -C src/doc
 
     - name: Deploy
