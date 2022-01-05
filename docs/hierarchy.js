@@ -12,7 +12,8 @@ var hierarchy =
     [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", null ]
+      [ "LoggerInterface", "classopenassetio_1_1logging_1_1_logger_interface.html", null ],
+      [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
     ] ],
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
@@ -72,5 +73,8 @@ var hierarchy =
       [ "EntitySpecification", "classopenassetio_1_1specifications_1_1_entity_specification.html", null ],
       [ "LocaleSpecification", "classopenassetio_1_1specifications_1_1_locale_specification.html", null ],
       [ "RelationshipSpecification", "classopenassetio_1_1specifications_1_1_relationship_specification.html", null ]
+    ] ],
+    [ "SpecificationFactory", null, [
+      [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
     ] ]
 ];

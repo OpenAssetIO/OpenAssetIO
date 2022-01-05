@@ -12,5 +12,5 @@ var searchData=
   ['isformultiple',['isForMultiple',['../classopenassetio_1_1_context_1_1_context.html#afc1254282688e92d76fe86a24931330b',1,'openassetio::Context::Context']]],
   ['isforread',['isForRead',['../classopenassetio_1_1_context_1_1_context.html#a906563e05341ad827dda75b6b3e40b05',1,'openassetio::Context::Context']]],
   ['isforwrite',['isForWrite',['../classopenassetio_1_1_context_1_1_context.html#a789a0c08ae06bdfc27669e50cf7b9022',1,'openassetio::Context::Context']]],
-  ['isoftype',['isOfType',['../classopenassetio_1_1_specification_1_1_specification.html#a037e516188b025ff015307ade73fa513',1,'openassetio::Specification::Specification']]]
+  ['isoftype',['isOfType',['../classopenassetio_1_1_specification_1_1_specification.html#aea9e79cdae89157211bccc4033ee7185',1,'openassetio::Specification::Specification']]]
 ];

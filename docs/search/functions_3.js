@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data',['data',['../classopenassetio_1_1_specification_1_1_specification_base.html#a758cc26cbfba21267e8e1627051adbc8',1,'openassetio::Specification::SpecificationBase']]],
+  ['data',['data',['../classopenassetio_1_1_specification_1_1_specification_base.html#a5819dc329e23039232a8920a90508ea3',1,'openassetio::Specification::SpecificationBase']]],
   ['debugapicall',['debugApiCall',['../namespaceopenassetio_1_1__core_1_1debug.html#a22d8ba7ba93522e2d71fe34e0ddaac06',1,'openassetio::_core::debug']]],
   ['debugcall',['debugCall',['../namespaceopenassetio_1_1__core_1_1debug.html#ab09aa7d02814e9d915f88bc793962b25',1,'openassetio::_core::debug']]],
   ['defaultentityreference',['defaultEntityReference',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a6a2a8f56a228cbee077daae58faa9553',1,'openassetio.hostAPI.Manager.Manager.defaultEntityReference()'],['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2907c7734edf11191a93fceefa48d92b',1,'openassetio.managerAPI.ManagerInterface.ManagerInterface.defaultEntityReference()']]],

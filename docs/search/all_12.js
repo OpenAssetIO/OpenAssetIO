@@ -9,5 +9,6 @@ var searchData=
   ['transactions',['Transactions',['../transactions.html',1,'']]],
   ['typ',['typ',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html#a5574a1c4b4703a8658c3463fdbde74f3',1,'openassetio::_core::objects::TypedProperty']]],
   ['type',['type',['../classopenassetio_1_1_specification_1_1_specification.html#aff464267544e4efc9b770c8320c8f199',1,'openassetio::Specification::Specification']]],
-  ['typedproperty',['TypedProperty',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html',1,'openassetio::_core::objects']]]
+  ['typedproperty',['TypedProperty',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html',1,'openassetio::_core::objects']]],
+  ['typedproperty',['TypedProperty',['../classopenassetio_1_1_specification_1_1_specification_base.html#a6980fcacd06f2dcd109fc1fb7b1479dc',1,'openassetio::Specification::SpecificationBase']]]
 ];
