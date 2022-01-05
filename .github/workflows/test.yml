@@ -46,6 +46,7 @@ jobs:
         # Problem matches don't actually error a step, so we have to
         # manually check for warnings/errors at the end. Capture the
         # output so we can parse it later.
+        set -o pipefail
         make -C doc 2>&1 | tee doxygen-log.txt
         echo "::remove-matcher owner=doxygen::"
         # Fail the job if we have Doxygen warning/error lines in the
