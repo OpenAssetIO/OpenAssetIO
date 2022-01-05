@@ -13,8 +13,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the PluginSystemPlugin class.
+"""
 
 class PluginSystemPlugin(object):
+    """
+    The base class that defines a plugin of the plugin system.
+
+    Only modules and packages that expose an instance of this class
+    will be loaded by the plugin system when scanning any given
+    path.
+    """
 
     @classmethod
     def identifier(cls):
