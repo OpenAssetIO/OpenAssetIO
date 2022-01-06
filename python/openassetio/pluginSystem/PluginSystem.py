@@ -188,9 +188,6 @@ class PluginSystem(object):
 
             spec.loader.exec_module(module)
 
-            # Avoid polluting the module cache long-term
-            del sys.modules[spec.name]
-
         except Exception as ex:  # pylint: disable=broad-except
             msg = "PluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
             self.__logger.log(msg, self.__logger.kWarning)
