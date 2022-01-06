@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,16 +13,21 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.logging
+Provides the core classes that facilitate message and progress logging.
+"""
 
 import abc
 import os
 import sys
 
 
-##
-# @name Logger Interface
-class LoggerInterface(object):
-    __metaclass__ = abc.ABCMeta
+class LoggerInterface(object, metaclass=abc.ABCMeta):
+    """
+    An abstract base class that defines the receiving interface for log
+    messages generated a @ref manager or the API middleware.
+    """
 
     ##
     # @name Log Severity
@@ -82,7 +87,7 @@ class SeverityFilter(LoggerInterface):
     The SeverityFilter is a wrapper for a logger that drops messages
     below a requested severity. More severe messages are relayed.
 
-    @envvar **OAIO_LOGGING_SEVERITY** *[int]* If set, the
+    @envvar **OPENASSETIO_LOGGING_SEVERITY** *[int]* If set, the
     default displaySeverity for the filter is set to the value of the
     env var.
     """
@@ -91,15 +96,20 @@ class SeverityFilter(LoggerInterface):
 
         self.__maxSeverity = self.kWarning
 
-        if "OAIO_LOGGING_SEVERITY" in os.environ:
+        if "OPENASSETIO_LOGGING_SEVERITY" in os.environ:
             try:
-                self.__maxSeverity = int(os.environ["OAIO_LOGGING_SEVERITY"])
+                self.__maxSeverity = int(os.environ["OPENASSETIO_LOGGING_SEVERITY"])
             except ValueError:
                 pass
 
         self.__upstreamLogger = upstreamLogger
 
     def upstreamLogger(self):
+        """
+        Returns the logger wrapped by the filter.
+
+        @return LoggerInterface
+        """
         return self.__upstreamLogger
 
     ## @name Filter Severity
@@ -110,9 +120,26 @@ class SeverityFilter(LoggerInterface):
     ## @{
 
     def setSeverity(self, severity):
+        """
+        Sets the minimum severity of message that will be passed on to
+        the @ref upstreamLogger.
+
+        @param severity `int` One of the LoggerInterface severity
+        constants.
+
+        @see @ref LoggerInterface
+        """
         self.__maxSeverity = severity
 
     def getSeverity(self):
+        """
+        Returns the minimum seveirty of message that will be passed on
+        to the @ref upstreamLogger by the filter.
+
+        @return `int`
+
+        @see @ref LoggerInterface
+        """
         return self.__maxSeverity
 
     ## @}
@@ -135,11 +162,12 @@ class SeverityFilter(LoggerInterface):
 
 
 class ConsoleLogger(LoggerInterface):
+    """
+    A simple logger that prints messages to stdout/stderr.
+    """
 
     def __init__(self, colorOutput=True, forceDefaultStreams=False):
         """
-        A simple filtered Logger that prints messages to stdout/stderr.
-
         @param colorOutput bool [True] Make a vague attempt to color
         the output using terminal escape codes.
 

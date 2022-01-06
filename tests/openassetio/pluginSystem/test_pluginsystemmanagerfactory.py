@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ def plugin_path_var_name():
     Provides the name of the environment variable that controls the
     default search paths in the PluginSystem.
     """
-    return "OAIO_PLUGIN_PATH"
+    return "OPENASSETIO_PLUGIN_PATH"
 
 
 @pytest.fixture
@@ -110,7 +110,11 @@ class Test_PluginSystemManagerFactory_identifiers:
             monkeypatch.delenv(PluginSystemManagerFactory.kPluginEnvVar)
 
         factory = PluginSystemManagerFactory(a_logger)
-        assert factory.identifiers() == []
+        identifiers = factory.identifiers()
+        # Check it is an empty list, not None, or any other value
+        # that would satisty == [] as a boolean comparison.
+        assert isinstance(identifiers, list)
+        assert len(identifiers) == 0
 
     def test_when_env_var_empty_then_returns_empty_list(self, a_logger, monkeypatch):
 

@@ -18,10 +18,10 @@ meantime, please open an Issue or contact one of the Trusted Committers.
 
 ## Contribution sign off
 
-OAIO is licensed under the [Apache 2.0 license](LICENSE). All
+OpenAssetIO is licensed under the [Apache 2.0 license](LICENSE). All
 contributions to the project must abide by that license.
 
-Contributions to OAIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
+Contributions to OpenAssetIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
 All commits must be signed-off as follows, before merge, to indicate
 that the submitter accepts the DCO:
 
@@ -82,7 +82,7 @@ class Test_UnitName:
 ```
 
 Often the unit under test is a class method, in which case the test
-class name should include the method under test preceded by its class, 
+class name should include the method under test preceded by its class,
 separated by an underscore. For example,
 
 ```python
@@ -90,12 +90,12 @@ class Test_ManagerInterface_entityVersionName:
     ...
 ```
 
-Don't be afraid of long test case names (up to the 99 character line 
+Don't be afraid of long test case names (up to the 99 character line
 length limit).
 
-Sometimes the test is trivial, in that the unit is small and only has 
-one code path. In that case shoehorning a test case description into a 
-`when`/`then` style may be less readable than a simpler ad-hoc 
+Sometimes the test is trivial, in that the unit is small and only has
+one code path. In that case shoehorning a test case description into a
+`when`/`then` style may be less readable than a simpler ad-hoc
 alternative. Best judgement should be used, bearing in mind readability
 and consistency tradeoffs.
 
@@ -109,19 +109,38 @@ the default settings for inspections and formatting refactors.
 In particular, more granular settings are included for IntelliJ-based
 IDEs (for example, PyCharm) via the `ij_*` extensions.
 
-Common file types that we expect to encounter during development of OAIO
-have their own settings, many of which remain commented out for
-reference and may be enabled and tweaked in future.
+Common file types that we expect to encounter during development of
+OpenAssetIO have their own settings, many of which remain commented out
+for reference and may be enabled and tweaked in future.
 
 ### Environment variables
 
-All environment variables should be prefixed with `OAIO_`. For example,
-`OAIO_LOGGING_SEVERITY`.
+All environment variables should be prefixed with `OPENASSETIO_`.
+For example, `OPENASSETIO_LOGGING_SEVERITY`.
 
 When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
+
+### Parameter documentation
+
+All method parameters should be documented in docstrings or doxygen
+comment blocks.
+
+In Python, as our configuration can't determine parameter types, we must
+manually specify those. This should be in the following form for
+OpenAssetIO defined types:
+
+```
+@param <name> <path> "<short.path>" Description text.
+```
+
+And the following, for built-ins or external types (note the backticks):
+
+```
+@param <name> `<external_type>` Description text.
+```
 
 ## Trusted Committers
 

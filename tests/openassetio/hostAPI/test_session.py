@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.hostAPI.Session class.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import constants, exceptions, logging, Context
 from openassetio.specifications import LocaleSpecification
@@ -51,6 +59,8 @@ def a_session(mock_host_interface, mock_logger, mock_manager_factory):
 
 
 class TestSession():
+
+    # pylint: disable=protected-access
 
     def test_constructor(self, a_session, mock_logger, mock_manager_factory):
         assert a_session._debugLogFn is mock_logger.log
@@ -92,7 +102,7 @@ class TestSession():
 
         mock_manager_factory.managerRegistered.return_value = False
 
-        with pytest.raises(exceptions.ManagerError):
+        with pytest.raises(exceptions.ManagerException):
             a_session.useManager(an_id)
 
         mock_manager_factory.managerRegistered.assert_called_once_with(an_id)
@@ -149,19 +159,19 @@ class TestSession():
         mock_manager_factory.instantiate.assert_not_called()
         mock_manager_interface.setSettings.assert_not_called()
 
-        manager_c = a_session.currentManager()
+        _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.initialize.assert_called_once()
         mock_manager_interface.setSettings.assert_called_once()
-        mock_manager_interface.setSettings.call_args[0][0] is some_settings
+        assert mock_manager_interface.setSettings.call_args[0][0] == some_settings
         mock_manager_factory.reset_mock()
 
     def test_createContext(self, a_session, mock_manager_interface):
         # No active manager
 
         with pytest.raises(RuntimeError):
-            some_context = a_session.createContext()
+            _ = a_session.createContext()
 
         mock_manager_interface.createState.assert_not_called()
 

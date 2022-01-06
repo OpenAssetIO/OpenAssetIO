@@ -10,9 +10,9 @@
       "owner": "doxygen",
       "pattern": [
         {
-          "regexp": "^\\/src\\/([^:]+):(\\d+): ?(\\w+): ?(.*)$",
+          "regexp": "^.*?\\/src\\/([^:]+):\\d+: ?\\w+: ?(.*)$",
           "file": 1,
-          "message": 4
+          "message": 2
         }
       ]
     }

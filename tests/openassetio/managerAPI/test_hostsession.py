@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.managerAPI.HostSession class.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import logging
 from openassetio.managerAPI import Host, HostSession

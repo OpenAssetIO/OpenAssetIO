@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.pluginSystem
+This module provides a plugin system that can be used to register and
+instantiate manager plugins from code that lives outside of the
+openassetio package.
+"""
 
-##
-# @namespace openassetio.pluginSystem
-# This module provides a manager factory that loads plugins found on a search path.
-# Each plugin can provide support for a new asset management system.
-#
 from .ManagerPlugin import ManagerPlugin
 from .PluginSystem import PluginSystem
 from .PluginSystemPlugin import PluginSystemPlugin

@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,8 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.ManagerFactoryInterface
+A single-class module, providing the ManagerFactoryInterface class.
+"""
 
-from ..logging import LoggerInterface
 
 import abc
 
@@ -22,7 +25,7 @@ import abc
 __all__ = ['ManagerFactoryInterface']
 
 
-class ManagerFactoryInterface(object):
+class ManagerFactoryInterface(object, metaclass=abc.ABCMeta):
     """
     Manager Factories are responsible for instantiating classes that
     derive from @ref openassetio.managerAPI.ManagerInterface or @needsref
@@ -33,8 +36,6 @@ class ManagerFactoryInterface(object):
     factory must adopt.
     """
 
-    __metaclass__ = abc.ABCMeta
-
     def __init__(self, logger):
         super(ManagerFactoryInterface, self).__init__()
         self._logger = logger
@@ -43,7 +44,7 @@ class ManagerFactoryInterface(object):
     def identifiers(self):
         """
         @return list, all identifiers known to the factory.
-        @see openassetio.pluginSystem.ManagerPlugin
+        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
         """
         raise NotImplementedError
 
@@ -56,10 +57,11 @@ class ManagerFactoryInterface(object):
             @li **name** The display name of the Manager suitable for UI
             use.
             @li **identifier** It's identifier
-            @li **info** The info dict from the Manager (see: @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.info
+            @li **info** The info dict from the Manager (see:
+            @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.info
             "ManagerInterface.info")
             @li **plugin** The plugin class that represents the Manager
-            (see: @ref openassetio.pluginSystem.ManagerPlugin)
+            (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")
         """
         raise NotImplementedError
 

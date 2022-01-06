@@ -100,7 +100,7 @@
  *
  * @note Note how it is the callers responsibility to validate
  * that a string is a @ref entity_reference before passing it to any
- * other OAIO API that expects one.
+ * other OpenAssetIO API that expects one.
  *
  * This is to reduce the validation overhead in the manager's
  * implementation of the API. This affords significant gains in
@@ -111,8 +111,8 @@
  * optimisations that can reduce the number of inter-language hops
  * required. See @ref
  * openassetio.managerAPI.ManagerInterface.ManagerInterface.info
- * "ManagerInterface.info" and the `kField_EntityReferenceMatch*`
- * keys.
+ * "ManagerInterface.info" and the `kField_EntityReferencesMatchPrefix`
+ * key.
  *
  * @code{.py}
  * from openassetio import Context
@@ -236,7 +236,7 @@
  * # See if the manager can tell us where to put it, and what it should be like
  * if policy & constants.kWillManagePath:
  *    thumbnail_path = manager.resolveEntityReference([thumbnail_ref], context)[0]
- *    thumbnail_attr.update(manager.getEntityMetadata([thumbnail_ref], context)[0])
+ *    thumbnail_attr.update(manager.getEntityAttributes([thumbnail_ref], context)[0])
  *
  * # Generate a thumbnail using the supplied criteria
  * mk_thumbnail(thumbnail_path, thumbnail_attr["width"], thumbnail_attr["height"])

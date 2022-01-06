@@ -71,7 +71,8 @@ Batch methods should have plural names.
 
 #### Pros
 
--   Intuitive for people that are unfamiliar with OAIO conventions.
+-   Intuitive for people that are unfamiliar with OpenAssetIO
+    conventions.
 -   Easy to see whether a given method is batch or singular.
 -   Method names read like natural English.
 
@@ -99,7 +100,8 @@ convention to differentiate batch & non-batch methods).
 
 #### Cons
 
--   Potentially confusing for newcomers unfamiliar with OAIO conventions.
+-   Potentially confusing for newcomers unfamiliar with OpenAssetIO
+    conventions.
 -   Whether a method is singular or batch cannot be inferred from the
     method name. However, given that most `ManagerInterface` methods
     (including all its methods related to entities) will be batch

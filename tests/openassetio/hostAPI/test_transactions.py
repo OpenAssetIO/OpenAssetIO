@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.hostAPI.transactions module.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import Context
 from openassetio.hostAPI import transactions as t, Manager
@@ -52,6 +60,8 @@ def a_scoped_group(a_context):
 
 
 class TestTransactionCoordinator:
+
+    # pylint: disable=protected-access
 
     def test_construction(self, mock_manager):
         coordinator = t.TransactionCoordinator(mock_manager)
@@ -200,6 +210,8 @@ class TestTransactionCoordinator:
 
 
 class TestScopedActionGroup:
+
+    # pylint: disable=protected-access
 
     def test_scope(self, a_scoped_group):
 
