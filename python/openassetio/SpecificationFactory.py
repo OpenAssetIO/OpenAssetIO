@@ -36,10 +36,10 @@ class SpecificationFactory(type):
     def __new__(cls, name, bases, namespace):
 
         # Make sure properties have a suitable data name and store
-        for k, v in namespace.items():
-            if isinstance(v, UntypedProperty):
-                v.dataVar = '_data'
-                v.dataName = k
+        for key, value in namespace.items():
+            if isinstance(value, UntypedProperty):
+                value.dataVar = '_data'
+                value.dataName = key
 
         newcls = super(SpecificationFactory, cls).__new__(cls, name, bases, namespace)
         if not hasattr(newcls, '__factoryIgnore'):
@@ -72,13 +72,14 @@ class SpecificationFactory(type):
         if not customCls:
             customCls = cls.classMap.get(prefix)
         if customCls:
+            # pylint: disable=protected-access
             instance = customCls(data)
             instance._setSchema(schema)
             instance._type = typ
             return instance
-        else:
-            ## @todo re-instate logging for missing custom class
-            return SpecificationBase(schema, data)
+
+        ## @todo re-instate logging for missing custom class
+        return SpecificationBase(schema, data)
 
     @classmethod
     def upcast(cls, specification):

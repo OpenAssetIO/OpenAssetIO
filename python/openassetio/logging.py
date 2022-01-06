@@ -23,12 +23,11 @@ import os
 import sys
 
 
-class LoggerInterface(object):
+class LoggerInterface(object, metaclass=abc.ABCMeta):
     """
     An abstract base class that defines the receiving interface for log
     messages generated a @ref manager or the API middleware.
     """
-    __metaclass__ = abc.ABCMeta
 
     ##
     # @name Log Severity

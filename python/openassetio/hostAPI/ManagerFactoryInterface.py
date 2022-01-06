@@ -25,7 +25,7 @@ import abc
 __all__ = ['ManagerFactoryInterface']
 
 
-class ManagerFactoryInterface(object):
+class ManagerFactoryInterface(object, metaclass=abc.ABCMeta):
     """
     Manager Factories are responsible for instantiating classes that
     derive from @ref openassetio.managerAPI.ManagerInterface or @needsref
@@ -35,8 +35,6 @@ class ManagerFactoryInterface(object):
     ManagerFactoryInterface defines the abstract interface that any such
     factory must adopt.
     """
-
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, logger):
         super(ManagerFactoryInterface, self).__init__()

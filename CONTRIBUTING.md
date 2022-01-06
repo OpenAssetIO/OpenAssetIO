@@ -82,7 +82,7 @@ class Test_UnitName:
 ```
 
 Often the unit under test is a class method, in which case the test
-class name should include the method under test preceded by its class, 
+class name should include the method under test preceded by its class,
 separated by an underscore. For example,
 
 ```python
@@ -90,12 +90,12 @@ class Test_ManagerInterface_entityVersionName:
     ...
 ```
 
-Don't be afraid of long test case names (up to the 99 character line 
+Don't be afraid of long test case names (up to the 99 character line
 length limit).
 
-Sometimes the test is trivial, in that the unit is small and only has 
-one code path. In that case shoehorning a test case description into a 
-`when`/`then` style may be less readable than a simpler ad-hoc 
+Sometimes the test is trivial, in that the unit is small and only has
+one code path. In that case shoehorning a test case description into a
+`when`/`then` style may be less readable than a simpler ad-hoc
 alternative. Best judgement should be used, bearing in mind readability
 and consistency tradeoffs.
 
@@ -122,6 +122,25 @@ When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
+
+### Parameter documentation
+
+All method parameters should be documented in docstrings or doxygen
+comment blocks.
+
+In Python, as our configuration can't determine parameter types, we must
+manually specify those. This should be in the following form for
+OpenAssetIO defined types:
+
+```
+@param <name> <path> "<short.path>" Description text.
+```
+
+And the following, for built-ins or external types (note the backticks):
+
+```
+@param <name> `<external_type>` Description text.
+```
 
 ## Trusted Committers
 

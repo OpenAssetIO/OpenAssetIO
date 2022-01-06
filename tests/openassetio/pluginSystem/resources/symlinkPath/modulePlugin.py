@@ -1,0 +1,1 @@
+../pathA/modulePlugin.py
