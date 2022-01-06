@@ -16,18 +16,18 @@
 """
 @namespace openassetio._core.debug
 Assorted decorators to help with API development. For the sake of
-optimisation, and help(fn) still making sense, then they may be disabled by
-default.
+optimisation, and help(fn) still making sense, then they may be disabled
+by default.
 
 @envvar **OPENASSETIO_DEBUG** *int* [1] when non-zero, debug decorators
 will be enabled, allowing API calls to be monitored and timed using the
 kDebug and kDebugAPI logging severity displays
 
-In order to use these decorators the target class must derive from Debuggable, and
-have its `_debugLogFn` set to an callable that matches the
-@ref openassetio.logging.LoggerInterface.log signature. This callback will be used
-to output debug information. If no callback is set, no debug output will be
-produced.
+In order to use these decorators the target class must derive from
+Debuggable, and have its `_debugLogFn` set to an callable that matches
+the @ref openassetio.logging.LoggerInterface.log signature. This
+callback will be used to output debug information. If no callback is
+set, no debug output will be produced.
 
 @todo The current logging implementation doesn't have any global 'display severity'
 concept (for good reasons), this has precluded any of the optimisations we used to
@@ -91,9 +91,9 @@ def debugCall(function):
 
 def debugApiCall(function):
     """
-    Use as a decorator to trace usage of the decorated API functions though
-    the kDebugAPI logging severity. This should only be used on bound
-    methods.
+    Use as a decorator to trace usage of the decorated API functions
+    through the kDebugAPI logging severity. This should only be used on
+    bound methods.
     """
     # See notes in debugCall
 
@@ -170,11 +170,11 @@ class _Timer(object):
 
     def interval(self):
         """
-        Returns ths interval of time the timer ran for. If the timer
+        Returns the interval of time the timer ran for. If the timer
         is still running, then it will report the interval to the
         time the method was called.
 
-        @returns float THe time interval as per `time.time()`
+        @return `float` The time interval as per `time.time()`
         """
         end = self.end if self.end is not None else time.time()
         return end - self.start
