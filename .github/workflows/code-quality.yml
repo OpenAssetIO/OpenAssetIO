@@ -29,8 +29,8 @@ jobs:
           pylint-disable: "C,I,R"  # Only errors and warnings, for now.
           pylint-rcfile: "./pyproject.toml"
           pylint-paths: "python/openassetio tests"
-          # Presently it's not possible to disable the `duplicate-code` check
-          # for specific files, so it thinks that the symlink is duplicated
-          # implementation. See:
+          # Presently it's not possible to disable the `duplicate-code`
+          # check for specific files, so it thinks that the symlink is
+          # duplicated implementation. See:
           #     https://github.com/PyCQA/pylint/issues/214
           pylint-ignore-paths: "tests/openassetio/pluginSystem/resources/symlinkPath"
