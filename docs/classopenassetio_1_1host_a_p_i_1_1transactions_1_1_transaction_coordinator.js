@@ -1,7 +1,6 @@
 var classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator =
 [
     [ "__init__", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab86d467001f95537293f86e2d55ba952", null ],
-    [ "actionGroupDepth", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a2a2b29a401609549593832a1a8586424", null ],
     [ "cancelActions", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6a396366f536e00bc4564a316f3bbc24", null ],
     [ "freezeManagerState", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab9aa9f81e61ec1ab06ca4abdba9b4ef1", null ],
     [ "manager", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a641e16264fb40b2ca6ae0098a3c17b61", null ],

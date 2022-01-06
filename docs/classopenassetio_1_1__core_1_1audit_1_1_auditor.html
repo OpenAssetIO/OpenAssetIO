@@ -134,8 +134,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a88cba8cbcc5c64600f9a0d1e51083d5c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a88cba8cbcc5c64600f9a0d1e51083d5c">getEnabled</a> (self)</td></tr>
 <tr class="separator:a88cba8cbcc5c64600f9a0d1e51083d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf51df57ed46e90f1ee61081bd8d75d2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#adf51df57ed46e90f1ee61081bd8d75d2">setEnabled</a> (self, enabled)</td></tr>
+<tr class="memdesc:adf51df57ed46e90f1ee61081bd8d75d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the state of the auditor.  <a href="#adf51df57ed46e90f1ee61081bd8d75d2">More...</a><br /></td></tr>
 <tr class="separator:adf51df57ed46e90f1ee61081bd8d75d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51829b63adb24ac48d350dee60181002"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a51829b63adb24ac48d350dee60181002">reset</a> (self)</td></tr>
+<tr class="memdesc:a51829b63adb24ac48d350dee60181002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any recorded usage.  <a href="#a51829b63adb24ac48d350dee60181002">More...</a><br /></td></tr>
 <tr class="separator:a51829b63adb24ac48d350dee60181002"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0f36b01871a4032e46135b2ad47fa85"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html#aa0f36b01871a4032e46135b2ad47fa85">addClass</a> (self, obj, group=None)</td></tr>
 <tr class="memdesc:aa0f36b01871a4032e46135b2ad47fa85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds usage of the supplied Class.  <a href="#aa0f36b01871a4032e46135b2ad47fa85">More...</a><br /></td></tr>
@@ -353,6 +355,7 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><code>bool</code> The enabled state of the <a class="el" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html" title="This class provides a quick-and-dirty accounting mechanism for Class, method and object usage...">Auditor</a>. </dd></dl>
 
 </div>
 </div>
@@ -387,6 +390,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Clears any recorded usage. </p>
+
 </div>
 </div>
 <a class="anchor" id="adf51df57ed46e90f1ee61081bd8d75d2"></a>
@@ -412,6 +417,15 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the state of the auditor. </p>
+<p>When disabled, all audit calls will be lightweight no-ops.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td><code>bool</code> The new enabled state. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

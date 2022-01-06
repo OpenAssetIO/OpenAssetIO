@@ -123,7 +123,7 @@ Inheritance diagram for SeverityFilter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classopenassetio_1_1logging_1_1_severity_filter__inherit__graph.png" border="0" usemap="#_severity_filter_inherit__map" alt="Inheritance graph"/></div>
 <map name="_severity_filter_inherit__map" id="_severity_filter_inherit__map">
-<area shape="rect" id="node2" href="classopenassetio_1_1logging_1_1_logger_interface.html" title="LoggerInterface" alt="" coords="75,80,199,107"/>
+<area shape="rect" id="node2" href="classopenassetio_1_1logging_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t..." alt="" coords="75,80,199,107"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -132,6 +132,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0eda99a9ee47b02308111f765143d129"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0eda99a9ee47b02308111f765143d129">__init__</a> (self, <a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a>)</td></tr>
 <tr class="separator:a0eda99a9ee47b02308111f765143d129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a> (self)</td></tr>
+<tr class="memdesc:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger wrapped by the filter.  <a href="#a0b828cc45291e3f21cc27a0d1a56c0ee">More...</a><br /></td></tr>
 <tr class="separator:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d98eb4bcc27668915b50e5d279ef426"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a3d98eb4bcc27668915b50e5d279ef426">log</a> (self, message, severity)</td></tr>
 <tr class="separator:a3d98eb4bcc27668915b50e5d279ef426"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,11 +140,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a81faf226a1f6f498e395254abb06559e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Filter Severity</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Messages logged with a severity greater or equal to this will be displayed.</p>
-<p>Note: Confusingly, greater severities (ie. worse consequence) have a lower numerical equivalent. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Revisit severity &lt;&gt; int mappings etc... </dd></dl>
+<p>Note: Confusingly, greater severities (ie. worse consequence) have a lower numerical equivalent. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Revisit severity &lt;&gt; int mappings etc... </dd></dl>
 </div></td></tr>
 <tr class="memitem:a0fa1fa32536745064d74b0baaf5dd454"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0fa1fa32536745064d74b0baaf5dd454">setSeverity</a> (self, severity)</td></tr>
+<tr class="memdesc:a0fa1fa32536745064d74b0baaf5dd454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the minimum severity of message that will be passed on to the <a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a>.  <a href="#a0fa1fa32536745064d74b0baaf5dd454">More...</a><br /></td></tr>
 <tr class="separator:a0fa1fa32536745064d74b0baaf5dd454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9">getSeverity</a> (self)</td></tr>
+<tr class="memdesc:a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum seveirty of message that will be passed on to the <a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a> by the filter.  <a href="#a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9">More...</a><br /></td></tr>
 <tr class="separator:a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classopenassetio_1_1logging_1_1_logger_interface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classopenassetio_1_1logging_1_1_logger_interface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html">LoggerInterface</a></td></tr>
 <tr class="memitem:a3d98eb4bcc27668915b50e5d279ef426 inherit pub_methods_classopenassetio_1_1logging_1_1_logger_interface"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html#a3d98eb4bcc27668915b50e5d279ef426">log</a> (self, message, severity)</td></tr>
@@ -219,6 +222,10 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the minimum seveirty of message that will be passed on to the <a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a> by the filter. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>int</code></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html">LoggerInterface</a> </dd></dl>
 
 </div>
 </div>
@@ -310,6 +317,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Sets the minimum severity of message that will be passed on to the <a class="el" href="classopenassetio_1_1logging_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">severity</td><td><code>int</code> One of the <a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t...">LoggerInterface</a> severity constants.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html">LoggerInterface</a> </dd></dl>
+
 </div>
 </div>
 <a class="anchor" id="a0b828cc45291e3f21cc27a0d1a56c0ee"></a>
@@ -325,6 +341,9 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the logger wrapped by the filter. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classopenassetio_1_1logging_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t...">LoggerInterface</a> </dd></dl>
 
 </div>
 </div>

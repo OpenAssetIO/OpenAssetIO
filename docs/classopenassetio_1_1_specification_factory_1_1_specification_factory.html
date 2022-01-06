@@ -132,9 +132,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a90a2cb9082b92f5d1d21333ec363dd6f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_specification_factory_1_1_specification_factory.html#a90a2cb9082b92f5d1d21333ec363dd6f">__new__</a> (cls, name, bases, namespace)</td></tr>
 <tr class="separator:a90a2cb9082b92f5d1d21333ec363dd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa65e8dd355dea63688e775187280dd61"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_specification_factory_1_1_specification_factory.html#aa65e8dd355dea63688e775187280dd61">instantiate</a> (cls, schema, data)</td></tr>
-<tr class="memdesc:aa65e8dd355dea63688e775187280dd61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> that contains the supplied data.  <a href="#aa65e8dd355dea63688e775187280dd61">More...</a><br /></td></tr>
+<tr class="memdesc:aa65e8dd355dea63688e775187280dd61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> that contains the supplied data.  <a href="#aa65e8dd355dea63688e775187280dd61">More...</a><br /></td></tr>
 <tr class="separator:aa65e8dd355dea63688e775187280dd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d42b5c535aa90c614f23d282ee02123"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_specification_factory_1_1_specification_factory.html#a4d42b5c535aa90c614f23d282ee02123">upcast</a> (cls, specification)</td></tr>
+<tr class="memdesc:a4d42b5c535aa90c614f23d282ee02123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts the supplied <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> to the most derived implementation available.  <a href="#a4d42b5c535aa90c614f23d282ee02123">More...</a><br /></td></tr>
 <tr class="separator:a4d42b5c535aa90c614f23d282ee02123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -214,7 +215,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="namespaceopenassetio_1_1_specification.html">Specification</a> that contains the supplied data. </p>
+<p>Creates a new <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> that contains the supplied data. </p>
 <p>The most derived class that matches the schema will be used. If no class has been registered with the exact scheme, then attempts will be made to find a class that matches the prefix. If all attempts fail, a <a class="el" href="classopenassetio_1_1_specification_1_1_specification_base.html">openassetio.Specification.SpecificationBase</a> will be used. </p>
 
 </div>
@@ -242,6 +243,15 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Casts the supplied <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> to the most derived implementation available. </p>
+<p>This is done by introspection of the specification's schema against all registered specifications.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">specification</td><td><a class="el" href="classopenassetio_1_1_specification_1_1_specification.html">Specification</a> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

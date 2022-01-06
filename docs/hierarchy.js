@@ -8,7 +8,6 @@ var hierarchy =
       ] ]
     ] ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
-    [ "decorators", "classdecorators.html", null ],
     [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],

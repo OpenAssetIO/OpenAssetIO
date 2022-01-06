@@ -128,8 +128,6 @@ Inheritance diagram for HostInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae64f0875afe3067b97ba370b354b9213"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html#ae64f0875afe3067b97ba370b354b9213">__init__</a> (self)</td></tr>
-<tr class="separator:ae64f0875afe3067b97ba370b354b9213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a560457d50d480787c862154b48d868"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html#a6a560457d50d480787c862154b48d868">documentReference</a> (self)</td></tr>
 <tr class="memdesc:a6a560457d50d480787c862154b48d868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the path, or <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of the current document, or an empty string if not applicable.  <a href="#a6a560457d50d480787c862154b48d868">More...</a><br /></td></tr>
 <tr class="separator:a6a560457d50d480787c862154b48d868"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,24 +155,7 @@ Public Member Functions</h2></td></tr>
 <p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> provides a generic mechanism for a <a class="el" href="glossary.html#manager">manager</a> to query information about the identity of the host, its available documents and the <a class="el" href="glossary.html#entity">entities</a> they may reference.</p>
 <p>In order for a host to use the API, it must provide an implementation of the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> to the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_session.html">openassetio.hostAPI.Session</a> class upon construction.</p>
 <p>A <a class="el" href="glossary.html#manager">manager</a> does not call the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> directly, it is always accessed via the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> wrapper. This allows the API to insert suitable house-keeping and auditing functionality in between. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae64f0875afe3067b97ba370b354b9213"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def __init__ </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4a4467cab41dcb4719599e307c77d045"></a>
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +192,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the path, or <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of the current document, or an empty string if not applicable. </p>
 <p>If a Host supports multiple concurrent documents, it should be the 'front-most' one. If there is no meaningful document reference, then an empty string should be returned.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Update to properly support multiple documents </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Update to properly support multiple documents </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>str A path or <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </dd></dl>
 
 </div>
@@ -256,7 +237,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>str, An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of an empty string if no applicable Entity Reference could be determined for the supplied item.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Evaluate whether this method makes sense and is properly implementable through Python/C++. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Evaluate whether this method makes sense and is properly implementable through Python/C++. </dd></dl>
 
 </div>
 </div>
@@ -275,7 +256,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns an identifier that uniquely identifies the Host. </p>
-<p>This may be used by a <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html">Manager</a>'s <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> adjust its behavior accordingly. The identifier should be unique for any application, but common to all versions.</p>
+<p>This may be used by a <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a>'s <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> adjust its behavior accordingly. The identifier should be unique for any application, but common to all versions.</p>
 <p>The identifier should use only alpha-numeric characters and '.', '_' or '-'. We suggest using the "reverse DNS" style, for example: </p><pre class="fragment">"com.foundry.katana"
 </pre><dl class="section return"><dt>Returns</dt><dd>str </dd></dl>
 
@@ -298,7 +279,7 @@ Public Member Functions</h2></td></tr>
 <p>Returns other information that may be useful about this Host. </p>
 <p>This can contain arbitrary key/value pairs. Managers never rely directly on any particular keys being set here, but the information may be useful for diagnostic or debugging purposes. For example: </p><pre class="fragment">{ 'version' : '1.1v3' }
 </pre><dl class="section return"><dt>Returns</dt><dd>Dict[str, pod]</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Definitions for well-known keys such as 'version' etc. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Definitions for well-known keys such as 'version' etc. </dd></dl>
 
 </div>
 </div>
@@ -329,12 +310,12 @@ Public Member Functions</h2></td></tr>
 <p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each Entities known to the host that are used in the current document, or an empty list if none are known. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">specification</td><td><a class="el" href="namespaceopenassetio_1_1_specification.html">openassetio.Specification</a> [None] If supplied, then only entities of the supplied specification should be returned.</td></tr>
+    <tr><td class="paramname">specification</td><td><a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">openassetio.Specification</a> [None] If supplied, then only entities of the supplied specification should be returned.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>List[<a class="el" href="glossary.html#entity_reference">Entity Reference</a>] References discovered in the current document.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Update to support multiple documents </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Update to support multiple documents </dd></dl>
 
 </div>
 </div>
