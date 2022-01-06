@@ -13,6 +13,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio._core.objects
+The OpenAssetIO API is built using the core FixedInterfaceObject class.
+This provides python objects that reject the addition of any new
+attributes at runtime, and provide type validation for their predefined
+properties when their values are set.
+"""
 
 import copy
 import inspect
@@ -118,8 +125,8 @@ class FixedInterfaceObject(object):
         # We need to set any default values of the properties here, so that they
         # will be available in the data var by default too
 
-        def predicate(m):
-            return isinstance(m, UntypedProperty)
+        def predicate(member):
+            return isinstance(member, UntypedProperty)
 
         members = inspect.getmembers(self.__class__, predicate)
         for name, prop in members:
@@ -146,14 +153,14 @@ class FixedInterfaceObject(object):
         specified order.
         """
 
-        def predicate(m):
-            return isinstance(m, UntypedProperty)
+        def predicate(member):
+            return isinstance(member, UntypedProperty)
 
         members = inspect.getmembers(cls, predicate)
 
         # We want to sort by the 'order' key if its greater than -1
-        def sortFn(p):
-            return p[1].order if p[1].order > -1 else 9999999
+        def sortFn(prop):
+            return prop[1].order if prop[1].order > -1 else 9999999
 
         members.sort(key=sortFn)
 

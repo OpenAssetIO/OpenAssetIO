@@ -13,13 +13,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-
-##
-# @namespace openassetio.pluginSystem
-# This module provides a manager factory that loads plugins found on a search path.
-# Each plugin can provide support for a new asset management system.
-#
 """
+@namespace openassetio.pluginSystem
 This module provides a plugin system that can be used to register and
 instantiate manager plugins from code that lives outside of the
 openassetio package.

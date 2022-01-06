@@ -13,6 +13,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.terminology
+This module provides utilities for a @ref host that simplify the
+integration of a @ref manager "manager's" custom terminology into its
+user-facing components.
+"""
 
 from .._core.audit import auditApiCall
 
@@ -58,6 +64,10 @@ defaultTerminology = {
 
 
 class Mapper:
+    """
+    The Mapper class provides string substitution methods and lookups to
+    determine the correct terminology for the supplied @ref manager.
+    """
 
     def __init__(self, manager, terminology=defaultTerminology):
         """
@@ -77,6 +87,9 @@ class Mapper:
         expectation that a manager would handle new terms without
         specific knowledge in advance.
         """
+        # As we take a copy, the default of the shared
+        # dict isn't dangerous.
+        # pylint: disable=dangerous-default-value
         self.__terminology = dict(terminology)
         self.__updateTerminology(manager)
 

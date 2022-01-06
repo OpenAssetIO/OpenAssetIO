@@ -13,8 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.ManagerFactoryInterface
+A single-class module, providing the ManagerFactoryInterface class.
+"""
 
-from ..logging import LoggerInterface
 
 import abc
 
@@ -54,7 +57,8 @@ class ManagerFactoryInterface(object, metaclass=abc.ABCMeta):
             @li **name** The display name of the Manager suitable for UI
             use.
             @li **identifier** It's identifier
-            @li **info** The info dict from the Manager (see: @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.info
+            @li **info** The info dict from the Manager (see:
+            @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.info
             "ManagerInterface.info")
             @li **plugin** The plugin class that represents the Manager
             (see: @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin")

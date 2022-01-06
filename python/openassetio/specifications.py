@@ -13,6 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.specifications
+Core specifications required to define the main entrypoints in
+ManagerInterface and HostInterface.
+"""
 
 from .Specification import Specification, TypedProperty
 

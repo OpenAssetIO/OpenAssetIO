@@ -13,6 +13,13 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.HostInterface
+A single-class module, providing the HostInterface class.
+"""
+
+# As this is an abstract base class, there are many of these.
+# pylint: disable=unused-argument,no-self-use
 
 __all__ = ['HostInterface']
 
@@ -36,9 +43,6 @@ class HostInterface(object):
     This allows the API to insert suitable house-keeping and auditing
     functionality in between.
     """
-
-    def __init__(self):
-        super(HostInterface, self).__init__()
 
     ##
     # @name Host Information

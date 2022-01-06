@@ -14,16 +14,24 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.hostAPI
-This module contains code relevant to anyone hosting the API in a
-tool or application, wanting to communicate with some asset management
-system.
-
-If you are wanting to provide support for an asset management system,
-see @ref openassetio.managerAPI.
+Shared fixtures/code for pytest cases.
 """
 
-from .HostInterface import HostInterface
-from .Manager import Manager
-from .ManagerFactoryInterface import ManagerFactoryInterface
-from .Session import Session
+import sys
+
+import pytest
+
+# pylint: disable=invalid-name
+
+
+@pytest.fixture
+def unload_openassetio_modules():
+    """
+    Removes openassetio modules from the sys.modules cache that
+    otherwise mask cyclic dependencies or bleed state from a
+    previous test case.
+    """
+    to_delete = [
+        name for name in sys.modules if name.startswith("openassetio")]
+    for name in to_delete:
+        del sys.modules[name]

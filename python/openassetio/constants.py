@@ -13,12 +13,20 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.constants
+Constants used throughout the OpenAssetIO API.
+
+@todo [tc] Should these live here, or with their owning declarations,
+See @ref openassetio.logging.LoggerInterface for example.
+"""
 
 
 kSupportedAttributeTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy "ManagerInterface.managementPolicy"
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## "ManagerInterface.managementPolicy"
 ## @{
 
 ## The Manager has no interest in participating in the management of this kind
@@ -40,7 +48,8 @@ kStateMask = 7
 ## @}
 
 ## @name Publishing control
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy "ManagerInterface.managementPolicy"
+## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## "ManagerInterface.managementPolicy"
 ## @{
 
 ## If False, the manager is not capable of determining the URL for a new @ref entity

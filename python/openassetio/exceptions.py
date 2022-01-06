@@ -14,7 +14,9 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.exceptions
 Defines exceptions used in the OpenAssetIO codebase.
+
 @todo [tc] Should these all live here, or in their respective homes
 eg: pluginSystem, ManagerInterface, etc.
 """
@@ -87,7 +89,7 @@ class BaseEntityException(ManagerException):
         there is no need to embedded the entity reference in the message
         when using this exception type.
         """
-        OpenAssetIOException.__init__(self, message)
+        super(BaseEntityException, self).__init__(message)
         self.ref = entityReference
 
     def __str__(self):

@@ -13,6 +13,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.managerAPI.ManagerInterface
+A single-class module, providing the ManagerInterface class.
+"""
+
+# Most of this module is documentation, which hopefully is a good thing.
+# pylint: disable=too-many-lines,line-too-long
+# We discussed splitting the interface up, but it ends up making most
+# implementations more complicated.
+# pylint: disable=too-many-public-methods
+# As this is an abstract base class, there are many of these.
+# pylint: disable=unused-argument,no-self-use
 
 import abc
 from .. import exceptions
@@ -251,7 +263,8 @@ class ManagerInterface(object):
     def updateTerminology(self, stringDict, hostSession):
         """
         This call gives the manager a chance to customize certain
-        strings used in a host's UI/messages. See @ref openassetio.constants "constants"
+        strings used in a host's UI/messages. See @ref openassetio.constants
+        "constants"
         for known keys. The values in stringDict can be freely updated
         to match the terminology of the asset management system you are
         representing.
@@ -263,9 +276,9 @@ class ManagerInterface(object):
         @return `None`
 
         @see @ref openassetio.constants "constants"
-        @see @ref openassetio.hostAPI.terminology.defaultTerminology "terminology.defaultTerminology"
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
+        "terminology.defaultTerminology"
         """
-        pass
 
     ## @}
 
@@ -284,7 +297,6 @@ class ManagerInterface(object):
         """
         @todo Document settings mechanism
         """
-        pass
 
     @abc.abstractmethod
     def initialize(self, hostSession):
@@ -361,7 +373,6 @@ class ManagerInterface(object):
 
         @return `None`
         """
-        pass
 
     def flushCaches(self, hostSession):
         """
@@ -371,7 +382,6 @@ class ManagerInterface(object):
         data to be discarded to ensure future queries are fresh. This
         should have no effect on any open @ref transaction.
         """
-        pass
 
     ## @}
 
@@ -803,6 +813,26 @@ class ManagerInterface(object):
         return value
 
     def setEntityAttribute(self, entityRefs, name, value, context, hostSession):
+        """
+        Sets a single attribute for each given entity.
+
+        @see getEntityAttributes
+
+        @param entityRefs `List[str]` Entity references to set
+        attributes for.
+
+        @param name `str` The attribute name to set.
+
+        @param value `primitive` The values to set for each referenced
+        entity.
+
+        @param context Context The calling context.
+
+        @param hostSession openassetio.managerAPI.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+        """
         self.setEntityAttributes(entityRefs, {name: value}, context, hostSession, merge=True)
 
     ## @}
@@ -1090,9 +1120,9 @@ class ManagerInterface(object):
         if not self.entityExists(entityRef, context, hostSession):
             raise exceptions.InvalidEntityReference(entityReference=entityRef)
 
-        for r in relatedRefs:
-            if not self.entityExists(r, context, hostSession):
-                raise exceptions.InvalidEntityReference(entityReference=r)
+        for ref in relatedRefs:
+            if not self.entityExists(ref, context, hostSession):
+                raise exceptions.InvalidEntityReference(entityReference=ref)
 
     ## @}
 
@@ -1403,7 +1433,6 @@ class ManagerInterface(object):
         @see @ref cancelTransaction
         @see The @ref transactions page.
         """
-        pass
 
     def finishTransaction(self, state, hostSession):
         """
@@ -1430,7 +1459,6 @@ class ManagerInterface(object):
         @see @ref cancelTransaction
         @see The @ref transactions page.
         """
-        pass
 
     def cancelTransaction(self, state, hostSession):
         """

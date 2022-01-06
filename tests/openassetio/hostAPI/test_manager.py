@@ -13,10 +13,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.hostAPI.Manager wrapper class.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
 import inspect
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import Context
 from openassetio.specifications import EntitySpecification
@@ -38,6 +46,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
     @see mock_manager_interface
     """
 
+    # pylint: disable=too-many-public-methods,too-many-arguments
+
     def info(self):
         return mock.DEFAULT
 
@@ -50,7 +60,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def setSettings(self, settings, hostSession):
         return mock.DEFAULT
 
-    def prefetch(self, entitRefs, context, hostSession):
+    def prefetch(self, entityRefs, context, hostSession):
         return mock.DEFAULT
 
     def flushCaches(self, hostSession):
@@ -270,10 +280,13 @@ def some_refs():
 
 class TestManager():
 
+    # pylint: disable=too-many-public-methods,too-many-arguments
+
     # __str__ and __repr__ aren't tested as they're debug tricks that need
     # assessing when this is ported to cpp
 
     def test__interface(self, mock_manager_interface, host_session):
+        # pylint: disable=protected-access
         a_manager = Manager(mock_manager_interface, host_session)
         assert a_manager._interface() is mock_manager_interface
 
@@ -453,6 +466,8 @@ class TestManager():
 
     def test_getRelatedReferences(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
+
+        # pylint: disable=too-many-locals
 
         method = mock_manager_interface.getRelatedReferences
 

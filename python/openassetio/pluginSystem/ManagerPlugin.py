@@ -19,6 +19,8 @@ A single-class module, providing the ManagerPlugin class.
 
 from .PluginSystemPlugin import PluginSystemPlugin
 
+# As this is an abstract interface, these are expected
+# pylint: disable=unused-argument
 
 __all__ = ['ManagerPlugin']
 

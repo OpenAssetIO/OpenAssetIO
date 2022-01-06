@@ -13,6 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.transactions
+This module provides convenience functionality for a @ref host to aid
+working managing transactions when interacting with a @ref manager.
+"""
 
 from .._core.audit import auditApiCall
 from .._core.debug import debugApiCall, Debuggable
@@ -73,6 +78,7 @@ class TransactionCoordinator(Debuggable):
         @return int The new depth of the Action Group stack
         """
         if context.actionGroupDepth == 0:
+            # pylint: disable=protected-access
             self.__manager._startTransaction(context.managerInterfaceState)
 
         context.actionGroupDepth += 1
@@ -96,6 +102,7 @@ class TransactionCoordinator(Debuggable):
 
         context.actionGroupDepth -= 1
         if context.actionGroupDepth == 0:
+            # pylint: disable=protected-access
             self.__manager._finishTransaction(context.managerInterfaceState)
 
         return context.actionGroupDepth
@@ -118,15 +125,18 @@ class TransactionCoordinator(Debuggable):
         if context.actionGroupDepth == 0:
             return status
 
+        # pylint: disable=protected-access
         status = self.__manager._cancelTransaction(context.managerInterfaceState)
 
         context.actionGroupDepth = 0
 
         return status
 
-    def actionGroupDepth(self, context):
+    @staticmethod
+    def actionGroupDepth(context):
         """
         @return int The current ActionGroup depth in the context.
+        @todo Should this even be public? Conceptually this is probably API-internal.
         """
         return context.actionGroupDepth
 
@@ -158,6 +168,7 @@ class TransactionCoordinator(Debuggable):
         """
         ## @todo Ensure that other actions error after this point
         ## @todo Should this clear out the state/dept from the Context?
+        # pylint: disable=protected-access
         token = self.__manager._freezeState(context.managerInterfaceState)
         return "%i_%s" % (context.actionGroupDepth, token)
 
@@ -186,7 +197,7 @@ class TransactionCoordinator(Debuggable):
         ## @todo Sanitize input
         depth, managerToken = token.split('_', 1)
         context.actionGroupDepth = int(depth)
-        state = self.__manager._thawState(managerToken)
+        state = self.__manager._thawState(managerToken)  # pylint: disable=protected-access
         context.managerInterfaceState = state
 
     ## @}

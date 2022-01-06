@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.SpecificationFactory
+A single-class module, providing the SpecificationFactory class.
+"""
 
 from ._core.objects import UntypedProperty
 
@@ -57,21 +61,21 @@ class SpecificationFactory(type):
         """
 
         # Prevents circular imports
-        # pylint: disable=import-outside-toplevel, cyclic-import
+        # pylint: disable=import-outside-toplevel,cyclic-import
         from .Specification import SpecificationBase, Specification
 
         if not schema:
             return None
 
         customCls = cls.classMap.get(schema, None)
-        prefix, type = Specification.schemaComponents(schema)
+        prefix, typ = Specification.schemaComponents(schema)
         if not customCls:
             customCls = cls.classMap.get(prefix)
         if customCls:
             # pylint: disable=protected-access
             instance = customCls(data)
             instance._setSchema(schema)
-            instance._type = type
+            instance._type = typ
             return instance
 
         ## @todo re-instate logging for missing custom class
@@ -79,5 +83,14 @@ class SpecificationFactory(type):
 
     @classmethod
     def upcast(cls, specification):
+        """
+        Casts the supplied Specification to the most derived
+        implementation available.
+
+        This is done by introspection of the specification's schema
+        against all registered specifications.
+
+        @param specification @ref openassetio.Specification.Specification "Specification"
+        """
         schema = specification.schema()
         return cls.instantiate(schema, specification.data(copy=False))

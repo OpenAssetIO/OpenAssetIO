@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.managerAPI.host class.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 from openassetio import Context
 from openassetio.specifications import EntitySpecification
@@ -49,6 +57,7 @@ class TestHost():
     # assessing when this is ported to cpp
 
     def test__interface(self, mock_host_interface):
+        # pylint: disable=protected-access
         a_host = Host(mock_host_interface)
         assert a_host._interface() is mock_host_interface
 
