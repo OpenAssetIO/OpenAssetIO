@@ -15,7 +15,7 @@
 #
 """
 @namespace openassetio.Specification
-Provies the Specification and SpecificationBase classes.
+Provides the Specification and SpecificationBase classes.
 """
 
 import inspect

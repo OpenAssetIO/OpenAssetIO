@@ -223,7 +223,7 @@ class Auditor(object):
 
     def getEnabled(self):
         """
-        @returns `bool`, The enabled state of the Auditor.
+        @returns `bool` The enabled state of the Auditor.
         """
         return self.__enabled
 

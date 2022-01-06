@@ -124,7 +124,7 @@ class SeverityFilter(LoggerInterface):
         Sets the minimum severity of message that will be passed on to
         the @ref upstreamLogger.
 
-        @param severity `int`, one of the LoggerInterface severity
+        @param severity `int` One of the LoggerInterface severity
         constants.
 
         @see @ref LoggerInterface

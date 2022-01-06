@@ -666,11 +666,13 @@ class Manager(Debuggable):
 
         @see getEntityAttributes
 
-        @param entityRefs `List[str]` Entity references to set attributes for.
+        @param entityRefs `List[str]` Entity references to set
+        attributes for.
 
         @param name `str` The attribute name to set.
 
-        @param value `primitive` The values to set for each referenced entity.
+        @param value `primitive` The values to set for each referenced
+        entity.
 
         @param context Context The calling context.
         """
