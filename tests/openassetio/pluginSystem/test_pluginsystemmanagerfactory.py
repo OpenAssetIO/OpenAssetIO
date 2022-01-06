@@ -70,7 +70,11 @@ class Test_PluginSystemManagerFactory_identifiers:
             monkeypatch.delenv(plugin_path_var_name)
 
         factory = PluginSystemManagerFactory(a_logger)
-        assert factory.identifiers() == []
+        identifiers = factory.identifiers()
+        # Check it is an empty list, not None, or any other value
+        # that would satisty == [] as a boolean comparison.
+        assert isinstance(identifiers, list)
+        assert len(identifiers) == 0
 
     def test_when_env_var_empty_returns_empty_list(
             self, a_logger, plugin_path_var_name, monkeypatch):
