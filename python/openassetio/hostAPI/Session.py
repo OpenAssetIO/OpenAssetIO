@@ -81,8 +81,10 @@ class Session(Debuggable):
           @see @ref useManager
           @see @ref currentManager
           @see @ref openassetio.logging "logging"
-          @see @ref openassetio.hostAPI.ManagerFactoryInterface "ManagerFactoryInterface"
-          @see @ref openassetio.pluginSystem.PluginSystemManagerFactory "PluginSystemManagerFactory"
+          @see @ref openassetio.hostAPI.ManagerFactoryInterface
+          "ManagerFactoryInterface"
+          @see @ref openassetio.pluginSystem.PluginSystemManagerFactory
+          "PluginSystemManagerFactory"
         """
         super(Session, self).__init__()
 

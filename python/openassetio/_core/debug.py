@@ -13,8 +13,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-"""
-@namespace openassetio._core.debug
+"""@namespace openassetio._core.debug
 Assorted decorators to help with API development. For the sake of
 optimisation, and help(fn) still making sense, then they may be disabled
 by default.
@@ -29,11 +28,12 @@ the @ref openassetio.logging.LoggerInterface.log signature. This
 callback will be used to output debug information. If no callback is
 set, no debug output will be produced.
 
-@todo The current logging implementation doesn't have any global 'display severity'
-concept (for good reasons), this has precluded any of the optimisations we used to
-make earlying-out when we're at kInfo or less. Once we port this implementation
-to cpp, then we may wish to adjust how we enable/disable this functionality to
-avoid any unwanted overhead per-call.
+@todo The current logging implementation doesn't have any global
+'display severity' concept (for good reasons), this has precluded any of
+the optimisations we used to make earlying-out when we're at kInfo or
+less. Once we port this implementation to cpp, then we may wish to
+adjust how we enable/disable this functionality to avoid any unwanted
+overhead per-call.
 """
 
 # For private decorator implementation methods

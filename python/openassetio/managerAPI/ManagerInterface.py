@@ -263,7 +263,8 @@ class ManagerInterface(object):
     def updateTerminology(self, stringDict, hostSession):
         """
         This call gives the manager a chance to customize certain
-        strings used in a host's UI/messages. See @ref openassetio.constants "constants"
+        strings used in a host's UI/messages. See @ref openassetio.constants
+        "constants"
         for known keys. The values in stringDict can be freely updated
         to match the terminology of the asset management system you are
         representing.
@@ -275,7 +276,8 @@ class ManagerInterface(object):
         @return `None`
 
         @see @ref openassetio.constants "constants"
-        @see @ref openassetio.hostAPI.terminology.defaultTerminology "terminology.defaultTerminology"
+        @see @ref openassetio.hostAPI.terminology.defaultTerminology
+        "terminology.defaultTerminology"
         """
 
     ## @}
@@ -816,11 +818,13 @@ class ManagerInterface(object):
 
         @see getEntityAttributes
 
-        @param entityRefs `List[str]` Entity references to set attributes for.
+        @param entityRefs `List[str]` Entity references to set
+        attributes for.
 
         @param name `str` The attribute name to set.
 
-        @param value `primitive` The values to set for each referenced entity.
+        @param value `primitive` The values to set for each referenced
+        entity.
 
         @param context Context The calling context.
 
