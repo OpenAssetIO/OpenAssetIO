@@ -61,7 +61,7 @@ class SpecificationFactory(type):
         """
 
         # Prevents circular imports
-        # pylint: disable=import-outside-toplevel
+        # pylint: disable=import-outside-toplevel,cyclic-import
         from .Specification import SpecificationBase, Specification
 
         if not schema:
