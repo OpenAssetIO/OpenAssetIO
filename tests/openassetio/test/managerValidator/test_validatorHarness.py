@@ -204,7 +204,7 @@ class Test_ValidatorHostInterface_identifier:
 class Test_ValidatorHostInterface_displayName:
     def test_returns_expected_name(self):
         interface = validatorHarness.ValidatorHarnessHostInterface()
-        assert interface.displayName() == "OAIO Manager Validator"
+        assert interface.displayName() == "OpenAssetIO Manager Validator"
 
 
 class Test_FixtureAugmentedTestCase_init:

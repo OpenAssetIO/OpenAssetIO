@@ -36,7 +36,8 @@ class SampleAssetManagerInterface(ManagerInterface):
     Binds the SampleAssetManager to the OpenAssetIO ManagerInterface.
 
     This class contains none of the actual business logic implementing
-    asset management, just bindings to the OAIO interface methods.
+    asset management, just bindings to the OpenAssetIO interface
+    methods.
     """
 
     @staticmethod

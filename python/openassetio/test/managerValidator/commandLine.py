@@ -104,17 +104,17 @@ class Parser:
         cmdline = argparse.ArgumentParser(
             prog="managerValidator", formatter_class=argparse.RawDescriptionHelpFormatter,
             description=inspect.cleandoc("""
-                The OAIO Manager test harness - A tool to validate a given manager
-                correctly implements the API interface.
+                The OpenAssetIO Manager test harness - A tool to validate a given 
+                manager correctly implements the API interface.
 
                 When executed with a manager-supplied fixtures file, the harness will
-                load the specified manager plugin from OAIO_PLUGIN_PATH and run a
-                series of tests that validate:
+                load the specified manager plugin from OPENASSETIO_PLUGIN_PATH and 
+                run a series of tests that validate:
 
                 - Input handling
                 - Return types and values
 
-                Because OAIO places no constraints on the nature of an entity
+                Because OpenAssetIO places no constraints on the nature of an entity
                 reference, it is necessary for any given manager to provide the test
                 suite with valid input data that can be used to test entity related
                 methods. In addition, as the result of many methods is also specific to
@@ -177,7 +177,7 @@ class PyFixtureLoader:
 
         @return `dict` Dictionary of test case fixtures.
         """
-        spec = importlib.util.spec_from_file_location("oaioTestFixtures", filePath)
+        spec = importlib.util.spec_from_file_location("TestFixtures", filePath)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         return module.fixtures

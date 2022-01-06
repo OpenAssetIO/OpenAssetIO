@@ -55,8 +55,8 @@ class ValidatorHarnessFactory:
         @param fixtures `Dict[Any, Any]` Dictionary of test case
         fixtures.
 
-        @param session hostAPI.Session.Session The OAIO session to
-        inject into test cases.
+        @param session hostAPI.Session.Session The OpenAssetIO session
+        to inject into test cases.
 
         @return ValidatorTestLoader Test case loader.
         """
@@ -113,8 +113,8 @@ class ValidatorHarnessFactory:
     @staticmethod
     def createLogger():
         """
-        Create the logger to be used by the test harness OAIO @ref
-        session.
+        Create the logger to be used by the test harness OpenAssetIO
+        @ref session.
 
         @return logging.SeverityFilter A logging.ConsoleLogger wrapped
         in a `SeverityFilter`.
@@ -177,8 +177,8 @@ class ValidatorTestLoader(unittest.loader.TestLoader):
         @param fixtures `Dict[Any, Any]` Dictionary of test case
         fixtures.
 
-        @param session hostAPI.Session.Session Test harness OAIO @ref
-        session
+        @param session hostAPI.Session.Session Test harness OpenAssetIO
+        @ref session
         """
         self.__fixtures = fixtures
         self.__session = session
@@ -186,8 +186,8 @@ class ValidatorTestLoader(unittest.loader.TestLoader):
 
     def loadTestsFromTestCase(self, testCaseClass):
         """
-        Override of base class to additionally inject fixtures and OAIO
-        @ref session into test cases.
+        Override of base class to additionally inject fixtures and
+        OpenAssetIO @ref session into test cases.
 
         Injects the child dict of the `fixtures` dict that corresponds
         to the test case class and method. If no such dict is available
@@ -211,22 +211,22 @@ class ValidatorTestLoader(unittest.loader.TestLoader):
 
 class ValidatorHarnessHostInterface(hostAPI.HostInterface):
     """
-    Minimal required OAIO hostAPI.HostInterface.HostInterface
+    Minimal required OpenAssetIO hostAPI.HostInterface.HostInterface
     implementation.
     """
     def identifier(self):
         return "org.openassetio.test.managerValidator"
 
     def displayName(self):
-        return "OAIO Manager Validator"
+        return "OpenAssetIO Manager Validator"
 
 
 class FixtureAugmentedTestCase(unittest.TestCase):
     """
     Base test case class that all test classes must inherit from.
 
-    Expects test harness fixtures and an OAIO session to be provided,
-    hence requires that `unittest` is provided with the custom
+    Expects test harness fixtures and an OpenAssetIO session to be
+    provided, hence requires that `unittest` is provided with the custom
     ValidatorTestLoader test case loader.
 
     Fixtures, session and manager interface are then provided to
@@ -242,8 +242,8 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param fixtures `Dict[Any, Any]` Dictionary of fixtures specific
         to the current test case.
 
-        @param session hostAPI.Session.Session The OAIO @ref session
-        to be used by test cases.
+        @param session hostAPI.Session.Session The OpenAssetIO
+        @ref session to be used by test cases.
 
         @param args `List[Any]` Additional args passed along to the
         base class.

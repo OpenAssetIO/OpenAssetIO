@@ -85,7 +85,7 @@ def a_logger():
 class Test_PluginSystemManagerFactory_init:
 
     def test_plugin_factory_uses_the_expected_env_var(self):
-        assert PluginSystemManagerFactory.kPluginEnvVar == "OAIO_PLUGIN_PATH"
+        assert PluginSystemManagerFactory.kPluginEnvVar == "OPENASSETIO_PLUGIN_PATH"
 
     def test_when_env_var_not_set_then_logs_warning(self, a_logger, monkeypatch):
 
