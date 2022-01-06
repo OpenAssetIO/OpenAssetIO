@@ -26,7 +26,7 @@ jobs:
       - name: Lint
         uses: TheFoundryVisionmongers/fn-pylint-action@v1.1
         with:
-          pylint-disable: "C,I,R"  # Only errors and warnings, for now.
+          pylint-disable: fixme  # We track 'todo's through other means
           pylint-rcfile: "./pyproject.toml"
           pylint-paths: "python/openassetio tests"
           # Presently it's not possible to disable the `duplicate-code`
