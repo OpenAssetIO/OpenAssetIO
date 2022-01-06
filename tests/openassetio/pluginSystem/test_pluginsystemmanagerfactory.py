@@ -111,7 +111,7 @@ class Test_PluginSystemManagerFactory_identifiers:
 
         factory = PluginSystemManagerFactory(a_logger)
         identifiers = factory.identifiers()
-        # Check it is an empty list, not None, or any other value
+        # Check it is an empty list, not None, or any other value
         # that would satisty == [] as a boolean comparison.
         assert isinstance(identifiers, list)
         assert len(identifiers) == 0
@@ -122,7 +122,9 @@ class Test_PluginSystemManagerFactory_identifiers:
         monkeypatch.setenv(PluginSystemManagerFactory.kPluginEnvVar, plugin_paths)
 
         factory = PluginSystemManagerFactory(a_logger)
-        assert factory.identifiers() == []
+        identifiers = factory.identifiers()
+        assert isinstance(identifiers, list)
+        assert len(identifiers) == 0
 
     def test_when_env_var_set_to_local_plugin_path_then_finds_local_plugins(
             self, a_logger, local_plugin_path,
