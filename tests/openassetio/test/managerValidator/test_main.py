@@ -79,34 +79,14 @@ class Test_CLI_arguments:
         assert "test_is_correct_type" in str(result.stderr)
 
 
-@pytest.fixture(autouse=True)
-def test_openassetio_env(test_resources_dir, monkeypatch):
-    """
-    A fixture that configures the process environment such
-    that the OpenAssetIO library can load the associated
-    test resource plugins, and debug logging is enabled.
-    """
-    plugin_path = os.path.join(test_resources_dir, "plugins")
-    monkeypatch.setenv("OPENASSETIO_PLUGIN_PATH", plugin_path)
+@pytest.fixture
+def a_passing_fixtures_file(resources_dir):
+    return os.path.join(resources_dir, "fixtures_cliPass.py")
 
 
 @pytest.fixture
-def test_resources_dir():
-    """
-    The path to the resources directory for this test suite.
-    """
-    test_dir = os.path.dirname(__file__)
-    return os.path.join(test_dir, "resources")
-
-
-@pytest.fixture
-def a_passing_fixtures_file(test_resources_dir):
-    return os.path.join(test_resources_dir, "fixtures_pass.py")
-
-
-@pytest.fixture
-def a_failing_fixtures_file(test_resources_dir):
-    return os.path.join(test_resources_dir, "fixtures_fail.py")
+def a_failing_fixtures_file(resources_dir):
+    return os.path.join(resources_dir, "fixtures_cliFail.py")
 
 
 def execute_cli(fixtures_path, *extra_args):
