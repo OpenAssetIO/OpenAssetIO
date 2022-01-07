@@ -28,13 +28,11 @@ import pytest
 
 class Test_CLI_exit_code:
 
-    def test_when_passing_then_exit_code_is_zero(self, test_resources_dir):
-        fixtures = os.path.join(test_resources_dir, "fixtures_pass.py")
-        assert execute_cli(fixtures).returncode == 0
+    def test_when_passing_then_exit_code_is_zero(self, a_passing_fixtures_file):
+        assert execute_cli(a_passing_fixtures_file).returncode == 0
 
-    def test_when_failing_then_exit_code_is_one(self, test_resources_dir):
-        fixtures = os.path.join(test_resources_dir, "fixtures_fail.py")
-        result = execute_cli(fixtures)
+    def test_when_failing_then_exit_code_is_one(self, failing_fixtures_file):
+        result = execute_cli(failing_fixtures_file)
         # Ensure the failure is for the right reason, as other random
         # errors could have an exit code of 1
         assert (
@@ -47,6 +45,40 @@ class Test_CLI_exit_code:
         assert execute_cli("/i/do/not/exist.py").returncode == 1
 
 
+class Test_CLI_output:
+
+    def test_api_logging_goes_to_standard_out(self, a_passing_fixtures_file, monkeypatch):
+        monkeypatch.setenv("OPENASSETIO_LOGGING_SEVERITY", "6")
+        assert "[debug]: PluginSystem" in str(execute_cli(a_passing_fixtures_file).stdout)
+
+    def test_unittest_output_written_to_stderr(self, a_passing_fixtures_file):
+        assert "---\\nRan" in str(execute_cli(a_passing_fixtures_file).stderr)
+
+    def test_when_failing_then_errors_written_to_stderr(self, failing_fixtures_file):
+        assert "FAILED" in str(execute_cli(failing_fixtures_file).stderr)
+
+
+class Test_CLI_arguments:
+
+    def test_when_called_without_fixtures_arg_then_exits_with_usage_and_exit_code_is_two(self):
+        args = ["python", "-m", "openassetio.test.managerValidator"]
+        # We explicitly don't want an exception to be raised.
+        # pylint: disable=subprocess-run-check
+        result = subprocess.run(args, capture_output=True)
+        assert result.returncode == 2
+        assert "usage:" in str(result.stderr)
+
+    def test_when_called_with_additional_args_then_they_are_passed_to_unittest(
+            self, a_passing_fixtures_file):
+        # We use the "-v" flag that includes the test name in the
+        # output to stderr
+        result = execute_cli(a_passing_fixtures_file, "-v")
+        # Check the tests passed first to avoid false positives from
+        # a fail of our target check.
+        assert result.returncode == 0
+        assert "test_is_correct_type" in str(result.stderr)
+
+
 @pytest.fixture(autouse=True)
 def test_openassetio_env(test_resources_dir, monkeypatch):
     """
@@ -56,7 +88,6 @@ def test_openassetio_env(test_resources_dir, monkeypatch):
     """
     plugin_path = os.path.join(test_resources_dir, "plugins")
     monkeypatch.setenv("OPENASSETIO_PLUGIN_PATH", plugin_path)
-    monkeypatch.setenv("OPENASSETIO_LOGGING_SEVERITY", "6")
 
 
 @pytest.fixture
@@ -68,7 +99,17 @@ def test_resources_dir():
     return os.path.join(test_dir, "resources")
 
 
-def execute_cli(fixtures_path):
+@pytest.fixture
+def a_passing_fixtures_file(test_resources_dir):
+    return os.path.join(test_resources_dir, "fixtures_pass.py")
+
+
+@pytest.fixture
+def a_failing_fixtures_file(test_resources_dir):
+    return os.path.join(test_resources_dir, "fixtures_fail.py")
+
+
+def execute_cli(fixtures_path, *extra_args):
     """
     Invokes the managerValidator CLI via a subprocess.
 
@@ -79,6 +120,8 @@ def execute_cli(fixtures_path):
     """
     all_args = ["python", "-m", "openassetio.test.managerValidator"]
     all_args.extend(["-f", fixtures_path])
+    if extra_args:
+        all_args.extend(extra_args)
     # We explicitly don't want an exception to be raised.
     # pylint: disable=subprocess-run-check
     return subprocess.run(all_args, capture_output=True)
