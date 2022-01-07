@@ -1,6 +1,6 @@
 # OpenAssetIO Decision Records
 
-This directory contains the records of key OAIO project decisions.
+This directory contains the records of key OpenAssetIO project decisions.
 They cover the rationale and other options considered.
 
 ## Motivation

@@ -1,3 +1,15 @@
+[tool.pylint.messages_control]
+disable = [
+    "too-many-arguments",
+    "too-few-public-methods",
+    # Disable Python 3 improvements:
+    # - We've not definitely ruled 2 out
+    # - Much of this code will move to C++
+    "useless-object-inheritance",
+    "super-with-arguments",
+    "consider-using-f-string"
+]
+
 [tool.pylint.format]
 max-line-length = 99
 

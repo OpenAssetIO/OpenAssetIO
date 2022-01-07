@@ -1,7 +1,7 @@
 default: container-build
 
 ##
-# This Makefile builds the OAIO documentation bundle.
+# This Makefile builds the OpenAssetIO documentation bundle.
 #
 # By default it uses a Docker container and builds into the working
 # directory. A local build can be run using `make html`.
@@ -19,25 +19,65 @@ default: container-build
 # should not be used with `make -f`.
 ##
 
+CONTAINER_VERSION=1.1.1
+CONTAINER_NAME=openassetio-doc-build
+
+##
+## Container settings
+##
+
+# The following variables are considered when using Docker
+# to build the documentation:
+#
+#  GITHUB_ORG: The organisation to pull containers from (and publish
+#              to). If unspecified, then `thefoundryvisionmongers` will
+#              be used. Note: org names must be lowercase.
+#
+# When publishing, the following additional vars MUST be set:
+#
+#  GITHUB_PAT:      A GitHub Personal Access Token with the following
+#                   permissions: write:packages.
+#  GITHUB_USERNAME: The GitHub username whose token is being used.
+#
+# eg:
+#  GITHUB_USER=<username> GITHUB_PAT=<token> make publish-docker
+#
+ifndef GITHUB_ORG
+GITHUB_ORG = thefoundryvisionmongers
+endif
+
+# Docker images are published to the GitHub container registry
+CONTAINER_PATH = ghcr.io/$(GITHUB_ORG)/$(CONTAINER_NAME)
+CONTAINER_TAG = $(CONTAINER_PATH):$(CONTAINER_VERSION)
 
 ##
 ## PHONY TARGETS
 ##
 
-.PHONY: clean clean-html clean-tooling clean-docker container-build deploy docker-image html todo tooling
+.PHONY: clean clean-html clean-tooling clean-docker container-build deploy docker-image html \
+        publish-docker todo tooling
 
 #
 # Container build - Runs this Makefile via docker
 #
 
-container-build: docker-image
-	docker run --rm -v `pwd`/../:/src oaio-doc-build bash -c 'make -C /src/doc html'
+container-build:
+	docker run --rm -v `pwd`/../:/src $(CONTAINER_TAG) bash -c 'make -C /src/doc html'
+
+# Targets for building/tagging/publishing the container
 
 docker-image: Dockerfile
-	docker build . -t oaio-doc-build
+	docker build . -t $(CONTAINER_TAG)
 
 clean-docker:
-	docker image rm oaio-doc-build --force
+	docker image rm $(CONTAINER_TAG) --force
+
+publish-docker: docker-image
+	echo $(GITHUB_PAT) | docker login ghcr.io --username $(GITHUB_USERNAME) --password-stdin
+	docker push $(CONTAINER_TAG)
+	# Update the 'latest' tag
+	docker tag $(CONTAINER_TAG) $(CONTAINER_PATH):latest
+	docker push $(CONTAINER_PATH):latest
 
 #
 # Local build - Invokes Doxygen locally
@@ -57,11 +97,11 @@ tooling: $(SASS) $(VENV)
 # Deployment to GH Pages
 #
 
-# $OAIO_DOCS_REPO_DIR can be set to point to an existing checkout
+# $OPENASSETIO_DOCS_REPO_DIR can be set to point to an existing checkout
 # of the target branch to deploy to.
 # If unset, a temporary checkout will be created.
-ifndef OAIO_DOCS_REPO_DIR
-OAIO_DOCS_REPO_DIR = /tmp/repo
+ifndef OPENASSETIO_DOCS_REPO_DIR
+OPENASSETIO_DOCS_REPO_DIR = /tmp/repo
 DOCSREPO_CLEANUP = true
 else
 DOCSREPO_CLEANUP = false
@@ -73,18 +113,18 @@ DOCSREPO_HTML_DIR = docs
 
 # The `deploy` target takes an existing `html` directory and updates
 # the `docs` branch on `origin` via a temporary checkout.
-deploy: $(OAIO_DOCS_REPO_DIR)
+deploy: $(OPENASSETIO_DOCS_REPO_DIR)
 	# Deploy the local docs build to the target repo
-	./deploy.sh $(OAIO_DOCS_REPO_DIR)
+	./deploy.sh $(OPENASSETIO_DOCS_REPO_DIR)
 	# Remove the clone if we made it.
-	$(DOCSREPO_CLEANUP) && rm -rf $(OAIO_DOCS_REPO_DIR) || true
+	$(DOCSREPO_CLEANUP) && rm -rf $(OPENASSETIO_DOCS_REPO_DIR) || true
 
 
-$(OAIO_DOCS_REPO_DIR):
+$(OPENASSETIO_DOCS_REPO_DIR):
 	# Get origin remote URL for use in pushing updated docs branch.
 	$(eval remote_url=$(shell git remote get-url origin))
 	# Create a clone of this repo with the docs branch checked out.
-	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(OAIO_DOCS_REPO_DIR)
+	git clone --no-tags --depth 1 --branch $(DOCSREPO_BRANCH) $(remote_url) $(OPENASSETIO_DOCS_REPO_DIR)
 
 #
 # Cleaning

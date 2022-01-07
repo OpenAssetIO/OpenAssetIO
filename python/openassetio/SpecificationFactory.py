@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.SpecificationFactory
+A single-class module, providing the SpecificationFactory class.
+"""
 
 from ._core.objects import UntypedProperty
 
@@ -32,10 +36,10 @@ class SpecificationFactory(type):
     def __new__(cls, name, bases, namespace):
 
         # Make sure properties have a suitable data name and store
-        for k, v in namespace.items():
-            if isinstance(v, UntypedProperty):
-                v.dataVar = '_data'
-                v.dataName = k
+        for key, value in namespace.items():
+            if isinstance(value, UntypedProperty):
+                value.dataVar = '_data'
+                value.dataName = key
 
         newcls = super(SpecificationFactory, cls).__new__(cls, name, bases, namespace)
         if not hasattr(newcls, '__factoryIgnore'):
@@ -56,25 +60,37 @@ class SpecificationFactory(type):
         attempts fail, a @ref openassetio.Specification.SpecificationBase will be used.
         """
 
+        # Prevents circular imports
+        # pylint: disable=import-outside-toplevel,cyclic-import
         from .Specification import SpecificationBase, Specification
 
         if not schema:
             return None
 
         customCls = cls.classMap.get(schema, None)
-        prefix, type = Specification.schemaComponents(schema)
+        prefix, typ = Specification.schemaComponents(schema)
         if not customCls:
             customCls = cls.classMap.get(prefix)
         if customCls:
+            # pylint: disable=protected-access
             instance = customCls(data)
             instance._setSchema(schema)
-            instance._type = type
+            instance._type = typ
             return instance
-        else:
-            ## @todo re-instate logging for missing custom class
-            return SpecificationBase(schema, data)
+
+        ## @todo re-instate logging for missing custom class
+        return SpecificationBase(schema, data)
 
     @classmethod
     def upcast(cls, specification):
+        """
+        Casts the supplied Specification to the most derived
+        implementation available.
+
+        This is done by introspection of the specification's schema
+        against all registered specifications.
+
+        @param specification @ref openassetio.Specification.Specification "Specification"
+        """
         schema = specification.schema()
         return cls.instantiate(schema, specification.data(copy=False))

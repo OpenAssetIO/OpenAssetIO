@@ -1,14 +1,14 @@
 /* The standard CSS for doxygen 1.8.3.1 */
 
-$oaio-main: #666666;
-$oaio-orange: #F9B41B;
-$oaio-orange-light: lighten($oaio-orange, 40%);
-$oaio-orange-dark: desaturate(darken($oaio-orange, 10%), 30%);
+$theme-main: #666666;
+$theme-orange: #F9B41B;
+$theme-orange-light: lighten($theme-orange, 40%);
+$theme-orange-dark: desaturate(darken($theme-orange, 10%), 30%);
 $link: #444444;
 $alt-background: #fbfbfb;
 
 $tab-vatiation-ammount: 10%;
-$border-style: 1px $oaio-main dotted;
+$border-style: 1px $theme-main dotted;
 $rounded-corner-radius: 6px;
 
 $font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
@@ -56,12 +56,12 @@ body, table, div, p, dl, .tabs, .tabs2, .tabs3, .tabs4, #nav-tree .label {
 	a { color: $link; }
 
 	#selected {
-		color: $oaio-orange;
+		color: $theme-orange;
 		text-shadow: none;
 		background-image: none;
 		background-color: none;
 
-		a { color: $oaio-orange; }
+		a { color: $theme-orange; }
 	}
 
 	.label { font-size: 100%; }
@@ -105,7 +105,7 @@ h1.groupheader {
 h2.groupheader {
 	border-top: $border-style;
 	border-bottom: $border-style;
-	color: $oaio-main;
+	color: $theme-main;
 	font-size: 150%;
 	font-weight: normal;
 	margin-top: 1.75em;
@@ -128,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1.glow, h2.glow, h3.glow, h4.glow, h5.glow, h6.glow {
-	text-shadow: 0 0 8px $oaio-orange;
+	text-shadow: 0 0 8px $theme-orange;
 }
 
 dt {
@@ -315,7 +315,7 @@ div.groupHeader {
 	margin-left: 16px;
 	margin-top: 12px;
 	font-weight: bold;
-	border-bottom: 1px $oaio-main dotted;
+	border-bottom: 1px $theme-main dotted;
 }
 
 div.groupText {
@@ -325,7 +325,7 @@ div.groupText {
 
 body {
 	background-color: white;
-	color: $oaio-main;
+	color: $theme-main;
 	margin: 0;
 }
 
@@ -492,7 +492,7 @@ hr {
 
 hr.footer {
 	height: 1px;
-	border-top: 1px dotted $oaio-main;
+	border-top: 1px dotted $theme-main;
 }
 
 /* @group Member Descriptions */
@@ -610,7 +610,7 @@ table.memberdecls {
 	@extend .proto;
 	padding-top: 6px;
 	padding-bottom: 6px;
-	color: $oaio-main;
+	color: $theme-main;
 }
 
 .memdoc, dl.reflist dd {
@@ -637,7 +637,7 @@ dl.reflist dd {
 }
 
 .paramname {
-	color: $oaio-orange;
+	color: $theme-orange;
 	white-space: nowrap;
 }
 .paramname em {
@@ -845,7 +845,7 @@ table.fieldtable {
 	background-repeat:repeat-x;
 	background-color: #E2E8F2;
 	font-size: 90%;
-	color: $oaio-main;
+	color: $theme-main;
 	padding-bottom: 4px;
 	padding-top: 5px;
 	text-align:left;
@@ -881,7 +881,7 @@ table.fieldtable {
 	a:hover { color: black; }
 
 	li.current a {
-		color: $oaio-orange;
+		color: $theme-orange;
 		border-radius: 6px 6px 0px 0px;
 		border: $border-style;
 		background: white;
@@ -905,10 +905,10 @@ table.fieldtable {
 	right: 5px;
 }
 
-$tab1-colour: lighten($oaio-orange, $tab-vatiation-ammount);
-$tab2-colour: lighten($oaio-orange, 2*$tab-vatiation-ammount);
-$tab3-colour: lighten($oaio-orange, 3*$tab-vatiation-ammount);
-$tab4-colour: lighten($oaio-orange, 4*$tab-vatiation-ammount);
+$tab1-colour: lighten($theme-orange, $tab-vatiation-ammount);
+$tab2-colour: lighten($theme-orange, 2*$tab-vatiation-ammount);
+$tab3-colour: lighten($theme-orange, 3*$tab-vatiation-ammount);
+$tab4-colour: lighten($theme-orange, 4*$tab-vatiation-ammount);
 
 #navrow2 {
 	background-color: none;
@@ -978,7 +978,7 @@ $tab4-colour: lighten($oaio-orange, 4*$tab-vatiation-ammount);
 
 .navpath li.navelem a:hover
 {
-	color: $oaio-orange;
+	color: $theme-orange;
 }
 
 .navpath li.footer

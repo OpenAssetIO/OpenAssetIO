@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,9 +13,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+A single-class module, providing the ManagerPlugin class.
+"""
 
 from .PluginSystemPlugin import PluginSystemPlugin
 
+# As this is an abstract interface, these are expected
+# pylint: disable=unused-argument
 
 __all__ = ['ManagerPlugin']
 
@@ -56,7 +61,8 @@ class ManagerPlugin(PluginSystemPlugin):
 
         @return str
 
-        @see openassetio.managerAPI.ManagerInterface
+        @see @ref openassetio.managerAPI.ManagerInterface
+        "ManagerInterface"
         """
         raise NotImplementedError
 
@@ -87,9 +93,10 @@ class ManagerPlugin(PluginSystemPlugin):
         openassetio-ui.implementation.ManagerUIDelegate
 
         This is an instance of some class derived from ManagerUIDelegate
-        that is used by the @needsref UISessionManager to provide widgets to
-        a host that may bind into panels in the application, or to allow
-        the application to delegate asset browsing/picking etc...
+        that is used by the @needsref UISessionManager to provide
+        widgets to a host that may bind into panels in the application,
+        or to allow the application to delegate asset browsing/picking
+        etc...
 
         @param interfaceInstance An instance of the plugins interface as
         returned by @ref interface(), this is to allow UI to be

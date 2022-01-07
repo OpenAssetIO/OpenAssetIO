@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.managerAPI.Host
+A single-class module, providing the Host class.
+"""
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
@@ -24,8 +28,8 @@ __all__ = ['Host']
 class Host(Debuggable):
     """
     The Host object represents the tool or application that created a
-    session with OAIO, and wants to query or store information within a
-    @ref manager.
+    session with OpenAssetIO, and wants to query or store information
+    within a @ref manager.
 
     The Host provides a generalised API to query the identity of the
     caller of the API, as well as which entities are used within the

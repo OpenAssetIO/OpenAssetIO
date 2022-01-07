@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,9 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.logging module.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from unittest import mock
 
 import pytest
-from unittest import mock
 
 import openassetio.logging as lg
 
@@ -30,7 +38,13 @@ import openassetio.logging as lg
 # the old API.
 
 def test_LoggerInterface_progress():
-    logger = lg.LoggerInterface()
+
+    # LoggerInterface.log is pure virtual
+    class TestLogger(lg.LoggerInterface):
+        def log(self, message, severity):
+            pass
+
+    logger = TestLogger()
     logger.log = mock.create_autospec(logger.log)
 
     msg = "I am a message"
@@ -62,7 +76,7 @@ class TestSeverityFilter():
 
     def test_constructor(self, mock_logger, monkeypatch):
 
-        var = "OAIO_LOGGING_SEVERITY"
+        var = "OPENASSETIO_LOGGING_SEVERITY"
 
         # Unset
 

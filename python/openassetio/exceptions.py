@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,18 +13,25 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.exceptions
+Defines exceptions used in the OpenAssetIO codebase.
 
-class OAIOException(RuntimeError):
+@todo [tc] Should these all live here, or in their respective homes
+eg: pluginSystem, ManagerInterface, etc.
+"""
+
+
+class OpenAssetIOException(RuntimeError):
     """
-    The OAIOException class should be used for all exceptions raise by
+    The OpenAssetIOException class should be used for all exceptions raise by
     Managers and any API-related exceptions raised in a Host. These
     exceptions are guaranteed to properly bridge across the C plugin
     divide...
     """
-    pass
 
 
-class UserCanceled(OAIOException):
+class UserCanceled(OpenAssetIOException):
     """
     Thrown by the progress mechanism to interrupt execution whenever the
     user cancels an action (perhaps using an on-screen button).
@@ -33,13 +40,39 @@ class UserCanceled(OAIOException):
     def __str__(self):
         return "Operation Canceled"
 
+##
+# @name Manager related Exceptions
+#
+## @{
+
+class ManagerException(OpenAssetIOException):
+    """
+    A base class for exceptions relating to, or raised by a manager.
+    """
+
+
+class StateError(ManagerException):
+    """
+    Thrown by managers in error situations relating to the
+    managerInterfaceState object.
+    """
+
+
+class RetryableError(ManagerException):
+    """
+    Thrown by managers in error situations that can be safely retried
+    with idempotent behavior.
+    """
+
+## @}
+
 
 ##
 # @name Entity related Exceptions
 #
 ## @{
 
-class BaseEntityException(OAIOException):
+class BaseEntityException(ManagerException):
     """
     A base Exception for any @ref entity related errors to ensure
     consistent presentation and encapsulation of the associated @ref
@@ -56,18 +89,18 @@ class BaseEntityException(OAIOException):
         there is no need to embedded the entity reference in the message
         when using this exception type.
         """
-        OAIOException.__init__(self, message)
+        super(BaseEntityException, self).__init__(message)
         self.ref = entityReference
 
     def __str__(self):
-        string = OAIOException.__str__(self)
+        string = OpenAssetIOException.__str__(self)
         return "%s (%s)" % (string, self.ref)
 
 
 class InvalidEntityReference(BaseEntityException):
     """
     Thrown whenever an Entity-based action is performed on a mal-formed
-    or unrecognised @ref entity_reference.
+    or unrecognized @ref entity_reference.
     """
 
     def __init__(self, message="Invalid Entity Reference", entityReference=None):
@@ -87,12 +120,10 @@ class EntityResolutionError(BaseEntityException):
         super(EntityResolutionError, self).__init__(message, entityReference)
 
 
-class DuplicateEntityError(BaseEntityException):
-    pass
-
-
 class BaseEntityInteractionError(BaseEntityException):
-    pass
+    """
+    A base class for errors relating to entity-centric actions.
+    """
 
 
 class PreflightError(BaseEntityInteractionError):
@@ -100,7 +131,6 @@ class PreflightError(BaseEntityInteractionError):
     Thrown to represent some error during pre-flight that isn't due to
     any specific of the @ref entity_reference itself.
     """
-    pass
 
 
 class RegistrationError(BaseEntityInteractionError):
@@ -108,27 +138,13 @@ class RegistrationError(BaseEntityInteractionError):
     Thrown to represent some error during registration that isn't due to
     any specific of the @ref entity_reference itself.
     """
-    pass
 
 
 ## @}
 
 
-class ManagerError(OAIOException):
-    pass
-
-
-class StateError(OAIOException):
+class PluginError(OpenAssetIOException):
     """
-    Thrown by Managers in error situations relating to the
-    managerInterfaceState object.
+    Thrown by the plugin system in relation to errors encountered
+    during the loading/initialization of plugins.
     """
-    pass
-
-
-class RetryableError(OAIOException):
-    pass
-
-
-class PluginError(OAIOException):
-    pass

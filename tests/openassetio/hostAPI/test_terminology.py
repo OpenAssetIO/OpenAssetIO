@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,6 +13,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+Tests that cover the openassetio.hostAPI.terminology module.
+"""
+
+# pylint: disable=no-self-use
+# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
 from unittest import mock
 
 import pytest
@@ -52,8 +60,8 @@ class MockTerminologyManager(Manager):
 
     # ManagerInterface methods
 
-    def updateTerminology(self, strings):
-        strings.update(self.__mockTerminology)
+    def updateTerminology(self, stringDict):
+        stringDict.update(self.__mockTerminology)
 
     def displayName(self):
         return self.__mockDisplayName
@@ -93,15 +101,15 @@ class TestMapper:
         custom_terminology = {
             mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
         a_mapper = tgy.Mapper(mock_manager, terminology=custom_terminology)
-        assert (a_mapper.replaceTerms("{%s}" % mock_manager.kTerm_custom) ==
+        assert (a_mapper.replaceTerms(f"{{{mock_manager.kTerm_custom}}}") ==
                 mock_manager.kTermValue_custom)
 
     def test_replaceTerms(self, mock_manager, mapper):
-        input = ", ".join(["{%s}" % k for k in all_terminology_keys])
-        expected = input.format(**mock_manager.expectedTerminology())
-        assert mapper.replaceTerms(input) == expected
+        all_terms_str = ", ".join([f"{k}" for k in all_terminology_keys])
+        expected = all_terms_str.format(**mock_manager.expectedTerminology())
+        assert mapper.replaceTerms(all_terms_str) == expected
 
     def test_replaceTermsUnknownTokensDebraced(self, mapper):
-        input = "{an} unknown {token}"
+        input_str = "{an} unknown {token}"
         expected = "an unknown token"
-        assert mapper.replaceTerms(input) == expected
+        assert mapper.replaceTerms(input_str) == expected

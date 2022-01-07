@@ -27,7 +27,7 @@ for "how to build an asset management system". It is a minimal
 implementation that serves the needs of the API for testing and
 the purposes of exploring host workflows.
 
-This package should be placed on $OAIO_PLUGIN_PATH. This does not
+This package should be placed on $OPENASSETIO_PLUGIN_PATH. This does not
 need to be on `$PYTHONPATH` directly, the plugin system takes care
 of extending Python's runtime paths accordingly.
 """

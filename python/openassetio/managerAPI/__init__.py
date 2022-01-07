@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.managerAPI
+This module contains code relevant to anyone wanting to add support
+for an asset management system.
 
-##
-# @namespace openassetio.managerAPI
-# This module contains code relevant to anyone wanting to add support for an asset management
-# system.
-#
-# If you are a tool or application developer, @see openassetio.hostAPI
-#
+If you are a tool or application developer, see @ref openassetio.hostAPI
+"""
+
 from .Host import Host
 from .HostSession import HostSession
 from .ManagerInterface import ManagerInterface

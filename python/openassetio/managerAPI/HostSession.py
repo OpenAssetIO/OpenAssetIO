@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,6 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.managerAPI.HostSession
+A single-class module, providing the HostSession class.
+"""
 
 from ..logging import LoggerInterface
 
@@ -36,8 +40,8 @@ class HostSession(object):
         through this entrypoint. This ensures it will be appropriately
         presented to the user.
 
-    @see log()
-    @see openassetio.HostInterface.HostInterface
+    @see @ref log
+    @see @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
     """
     kDebugAPI = LoggerInterface.kDebugAPI
     kDebug = LoggerInterface.kDebug
@@ -72,7 +76,7 @@ class HostSession(object):
         It will be mapped to the correct host sub-systems to ensure that
         it is presented correctly.
 
-        @see openassetio.logging
+        @see @ref openassetio.logging "logging"
         """
         self.__logger.log(message, severity)
 

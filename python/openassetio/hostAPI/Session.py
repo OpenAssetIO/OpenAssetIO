@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 [The Foundry Visionmongers Ltd]
+#   Copyright 2013-2021 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,20 +13,22 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+"""
+@namespace openassetio.hostAPI.Session
+A single-class module, providing the Session class.
+"""
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
 from .HostInterface import HostInterface
 from .Manager import Manager
-from .ManagerFactoryInterface import ManagerFactoryInterface
 
 from ..managerAPI import Host, HostSession
 
 from .. import constants
 from ..Context import Context
-from ..exceptions import ManagerError
-from ..logging import LoggerInterface
+from ..exceptions import ManagerException
 
 
 __all__ = ['Session']
@@ -46,19 +48,18 @@ class Session(Debuggable):
     manager and it's settings. This can be useful for persisting the
     configuration across host process invocations.
 
-    @see openassetio.hostAPI.Session.getSettings
-    @see openassetio.hostAPI.Session.setSettings
+    @see @ref getSettings
+    @see @ref setSettings
 
     The Session class is suitable for all Hosts, but in cases where a UI
     is presented to the user, it may be desirable to use the UISession
     instead, as it permits access to a Managers widgets etc...
 
-    @see openassetio.hostAPI.SessionManager
-    @see openassetio-ui.UISessionManager
-    @see openassetio-ui.UISession
+    @see @needsref openassetio-ui.UISession
     """
 
     def __init__(self, hostInterface, logger, managerFactory):
+        # pylint: disable=line-too-long
         """
         @param hostInterface openassetio.hostAPI.HostInterface The current
         HostInterface instance (note: only a single currently active
@@ -77,13 +78,13 @@ class Session(Debuggable):
         factory that will provide instances of a manager's
         ManagerInterface as required by the session.
 
-          @see useManager()
-          @see currentManager()
-          @see openassetio.logging
-          @see openassetio.hostAPI.ManagerFactoryInterface
-          @see openassetio.pluginSystem.PluginSystemManagerFactory
-          @see
-          openassetio.hostAPI.SessionManager.SessionManager.currentSession()
+          @see @ref useManager
+          @see @ref currentManager
+          @see @ref openassetio.logging "logging"
+          @see @ref openassetio.hostAPI.ManagerFactoryInterface
+          "ManagerFactoryInterface"
+          @see @ref openassetio.pluginSystem.PluginSystemManagerFactory
+          "PluginSystemManagerFactory"
         """
         super(Session, self).__init__()
 
@@ -119,9 +120,9 @@ class Session(Debuggable):
     @debugApiCall
     @auditApiCall("Session")
     def registeredManagers(self):
+        # pylint: disable=line-too-long
         """
-        @see
-        openassetio.pluginSystem.PluginSystemManagerFactory.managers()
+        @see @ref openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managers "managers"
         """
         return self._factory.managers()
 
@@ -146,14 +147,11 @@ class Session(Debuggable):
         """
 
         if identifier and not self._factory.managerRegistered(identifier):
-            raise ManagerError("Unknown Manager '%s'" % identifier)
+            raise ManagerException("Unknown Manager '%s'" % identifier)
 
         # No need to do anything if its the same
         if identifier == self._managerId:
             return
-
-        oldId = self._managerId if self._managerId else ''
-        newId = identifier if identifier else ''
 
         self._managerId = identifier
         self._managerSettings = dict(settings) if settings else None
@@ -173,7 +171,7 @@ class Session(Debuggable):
         if not self._manager:
             interface = self._factory.instantiate(self._managerId)
             self._manager = Manager(interface, self._hostSession())
-            self._manager._debugLogFn = self._debugLogFn
+            self._manager._debugLogFn = self._debugLogFn  # pylint: disable=protected-access
             if self._managerSettings:
                 self._manager.setSettings(self._managerSettings)
             self._manager.initialize()
@@ -197,19 +195,19 @@ class Session(Debuggable):
         context's transactions are only ever controlled by the context
         that created them.
 
-        @see openassetio.Context
+        @see @ref openassetio.Context.Context "Context"
 
         @exception RuntimeError if called when the session has no
         current manager.
         """
-        c = Context()
+        ctx = Context()
 
         # If we have a parent, copy its setup
         if parent:
-            c.access = parent.access
-            c.retention = parent.retention
-            c.locale = parent.locale
-            c.managerOptions = parent.managerOptions
+            ctx.access = parent.access
+            ctx.retention = parent.retention
+            ctx.locale = parent.locale
+            ctx.managerOptions = parent.managerOptions
 
         manager = self.currentManager()
         if manager is None:
@@ -219,10 +217,11 @@ class Session(Debuggable):
         if parent:
             parentState = parent.managerInterfaceState
 
-        c.managerInterfaceState = manager._createState(parentState)
-        c.actionGroupDepth = 0
+        # pylint: disable=protected-access
+        ctx.managerInterfaceState = manager._createState(parentState)
+        ctx.actionGroupDepth = 0
 
-        return c
+        return ctx
 
     @auditApiCall("Session")
     def getSettings(self):
