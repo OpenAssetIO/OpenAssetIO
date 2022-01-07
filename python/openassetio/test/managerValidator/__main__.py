@@ -27,4 +27,4 @@ from openassetio.test.managerValidator import commandLine, validatorSuite
 
 isSuccessful = commandLine.execute(sys.argv, validatorSuite)
 
-sys.exit(int(isSuccessful))
+sys.exit(int(not isSuccessful))
