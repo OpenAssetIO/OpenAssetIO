@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.pluginSystem.ManagerPlugin
 A single-class module, providing the ManagerPlugin class.
 """
 
