@@ -35,12 +35,14 @@ from openassetio.test.managerValidator._implementation import (
 
 
 class Test_Loader_loadTestsFromTestCase:
+
     def test_when_class_of_cases_has_no_fixtures_then_initialises_test_cases_with_no_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
             mock_test_case_two):
         # setup
 
-        loader = _ValidatorTestLoader(a_fixture_dict, mock_session)
+        loader = _ValidatorTestLoader(mock_session)
+        loader.setFixtures(a_fixture_dict)
 
         # action
 
@@ -67,7 +69,8 @@ class Test_Loader_loadTestsFromTestCase:
             "test_one": case_one_fixtures,
             "test_two": case_two_fixtures
         }
-        loader = _ValidatorTestLoader(a_fixture_dict, mock_session)
+        loader = _ValidatorTestLoader(mock_session)
+        loader.setFixtures(a_fixture_dict)
 
         # action
 
@@ -92,7 +95,8 @@ class Test_Loader_loadTestsFromTestCase:
         a_fixture_dict["Test_MockTest"] = {
             "test_two": case_two_fixtures
         }
-        loader = _ValidatorTestLoader(a_fixture_dict, mock_session)
+        loader = _ValidatorTestLoader(mock_session)
+        loader.setFixtures(a_fixture_dict)
 
         # action
 

@@ -24,7 +24,7 @@ from openassetio import hostAPI, pluginSystem, logging
 __all__ = ['createHarness']
 
 
-def createHarness(managerIdentifier, fixtures):
+def createHarness(managerIdentifier):
     """
     Create the test harness used begin test case execution.
     """
@@ -35,7 +35,7 @@ def createHarness(managerIdentifier, fixtures):
     session = hostAPI.Session(hostInterface, logger, managerFactory)
     session.useManager(managerIdentifier)
 
-    loader = _ValidatorTestLoader(fixtures, session)
+    loader = _ValidatorTestLoader(session)
     return _ValidatorHarness(unittest.main, loader)
 
 
@@ -62,7 +62,7 @@ class _ValidatorHarness:
         self.__runner = runner
         self.__loader = loader
 
-    def executeTests(self, extraArgs, module):
+    def executeTests(self, extraArgs, module, fixtures):
         """
         Run the tests harness test cases in the provided `module`,
         passing any `extraArgs` to the test runner.
@@ -73,8 +73,13 @@ class _ValidatorHarness:
         @param module `types.ModuleType` Python module containing the
         test cases to execute.
 
+        @param fixtures `dict` A dictionary containing fixtures for the
+        the tests. See harness.executeSuite for structure.
+
         @return `bool` `True` if all tests succeeded, `False` otherwise.
         """
+        # Ensure the loader has the correct fixtures
+        self.__loader.setFixtures(fixtures)
         # Prepend the "program name" to simulate full argv for unittest.
         argv = [self._kValidatorHarnessProgramName]
         if extraArgs:
@@ -89,18 +94,15 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
     Custom test case loader that injects test harness fixtures into
     test cases for use in querying and assertions.
     """
-    def __init__(self, fixtures, session):
+    def __init__(self, session):
         """
         Initializes an instance of this class.
-
-        @param fixtures `Dict[Any, Any]` Dictionary of test case
-        fixtures.
 
         @param session hostAPI.Session.Session Test harness OpenAssetIO
         @ref session
         """
-        self.__fixtures = fixtures
         self.__session = session
+        self.__fixtures = {}
         super(_ValidatorTestLoader, self).__init__()
 
     def loadTestsFromTestCase(self, testCaseClass):
@@ -126,6 +128,15 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             )
             for testCaseName in testCaseNames)
         return loadedSuite
+
+    def setFixtures(self, fixtures):
+        """
+        Sets the fixtures that will be used for test cases loaded by the class.
+
+        @param fixtures `Dict[Any, Any]` Dictionary of test case fixtures.
+
+        """
+        self.__fixtures = fixtures
 
 
 class _ValidatorHarnessHostInterface(hostAPI.HostInterface):

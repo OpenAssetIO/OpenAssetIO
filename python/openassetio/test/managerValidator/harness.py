@@ -78,8 +78,8 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
     """
 
     managerIdentifier = fixtures["identifier"]
-    harness = _implementation.createHarness(managerIdentifier, fixtures)
-    return harness.executeTests(unittestExtraArgs, testSuiteModule)
+    harness = _implementation.createHarness(managerIdentifier)
+    return harness.executeTests(unittestExtraArgs, testSuiteModule, fixtures)
 
 
 def fixturesFromPyFile(path):
