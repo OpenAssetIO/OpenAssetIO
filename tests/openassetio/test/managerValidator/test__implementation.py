@@ -36,7 +36,7 @@ from openassetio.test.managerValidator._implementation import (
 
 class Test_Loader_loadTestsFromTestCase:
 
-    def test_when_class_of_cases_has_no_fixtures_then_initialises_test_cases_with_no_fixtures(
+    def test_when_class_of_cases_has_no_fixtures_then_initializes_test_cases_with_no_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
             mock_test_case_two):
         # setup
@@ -57,7 +57,7 @@ class Test_Loader_loadTestsFromTestCase:
             call(None, mock_session, "test_two")])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
-    def test_when_cases_have_fixtures_then_initialises_test_cases_with_fixtures(
+    def test_when_cases_have_fixtures_then_initializes_test_cases_with_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
             mock_test_case_two):
         # setup
@@ -85,7 +85,7 @@ class Test_Loader_loadTestsFromTestCase:
             call(case_two_fixtures, mock_session, "test_two")])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
-    def test_when_case_has_no_fixtures_then_initialises_test_case_with_no_fixtures(
+    def test_when_case_has_no_fixtures_then_initializes_test_case_with_no_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
             mock_test_case_two):
         # setup

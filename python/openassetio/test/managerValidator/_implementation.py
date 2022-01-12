@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-Boilerplate classes for initialisation and execution of test cases.
+Boilerplate classes for initialization and execution of test cases.
 """
 import unittest
 
