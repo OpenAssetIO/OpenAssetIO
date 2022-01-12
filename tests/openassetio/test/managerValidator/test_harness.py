@@ -109,41 +109,42 @@ class Test_FixtureAugmentedTestCase:
 
 class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:
 
-    def test_when_not_dict_then_fails(self, mock_test_case):
+    def test_when_not_dict_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            mock_test_case.assertIsStringKeyPrimitiveValueDict("something")
+            a_test_case.assertIsStringKeyPrimitiveValueDict("something")
 
-    def test_when_dict_empty_then_passes(self, mock_test_case):
-        mock_test_case.assertIsStringKeyPrimitiveValueDict({})
+    def test_when_dict_empty_then_passes(self, a_test_case):
+        a_test_case.assertIsStringKeyPrimitiveValueDict({})
 
-    def test_when_dict_ok_then_passes(self, mock_test_case):
-        mock_test_case.assertIsStringKeyPrimitiveValueDict({
+    def test_when_dict_ok_then_passes(self, a_test_case):
+        a_test_case.assertIsStringKeyPrimitiveValueDict({
             "k1": 1, "k2": 1.1, "k3": "v", "k4": True
         })
 
-    def test_when_dict_has_non_string_key_then_fails(self, mock_test_case):
+    def test_when_dict_has_non_string_key_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            mock_test_case.assertIsStringKeyPrimitiveValueDict({
+            a_test_case.assertIsStringKeyPrimitiveValueDict({
                 1: 1
             })
 
-    def test_when_dict_has_nested_dict_then_fails(self, mock_test_case):
+    def test_when_dict_has_nested_dict_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            mock_test_case.assertIsStringKeyPrimitiveValueDict({
+            a_test_case.assertIsStringKeyPrimitiveValueDict({
                 "k": {}
             })
 
-    def test_when_dict_has_None_then_fails(self, mock_test_case):
+    def test_when_dict_has_None_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            mock_test_case.assertIsStringKeyPrimitiveValueDict({
+            a_test_case.assertIsStringKeyPrimitiveValueDict({
                 "k": None
             })
 
-    def test_when_dict_has_object_then_fails(self, mock_test_case):
+    def test_when_dict_has_object_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            mock_test_case.assertIsStringKeyPrimitiveValueDict({
+            a_test_case.assertIsStringKeyPrimitiveValueDict({
                 "k": object()
             })
+
 
 #
 # Fixtures
@@ -188,7 +189,7 @@ def executeSuiteTests_fixtures(resources_dir):
 
 
 @pytest.fixture
-def mock_test_case(a_fixture_dict, mock_session):
+def a_test_case(a_fixture_dict, mock_session):
     return FixtureAugmentedTestCase(a_fixture_dict, mock_session)
 
 #
