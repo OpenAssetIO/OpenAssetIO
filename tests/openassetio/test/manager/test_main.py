@@ -37,7 +37,7 @@ class Test_CLI_exit_code:
         # errors could have an exit code of 1
         assert (
             "FAIL: test_matches_fixture "
-            "(openassetio.test.manager.validatorSuite.Test_identifier)"
+            "(openassetio.test.manager.apiComplianceSuite.Test_identifier)"
             in str(result.stderr))
         assert result.returncode == 1
 

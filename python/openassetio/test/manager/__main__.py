@@ -24,7 +24,7 @@ import argparse
 import inspect
 import sys
 
-from openassetio.test.manager import harness, validatorSuite
+from openassetio.test.manager import harness, apiComplianceSuite
 
 
 cmdline = argparse.ArgumentParser(
@@ -65,7 +65,7 @@ cmdline = argparse.ArgumentParser(
         }
 
         Test classes, method, and fixture names are available in
-        openassetio.test.manager.validatorSuite.
+        openassetio.test.manager.apiComplianceSuite.
          """))
 
 cmdline.add_argument(
@@ -88,6 +88,6 @@ cmdline.add_argument(
 args, extraArgs = cmdline.parse_known_args(sys.argv[1:])
 
 fixtures = harness.fixturesFromPyFile(args.fixtures)
-isSuccessful = harness.executeSuite(validatorSuite, fixtures, extraArgs)
+isSuccessful = harness.executeSuite(apiComplianceSuite, fixtures, extraArgs)
 
 sys.exit(int(not isSuccessful))
