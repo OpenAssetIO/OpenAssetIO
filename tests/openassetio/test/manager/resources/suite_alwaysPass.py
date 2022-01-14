@@ -14,29 +14,20 @@
 #   limitations under the License.
 #
 """
-Manager test harness test case fixtures for managerValidator test
-that result in a pass.
+A test suite that always passes
 """
 
-# pylint: disable=all
+# pylint: disable=invalid-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
 
-kIdentifier = "org.openassetio.test.managerValidator.stubManager"
+from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
-fixtures = {
-    "identifier": kIdentifier,
-    "Test_identifier": {
-        "test_matches_fixture": {
-            "identifier": kIdentifier
-        }
-    },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "displayName": "managerValidator Stub Manager"
-        }
-    },
-    "Test_info": {
-        "test_matches_fixture": {
-            "info" : {}
-        }
-    }
-}
+
+__all__ = []
+
+
+class Test_passingSuite(FixtureAugmentedTestCase):
+
+    def test_that_will_always_pass(self):
+        # pylint: disable=redundant-unittest-assert
+        self.assertTrue(True)

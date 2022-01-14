@@ -14,29 +14,17 @@
 #   limitations under the License.
 #
 """
-Manager test harness test case fixtures for managerValidator test
-that result in a failure of the identifier test.
+Fixtures for executeSuiteTests.py
 """
 
-# pylint: disable=all
-
 fixtures = {
-    "identifier": "org.openassetio.test.managerValidator.stubManager",
-    "Test_identifier": {
-        "test_matches_fixture": {
-            # Fail here by expecting a different identifier
-            "identifier": "not.the.right.identifier"
+    "identifier": "org.openassetio.test.manager.stubManager",
+    "Test_executeSuite_fixtures": {
+        "test_when_test_function_is_run_then_fixtures_are_those_for_the_test": {
+            "aUniqueValue": 5
         }
     },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "displayName": "managerValidator Stub Manager"
-        }
-    },
-    "Test_info": {
-        "test_matches_fixture": {
-            "info" : {}
-        }
-    },
+    "Test_executeSuite_with_case_fixtures": {
+        "non_existant_test": {}
+    }
 }
-

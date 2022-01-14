@@ -32,7 +32,7 @@ import pytest
 
 
 from openassetio import constants
-from openassetio.test.managerValidator.harness import \
+from openassetio.test.manager.harness import \
         executeSuite, fixturesFromPyFile, FixtureAugmentedTestCase
 
 #

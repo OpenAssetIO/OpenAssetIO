@@ -24,11 +24,11 @@ import argparse
 import inspect
 import sys
 
-from openassetio.test.managerValidator import harness, validatorSuite
+from openassetio.test.manager import harness, validatorSuite
 
 
 cmdline = argparse.ArgumentParser(
-    prog="managervalidator",
+    prog="openassetio.test.manager",
     formatter_class=argparse.RawDescriptionHelpFormatter,
     description=inspect.cleandoc("""
         The OpenAssetIO Manager test harness - A tool to validate a given
@@ -65,7 +65,7 @@ cmdline = argparse.ArgumentParser(
         }
 
         Test classes, method, and fixture names are available in
-        openassetio.test.managerValidator.validatorSuite.
+        openassetio.test.manager.validatorSuite.
          """))
 
 cmdline.add_argument(

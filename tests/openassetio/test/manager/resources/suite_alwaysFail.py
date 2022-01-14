@@ -14,17 +14,20 @@
 #   limitations under the License.
 #
 """
-Fixtures for executeSuiteTests.py
+A test suite that always fails
 """
 
-fixtures = {
-    "identifier": "org.openassetio.test.managerValidator.stubManager",
-    "Test_executeSuite_fixtures": {
-        "test_when_test_function_is_run_then_fixtures_are_those_for_the_test": {
-            "aUniqueValue": 5
-        }
-    },
-    "Test_executeSuite_with_case_fixtures": {
-        "non_existant_test": {}
-    }
-}
+# pylint: disable=invalid-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
+
+from openassetio.test.manager.harness import FixtureAugmentedTestCase
+
+
+__all__ = []
+
+
+class Test_failingSuite(FixtureAugmentedTestCase):
+
+    def test_that_will_always_fail(self):
+        # pylint: disable=redundant-unittest-assert
+        self.assertTrue(False)

@@ -48,7 +48,7 @@ class _ValidatorHarness:
     """
     # pylint: disable=too-few-public-methods
 
-    _kValidatorHarnessProgramName = "managerValidator"
+    _kValidatorHarnessProgramName = "openassetio.test.manager"
 
     def __init__(self, runner, loader):
         """
@@ -145,7 +145,7 @@ class _ValidatorHarnessHostInterface(hostAPI.HostInterface):
     implementation.
     """
     def identifier(self):
-        return "org.openassetio.test.managerValidator"
+        return "org.openassetio.test.manager.harness"
 
     def displayName(self):
-        return "OpenAssetIO Manager Validator"
+        return "OpenAssetIO Manager Test Harness"

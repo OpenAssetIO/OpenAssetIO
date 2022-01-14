@@ -14,20 +14,29 @@
 #   limitations under the License.
 #
 """
-A test suite that always fails
+Manager test harness test case fixtures for standard apiComplianceSuite,
+that when run against the StubManager, result in a fail.
 """
 
-# pylint: disable=invalid-name
-# pylint: disable=missing-class-docstring,missing-function-docstring
+# pylint: disable=all
 
-from openassetio.test.managerValidator.harness import FixtureAugmentedTestCase
+fixtures = {
+    "identifier": "org.openassetio.test.manager.stubManager",
+    "Test_identifier": {
+        "test_matches_fixture": {
+            # Fail here by expecting a different identifier
+            "identifier": "not.the.right.identifier"
+        }
+    },
+    "Test_displayName": {
+        "test_matches_fixture": {
+            "displayName": "Stub Manager"
+        }
+    },
+    "Test_info": {
+        "test_matches_fixture": {
+            "info" : {}
+        }
+    },
+}
 
-
-__all__ = []
-
-
-class Test_failingSuite(FixtureAugmentedTestCase):
-
-    def test_that_will_always_fail(self):
-        # pylint: disable=redundant-unittest-assert
-        self.assertTrue(False)

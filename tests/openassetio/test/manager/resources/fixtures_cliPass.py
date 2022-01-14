@@ -14,20 +14,29 @@
 #   limitations under the License.
 #
 """
-A test suite that always passes
+Manager test harness test case fixtures for standard apiComplianceSuite,
+that when run against the StubManager, result in a pass.
 """
 
-# pylint: disable=invalid-name
-# pylint: disable=missing-class-docstring,missing-function-docstring
+# pylint: disable=all
 
-from openassetio.test.managerValidator.harness import FixtureAugmentedTestCase
+kIdentifier = "org.openassetio.test.manager.stubManager"
 
-
-__all__ = []
-
-
-class Test_passingSuite(FixtureAugmentedTestCase):
-
-    def test_that_will_always_pass(self):
-        # pylint: disable=redundant-unittest-assert
-        self.assertTrue(True)
+fixtures = {
+    "identifier": kIdentifier,
+    "Test_identifier": {
+        "test_matches_fixture": {
+            "identifier": kIdentifier
+        }
+    },
+    "Test_displayName": {
+        "test_matches_fixture": {
+            "displayName": "Stub Manager"
+        }
+    },
+    "Test_info": {
+        "test_matches_fixture": {
+            "info" : {}
+        }
+    }
+}

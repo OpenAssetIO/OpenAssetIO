@@ -37,7 +37,7 @@ class Test_CLI_exit_code:
         # errors could have an exit code of 1
         assert (
             "FAIL: test_matches_fixture "
-            "(openassetio.test.managerValidator.validatorSuite.Test_identifier)"
+            "(openassetio.test.manager.validatorSuite.Test_identifier)"
             in str(result.stderr))
         assert result.returncode == 1
 
@@ -61,7 +61,7 @@ class Test_CLI_output:
 class Test_CLI_arguments:
 
     def test_when_called_without_fixtures_arg_then_exits_with_usage_and_exit_code_is_two(self):
-        args = ["python", "-m", "openassetio.test.managerValidator"]
+        args = ["python", "-m", "openassetio.test.manager"]
         # We explicitly don't want an exception to be raised.
         # pylint: disable=subprocess-run-check
         result = subprocess.run(args, capture_output=True)
@@ -91,14 +91,14 @@ def a_failing_fixtures_file(resources_dir):
 
 def execute_cli(fixtures_path, *extra_args):
     """
-    Invokes the managerValidator CLI via a subprocess.
+    Invokes the manager CLI via a subprocess.
 
     @param fixturesPath `str` The path to the test fixtues .py file.
     @param extra_args `List[str]` Additional args to pass to the CLI.
 
     @return `subprocess.CompletedProcess` The results of the invocation.
     """
-    all_args = ["python", "-m", "openassetio.test.managerValidator"]
+    all_args = ["python", "-m", "openassetio.test.manager"]
     all_args.extend(["-f", fixtures_path])
     if extra_args:
         all_args.extend(extra_args)

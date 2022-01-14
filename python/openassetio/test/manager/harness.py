@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.test.managerValidator.harness
+@namespace openassetio.test.manager.harness
 A `unittest` based test harness that allows @ref manager plugin
 developers to check that their implementation meets the requirements of
 the API.

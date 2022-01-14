@@ -29,8 +29,8 @@ from unittest.mock import Mock, call
 import pytest
 
 
-from openassetio.test.managerValidator.harness import FixtureAugmentedTestCase
-from openassetio.test.managerValidator._implementation import (
+from openassetio.test.manager.harness import FixtureAugmentedTestCase
+from openassetio.test.manager._implementation import (
         _ValidatorHarnessHostInterface, _ValidatorTestLoader)
 
 
@@ -115,13 +115,13 @@ class Test_Loader_loadTestsFromTestCase:
 class Test_ValidatorHostInterface_identifier:
     def test_returns_expected_id(self):
         interface = _ValidatorHarnessHostInterface()
-        assert interface.identifier() == "org.openassetio.test.managerValidator"
+        assert interface.identifier() == "org.openassetio.test.manager.harness"
 
 
 class Test_ValidatorHostInterface_displayName:
     def test_returns_expected_name(self):
         interface = _ValidatorHarnessHostInterface()
-        assert interface.displayName() == "OpenAssetIO Manager Validator"
+        assert interface.displayName() == "OpenAssetIO Manager Test Harness"
 
 
 class Test_FixtureAugmentedTestCase_init:

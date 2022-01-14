@@ -23,7 +23,7 @@ that the harness implementation supplies the correct state to each test.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 from openassetio.hostAPI import Manager, Session
-from openassetio.test.managerValidator.harness import FixtureAugmentedTestCase
+from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
 __all__ = []
@@ -37,7 +37,7 @@ class Test_executeSuite_session(FixtureAugmentedTestCase):
     def test_when_called_then_session_has_expected_host(self):
         self.assertEqual(
             self._session.host().identifier(),
-            "org.openassetio.test.managerValidator"
+            "org.openassetio.test.manager.harness"
         )
 
 
@@ -52,7 +52,7 @@ class Test_executeSuite_manager(FixtureAugmentedTestCase):
     def test_when_called_then_manager_is_the_expected_manager(self):
         self.assertEqual(
             self._manager.identifier(),
-            "org.openassetio.test.managerValidator.stubManager"
+            "org.openassetio.test.manager.stubManager"
         )
 
 
