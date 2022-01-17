@@ -14,14 +14,14 @@
 #   limitations under the License.
 #
 """
-Manager test harness test case fixtures for managerValidator test
-that result in a failure of the identifier test.
+Manager test harness test case fixtures for standard apiComplianceSuite,
+that when run against the StubManager, result in a fail.
 """
 
 # pylint: disable=all
 
 fixtures = {
-    "identifier": "org.openassetio.test.managerValidator.stubManager",
+    "identifier": "org.openassetio.test.manager.stubManager",
     "Test_identifier": {
         "test_matches_fixture": {
             # Fail here by expecting a different identifier
@@ -30,7 +30,7 @@ fixtures = {
     },
     "Test_displayName": {
         "test_matches_fixture": {
-            "displayName": "managerValidator Stub Manager"
+            "displayName": "Stub Manager"
         }
     },
     "Test_info": {

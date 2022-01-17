@@ -19,18 +19,33 @@ Common pytest fixtures available to all tests in this package.
 
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-function-docstring
+
+import os
 from unittest import mock
 
 import pytest
 
 from openassetio import hostAPI, logging
-from openassetio.test.managerValidator import validatorHarness
 
 
 @pytest.fixture
-def mock_host_interface():
-    return mock.create_autospec(
-        validatorHarness.ValidatorHarnessHostInterface, instance=True, spec_set=True)
+def resources_dir():
+    """
+    The path to the resources directory for this test suite.
+    """
+    test_dir = os.path.dirname(__file__)
+    return os.path.join(test_dir, "resources")
+
+
+@pytest.fixture(autouse=True)
+def openassetio_env_with_test_resources(resources_dir, monkeypatch):
+    """
+    A fixture that configures the process environment such
+    that the OpenAssetIO library can load the associated
+    test resource plugins, and debug logging is enabled.
+    """
+    plugin_path = os.path.join(resources_dir, "plugins")
+    monkeypatch.setenv("OPENASSETIO_PLUGIN_PATH", plugin_path)
 
 
 @pytest.fixture

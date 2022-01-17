@@ -22,7 +22,7 @@ parametrised by the provided fixtures.
 
 # pylint: disable=invalid-name, missing-function-docstring
 
-from .validatorHarness import FixtureAugmentedTestCase
+from .harness import FixtureAugmentedTestCase
 
 
 __all__ = []

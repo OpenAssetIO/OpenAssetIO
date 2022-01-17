@@ -15,7 +15,7 @@
 #
 """
 An OpenAssetIO ManagerPlugin and stub ManagerInterface implementation
-providing dummy data and input validation for the managerValidator
+providing dummy data and input validation for the manager
 test suite.
 """
 
@@ -27,17 +27,17 @@ from openassetio.pluginSystem import ManagerPlugin
 class StubManager(ManagerInterface):
     """
     A stub manager implementation that provides functionality
-    required for the tests/openassetio/test/managerValidator
+    required for the tests/openassetio/test/manager
     test suite to function.
     """
     # TODO Remove once we have closed #163
     # pylint: disable=abstract-method
     @staticmethod
     def identifier():
-        return "org.openassetio.test.managerValidator.stubManager"
+        return "org.openassetio.test.manager.stubManager"
 
     def displayName(self):
-        return "managerValidator Stub Manager"
+        return "Stub Manager"
 
     def initialize(self, hostSession):
         # pylint: disable=unused-argument

@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -14,17 +14,20 @@
 #   limitations under the License.
 #
 """
-Entry point for command-line execution of the manager plugin test
-harness.
+A test suite that always fails
 """
 
 # pylint: disable=invalid-name
+# pylint: disable=missing-class-docstring,missing-function-docstring
 
-import sys
-
-from openassetio.test.managerValidator import commandLine, validatorSuite
+from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
-isSuccessful = commandLine.execute(sys.argv, validatorSuite)
+__all__ = []
 
-sys.exit(int(not isSuccessful))
+
+class Test_failingSuite(FixtureAugmentedTestCase):
+
+    def test_that_will_always_fail(self):
+        # pylint: disable=redundant-unittest-assert
+        self.assertTrue(False)
