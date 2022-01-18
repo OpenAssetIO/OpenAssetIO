@@ -48,6 +48,9 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
     @param unittestExtraArgs `List[str]` Additional args to pass to the
     `unittest` framework, see `unittest.main` `argv` for more details.
 
+    @return `bool` True if the suite passed, False if there was one or
+    more failures.
+
     The format of the fixtures dictionary is as follows:
 
     @code{.py}
@@ -159,7 +162,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
 
         @param dictionary `Dict[Any, Any]` Dictionary to check.
 
-        @exception `AssertionError` On failure.
+        @exception AssertionError On failure.
         """
         self.assertIsInstance(dictionary, dict)
 

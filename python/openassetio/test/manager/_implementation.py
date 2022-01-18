@@ -14,7 +14,9 @@
 #   limitations under the License.
 #
 """
-Boilerplate classes for initialization and execution of test cases.
+@namespace openassetio.test.manager._implementation
+Private implementation classes for the manager test framework.
+@private
 """
 import unittest
 
@@ -27,6 +29,7 @@ __all__ = ['createHarness']
 def createHarness(managerIdentifier):
     """
     Create the test harness used begin test case execution.
+    @private
     """
     hostInterface = _ValidatorHarnessHostInterface()
     logger = logging.SeverityFilter(logging.ConsoleLogger())
@@ -45,6 +48,8 @@ class _ValidatorHarness:
 
     It acts as an anti-corruption layer around a unittest-compatible
     test runner, injecting a custom testcase loader.
+
+    @private
     """
     # pylint: disable=too-few-public-methods
 
@@ -93,6 +98,8 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
     """
     Custom test case loader that injects test harness fixtures into
     test cases for use in querying and assertions.
+
+    @private
     """
     def __init__(self, session):
         """
@@ -143,6 +150,8 @@ class _ValidatorHarnessHostInterface(hostAPI.HostInterface):
     """
     Minimal required OpenAssetIO hostAPI.HostInterface.HostInterface
     implementation.
+
+    @private
     """
     def identifier(self):
         return "org.openassetio.test.manager.harness"
