@@ -99,6 +99,10 @@
  *
  * @section manager_todo Implementation Check List
  *
+ * @note You can use the @ref testing_manager_plugins
+ * "manager test harness" to check your implementation, and as a basis
+ * for additional tests/CI of your own.
+ *
  * @subsection manager_todo_basic_resolution Required for Resolution Only
  *
  * - Implement the @ref openassetio.managerAPI.ManagerInterface
