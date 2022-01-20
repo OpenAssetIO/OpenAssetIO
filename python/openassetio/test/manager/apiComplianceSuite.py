@@ -14,10 +14,9 @@
 #   limitations under the License.
 #
 """
-Manager test harness test case suite.
-
-Test cases in this module are executed against the provided plugin,
-parametrised by the provided fixtures.
+@namespace openassetio.test.manager.apiComplianceSuite
+A manager test harness test case suite that validates that a specific
+manager plugin complies to the relevant core OpenAssetIO API contract.
 """
 
 # pylint: disable=invalid-name, missing-function-docstring

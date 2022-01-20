@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
 #   limitations under the License.
 #
 """
-This package contains a test harness that exercises a manager plugin
-implementation.
+@namespace openassetio.test.manager
+This package contains a test harness that can exercise a manager plugin
+implementation against a standard API compliance suite, or other user
+supplied test cases.
 """
+pass # Some statement is required so the above shows up in built docs
