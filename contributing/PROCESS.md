@@ -1,4 +1,4 @@
-# Contributing
+# The contribution process
 
 This project operates a Pull Request model, using the [GitHub flow](https://guides.github.com/introduction/flow/index.html)
 approach. The rough outline is as follows:
