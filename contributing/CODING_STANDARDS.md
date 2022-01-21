@@ -8,6 +8,7 @@ for docstrings.
 For markdown documents, line wrapping is also performed at 72
 characters, where possible.
 
+
 ### Python
 
 For Python code we aim to adhere to the PEP8 convention, with a few
@@ -15,10 +16,12 @@ exceptions. Of these exceptions, the most obvious is that the naming
 scheme is designed to more closely mirror our C++ naming conventions,
 to ease C++ interop implementation and readability.
 
+
 ### Example code
 
 An exception to the above is for code examples written in Python. Here,
 PEP8 should be strictly followed, including its naming conventions.
+
 
 ### Method/function naming
 
@@ -31,6 +34,7 @@ access level (e.g. protected getter vs. public setter), then they
 _should_ be prefixed with `get` and `set`, respectively.
 
 This makes it easier to determine the API surface at a glance.
+
 
 ### Test cases
 
@@ -64,6 +68,7 @@ one code path. In that case shoehorning a test case description into a
 alternative. Best judgement should be used, bearing in mind readability
 and consistency tradeoffs.
 
+
 ### IDE configuration
 
 To aid in conforming to our coding style a [`.editorconfig`](https://editorconfig.org/)
@@ -78,6 +83,7 @@ Common file types that we expect to encounter during development of
 OpenAssetIO have their own settings, many of which remain commented out
 for reference and may be enabled and tweaked in future.
 
+
 ### Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
@@ -87,6 +93,7 @@ When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
+
 
 ### Parameter documentation
 
