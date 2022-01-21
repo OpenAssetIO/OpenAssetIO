@@ -24,7 +24,10 @@ double check:
 
  - You have a suitable [CLA](PROCESS.md#contribution-sign-off) in
    place.
- - All your commits signed (using `-s` to accept the [DCO](PROCESS.md#contribution-sign-off).
+ - All your commits are signed-off and signed (using `-s` to accept the
+   [DCO](PROCESS.md#contribution-sign-off), and
+   [GPG](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
+   signed to verify your identity).
  - Each commit only affects a single logical unit of work.
  - The documentation has been updated accordingly to cover your changes.
  - There is no dead, commented out or placeholder code.

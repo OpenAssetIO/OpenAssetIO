@@ -100,6 +100,8 @@ Signed-off-by: Jóna Jónsdóttir <jona.jonsdottir@example.com>
 
 This can be added automatically to a commit using `git commit -s`.
 
+We also require commits to be [GPG signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+
 In addition, contributors are required to complete either the Individual
 or Corporate Contribution License Agreement. Please contact one of the
 trusted committers for more information.
