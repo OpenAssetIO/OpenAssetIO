@@ -4,9 +4,10 @@
 #-----------------------------------------------------------------------
 # CMake preamble.
 
-# FindPython's Development.Module component was added in 3.18, and
-# pybind11 recommends 3.18.2+.
-cmake_minimum_required(VERSION 3.18.2)
+# * FindPython's Development.Module component was added in 3.18, and
+#   pybind11 recommends 3.18.2+.
+# * PROJECT_IS_TOP_LEVEL requires 3.21+
+cmake_minimum_required(VERSION 3.21)
 
 # Additional include directories for CMake utils.
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
