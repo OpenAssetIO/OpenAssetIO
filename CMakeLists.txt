@@ -101,18 +101,25 @@ endif ()
 #-----------------------------------------------------------------------
 # Options
 
-# Installation options
-# TODO(DF): Install dir wrangling depending on desired Python/C++
-#   library combination. See OTIO.
-
-# Build options
-
 # Surface `BUILD_SHARED_LIBS` as a non-hidden CMake option in CMake
 # GUIs. This controls whether static or shared libs are built.
 # TODO(DF): We may end up needing to support building of both shared
 #   and static libs simultaneously. Also, using this means we inherit
 #   the option if openassetio is used as a CMake subproject.
 option(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
+
+# Enable Python bindings build by default.
+option(OPENASSETIO_ENABLE_PYTHON "Build Python bindings" ON)
+if (OPENASSETIO_ENABLE_PYTHON)
+    # Allow overriding the desired Python version.
+    set(OPENASSETIO_PYTHON_VERSION "3.7" CACHE STRING "Python version")
+    # By default we'll compute the correct site-packages directory
+    # structure, but allow overriding.
+    set(OPENASSETIO_PYTHON_SITEDIR
+        ""
+        CACHE STRING
+        "Override default Python module install directory, relative to CMAKE_INSTALL_PREFIX")
+endif ()
 
 # Default treating compiler warnings as errors to OFF, since
 # consumers of this project may use unpredictable toolchains.
@@ -164,15 +171,22 @@ endif ()
 
 
 #-----------------------------------------------------------------------
+# Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
+
+include(GNUInstallDirs)
+
+
+#-----------------------------------------------------------------------
+# Third-party packages
+
+include(ThirdParty)
+
+
+#-----------------------------------------------------------------------
 # Enable ctest testing
 
 enable_testing()
 
-#-----------------------------------------------------------------------
-# Provides install directory variables as defined by the GNU Coding
-# Standards.
-
-include(GNUInstallDirs)
 
 #-----------------------------------------------------------------------
 # Generate OpenAssetIOConfig.cmake et al. for bundling as a CMake lib.
@@ -221,6 +235,9 @@ install(
 message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
 message(STATUS "${PROJECT_DESCRIPTION}")
 message(STATUS "CMake ${CMAKE_VERSION}")
+if (CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Using toolchain file            = ${CMAKE_TOOLCHAIN_FILE}")
+endif ()
 message(STATUS "Project build dir               = ${PROJECT_BINARY_DIR}")
 message(STATUS "Install prefix                  = ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "Configuration types             = ${CMAKE_CONFIGURATION_TYPES}")
@@ -238,6 +255,10 @@ if (IS_GCC_OR_CLANG)
     message(STATUS "Sanitizer: Undefined behavior   = ${OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}")
     message(STATUS "Sanitizer: Thread               = ${OPENASSETIO_ENABLE_SANITIZER_THREAD}")
     message(STATUS "Sanitizer: Memory               = ${OPENASSETIO_ENABLE_SANITIZER_MEMORY}")
+endif ()
+message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
+if (OPENASSETIO_ENABLE_PYTHON)
+    message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
 endif ()
 
 
