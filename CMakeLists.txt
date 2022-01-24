@@ -15,11 +15,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 # TODO(DF): Set CMAKE_OSX_DEPLOYMENT_TARGET when it's time to tackle OSX
 
 # Forbid in-source builds.
-if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR
         "In-source build not allowed. Please remove generated CMakeCache.txt and CMakeFiles"
         " and re-run cmake from a separate build directory.")
-endif()
+endif ()
 
 # By default, do not output "Up-to-date" messages during install. Can
 # be spammy when this project is included in another via CMake's
@@ -93,9 +93,9 @@ endif ()
 # `CMAKE_CXX_COMPILER_ID` is undefined.
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(IS_GCC_OR_CLANG TRUE)
-else()
+else ()
     set(IS_GCC_OR_CLANG FALSE)
-endif()
+endif ()
 
 
 #-----------------------------------------------------------------------
@@ -229,7 +229,7 @@ message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization    = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs      = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")
-if(IS_GCC_OR_CLANG)
+if (IS_GCC_OR_CLANG)
     message(STATUS "New C++11 ABI for gcc           = ${OPENASSETIO_GLIBCXX_USE_CXX11_ABI}")
     message(STATUS "RUNPATH rather than RPATH       = ${OPENASSETIO_ENABLE_NEW_DTAGS}")
     message(STATUS "Coverage reports                = ${OPENASSETIO_ENABLE_COVERAGE}")
@@ -238,7 +238,7 @@ if(IS_GCC_OR_CLANG)
     message(STATUS "Sanitizer: Undefined behavior   = ${OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}")
     message(STATUS "Sanitizer: Thread               = ${OPENASSETIO_ENABLE_SANITIZER_THREAD}")
     message(STATUS "Sanitizer: Memory               = ${OPENASSETIO_ENABLE_SANITIZER_MEMORY}")
-endif()
+endif ()
 
 
 #-----------------------------------------------------------------------
