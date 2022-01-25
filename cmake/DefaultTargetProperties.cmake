@@ -82,38 +82,31 @@ function(set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # RPATH wrangling.
 
-    # With the 'usual' install path structure in mind, search from the
-    # bin directory (i.e. a binary loading a dynamic library) and then
-    # from the current directory (i.e. dynamic library loading another
-    # dynamic library).
-    if (APPLE)
-        # TODO(DF): handle RPATH on OSX - e.g. @rpath vs. @loader_path
-        message(AUTHOR_WARNING "OSX RPATH not configured")
-    else ()
-        set(rpath "$ORIGIN/../${CMAKE_INSTALL_LIBDIR};$ORIGIN")
-    endif ()
+    if (UNIX)
+        if (APPLE)
+            # TODO(DF): handle RPATH on OSX - e.g. @rpath vs. @loader_path
+            message(AUTHOR_WARNING "OSX RPATH not configured")
+        else ()
+            set(rpath "$ORIGIN")
+        endif ()
 
-    # TODO(DF): Currently set up to assume the build artifacts will
-    #   never be used directly, and the install artifacts have
-    #   everything they need in the standard search path(s). Hence we
-    #   expect CI/tests to use an install with all dependencies
-    #   available on standard search paths. This may turn out not to be
-    #   practical.
-    set_target_properties(
-        ${target_name}
-        PROPERTIES
-        # Control RPATH in build phase.
-        SKIP_BUILD_RPATH TRUE
-        BUILD_WITH_INSTALL_RPATH FALSE
-        # Whether to add hardcoded directories to final runtime search
-        # path.
-        INSTALL_RPATH_USE_LINK_PATH FALSE
-        # Runtime search path value
-        INSTALL_RPATH "${rpath}"
-        # Enable RPATH on OSX
-        # TODO(DF): See above re. OSX RPATH
-        # MACOSX_RPATH ON
-    )
+        set_target_properties(
+            ${target_name}
+            PROPERTIES
+            # Control RPATH in build phase. We assume tests will only be
+            # run against the install tree, so disable for build tree.
+            SKIP_BUILD_RPATH TRUE
+            BUILD_WITH_INSTALL_RPATH FALSE
+            # Whether to add hardcoded directories to final runtime
+            # search path.
+            INSTALL_RPATH_USE_LINK_PATH FALSE
+            # Runtime search path value
+            INSTALL_RPATH "${rpath}"
+            # Enable RPATH on OSX
+            # TODO(DF): See above re. OSX RPATH
+            # MACOSX_RPATH ON
+        )
+    endif ()
 
     # CentOS 7 and below (i.e. VFX reference platform) compile gcc to
     # only set RPATH by default, whereas other Linux distros set RUNPATH
