@@ -67,8 +67,6 @@ include(GenerateExportHeader)
 generate_export_header(
     openassetio
     EXPORT_FILE_NAME openassetio/export.h
-    # #define that when found will configure as a static lib.
-    STATIC_DEFINE ${PROJECT_NAME}_STATIC_DEFINE
     CUSTOM_CONTENT_FROM_VARIABLE define_version
 )
 
