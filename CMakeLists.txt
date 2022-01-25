@@ -169,6 +169,9 @@ if (IS_GCC_OR_CLANG)
     option(OPENASSETIO_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
 endif ()
 
+# Enable unit tests.
+option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
+
 
 #-----------------------------------------------------------------------
 # Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
@@ -185,8 +188,14 @@ include(ThirdParty)
 #-----------------------------------------------------------------------
 # Enable ctest testing
 
-enable_testing()
-
+if (OPENASSETIO_ENABLE_TESTS)
+    enable_testing()
+    # Add a top-level install target, useful for tests to ensure the
+    # project is installed. The special `install` target varies by
+    # subdirectory, so we can't use that directly and must wrap it here.
+    add_custom_target(openassetio-install)
+    add_dependencies(openassetio-install install)
+endif()
 
 #-----------------------------------------------------------------------
 # Generate OpenAssetIOConfig.cmake et al. for bundling as a CMake lib.
@@ -243,6 +252,7 @@ message(STATUS "Install prefix                  = ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "Configuration types             = ${CMAKE_CONFIGURATION_TYPES}")
 message(STATUS "Build type                      = ${CMAKE_BUILD_TYPE}")
 message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
+message(STATUS "Create test targets             = ${OPENASSETIO_ENABLE_TESTS}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization    = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs      = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")
