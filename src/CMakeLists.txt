@@ -22,12 +22,14 @@ install(
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
 # TODO(DF): Allow customising library name (e.g. suffix)? See OCIO.
-add_library(openassetio)
+add_library(openassetio-core)
 # Set good default target options.
 include(DefaultTargetProperties)
-set_default_target_properties(openassetio)
+set_default_target_properties(openassetio-core)
+# Set output artifact base filename.
+set_target_properties(openassetio-core PROPERTIES OUTPUT_NAME openassetio)
 # Add to the set of installable targets.
-install(TARGETS openassetio EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(TARGETS openassetio-core EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 
 # TODO(DF): Generate and install .pdb on Windows. See OCIO.
 
@@ -36,12 +38,12 @@ install(TARGETS openassetio EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 # Target dependencies
 
 # Source file dependencies.
-target_sources(openassetio
+target_sources(openassetio-core
     PRIVATE
     openassetio/managerAPI/ManagerInterface.cpp)
 
 # Public header dependency.
-target_include_directories(openassetio
+target_include_directories(openassetio-core
     PUBLIC
     # Use includes from source tree for building.
     "$<BUILD_INTERFACE:${public_header_source_root}>"
@@ -65,12 +67,13 @@ set(define_version
 # Use CMake utility to generate the export header.
 include(GenerateExportHeader)
 generate_export_header(
-    openassetio
-    EXPORT_FILE_NAME openassetio/export.h
+    openassetio-core
+    EXPORT_FILE_NAME openassetio-core/export.h
     CUSTOM_CONTENT_FROM_VARIABLE define_version
 )
 
-target_include_directories(openassetio
+
+target_include_directories(openassetio-core
     PRIVATE
     # For ABI header.
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
