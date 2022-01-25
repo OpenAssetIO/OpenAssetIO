@@ -263,6 +263,6 @@ endif ()
 
 
 #-----------------------------------------------------------------------
-# Core C++ library
+# Recurse to library targets
 
 add_subdirectory(src)
