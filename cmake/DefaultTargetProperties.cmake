@@ -187,4 +187,16 @@ function(set_default_target_properties target_name)
         endif ()
     endif ()
 
+
+    #-------------------------------------------------------------------
+    # IDE helpers
+
+    # For supported IDEs, add targets to a folder.
+    set_target_properties(
+        ${target_name}
+        PROPERTIES
+        FOLDER ${PROJECT_NAME}
+    )
+
+
 endfunction()
