@@ -33,7 +33,6 @@ function(set_default_target_properties target_name)
         include(CheckIPOSupported)
         check_ipo_supported(RESULT result OUTPUT output)
         if (result)
-            set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
             set_target_properties(
                 ${target_name}
                 PROPERTIES
