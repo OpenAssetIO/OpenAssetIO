@@ -8,3 +8,10 @@ include(DefaultTargetProperties)
 
 add_subdirectory(openassetio-core)
 
+
+#-----------------------------------------------------------------------
+# Python bindings
+
+if (OPENASSETIO_ENABLE_PYTHON)
+    add_subdirectory(openassetio-python)
+endif ()
