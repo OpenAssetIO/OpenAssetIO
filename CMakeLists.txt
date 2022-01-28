@@ -4,9 +4,10 @@
 #-----------------------------------------------------------------------
 # CMake preamble.
 
-# FindPython's Development.Module component was added in 3.18, and
-# pybind11 recommends 3.18.2+.
-cmake_minimum_required(VERSION 3.18.2)
+# * FindPython's Development.Module component was added in 3.18, and
+#   pybind11 recommends 3.18.2+.
+# * PROJECT_IS_TOP_LEVEL requires 3.21+
+cmake_minimum_required(VERSION 3.21)
 
 # Additional include directories for CMake utils.
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
@@ -14,11 +15,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 # TODO(DF): Set CMAKE_OSX_DEPLOYMENT_TARGET when it's time to tackle OSX
 
 # Forbid in-source builds.
-if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR
         "In-source build not allowed. Please remove generated CMakeCache.txt and CMakeFiles"
         " and re-run cmake from a separate build directory.")
-endif()
+endif ()
 
 # By default, do not output "Up-to-date" messages during install. Can
 # be spammy when this project is included in another via CMake's
@@ -92,19 +93,13 @@ endif ()
 # `CMAKE_CXX_COMPILER_ID` is undefined.
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(IS_GCC_OR_CLANG TRUE)
-else()
+else ()
     set(IS_GCC_OR_CLANG FALSE)
-endif()
+endif ()
 
 
 #-----------------------------------------------------------------------
 # Options
-
-# Installation options
-# TODO(DF): Install dir wrangling depending on desired Python/C++
-#   library combination. See OTIO.
-
-# Build options
 
 # Surface `BUILD_SHARED_LIBS` as a non-hidden CMake option in CMake
 # GUIs. This controls whether static or shared libs are built.
@@ -112,6 +107,19 @@ endif()
 #   and static libs simultaneously. Also, using this means we inherit
 #   the option if openassetio is used as a CMake subproject.
 option(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
+
+# Enable Python bindings build by default.
+option(OPENASSETIO_ENABLE_PYTHON "Build Python bindings" ON)
+if (OPENASSETIO_ENABLE_PYTHON)
+    # Allow overriding the desired Python version.
+    set(OPENASSETIO_PYTHON_VERSION "3.7" CACHE STRING "Python version")
+    # By default we'll compute the correct site-packages directory
+    # structure, but allow overriding.
+    set(OPENASSETIO_PYTHON_SITEDIR
+        ""
+        CACHE STRING
+        "Override default Python module install directory, relative to CMAKE_INSTALL_PREFIX")
+endif ()
 
 # Default treating compiler warnings as errors to OFF, since
 # consumers of this project may use unpredictable toolchains.
@@ -161,17 +169,33 @@ if (IS_GCC_OR_CLANG)
     option(OPENASSETIO_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
 endif ()
 
+# Enable unit tests.
+option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
+
+
+#-----------------------------------------------------------------------
+# Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
+
+include(GNUInstallDirs)
+
+
+#-----------------------------------------------------------------------
+# Third-party packages
+
+include(ThirdParty)
+
 
 #-----------------------------------------------------------------------
 # Enable ctest testing
 
-enable_testing()
-
-#-----------------------------------------------------------------------
-# Provides install directory variables as defined by the GNU Coding
-# Standards.
-
-include(GNUInstallDirs)
+if (OPENASSETIO_ENABLE_TESTS)
+    enable_testing()
+    # Add a top-level install target, useful for tests to ensure the
+    # project is installed. The special `install` target varies by
+    # subdirectory, so we can't use that directly and must wrap it here.
+    add_custom_target(openassetio-install)
+    add_dependencies(openassetio-install install)
+endif()
 
 #-----------------------------------------------------------------------
 # Generate OpenAssetIOConfig.cmake et al. for bundling as a CMake lib.
@@ -220,15 +244,19 @@ install(
 message(STATUS "Configuring ${PROJECT_NAME} ${PROJECT_VERSION}")
 message(STATUS "${PROJECT_DESCRIPTION}")
 message(STATUS "CMake ${CMAKE_VERSION}")
+if (CMAKE_TOOLCHAIN_FILE)
+    message(STATUS "Using toolchain file            = ${CMAKE_TOOLCHAIN_FILE}")
+endif ()
 message(STATUS "Project build dir               = ${PROJECT_BINARY_DIR}")
 message(STATUS "Install prefix                  = ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "Configuration types             = ${CMAKE_CONFIGURATION_TYPES}")
 message(STATUS "Build type                      = ${CMAKE_BUILD_TYPE}")
 message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
+message(STATUS "Create test targets             = ${OPENASSETIO_ENABLE_TESTS}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization    = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs      = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")
-if(IS_GCC_OR_CLANG)
+if (IS_GCC_OR_CLANG)
     message(STATUS "New C++11 ABI for gcc           = ${OPENASSETIO_GLIBCXX_USE_CXX11_ABI}")
     message(STATUS "RUNPATH rather than RPATH       = ${OPENASSETIO_ENABLE_NEW_DTAGS}")
     message(STATUS "Coverage reports                = ${OPENASSETIO_ENABLE_COVERAGE}")
@@ -237,10 +265,14 @@ if(IS_GCC_OR_CLANG)
     message(STATUS "Sanitizer: Undefined behavior   = ${OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}")
     message(STATUS "Sanitizer: Thread               = ${OPENASSETIO_ENABLE_SANITIZER_THREAD}")
     message(STATUS "Sanitizer: Memory               = ${OPENASSETIO_ENABLE_SANITIZER_MEMORY}")
-endif()
+endif ()
+message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
+if (OPENASSETIO_ENABLE_PYTHON)
+    message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
+endif ()
 
 
 #-----------------------------------------------------------------------
-# Core C++ library
+# Recurse to library targets
 
 add_subdirectory(src)

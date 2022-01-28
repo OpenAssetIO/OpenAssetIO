@@ -27,13 +27,15 @@ A single-class module, providing the ManagerInterface class.
 # pylint: disable=unused-argument,no-self-use
 
 import abc
+# TODO(DF): Remove pylint disable once CI is fixed.
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from .. import exceptions
 
 
 __all__ = ['ManagerInterface', ]
 
 
-class ManagerInterface(object):
+class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     """
     @brief This Interface binds a @ref asset_management_system into
     OpenAssetIO. It is not called directly by a @ref host, but by the

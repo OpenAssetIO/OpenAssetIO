@@ -238,7 +238,8 @@ def mock_manager_interface():
     # the concrete instance.
     methods = inspect.getmembers(interface, predicate=inspect.ismethod)
     for name, method in methods:
-        getattr(mockInterface, name).side_effect = method
+        if not name.startswith("__"):  # Ignore private/magic methods.
+            getattr(mockInterface, name).side_effect = method
 
     return mockInterface
 
