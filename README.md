@@ -129,7 +129,7 @@ pytest
 
 ## Getting involved
 
-- See [CONTRIBUTING.md](CONTRIBUTING.md)
+- See the [contribution guide](contributing/PROCESS.md)
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
