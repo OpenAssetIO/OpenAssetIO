@@ -109,9 +109,9 @@ trusted committers for more information.
 ## Templates and Guidelines
 
 - Coding standards [CODING_STANDARDS.md](CODING_STANDARDS.md)
-- Pull Requests: [PULl_REQUESTS.md](PULl_REQUESTS.md)
+- Pull Requests: [PULL_REQUESTS.md](PULL_REQUESTS.md)
 - Commits/Commit messages: [COMMITS.md](COMMITS.md)
-- Code Reviews [CODE_REVIEWS.md](docs/CODE_REVIEWS.md)
+- Code Reviews: [CODE_REVIEWS.md](CODE_REVIEWS.md)
 
 
 ## Trusted Committers
