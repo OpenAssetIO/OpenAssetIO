@@ -26,7 +26,7 @@ the required additional tooling) in your local checkout - see
 `html/index.html`.
 
 > Note: If you have issues pulling the container from GitHub, then you
-> can build the image locally using `make tag-docker`. This should then
+> can build the image locally using `make docker-image`. This should then
 > be used for subsequent `make` invocations.
 
 ## Building manually
