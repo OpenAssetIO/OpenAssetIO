@@ -64,7 +64,7 @@ Follow the steps below if you wish to open a merge-ready PR for review
 1. Implement the functionality as defined by the Issue's acceptance
    criteria, and agreed design in a branch **on your own fork**.
 2. Rebase and prepare your commits for review (see
-   [COMMITS.md](COMMITS.md)).
+   [commit guidelines](COMMITS.md)).
 3. Push your branch to your fork.
 4. Create a Pull Request to the target branch in the main repository.
 5. Add the assigned Trusted Committers as reviewers. NOTE: Only add

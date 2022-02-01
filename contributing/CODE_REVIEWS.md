@@ -148,5 +148,5 @@ wasted work down the line.
 
 ## See also
 
-- Pull Request guidelines [PULL_REQUESTS.md](PULL_REQUESTS.md)
-- Commit guidelines [COMMITS.md](COMMITS.md)
+- [Pull Requests](PULL_REQUESTS.md)
+- [Commits](COMMITS.md)

@@ -66,8 +66,8 @@ The process for feature development is as follows (we use the [GitHub flow](http
      - Branches should be named using the
        `work/<issueNumber>-<camelCaseTitle>` convention.
 2. Upon completion, prepare your Pull Request in accordance with the
-   [PR guidelines](PULL_REQUESTS.md), for larger work, this may be
-   targeted at a feature branch, rather than a release branch.
+   [Pull Request guidelines](PULL_REQUESTS.md), for larger work, this
+   may be targeted at a feature branch, rather than a release branch.
 3. Address any feedback with `fixup!` commits, creating a separate
    commit for each comment thread.
 4. Once approved, rebase and squash any `fixups!` or `squash!` commits
@@ -106,12 +106,12 @@ In addition, contributors are required to complete either the Individual
 or Corporate Contribution License Agreement. Please contact one of the
 trusted committers for more information.
 
-## Templates and Guidelines
+## Futher reading
 
-- Coding standards [CODING_STANDARDS.md](CODING_STANDARDS.md)
-- Pull Requests: [PULL_REQUESTS.md](PULL_REQUESTS.md)
-- Commits/Commit messages: [COMMITS.md](COMMITS.md)
-- Code Reviews: [CODE_REVIEWS.md](CODE_REVIEWS.md)
+- [Coding standards](CODING_STANDARDS.md)
+- [Pull Requests](PULL_REQUESTS.md)
+- [Commits and commit messages](COMMITS.md)
+- [Code Reviews](CODE_REVIEWS.md)
 
 
 ## Trusted Committers

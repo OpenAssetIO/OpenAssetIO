@@ -246,10 +246,10 @@ Feature branches should use the `feature/<issueNumber>-camelCaseName`
 naming convention.
 
 
-## Further reading:
+## See also
 
-- Pull Request guidelines: [PULL_REQUESTS.md](PULL_REQUESTS.md).
-- Code Review guidelines: [CODE_REVIEWS.md](CODE_REVIEWS.md).
+- [Pull Requests](PULL_REQUESTS.md).
+- [Code Reviews](CODE_REVIEWS.md).
 
 
 ## Appendix - Code components
