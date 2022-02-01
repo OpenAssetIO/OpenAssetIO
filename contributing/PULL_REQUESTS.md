@@ -41,7 +41,8 @@ approve. Does it:
 - Make use of `squash! <target commit title>` to indicate a commit that
   exists to ease review, that will be combined before the PR is merged.
 
-**Important:** PRs will be rejected if they contain any of the following:
+**Important:** PRs to release branches will be rejected if they contain
+any of the following:
 
 - Incomplete functionality exposed through any public interface.
 - Failing tests.
