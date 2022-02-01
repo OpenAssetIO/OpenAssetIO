@@ -203,11 +203,11 @@ way, and the division of work and general approach makes sense.
 #### Merging inside-out
 
 The inside-out approach can allow more frequent integration of work,
-where feature toggles are either not available or add unnecessary complexity.
-Rather than starting by merging end-to-end tests that require the entire
-system to function - forcing the entirety of the work to be in that one
-Pull Request - we break it down into discreet pieces of work, that
-leave public boundaries intact at each stage.
+where feature toggles are either not available or add unnecessary
+complexity. Rather than starting by merging end-to-end tests that
+require the entire system to function - forcing the entirety of the work
+to be in that one Pull Request - we break it down into discreet pieces
+of work, that leave public boundaries intact at each stage.
 
 End-to-end tests and other outer-layer acceptance tests can still be
 written ahead of time, they are just kept in a separate development
