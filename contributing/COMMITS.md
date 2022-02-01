@@ -249,7 +249,7 @@ naming convention.
 ## Further reading:
 
 - Pull Request guidelines: [PULL_REQUESTS.md](PULL_REQUESTS.md).
-- Code Review guidelines: [CODEREVIEWS.md](CODEREVIEWS.md).
+- Code Review guidelines: [CODE_REVIEWS.md](CODE_REVIEWS.md).
 
 
 ## Appendix - Code components
