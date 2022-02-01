@@ -225,6 +225,27 @@ well suited to cases where the consumer of a component needs to control
 feature visibility rather than just the internal development effort.
 
 
+#### Feature branches
+
+Significant work, particularly that requiring coordination between
+multiple people working simultaneously, should be carried out on a
+separate feature branch. This allows frequent integration of the main
+codebase without requiring in-progress work to be merged into a release
+branch.
+
+Generally speaking one of the other above strategies for managing
+individual units of work should still be applied, i.e. Pull Requests into
+a feature branch should still be complete, logical units of work.
+
+When merging a feature branch into a release branch, a great deal of
+care should be taken as to how it is squashed into a sensible series of
+final commits, that abide by the principals of release branch
+development.
+
+Feature branches should use the `feature/<issueNumber>-camelCaseName`
+naming convention.
+
+
 ## Further reading:
 
 - Pull Request guidelines: [PULL_REQUESTS.md](PULL_REQUESTS.md).
