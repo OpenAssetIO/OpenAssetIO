@@ -24,11 +24,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        # Note: It has been discussed that 3.9 is the first "production
-        # usable" version on Windows this needs further investigation
-        # before we special-case the platform. CY2022 uses 3.9
-        # throughout, so we should probably just target that.
-        python-version: 3.7
+        # CY2022 (https://vfxplatform.com)
+        python-version: 3.9
 
     - name: Install dependencies
       run: |
