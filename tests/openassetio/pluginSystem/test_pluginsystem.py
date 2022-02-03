@@ -61,10 +61,10 @@ class Test_PluginSystem_scan:
         path_c = os.path.join(the_resources_directory_path, "pathC")
 
         a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
-        assert "/pathA/" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathA" in a_plugin_system.plugin(module_plugin_identifier).__file__
 
         a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
-        assert "/pathC/" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
             self, a_plugin_system, a_plugin_path_with_symlinks,
