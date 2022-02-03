@@ -203,11 +203,11 @@ way, and the division of work and general approach makes sense.
 #### Merging inside-out
 
 The inside-out approach can allow more frequent integration of work,
-where feature toggles are either not available or add unnecessary complexity.
-Rather than starting by merging end-to-end tests that require the entire
-system to function - forcing the entirety of the work to be in that one
-Pull Request - we break it down into discreet pieces of work, that
-leave public boundaries intact at each stage.
+where feature toggles are either not available or add unnecessary
+complexity. Rather than starting by merging end-to-end tests that
+require the entire system to function - forcing the entirety of the work
+to be in that one Pull Request - we break it down into discreet pieces
+of work, that leave public boundaries intact at each stage.
 
 End-to-end tests and other outer-layer acceptance tests can still be
 written ahead of time, they are just kept in a separate development
@@ -225,10 +225,31 @@ well suited to cases where the consumer of a component needs to control
 feature visibility rather than just the internal development effort.
 
 
-## Further reading:
+#### Feature branches
 
-- Pull Request guidelines: [PULL_REQUESTS.md](PULL_REQUESTS.md).
-- Code Review guidelines: [CODEREVIEWS.md](CODEREVIEWS.md).
+Significant work, particularly that requiring coordination between
+multiple people working simultaneously, should be carried out on a
+separate feature branch. This allows frequent integration of the main
+codebase without requiring in-progress work to be merged into a release
+branch.
+
+Generally speaking one of the other above strategies for managing
+individual units of work should still be applied, i.e. Pull Requests into
+a feature branch should still be complete, logical units of work.
+
+When merging a feature branch into a release branch, a great deal of
+care should be taken as to how it is squashed into a sensible series of
+final commits, that abide by the principals of release branch
+development.
+
+Feature branches should use the `feature/<issueNumber>-camelCaseName`
+naming convention.
+
+
+## See also
+
+- [Pull Requests](PULL_REQUESTS.md).
+- [Code Reviews](CODE_REVIEWS.md).
 
 
 ## Appendix - Code components

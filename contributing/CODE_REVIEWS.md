@@ -65,7 +65,7 @@ considering.
 ### Suggested approach
 
 1. Grab the branch (or a CI build artifact if available), test
-   functionality against the User Story.
+   functionality against the Acceptance Criteria defined for the work.
 2. Check implementation against the above priorities.
 
 
@@ -148,5 +148,5 @@ wasted work down the line.
 
 ## See also
 
-- Pull Request guidelines [PULL_REQUESTS.md](PULL_REQUESTS.md)
-- Commit guidelines [COMMITS.md](COMMITS.md)
+- [Pull Requests](PULL_REQUESTS.md)
+- [Commits](COMMITS.md)

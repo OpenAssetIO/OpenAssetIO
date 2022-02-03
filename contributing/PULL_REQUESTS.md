@@ -41,7 +41,8 @@ approve. Does it:
 - Make use of `squash! <target commit title>` to indicate a commit that
   exists to ease review, that will be combined before the PR is merged.
 
-**Important:** PRs will be rejected if they contain any of the following:
+**Important:** PRs to release branches will be rejected if they contain
+any of the following:
 
 - Incomplete functionality exposed through any public interface.
 - Failing tests.
@@ -63,7 +64,7 @@ Follow the steps below if you wish to open a merge-ready PR for review
 1. Implement the functionality as defined by the Issue's acceptance
    criteria, and agreed design in a branch **on your own fork**.
 2. Rebase and prepare your commits for review (see
-   [COMMITS.md](COMMITS.md)).
+   [commit guidelines](COMMITS.md)).
 3. Push your branch to your fork.
 4. Create a Pull Request to the target branch in the main repository.
 5. Add the assigned Trusted Committers as reviewers. NOTE: Only add
