@@ -27,7 +27,7 @@ import inspect
 import io
 import os
 import sys
-import tempfile
+import uuid
 import pytest
 
 
@@ -48,28 +48,26 @@ class Test_fixturesFromPyFile:
             fixturesFromPyFile(invalid_path)
         assert str(exc.value) == f"Unable to parse '{invalid_path}'"
 
-    def test_when_called_with_non_python_file_then_raises_exception(self):
-        with tempfile_with_contents(".txt", "Hello!") as text_file:
-            with pytest.raises(RuntimeError) as exc:
-                fixturesFromPyFile(text_file.name)
-            assert str(exc.value) == f"Unable to parse '{text_file.name}'"
+    def test_when_called_with_non_python_file_then_raises_exception(self, tmpdir):
+        text_file = tempfile_with_contents(tmpdir, ".txt", "Hello!")
+        with pytest.raises(RuntimeError) as exc:
+            fixturesFromPyFile(text_file)
+        assert str(exc.value) == f"Unable to parse '{text_file}'"
 
-    def test_when_called_with_python_file_missing_fixtures_var_then_raises_exception(self):
-        with tempfile_with_contents(".py", "cabbages = {}") as malformed:
-            with pytest.raises(RuntimeError) as exc:
-                fixturesFromPyFile(malformed.name)
-            assert str(
-                exc.value) == f"Missing top-level 'fixtures' variable in '{malformed.name}'"
+    def test_when_called_with_python_file_missing_fixtures_var_then_raises_exception(self, tmpdir):
+        malformed = tempfile_with_contents(tmpdir, ".py", "cabbages = {}")
+        with pytest.raises(RuntimeError) as exc:
+            fixturesFromPyFile(malformed)
+        assert str(
+            exc.value) == f"Missing top-level 'fixtures' variable in '{malformed}'"
 
-    def test_when_called_with_valid_path_then_returns_expected_fixture_dict(self):
-
-        with tempfile_with_contents(".py", inspect.cleandoc("""
+    def test_when_called_with_valid_path_then_returns_expected_fixture_dict(self, tmpdir):
+        valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
                 from openassetio import constants
                 fixtures = {'ignored': constants.kIgnored}
-                """)) as valid:
-
-            expected_dict = {"ignored": constants.kIgnored}
-            assert fixturesFromPyFile(valid.name) == expected_dict
+                """))
+        expected_dict = {"ignored": constants.kIgnored}
+        assert fixturesFromPyFile(valid) == expected_dict
 
 
 class Test_executeSuite:
@@ -207,16 +205,36 @@ def suite_module(module_path):
     spec.loader.exec_module(module)
     return module
 
-
-def tempfile_with_contents(suffix, contents):
+def tempfile_with_contents(tmpdir, suffix, contents):
     """
-    Returns a named temporary file with the supplied contents.
+    Returns a uniquely named temporary file, created in the specified
+    dir, with the supplied contents.
 
-    @param suffix `str` The filename suffix as per NamedTemporaryFile.
+    It is suggested that the caller makes use of the pytest
+    tmpdir fixture as the first parameter, which provides a life-time
+    managed, test-case-specific directory.
+
+    See: https://docs.pytest.org/en/6.2.x/tmpdir.html
+
+    @param tmpdir `pathlib.Path` An existing directory to create the
+      uniquely named file within.
+    @param suffix `str` The filename suffix to append to the unique
+      component, e.g. an extension.
     @param contents `str` The contents of the file.
+
+    @return `pathlib.Path` The path to the newly created file.
     """
-    # pylint: disable=consider-using-with
-    tmp_file = tempfile.NamedTemporaryFile(suffix=suffix)
-    tmp_file.write(contents.encode())
-    tmp_file.flush()
-    return tmp_file
+    # We used to return a tempfile.NamedTemporaryFile here, and you
+    # could use this method as a context manager. Sadly, Windows only
+    # allows a single open handle for any file at one time. This meant
+    # that any other code that tried to re-open the file whilst the
+    # context manager was alive (eg: fixturesFromPyFile) would be
+    # denied [Errno 13].
+
+    # We can't guarantee that this dir hasn't been used in a previous
+    # call, so make sure the filename is unique anyway.
+    path = tmpdir / f"{uuid.uuid4().hex}{suffix}"
+    with open(path, "wb") as tmp_file:
+        tmp_file.write(contents.encode())
+        tmp_file.flush()
+    return path
