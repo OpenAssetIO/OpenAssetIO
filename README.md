@@ -238,6 +238,48 @@ We can now run the Python tests via `pytest`
 pytest tests
 ```
 
+### Using Vagrant
+
+Included for convenience is a [Vagrant](https://www.vagrantup.com/)
+configuration for creating reproducible build environments. This is
+configured to create a virtual machine that matches the Linux Github CI
+environment as close as is feasible.
+
+The Vagrant VM installs third-party library dependencies using the
+[conan](https://conan.io/) package manager, and sources the dependencies
+from the default public [ConanCenter](https://conan.io/center/)
+repository.
+
+In order to build and run the tests within a Vagrant VM, assuming
+Vagrant is installed and the current working directory is the root of
+the repository, run the following
+
+```shell
+cd ci
+vagrant up
+# Wait a while...
+vagrant ssh
+cmake -S openassetio -B build --install-prefix ~/dist \
+  --toolchain ~/conan/conan_paths.cmake -DOPENASSETIO_ENABLE_TESTS=ON
+```
+
+Then we can run the following steps to build, install and run the tests
+
+```shell
+cmake --build build
+cmake --install build
+cmake --build build --target openassetio-python-venv
+source dist/bin/activate
+pip install ./openassetio
+pip install -r openassetio/tests/requirements.txt
+pytest openassetio/tests
+```
+or alternatively, simply
+
+```shell
+cd build
+ctest
+```
 
 ## Getting involved
 
