@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.pluginSystem.PluginSystemPlugin
 A single-class module, providing the PluginSystemPlugin class.
 """
 

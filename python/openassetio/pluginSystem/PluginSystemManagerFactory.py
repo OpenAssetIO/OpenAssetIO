@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 """
+@namespace openassetio.pluginSystem.PluginSystemManagerFactory
 A single-class module, providing the PluginSystemManagerFactory class.
 """
 

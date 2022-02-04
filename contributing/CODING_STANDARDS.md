@@ -1,46 +1,4 @@
-# Contributing
-
-This project operates a Pull Request model, using the [GitHub flow](https://guides.github.com/introduction/flow/index.html)
-approach. The rough outline is as follows:
-
-1. Chat with the Trusted Committers and community to define the scope of
-   work
-2. Fork the repo, and work in a branch
-3. Create a Pull Request for Code Review
-4. Address any comments
-5. Work is merged
-
-The main aim of the process is to keep people in the loop - avoiding any
-surprises later on. This helps avoid churn/frustration for all involved.
-
-More details on the development process will be provided soon. In the
-meantime, please open an Issue or contact one of the Trusted Committers.
-
-## Contribution sign off
-
-OpenAssetIO is licensed under the [Apache 2.0 license](LICENSE). All
-contributions to the project must abide by that license.
-
-Contributions to OpenAssetIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).
-All commits must be signed-off as follows, before merge, to indicate
-that the submitter accepts the DCO:
-
-```
-Signed-off-by: Jóna Jónsdóttir <jona.jonsdottir@example.com>
-```
-
-This can be added automatically to a commit using `git commit -s`.
-
-In addition, contributors are required to complete either the Individual
-or Corporate Contribution License Agreement. Please contact one of the
-trusted committers for more information.
-
-## Code style
-
-For Python code we aim to adhere to the PEP8 convention, with a few
-exceptions. Of these exceptions, the most obvious is that the naming
-scheme is designed to more closely mirror our C++ naming conventions,
-to ease C++ interop implementation and readability.
+# Coding Standards
 
 ### Line wrapping
 
@@ -50,10 +8,20 @@ for docstrings.
 For markdown documents, line wrapping is also performed at 72
 characters, where possible.
 
+
+### Python
+
+For Python code we aim to adhere to the PEP8 convention, with a few
+exceptions. Of these exceptions, the most obvious is that the naming
+scheme is designed to more closely mirror our C++ naming conventions,
+to ease C++ interop implementation and readability.
+
+
 ### Example code
 
 An exception to the above is for code examples written in Python. Here,
 PEP8 should be strictly followed, including its naming conventions.
+
 
 ### Method/function naming
 
@@ -66,6 +34,7 @@ access level (e.g. protected getter vs. public setter), then they
 _should_ be prefixed with `get` and `set`, respectively.
 
 This makes it easier to determine the API surface at a glance.
+
 
 ### Test cases
 
@@ -99,6 +68,7 @@ one code path. In that case shoehorning a test case description into a
 alternative. Best judgement should be used, bearing in mind readability
 and consistency tradeoffs.
 
+
 ### IDE configuration
 
 To aid in conforming to our coding style a [`.editorconfig`](https://editorconfig.org/)
@@ -113,6 +83,7 @@ Common file types that we expect to encounter during development of
 OpenAssetIO have their own settings, many of which remain commented out
 for reference and may be enabled and tweaked in future.
 
+
 ### Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
@@ -122,6 +93,7 @@ When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
+
 
 ### Parameter documentation
 
@@ -141,9 +113,3 @@ And the following, for built-ins or external types (note the backticks):
 ```
 @param <name> `<external_type>` Description text.
 ```
-
-## Trusted Committers
-
-### Foundry
-- @foundrytom [tom@foundry.com](mailto:tom@foundry.com)
-- @feltech
