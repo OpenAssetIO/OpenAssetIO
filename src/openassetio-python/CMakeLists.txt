@@ -67,16 +67,26 @@ endif ()
 
 if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
 
-    # Command to create a Python environment in the install directory,
-    # then install test-specific dependencies (e.g. pytest).
+    # Command to create a Python environment in the install directory.
     add_custom_command(
         OUTPUT
         "${CMAKE_INSTALL_PREFIX}/bin/pip"
-        "${CMAKE_INSTALL_PREFIX}/bin/pytest"
         COMMAND
         "${Python_EXECUTABLE}" -m venv "${CMAKE_INSTALL_PREFIX}"
+    )
+    # Target to wrap the venv command so it can be executed in isolation.
+    add_custom_target(
+        openassetio-python-venv
+        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pip"
+    )
+
+    # Command to install test-specific dependencies (e.g. pytest).
+    add_custom_command(
+        OUTPUT
+        "${CMAKE_INSTALL_PREFIX}/bin/pytest"
         COMMAND
         "${CMAKE_INSTALL_PREFIX}/bin/pip" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pip"
     )
 
     # Target to install the pure Python component of the project.
