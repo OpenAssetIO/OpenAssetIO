@@ -9,14 +9,16 @@ on:
       - 'docs/**'
 
 jobs:
-  pytest:
+  ctest:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         # We can't properly align to the VFX Reference Platform as this
         # requires glibc 2.17, which is older than any of the available
         # environments.
-        os: [ubuntu-18.04, windows-2019, macos-11]
+        # TODO(DF): Enable other platforms.
+        # os: [ubuntu-20.04, windows-2019, macos-11]
+        os: [ubuntu-20.04]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,19 +29,33 @@ jobs:
         # CY2022 (https://vfxplatform.com)
         python-version: 3.9
 
+    - name: Cache conan packages
+      id: cache-conan
+      uses: actions/cache@v2
+      with:
+        path: ~/conan
+        key: ${{ runner.os }}-conan
+
     - name: Install dependencies
+      # Configure the system and install library dependencies via conan
+      # packages.
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r tests/requirements.txt
+        source ci/bootstrap-${{ matrix.os }}.sh
 
-    - name: Build
+    - name: Configure CMake build
       run: |
-        python -m pip install .
+        cmake -S . -B build \
+          --install-prefix $GITHUB_WORKSPACE/dist \
+          --toolchain $HOME/conan/conan_paths.cmake \
+          -Wdev \
+          -DOPENASSETIO_ENABLE_TESTS=ON \
+          -DOPENASSETIO_WARNINGS_AS_ERRORS=ON \
+          -DCMAKE_VERBOSE_MAKEFILE=ON
 
-    - name: Test
-      # TODO(DF): Re-enable once CI work has been done.
+    - name: Build, install and test
       run: |
-        echo "Skipping tests until CI build environment is configured"
+        cd build
+        ctest -VV
 
   docs:
     runs-on: ubuntu-latest
