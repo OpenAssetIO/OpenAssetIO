@@ -182,8 +182,12 @@ function(set_default_target_properties target_name)
         list(JOIN sanitizers "," sanitize_arg)
 
         if (sanitize_arg AND NOT "${sanitize_arg}" STREQUAL "")
-            target_compile_options(${target_name} PRIVATE -fsanitize=${sanitize_arg})
-            target_link_options(${target_name} PRIVATE -fsanitize=${sanitize_arg})
+            # Add sanitizers, including `-fno-omit-frame-pointer` so
+            # that stack traces can be printed on failure.
+            target_compile_options(${target_name}
+                PRIVATE -fsanitize=${sanitize_arg} -fno-omit-frame-pointer)
+            target_link_options(${target_name}
+                PRIVATE -fsanitize=${sanitize_arg} -fno-omit-frame-pointer)
         endif ()
     endif ()
 
