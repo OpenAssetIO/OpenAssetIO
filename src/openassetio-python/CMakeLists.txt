@@ -98,11 +98,33 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
     # Ensure pre-requisite C++ component has been installed first.
     add_dependencies(openassetio-python-py-install openassetio-install)
 
+    # Add ASan-specific environment variables to prepend to the `pytest`
+    # invocation.
+    if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS AND IS_GCC_OR_CLANG)
+        # ASan will error out if libasan is not the first library to be
+        # linked (so it can override `malloc`). Since our executable
+        # (`python` in this case) doesn't link libasan we must add it to
+        # `LD_PRELOAD`. But first we have to find libasan on the system:
+        execute_process(
+            # TODO(DF): This is probably wrong for OSX (clang).
+            COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan.so
+            OUTPUT_VARIABLE asan_path
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        # In addition to `LD_PRELOAD`ing libasan, we must override
+        # Python's memory allocator to use the C (or rather, ASan's)
+        # `malloc` rather than the optimized `pymalloc`, so that ASan
+        # can properly count memory (de)allocations.
+        set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path})
+    endif()
+
     # Target to run pytest in the install directory, ensuring the lib has
-    # been built and installed first.
+    # been built and installed first. Add `-s` to ensure no output is
+    # captured, which is needed to show sanitizer errors (and is useful
+    # for debugging regardless).
     add_custom_target(
         openassetio-python-pytest
-        COMMAND "${CMAKE_INSTALL_PREFIX}/bin/pytest"
+        COMMAND ${pytest_env} "${CMAKE_INSTALL_PREFIX}/bin/pytest" -s
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/tests"
         DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pytest"
     )
