@@ -50,7 +50,9 @@ jobs:
           -Wdev \
           -DOPENASSETIO_ENABLE_TESTS=ON \
           -DOPENASSETIO_WARNINGS_AS_ERRORS=ON \
-          -DCMAKE_VERBOSE_MAKEFILE=ON
+          -DCMAKE_VERBOSE_MAKEFILE=ON \
+          -DOPENASSETIO_ENABLE_SANITIZER_ADDRESS=ON \
+          -DOPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR=ON
 
     - name: Build, install and test
       run: |
