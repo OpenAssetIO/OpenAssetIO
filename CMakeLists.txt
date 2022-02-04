@@ -191,11 +191,14 @@ include(ThirdParty)
 if (OPENASSETIO_ENABLE_TESTS)
     enable_testing()
     # Add a top-level install target, useful for tests to ensure the
-    # project is installed. The special `install` target varies by
-    # subdirectory, so we can't use that directly and must wrap it here.
-    add_custom_target(openassetio-install)
-    add_dependencies(openassetio-install install)
+    # project is installed. The special `install` target is unavailable
+    # if the Unix Makefile generator (default on Linux) is used, so we
+    # must shell out the build and install commands.
+    add_custom_target(openassetio-install
+        COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}"
+        COMMAND "${CMAKE_COMMAND}" --install "${PROJECT_BINARY_DIR}")
 endif()
+
 
 #-----------------------------------------------------------------------
 # Generate OpenAssetIOConfig.cmake et al. for bundling as a CMake lib.
