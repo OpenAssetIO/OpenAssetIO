@@ -77,6 +77,7 @@ for work in progress, as well as up-coming topics.
  - Migrate `ManagerPlugin` test harness
  - C++ port of Core API
  - Katana Asset API migration guide/shims
+ - `Windows` and `macOS` support
 
 ## Background
 
@@ -108,6 +109,7 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ### System requirements
 
+- `linux` (`macOS` and `Windows` are currently unsupported)
 - `Python 3.7` or later
 
 ### Installation
@@ -129,7 +131,7 @@ pytest
 
 ## Getting involved
 
-- See [CONTRIBUTING.md](CONTRIBUTING.md)
+- See the [contribution guide](contributing/PROCESS.md)
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
