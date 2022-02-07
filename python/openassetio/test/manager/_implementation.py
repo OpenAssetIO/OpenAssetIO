@@ -22,6 +22,8 @@ import unittest
 
 from openassetio import hostAPI, pluginSystem, logging
 
+from .specifications import ManagerTestHarnessLocale
+
 
 __all__ = ['createHarness']
 
@@ -128,13 +130,18 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
         execute.
         """
         testCaseNames = self.getTestCaseNames(testCaseClass)
-        loadedSuite = self.suiteClass(
-            testCaseClass(
+        cases = []
+        for testCaseName in testCaseNames:
+
+            locale = ManagerTestHarnessLocale()
+            locale.testCase = f"{testCaseClass.__name__}.{testCaseName}"
+
+            cases.append(testCaseClass(
                 self.__fixtures.get(testCaseClass.__name__, {}).get(testCaseName),
-                self.__session, testCaseName
-            )
-            for testCaseName in testCaseNames)
-        return loadedSuite
+                self.__session, locale, testCaseName
+            ))
+
+        return self.suiteClass(cases)
 
     def setFixtures(self, fixtures):
         """

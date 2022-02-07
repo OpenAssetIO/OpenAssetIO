@@ -96,9 +96,9 @@ class Test_executeSuite:
 class Test_FixtureAugmentedTestCase:
 
     def test_when_constructed_then_objects_are_exposed_via_protected_members(
-            self, a_fixture_dict, mock_session):
+            self, a_fixture_dict, a_locale, mock_session):
 
-        case = FixtureAugmentedTestCase(a_fixture_dict, mock_session)
+        case = FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
         # pylint: disable=protected-access
         assert case._session == mock_session
         assert case._fixtures == a_fixture_dict
@@ -219,8 +219,8 @@ def executeSuiteTests_fixtures(resources_dir):
 
 
 @pytest.fixture
-def a_test_case(a_fixture_dict, mock_session):
-    return FixtureAugmentedTestCase(a_fixture_dict, mock_session)
+def a_test_case(a_fixture_dict, mock_session, a_locale):
+    return FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
 
 #
 # Helpers

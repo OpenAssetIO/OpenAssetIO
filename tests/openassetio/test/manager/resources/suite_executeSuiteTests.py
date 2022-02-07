@@ -23,6 +23,7 @@ that the harness implementation supplies the correct state to each test.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 from openassetio.hostAPI import Manager, Session
+from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
@@ -65,6 +66,22 @@ class Test_executeSuite_fixtures(FixtureAugmentedTestCase):
                 "aUniqueValue": 5
             }
         )
+
+
+class Test_executeSuite_locale(FixtureAugmentedTestCase):
+
+    def test_when_test_function_is_run_then_locale_is_set(self):
+        self.assertIsInstance(self._locale, ManagerTestHarnessLocale)
+        self.assertEqual(
+            self._locale.testCase,
+            'Test_executeSuite_locale'
+            '.test_when_test_function_is_run_then_locale_is_set')
+
+    def test_when_test_function_is_run_then_locale_testCase_is_function_specific(self):
+        self.assertEqual(
+            self._locale.testCase,
+            'Test_executeSuite_locale'
+            '.test_when_test_function_is_run_then_locale_testCase_is_function_specific')
 
 
 # Contrived tests that are expected by the actual test suite.

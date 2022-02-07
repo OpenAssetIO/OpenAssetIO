@@ -30,6 +30,7 @@ import pytest
 
 
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
+from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager._implementation import (
         _ValidatorHarnessHostInterface, _ValidatorTestLoader)
 
@@ -53,8 +54,11 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(None, mock_session, "test_one"),
-            call(None, mock_session, "test_two")])
+            call(None, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
+            call(None, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")
+        ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_cases_have_fixtures_then_initializes_test_cases_with_fixtures(
@@ -81,8 +85,10 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(case_one_fixtures, mock_session, "test_one"),
-            call(case_two_fixtures, mock_session, "test_two")])
+            call(case_one_fixtures, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
+            call(case_two_fixtures, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_case_has_no_fixtures_then_initializes_test_case_with_no_fixtures(
@@ -107,8 +113,11 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(None, mock_session, "test_one"),
-            call(case_two_fixtures, mock_session, "test_two")])
+            call(None, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
+            call(case_two_fixtures, mock_session,
+                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")
+        ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
 
@@ -126,15 +135,16 @@ class Test_ValidatorHostInterface_displayName:
 
 class Test_FixtureAugmentedTestCase_init:
     def test_has_fixtures_session_and_manager(
-            self, mock_test_case, a_fixture_dict, mock_session, mock_manager):
+            self, mock_test_case, a_fixture_dict, mock_session, mock_manager, a_locale):
         assert mock_test_case._fixtures is a_fixture_dict
         assert mock_test_case._session is mock_session
         assert mock_test_case._manager is mock_manager
+        assert mock_test_case._locale is a_locale
 
 
 @pytest.fixture
-def mock_test_case(a_fixture_dict, mock_session):
-    return FixtureAugmentedTestCase(a_fixture_dict, mock_session)
+def mock_test_case(a_fixture_dict, mock_session, a_locale):
+    return FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
 
 
 @pytest.fixture
