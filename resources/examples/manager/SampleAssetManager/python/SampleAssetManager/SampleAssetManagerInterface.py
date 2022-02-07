@@ -15,13 +15,15 @@
 #
 """
 A single-class module, providing the SampleAssetManagerInterface class.
+
+The manager currently ignores all entity types.
 """
 
 # Note that it should always be light-weight to construct instances of
 # the this class. See the notes under the "Initialization" section of:
 #   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
 # As such, any expensive module imports should be deferred.
-from openassetio.constants import kField_EntityReferencesMatchPrefix
+from openassetio import constants
 from openassetio.managerAPI import ManagerInterface
 
 __all__ = ['SampleAssetManagerInterface', ]
@@ -56,5 +58,9 @@ class SampleAssetManagerInterface(ManagerInterface):
         # supports this kind of matching, you should set this key. It allows for multi-threaded
         # reference testing in C++ as it avoids the need to acquire the GIL and enter Python.
         return {
-            kField_EntityReferencesMatchPrefix: "sam://"
+            constants.kField_EntityReferencesMatchPrefix: "sam://"
         }
+
+    def managementPolicy(self, specifications, context, hostSession, entityRef=None):
+        # pylint: disable=unused-argument
+        return [constants.kIgnored for _ in specifications]
