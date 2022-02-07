@@ -26,6 +26,7 @@ from unittest import mock
 import pytest
 
 from openassetio import hostAPI, logging
+from openassetio.specifications import LocaleSpecification
 
 
 @pytest.fixture
@@ -75,3 +76,8 @@ def a_fixture_dict():
     return {
         "identifier": "org.some.manager"
     }
+
+
+@pytest.fixture
+def a_locale():
+    return LocaleSpecification()
