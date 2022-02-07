@@ -3,13 +3,12 @@
 
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 
-namespace openassetio
-{
-inline namespace OPENASSETIO_VERSION
-{
-namespace managerAPI
-{
+namespace openassetio {
+inline namespace OPENASSETIO_VERSION {
+namespace managerAPI {
+
 ManagerInterface::ManagerInterface() {}
+
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

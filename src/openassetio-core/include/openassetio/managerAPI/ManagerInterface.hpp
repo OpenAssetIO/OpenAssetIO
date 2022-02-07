@@ -5,17 +5,15 @@
 
 #include <openassetio/export.h>
 
-namespace openassetio
-{
-inline namespace OPENASSETIO_VERSION
-{
-namespace managerAPI
-{
-class OPENASSETIO_CORE_EXPORT ManagerInterface
-{
-public:
-    ManagerInterface();
+namespace openassetio {
+inline namespace OPENASSETIO_VERSION {
+namespace managerAPI {
+
+class OPENASSETIO_CORE_EXPORT ManagerInterface {
+ public:
+  ManagerInterface();
 };
+
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

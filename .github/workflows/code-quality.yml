@@ -34,3 +34,13 @@ jobs:
           # duplicated implementation. See:
           #     https://github.com/PyCQA/pylint/issues/214
           pylint-ignore-paths: "tests/openassetio/pluginSystem/resources/symlinkPath"
+
+  clang-format:
+    name: ClangFormat
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run clang-format style check for C/C++.
+        run: >
+          find src -type f -regextype posix-extended -regex '.*(\.hpp|\.cpp|\.h|\.c)$' |
+          xargs clang-format --Werror --dry-run --style=file
