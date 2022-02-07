@@ -38,5 +38,11 @@ fixtures = {
         "test_matches_fixture": {
             "info" : {}
         }
+    },
+    "Test_managementPolicy": {
+        "test_calling_with_read_context_and_entity_reference": { "valid_entity_reference": "" },
+        "test_calling_with_write_context_and_entity_reference": { "valid_entity_reference": "" },
+        "test_calling_with_read_multiple_context_and_entity_reference": { "valid_entity_reference": ""},
+        "test_calling_with_write_multiple_context_and_entity_reference": { "valid_entity_reference": "" }
     }
 }
