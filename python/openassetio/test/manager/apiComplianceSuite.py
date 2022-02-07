@@ -17,6 +17,18 @@
 @namespace openassetio.test.manager.apiComplianceSuite
 A manager test harness test case suite that validates that a specific
 manager plugin complies to the relevant core OpenAssetIO API contract.
+
+This suite is solely concerned with verifying that a plugin meets the
+requirements of the API, and can handle all documented calling patterns.
+For example, that when a
+@ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+"managementPolicy" query returns a non-ignored state, that there are no
+errors calling the other required methods for a managed entity of that
+Specification.
+
+The suite does not validate any specific business logic by checking the
+values API methods _may_ return in certain situations. This should be
+handled through additional suites local to the manager's implementation.
 """
 
 # pylint: disable=invalid-name, missing-function-docstring
