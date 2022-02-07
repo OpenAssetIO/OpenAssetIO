@@ -35,7 +35,7 @@ fixtures = {
     "Test_info": {
         "test_matches_fixture": {
             "info" : {
-                kField_EntityReferencesMatchPrefix: "sam://"
+                kField_EntityReferencesMatchPrefix: "sam:///"
             }
         }
     },

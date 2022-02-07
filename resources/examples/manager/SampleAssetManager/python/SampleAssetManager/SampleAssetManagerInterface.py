@@ -58,7 +58,7 @@ class SampleAssetManagerInterface(ManagerInterface):
         # supports this kind of matching, you should set this key. It allows for multi-threaded
         # reference testing in C++ as it avoids the need to acquire the GIL and enter Python.
         return {
-            constants.kField_EntityReferencesMatchPrefix: "sam://"
+            constants.kField_EntityReferencesMatchPrefix: "sam:///"
         }
 
     def managementPolicy(self, specifications, context, hostSession, entityRef=None):
