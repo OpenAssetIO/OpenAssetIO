@@ -239,7 +239,7 @@
  * - Allow filtering by @ref Specification
  *
  * If these rules are followed, then arbitrary assets from arbitrary
- * hosts can be round-tripped thorough an asset manager without
+ * hosts can be round-tripped through an asset manager without
  * specific support. However, there is scope to build more advanced and
  * useful functionality by mapping OpenAssetIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
