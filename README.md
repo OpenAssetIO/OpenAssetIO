@@ -109,10 +109,9 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ### System requirements
 
-We are targeting explicit support for [VFX Reference
-Platform CY2022](https://vfxplatform.com). More specifically, in the
-following we assume a Linux system (support for other operating systems
-is the subject of ongoing work) with system packages
+Ubuntu Linux 20.04 is currently the only fully tested platform. Support
+for other platforms is the subject of ongoing work. We further assume
+the following system packages are installed
 
 - CMake 3.21+
 - GCC 9.3
@@ -132,6 +131,9 @@ For reference, during development of OpenAssetIO we use the [conan](https://cona
 package manager, and source the dependencies from the default public
 [ConanCenter](https://conan.io/center/) repository. We therefore assume
 the presence of CMake build targets as exported by these packages.
+
+> Warning: if attempting to build on CentOS 7 using the ConanCenter
+> Python 3.9 package you will likely hit an [issue installing pkgconf](https://github.com/conan-io/conan-center-index/issues/8541).
 
 ### Installation
 
