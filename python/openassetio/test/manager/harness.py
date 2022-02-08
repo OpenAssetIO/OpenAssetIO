@@ -169,3 +169,22 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         for key, value in dictionary.items():
             self.assertIsInstance(key, str)
             self.assertIsInstance(value, (str, int, float, bool))
+
+    def assertValuesOfType(self, valueList, valueType, allowNone=False):
+        """
+        Asset that all values in the supplied list are of the desired
+        type, or optionally None. An empty list will not fail the check.
+
+        @param valueList `List[Any]` The list of values to check.
+        @param valueType `Type` The expected value type, as compatible
+          with `isinstance`.
+        @param allowNone `bool` When True, one or more elements of the
+          list may also be `None`.
+
+        @exception AssertionError if any of the supplied values are not
+          of the excpected type.
+        """
+        for value in valueList:
+            if value is None and allowNone:
+                continue
+            self.assertIsInstance(value, valueType)

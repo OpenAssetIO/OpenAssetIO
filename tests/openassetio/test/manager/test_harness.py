@@ -144,6 +144,38 @@ class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:
             })
 
 
+class Test_FixtureAugmentedTestCase_assertValuesOfType:
+
+    def test_when_list_empty_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType([], int)
+
+    def test_when_list_empty_and_none_allowed_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType([], int, allowNone=True)
+
+    def test_when_all_int_values_match_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType([1, 2, 3], int)
+
+    def test_when_all_str_values_match_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType(["as", 'they', "should"], str)
+
+    def test_when_all_class_values_match_then_passes(self, a_test_case):
+        import datetime  # pylint: disable=import-outside-toplevel
+        values = [datetime.date.today() for x in range(3)]
+        a_test_case.assertValuesOfType(values, datetime.date)
+
+    def test_when_values_contain_none_then_fails(self, a_test_case):
+        with pytest.raises(AssertionError):
+            a_test_case.assertValuesOfType([1, None, 3], int)
+
+    def test_when_values_contain_none_and_none_allowed_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType([1, None, 3], int, allowNone=True)
+
+    def test_when_called_with_tuple_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType((1, 2, 3), int)
+
+    def test_when_called_with_iterable_then_passes(self, a_test_case):
+        a_test_case.assertValuesOfType(range(10), int)
+
 #
 # Fixtures
 #
