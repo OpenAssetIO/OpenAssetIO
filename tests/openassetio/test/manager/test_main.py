@@ -52,7 +52,7 @@ class Test_CLI_output:
         assert "[debug]: PluginSystem" in str(execute_cli(a_passing_fixtures_file).stdout)
 
     def test_unittest_output_written_to_stderr(self, a_passing_fixtures_file):
-        assert "---\\nRan" in str(execute_cli(a_passing_fixtures_file).stderr)
+        assert "Ran" in str(execute_cli(a_passing_fixtures_file).stderr)
 
     def test_when_failing_then_errors_written_to_stderr(self, a_failing_fixtures_file):
         assert "FAILED" in str(execute_cli(a_failing_fixtures_file).stderr)
