@@ -277,95 +277,154 @@ def a_ref():
 def some_refs():
     return ["asset://a", "asset://b"]
 
+# __str__ and __repr__ aren't tested as they're debug tricks that need
+# assessing when this is ported to cpp
 
-class TestManager():
+class Test_Manager_init:
 
-    # pylint: disable=too-many-public-methods,too-many-arguments
+    def test_interface_returns_the_constructor_supplied_object(
+            self, mock_manager_interface, host_session):
 
-    # __str__ and __repr__ aren't tested as they're debug tricks that need
-    # assessing when this is ported to cpp
-
-    def test__interface(self, mock_manager_interface, host_session):
         # pylint: disable=protected-access
         a_manager = Manager(mock_manager_interface, host_session)
         assert a_manager._interface() is mock_manager_interface
 
-    def test_identifier(self, manager, mock_manager_interface):
+
+class Test_Manager_identifier:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface):
+
         method = mock_manager_interface.identifier
         assert manager.identifier() == method.return_value
         method.assert_called_once_with()
 
-    def test_updateTerminology(self, manager, mock_manager_interface, host_session):
+
+class Test_Manager_updateTerminology:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session):
+
         method = mock_manager_interface.updateTerminology
         a_dict = {"k", "v"}
         assert manager.updateTerminology(a_dict) is a_dict
         method.assert_called_once_with(a_dict, host_session)
 
-    def test_getSettings(self, manager, mock_manager_interface, host_session):
+
+class Test_Manager_getSettings:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session):
+
         method = mock_manager_interface.getSettings
         assert manager.getSettings() == method.return_value
         method.assert_called_once_with(host_session)
 
-    def test_setSettings(self, manager, mock_manager_interface, host_session):
+
+class Test_Manager_setSettings:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session):
+
         method = mock_manager_interface.setSettings
         a_dict = {"k", "v"}
         assert manager.setSettings(a_dict) == method.return_value
         method.assert_called_once_with(a_dict, host_session)
 
-    def test_initialize(self, manager, mock_manager_interface, host_session):
+
+class Test_Manager_initialize:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session):
+
         method = mock_manager_interface.initialize
         assert manager.initialize() == method.return_value
         method.assert_called_once_with(host_session)
 
-    def test_prefetch(self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
+class Test_Manager_prefetch:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.prefetch
-        # Not testing Entity variant of call as this will be removed shortly
         assert manager.prefetch(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_flushCaches(self, manager, mock_manager_interface, host_session):
+
+class Test_Manager_flushCaches:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session):
+
         method = mock_manager_interface.flushCaches
         assert manager.flushCaches() == method.return_value
         method.assert_called_once_with(host_session)
 
-    def test_isEntityReference(
+
+class Test_Manager_isEntityReference:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.isEntityReference
         assert manager.isEntityReference(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_entityExists(
+
+class Test_Manager_entityExists:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.entityExists
         assert manager.entityExists(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    # Not testing getEntity as it will be removed
 
-    def test_defaultEntityReference(
+class Test_Manager_defaultEntityReference:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, a_context, some_entity_specs):
+
         method = mock_manager_interface.defaultEntityReference
         assert manager.defaultEntityReference(some_entity_specs, a_context) == method.return_value
         method.assert_called_once_with(some_entity_specs, a_context, host_session)
 
-    def test_entityName(self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
+class Test_Manager_entityName:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.entityName
         assert manager.entityName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_entityDisplayName(
+
+class Test_Manager_entityDisplayNamer:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.entityDisplayName
         assert manager.entityDisplayName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_getEntityAttributes(
+
+class Test_Manager_getEntityAttributes:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.getEntityAttributes
         assert manager.getEntityAttributes(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_setEntityAttributes(
+
+class Test_Manager_setEntityAttributes:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
         method = mock_manager_interface.setEntityAttributes
@@ -379,13 +438,11 @@ class TestManager():
             some_refs, some_data, a_context, merge=False) == method.return_value
         method.assert_called_once_with(some_refs, some_data, a_context, host_session, merge=False)
 
-    def test_getEntityAttribute(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        # TODO(DF): This test doesn't cover the default implementation
-        #   in ManagerInterface. We will redesign the attributes mechanism
-        #   soon (including removing this method), so deliberately
-        #   leaving untested.
+class Test_Manager_getEntityAttribute:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
         method = mock_manager_interface.getEntityAttribute
         a_key = "key"
@@ -401,13 +458,11 @@ class TestManager():
         method.assert_called_once_with(
             some_refs, a_key, a_context, host_session, defaultValue=a_default)
 
-    def test_setEntityAttribute(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        # TODO(DF): This test doesn't cover the default implementation
-        #   in ManagerInterface. We will redesign the attributes mechanism
-        #   soon (including removing this method), so deliberately
-        #   leaving untested.
+class Test_Manager_setEntityAttribute:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
         a_key = "key"
         a_value = "value"
@@ -416,13 +471,20 @@ class TestManager():
             some_refs, a_key, a_value, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_key, a_value, a_context, host_session)
 
-    def test_entityVersionName(
+
+class Test_Manager_entityVersionName:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.entityVersionName
         assert manager.entityVersionName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_entityVersions(
+
+class Test_Manager_entityVersions:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
         method = mock_manager_interface.entityVersions
@@ -447,10 +509,13 @@ class TestManager():
         method.assert_called_once_with(
             some_refs, a_context, host_session, includeMetaVersions=include_meta,
             maxNumVersions=max_results)
-        method.reset_mock()
 
-    def test_finalizedEntityVersion(
+
+class Test_Manager_finalizedEntityVersion:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.finalizedEntityVersion
         assert manager.finalizedEntityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(
@@ -464,7 +529,10 @@ class TestManager():
         method.assert_called_once_with(
             some_refs, a_context, host_session, overrideVersionName=a_version_name)
 
-    def test_getRelatedReferences(
+
+class Test_Manager_getRelatedReferences:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
 
         # pylint: disable=too-many-locals
@@ -506,13 +574,20 @@ class TestManager():
         method.assert_called_once_with(
             [one_ref], [one_spec], a_context, host_session, resultSpec=an_entity_spec)
 
-    def test_resolveEntityReference(
+
+class Test_Manager_resolveEntityReference:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
+
         method = mock_manager_interface.resolveEntityReference
         assert manager.resolveEntityReference(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
-    def test_managementPolicy(
+
+class Test_Manager_managentPolicy:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_entity_specs, a_context,
             a_ref):
 
@@ -526,18 +601,28 @@ class TestManager():
             some_entity_specs, a_context, entityRef=a_ref) == method.return_value
         method.assert_called_once_with(some_entity_specs, a_context, host_session, entityRef=a_ref)
 
-    def test_preflight(
+
+class Test_Manager_preflight:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
             a_context):
+
         method = mock_manager_interface.preflight
         assert manager.preflight(some_refs, some_entity_specs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, some_entity_specs, a_context, host_session)
 
-        # Check IndexError is raised if list lengths mismatch
+
+    def test_when_called_with_mismatched_array_lengths_then_IndexError_is_raised(
+            self, manager, some_refs, some_entity_specs, a_context):
+
         with pytest.raises(IndexError):
             manager.preflight(some_refs, some_entity_specs[1:], a_context)
 
-    def test_register(
+
+class Test_Manager_register:
+
+    def test_wraps_the_the_held_interface_register_and_setEntityAttributes_methods(
             self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
             a_context):
 
@@ -572,7 +657,11 @@ class TestManager():
         setmeta_method.assert_called_once_with(
             mutated_refs, some_attr, a_context, host_session, merge=True)
 
-        # Check IndexError is raised if list lengths mismatch
+    def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
+            self, manager, some_refs, some_entity_specs, a_context):
+
+        some_strings = ["primary string 1", "primary string 2"]
+        some_attr = [{"k1": "v1"}, {"k2": "v2"}]
 
         with pytest.raises(IndexError):
             manager.register(

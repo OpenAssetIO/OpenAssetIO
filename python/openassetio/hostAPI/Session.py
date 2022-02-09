@@ -150,6 +150,13 @@ class Session(Debuggable):
             raise ManagerException("Unknown Manager '%s'" % identifier)
 
         # No need to do anything if its the same
+        ## @todo [tc] If we want to keep `settings` as part of this method
+        ## (so a deferred constructed manager can have its settings set)
+        ## then we should make sure the following does actually apply the
+        ## settings:
+        ##     useManager(an_id)
+        ##     useManager(an_id, setting=some_settings)
+        ## Right now, this won't happen, and the settings will be lost.
         if identifier == self._managerId:
             return
 

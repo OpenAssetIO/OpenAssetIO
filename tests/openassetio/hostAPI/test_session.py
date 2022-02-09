@@ -58,68 +58,113 @@ def a_session(mock_host_interface, mock_logger, mock_manager_factory):
     return Session(mock_host_interface, mock_logger, mock_manager_factory)
 
 
-class TestSession():
+class Test_Session_init:
 
-    # pylint: disable=protected-access
+    def test_when_constructed_then_debugLogFn_is_the_supplied_loggers_log_function(
+            self, a_session, mock_logger):
 
-    def test_constructor(self, a_session, mock_logger, mock_manager_factory):
+	    # pylint: disable=protected-access
         assert a_session._debugLogFn is mock_logger.log
+
+    def test_when_constructed_with_null_host_interface_then_ValueError_is_raised(
+            self, mock_logger, mock_manager_factory):
+
         with pytest.raises(ValueError):
             Session(None, mock_logger, mock_manager_factory)
+
+    def test_when_constructed_with_invalid_host_interface_type_then_ValueError_is_raised(
+            self, mock_logger, mock_manager_factory):
+
         with pytest.raises(ValueError):
             Session(mock_logger, mock_logger, mock_manager_factory)
 
-    def test_host(self, a_session, mock_host_interface):
+
+class Test_Session_host:
+
+    # pylint: disable=protected-access
+
+    def test_the_supplied_host_interface_is_wrapped_and_returned(
+            self, a_session, mock_host_interface):
+
         host = a_session.host()
         assert isinstance(host, Host)
         assert host._interface() is mock_host_interface
-        assert host._debugLogFn is a_session._debugLogFn
 
-    def test_registeredManagers(self, a_session, mock_manager_factory):
+    def test_the_returned_wrapper_shares_the_sessions_debugLogFn(
+            self, a_session):
+
+        assert a_session.host()._debugLogFn is a_session._debugLogFn
+
+
+class Test_Session_registeredManagers:
+
+    def test_wraps_the_supplied_factory_method(
+            self, a_session, mock_manager_factory):
+
         mock_manager_factory.managers.assert_not_called()
         assert a_session.registeredManagers() == mock_manager_factory.managers.return_value
         mock_manager_factory.managers.assert_called_once_with()
 
-    def test_useManager(self, a_session, mock_manager_factory):
+
+class Test_Session_useManager:
+
+    def test_when_called_with_a_valid_identifier_then_it_is_not_immediately_instantiated(
+            self, a_session, mock_manager_factory):
+
         # Not testing lifetime management of manager instances here in too much detail
         # As this isn't set in stone, and will change with the `cpp` implementation.
 
-        # Not testing the EventManager here as this is to be split from the core API.
-
-        an_id = "com.manager"
-
-        # Valid ID
-
         mock_manager_factory.managerRegistered.return_value = True
 
+        an_id = "com.manager"
         a_session.useManager(an_id)
-
         mock_manager_factory.managerRegistered.assert_called_once_with(an_id)
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_factory.managerRegistered.reset_mock()
 
-        # Invalid ID
+    def test_when_called_with_an_invalid_identifier_then_a_ManagerException_is_raised(
+            self, a_session, mock_manager_factory):
 
         mock_manager_factory.managerRegistered.return_value = False
 
+        an_id = "com.manager"
         with pytest.raises(exceptions.ManagerException):
             a_session.useManager(an_id)
-
         mock_manager_factory.managerRegistered.assert_called_once_with(an_id)
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_factory.managerRegistered.reset_mock()
 
-    def test_currentManager(self, a_session, mock_manager_factory, mock_manager_interface):
+
+class Test_Session_currentManager:
+    # pylint: disable=protected-access
+
+    def test_when_useManager_has_not_been_called_then_factory_is_not_queried(
+            self, a_session, mock_manager_factory):
+
         # Not testing lifetime management of manager instances here in too much detail
         # As this isn't set in stone, and will change with the `cpp` implementation.
 
         assert a_session.currentManager() is None
         mock_manager_factory.assert_not_called()
 
+    def test_when_useManager_was_called_with_valid_identifier_then_initializes_expected_manager(
+            self, a_session, mock_manager_interface, mock_manager_factory):
+
         an_id = "com.manager"
         a_session.useManager(an_id)
 
-        # Test first initialisation of new manager id
+        manager = a_session.currentManager()
+
+        assert isinstance(manager, Manager)
+        assert manager._interface() is mock_manager_interface
+        assert manager._debugLogFn is a_session._debugLogFn
+        mock_manager_factory.instantiate.assert_called_once_with(an_id)
+        mock_manager_interface.initialize.assert_called_once()
+        mock_manager_interface.setSettings.assert_not_called()
+
+    def test_when_repeatedly_called_then_the_manager_is_only_initialized_once(
+            self, a_session, mock_manager_interface, mock_manager_factory):
+
+        an_id = "com.manager"
+        a_session.useManager(an_id)
 
         manager = a_session.currentManager()
 
@@ -131,17 +176,21 @@ class TestSession():
         mock_manager_interface.setSettings.assert_not_called()
         mock_manager_factory.reset_mock()
 
-        # Test re-use of previous instance when manager not changed
-
         assert a_session.currentManager() is manager
         mock_manager_factory.instantiate.assert_not_called()
 
-        # Test changing manager id
+    def test_when_useManager_called_with_another_id_then_the_new_manager_is_initialized(
+            self, a_session, mock_manager_interface, mock_manager_factory):
+
+        an_id = "com.manager"
+        a_session.useManager(an_id)
+        manager = a_session.currentManager()
+        mock_manager_factory.instantiate.assert_called_once_with(an_id)
+        mock_manager_interface.initialize.assert_called_once()
+        mock_manager_factory.reset_mock()
 
         another_id = "com.manager.b"
-
         a_session.useManager(another_id)
-
         mock_manager_factory.instantiate.assert_not_called()
         manager_b = a_session.currentManager()
         assert manager_b is not manager
@@ -149,10 +198,11 @@ class TestSession():
         assert manager_b._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(another_id)
         mock_manager_interface.initialize.assert_called_once()
-        mock_manager_factory.reset_mock()
 
-        # Test changing manager with settings
+    def test_when_useManager_called_with_settings_then_new_manager_initialized_with_settings(
+            self, a_session, mock_manager_interface, mock_manager_factory):
 
+        an_id = "com.manager"
         some_settings = {"k": "v"}
         a_session.useManager(an_id, settings=some_settings)
 
@@ -165,17 +215,20 @@ class TestSession():
         mock_manager_interface.initialize.assert_called_once()
         mock_manager_interface.setSettings.assert_called_once()
         assert mock_manager_interface.setSettings.call_args[0][0] == some_settings
-        mock_manager_factory.reset_mock()
 
-    def test_createContext(self, a_session, mock_manager_interface):
-        # No active manager
+
+class Test_Session_createContext:
+
+    def test_when_called_with_no_current_manager_then_a_RuntimeError_is_raised(
+            self, a_session, mock_manager_interface):
 
         with pytest.raises(RuntimeError):
             _ = a_session.createContext()
 
         mock_manager_interface.createState.assert_not_called()
 
-        # With an active manager
+    def test_when_called_with_a_current_manager_then_context_is_created_with_expected_properties(
+            self, a_session, mock_manager_interface):
 
         a_session.useManager("com.manager")
 
@@ -190,18 +243,24 @@ class TestSession():
         assert context_a.actionGroupDepth == 0
         assert context_a.locale is None
         mock_manager_interface.createState.assert_called_once()
-        mock_manager_interface.reset_mock()
 
-        # Child contexts
+    def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
+            self, a_session, mock_manager_interface):
 
+        a_session.useManager("com.manager")
+
+        state_a = "state-a"
+        mock_manager_interface.createState.return_value = state_a
+        context_a = a_session.createContext()
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
         context_a.locale = LocaleSpecification()
         context_a.actionGroupDepth = 3
+        mock_manager_interface.reset_mock()
 
         state_b = "state-b"
         mock_manager_interface.createState.return_value = state_b
-        ## @todo We should spy on the Manager instead of this fudgery
+        # pylint: disable=protected-access
         a_host_session = a_session.currentManager()._Manager__hostSession
 
         context_b = a_session.createContext(parent=context_a)
@@ -215,9 +274,16 @@ class TestSession():
         mock_manager_interface.createState.assert_called_once_with(
             a_host_session, parentState=state_a)
 
-    def test_getSettings(self, a_session, mock_manager_interface):
+
+class Test_Session_getSettings:
+
+    def test_when_called_with_no_manager_then_identifier_key_is_empty(self, a_session):
+
         settings = a_session.getSettings()
         assert settings == {constants.kSetting_ManagerIdentifier: None}
+
+    def test_when_called_with_a_manager_then_contains_manager_settings_and_identifier(
+            self, a_session, mock_manager_interface):
 
         an_id = "com.manager"
         some_manager_settings = {"k": "v"}
@@ -230,7 +296,12 @@ class TestSession():
         assert a_session.getSettings() == expected_settings
         mock_manager_interface.getSettings.assert_called_once()
 
-    def test_setSettings(self, a_session, mock_manager_interface, mock_manager_factory):
+
+class Test_Session_setSettings:
+
+    def test_when_called_on_new_session_then_manger_and_settings_are_configured(
+            self, a_session, mock_manager_interface, mock_manager_factory):
+
         an_id = "com.manager"
         manager_settings = {"k": "v"}
         some_settings = {constants.kSetting_ManagerIdentifier: an_id}

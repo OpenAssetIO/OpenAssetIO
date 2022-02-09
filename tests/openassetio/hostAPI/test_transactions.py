@@ -21,6 +21,11 @@ Tests that cover the openassetio.hostAPI.transactions module.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
+## TODO (tc) These tests make assertions against methods called on the
+## manager interface, not the manager. This is technically conflating
+## concerns as it is making assumptions about the way Manager works.
+## We should instead be mocking that.
+
 from unittest import mock
 
 import pytest
@@ -59,94 +64,174 @@ def a_scoped_group(a_context):
     return t.ScopedActionGroup(mocked_coordinator, a_context)
 
 
-class TestTransactionCoordinator:
+class Test_TransactionCoordinator_manager:
 
-    # pylint: disable=protected-access
+    def test_when_manager_called_then_returns_the_constructor_supplied_manager(
+            self, mock_manager):
 
-    def test_construction(self, mock_manager):
         coordinator = t.TransactionCoordinator(mock_manager)
         assert coordinator.manager() is mock_manager
 
-    def test_scopedActionGroup(self, transaction_coordinator, a_context):
+
+class Test_TransactionCoordinator_scopedActionGroup:
+
+    def test_ScopedActionGroup_instance_returned(
+            self, transaction_coordinator, a_context):
+
         scoped_group = transaction_coordinator.scopedActionGroup(a_context)
         assert isinstance(scoped_group, t.ScopedActionGroup)
+
+    def test_cancels_on_exception_by_default(
+            self, transaction_coordinator, a_context):
+
+        scoped_group = transaction_coordinator.scopedActionGroup(a_context)
         assert scoped_group.cancelOnException is True
 
-    def test_pushActionGroup(self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._interface()
-        state = a_context.managerInterfaceState
+class Test_TransactionCoordinator_pushActionGroup:
+    # pylint: disable=protected-access
+
+    def test_actionGroup_depth_is_incremented(
+            self, transaction_coordinator, a_context):
 
         assert a_context.actionGroupDepth == 0
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
-
         transaction_coordinator.pushActionGroup(a_context)
         assert a_context.actionGroupDepth == 1
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=state, finish=None, cancel=None)
-
         transaction_coordinator.pushActionGroup(a_context)
         assert a_context.actionGroupDepth == 2
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
 
-    def test_popActionGroup(self, transaction_coordinator, mock_host_session, a_context):
+    def test_when_called_repeatedly_then_startTransaction_only_called_once(
+            self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._interface()
+        mock_interface = transaction_coordinator.manager()._interface()
+        state = a_context.managerInterfaceState
+
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=None)
+
+        transaction_coordinator.pushActionGroup(a_context)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=state, finish=None, cancel=None)
+
+        transaction_coordinator.pushActionGroup(a_context)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=None)
+
+
+class Test_TransactionCoordinator_popActionGroup:
+    # pylint: disable=protected-access
+
+    def test_actionGroup_depth_is_decremented(
+            self, transaction_coordinator, a_context):
+
+        a_context.actionGroupDepth = 2
+        transaction_coordinator.popActionGroup(a_context)
+        assert a_context.actionGroupDepth == 1
+        transaction_coordinator.popActionGroup(a_context)
+        assert a_context.actionGroupDepth == 0
+
+    def test_when_called_repeatedly_then_finishTransaction_only_called_once(
+            self, transaction_coordinator, mock_host_session, a_context):
+
+        mock_interface = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
         a_context.actionGroupDepth = 2
 
         transaction_coordinator.popActionGroup(a_context)
         assert a_context.actionGroupDepth == 1
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=None)
 
         transaction_coordinator.popActionGroup(a_context)
         assert a_context.actionGroupDepth == 0
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=state, cancel=None)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=state, cancel=None)
 
         with pytest.raises(RuntimeError):
             transaction_coordinator.popActionGroup(a_context)
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=None)
 
-    def test_cancelActions(self, transaction_coordinator, mock_host_session, a_context):
+    def test_when_depth_is_zero_then_RuntimeError_is_raised(
+            self, transaction_coordinator, a_context):
 
-        mock_manager = transaction_coordinator.manager()._interface()
+        a_context.actionGroupDepth = 0
+
+        with pytest.raises(RuntimeError):
+            transaction_coordinator.popActionGroup(a_context)
+
+    def test_when_depth_is_zero_then_manager_is_not_called(
+            self, mock_host_session, transaction_coordinator, a_context):
+
+        a_context.actionGroupDepth = 0
+
+        try:
+            transaction_coordinator.popActionGroup(a_context)
+        except Exception:  # pylint: disable=broad-except
+            pass
+
+        assert_transaction_calls(
+            transaction_coordinator.manager()._interface(), mock_host_session,
+            start=None, finish=None, cancel=None)
+
+
+class Test_TransactionCoordinator_cancelActions:
+    # pylint: disable=protected-access
+
+    def test_when_depth_is_zero_then_manager_is_not_called_and_true_is_returned(
+            self, transaction_coordinator, mock_host_session, a_context):
+
+        mock_interface = transaction_coordinator.manager()._interface()
+        # Ensure the manager will return a different value to the
+        # expected one so we can verify that the return value is not
+        # from the manager.
+        mock_interface.cancelTransaction.return_value = False
+
+        a_context.actionGroupDepth = 0
+
+        transaction_coordinator.cancelActions(a_context)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=None)
+
+
+    def test_when_depth_is_not_zero_then_manager_is_called_and_its_result_returned(
+            self, transaction_coordinator, mock_host_session, a_context):
+
+        mock_interface = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
-        # Check return values and depth management
+        # We can't use a `mock` value as a sentinel to verify that the
+        # return _is_ actually the value from the manager, as this won't
+        # roundtrip through C++, so we instead have to test both
+        # possible permutations.
 
-        mock_manager.cancelTransaction.return_value = True
+        mock_interface.cancelTransaction.return_value = True
 
-        a_context.actionGroupDepth = 2
+        a_context.actionGroupDepth = 1
         assert transaction_coordinator.cancelActions(a_context) is True
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=state)
-        assert a_context.actionGroupDepth == 0
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=state)
 
-        mock_manager.cancelTransaction.return_value = False
+        mock_interface.cancelTransaction.return_value = False
 
         a_context.actionGroupDepth = 2
         assert transaction_coordinator.cancelActions(a_context) is False
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=state)
+        assert_transaction_calls(
+            mock_interface, mock_host_session, start=None, finish=None, cancel=state)
+
+    def test_when_depth_is_not_zero_then_depth_is_reset_to_zero_after_call(
+            self, transaction_coordinator, a_context):
+
+        a_context.actionGroupDepth = 123
+        transaction_coordinator.cancelActions(a_context)
         assert a_context.actionGroupDepth == 0
 
-        # Check depth == 0 is an early-out
 
-        mock_manager.cancelTransaction.return_value = False
+class Test_TransactionCoordinator_actionGroupDepth:
+    # pylint: disable=protected-access
 
-        a_context.actionGroupDepth = 0
-        assert transaction_coordinator.cancelActions(a_context) is True
-        self.__assertTransactionCalls(
-            mock_manager, mock_host_session, start=None, finish=None, cancel=None)
-        assert a_context.actionGroupDepth == 0
-
-    def test_actionGroupDepth(self, transaction_coordinator, a_context):
+    def test_returns_context_depth(self, transaction_coordinator, a_context):
 
         assert a_context.actionGroupDepth == 0
         assert transaction_coordinator.actionGroupDepth(a_context) == 0
@@ -157,7 +242,11 @@ class TestTransactionCoordinator:
         a_context.actionGroupDepth = 77
         assert transaction_coordinator.actionGroupDepth(a_context) == 77
 
-    def test_managerInterfaceState_freeze_thaw(
+
+class Test_TransactionCoordinator_freeze_thaw:
+    # pylint: disable=protected-access
+
+    def test_when_frozen_and_thawed_then_context_depth_and_state_are_restored(
             self, transaction_coordinator, mock_host_session, a_context):
 
         mock_manager = transaction_coordinator.manager()._interface()
@@ -193,47 +282,35 @@ class TestTransactionCoordinator:
         assert a_context.managerInterfaceState == state
         assert a_context.actionGroupDepth == action_group_depth
 
-    @staticmethod
-    def __assertTransactionCalls(mock_manager, mock_host_session, start, finish, cancel):
 
-        for method, arg in (
-                (mock_manager.startTransaction, start),
-                (mock_manager.finishTransaction, finish),
-                (mock_manager.cancelTransaction, cancel)
-        ):
-            if arg is None:
-                method.assert_not_called()
-            else:
-                method.assert_called_once_with(arg, mock_host_session)
-
-        mock_manager.reset_mock()
-
-
-class TestScopedActionGroup:
-
+class Test_ScopedActionGroup:
     # pylint: disable=protected-access
 
-    def test_scope(self, a_scoped_group):
+    def test_scope_is_pushed_on_entry_and_popped_on_exit(
+            self, a_scoped_group):
 
         mock_coordinator = a_scoped_group._ScopedActionGroup__transactionCoordinator
         a_context = a_scoped_group._ScopedActionGroup__context
 
-        a_scoped_group.cancelOnException = True
-
         with a_scoped_group:
-            self.__assertActionGroupCalls(mock_coordinator, push=a_context, pop=None, cancel=None)
+            assert_action_group_calls(mock_coordinator, push=a_context, pop=None, cancel=None)
 
-        self.__assertActionGroupCalls(mock_coordinator, push=None, pop=a_context, cancel=None)
+        assert_action_group_calls(mock_coordinator, push=None, pop=a_context, cancel=None)
+
+    def test_when_an_exception_raised_then_actions_are_cancelled(
+            self, a_scoped_group):
+
+        mock_coordinator = a_scoped_group._ScopedActionGroup__transactionCoordinator
+        a_context = a_scoped_group._ScopedActionGroup__context
 
         with pytest.raises(RuntimeError):
             with a_scoped_group:
-                self.__assertActionGroupCalls(
-                    mock_coordinator, push=a_context, pop=None, cancel=None)
                 raise RuntimeError
 
-            self.__assertActionGroupCalls(mock_coordinator, push=None, pop=None, cancel=a_context)
+            assert_action_group_calls(mock_coordinator, push=None, pop=None, cancel=a_context)
 
-    def test_scope_does_not_cancel(self, a_scoped_group):
+    def test_when_cancelOnException_is_false_and_an_exception_raised_then_scope_is_popped(
+            self, a_scoped_group):
 
         mock_coordinator = a_scoped_group._ScopedActionGroup__transactionCoordinator
         a_context = a_scoped_group._ScopedActionGroup__context
@@ -242,23 +319,50 @@ class TestScopedActionGroup:
 
         with pytest.raises(RuntimeError):
             with a_scoped_group:
-                self.__assertActionGroupCalls(
-                    mock_coordinator, push=a_context, pop=None, cancel=None)
                 raise RuntimeError
 
-            self.__assertActionGroupCalls(mock_coordinator, push=None, pop=a_context, cancel=None)
+            assert_action_group_calls(mock_coordinator, push=None, pop=a_context, cancel=None)
 
-    @staticmethod
-    def __assertActionGroupCalls(mock_coordinator, push, pop, cancel):
 
-        for method, arg in (
-                (mock_coordinator.pushActionGroup, push),
-                (mock_coordinator.popActionGroup, pop),
-                (mock_coordinator.cancelActions, cancel)
-        ):
-            if arg is None:
-                method.assert_not_called()
-            else:
-                method.assert_called_once_with(arg)
+#
+# Utilities
+#
 
-        mock_coordinator.reset_mock()
+def assert_action_group_calls(mock_coordinator, push, pop, cancel):
+    """
+    A convenience methods that checks the actionGroup related methods
+    of the supplied mock TransactionCoordinator object have been called
+    with the specified arguments. If any of the supplied arguments are None,
+    then it will be asserted that the method was not called.
+    """
+
+    for method, arg in (
+            (mock_coordinator.pushActionGroup, push),
+            (mock_coordinator.popActionGroup, pop),
+            (mock_coordinator.cancelActions, cancel)
+    ):
+        if arg is None:
+            method.assert_not_called()
+        else:
+            method.assert_called_once_with(arg)
+
+    mock_coordinator.reset_mock()
+
+def assert_transaction_calls(mock_manager, mock_host_session, start, finish, cancel):
+    """
+    Asserts that the start/finish/cancelTransaction methods of the
+    supplied mock interface have been called with the specified args and
+    host session. If any of the supplied args are None, then it will be
+    asserted that the method was not called.
+    """
+    for method, arg in (
+            (mock_manager.startTransaction, start),
+            (mock_manager.finishTransaction, finish),
+            (mock_manager.cancelTransaction, cancel)
+    ):
+        if arg is None:
+            method.assert_not_called()
+        else:
+            method.assert_called_once_with(arg, mock_host_session)
+
+    mock_manager.reset_mock()
