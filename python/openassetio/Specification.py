@@ -94,6 +94,10 @@ class SpecificationBase(FixedInterfaceObject):
     def __repr__(self):
         return str(self)
 
+    def __eq__(self, other):
+        return self.schema() == other.schema() and self.data() == other.data()
+
+
 
 class Specification(SpecificationBase, metaclass=SpecificationFactory):
     """

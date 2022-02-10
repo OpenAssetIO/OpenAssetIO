@@ -190,3 +190,18 @@ class Test_Specification_data:
         spec_data = a_spec.data()
 
         assert set(a_spec.definedPropertyNames()) == set(spec_data.keys())
+
+
+class Test_Specification_equality:
+
+    def test_matching_specifications_are_equal(self):
+        assert PrefixASpec() == PrefixASpec()
+
+    def test_differing_properties_are_not_equal(self):
+        assert PrefixASpec() != PrefixASpec({"anInt":420})
+
+    def test_differing_prefixes_are_not_equal(self):
+        assert PrefixASpec() != PrefixBSpec()
+
+    def test_differing_types_are_not_equal(self):
+        assert PrefixASpec() != PrefixAChildSpec()
