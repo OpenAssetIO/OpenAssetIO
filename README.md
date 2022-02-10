@@ -227,14 +227,15 @@ dependencies. Assuming the install directory is `dist` under the
 repository root (the default)
 
 ```shell
-dist/bin/pip install .
-dist/bin/pip install -r tests/requirements.txt
+source dist/bin/activate
+pip install .
+pip install -r tests/requirements.txt
 ```
 
 We can now run the Python tests via `pytest`
 
 ```shell
-dist/bin/pytest tests
+pytest tests
 ```
 
 ### Using Vagrant
