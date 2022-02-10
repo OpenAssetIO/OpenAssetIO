@@ -73,6 +73,8 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         "${CMAKE_INSTALL_PREFIX}/bin/pip"
         COMMAND
         "${Python_EXECUTABLE}" -m venv "${CMAKE_INSTALL_PREFIX}"
+        COMMAND
+        ${CMAKE_INSTALL_PREFIX}/bin/python -m pip install --upgrade pip
     )
     # Target to wrap the venv command so it can be executed in isolation.
     add_custom_target(

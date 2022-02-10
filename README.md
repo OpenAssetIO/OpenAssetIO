@@ -281,6 +281,21 @@ cd build
 ctest
 ```
 
+### Using the ASWF Docker image
+
+The Academy Software Foundation maintains a set of VFX Reference 
+Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
+
+The CY22 image contains all dependencies currently required for building
+OpenAssetIO. For example, to build and run the tests via a container, 
+from the repository root run
+
+```shell
+docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
+  cd /src && cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON &&\
+  cd build && ctest -VV'
+````
+
 ## Getting involved
 
 - See the [contribution guide](contributing/PROCESS.md)
