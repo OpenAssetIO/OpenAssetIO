@@ -252,6 +252,7 @@ repository.
 In order to build and run the tests within a Vagrant VM, assuming
 Vagrant is installed and the current working directory is the root of
 the repository, run the following
+
 ```shell
 cd ci
 vagrant up
@@ -260,7 +261,9 @@ vagrant ssh
 cmake -S openassetio -B build --install-prefix ~/dist \
   --toolchain ~/conan/conan_paths.cmake -DOPENASSETIO_ENABLE_TESTS=ON
 ```
+
 Then we can run the following steps to build, install and run the tests
+
 ```shell
 cmake --build build
 cmake --install build
@@ -270,6 +273,7 @@ dist/bin/pip install -r openassetio/tests/requirements.txt
 dist/bin/pytest openassetio/tests
 ```
 or alternatively, simply
+
 ```shell
 cd build
 ctest
