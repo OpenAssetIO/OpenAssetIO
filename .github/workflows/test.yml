@@ -9,7 +9,7 @@ on:
       - 'docs/**'
 
 jobs:
-  ctest:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
