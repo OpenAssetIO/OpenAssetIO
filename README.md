@@ -269,9 +269,10 @@ Then we can run the following steps to build, install and run the tests
 cmake --build build
 cmake --install build
 cmake --build build --target openassetio-python-venv
-dist/bin/pip install ./openassetio
-dist/bin/pip install -r openassetio/tests/requirements.txt
-dist/bin/pytest openassetio/tests
+source dist/bin/activate
+pip install ./openassetio
+pip install -r openassetio/tests/requirements.txt
+pytest openassetio/tests
 ```
 or alternatively, simply
 
