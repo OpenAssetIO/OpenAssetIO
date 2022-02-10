@@ -12,6 +12,7 @@ namespace managerAPI {
 class OPENASSETIO_CORE_EXPORT ManagerInterface {
  public:
   ManagerInterface();
+  ManagerInterface(ManagerInterface&& other) {}
 };
 
 }  // namespace managerAPI

@@ -202,6 +202,14 @@ function(set_default_target_properties target_name)
 
 
     #-------------------------------------------------------------------
+    # CppLint
+
+    if (OPENASSETIO_ENABLE_CPPLINT AND CPPLINT)
+        add_dependencies(${target_name} openassetio-cpplint)
+    endif()
+
+
+    #-------------------------------------------------------------------
     # IDE helpers
 
     # For supported IDEs, add targets to a folder.

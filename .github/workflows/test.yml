@@ -34,7 +34,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/conan
-        key: ${{ runner.os }}-conan
+        key: ${{ matrix.os }}-conan
 
     - name: Install dependencies
       # Configure the system and install library dependencies via conan
@@ -43,16 +43,14 @@ jobs:
         source ci/bootstrap-${{ matrix.os }}.sh
 
     - name: Configure CMake build
-      run: |
-        cmake -S . -B build \
-          --install-prefix $GITHUB_WORKSPACE/dist \
-          --toolchain $HOME/conan/conan_paths.cmake \
-          -Wdev \
-          -DOPENASSETIO_ENABLE_TESTS=ON \
-          -DOPENASSETIO_WARNINGS_AS_ERRORS=ON \
-          -DCMAKE_VERBOSE_MAKEFILE=ON \
-          -DOPENASSETIO_ENABLE_SANITIZER_ADDRESS=ON \
-          -DOPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR=ON
+      run: >
+        cmake -S . -B build 
+        --install-prefix $GITHUB_WORKSPACE/dist 
+        --toolchain $HOME/conan/conan_paths.cmake 
+        -DCMAKE_VERBOSE_MAKEFILE=ON 
+        -DOPENASSETIO_ENABLE_TESTS=ON 
+        -DOPENASSETIO_ENABLE_SANITIZER_ADDRESS=ON 
+        -DOPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR=ON
 
     - name: Build, install and test
       run: |
