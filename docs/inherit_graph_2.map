@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node2" href="$classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. " alt="" coords="181,5,323,32"/>
 <area shape="rect" id="node3" href="$classopenassetio_1_1specifications_1_1_locale_specification.html" title="LocaleSpecifications are used by a Host to define which part of the application is interacting with t..." alt="" coords="179,56,325,83"/>
-<area shape="rect" id="node4" href="$classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. " alt="" coords="159,107,345,133"/>
+<area shape="rect" id="node5" href="$classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. " alt="" coords="159,107,345,133"/>
+<area shape="rect" id="node4" href="$classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html" title="A locale for test cases run as part of one of the API supplied test harnesses. " alt="" coords="393,56,536,83"/>
 </map>

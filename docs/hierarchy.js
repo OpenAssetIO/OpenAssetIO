@@ -48,6 +48,9 @@ var hierarchy =
         [ "UserCanceled", "classopenassetio_1_1exceptions_1_1_user_canceled.html", null ]
       ] ]
     ] ],
+    [ "TestCase", null, [
+      [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
+    ] ],
     [ "type", null, [
       [ "SpecificationFactory", "classopenassetio_1_1_specification_factory_1_1_specification_factory.html", null ]
     ] ],
@@ -62,6 +65,12 @@ var hierarchy =
         [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
       ] ]
     ] ],
+    [ "FixtureAugmentedTestCase", null, [
+      [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],
+      [ "Test_identifier", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html", null ],
+      [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", null ],
+      [ "Test_managementPolicy", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html", null ]
+    ] ],
     [ "ManagerFactoryInterface", null, [
       [ "PluginSystemManagerFactory", "classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html", null ]
     ] ],
@@ -70,10 +79,15 @@ var hierarchy =
     ] ],
     [ "Specification", null, [
       [ "EntitySpecification", "classopenassetio_1_1specifications_1_1_entity_specification.html", null ],
-      [ "LocaleSpecification", "classopenassetio_1_1specifications_1_1_locale_specification.html", null ],
+      [ "LocaleSpecification", "classopenassetio_1_1specifications_1_1_locale_specification.html", [
+        [ "TestHarnessLocale", "classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html", null ]
+      ] ],
       [ "RelationshipSpecification", "classopenassetio_1_1specifications_1_1_relationship_specification.html", null ]
     ] ],
     [ "SpecificationFactory", null, [
       [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
+    ] ],
+    [ "TestHarnessLocale", null, [
+      [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
     ] ]
 ];

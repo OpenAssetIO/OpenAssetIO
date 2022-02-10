@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.displayName. " alt="" coords="273,5,415,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.identifier. " alt="" coords="287,56,401,83"/>
+<area shape="rect" id="node4" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.info. " alt="" coords="304,107,384,133"/>
+<area shape="rect" id="node5" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.managementPolicy. " alt="" coords="253,157,435,184"/>
+</map>

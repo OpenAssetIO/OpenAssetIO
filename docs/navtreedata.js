@@ -78,6 +78,13 @@ var NAVTREE =
       [ "Distributed Processing", "stable_resolution.html#stable_resolution_manager_state_distribution", null ],
       [ "Implementation Guidelines", "stable_resolution.html#stable_resolution_manager_state_guidelines", null ]
     ] ],
+    [ "Testing Your Implementation", "testing.html", [
+      [ "Testing Manager Plugins", "testing.html#testing_manager_plugins", [
+        [ "The Fixtures File", "testing.html#testing_manager_plugins_fixtures", null ],
+        [ "Using the Command Line", "testing.html#testing_manager_plugins_cli", null ],
+        [ "Scripting The Test Harness", "testing.html#testing_manager_plugins_api", null ]
+      ] ]
+    ] ],
     [ "Thumbnails", "thumbnails.html", [
       [ "Overview", "thumbnails.html#thumbnails_overview", null ],
       [ "Requesting Thumbnail Creation During Publishing", "thumbnails.html#thumbnails_creation_during_publish", null ],
@@ -104,7 +111,7 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
         [ "Properties", "functions_prop.html", null ]
       ] ]
@@ -115,7 +122,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"functions.html"
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html#a1714c50a16d29c6702b7ff5f6114c1cf"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

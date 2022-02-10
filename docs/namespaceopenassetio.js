@@ -9,5 +9,6 @@ var namespaceopenassetio =
     [ "pluginSystem", "namespaceopenassetio_1_1plugin_system.html", "namespaceopenassetio_1_1plugin_system" ],
     [ "Specification", "namespaceopenassetio_1_1_specification.html", "namespaceopenassetio_1_1_specification" ],
     [ "SpecificationFactory", "namespaceopenassetio_1_1_specification_factory.html", "namespaceopenassetio_1_1_specification_factory" ],
-    [ "specifications", "namespaceopenassetio_1_1specifications.html", "namespaceopenassetio_1_1specifications" ]
+    [ "specifications", "namespaceopenassetio_1_1specifications.html", "namespaceopenassetio_1_1specifications" ],
+    [ "test", "namespaceopenassetio_1_1test.html", "namespaceopenassetio_1_1test" ]
 ];

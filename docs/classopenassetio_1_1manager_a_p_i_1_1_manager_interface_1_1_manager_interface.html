@@ -1255,8 +1255,9 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 </div><div class="memdoc">
 
 <p>Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
-<p>This can contain arbitrary key/value pairs.For example: </p><pre class="fragment">{ 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
-</pre><p>There are certain optional keys that may be used by a host or the API:</p>
+<p>This can contain arbitrary key/value pairs. For example: </p><pre class="fragment">{ 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
+</pre><dl class="section note"><dt>Note</dt><dd>Keys should always be strings, and values must be plain-old-data types (ie: str, int, float, bool).</dd></dl>
+<p>There are certain optional keys that may be used by a host or the API:</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>

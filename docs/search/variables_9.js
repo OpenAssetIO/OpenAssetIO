@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['start',['start',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#a550769bbd4e7537ff90a656f5b0c23b2',1,'openassetio::_core::debug::_Timer']]]
+  ['namehint',['nameHint',['../classopenassetio_1_1specifications_1_1_entity_specification.html#a29d6a73cf377260ad7bbd9ca1f7f346b',1,'openassetio::specifications::EntitySpecification']]]
 ];
