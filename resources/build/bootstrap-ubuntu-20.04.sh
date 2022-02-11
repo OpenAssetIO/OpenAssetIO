@@ -22,8 +22,13 @@ sudo pip3 install conan==1.45.0 cmake==3.21 ninja==1.10.2.3 cpplint==1.5.5
 # Use explicit predictable conan root path, to be used for both packages
 # and conan CMake toolchain config.
 export CONAN_USER_HOME="$HOME/conan"
-# Use old C++11 ABI as per VFX Reference Platform CY2022.
-conan config set compiler.libcxx=libstdc++
+# Create default conan profile so we can configure it before install.
+# Use --force so that if it already exists we don't error out.
+conan profile new default --detect --force
+# Use old C++11 ABI as per VFX Reference Platform CY2022. Not strictly
+# necessary as this is the default for conan, but we can't be certain
+# it'll remain the default in future.
+conan profile update settings.compiler.libcxx=libstdc++ default
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
 conan install --install-folder "$CONAN_USER_HOME" --build=missing \
