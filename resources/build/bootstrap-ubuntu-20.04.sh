@@ -4,9 +4,8 @@
 
 set -xeo pipefail
 sudo apt-get update
-# Install gcc and Python 3 (via pip, which will bring along Python 3 as
-# a dependency).
-sudo apt-get install -y build-essential python3-pip
+# Install gcc, clang-tidy and Python 3.
+sudo apt-get install -y build-essential clang-tidy python3-pip
 # Install system packages required for the Python 3.9 conan package.
 # These would be installed as part of the conan package install, but
 # we're caching the conan directory via the `actions/cache` Github
@@ -19,7 +18,7 @@ sudo apt-get install -y  --no-install-recommends libfontenc-dev libx11-xcb-dev l
     libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev
 
 # Install additional build tools.
-sudo pip3 install conan==1.45.0 cmake==3.21 ninja==1.10.2.3
+sudo pip3 install conan==1.45.0 cmake==3.21 ninja==1.10.2.3 cpplint==1.5.5
 # Use explicit predictable conan root path, to be used for both packages
 # and conan CMake toolchain config.
 export CONAN_USER_HOME="$HOME/conan"
