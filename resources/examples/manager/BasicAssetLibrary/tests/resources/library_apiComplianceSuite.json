@@ -1,0 +1,11 @@
+{
+  "$schema": "https://github.com/TheFoundryVisionmongers/OpenAssetIO/resources/examples/manager/BasicAssetLibrary/schema.json",
+  "entities": {
+    "anAsset⭐︎": {
+      "versions": [{ "primary_string": "resolved from 'anAsset⭐︎' using 📠" }]
+    },
+    "another 𝓐𝓼𝓼𝓼𝓮𝔱": {
+      "versions": [{ "primary_string": "resolved from 'another 𝓐𝓼𝓼𝓼𝓮𝔱' with a 📟" }]
+    }
+  }
+}
