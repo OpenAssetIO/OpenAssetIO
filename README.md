@@ -107,27 +107,38 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ## Getting started
 
-### System requirements
-
-- `linux` (`macOS` and `Windows` are currently unsupported)
-- `Python 3.7` or later
-
 ### Installation
 
-```
+The OpenAssetIO codebase is available as a git repository on GitHub
+
+```shell
 git clone git@github.com:TheFoundryVisionmongers/OpenAssetIO
-cd OpenAssetIO
-python3.7 -m venv .venv
-. .venv/bin/activate
-pip install -e .
 ```
 
-### Running tests
+### System requirements
 
+Linux is currently the only fully tested platform. Support
+for other platforms is the subject of ongoing work. 
+
+#### Quick start: Using the ASWF Docker image
+
+The Academy Software Foundation maintains a set of VFX Reference 
+Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
+
+The CY22 image contains all dependencies currently required for building
+OpenAssetIO. For example, to build and run the tests via a container, 
+from the repository root run
+
+```shell
+docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
+  cd /src && cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON &&\
+  cd build && ctest -VV'
 ```
-pip install -r tests/requirements.txt
-pytest
-```
+
+#### Other build methods
+
+For detailed instructions see [BUILDING](BUILDING.md).
+
 
 ## Getting involved
 
