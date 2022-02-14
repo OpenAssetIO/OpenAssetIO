@@ -61,6 +61,6 @@ class SampleAssetManagerInterface(ManagerInterface):
             constants.kField_EntityReferencesMatchPrefix: "sam:///"
         }
 
-    def managementPolicy(self, specifications, context, hostSession, entityRef=None):
+    def managementPolicy(self, specifications, context, hostSession):
         # pylint: disable=unused-argument
         return [constants.kIgnored for _ in specifications]

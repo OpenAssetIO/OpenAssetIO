@@ -394,7 +394,7 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def managementPolicy(self, specifications, context, hostSession, entityRef=None):
+    def managementPolicy(self, specifications, context, hostSession):
         """
         Determines if the asset manager is interested in participating
         in interactions with the specified specifications of @ref
@@ -416,10 +416,6 @@ class ManagerInterface(object):
         write access to determine if resolution and publishing features
         are applicable to this implementation.
 
-        Calls with an accompanying @ref entity_reference may be used to
-        prevent users from attempting to perform an asset-action that is
-        not supported by the asset management system.
-
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
         set, this instructs the host that the asset management system
@@ -439,13 +435,6 @@ class ManagerInterface(object):
         @param context Context The calling context.
 
         @param hostSession HostSession The API session.
-
-        @param entityRef `str` If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specifications if registered to the supplied entity. For
-        example, attempts to register an ImageSpecification to an
-        entity reference that refers to the top level project may be
-        meaningless, so in this case `kIgnored` should be returned.
 
         @return `List[int]` Bitfields, one for each element in
         `specifications`. See @ref openassetio.constants.

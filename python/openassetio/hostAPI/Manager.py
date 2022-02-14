@@ -308,7 +308,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def managementPolicy(self, specifications, context, entityRef=None):
+    def managementPolicy(self, specifications, context):
         """
         Determines if the manager is interested in participating in
         interactions with the specified types of @ref entity, either
@@ -333,12 +333,6 @@ class Manager(Debuggable):
         publishing. Ignored reads can allow optimisations in a host as
         there is no longer a need to test/resolve applicable strings.
 
-        Calls with an accompanying @ref entity_reference should be used
-        when one is known, to ensure that the manager has the
-        opportunity to prohibit users from attempting to perform an
-        asset-specific action that is not supported by the asset
-        management system.
-
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
         set, you can assume the asset management system will manage the
@@ -356,18 +350,11 @@ class Manager(Debuggable):
 
         @param context Context The calling context.
 
-        @param entityRef `str` If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specification if registered to the supplied entity. For example,
-        attempts to register an ImageSpecification to an entity
-        reference that refers to the top level project may be
-        meaningless, so in this case `kIgnored` would be returned.
-
         @return `List[int]` Bitfields, one for each element in
         `specifications`. See @ref openassetio.constants.
         """
         return self.__impl.managementPolicy(
-            specifications, context, self.__hostSession, entityRef=entityRef)
+            specifications, context, self.__hostSession)
 
     ## @}
 

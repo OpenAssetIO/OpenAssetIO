@@ -116,27 +116,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context.access = context.kWriteMultiple
         self.__assertPolicyResults(1, context)
 
-    def test_calling_with_read_context_and_entity_reference(self):
-        context = self._session.createContext()
-        context.access = context.kRead
-        self.__assertPolicyResults(1, context, self._fixtures['valid_entity_reference'])
-
-    def test_calling_with_write_context_and_entity_reference(self):
-        context = self._session.createContext()
-        context.access = context.kWrite
-        self.__assertPolicyResults(1, context, self._fixtures['valid_entity_reference'])
-
-    def test_calling_with_read_multiple_context_and_entity_reference(self):
-        context = self._session.createContext()
-        context.access = context.kReadMultiple
-        self.__assertPolicyResults(1, context, self._fixtures['valid_entity_reference'])
-
-    def test_calling_with_write_multiple_context_and_entity_reference(self):
-        context = self._session.createContext()
-        context.access = context.kWriteMultiple
-        self.__assertPolicyResults(1, context, self._fixtures['valid_entity_reference'])
-
-    def __assertPolicyResults(self, numSpecifications, context, entityRef=None):
+    def __assertPolicyResults(self, numSpecifications, context):
         """
         Tests the validity and coherency of the results of a call to
         `managementPolicy` for a given number of specifications and
@@ -145,7 +125,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         """
         specs = [EntitySpecification() for _ in range(numSpecifications)]
 
-        policies = self._manager.managementPolicy(specs, context, entityRef=entityRef)
+        policies = self._manager.managementPolicy(specs, context)
 
         self.assertValuesOfType(policies, int)
         self.assertEqual(len(policies), numSpecifications)
