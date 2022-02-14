@@ -67,7 +67,7 @@ class Test_displayName(FixtureAugmentedTestCase):
         self.assertIsNot(self._manager.displayName(), "")
 
     def test_matches_fixture(self):
-        self.assertEqual(self._fixtures["displayName"], self._manager.displayName())
+        self.assertEqual(self._fixtures["display_name"], self._manager.displayName())
 
 
 class Test_info(FixtureAugmentedTestCase):
