@@ -31,7 +31,7 @@ values API methods _may_ return in certain situations. This should be
 handled through additional suites local to the manager's implementation.
 """
 
-# pylint: disable=invalid-name, missing-function-docstring
+# pylint: disable=invalid-name, missing-function-docstring, no-member
 
 from .harness import FixtureAugmentedTestCase
 from ...specifications import EntitySpecification
@@ -129,3 +129,34 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 
         self.assertValuesOfType(policies, int)
         self.assertEqual(len(policies), numSpecifications)
+
+
+class Test_isEntityReference(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerAPI.ManagerInterface.isEntityReference.
+    """
+
+    def setUp(self):
+        self.collectRequiredFixture("a_valid_reference", skipTestIfMissing=True)
+        self.collectRequiredFixture("a_malformed_reference")
+
+    def test_valid_reference_returns_true(self):
+        assert self._manager.isEntityReference([self.a_valid_reference]) == [True]
+
+    def test_non_reference_returns_false(self):
+        assert self.a_malformed_reference != ""
+        assert self._manager.isEntityReference([self.a_malformed_reference]) == [False]
+
+    def test_empty_string_returns_false(self):
+        assert self._manager.isEntityReference([""]) == [False]
+
+    def test_mixed_inputs_returns_mixed_output(self):
+        reference = self.a_valid_reference
+        non_reference = self.a_malformed_reference
+        expected = [True, False]
+        assert self._manager.isEntityReference([reference, non_reference]) == expected
+
+    def test_random_unicode_input_returns_false(self):
+        unicode_reference = "🦆🦆🦑"
+        assert self._manager.isEntityReference([unicode_reference]) == [False]
