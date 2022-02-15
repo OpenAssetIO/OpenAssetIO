@@ -89,30 +89,30 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
     """
 
     def test_when_called_with_single_specification_returns_single_result(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         self.__assertPolicyResults(1, context)
 
     def test_when_called_with_ten_specifications_returns_ten_results(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         self.__assertPolicyResults(10, context)
 
     def test_calling_with_read_context(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         context.access = context.kRead
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_write_context(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         context.access = context.kWrite
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_read_multiple_context(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         context.access = context.kReadMultiple
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_write_multiple_context(self):
-        context = self._session.createContext()
+        context = self.createTestContext()
         context.access = context.kWriteMultiple
         self.__assertPolicyResults(1, context)
 
