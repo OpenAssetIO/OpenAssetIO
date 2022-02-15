@@ -31,7 +31,7 @@ fixtures = {
     },
     "Test_displayName": {
         "test_matches_fixture": {
-            "displayName": "Stub Manager"
+            "display_name": "Stub Manager"
         }
     },
     "Test_info": {

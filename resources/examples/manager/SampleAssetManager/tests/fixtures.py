@@ -30,7 +30,7 @@ fixtures = {
     },
     "Test_displayName": {
         "test_matches_fixture": {
-            "displayName": "Sample Asset Manager (SAM)"
+            "display_name": "Sample Asset Manager (SAM)"
         }
     },
     "Test_info": {
