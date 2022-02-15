@@ -150,9 +150,9 @@ class ValidatingMockManagerInterface(ManagerInterface):
 
         return mock.DEFAULT
 
-    def isEntityReference(self, tokens, context, hostSession):
+    def isEntityReference(self, tokens, hostSession):
         self.__assertIsIterableOf(tokens, str)
-        self.__assertCallingContext(context, hostSession)
+        assert isinstance(hostSession, HostSession)
         return mock.DEFAULT
 
     def entityExists(self, entityRefs, context, hostSession):
@@ -365,11 +365,11 @@ class Test_Manager_flushCaches:
 class Test_Manager_isEntityReference:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
+            self, manager, mock_manager_interface, host_session, some_refs):
 
         method = mock_manager_interface.isEntityReference
-        assert manager.isEntityReference(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, host_session)
+        assert manager.isEntityReference(some_refs) == method.return_value
+        method.assert_called_once_with(some_refs, host_session)
 
 
 class Test_Manager_entityExists:

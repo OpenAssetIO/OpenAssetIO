@@ -464,7 +464,7 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def isEntityReference(self, tokens, context, hostSession):
+    def isEntityReference(self, tokens, hostSession):
         """
         Determines if each supplied token (in its entirety) matches the
         pattern of a valid @ref entity_reference in your system.  It
@@ -483,8 +483,6 @@ class ManagerInterface(object):
         context Locale.
 
         @param tokens `List[str]` The strings to be inspected.
-
-        @param context Context The calling context.
 
         @param hostSession HostSession The API session.
 

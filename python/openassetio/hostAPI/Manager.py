@@ -382,7 +382,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def isEntityReference(self, tokens, context):
+    def isEntityReference(self, tokens):
         """
         @warning It is essential, as a host, that only valid
         references are supplied to Manager API calls. Before any
@@ -405,8 +405,6 @@ class Manager(Debuggable):
 
         @param tokens `List[str]` The strings to be inspected.
 
-        @param context openassetio.Context The calling context.
-
         @return `List[bool]` `True` if a supplied token should be
         considered as an @ref entity_reference, `False` if the pattern
         is not recognised.
@@ -424,7 +422,7 @@ class Manager(Debuggable):
         # We need to add support here for using the supplied prefix match string,
         # or regex, if supplied, instead of calling the manager, this is less
         # relevant in python though, more in C, but the note is here to remind us.
-        return self.__impl.isEntityReference(tokens, context, self.__hostSession)
+        return self.__impl.isEntityReference(tokens, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
