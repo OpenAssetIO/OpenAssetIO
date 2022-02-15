@@ -35,11 +35,9 @@ function(set_default_compiler_warnings target_name)
         # Warn on security issues around functions that format output
         # (ie printf).
         -Wformat=2
-        # TODO(DF): g++-6: error: unrecognized command line option '-Wimplicit-fallthrough'; did you mean '-Wno-fallthrough'?
         # Warn on statements that fallthrough without an explicit
         # annotation.
-        #        -Wimplicit-fallthrough
-        )
+        -Wimplicit-fallthrough)
 
     if (OPENASSETIO_WARNINGS_AS_ERRORS)
         set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
@@ -52,15 +50,13 @@ function(set_default_compiler_warnings target_name)
         -Wmisleading-indentation
         # Warn if if / else chain has duplicated conditions.
         -Wduplicated-cond
-        # TODO(DF): g++-6: error: unrecognized command line option '-Wduplicated-branches'; did you mean '-Wduplicated-cond'?
         # Warn if if / else branches have duplicated code.
-        #        -Wduplicated-branches
+        -Wduplicated-branches
         # Warn about logical operations being used where bitwise were
         # probably wanted.
         -Wlogical-op
         # Warn if you perform a cast to the same type.
-        -Wuseless-cast
-        )
+        -Wuseless-cast)
 
     if (MSVC)
         set(PROJECT_WARNINGS ${MSVC_WARNINGS})

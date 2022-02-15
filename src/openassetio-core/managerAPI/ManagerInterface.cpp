@@ -7,7 +7,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 namespace managerAPI {
 
-ManagerInterface::ManagerInterface() {}
+ManagerInterface::ManagerInterface() = default;
 
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION

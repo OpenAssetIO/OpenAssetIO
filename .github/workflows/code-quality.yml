@@ -44,3 +44,35 @@ jobs:
         run: >
           find src -type f -regextype posix-extended -regex '.*(\.hpp|\.cpp|\.h|\.c)$' |
           xargs clang-format --Werror --dry-run --style=file
+
+  cpp-linters:
+    name: C++ linters
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache conan packages
+        id: cache-conan
+        uses: actions/cache@v2
+        with:
+          path: ~/conan
+          key: ubuntu-20.04-conan
+
+      - name: Install dependencies
+        # Configure the system and install library dependencies via
+        # conan packages.
+        run: |
+          source resources/build/bootstrap-ubuntu-20.04.sh
+
+      - name: Configure CMake build
+        run: >
+          cmake -S . -B build
+          --install-prefix $GITHUB_WORKSPACE/dist
+          --toolchain $HOME/conan/conan_paths.cmake
+          -DCMAKE_CXX_STANDARD=17
+          -DOPENASSETIO_WARNINGS_AS_ERRORS=ON
+          -DOPENASSETIO_ENABLE_CLANG_TIDY=ON
+          -DOPENASSETIO_ENABLE_CPPLINT=ON 
+
+      - name: Build and lint
+        run: cmake --build build

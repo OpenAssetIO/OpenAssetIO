@@ -13,11 +13,30 @@ characters, where possible.
 
 ### C++
 
-We use the "Google" preset of [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html).
+We mostly follow the [Google Style Guide](https://google.github.io/styleguide/cppguide.html)
+with a few exceptions, as detailed in the configuration of the linters
+described below.
 
-Included in the root of the repository is a `.clang-format`
-configuration that derives from the Google style preset with no
-overrides apart from line wrapping.
+CI is configured to enforce [Clang-Format](https://clang.llvm.org/docs/ClangFormat.html),
+[Clang-Tidy](https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy)
+and [Cpplint](https://github.com/cpplint/cpplint) checks.
+
+Clang-Tidy and Cpplint can be enabled as part of the build process using
+CMake boolean variables `OPENASSETIO_ENABLE_CLANG_TIDY` and
+`OPENASSETIO_ENABLE_CPPLINT`, respectively.
+
+Clang-Format is configured as per the `.clang-format` at the root of the
+repository. 
+
+Similarly, Clang-Tidy is configured as per the `.clang-tidy`
+at the root of the repository, but with the additional command-line flag
+`-extra-arg=-Wno-unknown-warning-option` to avoid false positives when 
+using GCC.
+
+Cpplint is configured as per the `CPPLINT.cfg` in the `src` directory,
+but with the additional command-line flag 
+`--includeorder=standardcfirst` to avoid false positives with 
+third-party libraries.
 
 ### Python
 

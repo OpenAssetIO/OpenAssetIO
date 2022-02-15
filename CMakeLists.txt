@@ -172,6 +172,11 @@ endif ()
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
 
+# Enable clang-tidy static analysis tool.
+option(OPENASSETIO_ENABLE_CLANG_TIDY "Enable clang-tidy analysis during build" OFF)
+
+# Enable cpplint linter.
+option(OPENASSETIO_ENABLE_CPPLINT "Enable cpplint linter during build" OFF)
 
 #-----------------------------------------------------------------------
 # Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
@@ -197,6 +202,18 @@ if (OPENASSETIO_ENABLE_TESTS)
     add_custom_target(openassetio-install
         COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
 endif()
+
+
+#-----------------------------------------------------------------------
+# Enable CMake's built-in linter/static analyzer support.
+
+include(StaticAnalyzers)
+if (OPENASSETIO_ENABLE_CLANG_TIDY)
+    enable_clang_tidy()
+endif ()
+if (OPENASSETIO_ENABLE_CPPLINT)
+    enable_cpplint()
+endif ()
 
 
 #-----------------------------------------------------------------------
@@ -254,6 +271,10 @@ message(STATUS "Install prefix                  = ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "Configuration types             = ${CMAKE_CONFIGURATION_TYPES}")
 message(STATUS "Build type                      = ${CMAKE_BUILD_TYPE}")
 message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
+message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
+if (OPENASSETIO_ENABLE_PYTHON)
+    message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
+endif ()
 message(STATUS "Create test targets             = ${OPENASSETIO_ENABLE_TESTS}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization    = ${OPENASSETIO_ENABLE_IPO}")
@@ -268,11 +289,8 @@ if (IS_GCC_OR_CLANG)
     message(STATUS "Sanitizer: Thread               = ${OPENASSETIO_ENABLE_SANITIZER_THREAD}")
     message(STATUS "Sanitizer: Memory               = ${OPENASSETIO_ENABLE_SANITIZER_MEMORY}")
 endif ()
-message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
-if (OPENASSETIO_ENABLE_PYTHON)
-    message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
-endif ()
-
+message(STATUS "Linter: clang-tidy              = ${OPENASSETIO_ENABLE_CLANG_TIDY}")
+message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}")
 
 #-----------------------------------------------------------------------
 # Recurse to library targets
