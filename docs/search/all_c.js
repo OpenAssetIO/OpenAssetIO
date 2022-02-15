@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['managementpolicy',['managementPolicy',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a067769546fe2e3bc35025c7f6c8e28ce',1,'openassetio.hostAPI.Manager.Manager.managementPolicy()'],['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df',1,'openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy()']]],
+  ['managementpolicy',['managementPolicy',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3e6ed8d9b3d699f18d88f6e5d2f56889',1,'openassetio.hostAPI.Manager.Manager.managementPolicy()'],['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aee934ba838f690ef3d1d88a56361cf5c',1,'openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy()']]],
   ['manager',['Manager',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html',1,'openassetio::hostAPI::Manager']]],
   ['manager',['manager',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a641e16264fb40b2ca6ae0098a3c17b61',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
   ['managerexception',['ManagerException',['../classopenassetio_1_1exceptions_1_1_manager_exception.html',1,'openassetio::exceptions']]],

@@ -93,12 +93,12 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html#aff783e93ec4792177046b6554946b14e":[13,0,0,3,0,0,3],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html":[13,0,0,3,1,0],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8":[13,0,0,3,1,0,28],
-"classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a067769546fe2e3bc35025c7f6c8e28ce":[13,0,0,3,1,0,20],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a10dd75fa4d1922a019f19a23757b6573":[13,0,0,3,1,0,25],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a1743b8290224202678602d8f773becdd":[13,0,0,3,1,0,5],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a23e8041ce1015febe4fdace3225714f9":[13,0,0,3,1,0,2],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a2d95253cb4f66b60ba4af846d6b0ea0e":[13,0,0,3,1,0,13],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a38bcbd14698c0804e581d39e85f4bd73":[13,0,0,3,1,0,15],
+"classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3e6ed8d9b3d699f18d88f6e5d2f56889":[13,0,0,3,1,0,20],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a45ba2d7d80d152f7f35671de7f23b696":[13,0,0,3,1,0,14],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a48a50a68d76408fe9651783c963fd4d8":[13,0,0,3,1,0,12],
 "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4a4467cab41dcb4719599e307c77d045":[13,0,0,3,1,0,4],
@@ -202,7 +202,6 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5":[13,0,0,5,2,0,8],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6502e82f327a076a72e41a0dd647eb26":[13,0,0,5,2,0,27],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9":[13,0,0,5,2,0,16],
-"classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df":[13,0,0,5,2,0,20],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9":[13,0,0,5,2,0,23],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc":[13,0,0,5,2,0,18],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a8bd4fd3fc6ab34519967e7396c429801":[13,0,0,5,2,0,21],
@@ -214,6 +213,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910":[13,0,0,5,2,0,31],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad3029ff43857f9ee39ae48b91ffbb93c":[13,0,0,5,2,0,26],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad4d8c2dcca7164595aa3d33f009956d8":[13,0,0,5,2,0,13],
+"classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aee934ba838f690ef3d1d88a56361cf5c":[13,0,0,5,2,0,20],
 "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430":[13,0,0,5,2,0,28],
 "classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html":[13,0,0,6,0,0],
 "classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[13,0,0,6,0,0,0],
@@ -249,5 +249,5 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html#a3077ba60c453891a520ecc9dbef24ac1":[13,0,0,10,0,0,2,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html#a7a55201eb44f76d7c980d780177e5607":[13,0,0,10,0,0,2,1],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html":[13,0,0,10,0,0,3],
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html#a0bf409ed2981439ccbf9d8d2c5ecc010":[13,0,0,10,0,0,3,7]
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html#a1714c50a16d29c6702b7ff5f6114c1cf":[13,0,0,10,0,0,3,4]
 };

@@ -20,7 +20,7 @@ var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interfac
     [ "info", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4cbc8f16a0b6cd68f685de5561a0c618", null ],
     [ "initialize", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc", null ],
     [ "isEntityReference", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e", null ],
-    [ "managementPolicy", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a655c21345f3f7cc584991bb6ddca73df", null ],
+    [ "managementPolicy", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aee934ba838f690ef3d1d88a56361cf5c", null ],
     [ "prefetch", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a8bd4fd3fc6ab34519967e7396c429801", null ],
     [ "preflight", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a3989036d52c978a4db5ab96b22f2c130", null ],
     [ "register", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9", null ],
