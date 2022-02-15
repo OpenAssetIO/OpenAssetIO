@@ -19,9 +19,24 @@ Fixtures for executeSuiteTests.py
 
 fixtures = {
     "identifier": "org.openassetio.test.manager.stubManager",
+    "shared": {
+        "a_global_value": 1,
+        "a_class_overridden_global_value": 3,
+        "a_function_overridden_global_value": 6
+    },
     "Test_executeSuite_fixtures": {
-        "test_when_test_function_is_run_then_fixtures_are_those_for_the_test": {
-            "aUniqueValue": 5
+        "shared": {
+            "a_class_value": 2,
+            "a_class_overridden_global_value": 4
+        },
+        "test_fixtures_include_those_for_the_test": {
+            "a_unique_value": 5
+        },
+        "test_when_function_fixture_is_set_then_overrides_global": {
+            "a_function_overridden_global_value": 7
+        },
+        "test_fixtures_contain_no_additional_keys": {
+            "another_unique_value": 42
         }
     },
     "Test_executeSuite_with_case_fixtures": {

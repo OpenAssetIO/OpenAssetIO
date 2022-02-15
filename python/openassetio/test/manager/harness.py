@@ -56,7 +56,9 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
     @code{.py}
     fixtures = {
         "identifier": <target manager plugin identifier>,
+        "shared": { "<fixture_name>": <value> },
         "<Test_Case_name>": {
+            "shared": { "<fixture_name>": <value> },
             "<Test_function_name>": {
                 "<fixture_name>": <value>,
                 ...
@@ -75,6 +77,8 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
        within the named class.
      - `fixture_name`: The name of a fixture queried by the test
        function. This may be an input value, or an expected result.
+     - `shared`: Fixtures values that will be inherited to inner
+       classes or functions.
 
     The test harness takes care of extracting the appropriate function
     sub-dictionary and making it available through `self._fixtures`.

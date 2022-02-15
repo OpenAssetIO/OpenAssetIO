@@ -59,11 +59,54 @@ class Test_executeSuite_manager(FixtureAugmentedTestCase):
 
 class Test_executeSuite_fixtures(FixtureAugmentedTestCase):
 
-    def test_when_test_function_is_run_then_fixtures_are_those_for_the_test(self):
-        self.assertDictEqual(
+    def test_fixtures_include_those_for_the_test(self):
+        self.assertEqual(self._fixtures["a_unique_value"], 5)
+
+    def test_fixtures_include_global_shared_fixtures(self):
+        self.assertEqual(self._fixtures['a_global_value'], 1)
+
+    def test_fixtures_include_class_shared_fixtures(self):
+        self.assertEqual(self._fixtures['a_class_value'], 2)
+
+    def test_when_class_fixture_is_set_then_overrides_global(self):
+        self.assertEqual(self._fixtures['a_class_overridden_global_value'], 4)
+
+    def test_when_function_fixture_is_set_then_overrides_global(self):
+        self.assertEqual(self._fixtures['a_function_overridden_global_value'], 7)
+
+    def test_when_function_fixtures_missing_then_includes_shared(self):
+        self.assertEqual(
             self._fixtures,
             {
-                "aUniqueValue": 5
+                "a_global_value": 1,
+                "a_class_value": 2,
+                "a_class_overridden_global_value": 4,
+                "a_function_overridden_global_value": 6
+            }
+        )
+
+    def test_fixtures_contain_no_additional_keys(self):
+        self.assertEqual(
+            self._fixtures,
+            {
+                "a_global_value": 1,
+                "a_class_value": 2,
+                "a_class_overridden_global_value": 4,
+                "a_function_overridden_global_value": 6,
+                "another_unique_value": 42
+            }
+        )
+
+
+class Test_executeSuite_fixtures_with_no_values(FixtureAugmentedTestCase):
+
+    def test_when_class_fixtures_missing_then_includes_shared(self):
+        self.assertEqual(
+            self._fixtures,
+            {
+                "a_global_value": 1,
+                "a_class_overridden_global_value": 3,
+                "a_function_overridden_global_value": 6
             }
         )
 

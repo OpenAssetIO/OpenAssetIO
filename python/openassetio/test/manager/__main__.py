@@ -54,7 +54,9 @@ cmdline = argparse.ArgumentParser(
 
         fixtures = {
             "identifier" : "<identifier of target plugin>",
+            "shared": { "<fixture_name>": <value> }
             "<Test_ClassName>" : {
+                "shared": { "<fixture_name>": <value> }
                 "<test_method_name>" : {
                     "<fixture_name>" : <value>,
                     ...
