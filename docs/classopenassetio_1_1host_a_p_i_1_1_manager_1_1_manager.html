@@ -158,8 +158,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
-<tr class="memitem:a9ce05436797dd24b433e15c3ded492ea"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9ce05436797dd24b433e15c3ded492ea">isEntityReference</a> (self, tokens, context)</td></tr>
-<tr class="separator:a9ce05436797dd24b433e15c3ded492ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4346bb060396f0285495d46eb3aec5e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">isEntityReference</a> (self, tokens)</td></tr>
+<tr class="separator:ab4346bb060396f0285495d46eb3aec5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4931c7349835e00d2fd25f15e189052"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aa4931c7349835e00d2fd25f15e189052">entityExists</a> (self, entityRefs, context)</td></tr>
 <tr class="memdesc:aa4931c7349835e00d2fd25f15e189052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#aa4931c7349835e00d2fd25f15e189052">More...</a><br /></td></tr>
 <tr class="separator:aa4931c7349835e00d2fd25f15e189052"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1025,7 +1025,7 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a9ce05436797dd24b433e15c3ded492ea"></a>
+<a class="anchor" id="ab4346bb060396f0285495d46eb3aec5e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1039,13 +1039,7 @@ This method may block for extended periods of time. </dd></dl>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tokens</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramname"><em>tokens</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1061,7 +1055,6 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokens</td><td><code>List[str]</code> The strings to be inspected.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">openassetio.Context</a> The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1345,7 +1338,7 @@ This method may block for extended periods of time. </dd></dl>
 
 <p>Returns the <a class="el" href="glossary.html#primary_string">Primary String</a> represented by each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens will be preserved and need handling as if OpenAssetIO was never involved.</p>
-<dl class="section note"><dt>Note</dt><dd>You should always call <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9ce05436797dd24b433e15c3ded492ea">isEntityReference</a> first if there is any doubt as to whether or not a string you have is a valid reference for the manager, and only call resolve, or any other methods, if it is a reference recognised by the manager.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You should always call <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">isEntityReference</a> first if there is any doubt as to whether or not a string you have is a valid reference for the manager, and only call resolve, or any other methods, if it is a reference recognised by the manager.</dd></dl>
 <p>The API defines that all file paths passed though the API that represent file sequences should use the 'format' syntax, compatible with sprintf (eg. %04d").</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

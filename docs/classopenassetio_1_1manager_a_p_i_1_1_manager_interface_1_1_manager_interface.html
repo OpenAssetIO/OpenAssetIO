@@ -148,9 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
-<tr class="memitem:af105eb1db7d52f126848417428742120"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> (self, tokens, context, hostSession)</td></tr>
-<tr class="memdesc:af105eb1db7d52f126848417428742120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if each supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#af105eb1db7d52f126848417428742120">More...</a><br /></td></tr>
-<tr class="separator:af105eb1db7d52f126848417428742120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a434983789e0b6bc77c596010a2830e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e">isEntityReference</a> (self, tokens, hostSession)</td></tr>
+<tr class="memdesc:a4a434983789e0b6bc77c596010a2830e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if each supplied token (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#a4a434983789e0b6bc77c596010a2830e">More...</a><br /></td></tr>
+<tr class="separator:a4a434983789e0b6bc77c596010a2830e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21510517947f62a366e873af29218229"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:a21510517947f62a366e873af29218229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a21510517947f62a366e873af29218229">More...</a><br /></td></tr>
 <tr class="separator:a21510517947f62a366e873af29218229"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1262,7 +1262,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReference when bridging between C/Python etc. If this isn't supplied, then isEntityReference will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReference when bridging between C/Python etc. If this isn't supplied, then isEntityReference will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e">isEntityReference</a> should be implemented regardless.</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
 </ul>
@@ -1312,7 +1312,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 
 </div>
 </div>
-<a class="anchor" id="af105eb1db7d52f126848417428742120"></a>
+<a class="anchor" id="a4a434983789e0b6bc77c596010a2830e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1327,12 +1327,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
           <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>tokens</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1356,7 +1350,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokens</td><td><code>List[str]</code> The strings to be inspected.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
   </table>
   </dd>
@@ -1651,7 +1644,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <p>If a primary string points to some data, then it should always be in the form of a valid URL. File paths should be returned as a <code>file</code> scheme URL.</p>
 <p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
 <p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The caller will have first called <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120" title="Determines if each supplied token (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReference()</a> on the supplied strings.</p>
+<p>The caller will have first called <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e" title="Determines if each supplied token (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReference()</a> on the supplied strings.</p>
 <dl class="section note"><dt>Note</dt><dd>You may need to call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938" title="Retrieves an Entity Reference that points to the concrete version for each given Meta-version or othe...">finalizedEntityVersion()</a> within this function to ensure any <a class="el" href="glossary.html#meta_version">meta-versions</a> are resolved prior to resolution.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1664,7 +1657,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either the primary string for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af105eb1db7d52f126848417428742120">isEntityReference</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e">isEntityReference</a> </dd></dl>
 
 </div>
 </div>
