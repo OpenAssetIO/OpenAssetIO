@@ -31,7 +31,7 @@ import uuid
 import pytest
 
 
-from openassetio import constants
+from openassetio import constants, Context
 from openassetio.test.manager.harness import \
         executeSuite, fixturesFromPyFile, FixtureAugmentedTestCase
 
@@ -103,6 +103,20 @@ class Test_FixtureAugmentedTestCase:
         assert case._session == mock_session
         assert case._fixtures == a_fixture_dict
         assert case._manager == mock_session.currentManager.return_value
+
+
+class Test_FixtureAugmentedTestCase_createTestContext:
+
+    def test_has_test_harness_locale(self, a_test_case):
+        context = a_test_case.createTestContext()
+        assert context.locale is a_test_case._locale  # pylint: disable=protected-access
+
+    def test_when_supplied_with_access_then_the_context_access_is_set(self, a_test_case):
+        context = a_test_case.createTestContext(Context.kWriteMultiple)
+        assert context.access == Context.kWriteMultiple
+
+        context = a_test_case.createTestContext(Context.kReadMultiple)
+        assert context.access == Context.kReadMultiple
 
 
 class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:

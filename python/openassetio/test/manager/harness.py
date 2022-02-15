@@ -127,8 +127,12 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     provided, hence requires that `unittest` is provided with the custom
     ValidatorTestLoader test case loader.
 
-    Fixtures, session and manager interface are then provided to
-    subclasses via protected members.
+    Fixtures, session manager interface and a suitable locale are then
+    provided to subclasses via protected members.
+
+    @warning The supplied locale should always be used for interactions
+    with the manager under test, the @ref createTestContext convenience
+    method will create a new context pre-configured with this locale.
     """
 
     def __init__(self, fixtures, session, locale, *args, **kwargs):
@@ -158,6 +162,20 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         self._locale = locale  # type: specifications.LocaleSpecification
         self._manager = session.currentManager()  # type: managerAPI.Manager
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
+
+    def createTestContext(self, access=None):
+        """
+        A convenience method to create a context with the
+        test locale, as provided by the test harness mechanism.
+
+        @param access `int` One of the context access policies (or None),
+        if provided, the context's access will be set to this.
+        """
+        context = self._session.createContext()
+        context.locale = self._locale
+        if access is not None:
+            context.access = access
+        return context
 
     def assertIsStringKeyPrimitiveValueDict(self, dictionary):
         """
