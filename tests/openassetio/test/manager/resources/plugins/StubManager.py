@@ -43,7 +43,7 @@ class StubManager(ManagerInterface):
         # pylint: disable=unused-argument
         pass
 
-    def managementPolicy(self, specifications, context, hostSession, entityRef=None):
+    def managementPolicy(self, specifications, context, hostSession):
         # pylint: disable=unused-argument
         return [constants.kIgnored for _ in range(len(specifications))]
 
