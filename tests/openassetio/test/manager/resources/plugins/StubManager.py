@@ -32,12 +32,23 @@ class StubManager(ManagerInterface):
     """
     # TODO Remove once we have closed #163
     # pylint: disable=abstract-method
+
+    def __init__(self):
+        super().__init__()
+        self.__settings = None
+
     @staticmethod
     def identifier():
         return "org.openassetio.test.manager.stubManager"
 
     def displayName(self):
         return "Stub Manager"
+
+    def setSettings(self, settings, hostSession):
+        self.__settings = settings
+
+    def getSettings(self, hostSession):
+        return self.__settings
 
     def initialize(self, hostSession):
         # pylint: disable=unused-argument

@@ -28,7 +28,7 @@ from .specifications import ManagerTestHarnessLocale
 __all__ = ['createHarness']
 
 
-def createHarness(managerIdentifier):
+def createHarness(managerIdentifier, settings=None):
     """
     Create the test harness used begin test case execution.
     @private
@@ -38,7 +38,7 @@ def createHarness(managerIdentifier):
     managerFactory = pluginSystem.PluginSystemManagerFactory(logger)
 
     session = hostAPI.Session(hostInterface, logger, managerFactory)
-    session.useManager(managerIdentifier)
+    session.useManager(managerIdentifier, settings)
 
     loader = _ValidatorTestLoader(session)
     return _ValidatorHarness(unittest.main, loader)

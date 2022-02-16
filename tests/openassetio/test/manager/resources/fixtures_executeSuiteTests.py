@@ -19,6 +19,7 @@ Fixtures for executeSuiteTests.py
 
 fixtures = {
     "identifier": "org.openassetio.test.manager.stubManager",
+    "settings": { "test_setting": "a_value" },
     "shared": {
         "a_global_value": 1,
         "a_class_overridden_global_value": 3,

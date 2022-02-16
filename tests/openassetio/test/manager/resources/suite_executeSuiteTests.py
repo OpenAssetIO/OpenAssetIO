@@ -30,6 +30,12 @@ from openassetio.test.manager.harness import FixtureAugmentedTestCase
 __all__ = []
 
 
+class Test_executeSuite_manager_settings(FixtureAugmentedTestCase):
+
+    def test_when_settings_present_in_fixtures_then_are_set_on_manager(self):
+        self.assertEqual(self._manager.getSettings(), {"test_setting": "a_value"})
+
+
 class Test_executeSuite_session(FixtureAugmentedTestCase):
 
     def test_when_called_then_session_is_set(self):

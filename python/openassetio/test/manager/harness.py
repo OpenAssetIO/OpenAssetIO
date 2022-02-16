@@ -58,6 +58,7 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
     @code{.py}
     fixtures = {
         "identifier": <target manager plugin identifier>,
+        "settings": { <manager_setting>: <value> },
         "shared": { "<fixture_name>": <value> },
         "<Test_Case_name>": {
             "shared": { "<fixture_name>": <value> },
@@ -90,7 +91,8 @@ def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
     """
 
     managerIdentifier = fixtures["identifier"]
-    harness = _implementation.createHarness(managerIdentifier)
+    settings = fixtures.get("settings")
+    harness = _implementation.createHarness(managerIdentifier, settings)
     return harness.executeTests(unittestExtraArgs, testSuiteModule, fixtures)
 
 
