@@ -34,7 +34,9 @@ handled through additional suites local to the manager's implementation.
 # pylint: disable=invalid-name, missing-function-docstring, no-member
 
 from .harness import FixtureAugmentedTestCase
+from ...exceptions import EntityResolutionError
 from ...specifications import EntitySpecification
+from ... import Context
 
 
 __all__ = []
@@ -189,3 +191,37 @@ class Test_entityExists(FixtureAugmentedTestCase):
         assert self._manager.entityExists([existing, nonexistant], context) == [True, False]
 
 
+class Test_resolveEntityReference(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerAPI.ManagerInterface.resolveEntityReference.
+    """
+
+    def test_matches_fixture_for_read(self):
+        self.__testResolution("a_reference_to_a_readable_entity", Context.kRead)
+
+    def test_matches_fixture_for_write(self):
+        self.__testResolution("a_reference_to_a_writable_entity", Context.kWrite)
+
+    def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
+        self.__testResolutionError("a_reference_to_a_readonly_entity", Context.kWrite)
+
+    def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
+        self.__testResolutionError("a_reference_to_a_writeonly_entity", Context.kRead)
+
+    def __testResolution(self, fixture_name, access):
+        reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
+        expected = self.requireFixture(f"the_primary_string_for_{fixture_name}")
+        context = self.createTestContext()
+        context.access = access
+        self.assertEqual(self._manager.resolveEntityReference([reference], context), [expected])
+
+    def __testResolutionError(self, fixture_name, access):
+        reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
+        expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
+        expected_error = EntityResolutionError(expected_msg, reference)
+        context = self.createTestContext()
+        context.access = access
+        result = self._manager.resolveEntityReference([reference], context)
+        self.assertIsInstance(result[-1], EntityResolutionError)
+        self.assertEqual(str(result[-1]), str(expected_error))
