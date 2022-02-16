@@ -160,3 +160,32 @@ class Test_isEntityReference(FixtureAugmentedTestCase):
     def test_random_unicode_input_returns_false(self):
         unicode_reference = "🦆🦆🦑"
         assert self._manager.isEntityReference([unicode_reference]) == [False]
+
+
+class Test_entityExists(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerAPI.ManagerInterface.entityExists.
+    """
+
+    def setUp(self):
+        self.collectRequiredFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True)
+        self.collectRequiredFixture("a_reference_to_a_nonexisting_entity")
+
+    def test_existing_reference_returns_true(self):
+        context = self.createTestContext()
+        assert self._manager.entityExists(
+                [self.a_reference_to_an_existing_entity], context) == [True]
+
+    def test_non_existant_reference_returns_false(self):
+        context = self.createTestContext()
+        assert self._manager.entityExists(
+                [self.a_reference_to_a_nonexisting_entity], context) == [False]
+
+    def test_mixed_inputs_returns_mixed_output(self):
+        existing = self.a_reference_to_an_existing_entity
+        nonexistant = self.a_reference_to_a_nonexisting_entity
+        context = self.createTestContext()
+        assert self._manager.entityExists([existing, nonexistant], context) == [True, False]
+
+
