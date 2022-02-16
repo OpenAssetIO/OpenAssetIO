@@ -65,6 +65,10 @@ kWantsThumbnail = 16
 ## @}
 
 
+## The maximum integer value of a valid management policy bitfield
+kMaxManagementPolicyValue = 31
+
+
 ## @name Field Names
 ## Field names are to be used whenever data is get or set from a dictionary by
 ## key, rather than through an accessor in some wrapper class (eg:

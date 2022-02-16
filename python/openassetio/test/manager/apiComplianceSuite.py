@@ -34,6 +34,7 @@ handled through additional suites local to the manager's implementation.
 # pylint: disable=invalid-name, missing-function-docstring
 
 from .harness import FixtureAugmentedTestCase
+from ... import constants
 from ...specifications import EntitySpecification
 
 
@@ -128,4 +129,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         policies = self._manager.managementPolicy(specs, context)
 
         self.assertValuesOfType(policies, int)
+        for policy in policies:
+            self.assertGreaterEqual(policy, 0)
+            self.assertLessEqual(policy, constants.kMaxManagementPolicyValue)
         self.assertEqual(len(policies), numSpecifications)
