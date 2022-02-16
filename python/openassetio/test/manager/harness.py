@@ -26,12 +26,14 @@ to test manager-specific functionality if desired.
 """
 
 import importlib
+import os
+import sys
 import unittest
 
 from . import _implementation
 
 
-__all__ = ['executeSuite', 'fixturesFromPyFile', 'FixtureAugmentedTestCase']
+__all__ = ['executeSuite', 'fixturesFromPyFile', 'moduleFromFile', 'FixtureAugmentedTestCase']
 
 
 def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
@@ -107,20 +109,39 @@ def fixturesFromPyFile(path):
     @see `resources/examples/SampleAssetManager/test/fixures.py` for a
       reference fixtures file.
     """
-    spec = importlib.util.spec_from_file_location("TestFixtures", path)
+    module = moduleFromFile(path)
+    if not hasattr(module, "fixtures"):
+        raise RuntimeError(
+            f"Missing top-level 'fixtures' variable in '{path}'")
+
+    return module.fixtures
+
+
+def moduleFromFile(path):
+    """
+    Loads a python module from the specified file, without it needing
+    to be on PYTHONPATH. The file name is used as the module name.
+
+    This can be useful to load test suites from files that are not
+    otherwise on PYTHONPATH.
+
+    @param path `str` The path to the file to load the module from.
+
+    @return The loaded module.
+    """
+    moduleName = os.path.basename(path)
+    spec = importlib.util.spec_from_file_location(moduleName, path)
     if not spec:
         # Standard stack-trace is unhelpful as it just says:
         #    'NoneType' has no attribute 'loader'
         raise RuntimeError(f"Unable to parse '{path}'")
 
     module = importlib.util.module_from_spec(spec)
+    # Without this, for package imports we get:
+    #   'No module named '<moduleName>'
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
-
-    if not hasattr(module, "fixtures"):
-        raise RuntimeError(
-            f"Missing top-level 'fixtures' variable in '{path}'")
-
-    return module.fixtures
+    return module
 
 
 class FixtureAugmentedTestCase(unittest.TestCase):

@@ -33,7 +33,7 @@ import pytest
 
 from openassetio import constants, Context
 from openassetio.test.manager.harness import \
-        executeSuite, fixturesFromPyFile, FixtureAugmentedTestCase
+        executeSuite, fixturesFromPyFile, moduleFromFile, FixtureAugmentedTestCase
 
 #
 # Tests
@@ -68,6 +68,31 @@ class Test_fixturesFromPyFile:
                 """))
         expected_dict = {"ignored": constants.kIgnored}
         assert fixturesFromPyFile(valid) == expected_dict
+
+
+class Test_moduleFromFile:
+
+    def test_when_called_with_missing_path_then_raises_Exception(self):
+        invalid_path = "/i/do/not/exist"
+        with pytest.raises(RuntimeError) as exc:
+            moduleFromFile(invalid_path)
+        assert str(exc.value) == f"Unable to parse '{invalid_path}'"
+
+    def test_when_called_with_non_python_file_then_raises_exception(self, tmpdir):
+        text_file = tempfile_with_contents(tmpdir, ".txt", "Hello!")
+        with pytest.raises(RuntimeError) as exc:
+            moduleFromFile(text_file)
+        assert str(exc.value) == f"Unable to parse '{text_file}'"
+
+    def test_when_called_with_valid_path_then_returns_expected_module(self, tmpdir):
+        valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
+                from openassetio import constants
+                some_var = {'ignored': constants.kIgnored}
+                some_class = str
+                """))
+        module = moduleFromFile(valid)
+        assert module.some_var == {"ignored": constants.kIgnored}
+        assert module.some_class is str
 
 
 class Test_executeSuite:
