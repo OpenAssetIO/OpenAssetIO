@@ -84,6 +84,41 @@ class Test_info(FixtureAugmentedTestCase):
     def test_matches_fixture(self):
         self.assertEqual(self._fixtures["info"], self._manager.info())
 
+class Test_setSettings(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerAPI.ManagerInterface.setSettings.
+    """
+    def setUp(self):
+        self.collectRequiredFixture('some_settings_with_valid_keys', skipTestIfMissing=True)
+
+    def test_valid_settings_succeeds(self):
+        self._manager.setSettings(self.some_settings_with_valid_keys)
+
+    def test_unknown_settings_keys_raise_KeyError(self):
+        unknown_settings = self.requireFixture("some_settings_with_invalid_keys")
+        with self.assertRaises(KeyError):
+            self._manager.setSettings(unknown_settings)
+
+
+class Test_getSettings(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of managerAPI.ManagerInterface.getSettings.
+    """
+
+    def test_when_set_then_get_returns_updated_settings(self):
+        updated = self.requireFixture("some_new_settings_with_all_keys", skipTestIfMissing=True)
+        self._manager.setSettings(updated)
+        self.assertEqual(self._manager.getSettings(), updated)
+
+    def test_when_set_with_subset_then_other_settings_unchanged(self):
+        partial = self.requireFixture(
+                "some_new_settings_with_a_subset_of_keys", skipTestIfMissing=True)
+        settings = self._manager.getSettings()
+        self._manager.setSettings(partial)
+        settings.update(partial)
+        self.assertEqual(self._manager.getSettings(), settings)
+
 
 class Test_managementPolicy(FixtureAugmentedTestCase):
     """
