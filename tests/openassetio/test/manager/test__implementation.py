@@ -135,15 +135,15 @@ class Test_ValidatorHostInterface_displayName:
 
 class Test_FixtureAugmentedTestCase_init:
     def test_has_fixtures_session_and_manager(
-            self, mock_test_case, a_fixture_dict, mock_session, mock_manager, a_locale):
-        assert mock_test_case._fixtures is a_fixture_dict
-        assert mock_test_case._session is mock_session
-        assert mock_test_case._manager is mock_manager
-        assert mock_test_case._locale is a_locale
+            self, a_test_case, a_fixture_dict, mock_session, mock_manager, a_locale):
+        assert a_test_case._fixtures is a_fixture_dict
+        assert a_test_case._session is mock_session
+        assert a_test_case._manager is mock_manager
+        assert a_test_case._locale is a_locale
 
 
 @pytest.fixture
-def mock_test_case(a_fixture_dict, mock_session, a_locale):
+def a_test_case(a_fixture_dict, mock_session, a_locale):
     return FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
 
 
