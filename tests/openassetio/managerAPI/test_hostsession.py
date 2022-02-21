@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import logging
+from openassetio import log
 from openassetio.managerAPI import Host, HostSession
 
 
@@ -36,7 +36,7 @@ def mock_host():
 
 @pytest.fixture
 def mock_logger():
-    return mock.create_autospec(spec=logging.LoggerInterface)
+    return mock.create_autospec(spec=log.LoggerInterface)
 
 
 @pytest.fixture
@@ -53,7 +53,7 @@ class TestHostSession():
         mock_logger.reset_mock()
 
         a_message = "A message"
-        a_severity = logging.LoggerInterface.kCritical
+        a_severity = log.LoggerInterface.kCritical
 
         host_session.log(a_message, a_severity)
         mock_logger.log.assert_called_once_with(a_message, a_severity)

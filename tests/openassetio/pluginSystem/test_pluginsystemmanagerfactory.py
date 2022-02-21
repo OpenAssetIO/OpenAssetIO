@@ -28,7 +28,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio.logging import LoggerInterface
+from openassetio.log import LoggerInterface
 from openassetio.pluginSystem import PluginSystemManagerFactory
 
 #

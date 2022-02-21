@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-Tests that cover the openassetio.logging module.
+Tests that cover the openassetio.log module.
 """
 
 # pylint: disable=no-self-use
@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-import openassetio.logging as lg
+import openassetio.log as lg
 
 
 # The logging mechanism is very much in flux right now, as we move away from

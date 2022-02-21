@@ -23,7 +23,7 @@
  * openassetio.hostAPI.HostInterface "HostInterface" implementation.
  *
  * @code{.py}
- * from openassetio.logging import ConsoleLogger, SeverityFilter
+ * from openassetio.log import ConsoleLogger, SeverityFilter
  * from openassetio.hostAPI import HostInterface, Manager, Session
  * from openassetio.pluginSystem import PluginSystemManagerFactory
  *
