@@ -27,6 +27,7 @@ import inspect
 import io
 import os
 import sys
+from unittest.case import SkipTest
 import uuid
 import pytest
 
@@ -215,6 +216,124 @@ class Test_FixtureAugmentedTestCase_assertValuesOfType:
     def test_when_called_with_iterable_then_passes(self, a_test_case):
         a_test_case.assertValuesOfType(range(10), int)
 
+
+class Test_FixtureAugmentedTestCase_requireFixtures:
+
+    def test_when_fixtures_present_then_returns_expected_values(self, a_test_case):
+        required = ("key1", "key2")
+        # pylint: disable=protected-access
+        expected = [a_test_case._fixtures[name] for name in required]
+        try:
+            assert a_test_case.requireFixtures(required) == expected
+        except SkipTest:
+            pytest.fail("Test incorrectly skipped")
+
+    def test_when_fixtures_missing_then_fails_test_with_expected_message(
+            self, a_test_case):
+        required = ("key2", "key4")
+        expected_message = "Required fixtures not found: key4"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.requireFixtures(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+
+    def test_when_fixtures_missing_and_skip_set_then_skips_test_with_expected_message(
+            self, a_test_case):
+        required = ("key1", "key3", "key5")
+        expected_message = "Required fixtures not found: key3, key5"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.requireFixtures(required, skipTestIfMissing=True)
+
+
+class Test_FixtureAugmentedTestCase_collectRequiredFixtures:
+
+    def test_when_fixtures_present_then_sets_expected_values(self, a_test_case):
+        required = ("key1", "key2")
+        try:
+            a_test_case.collectRequiredFixtures(required)
+        except SkipTest:
+            pytest.fail("Test incorrectly skipped")
+        for key in required:
+            # pylint: disable=protected-access
+            assert getattr(a_test_case, key, a_test_case._fixtures[key])
+
+    def test_when_fixtures_missing_then_fails_test_with_expected_message(self, a_test_case):
+        required = ("key2", "key4")
+        expected_message = "Required fixtures not found: key4"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.collectRequiredFixtures(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+        for key in required:
+            assert not hasattr(self, key)
+
+    def test_when_fixtures_missing_and_skip_set_then_skips_test_and_no_values_set(
+            self, a_test_case):
+        required = ("key1", "key3", "key5")
+        expected_message = "Required fixtures not found: key3, key5"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.collectRequiredFixtures(required, skipTestIfMissing=True)
+        for key in required:
+            assert not hasattr(self, key)
+
+
+class Test_FixtureAugmentedTestCase_requireFixture:
+
+    def test_when_fixture_present_then_returns_expected_value(self, a_test_case):
+        required = "key1"
+        # pylint: disable=protected-access
+        expected = a_test_case._fixtures[required]
+        try:
+            assert a_test_case.requireFixture(required) == expected
+        except SkipTest:
+            pytest.fail("Test should not be skipped")
+
+
+    def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
+        required = "key4"
+        expected_message = "Required fixtures not found: key4"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.requireFixture(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+
+    def test_when_fixture_missing_and_skip_set_then_skips_test_with_expected_message(
+            self, a_test_case):
+        required = "key5"
+        expected_message = "Required fixtures not found: key5"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.requireFixture(required, skipTestIfMissing=True)
+
+
+class Test_FixtureAugmentedTestCase_collectRequiredFixture:
+
+    def test_when_fixture_present_then_sets_expected_value(self, a_test_case):
+        required = "key1"
+        a_test_case.collectRequiredFixture(required)
+        # pylint: disable=protected-access
+        assert getattr(a_test_case, required, a_test_case._fixtures[required])
+
+    def test_when_fixture_missing_then_fails_test_with_expected_message(
+            self, a_test_case):
+        required = "key4"
+        expected_message = "Required fixtures not found: key4"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.collectRequiredFixture(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+        assert not hasattr(self, required)
+
+    def test_when_fixture_missing_and_skip_set_then_skips_test_and_no_values_set(
+            self, a_test_case):
+        required = "key5"
+        expected_message = "Required fixtures not found: key5"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.collectRequiredFixture(required, skipTestIfMissing=True)
+        assert not hasattr(self, required)
 #
 # Fixtures
 #
@@ -256,10 +375,16 @@ def executeSuiteTests_fixtures(resources_dir):
         resources_dir, "fixtures_executeSuiteTests.py")
     return fixturesFromPyFile(fixtures_path)
 
+@pytest.fixture
+def some_case_fixtures():
+    return {
+        "key1": 1,
+        "key2": "2"
+    }
 
 @pytest.fixture
-def a_test_case(a_fixture_dict, mock_session, a_locale):
-    return FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
+def a_test_case(some_case_fixtures, mock_session, a_locale):
+    return FixtureAugmentedTestCase(some_case_fixtures, mock_session, a_locale)
 
 #
 # Helpers
