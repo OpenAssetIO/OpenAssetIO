@@ -119,7 +119,7 @@ var NAVTREEINDEX1 =
 "namespaceopenassetio_1_1host_a_p_i_1_1_session.html":[13,0,0,3,3],
 "namespaceopenassetio_1_1host_a_p_i_1_1terminology.html":[13,0,0,3,4],
 "namespaceopenassetio_1_1host_a_p_i_1_1transactions.html":[13,0,0,3,5],
-"namespaceopenassetio_1_1logging.html":[13,0,0,4],
+"namespaceopenassetio_1_1log.html":[13,0,0,4],
 "namespaceopenassetio_1_1manager_a_p_i.html":[13,0,0,5],
 "namespaceopenassetio_1_1manager_a_p_i_1_1_host.html":[13,0,0,5,0],
 "namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html":[13,0,0,5,1],

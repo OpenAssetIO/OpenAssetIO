@@ -6,7 +6,7 @@ var searchData=
   ['captureargs',['captureArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#ade88f01e5e56c7bd9f282c8cd83277ff',1,'openassetio::_core::audit']]],
   ['classmap',['classMap',['../classopenassetio_1_1_specification_factory_1_1_specification_factory.html#af59e6c12b79ce6260440164007c755aa',1,'openassetio::SpecificationFactory::SpecificationFactory']]],
   ['cmdline',['cmdline',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#af9fc2c1e3bc16deaed748019767bb1cd',1,'openassetio::test::manager::__main__']]],
-  ['consolelogger',['ConsoleLogger',['../classopenassetio_1_1logging_1_1_console_logger.html',1,'openassetio::logging']]],
+  ['consolelogger',['ConsoleLogger',['../classopenassetio_1_1log_1_1_console_logger.html',1,'openassetio::log']]],
   ['context',['Context',['../classopenassetio_1_1_context_1_1_context.html',1,'openassetio::Context']]],
   ['coverage',['coverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ab6dd48378274dcd41943cc88f7d64909',1,'openassetio::_core::audit::Auditor']]],
   ['createcontext',['createContext',['../classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565',1,'openassetio::hostAPI::Session::Session']]],

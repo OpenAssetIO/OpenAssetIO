@@ -14,7 +14,7 @@ var searchData=
   ['hostapi',['hostAPI',['../namespaceopenassetio_1_1host_a_p_i.html',1,'openassetio']]],
   ['hostinterface',['HostInterface',['../namespaceopenassetio_1_1host_a_p_i_1_1_host_interface.html',1,'openassetio::hostAPI']]],
   ['hostsession',['HostSession',['../namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html',1,'openassetio::managerAPI']]],
-  ['logging',['logging',['../namespaceopenassetio_1_1logging.html',1,'openassetio']]],
+  ['log',['log',['../namespaceopenassetio_1_1log.html',1,'openassetio']]],
   ['manager',['Manager',['../namespaceopenassetio_1_1host_a_p_i_1_1_manager.html',1,'openassetio::hostAPI']]],
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['managerapi',['managerAPI',['../namespaceopenassetio_1_1manager_a_p_i.html',1,'openassetio']]],

@@ -1,0 +1,4 @@
+<map id="LoggerInterface" name="LoggerInterface">
+<area shape="rect" id="node5" href="$classopenassetio_1_1log_1_1_console_logger.html" title="A simple logger that prints messages to stdout/stderr. " alt="" coords="8,155,127,181"/>
+<area shape="rect" id="node6" href="$classopenassetio_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="151,155,261,181"/>
+</map>
