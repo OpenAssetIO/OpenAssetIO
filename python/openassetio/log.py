@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.logging
+@namespace openassetio.log
 Provides the core classes that facilitate message and progress logging.
 """
 
@@ -57,7 +57,7 @@ class LoggerInterface(object, metaclass=abc.ABCMeta):
         @param message str, The message string to be logged.
 
         @param severity int, One of the severity constants defined in
-        @ref openassetio.logging
+        @ref openassetio.log
         """
         raise NotImplementedError
 

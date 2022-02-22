@@ -20,7 +20,7 @@ Private implementation classes for the manager test framework.
 """
 import unittest
 
-from openassetio import hostAPI, pluginSystem, logging
+from openassetio import hostAPI, log, pluginSystem
 
 from .specifications import ManagerTestHarnessLocale
 
@@ -34,7 +34,7 @@ def createHarness(managerIdentifier):
     @private
     """
     hostInterface = _ValidatorHarnessHostInterface()
-    logger = logging.SeverityFilter(logging.ConsoleLogger())
+    logger = log.SeverityFilter(log.ConsoleLogger())
     managerFactory = pluginSystem.PluginSystemManagerFactory(logger)
 
     session = hostAPI.Session(hostInterface, logger, managerFactory)

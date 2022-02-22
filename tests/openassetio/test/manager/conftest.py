@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import hostAPI, logging
+from openassetio import hostAPI, log
 from openassetio.specifications import LocaleSpecification
 
 
@@ -68,7 +68,7 @@ def mock_manager():
 
 @pytest.fixture
 def mock_logger():
-    return mock.create_autospec(logging.LoggerInterface, instance=True, spec_set=False)
+    return mock.create_autospec(log.LoggerInterface, instance=True, spec_set=False)
 
 
 @pytest.fixture

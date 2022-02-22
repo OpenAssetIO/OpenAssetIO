@@ -66,11 +66,11 @@ class Session(Debuggable):
         HostInterface is supported, so if multiple sessions are created,
         they should all use the same HostInterface instance).
 
-        @param logger openassetio.logging.LoggerInterface The target for
+        @param logger openassetio.log.LoggerInterface The target for
         all logging output from the session API-level or Manager level
         messages will all be routed through this object. No severity
         filtering is performed. Hosts wishing to filter the messages can
-        use the @ref openassetio.logging.SeverityFilter wrapper if
+        use the @ref openassetio.log.SeverityFilter wrapper if
         desired.
 
         @param managerFactory
@@ -80,7 +80,7 @@ class Session(Debuggable):
 
           @see @ref useManager
           @see @ref currentManager
-          @see @ref openassetio.logging "logging"
+          @see @ref openassetio.log "log"
           @see @ref openassetio.hostAPI.ManagerFactoryInterface
           "ManagerFactoryInterface"
           @see @ref openassetio.pluginSystem.PluginSystemManagerFactory
