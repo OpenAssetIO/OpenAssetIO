@@ -19,6 +19,9 @@ set_target_properties(openassetio-python
     OUTPUT_NAME _openassetio
     PREFIX "")
 
+if(WIN32)
+    set_target_properties(openassetio-python PROPERTIES SUFFIX ".pyd")
+endif()
 
 #-----------------------------------------------------------------------
 # Target dependencies
