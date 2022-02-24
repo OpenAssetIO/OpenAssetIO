@@ -67,35 +67,44 @@ endif ()
 
 if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
 
+    # set up values that differ between Windows and Unixes
+    if(WIN32)
+      set(venv_python_dir "${CMAKE_INSTALL_PREFIX}/Scripts")
+      set(installed_pip "${venv_python_dir}/pip.exe")
+    else()
+      set(venv_python_dir "${CMAKE_INSTALL_PREFIX}/bin")
+      set(installed_pip "${venv_python_dir}/pip")
+    endif()
+
     # Command to create a Python environment in the install directory.
     add_custom_command(
         OUTPUT
-        "${CMAKE_INSTALL_PREFIX}/bin/pip"
+        "${installed_pip}"
         COMMAND
         "${Python_EXECUTABLE}" -m venv "${CMAKE_INSTALL_PREFIX}"
         COMMAND
-        ${CMAKE_INSTALL_PREFIX}/bin/python -m pip install --upgrade pip
+        ${venv_python_dir}/python -m pip install --upgrade pip
     )
     # Target to wrap the venv command so it can be executed in isolation.
     add_custom_target(
         openassetio-python-venv
-        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pip"
+        DEPENDS "${installed_pip}"
     )
 
     # Command to install test-specific dependencies (e.g. pytest).
     add_custom_command(
         OUTPUT
-        "${CMAKE_INSTALL_PREFIX}/bin/pytest"
+        "${venv_python_dir}/pytest"
         COMMAND
-        "${CMAKE_INSTALL_PREFIX}/bin/pip" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
-        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pip"
+        "${venv_python_dir}/pip" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        DEPENDS "${installed_pip}"
     )
 
     # Target to install the pure Python component of the project.
     add_custom_target(
         openassetio-python-py-install
-        COMMAND "${CMAKE_INSTALL_PREFIX}/bin/pip" install "${PROJECT_SOURCE_DIR}"
-        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pip"
+        COMMAND "${installed_pip}" install "${PROJECT_SOURCE_DIR}"
+        DEPENDS "${installed_pip}"
     )
     # Ensure pre-requisite C++ component has been installed first.
     add_dependencies(openassetio-python-py-install openassetio-install)
@@ -126,9 +135,9 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
     # for debugging regardless).
     add_custom_target(
         openassetio-python-pytest
-        COMMAND ${pytest_env} "${CMAKE_INSTALL_PREFIX}/bin/pytest" -s
+        COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/tests"
-        DEPENDS "${CMAKE_INSTALL_PREFIX}/bin/pytest"
+        DEPENDS "${venv_python_dir}/pytest"
     )
     add_dependencies(openassetio-python-pytest openassetio-python-py-install)
 
@@ -138,4 +147,5 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         COMMAND
         ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target openassetio-python-pytest
     )
+
 endif ()
