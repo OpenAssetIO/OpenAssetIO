@@ -24,7 +24,7 @@ namespace specification {
  * Structure for data exchange between a @ref host and a @ref
  * manager.
  *
- * A specification is logically a set of supported @needsref trait
+ * A specification is logically a set of supported @ref trait
  * "traits", each identified by a unique string, plus optional
  * key-value properties associated with each of those traits.
  *

@@ -31,6 +31,7 @@
  * easier, and to allow the history of work to be tracked. Very similar
  * to source control within a software development environment.
  *
+ *
  * @section Context Context
  *
  * A Context is an object that holds all of the persistent state between
@@ -57,6 +58,7 @@
  *
  * @see @ref openassetio.Context "Context"
  *
+ *
  * @section entity entity
  *
  * An 'entity' is the generic name for something that is managed by a
@@ -72,7 +74,7 @@
  * organizational hierarchy, or a specific version or component part of
  * an 'asset'.
  *
- * In the core API, entities hold data for one or more @needsref traits.
+ * In the core API, entities hold data for one or more @ref trait "traits".
  * Traits have an id, and zero or more properties holding simple value
  * types.
  *
@@ -83,6 +85,7 @@
  * specific entity traits, it can always provide more sophisticated
  * mappings to its own internal types, to provide a better user
  * experience.
+ *
  *
  * @section entity_reference Entity Reference
  *
@@ -163,7 +166,7 @@
  * In such a system, the ManagerInterface may provide access to
  * alternate paths from any one of these path-specific references via
  * the @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getRelatedReferences
- * "getRelatedReferences" method, with a suitable @ref Specification.
+ * "getRelatedReferences" method, with a suitable @ref Specification
  *
  * 3. 'Potential' entity representation
  * ------------------------------------
@@ -203,6 +206,7 @@
  * call. This allows the manager to adapt its behavior accordingly (if
  * required), and perform any additional actions it may wish to as part
  * of @ref publish "publishing".
+ *
  *
  * @section HostInterface
  *
@@ -338,7 +342,7 @@
  * host and one of these systems in order to query or persist data.
  *
  * Asset managers will generally re-map the well-known OpenAssetIO
- * concepts (eg @needsref traits and their properties into their own
+ * concepts (eg @ref trait "traits" and their properties into their own
  * internal structures, and back again when queried.
  *
  * Managers are made available via a @ref ManagerPlugin, that ultimately
@@ -413,7 +417,7 @@
  * requires it to:
  *
  * - Check whether the @ref manager is interested in that particular
- *   @ref entity "entity's" @needsref traits, via the manager's
+ *   @ref entity "entity's" @ref trait "traits", via the manager's
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "managementPolicy".
  * - Call @ref preflight to allow any prerequisite housekeeping
@@ -452,10 +456,10 @@
  * @section resolve resolve
  *
  * 'Resolving' an @ref entity_reference is the process of turning it
- * back into the data for one or more @needsref traits. Resolution is
+ * back into the data for one or more @ref trait "traits". Resolution is
  * usually performed just-in-time. This is the fundamental mechanism
  * that makes documents portable, and where OpenAssetIO (and other
-  * resolution systems) bring their value - the @ref manager
+ * resolution systems) bring their value - the @ref manager
  * backing the resolution process is free to use any contextual
  * information to vary the result of the resolution such that it is as
  * correct/appropriate as it can be for the current resolution @ref
@@ -475,53 +479,57 @@
  *
  * @section Specification Specification
  *
- * Within this API, it is often required to describe the 'type' of
- * something. This could be some data a @ref host wishes to query or @ref publish,
- * or the nature of a relationship between two assets. OpenAssetIO
- * provides a rich, hierarchical classification mechanism through the
- * @needsref specification system.
+ * Within OpenAssetIO, it is often required to describe the 'type' of
+ * something. This could be some data a @ref host wishes to query or
+ * @ref publish, or the nature of a relationship between two assets.
+ * OpenAssetIO uses a @ref trait "traits" based system, where each
+ * distinct characteristic is combined to form a @ref trait_set.
  *
- * Specifications are key to allowing an arbitrary @ref host to
- * talk to an arbitrary @ref manager. Specifications serve as a filter.
- * OpenAssetIO provides well-known specifications for common asset
- * types. This allows a @ref manager to provide generic support for a
- * given entity specification, without needing to know anything about
- * the @ref host that is producing or consuming it. Conversely, a @ref host
- * can query a well-known specification without having to know the
- * @ref manager "manager's" native terminology.
+ * Specifications define well-known sets of traits to ensure they are
+ * consistently used by a host and/or manager when populating or
+ * retrieving data.
  *
- * At hear, specifications are simply a set of key-value pairs, with an
- * additional 'schema' - a string that can be used to convey what keys
- * to expect to be present. The schema is hierarchical. For example the
- * schema `core.entity:file.image` states that it is a
- * `core.entity` of type `file.image`.  It can be inferred
- * that this should have all the properties of a `file`, but will
- * have additional specialized properties only associated with a
- * `file.image`.
+ * The specification classes provide runtime and/or compile time checks
+ * to help avoid programming errors.
  *
- * This approach allows any new Specification to be supported in a generic
- * fashion by simply saving/recalling the key/value pairs.
- * Specification schemas can also be decomposed hierarchically to allow
- * more general type-specific functionality to be automatically applied
- * to any more specialized derivations.
  *
- * Factory methods are provided, that use the schema to automatically
- * wrap higher-level objects to around the key-value pairs, to give a
- * more object-orientated development pattern with concrete accessors if
- * desired.
+ * @section trait Trait
  *
- * The best way to think of a Specification in general use is simply as
- * a glorified 'type string'. The fact that is also can contain
- * key-value pairs is in some ways irrelevant to understanding its
- * main purpose. A Manager guarantees to be able to 'filter' Entities
- * based on a Specification, and a Host always Registers a new Entity by
- * identifying it with a Specification.
+ * Traits define concrete aspects of the nature of something. They
+ * are combined in a @ref trait_set to form a precise description of
+ * something.
  *
- * Any key-value information associated with a specification passed to
- * an API call should be considered a 'hint' rather than required or
- * storable information.
+ * Trait sets are used to categorize @ref entity "entities", their
+ * relationships or the characteristics of a @ref host process through
+ * the @ref Context "context's" @ref locale.
  *
- *  @see @needsref specifications
+ * A trait may optionally define one or more properties that hold
+ * simple-typed values.
+ *
+ * When an entity is @ref publish "published" or @ref resolve "resolved"
+ * through the API, these trait properties are used to hold the entity's
+ * data.
+ *
+ * @see @ref entities_traits_and_specifications
+ *
+ *
+ * @section trait_set Trait Set
+ *
+ * A trait set is the logical conjunction of one or more @ref trait
+ * "traits". They are the basis of the classifications system used in
+ * OpenAssetIO. Sets of traits are additive when used to classify
+ * something - meaning that the thing in question has all of the traits
+ * in the set.
+ *
+ * Trait sets are supplied to the @ref manager through the API whenever
+ * there is need to describe the type of something in advance. A good
+ * example of their useage is in the
+ * @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ * "managementPolicy" query, where the manager declares its intent
+ * towards specific types of entity - described by the supplied trait
+ * sets.
+ *
+ * @see @ref entities_traits_and_specifications
  *
  *
  * @section transaction Transaction

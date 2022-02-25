@@ -289,7 +289,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         on disk), and then only call @ref register to create the new
         entity.
 
-        @param traitSets `List[Set[str]]` The entity @needsref traits
+        @param traitSets `List[Set[str]]` The entity @ref trait "traits"
         to query.
 
         @param context Context The calling context.
@@ -403,7 +403,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     def defaultEntityReference(self, traitSets, context):
         """
         Returns an @ref entity_reference considered to be a sensible
-        default for each of the given entity @needsref traits and
+        default for each of the given entity @ref trait "traits" and
         Context. This can be used to ensure dialogs, prompts or publish
         locations default to some sensible value, avoiding the need for
         a user to re-enter such information. There may be situations
@@ -738,7 +738,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # @name Entity Resolution
     #
     # The concept of resolution is turning an @ref entity_reference
-    # into the data for one or more @needsref traits that are meaningful
+    # into the data for one or more @ref trait "traits" that are meaningful
     # to the situation. It could be a color space, a directory, a script
     # or a frame range for an image sequence.
     #
@@ -842,7 +842,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # better define the type of entity.
     #
     # For more on the relationship between Entities, Specifications and
-    # traits please see @ref entities_specifications_and_attributes
+    # traits please see @ref entities_traits_and_specifications
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -914,7 +914,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         @param targetEntityRefs `List[str]` The entity references to
         preflight prior to registration.
 
-        @param traitSet `Set[str]` The @needsref traitSet of the
+        @param traitSet `Set[str]` The @ref trait_set of the
         entites that are being published.
 
         @param context Context The calling context. This is not

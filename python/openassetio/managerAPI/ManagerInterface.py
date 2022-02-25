@@ -336,7 +336,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         """
         Determines if the asset manager is interested in participating
         in interactions with @ref entity "entities" with the specified
-        sets of @needsref traits.
+        sets of @ref trait "traits".
 
         For example, a host may call this in order to see if the manager
         would like to manage the path of a scene file whilst choosing a
@@ -381,7 +381,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         property data) when they are registered for an entity, and
         returning that data via resolve.
 
-        @param traitSets `List[Set[str]]` The entity @needsref traits
+        @param traitSets `List[Set[str]]` The entity @ref trait "traits"
         to query.
 
         @param context Context The calling context.
@@ -559,7 +559,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     def defaultEntityReference(self, traitSets, context, hostSession):
         """
         Returns an @ref entity_reference considered to be a sensible
-        default for each of the given entity @needsref traits and
+        default for each of the given entity @ref trait "traits" and
         Context. This is often used in a host to ensure dialogs, prompts
         or publish locations default to some sensible value, avoiding
         the need for a user to re-enter such information when a Host is
@@ -998,7 +998,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # better define the type of entity.
     #
     # For more on the relationship between Entities, Specifications and
-    # traits, please see @ref entities_specifications_and_attributes
+    # traits, please see @ref entities_traits_and_specifications
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -1037,7 +1037,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         data to. See the notes in the API documentation for the
         specifics of this.
 
-        @param traitSet `Set(str)` The @needsref traitSet of the
+        @param traitSet `Set(str)` The @ref trait_set of the
         entities that are being published.
 
         @param context Context The calling context. This is not
