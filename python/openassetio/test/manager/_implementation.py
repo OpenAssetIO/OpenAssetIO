@@ -28,7 +28,7 @@ from .specifications import ManagerTestHarnessLocale
 __all__ = ['createHarness']
 
 
-def createHarness(managerIdentifier):
+def createHarness(managerIdentifier, settings=None):
     """
     Create the test harness used begin test case execution.
     @private
@@ -38,7 +38,7 @@ def createHarness(managerIdentifier):
     managerFactory = pluginSystem.PluginSystemManagerFactory(logger)
 
     session = hostAPI.Session(hostInterface, logger, managerFactory)
-    session.useManager(managerIdentifier)
+    session.useManager(managerIdentifier, settings)
 
     loader = _ValidatorTestLoader(session)
     return _ValidatorHarness(unittest.main, loader)
@@ -129,17 +129,24 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
         @return `unittest.suite.TestSuite` The unittest suite to
         execute.
         """
+
+        classFixtures = self.__fixtures.get(testCaseClass.__name__, {})
+
+        sharedFixtures = {}
+        sharedFixtures.update(self.__fixtures.get("shared", {}))
+        sharedFixtures.update(classFixtures.get("shared", {}))
+
         testCaseNames = self.getTestCaseNames(testCaseClass)
         cases = []
         for testCaseName in testCaseNames:
 
+            caseFixtures = sharedFixtures.copy()
+            caseFixtures.update(classFixtures.get(testCaseName, {}))
+
             locale = ManagerTestHarnessLocale()
             locale.testCase = f"{testCaseClass.__name__}.{testCaseName}"
 
-            cases.append(testCaseClass(
-                self.__fixtures.get(testCaseClass.__name__, {}).get(testCaseName),
-                self.__session, locale, testCaseName
-            ))
+            cases.append(testCaseClass(caseFixtures, self.__session, locale, testCaseName))
 
         return self.suiteClass(cases)
 

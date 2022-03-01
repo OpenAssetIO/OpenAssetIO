@@ -54,7 +54,10 @@ cmdline = argparse.ArgumentParser(
 
         fixtures = {
             "identifier" : "<identifier of target plugin>",
+            "settings": { <manager_setting>: <value> },
+            "shared": { "<fixture_name>": <value> }
             "<Test_ClassName>" : {
+                "shared": { "<fixture_name>": <value> }
                 "<test_method_name>" : {
                     "<fixture_name>" : <value>,
                     ...
@@ -66,7 +69,10 @@ cmdline = argparse.ArgumentParser(
 
         Test classes, method, and fixture names are available in
         openassetio.test.manager.apiComplianceSuite.
-         """))
+
+        NOTE: Fixture names should only contain alpha-numeric characters
+        and underscores.
+        """))
 
 cmdline.add_argument(
     "-f", "--fixtures", metavar="FILE", required=True,

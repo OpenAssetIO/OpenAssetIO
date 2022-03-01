@@ -54,9 +54,9 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(None, mock_session,
+            call({}, mock_session,
                     ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
-            call(None, mock_session,
+            call({}, mock_session,
                     ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")
         ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
@@ -67,8 +67,8 @@ class Test_Loader_loadTestsFromTestCase:
         # setup
 
         # Include fixtures for both test cases
-        case_one_fixtures = Mock()
-        case_two_fixtures = Mock()
+        case_one_fixtures = {}
+        case_two_fixtures = {}
         a_fixture_dict["Test_MockTest"] = {
             "test_one": case_one_fixtures,
             "test_two": case_two_fixtures
@@ -97,7 +97,7 @@ class Test_Loader_loadTestsFromTestCase:
         # setup
 
         # Only include fixtures for one test case
-        case_two_fixtures = Mock()
+        case_two_fixtures = {}
         a_fixture_dict["Test_MockTest"] = {
             "test_two": case_two_fixtures
         }
@@ -113,7 +113,7 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(None, mock_session,
+            call({}, mock_session,
                     ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
             call(case_two_fixtures, mock_session,
                     ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")

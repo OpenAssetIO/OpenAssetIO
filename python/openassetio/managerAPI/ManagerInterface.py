@@ -300,6 +300,8 @@ class ManagerInterface(object):
         """
         @todo Document settings mechanism
         """
+        if settings != {}:
+            raise KeyError(f"{self.displayName} has no settings")
 
     @abc.abstractmethod
     def initialize(self, hostSession):
