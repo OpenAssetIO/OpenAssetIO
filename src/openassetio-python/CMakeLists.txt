@@ -99,7 +99,7 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         OUTPUT
         "${venv_python_dir}/pytest"
         COMMAND
-        "${venv_python_dir}/pip" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        "${installed_pip}" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
         DEPENDS "${installed_pip}"
     )
 
@@ -141,6 +141,7 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/tests"
         DEPENDS "${venv_python_dir}/pytest"
+        USES_TERMINAL
     )
     add_dependencies(openassetio-python-pytest openassetio-python-py-install)
 

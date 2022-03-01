@@ -18,7 +18,7 @@ jobs:
         # environments.
         # TODO(DF): Enable other platforms.
         # os: [ubuntu-20.04, windows-2019, macos-11]
-        os: [ubuntu-20.04]
+        os: [ubuntu-20.04, windows-2019]
 
     steps:
     - uses: actions/checkout@v2
@@ -36,13 +36,22 @@ jobs:
         path: ~/conan
         key: ${{ matrix.os }}-conan
 
-    - name: Install dependencies
+    - name: Install dependencies (Unix)
+      if: runner.os != 'Windows'
       # Configure the system and install library dependencies via conan
       # packages.
       run: |
         source resources/build/bootstrap-${{ matrix.os }}.sh
 
-    - name: Configure CMake build
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      # Configure the system and install library dependencies via conan
+      # packages.
+      run: |
+        cmd /C resources\build\bootstrap-${{ matrix.os }}.bat
+
+    - name: Configure CMake build (Unix)
+      if: runner.os != 'Windows'
       run: >
         cmake -S . -B build 
         --install-prefix $GITHUB_WORKSPACE/dist 
@@ -52,10 +61,29 @@ jobs:
         -DOPENASSETIO_ENABLE_SANITIZER_ADDRESS=ON 
         -DOPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR=ON
 
-    - name: Build, install and test
+    - name: Configure CMake build (Windows)
+      if: runner.os == 'Windows'
+      run: >
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        
+        cmake -G Ninja -S . -B build --install-prefix %GITHUB_WORKSPACE%\dist
+        --toolchain %USERPROFILE%\conan\conan_paths.cmake -DCMAKE_VERBOSE_MAKEFILE=ON
+        -DOPENASSETIO_ENABLE_TESTS=ON
+      shell: cmd
+
+    - name: Build, install and test (Unix)
+      if: runner.os != 'Windows'
       run: |
         cd build
         ctest -VV
+
+    - name: Build, install and test (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cd build
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        ctest -VV
+      shell: cmd
 
   docs:
     runs-on: ubuntu-latest
