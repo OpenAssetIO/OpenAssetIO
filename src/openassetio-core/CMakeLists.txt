@@ -36,6 +36,13 @@ install(TARGETS openassetio-core EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 
 # TODO(DF): Generate and install .pdb on Windows. See OCIO.
 
+if(WIN32)
+    install(
+        TARGETS openassetio-core
+        DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio"
+    )
+endif()
+
 
 #-----------------------------------------------------------------------
 # Target dependencies
