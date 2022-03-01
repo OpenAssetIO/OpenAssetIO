@@ -130,6 +130,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac51f257c0e8aa25dca723a8c22e01a14"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1test_1_1manager_1_1harness.html#ac51f257c0e8aa25dca723a8c22e01a14">fixturesFromPyFile</a> (path)</td></tr>
 <tr class="memdesc:ac51f257c0e8aa25dca723a8c22e01a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a fixtures dict from the specified python file.  <a href="#ac51f257c0e8aa25dca723a8c22e01a14">More...</a><br /></td></tr>
 <tr class="separator:ac51f257c0e8aa25dca723a8c22e01a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc70ceeacf5eb42a26901f33943d055b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1test_1_1manager_1_1harness.html#abc70ceeacf5eb42a26901f33943d055b">moduleFromFile</a> (path)</td></tr>
+<tr class="memdesc:abc70ceeacf5eb42a26901f33943d055b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a python module from the specified file, without it needing to be on PYTHONPATH.  <a href="#abc70ceeacf5eb42a26901f33943d055b">More...</a><br /></td></tr>
+<tr class="separator:abc70ceeacf5eb42a26901f33943d055b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <code>unittest</code> based test harness that allows <a class="el" href="glossary.html#manager">manager</a> plugin developers to check that their implementation meets the requirements of the API. </p>
@@ -176,12 +179,14 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>bool</code> True if the suite passed, False if there was one or more failures.</dd></dl>
 <p>The format of the fixtures dictionary is as follows:</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;fixtures = {</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="stringliteral">&quot;identifier&quot;</span>: &lt;target manager plugin identifier&gt;,</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    <span class="stringliteral">&quot;&lt;Test_Case_name&gt;&quot;</span>: {</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="stringliteral">&quot;&lt;Test_function_name&gt;&quot;</span>: {</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;            <span class="stringliteral">&quot;&lt;fixture_name&gt;&quot;</span>: &lt;value&gt;,</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;            ...</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        },</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        ...</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    },</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    ...</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div></div><!-- fragment --><p>Where:</p><ul>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;fixtures = {</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    <span class="stringliteral">&quot;identifier&quot;</span>: &lt;target manager plugin identifier&gt;,</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    <span class="stringliteral">&quot;settings&quot;</span>: { &lt;manager_setting&gt;: &lt;value&gt; },</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <span class="stringliteral">&quot;shared&quot;</span>: { <span class="stringliteral">&quot;&lt;fixture_name&gt;&quot;</span>: &lt;value&gt; },</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="stringliteral">&quot;&lt;Test_Case_name&gt;&quot;</span>: {</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        <span class="stringliteral">&quot;shared&quot;</span>: { <span class="stringliteral">&quot;&lt;fixture_name&gt;&quot;</span>: &lt;value&gt; },</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        <span class="stringliteral">&quot;&lt;Test_function_name&gt;&quot;</span>: {</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="stringliteral">&quot;&lt;fixture_name&gt;&quot;</span>: &lt;value&gt;,</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            ...</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        },</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        ...</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    },</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ...</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div></div><!-- fragment --><p>Where:</p><ul>
 <li><code>Test_Case_name</code>: The name of a test <code>class</code> declaration within the supplied suite that derives from <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html">FixtureAugmentedTestCase</a>.</li>
 <li><code>Test_function_name</code>: The the name of a test function defined within the named class.</li>
 <li><code>fixture_name</code>: The name of a fixture queried by the test function. This may be an input value, or an expected result.</li>
+<li><code>shared</code>: Fixtures values that will be inherited to inner classes or functions.</li>
 </ul>
-<p>The test harness takes care of extracting the appropriate function sub-dictionary and making it available through <code>self._fixtures</code>. </p>
+<p>The test harness takes care of extracting the appropriate function sub-dictionary and making it available through <code>self._fixtures</code>.</p>
+<p>NOTE: Fixture names need to be valid python variable names, and should only contain alpha-numeric characters and underscores. </p>
 
 </div>
 </div>
@@ -212,6 +217,29 @@ Functions</h2></td></tr>
 <dd>
 <code>resources/examples/SampleAssetManager/test/fixures.py</code> for a reference fixtures file. </dd></dl>
 
+</div>
+</div>
+<a class="anchor" id="abc70ceeacf5eb42a26901f33943d055b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def openassetio.test.manager.harness.moduleFromFile </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads a python module from the specified file, without it needing to be on PYTHONPATH. </p>
+<p>The file name is used as the module name. </p><pre class="fragment">This can be useful to load test suites from files that are not
+otherwise on PYTHONPATH.
+
+@param path `str` The path to the file to load the module from.
+
+@return The loaded module.</pre> 
 </div>
 </div>
 </div><!-- contents -->

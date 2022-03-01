@@ -1,0 +1,7 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference =
+[
+    [ "test_matches_fixture_for_read", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html#a685dfa211787183f54fa5e27b32178e0", null ],
+    [ "test_matches_fixture_for_write", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html#ab557e03813ab6f0597edb8e889043df7", null ],
+    [ "test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html#ae33e25bae2f92fc7c3e620c4748b2a02", null ],
+    [ "test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html#ac17bd7e4bee90b1b2f83316d07a1122f", null ]
+];

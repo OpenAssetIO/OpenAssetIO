@@ -140,6 +140,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ad0acbba99dff86d3e0065cf0e3fa7bc6">assertValuesOfType</a> (self, valueList, valueType, allowNone=False)</td></tr>
 <tr class="memdesc:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset that all values in the supplied list are of the desired type, or optionally None.  <a href="#ad0acbba99dff86d3e0065cf0e3fa7bc6">More...</a><br /></td></tr>
 <tr class="separator:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf65ec8d5696356fa60db65106195778"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#abf65ec8d5696356fa60db65106195778">requireFixtures</a> (self, fixtureNames, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:abf65ec8d5696356fa60db65106195778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that the supplied fixtures names are available for a test and returns their values.  <a href="#abf65ec8d5696356fa60db65106195778">More...</a><br /></td></tr>
+<tr class="separator:abf65ec8d5696356fa60db65106195778"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0edef6cc20e70b25b4478458f25a682"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682">collectRequiredFixtures</a> (self, fixtureNames, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:aa0edef6cc20e70b25b4478458f25a682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the same checks as requireFixtures, but stores the fixture values on self under variables of the same name.  <a href="#aa0edef6cc20e70b25b4478458f25a682">More...</a><br /></td></tr>
+<tr class="separator:aa0edef6cc20e70b25b4478458f25a682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51139356bef5d0cd4367ce3af7e4960"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af51139356bef5d0cd4367ce3af7e4960">requireFixture</a> (self, fixtureName, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:af51139356bef5d0cd4367ce3af7e4960"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience companion to requireFixtures, when only a single fixture is needed.  <a href="#af51139356bef5d0cd4367ce3af7e4960">More...</a><br /></td></tr>
+<tr class="separator:af51139356bef5d0cd4367ce3af7e4960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af697b52121107091a90add6e67f7ba36"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36">collectRequiredFixture</a> (self, fixtureName, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:af697b52121107091a90add6e67f7ba36"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience companion to collectRequiredFixtures, when only a single fixture is needed.  <a href="#af697b52121107091a90add6e67f7ba36">More...</a><br /></td></tr>
+<tr class="separator:af697b52121107091a90add6e67f7ba36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base test case class that all test classes must inherit from. </p>
@@ -298,6 +310,75 @@ Public Member Functions</h2></td></tr>
       of the excpected type.</pre> 
 </div>
 </div>
+<a class="anchor" id="af697b52121107091a90add6e67f7ba36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def collectRequiredFixture </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A convenience companion to collectRequiredFixtures, when only a single fixture is needed. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa0edef6cc20e70b25b4478458f25a682"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def collectRequiredFixtures </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureNames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs the same checks as requireFixtures, but stores the fixture values on self under variables of the same name. </p>
+<p>This method is best suited to use in setUp where you wish to skip/fail a whole bunch of tests when fixtures are missing. </p>
+
+</div>
+</div>
 <a class="anchor" id="a2ed73cb742bb437b27fe15e1fdebad54"></a>
 <div class="memitem">
 <div class="memproto">
@@ -329,6 +410,83 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="af51139356bef5d0cd4367ce3af7e4960"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def requireFixture </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A convenience companion to requireFixtures, when only a single fixture is needed. </p>
+
+</div>
+</div>
+<a class="anchor" id="abf65ec8d5696356fa60db65106195778"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def requireFixtures </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureNames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ensures that the supplied fixtures names are available for a test and returns their values. </p>
+<p>If any of the named fixtures are missing, the test will be failed or skipped accordingly and test execution aborted. A suitable message is generated by the function to inform observers of the test run as to which fixtures are missing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fixtureNames</td><td><code>List[str]</code> The required keys in self._fixtures.</td></tr>
+    <tr><td class="paramname">skipTestIfMissing</td><td><code>bool</code> When True, the test will be skipped instead of failing if one or more of the specificed fixtures are missing.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Any]</code> The values corresponding to each requested fixtures </dd></dl>
 
 </div>
 </div>
