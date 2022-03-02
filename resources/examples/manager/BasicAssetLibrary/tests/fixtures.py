@@ -42,7 +42,7 @@ identifier = "org.openassetio.examples.manager.bal"
 valid_ref = "bal:///references/can/contain/🐠"
 non_ref = "not a Ŕeference"
 
-an_existing_ref = next(iter(test_library["entities"].keys()))
+an_existing_entity_name = next(iter(test_library["entities"].keys()))
 
 
 fixtures = {
@@ -87,22 +87,19 @@ fixtures = {
     },
     "Test_entityExists": {
         "shared": {
-            "a_reference_to_an_existing_entity": an_existing_ref,
+            "a_reference_to_an_existing_entity": f"bal:///{an_existing_entity_name}",
             "a_reference_to_a_nonexisting_entity": valid_ref
         }
     },
     "Test_resolveEntityReference": {
-        "shared": {
+        "test_matches_fixture_for_read": {
             "a_reference_to_a_readable_entity":
-                    an_existing_ref,
+                    f"bal:///{an_existing_entity_name}",
             "the_primary_string_for_a_reference_to_a_readable_entity":
-                    test_library["entities"][an_existing_ref]["versions"][-1]["primary_string"],
-            "a_reference_to_a_readonly_entity":
-                    an_existing_ref,
-            "the_primary_string_for_a_reference_to_a_readonly_entity":
-                    test_library["entities"][an_existing_ref]["versions"][-1]["primary_string"],
+                    test_library["entities"][an_existing_entity_name]["versions"][-1]["primary_string"]
         },
         "test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned": {
+            "a_reference_to_a_readonly_entity": f"bal:///{an_existing_entity_name}",
             "the_error_string_for_a_reference_to_a_readonly_entity": "BAL entities are read-only"
         }
     }
