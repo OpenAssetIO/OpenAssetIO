@@ -78,7 +78,10 @@ def parse_entity_ref(entity_ref: str) -> EntityInfo:
     if not uri_parts.path:
         raise InvalidEntityReference("Missing entity name in path component", entity_ref)
 
-    return EntityInfo(name=uri_parts.path)
+    # path will start with a /
+    name = uri_parts.path[1:]
+
+    return EntityInfo(name=name)
 
 
 def exists(entity_info: EntityInfo, library: dict) -> bool:
