@@ -19,7 +19,7 @@ manager behavior.
 
 ## Features
 
--   Resolves references with the `bal://` prefix to data from a
+-   Resolves references with the `bal:///` prefix to data from a
     pre-configured library of assets stored in a `.json` file.
 
 -   The library file to be used is controlled by the `library_path`
