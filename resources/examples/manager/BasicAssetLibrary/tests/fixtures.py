@@ -92,17 +92,14 @@ fixtures = {
         }
     },
     "Test_resolveEntityReference": {
-        "shared": {
+        "test_matches_fixture_for_read": {
             "a_reference_to_a_readable_entity":
                     f"bal:///{an_existing_entity_name}",
             "the_primary_string_for_a_reference_to_a_readable_entity":
-                    test_library["entities"][an_existing_entity_name]["versions"][-1]["primary_string"],
-            "a_reference_to_a_readonly_entity":
-                    f"bal:///{an_existing_entity_name}",
-            "the_primary_string_for_a_reference_to_a_readonly_entity":
-                    test_library["entities"][an_existing_entity_name]["versions"][-1]["primary_string"],
+                    test_library["entities"][an_existing_entity_name]["versions"][-1]["primary_string"]
         },
         "test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned": {
+            "a_reference_to_a_readonly_entity": f"bal:///{an_existing_entity_name}",
             "the_error_string_for_a_reference_to_a_readonly_entity": "BAL entities are read-only"
         }
     }
