@@ -1,15 +1,20 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 
-#include <pybind11/pybind11.h>
+#include "_openassetio.hpp"
 
-#include <openassetio/managerAPI/ManagerInterface.hpp>
-
-PYBIND11_MODULE(_openassetio, m) {
-  using openassetio::managerAPI::ManagerInterface;
+PYBIND11_MODULE(_openassetio, mod) {
   namespace py = pybind11;
 
-  py::module managerAPI = m.def_submodule("managerAPI");
+  py::module managerAPI = mod.def_submodule("managerAPI");
 
-  py::class_<ManagerInterface>(managerAPI, "ManagerInterface").def(py::init());
+  registerManagerInterface(managerAPI);
+
+  py::module specification = mod.def_submodule("specification");
+
+  registerSpecification(specification);
+
+  py::module trait = mod.def_submodule("trait");
+
+  registerBlobTrait(trait);
 }
