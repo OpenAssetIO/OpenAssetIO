@@ -5,7 +5,7 @@
 set -xeo pipefail
 sudo apt-get update
 # Install gcc, clang-tidy and Python 3.
-sudo apt-get install -y build-essential clang-tidy python3-pip
+sudo apt-get install -y build-essential clang-tidy-12 python3-pip
 # Install system packages required for the Python 3.9 conan package.
 # These would be installed as part of the conan package install, but
 # we're caching the conan directory via the `actions/cache` Github

@@ -18,7 +18,7 @@ with a few exceptions, as detailed in the configuration of the linters
 described below.
 
 CI is configured to enforce [Clang-Format](https://clang.llvm.org/docs/ClangFormat.html),
-[Clang-Tidy](https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy)
+[Clang-Tidy 12](https://releases.llvm.org/12.0.0/tools/clang/tools/extra/docs/clang-tidy)
 and [Cpplint](https://github.com/cpplint/cpplint) checks.
 
 Clang-Tidy and Cpplint can be enabled as part of the build process using
