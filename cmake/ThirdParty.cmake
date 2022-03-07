@@ -35,7 +35,7 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # Default to mirroring the Python distribution's structure.
         get_filename_component(python_bin_dir ${Python_EXECUTABLE} DIRECTORY)
         file(RELATIVE_PATH python_site_dir_rel_to_bin ${python_bin_dir} ${Python_SITEARCH})
-        if (NOT CMAKE_INSTALL_BINDIR)
+        if (NOT CMAKE_INSTALL_BINDIR OR WIN32) # Should not use 'bin' for Windows
             set(bin_dir .)
         else ()
             set(bin_dir "${CMAKE_INSTALL_BINDIR}")
