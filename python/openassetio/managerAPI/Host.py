@@ -32,8 +32,9 @@ class Host(Debuggable):
     within a @ref manager.
 
     The Host provides a generalised API to query the identity of the
-    caller of the API, as well as which entities are used within the
-    current document.
+    caller of the API. In the future, this interface may be extended to
+    allow retrieval of information about available documents as well as
+    which entities are used within these documents.
 
     Hosts should never be directly constructed by the Manager's
     implementation. Instead, the @ref HostSession class provided to all
@@ -108,40 +109,5 @@ class Host(Debuggable):
         @return Dict[str, pod]
         """
         return self.__impl.info()
-
-    ## @}
-
-    @debugApiCall
-    @auditApiCall("Host methods")
-    def documentReference(self):
-        """
-        The path, or @ref entity_reference of the current document, or
-        an empty string if not applicable. If a Host supports multiple
-        concurrent documents, it will be the 'frontmost' one. If there
-        is no meaningful document reference, then an empty string will
-        be returned.
-
-        @return str
-        """
-        return self.__impl.documentReference()
-
-    ##
-    # @name Entity Reference retrieval
-    #
-    ## @{
-
-    @debugApiCall
-    @auditApiCall("Host methods")
-    def knownEntityReferences(self, specification=None):
-        """
-        @return list, An @ref entity_reference for each Entities known
-        by the host to be used in the current document, or an empty list
-        if none are known.
-
-        @param specification openassetio.Specification [None] If
-        supplied, then only entities of the supplied specification will
-        be returned.
-        """
-        return self.__impl.knownEntityReferences(specification=specification)
 
     ## @}

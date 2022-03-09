@@ -29,7 +29,7 @@
  *
  * class ExampleHost(HostInterface):
  *     """
- *     A minimal host implementation with no document model.
+ *     A minimal host implementation.
  *     """
  *     @staticmethod
  *     def identifier():
