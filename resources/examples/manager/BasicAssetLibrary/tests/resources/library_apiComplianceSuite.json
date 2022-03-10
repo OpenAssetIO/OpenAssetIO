@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/TheFoundryVisionmongers/OpenAssetIO/resources/examples/manager/BasicAssetLibrary/schema.json",
+  "$schema": "https://raw.githubusercontent.com/TheFoundryVisionmongers/OpenAssetIO/main/resources/examples/manager/BasicAssetLibrary/schema.json",
   "entities": {
     "anAsset⭐︎": {
       "versions": [{ "primary_string": "resolved from 'anAsset⭐︎' using 📠" }]
