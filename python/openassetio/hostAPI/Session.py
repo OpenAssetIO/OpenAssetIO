@@ -226,7 +226,7 @@ class Session(Debuggable):
 
         # pylint: disable=protected-access
         ctx.managerInterfaceState = manager._createState(parentState)
-        ctx.actionGroupDepth = 0
+        ctx._actionGroupDepth = 0
 
         return ctx
 

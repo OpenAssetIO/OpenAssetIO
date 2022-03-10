@@ -77,7 +77,7 @@ class Context(object):
 
     def __init__(
             self, access=kRead, retention=kTransient, locale=None,
-            managerOptions=None, managerState=None, actionGroupDepth=0):
+            managerOptions=None, managerState=None, _actionGroupDepth=0):
 
         super(Context, self).__init__()
 
@@ -88,7 +88,7 @@ class Context(object):
         self.__managerOptions = managerOptions if managerOptions else {}
         self.__managerState = managerState
 
-        self.__actionGroupDepth = actionGroupDepth
+        self.__actionGroupDepth = _actionGroupDepth
 
     def __getManagerInterfaceState(self):
         # pylint: disable=unused-private-member
@@ -144,13 +144,12 @@ class Context(object):
         # pylint: disable=unused-private-member
         self.__actionGroupDepth = depth
 
-    ## @property actionGroupDepth
+    ## @property _actionGroupDepth
     ## @protected
-    ## @todo https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/135
     ##
     ## Defines the number of action groups in the stack managed by the @ref
     ## openassetio.hostAPI.transactions.TransactionCoordinator "TransactionCoordinator".
-    actionGroupDepth = property(__getActionGroupDepth, __setActionGroupDepth)
+    _actionGroupDepth = property(__getActionGroupDepth, __setActionGroupDepth)
 
     def __getAccess(self):
         # pylint: disable=unused-private-member
@@ -250,7 +249,7 @@ class Context(object):
             ('locale', self.__locale),
             ('managerOptions', self.__managerOptions),
             ('managerState', self.__managerState),
-            ('actionGroupDepth', self.__actionGroupDepth)
+            ('_actionGroupDepth', self.__actionGroupDepth)
         )
         kwargs = ", ".join(["%s=%r" % (i[0], i[1]) for i in data])
         return "Context(%s)" % kwargs
