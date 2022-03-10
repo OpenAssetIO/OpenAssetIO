@@ -840,10 +840,10 @@ class ManagerInterface(object):
     #
     # @{
 
-    def entityVersionName(self, entityRefs, context, hostSession):
+    def entityVersion(self, entityRefs, context, hostSession):
         """
-        Retrieves the name of the version pointed to by each supplied
-        @ref entity_reference.
+        Retrieves the identifier of the version pointed to by each
+        supplied @ref entity_reference.
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -851,8 +851,10 @@ class ManagerInterface(object):
 
         @param hostSession HostSession The API session.
 
-        @return `List[str]` A string for each entity representing its
-        version, or an empty string if the entity was not versioned.
+        @return `List[str]` A string identifier for each entity
+        representing its version, or an empty string  if the entity was
+        not versioned. This identifier should be one of the keys in
+        @ref entityVersions.
 
         @note It is not necessarily a requirement that the entity
         exists, if, for example, the version name can be determined from
@@ -890,13 +892,14 @@ class ManagerInterface(object):
         value of -1 is used, then all results should be returned.
 
         @return `List[Dict[str, str]]` A dictionary for each entity,
-        where the keys are string versions, and the values are an
-        @ref entity_reference that points to its entity. Additionally
-        the openassetio.constants.kVersionDict_OrderKey can be set to
-        a list of the version names (ie: dict keys) in their natural
-        ascending order, that may be used by UI elements, etc.
+        where the keys are string version identifiers (as returned by
+        @ref entityVersion), and the values are an @ref entity_reference
+        that points to its entity. Additionally the
+        openassetio.constants.kVersionDict_OrderKey can be set to a list
+        of the version names (ie: dict keys) in their natural ascending
+        order, that may be used by UI elements, etc.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref finalizedEntityVersion
         """
         return [{} for _ in entityRefs]
@@ -940,7 +943,7 @@ class ManagerInterface(object):
         returned. It may be that it makes sense in the specific asset
         manager to fall back on 'latest' in this case.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref entityVersions
         """
         return entityRefs
