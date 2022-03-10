@@ -36,7 +36,6 @@ Checks: >
     performance-*,
     portability-*,
     readability-*,
-    -google-runtime-references,
     -modernize-return-braced-init-list,
     -modernize-use-trailing-return-type,
     -modernize-avoid-c-arrays,

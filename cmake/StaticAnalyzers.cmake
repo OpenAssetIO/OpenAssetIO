@@ -2,7 +2,10 @@
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
 macro(enable_clang_tidy)
-    find_program(CLANGTIDY clang-tidy)
+    # Clang-Tidy warnings vary quite a bit between different versions.
+    # So pin to clang-tidy-12 for now, which happens to be the latest
+    # available in Ubuntu 20.04's (i.e. CI) apt repos.
+    find_program(CLANGTIDY clang-tidy-12)
 
     if (CLANGTIDY)
         # Construct the clang-tidy command line
