@@ -75,13 +75,3 @@ class TestHost():
         method = mock_host_interface.info
         assert host.info() == method.return_value
         method.assert_called_once_with()
-
-    def test_documentReference(self, host, mock_host_interface):
-        method = mock_host_interface.documentReference
-        assert host.documentReference() == method.return_value
-        method.assert_called_once_with()
-
-    def test_knownEntityReferences(self, host, mock_host_interface, an_entity_spec):
-        method = mock_host_interface.knownEntityReferences
-        assert host.knownEntityReferences(an_entity_spec) == method.return_value
-        method.assert_called_once_with(specification=an_entity_spec)
