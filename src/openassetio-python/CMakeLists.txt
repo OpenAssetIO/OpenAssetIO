@@ -128,12 +128,22 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
             OUTPUT_VARIABLE asan_path
             OUTPUT_STRIP_TRAILING_WHITESPACE
         )
-        # In addition to `LD_PRELOAD`ing libasan, we must override
-        # Python's memory allocator to use the C (or rather, ASan's)
-        # `malloc` rather than the optimized `pymalloc`, so that ASan
-        # can properly count memory (de)allocations.
-        set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path})
-    endif()
+        # ASan can hang on exceptions when `dlopen`ed libraries are
+        # involved (i.e. Python extension modules)
+        # See: https://bugs.llvm.org/show_bug.cgi?id=39641
+        # or: https://github.com/llvm/llvm-project/issues/38989
+        # and: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91325#c5
+        # The latter link indicates this bug is fixed in GCC 10.1, but
+        # we're stuck with 9.3 (CY21/22) for now.
+        # To work around this we must LD_PRELOAD our core lib.
+        set(openassetio_path
+            ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/$<TARGET_FILE_NAME:openassetio-core>)
+        # In addition to `LD_PRELOAD`ing we must override Python's
+        # memory allocator to use the C (or rather, ASan's) `malloc`
+        # rather than the optimized `pymalloc`, so that ASan can
+        # properly count memory (de)allocations.
+        set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${openassetio_path})
+    endif ()
 
     # Target to run pytest in the install directory, ensuring the lib has
     # been built and installed first. Add `-s` to ensure no output is
