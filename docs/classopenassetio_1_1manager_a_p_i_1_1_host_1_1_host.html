@@ -134,9 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a23e8041ce1015febe4fdace3225714f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a47563093dfc5ba12274b66e368920c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a9a47563093dfc5ba12274b66e368920c">__repr__</a> (self)</td></tr>
 <tr class="separator:a9a47563093dfc5ba12274b66e368920c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a560457d50d480787c862154b48d868"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a6a560457d50d480787c862154b48d868">documentReference</a> (self)</td></tr>
-<tr class="memdesc:a6a560457d50d480787c862154b48d868"><td class="mdescLeft">&#160;</td><td class="mdescRight">The path, or <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of the current document, or an empty string if not applicable.  <a href="#a6a560457d50d480787c862154b48d868">More...</a><br /></td></tr>
-<tr class="separator:a6a560457d50d480787c862154b48d868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Host Information</div></td></tr>
 <tr class="memitem:aff783e93ec4792177046b6554946b14e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#aff783e93ec4792177046b6554946b14e">identifier</a> (self)</td></tr>
 <tr class="memdesc:aff783e93ec4792177046b6554946b14e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an identifier to uniquely identify the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a>.  <a href="#aff783e93ec4792177046b6554946b14e">More...</a><br /></td></tr>
@@ -147,13 +144,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a4cbc8f16a0b6cd68f685de5561a0c618">info</a> (self)</td></tr>
 <tr class="memdesc:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about the host.  <a href="#a4cbc8f16a0b6cd68f685de5561a0c618">More...</a><br /></td></tr>
 <tr class="separator:a4cbc8f16a0b6cd68f685de5561a0c618"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Entity Reference retrieval</div></td></tr>
-<tr class="memitem:a619cc81d57fcec53f89fe15c939f9e5a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a619cc81d57fcec53f89fe15c939f9e5a">knownEntityReferences</a> (self, specification=None)</td></tr>
-<tr class="separator:a619cc81d57fcec53f89fe15c939f9e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a <a class="el" href="glossary.html#manager">manager</a>. </p>
-<p>The <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> provides a generalised API to query the identity of the caller of the API, as well as which entities are used within the current document.</p>
+<p>The <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> provides a generalised API to query the identity of the caller of the API. In the future, this interface may be extended to allow retrieval of information about available documents as well as which entities are used within these documents.</p>
 <p>Hosts should never be directly constructed by the Manager's implementation. Instead, the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">HostSession</a> class provided to all manager API entry points provides access to the current host through the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html#a220724271877e8cdd21b98525bb92ad1">HostSession.host</a> method. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a347d40a33f807b6bbc1d81add1a0152f"></a>
@@ -233,26 +227,6 @@ Public Member Functions</h2></td></tr>
 <p>For example: </p><pre class="fragment">"Katana"</pre> 
 </div>
 </div>
-<a class="anchor" id="a6a560457d50d480787c862154b48d868"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def documentReference </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The path, or <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of the current document, or an empty string if not applicable. </p>
-<p>If a <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> supports multiple concurrent documents, it will be the 'frontmost' one. If there is no meaningful document reference, then an empty string will be returned.</p>
-<dl class="section return"><dt>Returns</dt><dd>str </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aff783e93ec4792177046b6554946b14e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -290,39 +264,6 @@ Public Member Functions</h2></td></tr>
 <p>Returns other information that may be useful about the host. </p>
 <p>This can contain arbitrary key/value pairs. There should be no reliance on a specific key being supplied by all hosts. The information may be more generally useful for diagnostic or debugging purposes. For example: </p><pre class="fragment">{ 'version' : '1.1v3' }
 </pre><dl class="section return"><dt>Returns</dt><dd>Dict[str, pod] </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a619cc81d57fcec53f89fe15c939f9e5a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def knownEntityReferences </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>specification</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>list, An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each Entities known by the host to be used in the current document, or an empty list if none are known.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">specification</td><td><a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">openassetio.Specification</a> [None] If supplied, then only entities of the supplied specification will be returned. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

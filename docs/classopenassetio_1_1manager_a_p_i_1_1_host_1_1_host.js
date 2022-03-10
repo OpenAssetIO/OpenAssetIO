@@ -4,8 +4,6 @@ var classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host =
     [ "__repr__", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a9a47563093dfc5ba12274b66e368920c", null ],
     [ "__str__", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a23e8041ce1015febe4fdace3225714f9", null ],
     [ "displayName", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a4a4467cab41dcb4719599e307c77d045", null ],
-    [ "documentReference", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a6a560457d50d480787c862154b48d868", null ],
     [ "identifier", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#aff783e93ec4792177046b6554946b14e", null ],
-    [ "info", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a4cbc8f16a0b6cd68f685de5561a0c618", null ],
-    [ "knownEntityReferences", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a619cc81d57fcec53f89fe15c939f9e5a", null ]
+    [ "info", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html#a4cbc8f16a0b6cd68f685de5561a0c618", null ]
 ];
