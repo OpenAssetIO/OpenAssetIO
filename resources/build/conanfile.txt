@@ -1,6 +1,8 @@
 [requires]
+# CY2022
 cpython/3.9.7
-pybind11/2.6.1
+# Same as ASWF CY2022 Docker image: https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/README.md
+pybind11/2.8.1
 
 [generators]
 # Generate a CMake toolchain preamble file `conan_paths.cmake`, which
