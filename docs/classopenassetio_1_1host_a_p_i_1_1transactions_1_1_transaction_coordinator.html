@@ -159,8 +159,6 @@ Action Group Management</h2></td></tr>
 <tr class="memitem:a6a396366f536e00bc4564a316f3bbc24"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6a396366f536e00bc4564a316f3bbc24">cancelActions</a> (self, context)</td></tr>
 <tr class="memdesc:a6a396366f536e00bc4564a316f3bbc24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current ActionGroup stack (if one has been started), cancelling the <a class="el" href="glossary.html#transaction">Transaction</a> if one has been started.  <a href="#a6a396366f536e00bc4564a316f3bbc24">More...</a><br /></td></tr>
 <tr class="separator:a6a396366f536e00bc4564a316f3bbc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50f8d3296aebe899619834aa7692c4cd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a50f8d3296aebe899619834aa7692c4cd">actionGroupDepth</a> (context)</td></tr>
-<tr class="separator:a50f8d3296aebe899619834aa7692c4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html" title="The TransactionCoordinator simplifies Host implementation by providing a stack-like interface around ...">TransactionCoordinator</a> simplifies Host implementation by providing a stack-like interface around the simple start/stop/cancel transaction API exposed by the ManagerInterface. </p>
@@ -192,32 +190,6 @@ Action Group Management</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a50f8d3296aebe899619834aa7692c4cd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">def actionGroupDepth </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>int The current ActionGroup depth in the context. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Should this even be public? Conceptually this is probably API-internal. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a6a396366f536e00bc4564a316f3bbc24"></a>
 <div class="memitem">
 <div class="memproto">
