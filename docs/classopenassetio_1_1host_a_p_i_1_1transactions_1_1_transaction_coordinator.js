@@ -7,5 +7,5 @@ var classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator =
     [ "popActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ae7a23bbf8366a06b63644b1e66dde345", null ],
     [ "pushActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#af4355c5cc77bf8c91ecc532386de1b73", null ],
     [ "scopedActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a18d526ea02433a4f48a7dad7a03f0f4d", null ],
-    [ "thawManagerState", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6611b27206b2b75bfb7ba5854c5708ae", null ]
+    [ "thawManagerState", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a396c2592a8d664cd8d4f8059bcf2210b", null ]
 ];

@@ -139,9 +139,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9aa9f81e61ec1ab06ca4abdba9b4ef1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab9aa9f81e61ec1ab06ca4abdba9b4ef1">freezeManagerState</a> (self, context)</td></tr>
 <tr class="memdesc:ab9aa9f81e61ec1ab06ca4abdba9b4ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a serialized representation of the <a class="el" href="glossary.html#manager_state">Manager State</a> held in the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, so that it can be distributed to other processes/etc...  <a href="#ab9aa9f81e61ec1ab06ca4abdba9b4ef1">More...</a><br /></td></tr>
 <tr class="separator:ab9aa9f81e61ec1ab06ca4abdba9b4ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6611b27206b2b75bfb7ba5854c5708ae"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6611b27206b2b75bfb7ba5854c5708ae">thawManagerState</a> (self, token, context)</td></tr>
-<tr class="memdesc:a6611b27206b2b75bfb7ba5854c5708ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the <a class="el" href="glossary.html#manager_state">Manager State</a> in the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> so that it represents the context as previously frozen.  <a href="#a6611b27206b2b75bfb7ba5854c5708ae">More...</a><br /></td></tr>
-<tr class="separator:a6611b27206b2b75bfb7ba5854c5708ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396c2592a8d664cd8d4f8059bcf2210b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a396c2592a8d664cd8d4f8059bcf2210b">thawManagerState</a> (self, token)</td></tr>
+<tr class="memdesc:a396c2592a8d664cd8d4f8059bcf2210b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the <a class="el" href="glossary.html#manager_state">Manager State</a> returning a <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> that is associated with the same state as the context that was previously frozen using <a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab9aa9f81e61ec1ab06ca4abdba9b4ef1">freezeManagerState</a>.  <a href="#a396c2592a8d664cd8d4f8059bcf2210b">More...</a><br /></td></tr>
+<tr class="separator:a396c2592a8d664cd8d4f8059bcf2210b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Action Group Management</h2></td></tr>
@@ -274,7 +274,7 @@ Action Group Management</h2></td></tr>
 <p>Returns a serialized representation of the <a class="el" href="glossary.html#manager_state">Manager State</a> held in the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, so that it can be distributed to other processes/etc... </p>
 <dl class="section warning"><dt>Warning</dt><dd>From this point, the context should not be used further without first thawing the state back into the context.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>str an ASCII compatible string</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6611b27206b2b75bfb7ba5854c5708ae">thawManagerState</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a396c2592a8d664cd8d4f8059bcf2210b">thawManagerState</a> </dd></dl>
 
 </div>
 </div>
@@ -388,7 +388,7 @@ Action Group Management</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;with transactionCoordinator.scopedActionGroup(context):</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;  <span class="keywordflow">for</span> t <span class="keywordflow">in</span> textures:</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    publish(t)</div></div><!-- fragment --> 
 </div>
 </div>
-<a class="anchor" id="a6611b27206b2b75bfb7ba5854c5708ae"></a>
+<a class="anchor" id="a396c2592a8d664cd8d4f8059bcf2210b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -402,13 +402,7 @@ Action Group Management</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>token</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramname"><em>token</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -418,15 +412,14 @@ Action Group Management</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Restores the <a class="el" href="glossary.html#manager_state">Manager State</a> in the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> so that it represents the context as previously frozen. </p>
+<p>Restores the <a class="el" href="glossary.html#manager_state">Manager State</a> returning a <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> that is associated with the same state as the context that was previously frozen using <a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab9aa9f81e61ec1ab06ca4abdba9b4ef1">freezeManagerState</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">token</td><td>str The string returned by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#ab9aa9f81e61ec1ab06ca4abdba9b4ef1">freezeManagerState</a></td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The context to restore the state into.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>It is perfectly legal to thaw the same context multiple times in parallel, as long as the ActionGroup depth is not changed - ie: push/pop/cancelActionGroup should not be called. This is because it quickly creates an incoherent state for the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a>. The Host <em>must</em> guarantee that a given state has only been thawed to a single active <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> before such actions are performed.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is perfectly legal to thaw the same token multiple times in parallel, as long as the ActionGroup depth is not changed - ie: push/pop/cancelActionGroup should not be called. This is because it quickly creates an incoherent state for the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a>. The Host <em>must</em> guarantee that a given state has only been thawed to a single active <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> before such actions are performed.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This call only handles the opaque <a class="el" href="glossary.html#manager_state">Manager State</a> object, it does <em>not</em> restore other properties of the <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> (ie: access/retention, etc...) </dd></dl>
 
 </div>

@@ -38,7 +38,7 @@ var searchData=
   ['testharnesslocale',['TestHarnessLocale',['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html',1,'openassetio::test::specifications']]],
   ['testing_20your_20implementation',['Testing Your Implementation',['../testing.html',1,'']]],
   ['testsuite',['testSuite',['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a86d920126b64a5e117918e07db4bf0c7',1,'openassetio::test::specifications::TestHarnessLocale']]],
-  ['thawmanagerstate',['thawManagerState',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6611b27206b2b75bfb7ba5854c5708ae',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
+  ['thawmanagerstate',['thawManagerState',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a396c2592a8d664cd8d4f8059bcf2210b',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
   ['thawstate',['thawState',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['thumbnails',['Thumbnails',['../thumbnails.html',1,'']]],
   ['todo_20list',['Todo List',['../todo.html',1,'']]],
