@@ -19,6 +19,7 @@ This module provides convenience functionality for a @ref host to aid
 working managing transactions when interacting with a @ref manager.
 """
 
+from .. import Context
 from .._core.audit import auditApiCall
 from .._core.debug import debugApiCall, Debuggable
 
@@ -173,16 +174,15 @@ class TransactionCoordinator(Debuggable):
         return "%i_%s" % (context.actionGroupDepth, token)
 
     @auditApiCall("Transactions")
-    def thawManagerState(self, token, context):
+    def thawManagerState(self, token):
         """
-        Restores the @ref manager_state in the supplied Context so that
-        it represents the context as previously frozen.
+        Restores the @ref manager_state returning a Context that is
+        associated with the same state as the context that was
+        previously frozen using @ref freezeManagerState.
 
         @param token str The string returned by @ref freezeManagerState
 
-        @param context Context The context to restore the state into.
-
-        @note It is perfectly legal to thaw the same context multiple
+        @note It is perfectly legal to thaw the same token multiple
         times in parallel, as long as the ActionGroup depth is not
         changed - ie: push/pop/cancelActionGroup should not be called.
         This is because it quickly creates an incoherent state for the
@@ -196,9 +196,11 @@ class TransactionCoordinator(Debuggable):
         """
         ## @todo Sanitize input
         depth, managerToken = token.split('_', 1)
+
+        context = Context()
         context.actionGroupDepth = int(depth)
-        state = self.__manager._thawState(managerToken)  # pylint: disable=protected-access
-        context.managerInterfaceState = state
+        context.managerInterfaceState = self.__manager._thawState(managerToken)  # pylint: disable=protected-access
+        return context
 
     ## @}
 

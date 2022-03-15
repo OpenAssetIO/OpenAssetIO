@@ -270,17 +270,14 @@ class Test_TransactionCoordinator_freeze_thaw:
 
         # Clear context (this isn't done by freeze)
 
-        a_context.managerInterfaceState = None
-        a_context.actionGroupDepth = 0
-
         mock_manager.thawState.assert_not_called()
 
         # Thaw
 
-        transaction_coordinator.thawManagerState(token, a_context)
+        thawed_context = transaction_coordinator.thawManagerState(token)
         mock_manager.thawState.assert_called_once_with(mock_frozen_state, mock_host_session)
-        assert a_context.managerInterfaceState == state
-        assert a_context.actionGroupDepth == action_group_depth
+        assert thawed_context.managerInterfaceState == state
+        assert thawed_context.actionGroupDepth == action_group_depth
 
 
 class Test_ScopedActionGroup:
