@@ -94,11 +94,11 @@ class Test_TransactionCoordinator_pushActionGroup:
     def test_actionGroup_depth_is_incremented(
             self, transaction_coordinator, a_context):
 
-        assert a_context.actionGroupDepth == 0
+        assert a_context._actionGroupDepth == 0
         transaction_coordinator.pushActionGroup(a_context)
-        assert a_context.actionGroupDepth == 1
+        assert a_context._actionGroupDepth == 1
         transaction_coordinator.pushActionGroup(a_context)
-        assert a_context.actionGroupDepth == 2
+        assert a_context._actionGroupDepth == 2
 
     def test_when_called_repeatedly_then_startTransaction_only_called_once(
             self, transaction_coordinator, mock_host_session, a_context):
@@ -124,11 +124,11 @@ class Test_TransactionCoordinator_popActionGroup:
     def test_actionGroup_depth_is_decremented(
             self, transaction_coordinator, a_context):
 
-        a_context.actionGroupDepth = 2
+        a_context._actionGroupDepth = 2
         transaction_coordinator.popActionGroup(a_context)
-        assert a_context.actionGroupDepth == 1
+        assert a_context._actionGroupDepth == 1
         transaction_coordinator.popActionGroup(a_context)
-        assert a_context.actionGroupDepth == 0
+        assert a_context._actionGroupDepth == 0
 
     def test_when_called_repeatedly_then_finishTransaction_only_called_once(
             self, transaction_coordinator, mock_host_session, a_context):
@@ -136,15 +136,15 @@ class Test_TransactionCoordinator_popActionGroup:
         mock_interface = transaction_coordinator.manager()._interface()
         state = a_context.managerInterfaceState
 
-        a_context.actionGroupDepth = 2
+        a_context._actionGroupDepth = 2
 
         transaction_coordinator.popActionGroup(a_context)
-        assert a_context.actionGroupDepth == 1
+        assert a_context._actionGroupDepth == 1
         assert_transaction_calls(
             mock_interface, mock_host_session, start=None, finish=None, cancel=None)
 
         transaction_coordinator.popActionGroup(a_context)
-        assert a_context.actionGroupDepth == 0
+        assert a_context._actionGroupDepth == 0
         assert_transaction_calls(
             mock_interface, mock_host_session, start=None, finish=state, cancel=None)
 
@@ -156,7 +156,7 @@ class Test_TransactionCoordinator_popActionGroup:
     def test_when_depth_is_zero_then_RuntimeError_is_raised(
             self, transaction_coordinator, a_context):
 
-        a_context.actionGroupDepth = 0
+        a_context._actionGroupDepth = 0
 
         with pytest.raises(RuntimeError):
             transaction_coordinator.popActionGroup(a_context)
@@ -164,7 +164,7 @@ class Test_TransactionCoordinator_popActionGroup:
     def test_when_depth_is_zero_then_manager_is_not_called(
             self, mock_host_session, transaction_coordinator, a_context):
 
-        a_context.actionGroupDepth = 0
+        a_context._actionGroupDepth = 0
 
         try:
             transaction_coordinator.popActionGroup(a_context)
@@ -188,7 +188,7 @@ class Test_TransactionCoordinator_cancelActions:
         # from the manager.
         mock_interface.cancelTransaction.return_value = False
 
-        a_context.actionGroupDepth = 0
+        a_context._actionGroupDepth = 0
 
         transaction_coordinator.cancelActions(a_context)
         assert_transaction_calls(
@@ -208,14 +208,14 @@ class Test_TransactionCoordinator_cancelActions:
 
         mock_interface.cancelTransaction.return_value = True
 
-        a_context.actionGroupDepth = 1
+        a_context._actionGroupDepth = 1
         assert transaction_coordinator.cancelActions(a_context) is True
         assert_transaction_calls(
             mock_interface, mock_host_session, start=None, finish=None, cancel=state)
 
         mock_interface.cancelTransaction.return_value = False
 
-        a_context.actionGroupDepth = 2
+        a_context._actionGroupDepth = 2
         assert transaction_coordinator.cancelActions(a_context) is False
         assert_transaction_calls(
             mock_interface, mock_host_session, start=None, finish=None, cancel=state)
@@ -223,24 +223,24 @@ class Test_TransactionCoordinator_cancelActions:
     def test_when_depth_is_not_zero_then_depth_is_reset_to_zero_after_call(
             self, transaction_coordinator, a_context):
 
-        a_context.actionGroupDepth = 123
+        a_context._actionGroupDepth = 123
         transaction_coordinator.cancelActions(a_context)
-        assert a_context.actionGroupDepth == 0
+        assert a_context._actionGroupDepth == 0
 
 
-class Test_TransactionCoordinator_actionGroupDepth:
+class Test_TransactionCoordinator__actionGroupDepth:
     # pylint: disable=protected-access
 
     def test_returns_context_depth(self, transaction_coordinator, a_context):
 
-        assert a_context.actionGroupDepth == 0
-        assert transaction_coordinator.actionGroupDepth(a_context) == 0
+        assert a_context._actionGroupDepth == 0
+        assert transaction_coordinator._actionGroupDepth(a_context) == 0
 
         transaction_coordinator.pushActionGroup(a_context)
-        assert transaction_coordinator.actionGroupDepth(a_context) == 1
+        assert transaction_coordinator._actionGroupDepth(a_context) == 1
 
-        a_context.actionGroupDepth = 77
-        assert transaction_coordinator.actionGroupDepth(a_context) == 77
+        a_context._actionGroupDepth = 77
+        assert transaction_coordinator._actionGroupDepth(a_context) == 77
 
 
 class Test_TransactionCoordinator_freeze_thaw:
@@ -259,7 +259,7 @@ class Test_TransactionCoordinator_freeze_thaw:
 
         action_group_depth = 4
 
-        a_context.actionGroupDepth = action_group_depth
+        a_context._actionGroupDepth = action_group_depth
 
         # Freeze
 
@@ -277,7 +277,7 @@ class Test_TransactionCoordinator_freeze_thaw:
         thawed_context = transaction_coordinator.thawManagerState(token)
         mock_manager.thawState.assert_called_once_with(mock_frozen_state, mock_host_session)
         assert thawed_context.managerInterfaceState == state
-        assert thawed_context.actionGroupDepth == action_group_depth
+        assert thawed_context._actionGroupDepth == action_group_depth
 
 
 class Test_ScopedActionGroup:

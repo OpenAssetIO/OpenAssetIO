@@ -240,12 +240,13 @@ class Test_Session_createContext:
         assert context_a.access == Context.kRead
         assert context_a.retention == Context.kTransient
         assert context_a.managerInterfaceState is state_a
-        assert context_a.actionGroupDepth == 0
+        assert context_a._actionGroupDepth == 0  # pylint: disable=protected-access
         assert context_a.locale is None
         mock_manager_interface.createState.assert_called_once()
 
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
             self, a_session, mock_manager_interface):
+        # pylint: disable=protected-access
 
         a_session.useManager("com.manager")
 
@@ -255,12 +256,11 @@ class Test_Session_createContext:
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
         context_a.locale = LocaleSpecification()
-        context_a.actionGroupDepth = 3
+        context_a._actionGroupDepth = 3
         mock_manager_interface.reset_mock()
 
         state_b = "state-b"
         mock_manager_interface.createState.return_value = state_b
-        # pylint: disable=protected-access
         a_host_session = a_session.currentManager()._Manager__hostSession
 
         context_b = a_session.createContext(parent=context_a)
@@ -270,7 +270,7 @@ class Test_Session_createContext:
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
-        assert context_b.actionGroupDepth == 0
+        assert context_b._actionGroupDepth == 0
         mock_manager_interface.createState.assert_called_once_with(
             a_host_session, parentState=state_a)
 
