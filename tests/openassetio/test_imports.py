@@ -50,8 +50,8 @@ class Test_package_imports:
     def test_importing_exceptions_succeeds(self):
         from openassetio import exceptions
 
-    def test_importing_logging_succeeds(self):
-        from openassetio import logging
+    def test_importing_log_succeeds(self):
+        from openassetio import log
 
     def test_importing_Specification_succeeds(self):
         from openassetio import Specification

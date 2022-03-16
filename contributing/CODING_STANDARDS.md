@@ -81,7 +81,7 @@ class name should include the method under test preceded by its class,
 separated by an underscore. For example,
 
 ```python
-class Test_ManagerInterface_entityVersionName:
+class Test_ManagerInterface_entityVersion:
     ...
 ```
 

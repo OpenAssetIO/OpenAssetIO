@@ -113,6 +113,12 @@ jobs:
         # to work with GNU grep.
         ! grep -qE "^.*?/src/[^:]+:[0-9]+: ?[a-zA-Z]+: ?.*$" doxygen-log.txt
 
+    - name: Expose archive docs artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: doxygen-documentation
+        path: doc/html
+
   business-language:
     runs-on: ubuntu-latest
 

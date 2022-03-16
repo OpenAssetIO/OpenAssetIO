@@ -25,7 +25,7 @@ import os
 
 import pytest
 
-from openassetio.logging import ConsoleLogger
+from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import PluginSystem
 
 

@@ -66,11 +66,11 @@ class Session(Debuggable):
         HostInterface is supported, so if multiple sessions are created,
         they should all use the same HostInterface instance).
 
-        @param logger openassetio.logging.LoggerInterface The target for
+        @param logger openassetio.log.LoggerInterface The target for
         all logging output from the session API-level or Manager level
         messages will all be routed through this object. No severity
         filtering is performed. Hosts wishing to filter the messages can
-        use the @ref openassetio.logging.SeverityFilter wrapper if
+        use the @ref openassetio.log.SeverityFilter wrapper if
         desired.
 
         @param managerFactory
@@ -80,7 +80,7 @@ class Session(Debuggable):
 
           @see @ref useManager
           @see @ref currentManager
-          @see @ref openassetio.logging "logging"
+          @see @ref openassetio.log "log"
           @see @ref openassetio.hostAPI.ManagerFactoryInterface
           "ManagerFactoryInterface"
           @see @ref openassetio.pluginSystem.PluginSystemManagerFactory
@@ -150,6 +150,13 @@ class Session(Debuggable):
             raise ManagerException("Unknown Manager '%s'" % identifier)
 
         # No need to do anything if its the same
+        ## @todo [tc] If we want to keep `settings` as part of this method
+        ## (so a deferred constructed manager can have its settings set)
+        ## then we should make sure the following does actually apply the
+        ## settings:
+        ##     useManager(an_id)
+        ##     useManager(an_id, setting=some_settings)
+        ## Right now, this won't happen, and the settings will be lost.
         if identifier == self._managerId:
             return
 
@@ -219,7 +226,7 @@ class Session(Debuggable):
 
         # pylint: disable=protected-access
         ctx.managerInterfaceState = manager._createState(parentState)
-        ctx.actionGroupDepth = 0
+        ctx._actionGroupDepth = 0
 
         return ctx
 

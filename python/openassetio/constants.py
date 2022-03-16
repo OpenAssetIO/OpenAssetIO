@@ -18,7 +18,7 @@
 Constants used throughout the OpenAssetIO API.
 
 @todo [tc] Should these live here, or with their owning declarations,
-See @ref openassetio.logging.LoggerInterface for example.
+See @ref openassetio.log.LoggerInterface for example.
 """
 
 

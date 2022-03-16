@@ -308,7 +308,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def managementPolicy(self, specifications, context, entityRef=None):
+    def managementPolicy(self, specifications, context):
         """
         Determines if the manager is interested in participating in
         interactions with the specified types of @ref entity, either
@@ -333,12 +333,6 @@ class Manager(Debuggable):
         publishing. Ignored reads can allow optimisations in a host as
         there is no longer a need to test/resolve applicable strings.
 
-        Calls with an accompanying @ref entity_reference should be used
-        when one is known, to ensure that the manager has the
-        opportunity to prohibit users from attempting to perform an
-        asset-specific action that is not supported by the asset
-        management system.
-
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
         set, you can assume the asset management system will manage the
@@ -356,18 +350,11 @@ class Manager(Debuggable):
 
         @param context Context The calling context.
 
-        @param entityRef `str` If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specification if registered to the supplied entity. For example,
-        attempts to register an ImageSpecification to an entity
-        reference that refers to the top level project may be
-        meaningless, so in this case `kIgnored` would be returned.
-
         @return `List[int]` Bitfields, one for each element in
         `specifications`. See @ref openassetio.constants.
         """
         return self.__impl.managementPolicy(
-            specifications, context, self.__hostSession, entityRef=entityRef)
+            specifications, context, self.__hostSession)
 
     ## @}
 
@@ -382,7 +369,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def isEntityReference(self, tokens, context):
+    def isEntityReference(self, tokens):
         """
         @warning It is essential, as a host, that only valid
         references are supplied to Manager API calls. Before any
@@ -405,8 +392,6 @@ class Manager(Debuggable):
 
         @param tokens `List[str]` The strings to be inspected.
 
-        @param context openassetio.Context The calling context.
-
         @return `List[bool]` `True` if a supplied token should be
         considered as an @ref entity_reference, `False` if the pattern
         is not recognised.
@@ -424,7 +409,7 @@ class Manager(Debuggable):
         # We need to add support here for using the supplied prefix match string,
         # or regex, if supplied, instead of calling the manager, this is less
         # relevant in python though, more in C, but the note is here to remind us.
-        return self.__impl.isEntityReference(tokens, context, self.__hostSession)
+        return self.__impl.isEntityReference(tokens, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -694,10 +679,10 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def entityVersionName(self, entityRefs, context):
+    def entityVersion(self, entityRefs, context):
         """
-        Retrieves the name of the version pointed to by each supplied
-        @ref entity_reference.
+        Retrieves the identifier of the version pointed to by each
+        supplied @ref entity_reference.
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -705,6 +690,7 @@ class Manager(Debuggable):
 
         @return `List[str]` A string for each entity representing its
         version, or an empty string if the entity was not versioned.
+        This identifier will be one of the keys of @ref entityVersions.
 
         @note It is not necessarily a requirement that the entity
         exists, if, for example, the version name can be determined from
@@ -713,7 +699,7 @@ class Manager(Debuggable):
         @see @ref entityVersions
         @see @ref finalizedEntityVersion
         """
-        return self.__impl.entityVersionName(entityRefs, context, self.__hostSession)
+        return self.__impl.entityVersion(entityRefs, context, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -737,13 +723,14 @@ class Manager(Debuggable):
         value of -1 is used, then all results will be returned.
 
         @return `List[Dict[str, str]]` A dictionary for each entity,
-        where the keys are string versions, and the values are an
-        @ref entity_reference that points to its entity. Additionally
-        the openassetio.constants.kVersionDict_OrderKey can be set to
-        a list of the version names (ie: dict keys) in their natural
-        ascending order, that may be used by UI elements, etc.
+        where the keys are string version identifiers (as returned by
+        @ref entityVersion), and the values are an @ref entity_reference
+        that points to its entity. Additionally the
+        openassetio.constants.kVersionDict_OrderKey can be set to a list
+        of the version names (ie: dict keys) in their natural ascending
+        order, that may be used by UI elements, etc.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref finalizedEntityVersion
         """
         return self.__impl.entityVersions(
@@ -786,7 +773,7 @@ class Manager(Debuggable):
         returned. It may be that it makes sense in the specific asset
         manager to fall back on 'latest' in this case.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref entityVersions
         """
         return self.__impl.finalizedEntityVersion(

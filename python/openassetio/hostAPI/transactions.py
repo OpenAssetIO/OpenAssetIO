@@ -19,6 +19,7 @@ This module provides convenience functionality for a @ref host to aid
 working managing transactions when interacting with a @ref manager.
 """
 
+from .. import Context
 from .._core.audit import auditApiCall
 from .._core.debug import debugApiCall, Debuggable
 
@@ -77,12 +78,12 @@ class TransactionCoordinator(Debuggable):
 
         @return int The new depth of the Action Group stack
         """
-        if context.actionGroupDepth == 0:
-            # pylint: disable=protected-access
+        # pylint: disable=protected-access
+        if context._actionGroupDepth == 0:
             self.__manager._startTransaction(context.managerInterfaceState)
 
-        context.actionGroupDepth += 1
-        return context.actionGroupDepth
+        context._actionGroupDepth += 1
+        return context._actionGroupDepth
 
     @debugApiCall
     @auditApiCall("Transactions")
@@ -97,15 +98,15 @@ class TransactionCoordinator(Debuggable):
         @exception RuntimeError If pop is called before push (ie: the
         stack depth is 0)
         """
-        if context.actionGroupDepth == 0:
+        # pylint: disable=protected-access
+        if context._actionGroupDepth == 0:
             raise RuntimeError("Action group popped with none on the stack")
 
-        context.actionGroupDepth -= 1
-        if context.actionGroupDepth == 0:
-            # pylint: disable=protected-access
+        context._actionGroupDepth -= 1
+        if context._actionGroupDepth == 0:
             self.__manager._finishTransaction(context.managerInterfaceState)
 
-        return context.actionGroupDepth
+        return context._actionGroupDepth
 
     @debugApiCall
     @auditApiCall("Transactions")
@@ -120,25 +121,26 @@ class TransactionCoordinator(Debuggable):
         Manager may not have been able to undo-unwind any actions that
         occurred since the first ActionGroup was pushed onto the stack.
         """
+        # pylint: disable=protected-access
+
         status = True
 
-        if context.actionGroupDepth == 0:
+        if context._actionGroupDepth == 0:
             return status
 
-        # pylint: disable=protected-access
         status = self.__manager._cancelTransaction(context.managerInterfaceState)
 
-        context.actionGroupDepth = 0
+        context._actionGroupDepth = 0
 
         return status
 
     @staticmethod
-    def actionGroupDepth(context):
+    def _actionGroupDepth(context):
         """
         @return int The current ActionGroup depth in the context.
-        @todo Should this even be public? Conceptually this is probably API-internal.
         """
-        return context.actionGroupDepth
+        # pylint: disable=protected-access
+        return context._actionGroupDepth
 
     ## @}
 
@@ -170,19 +172,18 @@ class TransactionCoordinator(Debuggable):
         ## @todo Should this clear out the state/dept from the Context?
         # pylint: disable=protected-access
         token = self.__manager._freezeState(context.managerInterfaceState)
-        return "%i_%s" % (context.actionGroupDepth, token)
+        return "%i_%s" % (context._actionGroupDepth, token)
 
     @auditApiCall("Transactions")
-    def thawManagerState(self, token, context):
+    def thawManagerState(self, token):
         """
-        Restores the @ref manager_state in the supplied Context so that
-        it represents the context as previously frozen.
+        Restores the @ref manager_state returning a Context that is
+        associated with the same state as the context that was
+        previously frozen using @ref freezeManagerState.
 
         @param token str The string returned by @ref freezeManagerState
 
-        @param context Context The context to restore the state into.
-
-        @note It is perfectly legal to thaw the same context multiple
+        @note It is perfectly legal to thaw the same token multiple
         times in parallel, as long as the ActionGroup depth is not
         changed - ie: push/pop/cancelActionGroup should not be called.
         This is because it quickly creates an incoherent state for the
@@ -196,9 +197,12 @@ class TransactionCoordinator(Debuggable):
         """
         ## @todo Sanitize input
         depth, managerToken = token.split('_', 1)
-        context.actionGroupDepth = int(depth)
-        state = self.__manager._thawState(managerToken)  # pylint: disable=protected-access
-        context.managerInterfaceState = state
+
+        # pylint: disable=protected-access
+        context = Context()
+        context._actionGroupDepth = int(depth)
+        context.managerInterfaceState = self.__manager._thawState(managerToken)  # pylint: disable=protected-access
+        return context
 
     ## @}
 

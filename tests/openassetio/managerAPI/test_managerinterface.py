@@ -44,14 +44,14 @@ class Test_ManagerInterface_defaultEntityReference:
         assert refs == ["", "", ""]
 
 
-class Test_ManagerInterface_entityVersionName:
+class Test_ManagerInterface_entityVersion:
     def test_when_given_single_ref_then_returns_single_empty_name(self, manager_interface):
-        names = manager_interface.entityVersionName([Mock()], Mock(), Mock())
+        names = manager_interface.entityVersion([Mock()], Mock(), Mock())
         assert names == [""]
 
     def test_when_given_multiple_refs_then_returns_corresponding_number_of_empty_names(
             self, manager_interface):
-        names = manager_interface.entityVersionName([Mock(), Mock(), Mock()], Mock(), Mock())
+        names = manager_interface.entityVersion([Mock(), Mock(), Mock()], Mock(), Mock())
         assert names == ["", "", ""]
 
 
