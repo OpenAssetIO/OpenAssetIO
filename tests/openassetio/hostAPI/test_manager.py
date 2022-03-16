@@ -85,7 +85,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
-    def entityVersionName(self, entityRefs, context, hostSession):
+    def entityVersion(self, entityRefs, context, hostSession):
         self.__assertIsIterableOf(entityRefs, str)
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
@@ -471,13 +471,13 @@ class Test_Manager_setEntityAttribute:
         method.assert_called_once_with(some_refs, a_key, a_value, a_context, host_session)
 
 
-class Test_Manager_entityVersionName:
+class Test_Manager_entityVersion:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityVersionName
-        assert manager.entityVersionName(some_refs, a_context) == method.return_value
+        method = mock_manager_interface.entityVersion
+        assert manager.entityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
 
