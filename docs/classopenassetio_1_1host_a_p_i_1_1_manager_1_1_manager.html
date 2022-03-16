@@ -194,9 +194,9 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Most asset_management_systems allow multiple revisions of certain entities to be tracked simultaneously.</p>
 <p>This API exposes this as a generalised concept, and its necessary for the caller to make sure only <a class="el" href="glossary.html#entity_reference">entity references</a> that are meaningfully versioned are queried. </p>
 </div></td></tr>
-<tr class="memitem:a62bd4e2190dd668429831235368b67e1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a62bd4e2190dd668429831235368b67e1">entityVersionName</a> (self, entityRefs, context)</td></tr>
-<tr class="memdesc:a62bd4e2190dd668429831235368b67e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the name of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a62bd4e2190dd668429831235368b67e1">More...</a><br /></td></tr>
-<tr class="separator:a62bd4e2190dd668429831235368b67e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9de210ea9ab628ae8f172a4a8f7cec7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab9de210ea9ab628ae8f172a4a8f7cec7">entityVersion</a> (self, entityRefs, context)</td></tr>
+<tr class="memdesc:ab9de210ea9ab628ae8f172a4a8f7cec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the identifier of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ab9de210ea9ab628ae8f172a4a8f7cec7">More...</a><br /></td></tr>
+<tr class="separator:ab9de210ea9ab628ae8f172a4a8f7cec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d188e425bdc64f9961b66b2e016ce0e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d188e425bdc64f9961b66b2e016ce0e">entityVersions</a> (self, entityRefs, context, includeMetaVersions=False, maxNumVersions=-1)</td></tr>
 <tr class="memdesc:a4d188e425bdc64f9961b66b2e016ce0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all available versions of each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version).  <a href="#a4d188e425bdc64f9961b66b2e016ce0e">More...</a><br /></td></tr>
 <tr class="separator:a4d188e425bdc64f9961b66b2e016ce0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -556,12 +556,12 @@ Initialization</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a62bd4e2190dd668429831235368b67e1"></a>
+<a class="anchor" id="ab9de210ea9ab628ae8f172a4a8f7cec7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def entityVersionName </td>
+          <td class="memname">def entityVersion </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -586,7 +586,7 @@ Initialization</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieves the name of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>Retrieves the identifier of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
@@ -594,7 +594,7 @@ Initialization</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> A string for each entity representing its version, or an empty string if the entity was not versioned.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> A string for each entity representing its version, or an empty string if the entity was not versioned. This identifier will be one of the keys of <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d188e425bdc64f9961b66b2e016ce0e">entityVersions</a>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>It is not necessarily a requirement that the entity exists, if, for example, the version name can be determined from the reference itself, or is a <a class="el" href="glossary.html#meta_version">Meta-version</a>.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d188e425bdc64f9961b66b2e016ce0e">entityVersions</a> </dd>
 <dd>
@@ -654,8 +654,8 @@ Initialization</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, str]]</code> A dictionary for each entity, where the keys are string versions, and the values are an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to its entity. Additionally the <a class="el" href="namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3">openassetio.constants.kVersionDict_OrderKey</a> can be set to a list of the version names (ie: dict keys) in their natural ascending order, that may be used by UI elements, etc.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a62bd4e2190dd668429831235368b67e1">entityVersionName</a> </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>List[Dict[str, str]]</code> A dictionary for each entity, where the keys are string version identifiers (as returned by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab9de210ea9ab628ae8f172a4a8f7cec7">entityVersion</a>), and the values are an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to its entity. Additionally the <a class="el" href="namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3">openassetio.constants.kVersionDict_OrderKey</a> can be set to a list of the version names (ie: dict keys) in their natural ascending order, that may be used by UI elements, etc.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab9de210ea9ab628ae8f172a4a8f7cec7">entityVersion</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a7d7e21b2b629933fd4175521de8b6c6e">finalizedEntityVersion</a> </dd></dl>
 
@@ -709,7 +709,7 @@ Initialization</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String...">exceptions.EntityResolutionError</a> <code>]]</code> A list where each element is either the concretely versioned reference, or <code>EntityResolutionError</code>. An <code>EntityResolutionError</code> will be returned if the entity reference is ambiguously versioned or if the supplied <code>overrideVersionName</code> does not exist for that entity. For example, if the version is missing from a reference to a versioned entity, and that behavior is undefined in the manager's model, then an <code>EntityResolutionError</code> will be returned. It may be that it makes sense in the specific asset manager to fall back on 'latest' in this case.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a62bd4e2190dd668429831235368b67e1">entityVersionName</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab9de210ea9ab628ae8f172a4a8f7cec7">entityVersion</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d188e425bdc64f9961b66b2e016ce0e">entityVersions</a> </dd></dl>
 

@@ -7,7 +7,7 @@ var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interfac
     [ "entityDisplayName", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398", null ],
     [ "entityExists", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229", null ],
     [ "entityName", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa56b821c07983c243b5455859c3d3fa8", null ],
-    [ "entityVersionName", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aaa70f95a3a89276264f692109283ddec", null ],
+    [ "entityVersion", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a0a6b5bb4c687f561c8ccc88328db5813", null ],
     [ "entityVersions", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5", null ],
     [ "finalizedEntityVersion", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938", null ],
     [ "finishTransaction", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a", null ],
