@@ -161,7 +161,7 @@
  * # to publish. It's going to be a text file. In reality you
  * # would use one of the more derived, concrete specification types.
  * file_spec = FileSpecification()
- * file_spec.extensions = ('txt',)
+ * file_spec.blobTrait().mimeType = 'text/plain'
  *
  * # As ever, an appropriately configured context is required
  * context = session.createContext()
@@ -169,7 +169,7 @@
  * context.locale = APIDocumentationExampleLocale()
  *
  * # The first step is to see if the manager wants to manage text files
- * policy = manager.managementPolicy([file_spec], context)[0]
+ * policy = manager.managementPolicy([file_spec.traits], context)[0]
  *
  * if not policy & constants.kManaged:
  *   # The manager doesn't care about this type of asset
@@ -223,7 +223,7 @@
  * # Create a spec that describes the kind(s) of thumbnail that can
  * # be made by the host
  * thumbnail_spec = ThumbnailSpecification()
- * thumbnail_spec.mimeType = ["image/png",]
+ * thumbnail_spec.blobTrait().mimeType = "image/png"
  *
  * # Preflight the thumbnail spec with the target entity's reference,
  * # this gives us a reference we can now use for all interactions

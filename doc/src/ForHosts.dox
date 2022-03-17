@@ -96,8 +96,8 @@
  *
  * - Ask the @ref manager if they manage relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" using a suitably configured @ref
- *   Specification and a @ref Context with `kRead` access, and
+ *   "Manager.managementPolicy" using a suitable set of @needsref traits
+ *   and a @ref Context with `kRead` access, and
  *   respect the returned flags.
  *
  * - Always check any suspected entity references with @ref
@@ -112,9 +112,9 @@
  *
  * - Ask the @ref manager if they support publishing relevant data via
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" using a suitable configured @ref
- *   Specification and a @ref Context with `kWrite` access, and
- *   respect the returned flags.
+ *   "Manager.managementPolicy" using a suitable set of @needsref traits
+ *   and a @ref Context with `kWrite` access, and respect the returned
+ *   flags.
  *
  * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "policy", @ref preflight, resolve, write, @ref register process

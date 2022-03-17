@@ -33,21 +33,21 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
     for write.
     """
 
-    __schemas = ("file.image", "container.shot", "definitely_unique")
+    __trait_sets = (
+        ("blob", "image"),
+        ("container", "shot", "frame_ranged"),
+        ("definitely_unique")
+    )
 
-    def test_returns_cooperative_policy_for_read_for_all_specifications(self):
+    def test_returns_cooperative_policy_for_read_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kRead)
-        policies = self._manager.managementPolicy(self.__test_specs(), context)
+        policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
             assert policy & constants.kManaged
             assert policy & constants.kExclusive != constants.kExclusive
 
-    def test_returns_ignored_policy_for_write_for_all_specifications(self):
+    def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kWrite)
-        policies = self._manager.managementPolicy(self.__test_specs(), context)
+        policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
             assert policy == constants.kIgnored
-
-    @classmethod
-    def __test_specs(cls):
-        return [SpecificationFactory.instantiate(schema, {}) for schema in cls.__schemas]

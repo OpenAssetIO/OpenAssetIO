@@ -308,11 +308,12 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def managementPolicy(self, specifications, context):
+    def managementPolicy(self, traitSets, context):
         """
         Determines if the manager is interested in participating in
-        interactions with the specified types of @ref entity, either
-        for resolution or publishing. It is *vital* to call this before
+        interactions with entities with the specified sets of @needsref
+        traits. The supplied @ref Context determines whether this is for
+        resolution or publishing. It is *vital* to call this before
         attempting to publish data to the manager, as the entity
         specification you desire to work with may not be supported.
 
@@ -325,6 +326,11 @@ class Manager(Debuggable):
         returned for a query as to the management of scene files, you
         should hide or disable menu items that relate to publish or
         loading of assetized scene files.
+
+        If a manager returns kManaged, then it can be assumed that it is
+        capable of retrieving (for a read context) and storing (for a
+        write context) all of the supplied traits through @needsref
+        resolve and @ref register.
 
         @warning The @ref openassetio.Context.Context.access "access"
         of the supplied context will be considered by the manager. If
@@ -345,16 +351,16 @@ class Manager(Debuggable):
         on disk), and then only call @ref register to create the new
         entity.
 
-        @param specifications `List[Specification]` Specifications to
-        query.
+        @param traitSets `List[Set[str]]` The entity @needsref traits
+        to query.
 
         @param context Context The calling context.
 
         @return `List[int]` Bitfields, one for each element in
-        `specifications`. See @ref openassetio.constants.
+        `traits`. See @ref openassetio.constants.
         """
         return self.__impl.managementPolicy(
-            specifications, context, self.__hostSession)
+            traitSets, context, self.__hostSession)
 
     ## @}
 
@@ -1050,8 +1056,8 @@ class Manager(Debuggable):
         """
         @note This call is only applicable when the manager you are
         communicating with sets the constants.kWillManagePath bit in
-        response to a @ref Manager.managementPolicy for the
-        specification of entity you are intending to publish.
+        response to a @ref Manager.managementPolicy for the traits of
+        entities you are intending to publish.
 
         It signals your intent as a host application to do some work to
         create data in relation to each supplied @ref entity_reference.
@@ -1133,7 +1139,7 @@ class Manager(Debuggable):
         @note The registration call is applicable to all kinds of
         Manager, as long as the @ref constants.kIgnored bit is not set
         in response to a @ref Manager.managementPolicy for the
-        Specification of entity you are intending to publish. In this
+        traits of the entities you are intending to publish. In this
         case, the Manager is saying it doesn't handle that
         Specification of entity, and it should not be registered.
 

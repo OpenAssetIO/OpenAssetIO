@@ -87,10 +87,10 @@ class BasicAssetLibraryInterface(ManagerInterface):
         )
         self.__library = bal.load_library(self.__settings["library_path"])
 
-    def managementPolicy(self, specifications, context, hostSession):
+    def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument
         policy = constants.kManaged if context.isForRead() else constants.kIgnored
-        return [policy for _ in specifications]
+        return [policy for _ in traitSets]
 
     def isEntityReference(self, tokens, hostSession):
         # pylint: disable=unused-argument
