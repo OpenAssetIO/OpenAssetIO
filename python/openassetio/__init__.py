@@ -70,7 +70,8 @@ API documentation
 The documentation for OpenAssetIO can be found here:
    https://thefoundryvisionmongers.github.io/OpenAssetIO.
 """
-
+# TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
+from ._openassetio import *  # pylint: disable=import-error
 from .Context import Context
 from .Specification import Specification
 from .SpecificationFactory import SpecificationFactory

@@ -29,7 +29,17 @@ endif()
 #-----------------------------------------------------------------------
 # Target dependencies
 
-target_sources(openassetio-python PRIVATE _openassetio.cpp)
+target_sources(
+    openassetio-python
+    PRIVATE
+    _openassetio.cpp
+    managerAPI/ManagerInterfaceBinding.cpp
+    specification/SpecificationBinding.cpp
+    trait/BlobTraitBinding.cpp
+)
+
+# Give access to private headers.
+target_include_directories(openassetio-python PRIVATE ../openassetio-core)
 
 target_link_libraries(openassetio-python
     PRIVATE

@@ -47,9 +47,13 @@ endif()
 # Target dependencies
 
 # Source file dependencies.
-target_sources(openassetio-core
+target_sources(
+    openassetio-core
     PRIVATE
-    managerAPI/ManagerInterface.cpp)
+    managerAPI/ManagerInterface.cpp
+    specification/Specification.cpp
+    trait/BlobTrait.cpp
+)
 
 # Public header dependency.
 target_include_directories(openassetio-core
