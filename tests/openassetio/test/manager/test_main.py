@@ -61,10 +61,7 @@ class Test_CLI_output:
 class Test_CLI_arguments:
 
     def test_when_called_without_fixtures_arg_then_exits_with_usage_and_exit_code_is_two(self):
-        args = ["python", "-m", "openassetio.test.manager"]
-        # We explicitly don't want an exception to be raised.
-        # pylint: disable=subprocess-run-check
-        result = subprocess.run(args, capture_output=True)
+        result = execute_cli(None)
         assert result.returncode == 2
         assert "usage:" in str(result.stderr)
 
@@ -99,7 +96,8 @@ def execute_cli(fixtures_path, *extra_args):
     @return `subprocess.CompletedProcess` The results of the invocation.
     """
     all_args = ["python", "-m", "openassetio.test.manager"]
-    all_args.extend(["-f", fixtures_path])
+    if fixtures_path:
+        all_args.extend(["-f", fixtures_path])
     if extra_args:
         all_args.extend(extra_args)
     # We explicitly don't want an exception to be raised.
