@@ -23,6 +23,7 @@ Integration tests for CLI operation of the manager test harness.
 
 import os
 import subprocess
+import sys
 
 import pytest
 
@@ -95,7 +96,12 @@ def execute_cli(fixtures_path, *extra_args):
 
     @return `subprocess.CompletedProcess` The results of the invocation.
     """
-    all_args = ["python", "-m", "openassetio.test.manager"]
+    # We may well be running inside a venv interpreter, but without
+    # the venv being active in the current environment. The effect
+    # of this is that the python on $PATH may not be the one that is
+    # correctly configured with the appropriate dependencies, so we
+    # attempt to use the same executable as the tests.
+    all_args = [sys.executable, "-m", "openassetio.test.manager"]
     if fixtures_path:
         all_args.extend(["-f", fixtures_path])
     if extra_args:
