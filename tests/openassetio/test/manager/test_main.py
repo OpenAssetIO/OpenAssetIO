@@ -23,6 +23,7 @@ Integration tests for CLI operation of the manager test harness.
 
 import os
 import subprocess
+import sys
 
 import pytest
 
@@ -61,10 +62,7 @@ class Test_CLI_output:
 class Test_CLI_arguments:
 
     def test_when_called_without_fixtures_arg_then_exits_with_usage_and_exit_code_is_two(self):
-        args = ["python", "-m", "openassetio.test.manager"]
-        # We explicitly don't want an exception to be raised.
-        # pylint: disable=subprocess-run-check
-        result = subprocess.run(args, capture_output=True)
+        result = execute_cli(None)
         assert result.returncode == 2
         assert "usage:" in str(result.stderr)
 
@@ -98,8 +96,14 @@ def execute_cli(fixtures_path, *extra_args):
 
     @return `subprocess.CompletedProcess` The results of the invocation.
     """
-    all_args = ["python", "-m", "openassetio.test.manager"]
-    all_args.extend(["-f", fixtures_path])
+    # We may well be running inside a venv interpreter, but without
+    # the venv being active in the current environment. The effect
+    # of this is that the python on $PATH may not be the one that is
+    # correctly configured with the appropriate dependencies, so we
+    # attempt to use the same executable as the tests.
+    all_args = [sys.executable, "-m", "openassetio.test.manager"]
+    if fixtures_path:
+        all_args.extend(["-f", fixtures_path])
     if extra_args:
         all_args.extend(extra_args)
     # We explicitly don't want an exception to be raised.
