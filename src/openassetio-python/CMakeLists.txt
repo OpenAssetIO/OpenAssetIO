@@ -151,8 +151,8 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
     # for debugging regardless).
     add_custom_target(
         openassetio-python-pytest
-        COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s
-        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/tests"
+        COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s tests
+        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
         DEPENDS "${venv_python_dir}/pytest"
         USES_TERMINAL
     )
