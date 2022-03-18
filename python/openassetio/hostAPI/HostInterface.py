@@ -31,8 +31,10 @@ class HostInterface(object):
     a simple pipeline tool, or a full content creation application.
 
     The HostInterface provides a generic mechanism for a @ref manager to
-    query information about the identity of the host, its available
-    documents and the @ref entity "entities" they may reference.
+    query information about the identity of the host. In future, this
+    interface may be extended to include the ability to retrieve
+    information about available documents and their known entity
+    references.
 
     In order for a host to use the API, it must provide an
     implementation of the HostInterface to the @ref
@@ -94,64 +96,5 @@ class HostInterface(object):
         @todo Definitions for well-known keys such as 'version' etc.
         """
         return {}
-
-    ## @}
-
-    def documentReference(self):
-        """
-        Returns the path, or @ref entity_reference of the current
-        document, or an empty string if not applicable. If a Host
-        supports multiple concurrent documents, it should be the
-        'front-most' one. If there is no meaningful document reference,
-        then an empty string should be returned.
-
-        @todo Update to properly support multiple documents
-        @return str A path or @ref entity_reference.
-        """
-        return ''
-
-    ##
-    # @name Entity Reference retrieval
-    #
-    ## @{
-
-    def knownEntityReferences(self, specification=None):
-        """
-        Returns an @ref entity_reference for each Entities known to the
-        host that are used in the current document, or an empty list if
-        none are known.
-
-        @param specification openassetio.Specification [None] If
-        supplied, then only entities of the supplied specification
-        should be returned.
-
-        @return List[@ref entity_reference] References discovered in the
-        current document.
-
-        @todo Update to support multiple documents
-        """
-        return []
-
-    def entityReferenceForItem(self, item, allowRelated=False):
-        """
-        This should be capable of taking any item that may be set in a
-        locale/etc... or a Host-native API object and returning an @ref
-        entity_reference for it, if applicable.
-
-        @param item object, a Host-native SDK object.
-
-        @param allowRelated bool, If True, the Host can return a
-        reference for some parent or child or relation of the supplied
-        item, if applicable. This can be useful for broadening the area
-        of search in less specific cases.
-
-        @return str, An @ref entity_reference of an empty string if no
-        applicable Entity Reference could be determined for the supplied
-        item.
-
-        @todo Evaluate whether this method makes sense and is properly
-        implementable through Python/C++.
-        """
-        return ''
 
     ## @}

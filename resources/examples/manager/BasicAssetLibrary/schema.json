@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/TheFoundryVisionmongers/OpenAssetIO/main/resources/examples/manager/BasicAssetLibrary/schema.json",
+  "title": "BAL Library File",
+  "description": "The data store that backs an instance of the BAL manager",
+  "type": "object",
+  "properties": {
+    "entities": {
+      "description": "The entities in the library, they key is used as the entity name.",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "versions": {
+              "type": "array",
+              "description": "The versions array holds the actual data, the array index is used as the version number.",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "primary_string": {
+                    "type": "string",
+                    "description": "The string returned when that version of the entity is resolved."
+                  }
+                },
+                "required": ["primary_string"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["versions"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["entities"],
+  "additionalProperties": false
+}

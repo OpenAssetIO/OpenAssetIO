@@ -235,9 +235,12 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         """
         Returns other information that may be useful about this @ref
         asset_management_system. This can contain arbitrary key/value
-        pairs.For example:
+        pairs. For example:
 
             { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
+
+        @note Keys should always be strings, and values must be
+        plain-old-data types (ie: str, int, float, bool).
 
         There are certain optional keys that may be used by a host or
         the API:
@@ -299,6 +302,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         """
         @todo Document settings mechanism
         """
+        if settings != {}:
+            raise KeyError(f"{self.displayName} has no settings")
 
     @abc.abstractmethod
     def initialize(self, hostSession):
@@ -393,7 +398,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def managementPolicy(self, specifications, context, hostSession, entityRef=None):
+    def managementPolicy(self, specifications, context, hostSession):
         """
         Determines if the asset manager is interested in participating
         in interactions with the specified specifications of @ref
@@ -415,10 +420,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         write access to determine if resolution and publishing features
         are applicable to this implementation.
 
-        Calls with an accompanying @ref entity_reference may be used to
-        prevent users from attempting to perform an asset-action that is
-        not supported by the asset management system.
-
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
         set, this instructs the host that the asset management system
@@ -439,13 +440,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @param entityRef `str` If supplied, then the call should be
-        interpreted as a query as to the applicability of the given
-        specifications if registered to the supplied entity. For
-        example, attempts to register an ImageSpecification to an
-        entity reference that refers to the top level project may be
-        meaningless, so in this case `kIgnored` should be returned.
-
         @return `List[int]` Bitfields, one for each element in
         `specifications`. See @ref openassetio.constants.
         """
@@ -463,7 +457,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def isEntityReference(self, tokens, context, hostSession):
+    def isEntityReference(self, tokens, hostSession):
         """
         Determines if each supplied token (in its entirety) matches the
         pattern of a valid @ref entity_reference in your system.  It
@@ -482,8 +476,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         context Locale.
 
         @param tokens `List[str]` The strings to be inspected.
-
-        @param context Context The calling context.
 
         @param hostSession HostSession The API session.
 
@@ -850,10 +842,10 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     #
     # @{
 
-    def entityVersionName(self, entityRefs, context, hostSession):
+    def entityVersion(self, entityRefs, context, hostSession):
         """
-        Retrieves the name of the version pointed to by each supplied
-        @ref entity_reference.
+        Retrieves the identifier of the version pointed to by each
+        supplied @ref entity_reference.
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -861,8 +853,10 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @return `List[str]` A string for each entity representing its
-        version, or an empty string if the entity was not versioned.
+        @return `List[str]` A string identifier for each entity
+        representing its version, or an empty string  if the entity was
+        not versioned. This identifier should be one of the keys in
+        @ref entityVersions.
 
         @note It is not necessarily a requirement that the entity
         exists, if, for example, the version name can be determined from
@@ -900,13 +894,14 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         value of -1 is used, then all results should be returned.
 
         @return `List[Dict[str, str]]` A dictionary for each entity,
-        where the keys are string versions, and the values are an
-        @ref entity_reference that points to its entity. Additionally
-        the openassetio.constants.kVersionDict_OrderKey can be set to
-        a list of the version names (ie: dict keys) in their natural
-        ascending order, that may be used by UI elements, etc.
+        where the keys are string version identifiers (as returned by
+        @ref entityVersion), and the values are an @ref entity_reference
+        that points to its entity. Additionally the
+        openassetio.constants.kVersionDict_OrderKey can be set to a list
+        of the version names (ie: dict keys) in their natural ascending
+        order, that may be used by UI elements, etc.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref finalizedEntityVersion
         """
         return [{} for _ in entityRefs]
@@ -950,7 +945,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         returned. It may be that it makes sense in the specific asset
         manager to fall back on 'latest' in this case.
 
-        @see @ref entityVersionName
+        @see @ref entityVersion
         @see @ref entityVersions
         """
         return entityRefs

@@ -24,7 +24,7 @@ kDebug and kDebugAPI logging severity displays
 
 In order to use these decorators the target class must derive from
 Debuggable, and have its `_debugLogFn` set to an callable that matches
-the @ref openassetio.logging.LoggerInterface.log signature. This
+the @ref openassetio.log.LoggerInterface.log signature. This
 callback will be used to output debug information. If no callback is
 set, no debug output will be produced.
 
@@ -43,7 +43,7 @@ import functools
 import os
 import time
 
-from ..logging import LoggerInterface
+from ..log import LoggerInterface
 
 
 __all__ = ['debugCall', 'debugApiCall', 'Debuggable']
@@ -60,7 +60,7 @@ class Debuggable:
 
     ## If enabled, decorated calls on the object will be logged
     _debugCalls = True
-    ## Set to a callable that matches @ref openassetio.logging.LoggerInterface.log
+    ## Set to a callable that matches @ref openassetio.log.LoggerInterface.log
     _debugLogFn = None
 
 

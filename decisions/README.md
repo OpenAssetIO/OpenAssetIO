@@ -48,16 +48,19 @@ Each record should be stored in its own file, using the convention
 - **Due date:** [optional]
 - **Outcome:** High-level description of the change
 
+
 ## Background
 
 Provide context on the decision to be made. Include links to relevant
 research, or other related decisions, as well as information on
 constraints or challenges that may impact the outcome.
 
+
 ## Relevant data
 
 Add any data or feedback that the should be considered when finalizing
 this decision.
+
 
 ## Options considered
 
@@ -73,6 +76,9 @@ Description
 
  - Con 1
 
+Estimated cost: Small|Medium|Large [optional]
+
+
 ### Option 2
 
 Description
@@ -85,11 +91,13 @@ Description
 
  - Con 1
 
-Estimated cost: Small|Medium|Large
+Estimated cost: Small|Medium|Large [optional]
+
 
 ## Outcome
 
 Summarize the outcome, stating which option was chosen and why.
+
 
 ## Action Items [optional]
 

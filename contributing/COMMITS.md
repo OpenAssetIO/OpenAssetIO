@@ -256,8 +256,13 @@ naming convention.
 
 These components should be used in commit message titles:
 
-- `Build` For `Makefile`, `CMake`, `setup.py`, etc.
-- `CI` For GitHub actions related work.
+- `Build` For `Makefile`, `CMake`, `setup.py`, etc. use by all builds.
+- `CI` For work solely on GitHub Actions or similar deployments.
 - `Core` For work within the core, non-interactive API.
-- `Docs` For work in the (distribution) Doxygen documentation.
-- `Test` For work on test cases and test infrastructure.
+- `Docs` For work in the (distribution) Doxygen documentation or
+  in-repository Markdown files.
+- `Examples` For work included under the `examples` directory.
+- `Lint` For miscellaneous changes that don't affect behavior, usually
+  relating to linter fixes, `.gitignore` updates, etc.
+- `PluginSystem` For work pertaining to the plugin system.
+- `Tests` For work on test cases and test infrastructure.

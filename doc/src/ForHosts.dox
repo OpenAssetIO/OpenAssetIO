@@ -22,9 +22,7 @@
  *   implementation of the @ref HostInterface class. This represents the
  *   application or tool in a generic fashion <i>to</i> the asset
  *   management system. This allows the manager to adapt its behavior
- *   if necessary, or query information about entity usage within the
- *   host's data model (if applicable) without needing to use a
- *   proprietary API.
+ *   if necessary.
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
@@ -84,10 +82,10 @@
  *    - An instance of the custom class derived from
  *      @ref openassetio.hostAPI.HostInterface "HostInterface".
  *    - A `logger` (derived from
- *      @ref openassetio.logging.LoggerInterface "LoggerInterface"), for
+ *      @ref openassetio.log.LoggerInterface "LoggerInterface"), for
  *      simple console logging you can use a
- *      @ref openassetio.logging.ConsoleLogger "ConsoleLogger" wrapped
- *      in a @ref openassetio.logging.SeverityFilter "SeverityFilter".
+ *      @ref openassetio.log.ConsoleLogger "ConsoleLogger" wrapped
+ *      in a @ref openassetio.log.SeverityFilter "SeverityFilter".
  *    - A `managerFactory` capable of instantiating managers,
  *      in the majority of cases a default-configured @ref
  *      openassetio.pluginSystem.PluginSystemManagerFactory
@@ -160,9 +158,6 @@
  *
  * - Derive @ref openassetio.specifications "Specifications" for any
  *   custom 'asset types' you may deal with.
- *
- * - If you have a document model, implement the entity query methods
- *   in your @ref openassetio.hostAPI.HostInterface class.
  *
  * - You should map any widgets returned by @needsref ManagerUIDelegate.widgets
  *   with the @needsref ui.widgets.attributes.kCreateApplicationPanel flag set to

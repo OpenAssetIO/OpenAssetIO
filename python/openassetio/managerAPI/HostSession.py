@@ -18,7 +18,7 @@
 A single-class module, providing the HostSession class.
 """
 
-from ..logging import LoggerInterface
+from ..log import LoggerInterface
 
 
 class HostSession(object):
@@ -76,7 +76,7 @@ class HostSession(object):
         It will be mapped to the correct host sub-systems to ensure that
         it is presented correctly.
 
-        @see @ref openassetio.logging "logging"
+        @see @ref openassetio.log "log"
         """
         self.__logger.log(message, severity)
 
