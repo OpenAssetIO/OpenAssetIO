@@ -30,15 +30,16 @@ class StubManager(ManagerInterface):
     required for the tests/openassetio/test/manager
     test suite to function.
     """
-    # TODO Remove once we have closed #163
+    # TODO: @pylint Remove once we have closed #163
     # pylint: disable=abstract-method
+
+    # pylint: disable=no-self-use,missing-function-docstring
 
     def __init__(self):
         super().__init__()
         self.__settings = None
 
-    @staticmethod
-    def identifier():
+    def identifier(self):
         return "org.openassetio.test.manager.stubManager"
 
     def displayName(self):
@@ -66,7 +67,7 @@ class StubManagerPlugin(ManagerPlugin):
     """
     @staticmethod
     def identifier():
-        return StubManager.identifier()
+        return "org.openassetio.test.manager.stubManager"
 
     @classmethod
     def interface(cls):

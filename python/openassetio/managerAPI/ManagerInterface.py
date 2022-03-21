@@ -146,8 +146,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     initialize has been called. The following methods must be callable
     prior to initialization:
 
-       @li @ref identifier()
-       @li @ref displayName()
+       @li @needsref identifier()
+       @li @needsref displayName()
        @li @ref info()
        @li @ref updateTerminology()
        @li @ref getSettings()
@@ -199,37 +199,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # asset_management_system itself.
     #
     # @{
-
-    @staticmethod
-    def identifier():
-        """
-        Returns an identifier to uniquely identify a specific asset
-        manager. This may be used by a host to persist the users
-        preferred manager via a preferences mechanism, or when spawning
-        child processes, etc...
-
-        It should match the name used to register the plug-in with the
-        plug-in host.  The identifier should use only alpha-numeric
-        characters and '.', '_' or '-'.  Generally speaking, we
-        recommend using the 'reverse-DNS' convention, for example:
-
-            "org.openassetio.manager.test"
-
-        @return `str`
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def displayName(self):
-        """
-        Returns a human readable name to be used to reference this
-        specific asset manager in UIs or other user-facing messaging.
-        One instance of its use may be in a host's preferences UI or
-        logging. For example:
-
-            "OpenAssetIO Test Asset Manager"
-        """
-        raise NotImplementedError
 
     def info(self):
         """
@@ -334,8 +303,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         is however, the following functions may be called prior to
         initialization:
 
-         @li @ref identifier()
-         @li @ref displayName()
+         @li @needsref identifier()
+         @li @needsref displayName()
          @li @ref info()
          @li @ref updateTerminology()
          @li @ref getSettings()

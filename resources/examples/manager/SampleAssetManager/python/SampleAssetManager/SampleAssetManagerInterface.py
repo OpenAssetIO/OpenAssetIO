@@ -42,8 +42,7 @@ class SampleAssetManagerInterface(ManagerInterface):
     methods.
     """
 
-    @staticmethod
-    def identifier():
+    def identifier(self):
         return "org.openassetio.examples.manager.sam"
 
     def initialize(self, hostSession):

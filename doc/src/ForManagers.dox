@@ -107,9 +107,9 @@
  *
  * - Implement the @ref openassetio.managerAPI.ManagerInterface
  *   "ManagerInterface" class methods
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.identifier
+ *   @ref openassetio::v0_0::managerAPI::ManagerInterface::identifier
  *   "identifier" an
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.displayName
+ *   @ref openassetio::v0_0::managerAPI::ManagerInterface::displayName
  *   "displayName".
  *
  * - Implement @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy

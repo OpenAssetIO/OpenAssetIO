@@ -61,9 +61,7 @@ class BasicAssetLibraryPlugin(ManagerPlugin):
 
     @staticmethod
     def identifier():
-        from .BasicAssetLibraryInterface import BasicAssetLibraryInterface
-
-        return BasicAssetLibraryInterface.identifier()
+        return "org.openassetio.examples.manager.bal"
 
     @classmethod
     def interface(cls):
