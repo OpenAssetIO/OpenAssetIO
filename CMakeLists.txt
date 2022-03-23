@@ -306,6 +306,10 @@ message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}"
 
 add_subdirectory(src)
 
+if (OPENASSETIO_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif ()
+
 if (OPENASSETIO_BUILD_PERFTEST)
     add_subdirectory(resources/perftest)
 endif ()
