@@ -66,8 +66,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def flushCaches(self, hostSession):
         return mock.DEFAULT
 
-    def defaultEntityReference(self, specifications, context, hostSession):
-        self.__assertIsIterableOf(specifications, EntitySpecification)
+    def defaultEntityReference(self, traitSets, context, hostSession):
+        self.__assertIsIterableOf(traitSets, (list, tuple))
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
@@ -262,6 +262,9 @@ def an_entity_spec():
 def some_entity_specs():
     return [EntitySpecification(), EntitySpecification()]
 
+@pytest.fixture
+def some_entity_trait_sets():
+    return [("blob",), ("blob", "image")]
 
 @pytest.fixture
 def a_context():
@@ -385,11 +388,13 @@ class Test_Manager_entityExists:
 class Test_Manager_defaultEntityReference:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, a_context, some_entity_specs):
+            self, manager, mock_manager_interface, host_session, a_context,
+            some_entity_trait_sets):
 
         method = mock_manager_interface.defaultEntityReference
-        assert manager.defaultEntityReference(some_entity_specs, a_context) == method.return_value
-        method.assert_called_once_with(some_entity_specs, a_context, host_session)
+        assert manager.defaultEntityReference(some_entity_trait_sets, a_context) \
+                == method.return_value
+        method.assert_called_once_with(some_entity_trait_sets, a_context, host_session)
 
 
 class Test_Manager_entityName:
