@@ -34,9 +34,9 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
     """
 
     __trait_sets = (
-        ("blob", "image"),
-        ("container", "shot", "frame_ranged"),
-        ("definitely_unique")
+        {"blob", "image"},
+        {"container", "shot", "frame_ranged"},
+        {"definitely_unique"},
     )
 
     def test_returns_cooperative_policy_for_read_for_all_trait_sets(self):
@@ -51,3 +51,36 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
             self.assertEqual(policy, constants.kIgnored)
+
+
+class Test_resolve(FixtureAugmentedTestCase):
+    """
+    Tests that resolution returns the expected values.
+    """
+
+    __entities = {
+        "bal:///anAsset⭐︎": {
+            "string": {"value": "resolved from 'anAsset⭐︎' using 📠"},
+            "number": {"value": 42},
+            "test-data": {},
+        },
+        "bal:///another 𝓐𝓼𝓼𝓼𝓮𝔱": {
+            "string": {"value": "resolved from 'another 𝓐𝓼𝓼𝓼𝓮𝔱' with a 📟"},
+            "number": {},
+        },
+    }
+
+    def test_matches_expected_values(self):
+        entity_references = self.__entities.keys()
+        trait_set = {"string", "number", "test-data"}
+        context = self.createTestContext(access=Context.kRead)
+        results = self._manager.resolve(list(entity_references), trait_set, context)
+        for ref, result in zip(entity_references, results):
+            # Check all traits are present, and their properties.
+            # TODO(tc): When we have a better introspection API in
+            # Specification, we can assert there aren't any bonus
+            # values.
+            for trait in self.__entities[ref].keys():
+                self.assertTrue(result.hasTrait(trait))
+                for property_, value in self.__entities[ref][trait].items():
+                    self.assertEqual(result.getTraitProperty(trait, property_), value)

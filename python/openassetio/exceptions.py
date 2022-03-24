@@ -110,7 +110,7 @@ class InvalidEntityReference(BaseEntityException):
 class EntityResolutionError(BaseEntityException):
     """
     Thrown during @ref entity resolution,  if the Entity is valid, but
-    has no meaningful @ref primary_string, or it can't be retrieved for
+    has no meaningful data to be resolved, or it can't be retrieved for
     some other reason. It is also used during version finalisation and
     any other entity-based operations on a valid @ref entity_reference
     that fail for some reason.

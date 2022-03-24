@@ -405,7 +405,7 @@ class Manager(Debuggable):
         format of the string is recognised.
 
         @see @ref entityExists
-        @see @ref resolveEntityReference
+        @see @ref resolve
 
         @todo Make use of
         openassetio.constants.kField_EntityReferencesMatchPrefix if
@@ -799,27 +799,30 @@ class Manager(Debuggable):
     ##
     # @name Entity Resolution
     #
-    # The concept of resolution is turning an @ref entity_reference into a
-    # 'finalized' or 'primary' string. This, ultimately, is anything meaningful
-    # to the situation. It could be a color space, a directory, a script or
-    # image sequence. A rule of thumb is that a resolved @ref entity_reference
-    # should be the string you would have anyway, in a unmanaged environment.
-    #
-    # Some kinds of entity - for example, a 'Shot' - may not have a meaningful
-    # @ref primary_string, and so an empty string will be returned.
+    # The concept of resolution is turning an @ref entity_reference
+    # into the data for one or more @needsref traits that are meaningful
+    # to the situation. It could be a color space, a directory, a script
+    # or a frame range for an image sequence.
     #
     # @{
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def resolveEntityReference(self, entityRefs, context):
+    def resolve(self, entityRefs, traitSet, context):
         """
-        Returns the @ref primary_string represented by each given @ref
-        entity_reference.
+        Returns a @fqref{specification::Specification} "Specification"
+        populated with the available data for the requested set of
+        traits for each given @ref entity_reference.
 
-        When an @ref entity_reference points to a sequence of files,
-        the frame, view, etc substitution tokens will be preserved
-        and need handling as if OpenAssetIO was never involved.
+        Any traits that aren't applicable to any particular entity
+        reference will not be set in the resulting Specification.
+        Consequently, a trait being set in the result is confirmation
+        that an entity has that trait.
+
+        There is however, no guarantee that a manager will have data
+        for all of a traits properties. It is the responsibility of the
+        caller to handle requested data being missing in a fashion
+        appropriate to its intended use.
 
         @note You should always call @ref isEntityReference first if
         there is any doubt as to whether or not a string you have is a
@@ -827,27 +830,33 @@ class Manager(Debuggable):
         other methods, if it is a reference recognised by the manager.
 
         The API defines that all file paths passed though the API that
-        represent file sequences should use the 'format' syntax,
-        compatible with sprintf (eg.  %04d").
+        represent file sequences should retain the frame token, and
+        use the 'format' syntax, compatible with sprintf (eg.  %04d").
 
         @param entityRefs `List[str]` Entity references to query.
 
         @param context Context The calling context.
 
-        @return `List[Union[str,`
+        @param traitSet `Set[str]` The trait IDs to resolve for the
+        supplied list of entity references. Only traits applicable to
+        the supplied entity references will be set in the resulting
+        data.
+
+        @return `List[Union[`
+            @fqref{specification::Specification}
+            "specification::Specification",
             exceptions.EntityResolutionError,
             exceptions.InvalidEntityReference `]]`
-        A list containing either the primary string for each
-        reference; `EntityResolutionError` if a supplied entity
-        reference does not have a meaningful string representation,
-        or it is a valid reference format that doesn't exist; or
-        `InvalidEntityReference` if a supplied entity reference should
-        not be resolved for that context, for example, if the context
-        access is `kWrite` and the entity is an existing version  - the
-        exception means that it is not a valid action to perform on
-        the entity.
+        A list containing either a populated Specification for each
+        reference; `EntityResolutionError` if there is any runtime error
+        during the resolution of the entity, including internal failure
+        modes; or `InvalidEntityReference` if a supplied entity
+        reference should not be resolved for that context, for example,
+        if the context access is `kWrite` and the entity is an existing
+        version - the exception means that it is not a valid action to
+        perform on the entity.
         """
-        return self.__impl.resolveEntityReference(entityRefs, context, self.__hostSession)
+        return self.__impl.resolve(entityRefs, traitSet, context, self.__hostSession)
 
     ## @}
 
@@ -997,18 +1006,19 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context):
+    def register(self, targetEntityRefs, entitySpecs, context):
         """
         Register should be used to register new entities either when
         originating new data within the application process, or
         referencing some existing file, media or information.
 
         @note The registration call is applicable to all kinds of
-        Manager, as long as the @ref constants.kIgnored bit is not set
-        in response to a @ref Manager.managementPolicy for the
-        traits of the entities you are intending to publish. In this
-        case, the Manager is saying it doesn't handle that
-        Specification of entity, and it should not be registered.
+        Manager (path managing, or librarian), as long as the @ref
+        constants.kIgnored bit is not set in response to a @ref
+        Manager.managementPolicy for the traits of the entities you are
+        intending to publish. In this case, the Manager is saying it
+        doesn't handle entities with those traits, and it should not be
+        registered.
 
         As each @ref entity_reference has (ultimately) come from the
         manager (either in response to delegation of UI/etc... or as a
@@ -1017,43 +1027,35 @@ class Manager(Debuggable):
         on this reference with the supplied Specification. The
         conceptual meaning of the call is:
 
-        "I have this reference you gave me, and I would like to
-        register a new entity to it with this Specification, to hold
-        the supplied primary string. I trust that this is ok, and you
-        will give me back the reference that represents the result of
-        this."
+        "I have this reference you gave me, and I would like to register
+        a new entity to it with the traits I told you about before. I
+        trust that this is ok, and you will give me back the reference
+        that represents the result of this."
 
         It is up to the manager to understand the correct result for the
-        particular Specification in relation to this reference. For
-        example, if you received this reference in response to browsing
-        for a target to `kWriteMultiple` `ShotSpecification`s, then the
-        Manager should have returned you a reference that you can then
-        call register() on multiple times with a `ShotSpecification`
-        without error. Each resulting entity reference should then
-        reference the newly created Shot.
+        particular trait set in relation to this reference. For example,
+        if you received this reference in response to browsing for a
+        target to `kWriteMultiple` and the traits of a
+        `ShotSpecification`s, then the Manager should have returned you
+        a reference that you can then register multiple
+        `ShotSpecification` entities to without error. Each resulting
+        entity reference should then reference the newly created Shot.
+
+        @warning All supplied specifications should have the same trait
+        sets. If you wish to register different "types" of entity, they
+        need to be registered in separate calls.
 
         @warning When registering files, it should never be assumed
         that the resulting @ref entity_reference will resolve to the
         same path. Managers may freely relocate, copy, move or rename
         files as part of registration.
 
-        @param targetEntityRefs `List[str]` Entity references to publish.
+        @param targetEntityRefs `List[str]` Entity references to publish
+        to.
 
-        @param primaryStrings `List[str]` The @ref primary_string for
-        each entity. It is the string the resulting @ref
-        entity_reference will resolve to. In the case of file-based
-        entities, this is the file path, and may be further modified
-        by Managers that take care of relocating or managing the
-        storage of files. The API defines that in the case of paths
-        representing file sequences, frame tokens should be left
-        un-substituted, in a sprintf compatible format, eg. "%04d",
-        rather than say, the #### based method. If your application
-        uses hashes, or some other scheme, it should be converted
-        to/from the sprintf format as part of your integration.
-
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        The `EntitySpecification` for each new registration.
+        @param entitySpecs `List[` @fqref{specification::Specification}
+        "Specification" `]` The data to register for each entity.
+        NOTE: All supplied specifications should have the same trait set.
 
         @param context Context The calling context.
 
@@ -1068,18 +1070,16 @@ class Manager(Debuggable):
         `RetryableError` if any non-fatal error occurs that means you
         should retry the process later.
 
-        @exception `IndexError` If `primaryStrings`, `targetEntityRefs`
-        and `entitySpecs` are not lists of the same length.
+        @exception `IndexError` If `targetEntityRefs` and `entitySpecs`
+        are not lists of the same length.
 
-        @see @ref openassetio.specifications "specifications"
+        @see @fqref{specification::Specification} "specifications"
         @see @ref preflight
         """
-        if (len(primaryStrings) != len(targetEntityRefs) or
-            len(primaryStrings) != len(entitySpecs)):
+        if len(targetEntityRefs) != len(entitySpecs):
             raise IndexError("Parameter lists must be of the same length")
 
-        return self.__impl.register(
-            primaryStrings, targetEntityRefs, entitySpecs, context, self.__hostSession)
+        return self.__impl.register(targetEntityRefs, entitySpecs, context, self.__hostSession)
 
     ## @}
 

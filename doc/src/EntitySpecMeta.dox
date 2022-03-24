@@ -155,11 +155,11 @@
  * files.
  *
  * An example of this is within a tool that displays image sequences.
- * The @ref primary_string is resolved to provide the path to the images
- * on disk, and the attributes provided by the manager used to control
- * the colorspace and frame range used for playback. This can avoid
- * fragile mechanisms such as extension-based mappings and directory
- * searches.
+ * The @needsref primary_string is resolved to provide the path to the
+ * images on disk, and the attributes provided by the manager used to
+ * control the colorspace and frame range used for playback. This can
+ * avoid fragile mechanisms such as extension-based mappings and
+ * directory searches.
  *
  * Extending this further, an entity's primary string does not have to
  * be a file path, or even a URL.

@@ -20,6 +20,7 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 import os
 
 from openassetio import constants
+from openassetio import specification
 from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
 from openassetio.managerAPI import ManagerInterface
 
@@ -107,7 +108,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
             results.append(result)
         return results
 
-    def resolveEntityReference(self, entityRefs, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession):
         if context.isForWrite():
             return [EntityResolutionError("BAL entities are read-only", ref) for ref in entityRefs]
         results = []
@@ -115,7 +116,13 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref)
                 entity = bal.entity(entity_info, self.__library)
-                result = entity.primary_string
+                # Filter the entity's traits to the ones requested by the host
+                result_traits = {trait_id for trait_id in entity.traits if trait_id in traitSet}
+                result = specification.Specification(result_traits)
+                # Populate any values we have for the result traits
+                for trait in result_traits:
+                    for property_, value in entity.traits[trait].items():
+                        result.setTraitProperty(trait, property_, value)
             except Exception as exc:  # pylint: disable=broad-except
                 exc_name = exc.__class__.__name__
                 result = EntityResolutionError(f"{exc_name}: {exc}", ref)

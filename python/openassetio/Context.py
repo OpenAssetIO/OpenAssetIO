@@ -166,11 +166,10 @@ class Context(object):
     ##
     ## Describes what the @ref host is intending to do with the data.
     ##
-    ## For example, when passed to resolveEntityReference, it specifies
-    ## if the @ref host is about to read or write. When configuring a
-    ## BrowserWidget, then it will hint as to whether the Host is
-    ## wanting to choose a new file name to save, or open an existing
-    ## one.
+    ## For example, when passed to resolve, it specifies if the @ref
+    ## host is about to read or write. When configuring a BrowserWidget,
+    ## then it will hint as to whether the Host is wanting to choose a
+    ## new file name to save, or open an existing one.
     access = property(__getAccess, __setAccess)
 
     def __getRetention(self):
