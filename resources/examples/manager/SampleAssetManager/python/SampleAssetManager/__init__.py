@@ -53,17 +53,15 @@ class SampleAssetManagerPlugin(ManagerPlugin):
     def identifier():
         # The identifier here _must_ be the same as the one returned by
         # the interface implementation for it's `identifier` method.
-        #
-        # Note that it should always be light-weight to construct
-        # instances of the ManagerInterface class. See the notes under
-        # the "Initialization" section of:
-        #   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
-        from .SampleAssetManagerInterface import SampleAssetManagerInterface
-        return SampleAssetManagerInterface.identifier()
+        return "org.openassetio.examples.manager.sam"
 
     @classmethod
     def interface(cls):
         from .SampleAssetManagerInterface import SampleAssetManagerInterface
+        # Note that it should always be light-weight to construct
+        # instances of the ManagerInterface class. See the notes under
+        # the "Initialization" section of:
+        #   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
         return SampleAssetManagerInterface()
 
 

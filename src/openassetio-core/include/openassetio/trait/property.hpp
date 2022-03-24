@@ -8,8 +8,8 @@
 #include <string>
 #include <variant>
 
-// API export header.
 #include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
@@ -32,7 +32,7 @@ using Int = int;
 /// Real value type for specification property dictionaries.
 using Float = double;
 /// String value type for specification property dictionaries.
-using Str = std::string;
+using Str = openassetio::Str;
 
 /**
  * Property dictionary keys
@@ -45,7 +45,7 @@ using Str = std::string;
  * are ASCII to maximise portability when mapping property keys to
  * member function names.
  */
-using Key = std::string;
+using Key = openassetio::Str;
 /// Property dictionary values.
 using Value = std::variant<Bool, Int, Float, Str>;
 }  // namespace property

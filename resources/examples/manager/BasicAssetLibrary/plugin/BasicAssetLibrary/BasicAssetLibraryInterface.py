@@ -49,8 +49,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
         self.__settings = bal.make_default_settings()
         self.__library = {}
 
-    @staticmethod
-    def identifier():
+    def identifier(self):
         return "org.openassetio.examples.manager.bal"
 
     def displayName(self):

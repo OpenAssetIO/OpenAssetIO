@@ -28,9 +28,26 @@ import pytest
 from openassetio.managerAPI import ManagerInterface
 
 
-@pytest.fixture
-def manager_interface():
-    return ManagerInterface()
+class Test_ManagerInterface_identifier:
+    def test_when_not_overridden_then_raises_exception(self):
+        with pytest.raises(RuntimeError) as err:
+            ManagerInterface().identifier()
+        assert(str(err.value) ==
+               'Tried to call pure virtual function "ManagerInterface::identifier"')
+
+    def test_when_overridden_then_returns_value(self, manager_interface):
+        assert manager_interface.identifier() == "stub.manager"
+
+
+class Test_ManagerInterface_displayName:
+    def test_when_not_overridden_then_raises_exception(self):
+        with pytest.raises(RuntimeError) as err:
+            ManagerInterface().displayName()
+        assert(str(err.value) ==
+               'Tried to call pure virtual function "ManagerInterface::displayName"')
+
+    def test_when_overridden_then_returns_value(self, manager_interface):
+        assert manager_interface.displayName() == "Stub Manager"
 
 
 class Test_ManagerInterface_defaultEntityReference:
@@ -75,3 +92,18 @@ class Test_ManagerInterface_finalizedEntityVersion:
         finalized_refs = manager_interface.finalizedEntityVersion(refs, Mock(), Mock())
 
         assert finalized_refs == refs
+
+
+class StubManagerInterface(ManagerInterface):
+    # TODO(DF): @pylint - remove once all abstract methods migrated
+    # pylint: disable=abstract-method
+    def identifier(self):
+        return "stub.manager"
+
+    def displayName(self):
+        return "Stub Manager"
+
+
+@pytest.fixture
+def manager_interface():
+    return StubManagerInterface()
