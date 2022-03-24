@@ -10,6 +10,19 @@ import pytest
 from openassetio import specification, trait
 
 
+class Test_Specification_traitIds:
+    def test_when_has_no_traits_returns_empty_list(self):
+        empty_specification = specification.Specification([])
+        assert empty_specification.traitIds() == []
+
+    def test_when_has_traits_returns_expected_trait_ids(self):
+        expected_ids = ["a", "b", "🐠🐟🐠🐟"]
+        populated_specification = specification.Specification(expected_ids)
+        ## TODO: Should we use set instead of vector for TraitIds, as
+        ## the order is meaningless (and not preserved).
+        assert  set(populated_specification.traitIds()) == set(expected_ids)
+
+
 class Test_Specification_hasTrait:
     def test_when_has_trait_then_returns_true(self, a_specification):
         assert a_specification.hasTrait("second_trait")

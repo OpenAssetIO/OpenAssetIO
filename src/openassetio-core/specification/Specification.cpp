@@ -18,6 +18,15 @@ class Specification::Impl {
   }
   ~Impl() = default;
 
+  TraitIds traitIds() const {
+    TraitIds ids;
+    ids.reserve(data_.size());
+    for (const auto& item : data_) {
+      ids.push_back(item.first);
+    }
+    return ids;
+  }
+
   bool hasTrait(const trait::TraitId& traitId) const {
     return static_cast<bool>(data_.count(traitId));
   }
@@ -50,6 +59,8 @@ class Specification::Impl {
 Specification::Specification(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
 
 Specification::~Specification() = default;
+
+Specification::TraitIds Specification::traitIds() const { return impl_->traitIds(); }
 
 bool Specification::hasTrait(const trait::TraitId& traitId) const {
   return impl_->hasTrait(traitId);
