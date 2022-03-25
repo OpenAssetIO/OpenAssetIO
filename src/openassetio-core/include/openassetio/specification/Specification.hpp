@@ -84,6 +84,11 @@ class OPENASSETIO_CORE_EXPORT Specification {
   virtual ~Specification();
 
   /**
+   * Return the trait ID's held by the specification.
+   */
+  [[nodiscard]] TraitIds traitIds() const;
+
+  /**
    * Return whether this specification supports the given trait.
    *
    * @param traitId ID of trait to check for support.
