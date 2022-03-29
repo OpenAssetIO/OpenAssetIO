@@ -51,13 +51,13 @@ class Test_ManagerInterface_displayName:
 
 
 class Test_ManagerInterface_defaultEntityReference:
-    def test_when_given_single_spec_then_returns_single_empty_ref(self, manager_interface):
-        refs = manager_interface.defaultEntityReference([Mock()], Mock(), Mock())
+    def test_when_given_single_trait_set_then_returns_single_empty_ref(self, manager_interface):
+        refs = manager_interface.defaultEntityReference([()], Mock(), Mock())
         assert refs == [""]
 
-    def test_when_given_multiple_specs_then_returns_corresponding_number_of_empty_refs(
+    def test_when_given_multiple_trait_set_then_returns_corresponding_number_of_empty_refs(
             self, manager_interface):
-        refs = manager_interface.defaultEntityReference([Mock(), Mock(), Mock()], Mock(), Mock())
+        refs = manager_interface.defaultEntityReference([(), (), ()], Mock(), Mock())
         assert refs == ["", "", ""]
 
 

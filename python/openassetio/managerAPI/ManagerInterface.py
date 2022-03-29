@@ -562,23 +562,22 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         """
         raise NotImplementedError
 
-    def defaultEntityReference(self, specifications, context, hostSession):
+    def defaultEntityReference(self, traitSets, context, hostSession):
         """
         Returns an @ref entity_reference considered to be a sensible
-        default for each of the given specifications and Context. This
-        is often used in a host to ensure dialogs, prompts or publish
-        locations default to some sensible value, avoiding the need for
-        a user to re-enter such information when a Host is being run in
-        some known environment.
+        default for each of the given entity @needsref traits and
+        Context. This is often used in a host to ensure dialogs, prompts
+        or publish locations default to some sensible value, avoiding
+        the need for a user to re-enter such information when a Host is
+        being run in some known environment.
 
         For example, a host may request the default ref for
         'ShotSpecification/kWriteMultiple'. If the Manager has some
         concept of the 'current sequence' it may wish to return this so
         that a 'Create Shots' starts somewhere meaningful.
 
-        @param specifications `List[`
-            specifications.EntitySpecification `]`
-        The relevant specifications for the type of entities a host is
+        @param traitSets `List[List[str]]`
+        The relevant trait sets for the type of entities a host is
         about to work with. These should be interpreted in conjunction
         with the context to determine the most sensible default.
 
@@ -595,9 +594,9 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         object representing the process that initiated the API session.
 
         @return `List[str]` An @ref entity_reference or empty string for
-        each given specification.
+        each given trait set.
         """
-        return ["" for _ in specifications]
+        return ["" for _ in traitSets]
 
     ## @}
 

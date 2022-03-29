@@ -456,19 +456,18 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def defaultEntityReference(self, specifications, context):
+    def defaultEntityReference(self, traitSets, context):
         """
         Returns an @ref entity_reference considered to be a sensible
-        default for each of the given Specifications and Context. This
-        can be used to ensure dialogs, prompts or publish locations
-        default to some sensible value, avoiding the need for a user to
-        re-enter such information. There may be situations where there
-        is no meaningful default, so the caller should be robust to this
-        situation.
+        default for each of the given entity @needsref traits and
+        Context. This can be used to ensure dialogs, prompts or publish
+        locations default to some sensible value, avoiding the need for
+        a user to re-enter such information. There may be situations
+        where there is no meaningful default, so the caller should be
+        robust to this situation.
 
-        @param specifications `List[`
-            specifications.EntitySpecification `]`
-        The relevant specifications for the type of entities required,
+        @param traitSets `List[List[str]]`
+        The relevant trait sets for the type of entities required,
         these will be interpreted in conjunction with the context to
         determine the most sensible default.
 
@@ -477,9 +476,9 @@ class Manager(Debuggable):
         pattern as it has great bearing on the resulting reference.
 
         @return `List[str]` An @ref entity_reference or empty string for
-        each given specification.
+        each given trait set.
         """
-        return self.__impl.defaultEntityReference(specifications, context, self.__hostSession)
+        return self.__impl.defaultEntityReference(traitSets, context, self.__hostSession)
 
     ## @}
 
