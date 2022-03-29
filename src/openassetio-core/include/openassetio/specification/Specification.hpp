@@ -6,7 +6,7 @@
 #pragma once
 
 #include <memory>
-#include <vector>
+#include <unordered_set>
 
 #include <openassetio/export.h>
 
@@ -65,15 +65,20 @@ namespace specification {
  */
 class OPENASSETIO_CORE_EXPORT Specification {
  public:
-  /// List of supported trait IDs.
-  using TraitIds = std::vector<trait::TraitId>;
+  /**
+   * A collection of supported trait IDs
+   *
+   * ID collections are a set, rather than a list. In that,
+   * no single ID can appear more than once and the order of the IDs
+   * has no meaning and is not preserved.
+   */
+  using TraitIds = std::unordered_set<trait::TraitId>;
 
   /**
-   * Construct such that this specification supports the given list of
+   * Construct such that this specification has the given set of
    * trait IDs.
    *
-   * @param traitIds List of IDs of traits that this specification
-   * supports.
+   * @param traitIds The consituent traits IDs.
    */
   explicit Specification(const TraitIds& traitIds);
 
@@ -89,10 +94,10 @@ class OPENASSETIO_CORE_EXPORT Specification {
   [[nodiscard]] TraitIds traitIds() const;
 
   /**
-   * Return whether this specification supports the given trait.
+   * Return whether this specification has the given trait.
    *
-   * @param traitId ID of trait to check for support.
-   * @return `true` if trait is supported, `false` otherwise.
+   * @param traitId ID of trait to check for.
+   * @return `true` if trait is present, `false` otherwise.
    */
   [[nodiscard]] bool hasTrait(const trait::TraitId& traitId) const;
 
@@ -100,13 +105,13 @@ class OPENASSETIO_CORE_EXPORT Specification {
    * Get the value of a given trait property, if the property has
    * been set.
    *
-   * @param[out] out Storage fo result, only written to if the property
+   * @param[out] out Storage for result, only written to if the property
    * is set.
    * @param traitId ID of trait to query.
    * @param propertyKey Key of trait's property to query.
    * @return `true` if value was found, `false` if it is unset.
-   * @exception `std::out_of_range` if the trait is not supported by
-   * this specification.
+   * @exception `std::out_of_range` if the specification does not have
+   * this trait.
    */
   [[nodiscard]] bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
                                       const trait::property::Key& propertyKey) const;
@@ -117,8 +122,8 @@ class OPENASSETIO_CORE_EXPORT Specification {
    * @param traitId ID of trait to update.
    * @param propertyKey Key of property to set.
    * @param propertyValue Value to set.
-   * @exception `std::out_of_range` if the trait is not supported by
-   * this specification.
+   * @exception `std::out_of_range` if the specification does not have
+   * this trait.
    */
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue);

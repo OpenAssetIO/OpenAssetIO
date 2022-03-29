@@ -12,15 +12,13 @@ from openassetio import specification, trait
 
 class Test_Specification_traitIds:
     def test_when_has_no_traits_returns_empty_list(self):
-        empty_specification = specification.Specification([])
-        assert empty_specification.traitIds() == []
+        empty_specification = specification.Specification(set())
+        assert empty_specification.traitIds() == set()
 
     def test_when_has_traits_returns_expected_trait_ids(self):
-        expected_ids = ["a", "b", "🐠🐟🐠🐟"]
+        expected_ids = {"a", "b", "🐠🐟🐠🐟"}
         populated_specification = specification.Specification(expected_ids)
-        ## TODO: Should we use set instead of vector for TraitIds, as
-        ## the order is meaningless (and not preserved).
-        assert  set(populated_specification.traitIds()) == set(expected_ids)
+        assert populated_specification.traitIds() == expected_ids
 
 
 class Test_Specification_hasTrait:
@@ -74,7 +72,7 @@ class Test_BlobTrait_isValid:
 
     def test_when_wrapping_blob_supporting_spec_then_returns_true(self):
         assert trait.BlobTrait(
-            specification.Specification([trait.BlobTrait.kId, "other"])).isValid()
+            specification.Specification({trait.BlobTrait.kId, "other"})).isValid()
 
     def test_when_wrapping_non_blob_spec_then_returns_false(self, a_specification):
         assert not trait.BlobTrait(a_specification).isValid()
@@ -195,9 +193,9 @@ class Test_BlobTrait_setMimeType:
 
 @pytest.fixture
 def a_specification():
-    return specification.Specification(["first_trait", "second_trait"])
+    return specification.Specification({"first_trait", "second_trait"})
 
 
 @pytest.fixture
 def a_blob_specification():
-    return specification.Specification([trait.BlobTrait.kId])
+    return specification.Specification({trait.BlobTrait.kId})

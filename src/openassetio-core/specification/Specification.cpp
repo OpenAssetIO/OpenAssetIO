@@ -22,7 +22,7 @@ class Specification::Impl {
     TraitIds ids;
     ids.reserve(data_.size());
     for (const auto& item : data_) {
-      ids.push_back(item.first);
+      ids.insert(item.first);
     }
     return ids;
   }
