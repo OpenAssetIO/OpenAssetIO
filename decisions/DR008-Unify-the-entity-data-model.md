@@ -1,6 +1,6 @@
 # DR008 Unify the entity data model
 
--   **Status:** Proposed
+-   **Status:** Decided
 -   **Impact:** High
 -   **Driver:** @foundrytom
 -   **Approver:** @carmenpinto @feltech
