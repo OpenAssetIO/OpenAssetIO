@@ -30,8 +30,7 @@ class Context(object):
     The Context object is used to convey information about the calling
     environment to a @ref manager. It encapsulates several key access
     properties, as well as providing additional information about the
-    @ref host that may be useful to the @ref manager to decorate or
-    extend the attributes associated with the stored @ref entity.
+    @ref host that may be useful to the @ref manager.
 
     A Manager will also use this information to ensure it presents the
     correct UI, or behavior.

@@ -54,9 +54,10 @@
  *   This allows the manager to correctly filter assets or adapt its
  *   behavior as required.
  *
- * - You should query an entity's @ref attributes wherever possible,
- *   and use them as the authoritative source of information about an
- *   asset. For example, to determine the colorspace of an image.
+ * - You should resolve an entity with appropriate @needsref traits
+ *   wherever possible, and use them as the authoritative source of
+ *   information about an asset. For example, to determine the
+ *   colorspace of an image.
  *
  * @section host_reading Recommended Reading
  *

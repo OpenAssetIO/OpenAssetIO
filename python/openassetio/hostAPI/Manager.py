@@ -266,8 +266,7 @@ class Manager(Debuggable):
         a chance to retrieve information in advance.
 
         The prefetch calls instructs the manager to retrieve any
-        information needed to either resolve, or populate attributes for
-        the supplied list of entities.
+        information needed to resolve the supplied list of entities.
 
         The lifetime of the data is managed by the manager, as it may
         have mechanisms to auto-dirty any caches. It is *highly*
@@ -334,10 +333,10 @@ class Manager(Debuggable):
 
         @warning The @ref openassetio.Context.Context.access "access"
         of the supplied context will be considered by the manager. If
-        it is set to read, then it's response applies to resolution
-        and @ref attributes queries. If write, then it applies to
-        publishing. Ignored reads can allow optimisations in a host as
-        there is no longer a need to test/resolve applicable strings.
+        it is set to read, then it's response applies to resolution.
+        If write, then it applies to publishing. Ignored reads can allow
+        optimisations in a host as there is no longer a need to
+        test/resolve applicable strings.
 
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
@@ -497,8 +496,6 @@ class Manager(Debuggable):
     # This suite of methods query information for a supplied @ref
     # entity_reference.
     #
-    # @see @ref attributes
-    #
     # @{
 
     @debugApiCall
@@ -550,124 +547,6 @@ class Manager(Debuggable):
         reference is not recognised by the asset management system.
         """
         return self.__impl.entityDisplayName(entityRefs, context, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def getEntityAttributes(self, entityRefs, context):
-        """
-        Retrieve @ref attributes for each given entity. This may contain
-        well-known attributes that you can then use to further customize
-        your handling of the entity. Some types of entity may only have
-        attributes, and no meaningful @ref primary_string.
-
-        There are some well-known attribute names defined in the core
-        API - see @ref openassetio.constants "constants". These have
-        universally agreed meaning.
-
-        As a host, you can also advertize well-known attribute names of
-        your own as part of any first-class asset based workflows you
-        may have. For example, a compositor may choose to consume the
-        `colorspace` attribute (if present) and adjust the input space
-        of an image reader node accordingly.
-
-        These new attribute names should be clearly explained in your
-        documentation. A manager may then be able to provide this
-        information, based on introspection of your identifier (see
-        @ref openassetio.managerAPI.Host.Host.identifier "Host.identifier").
-
-        @warning See @ref setEntityAttributes for important notes on
-        attributes and their role in the system.
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param context Context The calling context.
-
-        @return `List[Dict[str, primitive]]` Attributes for each entity.
-        Values will be singular plain-old-data types (ie. string,
-        int, float, bool), keys will be strings.
-        """
-        return self.__impl.getEntityAttributes(entityRefs, context, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def setEntityAttributes(self, entityRefs, data, context, merge=True):
-        """
-        Sets the supplied attributes for each given entity.
-
-        A Manager guarantees that it will round-trip attributes, such that
-        the return of @ref getEntityAttributes for attributes with those names
-        will be the same as set. Managers may remap attributes internally to
-        their own native names, but a set/get should be transparent.
-
-        If any value is 'None' it should be assumed that that attribute should
-        be un-set on the object.
-
-        @param entityRefs List[str] Entity references to update.
-
-        @param data List[dict] The attributes to set for each referenced
-        entity.
-
-        @param context Context The calling context.
-
-        @param merge bool If true, then each entity's existing attributes
-        will be merged with the new data (the new data taking
-        precedence). If false, its attributes will entirely replaced by
-        the new data.
-
-        @exception ValueError if any of the attributes values are of an
-        un-storable type. Presently it is only required to store str,
-        float, int, bool
-
-        @exception KeyError if any of the data keys are non-strings.
-        """
-        return self.__impl.setEntityAttributes(
-            entityRefs, data, context, self.__hostSession, merge=merge)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def getEntityAttribute(self, entityRefs, name, context, defaultValue=None):
-        """
-        Retrieve the value of the given attribute for each given entity.
-
-        @see @ref getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param name `str` The attribute name to look up
-
-        @param defaultValue `primitive` If not `None`, this value will
-        be returned in the case of the specified name not being set for
-        an entity.
-
-        @param context Context The calling context.
-
-        @return `Union[primitive, KeyError]` The value for the specific
-        attribute, or `KeyError` if not found and no defaultValue is
-        supplied.
-        """
-        return self.__impl.getEntityAttribute(
-            entityRefs, name, context, self.__hostSession, defaultValue=defaultValue)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def setEntityAttribute(self, entityRefs, name, value, context):
-        """
-        Sets a single attribute for each given entity.
-
-        @see getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to set
-        attributes for.
-
-        @param name `str` The attribute name to set.
-
-        @param value `primitive` The values to set for each referenced
-        entity.
-
-        @param context Context The calling context.
-        """
-        return self.__impl.setEntityAttribute(
-            entityRefs, name, value, context, self.__hostSession)
 
     ## @}
 
@@ -928,10 +807,6 @@ class Manager(Debuggable):
     #
     # Some kinds of entity - for example, a 'Shot' - may not have a meaningful
     # @ref primary_string, and so an empty string will be returned.
-    # In these cases, it is more likely that the information required (eg.
-    # a working frame range) is obtained through calling @ref getEntityAttributes.
-    # The dictionary returned from this method should then contain well-known
-    # keys for this information.
     #
     # @{
 
@@ -1014,16 +889,12 @@ class Manager(Debuggable):
     # accompanied by with an spec, that details the file type, color space,
     # resolution etc...
     #
-    # @note The Specification should *not* be confused with @ref attributes.  The
-    # manager will not directly store any information contained within the
-    # Specification, though it may be used to better define the type of entity.
-    # If you wish to persist other properties of the published entity, you must
-    # call @ref setEntityAttributes() directly instead, and as described in the
-    # attributes section, this is assumed that this is the channel for information
-    # that needs to be stored by the manager.
+    # @note The manager will not directly store any information
+    # contained within the Specification, though it may be used to
+    # better define the type of entity.
     #
     # For more on the relationship between Entities, Specifications and
-    # attributes, please see @ref entities_specifications_and_attributes
+    # traits please see @ref entities_specifications_and_attributes
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -1088,8 +959,8 @@ class Manager(Debuggable):
 
         @warning The working @ref entity_reference returned by this
         method should *always* be used in place of the original
-        reference supplied to `preflight` for resolves or attributes
-        queries prior to registration, and for the final call to @ref
+        reference supplied to `preflight` for resolves prior to
+        registration, and for the final call to @ref
         register itself. See @ref example_publishing_a_file.
 
         @param targetEntityRefs `List[str]` The entity references to
@@ -1130,7 +1001,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context, attributes=None):
+    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context):
         """
         Register should be used to register new entities either when
         originating new data within the application process, or
@@ -1190,9 +1061,6 @@ class Manager(Debuggable):
 
         @param context Context The calling context.
 
-        @param attributes `List[Union[Dict[str, primitive], None]`
-        Optional attributes to set during publish.
-
         @return `List[Union[str,`
             exceptions.RegistrationError, exceptions.RetryableError `]]`
         The publish result for each corresponding entity. This is
@@ -1209,27 +1077,13 @@ class Manager(Debuggable):
 
         @see @ref openassetio.specifications "specifications"
         @see @ref preflight
-        @see @ref setEntityAttributes
         """
-        ## At the mo, attributes are deliberately not passed to register in the
-        ## ManagerInterface. This helps ensure that no Manager ever places a
-        ## requirement that attributes is known on creation. This is a bad state to
-        ## be in, as it places severe limitations on a host so its worth leaving it
-        ## this way so people will moan at us if its a problem.
-        ## @todo ... but conversely, setAttributes doesn't allow that data to be versioned
-        ## This needs revisiting, as its not even really 'attributes' as we encourage
-        ## hosts to treat it as first-class asset data.
         if (len(primaryStrings) != len(targetEntityRefs) or
-                len(primaryStrings) != len(entitySpecs) or
-                attributes is not None and len(primaryStrings) != len(attributes)):
+            len(primaryStrings) != len(entitySpecs)):
             raise IndexError("Parameter lists must be of the same length")
 
-        entityRefs = self.__impl.register(
+        return self.__impl.register(
             primaryStrings, targetEntityRefs, entitySpecs, context, self.__hostSession)
-        if attributes and entityRefs:
-            self.__impl.setEntityAttributes(
-                entityRefs, attributes, context, self.__hostSession, merge=True)
-        return entityRefs
 
     ## @}
 

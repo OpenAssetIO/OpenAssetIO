@@ -73,20 +73,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
-    def getEntityAttribute(self, entityRefs, name, context, hostSession, defaultValue=None):
-        self.__assertIsIterableOf(entityRefs, str)
-        assert isinstance(name, str)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(defaultValue, (str, int, float, bool)) or defaultValue is None
-        return mock.DEFAULT
-
-    def setEntityAttribute(self, entityRefs, name, value, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        assert isinstance(name, str)
-        assert isinstance(value, (str, bool, int, float))
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
     def entityVersion(self, entityRefs, context, hostSession):
         self.__assertIsIterableOf(entityRefs, str)
         self.__assertCallingContext(context, hostSession)
@@ -176,20 +162,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def entityDisplayName(self, entityRefs, context, hostSession):
         self.__assertIsIterableOf(entityRefs, str)
         self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def getEntityAttributes(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def setEntityAttributes(self, entityRefs, data, context, hostSession, merge=True):
-        self.__assertIsIterableOf(entityRefs, str)
-        # TODO(DF): The following fails for `register` since it passes a
-        #   list of dicts.
-        # assert isinstance(data, dict)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(merge, bool)
         return mock.DEFAULT
 
     def getRelatedReferences(
@@ -435,66 +407,6 @@ class Test_Manager_entityDisplayNamer:
         method.assert_called_once_with(some_refs, a_context, host_session)
 
 
-class Test_Manager_getEntityAttributes:
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
-
-        method = mock_manager_interface.getEntityAttributes
-        assert manager.getEntityAttributes(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, host_session)
-
-
-class Test_Manager_setEntityAttributes:
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
-
-        method = mock_manager_interface.setEntityAttributes
-        some_data = [{"k1": "v1"}, {"k2": "v2"}]
-
-        assert manager.setEntityAttributes(some_refs, some_data, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, some_data, a_context, host_session, merge=True)
-        method.reset_mock()
-
-        assert manager.setEntityAttributes(
-            some_refs, some_data, a_context, merge=False) == method.return_value
-        method.assert_called_once_with(some_refs, some_data, a_context, host_session, merge=False)
-
-
-class Test_Manager_getEntityAttribute:
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
-
-        method = mock_manager_interface.getEntityAttribute
-        a_key = "key"
-        a_default = 2
-
-        assert manager.getEntityAttribute(some_refs, a_key, a_context) == method.return_value
-        method.assert_called_once_with(
-            some_refs, a_key, a_context, host_session, defaultValue=None)
-        method.reset_mock()
-
-        assert manager.getEntityAttribute(
-            some_refs, a_key, a_context, defaultValue=a_default) == method.return_value
-        method.assert_called_once_with(
-            some_refs, a_key, a_context, host_session, defaultValue=a_default)
-
-
-class Test_Manager_setEntityAttribute:
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
-
-        a_key = "key"
-        a_value = "value"
-        method = mock_manager_interface.setEntityAttribute
-        assert manager.setEntityAttribute(
-            some_refs, a_key, a_value, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_key, a_value, a_context, host_session)
-
-
 class Test_Manager_entityVersion:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -642,59 +554,35 @@ class Test_Manager_preflight:
 
 class Test_Manager_register:
 
-    def test_wraps_the_the_held_interface_register_and_setEntityAttributes_methods(
+    def test_wraps_the_the_held_interface_register_methods(
             self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
             a_context):
 
         register_method = mock_manager_interface.register
-        setmeta_method = mock_manager_interface.setEntityAttributes
 
         some_strings = ["primary string 1", "primary string 2"]
-        some_attr = [{"k1": "v1"}, {"k2": "v2"}]
 
-        # the return value is used in the setEntityAttributes call so we
-        # need it to provide an actual ref we know
         mutated_refs = [f"{some_refs[0]}-registered", f"{some_refs[1]}-registered"]
         register_method.return_value = mutated_refs
-
-        # Test without attributes
 
         assert manager.register(
             some_strings, some_refs, some_entity_specs, a_context) == register_method.return_value
         register_method.assert_called_once_with(
             some_strings, some_refs, some_entity_specs, a_context, host_session)
-        setmeta_method.assert_not_called()
-
-        mock_manager_interface.reset_mock()
-
-        # Test with attributes
-
-        assert manager.register(
-            some_strings, some_refs, some_entity_specs, a_context,
-            attributes=some_attr) == register_method.return_value
-        register_method.assert_called_once_with(
-            some_strings, some_refs, some_entity_specs, a_context, host_session)
-        setmeta_method.assert_called_once_with(
-            mutated_refs, some_attr, a_context, host_session, merge=True)
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
             self, manager, some_refs, some_entity_specs, a_context):
 
         some_strings = ["primary string 1", "primary string 2"]
-        some_attr = [{"k1": "v1"}, {"k2": "v2"}]
 
         with pytest.raises(IndexError):
             manager.register(
-                some_strings[1:], some_refs, some_entity_specs, a_context, attributes=some_attr)
+                some_strings[1:], some_refs, some_entity_specs, a_context)
 
         with pytest.raises(IndexError):
             manager.register(
-                some_strings, some_refs[1:], some_entity_specs, a_context, attributes=some_attr)
+                some_strings, some_refs[1:], some_entity_specs, a_context)
 
         with pytest.raises(IndexError):
             manager.register(
-                some_strings, some_refs, some_entity_specs[1:], a_context, attributes=some_attr)
-
-        with pytest.raises(IndexError):
-            manager.register(
-                some_strings, some_refs, some_entity_specs, a_context, attributes=some_attr[1:])
+                some_strings, some_refs, some_entity_specs[1:], a_context)
