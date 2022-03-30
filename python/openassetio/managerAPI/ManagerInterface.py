@@ -972,8 +972,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
     @abc.abstractmethod
     def getRelatedReferences(
-            self, entityRefs, relationshipSpecs, context, hostSession,
-            resultSpec=None):
+            self, entityRefs, relationshipSpecs, context, hostSession, resultTraitSet=None):
         """
         Returns related entity references, based on a relationship
         specification.
@@ -1029,9 +1028,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         logging and provides access to the openassetio.managerAPI.Host
         object representing the process that initiated the API session.
 
-        @param resultSpec openassetio.specifications.EntitySpecification
-        or None, a hint as to what kind of entity the caller is
-        expecting to be returned. May be None.
+        @param resultTraitSet `Set[str]` or None, a hint as to what
+        traits the caller is expecting the returned entities to have.
 
         @return List[List[str]] This MUST be the correct length,
         returning an empty outer list is NOT valid. (ie: max(len(refs),

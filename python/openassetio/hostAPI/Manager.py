@@ -824,7 +824,8 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getRelatedReferences(self, references, relationshipSpecOrSpecs, context, resultSpec=None):
+    def getRelatedReferences(
+            self, references, relationshipSpecOrSpecs, context, resultTraitSet=None):
         """
         Returns related entity references, based on a relationship
         specification.
@@ -875,9 +876,8 @@ class Manager(Debuggable):
         @param relationshipSpecOrSpecs
         List[openassetio.specifications.RelationshipSpecification]
 
-        @param resultSpec openassetio.specifications.EntitySpecification
-        or None, a hint as to what kind of entity you want to be
-        returned. May be None.
+        @param resultTraitSet `Set[str]` or None, a hint as to what
+        traits the returned entities should have.
 
         @param context Context The calling context.
 
@@ -911,7 +911,7 @@ class Manager(Debuggable):
 
         result = self.__impl.getRelatedReferences(
             references,
-            relationshipSpecOrSpecs, context, self.__hostSession, resultSpec=resultSpec)
+            relationshipSpecOrSpecs, context, self.__hostSession, resultTraitSet=resultTraitSet)
 
         return result
 
