@@ -576,7 +576,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         concept of the 'current sequence' it may wish to return this so
         that a 'Create Shots' starts somewhere meaningful.
 
-        @param traitSets `List[List[str]]`
+        @param traitSets `List[Set[str]]`
         The relevant trait sets for the type of entities a host is
         about to work with. These should be interpreted in conjunction
         with the context to determine the most sensible default.

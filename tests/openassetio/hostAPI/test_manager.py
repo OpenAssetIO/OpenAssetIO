@@ -67,7 +67,9 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return mock.DEFAULT
 
     def defaultEntityReference(self, traitSets, context, hostSession):
-        self.__assertIsIterableOf(traitSets, (list, tuple))
+        self.__assertIsIterableOf(traitSets, set)
+        for traitSet in traitSets:
+            self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
@@ -264,7 +266,7 @@ def some_entity_specs():
 
 @pytest.fixture
 def some_entity_trait_sets():
-    return [("blob",), ("blob", "image")]
+    return [{"blob"}, {"blob", "image"}]
 
 @pytest.fixture
 def a_context():

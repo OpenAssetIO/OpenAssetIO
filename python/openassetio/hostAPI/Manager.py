@@ -466,7 +466,7 @@ class Manager(Debuggable):
         where there is no meaningful default, so the caller should be
         robust to this situation.
 
-        @param traitSets `List[List[str]]`
+        @param traitSets `List[Set[str]]`
         The relevant trait sets for the type of entities required,
         these will be interpreted in conjunction with the context to
         determine the most sensible default.
