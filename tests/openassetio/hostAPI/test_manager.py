@@ -145,8 +145,10 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def initialize(self, hostSession):
         return mock.DEFAULT
 
-    def managementPolicy(self, specifications, context, hostSession):
-        self.__assertIsIterableOf(specifications, EntitySpecification)
+    def managementPolicy(self, traitSets, context, hostSession):
+        self.__assertIsIterableOf(traitSets, set)
+        for traitSet in traitSets:
+            self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
 
         return mock.DEFAULT
@@ -595,11 +597,12 @@ class Test_Manager_resolveEntityReference:
 class Test_Manager_managentPolicy:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_entity_specs, a_context):
+            self, manager, mock_manager_interface, host_session, some_entity_trait_sets,
+            a_context):
 
         method = mock_manager_interface.managementPolicy
-        assert manager.managementPolicy(some_entity_specs, a_context) == method.return_value
-        method.assert_called_once_with(some_entity_specs, a_context, host_session)
+        assert manager.managementPolicy(some_entity_trait_sets, a_context) == method.return_value
+        method.assert_called_once_with(some_entity_trait_sets, a_context, host_session)
 
 
 class Test_Manager_preflight:

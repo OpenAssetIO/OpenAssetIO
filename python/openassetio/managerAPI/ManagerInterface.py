@@ -367,21 +367,23 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def managementPolicy(self, specifications, context, hostSession):
+    def managementPolicy(self, traitSets, context, hostSession):
         """
         Determines if the asset manager is interested in participating
-        in interactions with the specified specifications of @ref
-        entity.
+        in interactions with @ref entity "entities" with the specified
+        sets of @needsref traits.
 
         For example, a host may call this in order to see if the manager
         would like to manage the path of a scene file whilst choosing a
         destination to save to.
 
-        This information is then used to determine which options
-        should be presented to the user. For example, if `kIgnored`
-        was returned for a query as to the management of scene files,
-        a Host will hide or disable menu items that relate to publish
-        or loading of assetized scene files.
+        This information is then used to determine which options should
+        be presented to the user or which workflows may be performed by
+        the host. For example, if `kIgnored` was returned for a query as
+        to the management of scene files, a Host will hide or disable
+        menu items that relate to publish or loading of assetized scene
+        files, and not involve the manager in any actions realting to
+        scene files.
 
         @warning The @ref openassetio.Context.Context.access "access"
         specified in the supplied context should be carefully considered.
@@ -402,15 +404,27 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         asset becomes a partially manual task, rather than one that can
         be fully automated for new assets.
 
-        @param specifications `List[Specification]` Specifications to
-        query.
+        For read contexts, kManaged should only be returned if the
+        manager can potentially resolve data for all of the supplied
+        traits. Hosts are required to deal with the properties for any
+        given trait being unset when resolved, as they may not be
+        available for existing assets, as long as the traits are
+        understood.
+
+        For write contexts, kManaged should only be returned if the
+        manager is capable of persisting all traits (and any of their
+        property data) when they are registered for an entity, and
+        returning that data via resolve.
+
+        @param traitSets `List[Set[str]]` The entity @needsref traits
+        to query.
 
         @param context Context The calling context.
 
         @param hostSession HostSession The API session.
 
         @return `List[int]` Bitfields, one for each element in
-        `specifications`. See @ref openassetio.constants.
+        `traitSets`. See @ref openassetio.constants.
         """
         raise NotImplementedError
 

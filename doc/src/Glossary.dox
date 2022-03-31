@@ -455,7 +455,8 @@
  * requires it to:
  *
  * - Check whether the @ref manager is interested in that particular
- *   @ref Specification of @ref entity, via the manager's @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   @ref entity "entity's" @needsref traits, via the manager's
+ *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "managementPolicy".
  * - Call @ref preflight to allow any prerequisite housekeeping
  *   to be performed, and a working @ref entity_reference returned.

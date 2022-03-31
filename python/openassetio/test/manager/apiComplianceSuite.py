@@ -23,8 +23,8 @@ requirements of the API, and can handle all documented calling patterns.
 For example, that when a
 @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 "managementPolicy" query returns a non-ignored state, that there are no
-errors calling the other required methods for a managed entity of that
-Specification.
+errors calling the other required methods for a managed entity with
+those @needsref traits.
 
 The suite does not validate any specific business logic by checking the
 values API methods _may_ return in certain situations. This should be
@@ -35,7 +35,6 @@ handled through additional suites local to the manager's implementation.
 
 from .harness import FixtureAugmentedTestCase
 from ...exceptions import EntityResolutionError
-from ...specifications import EntitySpecification
 from ... import Context
 
 
@@ -125,11 +124,11 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
     Check plugin's implementation of managerAPI.ManagerInterface.managementPolicy
     """
 
-    def test_when_called_with_single_specification_returns_single_result(self):
+    def test_when_called_with_single_trait_set_returns_single_result(self):
         context = self.createTestContext()
         self.__assertPolicyResults(1, context)
 
-    def test_when_called_with_ten_specifications_returns_ten_results(self):
+    def test_when_called_with_ten_trait_sets_returns_ten_results(self):
         context = self.createTestContext()
         self.__assertPolicyResults(10, context)
 
@@ -153,19 +152,31 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context.access = context.kWriteMultiple
         self.__assertPolicyResults(1, context)
 
-    def __assertPolicyResults(self, numSpecifications, context):
+    def test_calling_with_empty_trait_set_does_not_error(self):
+        context = self.createTestContext()
+        self.__assertPolicyResults(1, context, traitSet=())
+
+    def test_calling_with_unknown_complex_trait_set_does_not_error(self):
+        context = self.createTestContext()
+        traits = ("🐟🐠🐟🐠", "asdfsdfasdf", "⿂")
+        self.__assertPolicyResults(1, context, traitSet=traits)
+
+    def __assertPolicyResults(self, numTraitSets, context, traitSet=("entity",)):
         """
         Tests the validity and coherency of the results of a call to
-        `managementPolicy` for a given number of specifications and
+        `managementPolicy` for a given number of trait sets and
         context. It checks lengths match and values are of the correct
         type.
-        """
-        specs = [EntitySpecification() for _ in range(numSpecifications)]
 
-        policies = self._manager.managementPolicy(specs, context)
+        @param traitSet `List[str]` The set of traits to pass to
+        the call to managementPolicy.
+        """
+        traitSets = [traitSet for _ in range(numTraitSets)]
+
+        policies = self._manager.managementPolicy(traitSets, context)
 
         self.assertValuesOfType(policies, int)
-        self.assertEqual(len(policies), numSpecifications)
+        self.assertEqual(len(policies), numTraitSets)
 
 
 class Test_isEntityReference(FixtureAugmentedTestCase):
