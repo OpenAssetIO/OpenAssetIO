@@ -139,15 +139,18 @@ function(set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # Library version
 
-    # When building or installing appropriate symlinks are created, if
-    # supported.
-    set_target_properties(
-        ${target_name}
-        PROPERTIES
-        VERSION ${PROJECT_VERSION}
-        SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    )
+    get_target_property(target_type ${target_name} TYPE)
 
+    if (NOT ${target_type} STREQUAL EXECUTABLE)
+        # When building or installing appropriate symlinks are created, if
+        # supported.
+        set_target_properties(
+            ${target_name}
+            PROPERTIES
+            VERSION ${PROJECT_VERSION}
+            SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+        )
+    endif ()
 
     #-------------------------------------------------------------------
     # Coverage reports and/or sanitizers, useful for tests.
