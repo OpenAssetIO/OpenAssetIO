@@ -56,7 +56,7 @@ def local_plugin_path():
     provided by the project.
     """
     test_path = PurePath(__file__)
-    root_dir = test_path.parents[3]
+    root_dir = test_path.parents[4]
     examples_dir = root_dir / "resources" / "examples" / "manager"
     return str(examples_dir / "SampleAssetManager" / "python")
 

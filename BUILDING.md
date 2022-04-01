@@ -121,7 +121,7 @@ pip install -r tests/requirements.txt
 We can now run the Python tests via `pytest`
 
 ```shell
-pytest tests
+pytest tests/python
 ```
 
 ## Using Vagrant
