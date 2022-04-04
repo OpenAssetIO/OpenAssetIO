@@ -3,7 +3,7 @@
 #pragma once
 
 #include <openassetio/c/errors.h>
-#include <openassetio/c/ns.h>
+#include <openassetio/c/namespace.h>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {

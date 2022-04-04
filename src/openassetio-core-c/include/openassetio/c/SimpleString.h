@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include "./ns.h"
+#include "./namespace.h"
 
 #ifdef __cplusplus
 extern "C" {
