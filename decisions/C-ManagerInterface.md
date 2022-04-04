@@ -32,9 +32,19 @@ typedef struct {
   size_t usedSize;
 } OPENASSETIO_NS(SimpleString);
 ```
-`usedSize` is for optimisation and safety and can technically be removed
-if we're happy to assume null-termination and accept the performance
-implications.
+`usedSize` can technically be removed if we're happy to assume
+null-termination.
+
+However, having a `usedSize` member is more optimal, avoiding the need
+to re-measure the string's length as it is passed around.
+
+In addition, other string representations (e.g. in other languages using
+the C API through an FFI) may not use null-termination as standard, so
+including a `usedSize` member improves language support.
+
+Note that with UTF-8 the number of printed characters might not match
+the number of characters required for encoding, so we mustn't naively
+assume that `usedSize` reflects the rendered string's length.
 
 ## Opaque handles
 
