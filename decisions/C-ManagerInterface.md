@@ -90,8 +90,8 @@ via (integer) error codes.
 
 Given this, a C API function wrapping a C++ class method has between 0
 and 3 possible output values, depending on whether a return value is
-expected and whether an error code and message (i.e. exception) is
-possible.
+expected and whether an error code and message (i.e. in lieu of an 
+exception) is possible.
 
 The proposed signature is then
 ```
