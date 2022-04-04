@@ -200,7 +200,7 @@ src/openassetio-core-c
 │           ├── errors.h
 │           ├── managerAPI
 │           │   └── ManagerInterface.h
-│           ├── ns.h
+│           ├── namespace.h
 │           └── SimpleString.h
 └── private
     ├── CManagerInterface.cpp
