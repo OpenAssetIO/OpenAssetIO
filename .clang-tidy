@@ -54,6 +54,11 @@ CheckOptions:
     - { key: readability-identifier-naming.TemplateParameterCase,  value: CamelCase  }
     - { key: readability-identifier-naming.FunctionCase,           value: camelBack  }
     - { key: readability-identifier-naming.VariableCase,           value: camelBack  }
+    # Allow _1, _2, etc as variable (placeholder) names - used for
+    # Trompeloeil mock setup.
+    # TODO(DF): This should be placed in `tests/.clang-tidy` but that
+    #   doesn't work. Reported upstream: https://github.com/llvm/llvm-project/issues/54781
+    - { key: readability-identifier-naming.VariableIgnoredRegexp,  value: "^_\d+$"   }
     - { key: readability-identifier-naming.ClassMemberCase,        value: camelBack  }
     - { key: readability-identifier-naming.PrivateMemberSuffix,    value: _          }
     - { key: readability-identifier-naming.ProtectedMemberSuffix,  value: _          }
