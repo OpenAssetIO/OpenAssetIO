@@ -107,20 +107,55 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         DEPENDS "${installed_pip}"
     )
 
+    # One-time step to download test-specific dependencies
+    # so we don't always need an online connection for running ctest
+    set(deps_dir "${CMAKE_BINARY_DIR}/dependencies")
+    set(python_deps_dir "${deps_dir}/python")
+    set(test_deps_dir "${python_deps_dir}/tests")
+    set(test_deps_downloaded "${deps_dir}/testDepsDwnld.out")
+    add_custom_command(
+        OUTPUT "${test_deps_downloaded}"
+        COMMAND
+        "${installed_pip}" "download" "--destination-directory" "${test_deps_dir}"
+            "-r" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        COMMAND
+        cmake -E touch "${test_deps_downloaded}"
+        DEPENDS "${installed_pip}" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+    )
+
+    # One-time step to download project-specific dependencies
+    set(project_deps_dir "${python_deps_dir}/project")
+    set(project_deps_downloaded "${deps_dir}/projDepsDwnld.out")
+    add_custom_command(
+        OUTPUT "${project_deps_downloaded}"
+        # Need to cache the build tools explicitely due to build isolation, see
+        # https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/#build-process
+        COMMAND
+        "${installed_pip}" wheel --wheel-dir ${project_deps_dir} setuptools wheel
+        COMMAND
+        cmake -E touch "${project_deps_downloaded}"
+        DEPENDS "${installed_pip}"
+    )
+
     # Command to install test-specific dependencies (e.g. pytest).
     add_custom_command(
         OUTPUT
         "${venv_python_dir}/pytest"
         COMMAND
-        "${installed_pip}" install -r "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
-        DEPENDS "${installed_pip}"
+        "${installed_pip}" "install" "--no-index"
+            "--find-links" "${test_deps_dir}"
+            "-r" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        DEPENDS "${test_deps_downloaded}"
     )
 
     # Target to install the pure Python component of the project.
     add_custom_target(
         openassetio-python-py-install
-        COMMAND "${installed_pip}" install "${PROJECT_SOURCE_DIR}"
-        DEPENDS "${installed_pip}"
+        COMMAND
+        "${installed_pip}" "install" "--no-index"
+            "--find-links" "${project_deps_dir}"
+            "${PROJECT_SOURCE_DIR}"
+        DEPENDS "${project_deps_downloaded}"
     )
     # Ensure pre-requisite C++ component has been installed first.
     add_dependencies(openassetio-python-py-install openassetio-install)
