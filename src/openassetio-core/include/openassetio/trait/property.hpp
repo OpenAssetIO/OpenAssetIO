@@ -25,15 +25,6 @@ namespace trait {
  */
 namespace property {
 
-/// Boolean value type for specification property dictionaries.
-using Bool = bool;
-/// Integer value type for specification property dictionaries.
-using Int = int;
-/// Real value type for specification property dictionaries.
-using Float = double;
-/// String value type for specification property dictionaries.
-using Str = openassetio::Str;
-
 /**
  * Property dictionary keys
  *

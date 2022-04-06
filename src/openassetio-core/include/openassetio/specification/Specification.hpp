@@ -34,7 +34,7 @@ namespace specification {
  * to the consumer (host or manager, depending on the API method) to
  * decide how this should be handled.
  *
- * @todo Add SimpleMap trait property value type.
+ * @todo Add InfoDictionary trait property value type.
  *
  * @see trait::property
  *

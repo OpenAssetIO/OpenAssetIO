@@ -16,19 +16,15 @@ const property::Key kUrl{"url"};
 const property::Key kMimeType{"mimeType"};
 }  // namespace
 
-TraitPropertyStatus BlobTrait::getUrl(property::Str* out) const {
-  return getTraitProperty(out, kId, kUrl);
-}
+TraitPropertyStatus BlobTrait::getUrl(Str* out) const { return getTraitProperty(out, kId, kUrl); }
 
-void BlobTrait::setUrl(property::Str url) {
-  specification()->setTraitProperty(kId, kUrl, std::move(url));
-}
+void BlobTrait::setUrl(Str url) { specification()->setTraitProperty(kId, kUrl, std::move(url)); }
 
-TraitPropertyStatus BlobTrait::getMimeType(property::Str* out) const {
+TraitPropertyStatus BlobTrait::getMimeType(Str* out) const {
   return getTraitProperty(out, kId, kMimeType);
 }
 
-void BlobTrait::setMimeType(property::Str mimeType) {
+void BlobTrait::setMimeType(Str mimeType) {
   specification()->setTraitProperty(kId, kMimeType, std::move(mimeType));
 }
 
