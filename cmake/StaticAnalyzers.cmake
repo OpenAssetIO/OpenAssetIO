@@ -5,11 +5,11 @@ macro(enable_clang_tidy)
     # Clang-Tidy warnings vary quite a bit between different versions.
     # So pin to clang-tidy-12 for now, which happens to be the latest
     # available in Ubuntu 20.04's (i.e. CI) apt repos.
-    find_program(CLANGTIDY clang-tidy-12)
+    find_program(OPENASSETIO_CLANGTIDY_EXE clang-tidy-12)
 
-    if (CLANGTIDY)
+    if (OPENASSETIO_CLANGTIDY_EXE)
         # Construct the clang-tidy command line
-        set(CMAKE_CXX_CLANG_TIDY ${CLANGTIDY})
+        set(CMAKE_CXX_CLANG_TIDY ${OPENASSETIO_CLANGTIDY_EXE})
         # Ignore unknown compiler flag check, otherwise e.g. GCC-only
         # compiler warning flags will cause the build to fail.
         list(APPEND CMAKE_CXX_CLANG_TIDY -extra-arg=-Wno-unknown-warning-option)
@@ -28,8 +28,8 @@ macro(enable_clang_tidy)
 endmacro()
 
 macro(enable_cpplint)
-    find_program(CPPLINT cpplint)
-    if (CPPLINT)
+    find_program(OPENASSETIO_CPPLINT_EXE cpplint)
+    if (OPENASSETIO_CPPLINT_EXE)
         # Create a custom target to be added as a dependency to other
         # targets. Unfortunately the CMAKE_CXX_CPPLINT integration is
         # somewhat lacking - it won't fail the build and it won't check
@@ -39,7 +39,7 @@ macro(enable_cpplint)
             COMMENT
             "Executing cpplint"
             COMMAND
-            ${CPPLINT}
+            ${OPENASSETIO_CPPLINT_EXE}
             # The default "build/include_order" check suffers from
             # false positives since the default behaviour is to assume
             # that all `<header.h>`-like includes are C headers.
