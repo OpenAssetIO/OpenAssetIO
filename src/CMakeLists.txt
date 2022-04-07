@@ -11,7 +11,9 @@ add_subdirectory(openassetio-core)
 #-----------------------------------------------------------------------
 # Core C bindings library
 
-add_subdirectory(openassetio-core-c)
+if (OPENASSETIO_ENABLE_C)
+    add_subdirectory(openassetio-core-c)
+endif ()
 
 
 #-----------------------------------------------------------------------
