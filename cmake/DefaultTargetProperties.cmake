@@ -202,10 +202,14 @@ function(set_default_target_properties target_name)
 
 
     #-------------------------------------------------------------------
-    # Cpplint
+    # Linters/analyzers
 
     if (TARGET openassetio-cpplint)
         add_dependencies(${target_name} openassetio-cpplint)
+    endif()
+
+    if (TARGET openassetio-clangformat)
+        add_dependencies(${target_name} openassetio-clangformat)
     endif()
 
 

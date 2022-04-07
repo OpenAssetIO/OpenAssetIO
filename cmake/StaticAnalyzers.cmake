@@ -54,3 +54,30 @@ macro(enable_cpplint)
         message(FATAL_ERROR "cpplint requested but executable not found")
     endif ()
 endmacro()
+
+macro(enable_clang_format)
+    find_program(OPENASSETIO_CLANGFORMAT_EXE clang-format clang-format-10)
+    if (OPENASSETIO_CLANGFORMAT_EXE)
+        file(
+            GLOB_RECURSE _sources
+            LIST_DIRECTORIES false
+            CONFIGURE_DEPENDS # Ensure we re-scan if files change.
+            ${PROJECT_SOURCE_DIR}/src/*.[ch]pp
+            ${PROJECT_SOURCE_DIR}/src/*.[ch]
+        )
+
+        # Create a custom target to be added as a dependency to other
+        # targets.
+        add_custom_target(
+            openassetio-clangformat
+            COMMAND ${CMAKE_COMMAND} -E echo "Executing clang-format check..."
+            COMMAND
+            ${OPENASSETIO_CLANGFORMAT_EXE}
+            --Werror --dry-run --style=file
+            ${_sources}
+        )
+
+    else ()
+        message(FATAL_ERROR "clang-format requested but executable not found")
+    endif ()
+endmacro()

@@ -172,6 +172,9 @@ endif ()
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
 
+# Enable clang-format formatting check.
+option(OPENASSETIO_ENABLE_CLANG_FORMAT "Enable clang-format check during build" OFF)
+
 # Enable clang-tidy static analysis tool.
 option(OPENASSETIO_ENABLE_CLANG_TIDY "Enable clang-tidy analysis during build" OFF)
 
@@ -211,6 +214,9 @@ endif()
 # Enable CMake's built-in linter/static analyzer support.
 
 include(StaticAnalyzers)
+if (OPENASSETIO_ENABLE_CLANG_FORMAT)
+    enable_clang_format()
+endif ()
 if (OPENASSETIO_ENABLE_CLANG_TIDY)
     enable_clang_tidy()
 endif ()
