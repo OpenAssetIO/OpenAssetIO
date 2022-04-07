@@ -204,7 +204,7 @@ function(set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # Cpplint
 
-    if (OPENASSETIO_ENABLE_CPPLINT AND OPENASSETIO_CPPLINT_EXE)
+    if (TARGET openassetio-cpplint)
         add_dependencies(${target_name} openassetio-cpplint)
     endif()
 
