@@ -36,8 +36,7 @@ macro(enable_cpplint)
         # headers. So we must roll our own target.
         add_custom_target(
             openassetio-cpplint
-            COMMENT
-            "Executing cpplint"
+            COMMAND ${CMAKE_COMMAND} -E echo "Executing cpplint check..."
             COMMAND
             ${OPENASSETIO_CPPLINT_EXE}
             # The default "build/include_order" check suffers from
