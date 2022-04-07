@@ -44,18 +44,18 @@
  *   opaque by the host.
  *
  * - The manager is expected to store and recall the
- *   @ref primary_string and @ref attributes
+ *   @ref primary_string
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "registered" to any given @ref entity_reference,
- *   grouped by its @ref Specification "specification", and return these
+ *   grouped by its @ref Specification "specification", and return this
  *   values from the relevant query methods when supplied the
  *   reference returned from the registration.
  *
- * - A @ref host may query other well-known or host-specific @ref attributes
- *   to provide additional customization of behavior or the handling of
- *   data referenced by an @ref entity_reference. For example,
- *   determining the correct frame range and colorspace of an image
- *   sequence.
+ * - A @ref host may query other well-known or host-specific @needsref
+ *   traits to provide additional customization of behavior or the
+ *   handling of data referenced by an @ref entity_reference. For
+ *   example, determining the correct frame range and colorspace of an
+ *   image sequence.
  *
  * - The @ref Context supplied to a method can be used to understand
  *   the intentions of the caller, as well as to determine which part of
@@ -127,17 +127,6 @@
  * - Implement a @ref ManagerPlugin and install this on
  *   @ref plugin_path_var.
  *
- * @subsection manager_todo_attributes Required for Extended Functionality
- *
- *  Some hosts may make use of an entity's attributes to provide
- *  extended functionality. Such as automating the settings of read
- *  nodes or improving handling of the asset's data.
- *
- * - Implement
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
- *   "getEntityAttributes" to bridge any internal asset data to the
- *   well-known @ref attributes if possible.
- *
  * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
@@ -173,18 +162,6 @@
  * URL so may be rewritten at will providing it still points to
  * synonymous data. This allows data to be relocated after it has been
  * registered as appropriate.
- *
- * - In a similar way to @ref primary_string "primary strings", the @ref
- *   attributes set for the entity via @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setEntityAttributes
- *   "setEntityAttributes" should be stored. This can be freely remapped
- *   to internal fields, but should always be returned via the same
- *   name used when set. The data should be persisted verbatim unless the
- *   specification is understood.
- *
- * - Bridge any internal asset data to the well-known @ref attributes
- *   wherever possible. This will be used by the host as a preferential
- *   source of truth. For example, for the colorspace or frame range of
- *   an image sequence.
  *
  * @subsection manager_todo_related_entities Supporting Relationships
  *

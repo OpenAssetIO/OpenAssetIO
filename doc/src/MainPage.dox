@@ -231,11 +231,10 @@
  * OpenAssetIO was developed to make it possible for an
  * @ref asset_management_system to support any @ref host application
  * without specific knowledge, and vice versa. This is achieved though
- * the use of common specifications and descriptions and three simple
+ * the use of common specifications and descriptions and two simple
  * rules for the manager:
  *
  * - Store and recall a @ref primary_string
- * - Store and recall @ref attributes
  * - Allow filtering by @ref Specification
  *
  * If these rules are followed, then arbitrary assets from arbitrary
@@ -243,5 +242,5 @@
  * specific support. However, there is scope to build more advanced and
  * useful functionality by mapping OpenAssetIO @ref Specification
  * "specifications" to the manager's native asset types, and well-known
- * @ref attributes to its asset fields.
+ * @needsref traits to its asset fields.
  */

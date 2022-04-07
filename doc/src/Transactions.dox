@@ -13,13 +13,19 @@
  * has been completed. Canceling a transaction mid way should discard
  * the effects of any previous actions it included.
  *
- * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction "ManagerInterface.startTransaction"
- * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction "ManagerInterface.finishTransaction"
- * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction "ManagerInterface.cancelTransaction"
+ * @see @ref
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction
+ * "ManagerInterface.startTransaction"
+ * @see @ref
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction
+ * "ManagerInterface.finishTransaction"
+ * @see @ref
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction
+ * "ManagerInterface.cancelTransaction"
  *
  * For more details on the requirements of the @ref asset_management_system
- * in relation to transaction handling, see the @ref transactions_for_the_manager
- * section below.
+ * in relation to transaction handling, see the @ref
+ * transactions_for_the_manager section below.
  *
  * @section transactions_example Example Host Code
  *
@@ -35,8 +41,8 @@
  *    manager.startTransaction(context)
  *    try:
  *        # Create the shot first, so we can then publish the clips to it
- *        shot_ref = manager.register([shot.name], [shot.attributes],
- *                                    [shot.spec], [entity_ref], context)[0]
+ *        shot_ref = manager.register([shot.name], [shot.spec],
+ *                                    [entity_ref], context)[0]
  *        # Register the clips to the shot's entity reference
  *        register_clips(shot.clips, shot_ref, context)
  *    except Exception as e:
@@ -82,8 +88,8 @@
  *    """
  *    with coordinator.scopedActionGroup(context):
  *        # Create the shot so we can publish
- *        shot_ref = manager.register([shot.name], [shot.attributes],
- *                                    [shot.spec], [entity_ref], context)[0]
+ *        shot_ref = manager.register([shot.name], [shot.spec],
+ *                                    [entity_ref], context)[0]
  *        # Register the clips to the shots entity reference
  *        register_clips(shot.clips, shot_ref, context)
  *
@@ -164,5 +170,4 @@
  * "preflight" or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register "register"
  * performed as part of a transaction must produce valid references that
  * can be used within the same transaction for subsequent registrations.
- * Any registered @ref attributes must also be queryable.
  */

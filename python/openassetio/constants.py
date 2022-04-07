@@ -80,7 +80,6 @@ kField_ItemType = 'fnItemType'
 # General
 
 kField_DisplayName = 'displayName'
-kField_Attributes = 'attributes'
 kField_SmallIcon = 'smallIcon'
 kField_Icon = 'icon'
 

@@ -60,8 +60,8 @@
  * mapped to a manager's internal classification mechanisms. Additional
  * data from the specification's key/value pairs is not persisted beyond
  * the lifetime of the related API calls in any literal form. If a host
- * wishes to persist any other information about an entity, use the @ref
- * attributes mechanism instead.
+ * wishes to persist any other information about an entity, use the
+ * @needsref attributes mechanism instead.
  *
  * @see @ref openassetio.Specification.Specification "Specification"
  *
@@ -149,7 +149,7 @@
  * Entities are generally more than just a file on disk, they have
  * additional data that defines their properties or interpretation.
  *
- * In its simplest form, OpenAssetIO's @ref attributes system can be used
+ * In its simplest form, OpenAssetIO's @needsref attributes system can be used
  * by a @ref host to store and retrieve additional data about an entity
  * from an @ref asset_management_system without the need for side-car
  * files.

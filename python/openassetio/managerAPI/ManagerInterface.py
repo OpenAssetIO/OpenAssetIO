@@ -322,8 +322,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         entity_reference list. This usually means that the host is about
         to make multiple queries to the same references.  This can be
         left unimplemented, but it is advisable to batch request the
-        data for resolveEntityReference, getEntityAttributes here if
-        possible.
+        data for resolveEntityReference here if possible.
 
         The implementation should ignore any entities to which no action
         is applicable (maybe as they don't exist yet).
@@ -623,8 +622,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # This suite of methods query information for a supplied @ref
     # entity_reference.
     #
-    # @see @ref attributes
-    #
     # @{
 
     @abc.abstractmethod
@@ -684,132 +681,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         reference is not recognised by the asset management system.
         """
         raise NotImplementedError
-
-    @abc.abstractmethod
-    def getEntityAttributes(self, entityRefs, context, hostSession):
-        """
-        Retrieve @ref attributes for each given entity.
-
-        It may be required to bridge between certain 'first-class'
-        properties of your asset management system and the well-known
-        OpenAssetIO attributes. For example, if the asset system
-        represents a 'Shot' with 'cutIn' and 'cutOut' properties or
-        accessors, these should be remapped to the
-        @ref openassetio.constants.kField_FrameIn and Out attributes as
-        appropriate.
-
-        @warning See @ref setEntityAttributes for important notes on
-        attributes and its role in the system.
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @return `List[Dict[str, primitive]]` Attributes for each entity.
-        Values must be singular plain-old-data types (ie. string,
-        int, float, bool), keys must be strings.
-        """
-        raise NotImplementedError
-
-    def setEntityAttributes(self, entityRefs, data, context, hostSession, merge=True):
-        """
-        Sets attributes on each given entity.
-
-        @note It is a vital that the implementation faithfully stores
-        and recalls attributes. It is the underlying mechanism by which
-        hosts may round-trip non file-based entities within this API.
-        Specific attribute names and value types should be maintained,
-        even if they are re-mapped to an internal name for persistence.
-
-        If any value is 'None' it should be assumed that that attribute
-        should be un-set on the object.
-
-        @param entityRefs List[str] Entity references to update.
-
-        @param data List[dict] The data for each supplied entity reference.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @param merge bool If true, then each entity's existing attributes
-        will be merged with the new data (the new data taking
-        precedence). If false, its attributes will entirely replaced by
-        the new data.
-
-        @exception ValueError if any of the attributes values are of an
-        un-storable type. Presently it is only required to store str,
-        float, int, bool
-        """
-        raise NotImplementedError
-
-    def getEntityAttribute(self, entityRefs, name, context, hostSession, defaultValue=None):
-        """
-        Retrieve the value of the given attribute for each given
-        entity.
-
-        The default implementation retrieves all attributes for each
-        entity and extracts the requested name.
-
-        @see @ref getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param name `str` The attribute to look up
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @param defaultValue `primitive` If not None, this value should
-        be returned in the case of the specified attribute not being
-        set for an entity.
-
-        @return `Union[primitive, KeyError]` The value for the specific
-        attribute, or `KeyError` if not found and no defaultValue is
-        supplied.
-        """
-        value = defaultValue
-        try:
-            value = self.getEntityAttributes(entityRefs, context, hostSession)[name]
-        except KeyError:
-            if defaultValue is None:
-                raise
-        return value
-
-    def setEntityAttribute(self, entityRefs, name, value, context, hostSession):
-        """
-        Sets a single attribute for each given entity.
-
-        @see getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to set
-        attributes for.
-
-        @param name `str` The attribute name to set.
-
-        @param value `primitive` The values to set for each referenced
-        entity.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-        """
-        self.setEntityAttributes(entityRefs, {name: value}, context, hostSession, merge=True)
 
     ## @}
 
@@ -1141,16 +1012,12 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # accompanied by with an spec, that details the file type, color space,
     # resolution etc...
     #
-    # @note The Specification should *not* be confused with @ref attributes.  The
-    # implementation must not directly store any information contained within the
-    # Specification, though it may be used to better define the type of entity.
-    # Hosts that wish to persist other properties of the published entity, will
-    # call @ref setEntityAttributes() directly instead, and as described in the
-    # attributes section, it is assumed that this is the channel for information
-    # that needs to persist.
+    # @note The implementation must not directly store any information
+    # contained within the Specification, though it may be used to
+    # better define the type of entity.
     #
     # For more on the relationship between Entities, Specifications and
-    # attributes, please see @ref entities_specifications_and_attributes
+    # traits, please see @ref entities_specifications_and_attributes
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -1267,9 +1134,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         A description of each entity (or 'asset') that is being
         published. It is *not* required for the implementation to
         store any information contained in the specification, though
-        it may choose to use it if it is meaningful. The host will
-        separately call setEntityAttributes() if it wishes to persist
-        any other information in an entity.
+        it may choose to use it if it is meaningful.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
