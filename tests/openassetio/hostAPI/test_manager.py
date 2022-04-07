@@ -26,7 +26,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import Context
+from openassetio import Context, Specification
 from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import Manager
 from openassetio.managerAPI import HostSession, ManagerInterface
@@ -193,7 +193,15 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return mock.DEFAULT
 
     def getRelatedReferences(
-            self, entityRefs, relationshipSpecs, context, hostSession, resultSpec=None):
+            self, entityRefs, relationshipSpecs, context, hostSession, resultTraitSet=None):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(relationshipSpecs, Specification)
+        self.__assertCallingContext(context, hostSession)
+        if resultTraitSet is not None:
+            assert isinstance(resultTraitSet, set)
+            self.__assertIsIterableOf(resultTraitSet, str)
+
+
         return mock.DEFAULT
 
     def register(self, primaryStrings, targetEntityRefs, entitySpecs, context, hostSession):
@@ -265,6 +273,12 @@ def an_entity_spec():
 @pytest.fixture
 def some_entity_specs():
     return [EntitySpecification(), EntitySpecification()]
+
+
+@pytest.fixture
+def an_entity_trait_set():
+    return {"blob", "lolcat"}
+
 
 @pytest.fixture
 def some_entity_trait_sets():
@@ -542,7 +556,8 @@ class Test_Manager_finalizedEntityVersion:
 class Test_Manager_getRelatedReferences:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec, a_context):
+            self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec,
+            an_entity_trait_set, a_context):
 
         # pylint: disable=too-many-locals
 
@@ -574,14 +589,16 @@ class Test_Manager_getRelatedReferences:
             assert manager.getRelatedReferences(
                 refs_arg, specs_arg, a_context) == method.return_value
             method.assert_called_once_with(
-                expected_refs_arg, expected_specs_arg, a_context, host_session, resultSpec=None)
+                expected_refs_arg, expected_specs_arg, a_context, host_session,
+                resultTraitSet=None)
             method.reset_mock()
 
-        # Check optional resultSpec
+        # Check optional resultTraitSet
         assert manager.getRelatedReferences(
-            one_ref, one_spec, a_context, resultSpec=an_entity_spec) == method.return_value
+            one_ref, one_spec, a_context, resultTraitSet=an_entity_trait_set) \
+                    == method.return_value
         method.assert_called_once_with(
-            [one_ref], [one_spec], a_context, host_session, resultSpec=an_entity_spec)
+            [one_ref], [one_spec], a_context, host_session, resultTraitSet=an_entity_trait_set)
 
 
 class Test_Manager_resolveEntityReference:
