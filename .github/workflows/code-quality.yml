@@ -35,16 +35,6 @@ jobs:
           #     https://github.com/PyCQA/pylint/issues/214
           pylint-ignore-paths: "tests/openassetio/pluginSystem/resources/symlinkPath"
 
-  clang-format:
-    name: ClangFormat
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run clang-format style check for C/C++.
-        run: >
-          find src -type f -regextype posix-extended -regex '.*(\.hpp|\.cpp|\.h|\.c)$' |
-          xargs clang-format --Werror --dry-run --style=file
-
   cpp-linters:
     name: C++ linters
     runs-on: ubuntu-20.04
@@ -71,6 +61,7 @@ jobs:
           --toolchain $HOME/conan/conan_paths.cmake
           -DCMAKE_CXX_STANDARD=17
           -DOPENASSETIO_WARNINGS_AS_ERRORS=ON
+          -DOPENASSETIO_ENABLE_CLANG_FORMAT=ON 
           -DOPENASSETIO_ENABLE_CLANG_TIDY=ON
           -DOPENASSETIO_ENABLE_CPPLINT=ON 
 

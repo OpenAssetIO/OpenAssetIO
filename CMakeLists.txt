@@ -172,6 +172,9 @@ endif ()
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
 
+# Enable clang-format formatting check.
+option(OPENASSETIO_ENABLE_CLANG_FORMAT "Enable clang-format check during build" OFF)
+
 # Enable clang-tidy static analysis tool.
 option(OPENASSETIO_ENABLE_CLANG_TIDY "Enable clang-tidy analysis during build" OFF)
 
@@ -204,13 +207,16 @@ if (OPENASSETIO_ENABLE_TESTS)
     # Linux) is used, so we must shell out the install.
     add_custom_target(openassetio-install
         COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
-endif()
+endif ()
 
 
 #-----------------------------------------------------------------------
 # Enable CMake's built-in linter/static analyzer support.
 
 include(StaticAnalyzers)
+if (OPENASSETIO_ENABLE_CLANG_FORMAT)
+    enable_clang_format()
+endif ()
 if (OPENASSETIO_ENABLE_CLANG_TIDY)
     enable_clang_tidy()
 endif ()
@@ -300,6 +306,6 @@ message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}"
 
 add_subdirectory(src)
 
-if(OPENASSETIO_BUILD_PERFTEST)
+if (OPENASSETIO_BUILD_PERFTEST)
     add_subdirectory(resources/perftest)
-endif()
+endif ()
