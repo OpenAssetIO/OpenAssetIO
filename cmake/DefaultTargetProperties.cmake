@@ -206,11 +206,11 @@ function(set_default_target_properties target_name)
 
     if (TARGET openassetio-cpplint)
         add_dependencies(${target_name} openassetio-cpplint)
-    endif()
+    endif ()
 
     if (TARGET openassetio-clangformat)
         add_dependencies(${target_name} openassetio-clangformat)
-    endif()
+    endif ()
 
 
     #-------------------------------------------------------------------

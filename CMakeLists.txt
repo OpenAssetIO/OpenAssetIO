@@ -207,7 +207,7 @@ if (OPENASSETIO_ENABLE_TESTS)
     # Linux) is used, so we must shell out the install.
     add_custom_target(openassetio-install
         COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
-endif()
+endif ()
 
 
 #-----------------------------------------------------------------------
@@ -306,6 +306,6 @@ message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}"
 
 add_subdirectory(src)
 
-if(OPENASSETIO_BUILD_PERFTEST)
+if (OPENASSETIO_BUILD_PERFTEST)
     add_subdirectory(resources/perftest)
-endif()
+endif ()
