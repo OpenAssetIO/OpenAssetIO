@@ -126,13 +126,13 @@ The Academy Software Foundation maintains a set of VFX Reference
 Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
 
 The CY22 image contains all dependencies currently required for building
-OpenAssetIO. For example, to build and run the tests via a container, 
-from the repository root run
-
+OpenAssetIO. For example, to build and install the C/C++ component of
+OpenAssetIO (by default  to a `dist` directory in the repository root)
+via a container, from the repository root run
 ```shell
 docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
-  cd /src && cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON &&\
-  cd build && ctest -VV'
+  cd /src && \
+  cmake -S . -B build && cmake --build build && cmake --install build'
 ```
 
 #### Other build methods
