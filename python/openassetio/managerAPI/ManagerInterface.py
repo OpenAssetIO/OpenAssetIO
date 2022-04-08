@@ -1039,7 +1039,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     #
     # @{
 
-    def preflight(self, targetEntityRefs, entitySpecs, context, hostSession):
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
         """
         Prepares for some work to be done to create data for the
         referenced entity. The entity may not yet exist (@ref
@@ -1056,9 +1056,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         data to. See the notes in the API documentation for the
         specifics of this.
 
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        A description of each entity that is being published.
+        @param traitSet `Set(str)` The @needsref traitSet of the
+        entities that are being published.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
