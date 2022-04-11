@@ -37,3 +37,27 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     }
   }
 }
+
+SCENARIO("Creating and querying a C API immutable ConstStringView") {
+  GIVEN("A char buffer storing a string") {
+    openassetio::Str expectedStr;
+    expectedStr = "some string";
+
+    WHEN("a ConstStringView is constructed wrapping the buffer") {
+      OPENASSETIO_NS(ConstStringView) actualStringView{expectedStr.data(), expectedStr.size()};
+
+      THEN("ConstStringView can be interrogated to reveal the values at construction") {
+        CHECK(actualStringView.size == expectedStr.size());
+        CHECK(actualStringView.data == expectedStr.data());
+        CHECK(actualStringView == expectedStr);
+      }
+
+      THEN("string cannot be modified through the ConstStringView") {
+        STATIC_REQUIRE(std::is_const_v<decltype(actualStringView.data)>);
+        STATIC_REQUIRE(
+            std::is_const_v<std::remove_reference_t<decltype(actualStringView.data[0])>>);
+        STATIC_REQUIRE(std::is_const_v<decltype(actualStringView.size)>);
+      }
+    }
+  }
+}

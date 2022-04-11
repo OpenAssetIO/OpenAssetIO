@@ -15,6 +15,35 @@ extern "C" {
  */
 
 /**
+ * Immutable string view struct.
+ *
+ * This type presents an immutable view on a pre-existing character
+ * buffer.
+ *
+ * It is important that the underlying buffer is treated as opaque and
+ * not written to after the `ConstStringView` has been constructed.
+ *
+ * The underlying buffer is expected to remain valid for at least as
+ * long as the `ConstStringView` is in use.
+ *
+ * Since the struct stores the used size, null-termination is not
+ * required, facilitating a wider range of string sources (e.g. from
+ * non-C based languages). This also avoids the need to re-measure the
+ * string's size as it is passed around.
+ *
+ * @warning Since null-termination cannot be assumed, it is unsafe to
+ * use the `data` member directly where a null-terminated string is
+ * expected.
+ */
+// NOLINTNEXTLINE(modernize-use-using)
+typedef struct {
+  /// Immutable buffer storing the string data.
+  const char* const data;
+  /// Number of bytes used for string storage in the buffer.
+  const size_t size;
+} OPENASSETIO_NS(ConstStringView);
+
+/**
  * Mutable string view struct useful for out-parameters.
  *
  * This type presents a mutable view on a pre-existing character buffer.
