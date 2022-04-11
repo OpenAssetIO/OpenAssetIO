@@ -23,13 +23,13 @@ Str CManagerInterface::identifier() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  OPENASSETIO_NS(SimpleString)
+  OPENASSETIO_NS(StringView)
   errorMessage{kStringBufferSize, errorMessageBuffer, 0};
 
   // Return value string buffer.
   char outBuffer[kStringBufferSize];
   // Return value.
-  OPENASSETIO_NS(SimpleString) out{kStringBufferSize, outBuffer, 0};
+  OPENASSETIO_NS(StringView) out{kStringBufferSize, outBuffer, 0};
 
   // Execute corresponding suite function.
   const int errorCode = suite_.identifier(&errorMessage, &out, handle_);
@@ -44,13 +44,13 @@ Str CManagerInterface::displayName() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  OPENASSETIO_NS(SimpleString)
+  OPENASSETIO_NS(StringView)
   errorMessage{kStringBufferSize, errorMessageBuffer, 0};
 
   // Return value string buffer.
   char outBuffer[kStringBufferSize];
   // Return value.
-  OPENASSETIO_NS(SimpleString) out{kStringBufferSize, outBuffer, 0};
+  OPENASSETIO_NS(StringView) out{kStringBufferSize, outBuffer, 0};
 
   // Execute corresponding suite function.
   const int errorCode = suite_.displayName(&errorMessage, &out, handle_);

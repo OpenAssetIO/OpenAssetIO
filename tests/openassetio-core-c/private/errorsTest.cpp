@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
-#include <openassetio/c/SimpleString.h>
+#include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/namespace.h>
 
@@ -15,7 +15,7 @@ SCENARIO("throwIfError error code/message handling") {
 
     WHEN("throwIfError is called") {
       THEN("no exception is thrown") {
-        openassetio::throwIfError(code, OPENASSETIO_NS(SimpleString){});
+        openassetio::throwIfError(code, OPENASSETIO_NS(StringView){});
       }
     }
   }
@@ -24,7 +24,7 @@ SCENARIO("throwIfError error code/message handling") {
     const int code = 123;
     openassetio::Str message = "some error";
 
-    OPENASSETIO_NS(SimpleString)
+    OPENASSETIO_NS(StringView)
     cmessage{
         message.size(),
         message.data(),

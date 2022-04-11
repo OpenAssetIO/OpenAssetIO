@@ -19,10 +19,10 @@ constexpr size_t kStringBufferSize = 500;
 struct MockCAPI {
   MAKE_MOCK1(dtor, void(OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 
-  MAKE_MOCK3(identifier, int(OPENASSETIO_NS(SimpleString) *, OPENASSETIO_NS(SimpleString) *,
+  MAKE_MOCK3(identifier, int(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
                              OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 
-  MAKE_MOCK3(displayName, int(OPENASSETIO_NS(SimpleString) *, OPENASSETIO_NS(SimpleString) *,
+  MAKE_MOCK3(displayName, int(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
                               OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 };
 
@@ -37,13 +37,13 @@ OPENASSETIO_NS(managerAPI_ManagerInterface_s) getSuite() {
             api->dtor(h);
           },
           // identifier
-          [](OPENASSETIO_NS(SimpleString) * err, OPENASSETIO_NS(SimpleString) * out,
+          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
             auto *api = reinterpret_cast<MockCAPI *>(h);
             return api->identifier(err, out, h);
           },
           // displayName
-          [](OPENASSETIO_NS(SimpleString) * err, OPENASSETIO_NS(SimpleString) * out,
+          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
             auto *api = reinterpret_cast<MockCAPI *>(h);
             return api->displayName(err, out, h);
@@ -90,7 +90,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
       REQUIRE_CALL(capi, identifier(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_2->maxSize == kStringBufferSize)
-          // Update SimpleString out-parameter.
+          // Update StringView out-parameter.
           .LR_SIDE_EFFECT(
               strncpy(_2->buffer, expectedIdentifier.data(), expectedIdentifier.size()))
           .LR_SIDE_EFFECT(_2->usedSize = expectedIdentifier.size())
@@ -118,7 +118,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
       REQUIRE_CALL(capi, identifier(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_1->maxSize == kStringBufferSize)
-          // Update SimpleString error message out-parameter.
+          // Update StringView error message out-parameter.
           .LR_SIDE_EFFECT(strncpy(_1->buffer, expectedErrorMsg.data(), expectedErrorMsg.size()))
           .LR_SIDE_EFFECT(_1->usedSize = expectedErrorMsg.size())
           // Return OK code.
@@ -157,7 +157,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
       REQUIRE_CALL(capi, displayName(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_2->maxSize == kStringBufferSize)
-          // Update SimpleString out-parameter.
+          // Update StringView out-parameter.
           .LR_SIDE_EFFECT(
               strncpy(_2->buffer, expectedDisplayName.data(), expectedDisplayName.size()))
           .LR_SIDE_EFFECT(_2->usedSize = expectedDisplayName.size())
@@ -185,7 +185,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
       REQUIRE_CALL(capi, displayName(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_1->maxSize == kStringBufferSize)
-          // Update SimpleString error message out-parameter.
+          // Update StringView error message out-parameter.
           .LR_SIDE_EFFECT(strncpy(_1->buffer, expectedErrorMsg.data(), expectedErrorMsg.size()))
           .LR_SIDE_EFFECT(_1->usedSize = expectedErrorMsg.size())
           // Return OK code.

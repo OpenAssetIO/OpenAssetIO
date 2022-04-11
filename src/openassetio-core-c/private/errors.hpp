@@ -17,8 +17,7 @@ inline namespace OPENASSETIO_VERSION {
  * @param code Error code.
  * @param msg Error message to bundle in exception.
  */
-inline void throwIfError(const int code,
-                         [[maybe_unused]] const OPENASSETIO_NS(SimpleString) & msg) {
+inline void throwIfError(const int code, [[maybe_unused]] const OPENASSETIO_NS(StringView) & msg) {
   if (code != 0) {
     Str errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
