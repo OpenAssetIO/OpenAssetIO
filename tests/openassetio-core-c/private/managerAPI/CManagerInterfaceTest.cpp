@@ -9,6 +9,7 @@
 // private headers
 #include <managerAPI/CManagerInterface.hpp>
 
+namespace {
 // Duplicated from CManagerInterface.
 constexpr size_t kStringBufferSize = 500;
 
@@ -49,6 +50,7 @@ OPENASSETIO_NS(managerAPI_ManagerInterface_s) getSuite() {
             return api->displayName(err, out, h);
           }};
 }
+}  // namespace
 
 SCENARIO("A CManagerInterface is destroyed") {
   GIVEN("An opaque handle and function suite") {
