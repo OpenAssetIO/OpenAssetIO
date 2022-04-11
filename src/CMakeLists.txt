@@ -8,6 +8,13 @@ include(DefaultTargetProperties)
 
 add_subdirectory(openassetio-core)
 
+#-----------------------------------------------------------------------
+# Core C bindings library
+
+if (OPENASSETIO_ENABLE_C)
+    add_subdirectory(openassetio-core-c)
+endif ()
+
 
 #-----------------------------------------------------------------------
 # Python bindings

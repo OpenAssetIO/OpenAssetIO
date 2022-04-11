@@ -17,7 +17,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install pylint==2.12.2
-          python -m pip install -r tests/requirements.txt
+          python -m pip install -r tests/python/requirements.txt
 
       - name: Build
         run: |
@@ -28,12 +28,12 @@ jobs:
         with:
           pylint-disable: fixme  # We track 'todo's through other means
           pylint-rcfile: "./pyproject.toml"
-          pylint-paths: "python/openassetio tests"
+          pylint-paths: "python/openassetio tests/python"
           # Presently it's not possible to disable the `duplicate-code`
           # check for specific files, so it thinks that the symlink is
           # duplicated implementation. See:
           #     https://github.com/PyCQA/pylint/issues/214
-          pylint-ignore-paths: "tests/openassetio/pluginSystem/resources/symlinkPath"
+          pylint-ignore-paths: "tests/python/openassetio/pluginSystem/resources/symlinkPath"
 
   cpp-linters:
     name: C++ linters

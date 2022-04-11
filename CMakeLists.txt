@@ -121,6 +121,10 @@ if (OPENASSETIO_ENABLE_PYTHON)
         "Override default Python module install directory, relative to CMAKE_INSTALL_PREFIX")
 endif ()
 
+# Enable C bindings, built as a separate library that depends on the
+# core C++ library.
+option(OPENASSETIO_ENABLE_C "Build C bindings" ON)
+
 # Default treating compiler warnings as errors to OFF, since
 # consumers of this project may use unpredictable toolchains.
 # For dev/CI we should remember to switch this ON, though!
@@ -305,6 +309,10 @@ message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}"
 # Recurse to library targets
 
 add_subdirectory(src)
+
+if (OPENASSETIO_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif ()
 
 if (OPENASSETIO_BUILD_PERFTEST)
     add_subdirectory(resources/perftest)

@@ -117,10 +117,10 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         OUTPUT "${test_deps_downloaded}"
         COMMAND
         "${installed_pip}" "download" "--destination-directory" "${test_deps_dir}"
-            "-r" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+            "-r" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
         COMMAND
         cmake -E touch "${test_deps_downloaded}"
-        DEPENDS "${installed_pip}" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+        DEPENDS "${installed_pip}" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
     )
 
     # One-time step to download project-specific dependencies
@@ -144,7 +144,7 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
         COMMAND
         "${installed_pip}" "install" "--no-index"
             "--find-links" "${test_deps_dir}"
-            "-r" "${PROJECT_SOURCE_DIR}/tests/requirements.txt"
+            "-r" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
         DEPENDS "${test_deps_downloaded}"
     )
 
@@ -196,7 +196,7 @@ if (OPENASSETIO_ENABLE_TESTS AND Python_Interpreter_FOUND)
     # for debugging regardless).
     add_custom_target(
         openassetio-python-pytest
-        COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s tests resources
+        COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s tests/python resources
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
         DEPENDS "${venv_python_dir}/pytest"
         USES_TERMINAL
