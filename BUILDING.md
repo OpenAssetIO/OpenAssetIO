@@ -115,7 +115,7 @@ repository root (the default)
 ```shell
 source dist/bin/activate
 pip install .
-pip install -r tests/requirements.txt
+pip install -r tests/python/requirements.txt
 ```
 
 We can now run the Python tests via `pytest`
@@ -157,8 +157,8 @@ cmake --install build
 cmake --build build --target openassetio-python-venv
 source dist/bin/activate
 pip install ./openassetio
-pip install -r openassetio/tests/requirements.txt
-pytest openassetio/tests
+pip install -r openassetio/tests/python/requirements.txt
+pytest openassetio/tests/python
 ```
 or alternatively, simply
 
