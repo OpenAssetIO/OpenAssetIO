@@ -20,7 +20,7 @@ BasicAssetLibrary manager behaves with the correct business logic.
 
 # pylint: disable=invalid-name, missing-function-docstring
 
-from openassetio import constants, Context, SpecificationFactory
+from openassetio import constants, Context
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
