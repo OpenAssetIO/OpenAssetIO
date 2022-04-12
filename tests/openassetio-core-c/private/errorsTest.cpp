@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
-#include <catch2/catch.hpp>
-
 #include <openassetio/c/SimpleString.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/namespace.h>
+
+#include <catch2/catch.hpp>
+
 // private headers
 #include <errors.hpp>
 
