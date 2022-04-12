@@ -43,11 +43,11 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context = self.createTestContext(access=Context.kRead)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
-            assert policy & constants.kManaged
-            assert policy & constants.kExclusive != constants.kExclusive
+            self.assertEqual(policy & constants.kManaged, constants.kManaged)
+            self.assertNotEqual(policy & constants.kExclusive, constants.kExclusive)
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kWrite)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
-            assert policy == constants.kIgnored
+            self.assertEqual(policy, constants.kIgnored)

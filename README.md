@@ -143,6 +143,7 @@ For detailed instructions see [BUILDING](BUILDING.md).
 ## Getting involved
 
 - See the [contribution guide](contributing/PROCESS.md)
+- Join our [working group](https://github.com/TheFoundryVisionmongers/OpenAssetIO-WG) meetings
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
