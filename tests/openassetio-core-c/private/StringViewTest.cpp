@@ -9,6 +9,8 @@
 
 #include <openassetio/typedefs.hpp>
 
+#include "StringViewReporting.hpp"
+
 SCENARIO("Creating, modifying and querying a C API mutable StringView") {
   GIVEN("A populated C++ string") {
     openassetio::Str expectedStr = "some string";
@@ -20,7 +22,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
       THEN("StringView can be interrogated to reveal the values at construction") {
         CHECK(actualStringView.capacity == expectedStr.size());
         CHECK(actualStringView.size == expectedStr.size());
-        CHECK(std::string_view{actualStringView.data, actualStringView.size} == expectedStr);
+        CHECK(actualStringView == expectedStr);
       }
 
       AND_WHEN("string is modified through the StringView") {
@@ -30,9 +32,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
 
         THEN("storage has been updated") { CHECK(expectedStr == "s0me string"); }
 
-        THEN("view has been updated") {
-          CHECK(std::string_view{actualStringView.data, actualStringView.size} == "s0me");
-        }
+        THEN("view has been updated") { CHECK(actualStringView == "s0me"); }
       }
     }
   }
