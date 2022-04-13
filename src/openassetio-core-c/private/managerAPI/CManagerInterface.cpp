@@ -35,7 +35,7 @@ Str CManagerInterface::identifier() const {
   const int errorCode = suite_.identifier(&errorMessage, &out, handle_);
 
   // Convert error code/message to exception.
-  throwIfError(errorCode, errorMessage);
+  errors::throwIfError(errorCode, errorMessage);
 
   return {out.data, out.size};
 }
@@ -56,7 +56,7 @@ Str CManagerInterface::displayName() const {
   const int errorCode = suite_.displayName(&errorMessage, &out, handle_);
 
   // Convert error code/message to exception.
-  throwIfError(errorCode, errorMessage);
+  errors::throwIfError(errorCode, errorMessage);
 
   return {out.data, out.size};
 }
