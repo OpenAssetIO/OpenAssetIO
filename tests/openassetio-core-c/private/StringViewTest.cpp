@@ -9,13 +9,16 @@
 
 #include <openassetio/typedefs.hpp>
 
+// Private headers
+#include <StringView.hpp>
+
 #include "StringViewReporting.hpp"
 
 SCENARIO("Creating, modifying and querying a C API mutable StringView") {
   GIVEN("A populated C++ string") {
     openassetio::Str expectedStr = "some string";
 
-    WHEN("a StringView is constructed wrapping the buffer") {
+    WHEN("a StringView is constructed wrapping the C++ string") {
       OPENASSETIO_NS(StringView)
       actualStringView{expectedStr.size(), expectedStr.data(), expectedStr.size()};
 
@@ -33,6 +36,49 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
         THEN("storage has been updated") { CHECK(expectedStr == "s0me string"); }
 
         THEN("view has been updated") { CHECK(actualStringView == "s0me"); }
+      }
+    }
+
+    AND_GIVEN("a StringView wrapping a buffer with sufficient capacity for C++ string") {
+      openassetio::Str storage(expectedStr.size(), '\0');
+
+      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+
+      WHEN("assignStringView is used to copy the C++ string to the StringView") {
+        openassetio::assignStringView(&actualStringView, expectedStr);
+
+        THEN("Source string was copied to StringView") {
+          CHECK(actualStringView == expectedStr);
+          CHECK(actualStringView.data != expectedStr.data());
+        }
+      }
+    }
+
+    AND_GIVEN("a StringView wrapping a buffer with insufficient capacity for C++ string") {
+      openassetio::Str storage(3, '\0');
+
+      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+
+      WHEN("assignStringView is used to copy the C++ string to the StringView") {
+        openassetio::assignStringView(&actualStringView, expectedStr);
+
+        THEN("StringView matches truncated string") { CHECK(actualStringView == "som"); }
+      }
+    }
+  }
+
+  GIVEN("A C string literal") {
+    constexpr const char* kExpectedStr = "some string";
+
+    AND_GIVEN("a StringView wrapping a buffer with sufficient capacity") {
+      openassetio::Str storage(std::string_view(kExpectedStr).size(), '\0');
+
+      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+
+      WHEN("assignStringView is used to copy the string literal to the StringView") {
+        openassetio::assignStringView(&actualStringView, kExpectedStr);
+
+        THEN("StringView matches source string") { CHECK(actualStringView == kExpectedStr); }
       }
     }
   }
