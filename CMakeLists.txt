@@ -304,6 +304,7 @@ if (IS_GCC_OR_CLANG)
 endif ()
 message(STATUS "Linter: clang-tidy              = ${OPENASSETIO_ENABLE_CLANG_TIDY}")
 message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}")
+message(STATUS "Linter: clang-format            = ${OPENASSETIO_ENABLE_CLANG_FORMAT}")
 
 #-----------------------------------------------------------------------
 # Recurse to library targets
