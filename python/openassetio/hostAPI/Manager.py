@@ -923,7 +923,7 @@ class Manager(Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def preflight(self, targetEntityRefs, entitySpecs, context):
+    def preflight(self, targetEntityRefs, traitSet, context):
         """
         @note This call is only applicable when the manager you are
         communicating with sets the constants.kWillManagePath bit in
@@ -966,9 +966,8 @@ class Manager(Debuggable):
         @param targetEntityRefs `List[str]` The entity references to
         preflight prior to registration.
 
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        A description of each entity that is being published.
+        @param traitSet `Set[str]` The @needsref traitSet of the
+        entites that are being published.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
@@ -989,15 +988,12 @@ class Manager(Debuggable):
         means the host should retry from the beginning of any given
         process.
 
-        @exception `IndexError` If `targetEntityRefs` and `entitySpecs`
+        @exception `IndexError` If `targetEntityRefs` and `traitSets`
         are not lists of the same length.
 
         @see @ref register
         """
-        if len(targetEntityRefs) != len(entitySpecs):
-            raise IndexError("Parameter lists must be of the same length")
-
-        return self.__impl.preflight(targetEntityRefs, entitySpecs, context, self.__hostSession)
+        return self.__impl.preflight(targetEntityRefs, traitSet, context, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")

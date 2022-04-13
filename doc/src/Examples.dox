@@ -183,7 +183,7 @@
  * # Whenever we make new data, we always tell the manager first,
  * # This allows it to create a placeholder version or similar.
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight([entity_ref], [file_spec], context)[0]
+ * working_ref = manager.preflight([entity_ref], file_spec.traitIds(), context)[0]
  *
  * # We then check if the manager can tell us where to save the file
  * if policy & constants.kWillManagePath:
@@ -228,7 +228,7 @@
  * # Preflight the thumbnail spec with the target entity's reference,
  * # this gives us a reference we can now use for all interactions
  * # relating to the thumbnail itself.
- * thumbnail_ref = manager.preflight([final_ref], [thumbnail_spec], context)[0]
+ * thumbnail_ref = manager.preflight([final_ref], thumbnail_spec.traitIds(), context)[0]
  *
  * thumbnail_path = os.path.join(os.path.expanduser('~'), 'greeting.preview.png')
  * thumbnail_attr = {"width": 128, "height": 128}

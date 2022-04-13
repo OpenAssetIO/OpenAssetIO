@@ -29,8 +29,8 @@
  * "managementPolicy" for any given set of entity @needsref traits.
  *
  * If supported by the host, it will then:
- * - Call @ref preflight with the target entity and a @needsref
- * ThumbnailSpecification that describes supported formats.
+ * - Call @ref preflight with the target entity and the traits from the
+ *   @needsref ThumbnailSpecification.
  * - Call @needsref resolve on the returned reference to determine the
  *   desired width/height/format for the thumbnail.
  * - Generate a thumbnail and @ref register it to the same reference.

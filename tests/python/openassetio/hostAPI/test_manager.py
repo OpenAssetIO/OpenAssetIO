@@ -96,11 +96,10 @@ class ValidatingMockManagerInterface(ManagerInterface):
             self, entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True):
         return mock.DEFAULT
 
-    def preflight(self, targetEntityRefs, entitySpecs, context, hostSession):
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
         self.__assertIsIterableOf(targetEntityRefs, str)
-        self.__assertIsIterableOf(entitySpecs, EntitySpecification)
+        self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
-        assert len(targetEntityRefs) == len(entitySpecs)
         return mock.DEFAULT
 
     def createState(self, hostSession, parentState=None):
@@ -537,19 +536,13 @@ class Test_Manager_managentPolicy:
 class Test_Manager_preflight:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
+            self, manager, mock_manager_interface, host_session, some_refs, an_entity_trait_set,
             a_context):
 
         method = mock_manager_interface.preflight
-        assert manager.preflight(some_refs, some_entity_specs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, some_entity_specs, a_context, host_session)
-
-
-    def test_when_called_with_mismatched_array_lengths_then_IndexError_is_raised(
-            self, manager, some_refs, some_entity_specs, a_context):
-
-        with pytest.raises(IndexError):
-            manager.preflight(some_refs, some_entity_specs[1:], a_context)
+        assert manager.preflight(some_refs, an_entity_trait_set, a_context) \
+                == method.return_value
+        method.assert_called_once_with(some_refs, an_entity_trait_set, a_context, host_session)
 
 
 class Test_Manager_register:
