@@ -10,15 +10,23 @@
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/typedefs.hpp>
 
+// Private headers.
+#include <handles.hpp>
+
 #include "StringViewReporting.hpp"
+
+namespace {
+using HandleConverter =
+    openassetio::handles::Converter<openassetio::InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
+}
 
 SCENARIO("InfoDictionary deallocated via C API") {
   GIVEN("a heap-allocated C++ InfoDictionary and its C handle and function suite") {
-    auto* infoDictionary = new openassetio::InfoDictionary{};
-
-    // Convert InfoDictionary to opaque handle.
-    auto* const infoDictionaryHandle =
-        reinterpret_cast<OPENASSETIO_NS(InfoDictionary_h)>(infoDictionary);
+    // Convert a dynamically allocated InfoDictionary to an opaque handle.
+    // Note that this models the ownership semantic of "owned by
+    // client", so the client is expected to call `dtor` when done.
+    OPENASSETIO_NS(InfoDictionary_h)
+    infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
 
     // InfoDictionary function pointer suite
     const auto suite = OPENASSETIO_NS(InfoDictionary_suite)();
@@ -49,8 +57,12 @@ struct InfoDictionaryFixture {
   openassetio::InfoDictionary infoDictionary_{
       {"aBool", kBoolValue}, {"anInt", kIntValue}, {"aFloat", kFloatValue}, {"aStr", kStrValue}};
 
+  // Note that this models the ownership semantic of "owned by service",
+  // i.e. the C client should not call `dtor` to destroy the instance.
+  // We do not expect this to be the norm for InfoDictionary, it's just
+  // convenient for these tests.
   OPENASSETIO_NS(InfoDictionary_h)
-  infoDictionaryHandle_ = reinterpret_cast<OPENASSETIO_NS(InfoDictionary_h)>(&infoDictionary_);
+  infoDictionaryHandle_ = HandleConverter::toHandle(&infoDictionary_);
 
   OPENASSETIO_NS(InfoDictionary_s) suite_ = OPENASSETIO_NS(InfoDictionary_suite)();
 };
