@@ -35,24 +35,26 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
     const OPENASSETIO_NS(ConstStringView) key) {
   const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
 
-  // TODO(DF): @exception messages.
-  try {
-    *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
-  } catch (const std::out_of_range &exc) {
-    // Default exception message:
-    // VS 2019: "invalid unordered_map<K, T> key"
-    // GCC 9: "_Map_base::at"
-    openassetio::assignStringView(err, "Invalid key");
-    return OPENASSETIO_NS(ErrorCode_kOutOfRange);
-  } catch (const std::bad_variant_access &exc) {
-    // Default exception message:
-    // VS 2019: "bad variant access"
-    // GCC 9: "Unexpected index"
-    openassetio::assignStringView(err, "Invalid value type");
-    return OPENASSETIO_NS(ErrorCode_kBadVariantAccess);
-  }
+  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
+    // TODO(DF): @exception messages.
+    try {
+      *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
+    } catch (const std::out_of_range &exc) {
+      // Default exception message:
+      // VS 2019: "invalid unordered_map<K, T> key"
+      // GCC 9: "_Map_base::at"
+      openassetio::assignStringView(err, "Invalid key");
+      return OPENASSETIO_NS(ErrorCode_kOutOfRange);
+    } catch (const std::bad_variant_access &exc) {
+      // Default exception message:
+      // VS 2019: "bad variant access"
+      // GCC 9: "Unexpected index"
+      openassetio::assignStringView(err, "Invalid value type");
+      return OPENASSETIO_NS(ErrorCode_kBadVariantAccess);
+    }
 
-  return OPENASSETIO_NS(ErrorCode_kOK);
+    return OPENASSETIO_NS(ErrorCode_kOK);
+  });
 }
 }  // namespace
 

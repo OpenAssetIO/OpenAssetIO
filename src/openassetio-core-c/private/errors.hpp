@@ -47,6 +47,30 @@ template <class Exception>
 void extractExceptionMessage(OPENASSETIO_NS(StringView) * err, const Exception &exc) {
   openassetio::assignStringView(err, exc.what());
 }
+
+/**
+ * Wrap a callable such that all exceptions are caught and converted to
+ * an error code.
+ *
+ * This is intended as a fallback for unhandled exceptions.
+ *
+ * @tparam Fn Type of callable to wrap.
+ * @param err Storage for error message, if any.
+ * @param fn Callable to wrap.
+ * @return Error code.
+ */
+template <typename Fn>
+auto catchUnknownExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
+  try {
+    return fn();
+  } catch (std::exception &exc) {
+    extractExceptionMessage(err, exc);
+    return OPENASSETIO_NS(ErrorCode_kException);
+  } catch (...) {
+    assignStringView(err, "Unknown non-exception object thrown");
+    return OPENASSETIO_NS(ErrorCode_kUnknown);
+  }
+}
 }  // namespace errors
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

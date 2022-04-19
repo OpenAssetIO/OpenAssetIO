@@ -67,3 +67,60 @@ SCENARIO("Using extractExceptionMessage to copy a C++ exception message to a C S
     }
   }
 }
+
+SCENARIO("Decorating an exception-throwing C++ function to instead return an error code") {
+  using openassetio::errors::catchUnknownExceptionAsCode;
+
+  // Error message storage.
+  constexpr std::size_t kErrorStorageSize = 100;
+  openassetio::Str storage(kErrorStorageSize, '\0');
+  OPENASSETIO_NS(StringView) actualErrorMessage{storage.size(), storage.data(), 0};
+
+  GIVEN("A callable that doesn't throw") {
+    auto const callable = [&] { return OPENASSETIO_NS(ErrorCode_kOK); };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualErrorMessage == "");
+      }
+    }
+  }
+
+  GIVEN("A callable that throws an exception") {
+    const openassetio::Str expectedErrorMessage = "some error";
+
+    auto const callable = [&]() -> OPENASSETIO_NS(ErrorCode) {
+      throw std::length_error{expectedErrorMessage};
+    };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kException));
+        CHECK(actualErrorMessage == expectedErrorMessage);
+      }
+    }
+  }
+
+  GIVEN("A callable that throws a non-exception") {
+    const openassetio::Str expectedErrorMessage = "Unknown non-exception object thrown";
+
+    auto const callable = [&]() -> OPENASSETIO_NS(ErrorCode) { throw "some error"; };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kUnknown));
+        CHECK(actualErrorMessage == expectedErrorMessage);
+      }
+    }
+  }
+}

@@ -16,8 +16,10 @@ extern "C" {
 typedef enum {
   /// Error code indicating an OK result from a C API function.
   OPENASSETIO_NS(ErrorCode_kOK) = 0,
-  /// Error code representing a generic C++ exception.
+  /// Error code representing a generic non-exception type thrown.
   OPENASSETIO_NS(ErrorCode_kUnknown),
+  /// Error code representing a generic C++ exception.
+  OPENASSETIO_NS(ErrorCode_kException),
   /// Error code representing a C++ std::bad_variant_access exception.
   OPENASSETIO_NS(ErrorCode_kBadVariantAccess),
   /// Error code representing a C++ std::out_of_range exception.
