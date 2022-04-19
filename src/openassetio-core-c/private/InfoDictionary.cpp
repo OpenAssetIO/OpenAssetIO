@@ -15,6 +15,7 @@
 namespace {
 
 using openassetio::InfoDictionary;
+namespace errors = openassetio::errors;
 using HandleConverter =
     openassetio::handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
 
@@ -35,7 +36,7 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
     const OPENASSETIO_NS(ConstStringView) key) {
   const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
 
-  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
+  return errors::catchUnknownExceptionAsCode(err, [&] {
     // TODO(DF): @exception messages.
     try {
       *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
@@ -62,6 +63,13 @@ extern "C" {
 
 OPENASSETIO_NS(InfoDictionary_s) OPENASSETIO_NS(InfoDictionary_suite)() {
   return {
+      // ctor
+      [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) * out) {
+        return errors::catchUnknownExceptionAsCode(err, [&] {
+          *out = HandleConverter::toHandle(new InfoDictionary{});
+          return OPENASSETIO_NS(ErrorCode_kOK);
+        });
+      },
       // dtor
       [](OPENASSETIO_NS(InfoDictionary_h) handle) { delete HandleConverter::toInstance(handle); },
       // getBool

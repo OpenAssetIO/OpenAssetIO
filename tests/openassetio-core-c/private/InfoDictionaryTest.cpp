@@ -18,31 +18,68 @@
 namespace {
 using HandleConverter =
     openassetio::handles::Converter<openassetio::InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
-}
 
-SCENARIO("InfoDictionary deallocated via C API") {
-  GIVEN("a heap-allocated C++ InfoDictionary and its C handle and function suite") {
-    // Convert a dynamically allocated InfoDictionary to an opaque handle.
-    // Note that this models the ownership semantic of "owned by
-    // client", so the client is expected to call `dtor` when done.
-    OPENASSETIO_NS(InfoDictionary_h)
-    infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
+/// Default storage capacity for StringView C strings.
+constexpr std::size_t kStrStorageCapacity = 500;
+}  // namespace
 
+SCENARIO("InfoDictionary construction, conversion and destruction") {
+  // Storage for error messages coming from suite functions.
+  openassetio::Str errStorage(kStrStorageCapacity, '\0');
+  OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+
+  GIVEN("InfoDictionary C function suite") {
     // InfoDictionary function pointer suite
     const auto suite = OPENASSETIO_NS(InfoDictionary_suite)();
 
-    WHEN("suite dtor function is called") {
-      suite.dtor(infoDictionaryHandle);
+    WHEN("a InfoDictionary handle is constructed using the C API") {
+      // TODO(DF): The only way InfoDictionary construction can error
+      //  currently is `bad_alloc` (i.e. insufficient memory), which is
+      //  a pain to simulate for testing.
 
-      THEN("InfoDictionary was deallocated") {
-        // Rely on ASan to detect.
+      OPENASSETIO_NS(InfoDictionary_h) infoDictionaryHandle;
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = suite.ctor(&actualErrorMsg, &infoDictionaryHandle);
+
+      THEN("the returned handle can be converted and used as a C++ InfoDictionary") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+
+        openassetio::InfoDictionary* infoDictionary =
+            HandleConverter::toInstance(infoDictionaryHandle);
+
+        const openassetio::Str key = "some key";
+        const openassetio::Str expectedValue = "some value";
+        infoDictionary->insert({key, expectedValue});
+        const openassetio::Str actualValue = std::get<openassetio::Str>(infoDictionary->at(key));
+        CHECK(actualValue == expectedValue);
+
+        AND_WHEN("suite dtor function is called") {
+          suite.dtor(infoDictionaryHandle);
+
+          THEN("InfoDictionary was deallocated") {
+            // Rely on ASan to detect.
+          }
+        }
+      }
+    }
+
+    WHEN("a InfoDictionary handle is constructed using the C++ API") {
+      // Convert a dynamically allocated InfoDictionary to an opaque handle.
+      // Note that this models the ownership semantic of "owned by
+      // client", so the client is expected to call `dtor` when done.
+      OPENASSETIO_NS(InfoDictionary_h)
+      infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
+
+      AND_WHEN("suite dtor function is called") {
+        suite.dtor(infoDictionaryHandle);
+
+        THEN("InfoDictionary was deallocated") {
+          // Rely on ASan to detect.
+        }
       }
     }
   }
 }
-
-/// Default storage capacity for StringView C strings.
-constexpr std::size_t kStrStorageCapacity = 500;
 
 /**
  * Base fixture for tests, providing a pre-populated InfoDictionary and its
@@ -215,7 +252,8 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       OPENASSETIO_NS(StringView) lowCapacityErr{3, errStorage.data(), 0};
 
       WHEN("attempting to retrieve a non-existent value through C API") {
-        OPENASSETIO_NS(ConstStringView) key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+        OPENASSETIO_NS(ConstStringView)
+        key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
         fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
@@ -251,7 +289,8 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
     OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     AND_GIVEN(
-        "a StringView with insufficient storage capacity for string stored in InfoDictionary") {
+        "a StringView with insufficient storage capacity for string stored in "
+        "InfoDictionary") {
       constexpr std::size_t kReducedStrStorageCapacity = 5;
       openassetio::Str valueStorage(kReducedStrStorageCapacity, '\0');
       OPENASSETIO_NS(StringView) actualValue{valueStorage.size(), valueStorage.data(), 0};

@@ -25,6 +25,10 @@ extern "C" {
  *
  * The associated @fqcref{InfoDictionary_s} "InfoDictionary suite" functions
  * operate on this handle type.
+ *
+ * The ownership semantics of this handle are "owned by client", that
+ * is, the caller of the C API is responsible for deallocating using
+ * the suite's `dtor` function once the InfoDictionary is no longer in use.
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_h);
@@ -37,6 +41,18 @@ typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct {
+  /**
+   * Constructor function.
+   *
+   * The caller is responsible for deallocating via `dtor`.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param[out] out Opaque handle to InfoDictionary.
+   * @return Error code.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*ctor)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) * out);
+
   /**
    * Destructor function.
    *
@@ -57,7 +73,7 @@ typedef struct {
    * Values with the wrong data type will result in a
    * @fqcref{ErrorCode_kBadVariantAccess} error code.
    *
-   * @param[out] error Storage for error message, if any
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
@@ -76,7 +92,7 @@ typedef struct {
    * Values with the wrong data type will result in a
    * @fqcref{ErrorCode_kBadVariantAccess} error code.
    *
-   * @param[out] error Storage for error message, if any
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
@@ -118,7 +134,7 @@ typedef struct {
    * will result in truncation of the string as well as a
    * @fqcref{ErrorCode_kLengthError} error code.
    *
-   * @param[out] error Storage for error message, if any
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
