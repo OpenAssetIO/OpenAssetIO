@@ -9,6 +9,7 @@
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 /**
+ * @anchor CppPrimitiveTypes
  * @name Primitive Types
  *
  * These types are used throughout OpenAssetIO, especially within

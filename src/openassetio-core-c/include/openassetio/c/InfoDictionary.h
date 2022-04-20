@@ -34,6 +34,30 @@ extern "C" {
 typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_h);
 
 /**
+ * Enumeration of the available types in a @fqref{InfoDictionary}
+ * "InfoDictionary".
+ *
+ * The set of possible types is dictated by those specified in the
+ * definition of the @fqref{InfoDictionaryValue} "variant value type".
+ * In particular, this means the set of types is fixed and cannot be
+ * extended by hosts or plugins. This enum is therefore exhaustive.
+ *
+ * @see @fqcref{InfoDictionary_s::typeOf} "typeOf"
+ * @see @ref CppPrimitiveTypes "Primitive types"
+ */
+// NOLINTNEXTLINE(modernize-use-using)
+typedef enum {
+  /// Boolean value type
+  OPENASSETIO_NS(InfoDictionary_ValueType_kBool) = 1,
+  /// Integer value type
+  OPENASSETIO_NS(InfoDictionary_ValueType_kInt),
+  /// Floating point value type
+  OPENASSETIO_NS(InfoDictionary_ValueType_kFloat),
+  /// String value type
+  OPENASSETIO_NS(InfoDictionary_ValueType_kStr)
+} OPENASSETIO_NS(InfoDictionary_ValueType);
+
+/**
  * Function pointer suite for a @fqref{InfoDictionary} "InfoDictionary" C API.
  *
  * Instances of this suite are provided by the `InfoDictionary_suite`
@@ -63,6 +87,19 @@ typedef struct {
    * @param handle Opaque handle to InfoDictionary.
    */
   void (*dtor)(OPENASSETIO_NS(InfoDictionary_h) handle);
+
+  /**
+   * Get the type of value stored in an entry.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param[out] out Storage for retrieved type.
+   * @param handle Opaque handle to InfoDictionary.
+   * @param key Key of entry to query.
+   * @return Error code.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*typeOf)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_ValueType) * out,
+            OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key);
 
   /**
    * @name Accessors
@@ -205,8 +242,8 @@ typedef struct {
 } OPENASSETIO_NS(InfoDictionary_s);
 
 /**
- * Get an instance of a @fqcref{InfoDictionary_s} "InfoDictionary suite" of C API
- * function pointers.
+ * Get an instance of a @fqcref{InfoDictionary_s} "InfoDictionary suite"
+ * of C API function pointers.
  *
  * @return Suite of function pointers.
  */
