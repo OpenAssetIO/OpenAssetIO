@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <pybind11/stl.h>
 
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -24,6 +26,10 @@ struct PyManagerInterface : ManagerInterface {
   [[nodiscard]] Str displayName() const override {
     PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, displayName, /* no args */);
   }
+
+  [[nodiscard]] InfoDictionary info() const override {
+    PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
+  }
 };
 
 }  // namespace managerAPI
@@ -38,5 +44,6 @@ void registerManagerInterface(const py::module& mod) {
                                                                              "ManagerInterface")
       .def(py::init())
       .def("identifier", &ManagerInterface::identifier)
-      .def("displayName", &ManagerInterface::displayName);
+      .def("displayName", &ManagerInterface::displayName)
+      .def("info", &ManagerInterface::info);
 }

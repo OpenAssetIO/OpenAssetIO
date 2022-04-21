@@ -50,6 +50,20 @@ class Test_ManagerInterface_displayName:
         assert manager_interface.displayName() == "Stub Manager"
 
 
+class Test_ManagerInterface_info:
+    def test_when_not_overridden_then_returns_empty_dict(self):
+        info = ManagerInterface().info()
+
+        assert isinstance(info, dict)
+        assert info == {}
+
+    def test_when_overridden_then_returns_expected_dict(self, manager_interface):
+        info = manager_interface.info()
+
+        assert isinstance(info, dict)
+        assert info == {"stub": "info"}
+
+
 class Test_ManagerInterface_defaultEntityReference:
     def test_when_given_single_trait_set_then_returns_single_empty_ref(self, manager_interface):
         refs = manager_interface.defaultEntityReference([()], Mock(), Mock())
@@ -102,6 +116,9 @@ class StubManagerInterface(ManagerInterface):
 
     def displayName(self):
         return "Stub Manager"
+
+    def info(self):
+        return {"stub": "info"}
 
 
 @pytest.fixture

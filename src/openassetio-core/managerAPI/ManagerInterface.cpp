@@ -9,6 +9,8 @@ namespace managerAPI {
 
 ManagerInterface::ManagerInterface() = default;
 
+InfoDictionary ManagerInterface::info() const { return {}; }
+
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio
