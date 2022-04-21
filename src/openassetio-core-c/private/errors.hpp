@@ -21,7 +21,7 @@ inline void throwIfError(const int code, [[maybe_unused]] const OPENASSETIO_NS(S
   if (code != 0) {
     Str errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
-    errorMessageWithCode += std::string_view{msg.buffer, msg.usedSize};
+    errorMessageWithCode += std::string_view{msg.data, msg.size};
     throw std::runtime_error(errorMessageWithCode);
   }
 }

@@ -32,12 +32,12 @@ extern "C" {
  * string's size as it is passed around.
  *
  * @warning Since null-termination cannot be assumed, it is unsafe to
- * use the `buffer` member directly where a null-terminated string is
+ * use the `data` member directly where a null-terminated string is
  * expected.
  *
  * When used as an out-parameter, the caller must allocate a `char*`
  * buffer and initialize the `StringView` with the maximum number of
- * `char` elements, the buffer pointer itself, and a used size of zero,
+ * `char` bytes, the buffer pointer itself, and a used size of zero,
  * e.g.
  *
  * @code{.c}
@@ -50,28 +50,28 @@ extern "C" {
  * myUpdateString(&myDestString);
  * @endcode
  *
- * The callee should then write to the `buffer`, up to a maximum of
- * `maxSize` elements, and update the `usedSize` with the number of
- * elements used, e.g.
+ * The callee should then write to the `data`, up to a maximum of
+ * `capacity` bytes, and update the `size` with the number of
+ * bytes used, e.g.
  *
  * @code{.c}
  * void myUpdateString(OPENASSETIO_NS(StringView)* myDestString) {
  *
- *   myDestString->usedSize =
- *     min(myDestString->maxSize, mySrcStringSize);
+ *   myDestString->size =
+ *     min(myDestString->capacity, mySrcStringSize);
  *
- *   strncpy(myDestString->buffer, mySrcString, myDestString->usedSize);
+ *   strncpy(myDestString->data, mySrcStringData, myDestString->size);
  * }
  * @endcode
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct {
-  /// Number of available elements in buffer.
-  const size_t maxSize;
+  /// Number of bytes available for string storage in the buffer.
+  const size_t capacity;
   /// Writeable buffer storing the string data.
-  char* buffer;
-  /// Number of elements in the buffer used for string storage.
-  size_t usedSize;
+  char* const data;
+  /// Number of bytes used for string storage in the buffer.
+  size_t size;
 } OPENASSETIO_NS(StringView);
 
 /**

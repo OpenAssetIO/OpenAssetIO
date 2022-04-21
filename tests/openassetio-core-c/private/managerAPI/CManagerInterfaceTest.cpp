@@ -89,11 +89,10 @@ SCENARIO("A host calls CManagerInterface::identifier") {
       // out-parameter.
       REQUIRE_CALL(capi, identifier(_, _, handle))
           // Ensure max size is reasonable.
-          .LR_WITH(_2->maxSize == kStringBufferSize)
+          .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
-          .LR_SIDE_EFFECT(
-              strncpy(_2->buffer, expectedIdentifier.data(), expectedIdentifier.size()))
-          .LR_SIDE_EFFECT(_2->usedSize = expectedIdentifier.size())
+          .LR_SIDE_EFFECT(strncpy(_2->data, expectedIdentifier.data(), expectedIdentifier.size()))
+          .LR_SIDE_EFFECT(_2->size = expectedIdentifier.size())
           // Return OK code.
           .RETURN(OPENASSETIO_NS(kOK));
 
@@ -117,10 +116,10 @@ SCENARIO("A host calls CManagerInterface::identifier") {
       // message out-parameter.
       REQUIRE_CALL(capi, identifier(_, _, handle))
           // Ensure max size is reasonable.
-          .LR_WITH(_1->maxSize == kStringBufferSize)
+          .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_1->buffer, expectedErrorMsg.data(), expectedErrorMsg.size()))
-          .LR_SIDE_EFFECT(_1->usedSize = expectedErrorMsg.size())
+          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
           // Return OK code.
           .RETURN(expectedErrorCode);
 
@@ -156,11 +155,11 @@ SCENARIO("A host calls CManagerInterface::displayName") {
       // out-parameter.
       REQUIRE_CALL(capi, displayName(_, _, handle))
           // Ensure max size is reasonable.
-          .LR_WITH(_2->maxSize == kStringBufferSize)
+          .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
           .LR_SIDE_EFFECT(
-              strncpy(_2->buffer, expectedDisplayName.data(), expectedDisplayName.size()))
-          .LR_SIDE_EFFECT(_2->usedSize = expectedDisplayName.size())
+              strncpy(_2->data, expectedDisplayName.data(), expectedDisplayName.size()))
+          .LR_SIDE_EFFECT(_2->size = expectedDisplayName.size())
           // Return OK code.
           .RETURN(OPENASSETIO_NS(kOK));
 
@@ -184,10 +183,10 @@ SCENARIO("A host calls CManagerInterface::displayName") {
       // message out-parameter.
       REQUIRE_CALL(capi, displayName(_, _, handle))
           // Ensure max size is reasonable.
-          .LR_WITH(_1->maxSize == kStringBufferSize)
+          .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_1->buffer, expectedErrorMsg.data(), expectedErrorMsg.size()))
-          .LR_SIDE_EFFECT(_1->usedSize = expectedErrorMsg.size())
+          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
           // Return OK code.
           .RETURN(expectedErrorCode);
 

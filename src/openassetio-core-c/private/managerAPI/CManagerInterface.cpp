@@ -37,7 +37,7 @@ Str CManagerInterface::identifier() const {
   // Convert error code/message to exception.
   throwIfError(errorCode, errorMessage);
 
-  return {out.buffer, out.usedSize};
+  return {out.data, out.size};
 }
 
 Str CManagerInterface::displayName() const {
@@ -58,7 +58,7 @@ Str CManagerInterface::displayName() const {
   // Convert error code/message to exception.
   throwIfError(errorCode, errorMessage);
 
-  return {out.buffer, out.usedSize};
+  return {out.data, out.size};
 }
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION
