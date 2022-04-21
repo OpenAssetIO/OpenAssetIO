@@ -89,6 +89,13 @@ typedef struct {
   void (*dtor)(OPENASSETIO_NS(InfoDictionary_h) handle);
 
   /**
+   * Retrieve the number of entries currently in the map.
+   *
+   * @param handle Opaque handle to InfoDictionary.
+   */
+  size_t (*size)(OPENASSETIO_NS(InfoDictionary_h) handle);  // noexcept
+
+  /**
    * Get the type of value stored in an entry.
    *
    * @param[out] error Storage for error message, if any.

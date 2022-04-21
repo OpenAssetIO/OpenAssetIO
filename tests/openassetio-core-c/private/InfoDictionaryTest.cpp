@@ -209,6 +209,42 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
   }
 }
 
+SCENARIO("Retrieve the number of entries in a InfoDictionary via C API") {
+  GIVEN("a populated C++ InfoDictionary and its C handle and suite") {
+    InfoDictionaryFixture fixture{};
+    const auto& suite = fixture.suite_;
+    auto& infoDictionary = fixture.infoDictionary_;
+    const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
+
+    const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
+
+    WHEN("the size of the map is queried") {
+      const std::size_t actualSize = suite.size(infoDictionaryHandle);
+
+      THEN("size is as expected") {
+        const std::size_t expectedSize = infoDictionary.size();
+        CHECK(actualSize == expectedSize);
+      }
+
+      AND_WHEN("an entry is added to the InfoDictionary") {
+        constexpr openassetio::Int kNewValue{123};
+        infoDictionary[nonExistentKey] = kNewValue;
+
+        AND_WHEN("the size of the map is queried") {
+          const std::size_t actualUpdatedSize = suite.size(infoDictionaryHandle);
+
+          THEN("size is as expected") {
+            const std::size_t expectedUpdatedSize = infoDictionary.size();
+
+            CHECK(actualUpdatedSize == actualSize + 1);
+            CHECK(actualUpdatedSize == expectedUpdatedSize);
+          }
+        }
+      }
+    }
+  }
+}
+
 /**
  * Fixture for a specific suite accessor function, specialised by return
  * data type.

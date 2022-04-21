@@ -134,6 +134,11 @@ OPENASSETIO_NS(InfoDictionary_s) OPENASSETIO_NS(InfoDictionary_suite)() {
       // dtor
       [](OPENASSETIO_NS(InfoDictionary_h) handle) { delete HandleConverter::toInstance(handle); },
 
+      // size
+      [](OPENASSETIO_NS(InfoDictionary_h) handle) {
+        return HandleConverter::toInstance(handle)->size();
+      },
+
       // typeOf
       [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_ValueType) * out,
          OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
