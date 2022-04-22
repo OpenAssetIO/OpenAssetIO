@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include "../SimpleString.h"
+#include "../StringView.h"
 #include "../namespace.h"
 
 #ifdef __cplusplus
@@ -78,7 +78,7 @@ typedef struct {
    * @return @fqcref{kOK} "kOK" if no error occurred, an error code
    * otherwise.
    */
-  int (*identifier)(OPENASSETIO_NS(SimpleString) * err, OPENASSETIO_NS(SimpleString) * out,
+  int (*identifier)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
                     OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
 
   /**
@@ -94,7 +94,7 @@ typedef struct {
    * @return @fqcref{kOK} "kOK" if no error occurred, an error code
    * otherwise.
    */
-  int (*displayName)(OPENASSETIO_NS(SimpleString) * err, OPENASSETIO_NS(SimpleString) * out,
+  int (*displayName)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
                      OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
 } OPENASSETIO_NS(managerAPI_ManagerInterface_s);
 
