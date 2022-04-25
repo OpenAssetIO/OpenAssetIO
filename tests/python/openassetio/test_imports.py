@@ -56,11 +56,8 @@ class Test_package_imports:
     def test_importing_Specification_succeeds(self):
         from openassetio import Specification
 
-    def test_importing_SpecificationFactory_succeeds(self):
-        from openassetio import SpecificationFactory
-
-    def test_importing_specifications_succeeds(self):
-        from openassetio import specifications
+    def test_importing_Trait_succeeds(self):
+        from openassetio import Trait
 
 
 class Test_core_imports:

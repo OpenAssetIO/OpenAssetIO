@@ -7,17 +7,17 @@ Tests for the traits type system.
 import pytest
 # TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
 # pylint: disable=no-name-in-module
-from openassetio import specification, trait
+from openassetio import Specification, trait
 
 
 class Test_Specification_traitIds:
     def test_when_has_no_traits_returns_empty_list(self):
-        empty_specification = specification.Specification(set())
+        empty_specification = Specification(set())
         assert empty_specification.traitIds() == set()
 
     def test_when_has_traits_returns_expected_trait_ids(self):
         expected_ids = {"a", "b", "🐠🐟🐠🐟"}
-        populated_specification = specification.Specification(expected_ids)
+        populated_specification = Specification(expected_ids)
         assert populated_specification.traitIds() == expected_ids
 
 
@@ -64,35 +64,31 @@ class Test_Specification_getsetTraitProperty:
 
 class Test_Specification_equality:
     def test_when_comparing_with_same_data_then_are_equal(self):
-        spec_a = specification.Specification({"a_trait"})
+        spec_a = Specification({"a_trait"})
         spec_a.setTraitProperty("a_trait", "a_property", 1)
-        spec_b = specification.Specification({"a_trait"})
+        spec_b = Specification({"a_trait"})
         spec_b.setTraitProperty("a_trait", "a_property", 1)
         assert spec_a == spec_b
 
     def test_when_comparing_with_different_property_value_then_are_not_equal(self):
-        spec_a = specification.Specification({"a_trait"})
+        spec_a = Specification({"a_trait"})
         spec_a.setTraitProperty("a_trait", "a_property", 1)
-        spec_b = specification.Specification({"a_trait"})
+        spec_b = Specification({"a_trait"})
         spec_b.setTraitProperty("a_trait", "a_property", 2)
         assert spec_a != spec_b
 
     def test_when_comparing_with_subset_of_properties_then_are_not_equal(self):
-        spec_a = specification.Specification({"a_trait"})
+        spec_a = Specification({"a_trait"})
         spec_a.setTraitProperty("a_trait", "a_property", 1)
-        spec_b = specification.Specification({"a_trait"})
+        spec_b = Specification({"a_trait"})
         spec_b.setTraitProperty("a_trait", "a_property", 1)
         spec_b.setTraitProperty("a_trait", "another_property", 1)
         assert spec_a != spec_b
 
     def test_when_comparing_with_different_trait_then_are_not_equal(self):
-        spec_a = specification.Specification({"a_trait"})
-        spec_b = specification.Specification({"another_trait"})
+        spec_a = Specification({"a_trait"})
+        spec_b = Specification({"another_trait"})
         assert spec_a != spec_b
-
-    def test_when_comparing_with_subset_of_traits_then_are_not_equal(self):
-        spec_a = specification.Specification({"a_trait"})
-        spec_b = specification.Specification({"a_trait", "another_trait"})
         assert spec_a != spec_b
 
 
@@ -106,7 +102,7 @@ class Test_BlobTrait_isValid:
 
     def test_when_wrapping_blob_supporting_spec_then_returns_true(self):
         assert trait.BlobTrait(
-            specification.Specification({trait.BlobTrait.kId, "other"})).isValid()
+            Specification({trait.BlobTrait.kId, "other"})).isValid()
 
     def test_when_wrapping_non_blob_spec_then_returns_false(self, a_specification):
         assert not trait.BlobTrait(a_specification).isValid()
@@ -227,9 +223,9 @@ class Test_BlobTrait_setMimeType:
 
 @pytest.fixture
 def a_specification():
-    return specification.Specification({"first_trait", "second_trait"})
+    return Specification({"first_trait", "second_trait"})
 
 
 @pytest.fixture
 def a_blob_specification():
-    return specification.Specification({trait.BlobTrait.kId})
+    return Specification({trait.BlobTrait.kId})

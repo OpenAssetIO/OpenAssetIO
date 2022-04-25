@@ -72,6 +72,10 @@ The documentation for OpenAssetIO can be found here:
 """
 # TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
 from ._openassetio import *  # pylint: disable=import-error
+# Temporarily hoist the C++ class into the top level name space,
+# until this is done in the module itself.
+Specification = specification.Specification  # pylint: disable=undefined-variable
+
+# pylint: disable=wrong-import-position
 from .Context import Context
-from .Specification import Specification
-from .SpecificationFactory import SpecificationFactory
+from .Trait import Trait

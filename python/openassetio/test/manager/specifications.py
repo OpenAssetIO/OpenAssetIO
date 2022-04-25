@@ -18,11 +18,29 @@
 Specifications for use within openassetio manager test harnesses.
 """
 
+from openassetio import Trait
+
 from ..specifications import TestHarnessLocale
+
+
+# pylint: disable=missing-function-docstring
+
+
+class ManagerTrait(Trait):
+    """
+    A trait that defines a calling context as being associated with
+    an OpenAssetIO manager.
+    """
+
+    kId = "manager"
 
 
 class ManagerTestHarnessLocale(TestHarnessLocale):
     """
     A locale for tests cases in the manager test harness.
     """
-    _type = f"{TestHarnessLocale._type}.manager"
+
+    kTraitIds = set.union(TestHarnessLocale.kTraitIds, {ManagerTrait.kId})
+
+    def managerTrait(self):
+        return ManagerTrait(self)

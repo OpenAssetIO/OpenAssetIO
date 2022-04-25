@@ -39,7 +39,7 @@ class Test_Loader_loadTestsFromTestCase:
 
     def test_when_class_of_cases_has_no_fixtures_then_initializes_test_cases_with_no_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two):
+            mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
         loader = _ValidatorTestLoader(mock_session)
@@ -54,16 +54,14 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call({}, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
-            call({}, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")
+            call({}, mock_session, test_case_one_locale, "test_one"),
+            call({}, mock_session, test_case_two_locale, "test_two")
         ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_cases_have_fixtures_then_initializes_test_cases_with_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two):
+            mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
         # Include fixtures for both test cases
@@ -85,15 +83,13 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(case_one_fixtures, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
-            call(case_two_fixtures, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")])
+            call(case_one_fixtures, mock_session, test_case_one_locale, "test_one"),
+            call(case_two_fixtures, mock_session, test_case_two_locale, "test_two")])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_case_has_no_fixtures_then_initializes_test_case_with_no_fixtures(
             self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two):
+            mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
         # Only include fixtures for one test case
@@ -113,10 +109,8 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call({}, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_one"}), "test_one"),
-            call(case_two_fixtures, mock_session,
-                    ManagerTestHarnessLocale({"testCase": "Test_MockTest.test_two"}), "test_two")
+            call({}, mock_session, test_case_one_locale, "test_one"),
+            call(case_two_fixtures, mock_session, test_case_two_locale, "test_two")
         ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
@@ -174,3 +168,21 @@ def mock_test_case_one():
 def mock_test_case_two():
     return mock.create_autospec(
         FixtureAugmentedTestCase, instance=True, spec_set=True)
+
+
+@pytest.fixture
+def test_case_one_locale():
+    ## TODO(TC): We need a convenience constructor for making
+    ## pre-populated specifications
+    locale = ManagerTestHarnessLocale()
+    locale.testTrait().setCaseName("Test_MockTest.test_one")
+    return locale
+
+
+@pytest.fixture
+def test_case_two_locale():
+    ## TODO(TC): We need a convenience constructor for making
+    ## pre-populated specifications
+    locale = ManagerTestHarnessLocale()
+    locale.testTrait().setCaseName("Test_MockTest.test_two")
+    return locale

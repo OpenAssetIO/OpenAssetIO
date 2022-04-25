@@ -157,8 +157,8 @@
  * - Make the drawing of any parameters that may hold an @ref
  *   entity_reference delegatable to the @needsref ManagerUIDeleagate.
  *
- * - Derive @ref openassetio.specifications "Specifications" for any
- *   custom 'asset types' you may deal with.
+ * - Derive @needsref specifications for any custom 'asset types' you
+ *   may deal with.
  *
  * - You should map any widgets returned by @needsref ManagerUIDelegate.widgets
  *   with the @needsref ui.widgets.attributes.kCreateApplicationPanel flag set to

@@ -36,7 +36,7 @@
  * inform the manager what kind of data is being registered.
  *
  * Within OpenAssetIO, type identification is accomplished by the
- * @ref openassetio.Specification.Specification "Specification"
+ * @fqref{specification::Specification} "Specification"
  * mechanism. Specifications are a hierarchical type system that can
  * carry arbitrary additional data to refine its description. An example
  * of this being an ImageSequenceSpecification, that additionally
@@ -63,7 +63,7 @@
  * wishes to persist any other information about an entity, use the
  * @needsref attributes mechanism instead.
  *
- * @see @ref openassetio.Specification.Specification "Specification"
+ * @see @fqref{specification::Specification} "Specification"
  *
  * @subsection specification_hierarchy The Specification Hierarchy
  *
