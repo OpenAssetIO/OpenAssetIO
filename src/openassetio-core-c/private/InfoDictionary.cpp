@@ -57,6 +57,42 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
     return OPENASSETIO_NS(ErrorCode_kOK);
   });
 }
+
+/**
+ * Set a value in a InfoDictionary via C handle.
+ *
+ * @tparam Type Type of value to set in variant.
+ * @param handle Opaque handle to a InfoDictionary.
+ * @param key Key to set within InfoDictionary.
+ * @param value Value to set within InfoDictionary.
+ */
+template <class Type>
+void set(OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key,
+         Type value) {
+  InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
+  infoDictionary->insert_or_assign(openassetio::Str{key.data, key.size},
+                                   std::forward<Type>(value));
+}
+
+/**
+ * Set a value in a InfoDictionary, converting exceptions to error codes.
+ *
+ * @tparam Type Type of value to set in variant.
+ * @param[out] err Storage for error message, if any.
+ * @param handle Opaque handle to a InfoDictionary.
+ * @param key Key to set within InfoDictionary.
+ * @param value Value to set within InfoDictionary.
+ * @return Error code.
+ */
+template <class Type>
+OPENASSETIO_NS(ErrorCode)
+set(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
+    const OPENASSETIO_NS(ConstStringView) key, Type value) {
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    set(handle, key, std::forward<Type>(value));
+    return OPENASSETIO_NS(ErrorCode_kOK);
+  });
+}
 }  // namespace
 
 extern "C" {
@@ -70,28 +106,23 @@ OPENASSETIO_NS(InfoDictionary_s) OPENASSETIO_NS(InfoDictionary_suite)() {
           return OPENASSETIO_NS(ErrorCode_kOK);
         });
       },
+
       // dtor
       [](OPENASSETIO_NS(InfoDictionary_h) handle) { delete HandleConverter::toInstance(handle); },
+
+      // Through the magic of template type deduction...
       // getBool
-      [](OPENASSETIO_NS(StringView) * err, openassetio::Bool * out,
-         OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
-        return get<openassetio::Bool>(err, out, handle, key);
-      },
+      &get,
       // getInt
-      [](OPENASSETIO_NS(StringView) * err, openassetio::Int * out,
-         OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
-        return get<openassetio::Int>(err, out, handle, key);
-      },
+      &get,
       // getFloat
-      [](OPENASSETIO_NS(StringView) * err, openassetio::Float * out,
-         OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
-        return get<openassetio::Float>(err, out, handle, key);
-      },
+      &get,
+
       // getStr
       [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
          OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
         openassetio::Str str;
-        const OPENASSETIO_NS(ErrorCode) errorCode = get<openassetio::Str>(err, &str, handle, key);
+        const OPENASSETIO_NS(ErrorCode) errorCode = get(err, &str, handle, key);
 
         if (errorCode != OPENASSETIO_NS(ErrorCode_kOK)) {
           return errorCode;
@@ -105,6 +136,23 @@ OPENASSETIO_NS(InfoDictionary_s) OPENASSETIO_NS(InfoDictionary_suite)() {
         }
 
         return OPENASSETIO_NS(ErrorCode_kOK);
+      },
+
+      // Through the magic of template type deduction...
+      // setBool
+      &set,
+      // setInt
+      &set,
+      // setFloat
+      &set,
+
+      // setStr
+      [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
+         const OPENASSETIO_NS(ConstStringView) key, const OPENASSETIO_NS(ConstStringView) value) {
+        return errors::catchUnknownExceptionAsCode(err, [&] {
+          set(handle, key, openassetio::Str{value.data, value.size});
+          return OPENASSETIO_NS(ErrorCode_kOK);
+        });
       }};
 }
 }  // extern "C"
