@@ -237,17 +237,38 @@ class Test_entityExists(FixtureAugmentedTestCase):
         assert self._manager.entityExists([existing, nonexistant], context) == [True, False]
 
 
-class Test_resolveEntityReference(FixtureAugmentedTestCase):
+class Test_resolve(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.resolveEntityReference.
+    managerAPI.ManagerInterface.resolve.
     """
+    def setUp(self):
+        self.collectRequiredFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)
+        self.collectRequiredFixture("a_set_of_valid_traits")
 
-    def test_matches_fixture_for_read(self):
-        self.__testResolution("a_reference_to_a_readable_entity", Context.kRead)
+    def test_when_no_traits_then_returned_specification_is_empty(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref], set(), Context.kRead, set())
 
-    def test_matches_fixture_for_write(self):
-        self.__testResolution("a_reference_to_a_writable_entity", Context.kWrite)
+    def test_when_multiple_references_then_same_number_of_returned_specifications(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref, ref, ref, ref, ref], set(), Context.kRead, set())
+
+    def test_when_unknown_traits_then_returned_specification_is_empty(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref], {"₲₪₡🤯"}, Context.kRead, set())
+
+    def test_when_valid_traits_then_returned_specification_has_those_traits(self):
+        ref = self.a_reference_to_a_readable_entity
+        traits = self.a_set_of_valid_traits
+        self.__testResolution([ref], traits, Context.kRead, traits)
+
+    def test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits(self):
+        ref = self.a_reference_to_a_readable_entity
+        traits = self.a_set_of_valid_traits
+        mixed_traits = set(traits)
+        mixed_traits.add("₲₪₡🤯")
+        self.__testResolution([ref], mixed_traits, Context.kRead, traits)
 
     def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_readonly_entity", Context.kWrite)
@@ -255,12 +276,13 @@ class Test_resolveEntityReference(FixtureAugmentedTestCase):
     def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_writeonly_entity", Context.kRead)
 
-    def __testResolution(self, fixture_name, access):
-        reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
-        expected = self.requireFixture(f"the_primary_string_for_{fixture_name}")
+    def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
         context.access = access
-        self.assertEqual(self._manager.resolveEntityReference([reference], context), [expected])
+        results = self._manager.resolve(references, traits, context)
+        self.assertEqual(len(results), len(references))
+        for result in results:
+            self.assertEqual(result.traitIds(), expected_traits)
 
     def __testResolutionError(self, fixture_name, access):
         reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
@@ -268,6 +290,6 @@ class Test_resolveEntityReference(FixtureAugmentedTestCase):
         expected_error = EntityResolutionError(expected_msg, reference)
         context = self.createTestContext()
         context.access = access
-        result = self._manager.resolveEntityReference([reference], context)
-        self.assertIsInstance(result[-1], EntityResolutionError)
-        self.assertEqual(str(result[-1]), str(expected_error))
+        [result] = self._manager.resolve([reference], self.a_set_of_valid_traits, context)
+        self.assertIsInstance(result, EntityResolutionError)
+        self.assertEqual(str(result), str(expected_error))

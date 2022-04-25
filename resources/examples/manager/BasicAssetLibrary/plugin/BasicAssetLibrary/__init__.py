@@ -24,7 +24,7 @@ supporting infrastructure as possible.
 
 The BasicAssetLibrary lives in the simpler category of asset
 management systems - one that is not capable of providing information
-about a future entity. In that, it can not determine the primary string
+about a future entity. In that, it can not determine any trait data
 (e.g. path) for an entity that does not exist yet. It will simply
 remember entities it is told about, and provide that information through
 the OpenAssetIO API methods.

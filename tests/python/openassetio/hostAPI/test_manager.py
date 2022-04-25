@@ -26,6 +26,7 @@ from unittest import mock
 
 import pytest
 
+from openassetio import specification  # pylint: disable=no-name-in-module
 from openassetio import Context, Specification
 from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import Manager
@@ -148,8 +149,9 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
-    def resolveEntityReference(self, entityRefs, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession):
         self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
         return mock.DEFAULT
 
@@ -171,17 +173,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
         if resultTraitSet is not None:
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
-
-
         return mock.DEFAULT
 
-    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context, hostSession):
-        self.__assertIsIterableOf(primaryStrings, str)
+    def register(self, targetEntityRefs, entitySpecs, context, hostSession):
         self.__assertIsIterableOf(targetEntityRefs, str)
-        self.__assertIsIterableOf(entitySpecs, EntitySpecification)
+        self.__assertIsIterableOf(entitySpecs, specification.Specification)
         self.__assertCallingContext(context, hostSession)
-        assert len(primaryStrings) == len(targetEntityRefs)
-        assert len(primaryStrings) == len(entitySpecs)
+        assert len(targetEntityRefs) == len(entitySpecs)
         return mock.DEFAULT
 
     @staticmethod
@@ -244,6 +242,11 @@ def an_entity_spec():
 @pytest.fixture
 def some_entity_specs():
     return [EntitySpecification(), EntitySpecification()]
+
+
+@pytest.fixture
+def a_specification():
+    return specification.Specification(set())
 
 
 @pytest.fixture
@@ -512,14 +515,16 @@ class Test_Manager_getRelatedReferences:
             [one_ref], [one_spec], a_context, host_session, resultTraitSet=an_entity_trait_set)
 
 
-class Test_Manager_resolveEntityReference:
+class Test_Manager_resolve:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, some_refs, a_context):
+            self, manager, mock_manager_interface, host_session, some_refs, an_entity_trait_set,
+            a_context):
 
-        method = mock_manager_interface.resolveEntityReference
-        assert manager.resolveEntityReference(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, host_session)
+        method = mock_manager_interface.resolve
+        assert manager.resolve(some_refs, an_entity_trait_set, a_context) \
+                == method.return_value
+        method.assert_called_once_with(some_refs, an_entity_trait_set, a_context, host_session)
 
 
 class Test_Manager_managentPolicy:
@@ -548,34 +553,27 @@ class Test_Manager_preflight:
 class Test_Manager_register:
 
     def test_wraps_the_the_held_interface_register_methods(
-            self, manager, mock_manager_interface, host_session, some_refs, some_entity_specs,
+            self, manager, mock_manager_interface, host_session, some_refs, a_specification,
             a_context):
 
+        specifications = [a_specification for _ in some_refs]
+        mutated_refs = [f"{r}-registered" for r in some_refs]
+
         register_method = mock_manager_interface.register
-
-        some_strings = ["primary string 1", "primary string 2"]
-
-        mutated_refs = [f"{some_refs[0]}-registered", f"{some_refs[1]}-registered"]
         register_method.return_value = mutated_refs
 
-        assert manager.register(
-            some_strings, some_refs, some_entity_specs, a_context) == register_method.return_value
-        register_method.assert_called_once_with(
-            some_strings, some_refs, some_entity_specs, a_context, host_session)
+        assert manager.register(some_refs, specifications, a_context) \
+                == register_method.return_value
+        register_method.assert_called_once_with(some_refs, specifications, a_context, host_session)
+
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
-            self, manager, some_refs, some_entity_specs, a_context):
+            self, manager, some_refs, a_specification, a_context):
 
-        some_strings = ["primary string 1", "primary string 2"]
-
-        with pytest.raises(IndexError):
-            manager.register(
-                some_strings[1:], some_refs, some_entity_specs, a_context)
+        specifications = [a_specification for _ in some_refs]
 
         with pytest.raises(IndexError):
-            manager.register(
-                some_strings, some_refs[1:], some_entity_specs, a_context)
+            manager.register(some_refs[1:], specifications, a_context)
 
         with pytest.raises(IndexError):
-            manager.register(
-                some_strings, some_refs, some_entity_specs[1:], a_context)
+            manager.register(some_refs, specifications[1:], a_context)

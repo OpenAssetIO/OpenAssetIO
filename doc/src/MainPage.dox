@@ -205,12 +205,9 @@
  * - Involve the manager in creation of data through the
  *   @ref example_publishing_a_file "publishing" workflow.
  *
- * For this reason, OpenAssetIO has the concept of mapping an @ref entity
- * to a @ref primary_string - which can be thought of as "the string a
- * host would have used before". It is this string that is returned when
- * an @ref entity_reference is resolved. In many cases in the initial
- * adoption of OpenAssetIO, the primary string for an entity will be a
- * file URL.
+ * For this reason, OpenAssetIO has the concept of mapping an @ref
+ * entity to one or more @needsref traits that contain meaningful data
+ * for someone wanting to consume the entity.
  *
  * @note The API is by no means limited to just file paths, they form a
  * sensible first step. Any string used in an application, can be
@@ -231,16 +228,16 @@
  * OpenAssetIO was developed to make it possible for an
  * @ref asset_management_system to support any @ref host application
  * without specific knowledge, and vice versa. This is achieved though
- * the use of common specifications and descriptions and two simple
- * rules for the manager:
+ * the use of common specifications that define well-known traits and
+ * two simple rules for the manager:
  *
- * - Store and recall a @ref primary_string
- * - Allow filtering by @ref Specification
+ * - Store and recall the set of traits (and their properties)
+ *   registered for any given entity.
+ * - Allow filtering by these traits when browsing, etc.
  *
  * If these rules are followed, then arbitrary assets from arbitrary
  * hosts can be round-tripped through an asset manager without
  * specific support. However, there is scope to build more advanced and
- * useful functionality by mapping OpenAssetIO @ref Specification
- * "specifications" to the manager's native asset types, and well-known
- * @needsref traits to its asset fields.
+ * useful functionality by mapping OpenAssetIO @needsref traits
+ * to the manager's native asset types and data.
  */

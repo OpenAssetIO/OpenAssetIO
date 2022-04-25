@@ -322,7 +322,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         entity_reference list. This usually means that the host is about
         to make multiple queries to the same references.  This can be
         left unimplemented, but it is advisable to batch request the
-        data for resolveEntityReference here if possible.
+        data for resolve here if possible.
 
         The implementation should ignore any entities to which no action
         is applicable (maybe as they don't exist yet).
@@ -469,7 +469,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         the format of the string is recognised.
 
         @see @ref entityExists
-        @see @ref resolveEntityReference
+        @see @ref resolve
         """
         raise NotImplementedError
 
@@ -526,14 +526,30 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def resolveEntityReference(self, entityRefs, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession):
         """
-        Returns the @ref primary_string represented by each given @ref
-        entity_reference.
+        Returns a @fqref{specification::Specification} "Specification"
+        populated with the available data for the requested set of
+        traits for each given @ref entity_reference.
 
-        If a primary string points to some data, then it should
-        always be in the form of a valid URL. File paths should be
-        returned as a `file` scheme URL.
+        Any traits that aren't applicable to any particular entity
+        reference should not be set in the resulting Specification. This
+        covers any traits that are understood by the implementation, but
+        not appliable to the entity in question, or are entirely unknown
+        to the manager. Setting a trait in the result is an indication
+        to the caller that that entity conceptually has that trait.
+
+        @warning There is no requirement for a manager to populate all
+        properties of known traits if appropriate data is not available.
+        It is the responsibility of the caller to handle requested data
+        being missing in a fashion appropriate to its intended use.
+
+        In summary:
+          - Set the trait in the result Specification for each entity if
+            it is known and applicable to that entity, even if it has no
+            properties or there is no data available for properties it
+            does have.
+          - Set the properties of each trait where possible.
 
         When an @ref entity_reference points to a sequence of files,
         the frame, view, etc substitution tokens should be preserved,
@@ -549,11 +565,10 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         The caller will have first called isEntityReference() on the
         supplied strings.
 
-        @note You may need to call finalizedEntityVersion() within
-        this function to ensure any @ref meta_version "meta-versions"
-        are resolved prior to resolution.
-
         @param entityRefs `List[str]` Entity references to query.
+
+        @param traitSet `Set[str]` The traits to resolve for the
+        supplied list of entity references.
 
         @param context Context The calling context.
 
@@ -562,7 +577,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         @return `List[Union[str,`
             exceptions.EntityResolutionError,
             exceptions.InvalidEntityReference `]]`
-        A list containing either the primary string for each
+        A list containing either a populated Specification for each
         reference; `EntityResolutionError` if a supplied entity
         reference does not have a meaningful string representation,
         or it is a valid reference format that doesn't exist; or
@@ -1089,15 +1104,17 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         """
         return targetEntityRefs
 
-    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context, hostSession):
+    def register(self, targetEntityRefs, entitySpecs, context, hostSession):
         """
         Publish entities to the @ref asset_management_system.
 
         This instructs the implementation to ensure a valid entity
-        exists for each given reference and spec. This will be called
+        exists for each given reference and to persist the data provided
+        in the @fqref{specification::Specification}. This will be called
         either in isolation or after calling preflight, depending on the
         nature of the data being published and the `kWillManagePath` bit
-        of the returned @ref managementPolicy.
+        of the returned @ref managementPolicy for the specification's
+        trait set.
 
         This is an opportunity to do other things in the host as part of
         publishing if required. The context's locale will tell you more
@@ -1106,18 +1123,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         make use of the host-native SDK to extract additional
         information or schedule additional processes to produce
         derivative data.
-
-        @param primaryStrings `List[str]` The @ref primary_string that
-        each entity should resolve to if passed to a call to
-        resolveEntityReference(). This may be left blank if there is
-        no meaningful string representation of that entity (eg: a
-        'sequence' in a hierarchy). This must be stored by the
-        manager and a logically equivalent value returned by @ref
-        resolveEntityReference for the same reference. The meaning of
-        'logical' here, in the case of a URL, is that it points to
-        the same data. The manager is free to relocate data as
-        required. If a primary string is not a URL, then it should be
-        returned verbatim.
 
         @param targetEntityRefs `List[str]` The @ref entity_reference
         of each entity to publish. It is up to the manager to ensure
@@ -1128,12 +1133,22 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         to the sequence'. For other types of entity, there may be
         different constraints on what makes sense.
 
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        A description of each entity (or 'asset') that is being
-        published. It is *not* required for the implementation to
-        store any information contained in the specification, though
-        it may choose to use it if it is meaningful.
+        @param entitySpecs `List[` @fqref{specification::Specification}
+        "Specification" `]` The data for each entity (or 'asset') that
+        is being published. The implementation must persist the list of
+        traits, and any properties set. Such that a subsequent call to
+        @ref resolve for any of these traits contains the same data. It
+        is guaranteed that the trait sets of these specifications is
+        constant across the batch.
+
+        @note Generally speaking, the data within a specification's
+        trait properties should be persisted verbatim. If however, the
+        implementation has any specific understanding of any given
+        trait, it is free to rewrite this data in any meaningful
+        fashion. The simplest example of this is a `file` trait, where a
+        path may be updated to the long-term persistent storage location
+        of the registered data, after it has been re-located by the
+        manager.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
@@ -1157,8 +1172,9 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         openassetio.Context.Context.retention, as not all Hosts will
         support the reference changing at this point.
 
+        @see @fqref{specification::Specification} "specifications"
         @see @ref preflight
-        @see @ref resolveEntityReference
+        @see @ref resolve
         """
         raise NotImplementedError
 

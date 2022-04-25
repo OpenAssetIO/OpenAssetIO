@@ -72,19 +72,17 @@
  * organizational hierarchy, or a specific version or component part of
  * an 'asset'.
  *
- * In the core API there are only three properties needed to represent
- * any possible entity:
- *
- * @li name
- * @li @ref primary_string
+ * In the core API, entities hold data for one or more @needsref traits.
+ * Traits have an id, and zero or more properties holding simple value
+ * types.
  *
  * This makes it relatively straightforward for an @ref
  * asset_management_system to provide support for any entity that a @ref
  * host may wish to store, by simply storing and retrieving these three
  * properties from its persistent store. If it wishes, or understands
- * specific entity specifications, it can always provide more
- * sophisticated mappings to its own internal types, to provide a better
- * user experience.
+ * specific entity traits, it can always provide more sophisticated
+ * mappings to its own internal types, to provide a better user
+ * experience.
  *
  * @section entity_reference Entity Reference
  *
@@ -453,43 +451,15 @@
  * @section resolve resolve
  *
  * 'Resolving' an @ref entity_reference is the process of turning it
- * back into the entity's @ref primary_string. Resolution is usually
- * performed just-in-time. This is the fundamental mechanism that makes
- * documents portable, and where OpenAssetIO (and other resolution
- * systems) bring their value - the @ref manager backing the resolution
- * process is free to use any contextual information to vary the result
- * of the resolution such that it is as correct/appropriate as it can be
- * for the current resolution @ref Context.
+ * back into the data for one or more @needsref traits. Resolution is
+ * usually performed just-in-time. This is the fundamental mechanism
+ * that makes documents portable, and where OpenAssetIO (and other
+  * resolution systems) bring their value - the @ref manager
+ * backing the resolution process is free to use any contextual
+ * information to vary the result of the resolution such that it is as
+ * correct/appropriate as it can be for the current resolution @ref
+ * Context.
  *
- * @section primary_string Primary String
- *
- * If this API was to do just one thing, it would be to turn an @ref
- * entity_reference into some other string - the thing a @ref host would
- * have used as currency without the API (see @ref resolve
- * "resolution"). More often than not, this is a file path, but it
- * could be anything.
- *
- * This string is called the 'primary string'. It is passed to @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.register
- * "ManagerInterface.register" when an entity is created or updated and
- * should be persisted by the @ref manager by the most appropriate means.
- * * Generally speaking there are two types of primary string:
- *  - URLs that point to data
- *  - Some other arbitray string
- *
- * The fundamental rule is that the Manager must round-trip this string
- * intact through @ref openassetio.hostAPI.Manager.Manager.register
- * "register" and @ref openassetio.hostAPI.Manager.Manager.resolveEntityReference
- * "resolveEntityReference". There is an exception to this rule though. When
- * the string is an URL, the manager is free to modify the URL (eg. by
- * re-locating files) as long as the result of @ref resolve
- * "resolving" the reference at some later date, in some other context,
- * points to the same underlying data.
- *
- * This singular opportunity forms one of the core benefits of JIT
- * resolution. Documents can be made portable, if the @ref manager can
- * resolve a reference to the best location for any given entities data
- * based on the current context.
  *
  * @section session session
  *

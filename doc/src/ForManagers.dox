@@ -43,13 +43,11 @@
  *   is entirely determined by the manager. They are considered to be
  *   opaque by the host.
  *
- * - The manager is expected to store and recall the
- *   @ref primary_string
+ * - The manager is expected to store and recall the trait data
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
- *   "registered" to any given @ref entity_reference,
- *   grouped by its @ref Specification "specification", and return this
- *   values from the relevant query methods when supplied the
- *   reference returned from the registration.
+ *   "registered" to any given @ref entity_reference, and return this
+ *   data from the relevant query methods when supplied the reference
+ *   returned from the registration.
  *
  * - A @ref host may query other well-known or host-specific @needsref
  *   traits to provide additional customization of behavior or the
@@ -142,26 +140,25 @@
  * - Map supported OpenAssetIO specifications to internal asset types
  *   where possible.
  *
- * - Persist the exact OpenAssetIO specific specification schema
- *   identifier supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ * - Persist the trait IDs of the specification supplied to
+ *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "register". This allows new asset types to be registered and
  *   filtered, even if they don't have a unique type within a managers
  *   implementation - see @ref specification_hierarchy.
  *
- * - Persist the @ref primary_string supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
- *   "register". It should be considered opaque, unless the
- *   @ref Specification is understood. In all other cases it should be
- *   returned verbatim by @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolveEntityReference
- *   "resolveEntityReference" when passed the reference returned from
- *   the registration (conditional on any subsequent registrations to
+ * - Persist the trait data supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ *   "register". It should be considered opaque, unless the trait is
+ *   well understood. In all other cases it should be returned verbatim
+ *   by @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolve
+ *   "resolve" when passed the reference returned from the registration
+ *   (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
  *
- * @note An example of a situation where the manager is allowed to mutate the
- * @ref primary_string is for all specifications derived from
- * FileSpecification. In this case, the primary string is known to be a
- * URL so may be rewritten at will providing it still points to
- * synonymous data. This allows data to be relocated after it has been
- * registered as appropriate.
+ * @note An example of a situation where the manager is allowed to mutate
+ * trait property data is when it is know to be an URL or file path.
+ * In these cases, it may be rewritten at will providing it still points
+ * to synonymous data. This allows data to be relocated after it has
+ * been registered as appropriate.
  *
  * @subsection manager_todo_related_entities Supporting Relationships
  *
@@ -185,7 +182,7 @@
  * conceptually valid for the operation.
  *
  * Hosts will include in their documentation notes on specific
- * scenarios in which they register entities with one specification to
+ * scenarios in which they register entities with one set of traits to
  * references known to be of another, such as the editorial example
  * above.
  *
@@ -200,7 +197,7 @@
  * one. For example, if an image has been rendered from an assetized
  * script. The host may call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setRelatedReferences
  * "setRelatedReferences", to add the script's reference to the newly
- * registered image, using the SourceDocumentRelationship specification.
+ * registered image, using the SourceDocumentRelationship trait set.
  *
  * In order to support entity relationships:
  *
