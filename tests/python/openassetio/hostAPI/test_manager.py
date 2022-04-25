@@ -577,3 +577,13 @@ class Test_Manager_register:
 
         with pytest.raises(IndexError):
             manager.register(some_refs, specifications[1:], a_context)
+
+
+    def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
+            self, manager, some_refs, a_context):
+
+        specifications = [
+                specification.Specification({f"trait{i}", "🦀"})for i in range(len(some_refs))]
+
+        with pytest.raises(ValueError):
+            manager.register(some_refs, specifications, a_context)

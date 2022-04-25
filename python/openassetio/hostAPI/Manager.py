@@ -1079,6 +1079,15 @@ class Manager(Debuggable):
         if len(targetEntityRefs) != len(entitySpecs):
             raise IndexError("Parameter lists must be of the same length")
 
+        if entitySpecs:
+            # Check supplied specifcations share a trait set
+            expectedTraits = entitySpecs[0].traitIds()
+            for i, spec in enumerate(entitySpecs[1:]):
+                specTraits = spec.traitIds()
+                if specTraits != expectedTraits:
+                    raise ValueError(
+                            f"Mismatched traits at index {i+1}: {specTraits} != {expectedTraits}")
+
         return self.__impl.register(targetEntityRefs, entitySpecs, context, self.__hostSession)
 
     ## @}
