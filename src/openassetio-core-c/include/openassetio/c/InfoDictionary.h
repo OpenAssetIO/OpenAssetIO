@@ -18,13 +18,16 @@ extern "C" {
  * @addtogroup CAPI C API
  * @{
  */
-
 /**
- * Opaque handle type representing a @fqref{InfoDictionary} "InfoDictionary"
- * instance.
+ * @defgroup CInfoDictionary InfoDictionary
  *
- * The associated @fqcref{InfoDictionary_s} "InfoDictionary suite" functions
- * operate on this handle type.
+ * C API for the \fqref{InfoDictionary} "InfoDictionary C++ type".
+ *
+ * @{
+ */
+/**
+ * Opaque handle type representing a @fqref{InfoDictionary}
+ * "InfoDictionary" instance.
  *
  * The ownership semantics of this handle are "owned by client", that
  * is, the caller of the C API is responsible for deallocating using
@@ -181,9 +184,8 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
                                           OPENASSETIO_NS(StringView) * out,
                                           OPENASSETIO_NS(InfoDictionary_h) handle,
                                           OPENASSETIO_NS(ConstStringView) key);
-/**
- * @}
- */
+/// @}
+// Accessors
 
 /**
  * @name Mutators
@@ -250,9 +252,12 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
                                           OPENASSETIO_NS(ConstStringView) key,
                                           OPENASSETIO_NS(ConstStringView) value);
 
-/**
- * @}
- */
+/// @}
+// Mutators
+/// @}
+// CInfoDictionary
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif
