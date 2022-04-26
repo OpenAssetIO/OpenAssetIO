@@ -28,10 +28,6 @@ extern "C" {
 /**
  * Opaque handle type representing a @fqref{InfoDictionary}
  * "InfoDictionary" instance.
- *
- * The ownership semantics of this handle are "owned by client", that
- * is, the caller of the C API is responsible for deallocating using
- * the C API `dtor` function once the InfoDictionary is no longer in use.
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_h);

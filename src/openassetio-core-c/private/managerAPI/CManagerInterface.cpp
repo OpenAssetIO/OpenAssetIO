@@ -6,6 +6,7 @@
 #include "CManagerInterface.hpp"
 
 #include "../errors.hpp"
+#include "../handles.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
@@ -59,6 +60,27 @@ Str CManagerInterface::displayName() const {
   errors::throwIfError(errorCode, errorMessage);
 
   return {out.data, out.size};
+}
+
+InfoDictionary CManagerInterface::info() const {
+  // Buffer for error message.
+  char errorMessageBuffer[kStringBufferSize];
+  // Error message.
+  OPENASSETIO_NS(StringView)
+  errorMessage{kStringBufferSize, errorMessageBuffer, 0};
+
+  // Return value.
+  InfoDictionary infoDict{};
+  auto *infoDictHandle =
+      handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>::toHandle(&infoDict);
+
+  // Execute corresponding suite function.
+  const OPENASSETIO_NS(ErrorCode) errorCode = suite_.info(&errorMessage, infoDictHandle, handle_);
+
+  // Convert error code/message to exception.
+  errors::throwIfError(errorCode, errorMessage);
+
+  return infoDict;
 }
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION

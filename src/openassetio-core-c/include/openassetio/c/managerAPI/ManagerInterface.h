@@ -2,6 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include "../InfoDictionary.h"
 #include "../StringView.h"
 #include "../errors.h"
 #include "../namespace.h"
@@ -99,6 +100,23 @@ typedef struct {
   OPENASSETIO_NS(ErrorCode)
   (*displayName)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
                  OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
+
+  /**
+   * C equivalent of the
+   * @fqref{managerAPI::ManagerInterface::info} "info"
+   * member function.
+   *
+   * @param[out] err Storage for error message, if any.
+   * @param[out] out Handle to pre-existing dictionary that should be
+   * populated with entries.
+   * @param handle Opaque handle representing `ManagerInterface`
+   * instance.
+   * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
+   * error code otherwise.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*info)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
+          OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
 } OPENASSETIO_NS(managerAPI_ManagerInterface_s);
 
 /**
