@@ -2,6 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <optional>
 
+#include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
 #include <openassetio/specification/Specification.hpp>
@@ -29,5 +30,6 @@ void registerSpecification(const py::module& mod) {
             }
             return {};
           },
-          py::arg("id"), py::arg("key"));
+          py::arg("id"), py::arg("key"))
+      .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 }
