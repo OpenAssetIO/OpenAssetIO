@@ -7,6 +7,7 @@
 #include <catch2/trompeloeil.hpp>
 
 // private headers
+#include <handles.hpp>
 #include <managerAPI/CManagerInterface.hpp>
 
 namespace {
@@ -29,6 +30,9 @@ struct MockCAPI {
                                        OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 };
 
+using HandleConverter =
+    openassetio::handles::Converter<MockCAPI, OPENASSETIO_NS(managerAPI_ManagerInterface_h)>;
+
 /**
  * Get a ManagerInterface C API function pointer suite that assumes the
  * provided `handle` is a `MockCAPI` instance.
@@ -36,19 +40,19 @@ struct MockCAPI {
 OPENASSETIO_NS(managerAPI_ManagerInterface_s) getSuite() {
   return {// dtor
           [](OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             api->dtor(h);
           },
           // identifier
           [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             return api->identifier(err, out, h);
           },
           // displayName
           [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             return api->displayName(err, out, h);
           }};
 }
@@ -58,7 +62,7 @@ SCENARIO("A CManagerInterface is destroyed") {
   GIVEN("An opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     THEN("CManagerInterface's destructor calls the suite's dtor") {
@@ -73,7 +77,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
@@ -141,7 +145,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
