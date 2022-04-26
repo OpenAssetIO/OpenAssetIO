@@ -128,6 +128,13 @@ class OPENASSETIO_CORE_EXPORT Specification {
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue);
 
+  /**
+   * Compares specifications based on their trait and property values.
+   *
+   * @param other The specification to compare to.
+   */
+  bool operator==(const Specification& other) const;
+
  private:
   class Impl;
   std::unique_ptr<Impl> impl_;

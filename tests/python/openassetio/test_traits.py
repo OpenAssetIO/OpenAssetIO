@@ -62,6 +62,40 @@ class Test_Specification_getsetTraitProperty:
             a_specification.setTraitProperty("first_trait", "unknown type", None)
 
 
+class Test_Specification_equality:
+    def test_when_comparing_with_same_data_then_are_equal(self):
+        spec_a = specification.Specification({"a_trait"})
+        spec_a.setTraitProperty("a_trait", "a_property", 1)
+        spec_b = specification.Specification({"a_trait"})
+        spec_b.setTraitProperty("a_trait", "a_property", 1)
+        assert spec_a == spec_b
+
+    def test_when_comparing_with_different_property_value_then_are_not_equal(self):
+        spec_a = specification.Specification({"a_trait"})
+        spec_a.setTraitProperty("a_trait", "a_property", 1)
+        spec_b = specification.Specification({"a_trait"})
+        spec_b.setTraitProperty("a_trait", "a_property", 2)
+        assert spec_a != spec_b
+
+    def test_when_comparing_with_subset_of_properties_then_are_not_equal(self):
+        spec_a = specification.Specification({"a_trait"})
+        spec_a.setTraitProperty("a_trait", "a_property", 1)
+        spec_b = specification.Specification({"a_trait"})
+        spec_b.setTraitProperty("a_trait", "a_property", 1)
+        spec_b.setTraitProperty("a_trait", "another_property", 1)
+        assert spec_a != spec_b
+
+    def test_when_comparing_with_different_trait_then_are_not_equal(self):
+        spec_a = specification.Specification({"a_trait"})
+        spec_b = specification.Specification({"another_trait"})
+        assert spec_a != spec_b
+
+    def test_when_comparing_with_subset_of_traits_then_are_not_equal(self):
+        spec_a = specification.Specification({"a_trait"})
+        spec_b = specification.Specification({"a_trait", "another_trait"})
+        assert spec_a != spec_b
+
+
 def test_BlobTrait_traitId():
     assert trait.BlobTrait.kId == "blob"
 

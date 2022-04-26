@@ -50,6 +50,8 @@ class Specification::Impl {
     data_.at(traitId)[propertyKey] = std::move(propertyValue);
   }
 
+  bool operator==(const Impl& other) const { return data_ == other.data_; }
+
  private:
   using Properties = std::unordered_map<trait::property::Key, trait::property::Value>;
   using PropertiesByTrait = std::unordered_map<trait::TraitId, Properties>;
@@ -76,6 +78,8 @@ void Specification::setTraitProperty(const trait::TraitId& traitId,
                                      trait::property::Value propertyValue) {
   impl_->setTraitProperty(traitId, propertyKey, std::move(propertyValue));
 }
+
+bool Specification::operator==(const Specification& other) const { return *impl_ == *other.impl_; }
 }  // namespace specification
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio
