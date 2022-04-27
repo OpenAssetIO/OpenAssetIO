@@ -27,6 +27,3 @@ void registerManagerInterface(const py::module& mod);
 
 /// Register the base specification class with Python.
 void registerSpecification(const py::module& mod);
-
-/// Register the BlobTrait class with Python.
-void registerBlobTrait(const py::module& mod);
