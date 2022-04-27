@@ -20,11 +20,13 @@ constexpr size_t kStringBufferSize = 500;
 struct MockCAPI {
   MAKE_MOCK1(dtor, void(OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 
-  MAKE_MOCK3(identifier, int(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                             OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
+  MAKE_MOCK3(identifier,
+             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
+                                       OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 
-  MAKE_MOCK3(displayName, int(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                              OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
+  MAKE_MOCK3(displayName,
+             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
+                                       OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 };
 
 /**
@@ -96,7 +98,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
           .LR_SIDE_EFFECT(strncpy(_2->data, expectedIdentifier.data(), expectedIdentifier.size()))
           .LR_SIDE_EFFECT(_2->size = expectedIdentifier.size())
           // Return OK code.
-          .RETURN(OPENASSETIO_NS(kOK));
+          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
 
       WHEN("the manager's identifier is queried") {
         const openassetio::Str actualIdentifier = cManagerInterface.identifier();
@@ -109,8 +111,8 @@ SCENARIO("A host calls CManagerInterface::identifier") {
 
     AND_GIVEN("the C suite's identifier() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
-      const int expectedErrorCode = 123;
-      const openassetio::Str expectedErrorCodeAndMsg = "123: some error happened";
+      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
 
@@ -163,7 +165,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
               strncpy(_2->data, expectedDisplayName.data(), expectedDisplayName.size()))
           .LR_SIDE_EFFECT(_2->size = expectedDisplayName.size())
           // Return OK code.
-          .RETURN(OPENASSETIO_NS(kOK));
+          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
 
       WHEN("the manager's displayName is queried") {
         const openassetio::Str actualDisplayName = cManagerInterface.displayName();
@@ -176,8 +178,8 @@ SCENARIO("A host calls CManagerInterface::displayName") {
 
     AND_GIVEN("the C suite's displayName() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
-      const int expectedErrorCode = 123;
-      const openassetio::Str expectedErrorCodeAndMsg = "123: some error happened";
+      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
 

@@ -15,7 +15,7 @@ SCENARIO("throwIfError error code/message handling") {
   using openassetio::errors::throwIfError;
 
   GIVEN("an OK error code") {
-    const int code = OPENASSETIO_NS(kOK);
+    const OPENASSETIO_NS(ErrorCode) code = OPENASSETIO_NS(ErrorCode_kOK);
 
     WHEN("throwIfError is called") {
       THEN("no exception is thrown") { throwIfError(code, OPENASSETIO_NS(StringView){}); }
@@ -23,7 +23,7 @@ SCENARIO("throwIfError error code/message handling") {
   }
 
   GIVEN("an error code and message") {
-    const int code = 123;
+    const auto code = OPENASSETIO_NS(ErrorCode_kUnknown);
     openassetio::Str message = "some error";
 
     OPENASSETIO_NS(StringView)
@@ -36,7 +36,7 @@ SCENARIO("throwIfError error code/message handling") {
     WHEN("throwIfError is called") {
       THEN("expected exception is thrown") {
         REQUIRE_THROWS_MATCHES(throwIfError(code, cmessage), std::runtime_error,
-                               Catch::Message("123: some error"));
+                               Catch::Message("1: some error"));
       }
     }
   }

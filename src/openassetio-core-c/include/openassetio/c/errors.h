@@ -12,9 +12,13 @@ extern "C" {
  * @{
  */
 
-/// Error code indicating an OK result from a C API function.
-const int OPENASSETIO_NS(kOK) = 0;
-
+// NOLINTNEXTLINE(modernize-use-using)
+typedef enum {
+  /// Error code indicating an OK result from a C API function.
+  OPENASSETIO_NS(ErrorCode_kOK) = 0,
+  /// Error code representing a generic C++ exception.
+  OPENASSETIO_NS(ErrorCode_kUnknown)
+} OPENASSETIO_NS(ErrorCode);
 /**
  * @}
  */

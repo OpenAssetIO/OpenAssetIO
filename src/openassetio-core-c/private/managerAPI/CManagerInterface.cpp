@@ -32,7 +32,7 @@ Str CManagerInterface::identifier() const {
   OPENASSETIO_NS(StringView) out{kStringBufferSize, outBuffer, 0};
 
   // Execute corresponding suite function.
-  const int errorCode = suite_.identifier(&errorMessage, &out, handle_);
+  const OPENASSETIO_NS(ErrorCode) errorCode = suite_.identifier(&errorMessage, &out, handle_);
 
   // Convert error code/message to exception.
   errors::throwIfError(errorCode, errorMessage);
@@ -53,7 +53,7 @@ Str CManagerInterface::displayName() const {
   OPENASSETIO_NS(StringView) out{kStringBufferSize, outBuffer, 0};
 
   // Execute corresponding suite function.
-  const int errorCode = suite_.displayName(&errorMessage, &out, handle_);
+  const OPENASSETIO_NS(ErrorCode) errorCode = suite_.displayName(&errorMessage, &out, handle_);
 
   // Convert error code/message to exception.
   errors::throwIfError(errorCode, errorMessage);
