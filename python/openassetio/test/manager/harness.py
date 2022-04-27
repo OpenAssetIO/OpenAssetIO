@@ -178,8 +178,8 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param session hostAPI.Session.Session The OpenAssetIO
         @ref session to be used by test cases.
 
-        @param locale specifications.LocaleSpecification The @ref locale
-        to use by test cases.
+        @param locale @fqref{specification::Specification} "Specification"
+        The @ref locale to use by test cases.
 
         @param args `List[Any]` Additional args passed along to the
         base class.
@@ -189,7 +189,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         """
         self._fixtures = fixtures  # type: dict
         self._session = session  # type: hostAPI.Session
-        self._locale = locale  # type: specifications.LocaleSpecification
+        self._locale = locale  # type: openassetio.Specification
         self._manager = session.currentManager()  # type: managerAPI.Manager
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
 

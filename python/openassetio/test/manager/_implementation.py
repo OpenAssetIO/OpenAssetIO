@@ -144,7 +144,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             caseFixtures.update(classFixtures.get(testCaseName, {}))
 
             locale = ManagerTestHarnessLocale()
-            locale.testCase = f"{testCaseClass.__name__}.{testCaseName}"
+            locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
 
             cases.append(testCaseClass(caseFixtures, self.__session, locale, testCaseName))
 

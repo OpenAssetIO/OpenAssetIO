@@ -752,8 +752,8 @@ class Manager(Debuggable):
         @param references List[str] A list of @ref entity_reference, see
         the notes on array length above.
 
-        @param relationshipSpecOrSpecs
-        List[openassetio.specifications.RelationshipSpecification]
+        @param relationshipSpecOrSpecs `List[`
+        @fqref{specification::Specification} "Specification" `]`
 
         @param resultTraitSet `Set[str]` or None, a hint as to what
         traits the returned entities should have.
@@ -769,7 +769,6 @@ class Manager(Debuggable):
         specification is provided, but they lists are not equal in
         length, ie: not a 1:1 mapping of entities to specs.
 
-        @see @ref openassetio.specifications "specifications"
         @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
@@ -878,8 +877,9 @@ class Manager(Debuggable):
     # entity_reference is known ahead of time. How this reference is determined
     # is beyond the scope of this layer of the API, and functions exists in
     # higher levels that combine browsing and publishing etc... Here, we simply
-    # assert that there must be a meaningful reference given the @ref
-    # Specification of the entity that is being created or published.
+    # assert that there must be a meaningful reference given the
+    # @fqref{specification::Specification} "Specification" of the entity that
+    # is being created or published.
     #
     # @note 'Meaningful' is best defined by the asset manager itself. For
     # example, in a system that versions each 'asset' by creating children of the

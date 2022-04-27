@@ -905,7 +905,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
         @param entityRefs List[str]
 
-        @param relationshipSpecs List[RelationshipSpecification]
+        @param relationshipSpecs `List[`
+        @fqref{specification::Specification} "Specification" `]`
 
         @param context Context The calling context.
 
@@ -928,7 +929,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         cursory validation that this is the case before calling this
         function.
 
-        @see @ref openassetio.specifications "specifications"
         @see @ref setRelatedReferences
         """
         raise NotImplementedError

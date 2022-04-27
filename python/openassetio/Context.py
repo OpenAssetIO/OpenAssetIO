@@ -18,7 +18,9 @@
 A single-class module, providing the Context class.
 """
 
-from .specifications import LocaleSpecification
+# Import from the cmodule directly to avoid a cyclic dependency on
+# openassetio, which also hoists Context.
+from ._openassetio import specification # pylint: disable=import-error
 from .constants import kSupportedAttributeTypes
 
 
@@ -217,10 +219,10 @@ class Context(object):
 
     def __setLocale(self, locale):
         # pylint: disable=unused-private-member
-        if locale is not None and not isinstance(locale, LocaleSpecification):
+        if locale is not None and not isinstance(locale, specification.Specification):
             raise ValueError(
                 "Locale must be an instance of %s (not %s)"
-                % (LocaleSpecification, type(locale)))
+                % (specification.Specification, type(locale)))
         self.__locale = locale
 
     ## @property locale
@@ -233,11 +235,11 @@ class Context(object):
     ## than a 'Write node' from a comp tree could result in different
     ## behavior.
     ##
-    ## The Locale uses a @ref openassetio.specifications.LocaleSpecification
-    ## to describe in more detail, what specific part of a @ref host
-    ## is requesting an action. In the case of a file browser for example,
-    ## it may also include information such as whether or not multi-selection
-    ## is required.
+    ## The Locale uses a @fqref{specification::Specification}
+    ## "Specification" to describe in more detail, what specific part of
+    ## a @ref host is requesting an action. In the case of a file
+    ## browser for example, it may also include information such as
+    ## whether or not multi-selection is required.
     locale = property(__getLocale, __setLocale)
 
     def __str__(self):

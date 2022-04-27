@@ -26,9 +26,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import specification  # pylint: disable=no-name-in-module
 from openassetio import Context, Specification
-from openassetio.specifications import EntitySpecification
 from openassetio.hostAPI import Manager
 from openassetio.managerAPI import HostSession, ManagerInterface
 
@@ -177,7 +175,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
 
     def register(self, targetEntityRefs, entitySpecs, context, hostSession):
         self.__assertIsIterableOf(targetEntityRefs, str)
-        self.__assertIsIterableOf(entitySpecs, specification.Specification)
+        self.__assertIsIterableOf(entitySpecs, Specification)
         self.__assertCallingContext(context, hostSession)
         assert len(targetEntityRefs) == len(entitySpecs)
         return mock.DEFAULT
@@ -236,17 +234,17 @@ def manager(mock_manager_interface, host_session):
 
 @pytest.fixture
 def an_entity_spec():
-    return EntitySpecification()
+    return Specification(set())
 
 
 @pytest.fixture
 def some_entity_specs():
-    return [EntitySpecification(), EntitySpecification()]
+    return [Specification(set()), Specification(set())]
 
 
 @pytest.fixture
 def a_specification():
-    return specification.Specification(set())
+    return Specification(set())
 
 
 @pytest.fixture
@@ -583,7 +581,7 @@ class Test_Manager_register:
             self, manager, some_refs, a_context):
 
         specifications = [
-                specification.Specification({f"trait{i}", "🦀"})for i in range(len(some_refs))]
+                Specification({f"trait{i}", "🦀"})for i in range(len(some_refs))]
 
         with pytest.raises(ValueError):
             manager.register(some_refs, specifications, a_context)

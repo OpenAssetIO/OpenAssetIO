@@ -25,8 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import Context
-from openassetio.specifications import EntitySpecification
+from openassetio import Context, Specification
 from openassetio.hostAPI import HostInterface
 from openassetio.managerAPI import Host
 
@@ -43,7 +42,7 @@ def host(mock_host_interface):
 
 @pytest.fixture()
 def an_entity_spec():
-    return EntitySpecification()
+    return Specification(set())
 
 
 @pytest.fixture()

@@ -116,13 +116,16 @@
  *
  * @code{.py}
  * from openassetio import Context
- * from openassetio.specifications import LocaleSpecification
+ * from openassetio import Specification
  *
- * class APIDocumentationExampleLocale(LocaleSpecification):
+ * class APIDocumentationExampleLocale(Specification):
  *     """
  *      A locale to represent code run as part of a documentation example
  *     """
- *     _type = "documentation.example"
+ *     kTraitIds = {"documentation", "example"}
+ *
+ *     def __init__(self):
+ *         super().__init__(traitIds=kTraitIds)
  *
  * # We must **ALWAYS** validate that a string is an entity reference
  * # before passing it to any other manager API call.
@@ -168,7 +171,7 @@
  * context.locale = APIDocumentationExampleLocale()
  *
  * # The first step is to see if the manager wants to manage text files
- * policy = manager.managementPolicy([TextFileSpecification.traitIds()], context)[0]
+ * policy = manager.managementPolicy([TextFileSpecification.kTraitIds], context)[0]
  *
  * if not policy & constants.kManaged:
  *   # The manager doesn't care about this type of asset
@@ -183,11 +186,11 @@
  * # Whenever we make new data, we always tell the manager first,
  * # This allows it to create a placeholder version or similar.
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight([entity_ref], TextFileSpecification.traitIds(), context)[0]
+ * working_ref = manager.preflight([entity_ref], TextFileSpecification.kTraitIds, context)[0]
  *
  * # We then check if the manager can tell us where to save the file.
  * if policy & constants.kWillManagePath:
- *     working_data = manager.resolve([working_ref], TextFileSpecification.traitIds(), context)[0]
+ *     working_data = manager.resolve([working_ref], TextFileSpecification.kTraitIds, context)[0]
  *     working_spec = TextFileSpecification(working_data)
  *     save_path = working_spec.fileTrait().getPath(raiseOnError=True)
  *     encoding_trait = working_spec.textEncodingTrait()
@@ -235,14 +238,14 @@
  * # Preflight the thumbnail spec's traits with the target entity's
  * # reference, this gives us a reference we can now use for all
  * # interactions relating to the thumbnail itself.
- * thumbnail_ref = manager.preflight([final_ref], ThumbnailFileSpecification.traitIds(), context)[0]
+ * thumbnail_ref = manager.preflight([final_ref], ThumbnailFileSpecification.kTraitIds, context)[0]
  *
  * thumbnail_path = os.path.join(os.path.expanduser('~'), 'greeting.preview.png')
  * thumbnail_attr = {"width": 128, "height": 128}
  *
  * # See if the manager can tell us where to put it, and what it should be like
  * if policy & constants.kWillManagePath:
- *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.traitIds(), context)[0]
+ *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.kTraitIds, context)[0]
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     file_trait = requested_spec.fileTrait()
  *     if file_trait.isValid() and (requested_path := file_trait.getPath()):
