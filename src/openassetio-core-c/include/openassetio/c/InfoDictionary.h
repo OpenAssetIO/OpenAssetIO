@@ -25,6 +25,10 @@ extern "C" {
  *
  * The associated @fqcref{InfoDictionary_s} "InfoDictionary suite" functions
  * operate on this handle type.
+ *
+ * The ownership semantics of this handle are "owned by client", that
+ * is, the caller of the C API is responsible for deallocating using
+ * the suite's `dtor` function once the InfoDictionary is no longer in use.
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_h);
@@ -38,6 +42,18 @@ typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct {
   /**
+   * Constructor function.
+   *
+   * The caller is responsible for deallocating via `dtor`.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param[out] out Opaque handle to InfoDictionary.
+   * @return Error code.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*ctor)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) * out);
+
+  /**
    * Destructor function.
    *
    * This should be called by the owner of the handle when the handle is
@@ -49,15 +65,25 @@ typedef struct {
   void (*dtor)(OPENASSETIO_NS(InfoDictionary_h) handle);
 
   /**
-   * Retrieve a boolean value from the map.
+   * @name Accessors
    *
-   * Missing values will result in a @fqcref{ErrorCode_kOutOfRange} error
-   * code.
+   * Functions to retrieve values of a specific type at a given key in
+   * a `InfoDictionary`.
+   *
+   * Missing values will result in a @fqcref{ErrorCode_kOutOfRange}
+   * "kOutOfRange" error code.
    *
    * Values with the wrong data type will result in a
-   * @fqcref{ErrorCode_kBadVariantAccess} error code.
+   * @fqcref{ErrorCode_kBadVariantAccess} "kBadVariantAccess" error
+   * code.
    *
-   * @param[out] error Storage for error message, if any
+   * @{
+   */
+
+  /**
+   * Retrieve a boolean value from the map.
+   *
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
@@ -70,13 +96,7 @@ typedef struct {
   /**
    * Retrieve an integer value from the map.
    *
-   * Missing values will result in a @fqcref{ErrorCode_kOutOfRange} error
-   * code.
-   *
-   * Values with the wrong data type will result in a
-   * @fqcref{ErrorCode_kBadVariantAccess} error code.
-   *
-   * @param[out] error Storage for error message, if any
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
@@ -88,12 +108,6 @@ typedef struct {
 
   /**
    * Retrieve a floating point value from the map.
-   *
-   * Missing values will result in a @fqcref{ErrorCode_kOutOfRange} error
-   * code.
-   *
-   * Values with the wrong data type will result in a
-   * @fqcref{ErrorCode_kBadVariantAccess} error code.
    *
    * @param[out] error Storage for error message, if any
    * @param[out] out Storage for retrieved value.
@@ -108,17 +122,11 @@ typedef struct {
   /**
    * Retrieve a string value from the map.
    *
-   * Missing values will result in a @fqcref{ErrorCode_kOutOfRange} error
-   * code.
-   *
-   * Values with the wrong data type will result in a
-   * @fqcref{ErrorCode_kBadVariantAccess} error code.
-   *
    * An `out` parameter with insufficient capacity for the string value
    * will result in truncation of the string as well as a
-   * @fqcref{ErrorCode_kLengthError} error code.
+   * @fqcref{ErrorCode_kLengthError} "kLengthError" error code.
    *
-   * @param[out] error Storage for error message, if any
+   * @param[out] error Storage for error message, if any.
    * @param[out] out Storage for retrieved value.
    * @param handle Opaque handle to InfoDictionary.
    * @param key Key of entry to query.
@@ -127,6 +135,73 @@ typedef struct {
   OPENASSETIO_NS(ErrorCode)
   (*getStr)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(StringView) * out,
             OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key);
+  /**
+   * @}
+   */
+
+  /**
+   * @name Mutators
+   *
+   * Functions to set values of a specific type at a given key in
+   * a `InfoDictionary`.
+   *
+   * If an entry already exists at the given key, it will be
+   * overwritten. This works even if the previous value had a different
+   * type.
+   *
+   * @{
+   */
+
+  /**
+   * Set a boolean value in the map.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param handle Opaque handle to InfoDictionary.
+   * @param key Key of entry to mutate.
+   * @param value  Value to set in entry.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*setBool)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) handle,
+             const OPENASSETIO_NS(ConstStringView) key, const bool value);
+  /**
+   * Set an integer value in the map.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param handle Opaque handle to InfoDictionary.
+   * @param key Key of entry to mutate.
+   * @param value Value to set in entry.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*setInt)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) handle,
+            const OPENASSETIO_NS(ConstStringView) key, const int64_t value);
+
+  /**
+   * Set a floating point value in the map.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param handle Opaque handle to InfoDictionary.
+   * @param key Key of entry to mutate.
+   * @param value Value to set in entry.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*setFloat)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) handle,
+              const OPENASSETIO_NS(ConstStringView) key, const double value);
+  /**
+   * Set a string value in the map.
+   *
+   * @param[out] error Storage for error message, if any.
+   * @param handle Opaque handle to InfoDictionary.
+   * @param key Key of entry to mutate.
+   * @param value Value to set in entry.
+   */
+  OPENASSETIO_NS(ErrorCode)
+  (*setStr)(OPENASSETIO_NS(StringView) * error, OPENASSETIO_NS(InfoDictionary_h) handle,
+            const OPENASSETIO_NS(ConstStringView) key,
+            const OPENASSETIO_NS(ConstStringView) value);
+
+  /**
+   * @}
+   */
 } OPENASSETIO_NS(InfoDictionary_s);
 
 /**

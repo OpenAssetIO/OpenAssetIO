@@ -18,44 +18,90 @@
 namespace {
 using HandleConverter =
     openassetio::handles::Converter<openassetio::InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
-}
 
-SCENARIO("InfoDictionary deallocated via C API") {
-  GIVEN("a heap-allocated C++ InfoDictionary and its C handle and function suite") {
-    // Convert a dynamically allocated InfoDictionary to an opaque handle.
-    // Note that this models the ownership semantic of "owned by
-    // client", so the client is expected to call `dtor` when done.
-    OPENASSETIO_NS(InfoDictionary_h)
-    infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
+/// Default storage capacity for StringView C strings.
+constexpr std::size_t kStrStorageCapacity = 500;
+}  // namespace
 
+SCENARIO("InfoDictionary construction, conversion and destruction") {
+  // Storage for error messages coming from suite functions.
+  openassetio::Str errStorage(kStrStorageCapacity, '\0');
+  OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+
+  GIVEN("InfoDictionary C function suite") {
     // InfoDictionary function pointer suite
     const auto suite = OPENASSETIO_NS(InfoDictionary_suite)();
 
-    WHEN("suite dtor function is called") {
-      suite.dtor(infoDictionaryHandle);
+    WHEN("a InfoDictionary handle is constructed using the C API") {
+      // TODO(DF): The only way InfoDictionary construction can error
+      //  currently is `bad_alloc` (i.e. insufficient memory), which is
+      //  a pain to simulate for testing.
 
-      THEN("InfoDictionary was deallocated") {
-        // Rely on ASan to detect.
+      OPENASSETIO_NS(InfoDictionary_h) infoDictionaryHandle;
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = suite.ctor(&actualErrorMsg, &infoDictionaryHandle);
+
+      THEN("the returned handle can be converted and used as a C++ InfoDictionary") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+
+        openassetio::InfoDictionary* infoDictionary =
+            HandleConverter::toInstance(infoDictionaryHandle);
+
+        const openassetio::Str key = "some key";
+        const openassetio::Str expectedValue = "some value";
+        infoDictionary->insert({key, expectedValue});
+        const openassetio::Str actualValue = std::get<openassetio::Str>(infoDictionary->at(key));
+        CHECK(actualValue == expectedValue);
+
+        AND_WHEN("suite dtor function is called") {
+          suite.dtor(infoDictionaryHandle);
+
+          THEN("InfoDictionary was deallocated") {
+            // Rely on ASan to detect.
+          }
+        }
+      }
+    }
+
+    WHEN("a InfoDictionary handle is constructed using the C++ API") {
+      // Convert a dynamically allocated InfoDictionary to an opaque handle.
+      // Note that this models the ownership semantic of "owned by
+      // client", so the client is expected to call `dtor` when done.
+      OPENASSETIO_NS(InfoDictionary_h)
+      infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
+
+      AND_WHEN("suite dtor function is called") {
+        suite.dtor(infoDictionaryHandle);
+
+        THEN("InfoDictionary was deallocated") {
+          // Rely on ASan to detect.
+        }
       }
     }
   }
 }
-
-/// Default storage capacity for StringView C strings.
-constexpr std::size_t kStrStorageCapacity = 500;
 
 /**
  * Base fixture for tests, providing a pre-populated InfoDictionary and its
  * C handle and function pointer suite.
  */
 struct InfoDictionaryFixture {
+  inline static const openassetio::Str kBoolKey = "aBool";
   static constexpr openassetio::Bool kBoolValue = true;
+  inline static const openassetio::Str kIntKey = "anInt";
   static constexpr openassetio::Int kIntValue = 123;
+  inline static const openassetio::Str kFloatKey = "aFloat";
   static constexpr openassetio::Float kFloatValue = 0.456;
+  inline static const openassetio::Str kStrKey = "aStr";
   inline static const openassetio::Str kStrValue = "string value";
 
-  openassetio::InfoDictionary infoDictionary_{
-      {"aBool", kBoolValue}, {"anInt", kIntValue}, {"aFloat", kFloatValue}, {"aStr", kStrValue}};
+  openassetio::InfoDictionary infoDictionary_{{kBoolKey, kBoolValue},
+                                              {kIntKey, kIntValue},
+                                              {kFloatKey, kFloatValue},
+                                              {kStrKey, kStrValue}};
+
+  // Key that doesn't exist in the map.
+  static inline const openassetio::Str kNonExistentKeyStr = "nonExistent";
 
   // Note that this models the ownership semantic of "owned by service",
   // i.e. the C client should not call `dtor` to destroy the instance.
@@ -68,92 +114,92 @@ struct InfoDictionaryFixture {
 };
 
 /**
- * Fixture for a specific suite function, specialised by return data
- * type.
+ * Fixture for a specific suite accessor function, specialised by return
+ * data type.
  *
  * @tparam Value Return (out-parameter) data type of suite function.
  */
 template <typename Value>
-struct SuiteFnFixture;
+struct SuiteAccessorFixture;
 
 /// Specialisation for getBool.
 template <>
-struct SuiteFnFixture<openassetio::Bool> : InfoDictionaryFixture {
-  decltype(InfoDictionaryFixture::suite_.getBool) fn_ = InfoDictionaryFixture::suite_.getBool;
-  static constexpr openassetio::Bool kInitialValue = false;
-  static constexpr openassetio::Bool kExpectedValue = InfoDictionaryFixture::kBoolValue;
-  static constexpr openassetio::Bool kAlternativeValue = !InfoDictionaryFixture::kBoolValue;
-  inline static const openassetio::Str kKeyStr = "aBool";
-  inline static const openassetio::Str kWrongValueTypeKeyStr = "anInt";
+struct SuiteAccessorFixture<openassetio::Bool> : InfoDictionaryFixture {
+  decltype(suite_.getBool) getter_ = suite_.getBool;
+  static constexpr openassetio::Bool kInitialValue = !kBoolValue;
+  static constexpr openassetio::Bool kExpectedValue = kBoolValue;
+  static constexpr openassetio::Bool kAlternativeValue = !kBoolValue;
+  inline static const openassetio::Str kKeyStr = kBoolKey;
+  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
   openassetio::Bool actualValue_ = kInitialValue;
 };
 
 /// Specialisation for getInt.
 template <>
-struct SuiteFnFixture<openassetio::Int> : InfoDictionaryFixture {
-  decltype(InfoDictionaryFixture::suite_.getInt) fn_ = InfoDictionaryFixture::suite_.getInt;
+struct SuiteAccessorFixture<openassetio::Int> : InfoDictionaryFixture {
+  decltype(suite_.getInt) getter_ = suite_.getInt;
   static constexpr openassetio::Int kInitialValue = 0;
-  static constexpr openassetio::Int kExpectedValue = InfoDictionaryFixture::kIntValue;
-  static constexpr openassetio::Int kAlternativeValue = InfoDictionaryFixture::kIntValue + 1;
-  inline static const openassetio::Str kKeyStr = "anInt";
-  inline static const openassetio::Str kWrongValueTypeKeyStr = "aBool";
+  static constexpr openassetio::Int kExpectedValue = kIntValue;
+  static constexpr openassetio::Int kAlternativeValue = kIntValue + 1;
+  inline static const openassetio::Str kKeyStr = kIntKey;
+  inline static const openassetio::Str kWrongValueTypeKeyStr = kBoolKey;
   openassetio::Int actualValue_ = kInitialValue;
 };
 
 /// Specialisation for getFloat.
 template <>
-struct SuiteFnFixture<openassetio::Float> : InfoDictionaryFixture {
-  decltype(InfoDictionaryFixture::suite_.getFloat) fn_ = InfoDictionaryFixture::suite_.getFloat;
+struct SuiteAccessorFixture<openassetio::Float> : InfoDictionaryFixture {
+  decltype(suite_.getFloat) getter_ = suite_.getFloat;
   static constexpr openassetio::Float kInitialValue = 0.0;
-  static constexpr openassetio::Float kExpectedValue = InfoDictionaryFixture::kFloatValue;
-  static constexpr openassetio::Float kAlternativeValue = InfoDictionaryFixture::kFloatValue / 2;
-  inline static const openassetio::Str kKeyStr = "aFloat";
-  inline static const openassetio::Str kWrongValueTypeKeyStr = "anInt";
+  static constexpr openassetio::Float kExpectedValue = kFloatValue;
+  static constexpr openassetio::Float kAlternativeValue = kFloatValue / 2;
+  inline static const openassetio::Str kKeyStr = kFloatKey;
+  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
   openassetio::Float actualValue_ = kInitialValue;
 };
 
 /// Specialisation for getStr.
 template <>
-struct SuiteFnFixture<openassetio::Str> : InfoDictionaryFixture {
-  decltype(InfoDictionaryFixture::suite_.getStr) fn_ = InfoDictionaryFixture::suite_.getStr;
+struct SuiteAccessorFixture<openassetio::Str> : InfoDictionaryFixture {
+  decltype(suite_.getStr) getter_ = suite_.getStr;
   openassetio::Str valueStorage_ = openassetio::Str(kStrStorageCapacity, '\0');
   OPENASSETIO_NS(StringView) kInitialValue{valueStorage_.size(), valueStorage_.data(), 0};
-  inline static const openassetio::Str kExpectedValue = InfoDictionaryFixture::kStrValue;
-  inline static const openassetio::Str kAlternativeValue =
-      InfoDictionaryFixture::kStrValue + " alternative";
-  inline static const openassetio::Str kKeyStr = "aStr";
-  inline static const openassetio::Str kWrongValueTypeKeyStr = "anInt";
+  inline static const openassetio::Str kExpectedValue = kStrValue;
+  inline static const openassetio::Str kAlternativeValue = kStrValue + " alternative";
+  inline static const openassetio::Str kKeyStr = kStrKey;
+  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
   OPENASSETIO_NS(StringView) actualValue_ = kInitialValue;
 };
 
-TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "",
+TEMPLATE_TEST_CASE_METHOD(SuiteAccessorFixture, "InfoDictionary accessed via C API", "",
                           openassetio::Bool, openassetio::Int, openassetio::Float,
                           openassetio::Str) {
   GIVEN("a populated C++ InfoDictionary and its C handle and suite function pointer") {
+    using Fixture = SuiteAccessorFixture<TestType>;
     // Map constructed with some initial data.
-    auto& infoDictionary = SuiteFnFixture<TestType>::infoDictionary_;
+    auto& infoDictionary = Fixture::infoDictionary_;
     // Opaque handle to map.
-    const auto& infoDictionaryHandle = SuiteFnFixture<TestType>::infoDictionaryHandle_;
+    const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
     // Suite function for type under test.
-    const auto& fn = SuiteFnFixture<TestType>::fn_;
+    const auto& getter = Fixture::getter_;
 
     // Storage for return (out-parameter) value.
-    auto& actualValue = SuiteFnFixture<TestType>::actualValue_;
+    auto& actualValue = Fixture::actualValue_;
     // Initial value held in actualValue out-parameter before suite
     // function is called.
-    const auto& initialValue = SuiteFnFixture<TestType>::kInitialValue;
+    const auto& initialValue = Fixture::kInitialValue;
     // Value in map at construction.
-    const auto& expectedValue = SuiteFnFixture<TestType>::kExpectedValue;
+    const auto& expectedValue = Fixture::kExpectedValue;
     // Valid value to set in map that is not equal to expectedValue.
-    const auto& alternativeValue = SuiteFnFixture<TestType>::kAlternativeValue;
+    const auto& alternativeValue = Fixture::kAlternativeValue;
     // Key in map where a value of the current type under test can be
     // found.
-    const auto& keyStr = SuiteFnFixture<TestType>::kKeyStr;
+    const auto& keyStr = Fixture::kKeyStr;
     // Key in map where a value of a different type from that under test
     // can be found.
-    const auto& wrongValueTypeKeyStr = SuiteFnFixture<TestType>::kWrongValueTypeKeyStr;
+    const auto& wrongValueTypeKeyStr = Fixture::kWrongValueTypeKeyStr;
     // Key that doesn't exist in the map.
-    const openassetio::Str nonExistentKeyStr = "nonExistent";
+    const openassetio::Str& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
 
     // Storage for error messages coming from suite functions.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
@@ -163,7 +209,7 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
 
       OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      actualErrorCode = getter(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("value is retrieved successfully") {
         CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
@@ -176,7 +222,7 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       infoDictionary.at(keyStr) = alternativeValue;
 
       OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      actualErrorCode = getter(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("updated value is retrieved successfully") {
         CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
@@ -188,7 +234,7 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       OPENASSETIO_NS(ConstStringView) key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
       OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      actualErrorCode = getter(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
         CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOutOfRange));
@@ -202,7 +248,7 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
       OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      actualErrorCode = getter(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
         CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kBadVariantAccess));
@@ -215,9 +261,10 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
       OPENASSETIO_NS(StringView) lowCapacityErr{3, errStorage.data(), 0};
 
       WHEN("attempting to retrieve a non-existent value through C API") {
-        OPENASSETIO_NS(ConstStringView) key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+        OPENASSETIO_NS(ConstStringView)
+        key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
-        fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
+        getter(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
         THEN("error message is truncated to fit storage capacity") {
           CHECK(lowCapacityErr == "Inv");
@@ -228,7 +275,7 @@ TEMPLATE_TEST_CASE_METHOD(SuiteFnFixture, "InfoDictionary accessed via C API", "
         OPENASSETIO_NS(ConstStringView)
         key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
-        fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
+        getter(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
         THEN("error message is truncated to fit storage capacity") {
           CHECK(lowCapacityErr == "Inv");
@@ -251,7 +298,8 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
     OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     AND_GIVEN(
-        "a StringView with insufficient storage capacity for string stored in InfoDictionary") {
+        "a StringView with insufficient storage capacity for string stored in "
+        "InfoDictionary") {
       constexpr std::size_t kReducedStrStorageCapacity = 5;
       openassetio::Str valueStorage(kReducedStrStorageCapacity, '\0');
       OPENASSETIO_NS(StringView) actualValue{valueStorage.size(), valueStorage.data(), 0};
@@ -269,6 +317,120 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
           CHECK(actualValue == "strin");
           CHECK(actualErrorMsg == "Insufficient storage for return value");
         }
+      }
+    }
+  }
+}
+
+/**
+ * Fixture for a specific suite mutator function, specialised by return
+ * data type.
+ *
+ * @tparam Value Input data type of suite function.
+ */
+template <typename Value>
+struct SuiteMutatorFixture;
+
+/// Specialisation for setBool.
+template <>
+struct SuiteMutatorFixture<openassetio::Bool> : InfoDictionaryFixture {
+  decltype(suite_.setBool) setter_ = suite_.setBool;
+  static constexpr openassetio::Bool kExpectedValue = !kBoolValue;
+  inline static const openassetio::Str kKeyStr = kBoolKey;
+  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+};
+
+/// Specialisation for setInt.
+template <>
+struct SuiteMutatorFixture<openassetio::Int> : InfoDictionaryFixture {
+  decltype(suite_.setInt) setter_ = suite_.setInt;
+  static constexpr openassetio::Int kExpectedValue = kIntValue + 1;
+  inline static const openassetio::Str kKeyStr = kIntKey;
+  inline static const openassetio::Str kOtherValueTypeKeyStr = kBoolKey;
+};
+
+/// Specialisation for setFloat.
+template <>
+struct SuiteMutatorFixture<openassetio::Float> : InfoDictionaryFixture {
+  decltype(suite_.setFloat) setter_ = suite_.setFloat;
+  static constexpr openassetio::Float kExpectedValue = kFloatValue / 2;
+  inline static const openassetio::Str kKeyStr = kFloatKey;
+  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+};
+
+/// Specialisation for setStr.
+template <>
+struct SuiteMutatorFixture<openassetio::Str> : InfoDictionaryFixture {
+  decltype(suite_.setStr) setter_ = InfoDictionaryFixture::suite_.setStr;
+  inline static const openassetio::Str kExpectedValue =
+      InfoDictionaryFixture::kStrValue + " updated";
+  inline static const openassetio::Str kKeyStr = kStrKey;
+  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+};
+
+TEMPLATE_TEST_CASE_METHOD(SuiteMutatorFixture, "InfoDictionary mutated via C API", "",
+                          openassetio::Bool, openassetio::Int, openassetio::Float) {
+  GIVEN("a populated C++ InfoDictionary and its C handle and suite function pointer") {
+    using Fixture = SuiteMutatorFixture<TestType>;
+    // Map constructed with some initial data.
+    const auto& infoDictionary = Fixture::infoDictionary_;
+    // Opaque handle to map.
+    const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
+    // Suite function for type under test.
+    const auto& setter = Fixture::setter_;
+
+    // Valid value to set in map that is not equal to initial value.
+    const auto& expectedValue = Fixture::kExpectedValue;
+    // Key in map where a value of the current type under test can be
+    // found.
+    const auto& keyStr = Fixture::kKeyStr;
+    // Key in map where a value of a different type from that under test
+    // can be found.
+    const auto& otherValueTypeKeyStr = Fixture::kOtherValueTypeKeyStr;
+    // Key that doesn't exist in the map.
+    const openassetio::Str& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
+
+    // Storage for error messages coming from suite functions.
+    // TODO(DF): The only exception currently possible is `bad_alloc`,
+    //  which is tricky to test.
+    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+
+    WHEN("an existing value of the same type is updated") {
+      const OPENASSETIO_NS(ErrorCode) actualErrorCode = setter(
+          &actualErrorMsg, infoDictionaryHandle, {keyStr.data(), keyStr.size()}, expectedValue);
+
+      THEN("value is updated successfully") {
+        const TestType actualValue = std::get<TestType>(infoDictionary.at(keyStr));
+
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualValue == expectedValue);
+      }
+    }
+
+    WHEN("an existing value of a different type is updated") {
+      const OPENASSETIO_NS(ErrorCode) actualErrorCode =
+          setter(&actualErrorMsg, infoDictionaryHandle,
+                 {otherValueTypeKeyStr.data(), otherValueTypeKeyStr.size()}, expectedValue);
+
+      THEN("value is updated successfully") {
+        const TestType actualValue = std::get<TestType>(infoDictionary.at(otherValueTypeKeyStr));
+
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualValue == expectedValue);
+      }
+    }
+
+    WHEN("a non-existent entry is updated") {
+      const OPENASSETIO_NS(ErrorCode) actualErrorCode =
+          setter(&actualErrorMsg, infoDictionaryHandle,
+                 {nonExistentKeyStr.data(), nonExistentKeyStr.size()}, expectedValue);
+
+      THEN("entry is created and value set successfully") {
+        const TestType actualValue = std::get<TestType>(infoDictionary.at(nonExistentKeyStr));
+
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualValue == expectedValue);
       }
     }
   }
