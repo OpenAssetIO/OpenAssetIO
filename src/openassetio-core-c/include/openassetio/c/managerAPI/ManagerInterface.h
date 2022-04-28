@@ -3,6 +3,7 @@
 #pragma once
 
 #include "../StringView.h"
+#include "../errors.h"
 #include "../namespace.h"
 
 #ifdef __cplusplus
@@ -75,11 +76,12 @@ typedef struct {
    * @param[out] out Storage for the identifier string, if no error
    * occurred. @param handle Opaque handle representing
    * `ManagerInterface` instance.
-   * @return @fqcref{kOK} "kOK" if no error occurred, an error code
-   * otherwise.
+   * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
+   * error code otherwise.
    */
-  int (*identifier)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-                    OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
+  OPENASSETIO_NS(ErrorCode)
+  (*identifier)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
+                OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
 
   /**
    * C equivalent of the
@@ -91,11 +93,12 @@ typedef struct {
    * occurred.
    * @param handle Opaque handle representing `ManagerInterface`
    * instance.
-   * @return @fqcref{kOK} "kOK" if no error occurred, an error code
-   * otherwise.
+   * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
+   * error code otherwise.
    */
-  int (*displayName)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-                     OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
+  OPENASSETIO_NS(ErrorCode)
+  (*displayName)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
+                 OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle);
 } OPENASSETIO_NS(managerAPI_ManagerInterface_s);
 
 /**

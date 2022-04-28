@@ -15,7 +15,7 @@ SCENARIO("throwIfError error code/message handling") {
   using openassetio::errors::throwIfError;
 
   GIVEN("an OK error code") {
-    const int code = OPENASSETIO_NS(kOK);
+    const OPENASSETIO_NS(ErrorCode) code = OPENASSETIO_NS(ErrorCode_kOK);
 
     WHEN("throwIfError is called") {
       THEN("no exception is thrown") { throwIfError(code, OPENASSETIO_NS(StringView){}); }
@@ -23,7 +23,7 @@ SCENARIO("throwIfError error code/message handling") {
   }
 
   GIVEN("an error code and message") {
-    const int code = 123;
+    const auto code = OPENASSETIO_NS(ErrorCode_kUnknown);
     openassetio::Str message = "some error";
 
     OPENASSETIO_NS(StringView)
@@ -36,7 +36,7 @@ SCENARIO("throwIfError error code/message handling") {
     WHEN("throwIfError is called") {
       THEN("expected exception is thrown") {
         REQUIRE_THROWS_MATCHES(throwIfError(code, cmessage), std::runtime_error,
-                               Catch::Message("123: some error"));
+                               Catch::Message("1: some error"));
       }
     }
   }
@@ -63,6 +63,63 @@ SCENARIO("Using extractExceptionMessage to copy a C++ exception message to a C S
       THEN("Message is copied into StringView") {
         CHECK(actualMessage == expectedMessage);
         CHECK(actualMessage.data != runtimeError.what());
+      }
+    }
+  }
+}
+
+SCENARIO("Decorating an exception-throwing C++ function to instead return an error code") {
+  using openassetio::errors::catchUnknownExceptionAsCode;
+
+  // Error message storage.
+  constexpr std::size_t kErrorStorageSize = 100;
+  openassetio::Str storage(kErrorStorageSize, '\0');
+  OPENASSETIO_NS(StringView) actualErrorMessage{storage.size(), storage.data(), 0};
+
+  GIVEN("A callable that doesn't throw") {
+    auto const callable = [&] { return OPENASSETIO_NS(ErrorCode_kOK); };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualErrorMessage == "");
+      }
+    }
+  }
+
+  GIVEN("A callable that throws an exception") {
+    const openassetio::Str expectedErrorMessage = "some error";
+
+    auto const callable = [&]() -> OPENASSETIO_NS(ErrorCode) {
+      throw std::length_error{expectedErrorMessage};
+    };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kException));
+        CHECK(actualErrorMessage == expectedErrorMessage);
+      }
+    }
+  }
+
+  GIVEN("A callable that throws a non-exception") {
+    const openassetio::Str expectedErrorMessage = "Unknown non-exception object thrown";
+
+    auto const callable = [&]() -> OPENASSETIO_NS(ErrorCode) { throw "some error"; };
+
+    WHEN("callable is executed whilst decorated") {
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+
+      THEN("exception is caught and the error code and message is as expected") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kUnknown));
+        CHECK(actualErrorMessage == expectedErrorMessage);
       }
     }
   }

@@ -63,7 +63,6 @@ void registerBlobTrait(const py::module& mod) {
   using openassetio::trait::maybeProperty;
   namespace specification = openassetio::specification;
   namespace trait = openassetio::trait;
-  namespace property = openassetio::trait::property;
 
   py::class_<BlobTrait, Holder<BlobTrait>>(mod, "BlobTrait")
       .def(py::init<Holder<specification::Specification>>(), py::arg("specification"))
@@ -72,7 +71,7 @@ void registerBlobTrait(const py::module& mod) {
       .def(
           "getUrl",
           [](const BlobTrait& self, const bool raiseOnError) {
-            property::Str out;
+            openassetio::Str out;
             trait::TraitPropertyStatus status = self.getUrl(&out);
             return maybeProperty(raiseOnError, status, std::move(out));
           },
@@ -81,7 +80,7 @@ void registerBlobTrait(const py::module& mod) {
       .def(
           "getMimeType",
           [](const BlobTrait& self, const bool raiseOnError) {
-            property::Str out;
+            openassetio::Str out;
             trait::TraitPropertyStatus status = self.getMimeType(&out);
             return maybeProperty(raiseOnError, status, std::move(out));
           },

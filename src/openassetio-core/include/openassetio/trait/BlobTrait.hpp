@@ -50,7 +50,7 @@ struct OPENASSETIO_CORE_EXPORT BlobTrait : TraitBase<BlobTrait> {
    * @exception `std::out_of_range` if this trait is not supported by
    * the wrapped specification.
    */
-  [[nodiscard]] TraitPropertyStatus getUrl(property::Str* out) const;
+  [[nodiscard]] TraitPropertyStatus getUrl(Str* out) const;
 
   /**
    * Set the URL property for this trait in the wrapped specification.
@@ -59,7 +59,7 @@ struct OPENASSETIO_CORE_EXPORT BlobTrait : TraitBase<BlobTrait> {
    * @exception `std::out_of_range` if this trait is not supported by
    * the wrapped specification.
    */
-  void setUrl(property::Str url);
+  void setUrl(Str url);
 
   /**
    * Get the mime type property for this trait from the wrapped
@@ -70,7 +70,7 @@ struct OPENASSETIO_CORE_EXPORT BlobTrait : TraitBase<BlobTrait> {
    * @exception `std::out_of_range` if this trait is not supported by
    * the wrapped specification.
    */
-  [[nodiscard]] TraitPropertyStatus getMimeType(property::Str* out) const;
+  [[nodiscard]] TraitPropertyStatus getMimeType(Str* out) const;
 
   /**
    * Set the mime type property for this trait in the wrapped
@@ -80,7 +80,7 @@ struct OPENASSETIO_CORE_EXPORT BlobTrait : TraitBase<BlobTrait> {
    * @exception `std::out_of_range` if this trait is not supported by
    * the wrapped specification.
    */
-  void setMimeType(property::Str mimeType);
+  void setMimeType(Str mimeType);
 };
 }  // namespace trait
 }  // namespace OPENASSETIO_VERSION

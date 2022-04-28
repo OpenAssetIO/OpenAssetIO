@@ -21,8 +21,9 @@ namespace errors {
  * @param code Error code.
  * @param msg Error message to bundle in exception.
  */
-inline void throwIfError(const int code, [[maybe_unused]] const OPENASSETIO_NS(StringView) & msg) {
-  if (code != 0) {
+inline void throwIfError(const OPENASSETIO_NS(ErrorCode) code,
+                         [[maybe_unused]] const OPENASSETIO_NS(StringView) & msg) {
+  if (code != OPENASSETIO_NS(ErrorCode_kOK)) {
     Str errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
     errorMessageWithCode += std::string_view{msg.data, msg.size};
@@ -45,6 +46,30 @@ inline void throwIfError(const int code, [[maybe_unused]] const OPENASSETIO_NS(S
 template <class Exception>
 void extractExceptionMessage(OPENASSETIO_NS(StringView) * err, const Exception &exc) {
   openassetio::assignStringView(err, exc.what());
+}
+
+/**
+ * Wrap a callable such that all exceptions are caught and converted to
+ * an error code.
+ *
+ * This is intended as a fallback for unhandled exceptions.
+ *
+ * @tparam Fn Type of callable to wrap.
+ * @param err Storage for error message, if any.
+ * @param fn Callable to wrap.
+ * @return Error code.
+ */
+template <typename Fn>
+auto catchUnknownExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
+  try {
+    return fn();
+  } catch (std::exception &exc) {
+    extractExceptionMessage(err, exc);
+    return OPENASSETIO_NS(ErrorCode_kException);
+  } catch (...) {
+    assignStringView(err, "Unknown non-exception object thrown");
+    return OPENASSETIO_NS(ErrorCode_kUnknown);
+  }
 }
 }  // namespace errors
 }  // namespace OPENASSETIO_VERSION
