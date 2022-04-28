@@ -164,7 +164,7 @@ Option 3:
 
 ```
 trait locatableContent {
-	location: str
+    location: str
 }
 
 trait locatableContentReader {
@@ -173,7 +173,7 @@ trait locatableContentReader {
 }
 
 specification LocatableContentReaderLocale {
-	traits: {"localeContentReader"}
+    traits: {"locatableContentReader"}
 }
 ```
 
