@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <openassetio/c/InfoDictionary.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/namespace.h>
 
@@ -7,6 +8,7 @@
 #include <catch2/trompeloeil.hpp>
 
 // private headers
+#include <handles.hpp>
 #include <managerAPI/CManagerInterface.hpp>
 
 namespace {
@@ -27,7 +29,14 @@ struct MockCAPI {
   MAKE_MOCK3(displayName,
              OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
                                        OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
+
+  MAKE_MOCK3(info, OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *,
+                                             OPENASSETIO_NS(InfoDictionary_h),
+                                             OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
 };
+
+using HandleConverter =
+    openassetio::handles::Converter<MockCAPI, OPENASSETIO_NS(managerAPI_ManagerInterface_h)>;
 
 /**
  * Get a ManagerInterface C API function pointer suite that assumes the
@@ -36,20 +45,26 @@ struct MockCAPI {
 OPENASSETIO_NS(managerAPI_ManagerInterface_s) getSuite() {
   return {// dtor
           [](OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             api->dtor(h);
           },
           // identifier
           [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             return api->identifier(err, out, h);
           },
           // displayName
           [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
              OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = reinterpret_cast<MockCAPI *>(h);
+            auto *api = HandleConverter::toInstance(h);
             return api->displayName(err, out, h);
+          },
+          // info
+          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
+             OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
+            auto *api = HandleConverter::toInstance(h);
+            return api->info(err, out, h);
           }};
 }
 }  // namespace
@@ -58,7 +73,7 @@ SCENARIO("A CManagerInterface is destroyed") {
   GIVEN("An opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     THEN("CManagerInterface's destructor calls the suite's dtor") {
@@ -73,7 +88,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
@@ -141,7 +156,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
     MockCAPI capi;
 
-    auto *handle = reinterpret_cast<OPENASSETIO_NS(managerAPI_ManagerInterface_h)>(&capi);
+    auto *handle = HandleConverter::toHandle(&capi);
     auto const suite = getSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
@@ -197,6 +212,74 @@ SCENARIO("A host calls CManagerInterface::displayName") {
       WHEN("the manager's displayName is queried") {
         THEN("an exception is thrown with expected error message") {
           REQUIRE_THROWS_MATCHES(cManagerInterface.displayName(), std::runtime_error,
+                                 Catch::Message(expectedErrorCodeAndMsg));
+        }
+      }
+    }
+  }
+}
+
+SCENARIO("A host calls CManagerInterface::info") {
+  GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
+    MockCAPI capi;
+
+    auto *handle = HandleConverter::toHandle(&capi);
+    auto const suite = getSuite();
+
+    // Expect the destructor to be called, i.e. when cManagerInterface
+    // goes out of scope.
+    REQUIRE_CALL(capi, dtor(handle));
+
+    openassetio::managerAPI::CManagerInterface cManagerInterface{handle, suite};
+
+    AND_GIVEN("the C suite's info() call succeeds") {
+      const openassetio::Str expectedInfoKey = "info key";
+      const openassetio::Float expectedInfoValue = 123.456;
+
+      using trompeloeil::_;
+
+      using InfoDictHandleConverter =
+          openassetio::handles::Converter<openassetio::InfoDictionary,
+                                          OPENASSETIO_NS(InfoDictionary_h)>;
+
+      REQUIRE_CALL(capi, info(_, _, handle))
+          // Update out-parameter.
+          .LR_SIDE_EFFECT(InfoDictHandleConverter::toInstance(_2)->insert(
+              {expectedInfoKey, expectedInfoValue}))
+          // Return OK code.
+          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
+
+      WHEN("the manager's info is queried") {
+        const openassetio::InfoDictionary infoDict = cManagerInterface.info();
+
+        THEN("the returned info contains the expected entry") {
+          const auto actualInfoValue = std::get<openassetio::Float>(infoDict.at(expectedInfoKey));
+          CHECK(actualInfoValue == expectedInfoValue);
+        }
+      }
+    }
+
+    AND_GIVEN("the C suite's info() call fails") {
+      const std::string_view expectedErrorMsg = "some error happened";
+      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
+
+      using trompeloeil::_;
+
+      // Check that `info` is called properly and update error
+      // message out-parameter.
+      REQUIRE_CALL(capi, info(_, _, handle))
+          // Ensure max size is reasonable.
+          .LR_WITH(_1->capacity == kStringBufferSize)
+          // Update StringView error message out-parameter.
+          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
+          // Return OK code.
+          .RETURN(expectedErrorCode);
+
+      WHEN("the manager's info is queried") {
+        THEN("an exception is thrown with expected error message") {
+          REQUIRE_THROWS_MATCHES(cManagerInterface.info(), std::runtime_error,
                                  Catch::Message(expectedErrorCodeAndMsg));
         }
       }

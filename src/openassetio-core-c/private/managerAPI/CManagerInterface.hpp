@@ -38,6 +38,9 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterface : ManagerInterface {
   /// Wrap the C suite's `displayName` function.
   [[nodiscard]] Str displayName() const override;
 
+  /// Wrap the C suite's `info` function.
+  [[nodiscard]] InfoDictionary info() const override;
+
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
   OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle_;

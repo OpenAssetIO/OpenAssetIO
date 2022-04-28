@@ -4,6 +4,7 @@
 #pragma once
 
 #include <openassetio/export.h>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -193,6 +194,35 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @return Manager's display name.
    */
   [[nodiscard]] virtual Str displayName() const = 0;
+
+  /**
+   * Returns other information that may be useful about this @ref
+   * asset_management_system. This can contain arbitrary key/value
+   * pairs. For example:
+   *
+   *     { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
+   *
+   * There are certain optional keys that may be used by a host or
+   * the API:
+   *
+   *   @li openassetio.constants.kField_SmallIcon (upto 32x32)
+   *   @li openassetio.constants.kField_Icon (any size)
+   *
+   * Because it can often be expensive to bridge between languages,
+   * info can also contain an additional field - a prefix that
+   * identifies a string as a valid entity reference. If supplied,
+   * this will be used by the API to optimize calls to
+   * isEntityReference when bridging between C/Python etc.
+   * If this isn't supplied, then isEntityReference will always be
+   * called to determine if a string is an @ref entity_reference or
+   * not. Note, not all invocations require this optimization, so
+   * @needsref isEntityReference should be implemented regardless.
+   *
+   *   @li openassetio.constants.kField_EntityReferencesMatchPrefix
+   *
+   * @return Map of info string key to primitive value.
+   */
+  [[nodiscard]] virtual InfoDictionary info() const;
 
   /**
    * @}

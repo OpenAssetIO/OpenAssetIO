@@ -148,7 +148,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
        @li @needsref identifier()
        @li @needsref displayName()
-       @li @ref info()
+       @li @needsref info()
        @li @ref updateTerminology()
        @li @ref getSettings()
        @li @ref setSettings()
@@ -199,40 +199,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     # asset_management_system itself.
     #
     # @{
-
-    def info(self):
-        """
-        Returns other information that may be useful about this @ref
-        asset_management_system. This can contain arbitrary key/value
-        pairs. For example:
-
-            { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
-
-        @note Keys should always be strings, and values must be
-        plain-old-data types (ie: str, int, float, bool).
-
-        There are certain optional keys that may be used by a host or
-        the API:
-
-          @li openassetio.constants.kField_SmallIcon (upto 32x32)
-          @li openassetio.constants.kField_Icon (any size)
-
-        Because it can often be expensive to bridge between languages,
-        info can also contain an additional field - a prefix that
-        identifies a string as a valid entity reference. If supplied,
-        this will be used by the API to optimize calls to
-        isEntityReference when bridging between C/Python etc.
-        If this isn't supplied, then isEntityReference will always be
-        called to determine if a string is an @ref entity_reference or
-        not. Note, not all invocations require this optimization, so
-        @ref isEntityReference should be implemented regardless.
-
-          @li openassetio.constants.kField_EntityReferencesMatchPrefix
-
-        @note Keys should always be strings, and values must be
-        plain-old-data types (ie: str, int, float, bool).
-        """
-        return {}
 
     def updateTerminology(self, stringDict, hostSession):
         """
@@ -305,7 +271,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
          @li @needsref identifier()
          @li @needsref displayName()
-         @li @ref info()
+         @li @needsref info()
          @li @ref updateTerminology()
          @li @ref getSettings()
          @li @ref setSettings()
