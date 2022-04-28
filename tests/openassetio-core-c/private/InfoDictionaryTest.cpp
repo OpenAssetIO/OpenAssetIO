@@ -114,6 +114,138 @@ struct InfoDictionaryFixture {
 };
 
 /**
+ * Fixture for `typeOf` function, specialised by entry data type.
+ *
+ * @tparam Value Type of entry in InfoDictionary.
+ */
+template <typename Value>
+struct SuiteTypeOfFixture;
+
+template <>
+struct SuiteTypeOfFixture<openassetio::Bool> : InfoDictionaryFixture {
+  inline static const openassetio::Str kKeyStr = kBoolKey;
+  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
+      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kBool);
+};
+
+template <>
+struct SuiteTypeOfFixture<openassetio::Int> : InfoDictionaryFixture {
+  inline static const openassetio::Str kKeyStr = kIntKey;
+  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
+      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kInt);
+};
+
+template <>
+struct SuiteTypeOfFixture<openassetio::Float> : InfoDictionaryFixture {
+  inline static const openassetio::Str kKeyStr = kFloatKey;
+  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
+      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kFloat);
+};
+
+template <>
+struct SuiteTypeOfFixture<openassetio::Str> : InfoDictionaryFixture {
+  inline static const openassetio::Str kKeyStr = kStrKey;
+  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
+      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kStr);
+};
+
+TEMPLATE_TEST_CASE_METHOD(SuiteTypeOfFixture,
+                          "Retrieving the type of an entry in a InfoDictionary via C API", "",
+                          openassetio::Bool, openassetio::Int, openassetio::Float,
+                          openassetio::Str) {
+  GIVEN("a populated C++ InfoDictionary and its C handle and suite") {
+    using Fixture = SuiteTypeOfFixture<TestType>;
+    const auto& suite = Fixture::suite_;
+    const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
+    const auto& keyStr = Fixture::kKeyStr;
+    const auto& expectedValueType = Fixture::kExpectedValueType;
+
+    // Storage for error messages coming from suite functions.
+    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+
+    WHEN("the type of an entry is queried") {
+      OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
+      OPENASSETIO_NS(InfoDictionary_ValueType) actualValueType;
+
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = suite.typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
+
+      THEN("returned type matches expected type") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualValueType == expectedValueType);
+      }
+    }
+  }
+}
+
+SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry via C API") {
+  GIVEN("a populated C++ InfoDictionary and its C handle and suite") {
+    InfoDictionaryFixture fixture{};
+    const auto& suite = fixture.suite_;
+    const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
+
+    WHEN("the type of a non-existent entry is queried") {
+      // Key to non-existent entry.
+      const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
+      OPENASSETIO_NS(ConstStringView) key{nonExistentKey.data(), nonExistentKey.size()};
+      // Storage for error message.
+      openassetio::Str errStorage(kStrStorageCapacity, '\0');
+      OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+      // Initial value of storage for return value.
+      const OPENASSETIO_NS(InfoDictionary_ValueType) initialValueType{};
+      // Storage for return value.
+      OPENASSETIO_NS(InfoDictionary_ValueType) actualValueType = initialValueType;
+
+      OPENASSETIO_NS(ErrorCode)
+      actualErrorCode = suite.typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
+
+      THEN("error code and message is set") {
+        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOutOfRange));
+        CHECK(actualErrorMsg == "Invalid key");
+        CHECK(actualValueType == initialValueType);
+      }
+    }
+  }
+}
+
+SCENARIO("Retrieve the number of entries in a InfoDictionary via C API") {
+  GIVEN("a populated C++ InfoDictionary and its C handle and suite") {
+    InfoDictionaryFixture fixture{};
+    const auto& suite = fixture.suite_;
+    auto& infoDictionary = fixture.infoDictionary_;
+    const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
+
+    const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
+
+    WHEN("the size of the map is queried") {
+      const std::size_t actualSize = suite.size(infoDictionaryHandle);
+
+      THEN("size is as expected") {
+        const std::size_t expectedSize = infoDictionary.size();
+        CHECK(actualSize == expectedSize);
+      }
+
+      AND_WHEN("an entry is added to the InfoDictionary") {
+        constexpr openassetio::Int kNewValue{123};
+        infoDictionary[nonExistentKey] = kNewValue;
+
+        AND_WHEN("the size of the map is queried") {
+          const std::size_t actualUpdatedSize = suite.size(infoDictionaryHandle);
+
+          THEN("size is as expected") {
+            const std::size_t expectedUpdatedSize = infoDictionary.size();
+
+            CHECK(actualUpdatedSize == actualSize + 1);
+            CHECK(actualUpdatedSize == expectedUpdatedSize);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Fixture for a specific suite accessor function, specialised by return
  * data type.
  *

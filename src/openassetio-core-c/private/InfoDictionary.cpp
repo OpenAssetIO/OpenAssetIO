@@ -19,6 +19,36 @@ namespace errors = openassetio::errors;
 using HandleConverter =
     openassetio::handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
 
+// Helper for static_assert.
+template <class... T>
+[[maybe_unused]] constexpr bool kAlwaysFalse = false;
+
+/**
+ * Wrap a callable such that some common exceptions are caught and
+ * converted to an error code.
+ *
+ * @tparam Fn Type of callable to wrap.
+ * @param err Storage for error message, if any.
+ * @param fn Callable to wrap.
+ * @return Error code.
+ */
+template <typename Fn>
+OPENASSETIO_NS(ErrorCode)
+catchCommonExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
+  // TODO(DF): @exception messages.
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    try {
+      return fn();
+    } catch (const std::out_of_range &exc) {
+      // Default exception message:
+      // VS 2019: "invalid unordered_map<K, T> key"
+      // GCC 9: "_Map_base::at"
+      openassetio::assignStringView(err, "Invalid key");
+      return OPENASSETIO_NS(ErrorCode_kOutOfRange);
+    }
+  });
+}
+
 /**
  * Get a primitive value from a InfoDictionary, converting exceptions to
  * error codes.
@@ -36,16 +66,10 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
     const OPENASSETIO_NS(ConstStringView) key) {
   const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
 
-  return errors::catchUnknownExceptionAsCode(err, [&] {
+  return catchCommonExceptionAsCode(err, [&] {
     // TODO(DF): @exception messages.
     try {
       *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
-    } catch (const std::out_of_range &exc) {
-      // Default exception message:
-      // VS 2019: "invalid unordered_map<K, T> key"
-      // GCC 9: "_Map_base::at"
-      openassetio::assignStringView(err, "Invalid key");
-      return OPENASSETIO_NS(ErrorCode_kOutOfRange);
     } catch (const std::bad_variant_access &exc) {
       // Default exception message:
       // VS 2019: "bad variant access"
@@ -109,6 +133,38 @@ OPENASSETIO_NS(InfoDictionary_s) OPENASSETIO_NS(InfoDictionary_suite)() {
 
       // dtor
       [](OPENASSETIO_NS(InfoDictionary_h) handle) { delete HandleConverter::toInstance(handle); },
+
+      // size
+      [](OPENASSETIO_NS(InfoDictionary_h) handle) {
+        return HandleConverter::toInstance(handle)->size();
+      },
+
+      // typeOf
+      [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_ValueType) * out,
+         OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
+        return catchCommonExceptionAsCode(err, [&] {
+          const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
+
+          std::visit(
+              [&out](auto &&value) {
+                using ValueType = std::decay_t<decltype(value)>;
+                if constexpr (std::is_same_v<ValueType, openassetio::Bool>) {
+                  *out = OPENASSETIO_NS(InfoDictionary_ValueType_kBool);
+                } else if constexpr (std::is_same_v<ValueType, openassetio::Int>) {
+                  *out = OPENASSETIO_NS(InfoDictionary_ValueType_kInt);
+                } else if constexpr (std::is_same_v<ValueType, openassetio::Float>) {
+                  *out = OPENASSETIO_NS(InfoDictionary_ValueType_kFloat);
+                } else if constexpr (std::is_same_v<ValueType, openassetio::Str>) {
+                  *out = OPENASSETIO_NS(InfoDictionary_ValueType_kStr);
+                } else {
+                  static_assert(kAlwaysFalse<ValueType>, "Unhandled variant type");
+                }
+              },
+              infoDictionary->at({key.data, key.size}));
+
+          return OPENASSETIO_NS(ErrorCode_kOK);
+        });
+      },
 
       // Through the magic of template type deduction...
       // getBool
