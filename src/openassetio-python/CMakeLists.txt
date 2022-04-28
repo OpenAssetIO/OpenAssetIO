@@ -35,7 +35,6 @@ target_sources(
     _openassetio.cpp
     managerAPI/ManagerInterfaceBinding.cpp
     specification/SpecificationBinding.cpp
-    trait/BlobTraitBinding.cpp
 )
 
 # Give access to private headers.

@@ -14,6 +14,17 @@ namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 namespace trait {
 
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// TODO(TC): This class is currently untested as the concrete
+// BlobTrait implementation has been removed from the core API (and
+// migrated to OpenAssetIO-MediaCreation.
+// It _has_ been tested in the past, but is no longer covered.
+// When we move to the autogeneration of trait classes from a JSON
+// schema, we need to ensure that any resulting reused API classes
+// are properly tested.
+// See: https://github.com/TheFoundryVisionmongers/OpenAssetIO/pull/358#discussion_r860709504
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 /**
  * Abstract CRTP base class for specification traits.
  *

@@ -52,7 +52,6 @@ target_sources(
     PRIVATE
     managerAPI/ManagerInterface.cpp
     specification/Specification.cpp
-    trait/BlobTrait.cpp
 )
 
 # Public header dependency.
