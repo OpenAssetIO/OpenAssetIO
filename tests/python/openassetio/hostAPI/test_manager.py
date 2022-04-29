@@ -292,6 +292,26 @@ class Test_Manager_identifier:
         method.assert_called_once_with()
 
 
+class Test_Manager_displayName:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface):
+
+        method = mock_manager_interface.displayName
+        assert manager.displayName() == method.return_value
+        method.assert_called_once_with()
+
+
+class Test_Manager_info:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface):
+
+        method = mock_manager_interface.info
+        assert manager.info() == method.return_value
+        method.assert_called_once_with()
+
+
 class Test_Manager_updateTerminology:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
