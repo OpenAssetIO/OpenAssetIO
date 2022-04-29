@@ -119,8 +119,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def thawState(self, token, hostSession):
         return mock.DEFAULT
 
-    @staticmethod
-    def identifier():
+    def identifier(self):
         return mock.DEFAULT
 
     def displayName(self):
