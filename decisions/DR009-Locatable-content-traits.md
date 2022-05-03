@@ -100,7 +100,7 @@ is required.
     through the file system.
 -   More explicit representation of the filtering required during
     browsing/etc.
--   No sting manipulation overhead in path-based hosts.
+-   No string manipulation overhead in path-based hosts.
 
 #### Cons
 
