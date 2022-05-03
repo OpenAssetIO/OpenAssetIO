@@ -18,7 +18,7 @@ instance with the any of the requested traits (and their properties)
 that are applicable to the referenced entity.
 
 When a specification holding multiple traits is used as a classifier,
-the traits are considered additive and specialize the type entity
+the traits are considered additive and specialize the type of entity
 referenced. For example, a specification with `traitA` and `traitB`
 means that the entity should have both `traitA` and `traitB`.
 
