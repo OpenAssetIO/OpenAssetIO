@@ -122,7 +122,7 @@ whose content is determined by the options set in a
 -   Allows the host to declare the locator strategies it supports to
     access content (eg: `path`, `URL`, etc.), which can influence
     `resolve` and browsing.
--   No sting manipulation overhead in path-based hosts.
+-   No string manipulation overhead in path-based hosts.
 -   No need for duplicate specifications.
 -   Uses the API mechanism for adapting responses at runtime (the
     calling context's locale).
