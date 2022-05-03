@@ -115,7 +115,7 @@ is required.
 
 A single `locatableContent` trait that holds a `location` property,
 whose content is determined by the options set in a
-`locatableContentReader` trait in the call's Context's locale.
+`locatableContentReader` trait in the caller Context's locale.
 
 #### Pros
 
