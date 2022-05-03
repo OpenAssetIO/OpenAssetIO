@@ -50,6 +50,7 @@ endif()
 target_sources(
     openassetio-core
     PRIVATE
+    hostAPI/Manager.cpp
     managerAPI/ManagerInterface.cpp
     specification/Specification.cpp
 )

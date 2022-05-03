@@ -2,6 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include <openassetio/export.h>
@@ -43,5 +44,8 @@ using Str = std::string;
 /**
  * @}
  */
+
+template <class T>
+using SharedPtr = std::shared_ptr<T>;
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio
