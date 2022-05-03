@@ -27,17 +27,12 @@ import pytest
 
 from openassetio import constants, exceptions, log, Context, Specification
 from openassetio.hostAPI import Session, HostInterface, Manager, ManagerFactoryInterface
-from openassetio.managerAPI import Host, ManagerInterface
+from openassetio.managerAPI import Host
 
 
 @pytest.fixture
 def mock_host_interface():
     return mock.create_autospec(spec=HostInterface)
-
-
-@pytest.fixture
-def mock_manager_interface():
-    return mock.create_autospec(spec=ManagerInterface)
 
 
 @pytest.fixture
@@ -62,7 +57,7 @@ class Test_Session_init:
     def test_when_constructed_then_debugLogFn_is_the_supplied_loggers_log_function(
             self, a_session, mock_logger):
 
-	    # pylint: disable=protected-access
+        # pylint: disable=protected-access
         assert a_session._debugLogFn is mock_logger.log
 
     def test_when_constructed_with_null_host_interface_then_ValueError_is_raised(
@@ -156,8 +151,8 @@ class Test_Session_currentManager:
         assert manager._interface() is mock_manager_interface
         assert manager._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.initialize.assert_called_once()
-        mock_manager_interface.setSettings.assert_not_called()
+        mock_manager_interface.mock.initialize.assert_called_once()
+        mock_manager_interface.mock.setSettings.assert_not_called()
 
     def test_when_repeatedly_called_then_the_manager_is_only_initialized_once(
             self, a_session, mock_manager_interface, mock_manager_factory):
@@ -171,8 +166,8 @@ class Test_Session_currentManager:
         assert manager._interface() is mock_manager_interface
         assert manager._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.initialize.assert_called_once()
-        mock_manager_interface.setSettings.assert_not_called()
+        mock_manager_interface.mock.initialize.assert_called_once()
+        mock_manager_interface.mock.setSettings.assert_not_called()
         mock_manager_factory.reset_mock()
 
         assert a_session.currentManager() is manager
@@ -185,8 +180,9 @@ class Test_Session_currentManager:
         a_session.useManager(an_id)
         manager = a_session.currentManager()
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.initialize.assert_called_once()
+        mock_manager_interface.mock.initialize.assert_called_once()
         mock_manager_factory.reset_mock()
+        mock_manager_interface.mock.reset_mock()
 
         another_id = "com.manager.b"
         a_session.useManager(another_id)
@@ -196,7 +192,7 @@ class Test_Session_currentManager:
         assert manager_b._interface() is mock_manager_interface
         assert manager_b._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(another_id)
-        mock_manager_interface.initialize.assert_called_once()
+        mock_manager_interface.mock.initialize.assert_called_once()
 
     def test_when_useManager_called_with_settings_then_new_manager_initialized_with_settings(
             self, a_session, mock_manager_interface, mock_manager_factory):
@@ -206,14 +202,14 @@ class Test_Session_currentManager:
         a_session.useManager(an_id, settings=some_settings)
 
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_interface.setSettings.assert_not_called()
+        mock_manager_interface.mock.setSettings.assert_not_called()
 
         _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.initialize.assert_called_once()
-        mock_manager_interface.setSettings.assert_called_once()
-        assert mock_manager_interface.setSettings.call_args[0][0] == some_settings
+        mock_manager_interface.mock.initialize.assert_called_once()
+        mock_manager_interface.mock.setSettings.assert_called_once()
+        assert mock_manager_interface.mock.setSettings.call_args[0][0] == some_settings
 
 
 class Test_Session_createContext:
@@ -224,7 +220,7 @@ class Test_Session_createContext:
         with pytest.raises(RuntimeError):
             _ = a_session.createContext()
 
-        mock_manager_interface.createState.assert_not_called()
+        mock_manager_interface.mock.createState.assert_not_called()
 
     def test_when_called_with_a_current_manager_then_context_is_created_with_expected_properties(
             self, a_session, mock_manager_interface):
@@ -232,7 +228,7 @@ class Test_Session_createContext:
         a_session.useManager("com.manager")
 
         state_a = "state-a"
-        mock_manager_interface.createState.return_value = state_a
+        mock_manager_interface.mock.createState.return_value = state_a
 
         context_a = a_session.createContext()
 
@@ -241,7 +237,7 @@ class Test_Session_createContext:
         assert context_a.managerInterfaceState is state_a
         assert context_a._actionGroupDepth == 0  # pylint: disable=protected-access
         assert context_a.locale is None
-        mock_manager_interface.createState.assert_called_once()
+        mock_manager_interface.mock.createState.assert_called_once()
 
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
             self, a_session, mock_manager_interface):
@@ -250,16 +246,16 @@ class Test_Session_createContext:
         a_session.useManager("com.manager")
 
         state_a = "state-a"
-        mock_manager_interface.createState.return_value = state_a
+        mock_manager_interface.mock.createState.return_value = state_a
         context_a = a_session.createContext()
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
         context_a.locale = Specification(set())
         context_a._actionGroupDepth = 3
-        mock_manager_interface.reset_mock()
+        mock_manager_interface.mock.reset_mock()
 
         state_b = "state-b"
-        mock_manager_interface.createState.return_value = state_b
+        mock_manager_interface.mock.createState.return_value = state_b
         a_host_session = a_session.currentManager()._Manager__hostSession
 
         context_b = a_session.createContext(parent=context_a)
@@ -270,7 +266,7 @@ class Test_Session_createContext:
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
         assert context_b._actionGroupDepth == 0
-        mock_manager_interface.createState.assert_called_once_with(
+        mock_manager_interface.mock.createState.assert_called_once_with(
             a_host_session, parentState=state_a)
 
 
@@ -286,14 +282,14 @@ class Test_Session_getSettings:
 
         an_id = "com.manager"
         some_manager_settings = {"k": "v"}
-        mock_manager_interface.getSettings.return_value = some_manager_settings
+        mock_manager_interface.mock.getSettings.return_value = some_manager_settings
         expected_settings = dict(some_manager_settings)
         expected_settings.update({constants.kSetting_ManagerIdentifier: an_id})
 
         a_session.useManager(an_id)
 
         assert a_session.getSettings() == expected_settings
-        mock_manager_interface.getSettings.assert_called_once()
+        mock_manager_interface.mock.getSettings.assert_called_once()
 
 
 class Test_Session_setSettings:
@@ -309,10 +305,10 @@ class Test_Session_setSettings:
         a_session.setSettings(some_settings)
 
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_interface.setSettings.assert_not_called()
+        mock_manager_interface.mock.setSettings.assert_not_called()
 
         _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.setSettings.assert_called_once()
-        assert mock_manager_interface.setSettings.call_args[0][0] == manager_settings
+        mock_manager_interface.mock.setSettings.assert_called_once()
+        assert mock_manager_interface.mock.setSettings.call_args[0][0] == manager_settings

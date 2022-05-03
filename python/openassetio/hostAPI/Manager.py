@@ -24,7 +24,7 @@ A single-class module, providing the Manager class.
 # implementations more complicated.
 # pylint: disable=too-many-public-methods
 
-from ..managerAPI.ManagerInterface import ManagerInterface
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
@@ -33,7 +33,7 @@ from .._core.audit import auditApiCall
 __all__ = ['Manager']
 
 
-class Manager(Debuggable):
+class Manager(_openassetio.hostAPI.Manager, Debuggable):
     """
     The Manager is the Host facing representation of an @ref
     asset_management_system. The Manager class shouldn't be directly
@@ -41,7 +41,7 @@ class Manager(Debuggable):
     asset management system can be retrieved from an API @ref Session,
     using the @ref openassetio.hostAPI.Session.Session.currentManager
     "Session.currentManager" method, after configuring the session with
-    the appropriate manager @ref identifier.
+    the appropriate manager @needsref identifier.
 
     @code
     session = openassetio.hostAPI.Session(
@@ -73,13 +73,9 @@ class Manager(Debuggable):
         @param hostSession openassetio.managerAPI.HostSession the host
         session the manager is part of.
         """
-        super(Manager, self).__init__()
 
-        if not isinstance(interfaceInstance, ManagerInterface):
-            raise ValueError(
-                ("A manager can only be instantiated with a " +
-                 "instance of the ManagerInterface or a derived class (%s)")
-                % type(interfaceInstance))
+        _openassetio.hostAPI.Manager .__init__(self, interfaceInstance)
+        Debuggable.__init__(self)
 
         self.__impl = interfaceInstance
         self.__hostSession = hostSession
@@ -104,63 +100,6 @@ class Manager(Debuggable):
     # initialize has been called.
     #
     # @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def identifier(self):
-        """
-        Returns an identifier to uniquely identify the Manager. This
-        identifier is used with the Session class to select which
-        Manager to initialize, and so can be used as in preferences
-        etc... to persist the chosen Manager. The identifier will use
-        only alpha-numeric characters and '.', '_' or '-'. They
-        generally follow the 'reverse-DNS' style, for example:
-
-            "org.openassetio.manager.test"
-
-        @return `str`
-        """
-        return self.__impl.identifier()
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def displayName(self):
-        """
-        Returns a human readable name to be used to reference this
-        specific asset manager in user-facing displays.
-        For example:
-
-            "OpenAssetIO Test Manager"
-
-        @return `str`
-        """
-        return self.__impl.displayName()
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def info(self):
-        """
-        Returns other information that may be useful about this @ref
-        asset_management_system.  This can contain arbitrary key/value
-        pairs.For example:
-
-            { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
-
-        There is no requirement to use any of the information in the
-        info dict, but it may be useful for optimisations or display
-        customisation.
-
-        There are certain well-known keys that may be set by the
-        Manager. They include things such as:
-
-          @li openassetio.constants.kField_SmallIcon (upto 32x32)
-          @li openassetio.constants.kField_Icon (any size)
-          @li openassetio.constants.kField_EntityReferencesMatchPrefix
-
-        Keys will always be str, and Values will be int, bool, float or
-        str.
-        """
-        return self.__impl.info()
 
     @debugApiCall
     @auditApiCall("Manager methods")

@@ -33,6 +33,7 @@ target_sources(
     openassetio-python
     PRIVATE
     _openassetio.cpp
+    hostAPI/ManagerBinding.cpp
     managerAPI/ManagerInterfaceBinding.cpp
     specification/SpecificationBinding.cpp
 )
