@@ -57,7 +57,8 @@ function(set_default_target_properties target_name)
     )
 
     # Hide all symbols from external statically linked libraries.
-    if (IS_GCC_OR_CLANG)
+    if (IS_GCC_OR_CLANG AND NOT APPLE)
+        # TODO(TC): Find a way to hide symbols on macOS
         target_link_options(${target_name} PRIVATE -Wl,--exclude-libs,ALL)
     endif ()
 
@@ -84,8 +85,7 @@ function(set_default_target_properties target_name)
 
     if (UNIX)
         if (APPLE)
-            # TODO(DF): handle RPATH on OSX - e.g. @rpath vs. @loader_path
-            message(AUTHOR_WARNING "OSX RPATH not configured")
+            set(rpath "@loader_path")
         else ()
             set(rpath "$ORIGIN")
         endif ()
@@ -103,8 +103,11 @@ function(set_default_target_properties target_name)
             # Runtime search path value
             INSTALL_RPATH "${rpath}"
             # Enable RPATH on OSX
-            # TODO(DF): See above re. OSX RPATH
-            # MACOSX_RPATH ON
+            # TODO(TC): this produces seemingly innocuous
+            # install_name_tool errors during re-builds when it attempts
+            # to set the rpath in a previously installed target that
+            # hasn't changed.
+            MACOSX_RPATH TRUE
         )
     endif ()
 
@@ -113,7 +116,7 @@ function(set_default_target_properties target_name)
     # (if both are set then RPATH is ignored). They each cause different
     # runtime search path behavior. So be explicit to ensure we are
     # consistent across distros.
-    if (IS_GCC_OR_CLANG)
+    if (IS_GCC_OR_CLANG AND NOT APPLE)
         if (OPENASSETIO_ENABLE_NEW_DTAGS)
             target_link_options(${target_name} PRIVATE "-Wl,--enable-new-dtags")
         else ()

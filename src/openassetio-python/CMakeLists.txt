@@ -70,7 +70,7 @@ if (UNIX)
         "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 
     if (APPLE)
-        # TODO(DF): handle RPATH on OSX - e.g. @rpath vs. @loader_path
+        set(rpath "@loader_path/${install_dir_rel_to_lib}")
     else ()
         set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
     endif ()

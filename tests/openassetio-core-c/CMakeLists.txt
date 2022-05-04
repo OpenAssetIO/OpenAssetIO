@@ -48,14 +48,14 @@ target_include_directories(
 # Override RPATH to locate libs
 
 if (UNIX)
-    # Calculate relative path from site-packages to lib directory.
+    # Calculate relative path from install to lib directory.
     file(RELATIVE_PATH
         install_dir_rel_to_lib
         ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
         ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
     if (APPLE)
-        # TODO(DF): handle RPATH on OSX - e.g. @rpath vs. @loader_path
+        set(rpath "@executable_path/${install_dir_rel_to_lib}")
     else ()
         set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
     endif ()
