@@ -204,4 +204,4 @@ url = LocatableContentTrait(entity_data).getLocation()  # https://secure/access/
 ```
 
 
-[^1]: Forging UNC paths, for now - see [this saga](https://bugzilla.mozilla.org/show_bug.cgi?id=66194).
+[^1]: Ignoring UNC paths, for now - see [this saga](https://bugzilla.mozilla.org/show_bug.cgi?id=66194).
