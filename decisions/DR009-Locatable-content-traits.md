@@ -66,7 +66,7 @@ not affect the data represented by an existing trait.
 ### Option 1
 
 An additional property-less `file` trait that when composed with a
-`locatableContent` trait holding an URL specialises the specification
+`locatableContent` trait holding an URL specializes the specification
 such that only URLs with the `file` scheme should be returned.
 
 #### Pros
