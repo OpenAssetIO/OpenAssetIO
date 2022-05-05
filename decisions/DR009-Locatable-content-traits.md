@@ -4,10 +4,10 @@
 -   **Impact:** High
 -   **Driver:** @foundrytom
 -   **Approver:** @feltech
--   **Contributors:** @mmazerole @feltech
--   **Outcome:** Entities that hold data elsewhere, locatable by a URL
-    will use a single `locatableContent` trait, regardless of how this
-    data is accessed.
+-   **Contributors:** @mmazerole @feltech @carmenpinto
+-   **Outcome:** We will use an URL-only approach, until there is
+    sufficient practical usage to warrant any other more complex
+    strategy.
 
 ## Background
 
@@ -35,7 +35,7 @@ of the `resolve` call, and how this data is located.
 ## Relevant data
 
 Using a trait holding an URL instead of a file path has been proposed as
-being more future proof, as all[^1] file paths can be written as
+being more future proof, as nearly all[^1] file paths can be written as
 `file://` scheme URLs.
 
 At the time of writing, the majority of hosts are restricted to
@@ -52,7 +52,9 @@ context object is the mechanism that classifies calling context, and
 could contain information about supported formats/strategies for read
 -to allow the manager to customize its response. A consideration of the
 calling context is the standard approach for varying API responses based
-on the process environment.
+on the process environment. It is critical however, that rewriting the
+response should not change the interpretation of the data, i.e. its
+format.
 
 A manager may take care of re-locating data, and may be able to make the
 same entity data available via multiple means (eg: file on disk, http
@@ -87,6 +89,9 @@ such that only URLs with the `file` scheme should be returned.
     principal that traits should be atomic.
 -   String manipulation overhead may be introduced to remove `file://`
     prefix in path-based hosts.
+-   Requires a manager to potentially re-write data depending on the
+    exact traits used for registration and resolution, converting
+    between paths/URLs.
 
 ### Option 2
 
@@ -124,35 +129,68 @@ whose content is determined by the options set in a
     `resolve` and browsing.
 -   No string manipulation overhead in path-based hosts.
 -   No need for duplicate specifications.
--   Uses the API mechanism for adapting responses at runtime (the
-    calling context's locale).
 
 #### Cons
 
--   The meaning of the `location` property is less well defined, and
-    relies on calling context being correctly configured.
+-   The interpretation of the `location` property is not constant.
+    This prohibits the generic store/recall of trait properties which
+    violates a core API tenet. It is valid for a manager to rewrite
+    property values as appropriate, but their interpretation should
+    not change.
+-   The manager must rewrite all resolved values accordingly.
+-   It precludes both a path and a URL from being returned.
+
+### Option 4
+
+A single `locatableContent` trait that holds a `location` property,
+whose content is determined by an accompanying `locationFormat`
+property.
+
+An additional local could be set to hint to the manager the preferred
+format for the location, but it is not required.
+
+#### Pros
+
+-   Trait data is atomic with constant interpretation.
+-   Reduces string manipulation overhead when the format is aligned
+    with the host and manager.
+-   Avoids any specification duplication.
+-   Locale hinting provides an opt-in runtime optimization
+    opportunity.
+
+#### Cons
+
+-   Significantly increases the code complexity and overhead on the
+    host side as all potential formats need to be handled.
+
+### Option 5
+
+A single `locatableContent` trait that holds a `location` property with
+an URL to the data.
+
+#### Pros
+
+-   Entirely stable.
+-   Using a constant value interpretation that facilitates generic
+    handling of the value.
+-   Avoids any specification duplication.
+
+#### Cons
+
+-   String manipulation overhead, including encoding/decoding of
+    special characters including those used for frame tokens.
+-   UNC path handling needs careful consideration[^1].
 
 ## Outcome
 
 The OpenAssetIO-MediaCreation specification library will adopt the
-single `locatableContent` trait with a `location` property to describe
-entities with external content. The nature of the `location` property's
-value will be determined by inspection of the `locatableContentReader`
-trait of the calling Context's locale.
+URL-only approach. All other options introduce either additional
+complexity or violate core API design principals.
 
-## Rationale
+This option is the simplest and most consistent. It can be converted to
+several of the other options at a later date if required, once more
+practical applications of the API have been explored, and the
+performance considerations of the additional string manipulation
+properly measured and understood.
 
-Option 3 strikes the best balance of explicit behavior and
-flexibility. It makes use of the existing API mechanism for adapting
-behavior at runtime, and adheres to trait design principals.
-
-The side-effects of Option 1 - where by the data of the `url` property
-of the `locatableContent` trait is affected by the composition of
-another trait is illegal, and would significantly complicate the
-handling of traits within any manager implementation.
-
-The need to duplicate specifications in Option 2 (and to some extent,
-Option 1) negates many of the reasons for using trait composition (over
-the old hierarchical approach) to avoid duplication in the first place.
-
-[^1]: Ignoring UNC paths, for now - see [this saga](https://bugzilla.mozilla.org/show_bug.cgi?id=66194).
+[^1]: See [this saga](https://bugzilla.mozilla.org/show_bug.cgi?id=66194).
