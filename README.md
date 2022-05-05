@@ -132,7 +132,8 @@ via a container, from the repository root run
 ```shell
 docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
   cd /src && \
-  cmake -S . -B build && cmake --build build && cmake --install build'
+  cmake -S . -B build && \
+  cmake --build build --target openassetio-python-py-install'
 ```
 
 #### Other build methods
