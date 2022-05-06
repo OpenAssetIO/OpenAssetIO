@@ -201,16 +201,20 @@ include(ThirdParty)
 
 
 #-----------------------------------------------------------------------
+# Add a top-level install target, useful for tests and deploument to
+# ensure the project is installed. The special `install` target is
+# unavailable as a target dependency if the Unix Makefile generator
+# (default on Linux) is used, so we must shell out the install.
+
+add_custom_target(openassetio-install
+    COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
+
+
+#-----------------------------------------------------------------------
 # Enable ctest testing
 
 if (OPENASSETIO_ENABLE_TESTS)
     enable_testing()
-    # Add a top-level install target, useful for tests to ensure the
-    # project is installed. The special `install` target is unavailable
-    # as a target dependency if the Unix Makefile generator (default on
-    # Linux) is used, so we must shell out the install.
-    add_custom_target(openassetio-install
-        COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
 endif ()
 
 
