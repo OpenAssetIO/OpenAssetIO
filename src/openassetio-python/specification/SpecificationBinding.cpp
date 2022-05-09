@@ -20,6 +20,8 @@ void registerSpecification(const py::module& mod) {
       .def(py::init<const Specification::TraitIds&>(), py::arg("traitIds"))
       .def("traitIds", &Specification::traitIds)
       .def("hasTrait", &Specification::hasTrait, py::arg("id"))
+      .def("addTrait", &Specification::addTrait)
+      .def("addTraits", &Specification::addTraits)
       .def("setTraitProperty", &Specification::setTraitProperty, py::arg("id"),
            py::arg("propertyKey"), py::arg("propertyValue").none(false))
       .def(

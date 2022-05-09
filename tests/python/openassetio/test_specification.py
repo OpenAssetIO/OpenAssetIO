@@ -11,6 +11,8 @@ from openassetio import Specification
 
 
 class Test_Specification_traitIds:
+    ## TODO(TC): Asset that result is a set, and not a reference to
+    ## any internal structures.
     def test_when_has_no_traits_returns_empty_list(self):
         empty_specification = Specification()
         assert empty_specification.traitIds() == set()
@@ -19,6 +21,47 @@ class Test_Specification_traitIds:
         expected_ids = {"a", "b", "🐠🐟🐠🐟"}
         populated_specification = Specification(expected_ids)
         assert populated_specification.traitIds() == expected_ids
+
+
+class Test_Specification_addTrait:
+    def test_when_trait_is_new_then_added(self):
+        specification = Specification()
+        trait_name = "a 🐍"
+        specification.addTrait(trait_name)
+        assert specification.traitIds() == {trait_name}
+
+    def test_when_trait_is_new_then_existing_traits_are_unaffected(self, a_specification):
+        trait_set = set(a_specification.traitIds())
+        new_trait = "another trait"
+        a_specification.addTrait(new_trait)
+        trait_set.add(new_trait)
+        assert a_specification.traitIds() == trait_set
+
+    def test_when_trait_already_exists_then_is_noop(self, a_specification):
+        old_traits = a_specification.traitIds()
+        a_specification.addTrait(next(iter(a_specification.traitIds())))
+        assert a_specification.traitIds() == old_traits
+
+
+class Test_Specification_addTraits:
+    def test_when_traits_are_new_the_added(self):
+        specification = Specification()
+        trait_set = {"🐌", "🐞", "🐜"}
+        specification.addTraits(trait_set)
+        assert specification.traitIds() == trait_set
+
+    def test_when_traits_are_new_then_existing_traits_are_unaffected(self, a_specification):
+        trait_set = set(a_specification.traitIds())
+        new_traits = {"🐌", "🐞", "🐜"}
+        a_specification.addTraits(new_traits)
+        expected_traits = trait_set.union(new_traits)
+        assert a_specification.traitIds() == expected_traits
+
+    def test_when_trait_ids_already_exist_then_is_noop(self, a_specification):
+        traits = a_specification.traitIds()
+        old_traits = traits
+        a_specification.addTraits(traits)
+        assert a_specification.traitIds() == old_traits
 
 
 class Test_Specification_hasTrait:

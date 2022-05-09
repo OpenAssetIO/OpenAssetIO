@@ -10,15 +10,9 @@ namespace specification {
 
 class Specification::Impl {
  public:
-
   Impl() = default;
 
-  explicit Impl(const TraitIds& traitIds) {
-    // Initialise data dict with supported traits.
-    for (const auto& traitId : traitIds) {
-      data_[traitId];
-    }
-  }
+  explicit Impl(const TraitIds& traitIds) { addTraits(traitIds); }
   ~Impl() = default;
 
   TraitIds traitIds() const {
@@ -32,6 +26,14 @@ class Specification::Impl {
 
   bool hasTrait(const trait::TraitId& traitId) const {
     return static_cast<bool>(data_.count(traitId));
+  }
+
+  void addTrait(const trait::TraitId& traitId) { data_[traitId]; }
+
+  void addTraits(const TraitIds& traitIds) {
+    for (const auto& traitId : traitIds) {
+      data_[traitId];
+    }
   }
 
   bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
@@ -68,6 +70,10 @@ Specification::Specification(const TraitIds& traitIds) : impl_{std::make_unique<
 Specification::~Specification() = default;
 
 Specification::TraitIds Specification::traitIds() const { return impl_->traitIds(); }
+
+void Specification::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
+
+void Specification::addTraits(const TraitIds& traitIds) { impl_->addTraits(traitIds); }
 
 bool Specification::hasTrait(const trait::TraitId& traitId) const {
   return impl_->hasTrait(traitId);

@@ -107,6 +107,25 @@ class OPENASSETIO_CORE_EXPORT Specification {
   [[nodiscard]] bool hasTrait(const trait::TraitId& traitId) const;
 
   /**
+   * Add the specified trait to this specification.
+   *
+   * If the specification already has this trait, it is a no-op.
+   *
+   * @param traitId ID of the trait to add.
+   */
+  void addTrait(const trait::TraitId& traitId);
+
+  /**
+   * Add the specified traits to this specification.
+   *
+   * If the specification already has any of the supplied traits, they
+   * are skipped.
+   *
+   * @param traitIds IDs of the traits to add.
+   */
+  void addTraits(const TraitIds& traitIds);
+
+  /**
    * Get the value of a given trait property, if the property has
    * been set.
    *
