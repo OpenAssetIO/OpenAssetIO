@@ -71,3 +71,22 @@ class Trait:
         trait, `False` otherwise.
         """
         return self._specification.hasTrait(self.kId)  # pylint: disable=no-member
+
+
+    def imbue(self):
+        """
+        Adds this trait to the held specification.
+
+        If the specifcation already has this trait, it is a no-op.
+        """
+        self._specification.addTrait(self.kId)  # pylint: disable=no-member
+
+
+    @classmethod
+    def imbueTo(cls, specification):
+        """
+        Adds this trait to the provided specification.
+
+        If the specifcation already has this trait, it is a no-op.
+        """
+        specification.addTrait(cls.kId)  # pylint: disable=no-member
