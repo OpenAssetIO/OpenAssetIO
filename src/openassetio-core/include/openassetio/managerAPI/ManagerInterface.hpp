@@ -229,6 +229,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 };
 
+using ManagerInterfacePtr = SharedPtr<ManagerInterface>;
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

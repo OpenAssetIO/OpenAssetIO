@@ -9,6 +9,8 @@
 
 #include <pybind11/pybind11.h>
 
+#include <openassetio/typedefs.hpp>
+
 /// Concise pybind alias.
 namespace py = pybind11;
 
@@ -20,10 +22,13 @@ namespace py = pybind11;
  * smart pointer saves many object lifetime headaches.
  */
 template <class T>
-using Holder = std::shared_ptr<T>;
+using Holder = openassetio::SharedPtr<T>;
 
 /// Register the ManagerInterface class with Python.
 void registerManagerInterface(const py::module& mod);
+
+/// Register the Manager class with Python.
+void registerManager(const py::module& mod);
 
 /// Register the base specification class with Python.
 void registerSpecification(const py::module& mod);

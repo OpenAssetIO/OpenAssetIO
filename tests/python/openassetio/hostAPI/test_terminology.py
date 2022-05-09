@@ -27,7 +27,6 @@ import pytest
 
 import openassetio.hostAPI.terminology as tgy
 from openassetio.hostAPI import Manager, Session
-from openassetio.managerAPI import ManagerInterface
 
 
 all_terminology_keys = (
@@ -76,9 +75,9 @@ class MockTerminologyManager(Manager):
 
 
 @pytest.fixture
-def mock_manager():
+def mock_manager(mock_manager_interface):
     return MockTerminologyManager(
-        mock.create_autospec(ManagerInterface), mock.create_autospec(Session))
+        mock_manager_interface, mock.create_autospec(Session))
 
 
 @pytest.fixture

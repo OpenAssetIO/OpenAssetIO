@@ -21,206 +21,16 @@ Tests that cover the openassetio.hostAPI.Manager wrapper class.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-import inspect
 from unittest import mock
 
 import pytest
 
 from openassetio import Context, Specification
 from openassetio.hostAPI import Manager
-from openassetio.managerAPI import HostSession, ManagerInterface
+from openassetio.managerAPI import HostSession
 
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
-
-
-class ValidatingMockManagerInterface(ManagerInterface):
-    """
-    `ManagerInterface` implementation that asserts parameter types.
-
-    Using this (wrapped in a mock) then allows us to update the API
-    test-first, i.e. provide a failing test that gives a starting point
-    for TDD.
-
-    @see mock_manager_interface
-    """
-
-    # pylint: disable=too-many-public-methods,too-many-arguments
-
-    def info(self):
-        return mock.DEFAULT
-
-    def updateTerminology(self, stringDict, hostSession):
-        return mock.DEFAULT
-
-    def getSettings(self, hostSession):
-        return mock.DEFAULT
-
-    def setSettings(self, settings, hostSession):
-        return mock.DEFAULT
-
-    def prefetch(self, entityRefs, context, hostSession):
-        return mock.DEFAULT
-
-    def flushCaches(self, hostSession):
-        return mock.DEFAULT
-
-    def defaultEntityReference(self, traitSets, context, hostSession):
-        self.__assertIsIterableOf(traitSets, set)
-        for traitSet in traitSets:
-            self.__assertIsIterableOf(traitSet, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def entityVersion(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def entityVersions(
-            self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(includeMetaVersions, bool)
-        assert isinstance(maxNumVersions, int)
-        return mock.DEFAULT
-
-    def finalizedEntityVersion(self, entityRefs, context, hostSession, overrideVersionName=None):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(overrideVersionName, str) or overrideVersionName is None
-        return mock.DEFAULT
-
-    def setRelatedReferences(
-            self, entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True):
-        return mock.DEFAULT
-
-    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
-        self.__assertIsIterableOf(targetEntityRefs, str)
-        self.__assertIsIterableOf(traitSet, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def createState(self, hostSession, parentState=None):
-        return mock.DEFAULT
-
-    def startTransaction(self, state, hostSession):
-        return mock.DEFAULT
-
-    def finishTransaction(self, state, hostSession):
-        return mock.DEFAULT
-
-    def cancelTransaction(self, state, hostSession):
-        return mock.DEFAULT
-
-    def freezeState(self, state, hostSession):
-        return mock.DEFAULT
-
-    def thawState(self, token, hostSession):
-        return mock.DEFAULT
-
-    @staticmethod
-    def identifier():
-        return mock.DEFAULT
-
-    def displayName(self):
-        return mock.DEFAULT
-
-    def initialize(self, hostSession):
-        return mock.DEFAULT
-
-    def managementPolicy(self, traitSets, context, hostSession):
-        self.__assertIsIterableOf(traitSets, set)
-        for traitSet in traitSets:
-            self.__assertIsIterableOf(traitSet, str)
-        self.__assertCallingContext(context, hostSession)
-
-        return mock.DEFAULT
-
-    def isEntityReference(self, tokens, hostSession):
-        self.__assertIsIterableOf(tokens, str)
-        assert isinstance(hostSession, HostSession)
-        return mock.DEFAULT
-
-    def entityExists(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def resolve(self, entityRefs, traitSet, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertIsIterableOf(traitSet, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def entityName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def entityDisplayName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertCallingContext(context, hostSession)
-        return mock.DEFAULT
-
-    def getRelatedReferences(
-            self, entityRefs, relationshipSpecs, context, hostSession, resultTraitSet=None):
-        self.__assertIsIterableOf(entityRefs, str)
-        self.__assertIsIterableOf(relationshipSpecs, Specification)
-        self.__assertCallingContext(context, hostSession)
-        if resultTraitSet is not None:
-            assert isinstance(resultTraitSet, set)
-            self.__assertIsIterableOf(resultTraitSet, str)
-        return mock.DEFAULT
-
-    def register(self, targetEntityRefs, entitySpecs, context, hostSession):
-        self.__assertIsIterableOf(targetEntityRefs, str)
-        self.__assertIsIterableOf(entitySpecs, Specification)
-        self.__assertCallingContext(context, hostSession)
-        assert len(targetEntityRefs) == len(entitySpecs)
-        return mock.DEFAULT
-
-    @staticmethod
-    def __assertIsIterableOf(iterable, expectedElemType):
-        # We want to assert that `iterable` is any reasonable container.
-        # Unfortunately there doesn't seem to be a catch-all for this.
-        # E.g. if we expect a collection containing str elements, then a
-        # str itself fits this criteria since we could iterate over it
-        # and each element (character) would be a str. So just be
-        # explicit on the types that we accept.
-        assert isinstance(iterable, (list, tuple, set))
-        for elem in iterable:
-            assert isinstance(elem, expectedElemType)
-
-    @staticmethod
-    def __assertCallingContext(context, hostSession):
-        assert isinstance(context, Context)
-        assert isinstance(hostSession, HostSession)
-
-
-@pytest.fixture
-def mock_manager_interface():
-    """
-    Fixture for a mock `ManagerInterface` that asserts parameter types.
-
-    Return a mock `autospec`ed to the `ManagerInterface`, with each
-    mocked method set up to `side_effect` to the corresponding
-    method in `ValidatingMockManagerInterface`.
-
-    This then means method parameter types will be `assert`ed, whilst
-    still providing full `MagicMock` functionality.
-    """
-    interface = ValidatingMockManagerInterface()
-    mockInterface = mock.create_autospec(spec=interface, spec_set=True)
-    # Set the `side_effect` of each mocked method to call through to
-    # the concrete instance.
-    methods = inspect.getmembers(interface, predicate=inspect.ismethod)
-    for name, method in methods:
-        if not name.startswith("__"):  # Ignore private/magic methods.
-            getattr(mockInterface, name).side_effect = method
-
-    return mockInterface
-
 
 @pytest.fixture
 def host_session():
@@ -282,15 +92,94 @@ class Test_Manager_init:
         a_manager = Manager(mock_manager_interface, host_session)
         assert a_manager._interface() is mock_manager_interface
 
+    def test_when_constructed_with_ManagerInterface_as_None_then_raises_TypeError(
+            self, host_session):
+        with pytest.raises(TypeError) as err:
+            Manager(None, host_session)
+
+        assert str(err.value) == (
+            '__init__(): incompatible constructor arguments. The following argument types '
+            'are supported:\n'
+            '    1. openassetio._openassetio.hostAPI.Manager(managerInterface: '
+            'openassetio._openassetio.managerAPI.ManagerInterface)\n'
+            '\n'
+            'Invoked with: None')
+
 
 class Test_Manager_identifier:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface):
+        expected = "stub.manager"
+        mock_manager_interface.mock.identifier.return_value = expected
 
-        method = mock_manager_interface.identifier
-        assert manager.identifier() == method.return_value
-        method.assert_called_once_with()
+        actual = manager.identifier()
+
+        assert actual == expected
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, manager, mock_manager_interface):
+
+        mock_manager_interface.mock.identifier.return_value = 123
+
+        with pytest.raises(RuntimeError) as err:
+            manager.identifier()
+
+        # Pybind error messages vary between release and debug mode:
+        # "Unable to cast Python instance of type <class 'int'> to C++
+        # type 'std::string'"
+        # vs.
+        # "Unable to cast Python instance to C++ type (compile in debug
+        # mode for details)"
+        assert str(err.value).startswith("Unable to cast Python instance")
+
+
+class Test_Manager_displayName:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface):
+
+        expected = "stub.manager"
+        mock_manager_interface.mock.displayName.return_value = expected
+
+        actual = manager.displayName()
+
+        assert actual == expected
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, manager, mock_manager_interface):
+
+        mock_manager_interface.mock.displayName.return_value = 123
+
+        with pytest.raises(RuntimeError) as err:
+            manager.displayName()
+
+        # Note: pybind error messages vary between release and debug mode.
+        assert str(err.value).startswith("Unable to cast Python instance")
+
+
+class Test_Manager_info:
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface):
+
+        expected = {"an int": 123}
+        mock_manager_interface.mock.info.return_value = expected
+
+        actual = manager.info()
+
+        assert actual == expected
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, manager, mock_manager_interface):
+
+        mock_manager_interface.mock.info.return_value = {123: 123}
+
+        with pytest.raises(RuntimeError) as err:
+            manager.info()
+
+        # Note: pybind error messages vary between release and debug mode.
+        assert str(err.value).startswith("Unable to cast Python instance")
 
 
 class Test_Manager_updateTerminology:
@@ -298,7 +187,7 @@ class Test_Manager_updateTerminology:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session):
 
-        method = mock_manager_interface.updateTerminology
+        method = mock_manager_interface.mock.updateTerminology
         a_dict = {"k", "v"}
         assert manager.updateTerminology(a_dict) is a_dict
         method.assert_called_once_with(a_dict, host_session)
@@ -309,7 +198,7 @@ class Test_Manager_getSettings:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session):
 
-        method = mock_manager_interface.getSettings
+        method = mock_manager_interface.mock.getSettings
         assert manager.getSettings() == method.return_value
         method.assert_called_once_with(host_session)
 
@@ -319,7 +208,7 @@ class Test_Manager_setSettings:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session):
 
-        method = mock_manager_interface.setSettings
+        method = mock_manager_interface.mock.setSettings
         a_dict = {"k", "v"}
         assert manager.setSettings(a_dict) == method.return_value
         method.assert_called_once_with(a_dict, host_session)
@@ -330,7 +219,7 @@ class Test_Manager_initialize:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session):
 
-        method = mock_manager_interface.initialize
+        method = mock_manager_interface.mock.initialize
         assert manager.initialize() == method.return_value
         method.assert_called_once_with(host_session)
 
@@ -340,7 +229,7 @@ class Test_Manager_prefetch:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.prefetch
+        method = mock_manager_interface.mock.prefetch
         assert manager.prefetch(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
@@ -350,7 +239,7 @@ class Test_Manager_flushCaches:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session):
 
-        method = mock_manager_interface.flushCaches
+        method = mock_manager_interface.mock.flushCaches
         assert manager.flushCaches() == method.return_value
         method.assert_called_once_with(host_session)
 
@@ -360,7 +249,7 @@ class Test_Manager_isEntityReference:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs):
 
-        method = mock_manager_interface.isEntityReference
+        method = mock_manager_interface.mock.isEntityReference
         assert manager.isEntityReference(some_refs) == method.return_value
         method.assert_called_once_with(some_refs, host_session)
 
@@ -370,7 +259,7 @@ class Test_Manager_entityExists:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityExists
+        method = mock_manager_interface.mock.entityExists
         assert manager.entityExists(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
@@ -381,7 +270,7 @@ class Test_Manager_defaultEntityReference:
             self, manager, mock_manager_interface, host_session, a_context,
             some_entity_trait_sets):
 
-        method = mock_manager_interface.defaultEntityReference
+        method = mock_manager_interface.mock.defaultEntityReference
         assert manager.defaultEntityReference(some_entity_trait_sets, a_context) \
                 == method.return_value
         method.assert_called_once_with(some_entity_trait_sets, a_context, host_session)
@@ -392,7 +281,7 @@ class Test_Manager_entityName:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityName
+        method = mock_manager_interface.mock.entityName
         assert manager.entityName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
@@ -402,7 +291,7 @@ class Test_Manager_entityDisplayNamer:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityDisplayName
+        method = mock_manager_interface.mock.entityDisplayName
         assert manager.entityDisplayName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
@@ -412,7 +301,7 @@ class Test_Manager_entityVersion:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityVersion
+        method = mock_manager_interface.mock.entityVersion
         assert manager.entityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, host_session)
 
@@ -422,7 +311,7 @@ class Test_Manager_entityVersions:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.entityVersions
+        method = mock_manager_interface.mock.entityVersions
 
         assert manager.entityVersions(some_refs, a_context) == method.return_value
         method.assert_called_once_with(
@@ -451,14 +340,14 @@ class Test_Manager_finalizedEntityVersion:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, host_session, some_refs, a_context):
 
-        method = mock_manager_interface.finalizedEntityVersion
+        method = mock_manager_interface.mock.finalizedEntityVersion
         assert manager.finalizedEntityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(
             some_refs, a_context, host_session, overrideVersionName=None)
         method.reset_mock()
 
         a_version_name = "aVersion"
-        method = mock_manager_interface.finalizedEntityVersion
+        method = mock_manager_interface.mock.finalizedEntityVersion
         assert manager.finalizedEntityVersion(
             some_refs, a_context, overrideVersionName=a_version_name) == method.return_value
         method.assert_called_once_with(
@@ -473,7 +362,7 @@ class Test_Manager_getRelatedReferences:
 
         # pylint: disable=too-many-locals
 
-        method = mock_manager_interface.getRelatedReferences
+        method = mock_manager_interface.mock.getRelatedReferences
 
         one_ref = a_ref
         two_refs = [a_ref, a_ref]
@@ -519,7 +408,7 @@ class Test_Manager_resolve:
             self, manager, mock_manager_interface, host_session, some_refs, an_entity_trait_set,
             a_context):
 
-        method = mock_manager_interface.resolve
+        method = mock_manager_interface.mock.resolve
         assert manager.resolve(some_refs, an_entity_trait_set, a_context) \
                 == method.return_value
         method.assert_called_once_with(some_refs, an_entity_trait_set, a_context, host_session)
@@ -531,7 +420,7 @@ class Test_Manager_managentPolicy:
             self, manager, mock_manager_interface, host_session, some_entity_trait_sets,
             a_context):
 
-        method = mock_manager_interface.managementPolicy
+        method = mock_manager_interface.mock.managementPolicy
         assert manager.managementPolicy(some_entity_trait_sets, a_context) == method.return_value
         method.assert_called_once_with(some_entity_trait_sets, a_context, host_session)
 
@@ -542,7 +431,7 @@ class Test_Manager_preflight:
             self, manager, mock_manager_interface, host_session, some_refs, an_entity_trait_set,
             a_context):
 
-        method = mock_manager_interface.preflight
+        method = mock_manager_interface.mock.preflight
         assert manager.preflight(some_refs, an_entity_trait_set, a_context) \
                 == method.return_value
         method.assert_called_once_with(some_refs, an_entity_trait_set, a_context, host_session)
@@ -557,7 +446,7 @@ class Test_Manager_register:
         specifications = [a_specification for _ in some_refs]
         mutated_refs = [f"{r}-registered" for r in some_refs]
 
-        register_method = mock_manager_interface.register
+        register_method = mock_manager_interface.mock.register
         register_method.return_value = mutated_refs
 
         assert manager.register(some_refs, specifications, a_context) \

@@ -16,10 +16,14 @@
 """
 Shared fixtures/code for pytest cases.
 """
-
+# pylint: disable=missing-function-docstring
+from unittest import mock
 import sys
 
 import pytest
+
+from openassetio import Context, Specification
+from openassetio.managerAPI import ManagerInterface, HostSession
 
 # pylint: disable=invalid-name
 
@@ -47,3 +51,185 @@ def unload_openassetio_modules():
     # Restore the previously imported modules
     for name, module in to_delete.items():
         sys.modules[name] = module
+
+
+@pytest.fixture
+def mock_manager_interface():
+    """
+    Fixture for a `ManagerInterface` that asserts parameter types and
+    forwards method calls to an internal public `mock.Mock` instance.
+    """
+    return ValidatingMockManagerInterface()
+
+
+class ValidatingMockManagerInterface(ManagerInterface):
+    """
+    `ManagerInterface` implementation that asserts parameter types then
+    calls an internal mock.
+
+    All method calls first have their parameter types validated, then
+    are forwarded to an internal `mock.Mock` instance, which is
+    `autospec`ed to `ManagerInterface` and accessible as a public `mock`
+    member variable, so that expectations can be configured.
+
+    @see mock_manager_interface
+    """
+
+    # pylint: disable=too-many-public-methods,too-many-arguments
+
+    def __init__(self):
+        super().__init__()
+        self.mock = mock.create_autospec(ManagerInterface, spec_set=True, instance=True)
+
+    def info(self):
+        return self.mock.info()
+
+    def updateTerminology(self, stringDict, hostSession):
+        return self.mock.updateTerminology(stringDict, hostSession)
+
+    def getSettings(self, hostSession):
+        return self.mock.getSettings(hostSession)
+
+    def setSettings(self, settings, hostSession):
+        return self.mock.setSettings(settings, hostSession)
+
+    def prefetch(self, entityRefs, context, hostSession):
+        return self.mock.prefetch(entityRefs, context, hostSession)
+
+    def flushCaches(self, hostSession):
+        return self.mock.flushCaches(hostSession)
+
+    def defaultEntityReference(self, traitSets, context, hostSession):
+        self.__assertIsIterableOf(traitSets, set)
+        for traitSet in traitSets:
+            self.__assertIsIterableOf(traitSet, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.defaultEntityReference(traitSets, context, hostSession)
+
+    def entityVersion(self, entityRefs, context, hostSession):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.entityVersion(entityRefs, context, hostSession)
+
+    def entityVersions(
+            self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        assert isinstance(includeMetaVersions, bool)
+        assert isinstance(maxNumVersions, int)
+        return self.mock.entityVersions(
+            entityRefs, context, hostSession, includeMetaVersions, maxNumVersions)
+
+    def finalizedEntityVersion(self, entityRefs, context, hostSession, overrideVersionName=None):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        assert isinstance(overrideVersionName, str) or overrideVersionName is None
+        return self.mock.finalizedEntityVersion(
+            entityRefs, context, hostSession, overrideVersionName)
+
+    def setRelatedReferences(
+            self, entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True):
+        return self.mock.setRelatedReferences(
+            entityRef, relationshipSpec, relatedRefs, context, hostSession, append=True)
+
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
+        self.__assertIsIterableOf(targetEntityRefs, str)
+        self.__assertIsIterableOf(traitSet, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession)
+
+    def createState(self, hostSession, parentState=None):
+        return self.mock.createState(hostSession, parentState)
+
+    def startTransaction(self, state, hostSession):
+        return self.mock.startTransaction(state, hostSession)
+
+    def finishTransaction(self, state, hostSession):
+        return self.mock.finishTransaction(state, hostSession)
+
+    def cancelTransaction(self, state, hostSession):
+        return self.mock.cancelTransaction(state, hostSession)
+
+    def freezeState(self, state, hostSession):
+        return self.mock.freezeState(state, hostSession)
+
+    def thawState(self, token, hostSession):
+        return self.mock.thawState(token, hostSession)
+
+    def identifier(self):
+        return self.mock.identifier()
+
+    def displayName(self):
+        return self.mock.displayName()
+
+    def initialize(self, hostSession):
+        return self.mock.initialize(hostSession)
+
+    def managementPolicy(self, traitSets, context, hostSession):
+        self.__assertIsIterableOf(traitSets, set)
+        for traitSet in traitSets:
+            self.__assertIsIterableOf(traitSet, str)
+        self.__assertCallingContext(context, hostSession)
+
+        return self.mock.managementPolicy(traitSets, context, hostSession)
+
+    def isEntityReference(self, tokens, hostSession):
+        self.__assertIsIterableOf(tokens, str)
+        assert isinstance(hostSession, HostSession)
+        return self.mock.isEntityReference(tokens, hostSession)
+
+    def entityExists(self, entityRefs, context, hostSession):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.entityExists(entityRefs, context, hostSession)
+
+    def resolve(self, entityRefs, traitSet, context, hostSession):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(traitSet, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.resolve(entityRefs, traitSet, context, hostSession)
+
+    def entityName(self, entityRefs, context, hostSession):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.entityName(entityRefs, context, hostSession)
+
+    def entityDisplayName(self, entityRefs, context, hostSession):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertCallingContext(context, hostSession)
+        return self.mock.entityDisplayName(entityRefs, context, hostSession)
+
+    def getRelatedReferences(
+            self, entityRefs, relationshipSpecs, context, hostSession, resultTraitSet=None):
+        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(relationshipSpecs, Specification)
+        self.__assertCallingContext(context, hostSession)
+        if resultTraitSet is not None:
+            assert isinstance(resultTraitSet, set)
+            self.__assertIsIterableOf(resultTraitSet, str)
+        return self.mock.getRelatedReferences(
+            entityRefs, relationshipSpecs, context, hostSession, resultTraitSet)
+
+    def register(self, targetEntityRefs, entitySpecs, context, hostSession):
+        self.__assertIsIterableOf(targetEntityRefs, str)
+        self.__assertIsIterableOf(entitySpecs, Specification)
+        self.__assertCallingContext(context, hostSession)
+        assert len(targetEntityRefs) == len(entitySpecs)
+        return self.mock.register(targetEntityRefs, entitySpecs, context, hostSession)
+
+    @staticmethod
+    def __assertIsIterableOf(iterable, expectedElemType):
+        # We want to assert that `iterable` is any reasonable container.
+        # Unfortunately there doesn't seem to be a catch-all for this.
+        # E.g. if we expect a collection containing str elements, then a
+        # str itself fits this criteria since we could iterate over it
+        # and each element (character) would be a str. So just be
+        # explicit on the types that we accept.
+        assert isinstance(iterable, (list, tuple, set))
+        for elem in iterable:
+            assert isinstance(elem, expectedElemType)
+
+    @staticmethod
+    def __assertCallingContext(context, hostSession):
+        assert isinstance(context, Context)
+        assert isinstance(hostSession, HostSession)

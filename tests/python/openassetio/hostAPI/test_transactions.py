@@ -32,7 +32,7 @@ import pytest
 
 from openassetio import Context
 from openassetio.hostAPI import transactions as t, Manager
-from openassetio.managerAPI import HostSession, ManagerInterface
+from openassetio.managerAPI import HostSession
 
 
 @pytest.fixture
@@ -41,9 +41,8 @@ def mock_host_session():
 
 
 @pytest.fixture
-def mock_manager(mock_host_session):
-    mock_interface = mock.create_autospec(ManagerInterface)
-    return Manager(mock_interface, mock_host_session)
+def mock_manager(mock_manager_interface, mock_host_session):
+    return Manager(mock_manager_interface, mock_host_session)
 
 
 @pytest.fixture
@@ -103,7 +102,7 @@ class Test_TransactionCoordinator_pushActionGroup:
     def test_when_called_repeatedly_then_startTransaction_only_called_once(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_interface = transaction_coordinator.manager()._interface()
+        mock_interface = transaction_coordinator.manager()._interface().mock
         state = a_context.managerInterfaceState
 
         assert_transaction_calls(
@@ -133,7 +132,7 @@ class Test_TransactionCoordinator_popActionGroup:
     def test_when_called_repeatedly_then_finishTransaction_only_called_once(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_interface = transaction_coordinator.manager()._interface()
+        mock_interface = transaction_coordinator.manager()._interface().mock
         state = a_context.managerInterfaceState
 
         a_context._actionGroupDepth = 2
@@ -172,7 +171,7 @@ class Test_TransactionCoordinator_popActionGroup:
             pass
 
         assert_transaction_calls(
-            transaction_coordinator.manager()._interface(), mock_host_session,
+            transaction_coordinator.manager()._interface().mock, mock_host_session,
             start=None, finish=None, cancel=None)
 
 
@@ -182,7 +181,7 @@ class Test_TransactionCoordinator_cancelActions:
     def test_when_depth_is_zero_then_manager_is_not_called_and_true_is_returned(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_interface = transaction_coordinator.manager()._interface()
+        mock_interface = transaction_coordinator.manager()._interface().mock
         # Ensure the manager will return a different value to the
         # expected one so we can verify that the return value is not
         # from the manager.
@@ -198,7 +197,7 @@ class Test_TransactionCoordinator_cancelActions:
     def test_when_depth_is_not_zero_then_manager_is_called_and_its_result_returned(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_interface = transaction_coordinator.manager()._interface()
+        mock_interface = transaction_coordinator.manager()._interface().mock
         state = a_context.managerInterfaceState
 
         # We can't use a `mock` value as a sentinel to verify that the
@@ -249,7 +248,7 @@ class Test_TransactionCoordinator_freeze_thaw:
     def test_when_frozen_and_thawed_then_context_depth_and_state_are_restored(
             self, transaction_coordinator, mock_host_session, a_context):
 
-        mock_manager = transaction_coordinator.manager()._interface()
+        mock_manager = transaction_coordinator.manager()._interface().mock
 
         state = a_context.managerInterfaceState
         mock_frozen_state = f"frozen-{state}"
@@ -345,7 +344,7 @@ def assert_action_group_calls(mock_coordinator, push, pop, cancel):
 
     mock_coordinator.reset_mock()
 
-def assert_transaction_calls(mock_manager, mock_host_session, start, finish, cancel):
+def assert_transaction_calls(mock_interface, mock_host_session, start, finish, cancel):
     """
     Asserts that the start/finish/cancelTransaction methods of the
     supplied mock interface have been called with the specified args and
@@ -353,13 +352,13 @@ def assert_transaction_calls(mock_manager, mock_host_session, start, finish, can
     asserted that the method was not called.
     """
     for method, arg in (
-            (mock_manager.startTransaction, start),
-            (mock_manager.finishTransaction, finish),
-            (mock_manager.cancelTransaction, cancel)
+            (mock_interface.startTransaction, start),
+            (mock_interface.finishTransaction, finish),
+            (mock_interface.cancelTransaction, cancel)
     ):
         if arg is None:
             method.assert_not_called()
         else:
             method.assert_called_once_with(arg, mock_host_session)
 
-    mock_manager.reset_mock()
+    mock_interface.reset_mock()

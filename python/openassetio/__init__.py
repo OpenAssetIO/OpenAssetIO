@@ -70,11 +70,11 @@ API documentation
 The documentation for OpenAssetIO can be found here:
    https://thefoundryvisionmongers.github.io/OpenAssetIO.
 """
-# TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
-from ._openassetio import *  # pylint: disable=import-error
 # Temporarily hoist the C++ class into the top level name space,
 # until this is done in the module itself.
-Specification = specification.Specification  # pylint: disable=undefined-variable
+# TODO(DF): @pylint
+from ._openassetio import specification  # pylint: disable=import-error
+Specification = specification.Specification
 
 # pylint: disable=wrong-import-position
 from .Context import Context
