@@ -143,11 +143,12 @@ class OPENASSETIO_CORE_EXPORT Specification {
   /**
    * Set the value of given trait property.
    *
+   * If the specification does not yet have this trait, it will be
+   * added by this call.
+   *
    * @param traitId ID of trait to update.
    * @param propertyKey Key of property to set.
    * @param propertyValue Value to set.
-   * @exception `std::out_of_range` if the specification does not have
-   * this trait.
    */
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue);

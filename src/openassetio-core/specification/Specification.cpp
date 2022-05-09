@@ -51,8 +51,8 @@ class Specification::Impl {
 
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue) {
-    // Use `at` deliberately to trigger exception if trait doesn't exist
-    data_.at(traitId)[propertyKey] = std::move(propertyValue);
+    // Use subscript to ensure the trait is added if it is missing
+    data_[traitId][propertyKey] = std::move(propertyValue);
   }
 
   bool operator==(const Impl& other) const { return data_ == other.data_; }

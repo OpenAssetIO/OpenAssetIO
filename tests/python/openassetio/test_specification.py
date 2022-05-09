@@ -90,10 +90,13 @@ class Test_Specification_getsetTraitProperty:
     def test_when_key_is_not_found_then_get_returns_None(self, a_specification):
         assert a_specification.getTraitProperty("first_trait", "a string") is None
 
-    def test_when_trait_is_not_found_then_IndexError_raised(self, a_specification):
-        with pytest.raises(IndexError):
-            a_specification.setTraitProperty("unknown_trait", "a string", "string")
+    def test_when_trait_is_not_found_then_set_adds_trait(self, a_specification):
+        new_trait_id, a_property, a_value = "a_new_trait", "a string", "string"
+        a_specification.setTraitProperty(new_trait_id, a_property, a_value)
+        assert new_trait_id in a_specification.traitIds()
+        assert a_specification.getTraitProperty(new_trait_id, a_property) == a_value
 
+    def test_when_trait_is_not_found_then_get_raises_IndexError(self, a_specification):
         with pytest.raises(IndexError):
             _ = a_specification.getTraitProperty("unknown_trait", "a string")
 
