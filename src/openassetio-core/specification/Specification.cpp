@@ -10,6 +10,9 @@ namespace specification {
 
 class Specification::Impl {
  public:
+
+  Impl() = default;
+
   explicit Impl(const TraitIds& traitIds) {
     // Initialise data dict with supported traits.
     for (const auto& traitId : traitIds) {
@@ -57,6 +60,8 @@ class Specification::Impl {
   using PropertiesByTrait = std::unordered_map<trait::TraitId, Properties>;
   PropertiesByTrait data_;
 };
+
+Specification::Specification() : impl_{std::make_unique<Impl>()} {}
 
 Specification::Specification(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
 

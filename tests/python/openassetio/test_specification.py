@@ -12,7 +12,7 @@ from openassetio import Specification
 
 class Test_Specification_traitIds:
     def test_when_has_no_traits_returns_empty_list(self):
-        empty_specification = Specification(set())
+        empty_specification = Specification()
         assert empty_specification.traitIds() == set()
 
     def test_when_has_traits_returns_expected_trait_ids(self):

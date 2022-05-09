@@ -16,6 +16,7 @@ void registerSpecification(const py::module& mod) {
   using MaybeValue = std::optional<property::Value>;
 
   py::class_<Specification, Holder<Specification>>(mod, "Specification")
+      .def(py::init())
       .def(py::init<const Specification::TraitIds&>(), py::arg("traitIds"))
       .def("traitIds", &Specification::traitIds)
       .def("hasTrait", &Specification::hasTrait, py::arg("id"))

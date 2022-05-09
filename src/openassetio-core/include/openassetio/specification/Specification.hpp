@@ -75,8 +75,13 @@ class OPENASSETIO_CORE_EXPORT Specification {
   using TraitIds = std::unordered_set<trait::TraitId>;
 
   /**
+   * Construct an empty specification, with no traits.
+   */
+  Specification();
+
+  /**
    * Construct such that this specification has the given set of
-   * trait IDs.
+   * traits.
    *
    * @param traitIds The consituent traits IDs.
    */
