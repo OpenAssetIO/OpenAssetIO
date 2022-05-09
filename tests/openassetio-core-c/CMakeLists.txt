@@ -21,7 +21,9 @@ target_sources(openassetio-core-c-test-exe
     private/errorsTest.cpp
     private/StringViewTest.cpp
     private/InfoDictionaryTest.cpp
-    private/managerAPI/CManagerInterfaceTest.cpp)
+    private/managerAPI/CManagerInterfaceTest.cpp
+    private/hostAPI/ManagerTest.cpp
+    )
 
 target_link_libraries(
     openassetio-core-c-test-exe
