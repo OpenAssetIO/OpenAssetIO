@@ -24,7 +24,7 @@ For example, that when a
 @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 "managementPolicy" query returns a non-ignored state, that there are no
 errors calling the other required methods for a managed entity with
-those @needsref traits.
+those @ref trait "traits".
 
 The suite does not validate any specific business logic by checking the
 values API methods _may_ return in certain situations. This should be

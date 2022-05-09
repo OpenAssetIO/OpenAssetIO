@@ -26,7 +26,7 @@
  *
  * To this end, a @ref manager can set the @ref openassetio.constants.kWantsThumbnail
  * "kWantsThumbnail" flag in it's response to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
- * "managementPolicy" for any given set of entity @needsref traits.
+ * "managementPolicy" for any given set of entity @ref trait "traits".
  *
  * If supported by the host, it will then:
  * - Call @ref preflight with the target entity and the traits from the
@@ -41,7 +41,7 @@
  *
  * @see @ref example_generating_a_thumbnail
  *
- * @todo Document the @needsref traits used to determine
+ * @todo Document the @ref trait "traits" used to determine
  * width/height/format, these should be the same as the fields of the
  * ThumbnailSpecification.
  *

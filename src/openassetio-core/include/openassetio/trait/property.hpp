@@ -20,7 +20,7 @@ inline namespace OPENASSETIO_VERSION {
 namespace trait {
 
 /**
- * Type aliases for @needsref trait properties within a @ref
+ * Type aliases for @ref trait properties within a @ref
  * specification::Specification "Specification"
  */
 namespace property {

@@ -14,7 +14,7 @@
  *   several discrete services, but within any OpenAssetIO session, it is
  *   represented though a singular @ref ManagerPlugin.
  *
- * - The API is initialized and managed by a @ref host. The host may
+ * - The API is initialized and coordinated by a @ref host. The host may
  *   create one or more sessions. Each session allows the host to
  *   communicate with a single manager instance.
  *
@@ -41,7 +41,8 @@
  *   entity_reference. These are URIs that uniquely identify an @ref
  *   entity within the management system. The form of an entity reference
  *   is entirely determined by the manager. They are considered to be
- *   opaque by the host.
+ *   opaque handles by the host, even if they look like well-formed
+ *   strings.
  *
  * - The manager is expected to store and recall the trait data
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
@@ -55,17 +56,17 @@
  *   example, determining the correct frame range and colorspace of an
  *   image sequence.
  *
- * - The @ref Context supplied to a method can be used to understand
- *   the intentions of the caller, as well as to determine which part of
- *   an application is involved in the call, for example, which image read
- *   node in a compositor is resolving a reference.
+ * - The @ref Context supplied to a method can be used to understand the
+ *   intentions and/or requirements of the caller, as well as to
+ *   determine which part of an application is involved in the call.
+ *   This can be used to help determine the correct values for @ref
+ *   trait properties during @ref resolve.
  *
- * - Many API calls are passed a @ref Specification. They form a
- *   strong hierarchical type mechanism. It is not expected for a manager
- *   to persist any data contained within a specification - but they must
- *   be respected as a filter predicate for browsing/query operations, and
- *   as a type specifier for creation operations. See @ref entities_specifications_and_attributes
- *   for more details on this mechanism.
+ * - Many API calls are passed a @ref trait_set. They form a strong type
+ *   mechanism, and must be respected as a filter predicate for
+ *   browsing/query operations, and as a type specifier for creation
+ *   operations. See @ref entities_traits_and_specifications for more
+ *   details on this mechanism.
  *
  * - The @ref ManagerInterface implementation will be passed a
  *   @ref openassetio.managerAPI.HostSession "HostSession" to the
@@ -137,14 +138,14 @@
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
  *   "ManagerInterface", to support the registration of new assets.
  *
- * - Map supported OpenAssetIO specifications to internal asset types
- *   where possible.
+ * - Map supported OpenAssetIO @ref trait "traits" to internal asset
+ *   types where possible.
  *
- * - Persist the trait IDs of the specification supplied to
+ * - Persist the full @ref trait_set of the specification supplied to
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "register". This allows new asset types to be registered and
- *   filtered, even if they don't have a unique type within a managers
- *   implementation - see @ref specification_hierarchy.
+ *   filtered, even if they don't have a unique type within the manager's
+ *   native data model.
  *
  * - Persist the trait data supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "register". It should be considered opaque, unless the trait is
@@ -154,11 +155,13 @@
  *   (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
  *
- * @note An example of a situation where the manager is allowed to mutate
- * trait property data is when it is know to be an URL or file path.
- * In these cases, it may be rewritten at will providing it still points
- * to synonymous data. This allows data to be relocated after it has
- * been registered as appropriate.
+ * @note An example of a situation where the manager is allowed to
+ * mutate trait property values is when it is semantically understood. A
+ * good example of this is the `location` property of the
+ * `locatableContent` trait, that is known to be a file path. In these
+ * cases, it may be rewritten at will providing it still points to
+ * synonymous data. This allows data to be relocated after it has been
+ * registered, as appropriate.
  *
  * @subsection manager_todo_related_entities Supporting Relationships
  *
@@ -178,7 +181,7 @@
  * This may sound counterintuitive, but the references used for
  * publishing will generally originate either from the user, or the
  * manager itself - in response to browsing for a writable target entity
- * for the appropriate specification. Consequently, they should be
+ * for the appropriate @ref trait_set. Consequently, they should be
  * conceptually valid for the operation.
  *
  * Hosts will include in their documentation notes on specific
@@ -214,22 +217,23 @@
  *   "setRelatedReferences" to update any internal relationships that
  *   may be affected by the registered change.
  *
- * @note It is currently in flux as to whether relationship sets should
- * be a hard requirement of the API, or considered hints as set by the
- * host. There is even question as to the validity of the API allowing
- * sets at all, please contribute to the discussion here if you have any
- * opinion on the matter: https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/18
+ * @note It is currently in flux as to whether relationship creation
+ * should be a hard requirement of the API, or considered hints as set
+ * by the host. There is even question as to the validity of the API
+ * allowing sets at all, please contribute to the discussion here if you
+ * have any opinion on the matter:
+ * https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/18
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *
  * @note The UI layer of OpenAssetIO is yet to be ported to this code base,
  * this documentation section is currently in-progress.
  *
- * - Filter any browsers based on the supplied @ref Specification.
+ * - Filter any browsers based on the supplied @ref trait_set.
  *
  * @section manager_reading Recommended Reading
  *
- * @see @ref entities_specifications_and_attributes
+ * @see @ref entities_traits_and_specifications
  * @see @ref transactions
  * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
  * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"

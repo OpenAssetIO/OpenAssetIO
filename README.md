@@ -23,17 +23,17 @@ functionality.
 ## Scope
 
 The API covers the following areas:
- - Resolution of asset references (URIs) into locatable data (URLs).
- - Publishing and retrieval of data for file-based and non-file-based
-   assets.
+ - Resolution of asset references (URIs) into a dictionary of data,
+   grouped into one or more "traits" (providing URLs for access, and
+   other asset data).
+ - Publishing data for file-based and non-file-based assets.
  - Discovery and registration of related assets.
  - Replacement/augmentation of in-application UI elements such as
    browsers and other panels/controls.
 
 The API, by design, does not:
  - Define any standardized data structures for the storage or
-   description of assets or
-   asset hierarchies.
+   description of assets or asset hierarchies.
  - Dictate any aspect of how an asset management system operates,
    organizes, locates or manages asset data and versions.
 

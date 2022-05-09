@@ -34,8 +34,9 @@
  * - The main currency in the interactions with a @ref manager is the
  *   @ref entity_reference. These are URIs that uniquely identify an
  *   @ref entity within the management system. The form of an entity
- *   reference is entirely determined by the manager. They are
- *   considered to be opaque to the host.
+ *   reference is entirely determined by the manager. They must be
+ *   considered to be opaque handles by the host, even if they look like
+ *   well-formed strings.
  *
  * - Nearly all interactions with a @ref openassetio.hostAPI.Manager
  *   "Manager" require an appropriately configured @ref Context. This
@@ -49,19 +50,19 @@
  * - It's in the host's interest to provide as much information in the
  *   @ref Context and any @ref entity or @ref locale @ref Specification
  *   "Specifications" supplied to API calls as possible. For example,
- *   it is strongly advised to use or derive from standard @ref locale
+ *   it is strongly advised to use or extend standard @ref locale
  *   "locales" depending on which part of a host is making API calls.
  *   This allows the manager to correctly filter assets or adapt its
  *   behavior as required.
  *
- * - You should resolve an entity with appropriate @needsref traits
- *   wherever possible, and use them as the authoritative source of
- *   information about an asset. For example, to determine the
- *   colorspace of an image.
+ * - You should resolve an entity reference with the minimal set of @ref
+ * trait "traits" required, and use resulting data as the authoritative
+ * source of information about an asset. For example, to determine the
+ * final colorspace of an image.
  *
  * @section host_reading Recommended Reading
  *
- * @see @ref entities_specifications_and_attributes
+ * @see @ref entities_traits_and_specifications
  * @see @ref transactions
  * @see @ref openassetio.hostAPI.Session.Session "Session"
  * @see @ref openassetio.hostAPI.Manager.Manager "Manager"
@@ -95,11 +96,11 @@
  * - Create, persist and configure a @ref Context as appropriate for
  *   all calls to the API.
  *
- * - Ask the @ref manager if they manage relevant data via
+ * - Ask the @ref manager if they support resolve for the relevant
+ *   data by supplying its @ref trait_set to
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" using a suitable set of @needsref traits
- *   and a @ref Context with `kRead` access, and
- *   respect the returned flags.
+ *   "Manager.managementPolicy" with a @ref Context with `kRead` access,
+ *   respecting the returned flags.
  *
  * - Always check any suspected entity references with @ref
  *   openassetio.hostAPI.Manager.Manager.isEntityReference
@@ -111,11 +112,11 @@
  *
  * @subsection host_todo_required_publishing Required for Publishing
  *
- * - Ask the @ref manager if they support publishing relevant data via
+ * - Ask the @ref manager if they support publishing for the relevant
+ *   data by supplying its @ref trait_set to
  *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" using a suitable set of @needsref traits
- *   and a @ref Context with `kWrite` access, and respect the returned
- *   flags.
+ *   "Manager.managementPolicy" with a @ref Context with `kWrite` access,
+ *   respecting the returned flags.
  *
  * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
  *   "policy", @ref preflight, resolve, write, @ref register process
@@ -123,10 +124,11 @@
  *   generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
- *   registered to references known to be of a different @ref Specification.
- *   For example, an editorial application registering an
- *   ImageSpecification to a ShotSpecification reference to indicate
- *   that the images should be published "under" that shot.
+ *   registered to references known to be of a different @ref trait_set.
+ *   For example, an editorial application registering the traits of an
+ *   ImageSpecification to a reference with the traits of a
+ *   ShotSpecification indicates that the images should be published
+ *   "under" that shot.
  *
  * @see @ref example_publishing_a_file
  *
@@ -157,8 +159,8 @@
  * - Make the drawing of any parameters that may hold an @ref
  *   entity_reference delegatable to the @needsref ManagerUIDeleagate.
  *
- * - Derive @needsref specifications for any custom 'asset types' you
- *   may deal with.
+ * - Create @ref Specification "specifications" for any custom 'asset
+ *   types' you may deal with.
  *
  * - You should map any widgets returned by @needsref ManagerUIDelegate.widgets
  *   with the @needsref ui.widgets.attributes.kCreateApplicationPanel flag set to
