@@ -115,13 +115,13 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref)
                 entity = bal.entity(entity_info, self.__library)
-                # Filter the entity's traits to the ones requested by the host
-                result_traits = {trait_id for trait_id in entity.traits if trait_id in traitSet}
-                result = Specification(result_traits)
-                # Populate any values we have for the result traits
-                for trait in result_traits:
-                    for property_, value in entity.traits[trait].items():
-                        result.setTraitProperty(trait, property_, value)
+                result = Specification()
+                for trait in traitSet:
+                    trait_data = entity.traits.get(trait)
+                    if trait_data is not None:
+                        result.addTrait(trait)
+                        for property_, value in trait_data.items():
+                            result.setTraitProperty(trait, property_, value)
             except Exception as exc:  # pylint: disable=broad-except
                 exc_name = exc.__class__.__name__
                 result = EntityResolutionError(f"{exc_name}: {exc}", ref)
