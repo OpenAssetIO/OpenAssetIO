@@ -11,73 +11,26 @@
 #include <handles.hpp>
 #include <managerAPI/CManagerInterface.hpp>
 
+#include "MockManagerInterfaceSuite.hpp"
+
 namespace {
 // Duplicated from CManagerInterface.
 constexpr size_t kStringBufferSize = 500;
 
-/**
- * Mock manager API implementation that the function pointer suite (see
- * `getSuite`) will delegate to.
- */
-struct MockCAPI {
-  MAKE_MOCK1(dtor, void(OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
-
-  MAKE_MOCK3(identifier,
-             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                                       OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
-
-  MAKE_MOCK3(displayName,
-             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                                       OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
-
-  MAKE_MOCK3(info, OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *,
-                                             OPENASSETIO_NS(InfoDictionary_h),
-                                             OPENASSETIO_NS(managerAPI_ManagerInterface_h)));
-};
-
-using HandleConverter =
-    openassetio::handles::Converter<MockCAPI, OPENASSETIO_NS(managerAPI_ManagerInterface_h)>;
-
-/**
- * Get a ManagerInterface C API function pointer suite that assumes the
- * provided `handle` is a `MockCAPI` instance.
- */
-OPENASSETIO_NS(managerAPI_ManagerInterface_s) getSuite() {
-  return {// dtor
-          [](OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = HandleConverter::toInstance(h);
-            api->dtor(h);
-          },
-          // identifier
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-             OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = HandleConverter::toInstance(h);
-            return api->identifier(err, out, h);
-          },
-          // displayName
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-             OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = HandleConverter::toInstance(h);
-            return api->displayName(err, out, h);
-          },
-          // info
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
-             OPENASSETIO_NS(managerAPI_ManagerInterface_h) h) {
-            auto *api = HandleConverter::toInstance(h);
-            return api->info(err, out, h);
-          }};
-}
+using openassetio::test::MockManagerInterfaceCApi;
+using openassetio::test::MockManagerInterfaceCApiHandleConverter;
+using openassetio::test::mockManagerInterfaceSuite;
 }  // namespace
 
 SCENARIO("A CManagerInterface is destroyed") {
   GIVEN("An opaque handle and function suite") {
-    MockCAPI capi;
+    MockManagerInterfaceCApi cApi;
 
-    auto *handle = HandleConverter::toHandle(&capi);
-    auto const suite = getSuite();
+    auto *handle = MockManagerInterfaceCApiHandleConverter::toHandle(&cApi);
+    auto const suite = mockManagerInterfaceSuite();
 
     THEN("CManagerInterface's destructor calls the suite's dtor") {
-      REQUIRE_CALL(capi, dtor(handle));
+      REQUIRE_CALL(cApi, dtor(handle));
 
       openassetio::managerAPI::CManagerInterface cManagerInterface{handle, suite};
     }
@@ -86,16 +39,16 @@ SCENARIO("A CManagerInterface is destroyed") {
 
 SCENARIO("A host calls CManagerInterface::identifier") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
-    MockCAPI capi;
+    MockManagerInterfaceCApi cApi;
 
-    auto *handle = HandleConverter::toHandle(&capi);
-    auto const suite = getSuite();
+    auto *handle = MockManagerInterfaceCApiHandleConverter::toHandle(&cApi);
+    auto const suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
     // Mysteriously, this must come _before_ the construction
     // of cManagerInterface...
-    REQUIRE_CALL(capi, dtor(handle));
+    REQUIRE_CALL(cApi, dtor(handle));
 
     openassetio::managerAPI::CManagerInterface cManagerInterface{handle, suite};
 
@@ -106,7 +59,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
 
       // Check that `identifier` is called properly and update
       // out-parameter.
-      REQUIRE_CALL(capi, identifier(_, _, handle))
+      REQUIRE_CALL(cApi, identifier(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
@@ -133,7 +86,7 @@ SCENARIO("A host calls CManagerInterface::identifier") {
 
       // Check that `identifier` is called properly and update error
       // message out-parameter.
-      REQUIRE_CALL(capi, identifier(_, _, handle))
+      REQUIRE_CALL(cApi, identifier(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
@@ -154,14 +107,14 @@ SCENARIO("A host calls CManagerInterface::identifier") {
 
 SCENARIO("A host calls CManagerInterface::displayName") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
-    MockCAPI capi;
+    MockManagerInterfaceCApi cApi;
 
-    auto *handle = HandleConverter::toHandle(&capi);
-    auto const suite = getSuite();
+    auto *handle = MockManagerInterfaceCApiHandleConverter::toHandle(&cApi);
+    auto const suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
-    REQUIRE_CALL(capi, dtor(handle));
+    REQUIRE_CALL(cApi, dtor(handle));
 
     openassetio::managerAPI::CManagerInterface cManagerInterface{handle, suite};
 
@@ -172,7 +125,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
 
       // Check that `displayName` is called properly and update
       // out-parameter.
-      REQUIRE_CALL(capi, displayName(_, _, handle))
+      REQUIRE_CALL(cApi, displayName(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
@@ -200,7 +153,7 @@ SCENARIO("A host calls CManagerInterface::displayName") {
 
       // Check that `displayName` is called properly and update error
       // message out-parameter.
-      REQUIRE_CALL(capi, displayName(_, _, handle))
+      REQUIRE_CALL(cApi, displayName(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
@@ -221,14 +174,14 @@ SCENARIO("A host calls CManagerInterface::displayName") {
 
 SCENARIO("A host calls CManagerInterface::info") {
   GIVEN("A CManagerInterface wrapping an opaque handle and function suite") {
-    MockCAPI capi;
+    MockManagerInterfaceCApi cApi;
 
-    auto *handle = HandleConverter::toHandle(&capi);
-    auto const suite = getSuite();
+    auto *handle = MockManagerInterfaceCApiHandleConverter::toHandle(&cApi);
+    auto const suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
-    REQUIRE_CALL(capi, dtor(handle));
+    REQUIRE_CALL(cApi, dtor(handle));
 
     openassetio::managerAPI::CManagerInterface cManagerInterface{handle, suite};
 
@@ -242,7 +195,7 @@ SCENARIO("A host calls CManagerInterface::info") {
           openassetio::handles::Converter<openassetio::InfoDictionary,
                                           OPENASSETIO_NS(InfoDictionary_h)>;
 
-      REQUIRE_CALL(capi, info(_, _, handle))
+      REQUIRE_CALL(cApi, info(_, _, handle))
           // Update out-parameter.
           .LR_SIDE_EFFECT(InfoDictHandleConverter::toInstance(_2)->insert(
               {expectedInfoKey, expectedInfoValue}))
@@ -268,7 +221,7 @@ SCENARIO("A host calls CManagerInterface::info") {
 
       // Check that `info` is called properly and update error
       // message out-parameter.
-      REQUIRE_CALL(capi, info(_, _, handle))
+      REQUIRE_CALL(cApi, info(_, _, handle))
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
