@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import constants, exceptions, log, Context, Specification
+from openassetio import constants, exceptions, log, Context, TraitsData
 from openassetio.hostAPI import Session, HostInterface, Manager, ManagerFactoryInterface
 from openassetio.managerAPI import Host
 
@@ -250,7 +250,7 @@ class Test_Session_createContext:
         context_a = a_session.createContext()
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
-        context_a.locale = Specification(set())
+        context_a.locale = TraitsData()
         context_a._actionGroupDepth = 3
         mock_manager_interface.mock.reset_mock()
 

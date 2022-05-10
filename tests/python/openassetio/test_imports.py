@@ -53,8 +53,8 @@ class Test_package_imports:
     def test_importing_log_succeeds(self):
         from openassetio import log
 
-    def test_importing_Specification_succeeds(self):
-        from openassetio import Specification
+    def test_importing_SpecificationBase_succeeds(self):
+        from openassetio import SpecificationBase
 
     def test_importing_Trait_succeeds(self):
         from openassetio import Trait

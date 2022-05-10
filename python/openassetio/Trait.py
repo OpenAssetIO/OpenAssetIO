@@ -22,71 +22,70 @@ class Trait:
     """
     A trait view provides a way to hide the underlying dictionary-like
     data access from hosts and managers. Trait view classes wrap a
-    @fqref{specification::Specification} "Specification" and provide
-    member functions that query/mutate properties on the specification.
+    @fqref{TraitsData} "TraitsData" instance and provide member
+    functions that query/mutate properties on the data.
 
     This base class provides the common interface for a concrete
     trait view.
 
     As an example, assume a trait view called `MyTrait` and an arbitrary
-    specification. Before we can extract `MyTrait` property values from
-    the specification we must check that it supports `MyTrait`. We can
-    then use the trait's concrete accessors to retrieve data from the
-    underlying dictionary-like specification.
+    TraitsData instance. Before we can extract `MyTrait` property values
+    from the data we must check that it supports `MyTrait`. We can then
+    use the trait's concrete accessors to retrieve data from the
+    underlying dictionary-like data.
 
     A trait class inheriting from this base must have a static kId
     attribute member giving the unique string ID of that trait.
 
-    @see TraitId
+    @see kTraitId
 
     In addition, the derived class should implement appropriate typed
     accessor / mutator methods that internally call the wrapped
-    specification's @fqref{specification::Specification::getTraitProperty}
-    "getTraitProperty" / @fqref{specification::Specification::setTraitProperty}
+    data's @fqref{TraitsData::getTraitProperty}
+    "getTraitProperty" / @fqref{TraitsData::setTraitProperty}
     "setTraitProperty".
 
     @note Attempting to access a trait's properties without first
-    ensuring the specification supports that trait via `isValid`, or
-    otherwise, may trigger an exception if the trait is not supported by
-    the specification.
+    ensuring the data holds that trait via `isValid`, or
+    otherwise, may trigger an exception if the trait is not set in
+    the data.
     """
 
-    def __init__(self, specification):
+    def __init__(self, traitsData):
         """
-        Construct this trait view, wrapping the given specification.
+        Construct this trait view, wrapping the given data.
 
-        @param specification @fqref{specification::Specification}}
-        "Specification" The target specification that holds/will hold
-        the traits properties.
+        @param traitsData @fqref{TraitsData}} "TraitsData" The target
+        data that holds/will hold the traits properties.
         """
-        self._specification = specification
+        self._data = traitsData
 
 
     def isValid(self):
         """
-        Checks whether the specification this trait has been applied to
-        actually supports this trait.
+        Checks whether the data this trait has been applied to
+        actually has this trait.
 
-        @return `True` if the underlying specification suppports this
+        @return `True` if the underlying data has this
         trait, `False` otherwise.
         """
-        return self._specification.hasTrait(self.kId)  # pylint: disable=no-member
+        return self._data.hasTrait(self.kId)  # pylint: disable=no-member
 
 
     def imbue(self):
         """
-        Adds this trait to the held specification.
+        Adds this trait to the held data.
 
-        If the specifcation already has this trait, it is a no-op.
+        If the data already has this trait, it is a no-op.
         """
-        self._specification.addTrait(self.kId)  # pylint: disable=no-member
+        self._data.addTrait(self.kId)  # pylint: disable=no-member
 
 
     @classmethod
-    def imbueTo(cls, specification):
+    def imbueTo(cls, traitsData):
         """
-        Adds this trait to the provided specification.
+        Adds this trait to the provided data.
 
-        If the specifcation already has this trait, it is a no-op.
+        If the data already has this trait, it is a no-op.
         """
-        specification.addTrait(cls.kId)  # pylint: disable=no-member
+        traitsData.addTrait(cls.kId)  # pylint: disable=no-member

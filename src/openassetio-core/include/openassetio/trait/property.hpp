@@ -14,14 +14,14 @@
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 /**
- * Comprises concrete trait views wrapping specification::Specification
+ * Comprises concrete trait views wrapping @ref TraitsData
  * instances.
  */
 namespace trait {
 
 /**
- * Type aliases for @ref trait properties within a @ref
- * specification::Specification "Specification"
+ * Type aliases for @ref trait properties within a @ref TraitsData
+ * instance.
  */
 namespace property {
 
@@ -31,10 +31,9 @@ namespace property {
  * Keys must be UTF-8 compatible strings for required portability.
  *
  * Note that typically @ref TraitBase "trait views" will be used to
- * access @ref specification::Specification "Specification" properties
- * via concrete member functions, so it is highly desirable that keys
- * are ASCII to maximise portability when mapping property keys to
- * member function names.
+ * access properties in a @ref TraitsData instance via concrete member
+ * functions, so it is highly desirable that keys are ASCII to maximise
+ * portability when mapping property keys to member function names.
  */
 using Key = openassetio::Str;
 /// Property dictionary values.
@@ -47,7 +46,7 @@ using Value = std::variant<Bool, Int, Float, Str>;
  * IDs must be UTF-8 compatible strings for required portability.
  *
  * Note that typically @ref TraitBase "trait views" will be used to
- * access @ref specification::Specification "Specification" properties
+ * access properties within a @ref TraitsData instance,
  * rather than direct property access using a `TraitId`, so it is
  * desirable that trait IDs are ASCII to maximise portability when
  * mapping IDs to class names.

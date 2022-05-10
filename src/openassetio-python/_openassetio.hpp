@@ -30,5 +30,5 @@ void registerManagerInterface(const py::module& mod);
 /// Register the Manager class with Python.
 void registerManager(const py::module& mod);
 
-/// Register the base specification class with Python.
-void registerSpecification(const py::module& mod);
+/// Register the TraitsData class with Python.
+void registerTraitsData(const py::module& mod);

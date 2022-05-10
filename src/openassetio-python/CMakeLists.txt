@@ -41,9 +41,9 @@ target_sources(
     openassetio-python
     PRIVATE
     _openassetio.cpp
+    TraitsDataBinding.cpp
     hostAPI/ManagerBinding.cpp
     managerAPI/ManagerInterfaceBinding.cpp
-    specification/SpecificationBinding.cpp
 )
 
 # Give access to private headers.

@@ -174,15 +174,15 @@ def mock_test_case_two():
 def test_case_one_locale():
     ## TODO(TC): We need a convenience constructor for making
     ## pre-populated specifications
-    locale = ManagerTestHarnessLocale()
+    locale = ManagerTestHarnessLocale.create()
     locale.testTrait().setCaseName("Test_MockTest.test_one")
-    return locale
+    return locale.traitsData()
 
 
 @pytest.fixture
 def test_case_two_locale():
     ## TODO(TC): We need a convenience constructor for making
     ## pre-populated specifications
-    locale = ManagerTestHarnessLocale()
+    locale = ManagerTestHarnessLocale.create()
     locale.testTrait().setCaseName("Test_MockTest.test_two")
-    return locale
+    return locale.traitsData()

@@ -1,21 +1,22 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 
-#include <openassetio/specification/Specification.hpp>
+#include <openassetio/TraitsData.hpp>
 #include <unordered_map>
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
-namespace specification {
-
-class Specification::Impl {
+class TraitsData::Impl {
  public:
   Impl() = default;
 
   explicit Impl(const TraitIds& traitIds) { addTraits(traitIds); }
+
+  Impl(const Impl& other) = default;
+
   ~Impl() = default;
 
-  TraitIds traitIds() const {
+  [[nodiscard]] TraitIds traitIds() const {
     TraitIds ids;
     ids.reserve(data_.size());
     for (const auto& item : data_) {
@@ -24,7 +25,7 @@ class Specification::Impl {
     return ids;
   }
 
-  bool hasTrait(const trait::TraitId& traitId) const {
+  [[nodiscard]] bool hasTrait(const trait::TraitId& traitId) const {
     return static_cast<bool>(data_.count(traitId));
   }
 
@@ -36,6 +37,7 @@ class Specification::Impl {
     }
   }
 
+  // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
   bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
                         const trait::property::Key& propertyKey) const {
     // Use `at` deliberately to trigger exception if trait doesn't exist
@@ -63,34 +65,33 @@ class Specification::Impl {
   PropertiesByTrait data_;
 };
 
-Specification::Specification() : impl_{std::make_unique<Impl>()} {}
+TraitsData::TraitsData() : impl_{std::make_unique<Impl>()} {}
 
-Specification::Specification(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
+TraitsData::TraitsData(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
 
-Specification::~Specification() = default;
+TraitsData::TraitsData(const TraitsData& other) : impl_{std::make_unique<Impl>(*other.impl_)} {}
 
-Specification::TraitIds Specification::traitIds() const { return impl_->traitIds(); }
+TraitsData::~TraitsData() = default;
 
-void Specification::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
+TraitsData::TraitIds TraitsData::traitIds() const { return impl_->traitIds(); }
 
-void Specification::addTraits(const TraitIds& traitIds) { impl_->addTraits(traitIds); }
+void TraitsData::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
 
-bool Specification::hasTrait(const trait::TraitId& traitId) const {
-  return impl_->hasTrait(traitId);
-}
+void TraitsData::addTraits(const TraitIds& traitIds) { impl_->addTraits(traitIds); }
 
-bool Specification::getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
-                                     const trait::property::Key& propertyKey) const {
+bool TraitsData::hasTrait(const trait::TraitId& traitId) const { return impl_->hasTrait(traitId); }
+
+bool TraitsData::getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
+                                  const trait::property::Key& propertyKey) const {
   return impl_->getTraitProperty(out, traitId, propertyKey);
 }
 
-void Specification::setTraitProperty(const trait::TraitId& traitId,
-                                     const trait::property::Key& propertyKey,
-                                     trait::property::Value propertyValue) {
+void TraitsData::setTraitProperty(const trait::TraitId& traitId,
+                                  const trait::property::Key& propertyKey,
+                                  trait::property::Value propertyValue) {
   impl_->setTraitProperty(traitId, propertyKey, std::move(propertyValue));
 }
 
-bool Specification::operator==(const Specification& other) const { return *impl_ == *other.impl_; }
-}  // namespace specification
+bool TraitsData::operator==(const TraitsData& other) const { return *impl_ == *other.impl_; }
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

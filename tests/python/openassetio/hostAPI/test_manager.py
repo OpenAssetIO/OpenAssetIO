@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import Context, Specification
+from openassetio import Context, TraitsData
 from openassetio.hostAPI import Manager
 from openassetio.managerAPI import HostSession
 
@@ -43,18 +43,18 @@ def manager(mock_manager_interface, host_session):
 
 
 @pytest.fixture
-def an_entity_spec():
-    return Specification(set())
+def an_empty_traitsdata():
+    return TraitsData(set())
 
 
 @pytest.fixture
-def some_entity_specs():
-    return [Specification(set()), Specification(set())]
+def some_entity_traitsdatas():
+    return [TraitsData(set()), TraitsData(set())]
 
 
 @pytest.fixture
-def a_specification():
-    return Specification(set())
+def a_traitsdata():
+    return TraitsData(set())
 
 
 @pytest.fixture
@@ -357,7 +357,7 @@ class Test_Manager_finalizedEntityVersion:
 class Test_Manager_getRelatedReferences:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, host_session, a_ref, an_entity_spec,
+            self, manager, mock_manager_interface, host_session, a_ref, an_empty_traitsdata,
             an_entity_trait_set, a_context):
 
         # pylint: disable=too-many-locals
@@ -367,39 +367,39 @@ class Test_Manager_getRelatedReferences:
         one_ref = a_ref
         two_refs = [a_ref, a_ref]
         three_refs = [a_ref, a_ref, a_ref]
-        one_spec = an_entity_spec
-        two_specs = [an_entity_spec, an_entity_spec]
-        three_specs = [an_entity_spec, an_entity_spec, an_entity_spec]
+        one_data = an_empty_traitsdata
+        two_datas = [an_empty_traitsdata, an_empty_traitsdata]
+        three_datas = [an_empty_traitsdata, an_empty_traitsdata, an_empty_traitsdata]
 
-        # Check validation that one to many or equal length ref/spec args are required
+        # Check validation that one to many or equal length ref/data args are required
 
-        for refs_arg, specs_arg in (
-                (two_refs, three_specs),
-                (three_refs, two_specs)
+        for refs_arg, datas_arg in (
+                (two_refs, three_datas),
+                (three_refs, two_datas)
         ):
             with pytest.raises(ValueError):
-                manager.getRelatedReferences(refs_arg, specs_arg, a_context)
+                manager.getRelatedReferences(refs_arg, datas_arg, a_context)
             method.assert_not_called()
             method.reset_mock()
 
-        for refs_arg, specs_arg, expected_refs_arg, expected_specs_arg in (
-                (one_ref, three_specs, [one_ref], three_specs),
-                (three_refs, one_spec, three_refs, [one_spec]),
-                (three_refs, three_specs, three_refs, three_specs)
+        for refs_arg, datas_arg, expected_refs_arg, expected_datas_arg in (
+                (one_ref, three_datas, [one_ref], three_datas),
+                (three_refs, one_data, three_refs, [one_data]),
+                (three_refs, three_datas, three_refs, three_datas)
         ):
             assert manager.getRelatedReferences(
-                refs_arg, specs_arg, a_context) == method.return_value
+                refs_arg, datas_arg, a_context) == method.return_value
             method.assert_called_once_with(
-                expected_refs_arg, expected_specs_arg, a_context, host_session,
+                expected_refs_arg, expected_datas_arg, a_context, host_session,
                 resultTraitSet=None)
             method.reset_mock()
 
         # Check optional resultTraitSet
         assert manager.getRelatedReferences(
-            one_ref, one_spec, a_context, resultTraitSet=an_entity_trait_set) \
+            one_ref, one_data, a_context, resultTraitSet=an_entity_trait_set) \
                     == method.return_value
         method.assert_called_once_with(
-            [one_ref], [one_spec], a_context, host_session, resultTraitSet=an_entity_trait_set)
+            [one_ref], [one_data], a_context, host_session, resultTraitSet=an_entity_trait_set)
 
 
 class Test_Manager_resolve:
@@ -440,37 +440,36 @@ class Test_Manager_preflight:
 class Test_Manager_register:
 
     def test_wraps_the_the_held_interface_register_methods(
-            self, manager, mock_manager_interface, host_session, some_refs, a_specification,
+            self, manager, mock_manager_interface, host_session, some_refs, a_traitsdata,
             a_context):
 
-        specifications = [a_specification for _ in some_refs]
+        datas = [a_traitsdata for _ in some_refs]
         mutated_refs = [f"{r}-registered" for r in some_refs]
 
         register_method = mock_manager_interface.mock.register
         register_method.return_value = mutated_refs
 
-        assert manager.register(some_refs, specifications, a_context) \
+        assert manager.register(some_refs, datas, a_context) \
                 == register_method.return_value
-        register_method.assert_called_once_with(some_refs, specifications, a_context, host_session)
+        register_method.assert_called_once_with(some_refs, datas, a_context, host_session)
 
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
-            self, manager, some_refs, a_specification, a_context):
+            self, manager, some_refs, a_traitsdata, a_context):
 
-        specifications = [a_specification for _ in some_refs]
-
-        with pytest.raises(IndexError):
-            manager.register(some_refs[1:], specifications, a_context)
+        datas = [a_traitsdata for _ in some_refs]
 
         with pytest.raises(IndexError):
-            manager.register(some_refs, specifications[1:], a_context)
+            manager.register(some_refs[1:], datas, a_context)
+
+        with pytest.raises(IndexError):
+            manager.register(some_refs, datas[1:], a_context)
 
 
     def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
             self, manager, some_refs, a_context):
 
-        specifications = [
-                Specification({f"trait{i}", "🦀"})for i in range(len(some_refs))]
+        datas = [TraitsData({f"trait{i}", "🦀"})for i in range(len(some_refs))]
 
         with pytest.raises(ValueError):
-            manager.register(some_refs, specifications, a_context)
+            manager.register(some_refs, datas, a_context)

@@ -253,7 +253,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         traits. The supplied @ref Context determines whether this is for
         resolution or publishing. It is *vital* to call this before
         attempting to publish data to the manager, as the entity
-        specification you desire to work with may not be supported.
+        @ref trait_set you desire to work with may not be supported.
 
         For example, you would call this in order to see if the
         manager would like to manage the path of a scene file whilst
@@ -616,11 +616,12 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     #  @li Parent/child relationships are also (semantically) covered by
     #  these relationships.
     #
-    # In the this API, these relationships are represented by a generic
-    # Specification, this may just be a 'type', but can additionally have
-    # arbitrary attributes to further define the relationship. For example in
-    # the case of AOVs, the type might be 'alternate output' and the
-    # attributes may be that the 'channel' is 'diffuse'.
+    # In the this API, these relationships are represented by trait data.
+    # This may just compose property-less traits as a 'type', or
+    # additionally, set trait property values to further define the
+    # relationship. For example in the case of AOVs, the type might be
+    # 'alternate output' and the attributes may be that the 'channel' is
+    # 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
     # structure of the asset management system from the host application in its
@@ -643,10 +644,10 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     @debugApiCall
     @auditApiCall("Manager methods")
     def getRelatedReferences(
-            self, references, relationshipSpecOrSpecs, context, resultTraitSet=None):
+            self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None):
         """
         Returns related entity references, based on a relationship
-        specification.
+        defined by a set of traits and their properties.
 
         This is an essential function in this API - as it is widely used
         to query organisational hierarchy, etc...
@@ -655,44 +656,46 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         to allow for batch optimisations in the implementation and
         prevent excessive query times with high-latency services.
 
-          a)  A single entity reference, a list of specifications.
-          b)  A list of entity references and a single specification.
-          c)  Equal length lists of references and specifications.
+          a)  A single entity reference, a list of relationships.
+          b)  A list of entity references and a single relationship.
+          c)  Equal length lists of references and relationships.
 
         In all cases, the return value is a list of lists, for example:
 
-            a)  getRelatedReferences([ r1 ], [ s1, s2, s3 ])
+            a)  getRelatedReferences([ r1 ], [ td1, td2, td3 ])
 
-            > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
+            > [ [ r1td1... ], [ r1td2... ], [ r1td3... ] ]
 
-            b)  getRelatedReferences([ r1, r2, r3 ], [ s1 ])
+            b)  getRelatedReferences([ r1, r2, r3 ], [ td1 ])
 
-            > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
+            > [ [ r1td1... ], [ r2td1... ], [ r3td1... ] ]
 
-            c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
+            c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
-            > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
+            > [ [ r1td1... ], [ r2td2... ], [ r3td3... ] ]
 
         @note The order of entities in the inner lists of matching
         references should not be considered meaningful, but the outer
         list should match the input order.
 
         In summary, if only a single entityRef is provided, it should be
-        assumed that all specs should be considered for that one entity.
-         If only a single relationshipSpec is provided, then it should
-        be considered for all supplied entity references. If lists of
-        both are supplied, then they must be the same length, and it
-        should be assumed that it is a 1:1 mapping of spec per entity.
-        If this is not the case, ValueErrors will be thrown.
+        assumed that all relationships should be considered for that one
+        entity. If only a single relationship is provided, then it
+        should be considered for all supplied entity references. If
+        lists of both are supplied, then they must be the same length,
+        and it should be assumed that it is a 1:1 mapping of a
+        relationship definition to an entity. If this is not the case,
+        ValueErrors will be thrown.
 
-        If any specification is unknown, then an empty list will be
-        returned for that specification, and no errors should be raised.
+        If any relationship definition is unknown, then an empty list
+        will be returned for that relationship, and no errors should be
+        raised.
 
         @param references List[str] A list of @ref entity_reference, see
         the notes on array length above.
 
-        @param relationshipSpecOrSpecs `List[`
-        @fqref{specification::Specification} "Specification" `]`
+        @param relationshipTraitsDataOrDatas `List[`
+        @fqref{TraitsData} "TraitsData" `]`
 
         @param resultTraitSet `Set[str]` or None, a hint as to what
         traits the returned entities should have.
@@ -701,34 +704,35 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
         @return list of str lists The return is *always* a list of lists
         regardless of which form of invocation is used. The outer list
-        is for each supplied entity or specification. The inner lists
+        is for each supplied entity or relationship. The inner lists
         are all the matching entities for that source entity.
 
         @exception ValueError If more than one reference and
-        specification is provided, but they lists are not equal in
-        length, ie: not a 1:1 mapping of entities to specs.
+        relationship is provided, but they lists are not equal in
+        length, ie: not a 1:1 mapping of entities to relationships.
 
         @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
             references = [references, ]
 
-        if not isinstance(relationshipSpecOrSpecs, (list, tuple)):
-            relationshipSpecOrSpecs = [relationshipSpecOrSpecs, ]
+        if not isinstance(relationshipTraitsDataOrDatas, (list, tuple)):
+            relationshipTraitsDataOrDatas = [relationshipTraitsDataOrDatas, ]
 
         numEntities = len(references)
-        numSpecs = len(relationshipSpecOrSpecs)
+        numRelationships = len(relationshipTraitsDataOrDatas)
 
-        if (numEntities > 1 and numSpecs > 1) and numSpecs != numEntities:
+        if (numEntities > 1 and numRelationships > 1) and numRelationships != numEntities:
             raise ValueError(
                 ("You must supply either a single entity and a "
-                 + "list of specs, a single spec and a list of entities, or an equal "
-                 + "number of both... %s entities .vs. %s specs")
-                % (numEntities, numSpecs))
+                 + "list of relationships, a single relationship "
+                 + "and a list of entities, or an equal number of "
+                 + "both... %s entities .vs. %s relationships")
+                % (numEntities, numRelationships))
 
         result = self.__impl.getRelatedReferences(
             references,
-            relationshipSpecOrSpecs, context, self.__hostSession, resultTraitSet=resultTraitSet)
+            relationshipTraitsDataOrDatas, context, self.__hostSession, resultTraitSet=resultTraitSet)
 
         return result
 
@@ -748,14 +752,14 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     @auditApiCall("Manager methods")
     def resolve(self, entityRefs, traitSet, context):
         """
-        Returns a @fqref{specification::Specification} "Specification"
+        Returns a @fqref{TraitsData} "TraitsData"
         populated with the available data for the requested set of
         traits for each given @ref entity_reference.
 
         Any traits that aren't applicable to any particular entity
-        reference will not be set in the resulting Specification.
-        Consequently, a trait being set in the result is confirmation
-        that an entity has that trait.
+        reference will not be set in the returned data. Consequently, a
+        trait being set in the result is confirmation that an entity has
+        that trait.
 
         There is however, no guarantee that a manager will have data
         for all of a traits properties. It is the responsibility of the
@@ -781,14 +785,14 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         data.
 
         @return `List[Union[`
-            @fqref{specification::Specification}
-            "specification::Specification",
+            @fqref{TraitsData}
+            "TraitsData",
             exceptions.EntityResolutionError,
             exceptions.InvalidEntityReference `]]`
-        A list containing either a populated Specification for each
-        reference; `EntityResolutionError` if there is any runtime error
-        during the resolution of the entity, including internal failure
-        modes; or `InvalidEntityReference` if a supplied entity
+        A list containing either a populated TraitsData instance for
+        each reference; `EntityResolutionError` if there is any runtime
+        error during the resolution of the entity, including internal
+        failure modes; or `InvalidEntityReference` if a supplied entity
         reference should not be resolved for that context, for example,
         if the context access is `kWrite` and the entity is an existing
         version - the exception means that it is not a valid action to
@@ -817,7 +821,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # is beyond the scope of this layer of the API, and functions exists in
     # higher levels that combine browsing and publishing etc... Here, we simply
     # assert that there must be a meaningful reference given the
-    # @fqref{specification::Specification} "Specification" of the entity that
+    # @fqref{TraitsData} "TraitsData" of the entity that
     # is being created or published.
     #
     # @note 'Meaningful' is best defined by the asset manager itself. For
@@ -829,20 +833,20 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # this asset to implicitly state which version it will be written to. Other
     # entity types may not have this flexibility.
     #
-    # *2 - The Specification*
+    # **2 - TraitsData**
     #
-    # The Specification allows ancillary information to be provided to help the
-    # implementation better interpret what type of entity may be best suited in
-    # any given situation. For example, a path to an image will generally be
-    # accompanied by with an spec, that details the file type, color space,
-    # resolution etc...
+    # The data for an entity is defined by one or more @ref trait
+    # "traits" and their properties. The resulting @ref trait_set
+    # defines the "type" of the entity, and the trait property values
+    # hold the data for each specific entity.
     #
-    # @note The manager will not directly store any information
-    # contained within the Specification, though it may be used to
-    # better define the type of entity.
+    # This means that OpenAssetIO it not just limited to working with
+    # file-based data. Traits allow ancillary information to be managed
+    # (such as the colorspace for an image), as well as container-like
+    # entities such as shots/sequences/etc..
     #
     # For more on the relationship between Entities, Specifications and
-    # traits please see @ref entities_traits_and_specifications
+    # traits, please see @ref entities_traits_and_specifications
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -945,7 +949,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def register(self, targetEntityRefs, entitySpecs, context):
+    def register(self, targetEntityRefs, entityTraitsDatas, context):
         """
         Register should be used to register new entities either when
         originating new data within the application process, or
@@ -963,8 +967,8 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         manager (either in response to delegation of UI/etc... or as a
         return from another call), then it can be assumed that the
         Manager will understand what it means for you to call `register`
-        on this reference with the supplied Specification. The
-        conceptual meaning of the call is:
+        on this reference with the supplied @fqref{TraitsData}
+        "TraitsData". The conceptual meaning of the call is:
 
         "I have this reference you gave me, and I would like to register
         a new entity to it with the traits I told you about before. I
@@ -980,7 +984,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         `ShotSpecification` entities to without error. Each resulting
         entity reference should then reference the newly created Shot.
 
-        @warning All supplied specifications should have the same trait
+        @warning All supplied TraitsDatas should have the same trait
         sets. If you wish to register different "types" of entity, they
         need to be registered in separate calls.
 
@@ -992,9 +996,9 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         @param targetEntityRefs `List[str]` Entity references to publish
         to.
 
-        @param entitySpecs `List[` @fqref{specification::Specification}
-        "Specification" `]` The data to register for each entity.
-        NOTE: All supplied specifications should have the same trait set.
+        @param entityTraitsDatas `List[` @fqref{TraitsData}
+        "TraitsData" `]` The data to register for each entity.
+        NOTE: All supplied instances should have the same trait set.
 
         @param context Context The calling context.
 
@@ -1009,25 +1013,25 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         `RetryableError` if any non-fatal error occurs that means you
         should retry the process later.
 
-        @exception `IndexError` If `targetEntityRefs` and `entitySpecs`
+        @exception `IndexError` If `targetEntityRefs` and `entityTraitsDatas`
         are not lists of the same length.
 
-        @see @fqref{specification::Specification} "specifications"
+        @see @fqref{TraitsData} "TraitsData"
         @see @ref preflight
         """
-        if len(targetEntityRefs) != len(entitySpecs):
+        if len(targetEntityRefs) != len(entityTraitsDatas):
             raise IndexError("Parameter lists must be of the same length")
 
-        if entitySpecs:
-            # Check supplied specifcations share a trait set
-            expectedTraits = entitySpecs[0].traitIds()
-            for i, spec in enumerate(entitySpecs[1:]):
-                specTraits = spec.traitIds()
-                if specTraits != expectedTraits:
+        if entityTraitsDatas:
+            # Check supplied traitsdata share a trait set
+            expectedTraits = entityTraitsDatas[0].traitIds()
+            for i, data in enumerate(entityTraitsDatas[1:]):
+                traits = data.traitIds()
+                if traits != expectedTraits:
                     raise ValueError(
-                            f"Mismatched traits at index {i+1}: {specTraits} != {expectedTraits}")
+                            f"Mismatched traits at index {i+1}: {traits} != {expectedTraits}")
 
-        return self.__impl.register(targetEntityRefs, entitySpecs, context, self.__hostSession)
+        return self.__impl.register(targetEntityRefs, entityTraitsDatas, context, self.__hostSession)
 
     ## @}
 

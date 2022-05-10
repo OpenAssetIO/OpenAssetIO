@@ -23,57 +23,52 @@ Tests for the Python-specific Trait base class.
 
 from unittest import mock
 
-import pytest
-
-from openassetio import Specification, Trait
+from openassetio import TraitsData, Trait
 
 
 class Test_Trait_Construction:
-    def test_exposes_wrapped_specification_via_protected_member(self, a_custom_trait_class):
-        a_specification = mock.Mock()
-        trait = a_custom_trait_class(a_specification)
-        assert trait._specification is a_specification  # pylint: disable=protected-access
+    def test_exposes_wrapped_data_via_protected_member(self):
+        a_data = mock.Mock()
+        trait = ACustomTrait(a_data)
+        assert trait._data is a_data  # pylint: disable=protected-access
 
 
 class Test_Trait_isValid:
-    def test_when_specification_has_trait_returns_true(self, a_custom_trait_class):
-        a_specification = Specification({a_custom_trait_class.kId})
-        trait = a_custom_trait_class(a_specification)
+    def test_when_data_has_trait_returns_true(self):
+        a_data = TraitsData({ACustomTrait.kId})
+        trait = ACustomTrait(a_data)
         assert trait.isValid() is True
 
-    def test_when_specification_does_not_have_trait_returns_false(self, a_custom_trait_class):
-        a_specification = Specification({"someOtherTrait"})
-        trait = a_custom_trait_class(a_specification)
+    def test_when_data_does_not_have_trait_returns_false(self):
+        a_data = TraitsData({"someOtherTrait"})
+        trait = ACustomTrait(a_data)
         assert trait.isValid() is False
 
 
 class Test_Trait_imbue:
-    def test_when_specification_empty_then_adds_trait(self, a_custom_trait_class):
-        a_specification = Specification()
-        trait = a_custom_trait_class(a_specification)
+    def test_when_data_empty_then_adds_trait(self):
+        a_data = TraitsData()
+        trait = ACustomTrait(a_data)
         trait.imbue()
         assert trait.isValid()
-        assert trait.kId in a_specification.traitIds()
+        assert trait.kId in a_data.traitIds()
 
-    def test_when_specification_has_trait_then_is_noop(self, a_custom_trait_class):
-        a_specification = Specification({a_custom_trait_class.kId})
-        trait = a_custom_trait_class(a_specification)
+    def test_when_data_has_trait_then_is_noop(self):
+        a_data = TraitsData({ACustomTrait.kId})
+        trait = ACustomTrait(a_data)
         trait.imbue()
 
 
 class Test_Trait_imbueTo:
-    def test_when_specification_empty_then_adds_trait(self, a_custom_trait_class):
-        a_specification = Specification()
-        a_custom_trait_class.imbueTo(a_specification)
-        assert a_custom_trait_class.kId in a_specification.traitIds()
+    def test_when_data_empty_then_adds_trait(self):
+        a_data = TraitsData()
+        ACustomTrait.imbueTo(a_data)
+        assert ACustomTrait.kId in a_data.traitIds()
 
-    def test_when_specification_has_trait_then_is_noop(self, a_custom_trait_class):
-        a_specification = Specification({a_custom_trait_class.kId})
-        a_custom_trait_class.imbueTo(a_specification)
+    def test_when_data_has_trait_then_is_noop(self):
+        a_data = TraitsData({ACustomTrait.kId})
+        ACustomTrait.imbueTo(a_data)
 
 
-@pytest.fixture
-def a_custom_trait_class():
-    class CustomTrait(Trait):
-        kId = "customTrait"
-    return CustomTrait
+class ACustomTrait(Trait):
+    kId = "customTrait"

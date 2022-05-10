@@ -50,9 +50,9 @@ endif()
 target_sources(
     openassetio-core
     PRIVATE
+    TraitsData.cpp
     hostAPI/Manager.cpp
     managerAPI/ManagerInterface.cpp
-    specification/Specification.cpp
 )
 
 # Public header dependency.

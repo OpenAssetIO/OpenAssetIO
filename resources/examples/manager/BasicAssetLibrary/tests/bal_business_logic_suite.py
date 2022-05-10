@@ -78,8 +78,7 @@ class Test_resolve(FixtureAugmentedTestCase):
         for ref, result in zip(entity_references, results):
             # Check all traits are present, and their properties.
             # TODO(tc): When we have a better introspection API in
-            # Specification, we can assert there aren't any bonus
-            # values.
+            # TraitsData, we can assert there aren't any bonus values.
             for trait in self.__entities[ref].keys():
                 self.assertTrue(result.hasTrait(trait))
                 for property_, value in self.__entities[ref][trait].items():
