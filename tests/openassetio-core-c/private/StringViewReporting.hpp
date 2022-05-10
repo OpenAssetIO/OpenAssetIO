@@ -21,15 +21,17 @@ inline bool operator==(const OPENASSETIO_NS(StringView) & lhs,
   return lhs.size == rhs.size && lhs.capacity == rhs.capacity && lhs.data == rhs.data;
 }
 
-/// Comparison operator to allow CHECKing if a `StringView` and a `Str`
-/// are equal.
-inline bool operator==(const OPENASSETIO_NS(StringView) & lhs, const openassetio::Str& rhs) {
+/// Comparison operator to allow CHECKing if a `StringView` and a
+/// string-like container are equal.
+template <typename Str>
+inline bool operator==(const OPENASSETIO_NS(StringView) & lhs, const Str& rhs) {
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 
-/// Comparison operator to allow CHECKing if a `ConstStringView` and a `Str`
-/// are equal.
-inline bool operator==(const OPENASSETIO_NS(ConstStringView) & lhs, const openassetio::Str& rhs) {
+/// Comparison operator to allow CHECKing if a `ConstStringView` and a
+/// string-like container are equal.
+template <typename Str>
+inline bool operator==(const OPENASSETIO_NS(ConstStringView) & lhs, const Str& rhs) {
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 
