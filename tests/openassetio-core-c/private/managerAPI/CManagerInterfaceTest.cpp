@@ -8,7 +8,7 @@
 #include <catch2/trompeloeil.hpp>
 
 // private headers
-#include <handles.hpp>
+#include <handles/InfoDictionary.hpp>
 #include <managerAPI/CManagerInterface.hpp>
 
 #include "MockManagerInterfaceSuite.hpp"
@@ -16,11 +16,12 @@
 namespace {
 // Duplicated from CManagerInterface.
 constexpr size_t kStringBufferSize = 500;
+}  // namespace
 
+namespace handles = openassetio::handles;
 using openassetio::test::MockManagerInterfaceCApi;
 using openassetio::test::MockManagerInterfaceCApiHandleConverter;
 using openassetio::test::mockManagerInterfaceSuite;
-}  // namespace
 
 SCENARIO("A CManagerInterface is destroyed") {
   GIVEN("An opaque handle and function suite") {
@@ -191,13 +192,9 @@ SCENARIO("A host calls CManagerInterface::info") {
 
       using trompeloeil::_;
 
-      using InfoDictHandleConverter =
-          openassetio::handles::Converter<openassetio::InfoDictionary,
-                                          OPENASSETIO_NS(InfoDictionary_h)>;
-
       REQUIRE_CALL(cApi, info(_, _, handle))
           // Update out-parameter.
-          .LR_SIDE_EFFECT(InfoDictHandleConverter::toInstance(_2)->insert(
+          .LR_SIDE_EFFECT(handles::InfoDictionary::toInstance(_2)->insert(
               {expectedInfoKey, expectedInfoValue}))
           // Return OK code.
           .RETURN(OPENASSETIO_NS(ErrorCode_kOK));

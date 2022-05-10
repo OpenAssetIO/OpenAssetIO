@@ -14,18 +14,14 @@
 
 #include "../StringView.hpp"
 #include "../errors.hpp"
-#include "../handles.hpp"
+#include "../handles/InfoDictionary.hpp"
+#include "../handles/hostAPI/Manager.hpp"
+#include "../handles/managerAPI/ManagerInterface.hpp"
 
-namespace {
-using openassetio::hostAPI::Manager;
-using openassetio::managerAPI::ManagerInterfacePtr;
-
-using ManagerInterfaceHandleConverter =
-    openassetio::handles::Converter<ManagerInterfacePtr,
-                                    OPENASSETIO_NS(managerAPI_ManagerInterface_h)>;
-using ManagerHandleConverter =
-    openassetio::handles::Converter<Manager, OPENASSETIO_NS(hostAPI_Manager_h)>;
-}  // namespace
+namespace errors = openassetio::errors;
+namespace handles = openassetio::handles;
+namespace hostAPI = openassetio::hostAPI;
+namespace managerAPI = openassetio::managerAPI;
 
 extern "C" {
 
@@ -33,28 +29,28 @@ OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(hostAPI_Manager_ctor)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(hostAPI_Manager_h) * handle,
  OPENASSETIO_NS(managerAPI_ManagerInterface_h) managerInterfaceHandle) {
-  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
-    auto& managerInterfacePtr =
-        *ManagerInterfaceHandleConverter::toInstance(managerInterfaceHandle);
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    managerAPI::ManagerInterfacePtr& managerInterfacePtr =
+        *handles::managerAPI::ManagerInterface::toInstance(managerInterfaceHandle);
 
-    auto* manager = new Manager{managerInterfacePtr};
+    auto* manager = new hostAPI::Manager{managerInterfacePtr};
 
-    *handle = ManagerHandleConverter::toHandle(manager);
+    *handle = handles::hostAPI::Manager::toHandle(manager);
 
     return OPENASSETIO_NS(ErrorCode_kOK);
   });
 }
 
 void OPENASSETIO_NS(hostAPI_Manager_dtor)(OPENASSETIO_NS(hostAPI_Manager_h) handle) {
-  delete ManagerHandleConverter::toInstance(handle);
+  delete handles::hostAPI::Manager::toInstance(handle);
 }
 
 OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(hostAPI_Manager_identifier)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
  OPENASSETIO_NS(hostAPI_Manager_h) handle) {
-  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
-    const auto* manager = ManagerHandleConverter::toInstance(handle);
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
     openassetio::assignStringView(out, manager->identifier());
 
     return OPENASSETIO_NS(ErrorCode_kOK);
@@ -65,8 +61,8 @@ OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(hostAPI_Manager_displayName)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
  OPENASSETIO_NS(hostAPI_Manager_h) handle) {
-  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
-    const auto* manager = ManagerHandleConverter::toInstance(handle);
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
     openassetio::assignStringView(out, manager->displayName());
 
     return OPENASSETIO_NS(ErrorCode_kOK);
@@ -77,13 +73,9 @@ OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(hostAPI_Manager_info)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
  OPENASSETIO_NS(hostAPI_Manager_h) handle) {
-  return openassetio::errors::catchUnknownExceptionAsCode(err, [&] {
-    using InfoDictHandleConverter =
-        openassetio::handles::Converter<openassetio::InfoDictionary,
-                                        OPENASSETIO_NS(InfoDictionary_h)>;
-
-    auto* outDict = InfoDictHandleConverter::toInstance(out);
-    const auto* manager = ManagerHandleConverter::toInstance(handle);
+  return errors::catchUnknownExceptionAsCode(err, [&] {
+    openassetio::InfoDictionary* outDict = handles::InfoDictionary::toInstance(out);
+    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
 
     *outDict = manager->info();
 

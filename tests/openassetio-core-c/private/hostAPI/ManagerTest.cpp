@@ -13,16 +13,18 @@
 #include <openassetio/typedefs.hpp>
 
 // Private headers.
-#include <handles.hpp>
+#include <handles/InfoDictionary.hpp>
+#include <handles/hostAPI/Manager.hpp>
+#include <handles/managerAPI/ManagerInterface.hpp>
 
 #include "../StringViewReporting.hpp"
 
-namespace {
-constexpr size_t kStringBufferSize = 500;
-
 namespace managerAPI = openassetio::managerAPI;
 namespace hostAPI = openassetio::hostAPI;
+namespace handles = openassetio::handles;
 
+namespace {
+constexpr size_t kStringBufferSize = 500;
 /**
  * Mock implementation of a ManagerInterface.
  *
@@ -33,16 +35,6 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerAPI::ManagerInt
   IMPLEMENT_CONST_MOCK0(displayName);
   IMPLEMENT_CONST_MOCK0(info);
 };
-
-// Converter for ManagerInterface <-> C API handle
-// TODO(DF): duplicated from Manager.cpp - should it be available from a header?
-using ManagerInterfaceHandleConverter =
-    openassetio::handles::Converter<managerAPI::ManagerInterfacePtr,
-                                    OPENASSETIO_NS(managerAPI_ManagerInterface_h)>;
-
-using ManagerHandleConverter =
-    openassetio::handles::Converter<hostAPI::Manager, OPENASSETIO_NS(hostAPI_Manager_h)>;
-
 }  // namespace
 
 SCENARIO("A Manager is constructed and destructed") {
@@ -57,8 +49,9 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    auto* mockManagerInterfaceHandle =
-        ManagerInterfaceHandleConverter::toHandle(&mockManagerInterfacePtr);
+    OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+    mockManagerInterfaceHandle =
+        handles::managerAPI::ManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager
@@ -98,8 +91,9 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    auto* mockManagerInterfaceHandle =
-        ManagerInterfaceHandleConverter::toHandle(&mockManagerInterfacePtr);
+    OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+    mockManagerInterfaceHandle =
+        handles::managerAPI::ManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager
@@ -131,7 +125,8 @@ SCENARIO("A host calls Manager::identifier") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    auto* managerHandle = ManagerHandleConverter::toHandle(&manager);
+    OPENASSETIO_NS(hostAPI_Manager_h)
+    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
@@ -192,7 +187,8 @@ SCENARIO("A host calls Manager::displayName") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    auto* managerHandle = ManagerHandleConverter::toHandle(&manager);
+    OPENASSETIO_NS(hostAPI_Manager_h)
+    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
@@ -245,9 +241,6 @@ SCENARIO("A host calls Manager::displayName") {
 }
 
 SCENARIO("A host calls Manager::info") {
-  using InfoDictHandleConverter =
-      openassetio::handles::Converter<openassetio::InfoDictionary,
-                                      OPENASSETIO_NS(InfoDictionary_h)>;
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr =
@@ -257,7 +250,8 @@ SCENARIO("A host calls Manager::info") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    auto* managerHandle = ManagerHandleConverter::toHandle(&manager);
+    OPENASSETIO_NS(hostAPI_Manager_h)
+    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
@@ -277,7 +271,7 @@ SCENARIO("A host calls Manager::info") {
 
       WHEN("the Manager C API is queried for the info") {
         OPENASSETIO_NS(InfoDictionary_h)
-        actualInfoHandle = InfoDictHandleConverter::toHandle(&actualInfo);
+        actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
         OPENASSETIO_NS(ErrorCode)
@@ -297,7 +291,7 @@ SCENARIO("A host calls Manager::info") {
 
       WHEN("the Manager C API is queried for the info") {
         OPENASSETIO_NS(InfoDictionary_h)
-        actualInfoHandle = InfoDictHandleConverter::toHandle(&actualInfo);
+        actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
         OPENASSETIO_NS(ErrorCode)

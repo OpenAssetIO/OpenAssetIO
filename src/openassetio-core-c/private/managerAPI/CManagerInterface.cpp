@@ -6,7 +6,7 @@
 #include "CManagerInterface.hpp"
 
 #include "../errors.hpp"
-#include "../handles.hpp"
+#include "../handles/InfoDictionary.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
@@ -71,8 +71,7 @@ InfoDictionary CManagerInterface::info() const {
 
   // Return value.
   InfoDictionary infoDict{};
-  auto *infoDictHandle =
-      handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>::toHandle(&infoDict);
+  OPENASSETIO_NS(InfoDictionary_h) infoDictHandle = handles::InfoDictionary::toHandle(&infoDict);
 
   // Execute corresponding suite function.
   const OPENASSETIO_NS(ErrorCode) errorCode = suite_.info(&errorMessage, infoDictHandle, handle_);

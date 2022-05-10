@@ -7,7 +7,7 @@
 #include <catch2/trompeloeil.hpp>
 
 // private headers
-#include <handles.hpp>
+#include <handles/Converter.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {

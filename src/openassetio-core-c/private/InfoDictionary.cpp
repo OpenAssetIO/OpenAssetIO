@@ -10,15 +10,13 @@
 
 #include "StringView.hpp"
 #include "errors.hpp"
-#include "handles.hpp"
-
-namespace {
+#include "handles/InfoDictionary.hpp"
 
 using openassetio::InfoDictionary;
 namespace errors = openassetio::errors;
-using HandleConverter =
-    openassetio::handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
+namespace handles = openassetio::handles;
 
+namespace {
 // Helper for static_assert.
 template <class... T>
 [[maybe_unused]] constexpr bool kAlwaysFalse = false;
@@ -64,7 +62,7 @@ template <class Type>
 OPENASSETIO_NS(ErrorCode)
 get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h) handle,
     const OPENASSETIO_NS(ConstStringView) key) {
-  const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
+  const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
   return catchCommonExceptionAsCode(err, [&] {
     // TODO(DF): @exception messages.
@@ -93,7 +91,7 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
 template <class Type>
 void set(OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key,
          Type value) {
-  InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
+  InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
   infoDictionary->insert_or_assign(openassetio::Str{key.data, key.size},
                                    std::forward<Type>(value));
 }
@@ -125,17 +123,17 @@ OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(InfoDictionary_ctor)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) * out) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
-    *out = HandleConverter::toHandle(new InfoDictionary{});
+    *out = handles::InfoDictionary::toHandle(new InfoDictionary{});
     return OPENASSETIO_NS(ErrorCode_kOK);
   });
 }
 
 void OPENASSETIO_NS(InfoDictionary_dtor)(OPENASSETIO_NS(InfoDictionary_h) handle) {
-  delete HandleConverter::toInstance(handle);
+  delete handles::InfoDictionary::toInstance(handle);
 }
 
 std::size_t OPENASSETIO_NS(InfoDictionary_size)(OPENASSETIO_NS(InfoDictionary_h) handle) {
-  return HandleConverter::toInstance(handle)->size();
+  return handles::InfoDictionary::toInstance(handle)->size();
 }
 
 OPENASSETIO_NS(ErrorCode)
@@ -143,7 +141,7 @@ OPENASSETIO_NS(InfoDictionary_typeOf)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_ValueType) * out,
  OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
   return catchCommonExceptionAsCode(err, [&] {
-    const InfoDictionary *infoDictionary = HandleConverter::toInstance(handle);
+    const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
     std::visit(
         [&out](auto &&value) {
