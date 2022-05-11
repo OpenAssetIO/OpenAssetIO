@@ -159,39 +159,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
     __metaclass__ = abc.ABCMeta
 
-    # Test harness methods.
-    #
-    # It is difficult to derive generic tests for the API, as they need sample
-    # entity references to use in the calls.
-    #
-    # As such, we introduce optional methods here, that are required to support
-    # the various tests in test/TestCases/Core. If this are not implemented, then
-    # you will not be able to test the implementation using these tests.
-
-    # def _test_getReference(self, specification):
-    #  """
-    #
-    #  Returns an @ref entity_reference that can be used for testing purposes, the
-    #  specification will be a TestEntitySpecification. The current test can be
-    #  queried using specification.testName(). Some tests require a reference to
-    #  an existing entity, so specification.shouldExist() should be respected.
-    #  Additionally specification.embeddable() can be queried to determine if the
-    #  ref will be used in isolation, or may be embedded in a more complex
-    #  string.
-    #
-    #  """
-
-    # def _test_cleanup(self, references)
-    #  """
-    #
-    #  Called by the test harness to clean up any references that it requested.
-    #  This is called after any test that has requested a reference completes.
-    #  You could use this to remove any temporary database entries, etc... that
-    #  were necessary to satisfy a request for a reference to an 'existing'
-    #  asset.
-    #
-    #  """
-
     ##
     # @name Asset Management System Information
     #
