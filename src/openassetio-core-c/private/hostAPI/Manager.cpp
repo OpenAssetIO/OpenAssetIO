@@ -28,10 +28,10 @@ extern "C" {
 OPENASSETIO_NS(ErrorCode)
 OPENASSETIO_NS(hostAPI_Manager_ctor)
 (OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(hostAPI_Manager_h) * handle,
- OPENASSETIO_NS(managerAPI_ManagerInterface_h) managerInterfaceHandle) {
+ OPENASSETIO_NS(managerAPI_SharedManagerInterface_h) managerInterfaceHandle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     managerAPI::ManagerInterfacePtr& managerInterfacePtr =
-        *handles::managerAPI::ManagerInterface::toInstance(managerInterfaceHandle);
+        *handles::managerAPI::SharedManagerInterface::toInstance(managerInterfaceHandle);
 
     auto* manager = new hostAPI::Manager{managerInterfacePtr};
 

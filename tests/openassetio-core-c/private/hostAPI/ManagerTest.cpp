@@ -49,9 +49,9 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+    OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
     mockManagerInterfaceHandle =
-        handles::managerAPI::ManagerInterface::toHandle(&mockManagerInterfacePtr);
+        handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager
@@ -91,9 +91,9 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+    OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
     mockManagerInterfaceHandle =
-        handles::managerAPI::ManagerInterface::toHandle(&mockManagerInterfacePtr);
+        handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager

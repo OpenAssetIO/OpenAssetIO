@@ -37,11 +37,20 @@ typedef struct OPENASSETIO_NS(hostAPI_Manager_t) * OPENASSETIO_NS(hostAPI_Manage
  * @param managerInterfaceHandle  A handle to a
  * \fqref{managerAPI::ManagerInterface} that the `Manager` will delegate
  * to.
- */
+ *
+ **/
+// TODO(DF): The ownership semantic of a `ManagerInterface` handle is
+//  "shared" (i.e. it wraps a dynamically allocated `shared_ptr`),
+//  however there is no way to "release" a `ManagerInterface` handle.
+//  We need to figure out where these handles are created and what API
+//  we need around them - probably a `dtor`, at minimum. Or possibly
+//  `Manager`s in the C API should only be constructed via some factory,
+//  and there is no need for this `ctor` and thus no need for a
+//  `ManagerInterface_h` handle?
 OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
     OPENASSETIO_NS(hostAPI_Manager_ctor)(OPENASSETIO_NS(StringView) * err,
                                          OPENASSETIO_NS(hostAPI_Manager_h) * handle,
-                                         OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+                                         OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
                                              managerInterfaceHandle);
 
 /**
