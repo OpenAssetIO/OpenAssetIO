@@ -1,5 +1,7 @@
 # OpenAssetIO
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6046/badge)](https://bestpractices.coreinfrastructure.org/projects/6046)
+
 An open-source interoperability standard for tools and content
 management systems used in media production.
 
