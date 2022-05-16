@@ -116,7 +116,7 @@ In addition, contributors are required to complete either the Individual
 or Corporate Contribution License Agreement. Please contact one of the
 trusted committers for more information.
 
-## Futher reading
+## Further reading
 
 - [Coding standards](CODING_STANDARDS.md)
 - [Pull Requests](PULL_REQUESTS.md)
