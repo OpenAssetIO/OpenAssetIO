@@ -108,6 +108,24 @@ struct TraitBase {
    **/
   [[nodiscard]] bool isValid() const { return specification_->hasTrait(Derived::kId); }
 
+  /**
+   * Applies this trait to the specification.
+   *
+   * If the specification already has this trait, it is a no-op.
+   **/
+  void imbue() const { specification_->addTrait(Derived::kId); }
+
+  /**
+   * Applies this trait to the supplied specification.
+   *
+   * If the specification already has this trait, it is a no-op.
+   *
+   * @param specification The specification to apply the trait to.
+   **/
+  static void imbueTo(const SpecificationPtr& specification) {
+    specification->addTrait(Derived::kId);
+  }
+
  protected:
   /**
    * Get the underlying specification that this trait is wrapping.

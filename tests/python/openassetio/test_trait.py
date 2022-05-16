@@ -47,6 +47,31 @@ class Test_Trait_isValid:
         assert trait.isValid() is False
 
 
+class Test_Trait_imbue:
+    def test_when_specification_empty_then_adds_trait(self, a_custom_trait_class):
+        a_specification = Specification()
+        trait = a_custom_trait_class(a_specification)
+        trait.imbue()
+        assert trait.isValid()
+        assert trait.kId in a_specification.traitIds()
+
+    def test_when_specification_has_trait_then_is_noop(self, a_custom_trait_class):
+        a_specification = Specification({a_custom_trait_class.kId})
+        trait = a_custom_trait_class(a_specification)
+        trait.imbue()
+
+
+class Test_Trait_imbueTo:
+    def test_when_specification_empty_then_adds_trait(self, a_custom_trait_class):
+        a_specification = Specification()
+        a_custom_trait_class.imbueTo(a_specification)
+        assert a_custom_trait_class.kId in a_specification.traitIds()
+
+    def test_when_specification_has_trait_then_is_noop(self, a_custom_trait_class):
+        a_specification = Specification({a_custom_trait_class.kId})
+        a_custom_trait_class.imbueTo(a_specification)
+
+
 @pytest.fixture
 def a_custom_trait_class():
     class CustomTrait(Trait):

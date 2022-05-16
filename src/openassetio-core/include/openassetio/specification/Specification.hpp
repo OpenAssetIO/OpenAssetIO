@@ -75,8 +75,13 @@ class OPENASSETIO_CORE_EXPORT Specification {
   using TraitIds = std::unordered_set<trait::TraitId>;
 
   /**
+   * Construct an empty specification, with no traits.
+   */
+  Specification();
+
+  /**
    * Construct such that this specification has the given set of
-   * trait IDs.
+   * traits.
    *
    * @param traitIds The consituent traits IDs.
    */
@@ -102,6 +107,25 @@ class OPENASSETIO_CORE_EXPORT Specification {
   [[nodiscard]] bool hasTrait(const trait::TraitId& traitId) const;
 
   /**
+   * Add the specified trait to this specification.
+   *
+   * If the specification already has this trait, it is a no-op.
+   *
+   * @param traitId ID of the trait to add.
+   */
+  void addTrait(const trait::TraitId& traitId);
+
+  /**
+   * Add the specified traits to this specification.
+   *
+   * If the specification already has any of the supplied traits, they
+   * are skipped.
+   *
+   * @param traitIds IDs of the traits to add.
+   */
+  void addTraits(const TraitIds& traitIds);
+
+  /**
    * Get the value of a given trait property, if the property has
    * been set.
    *
@@ -119,11 +143,12 @@ class OPENASSETIO_CORE_EXPORT Specification {
   /**
    * Set the value of given trait property.
    *
+   * If the specification does not yet have this trait, it will be
+   * added by this call.
+   *
    * @param traitId ID of trait to update.
    * @param propertyKey Key of property to set.
    * @param propertyValue Value to set.
-   * @exception `std::out_of_range` if the specification does not have
-   * this trait.
    */
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue);

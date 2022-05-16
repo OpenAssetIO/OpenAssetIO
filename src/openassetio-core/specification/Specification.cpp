@@ -10,12 +10,9 @@ namespace specification {
 
 class Specification::Impl {
  public:
-  explicit Impl(const TraitIds& traitIds) {
-    // Initialise data dict with supported traits.
-    for (const auto& traitId : traitIds) {
-      data_[traitId];
-    }
-  }
+  Impl() = default;
+
+  explicit Impl(const TraitIds& traitIds) { addTraits(traitIds); }
   ~Impl() = default;
 
   TraitIds traitIds() const {
@@ -29,6 +26,14 @@ class Specification::Impl {
 
   bool hasTrait(const trait::TraitId& traitId) const {
     return static_cast<bool>(data_.count(traitId));
+  }
+
+  void addTrait(const trait::TraitId& traitId) { data_[traitId]; }
+
+  void addTraits(const TraitIds& traitIds) {
+    for (const auto& traitId : traitIds) {
+      data_[traitId];
+    }
   }
 
   bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
@@ -46,8 +51,8 @@ class Specification::Impl {
 
   void setTraitProperty(const trait::TraitId& traitId, const trait::property::Key& propertyKey,
                         trait::property::Value propertyValue) {
-    // Use `at` deliberately to trigger exception if trait doesn't exist
-    data_.at(traitId)[propertyKey] = std::move(propertyValue);
+    // Use subscript to ensure the trait is added if it is missing
+    data_[traitId][propertyKey] = std::move(propertyValue);
   }
 
   bool operator==(const Impl& other) const { return data_ == other.data_; }
@@ -58,11 +63,17 @@ class Specification::Impl {
   PropertiesByTrait data_;
 };
 
+Specification::Specification() : impl_{std::make_unique<Impl>()} {}
+
 Specification::Specification(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
 
 Specification::~Specification() = default;
 
 Specification::TraitIds Specification::traitIds() const { return impl_->traitIds(); }
+
+void Specification::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
+
+void Specification::addTraits(const TraitIds& traitIds) { impl_->addTraits(traitIds); }
 
 bool Specification::hasTrait(const trait::TraitId& traitId) const {
   return impl_->hasTrait(traitId);

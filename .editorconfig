@@ -19,6 +19,11 @@ ij_visual_guides = 72
 
 # ij_wrap_on_typing = false
 
+[{*.h,*.hpp,*.cpp}]
+indent_size = 2
+tab_width = 2
+ij_continuation_indent_size = 4
+
 [*.feature]
 indent_size = 2
 # ij_gherkin_keep_indents_on_empty_lines = false
