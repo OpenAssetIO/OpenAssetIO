@@ -3,10 +3,10 @@
 
 #include <stdexcept>
 
-#include "CManagerInterface.hpp"
+#include "CManagerInterfaceAdapter.hpp"
 
 #include "../errors.hpp"
-#include "../handles.hpp"
+#include "../handles/InfoDictionary.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
@@ -14,13 +14,15 @@ namespace managerAPI {
 
 constexpr size_t kStringBufferSize = 500;
 
-CManagerInterface::CManagerInterface(OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle,
-                                     OPENASSETIO_NS(managerAPI_ManagerInterface_s) suite)
+CManagerInterfaceAdapter::CManagerInterfaceAdapter(OPENASSETIO_NS(managerAPI_CManagerInterface_h)
+                                                       handle,
+                                                   OPENASSETIO_NS(managerAPI_CManagerInterface_s)
+                                                       suite)
     : handle_{handle}, suite_{suite} {}
 
-CManagerInterface::~CManagerInterface() { suite_.dtor(handle_); }
+CManagerInterfaceAdapter::~CManagerInterfaceAdapter() { suite_.dtor(handle_); }
 
-Str CManagerInterface::identifier() const {
+Str CManagerInterfaceAdapter::identifier() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
@@ -41,7 +43,7 @@ Str CManagerInterface::identifier() const {
   return {out.data, out.size};
 }
 
-Str CManagerInterface::displayName() const {
+Str CManagerInterfaceAdapter::displayName() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
@@ -62,7 +64,7 @@ Str CManagerInterface::displayName() const {
   return {out.data, out.size};
 }
 
-InfoDictionary CManagerInterface::info() const {
+InfoDictionary CManagerInterfaceAdapter::info() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
@@ -71,8 +73,7 @@ InfoDictionary CManagerInterface::info() const {
 
   // Return value.
   InfoDictionary infoDict{};
-  auto *infoDictHandle =
-      handles::Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>::toHandle(&infoDict);
+  OPENASSETIO_NS(InfoDictionary_h) infoDictHandle = handles::InfoDictionary::toHandle(&infoDict);
 
   // Execute corresponding suite function.
   const OPENASSETIO_NS(ErrorCode) errorCode = suite_.info(&errorMessage, infoDictHandle, handle_);

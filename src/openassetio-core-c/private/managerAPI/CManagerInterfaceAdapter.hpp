@@ -5,7 +5,7 @@
 #include <openassetio/c/export.h>
 #include <openassetio/export.h>
 
-#include <openassetio/c/managerAPI/ManagerInterface.h>
+#include <openassetio/c/managerAPI/CManagerInterface.h>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 
 namespace openassetio {
@@ -16,7 +16,7 @@ namespace managerAPI {
  * ManagerInterface implementation wrapping a manager plugin defined via
  * the C API.
  */
-class OPENASSETIO_CORE_C_EXPORT CManagerInterface : ManagerInterface {
+class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
  public:
   /**
    * Construct from a provided opaque handle and C function pointer
@@ -26,11 +26,11 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterface : ManagerInterface {
    * @param suite Function pointer suite to call from within member
    * functions.
    */
-  CManagerInterface(OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle,
-                    OPENASSETIO_NS(managerAPI_ManagerInterface_s) suite);
+  CManagerInterfaceAdapter(OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle,
+                           OPENASSETIO_NS(managerAPI_CManagerInterface_s) suite);
 
   /// Destructor that calls the C suite's `dtor` function.
-  ~CManagerInterface() override;
+  ~CManagerInterfaceAdapter() override;
 
   /// Wrap the C suite's `identifier` function.
   [[nodiscard]] Str identifier() const override;
@@ -43,9 +43,9 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterface : ManagerInterface {
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
-  OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle_;
+  OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle_;
   /// Suite of C API function pointers to delegate calls to.
-  OPENASSETIO_NS(managerAPI_ManagerInterface_s) suite_;
+  OPENASSETIO_NS(managerAPI_CManagerInterface_s) suite_;
 };
 
 }  // namespace managerAPI

@@ -11,14 +11,14 @@
 #include <openassetio/typedefs.hpp>
 
 // Private headers.
-#include <handles.hpp>
+#include <handles/InfoDictionary.hpp>
 
 #include "StringViewReporting.hpp"
 
-namespace {
-using HandleConverter =
-    openassetio::handles::Converter<openassetio::InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
+using openassetio::InfoDictionary;
+namespace handles = openassetio::handles;
 
+namespace {
 /// Default storage capacity for StringView C strings.
 constexpr std::size_t kStrStorageCapacity = 500;
 }  // namespace
@@ -39,8 +39,7 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
     CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
 
     WHEN("handle is converted to a C++ instance") {
-      openassetio::InfoDictionary* infoDictionary =
-          HandleConverter::toInstance(infoDictionaryHandle);
+      InfoDictionary* infoDictionary = handles::InfoDictionary::toInstance(infoDictionaryHandle);
 
       THEN("instance can be used as a C++ InfoDictionary") {
         const openassetio::Str key = "some key";
@@ -65,7 +64,7 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
     // Note that this models the ownership semantic of "owned by
     // client", so the client is expected to call `dtor` when done.
     OPENASSETIO_NS(InfoDictionary_h)
-    infoDictionaryHandle = HandleConverter::toHandle(new openassetio::InfoDictionary{});
+    infoDictionaryHandle = handles::InfoDictionary::toHandle(new InfoDictionary{});
 
     WHEN("dtor function is called") {
       OPENASSETIO_NS(InfoDictionary_dtor)(infoDictionaryHandle);
@@ -91,10 +90,10 @@ struct InfoDictionaryFixture {
   inline static const openassetio::Str kStrKey = "aStr";
   inline static const openassetio::Str kStrValue = "string value";
 
-  openassetio::InfoDictionary infoDictionary_{{kBoolKey, kBoolValue},
-                                              {kIntKey, kIntValue},
-                                              {kFloatKey, kFloatValue},
-                                              {kStrKey, kStrValue}};
+  InfoDictionary infoDictionary_{{kBoolKey, kBoolValue},
+                                 {kIntKey, kIntValue},
+                                 {kFloatKey, kFloatValue},
+                                 {kStrKey, kStrValue}};
 
   // Key that doesn't exist in the map.
   static inline const openassetio::Str kNonExistentKeyStr = "nonExistent";
@@ -104,7 +103,7 @@ struct InfoDictionaryFixture {
   // We do not expect this to be the norm for InfoDictionary, it's just
   // convenient for these tests.
   OPENASSETIO_NS(InfoDictionary_h)
-  infoDictionaryHandle_ = HandleConverter::toHandle(&infoDictionary_);
+  infoDictionaryHandle_ = handles::InfoDictionary::toHandle(&infoDictionary_);
 };
 
 /**

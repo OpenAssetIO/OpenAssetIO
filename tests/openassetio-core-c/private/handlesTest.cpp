@@ -4,7 +4,7 @@
 #include <catch2/catch.hpp>
 
 // Private headers
-#include <handles.hpp>
+#include <handles/Converter.hpp>
 
 SCENARIO("Converting to/from C++ instances and C opaque handles") {
   GIVEN("A C++ type") {
