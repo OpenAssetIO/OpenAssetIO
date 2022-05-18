@@ -21,7 +21,7 @@ The manager currently ignores all entity types.
 
 # Note that it should always be light-weight to construct instances of
 # the this class. See the notes under the "Initialization" section of:
-#   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
+#   https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
 # As such, any expensive module imports should be deferred.
 from openassetio import constants
 from openassetio.managerAPI import ManagerInterface

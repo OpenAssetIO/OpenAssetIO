@@ -21,7 +21,7 @@ codebase to make better inferences about the wider codebase.
 ## Relevant data
 
 This decision was made with reference
-to [one of the early RFCs](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/5)
+to [one of the early RFCs](https://github.com/OpenAssetIO/OpenAssetIO/issues/5)
 for OpenAssetIO.
 
 Alternative coding conventions include

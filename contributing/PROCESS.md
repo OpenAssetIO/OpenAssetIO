@@ -23,7 +23,7 @@ Trusted Committers. The steps are:
 
 1. Ensure you can describe the nature of your request or change, along
    with real-world use cases any why it is desirable.
-2. Create a thread in the project [discussions](https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/categories/ideas-and-change-proposals)
+2. Create a thread in the project [discussions](https://github.com/OpenAssetIO/OpenAssetIO/discussions/categories/ideas-and-change-proposals)
    area that describes the topic, this is to ensure:
     - There isn't any overlapping work already planned or in progress.
     - The change makes sense as part of any broader vision for the

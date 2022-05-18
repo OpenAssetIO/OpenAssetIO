@@ -246,7 +246,7 @@
  * be a hard requirement of the API, or considered hints as set by the
  * host. There is even question as to the validity of the API allowing
  * sets at all, please contribute to the discussion here if you have any
- * opinion on the matter: https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/18
+ * opinion on the matter: https://github.com/OpenAssetIO/OpenAssetIO/discussions/18
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *

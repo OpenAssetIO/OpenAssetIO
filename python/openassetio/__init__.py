@@ -68,7 +68,7 @@ API documentation
 -----------------
 
 The documentation for OpenAssetIO can be found here:
-   https://thefoundryvisionmongers.github.io/OpenAssetIO.
+   https://openassetio.github.io/OpenAssetIO.
 """
 
 from .Context import Context

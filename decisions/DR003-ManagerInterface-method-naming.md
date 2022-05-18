@@ -25,8 +25,8 @@ singular, but some have plural variants.
 
 ## Relevant data
 
-This work originated from a [discussion](https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions/37),
-which instigated an [issue](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/43)
+This work originated from a [discussion](https://github.com/OpenAssetIO/OpenAssetIO/discussions/37),
+which instigated an [issue](https://github.com/OpenAssetIO/OpenAssetIO/issues/43)
 to address concerns over bulk query primacy.
 
 The methods that currently have plural variants are

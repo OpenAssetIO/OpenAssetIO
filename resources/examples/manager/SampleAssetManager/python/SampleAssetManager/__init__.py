@@ -57,7 +57,7 @@ class SampleAssetManagerPlugin(ManagerPlugin):
         # Note that it should always be light-weight to construct
         # instances of the ManagerInterface class. See the notes under
         # the "Initialization" section of:
-        #   https://thefoundryvisionmongers.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
+        #   https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
         from .SampleAssetManagerInterface import SampleAssetManagerInterface
         return SampleAssetManagerInterface.identifier()
 

@@ -89,11 +89,11 @@ diverge from traditional file-centric workflows.
     attributes and the primary string are different. The primary string
     can only be set during `register`, whereas attributes can be
     updated. This behavior is incorrect and the work
-    [here](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/4)
+    [here](https://github.com/OpenAssetIO/OpenAssetIO/issues/4)
     will address this inconsistency. For the sake of this decision, the
     lifetimes of both data elements can be considered the same.
 
--   [#247](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/247),
+-   [#247](https://github.com/OpenAssetIO/OpenAssetIO/issues/247),
     and the appendix below contain further details of the proposed
     approach.
 
@@ -239,7 +239,7 @@ system to satisfy those queries, or make use of the resulting data.
 What follows in a comparative illustration of the two approaches, the
 code for Option 1 assumes that the work has been done to make attributes
 versionable and consistent with
-[#4](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/4),
+[#4](https://github.com/OpenAssetIO/OpenAssetIO/issues/4),
 and that the relevant API methods have been updated to work with trait
 sets.
 
