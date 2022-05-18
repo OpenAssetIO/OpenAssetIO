@@ -32,16 +32,19 @@ if (OPENASSETIO_ENABLE_PYTHON)
     message(TRACE "Python_VERSION_PATCH = ${Python_VERSION_PATCH}")
 
     if (OPENASSETIO_PYTHON_SITEDIR STREQUAL "")
-        # Default to mirroring the Python distribution's structure.
-        get_filename_component(python_bin_dir ${Python_EXECUTABLE} DIRECTORY)
-        file(RELATIVE_PATH python_site_dir_rel_to_bin ${python_bin_dir} ${Python_SITEARCH})
-        if (NOT CMAKE_INSTALL_BINDIR OR WIN32) # Should not use 'bin' for Windows
-            set(bin_dir .)
+        # Make a naive assumption about a suitable structure under our
+        # install-dir. See:
+        #   https://discuss.python.org/t/understanding-site-packages-directories/12959
+        # We had issues using 'cleverness' to work out the path relative
+        # to Python_EXECUTABLE and Python_SITEARCH when symlinks or
+        # varying installation structures were used (eg GitHub Actions
+        # runners).
+        if (WIN32) # Should not use 'bin' for Windows
+            set(OPENASSETIO_PYTHON_SITEDIR "Lib/site-packages")
         else ()
-            set(bin_dir "${CMAKE_INSTALL_BINDIR}")
+            set(OPENASSETIO_PYTHON_SITEDIR
+                "lib/python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages")
         endif ()
-        # Relative path from install root to site-packages.
-        cmake_path(SET OPENASSETIO_PYTHON_SITEDIR NORMALIZE "${bin_dir}/${python_site_dir_rel_to_bin}")
     endif ()
 
     # pybind11 for C++ Python bindings.

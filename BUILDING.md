@@ -26,6 +26,14 @@ the presence of CMake build targets as exported by these packages.
 > Warning: if attempting to build on CentOS 7 using the ConanCenter
 > Python 3.9 package you will likely hit an [issue installing pkgconf](https://github.com/conan-io/conan-center-index/issues/8541).
 
+> Warning: On macOS, by default, CMake prefers Framework installations
+> (see: [$CMAKE_FIND_FRAMEWORK](https://cmake.org/cmake/help/latest/variable/CMAKE_FIND_FRAMEWORK.html)).
+> This means dependencies such as Python may default to the system
+> installation despite alternatives being present. In addition, if you
+> are attempting to use the ConanCenter cpython package as an
+> alternative, we have encountered missing header issues that may
+> require additional work/configuration to resolve.
+
 ## Building
 
 We use the CMake build system for compiling the C++ core library and
