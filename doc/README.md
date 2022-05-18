@@ -15,7 +15,7 @@ The simplest way to build the documentation is via Docker using the
 container published to the GitHub Container Registry:
 
 ```
-docker run -v `pwd`/../:/src ghcr.io/thefoundryvisionmongers/openassetio-doc-build bash -c 'make -C /src/doc html'
+docker run -v `pwd`/../:/src ghcr.io/OpenAssetIO/openassetio-doc-build bash -c 'make -C /src/doc html'
 ```
 
 If you have GNU Make installed on your system, the included `Makefile`
@@ -59,7 +59,7 @@ index page via `html/index.html`.
 ## Deploying the docs
 
 Public facing documentation is served via GitHub Pages from the `docs`
-branch of [TheFoundryVisionmongers/OpenAssetIO](https://github.com/TheFoundryVisionmongers/OpenAssetIO).
+branch of [OpenAssetIO/OpenAssetIO](https://github.com/OpenAssetIO/OpenAssetIO).
 This is automatically deployed whenever the `main` branch of the repository
 is pushed via GitHub Actions (see [workflows/docs.yml](../.github/workflows/docs.yml)).
 
@@ -110,7 +110,7 @@ you need to set a few environment variables:
 -   `GITHUB_USERNAME` The GitHub username that the token belongs to.
 -   `GITHUB_ORG` [optional] The _lowercase_ version of the GitHub
     Organization that you wish to publish to container to. If not set,
-    this defaults to `thefoundryvisionmongers`.
+    this defaults to `openassetio`.
 
 ### Preparing your changes
 

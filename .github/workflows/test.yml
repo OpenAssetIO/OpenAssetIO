@@ -78,7 +78,7 @@ jobs:
       run: |
         # Check that the acronym version of OpenAssetIO isn't in use
         # in the code base, see:
-        #   https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/153
+        #   https://github.com/OpenAssetIO/OpenAssetIO/issues/153
         # NB: The quotes deliberately avoid the string in question
         # appearing in this file, and failing the test.
         ! grep -ir "o""aio" .

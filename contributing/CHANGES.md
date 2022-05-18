@@ -47,7 +47,7 @@ v2.0.0
 ### Breaking changes
 
 - Split `Specification` class in to `SpecificationBase` and `TraitsData`
-  [#348](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/348).
+  [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348).
 
 
 ### New features
