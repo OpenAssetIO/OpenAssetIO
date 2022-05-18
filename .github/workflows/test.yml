@@ -18,24 +18,19 @@ jobs:
         # requires glibc 2.17, which is older than any of the available
         # environments.
         config:
-        - {
-            os: windows-2019,
-            vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
-          }
-        - {
-            os: ubuntu-20.04,
-            sanitizers: ON
-          }
-        - {
-            os: macos-10.15,
-            # asan needs the pre-load trick for python, ubsan seems to
-            # have false positives:
-            #   InfoDictionaryTest.cpp:346:25: runtime error:
-            #      call to function openassetio_v0_0_InfoDictionary_getBool
-            #      through pointer to incorrect function type
-            sanitizers: OFF
-          }
+        - os: windows-2019
+          vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
 
+        - os: ubuntu-20.04
+          sanitizers: ON
+
+        - os: macos-10.15
+          # asan needs the pre-load trick for python, ubsan seems to
+          # have false positives:
+          #   InfoDictionaryTest.cpp:346:25: runtime error:
+          #      call to function openassetio_v0_0_InfoDictionary_getBool
+          #      through pointer to incorrect function type
+          sanitizers: OFF
 
     steps:
     - uses: actions/checkout@v2
