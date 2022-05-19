@@ -31,7 +31,7 @@ CONTAINER_NAME=openassetio-doc-build
 # to build the documentation:
 #
 #  GITHUB_ORG: The organisation to pull containers from (and publish
-#              to). If unspecified, then `thefoundryvisionmongers` will
+#              to). If unspecified, then `openassetio` will
 #              be used. Note: org names must be lowercase.
 #
 # When publishing, the following additional vars MUST be set:
@@ -44,7 +44,7 @@ CONTAINER_NAME=openassetio-doc-build
 #  GITHUB_USER=<username> GITHUB_PAT=<token> make publish-docker
 #
 ifndef GITHUB_ORG
-GITHUB_ORG = thefoundryvisionmongers
+GITHUB_ORG = openassetio
 endif
 
 # Docker images are published to the GitHub container registry

@@ -24,7 +24,7 @@ development.
 The official [PEP8 docs](https://www.python.org/dev/peps/pep-0008) are
 used for reference.
 
-A [pull request](https://github.com/TheFoundryVisionmongers/OpenAssetIO/pull/49)
+A [pull request](https://github.com/OpenAssetIO/OpenAssetIO/pull/49)
 has been created to apply formatting to the codebase, which was reviewed
 and updated based on feedback. In particular, line-wrapping was revised.
 

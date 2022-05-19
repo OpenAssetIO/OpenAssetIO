@@ -2,7 +2,7 @@
  *
  * @warning The API has a long history. The OpenAssetIO release version is
  * currently in a beta stage and is subject to some refinements over the
- * coming months. See the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1"
+ * coming months. See the <a href="https://github.com/orgs/OpenAssetIO/projects/1"
  * target="_blank">project tracker</a> for more details.
  *
  * OpenAssetIO defines a common set of interactions between a @ref host
@@ -109,8 +109,8 @@
  * as an @ref asset_management_system integrator, it is worth
  * understanding the high-level architecture of the system. After this,
  * the documentation (and code base) is separated depending on your
- * focus. The following diagram attempts to show a simplified version of
- * the architecture:
+ * focus. The following (potentially confusing) diagram attempts to show
+ * a simplified version of the architecture as a UML Class Diagram:
  *
  * @startuml
  * package openassetio.managerAPI {
@@ -161,16 +161,18 @@
  * "API Host" -[thickness=4]-> Manager : queries
  * @enduml
  *
- * The API is organized into two main namespaces - the
- * @ref openassetio.hostAPI "hostAPI" and @ref openassetio.managerAPI
- * "managerAPI". Within each of these, you will find the components you
- * need depending on whether you are adopting the API in a @ref host or
- * providing support for a @ref manager through a plugin.
+ * It attempts to show that the API is organized into two main
+ * namespaces - the @ref openassetio.hostAPI "hostAPI" and @ref
+ * openassetio.managerAPI "managerAPI". Within each of these, you will
+ * find the components you need depending on whether you are adopting
+ * the API in a @ref host or providing support for a @ref manager
+ * through a plugin.
  *
- * The first step is always to write an implementation of one of the two
- * abstract interfaces defined by the API, illustrated in orange above -
- * either the @ref openassetio.hostAPI.HostInterface.HostInterface
- * "HostInterface" or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * The first step in any integration is to write an implementation of
+ * one of the two abstract interfaces defined by the API, illustrated in
+ * orange above - either the
+ * @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
+ * or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
  * "ManagerInterface".
  *
  * - The asset management system implements the
@@ -182,15 +184,17 @@
  *   "HostInterface" represents the caller of the API. It allows the
  *   asset management system to customize the @ref publish "publishing"
  *   process if desired and/or query additional information about the
- *   host and its documents.
+ *   host.
+ *
+ * The interface implementations are "wrapped" in the
+ * @ref openassetio.managerAPI.Host.Host "Host" or
+ * @ref openassetio.hostAPI.Manager.Manager "Manager" classes by the
+ * API before being passed to the other side, to provide state
+ * management and audit functionality.
  *
  * @see @ref notes_for_hosts
  * @see @ref notes_for_managers
  *
- * The @ref openassetio.managerAPI.Host.Host "Host" and
- * @ref openassetio.hostAPI.Manager.Manager "Manager" classes are
- * implemented within this API to provide state management and audit
- * functionality.
  *
  * @section host_implementation_concept The Basic Design for a Host
  *
