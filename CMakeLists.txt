@@ -76,12 +76,11 @@ project(
 #-----------------------------------------------------------------------
 # Default install directory
 
-# If the user hasn't configured cmake with an explicit
-# CMAKE_INSTALL_PREFIX, then set it to safely install into ./dist, to
-# help prevent the user from accidentally writing over /usr/local or
-# whatever.
+# Default install to a `dist` directory under the build directory, ready
+# for use in tests and for packaging. But don't override if user has
+# explicitly set CMAKE_INSTALL_PREFIX.
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND PROJECT_IS_TOP_LEVEL)
-    set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/dist" CACHE PATH "Installation location" FORCE)
+    set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/dist" CACHE PATH "Installation location" FORCE)
 endif ()
 
 
