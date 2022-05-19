@@ -44,6 +44,9 @@ Release Notes
 v2.0.0
 ------
 
+This release refactors the data model in to a container + view
+mechanism.
+
 ### Breaking changes
 
 - Split `Specification` class in to `SpecificationBase` and `TraitsData`
@@ -85,6 +88,9 @@ v1.2.0
    standardized categories noted below, using the `###` markup. With a
    single blank line below the heading, and two blank lines at the end
    of each section.
+4. If required, a high-level summary of the release, or any other
+   information or warnings can be added before the first changes
+   section.
 
 ### Change categories
 
