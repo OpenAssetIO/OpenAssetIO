@@ -1,5 +1,7 @@
 # OpenAssetIO
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6046/badge)](https://bestpractices.coreinfrastructure.org/projects/6046)
+
 An open-source interoperability standard for tools and content
 management systems used in media production.
 
@@ -43,7 +45,7 @@ for a wider range of asset types and publishing workflows.
 
 ## API documentation
 
-The documentation for OpenAssetIO can be found here: [https://thefoundryvisionmongers.github.io/OpenAssetIO](https://thefoundryvisionmongers.github.io/OpenAssetIO/).
+The documentation for OpenAssetIO can be found here: [https://openassetio.github.io/OpenAssetIO](https://openassetio.github.io/OpenAssetIO/).
 
 ## Project status
 
@@ -58,16 +60,16 @@ to `C++` with bindings to `Python`.
 
 The code is presented here in its current form to facilitate discussion
 and early-adopter testing. We actively encourage engagement in the
-[discussion](https://github.com/TheFoundryVisionmongers/OpenAssetIO/discussions)
-and to give feedback on current [Issues](https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues)
-and [Pull Requests](https://github.com/TheFoundryVisionmongers/OpenAssetIO/pulls).
+[discussion](https://github.com/OpenAssetIO/OpenAssetIO/discussions)
+and to give feedback on current [Issues](https://github.com/OpenAssetIO/OpenAssetIO/issues)
+and [Pull Requests](https://github.com/OpenAssetIO/OpenAssetIO/pulls).
 
 We have been making some structural changes prior to migrating to this
 repository, updating from Python 2 to Python 3 and removing some
 spurious/legacy concepts. There may well be some rough edges so bear
 with us whilst we get things ship-shape.
 
-Please see the [project board](https://github.com/TheFoundryVisionmongers/OpenAssetIO/projects/1)
+Please see the [project board](https://github.com/orgs/OpenAssetIO/projects/1)
 for work in progress, as well as up-coming topics.
 
 ### TODO list
@@ -112,7 +114,7 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 The OpenAssetIO codebase is available as a git repository on GitHub
 
 ```shell
-git clone git@github.com:TheFoundryVisionmongers/OpenAssetIO
+git clone git@github.com:OpenAssetIO/OpenAssetIO
 ```
 
 ### System requirements
@@ -144,7 +146,7 @@ For detailed instructions see [BUILDING](BUILDING.md).
 ## Getting involved
 
 - See the [contribution guide](contributing/PROCESS.md)
-- Join our [working group](https://github.com/TheFoundryVisionmongers/OpenAssetIO-WG) meetings
+- Join our [working group](https://github.com/OpenAssetIO/OpenAssetIO-WG) meetings
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.

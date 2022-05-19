@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/TheFoundryVisionmongers/OpenAssetIO/main/resources/examples/manager/BasicAssetLibrary/schema.json",
+  "$id": "https://raw.githubusercontent.com/OpenAssetIO/OpenAssetIO/main/resources/examples/manager/BasicAssetLibrary/schema.json",
   "title": "BAL Library File",
   "description": "The data store that backs an instance of the BAL manager",
   "type": "object",

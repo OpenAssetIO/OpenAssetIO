@@ -68,7 +68,7 @@ API documentation
 -----------------
 
 The documentation for OpenAssetIO can be found here:
-   https://thefoundryvisionmongers.github.io/OpenAssetIO.
+   https://openassetio.github.io/OpenAssetIO.
 """
 # Temporarily hoist the C++ class into the top level name space,
 # until this is done in the module itself.
