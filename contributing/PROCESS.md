@@ -92,8 +92,8 @@ than at release time. This ensures it is consistent with the code base
 and that change notes are written at the time of greatest understanding.
 
 Any commit that makes a user facing change should update the log. See
-the [Recording user facing changes in CHANGES.md](CHANGES.md) section
-for more details.
+the [Recording user facing changes in the release notes](CHANGES.md)
+section for more details.
 
 ### Contribution sign off
 
@@ -122,7 +122,7 @@ trusted committers for more information.
 - [Pull Requests](PULL_REQUESTS.md)
 - [Commits and commit messages](COMMITS.md)
 - [Code Reviews](CODE_REVIEWS.md)
-- [Updating the Change Log](CHANGES.md)
+- [Updating the release notes](CHANGES.md)
 
 
 ## Trusted Committers

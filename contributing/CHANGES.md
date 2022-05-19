@@ -1,8 +1,8 @@
-# Recording user facing changes in CHANGES.md
+# Recording user facing changes in the release notes
 
-We make use of a `CHANGES.md` file to record user-facing changes between
-versions. This file must be updated directly in any commits that cause
-some public change of behavior.
+We make use of a `RELEASE_NOTES.md` file to record user-facing changes
+between versions. This file must be updated directly in any commits that
+cause some public change of behavior.
 
 This approach has the advantage that the file is always up to date, and
 accurately reflects exactly what has been merged into a release branch.
@@ -38,8 +38,8 @@ The change log takes a very simple format, as illustrated below, using
 the past tense:
 
 ```markdown
-Changes
-=======
+Release Notes
+=============
 
 v2.0.0
 ------
@@ -77,8 +77,8 @@ v1.2.0
   allow the number of keys in an `InfoDictionary` to be obtained.
 ```
 
-1. The file should have a single level-one heading `Changes` and use the
-   `=` (equals) markup.
+1. The file should have a single level-one heading `Release Notes` and
+   use the `=` (equals) markup.
 2. Underneath this, and separated by one blank line, should be a level-2
    heading for each release version, using the `-` (hyphen) markup.
 3. For each version, changes should be grouped into the four
@@ -123,10 +123,10 @@ of the next release is generally unknown until the release is made. At
 which point the version will be defined by the greatest severity of
 change in that release.
 
-As such, whenever you add a change to the `CHANGES.md` file as part of
-development, it should always be under a `vX.X.X` for the version at the
-top of the file. If you are the first to add a change, simply create
-this version heading as part of your commit.
+As such, whenever you add a change to the `RELEASE_NOTES.md` file as
+part of development, it should always be under a `vX.X.X` for the
+version at the top of the file. If you are the first to add a change,
+simply create this version heading as part of your commit.
 
 The use of a placeholder version also helps make it clear that these
 changes are yet to be released.
