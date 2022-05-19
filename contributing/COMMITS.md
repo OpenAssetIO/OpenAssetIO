@@ -266,3 +266,4 @@ These components should be used in commit message titles:
   relating to linter fixes, `.gitignore` updates, etc.
 - `PluginSystem` For work pertaining to the plugin system.
 - `Tests` For work on test cases and test infrastructure.
+- `Release` For commits bumping versions in preparation for a release.

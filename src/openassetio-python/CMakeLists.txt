@@ -17,7 +17,15 @@ install(
 set_target_properties(openassetio-python
     PROPERTIES
     OUTPUT_NAME _openassetio
-    PREFIX "")
+    PREFIX ""
+    # Python modules on macOS must be .so rather than .dylib. But that
+    # means clang will complain:
+    #   invalid argument '-compatibility_version 1.0.0' only allowed
+    #   with '-dynamiclib'
+    # Similarly for '-current_version'.So unset the version flags. See
+    # also https://cmake.org/cmake/help/latest/prop_tgt/VERSION.html#mach-o-versions)
+    SOVERSION ""
+    VERSION "")
 
 if(WIN32)
     set_target_properties(openassetio-python PROPERTIES SUFFIX ".pyd")

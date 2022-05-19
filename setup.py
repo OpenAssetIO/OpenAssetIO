@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='openassetio',
-    version="0.0.0",
+    version="1.0.0-alpha.1",
     package_dir={'': 'python'},
     packages=find_packages(where='python'),
     python_requires='>=3.7',

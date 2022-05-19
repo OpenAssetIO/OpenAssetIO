@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v0.0.0-alpha.X
+v1.0.0-alpha.1
 --------------
 
 Initial alpha release.
