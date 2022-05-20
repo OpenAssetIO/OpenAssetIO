@@ -1,0 +1,76 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "TDD Development",
+      "description": "Enables linting and tests (useful for day-to-day development)",
+      "inherits": [
+        "enable-linters-cpp",
+        "enable-tests"
+      ]
+    },
+    {
+      "name": "lint",
+      "displayName": "Linting",
+      "description": "Enables all targets with linting and tests",
+      "inherits": [
+        "enable-linters-cpp",
+        "enable-targets-all",
+        "enable-tests"
+      ]
+    },
+    {
+      "name": "sanitize",
+      "displayName": "Testing with sanitizers",
+      "description": "Enables all targets with tests and sanitizers",
+      "inherits": [
+        "enable-sanitizers",
+        "enable-targets-all",
+        "enable-tests"
+      ]
+    },
+    {
+      "name": "test",
+      "displayName": "Testing",
+      "description": "Runs all test cases without linting or sanitizers",
+      "inherits": [
+        "enable-targets-all",
+        "enable-tests"
+      ]
+    },
+    {
+      "name": "enable-tests",
+      "hidden": true,
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_TESTS": "ON"
+      }
+    },
+    {
+      "name": "enable-linters-cpp",
+      "hidden": true,
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_CLANG_FORMAT": "ON",
+        "OPENASSETIO_ENABLE_CLANG_TIDY": "ON",
+        "OPENASSETIO_ENABLE_CPPLINT": "ON",
+        "OPENASSETIO_WARNINGS_AS_ERRORS": "ON"
+      }
+    },
+    {
+      "name": "enable-sanitizers",
+      "hidden": true,
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_SANITIZER_ADDRESS": "ON",
+        "OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR": "ON"
+      }
+    },
+    {
+      "name": "enable-targets-all",
+      "hidden": true,
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_PYTHON": "ON",
+        "OPENASSETIO_ENABLE_C": "ON"
+      }
+    }
+  ]
+}
