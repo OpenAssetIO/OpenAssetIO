@@ -61,11 +61,7 @@ jobs:
           cmake -S . -B build
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
-          -DCMAKE_CXX_STANDARD=17
-          -DOPENASSETIO_WARNINGS_AS_ERRORS=ON
-          -DOPENASSETIO_ENABLE_CLANG_FORMAT=ON 
-          -DOPENASSETIO_ENABLE_CLANG_TIDY=ON
-          -DOPENASSETIO_ENABLE_CPPLINT=ON 
+          --preset lint
 
       - name: Build and lint
         run: cmake --build build
