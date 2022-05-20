@@ -15,8 +15,8 @@ inline namespace OPENASSETIO_VERSION {
  * @name Primitive Types
  *
  * These types are used throughout OpenAssetIO, especially within
- * dictionary-like types such as @ref specification data or
- * @needsref ManagerInterface::info.
+ * dictionary-like types such as @fqref{TraitsData} "TraitsData" or
+ * @fqref{InfoDictionary} "InfoDictionary".
  *
  * OpenAssetIO must be able to bridge disparate platforms, including
  * serialization of data. It is therefore useful to ensure that our core

@@ -123,9 +123,6 @@
  *     """
  *     kTraitIds = {"documentation", "example"}
  *
- *     def __init__(self):
- *         super().__init__(traitIds=kTraitIds)
- *
  * # We must **ALWAYS** validate that a string is an entity reference
  * # before passing it to any other manager API call.
  * if not manager.isEntityReference([some_string])[0]:
@@ -140,7 +137,7 @@
  *
  * # We tell the manager something about which part of our code is
  * # working with the asset.
- * context.locale = APIDocumentationExampleLocale()
+ * context.locale = APIDocumentationExampleLocale.create().traitsData()
  *
  * # We describe the lifetime of the returned reference
  * # as persistent retention may require a more stable value.
@@ -161,13 +158,13 @@
  *
  * @code{.py}
  * from openassetio import constants
- * from openassetio.specifications import TextFileSpecification
+ * from openassetio_mediacreation.specification.entity import TextFileSpecification
  *
  *
  * # As ever, an appropriately configured context is required
  * context = session.createContext()
  * context.access = context.kWrite
- * context.locale = APIDocumentationExampleLocale()
+ * context.locale = APIDocumentationExampleLocale.create().traitsData()
  *
  * # The first step is to see if the manager wants to manage text files
  * policy = manager.managementPolicy([TextFileSpecification.kTraitIds], context)[0]
@@ -191,7 +188,7 @@
  * if policy & constants.kWillManagePath:
  *     working_data = manager.resolve([working_ref], TextFileSpecification.kTraitIds, context)[0]
  *     working_spec = TextFileSpecification(working_data)
- *     save_path = working_spec.fileTrait().getPath(raiseOnError=True)
+ *     save_path = working_spec.locatableContentTrait().getUrl()
  *     encoding_trait = working_spec.textEncodingTrait()
  *     if encoding_trait.isValid() and (custom_encoding := encoding_trait.getEncoding()):
  *         encoding = custom_encoding
@@ -203,7 +200,7 @@
  *
  * Prepare the entity specification to register, with the data about
  * where we actually wrote the data to, and with what encoding.
- * file_spec = TextFileSpecification()
+ * file_spec = TextFileSpecification.create()
  * file_spec.fileTrait().setPath(save_path)
  * file_spec.textEncodingTrait().setEncoding(encoding)
  *
@@ -211,7 +208,7 @@
  * # is complete. Update the context retention to denote that we're going
  * # to save a reference to this entity in our user's history.
  * context.retention = context.kPermanent
- * final_ref = manager.register([working_ref], [file_spec], context)[0]
+ * final_ref = manager.register([working_ref], [file_spec.traitsData()], context)[0]
  *
  * # We can persist this reference as we used the kPermanent retention
  * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
@@ -232,7 +229,7 @@
  * if not policy & constants.kWantsThumbnail:
  *   return
  *
- * from openassetio.specifications import ThumbnailFileSpecification
+ * from openassetio_mediacreation.specification.entity import ThumbnailFileSpecification
  *
  * # Preflight the thumbnail spec's traits with the target entity's
  * # reference, this gives us a reference we can now use for all
@@ -260,13 +257,13 @@
  * # Register the thumbnail to the thumbnail ref (not the entity),
  * # configuring the context to say we're going to ignore the final ref
  *
- * thumbail_spec = ThumbnailFileSpecification()
+ * thumbail_spec = ThumbnailFileSpecification.create()
  * thumbnail_spec.fileTrait().setPath(thumbnail_path)
  * raster_trait = thumbnail_spec.rasterTrait()
  * raster_trait.setWidth(thumbnail_attr["width"])
  * raster_trait.setHeight(thumbnail_attr["height"])
  *
  * context.retention = context.kTransient
- * manager.register([thumbnail_ref], [thumbnail_spec], context)
+ * manager.register([thumbnail_ref], [thumbnail_spec.traitsData()], context)
  * @endcode
  */

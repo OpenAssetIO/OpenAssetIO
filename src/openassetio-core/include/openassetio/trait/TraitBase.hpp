@@ -8,46 +8,35 @@
 #include <memory>
 #include <utility>
 
-#include "../specification/Specification.hpp"
+#include "../TraitsData.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 namespace trait {
-
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// TODO(TC): This class is currently untested as the concrete
-// BlobTrait implementation has been removed from the core API (and
-// migrated to OpenAssetIO-MediaCreation.
-// It _has_ been tested in the past, but is no longer covered.
-// When we move to the autogeneration of trait classes from a JSON
-// schema, we need to ensure that any resulting reused API classes
-// are properly tested.
-// See: https://github.com/TheFoundryVisionmongers/OpenAssetIO/pull/358#discussion_r860709504
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 /**
  * Abstract CRTP base class for specification traits.
  *
  * A trait view provides a way to hide the underlying dictionary-like
  * data access from hosts and managers. Trait view classes wrap a
- * @ref specification::Specification "Specification" and provide member
- * functions that query/mutate properties on the specification.
+ * @ref TraitsData "TraitsData" and provide member functions that
+ * query/mutate properties of the data.
  *
- * @see BlobTrait
+ * @see @ref entities_traits_and_specifications
  *
  * This non-virtual templated base class provides the common interface
  * for a concrete trait view.
  *
  * As an example, assume a trait view called `MyTrait` and an arbitrary
- * specification. Before we can extract `MyTrait` property values from
- * the specification we must check that it supports `MyTrait`. We can
- * then use the trait's concrete accessors to retrieve data from the
- * underlying dictionary-like specification. Usage may thus look
- * something like
+ * data instance. Before we can extract `MyTrait` property values from
+ * the data we must check that it supports `MyTrait`. We can
+ * then use the trait's concrete accessors to retrieve values from the
+ * underlying dictionary-like @fqref{TraitsData} "TraitsData" instance.
+ * Usage may thus look something like
  *
  *     property::Int myValue = 123;  // Default if property not found.
  *
- *     MyTrait myTrait{specification};
+ *     MyTrait myTrait{traitsData};
  *
  *     if (myTrait.isValid()) {
  *
@@ -63,98 +52,92 @@ namespace trait {
  *
  * @see TraitId
  *
- * @warning The `kId` member must be `inline` to support @ref
- * specification::Specification "specifications" that statically
- * construct their list of supported trait IDs. This is to avoid the
- * so-called _Static Initialization Order Fiasco_, when a
- * specification's static trait list is constructed using static trait
- * IDs.
+ * @warning The `kId` member must be `inline` to support @needsref
+ * specifications that statically construct their list of supported
+ * trait IDs. This is to avoid the so-called _Static Initialization
+ * Order Fiasco_, when a specification's static trait list is
+ * constructed using static trait IDs.
  *
  * In addition, the derived class should implement appropriate typed
  * accessor / mutator methods that internally call the wrapped
- * specification's @ref specification::Specification::getTraitProperty
- * "getTraitProperty" / @ref
- * specification::Specification::setTraitProperty "setTraitProperty".
+ * data's @ref TraitsData::getTraitProperty
+ * "getTraitProperty" / @ref TraitsData::setTraitProperty
+ * "setTraitProperty".
  *
  * Such accessor/mutator functions then provide developers with
  * compile-time checks and IDE code-completion, which would not be
  * available with arbitrary string-based lookups.
  *
  * @note Attempting to access a trait's properties without first
- * ensuring the specification supports that trait via `isValid`, or
- * otherwise, may trigger a `std::out_of_range` exception if the trait
- * is not supported by the specification.
+ * ensuring the underlying TraitsData instance has that trait via
+ * `isValid`, or otherwise, may trigger a `std::out_of_range` exception
+ * if the trait is not set.
  *
  * @tparam Derived Concrete subclass.
  */
 template <class Derived>
 struct TraitBase {
-  /// Ref-counted smart pointer to underlying Specification.
-  using SpecificationPtr = std::shared_ptr<specification::Specification>;
-
   /**
-   * Construct this trait view, wrapping the given specification.
+   * Construct this trait view, wrapping the given TraitsData instance.
    *
-   * @param specification Underlying specification to wrap.
+   * @param data The instance to wrap.
    */
-  explicit TraitBase(SpecificationPtr specification) : specification_{std::move(specification)} {}
+  explicit TraitBase(TraitsDataPtr data) : data_{std::move(data)} {}
 
   /**
-   * Check whether the specification this trait has been applied to
-   * actually supports this trait.
+   * Check whether the TraitsData instance this trait has been
+   * constructed with has this trait set.
    *
-   * @return `true` if the underlying specification supports this trait,
-   * `false` otherwise.
+   * @return `true` if the underlying TraitsData instance has this trait
+   * set, `false` otherwise.
    **/
-  [[nodiscard]] bool isValid() const { return specification_->hasTrait(Derived::kId); }
+  [[nodiscard]] bool isValid() const { return data_->hasTrait(Derived::kId); }
 
   /**
-   * Applies this trait to the specification.
+   * Applies this trait to the wrapped TraitsData instance.
    *
-   * If the specification already has this trait, it is a no-op.
+   * If the instance already has this trait, it is a no-op.
    **/
-  void imbue() const { specification_->addTrait(Derived::kId); }
+  void imbue() const { data_->addTrait(Derived::kId); }
 
   /**
-   * Applies this trait to the supplied specification.
+   * Applies this trait to the supplied TraitsData instance.
    *
-   * If the specification already has this trait, it is a no-op.
+   * If the instance already has this trait, it is a no-op.
    *
-   * @param specification The specification to apply the trait to.
+   * @param data The instance to apply the trait to.
    **/
-  static void imbueTo(const SpecificationPtr& specification) {
-    specification->addTrait(Derived::kId);
-  }
+  static void imbueTo(const TraitsDataPtr& data) { data->addTrait(Derived::kId); }
 
  protected:
   /**
-   * Get the underlying specification that this trait is wrapping.
+   * Get the underlying data that this trait is wrapping.
    *
-   * @return Wrapped Specification.
+   * @return Wrapped TraitsData.
    */
-  SpecificationPtr& specification() { return specification_; }
+  TraitsDataPtr& data() { return data_; }
 
   /**
-   * Get the underlying specification that this trait is wrapping.
+   * Get the underlying data that this trait is wrapping.
    *
-   * @return Wrapped Specification.
+   * @return Wrapped TraitsData.
    */
-  [[nodiscard]] const SpecificationPtr& specification() const { return specification_; }
+  [[nodiscard]] const TraitsDataPtr& data() const { return data_; }
 
   /**
    * Convenience typed accessor to properties in the underlying
-   * specification.
+   * data.
    *
    * @tparam T Type to extract from variant property.
    * @param[out] out Storage for value, if property is set.
    * @param traitId ID of trait to query.
    * @param propertyKey Key of property to query.
-   * @return Status of property in the specification.
+   * @return Status of property in the underlying data.
    */
   template <class T>
   [[nodiscard]] TraitPropertyStatus getTraitProperty(T* out, const TraitId& traitId,
                                                      const property::Key& propertyKey) const {
-    if (property::Value value; specification()->getTraitProperty(&value, traitId, propertyKey)) {
+    if (property::Value value; data()->getTraitProperty(&value, traitId, propertyKey)) {
       if (T* maybeOut = std::get_if<T>(&value)) {
         *out = *maybeOut;
         return TraitPropertyStatus::kFound;
@@ -165,7 +148,7 @@ struct TraitBase {
   }
 
  private:
-  SpecificationPtr specification_;
+  TraitsDataPtr data_;
 };
 }  // namespace trait
 }  // namespace OPENASSETIO_VERSION

@@ -163,7 +163,7 @@ def __auditObj(aud, obj):
 
     # Here to prevent cyclic dependencies
     # pylint: disable=import-outside-toplevel
-    from .. import Specification
+    from .. import SpecificationBase
     from .. import Context
 
     # Look inside sequence types / dicts
@@ -177,7 +177,7 @@ def __auditObj(aud, obj):
             __auditObj(aud, value)
         return
 
-    if isinstance(obj, Specification):
+    if isinstance(obj, SpecificationBase):
         # If its a spec, just add the spec class
         aud.addClass(obj, group="Specifications")
 

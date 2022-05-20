@@ -143,10 +143,12 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             caseFixtures = sharedFixtures.copy()
             caseFixtures.update(classFixtures.get(testCaseName, {}))
 
-            locale = ManagerTestHarnessLocale()
+            locale = ManagerTestHarnessLocale.create()
             locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
 
-            cases.append(testCaseClass(caseFixtures, self.__session, locale, testCaseName))
+            cases.append(
+                testCaseClass(caseFixtures, self.__session, locale.traitsData(),testCaseName)
+            )
 
         return self.suiteClass(cases)
 

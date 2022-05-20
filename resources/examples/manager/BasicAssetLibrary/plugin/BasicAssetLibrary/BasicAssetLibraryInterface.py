@@ -19,7 +19,7 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 
 import os
 
-from openassetio import constants, Specification
+from openassetio import constants, TraitsData
 from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
 from openassetio.managerAPI import ManagerInterface
 
@@ -115,7 +115,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref)
                 entity = bal.entity(entity_info, self.__library)
-                result = Specification()
+                result = TraitsData()
                 for trait in traitSet:
                     trait_data = entity.traits.get(trait)
                     if trait_data is not None:

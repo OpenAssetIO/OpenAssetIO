@@ -5,28 +5,29 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/specification/Specification.hpp>
+#include <openassetio/TraitsData.hpp>
 
-#include "../_openassetio.hpp"
+#include "_openassetio.hpp"
 
-void registerSpecification(const py::module& mod) {
-  using openassetio::specification::Specification;
+void registerTraitsData(const py::module& mod) {
+  using openassetio::TraitsData;
   namespace trait = openassetio::trait;
   namespace property = openassetio::trait::property;
   using MaybeValue = std::optional<property::Value>;
 
-  py::class_<Specification, Holder<Specification>>(mod, "Specification")
+  py::class_<TraitsData, Holder<TraitsData>>(mod, "TraitsData", py::is_final())
       .def(py::init())
-      .def(py::init<const Specification::TraitIds&>(), py::arg("traitIds"))
-      .def("traitIds", &Specification::traitIds)
-      .def("hasTrait", &Specification::hasTrait, py::arg("id"))
-      .def("addTrait", &Specification::addTrait)
-      .def("addTraits", &Specification::addTraits)
-      .def("setTraitProperty", &Specification::setTraitProperty, py::arg("id"),
+      .def(py::init<const TraitsData::TraitIds&>(), py::arg("traitIds"))
+      .def(py::init<const TraitsData&>())
+      .def("traitIds", &TraitsData::traitIds)
+      .def("hasTrait", &TraitsData::hasTrait, py::arg("id"))
+      .def("addTrait", &TraitsData::addTrait)
+      .def("addTraits", &TraitsData::addTraits)
+      .def("setTraitProperty", &TraitsData::setTraitProperty, py::arg("id"),
            py::arg("propertyKey"), py::arg("propertyValue").none(false))
       .def(
           "getTraitProperty",
-          [](const Specification& self, const trait::TraitId& traitId,
+          [](const TraitsData& self, const trait::TraitId& traitId,
              const property::Key& key) -> MaybeValue {
             if (property::Value out; self.getTraitProperty(&out, traitId, key)) {
               return out;

@@ -20,7 +20,7 @@ A single-class module, providing the Context class.
 
 # Import from the cmodule directly to avoid a cyclic dependency on
 # openassetio, which also hoists Context.
-from ._openassetio import specification # pylint: disable=import-error
+from ._openassetio import TraitsData # pylint: disable=import-error
 from .constants import kSupportedAttributeTypes
 
 
@@ -219,15 +219,15 @@ class Context(object):
 
     def __setLocale(self, locale):
         # pylint: disable=unused-private-member
-        if locale is not None and not isinstance(locale, specification.Specification):
+        if locale is not None and not isinstance(locale, TraitsData):
             raise ValueError(
                 "Locale must be an instance of %s (not %s)"
-                % (specification.Specification, type(locale)))
+                % (TraitsData, type(locale)))
         self.__locale = locale
 
     ## @property locale
     ##
-    ## In many situations, the Specification of the desired @ref entity
+    ## In many situations, the @ref trait_set of the desired @ref entity
     ## itself is not entirely sufficient information to realize many
     ## functions that a @ref manager wishes to implement. For example,
     ## when determining the final file path for an Image that is about
@@ -235,11 +235,11 @@ class Context(object):
     ## than a 'Write node' from a comp tree could result in different
     ## behavior.
     ##
-    ## The Locale uses a @fqref{specification::Specification}
-    ## "Specification" to describe in more detail, what specific part of
-    ## a @ref host is requesting an action. In the case of a file
-    ## browser for example, it may also include information such as
-    ## whether or not multi-selection is required.
+    ## The Locale uses a @fqref{TraitsData} "TraitsData" to describe in
+    ## more detail, what specific part of a @ref host is requesting an
+    ## action. In the case of a file browser for example, it may also
+    ## include information such as whether or not multi-selection is
+    ## required.
     locale = property(__getLocale, __setLocale)
 
     def __str__(self):

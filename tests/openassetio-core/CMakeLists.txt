@@ -1,0 +1,70 @@
+#-----------------------------------------------------------------------
+# C++ API test target
+
+add_executable(openassetio-core-cpp-test-exe)
+set_default_target_properties(openassetio-core-cpp-test-exe)
+
+# Add to the set of installable targets.
+install(
+    TARGETS openassetio-core-cpp-test-exe
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+)
+
+
+#-----------------------------------------------------------------------
+# Target dependencies
+
+target_sources(openassetio-core-cpp-test-exe
+    PRIVATE
+    main.cpp
+    trait/TraitBaseTest.cpp
+)
+
+target_link_libraries(
+    openassetio-core-cpp-test-exe
+    PRIVATE
+    # Test framework.
+    Catch2::Catch2
+    # Mocking framework.
+    trompeloeil::trompeloeil
+    # Lib under test.
+    openassetio-core
+)
+
+
+#-----------------------------------------------------------------------
+# Override RPATH to locate libs
+
+if (UNIX)
+    # Calculate relative path from install to lib directory.
+    file(RELATIVE_PATH
+        install_dir_rel_to_lib
+        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
+        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+
+    if (APPLE)
+        set(rpath "@executable_path/${install_dir_rel_to_lib}")
+    else ()
+        set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
+    endif ()
+
+    set_target_properties(openassetio-core-cpp-test-exe PROPERTIES INSTALL_RPATH "${rpath}")
+endif ()
+
+
+#-----------------------------------------------------------------------
+# Create CTest target
+
+add_custom_target(
+    openassetio-core-cpp-test
+    COMMAND
+    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/$<TARGET_FILE_NAME:openassetio-core-cpp-test-exe>
+)
+add_dependencies(openassetio-core-cpp-test openassetio-install)
+
+add_test(
+    NAME openassetio-core-cpp
+    COMMAND
+    ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target openassetio-core-cpp-test
+)
+

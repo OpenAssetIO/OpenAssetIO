@@ -70,12 +70,10 @@ API documentation
 The documentation for OpenAssetIO can be found here:
    https://openassetio.github.io/OpenAssetIO.
 """
-# Temporarily hoist the C++ class into the top level name space,
-# until this is done in the module itself.
 # TODO(DF): @pylint
-from ._openassetio import specification  # pylint: disable=import-error
-Specification = specification.Specification
+from ._openassetio import TraitsData  # pylint: disable=import-error
 
 # pylint: disable=wrong-import-position
 from .Context import Context
+from .SpecificationBase import SpecificationBase
 from .Trait import Trait

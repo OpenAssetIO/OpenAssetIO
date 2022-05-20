@@ -4,8 +4,9 @@
 #include <random>
 #include <string>
 #include <algorithm>
+#include <unordered_map>
 
-#include <openassetio/specification/Specification.hpp>
+#include <openassetio/TraitsData.hpp>
 #include <openassetio/trait/TraitBase.hpp>
 using namespace openassetio;
 
@@ -29,12 +30,12 @@ auto MeasureRuntimeMs(std::function<void(void)> func)
 /// Enlarge the path so we likely exceed the small string optimization length
 const std::string kSubDirectory = "0123456789_0123456789_0123456789/";
 
-std::string getEntityReference(size_t i) 
+std::string getEntityReference(size_t i)
 {
   return std::string("ams://" + kSubDirectory + "myasset_") + std::to_string(i);
 }
 
-std::string getPrimaryString(size_t i) 
+std::string getPrimaryString(size_t i)
 {
   return std::string("file://" + kSubDirectory + "myasset_") + std::to_string(i);
 }
@@ -47,12 +48,12 @@ struct BlobTrait : trait::TraitBase<BlobTrait> {
 
   using TraitBase<BlobTrait>::TraitBase;
 
-  [[nodiscard]] trait::TraitPropertyStatus getUrl(trait::property::Str* out) const {
+  [[nodiscard]] trait::TraitPropertyStatus getUrl(Str* out) const {
     return getTraitProperty(out, kId, kUrl);
   }
 
-  void setUrl(trait::property::Str url) {
-    specification()->setTraitProperty(kId, kUrl, std::move(url));
+  void setUrl(Str url) {
+    data()->setTraitProperty(kId, kUrl, std::move(url));
   }
 };
 
@@ -92,21 +93,21 @@ class NewManagerInterface
 {
 public:
   NewManagerInterface(const std::unordered_map<std::string, std::string>& refToPrimStrs) : refToPrimStrs{refToPrimStrs} {}
-  std::shared_ptr<specification::Specification> resolve(const std::string& ref, const specification::Specification::TraitIds& traitIds);
+  std::shared_ptr<TraitsData> resolve(const std::string& ref, const TraitsData::TraitIds& traitIds);
 
 private:
   const std::unordered_map<std::string, std::string>& refToPrimStrs;
 };
 
-std::shared_ptr<specification::Specification> NewManagerInterface::resolve(const std::string& ref, const specification::Specification::TraitIds& traitIds)
+std::shared_ptr<TraitsData> NewManagerInterface::resolve(const std::string& ref, const TraitsData::TraitIds& traitIds)
 {
-  specification::Specification::TraitIds populatedTraits;
+  TraitsData::TraitIds populatedTraits;
   bool getPath = false;
   if(std::find(traitIds.cbegin(), traitIds.cend(), BlobTrait::kId) != traitIds.cend()) {
     populatedTraits.insert(BlobTrait::kId);
     getPath = true;
   }
-  auto result = std::make_shared<specification::Specification>(populatedTraits);
+  auto result = std::make_shared<TraitsData>(populatedTraits);
   if(getPath) {
     BlobTrait btrait(result);
     btrait.setUrl(refToPrimStrs.at(ref));
@@ -124,7 +125,7 @@ auto benchmarkNewManager(const std::unordered_map<std::string, std::string>& ref
       const auto& ref = refs[i];
       const auto spec = newMgr.resolve(ref, {BlobTrait::kId});
       BlobTrait btrait(spec);
-      trait::property::Str url;
+      Str url;
       const auto success = btrait.getUrl(&url);
     }
   };

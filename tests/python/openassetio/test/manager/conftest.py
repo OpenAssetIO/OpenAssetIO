@@ -26,7 +26,7 @@ from unittest import mock
 import pytest
 
 from openassetio import hostAPI, log
-from openassetio import Specification
+from openassetio import TraitsData
 
 
 @pytest.fixture
@@ -80,4 +80,4 @@ def a_fixture_dict():
 
 @pytest.fixture
 def a_locale():
-    return Specification(set())
+    return TraitsData(set())

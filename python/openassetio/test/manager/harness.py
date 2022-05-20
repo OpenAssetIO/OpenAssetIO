@@ -178,8 +178,8 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param session hostAPI.Session.Session The OpenAssetIO
         @ref session to be used by test cases.
 
-        @param locale @fqref{specification::Specification} "Specification"
-        The @ref locale to use by test cases.
+        @param locale @fqref{TraitsData} "TraitsData" The @ref locale to
+        use by test cases.
 
         @param args `List[Any]` Additional args passed along to the
         base class.

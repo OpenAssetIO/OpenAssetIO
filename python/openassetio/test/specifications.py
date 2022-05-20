@@ -18,7 +18,7 @@
 Specifications for use within openassetio test harnesses.
 """
 
-from openassetio import Specification, Trait
+from openassetio import SpecificationBase, Trait
 
 
 # pylint: disable=missing-function-docstring
@@ -36,16 +36,16 @@ class TestTrait(Trait):
     __kSuiteName = "suite"
 
     def setCaseName(self, name):
-        self._specification.setTraitProperty(self.kId, self.__kCaseName, name)
+        self._data.setTraitProperty(self.kId, self.__kCaseName, name)
 
     def getCaseName(self):
-        return self._specification.getTraitProperty(self.kId, self.__kCaseName)
+        return self._data.getTraitProperty(self.kId, self.__kCaseName)
 
     def setSuiteName(self, name):
-        self._specification.setTraitProperty(self.kId, self.__kSuiteName, name)
+        self._data.setTraitProperty(self.kId, self.__kSuiteName, name)
 
     def getSuiteName(self):
-        return self._specification.getTraitProperty(self.kId, self.__kSuiteName)
+        return self._data.getTraitProperty(self.kId, self.__kSuiteName)
 
 
 class HarnessTrait(Trait):
@@ -58,7 +58,7 @@ class HarnessTrait(Trait):
     kId = "harness"
 
 
-class TestHarnessLocale(Specification):
+class TestHarnessLocale(SpecificationBase):
     """
     A locale for test cases run as part of one of the API supplied
     test harnesses.
@@ -66,14 +66,8 @@ class TestHarnessLocale(Specification):
 
     kTraitIds = {TestTrait.kId, HarnessTrait.kId}
 
-    ## TODO(TC): Add a python base Specification class once
-    ## https://github.com/TheFoundryVisionmongers/OpenAssetIO/issues/348
-    ## has been completed.
-    def __init__(self):
-        super().__init__(self.kTraitIds)
-
     def testTrait(self):
-        return TestTrait(self)
+        return TestTrait(self._data)
 
     def harnessTrait(self):
-        return HarnessTrait(self)
+        return HarnessTrait(self._data)
