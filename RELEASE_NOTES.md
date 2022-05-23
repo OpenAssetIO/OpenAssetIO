@@ -12,6 +12,10 @@ v1.0.0-alpha.X
   their properties.
   [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348)
 
+- Renamed the `SpecificationBase.kTraitIds` member variable to
+  `kTraitSet` to better align to the concepts of the API.
+  [#340](https://github.com/OpenAssetIO/OpenAssetIO/issues/340)
+
 
 ### Improvements
 

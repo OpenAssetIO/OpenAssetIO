@@ -64,7 +64,7 @@ class TestHarnessLocale(SpecificationBase):
     test harnesses.
     """
 
-    kTraitIds = {TestTrait.kId, HarnessTrait.kId}
+    kTraitSet = {TestTrait.kId, HarnessTrait.kId}
 
     def testTrait(self):
         return TestTrait(self._data)
