@@ -32,4 +32,4 @@ conan profile update settings.compiler.libcxx=libstdc++ default
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
 conan install --install-folder "$CONAN_USER_HOME" --build=missing \
-    "$GITHUB_WORKSPACE/resources/build"
+    "$WORKSPACE/resources/build"
