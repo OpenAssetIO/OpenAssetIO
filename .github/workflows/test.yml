@@ -80,15 +80,13 @@ jobs:
     - name: Build, install and test (Unix)
       if: runner.os != 'Windows'
       run: |
-        cd build
-        ctest -VV
+        ctest -VV --test-dir build
 
     - name: Build, install and test (Windows)
       if: runner.os == 'Windows'
       run: |
-        cd build
         call "${{ matrix.config.vcvars }}"
-        ctest -VV
+        ctest -VV --test-dir build
       shell: cmd
 
   docs:
