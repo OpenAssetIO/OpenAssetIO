@@ -22,6 +22,13 @@ v1.0.0-alpha.X
   [#392](https://github.com/OpenAssetIO/OpenAssetIO/issues/392)
 
 
+### Bug fixes
+
+- The CMake `clean` target no longer breaks subsequent builds, including
+  offline builds.
+  [#311](https://github.com/OpenAssetIO/OpenAssetIO/issues/311)
+
+
 v1.0.0-alpha.1
 --------------
 
