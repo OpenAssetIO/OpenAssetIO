@@ -7,12 +7,22 @@ We assume the following system packages are installed
 - CMake 3.21+
 - GCC 9.3
 
+For linting and other build verification options, we assume the
+following packages are installed:
+
+- LLVM 12.0.0
+
 ## Library dependencies
 
 Binary builds additionally require the following packages to be
 available to the CMake build system.
 - Python 3.9 (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.6.1+
+
+Building and running tests requires the following additional packages:
+
+- catch2 2.13
+- trompeloeil 42
 
 We use the CMake build system for compiling the C++ core library and
 its Python bindings. As such, the library dependencies listed above must
