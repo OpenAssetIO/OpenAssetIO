@@ -282,7 +282,7 @@ class Test_resolve(FixtureAugmentedTestCase):
         results = self._manager.resolve(references, traits, context)
         self.assertEqual(len(results), len(references))
         for result in results:
-            self.assertEqual(result.traitIds(), expected_traits)
+            self.assertEqual(result.traitSet(), expected_traits)
 
     def __testResolutionError(self, fixture_name, access):
         reference = self.requireFixture(fixture_name, skipTestIfMissing=True)

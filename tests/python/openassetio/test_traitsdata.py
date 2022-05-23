@@ -35,17 +35,17 @@ class Test_TraitsData_Copy_Constructor:
         assert not data_a.hasTrait("b")
 
 
-class Test_TraitsData_traitIds:
+class Test_TraitsData_traitSet:
     ## TODO(TC): Asset that result is a set, and not a reference to
     ## any internal structures.
     def test_when_has_no_traits_returns_empty_list(self):
         empty_data = TraitsData()
-        assert empty_data.traitIds() == set()
+        assert empty_data.traitSet() == set()
 
     def test_when_has_traits_returns_expected_trait_ids(self):
         expected_ids = {"a", "b", "🐠🐟🐠🐟"}
         populated_data = TraitsData(expected_ids)
-        assert populated_data.traitIds() == expected_ids
+        assert populated_data.traitSet() == expected_ids
 
 
 class Test_TraitsData_addTrait:
@@ -53,19 +53,19 @@ class Test_TraitsData_addTrait:
         data = TraitsData()
         trait_name = "a 🐍"
         data.addTrait(trait_name)
-        assert data.traitIds() == {trait_name}
+        assert data.traitSet() == {trait_name}
 
     def test_when_trait_is_new_then_existing_traits_are_unaffected(self, a_traitsdata):
-        trait_set = set(a_traitsdata.traitIds())
+        trait_set = set(a_traitsdata.traitSet())
         new_trait = "another trait"
         a_traitsdata.addTrait(new_trait)
         trait_set.add(new_trait)
-        assert a_traitsdata.traitIds() == trait_set
+        assert a_traitsdata.traitSet() == trait_set
 
     def test_when_trait_already_exists_then_is_noop(self, a_traitsdata):
-        old_traits = a_traitsdata.traitIds()
-        a_traitsdata.addTrait(next(iter(a_traitsdata.traitIds())))
-        assert a_traitsdata.traitIds() == old_traits
+        old_traits = a_traitsdata.traitSet()
+        a_traitsdata.addTrait(next(iter(a_traitsdata.traitSet())))
+        assert a_traitsdata.traitSet() == old_traits
 
 
 class Test_TraitsData_addTraits:
@@ -73,20 +73,20 @@ class Test_TraitsData_addTraits:
         data = TraitsData()
         trait_set = {"🐌", "🐞", "🐜"}
         data.addTraits(trait_set)
-        assert data.traitIds() == trait_set
+        assert data.traitSet() == trait_set
 
     def test_when_traits_are_new_then_existing_traits_are_unaffected(self, a_traitsdata):
-        trait_set = set(a_traitsdata.traitIds())
+        trait_set = set(a_traitsdata.traitSet())
         new_traits = {"🐌", "🐞", "🐜"}
         a_traitsdata.addTraits(new_traits)
         expected_traits = trait_set.union(new_traits)
-        assert a_traitsdata.traitIds() == expected_traits
+        assert a_traitsdata.traitSet() == expected_traits
 
     def test_when_trait_ids_already_exist_then_is_noop(self, a_traitsdata):
-        traits = a_traitsdata.traitIds()
+        traits = a_traitsdata.traitSet()
         old_traits = traits
         a_traitsdata.addTraits(traits)
-        assert a_traitsdata.traitIds() == old_traits
+        assert a_traitsdata.traitSet() == old_traits
 
 
 class Test_TraitsData_hasTrait:
@@ -118,7 +118,7 @@ class Test_TraitsData_getsetTraitProperty:
     def test_when_trait_is_not_found_then_set_adds_trait(self, a_traitsdata):
         new_trait_id, a_property, a_value = "a_new_trait", "a string", "string"
         a_traitsdata.setTraitProperty(new_trait_id, a_property, a_value)
-        assert new_trait_id in a_traitsdata.traitIds()
+        assert new_trait_id in a_traitsdata.traitSet()
         assert a_traitsdata.getTraitProperty(new_trait_id, a_property) == a_value
 
     def test_when_trait_is_not_found_then_get_raises_IndexError(self, a_traitsdata):

@@ -17,9 +17,9 @@ void registerTraitsData(const py::module& mod) {
 
   py::class_<TraitsData, Holder<TraitsData>>(mod, "TraitsData", py::is_final())
       .def(py::init())
-      .def(py::init<const TraitsData::TraitSet&>(), py::arg("traitIds"))
+      .def(py::init<const TraitsData::TraitSet&>(), py::arg("traitSet"))
       .def(py::init<const TraitsData&>())
-      .def("traitIds", &TraitsData::traitIds)
+      .def("traitSet", &TraitsData::traitSet)
       .def("hasTrait", &TraitsData::hasTrait, py::arg("id"))
       .def("addTrait", &TraitsData::addTrait)
       .def("addTraits", &TraitsData::addTraits)

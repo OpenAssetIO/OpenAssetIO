@@ -120,7 +120,7 @@ class Test_executeSuite_fixtures_with_no_values(FixtureAugmentedTestCase):
 class Test_executeSuite_locale(FixtureAugmentedTestCase):
 
     def test_when_test_function_is_run_then_locale_is_set(self):
-        self.assertSetEqual(self._locale.traitIds(), ManagerTestHarnessLocale.kTraitSet)
+        self.assertSetEqual(self._locale.traitSet(), ManagerTestHarnessLocale.kTraitSet)
         self.assertEqual(
             ManagerTestHarnessLocale(self._locale).testTrait().getCaseName(),
             'Test_executeSuite_locale'

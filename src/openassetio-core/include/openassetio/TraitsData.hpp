@@ -79,9 +79,9 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Construct such that this instance has the given set of traits.
    *
-   * @param traitIds The consituent traits IDs.
+   * @param traitSet The consituent traits IDs.
    */
-  explicit TraitsData(const TraitSet& traitIds);
+  explicit TraitsData(const TraitSet& traitSet);
 
   /**
    * Construct such that this instance is a deep copy of the other.
@@ -98,7 +98,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Return the trait IDs held by the instance.
    */
-  [[nodiscard]] TraitSet traitIds() const;
+  [[nodiscard]] TraitSet traitSet() const;
 
   /**
    * Return whether this instance has the given trait.
@@ -123,9 +123,9 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    * If this instance already has any of the supplied traits, they
    * are skipped.
    *
-   * @param traitIds IDs of the traits to add.
+   * @param traitSet A trait set with the traits to add.
    */
-  void addTraits(const TraitSet& traitIds);
+  void addTraits(const TraitSet& traitSet);
 
   /**
    * Get the value of a given trait property, if the property has
