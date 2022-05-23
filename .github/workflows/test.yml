@@ -13,6 +13,7 @@ jobs:
     name: ${{ matrix.config.os }}
     runs-on: ${{ matrix.config.os }}
     strategy:
+      fail-fast: false
       matrix:
         # We can't properly align to the VFX Reference Platform as this
         # requires glibc 2.17, which is older than any of the available
