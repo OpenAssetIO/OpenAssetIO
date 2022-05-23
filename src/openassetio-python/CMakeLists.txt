@@ -27,12 +27,12 @@ set_target_properties(openassetio-python
     SOVERSION ""
     VERSION "")
 
-if(WIN32)
+if (WIN32)
     set_target_properties(openassetio-python PROPERTIES SUFFIX ".pyd")
     install(FILES $<TARGET_PDB_FILE:openassetio-python>
         CONFIGURATIONS "Debug" "RelWithDebInfo"
         DESTINATION ${install_subdir})
-endif()
+endif ()
 
 #-----------------------------------------------------------------------
 # Target dependencies
@@ -55,7 +55,7 @@ target_link_libraries(openassetio-python
     openassetio-core
     # pybind, including its handy transitive Python-specific properties.
     pybind11::module pybind11::windows_extras
-)
+    )
 
 #-----------------------------------------------------------------------
 # Override build tree to look like install tree.
@@ -86,80 +86,97 @@ if (UNIX)
     set_target_properties(openassetio-python PROPERTIES INSTALL_RPATH "${rpath}")
 endif ()
 
+
 #-----------------------------------------------------------------------
 # Create deployment targets
 
 if (Python_Interpreter_FOUND)
+    # Get path to Python executable in the created venv.
+    if (WIN32)
+        set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/Scripts/python.exe")
+    else ()
+        set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/python")
+    endif ()
 
-    # set up values that differ between Windows and Unixes
-    if(WIN32)
-      set(venv_python_dir "${CMAKE_INSTALL_PREFIX}/Scripts")
-      set(installed_pip "${venv_python_dir}/pip.exe")
-    else()
-      set(venv_python_dir "${CMAKE_INSTALL_PREFIX}/bin")
-      set(installed_pip "${venv_python_dir}/pip")
-    endif()
-
-    # Command to create a Python environment in the install directory.
-    add_custom_command(
-        OUTPUT
-        "${installed_pip}"
+    # Download core setuptools dependencies so we don't always need an
+    # online connection to local install OpenAssetIO. Need to cache the
+    # build tools explicitly due to build isolation, see:
+    # https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/#build-process
+    set(python_deps_dir "${CMAKE_BINARY_DIR}/dependencies/python")
+    add_custom_target(
+        openassetio-python-download-core-deps
+        COMMAND ${CMAKE_COMMAND} -E echo -- Downloading core Python libraries
         COMMAND
-        "${Python_EXECUTABLE}" -m venv "${CMAKE_INSTALL_PREFIX}"
-        COMMAND
-        ${venv_python_dir}/python -m pip install --upgrade pip
+        ${Python_EXECUTABLE} -m pip download
+        --retries 0 --timeout 1 --find-links ${python_deps_dir}
+        --destination-directory ${python_deps_dir}
+        setuptools==62.3.2 wheel==0.37.1 pip==22.1
     )
-
-    # Convenience target to wrap the empty venv command so it can be
-    # executed in isolation.
+    # Create a Python environment in the install directory. If the venv
+    # already exists then this is a no-op.
     add_custom_target(
         openassetio-python-venv
-        DEPENDS "${installed_pip}"
+        COMMAND ${CMAKE_COMMAND} -E echo -- Creating Python environment in ${CMAKE_INSTALL_PREFIX}
+        COMMAND ${Python_EXECUTABLE} -m venv ${CMAKE_INSTALL_PREFIX}
     )
-
-    # One-time step to download project-specific dependencies
-    # so we don't always need an online connection to install
-    set(deps_dir "${CMAKE_BINARY_DIR}/dependencies")
-    set(python_deps_dir "${deps_dir}/python")
-    set(project_deps_dir "${python_deps_dir}/project")
-    set(project_deps_downloaded "${deps_dir}/projDepsDwnld.out")
-    add_custom_command(
-        OUTPUT "${project_deps_downloaded}"
-        # Need to cache the build tools explicitely due to build isolation, see
-        # https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/#build-process
+    # Upgrade pip to get modern packaging behaviour (e.g. build
+    # isolation).
+    add_custom_target(
+        openassetio-python-venv-pip
+        COMMAND ${CMAKE_COMMAND} -E echo -- Upgrading pip in Python environment
         COMMAND
-        "${installed_pip}" wheel --wheel-dir ${project_deps_dir} setuptools wheel
-        COMMAND
-        cmake -E touch "${project_deps_downloaded}"
-        DEPENDS "${installed_pip}"
+        ${venv_python_exe} -m pip install --no-index --find-links ${python_deps_dir} --upgrade pip
     )
+    add_dependencies(openassetio-python-venv-pip
+        # Ensure Python environment has been created.
+        openassetio-python-venv)
 
-    # Target to install the pure Python component of the project.
+    # Install OpenAssetIO into the venv.
     add_custom_target(
         openassetio-python-py-install
+        COMMAND ${CMAKE_COMMAND} -E echo -- Installing OpenAssetIO
         COMMAND
-        "${installed_pip}" "install" "--no-index"
-            "--find-links" "${project_deps_dir}"
-            "${PROJECT_SOURCE_DIR}"
-        DEPENDS "${project_deps_downloaded}"
+        ${venv_python_exe} -m pip install
+        --no-index --find-links ${python_deps_dir}
+        ${PROJECT_SOURCE_DIR}
     )
-    # Ensure pre-requisite C++ component has been installed first.
-    add_dependencies(openassetio-python-py-install openassetio-install)
+    add_dependencies(openassetio-python-py-install
+        # Ensure C++ component has been installed.
+        openassetio-install
+        # Ensure venv pip is available and up-to-date.
+        openassetio-python-venv-pip
+        # Ensure dependencies have been downloaded (required for
+        # setuptools build isolation).
+        openassetio-python-download-core-deps)
 
     if (OPENASSETIO_ENABLE_TESTS)
-        # One-time step to download test-specific dependencies
-        # so we don't always need an online connection for running ctest
-        set(test_deps_dir "${python_deps_dir}/tests")
-        set(test_deps_downloaded "${deps_dir}/testDepsDwnld.out")
-        add_custom_command(
-            OUTPUT "${test_deps_downloaded}"
+        # Download test-specific dependencies so we don't always need an
+        # online connection for running ctest
+        add_custom_target(
+            openassetio-python-download-test-deps
+            COMMAND ${CMAKE_COMMAND} -E echo -- Downloading Python test libraries
             COMMAND
-            "${installed_pip}" "download" "--destination-directory" "${test_deps_dir}"
-                "-r" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
-            COMMAND
-            cmake -E touch "${test_deps_downloaded}"
-            DEPENDS "${installed_pip}" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+            ${Python_EXECUTABLE} -m pip download
+            --retries 0 --timeout 1
+            --find-links ${python_deps_dir}
+            --destination-directory ${python_deps_dir}
+            --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
         )
+
+        # Install test-specific dependencies (e.g. pytest).
+        add_custom_target(
+            openassetio-python-install-test-deps
+            COMMAND cmake -E echo -- Installing Python test dependencies
+            COMMAND
+            ${venv_python_exe} -m pip install
+            --no-index --find-links ${python_deps_dir}
+            --requirement ${PROJECT_SOURCE_DIR}/tests/python/requirements.txt
+        )
+        add_dependencies(openassetio-python-install-test-deps
+            # Ensure venv pip is available and up-to-date.
+            openassetio-python-venv-pip
+            # Ensure dependencies have been downloaded
+            openassetio-python-download-test-deps)
 
         # Add ASan-specific environment variables to prepend to the `pytest`
         # invocation.
@@ -189,21 +206,7 @@ if (Python_Interpreter_FOUND)
             # rather than the optimized `pymalloc`, so that ASan can
             # properly count memory (de)allocations.
             set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${openassetio_path})
-
         endif ()
-
-
-        # Command to install test-specific dependencies (e.g. pytest).
-        add_custom_command(
-            OUTPUT
-            "${venv_python_dir}/pytest"
-            COMMAND
-            "${installed_pip}" "install" "--no-index"
-                "--find-links" "${test_deps_dir}"
-                "-r" "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
-            DEPENDS "${test_deps_downloaded}"
-        )
-
 
         # Target to run pytest in the install directory, ensuring the lib has
         # been built and installed first. Add `-s` to ensure no output is
@@ -211,12 +214,13 @@ if (Python_Interpreter_FOUND)
         # for debugging regardless).
         add_custom_target(
             openassetio-python-pytest
-            COMMAND ${pytest_env} "${venv_python_dir}/pytest" -s tests/python resources
+            COMMAND cmake -E echo -- Running pytest
+            COMMAND ${pytest_env} ${venv_python_exe} -m pytest -s tests/python resources
             WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-            DEPENDS "${venv_python_dir}/pytest"
             USES_TERMINAL
         )
-        add_dependencies(openassetio-python-pytest openassetio-python-py-install)
+        add_dependencies(openassetio-python-pytest
+            openassetio-python-install-test-deps openassetio-python-py-install)
 
         # Add a CTest target.
         add_test(
@@ -226,5 +230,4 @@ if (Python_Interpreter_FOUND)
         )
 
     endif ()
-
 endif ()
