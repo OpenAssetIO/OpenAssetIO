@@ -28,6 +28,9 @@ v1.0.0-alpha.X
 - Added `resources/build/requirements.txt` covering build toolchain
   requirements.
 
+- Bumped conan version installed by bootstrap scripts to `1.48.1`
+  [#401](https://github.com/OpenAssetIO/OpenAssetIO/issues/401)
+
 
 ### Bug fixes
 
