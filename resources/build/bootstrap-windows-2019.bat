@@ -1,6 +1,6 @@
 @echo off
 :: Install additional build tools.
-pip3 install conan==1.45.0 cmake==3.21 ninja==1.10.2.3 cpplint==1.5.5
+pip3 install -r "%WORKSPACE%\resources\build\requirements.txt"
 set CONAN_USER_HOME=%USERPROFILE%\conan
 :: Create default conan profile so we can configure it before install.
 :: Use --force so that if it already exists we don't error out.

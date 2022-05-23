@@ -25,6 +25,9 @@ v1.0.0-alpha.X
   use the `$WORKSPACE` env var instead of `$GITHUB_WORKSPACE` to
   determine the root of a checkout when configuring the environment.
 
+- Added `resources/build/requirements.txt` covering build toolchain
+  requirements.
+
 
 ### Bug fixes
 

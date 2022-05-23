@@ -1,0 +1,4 @@
+conan==1.45.0
+cmake==3.21
+ninja==1.10.2.3
+cpplint==1.5.5

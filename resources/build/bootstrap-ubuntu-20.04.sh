@@ -18,7 +18,7 @@ sudo apt-get install -y  --no-install-recommends libfontenc-dev libx11-xcb-dev l
     libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev
 
 # Install additional build tools.
-sudo pip3 install conan==1.45.0 cmake==3.21 ninja==1.10.2.3 cpplint==1.5.5
+sudo pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
 # Use explicit predictable conan root path, to be used for both packages
 # and conan CMake toolchain config.
 export CONAN_USER_HOME="$HOME/conan"
