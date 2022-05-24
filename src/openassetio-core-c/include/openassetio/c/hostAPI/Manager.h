@@ -19,7 +19,19 @@ extern "C" {
  * @{
  */
 
-// Symbol namespacing.
+/**
+ * @defgroup oa_hostAPI_Manager oa_hostAPI_Manager
+ *
+ * C API for the \fqref{hostAPI::Manager} "hostAPI::Manager C++ type".
+ *
+ * @{
+ */
+
+/**
+ * @defgroup oa_hostAPI_Manager_aliases Aliases
+ *
+ * @{
+ */
 #define oa_hostAPI_Manager_t OPENASSETIO_NS(hostAPI_Manager_t)
 #define oa_hostAPI_Manager_h OPENASSETIO_NS(hostAPI_Manager_h)
 #define oa_hostAPI_Manager_ctor OPENASSETIO_NS(hostAPI_Manager_ctor)
@@ -27,6 +39,9 @@ extern "C" {
 #define oa_hostAPI_Manager_identifier OPENASSETIO_NS(hostAPI_Manager_identifier)
 #define oa_hostAPI_Manager_displayName OPENASSETIO_NS(hostAPI_Manager_displayName)
 #define oa_hostAPI_Manager_info OPENASSETIO_NS(hostAPI_Manager_info)
+
+/// @}
+// oa_hostAPI_Manager_aliases
 
 /**
  * Opaque handle type representing a \fqref{hostAPI::Manager} "Manager".
@@ -119,9 +134,10 @@ OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_info(oa_StringView* er
                                                                oa_InfoDictionary_h out,
                                                                oa_hostAPI_Manager_h handle);
 
-/**
- * @}
- */
+/// @}
+// oa_hostAPI_Manager
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif

@@ -21,14 +21,18 @@ extern "C" {
  */
 
 /**
- * @defgroup CInfoDictionary InfoDictionary
+ * @defgroup oa_InfoDictionary oa_InfoDictionary
  *
  * C API for the \fqref{InfoDictionary} "InfoDictionary C++ type".
  *
  * @{
  */
 
-// Symbol namespacing.
+/**
+ * @defgroup oa_InfoDictionary_aliases Aliases
+ *
+ * @{
+ */
 #define oa_InfoDictionary_t OPENASSETIO_NS(InfoDictionary_t)
 #define oa_InfoDictionary_h OPENASSETIO_NS(InfoDictionary_h)
 #define oa_InfoDictionary_ValueType_kBool OPENASSETIO_NS(InfoDictionary_ValueType_kBool)
@@ -48,6 +52,9 @@ extern "C" {
 #define oa_InfoDictionary_setInt OPENASSETIO_NS(InfoDictionary_setInt)
 #define oa_InfoDictionary_setFloat OPENASSETIO_NS(InfoDictionary_setFloat)
 #define oa_InfoDictionary_setStr OPENASSETIO_NS(InfoDictionary_setStr)
+
+/// @}
+// oa_InfoDictionary_aliases
 
 /**
  * Opaque handle type representing a @fqref{InfoDictionary}
@@ -267,7 +274,7 @@ OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView* e
 /// @}
 // Mutators
 /// @}
-// CInfoDictionary
+// oa_InfoDictionary
 /// @}
 // CAPI
 #ifdef __cplusplus

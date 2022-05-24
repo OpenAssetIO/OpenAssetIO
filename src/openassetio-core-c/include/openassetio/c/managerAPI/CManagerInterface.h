@@ -15,10 +15,26 @@ extern "C" {
  * @{
  */
 
-// Symbol namespacing.
+/**
+ * @defgroup oa_managerAPI_CManagerInterface oa_managerAPI_CManagerInterface
+ *
+ * C API that C plugins must implement to satisfy the
+ * \fqref{managerAPI::ManagerInterface} "ManagerInterface" contract.
+ *
+ * @{
+ */
+
+/**
+ * @defgroup oa_managerAPI_CManagerInterface_aliases Aliases
+ *
+ * @{
+ */
 #define oa_managerAPI_CManagerInterface_t OPENASSETIO_NS(managerAPI_CManagerInterface_t)
 #define oa_managerAPI_CManagerInterface_h OPENASSETIO_NS(managerAPI_CManagerInterface_h)
 #define oa_managerAPI_CManagerInterface_s OPENASSETIO_NS(managerAPI_CManagerInterface_s)
+
+/// @}
+// oa_managerAPI_CManagerInterface_aliases
 
 /**
  * Opaque handle type provided by @ref manager plugins that provide
@@ -118,9 +134,10 @@ typedef struct {
                        oa_managerAPI_CManagerInterface_h handle);
 } oa_managerAPI_CManagerInterface_s;
 
-/**
- * @}
- */
+/// @}
+// oa_managerAPI_CManagerInterface
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif

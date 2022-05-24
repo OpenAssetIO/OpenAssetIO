@@ -14,9 +14,24 @@ extern "C" {
  * @{
  */
 
-// Symbol namespacing.
+/**
+ * @defgroup oa_StringView oa_StringView
+ *
+ * C API for views on character buffers.
+ *
+ * @{
+ */
+
+/**
+ * @defgroup oa_StringView_aliases Aliases
+ *
+ * @{
+ */
 #define oa_ConstStringView OPENASSETIO_NS(ConstStringView)
 #define oa_StringView OPENASSETIO_NS(StringView)
+
+/// @}
+// oa_StringView_aliases
 
 /**
  * Immutable string view struct.
@@ -107,9 +122,10 @@ typedef struct {
   size_t size;
 } oa_StringView;
 
-/**
- * @}
- */
+/// @}
+// oa_StringView
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif
