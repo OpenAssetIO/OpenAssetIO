@@ -26,8 +26,8 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
    * @param suite Function pointer suite to call from within member
    * functions.
    */
-  CManagerInterfaceAdapter(OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle,
-                           OPENASSETIO_NS(managerAPI_CManagerInterface_s) suite);
+  CManagerInterfaceAdapter(oa_managerAPI_CManagerInterface_h handle,
+                           oa_managerAPI_CManagerInterface_s suite);
 
   /// Destructor that calls the C suite's `dtor` function.
   ~CManagerInterfaceAdapter() override;
@@ -43,9 +43,9 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
-  OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle_;
+  oa_managerAPI_CManagerInterface_h handle_;
   /// Suite of C API function pointers to delegate calls to.
-  OPENASSETIO_NS(managerAPI_CManagerInterface_s) suite_;
+  oa_managerAPI_CManagerInterface_s suite_;
 };
 
 }  // namespace managerAPI

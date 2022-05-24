@@ -16,33 +16,32 @@
 #include <openassetio/typedefs.hpp>
 
 /// Comparison operator to allow CHECKing two `StringView`s are equal.
-inline bool operator==(const OPENASSETIO_NS(StringView) & lhs,
-                       const OPENASSETIO_NS(StringView) & rhs) {
+inline bool operator==(const oa_StringView& lhs, const oa_StringView& rhs) {
   return lhs.size == rhs.size && lhs.capacity == rhs.capacity && lhs.data == rhs.data;
 }
 
 /// Comparison operator to allow CHECKing if a `StringView` and a
 /// string-like container are equal.
 template <typename Str>
-inline bool operator==(const OPENASSETIO_NS(StringView) & lhs, const Str& rhs) {
+inline bool operator==(const oa_StringView& lhs, const Str& rhs) {
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 
 /// Comparison operator to allow CHECKing if a `ConstStringView` and a
 /// string-like container are equal.
 template <typename Str>
-inline bool operator==(const OPENASSETIO_NS(ConstStringView) & lhs, const Str& rhs) {
+inline bool operator==(const oa_ConstStringView& lhs, const Str& rhs) {
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 
 /// Support printing StringView in case assertions fail.
-inline std::ostream& operator<<(std::ostream& os, const OPENASSETIO_NS(StringView) & rhs) {
+inline std::ostream& operator<<(std::ostream& os, const oa_StringView& rhs) {
   os << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
   return os;
 }
 
 /// Support printing ConstStringView in case assertions fail.
-inline std::ostream& operator<<(std::ostream& os, const OPENASSETIO_NS(ConstStringView) & rhs) {
+inline std::ostream& operator<<(std::ostream& os, const oa_ConstStringView& rhs) {
   os << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
   return os;
 }

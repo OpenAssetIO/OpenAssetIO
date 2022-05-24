@@ -13,7 +13,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 namespace handles::managerAPI {
 using SharedManagerInterface = Converter<openassetio::managerAPI::ManagerInterfacePtr,
-                                         OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)>;
+                                         oa_managerAPI_SharedManagerInterface_h>;
 }
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

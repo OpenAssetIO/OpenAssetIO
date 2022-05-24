@@ -20,10 +20,34 @@ extern "C" {
  */
 
 /**
+ * @defgroup oa_hostAPI_Manager oa_hostAPI_Manager
+ *
+ * C API for the \fqref{hostAPI::Manager} "hostAPI::Manager C++ type".
+ *
+ * @{
+ */
+
+/**
+ * @defgroup oa_hostAPI_Manager_aliases Aliases
+ *
+ * @{
+ */
+#define oa_hostAPI_Manager_t OPENASSETIO_NS(hostAPI_Manager_t)
+#define oa_hostAPI_Manager_h OPENASSETIO_NS(hostAPI_Manager_h)
+#define oa_hostAPI_Manager_ctor OPENASSETIO_NS(hostAPI_Manager_ctor)
+#define oa_hostAPI_Manager_h OPENASSETIO_NS(hostAPI_Manager_h)
+#define oa_hostAPI_Manager_identifier OPENASSETIO_NS(hostAPI_Manager_identifier)
+#define oa_hostAPI_Manager_displayName OPENASSETIO_NS(hostAPI_Manager_displayName)
+#define oa_hostAPI_Manager_info OPENASSETIO_NS(hostAPI_Manager_info)
+
+/// @}
+// oa_hostAPI_Manager_aliases
+
+/**
  * Opaque handle type representing a \fqref{hostAPI::Manager} "Manager".
  */
 // NOLINTNEXTLINE(modernize-use-using)
-typedef struct OPENASSETIO_NS(hostAPI_Manager_t) * OPENASSETIO_NS(hostAPI_Manager_h);
+typedef struct oa_hostAPI_Manager_t* oa_hostAPI_Manager_h;
 
 /**
  * Constructor function.
@@ -47,11 +71,9 @@ typedef struct OPENASSETIO_NS(hostAPI_Manager_t) * OPENASSETIO_NS(hostAPI_Manage
 //  `Manager`s in the C API should only be constructed via some factory,
 //  and there is no need for this `ctor` and thus no need for a
 //  `ManagerInterface_h` handle?
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(hostAPI_Manager_ctor)(OPENASSETIO_NS(StringView) * err,
-                                         OPENASSETIO_NS(hostAPI_Manager_h) * handle,
-                                         OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
-                                             managerInterfaceHandle);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode
+oa_hostAPI_Manager_ctor(oa_StringView* err, oa_hostAPI_Manager_h* handle,
+                        oa_managerAPI_SharedManagerInterface_h managerInterfaceHandle);
 
 /**
  * Destructor function.
@@ -60,8 +82,7 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * created using \fqcref{hostAPI_Manager_ctor}. The handle should not
  * be used after calling this function.
  */
-OPENASSETIO_CORE_C_EXPORT void OPENASSETIO_NS(hostAPI_Manager_dtor)(
-    OPENASSETIO_NS(hostAPI_Manager_h) handle);
+OPENASSETIO_CORE_C_EXPORT void oa_hostAPI_Manager_dtor(oa_hostAPI_Manager_h handle);
 
 /**
  * C equivalent of the
@@ -75,10 +96,9 @@ OPENASSETIO_CORE_C_EXPORT void OPENASSETIO_NS(hostAPI_Manager_dtor)(
  * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
  * error code otherwise.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(hostAPI_Manager_identifier)(OPENASSETIO_NS(StringView) * err,
-                                               OPENASSETIO_NS(StringView) * out,
-                                               OPENASSETIO_NS(hostAPI_Manager_h) handle);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_identifier(oa_StringView* err,
+                                                                     oa_StringView* out,
+                                                                     oa_hostAPI_Manager_h handle);
 
 /**
  * C equivalent of the
@@ -93,10 +113,9 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
  * error code otherwise.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(hostAPI_Manager_displayName)(OPENASSETIO_NS(StringView) * err,
-                                                OPENASSETIO_NS(StringView) * out,
-                                                OPENASSETIO_NS(hostAPI_Manager_h) handle);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_displayName(oa_StringView* err,
+                                                                      oa_StringView* out,
+                                                                      oa_hostAPI_Manager_h handle);
 
 /**
  * C equivalent of the
@@ -111,14 +130,14 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
  * error code otherwise.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(hostAPI_Manager_info)(OPENASSETIO_NS(StringView) * err,
-                                         OPENASSETIO_NS(InfoDictionary_h) out,
-                                         OPENASSETIO_NS(hostAPI_Manager_h) handle);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_info(oa_StringView* err,
+                                                               oa_InfoDictionary_h out,
+                                                               oa_hostAPI_Manager_h handle);
 
-/**
- * @}
- */
+/// @}
+// oa_hostAPI_Manager
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif

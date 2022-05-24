@@ -19,19 +19,49 @@ extern "C" {
  * @addtogroup CAPI C API
  * @{
  */
+
 /**
- * @defgroup CInfoDictionary InfoDictionary
+ * @defgroup oa_InfoDictionary oa_InfoDictionary
  *
  * C API for the \fqref{InfoDictionary} "InfoDictionary C++ type".
  *
  * @{
  */
+
+/**
+ * @defgroup oa_InfoDictionary_aliases Aliases
+ *
+ * @{
+ */
+#define oa_InfoDictionary_t OPENASSETIO_NS(InfoDictionary_t)
+#define oa_InfoDictionary_h OPENASSETIO_NS(InfoDictionary_h)
+#define oa_InfoDictionary_ValueType_kBool OPENASSETIO_NS(InfoDictionary_ValueType_kBool)
+#define oa_InfoDictionary_ValueType_kInt OPENASSETIO_NS(InfoDictionary_ValueType_kInt)
+#define oa_InfoDictionary_ValueType_kFloat OPENASSETIO_NS(InfoDictionary_ValueType_kFloat)
+#define oa_InfoDictionary_ValueType_kStr OPENASSETIO_NS(InfoDictionary_ValueType_kStr)
+#define oa_InfoDictionary_ValueType OPENASSETIO_NS(InfoDictionary_ValueType)
+#define oa_InfoDictionary_ctor OPENASSETIO_NS(InfoDictionary_ctor)
+#define oa_InfoDictionary_dtor OPENASSETIO_NS(InfoDictionary_dtor)
+#define oa_InfoDictionary_size OPENASSETIO_NS(InfoDictionary_size)
+#define oa_InfoDictionary_typeOf OPENASSETIO_NS(InfoDictionary_typeOf)
+#define oa_InfoDictionary_getBool OPENASSETIO_NS(InfoDictionary_getBool)
+#define oa_InfoDictionary_getInt OPENASSETIO_NS(InfoDictionary_getInt)
+#define oa_InfoDictionary_getFloat OPENASSETIO_NS(InfoDictionary_getFloat)
+#define oa_InfoDictionary_getStr OPENASSETIO_NS(InfoDictionary_getStr)
+#define oa_InfoDictionary_setBool OPENASSETIO_NS(InfoDictionary_setBool)
+#define oa_InfoDictionary_setInt OPENASSETIO_NS(InfoDictionary_setInt)
+#define oa_InfoDictionary_setFloat OPENASSETIO_NS(InfoDictionary_setFloat)
+#define oa_InfoDictionary_setStr OPENASSETIO_NS(InfoDictionary_setStr)
+
+/// @}
+// oa_InfoDictionary_aliases
+
 /**
  * Opaque handle type representing a @fqref{InfoDictionary}
  * "InfoDictionary" instance.
  */
 // NOLINTNEXTLINE(modernize-use-using)
-typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_h);
+typedef struct oa_InfoDictionary_t* oa_InfoDictionary_h;
 
 /**
  * Enumeration of the available types in a @fqref{InfoDictionary}
@@ -48,14 +78,14 @@ typedef struct OPENASSETIO_NS(InfoDictionary_t) * OPENASSETIO_NS(InfoDictionary_
 // NOLINTNEXTLINE(modernize-use-using)
 typedef enum {
   /// Boolean value type
-  OPENASSETIO_NS(InfoDictionary_ValueType_kBool) = 1,
+  oa_InfoDictionary_ValueType_kBool = 1,
   /// Integer value type
-  OPENASSETIO_NS(InfoDictionary_ValueType_kInt),
+  oa_InfoDictionary_ValueType_kInt,
   /// Floating point value type
-  OPENASSETIO_NS(InfoDictionary_ValueType_kFloat),
+  oa_InfoDictionary_ValueType_kFloat,
   /// String value type
-  OPENASSETIO_NS(InfoDictionary_ValueType_kStr)
-} OPENASSETIO_NS(InfoDictionary_ValueType);
+  oa_InfoDictionary_ValueType_kStr
+} oa_InfoDictionary_ValueType;
 
 /**
  * Constructor function.
@@ -66,9 +96,8 @@ typedef enum {
  * @param[out] out Opaque handle to InfoDictionary.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_ctor)(OPENASSETIO_NS(StringView) * error,
-                                        OPENASSETIO_NS(InfoDictionary_h) * out);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_ctor(oa_StringView* error,
+                                                              oa_InfoDictionary_h* out);
 
 /**
  * Destructor function.
@@ -79,16 +108,14 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  *
  * @param handle Opaque handle to InfoDictionary.
  */
-OPENASSETIO_CORE_C_EXPORT void OPENASSETIO_NS(InfoDictionary_dtor)(OPENASSETIO_NS(InfoDictionary_h)
-                                                                       handle);
+OPENASSETIO_CORE_C_EXPORT void oa_InfoDictionary_dtor(oa_InfoDictionary_h handle);
 
 /**
  * Retrieve the number of entries currently in the map.
  *
  * @param handle Opaque handle to InfoDictionary.
  */
-OPENASSETIO_CORE_C_EXPORT size_t
-    OPENASSETIO_NS(InfoDictionary_size)(OPENASSETIO_NS(InfoDictionary_h) handle);  // noexcept
+OPENASSETIO_CORE_C_EXPORT size_t oa_InfoDictionary_size(oa_InfoDictionary_h handle);  // noexcept
 
 /**
  * Get the type of value stored in an entry.
@@ -99,11 +126,10 @@ OPENASSETIO_CORE_C_EXPORT size_t
  * @param key Key of entry to query.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_typeOf)(OPENASSETIO_NS(StringView) * error,
-                                          OPENASSETIO_NS(InfoDictionary_ValueType) * out,
-                                          OPENASSETIO_NS(InfoDictionary_h) handle,
-                                          OPENASSETIO_NS(ConstStringView) key);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView* error,
+                                                                oa_InfoDictionary_ValueType* out,
+                                                                oa_InfoDictionary_h handle,
+                                                                oa_ConstStringView key);
 
 /**
  * @name Accessors
@@ -130,10 +156,9 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to query.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_getBool)(OPENASSETIO_NS(StringView) * error, bool* out,
-                                           OPENASSETIO_NS(InfoDictionary_h) handle,
-                                           OPENASSETIO_NS(ConstStringView) key);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_getBool(oa_StringView* error, bool* out,
+                                                                 oa_InfoDictionary_h handle,
+                                                                 oa_ConstStringView key);
 
 /**
  * Retrieve an integer value from the map.
@@ -144,10 +169,9 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to query.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_getInt)(OPENASSETIO_NS(StringView) * error, int64_t* out,
-                                          OPENASSETIO_NS(InfoDictionary_h) handle,
-                                          OPENASSETIO_NS(ConstStringView) key);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_getInt(oa_StringView* error, int64_t* out,
+                                                                oa_InfoDictionary_h handle,
+                                                                oa_ConstStringView key);
 
 /**
  * Retrieve a floating point value from the map.
@@ -158,10 +182,10 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to query.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_getFloat)(OPENASSETIO_NS(StringView) * error, double* out,
-                                            OPENASSETIO_NS(InfoDictionary_h) handle,
-                                            OPENASSETIO_NS(ConstStringView) key);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_getFloat(oa_StringView* error,
+                                                                  double* out,
+                                                                  oa_InfoDictionary_h handle,
+                                                                  oa_ConstStringView key);
 
 /**
  * Retrieve a string value from the map.
@@ -176,11 +200,10 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to query.
  * @return Error code.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_getStr)(OPENASSETIO_NS(StringView) * error,
-                                          OPENASSETIO_NS(StringView) * out,
-                                          OPENASSETIO_NS(InfoDictionary_h) handle,
-                                          OPENASSETIO_NS(ConstStringView) key);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_getStr(oa_StringView* error,
+                                                                oa_StringView* out,
+                                                                oa_InfoDictionary_h handle,
+                                                                oa_ConstStringView key);
 /// @}
 // Accessors
 
@@ -205,10 +228,10 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to mutate.
  * @param value  Value to set in entry.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_setBool)(OPENASSETIO_NS(StringView) * error,
-                                           OPENASSETIO_NS(InfoDictionary_h) handle,
-                                           OPENASSETIO_NS(ConstStringView) key, bool value);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_setBool(oa_StringView* error,
+                                                                 oa_InfoDictionary_h handle,
+                                                                 oa_ConstStringView key,
+                                                                 bool value);
 /**
  * Set an integer value in the map.
  *
@@ -217,10 +240,10 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to mutate.
  * @param value Value to set in entry.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_setInt)(OPENASSETIO_NS(StringView) * error,
-                                          OPENASSETIO_NS(InfoDictionary_h) handle,
-                                          OPENASSETIO_NS(ConstStringView) key, int64_t value);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_setInt(oa_StringView* error,
+                                                                oa_InfoDictionary_h handle,
+                                                                oa_ConstStringView key,
+                                                                int64_t value);
 
 /**
  * Set a floating point value in the map.
@@ -230,10 +253,10 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to mutate.
  * @param value Value to set in entry.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_setFloat)(OPENASSETIO_NS(StringView) * error,
-                                            OPENASSETIO_NS(InfoDictionary_h) handle,
-                                            OPENASSETIO_NS(ConstStringView) key, double value);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_setFloat(oa_StringView* error,
+                                                                  oa_InfoDictionary_h handle,
+                                                                  oa_ConstStringView key,
+                                                                  double value);
 
 /**
  * Set a string value in the map.
@@ -243,16 +266,15 @@ OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
  * @param key Key of entry to mutate.
  * @param value Value to set in entry.
  */
-OPENASSETIO_CORE_C_EXPORT OPENASSETIO_NS(ErrorCode)
-    OPENASSETIO_NS(InfoDictionary_setStr)(OPENASSETIO_NS(StringView) * error,
-                                          OPENASSETIO_NS(InfoDictionary_h) handle,
-                                          OPENASSETIO_NS(ConstStringView) key,
-                                          OPENASSETIO_NS(ConstStringView) value);
+OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView* error,
+                                                                oa_InfoDictionary_h handle,
+                                                                oa_ConstStringView key,
+                                                                oa_ConstStringView value);
 
 /// @}
 // Mutators
 /// @}
-// CInfoDictionary
+// oa_InfoDictionary
 /// @}
 // CAPI
 #ifdef __cplusplus

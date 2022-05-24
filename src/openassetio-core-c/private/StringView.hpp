@@ -19,7 +19,7 @@ inline namespace OPENASSETIO_VERSION {
  * @param dest Target string.
  * @param src Source string.
  */
-inline void assignStringView(OPENASSETIO_NS(StringView) * dest, const std::string_view src) {
+inline void assignStringView(oa_StringView* dest, const std::string_view src) {
   dest->size = std::min(src.size(), dest->capacity);
   strncpy(dest->data, src.data(), dest->size);
 }

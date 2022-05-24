@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2013-2022 The Foundry Visionmongers Ltd
+
+InheritParentConfig: true
+
+CheckOptions:
+    # C API symbols have non-camel-case naming scheme,
+    # e.g. "oa_nameSpace_ClassName".
+    - { key: readability-identifier-naming.FunctionPrefix,  value: oa_ }
+    - { key: readability-identifier-naming.FunctionCase,  value: camel_Snake_Back }

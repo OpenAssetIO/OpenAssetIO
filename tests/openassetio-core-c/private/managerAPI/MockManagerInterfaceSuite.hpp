@@ -18,19 +18,16 @@ namespace test {
  * `mockManagerInterfaceSuite`) will delegate to.
  */
 struct MockCManagerInterfaceImpl {
-  MAKE_MOCK1(dtor, void(OPENASSETIO_NS(managerAPI_CManagerInterface_h)));
+  MAKE_MOCK1(dtor, void(oa_managerAPI_CManagerInterface_h));
 
   MAKE_MOCK3(identifier,
-             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                                       OPENASSETIO_NS(managerAPI_CManagerInterface_h)));
+             oa_ErrorCode(oa_StringView *, oa_StringView *, oa_managerAPI_CManagerInterface_h));
 
   MAKE_MOCK3(displayName,
-             OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *, OPENASSETIO_NS(StringView) *,
-                                       OPENASSETIO_NS(managerAPI_CManagerInterface_h)));
+             oa_ErrorCode(oa_StringView *, oa_StringView *, oa_managerAPI_CManagerInterface_h));
 
-  MAKE_MOCK3(info, OPENASSETIO_NS(ErrorCode)(OPENASSETIO_NS(StringView) *,
-                                             OPENASSETIO_NS(InfoDictionary_h),
-                                             OPENASSETIO_NS(managerAPI_CManagerInterface_h)));
+  MAKE_MOCK3(info, oa_ErrorCode(oa_StringView *, oa_InfoDictionary_h,
+                                oa_managerAPI_CManagerInterface_h));
 };
 
 /**
@@ -38,34 +35,30 @@ struct MockCManagerInterfaceImpl {
  * of the mock class.
  */
 using MockCManagerInterfaceHandleConverter =
-    openassetio::handles::Converter<MockCManagerInterfaceImpl,
-                                    OPENASSETIO_NS(managerAPI_CManagerInterface_h)>;
+    openassetio::handles::Converter<MockCManagerInterfaceImpl, oa_managerAPI_CManagerInterface_h>;
 
 /**
  * Get a ManagerInterface C API function pointer suite that assumes the
  * provided `handle` is a `MockCAPI` instance.
  */
-inline OPENASSETIO_NS(managerAPI_CManagerInterface_s) mockManagerInterfaceSuite() {
+inline oa_managerAPI_CManagerInterface_s mockManagerInterfaceSuite() {
   return {// dtor
-          [](OPENASSETIO_NS(managerAPI_CManagerInterface_h) h) {
+          [](oa_managerAPI_CManagerInterface_h h) {
             MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
             api->dtor(h);
           },
           // identifier
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-             OPENASSETIO_NS(managerAPI_CManagerInterface_h) h) {
+          [](oa_StringView *err, oa_StringView *out, oa_managerAPI_CManagerInterface_h h) {
             MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
             return api->identifier(err, out, h);
           },
           // displayName
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-             OPENASSETIO_NS(managerAPI_CManagerInterface_h) h) {
+          [](oa_StringView *err, oa_StringView *out, oa_managerAPI_CManagerInterface_h h) {
             MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
             return api->displayName(err, out, h);
           },
           // info
-          [](OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
-             OPENASSETIO_NS(managerAPI_CManagerInterface_h) h) {
+          [](oa_StringView *err, oa_InfoDictionary_h out, oa_managerAPI_CManagerInterface_h h) {
             MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
             return api->info(err, out, h);
           }};

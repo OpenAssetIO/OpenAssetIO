@@ -19,8 +19,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     openassetio::Str expectedStr = "some string";
 
     WHEN("a StringView is constructed wrapping the C++ string") {
-      OPENASSETIO_NS(StringView)
-      actualStringView{expectedStr.size(), expectedStr.data(), expectedStr.size()};
+      oa_StringView actualStringView{expectedStr.size(), expectedStr.data(), expectedStr.size()};
 
       THEN("StringView can be interrogated to reveal the values at construction") {
         CHECK(actualStringView.capacity == expectedStr.size());
@@ -42,7 +41,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     AND_GIVEN("a StringView wrapping a buffer with sufficient capacity for C++ string") {
       openassetio::Str storage(expectedStr.size(), '\0');
 
-      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+      oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
       WHEN("assignStringView is used to copy the C++ string to the StringView") {
         openassetio::assignStringView(&actualStringView, expectedStr);
@@ -57,7 +56,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     AND_GIVEN("a StringView wrapping a buffer with insufficient capacity for C++ string") {
       openassetio::Str storage(3, '\0');
 
-      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+      oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
       WHEN("assignStringView is used to copy the C++ string to the StringView") {
         openassetio::assignStringView(&actualStringView, expectedStr);
@@ -73,7 +72,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     AND_GIVEN("a StringView wrapping a buffer with sufficient capacity") {
       openassetio::Str storage(std::string_view(kExpectedStr).size(), '\0');
 
-      OPENASSETIO_NS(StringView) actualStringView{storage.size(), storage.data(), 0};
+      oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
       WHEN("assignStringView is used to copy the string literal to the StringView") {
         openassetio::assignStringView(&actualStringView, kExpectedStr);
@@ -90,7 +89,7 @@ SCENARIO("Creating and querying a C API immutable ConstStringView") {
     expectedStr = "some string";
 
     WHEN("a ConstStringView is constructed wrapping the buffer") {
-      OPENASSETIO_NS(ConstStringView) actualStringView{expectedStr.data(), expectedStr.size()};
+      oa_ConstStringView actualStringView{expectedStr.data(), expectedStr.size()};
 
       THEN("ConstStringView can be interrogated to reveal the values at construction") {
         CHECK(actualStringView.size == expectedStr.size());

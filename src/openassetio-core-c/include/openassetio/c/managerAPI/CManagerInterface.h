@@ -16,6 +16,27 @@ extern "C" {
  */
 
 /**
+ * @defgroup oa_managerAPI_CManagerInterface oa_managerAPI_CManagerInterface
+ *
+ * C API that C plugins must implement to satisfy the
+ * \fqref{managerAPI::ManagerInterface} "ManagerInterface" contract.
+ *
+ * @{
+ */
+
+/**
+ * @defgroup oa_managerAPI_CManagerInterface_aliases Aliases
+ *
+ * @{
+ */
+#define oa_managerAPI_CManagerInterface_t OPENASSETIO_NS(managerAPI_CManagerInterface_t)
+#define oa_managerAPI_CManagerInterface_h OPENASSETIO_NS(managerAPI_CManagerInterface_h)
+#define oa_managerAPI_CManagerInterface_s OPENASSETIO_NS(managerAPI_CManagerInterface_s)
+
+/// @}
+// oa_managerAPI_CManagerInterface_aliases
+
+/**
  * Opaque handle type provided by @ref manager plugins that provide
  * their @fqref{managerAPI::ManagerInterface} "ManagerInterface"
  * implementation via the C API plugin system.
@@ -31,8 +52,7 @@ extern "C" {
  * @see @fqcref{managerAPI_CManagerInterface_s}
  */
 // NOLINTNEXTLINE(modernize-use-using)
-typedef struct OPENASSETIO_NS(managerAPI_CManagerInterface_t) *
-    OPENASSETIO_NS(managerAPI_CManagerInterface_h);
+typedef struct oa_managerAPI_CManagerInterface_t* oa_managerAPI_CManagerInterface_h;
 
 /**
  * Function pointer suite provided by @ref manager plugins that provide
@@ -64,7 +84,7 @@ typedef struct {
    * @param handle Opaque handle representing a `ManagerInterface`
    * instance.
    */
-  void (*dtor)(OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle);
+  void (*dtor)(oa_managerAPI_CManagerInterface_h handle);
 
   /**
    * C equivalent of the
@@ -78,9 +98,8 @@ typedef struct {
    * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
    * error code otherwise.
    */
-  OPENASSETIO_NS(ErrorCode)
-  (*identifier)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-                OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle);
+  oa_ErrorCode (*identifier)(oa_StringView* err, oa_StringView* out,
+                             oa_managerAPI_CManagerInterface_h handle);
 
   /**
    * C equivalent of the
@@ -95,9 +114,8 @@ typedef struct {
    * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
    * error code otherwise.
    */
-  OPENASSETIO_NS(ErrorCode)
-  (*displayName)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
-                 OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle);
+  oa_ErrorCode (*displayName)(oa_StringView* err, oa_StringView* out,
+                              oa_managerAPI_CManagerInterface_h handle);
 
   /**
    * C equivalent of the
@@ -112,14 +130,14 @@ typedef struct {
    * @return @fqcref{ErrorCode_kOK} "kOK" if no error occurred, an
    * error code otherwise.
    */
-  OPENASSETIO_NS(ErrorCode)
-  (*info)(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
-          OPENASSETIO_NS(managerAPI_CManagerInterface_h) handle);
-} OPENASSETIO_NS(managerAPI_CManagerInterface_s);
+  oa_ErrorCode (*info)(oa_StringView* err, oa_InfoDictionary_h out,
+                       oa_managerAPI_CManagerInterface_h handle);
+} oa_managerAPI_CManagerInterface_s;
 
-/**
- * @}
- */
+/// @}
+// oa_managerAPI_CManagerInterface
+/// @}
+// CAPI
 #ifdef __cplusplus
 }
 #endif
