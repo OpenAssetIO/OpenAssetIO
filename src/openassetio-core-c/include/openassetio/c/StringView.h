@@ -14,6 +14,10 @@ extern "C" {
  * @{
  */
 
+// Symbol namespacing.
+#define oa_ConstStringView OPENASSETIO_NS(ConstStringView)
+#define oa_StringView OPENASSETIO_NS(StringView)
+
 /**
  * Immutable string view struct.
  *
@@ -41,7 +45,7 @@ typedef struct {
   const char* const data;
   /// Number of bytes used for string storage in the buffer.
   const size_t size;
-} OPENASSETIO_NS(ConstStringView);
+} oa_ConstStringView;
 
 /**
  * Mutable string view struct useful for out-parameters.
@@ -72,7 +76,7 @@ typedef struct {
  * @code{.c}
  * char myBuffer[500];
  *
- * OPENASSETIO_NS(StringView) myDestString {
+ * oa_StringView myDestString {
  *   500, myBuffer, 0
  * };
  *
@@ -84,7 +88,7 @@ typedef struct {
  * bytes used, e.g.
  *
  * @code{.c}
- * void myUpdateString(OPENASSETIO_NS(StringView)* myDestString) {
+ * void myUpdateString(oa_StringView* myDestString) {
  *
  *   myDestString->size =
  *     min(myDestString->capacity, mySrcStringSize);
@@ -101,7 +105,7 @@ typedef struct {
   char* const data;
   /// Number of bytes used for string storage in the buffer.
   size_t size;
-} OPENASSETIO_NS(StringView);
+} oa_StringView;
 
 /**
  * @}

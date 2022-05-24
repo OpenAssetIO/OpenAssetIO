@@ -252,7 +252,7 @@ ALIASES                = "envvar=\xrefitem envvar \"Environment Variables\" \"En
                          "event=\xrefitem event \"Events\" \"Event List\"" \
                          "needsref=" \
                          "fqref{1}=@ref openassetio::$(OPENASSETIO_VERSION)::\1" \
-                         "fqcref{1}=@ref openassetio_$(OPENASSETIO_VERSION)_\1"
+                         "fqcref{1}=@ref oa_\1"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"

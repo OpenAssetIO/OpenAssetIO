@@ -67,7 +67,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
           .LR_SIDE_EFFECT(strncpy(_2->data, expectedIdentifier.data(), expectedIdentifier.size()))
           .LR_SIDE_EFFECT(_2->size = expectedIdentifier.size())
           // Return OK code.
-          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
+          .RETURN(oa_ErrorCode_kOK);
 
       WHEN("the manager's identifier is queried") {
         const openassetio::Str actualIdentifier = cManagerInterface.identifier();
@@ -80,7 +80,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
 
     AND_GIVEN("the C suite's identifier() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
@@ -134,7 +134,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
               strncpy(_2->data, expectedDisplayName.data(), expectedDisplayName.size()))
           .LR_SIDE_EFFECT(_2->size = expectedDisplayName.size())
           // Return OK code.
-          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
+          .RETURN(oa_ErrorCode_kOK);
 
       WHEN("the manager's displayName is queried") {
         const openassetio::Str actualDisplayName = cManagerInterface.displayName();
@@ -147,7 +147,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
 
     AND_GIVEN("the C suite's displayName() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
@@ -197,7 +197,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
           .LR_SIDE_EFFECT(handles::InfoDictionary::toInstance(_2)->insert(
               {expectedInfoKey, expectedInfoValue}))
           // Return OK code.
-          .RETURN(OPENASSETIO_NS(ErrorCode_kOK));
+          .RETURN(oa_ErrorCode_kOK);
 
       WHEN("the manager's info is queried") {
         const openassetio::InfoDictionary infoDict = cManagerInterface.info();
@@ -211,7 +211,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
 
     AND_GIVEN("the C suite's info() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = OPENASSETIO_NS(ErrorCode_kUnknown);
+      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;

@@ -19,18 +19,24 @@ change, we must use a macro to ease maintenance, i.e.
 such that `OPENASSETIO_NS(MyStruct)` expands to
 `openassetio_v0_0_MyStruct`.
 
+These long-form names are then shortened for convenience with macros
+defined per-symbol, so in usage the example above would be referred to
+as `oa_MyStruct` in the codebase.
+
 ## Strings
 
 Taking inspiration from [this conversation](https://github.com/TheFoundryVisionmongers/OpenAssetIO/pull/194#discussion_r794047468)
 we can bundle a string buffer and length in a single C struct for error
 messages and parameters, i.e.
 
-```c++
+```c
+#define oa_SimpleString OPENASSETIO_NS(SimpleString)
+
 typedef struct {
   const size_t maxSize;
   char* buffer;
   size_t usedSize;
-} OPENASSETIO_NS(SimpleString);
+} oa_SimpleString;
 ```
 `usedSize` can technically be removed if we're happy to assume
 null-termination.
@@ -55,8 +61,10 @@ incomplete and ultimately unused class. We then `reinterpret_cast` it
 to/from our actual pointer type on the C++ side. I.e.
 
 ```c
-typedef struct OPENASSETIO_NS(managerAPI_ManagerInterface_t) *
-    OPENASSETIO_NS(managerAPI_ManagerInterface_h);
+#define oa_managerAPI_ManagerInterface_t OPENASSETIO_NS(managerAPI_ManagerInterface_t)
+#define oa_managerAPI_ManagerInterface_h OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+
+typedef struct oa_managerAPI_ManagerInterface_t *oa_managerAPI_ManagerInterface_h;
 ```
 
 The type `managerAPI_ManagerInterface_t` is never used in practice, its
@@ -73,7 +81,7 @@ C, so would look like
 ```c
 typedef struct {
     char unused;
-} * OPENASSETIO_NS(managerAPI_ManagerInterface_h);
+} * oa_managerAPI_ManagerInterface_h;
 ```
 This has the advantage of removing the need to define a throwaway global
 symbol name (`managerAPI_ManagerInterface_t`). However, it has the
@@ -85,7 +93,7 @@ like
 ```c
 typedef struct {
     void* ptr;
-} OPENASSETIO_NS(managerAPI_ManagerInterface_h);
+} oa_managerAPI_ManagerInterface_h;
 ```
 The underlying data would then be accessed as `handle.ptr`. One minor
 advantage of this is that `static_cast` can be used convert between the
@@ -158,18 +166,20 @@ possible.
 For our oversimplified `ManagerInterface` whose only methods are
 `identifier` and `displayName`
 
-```c++
+```c
+#define oa_managerAPI_ManagerInterface_s OPENASSETIO_NS(managerAPI_ManagerInterface_s)
+
 typedef struct {
-  void (*dtor)(OPENASSETIO_NS(managerAPI_ManagerInterface_h));
+  void (*dtor)(oa_managerAPI_ManagerInterface_h);
 
-  int (*identifier)(OPENASSETIO_NS(SimpleString) *,
-                    OPENASSETIO_NS(SimpleString) *,
-                    OPENASSETIO_NS(managerAPI_ManagerInterface_h));
+  int (*identifier)(oa_SimpleString *,
+                    oa_SimpleString *,
+                    oa_managerAPI_ManagerInterface_h);
 
-  int (*displayName)(OPENASSETIO_NS(SimpleString) *,
-                     OPENASSETIO_NS(SimpleString) *,
-                     OPENASSETIO_NS(managerAPI_ManagerInterface_h));
-} OPENASSETIO_NS(managerAPI_ManagerInterface_s);
+  int (*displayName)(oa_SimpleString *,
+                     oa_SimpleString *,
+                     oa_managerAPI_ManagerInterface_h);
+} oa_managerAPI_ManagerInterface_s;
 ```
 
 Note that in this case there is a `dtor` (destructor) function but no
@@ -192,8 +202,8 @@ constexpr size_t kStringBufferSize = 500;
 
 // Constructor expects to be supplied a valid handle and suite.
 CManagerInterface::CManagerInterface(
-    OPENASSETIO_NS(managerAPI_ManagerInterface_h) handle,
-    OPENASSETIO_NS(managerAPI_ManagerInterface_s) suite)
+    oa_managerAPI_ManagerInterface_h handle,
+    oa_managerAPI_ManagerInterface_s suite)
     : handle_{handle}, suite_{suite} {}
 
 // Destructor calls suite's `dtor` function.
@@ -203,13 +213,13 @@ Str CManagerInterface::identifier() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  OPENASSETIO_NS(SimpleString)
+  oa_SimpleString
   errorMessage{kStringBufferSize, errorMessageBuffer, 0};
 
   // Return value string buffer.
   char outBuffer[kStringBufferSize];
   // Return value.
-  OPENASSETIO_NS(SimpleString) out{kStringBufferSize, outBuffer, 0};
+  oa_SimpleString out{kStringBufferSize, outBuffer, 0};
 
   // Execute corresponding suite function.
   const int errorCode = suite_.identifier(&errorMessage, &out, handle_);

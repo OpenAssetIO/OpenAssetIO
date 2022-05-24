@@ -25,10 +25,9 @@ namespace managerAPI = openassetio::managerAPI;
 
 extern "C" {
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(hostAPI_Manager_ctor)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(hostAPI_Manager_h) * handle,
- OPENASSETIO_NS(managerAPI_SharedManagerInterface_h) managerInterfaceHandle) {
+oa_ErrorCode oa_hostAPI_Manager_ctor(
+    oa_StringView* err, oa_hostAPI_Manager_h* handle,
+    oa_managerAPI_SharedManagerInterface_h managerInterfaceHandle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     managerAPI::ManagerInterfacePtr& managerInterfacePtr =
         *handles::managerAPI::SharedManagerInterface::toInstance(managerInterfaceHandle);
@@ -37,49 +36,43 @@ OPENASSETIO_NS(hostAPI_Manager_ctor)
 
     *handle = handles::hostAPI::Manager::toHandle(manager);
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
-void OPENASSETIO_NS(hostAPI_Manager_dtor)(OPENASSETIO_NS(hostAPI_Manager_h) handle) {
+void oa_hostAPI_Manager_dtor(oa_hostAPI_Manager_h handle) {
   delete handles::hostAPI::Manager::toInstance(handle);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(hostAPI_Manager_identifier)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
- OPENASSETIO_NS(hostAPI_Manager_h) handle) {
+oa_ErrorCode oa_hostAPI_Manager_identifier(oa_StringView* err, oa_StringView* out,
+                                           oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
     openassetio::assignStringView(out, manager->identifier());
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(hostAPI_Manager_displayName)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
- OPENASSETIO_NS(hostAPI_Manager_h) handle) {
+oa_ErrorCode oa_hostAPI_Manager_displayName(oa_StringView* err, oa_StringView* out,
+                                            oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
     openassetio::assignStringView(out, manager->displayName());
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(hostAPI_Manager_info)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) out,
- OPENASSETIO_NS(hostAPI_Manager_h) handle) {
+oa_ErrorCode oa_hostAPI_Manager_info(oa_StringView* err, oa_InfoDictionary_h out,
+                                     oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     openassetio::InfoDictionary* outDict = handles::InfoDictionary::toInstance(out);
     const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
 
     *outDict = manager->info();
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 }  // extern "C"

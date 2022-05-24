@@ -26,17 +26,16 @@ constexpr std::size_t kStrStorageCapacity = 500;
 SCENARIO("InfoDictionary construction, conversion and destruction") {
   // Storage for error messages coming from C API functions.
   openassetio::Str errStorage(kStrStorageCapacity, '\0');
-  OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+  oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
   GIVEN("a InfoDictionary handle constructed using the C API") {
     // TODO(DF): The only way InfoDictionary construction can error
     //  currently is `bad_alloc` (i.e. insufficient memory), which is
     //  a pain to simulate for testing.
 
-    OPENASSETIO_NS(InfoDictionary_h) infoDictionaryHandle;
-    OPENASSETIO_NS(ErrorCode)
-    actualErrorCode = OPENASSETIO_NS(InfoDictionary_ctor)(&actualErrorMsg, &infoDictionaryHandle);
-    CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+    oa_InfoDictionary_h infoDictionaryHandle;
+    oa_ErrorCode actualErrorCode = oa_InfoDictionary_ctor(&actualErrorMsg, &infoDictionaryHandle);
+    CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
     WHEN("handle is converted to a C++ instance") {
       InfoDictionary* infoDictionary = handles::InfoDictionary::toInstance(infoDictionaryHandle);
@@ -49,7 +48,7 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
         CHECK(actualValue == expectedValue);
 
         AND_WHEN("dtor function is called") {
-          OPENASSETIO_NS(InfoDictionary_dtor)(infoDictionaryHandle);
+          oa_InfoDictionary_dtor(infoDictionaryHandle);
 
           THEN("InfoDictionary is deallocated") {
             // Rely on ASan to detect.
@@ -63,11 +62,11 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
     // Convert a dynamically allocated InfoDictionary to an opaque handle.
     // Note that this models the ownership semantic of "owned by
     // client", so the client is expected to call `dtor` when done.
-    OPENASSETIO_NS(InfoDictionary_h)
-    infoDictionaryHandle = handles::InfoDictionary::toHandle(new InfoDictionary{});
+    oa_InfoDictionary_h infoDictionaryHandle =
+        handles::InfoDictionary::toHandle(new InfoDictionary{});
 
     WHEN("dtor function is called") {
-      OPENASSETIO_NS(InfoDictionary_dtor)(infoDictionaryHandle);
+      oa_InfoDictionary_dtor(infoDictionaryHandle);
 
       THEN("InfoDictionary is deallocated") {
         // Rely on ASan to detect.
@@ -102,8 +101,7 @@ struct InfoDictionaryFixture {
   // i.e. the C client should not call `dtor` to destroy the instance.
   // We do not expect this to be the norm for InfoDictionary, it's just
   // convenient for these tests.
-  OPENASSETIO_NS(InfoDictionary_h)
-  infoDictionaryHandle_ = handles::InfoDictionary::toHandle(&infoDictionary_);
+  oa_InfoDictionary_h infoDictionaryHandle_ = handles::InfoDictionary::toHandle(&infoDictionary_);
 };
 
 /**
@@ -117,29 +115,29 @@ struct TypeOfFixture;
 template <>
 struct TypeOfFixture<openassetio::Bool> : InfoDictionaryFixture {
   inline static const openassetio::Str kKeyStr = kBoolKey;
-  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
-      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kBool);
+  static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
+      oa_InfoDictionary_ValueType_kBool;
 };
 
 template <>
 struct TypeOfFixture<openassetio::Int> : InfoDictionaryFixture {
   inline static const openassetio::Str kKeyStr = kIntKey;
-  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
-      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kInt);
+  static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
+      oa_InfoDictionary_ValueType_kInt;
 };
 
 template <>
 struct TypeOfFixture<openassetio::Float> : InfoDictionaryFixture {
   inline static const openassetio::Str kKeyStr = kFloatKey;
-  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
-      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kFloat);
+  static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
+      oa_InfoDictionary_ValueType_kFloat;
 };
 
 template <>
 struct TypeOfFixture<openassetio::Str> : InfoDictionaryFixture {
   inline static const openassetio::Str kKeyStr = kStrKey;
-  static constexpr OPENASSETIO_NS(InfoDictionary_ValueType)
-      kExpectedValueType = OPENASSETIO_NS(InfoDictionary_ValueType_kStr);
+  static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
+      oa_InfoDictionary_ValueType_kStr;
 };
 
 TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
@@ -154,18 +152,17 @@ TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("the type of an entry is queried") {
-      OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
-      OPENASSETIO_NS(InfoDictionary_ValueType) actualValueType;
+      oa_ConstStringView key{keyStr.data(), keyStr.size()};
+      oa_InfoDictionary_ValueType actualValueType;
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = OPENASSETIO_NS(InfoDictionary_typeOf)(&actualErrorMsg, &actualValueType,
-                                                              infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode =
+          oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
 
       THEN("returned type matches expected type") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);
         CHECK(actualValueType == expectedValueType);
       }
     }
@@ -180,21 +177,20 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
     WHEN("the type of a non-existent entry is queried") {
       // Key to non-existent entry.
       const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
-      OPENASSETIO_NS(ConstStringView) key{nonExistentKey.data(), nonExistentKey.size()};
+      oa_ConstStringView key{nonExistentKey.data(), nonExistentKey.size()};
       // Storage for error message.
       openassetio::Str errStorage(kStrStorageCapacity, '\0');
-      OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+      oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
       // Initial value of storage for return value.
-      const OPENASSETIO_NS(InfoDictionary_ValueType) initialValueType{};
+      const oa_InfoDictionary_ValueType initialValueType{};
       // Storage for return value.
-      OPENASSETIO_NS(InfoDictionary_ValueType) actualValueType = initialValueType;
+      oa_InfoDictionary_ValueType actualValueType = initialValueType;
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = OPENASSETIO_NS(InfoDictionary_typeOf)(&actualErrorMsg, &actualValueType,
-                                                              infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode =
+          oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
 
       THEN("error code and message is set") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOutOfRange));
+        CHECK(actualErrorCode == oa_ErrorCode_kOutOfRange);
         CHECK(actualErrorMsg == "Invalid key");
         CHECK(actualValueType == initialValueType);
       }
@@ -211,7 +207,7 @@ SCENARIO("Retrieve the number of entries in a InfoDictionary via C API") {
     const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
 
     WHEN("the size of the map is queried") {
-      const std::size_t actualSize = OPENASSETIO_NS(InfoDictionary_size)(infoDictionaryHandle);
+      const std::size_t actualSize = oa_InfoDictionary_size(infoDictionaryHandle);
 
       THEN("size is as expected") {
         const std::size_t expectedSize = infoDictionary.size();
@@ -223,8 +219,7 @@ SCENARIO("Retrieve the number of entries in a InfoDictionary via C API") {
         infoDictionary[nonExistentKey] = kNewValue;
 
         AND_WHEN("the size of the map is queried") {
-          const std::size_t actualUpdatedSize =
-              OPENASSETIO_NS(InfoDictionary_size)(infoDictionaryHandle);
+          const std::size_t actualUpdatedSize = oa_InfoDictionary_size(infoDictionaryHandle);
 
           THEN("size is as expected") {
             const std::size_t expectedUpdatedSize = infoDictionary.size();
@@ -242,9 +237,9 @@ SCENARIO("Retrieve the number of entries in a InfoDictionary via C API") {
  * Convenience macro declaring a `fn_` member pointing to a
  * InfoDictionary C API function.
  */
-#define INFODICTIONARY_FN(fnName)                          \
-  decltype(&OPENASSETIO_NS(InfoDictionary_##fnName)) fn_ = \
-      &OPENASSETIO_NS(InfoDictionary_##fnName)  // NOLINT(bugprone-macro-parentheses)
+#define INFODICTIONARY_FN(fnName)             \
+  decltype(&oa_InfoDictionary_##fnName) fn_ = \
+      &oa_InfoDictionary_##fnName  // NOLINT(bugprone-macro-parentheses)
 
 /**
  * Fixture for a specific C API accessor function, specialised by return
@@ -296,12 +291,12 @@ template <>
 struct AccessorFixture<openassetio::Str> : InfoDictionaryFixture {
   INFODICTIONARY_FN(getStr);
   openassetio::Str valueStorage_ = openassetio::Str(kStrStorageCapacity, '\0');
-  OPENASSETIO_NS(StringView) kInitialValue{valueStorage_.size(), valueStorage_.data(), 0};
+  oa_StringView kInitialValue{valueStorage_.size(), valueStorage_.data(), 0};
   inline static const openassetio::Str kExpectedValue = kStrValue;
   inline static const openassetio::Str kAlternativeValue = kStrValue + " alternative";
   inline static const openassetio::Str kKeyStr = kStrKey;
   inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
-  OPENASSETIO_NS(StringView) actualValue_ = kInitialValue;
+  oa_StringView actualValue_ = kInitialValue;
 };
 
 TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", "",
@@ -336,66 +331,60 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("existing value is retrieved through C API") {
-      OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
+      oa_ConstStringView key{keyStr.data(), keyStr.size()};
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("value is retrieved successfully") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);
         CHECK(actualValue == expectedValue);
       }
     }
 
     WHEN("value is updated in C++ and retrieved through C API again") {
-      OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
+      oa_ConstStringView key{keyStr.data(), keyStr.size()};
       infoDictionary.at(keyStr) = alternativeValue;
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("updated value is retrieved successfully") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);
         CHECK(actualValue == alternativeValue);
       }
     }
 
     WHEN("attempting to retrieve a non-existent value through C API") {
-      OPENASSETIO_NS(ConstStringView) key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+      oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOutOfRange));
+        CHECK(actualErrorCode == oa_ErrorCode_kOutOfRange);
         CHECK(actualErrorMsg == "Invalid key");
         CHECK(actualValue == initialValue);
       }
     }
 
     WHEN("attempting to retrieve an incorrect value type through C API") {
-      OPENASSETIO_NS(ConstStringView)
-      key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
+      oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kBadVariantAccess));
+        CHECK(actualErrorCode == oa_ErrorCode_kBadVariantAccess);
         CHECK(actualErrorMsg == "Invalid value type");
         CHECK(actualValue == initialValue);
       }
     }
 
     AND_GIVEN("error message storage capacity is very low") {
-      OPENASSETIO_NS(StringView) lowCapacityErr{3, errStorage.data(), 0};
+      oa_StringView lowCapacityErr{3, errStorage.data(), 0};
 
       WHEN("attempting to retrieve a non-existent value through C API") {
-        OPENASSETIO_NS(ConstStringView)
-        key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+        oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
         fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
@@ -405,8 +394,7 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
       }
 
       WHEN("attempting to retrieve an incorrect value type through C API") {
-        OPENASSETIO_NS(ConstStringView)
-        key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
+        oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
         fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
@@ -426,25 +414,24 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     AND_GIVEN(
         "a StringView with insufficient storage capacity for string stored in "
         "InfoDictionary") {
       constexpr std::size_t kReducedStrStorageCapacity = 5;
       openassetio::Str valueStorage(kReducedStrStorageCapacity, '\0');
-      OPENASSETIO_NS(StringView) actualValue{valueStorage.size(), valueStorage.data(), 0};
+      oa_StringView actualValue{valueStorage.size(), valueStorage.data(), 0};
 
       WHEN("string is retrieved into insufficient-capacity StringView") {
         openassetio::Str keyStr = "aStr";
-        OPENASSETIO_NS(ConstStringView) key{keyStr.data(), keyStr.size()};
+        oa_ConstStringView key{keyStr.data(), keyStr.size()};
 
-        OPENASSETIO_NS(ErrorCode)
-        actualErrorCode = OPENASSETIO_NS(InfoDictionary_getStr)(&actualErrorMsg, &actualValue,
-                                                                infoDictionaryHandle, key);
+        oa_ErrorCode actualErrorCode =
+            oa_InfoDictionary_getStr(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
         THEN("truncated string is stored and error code and message is set") {
-          CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kLengthError));
+          CHECK(actualErrorCode == oa_ErrorCode_kLengthError);
           CHECK(actualValue.size == actualValue.capacity);
           CHECK(actualValue == "strin");
           CHECK(actualErrorMsg == "Insufficient storage for return value");
@@ -526,42 +513,42 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     // TODO(DF): The only exception currently possible is `bad_alloc`,
     //  which is tricky to test.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("an existing value of the same type is updated") {
-      const OPENASSETIO_NS(ErrorCode) actualErrorCode =
+      const oa_ErrorCode actualErrorCode =
           fn(&actualErrorMsg, infoDictionaryHandle, {keyStr.data(), keyStr.size()}, expectedValue);
 
       THEN("value is updated successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(keyStr));
 
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);  // NOLINT(bugprone-infinite-loop)
         CHECK(actualValue == expectedValue);
       }
     }
 
     WHEN("an existing value of a different type is updated") {
-      const OPENASSETIO_NS(ErrorCode) actualErrorCode =
+      const oa_ErrorCode actualErrorCode =
           fn(&actualErrorMsg, infoDictionaryHandle,
              {otherValueTypeKeyStr.data(), otherValueTypeKeyStr.size()}, expectedValue);
 
       THEN("value is updated successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(otherValueTypeKeyStr));
 
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);  // NOLINT(bugprone-infinite-loop)
         CHECK(actualValue == expectedValue);
       }
     }
 
     WHEN("a non-existent entry is updated") {
-      const OPENASSETIO_NS(ErrorCode) actualErrorCode =
+      const oa_ErrorCode actualErrorCode =
           fn(&actualErrorMsg, infoDictionaryHandle,
              {nonExistentKeyStr.data(), nonExistentKeyStr.size()}, expectedValue);
 
       THEN("entry is created and value set successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(nonExistentKeyStr));
 
-        CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));  // NOLINT(bugprone-infinite-loop)
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);  // NOLINT(bugprone-infinite-loop)
         CHECK(actualValue == expectedValue);
       }
     }

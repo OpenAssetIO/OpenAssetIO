@@ -15,6 +15,11 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added short-form macros for C API symbols, so that, for example,
+  `oa_symbolName` can be used instead of wrapping every reference in the
+  namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.
+  [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
+
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We
   currently target LLVM v12, earlier or later versions may yield

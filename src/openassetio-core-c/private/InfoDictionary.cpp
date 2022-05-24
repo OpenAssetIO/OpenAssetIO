@@ -31,8 +31,7 @@ template <class... T>
  * @return Error code.
  */
 template <typename Fn>
-OPENASSETIO_NS(ErrorCode)
-catchCommonExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
+oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, Fn &&fn) {
   // TODO(DF): @exception messages.
   return errors::catchUnknownExceptionAsCode(err, [&] {
     try {
@@ -42,7 +41,7 @@ catchCommonExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
       // VS 2019: "invalid unordered_map<K, T> key"
       // GCC 9: "_Map_base::at"
       openassetio::assignStringView(err, "Invalid key");
-      return OPENASSETIO_NS(ErrorCode_kOutOfRange);
+      return oa_ErrorCode_kOutOfRange;
     }
   });
 }
@@ -59,9 +58,8 @@ catchCommonExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
  * @return Error code.
  */
 template <class Type>
-OPENASSETIO_NS(ErrorCode)
-get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h) handle,
-    const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode get(oa_StringView *err, Type *out, oa_InfoDictionary_h handle,
+                 const oa_ConstStringView key) {
   const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
   return catchCommonExceptionAsCode(err, [&] {
@@ -73,10 +71,10 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
       // VS 2019: "bad variant access"
       // GCC 9: "Unexpected index"
       openassetio::assignStringView(err, "Invalid value type");
-      return OPENASSETIO_NS(ErrorCode_kBadVariantAccess);
+      return oa_ErrorCode_kBadVariantAccess;
     }
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
@@ -89,8 +87,7 @@ get(OPENASSETIO_NS(StringView) * err, Type *out, OPENASSETIO_NS(InfoDictionary_h
  * @param value Value to set within InfoDictionary.
  */
 template <class Type>
-void set(OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key,
-         Type value) {
+void set(oa_InfoDictionary_h handle, const oa_ConstStringView key, Type value) {
   InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
   infoDictionary->insert_or_assign(openassetio::Str{key.data, key.size},
                                    std::forward<Type>(value));
@@ -107,39 +104,34 @@ void set(OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStri
  * @return Error code.
  */
 template <class Type>
-OPENASSETIO_NS(ErrorCode)
-set(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
-    const OPENASSETIO_NS(ConstStringView) key, Type value) {
+oa_ErrorCode set(oa_StringView *err, oa_InfoDictionary_h handle, const oa_ConstStringView key,
+                 Type value) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     set(handle, key, std::forward<Type>(value));
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 }  // namespace
 
 extern "C" {
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_ctor)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) * out) {
+oa_ErrorCode oa_InfoDictionary_ctor(oa_StringView *err, oa_InfoDictionary_h *out) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     *out = handles::InfoDictionary::toHandle(new InfoDictionary{});
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
-void OPENASSETIO_NS(InfoDictionary_dtor)(OPENASSETIO_NS(InfoDictionary_h) handle) {
+void oa_InfoDictionary_dtor(oa_InfoDictionary_h handle) {
   delete handles::InfoDictionary::toInstance(handle);
 }
 
-std::size_t OPENASSETIO_NS(InfoDictionary_size)(OPENASSETIO_NS(InfoDictionary_h) handle) {
+std::size_t oa_InfoDictionary_size(oa_InfoDictionary_h handle) {
   return handles::InfoDictionary::toInstance(handle)->size();
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_typeOf)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_ValueType) * out,
- OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView *err, oa_InfoDictionary_ValueType *out,
+                                      oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   return catchCommonExceptionAsCode(err, [&] {
     const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
@@ -147,52 +139,44 @@ OPENASSETIO_NS(InfoDictionary_typeOf)
         [&out](auto &&value) {
           using ValueType = std::decay_t<decltype(value)>;
           if constexpr (std::is_same_v<ValueType, openassetio::Bool>) {
-            *out = OPENASSETIO_NS(InfoDictionary_ValueType_kBool);
+            *out = oa_InfoDictionary_ValueType_kBool;
           } else if constexpr (std::is_same_v<ValueType, openassetio::Int>) {
-            *out = OPENASSETIO_NS(InfoDictionary_ValueType_kInt);
+            *out = oa_InfoDictionary_ValueType_kInt;
           } else if constexpr (std::is_same_v<ValueType, openassetio::Float>) {
-            *out = OPENASSETIO_NS(InfoDictionary_ValueType_kFloat);
+            *out = oa_InfoDictionary_ValueType_kFloat;
           } else if constexpr (std::is_same_v<ValueType, openassetio::Str>) {
-            *out = OPENASSETIO_NS(InfoDictionary_ValueType_kStr);
+            *out = oa_InfoDictionary_ValueType_kStr;
           } else {
             static_assert(kAlwaysFalse<ValueType>, "Unhandled variant type");
           }
         },
         infoDictionary->at({key.data, key.size}));
 
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_getBool)
-(OPENASSETIO_NS(StringView) * err, openassetio::Bool *out, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode oa_InfoDictionary_getBool(oa_StringView *err, openassetio::Bool *out,
+                                       oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   return get<openassetio::Bool>(err, out, handle, key);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_getInt)
-(OPENASSETIO_NS(StringView) * err, openassetio::Int *out, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode oa_InfoDictionary_getInt(oa_StringView *err, openassetio::Int *out,
+                                      oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   return get<openassetio::Int>(err, out, handle, key);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_getFloat)
-(OPENASSETIO_NS(StringView) * err, openassetio::Float *out,
- OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode oa_InfoDictionary_getFloat(oa_StringView *err, openassetio::Float *out,
+                                        oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   return get<openassetio::Float>(err, out, handle, key);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_getStr)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(StringView) * out,
- OPENASSETIO_NS(InfoDictionary_h) handle, const OPENASSETIO_NS(ConstStringView) key) {
+oa_ErrorCode oa_InfoDictionary_getStr(oa_StringView *err, oa_StringView *out,
+                                      oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   openassetio::Str str;
-  const OPENASSETIO_NS(ErrorCode) errorCode = get(err, &str, handle, key);
+  const oa_ErrorCode errorCode = get(err, &str, handle, key);
 
-  if (errorCode != OPENASSETIO_NS(ErrorCode_kOK)) {
+  if (errorCode != oa_ErrorCode_kOK) {
     return errorCode;
   }
 
@@ -200,40 +184,35 @@ OPENASSETIO_NS(InfoDictionary_getStr)
 
   if (str.size() > out->capacity) {
     openassetio::assignStringView(err, "Insufficient storage for return value");
-    return OPENASSETIO_NS(ErrorCode_kLengthError);
+    return oa_ErrorCode_kLengthError;
   }
 
-  return OPENASSETIO_NS(ErrorCode_kOK);
+  return oa_ErrorCode_kOK;
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_setBool)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key, const openassetio::Bool value) {
+oa_ErrorCode oa_InfoDictionary_setBool(oa_StringView *err, oa_InfoDictionary_h handle,
+                                       const oa_ConstStringView key,
+                                       const openassetio::Bool value) {
   return set<openassetio::Bool>(err, handle, key, value);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_setInt)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key, const openassetio::Int value) {
+oa_ErrorCode oa_InfoDictionary_setInt(oa_StringView *err, oa_InfoDictionary_h handle,
+                                      const oa_ConstStringView key, const openassetio::Int value) {
   return set<openassetio::Int>(err, handle, key, value);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_setFloat)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key, const openassetio::Float value) {
+oa_ErrorCode oa_InfoDictionary_setFloat(oa_StringView *err, oa_InfoDictionary_h handle,
+                                        const oa_ConstStringView key,
+                                        const openassetio::Float value) {
   return set<openassetio::Float>(err, handle, key, value);
 }
 
-OPENASSETIO_NS(ErrorCode)
-OPENASSETIO_NS(InfoDictionary_setStr)
-(OPENASSETIO_NS(StringView) * err, OPENASSETIO_NS(InfoDictionary_h) handle,
- const OPENASSETIO_NS(ConstStringView) key, const OPENASSETIO_NS(ConstStringView) value) {
+oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView *err, oa_InfoDictionary_h handle,
+                                      const oa_ConstStringView key,
+                                      const oa_ConstStringView value) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     set(handle, key, openassetio::Str{value.data, value.size});
-    return OPENASSETIO_NS(ErrorCode_kOK);
+    return oa_ErrorCode_kOK;
   });
 }
 }  // extern "C"

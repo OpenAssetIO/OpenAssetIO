@@ -40,7 +40,7 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerAPI::ManagerInt
 SCENARIO("A Manager is constructed and destructed") {
   // Storage for error messages coming from C API functions.
   openassetio::Str errStorage(kStringBufferSize, '\0');
-  OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+  oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
   // A mock ManagerInterface whose lifetime is tracked.
   using DeathwatchedMockManagerInterface = trompeloeil::deathwatched<MockManagerInterface>;
 
@@ -49,18 +49,16 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
-    mockManagerInterfaceHandle =
+    oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
         handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager
-      OPENASSETIO_NS(hostAPI_Manager_h) managerHandle;
+      oa_hostAPI_Manager_h managerHandle;
       // Construct Manager through C API.
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = OPENASSETIO_NS(hostAPI_Manager_ctor)(&actualErrorMsg, &managerHandle,
-                                                             mockManagerInterfaceHandle);
-      CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+      oa_ErrorCode actualErrorCode =
+          oa_hostAPI_Manager_ctor(&actualErrorMsg, &managerHandle, mockManagerInterfaceHandle);
+      CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
       AND_GIVEN("the Manager has exclusive ownership of the ManagerInterface shared pointer") {
         // Release test's pointer to ManagerInterface, so it is
@@ -73,7 +71,7 @@ SCENARIO("A Manager is constructed and destructed") {
           REQUIRE_DESTRUCTION(*managerInterface);
 
           WHEN("Manager's dtor C API function is called") {
-            OPENASSETIO_NS(hostAPI_Manager_dtor)(managerHandle);
+            oa_hostAPI_Manager_dtor(managerHandle);
 
             THEN("wrapped ManagerInterface is destroyed") {
               // Asserted by REQUIRE_DESTRUCTION.
@@ -91,21 +89,19 @@ SCENARIO("A Manager is constructed and destructed") {
     // Wrap deathwatched mock ManagerInterface in a SharedPtr.
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
     // Convert the ManagerInterface pointer to a handle.
-    OPENASSETIO_NS(managerAPI_SharedManagerInterface_h)
-    mockManagerInterfaceHandle =
+    oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
         handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
     AND_GIVEN("a Manager constructed using the C API") {
       // C handle for Manager
-      OPENASSETIO_NS(hostAPI_Manager_h) managerHandle;
+      oa_hostAPI_Manager_h managerHandle;
       // Construct Manager through C API.
-      OPENASSETIO_NS(ErrorCode)
-      actualErrorCode = OPENASSETIO_NS(hostAPI_Manager_ctor)(&actualErrorMsg, &managerHandle,
-                                                             mockManagerInterfaceHandle);
-      CHECK(actualErrorCode == OPENASSETIO_NS(ErrorCode_kOK));
+      oa_ErrorCode actualErrorCode =
+          oa_hostAPI_Manager_ctor(&actualErrorMsg, &managerHandle, mockManagerInterfaceHandle);
+      CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
       WHEN("Manager's dtor C API function is called") {
-        OPENASSETIO_NS(hostAPI_Manager_dtor)(managerHandle);
+        oa_hostAPI_Manager_dtor(managerHandle);
 
         THEN("wrapped ManagerInterface is not destroyed") {
           // Asserted implicitly by DeathwatchedMockManagerInterface.
@@ -125,20 +121,19 @@ SCENARIO("A host calls Manager::identifier") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    OPENASSETIO_NS(hostAPI_Manager_h)
-    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for identifier - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
     const openassetio::Str initialStrValue = "initial string";
     openassetio::Str identifierStorage = initialStrValue;
     identifierStorage.resize(kStringBufferSize, '\0');
-    OPENASSETIO_NS(StringView)
-    actualIdentifier{identifierStorage.size(), identifierStorage.data(), initialStrValue.size()};
+    oa_StringView actualIdentifier{identifierStorage.size(), identifierStorage.data(),
+                                   initialStrValue.size()};
 
     AND_GIVEN("ManagerInterface::identifier() will succeed") {
       const openassetio::Str expectedIdentifier = "my.id";
@@ -146,12 +141,11 @@ SCENARIO("A host calls Manager::identifier") {
 
       WHEN("the Manager C API is queried for the identifier") {
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code = OPENASSETIO_NS(hostAPI_Manager_identifier)(&actualErrorMsg, &actualIdentifier,
-                                                          managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_identifier(&actualErrorMsg, &actualIdentifier, managerHandle);
 
         THEN("the returned identifier matches expected identifier") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kOK));
+          CHECK(code == oa_ErrorCode_kOK);
           CHECK(actualIdentifier == expectedIdentifier);
         }
       }
@@ -163,12 +157,11 @@ SCENARIO("A host calls Manager::identifier") {
 
       WHEN("the Manager C API is queried for the identifier") {
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code = OPENASSETIO_NS(hostAPI_Manager_identifier)(&actualErrorMsg, &actualIdentifier,
-                                                          managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_identifier(&actualErrorMsg, &actualIdentifier, managerHandle);
 
         THEN("generic exception error code and message is set and identifier is unmodified") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kException));
+          CHECK(code == oa_ErrorCode_kException);
           CHECK(actualErrorMsg == expectedErrorMsg);
           CHECK(actualIdentifier == initialStrValue);
         }
@@ -187,21 +180,19 @@ SCENARIO("A host calls Manager::displayName") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    OPENASSETIO_NS(hostAPI_Manager_h)
-    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for displayName - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
     const openassetio::Str initialStrValue = "initial string";
     openassetio::Str displayNameStorage = initialStrValue;
     displayNameStorage.resize(kStringBufferSize, '\0');
-    OPENASSETIO_NS(StringView)
-    actualDisplayName{displayNameStorage.size(), displayNameStorage.data(),
-                      initialStrValue.size()};
+    oa_StringView actualDisplayName{displayNameStorage.size(), displayNameStorage.data(),
+                                    initialStrValue.size()};
 
     AND_GIVEN("ManagerInterface::displayName() will succeed") {
       const openassetio::Str expectedDisplayName = "My Display Name";
@@ -209,12 +200,11 @@ SCENARIO("A host calls Manager::displayName") {
 
       WHEN("the Manager C API is queried for the displayName") {
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code = OPENASSETIO_NS(hostAPI_Manager_displayName)(&actualErrorMsg, &actualDisplayName,
-                                                           managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_displayName(&actualErrorMsg, &actualDisplayName, managerHandle);
 
         THEN("the returned displayName matches expected displayName") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kOK));
+          CHECK(code == oa_ErrorCode_kOK);
           CHECK(actualDisplayName == expectedDisplayName);
         }
       }
@@ -226,12 +216,11 @@ SCENARIO("A host calls Manager::displayName") {
 
       WHEN("the Manager C API is queried for the displayName") {
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code = OPENASSETIO_NS(hostAPI_Manager_displayName)(&actualErrorMsg, &actualDisplayName,
-                                                           managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_displayName(&actualErrorMsg, &actualDisplayName, managerHandle);
 
         THEN("generic exception error code and message is set and displayName is unmodified") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kException));
+          CHECK(code == oa_ErrorCode_kException);
           CHECK(actualErrorMsg == expectedErrorMsg);
           CHECK(actualDisplayName == initialStrValue);
         }
@@ -250,12 +239,11 @@ SCENARIO("A host calls Manager::info") {
     // Create the Manager under test.
     hostAPI::Manager manager{mockManagerInterfacePtr};
     // Create the handle for the Manager under test.
-    OPENASSETIO_NS(hostAPI_Manager_h)
-    managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
-    OPENASSETIO_NS(StringView) actualErrorMsg{errStorage.size(), errStorage.data(), 0};
+    oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for info - pre-populate so we can assert that calls are
     // destructive (or not).
@@ -270,16 +258,14 @@ SCENARIO("A host calls Manager::info") {
       REQUIRE_CALL(mockManagerInterface, info()).RETURN(expectedInfo);
 
       WHEN("the Manager C API is queried for the info") {
-        OPENASSETIO_NS(InfoDictionary_h)
-        actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
+        oa_InfoDictionary_h actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code =
-            OPENASSETIO_NS(hostAPI_Manager_info)(&actualErrorMsg, actualInfoHandle, managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_info(&actualErrorMsg, actualInfoHandle, managerHandle);
 
         THEN("the returned info matches expected info") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kOK));
+          CHECK(code == oa_ErrorCode_kOK);
           CHECK(actualInfo == expectedInfo);
         }
       }
@@ -290,16 +276,14 @@ SCENARIO("A host calls Manager::info") {
       REQUIRE_CALL(mockManagerInterface, info()).THROW(std::logic_error{expectedErrorMsg});
 
       WHEN("the Manager C API is queried for the info") {
-        OPENASSETIO_NS(InfoDictionary_h)
-        actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
+        oa_InfoDictionary_h actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
-        OPENASSETIO_NS(ErrorCode)
-        code =
-            OPENASSETIO_NS(hostAPI_Manager_info)(&actualErrorMsg, actualInfoHandle, managerHandle);
+        oa_ErrorCode code =
+            oa_hostAPI_Manager_info(&actualErrorMsg, actualInfoHandle, managerHandle);
 
         THEN("generic exception error code and message is set and info is unmodified") {
-          CHECK(code == OPENASSETIO_NS(ErrorCode_kException));
+          CHECK(code == oa_ErrorCode_kException);
           CHECK(actualErrorMsg == expectedErrorMsg);
           CHECK(actualInfo == initialInfo);
         }

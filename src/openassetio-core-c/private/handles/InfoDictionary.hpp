@@ -12,7 +12,7 @@
 namespace openassetio {
 inline namespace OPENASSETIO_VERSION {
 namespace handles {
-using InfoDictionary = Converter<InfoDictionary, OPENASSETIO_NS(InfoDictionary_h)>;
+using InfoDictionary = Converter<InfoDictionary, oa_InfoDictionary_h>;
 }
 }  // namespace OPENASSETIO_VERSION
 }  // namespace openassetio

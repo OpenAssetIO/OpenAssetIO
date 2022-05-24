@@ -21,9 +21,8 @@ namespace errors {
  * @param code Error code.
  * @param msg Error message to bundle in exception.
  */
-inline void throwIfError(const OPENASSETIO_NS(ErrorCode) code,
-                         [[maybe_unused]] const OPENASSETIO_NS(StringView) & msg) {
-  if (code != OPENASSETIO_NS(ErrorCode_kOK)) {
+inline void throwIfError(const oa_ErrorCode code, [[maybe_unused]] const oa_StringView &msg) {
+  if (code != oa_ErrorCode_kOK) {
     Str errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
     errorMessageWithCode += std::string_view{msg.data, msg.size};
@@ -44,7 +43,7 @@ inline void throwIfError(const OPENASSETIO_NS(ErrorCode) code,
  * @param exc Exception to extract message from.
  */
 template <class Exception>
-void extractExceptionMessage(OPENASSETIO_NS(StringView) * err, const Exception &exc) {
+void extractExceptionMessage(oa_StringView *err, const Exception &exc) {
   openassetio::assignStringView(err, exc.what());
 }
 
@@ -60,15 +59,15 @@ void extractExceptionMessage(OPENASSETIO_NS(StringView) * err, const Exception &
  * @return Error code.
  */
 template <typename Fn>
-auto catchUnknownExceptionAsCode(OPENASSETIO_NS(StringView) * err, Fn &&fn) {
+auto catchUnknownExceptionAsCode(oa_StringView *err, Fn &&fn) {
   try {
     return fn();
   } catch (std::exception &exc) {
     extractExceptionMessage(err, exc);
-    return OPENASSETIO_NS(ErrorCode_kException);
+    return oa_ErrorCode_kException;
   } catch (...) {
     assignStringView(err, "Unknown non-exception object thrown");
-    return OPENASSETIO_NS(ErrorCode_kUnknown);
+    return oa_ErrorCode_kUnknown;
   }
 }
 }  // namespace errors
