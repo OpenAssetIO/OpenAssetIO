@@ -54,6 +54,8 @@ jobs:
       # packages.
       run: |
         source resources/build/bootstrap-${{ matrix.config.os }}.sh
+      env:
+        WORKSPACE: .
 
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
@@ -61,6 +63,8 @@ jobs:
       # packages.
       run: |
         cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
+      env:
+        WORKSPACE: .
 
     - name: Configure CMake build (Unix)
       if: runner.os != 'Windows'

@@ -26,5 +26,5 @@ Vagrant.configure("2") do |config|
   # Provision via a shell script.
   config.vm.provision(
     "shell", path: "bootstrap-ubuntu-20.04.sh", privileged: false,
-    env: {"GITHUB_WORKSPACE" => workspace_dir})
+    env: {"WORKSPACE" => workspace_dir})
 end

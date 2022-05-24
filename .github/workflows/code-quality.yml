@@ -53,6 +53,8 @@ jobs:
         # conan packages.
         run: |
           source resources/build/bootstrap-ubuntu-20.04.sh
+        env:
+          WORKSPACE: .
 
       - name: Configure CMake build
         run: >

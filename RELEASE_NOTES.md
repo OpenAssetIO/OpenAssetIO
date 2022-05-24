@@ -21,6 +21,16 @@ v1.0.0-alpha.X
   new or false-positive warnings.
   [#392](https://github.com/OpenAssetIO/OpenAssetIO/issues/392)
 
+- Updated the machine image bootstrap scripts in `resources/build` to
+  use the `$WORKSPACE` env var instead of `$GITHUB_WORKSPACE` to
+  determine the root of a checkout when configuring the environment.
+
+- Added `resources/build/requirements.txt` covering build toolchain
+  requirements.
+
+- Bumped conan version installed by bootstrap scripts to `1.48.1`
+  [#401](https://github.com/OpenAssetIO/OpenAssetIO/issues/401)
+
 
 ### Bug fixes
 
