@@ -16,7 +16,7 @@ change, we must use a macro to ease maintenance, i.e.
 ```c++
 #define OPENASSETIO_NS(symbol) ...
 ```
-such that `OPENASSETIO_NS(MyStruct)` expands to 
+such that `OPENASSETIO_NS(MyStruct)` expands to
 `openassetio_v0_0_MyStruct`.
 
 ## Strings
@@ -51,7 +51,7 @@ assume that `usedSize` reflects the rendered string's length.
 The opaque handle pattern used commonly in C APIs involves an arbitrary
 pointer to some user data, often coded simply as a `void*`. To add some
 meagre type safety, we can define an opaque handle as a pointer to an
-incomplete and ultimately unused class. We then `reinterpret_cast` it 
+incomplete and ultimately unused class. We then `reinterpret_cast` it
 to/from our actual pointer type on the C++ side. I.e.
 
 ```c
@@ -66,9 +66,9 @@ we will `reinterpret_cast` to/from.
 
 ### Alternatives
 
-Alternative schemes exist for adding type safety to opaque pointer 
-handles. For example, the `managerAPI_ManagerInterface_t` could be 
-replaced with an anonymous `struct`, but this struct cannot be empty in 
+Alternative schemes exist for adding type safety to opaque pointer
+handles. For example, the `managerAPI_ManagerInterface_t` could be
+replaced with an anonymous `struct`, but this struct cannot be empty in
 C, so would look like
 ```c
 typedef struct {
@@ -76,7 +76,7 @@ typedef struct {
 } * OPENASSETIO_NS(managerAPI_ManagerInterface_h);
 ```
 This has the advantage of removing the need to define a throwaway global
-symbol name (`managerAPI_ManagerInterface_t`). However, it has the 
+symbol name (`managerAPI_ManagerInterface_t`). However, it has the
 disadvantage that `handle->unused` is a valid expression, rather than
 a compile-time error.
 
@@ -99,15 +99,15 @@ indirection, depending on the suite function signature (see below).
 
 ## Function pointer suites
 
-Once we have a handle to our instance, we need functions that take a 
-handle as a parameter, operate on it, then potentially return a 
-value or error. 
+Once we have a handle to our instance, we need functions that take a
+handle as a parameter, operate on it, then potentially return a
+value or error.
 
 These can be defined as top-level functions exported as independent
-symbols, appropriately namespaced.  
+symbols, appropriately namespaced.
 
 An alternative is to bundle the functions related to a particular handle
-type into a struct of function pointers, which we call a function 
+type into a struct of function pointers, which we call a function
 pointer _suite_.
 
 Such suites have a few advantages
@@ -121,7 +121,7 @@ Such suites have a few advantages
   in its construction, compared to link-time defined symbols.
 * The suite is an object that can be passed around, including as input
   to a wrapper C++ class (see below).
-* In C++ the suite's functions can be implemented as a series of 
+* In C++ the suite's functions can be implemented as a series of
   (non-capturing) lambdas, keeping related code grouped together.
 
 ### Return values and errors
@@ -129,24 +129,25 @@ Such suites have a few advantages
 C++ functions may or may not return a value and may or may not throw an
 exception. C doesn't have exceptions, so to distinguish different error
 types we must use another mechanism. Commonly (and used here) this is
-via (integer) error codes. 
+via (integer) error codes.
 
 Given this, a C API function wrapping a C++ class method has between 0
 and 3 possible output values, depending on whether a return value is
-expected and whether an error code and message (i.e. in lieu of an 
+expected and whether an error code and message (i.e. in lieu of an
 exception) is possible.
 
 The proposed signature is then
+
 ```
 <error code> <namespaced function>(
-    <error string out ptr>, 
-    <return value out ptr>, 
-    <opaque handle>, 
+    <error string out ptr>,
+    <return value out ptr>,
+    <opaque handle>,
     <method arguments>...)
 ```
 
 This has the advantage of reading similarly to a C++ function call,
-with return values first, followed by the `this` pointer (handle), 
+with return values first, followed by the `this` pointer (handle),
 then function arguments.
 
 Alternative, perhaps equally valid, argument orderings are of course
@@ -154,7 +155,7 @@ possible.
 
 ## ManagerInterface suite
 
-For our oversimplified `ManagerInterface` whose only methods are 
+For our oversimplified `ManagerInterface` whose only methods are
 `identifier` and `displayName`
 
 ```c++
@@ -169,7 +170,6 @@ typedef struct {
                      OPENASSETIO_NS(SimpleString) *,
                      OPENASSETIO_NS(managerAPI_ManagerInterface_h));
 } OPENASSETIO_NS(managerAPI_ManagerInterface_s);
-
 ```
 
 Note that in this case there is a `dtor` (destructor) function but no
@@ -179,8 +179,8 @@ handle (the details of the plugin system are out of scope here).
 
 ## C++ wrapper
 
-A sketch is shown below. For brevity only the `identifier` member 
-function is shown since the implementation of `identifier` and 
+A sketch is shown below. For brevity only the `identifier` member
+function is shown since the implementation of `identifier` and
 `displayName` are almost identical.
 
 To translate an error coming from C we can define a common mapping of
