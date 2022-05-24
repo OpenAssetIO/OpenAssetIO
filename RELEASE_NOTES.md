@@ -12,12 +12,6 @@ v1.0.0-alpha.X
   their properties.
   [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348)
 
-### Bug fixes
-
-- C headers are now C99 compliant. In particular, they no longer 
-  `#include` C++-specific headers. 
-  [#337](https://github.com/OpenAssetIO/OpenAssetIO/issues/337)
-
 
 ### Improvements
 
@@ -46,6 +40,10 @@ v1.0.0-alpha.X
 - The CMake `clean` target no longer breaks subsequent builds, including
   offline builds.
   [#311](https://github.com/OpenAssetIO/OpenAssetIO/issues/311)
+
+- C headers are now C99 compliant. In particular, they no longer
+  `#include` C++-specific headers.
+  [#337](https://github.com/OpenAssetIO/OpenAssetIO/issues/337)
 
 
 v1.0.0-alpha.1
