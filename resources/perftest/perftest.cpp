@@ -93,15 +93,15 @@ class NewManagerInterface
 {
 public:
   NewManagerInterface(const std::unordered_map<std::string, std::string>& refToPrimStrs) : refToPrimStrs{refToPrimStrs} {}
-  std::shared_ptr<TraitsData> resolve(const std::string& ref, const TraitsData::TraitIds& traitIds);
+  std::shared_ptr<TraitsData> resolve(const std::string& ref, const TraitsData::TraitSet& traitIds);
 
 private:
   const std::unordered_map<std::string, std::string>& refToPrimStrs;
 };
 
-std::shared_ptr<TraitsData> NewManagerInterface::resolve(const std::string& ref, const TraitsData::TraitIds& traitIds)
+std::shared_ptr<TraitsData> NewManagerInterface::resolve(const std::string& ref, const TraitsData::TraitSet& traitIds)
 {
-  TraitsData::TraitIds populatedTraits;
+  TraitsData::TraitSet populatedTraits;
   bool getPath = false;
   if(std::find(traitIds.cbegin(), traitIds.cend(), BlobTrait::kId) != traitIds.cend()) {
     populatedTraits.insert(BlobTrait::kId);

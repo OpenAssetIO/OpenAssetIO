@@ -10,14 +10,14 @@ class TraitsData::Impl {
  public:
   Impl() = default;
 
-  explicit Impl(const TraitIds& traitIds) { addTraits(traitIds); }
+  explicit Impl(const TraitSet& traitIds) { addTraits(traitIds); }
 
   Impl(const Impl& other) = default;
 
   ~Impl() = default;
 
-  [[nodiscard]] TraitIds traitIds() const {
-    TraitIds ids;
+  [[nodiscard]] TraitSet traitIds() const {
+    TraitSet ids;
     ids.reserve(data_.size());
     for (const auto& item : data_) {
       ids.insert(item.first);
@@ -31,7 +31,7 @@ class TraitsData::Impl {
 
   void addTrait(const trait::TraitId& traitId) { data_[traitId]; }
 
-  void addTraits(const TraitIds& traitIds) {
+  void addTraits(const TraitSet& traitIds) {
     for (const auto& traitId : traitIds) {
       data_[traitId];
     }
@@ -67,17 +67,17 @@ class TraitsData::Impl {
 
 TraitsData::TraitsData() : impl_{std::make_unique<Impl>()} {}
 
-TraitsData::TraitsData(const TraitIds& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
+TraitsData::TraitsData(const TraitSet& traitIds) : impl_{std::make_unique<Impl>(traitIds)} {}
 
 TraitsData::TraitsData(const TraitsData& other) : impl_{std::make_unique<Impl>(*other.impl_)} {}
 
 TraitsData::~TraitsData() = default;
 
-TraitsData::TraitIds TraitsData::traitIds() const { return impl_->traitIds(); }
+TraitsData::TraitSet TraitsData::traitIds() const { return impl_->traitIds(); }
 
 void TraitsData::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
 
-void TraitsData::addTraits(const TraitIds& traitIds) { impl_->addTraits(traitIds); }
+void TraitsData::addTraits(const TraitSet& traitIds) { impl_->addTraits(traitIds); }
 
 bool TraitsData::hasTrait(const trait::TraitId& traitId) const { return impl_->hasTrait(traitId); }
 

@@ -69,7 +69,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    * no single ID can appear more than once and the order of the IDs
    * has no meaning and is not preserved.
    */
-  using TraitIds = std::unordered_set<trait::TraitId>;
+  using TraitSet = std::unordered_set<trait::TraitId>;
 
   /**
    * Construct an empty instance, with no traits.
@@ -81,7 +81,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    *
    * @param traitIds The consituent traits IDs.
    */
-  explicit TraitsData(const TraitIds& traitIds);
+  explicit TraitsData(const TraitSet& traitIds);
 
   /**
    * Construct such that this instance is a deep copy of the other.
@@ -98,7 +98,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Return the trait IDs held by the instance.
    */
-  [[nodiscard]] TraitIds traitIds() const;
+  [[nodiscard]] TraitSet traitIds() const;
 
   /**
    * Return whether this instance has the given trait.
@@ -125,7 +125,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    *
    * @param traitIds IDs of the traits to add.
    */
-  void addTraits(const TraitIds& traitIds);
+  void addTraits(const TraitSet& traitIds);
 
   /**
    * Get the value of a given trait property, if the property has
