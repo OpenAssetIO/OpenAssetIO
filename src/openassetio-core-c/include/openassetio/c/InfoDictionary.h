@@ -2,8 +2,9 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <cstddef>
-#include <cstdint>
+#include <stdbool.h>  // NOLINT(modernize-deprecated-headers)
+#include <stddef.h>   // NOLINT(modernize-deprecated-headers)
+#include <stdint.h>   // NOLINT(modernize-deprecated-headers)
 
 #include <openassetio/c/export.h>
 
