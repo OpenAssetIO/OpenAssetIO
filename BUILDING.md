@@ -184,3 +184,10 @@ or alternatively, simply
 cd build
 ctest
 ```
+
+## CMake presets
+
+We include several CMake presets for common build configurations. We
+recommend the `dev` preset be used for day-to-day development on the
+project. The `test` preset provides comprehensive coverage of all
+components.

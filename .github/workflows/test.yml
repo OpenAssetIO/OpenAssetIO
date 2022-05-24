@@ -21,17 +21,8 @@ jobs:
         config:
         - os: windows-2019
           vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
-
         - os: ubuntu-20.04
-          sanitizers: ON
-
         - os: macos-10.15
-          # asan needs the pre-load trick for python, ubsan seems to
-          # have false positives:
-          #   InfoDictionaryTest.cpp:346:25: runtime error:
-          #      call to function openassetio_v0_0_InfoDictionary_getBool
-          #      through pointer to incorrect function type
-          sanitizers: OFF
 
     steps:
     - uses: actions/checkout@v2
@@ -70,36 +61,32 @@ jobs:
     - name: Configure CMake build (Unix)
       if: runner.os != 'Windows'
       run: >
-        cmake -S . -B build 
-        --install-prefix $GITHUB_WORKSPACE/dist 
-        --toolchain $HOME/conan/conan_paths.cmake 
-        -DCMAKE_VERBOSE_MAKEFILE=ON 
-        -DOPENASSETIO_ENABLE_TESTS=ON 
-        -DOPENASSETIO_ENABLE_SANITIZER_ADDRESS=${{ matrix.config.sanitizers }}
-        -DOPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR=${{ matrix.config.sanitizers }}
+        cmake -S . -B build
+        --install-prefix $GITHUB_WORKSPACE/dist
+        --toolchain $HOME/conan/conan_paths.cmake
+        --preset test
 
     - name: Configure CMake build (Windows)
       if: runner.os == 'Windows'
       run: >
         call "${{ matrix.config.vcvars }}"
-        
+
         cmake -G Ninja -S . -B build --install-prefix %GITHUB_WORKSPACE%\dist
         --toolchain %USERPROFILE%\conan\conan_paths.cmake -DCMAKE_VERBOSE_MAKEFILE=ON
-        -DOPENASSETIO_ENABLE_TESTS=ON
+        --preset test
+
       shell: cmd
 
     - name: Build, install and test (Unix)
       if: runner.os != 'Windows'
       run: |
-        cd build
-        ctest -VV
+        ctest -VV --test-dir build
 
     - name: Build, install and test (Windows)
       if: runner.os == 'Windows'
       run: |
-        cd build
         call "${{ matrix.config.vcvars }}"
-        ctest -VV
+        ctest -VV --test-dir build
       shell: cmd
 
   docs:

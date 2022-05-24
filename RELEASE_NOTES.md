@@ -27,6 +27,9 @@ v1.0.0-alpha.X
   new or false-positive warnings.
   [#392](https://github.com/OpenAssetIO/OpenAssetIO/issues/392)
 
+- Added CMake presets for development and testing.
+  [#315](https://github.com/OpenAssetIO/OpenAssetIO/issues/315)
+
 - Updated the machine image bootstrap scripts in `resources/build` to
   use the `$WORKSPACE` env var instead of `$GITHUB_WORKSPACE` to
   determine the root of a checkout when configuring the environment.
