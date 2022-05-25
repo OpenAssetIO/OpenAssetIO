@@ -50,7 +50,7 @@ We use the CMake build system for compiling the C++ core library and
 its Python bindings.
 
 By default, the project will build shared libraries and set the
-installation directory to `dist` in the repository root. This can be
+installation directory to `dist` under the build directory. This can be
 overridden by setting the built-in CMake variables `BUILD_SHARED_LIBS`
 and `CMAKE_INSTALL_PREFIX`, respectively.
 
@@ -128,10 +128,10 @@ We can then use this environment to execute the tests.
 
 Next we must install the pure Python component and test-specific
 dependencies. Assuming the install directory is `dist` under the
-repository root (the default)
+build directory (the default)
 
 ```shell
-source dist/bin/activate
+source build/dist/bin/activate
 pip install .
 pip install -r tests/python/requirements.txt
 ```
@@ -173,7 +173,7 @@ Then we can run the following steps to build, install and run the tests
 cmake --build build
 cmake --install build
 cmake --build build --target openassetio-python-venv
-source dist/bin/activate
+source build/dist/bin/activate
 pip install ./openassetio
 pip install -r openassetio/tests/python/requirements.txt
 pytest openassetio/tests/python
