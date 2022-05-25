@@ -5,7 +5,7 @@
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostAPI {
 
 Manager::Manager(managerAPI::ManagerInterfacePtr managerInterface)
@@ -16,5 +16,5 @@ Str Manager::displayName() const { return managerInterface_->displayName(); }
 InfoDictionary Manager::info() const { return managerInterface_->info(); }
 
 }  // namespace hostAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

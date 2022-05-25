@@ -10,10 +10,10 @@
 #include "../Converter.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace handles::managerAPI {
 using SharedManagerInterface = Converter<openassetio::managerAPI::ManagerInterfacePtr,
                                          oa_managerAPI_SharedManagerInterface_h>;
 }
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -12,7 +12,7 @@
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * Comprises concrete trait views wrapping @ref TraitsData
  * instances.
@@ -56,5 +56,5 @@ using TraitId = property::Key;
 /// Status of a trait property within a specification.
 enum class TraitPropertyStatus { kFound, kMissing, kInvalidValue };
 }  // namespace trait
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

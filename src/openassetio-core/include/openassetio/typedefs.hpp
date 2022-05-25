@@ -9,7 +9,7 @@
 #include <openassetio/export.h>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * @anchor CppPrimitiveTypes
  * @name Primitive Types
@@ -55,5 +55,5 @@ template <class T, typename... Args>
 SharedPtr<T> makeShared(Args&&... args) {
   return std::make_shared<T>(std::forward<Args>(args)...);
 }
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

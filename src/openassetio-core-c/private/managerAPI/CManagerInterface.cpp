@@ -9,7 +9,7 @@
 #include "../handles/InfoDictionary.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerAPI {
 
 constexpr size_t kStringBufferSize = 500;
@@ -79,5 +79,5 @@ InfoDictionary CManagerInterfaceAdapter::info() const {
   return infoDict;
 }
 }  // namespace managerAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

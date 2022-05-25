@@ -9,7 +9,7 @@
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerAPI {
 
 /**
@@ -49,5 +49,5 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 };
 
 }  // namespace managerAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

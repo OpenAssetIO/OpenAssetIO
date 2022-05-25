@@ -10,7 +10,7 @@
 #include "StringView.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace errors {
 /**
  * Throw the appropriate exception for given error code, if any.
@@ -71,5 +71,5 @@ auto catchUnknownExceptionAsCode(oa_StringView *err, Fn &&fn) {
   }
 }
 }  // namespace errors
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

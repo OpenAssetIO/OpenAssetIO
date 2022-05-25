@@ -7,7 +7,7 @@
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  This namespace contains code relevant to anyone wanting to add support
  for a host application.
@@ -102,5 +102,5 @@ class OPENASSETIO_CORE_EXPORT Manager {
 };
 
 }  // namespace hostAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

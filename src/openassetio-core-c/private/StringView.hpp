@@ -9,7 +9,7 @@
 #include <openassetio/export.h>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * Copy a source string to a destination C StringView.
  *
@@ -23,5 +23,5 @@ inline void assignStringView(oa_StringView* dest, const std::string_view src) {
   dest->size = std::min(src.size(), dest->capacity);
   strncpy(dest->data, src.data(), dest->size);
 }
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

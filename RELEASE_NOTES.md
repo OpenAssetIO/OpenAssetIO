@@ -12,6 +12,11 @@ v1.0.0-alpha.X
   their properties.
   [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348)
 
+- Switched the C/C++ symbol namespace to use a separate ABI version.
+  The version is defined by the major version component of the last
+  release in which the ABI changed.
+  [#377](https://github.com/OpenAssetIO/OpenAssetIO/issues/377)
+
 - Renamed the following trait related types and variables to better
   align with the concepts of the API:
   [#340](https://github.com/OpenAssetIO/OpenAssetIO/issues/340)

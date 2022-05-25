@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 class TraitsData::Impl {
  public:
   Impl() = default;
@@ -93,5 +93,5 @@ void TraitsData::setTraitProperty(const trait::TraitId& traitId,
 }
 
 bool TraitsData::operator==(const TraitsData& other) const { return *impl_ == *other.impl_; }
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

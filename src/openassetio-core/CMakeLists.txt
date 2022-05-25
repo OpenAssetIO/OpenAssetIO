@@ -1,6 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
+#----------------------------------------------------------------------
+# Versioning
+
+# Library ABI version
+# This should be set to the major component of the last release version
+# where the ABI changed.
+set(core_abi_version 1)
 
 #----------------------------------------------------------------------
 # Public headers
@@ -75,7 +82,7 @@ target_include_directories(openassetio-core
 #   (bundles version in export header) and OTIO (uses separate header),
 #   both of which include a long list of additional #defines.
 set(define_version
-    "#define OPENASSETIO_VERSION v${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR}")
+    "#define OPENASSETIO_CORE_ABI_VERSION v${core_abi_version}")
 
 # TODO(DF): Allow customising namespace? See OCIO.
 
