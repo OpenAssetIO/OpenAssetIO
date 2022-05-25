@@ -25,19 +25,21 @@ functionality.
 ## Scope
 
 The API covers the following areas:
- - Resolution of asset references (URIs) into a dictionary of data,
-   grouped into one or more "traits" (providing URLs for access, and
-   other asset data).
- - Publishing data for file-based and non-file-based assets.
- - Discovery and registration of related assets.
- - Replacement/augmentation of in-application UI elements such as
-   browsers and other panels/controls.
+
+- Resolution of asset references (URIs) into a dictionary of data,
+  grouped into one or more "traits" (providing URLs for access, and
+  other asset data).
+- Publishing data for file-based and non-file-based assets.
+- Discovery and registration of related assets.
+- Replacement/augmentation of in-application UI elements such as
+  browsers and other panels/controls.
 
 The API, by design, does not:
- - Define any standardized data structures for the storage or
-   description of assets or asset hierarchies.
- - Dictate any aspect of how an asset management system operates,
-   organizes, locates or manages asset data and versions.
+
+- Define any standardized data structures for the storage or
+  description of assets or asset hierarchies.
+- Dictate any aspect of how an asset management system operates,
+  organizes, locates or manages asset data and versions.
 
 The API builds upon the production-tested [Katana Asset API](https://learn.foundry.com/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html),
 addressing several common integration challenges and adding support
@@ -73,13 +75,14 @@ Please see the [project board](https://github.com/orgs/OpenAssetIO/projects/1)
 for work in progress, as well as up-coming topics.
 
 ### TODO list
- - Migrate M&E related Entity/Relationship specifications
- - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop
-   investigations
- - Migrate `ManagerPlugin` test harness
- - C++ port of Core API
- - Katana Asset API migration guide/shims
- - `Windows` and `macOS` support
+
+- Migrate M&E related Entity/Relationship specifications
+- [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop
+  investigations
+- Migrate `ManagerPlugin` test harness
+- C++ port of Core API
+- Katana Asset API migration guide/shims
+- `Windows` and `macOS` support
 
 ## Background
 
@@ -120,17 +123,18 @@ git clone git@github.com:OpenAssetIO/OpenAssetIO
 ### System requirements
 
 Linux is currently the only fully tested platform. Support
-for other platforms is the subject of ongoing work. 
+for other platforms is the subject of ongoing work.
 
 #### Quick start: Using the ASWF Docker image
 
-The Academy Software Foundation maintains a set of VFX Reference 
+The Academy Software Foundation maintains a set of VFX Reference
 Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
 
 The CY22 image contains all dependencies currently required for building
 OpenAssetIO. For example, to build and install the C/C++ component of
 OpenAssetIO (by default  to a `dist` directory in the repository root)
 via a container, from the repository root run
+
 ```shell
 docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
   cd /src && \
@@ -141,7 +145,6 @@ docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
 #### Other build methods
 
 For detailed instructions see [BUILDING](BUILDING.md).
-
 
 ## Getting involved
 
