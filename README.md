@@ -55,10 +55,8 @@ The documentation for OpenAssetIO can be found here: [https://openassetio.github
 > subject to change. Do not deploy the API in production critical
 > situations without careful thought.
 
-We are currently working towards a v1.0.0 release. At present, the API
-is sketched in pure `Python`, whilst some structural revisions are being
-made. Once the surface area has stabilized, the Core API will be ported
-to `C++` with bindings to `Python`.
+We are currently working towards a v1.0.0 release. We are in the process
+of porting the core API from Python to C/C++.
 
 The code is presented here in its current form to facilitate discussion
 and early-adopter testing. We actively encourage engagement in the
@@ -66,23 +64,21 @@ and early-adopter testing. We actively encourage engagement in the
 and to give feedback on current [Issues](https://github.com/OpenAssetIO/OpenAssetIO/issues)
 and [Pull Requests](https://github.com/OpenAssetIO/OpenAssetIO/pulls).
 
-We have been making some structural changes prior to migrating to this
-repository, updating from Python 2 to Python 3 and removing some
-spurious/legacy concepts. There may well be some rough edges so bear
-with us whilst we get things ship-shape.
+We have been making some structural changes whilst migrating to this
+repository and removing some spurious/legacy concepts. There may well
+be some rough edges so bear with us whilst we get things ship-shape.
 
 Please see the [project board](https://github.com/orgs/OpenAssetIO/projects/1)
 for work in progress, as well as up-coming topics.
 
 ### TODO list
 
-- Migrate M&E related Entity/Relationship specifications
+- Complete core C/C++ API work
+- Define Traits for post-production in the [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
+  repository
 - [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop
   investigations
-- Migrate `ManagerPlugin` test harness
-- C++ port of Core API
 - Katana Asset API migration guide/shims
-- `Windows` and `macOS` support
 
 ## Background
 
