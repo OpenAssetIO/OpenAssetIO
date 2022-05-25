@@ -33,5 +33,9 @@ function-rgx = "(_|test_)?[a-z0-9]+([A-Z][a-z0-9]*)*"
 const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
 class-const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
 
+[tool.pylint.similarities]
+# Ignore imports when computing similarities.
+ignore-imports = true
+
 [tool.black]
 line-length = 99

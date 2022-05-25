@@ -7,7 +7,8 @@
  * thumbnail from the @ref host when a new @ref entity is created, and
  * for a host to look up a thumbnail for an existing entity.
  *
- * @section thumbnails_creation_during_publish Requesting Thumbnail Creation During Publishing
+ * @section thumbnails_creation_during_publish Requesting Thumbnail Creation
+ * During Publishing
  *
  * In many situations, it is difficult for a @ref manager to
  * retrospectively generate a thumbnail for any given @ref entity. It
@@ -25,13 +26,12 @@
  *
  * To this end, a @ref manager can set the @ref openassetio.constants.kWantsThumbnail
  * "kWantsThumbnail" flag in it's response to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
- * "managementPolicy" for any given entity @ref Specification.
+ * "managementPolicy" for any given set of entity @ref trait "traits".
  *
  * If supported by the host, it will then:
- * - Call @ref preflight with the target entity and a @needsref ThumbnailSpecification
- *   that describes supported formats.
- * - Call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
- *   "getEntityAttributes" on the returned reference to determine the
+ * - Call @ref preflight with the target entity and the traits from the
+ *   @needsref ThumbnailSpecification.
+ * - Call @needsref resolve on the returned reference to determine the
  *   desired width/height/format for the thumbnail.
  * - Generate a thumbnail and @ref register it to the same reference.
  *
@@ -41,8 +41,8 @@
  *
  * @see @ref example_generating_a_thumbnail
  *
- * @todo Document the attributes used to determine width/hight/format,
- * these should be the same as the fields of the
+ * @todo Document the @ref trait "traits" used to determine
+ * width/height/format, these should be the same as the fields of the
  * ThumbnailSpecification.
  *
  * @section thumbnails_lookup Looking Up Existing Thumbnails

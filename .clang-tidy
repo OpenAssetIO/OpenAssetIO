@@ -1,0 +1,76 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2022 Google LLC
+# Copyright 2013-2022 The Foundry Visionmongers Ltd
+
+# Modified from: https://raw.githubusercontent.com/googleapis/google-cloud-cpp/main/.clang-tidy
+# See: https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/list.html
+---
+# Configure clang-tidy for this project.
+
+# Here is an explanation for why some of the checks are disabled:
+#
+#  -modernize-use-trailing-return-type: clang-tidy recommends using
+#      `auto Foo() -> std::string { return ...; }`, we think the code is less
+#      readable in this form.
+#
+#  -modernize-return-braced-init-list: We think removing typenames and using
+#      only braced-init can hurt readability.
+#
+#  -modernize-avoid-c-arrays: We only use C arrays when they seem to be the
+#      right tool for the job, such as `char foo[] = "hello"`. In these cases,
+#      avoiding C arrays often makes the code less readable, and std::array is
+#      not a drop-in replacement because it doesn't deduce the size.
+#
+#  -google-runtime-references: Allow usage of non-const references as
+#      function parameters. Otherwise we'd have to use pointers, which
+#      cpp core guidelines recommends against unless the parameter is
+#      nullable: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f60-prefer-t-over-t-when-no-argument-is-a-valid-option
+#
+#
+Checks: >
+    -*,
+    bugprone-*,
+    google-*,
+    misc-*,
+    modernize-*,
+    performance-*,
+    portability-*,
+    readability-*,
+    -modernize-return-braced-init-list,
+    -modernize-use-trailing-return-type,
+    -modernize-avoid-c-arrays,
+
+# Turn all the warnings from the checks above into errors.
+WarningsAsErrors: "*"
+# Scan all (non-system) headers.
+HeaderFilterRegex: '.*'
+# Use .clang-format for fix suggestions.
+FormatStyle: file
+
+CheckOptions:
+    - { key: readability-identifier-naming.NamespaceCase,          value: camelBack  }
+    - { key: readability-identifier-naming.ClassCase,              value: CamelCase  }
+    - { key: readability-identifier-naming.StructCase,             value: CamelCase  }
+    - { key: readability-identifier-naming.TemplateParameterCase,  value: CamelCase  }
+    - { key: readability-identifier-naming.FunctionCase,           value: camelBack  }
+    - { key: readability-identifier-naming.VariableCase,           value: camelBack  }
+    # Allow _1, _2, etc as variable (placeholder) names - used for
+    # Trompeloeil mock setup.
+    # TODO(DF): This should be placed in `tests/.clang-tidy` but that
+    #   doesn't work. Reported upstream: https://github.com/llvm/llvm-project/issues/54781
+    - { key: readability-identifier-naming.VariableIgnoredRegexp,  value: "^_[0-9]+$"}
+    - { key: readability-identifier-naming.ClassMemberCase,        value: camelBack  }
+    - { key: readability-identifier-naming.PrivateMemberSuffix,    value: _          }
+    - { key: readability-identifier-naming.ProtectedMemberSuffix,  value: _          }
+    - { key: readability-identifier-naming.EnumConstantCase,         value: CamelCase }
+    - { key: readability-identifier-naming.EnumConstantPrefix,       value: k         }
+    - { key: readability-identifier-naming.ConstexprVariableCase,    value: CamelCase }
+    - { key: readability-identifier-naming.ConstexprVariablePrefix,  value: k         }
+    - { key: readability-identifier-naming.GlobalConstantCase,       value: CamelCase }
+    - { key: readability-identifier-naming.GlobalConstantPrefix,     value: k         }
+    - { key: readability-identifier-naming.MemberConstantCase,       value: CamelCase }
+    - { key: readability-identifier-naming.MemberConstantPrefix,     value: k         }
+    - { key: readability-identifier-naming.StaticConstantCase,       value: CamelCase }
+    - { key: readability-identifier-naming.StaticConstantPrefix,     value: k         }
+    - { key: readability-implicit-bool-conversion.AllowIntegerConditions,  value: 1   }
+    - { key: readability-implicit-bool-conversion.AllowPointerConditions,  value: 1   }

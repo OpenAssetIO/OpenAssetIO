@@ -18,15 +18,56 @@
 Specifications for use within openassetio test harnesses.
 """
 
-from openassetio.specifications import LocaleSpecification
+from openassetio import SpecificationBase, Trait
 
 
-class TestHarnessLocale(LocaleSpecification):
+# pylint: disable=missing-function-docstring
+
+
+class TestTrait(Trait):
+    """
+    A trait that represents a calling context that is some kind of
+    test environment.
+    """
+
+    kId = "test"
+
+    __kCaseName = "case"
+    __kSuiteName = "suite"
+
+    def setCaseName(self, name):
+        self._data.setTraitProperty(self.kId, self.__kCaseName, name)
+
+    def getCaseName(self):
+        return self._data.getTraitProperty(self.kId, self.__kCaseName)
+
+    def setSuiteName(self, name):
+        self._data.setTraitProperty(self.kId, self.__kSuiteName, name)
+
+    def getSuiteName(self):
+        return self._data.getTraitProperty(self.kId, self.__kSuiteName)
+
+
+class HarnessTrait(Trait):
+    """
+    A trait that defines a calling context that is some kind of
+    automated scriptable framework that operates on a specific
+    target object.
+    """
+
+    kId = "harness"
+
+
+class TestHarnessLocale(SpecificationBase):
     """
     A locale for test cases run as part of one of the API supplied
     test harnesses.
     """
-    _type = "test.harness"
 
-    testSuite = LocaleSpecification.TypedProperty(str, doc="The name of the test suite being run")
-    testCase = LocaleSpecification.TypedProperty(str, doc="The name of the test case being run")
+    kTraitSet = {TestTrait.kId, HarnessTrait.kId}
+
+    def testTrait(self):
+        return TestTrait(self._data)
+
+    def harnessTrait(self):
+        return HarnessTrait(self._data)

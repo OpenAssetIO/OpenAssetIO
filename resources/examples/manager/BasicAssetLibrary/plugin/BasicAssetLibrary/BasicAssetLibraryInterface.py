@@ -19,7 +19,7 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 
 import os
 
-from openassetio import constants
+from openassetio import constants, TraitsData
 from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
 from openassetio.managerAPI import ManagerInterface
 
@@ -49,8 +49,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
         self.__settings = bal.make_default_settings()
         self.__library = {}
 
-    @staticmethod
-    def identifier():
+    def identifier(self):
         return "org.openassetio.examples.manager.bal"
 
     def displayName(self):
@@ -88,10 +87,10 @@ class BasicAssetLibraryInterface(ManagerInterface):
         )
         self.__library = bal.load_library(self.__settings["library_path"])
 
-    def managementPolicy(self, specifications, context, hostSession):
+    def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument
         policy = constants.kManaged if context.isForRead() else constants.kIgnored
-        return [policy for _ in specifications]
+        return [policy for _ in traitSets]
 
     def isEntityReference(self, tokens, hostSession):
         # pylint: disable=unused-argument
@@ -108,7 +107,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
             results.append(result)
         return results
 
-    def resolveEntityReference(self, entityRefs, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession):
         if context.isForWrite():
             return [EntityResolutionError("BAL entities are read-only", ref) for ref in entityRefs]
         results = []
@@ -116,7 +115,13 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref)
                 entity = bal.entity(entity_info, self.__library)
-                result = entity.primary_string
+                result = TraitsData()
+                for trait in traitSet:
+                    trait_data = entity.traits.get(trait)
+                    if trait_data is not None:
+                        result.addTrait(trait)
+                        for property_, value in trait_data.items():
+                            result.setTraitProperty(trait, property_, value)
             except Exception as exc:  # pylint: disable=broad-except
                 exc_name = exc.__class__.__name__
                 result = EntityResolutionError(f"{exc_name}: {exc}", ref)

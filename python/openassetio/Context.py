@@ -18,7 +18,9 @@
 A single-class module, providing the Context class.
 """
 
-from .specifications import LocaleSpecification
+# Import from the cmodule directly to avoid a cyclic dependency on
+# openassetio, which also hoists Context.
+from ._openassetio import TraitsData # pylint: disable=import-error
 from .constants import kSupportedAttributeTypes
 
 
@@ -30,8 +32,7 @@ class Context(object):
     The Context object is used to convey information about the calling
     environment to a @ref manager. It encapsulates several key access
     properties, as well as providing additional information about the
-    @ref host that may be useful to the @ref manager to decorate or
-    extend the attributes associated with the stored @ref entity.
+    @ref host that may be useful to the @ref manager.
 
     A Manager will also use this information to ensure it presents the
     correct UI, or behavior.
@@ -167,11 +168,10 @@ class Context(object):
     ##
     ## Describes what the @ref host is intending to do with the data.
     ##
-    ## For example, when passed to resolveEntityReference, it specifies
-    ## if the @ref host is about to read or write. When configuring a
-    ## BrowserWidget, then it will hint as to whether the Host is
-    ## wanting to choose a new file name to save, or open an existing
-    ## one.
+    ## For example, when passed to resolve, it specifies if the @ref
+    ## host is about to read or write. When configuring a BrowserWidget,
+    ## then it will hint as to whether the Host is wanting to choose a
+    ## new file name to save, or open an existing one.
     access = property(__getAccess, __setAccess)
 
     def __getRetention(self):
@@ -219,15 +219,15 @@ class Context(object):
 
     def __setLocale(self, locale):
         # pylint: disable=unused-private-member
-        if locale is not None and not isinstance(locale, LocaleSpecification):
+        if locale is not None and not isinstance(locale, TraitsData):
             raise ValueError(
                 "Locale must be an instance of %s (not %s)"
-                % (LocaleSpecification, type(locale)))
+                % (TraitsData, type(locale)))
         self.__locale = locale
 
     ## @property locale
     ##
-    ## In many situations, the Specification of the desired @ref entity
+    ## In many situations, the @ref trait_set of the desired @ref entity
     ## itself is not entirely sufficient information to realize many
     ## functions that a @ref manager wishes to implement. For example,
     ## when determining the final file path for an Image that is about
@@ -235,11 +235,11 @@ class Context(object):
     ## than a 'Write node' from a comp tree could result in different
     ## behavior.
     ##
-    ## The Locale uses a @ref openassetio.specifications.LocaleSpecification
-    ## to describe in more detail, what specific part of a @ref host
-    ## is requesting an action. In the case of a file browser for example,
-    ## it may also include information such as whether or not multi-selection
-    ## is required.
+    ## The Locale uses a @fqref{TraitsData} "TraitsData" to describe in
+    ## more detail, what specific part of a @ref host is requesting an
+    ## action. In the case of a file browser for example, it may also
+    ## include information such as whether or not multi-selection is
+    ## required.
     locale = property(__getLocale, __setLocale)
 
     def __str__(self):

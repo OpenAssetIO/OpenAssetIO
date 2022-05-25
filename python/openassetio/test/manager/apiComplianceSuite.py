@@ -23,8 +23,8 @@ requirements of the API, and can handle all documented calling patterns.
 For example, that when a
 @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
 "managementPolicy" query returns a non-ignored state, that there are no
-errors calling the other required methods for a managed entity of that
-Specification.
+errors calling the other required methods for a managed entity with
+those @ref trait "traits".
 
 The suite does not validate any specific business logic by checking the
 values API methods _may_ return in certain situations. This should be
@@ -35,7 +35,6 @@ handled through additional suites local to the manager's implementation.
 
 from .harness import FixtureAugmentedTestCase
 from ...exceptions import EntityResolutionError
-from ...specifications import EntitySpecification
 from ... import Context
 
 
@@ -125,11 +124,11 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
     Check plugin's implementation of managerAPI.ManagerInterface.managementPolicy
     """
 
-    def test_when_called_with_single_specification_returns_single_result(self):
+    def test_when_called_with_single_trait_set_returns_single_result(self):
         context = self.createTestContext()
         self.__assertPolicyResults(1, context)
 
-    def test_when_called_with_ten_specifications_returns_ten_results(self):
+    def test_when_called_with_ten_trait_sets_returns_ten_results(self):
         context = self.createTestContext()
         self.__assertPolicyResults(10, context)
 
@@ -153,19 +152,31 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context.access = context.kWriteMultiple
         self.__assertPolicyResults(1, context)
 
-    def __assertPolicyResults(self, numSpecifications, context):
+    def test_calling_with_empty_trait_set_does_not_error(self):
+        context = self.createTestContext()
+        self.__assertPolicyResults(1, context, traitSet=())
+
+    def test_calling_with_unknown_complex_trait_set_does_not_error(self):
+        context = self.createTestContext()
+        traits = ("🐟🐠🐟🐠", "asdfsdfasdf", "⿂")
+        self.__assertPolicyResults(1, context, traitSet=traits)
+
+    def __assertPolicyResults(self, numTraitSets, context, traitSet=("entity",)):
         """
         Tests the validity and coherency of the results of a call to
-        `managementPolicy` for a given number of specifications and
+        `managementPolicy` for a given number of trait sets and
         context. It checks lengths match and values are of the correct
         type.
-        """
-        specs = [EntitySpecification() for _ in range(numSpecifications)]
 
-        policies = self._manager.managementPolicy(specs, context)
+        @param traitSet `List[str]` The set of traits to pass to
+        the call to managementPolicy.
+        """
+        traitSets = [traitSet for _ in range(numTraitSets)]
+
+        policies = self._manager.managementPolicy(traitSets, context)
 
         self.assertValuesOfType(policies, int)
-        self.assertEqual(len(policies), numSpecifications)
+        self.assertEqual(len(policies), numTraitSets)
 
 
 class Test_isEntityReference(FixtureAugmentedTestCase):
@@ -226,17 +237,38 @@ class Test_entityExists(FixtureAugmentedTestCase):
         assert self._manager.entityExists([existing, nonexistant], context) == [True, False]
 
 
-class Test_resolveEntityReference(FixtureAugmentedTestCase):
+class Test_resolve(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.resolveEntityReference.
+    managerAPI.ManagerInterface.resolve.
     """
+    def setUp(self):
+        self.collectRequiredFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)
+        self.collectRequiredFixture("a_set_of_valid_traits")
 
-    def test_matches_fixture_for_read(self):
-        self.__testResolution("a_reference_to_a_readable_entity", Context.kRead)
+    def test_when_no_traits_then_returned_specification_is_empty(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref], set(), Context.kRead, set())
 
-    def test_matches_fixture_for_write(self):
-        self.__testResolution("a_reference_to_a_writable_entity", Context.kWrite)
+    def test_when_multiple_references_then_same_number_of_returned_specifications(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref, ref, ref, ref, ref], set(), Context.kRead, set())
+
+    def test_when_unknown_traits_then_returned_specification_is_empty(self):
+        ref = self.a_reference_to_a_readable_entity
+        self.__testResolution([ref], {"₲₪₡🤯"}, Context.kRead, set())
+
+    def test_when_valid_traits_then_returned_specification_has_those_traits(self):
+        ref = self.a_reference_to_a_readable_entity
+        traits = self.a_set_of_valid_traits
+        self.__testResolution([ref], traits, Context.kRead, traits)
+
+    def test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits(self):
+        ref = self.a_reference_to_a_readable_entity
+        traits = self.a_set_of_valid_traits
+        mixed_traits = set(traits)
+        mixed_traits.add("₲₪₡🤯")
+        self.__testResolution([ref], mixed_traits, Context.kRead, traits)
 
     def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_readonly_entity", Context.kWrite)
@@ -244,12 +276,13 @@ class Test_resolveEntityReference(FixtureAugmentedTestCase):
     def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_writeonly_entity", Context.kRead)
 
-    def __testResolution(self, fixture_name, access):
-        reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
-        expected = self.requireFixture(f"the_primary_string_for_{fixture_name}")
+    def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
         context.access = access
-        self.assertEqual(self._manager.resolveEntityReference([reference], context), [expected])
+        results = self._manager.resolve(references, traits, context)
+        self.assertEqual(len(results), len(references))
+        for result in results:
+            self.assertEqual(result.traitSet(), expected_traits)
 
     def __testResolutionError(self, fixture_name, access):
         reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
@@ -257,6 +290,6 @@ class Test_resolveEntityReference(FixtureAugmentedTestCase):
         expected_error = EntityResolutionError(expected_msg, reference)
         context = self.createTestContext()
         context.access = access
-        result = self._manager.resolveEntityReference([reference], context)
-        self.assertIsInstance(result[-1], EntityResolutionError)
-        self.assertEqual(str(result[-1]), str(expected_error))
+        [result] = self._manager.resolve([reference], self.a_set_of_valid_traits, context)
+        self.assertIsInstance(result, EntityResolutionError)
+        self.assertEqual(str(result), str(expected_error))

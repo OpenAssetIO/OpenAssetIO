@@ -9,14 +9,20 @@ on:
       - 'docs/**'
 
 jobs:
-  pytest:
-    runs-on: ${{ matrix.os }}
+  test:
+    name: ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
     strategy:
+      fail-fast: false
       matrix:
         # We can't properly align to the VFX Reference Platform as this
         # requires glibc 2.17, which is older than any of the available
         # environments.
-        os: [ubuntu-18.04, windows-2019, macos-11]
+        config:
+        - os: windows-2019
+          vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
+        - os: ubuntu-20.04
+        - os: macos-10.15
 
     steps:
     - uses: actions/checkout@v2
@@ -27,18 +33,61 @@ jobs:
         # CY2022 (https://vfxplatform.com)
         python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r tests/requirements.txt
+    - name: Cache conan packages
+      id: cache-conan
+      uses: actions/cache@v2
+      with:
+        path: ~/conan
+        key: ${{ matrix.config.os }}-conan
 
-    - name: Build
+    - name: Install dependencies (Unix)
+      if: runner.os != 'Windows'
+      # Configure the system and install library dependencies via conan
+      # packages.
       run: |
-        python -m pip install .
+        source resources/build/bootstrap-${{ matrix.config.os }}.sh
+      env:
+        WORKSPACE: .
 
-    - name: Test
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      # Configure the system and install library dependencies via conan
+      # packages.
       run: |
-        pytest
+        cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
+      env:
+        WORKSPACE: .
+
+    - name: Configure CMake build (Unix)
+      if: runner.os != 'Windows'
+      run: >
+        cmake -S . -B build
+        --install-prefix $GITHUB_WORKSPACE/dist
+        --toolchain $HOME/conan/conan_paths.cmake
+        --preset test
+
+    - name: Configure CMake build (Windows)
+      if: runner.os == 'Windows'
+      run: >
+        call "${{ matrix.config.vcvars }}"
+
+        cmake -G Ninja -S . -B build --install-prefix %GITHUB_WORKSPACE%\dist
+        --toolchain %USERPROFILE%\conan\conan_paths.cmake -DCMAKE_VERBOSE_MAKEFILE=ON
+        --preset test
+
+      shell: cmd
+
+    - name: Build, install and test (Unix)
+      if: runner.os != 'Windows'
+      run: |
+        ctest -VV --test-dir build
+
+    - name: Build, install and test (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        call "${{ matrix.config.vcvars }}"
+        ctest -VV --test-dir build
+      shell: cmd
 
   docs:
     runs-on: ubuntu-latest

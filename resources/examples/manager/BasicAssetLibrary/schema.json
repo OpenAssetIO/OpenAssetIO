@@ -18,13 +18,25 @@
               "minItems": 1,
               "items": {
                 "type": "object",
+                "description": "The data for any given entity.",
                 "properties": {
-                  "primary_string": {
-                    "type": "string",
-                    "description": "The string returned when that version of the entity is resolved."
+                  "traits": {
+                    "description": "Traits and their associated properties for the entity.",
+                    "type": "object",
+                    "patternProperties": {
+                      ".*": {
+                        "description": "The trait's property values.",
+                        "type": "object",
+                        "patternProperties": {
+                          ".*": {
+                            "type": ["string", "number", "boolean"]
+                          }
+                        }
+                      }
+                    }
                   }
                 },
-                "required": ["primary_string"],
+                "required": ["traits"],
                 "additionalProperties": false
               }
             }

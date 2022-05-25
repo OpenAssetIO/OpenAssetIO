@@ -94,9 +94,9 @@
  * @section examples_resolving_a_reference Resolving a Reference
  *
  * This example shows how to use the instantiated manager to resolve a
- * string (`some_string`) that may be an entity reference - covering use
- * of the correct context and a custom @ref locale to describe the call
- * site.
+ * string (`some_string`) that may be an entity reference to an entity
+ * with the 'file' @ref trait - covering use of the correct context
+ * and a custom @ref locale to describe the call site.
  *
  * @note Note how it is the callers responsibility to validate
  * that a string is a @ref entity_reference before passing it to any
@@ -109,20 +109,19 @@
  *
  * The API middleware provides assorted short-circuit validation
  * optimisations that can reduce the number of inter-language hops
- * required. See @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.info
- * "ManagerInterface.info" and the `kField_EntityReferencesMatchPrefix`
+ * required. See @fqref{managerAPI::ManagerInterface::info}
+ * "ManagerInterface::info" and the `kField_EntityReferencesMatchPrefix`
  * key.
  *
  * @code{.py}
  * from openassetio import Context
- * from openassetio.specifications import LocaleSpecification
+ * from openassetio import Specification
  *
- * class APIDocumentationExampleLocale(LocaleSpecification):
+ * class APIDocumentationExampleLocale(Specification):
  *     """
  *      A locale to represent code run as part of a documentation example
  *     """
- *     _type = "documentation.example"
+ *     kTraitSet = {"documentation", "example"}
  *
  * # We must **ALWAYS** validate that a string is an entity reference
  * # before passing it to any other manager API call.
@@ -138,14 +137,18 @@
  *
  * # We tell the manager something about which part of our code is
  * # working with the asset.
- * context.locale = APIDocumentationExampleLocale()
+ * context.locale = APIDocumentationExampleLocale.create().traitsData()
  *
  * # We describe the lifetime of the returned reference
  * # as persistent retention may require a more stable value.
  * context.retention = context.kTransient
  *
- * # We can now resolve a token we may have if it is a reference.
- * resolved_asset = manager.resolveEntityReference([some_string], context)[0]
+ * # We can now resolve a token we may have if it is a reference. In
+ * # this example, we'll attempt to resolve the asset with the
+ * # file trait.
+ * [resolved_asset] = manager.resolve([some_string], {FileTrait.id}, context)
+ * if resolved_asset.hasTrait(FileTrait.id):
+ *    path = FileTrait(resolved_asset).getPath()
  * @endcode
  *
  * @section example_publishing_a_file Publishing a File
@@ -155,21 +158,16 @@
  *
  * @code{.py}
  * from openassetio import constants
- * from openassetio.specifications import FileSpecification
+ * from openassetio_mediacreation.specification.entity import TextFileSpecification
  *
- * # We first need to describe the kind of entity we're about
- * # to publish. It's going to be a text file. In reality you
- * # would use one of the more derived, concrete specification types.
- * file_spec = FileSpecification()
- * file_spec.extensions = ('txt',)
  *
  * # As ever, an appropriately configured context is required
  * context = session.createContext()
  * context.access = context.kWrite
- * context.locale = APIDocumentationExampleLocale()
+ * context.locale = APIDocumentationExampleLocale.create().traitsData()
  *
  * # The first step is to see if the manager wants to manage text files
- * policy = manager.managementPolicy([file_spec], context)[0]
+ * policy = manager.managementPolicy([TextFileSpecification.kTraitSet], context)[0]
  *
  * if not policy & constants.kManaged:
  *   # The manager doesn't care about this type of asset
@@ -179,25 +177,38 @@
  * # The reality of handling this is somewhat more challenging, and
  * # depends on the nature of the task in hand. One for further discussion.
  * save_path = os.path.join(os.path.expanduser('~'), 'greeting.txt')
+ * encoding = "utf-8"
  *
  * # Whenever we make new data, we always tell the manager first,
  * # This allows it to create a placeholder version or similar.
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight([entity_ref], [file_spec], context)[0]
+ * working_ref = manager.preflight([entity_ref], TextFileSpecification.kTraitSet, context)[0]
  *
- * # We then check if the manager can tell us where to save the file
+ * # We then check if the manager can tell us where to save the file.
  * if policy & constants.kWillManagePath:
- *     save_path = manager.resolveEntityReference([working_ref], context)[0]
+ *     working_data = manager.resolve([working_ref], TextFileSpecification.kTraitSet, context)[0]
+ *     working_spec = TextFileSpecification(working_data)
+ *     save_path = working_spec.locatableContentTrait().getUrl()
+ *     encoding_trait = working_spec.textEncodingTrait()
+ *     if encoding_trait.isValid() and (custom_encoding := encoding_trait.getEncoding()):
+ *         encoding = custom_encoding
+ *
  *
  * # Now we can write the file
- * with open(save_path, 'w') as f:
+ * with open(save_path, 'w', encoding=encoding) as f:
  *    f.write("Hello from the documentation example\n")
+ *
+ * Prepare the entity specification to register, with the data about
+ * where we actually wrote the data to, and with what encoding.
+ * file_spec = TextFileSpecification.create()
+ * file_spec.fileTrait().setPath(save_path)
+ * file_spec.textEncodingTrait().setEncoding(encoding)
  *
  * # Now the data has been written, we register the file and the publish
  * # is complete. Update the context retention to denote that we're going
  * # to save a reference to this entity in our user's history.
  * context.retention = context.kPermanent
- * final_ref = manager.register([save_path], [working_ref], [file_spec], context)[0]
+ * final_ref = manager.register([working_ref], [file_spec.traitsData()], context)[0]
  *
  * # We can persist this reference as we used the kPermanent retention
  * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
@@ -218,33 +229,41 @@
  * if not policy & constants.kWantsThumbnail:
  *   return
  *
- * from openassetio.specifications import ThumbnailSpecification
+ * from openassetio_mediacreation.specification.entity import ThumbnailFileSpecification
  *
- * # Create a spec that describes the kind(s) of thumbnail that can
- * # be made by the host
- * thumbnail_spec = ThumbnailSpecification()
- * thumbnail_spec.mimeType = ["image/png",]
- *
- * # Preflight the thumbnail spec with the target entity's reference,
- * # this gives us a reference we can now use for all interactions
- * # relating to the thumbnail itself.
- * thumbnail_ref = manager.preflight([final_ref], [thumbnail_spec], context)[0]
+ * # Preflight the thumbnail spec's traits with the target entity's
+ * # reference, this gives us a reference we can now use for all
+ * # interactions relating to the thumbnail itself.
+ * thumbnail_ref = manager.preflight([final_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
  *
  * thumbnail_path = os.path.join(os.path.expanduser('~'), 'greeting.preview.png')
  * thumbnail_attr = {"width": 128, "height": 128}
  *
  * # See if the manager can tell us where to put it, and what it should be like
  * if policy & constants.kWillManagePath:
- *    thumbnail_path = manager.resolveEntityReference([thumbnail_ref], context)[0]
- *    thumbnail_attr.update(manager.getEntityAttributes([thumbnail_ref], context)[0])
+ *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
+ *     requested_spec = ThumbnailFileSpecification(requested)
+ *     file_trait = requested_spec.fileTrait()
+ *     if file_trait.isValid() and (requested_path := file_trait.getPath()):
+ *         thumbnail_path = requested_path
+ *     raster_trait = requested_spec.rasterTrait()
+ *     if raster_trait.isValid():
+ *         thumbnail_attr["width"] = raster_trait.getWidth() or thumbnail_attr["width"]
+ *         thumbnail_attr["height"] = raster_trait.getHeight() or thumbnail_attr["height"]
  *
  * # Generate a thumbnail using the supplied criteria
  * mk_thumbnail(thumbnail_path, thumbnail_attr["width"], thumbnail_attr["height"])
  *
  * # Register the thumbnail to the thumbnail ref (not the entity),
  * # configuring the context to say we're going to ignore the final ref
+ *
+ * thumbail_spec = ThumbnailFileSpecification.create()
+ * thumbnail_spec.fileTrait().setPath(thumbnail_path)
+ * raster_trait = thumbnail_spec.rasterTrait()
+ * raster_trait.setWidth(thumbnail_attr["width"])
+ * raster_trait.setHeight(thumbnail_attr["height"])
+ *
  * context.retention = context.kTransient
- * manager.register([thumbnail_path], [thumbnail_ref], [thumbnail_spec], context)
+ * manager.register([thumbnail_ref], [thumbnail_spec.traitsData()], context)
  * @endcode
  */
-

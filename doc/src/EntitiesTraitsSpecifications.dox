@@ -1,0 +1,400 @@
+/*!
+ * @page entities_traits_and_specifications Entities, Traits and Specifications
+ *
+ * The concepts discussed on this page are key to understanding how
+ * OpenAssetIO extends beyond the simple resolution of an @ref entity_reference
+ * into a file path into first-class asset centric workflows.
+ *
+ * @section Entities
+ *
+ * To recap, within OpenAssetIO, a @ref host communicates with an
+ * @ref asset_management_system to query and manage the existence of
+ * @ref entity "entities". An entity is a logical thing managed within
+ * a pipeline or workflow by the asset manager. Within the Media and
+ * Entertainment sector, this could be a shot, an image sequence, a 3D
+ * model or a script.
+ *
+ * At its core OpenAssetIO has no detailed understanding of the
+ * specifics of any given entity, only that:
+ *  - Conceptually they may or may not exist.
+ *  - Entities conform to one or more @ref trait "traits" that define
+ *    what data is associated with the entity.
+ *  - They may (or may not) have multiple versions.
+ *  - They may (or may not) have relationships to other entities.
+ *
+ * An @ref entity_reference is the token used to identify a specific
+ * entity within the system. These references are (generally) in the
+ * form of a <a
+ * href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>. The
+ * format of the reference itself is owned by the @ref manager and
+ * conceptually, to the host, it is an opaque handle. Because of this
+ * (and the fact that it is specifically only an identifier), no
+ * concrete information about an entity can be determined from its
+ * reference alone.
+ *
+ * OpenAssetIO's purpose is to define a standardized set of actions that
+ * can be performed to retrieve information about an entity from one of
+ * these opaque references, or to create new ones.
+ *
+ * @section Traits
+ *
+ * Within the API, it is often neccesary to classify an entity,
+ * relationship or the nature of the calling environment to ensure
+ * data is handled correctly.
+ *
+ * This is accomplished within OpenAssetIO using a set of
+ * 'traits'. A trait represents a concrete characteristic manifest
+ * by the thing in question. A trait may have one or more properties
+ * associated with it.
+ *
+ * For entities, traits define the nature of that entity and what
+ * associated data it holds.
+ *
+ * For example, an entity representing an image stored in an EXR file
+ * may have the `image`, `raster` and `locatableContent` traits. Each of these
+ * conveys a different characteristic of that entity:
+ *  - `locatableContent`: Data is accessed elsewhere, through the
+ *     path (or URL) supplied in the trait's `location` property.
+ *  - `image`: That the entity represents two-dimensional visual
+ *    data. This trait has properties such `colorSpace`.
+ *  - `raster`: That the data is in the form of pixels.
+ *
+ * A procedural test chart image may combine `image`, `procedural` and
+ * `colorBars` traits, defining:
+ *  - `image`: That the entity represents two-dimensional visual
+ *    data.
+ *  - `procedural`: That it is a parameterized representation
+ *  - checkerBoard`: A well-known set of properties that parameterize
+ *    the generation of a checker board.
+ *
+ * A character model in a USD file could use the `locatableContent` and
+ * `geometry` traits, defining:
+ *  - `locatableContent`: Data is accessed elsewhere.
+ *  - `geometry`: That the data contains meshes.
+ *
+ * Traits allow a consumer of data to request or consider only the
+ * specific qualities it understands. For example, when publishing a new
+ * entity, a @ref manager may choose to adapt its high-level behaviour
+ * based on whether or not the entity has the `locatableContent` trait -
+ * to ensure data is moved to long-term storage.
+ *
+ * The manager doesn't need to check an extensive list of which entity
+ * types may be registered with data on disk - it just checks if any
+ * given entity has that specific trait.
+ *
+ * @section entity_data Entity Data
+ *
+ * Every @ref trait associated with an @ref entity can define zero or more
+ * key/value pairs of data (properties) that the entity (may) hold.
+ *
+ * Traits are the mechanism by which a @ref host requests specific data
+ * about an entity at runtime. The @ref openassetio.hostAPI.Manager.Manager.resolve
+ * "resolve" method asks the manager to retrieve the data for a specific
+ * set of traits for one or more @ref entity_reference
+ * "entity references".
+ *
+ * Continuing the example above, to determine the path to the character
+ * model, the host would resolve the data for the `locatableContent`
+ * trait, and read the `location` property to locate the data.
+ *
+ * A tool that displays EXR image sequences may resolve the
+ * `locatableContent`, `image` `frameRange`, and `playback` traits. The
+ * data provided by the manager then being used to control the
+ * colorspace and frame range/rate used for playback. This avoids
+ * fragile mechanisms such as extension-based mappings and brute-force
+ * filesystem searches.
+ *
+ * The @ref Context passed to the API methods by the host plays an
+ * important role during resolution. Its @ref locale property also makes
+ * use of traits to specify details of the host environment. These may
+ * affect the resolved _value_ of a trait property,  but must never
+ * change the interpretation or format of that value.
+ *
+ * @note In many real-world production systems, entities are manageed
+ * through distributed service-oriented platforms. The fact that a host
+ * must request the specific data for one or more concrete traits means
+ * that the manager does not have to worry about retrieving all possible
+ * data for any given entity. Host however, should be careful to only
+ * request traits they need at runtime, to avoid creating more work for
+ * the manager than is neccesary.
+ *
+ * @subsection entities_not_just_for_files Not Just for Files
+ *
+ * The above examples have focused on entities that happen to represent
+ * data held on disk in files, simply because this is a common patten in
+ * current pipelines, and serves as a gentle introduction to the topic.
+ *
+ * There is no requirement for entities to map to file system data in
+ * OpenAsssetIO, that quality is just another 'trait' - the
+ * `locatableContent` trait.
+ *
+ * Another valuable use of the API is to allow applications to work at
+ * the conceptual level ot 'shots' and 'sequences' (or any other
+ * organizational structure that may be desired).
+ *
+ * Consider an editorial application that wants to update a production
+ * tracking system based on changes to the suplied edit of a film. A
+ * host could use the `shot` and `frameRange` traits and their
+ * associated data fields to query and publish shot timing information
+ * directly to the management system.
+ *
+ * The API contract states that a @ref manager **must** guarantee to
+ * store and recall any traits and their properties registered by this
+ * mechanism. This allows a host to manage arbitrary data through the
+ * asset management system without any special handling by the manager
+ * itself.
+ *
+ * @warning In OpenAssetIO, trait properties are limited to simple
+ * constants using basic types such as string, float, int and bool.
+ * Time-varying data is beyond the scope of this API and should be
+ * managed through alternate means such as <a href="http://opentimeline.io"
+ * target="_blank">OpenTimelineIO</a>
+ * or similar.
+ *
+ * @subsubsection trait_mapping Mapping to Existing Data
+ *
+ * A manager almost certainly holds entities created by means other
+ * than OpenAssetIO (its own interface, other APIs, etc.). Where
+ * possible a manager should attempt to 'bridge' any internal data to
+ * and from the well-known OpenAssetIO traits and their properties
+ * so this data is available through the API to hosts and other
+ * consumers.
+ *
+ * @subsection trait_property_modification Modifying Trait Properties
+ *
+ * Aside from mapping trait properties to it's internal data model, a
+ * manager is also free to re-write any property values that it
+ * concretely understands - with the sole condition that the updated
+ * value must be logically the same as the one registered by the host.
+ *
+ * The most common case of rewriting property data is with the
+ * `locatableContent` trait. In fact, the sole purpose of the API is to
+ * facilitate rewriting the `location` property of this trait!
+ *
+ * The `location` property holds the path (or URL) to an entity's data.
+ * Depending on the process environment, this may need to be one of many
+ * different possible locations. A resolve on a render farm may need
+ * read from some local cache, where as a host writing a new version of
+ * an entity could be directed to a staging area. The manager should
+ * pick the most appropriate location based on the calling context's
+ * @ref locale.
+ *
+ * The point to note is that regardless of the value, the `location`
+ * is always pointing to the data for the specific referenced entity.
+ *
+ * @warning If a manager does _not_ understand the semantic meaning of
+ * any given trait or its property values, it should ensure all
+ * registered values are returned verbatim for any trait set its
+ * management policy supports for write.
+ *
+ * @subsection traits_as_views Traits as Views
+ *
+ * At a programming level, traits are "views" on specification data.
+ * They provide concrete, strongly typed access to the open-ended data
+ * structures handled by the core API. In some languages, they extend to
+ * providing IDE-level or compile-time checks of their use.
+ *
+ * @section Specifications
+ *
+ * Specifications are a convenience used to define well-known sets of
+ * traits. They are used at runtime to ensure consistent handling of
+ * traits between different hosts and managers.
+ *
+ * When a Specification combines triats into a @ref trait_set -
+ * they are additive. Each additional trait narrows the set's focus.
+ * Combining two traits does _not_ mean "either/or".
+ *
+ * A specifcation based on the earlier examples could be an
+ * `ImageSpecification` - composed of the `image`, `raster`
+ * and `locatableContent` traits. This specification defines an entity
+ * that must be a pixel-based image, with data held in a file.
+ *
+ * There are three notable uses of specifications within OpenAssetIO:
+ *
+ * - The context @ref locale - to describe the specifics of the
+ *   host environment calling the API.
+ * - During @ref register and @ref resolve - to hold the data for an
+ *   @ref entity.
+ * - Describing Relationships - to define some connection between one or
+ *   more entities.
+ *
+ * @subsection locale_specifications Locale Specifications
+ *
+ * Specifications only ever intended for use in the
+ * @ref openassetio.Context.Context.locale "Context.locale" (to describe
+ * which part of a host or application is calling the API) are known as
+ * "locale specifications".
+ *
+ * The context locale is the mechanism by which a host can provide
+ * information to the manager so that it can supply the correct data in
+ * response to an API query, or adapt its behaviour during a publishing
+ * operation.
+ *
+ * When used here, the specification's trait properties are used to
+ * convey not entity data, but information about the process
+ * environment. For example, the `usesUrls` trait defines that the host
+ * requires URLs instead of paths when addressing entity data not passed
+ * through the API.
+ *
+ * @subsection entity_specifications Entity Specifications
+ *
+ * Specifictions used with @ref register and returned by @ref resolve to
+ * hold @ref entity data are known as "entity specifications". The
+ * @ref trait_set they define can also be used as a shorthand for
+ * consistency when:
+ *
+ *  - A host wishes to know if a manager would like to be involved in
+ *    reads or writes of a specific kind of data.
+ *  - A host wishes to define which data to resolve for an entity.
+ *  - A host needs to present a browser or other UI element tailored
+ *    to a specific kind of data.
+ *
+ * @subsection relationship_specifications Relationship Specifications
+ *
+ * Specifications used in conjunction with the "related references" API
+ * methods, and cover the description of relationships not defined by
+ * the _type_ of entities themselves. These are known as "relationship
+ * specifications".
+ *
+ * An example use case here would be an editorial application, that
+ * wishes to define a new shot in a production tracking system. Given
+ * the entity reference of an existing shot on the timeline, a
+ * specification that composed the `relationship` and `parent`
+ * traits would allow the host to query the correct parent to register
+ * the new shot to.
+ *
+ * Using relationship traits ensures that this action can work with any
+ * asset management system, without needing first-class semantic
+ * understanding of the specific and most likely proprietary entity
+ * types and structure maintained by the manager.
+ *
+ * Another example would be a specification composing the `relationship`
+ * and `dependency` traits to allow the runtime dependencies of a
+ * specific entity to be queried to facilitate data relocation.
+ *
+ * @section specification_specificity A Note on Trait Specificity and Entities
+ *
+ * @subsection Using Trait Sets as a Filter Predicate
+ *
+ * When a @ref trait_set is used as a predicate to search for entities.
+ * Such as in @ref openassetio.hostAPI.Manager.Manager.getRelatedReferences
+ * "getRelatedReferences", or when browsing for assets, traits are
+ * considered additive, and they must all be satisifed.
+ *
+ * As an example, consider a world-building tool wishing to browse for
+ * an arbitrary three-dimensional scene file to incorporate (e.g. USD).
+ * If it has no specific interest in exactly what type of objects it
+ * may contain - just that it is scene data - it should not include any
+ * traits that cover the specific types of scene items in the
+ * specification.
+ *
+ * It may be tempting to form a specification composed of all potential
+ * traits, eg: `locatableContent`, `scene`, `camera`, `lights`,
+ * `geometry` etc. Because of the "additive" nature of a @ref trait_set
+ * "trait sets", this would effectively require that only scenes
+ * conforming to _all_ of the listed traits should be presented. The
+ * correct trait collection to use would be just `locatableContent` and
+ * `scene` when browsing for an arbitrary scene file.
+ *
+ * If it was required that the data be in a specific format (eg: USD)
+ * then the `format` property defined by the `sceneReader` trait should
+ * be set in the calling context's locale accordingly.
+ *
+ * If a host _did_ however require that a scene file contained a certain
+ * type of data  - a camera for example, for a camera loader, then the
+ * `camera` trait should be added to indicate that only scenes
+ * containing a camera should be presented.
+ *
+ * Another example would be when querying for an an EDL file in
+ * relation to a sequence entity. The traits used should only include a
+ * description of the nature of any of its content if this is
+ * specifically required for its use, so typically `locatableContent`,
+ * `timeline` is all that would be needed unless the host wished to
+ * specifically constrain the type of data referenced in the edit.
+ *
+ * @subsection Publishing
+ *
+ * When populating specifications with traits for publishing (see @ref
+ * register). The relevant traits are the ones that cover the
+ * data that is registered, so that that data is then available later
+ * on for `resolve` or when evaluating filter predicates.
+ *
+ * @subsection Descriptions
+ *
+ * When a manager populates data in
+ * @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolve
+ * "resolve", then it should set all of the requested traits that are
+ * applicable to the entity, and only those that have data in the case
+ * of traits with properties. Traits that are not relevant, missing all
+ * data, or not known to the manager should be omitted.
+ *
+ * When populating @needsref entityTraits, any traits that are
+ * applicable, or the manager is capable of providing data for should be
+ * set. The result of this query will be used by a host to decide if it
+ * is capable of consuming the entity's data in a specific way, so
+ * including all applicable traits is generally benefical.
+ *
+ * @note This may need a little time to settle in paractice. There has
+ * been discussion around whether there is need to define 'excluded'
+ * traits, or how best to handle situations such as the 'USD camera
+ * cache' example, where there may also be caches with meshes _and_
+ * cameras. How does that intersection get handled? One option may be
+ * that the `camera` trait also included a `scenePath` property that
+ * allowed the rest of the scene to be filtered out. It probably means
+ * that registration should contain as much descriptive information
+ * as possible, where as filters/resolve should be as minimal as
+ * possible to avoid the logical conjunction of traits when being used
+ * as a predicate being too specific to match. So the case of a USD
+ * scene with meshes and cameras, then all relevant traits should be
+ * populated.
+ *
+ * @section specification_mapping Mapping to Native Types
+ *
+ * Where possible, both hosts and managers should attempt to map
+ * well-known trait sets to their native types. A manager with no
+ * UI of its own may not need to, but in most situations, a consistent
+ * mapping of traits to first-class concepts is essential for a
+ * well-formed user experience.
+ *
+ * For example, the trait set of the `ImageSequenceSpecification`
+ * could be used by a compositor to know to read the data through
+ * its native image loading nodes. The trait properties could be mappeed
+ * to controls on these nodes to determine what colorspace to apply to
+ * the image data and what frame range to use.
+ *
+ * A manager may map the same traits to its own internal video format to
+ * ensure thumbnails and transcodes are generated for an entity, to be
+ * displayed in its browser as a preview.
+ *
+ * @subsection specification_selection Picking Which Traits to Use
+ *
+ * As a @ref host, it is important to use the correct specifications and
+ * traits when making calls to a @ref manager. This ensures the expected
+ * type of entity is returned or registered. A manager must also
+ * accurately describe any entities when requested. In order to
+ * facilitate a common dialog between OpenAssetIO compatible systems,
+ * the project provides a set of well-known specifications and traits
+ * through industry-specific packages. Always use one of these where
+ * possible as they are, by definition, also known to other tools in the
+ * OpenAssetIO ecosystem.
+ *
+ * Hosts and managers are also free to make their own specifications and
+ * traits for their native types. For example, creating a new
+ * specification by adding to the trait set of the
+ * `DocumentSpecification`, to represent a DCC tool's native file
+ * format. They should however, always use as many well-known traits as
+ * applicable. This ensures maximum compatibility with other tools.
+ *
+ * @warning Trait IDs are simply strings, and so exist in a global
+ * namespace so care should be taken when defining new or local traits
+ * to avoid the potential of collisions.
+ *
+ * Any new tool, manager or vendor specific specifcations and traits
+ * should be listed in the appropriate technical documentation supplied
+ * with the software.
+ *
+ * @note We are actively working on a library of well-known
+ * OpenAssetIO traits for the Media Creation sector. These are available
+ * in the <a href="https://github.com/TheFoundryVisionmongers/OpenAssetIO-MediaCreation" target="_blank">OpenAssetIO-MediaCreation</a>
+ * repository.
+ */

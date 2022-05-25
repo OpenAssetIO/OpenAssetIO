@@ -5,9 +5,10 @@ charset = utf-8
 end_of_line = lf
 indent_size = 4
 indent_style = space
-# insert_final_newline = false
+insert_final_newline = true
 max_line_length = 99
 tab_width = 4
+trim_trailing_whitespace = true
 ij_continuation_indent_size = 8
 # ij_formatter_off_tag = @formatter:off
 # ij_formatter_on_tag = @formatter:on
@@ -18,6 +19,11 @@ ij_continuation_indent_size = 8
 ij_visual_guides = 72
 
 # ij_wrap_on_typing = false
+
+[{*.h,*.hpp,*.cpp}]
+indent_size = 2
+tab_width = 2
+ij_continuation_indent_size = 4
 
 [*.feature]
 indent_size = 2

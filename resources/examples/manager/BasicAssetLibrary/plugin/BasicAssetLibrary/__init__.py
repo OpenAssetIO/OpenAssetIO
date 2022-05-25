@@ -24,10 +24,10 @@ supporting infrastructure as possible.
 
 The BasicAssetLibrary lives in the simpler category of asset
 management systems - one that is not capable of providing information
-about a future entity. In that, it can not determine the primary string
-(e.g. path) or any attribute for an entity that does not exist yet.
-It will simply remember entities it is told about, and provide that
-information through the OpenAssetIO API methods.
+about a future entity. In that, it can not determine any trait data
+(e.g. path) for an entity that does not exist yet. It will simply
+remember entities it is told about, and provide that information through
+the OpenAssetIO API methods.
 
 It is designed to be easy to bootstrap into a known state though a
 simple JSON configuration file that provides the entirety of some
@@ -61,9 +61,7 @@ class BasicAssetLibraryPlugin(ManagerPlugin):
 
     @staticmethod
     def identifier():
-        from .BasicAssetLibraryInterface import BasicAssetLibraryInterface
-
-        return BasicAssetLibraryInterface.identifier()
+        return "org.openassetio.examples.manager.bal"
 
     @classmethod
     def interface(cls):

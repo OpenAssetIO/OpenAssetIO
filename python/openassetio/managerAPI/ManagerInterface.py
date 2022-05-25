@@ -27,13 +27,15 @@ A single-class module, providing the ManagerInterface class.
 # pylint: disable=unused-argument,no-self-use
 
 import abc
+# TODO(DF): Remove pylint disable once CI is fixed.
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from .. import exceptions
 
 
 __all__ = ['ManagerInterface', ]
 
 
-class ManagerInterface(object):
+class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     """
     @brief This Interface binds a @ref asset_management_system into
     OpenAssetIO. It is not called directly by a @ref host, but by the
@@ -144,9 +146,9 @@ class ManagerInterface(object):
     initialize has been called. The following methods must be callable
     prior to initialization:
 
-       @li @ref identifier()
-       @li @ref displayName()
-       @li @ref info()
+       @li @needsref identifier()
+       @li @needsref displayName()
+       @li @needsref info()
        @li @ref updateTerminology()
        @li @ref getSettings()
        @li @ref setSettings()
@@ -157,39 +159,6 @@ class ManagerInterface(object):
 
     __metaclass__ = abc.ABCMeta
 
-    # Test harness methods.
-    #
-    # It is difficult to derive generic tests for the API, as they need sample
-    # entity references to use in the calls.
-    #
-    # As such, we introduce optional methods here, that are required to support
-    # the various tests in test/TestCases/Core. If this are not implemented, then
-    # you will not be able to test the implementation using these tests.
-
-    # def _test_getReference(self, specification):
-    #  """
-    #
-    #  Returns an @ref entity_reference that can be used for testing purposes, the
-    #  specification will be a TestEntitySpecification. The current test can be
-    #  queried using specification.testName(). Some tests require a reference to
-    #  an existing entity, so specification.shouldExist() should be respected.
-    #  Additionally specification.embeddable() can be queried to determine if the
-    #  ref will be used in isolation, or may be embedded in a more complex
-    #  string.
-    #
-    #  """
-
-    # def _test_cleanup(self, references)
-    #  """
-    #
-    #  Called by the test harness to clean up any references that it requested.
-    #  This is called after any test that has requested a reference completes.
-    #  You could use this to remove any temporary database entries, etc... that
-    #  were necessary to satisfy a request for a reference to an 'existing'
-    #  asset.
-    #
-    #  """
-
     ##
     # @name Asset Management System Information
     #
@@ -197,71 +166,6 @@ class ManagerInterface(object):
     # asset_management_system itself.
     #
     # @{
-
-    @staticmethod
-    def identifier():
-        """
-        Returns an identifier to uniquely identify a specific asset
-        manager. This may be used by a host to persist the users
-        preferred manager via a preferences mechanism, or when spawning
-        child processes, etc...
-
-        It should match the name used to register the plug-in with the
-        plug-in host.  The identifier should use only alpha-numeric
-        characters and '.', '_' or '-'.  Generally speaking, we
-        recommend using the 'reverse-DNS' convention, for example:
-
-            "org.openassetio.manager.test"
-
-        @return `str`
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def displayName(self):
-        """
-        Returns a human readable name to be used to reference this
-        specific asset manager in UIs or other user-facing messaging.
-        One instance of its use may be in a host's preferences UI or
-        logging. For example:
-
-            "OpenAssetIO Test Asset Manager"
-        """
-        raise NotImplementedError
-
-    def info(self):
-        """
-        Returns other information that may be useful about this @ref
-        asset_management_system. This can contain arbitrary key/value
-        pairs. For example:
-
-            { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
-
-        @note Keys should always be strings, and values must be
-        plain-old-data types (ie: str, int, float, bool).
-
-        There are certain optional keys that may be used by a host or
-        the API:
-
-          @li openassetio.constants.kField_SmallIcon (upto 32x32)
-          @li openassetio.constants.kField_Icon (any size)
-
-        Because it can often be expensive to bridge between languages,
-        info can also contain an additional field - a prefix that
-        identifies a string as a valid entity reference. If supplied,
-        this will be used by the API to optimize calls to
-        isEntityReference when bridging between C/Python etc.
-        If this isn't supplied, then isEntityReference will always be
-        called to determine if a string is an @ref entity_reference or
-        not. Note, not all invocations require this optimization, so
-        @ref isEntityReference should be implemented regardless.
-
-          @li openassetio.constants.kField_EntityReferencesMatchPrefix
-
-        @note Keys should always be strings, and values must be
-        plain-old-data types (ie: str, int, float, bool).
-        """
-        return {}
 
     def updateTerminology(self, stringDict, hostSession):
         """
@@ -332,9 +236,9 @@ class ManagerInterface(object):
         is however, the following functions may be called prior to
         initialization:
 
-         @li @ref identifier()
-         @li @ref displayName()
-         @li @ref info()
+         @li @needsref identifier()
+         @li @needsref displayName()
+         @li @needsref info()
          @li @ref updateTerminology()
          @li @ref getSettings()
          @li @ref setSettings()
@@ -351,8 +255,7 @@ class ManagerInterface(object):
         entity_reference list. This usually means that the host is about
         to make multiple queries to the same references.  This can be
         left unimplemented, but it is advisable to batch request the
-        data for resolveEntityReference, getEntityAttributes here if
-        possible.
+        data for resolve here if possible.
 
         The implementation should ignore any entities to which no action
         is applicable (maybe as they don't exist yet).
@@ -396,21 +299,23 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def managementPolicy(self, specifications, context, hostSession):
+    def managementPolicy(self, traitSets, context, hostSession):
         """
         Determines if the asset manager is interested in participating
-        in interactions with the specified specifications of @ref
-        entity.
+        in interactions with @ref entity "entities" with the specified
+        sets of @ref trait "traits".
 
         For example, a host may call this in order to see if the manager
         would like to manage the path of a scene file whilst choosing a
         destination to save to.
 
-        This information is then used to determine which options
-        should be presented to the user. For example, if `kIgnored`
-        was returned for a query as to the management of scene files,
-        a Host will hide or disable menu items that relate to publish
-        or loading of assetized scene files.
+        This information is then used to determine which options should
+        be presented to the user or which workflows may be performed by
+        the host. For example, if `kIgnored` was returned for a query as
+        to the management of scene files, a Host will hide or disable
+        menu items that relate to publish or loading of assetized scene
+        files, and not involve the manager in any actions realting to
+        scene files.
 
         @warning The @ref openassetio.Context.Context.access "access"
         specified in the supplied context should be carefully considered.
@@ -431,15 +336,27 @@ class ManagerInterface(object):
         asset becomes a partially manual task, rather than one that can
         be fully automated for new assets.
 
-        @param specifications `List[Specification]` Specifications to
-        query.
+        For read contexts, kManaged should only be returned if the
+        manager can potentially resolve data for all of the supplied
+        traits. Hosts are required to deal with the properties for any
+        given trait being unset when resolved, as they may not be
+        available for existing assets, as long as the traits are
+        understood.
+
+        For write contexts, kManaged should only be returned if the
+        manager is capable of persisting all traits (and any of their
+        property data) when they are registered for an entity, and
+        returning that data via resolve.
+
+        @param traitSets `List[Set[str]]` The entity @ref trait "traits"
+        to query.
 
         @param context Context The calling context.
 
         @param hostSession HostSession The API session.
 
         @return `List[int]` Bitfields, one for each element in
-        `specifications`. See @ref openassetio.constants.
+        `traitSets`. See @ref openassetio.constants.
         """
         raise NotImplementedError
 
@@ -485,7 +402,7 @@ class ManagerInterface(object):
         the format of the string is recognised.
 
         @see @ref entityExists
-        @see @ref resolveEntityReference
+        @see @ref resolve
         """
         raise NotImplementedError
 
@@ -542,14 +459,30 @@ class ManagerInterface(object):
     # @{
 
     @abc.abstractmethod
-    def resolveEntityReference(self, entityRefs, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession):
         """
-        Returns the @ref primary_string represented by each given @ref
-        entity_reference.
+        Returns a @fqref{TraitsData} "TraitsData"
+        populated with the available data for the requested set of
+        traits for each given @ref entity_reference.
 
-        If a primary string points to some data, then it should
-        always be in the form of a valid URL. File paths should be
-        returned as a `file` scheme URL.
+        Any traits that aren't applicable to any particular entity
+        reference should not be set in the resulting data. This covers
+        any traits that are understood by the implementation, but not
+        appliable to the entity in question, or are entirely unknown to
+        the manager. Setting a trait in the result is an indication to
+        the caller that that entity conceptually has that trait.
+
+        @warning There is no requirement for a manager to populate all
+        properties of known traits if appropriate data is not available.
+        It is the responsibility of the caller to handle requested data
+        being missing in a fashion appropriate to its intended use.
+
+        In summary:
+          - Set the trait in the result TraitsData instance for each
+            entity if it is known and applicable to that entity, even if
+            it has no properties or there is no data available for
+            properties it does have.
+          - Set the properties of each trait where possible.
 
         When an @ref entity_reference points to a sequence of files,
         the frame, view, etc substitution tokens should be preserved,
@@ -565,11 +498,10 @@ class ManagerInterface(object):
         The caller will have first called isEntityReference() on the
         supplied strings.
 
-        @note You may need to call finalizedEntityVersion() within
-        this function to ensure any @ref meta_version "meta-versions"
-        are resolved prior to resolution.
-
         @param entityRefs `List[str]` Entity references to query.
+
+        @param traitSet `Set[str]` The traits to resolve for the
+        supplied list of entity references.
 
         @param context Context The calling context.
 
@@ -578,8 +510,8 @@ class ManagerInterface(object):
         @return `List[Union[str,`
             exceptions.EntityResolutionError,
             exceptions.InvalidEntityReference `]]`
-        A list containing either the primary string for each
-        reference; `EntityResolutionError` if a supplied entity
+        A list containing either a populated TraitsData instance for
+        each reference; `EntityResolutionError` if a supplied entity
         reference does not have a meaningful string representation,
         or it is a valid reference format that doesn't exist; or
         `InvalidEntityReference` if a supplied entity reference should
@@ -591,23 +523,23 @@ class ManagerInterface(object):
         """
         raise NotImplementedError
 
-    def defaultEntityReference(self, specifications, context, hostSession):
+    def defaultEntityReference(self, traitSets, context, hostSession):
         """
         Returns an @ref entity_reference considered to be a sensible
-        default for each of the given specifications and Context. This
-        is often used in a host to ensure dialogs, prompts or publish
-        locations default to some sensible value, avoiding the need for
-        a user to re-enter such information when a Host is being run in
-        some known environment.
+        default for each of the given entity @ref trait "traits" and
+        Context. This is often used in a host to ensure dialogs, prompts
+        or publish locations default to some sensible value, avoiding
+        the need for a user to re-enter such information when a Host is
+        being run in some known environment.
 
-        For example, a host may request the default ref for
-        'ShotSpecification/kWriteMultiple'. If the Manager has some
-        concept of the 'current sequence' it may wish to return this so
-        that a 'Create Shots' starts somewhere meaningful.
+        For example, a host may request the default ref for the @ref
+        trait_set of a 'ShotSpecification' with access kWriteMultiple'.
+        If the Manager has some concept of the 'current sequence' it may
+        wish to return this so that a 'Create Shots' action starts
+        somewhere meaningful.
 
-        @param specifications `List[`
-            specifications.EntitySpecification `]`
-        The relevant specifications for the type of entities a host is
+        @param traitSets `List[Set[str]]`
+        The relevant trait sets for the type of entities a host is
         about to work with. These should be interpreted in conjunction
         with the context to determine the most sensible default.
 
@@ -624,9 +556,9 @@ class ManagerInterface(object):
         object representing the process that initiated the API session.
 
         @return `List[str]` An @ref entity_reference or empty string for
-        each given specification.
+        each given trait set.
         """
-        return ["" for _ in specifications]
+        return ["" for _ in traitSets]
 
     ## @}
 
@@ -638,8 +570,6 @@ class ManagerInterface(object):
     #
     # This suite of methods query information for a supplied @ref
     # entity_reference.
-    #
-    # @see @ref attributes
     #
     # @{
 
@@ -700,132 +630,6 @@ class ManagerInterface(object):
         reference is not recognised by the asset management system.
         """
         raise NotImplementedError
-
-    @abc.abstractmethod
-    def getEntityAttributes(self, entityRefs, context, hostSession):
-        """
-        Retrieve @ref attributes for each given entity.
-
-        It may be required to bridge between certain 'first-class'
-        properties of your asset management system and the well-known
-        OpenAssetIO attributes. For example, if the asset system
-        represents a 'Shot' with 'cutIn' and 'cutOut' properties or
-        accessors, these should be remapped to the
-        @ref openassetio.constants.kField_FrameIn and Out attributes as
-        appropriate.
-
-        @warning See @ref setEntityAttributes for important notes on
-        attributes and its role in the system.
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @return `List[Dict[str, primitive]]` Attributes for each entity.
-        Values must be singular plain-old-data types (ie. string,
-        int, float, bool), keys must be strings.
-        """
-        raise NotImplementedError
-
-    def setEntityAttributes(self, entityRefs, data, context, hostSession, merge=True):
-        """
-        Sets attributes on each given entity.
-
-        @note It is a vital that the implementation faithfully stores
-        and recalls attributes. It is the underlying mechanism by which
-        hosts may round-trip non file-based entities within this API.
-        Specific attribute names and value types should be maintained,
-        even if they are re-mapped to an internal name for persistence.
-
-        If any value is 'None' it should be assumed that that attribute
-        should be un-set on the object.
-
-        @param entityRefs List[str] Entity references to update.
-
-        @param data List[dict] The data for each supplied entity reference.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @param merge bool If true, then each entity's existing attributes
-        will be merged with the new data (the new data taking
-        precedence). If false, its attributes will entirely replaced by
-        the new data.
-
-        @exception ValueError if any of the attributes values are of an
-        un-storable type. Presently it is only required to store str,
-        float, int, bool
-        """
-        raise NotImplementedError
-
-    def getEntityAttribute(self, entityRefs, name, context, hostSession, defaultValue=None):
-        """
-        Retrieve the value of the given attribute for each given
-        entity.
-
-        The default implementation retrieves all attributes for each
-        entity and extracts the requested name.
-
-        @see @ref getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to query.
-
-        @param name `str` The attribute to look up
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-
-        @param defaultValue `primitive` If not None, this value should
-        be returned in the case of the specified attribute not being
-        set for an entity.
-
-        @return `Union[primitive, KeyError]` The value for the specific
-        attribute, or `KeyError` if not found and no defaultValue is
-        supplied.
-        """
-        value = defaultValue
-        try:
-            value = self.getEntityAttributes(entityRefs, context, hostSession)[name]
-        except KeyError:
-            if defaultValue is None:
-                raise
-        return value
-
-    def setEntityAttribute(self, entityRefs, name, value, context, hostSession):
-        """
-        Sets a single attribute for each given entity.
-
-        @see getEntityAttributes
-
-        @param entityRefs `List[str]` Entity references to set
-        attributes for.
-
-        @param name `str` The attribute name to set.
-
-        @param value `primitive` The values to set for each referenced
-        entity.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerAPI.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerAPI.Host
-        object representing the process that initiated the API session.
-        """
-        self.setEntityAttributes(entityRefs, {name: value}, context, hostSession, merge=True)
 
     ## @}
 
@@ -962,11 +766,12 @@ class ManagerInterface(object):
     #  @li Parent/child relationships are also (semantically) covered by
     #  these relationships.
     #
-    # In the this API, these relationships are represented by a generic
-    # Specification, this may just be a 'type', but can additionally have
-    # arbitrary attributes to further define the relationship. For example in
-    # the case of AOVs, the type might be 'alternate output' and the
-    # attributes may be that the 'channel' is 'diffuse'.
+    # In the this API, these relationships are represented by trait data.
+    # This may just compose property-less traits as a 'type', or
+    # additionally, set trait property values to further define the
+    # relationship. For example in the case of AOVs, the type might be
+    # 'alternate output' and the attributes may be that the 'channel' is
+    # 'diffuse'.
     #
     # Related references form a vital part in the abstraction of the internal
     # structure of the asset management system from the Host application in its
@@ -988,11 +793,10 @@ class ManagerInterface(object):
 
     @abc.abstractmethod
     def getRelatedReferences(
-            self, entityRefs, relationshipSpecs, context, hostSession,
-            resultSpec=None):
+            self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None):
         """
         Returns related entity references, based on a relationship
-        specification.
+        defined by a set of traits and their properties.
 
         This is an essential function in this API - as it is widely used
         to query organisational hierarchy, etc...
@@ -1001,42 +805,45 @@ class ManagerInterface(object):
         to allow for batch optimisations in the implementation and
         prevent excessive query times with high-latency services.
 
-         - a)  A single entity reference, a list of specifications.
-         - b)  A list of entity references and a single specification.
-         - c)  Equal length lists of references and specifications.
+         - a)  A single entity reference, a list of relationships.
+         - b)  A list of entity references and a single relationship.
+         - c)  Equal length lists of references and relationship.
 
         In all cases, the return value is a list of lists, for example:
 
-            a)  getRelatedReferences([ r1 ], [ s1, s2, s3 ])
+            a)  getRelatedReferences([ r1 ], [ td1, td2, td3 ])
 
-            > [ [ r1s1... ], [ r1s2... ], [ r1s3... ] ]
+            > [ [ r1td1... ], [ r1td2... ], [ r1td3... ] ]
 
-            b)  getRelatedReferences([ r1, r2, r3 ], [ s1 ])
+            b)  getRelatedReferences([ r1, r2, r3 ], [ td1 ])
 
-            > [ [ r1s1... ], [ r2s1... ], [ r3s1... ] ]
+            > [ [ r1td1... ], [ r2td1... ], [ r3td1... ] ]
 
-            c)  getRelatedReferences([ r1, r2, r3 ], [ s1, s2, s3 ])
+            c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
-            > [ [ r1s1... ], [ r2s2... ], [ r3s3... ] ]
+            > [ [ r1td1... ], [ r2td2... ], [ r3td3... ] ]
 
         @note The order of entities in the inner lists of matching
         references will not be considered meaningful, but the outer list
         should match the input order.
 
         In summary, if only a single entityRef is provided, it should be
-        assumed that all specs should be considered for that one entity.
-         If only a single relationshipSpec is provided, then it should
-        be considered for all supplied entity references. If lists of
-        both are supplied, then they must be the same length, and it
-        should be assumed that it is a 1:1 mapping of spec per entity.
-        If this is not the case, ValueErrors should be thrown.
+        assumed that all relationship definitions should be considered
+        for that one entity. If only a single relationship definition is
+        provided, then it should be considered for all supplied entity
+        references. If lists of both are supplied, then they must be the
+        same length, and it should be assumed that it is a 1:1 mapping
+        of a relationship definition to an entity. If this is not the
+        case, ValueErrors should be thrown.
 
-        If any specification is unknown, then an empty list should be
-        returned for that specification, and no errors should be raised.
+        If any relationship definition is unknown, then an empty list
+        should be returned for that relationship, and no errors should
+        be raised.
 
         @param entityRefs List[str]
 
-        @param relationshipSpecs List[RelationshipSpecification]
+        @param relationshipTraitsDatas `List[`
+        @fqref{TraitsData} "TraitsData" `]`
 
         @param context Context The calling context.
 
@@ -1045,28 +852,26 @@ class ManagerInterface(object):
         logging and provides access to the openassetio.managerAPI.Host
         object representing the process that initiated the API session.
 
-        @param resultSpec openassetio.specifications.EntitySpecification
-        or None, a hint as to what kind of entity the caller is
-        expecting to be returned. May be None.
+        @param resultTraitSet `Set[str]` or None, a hint as to what
+        traits the caller is expecting the returned entities to have.
 
         @return List[List[str]] This MUST be the correct length,
         returning an empty outer list is NOT valid. (ie: max(len(refs),
-        len(specs)))
+        len(relationships)))
 
         @exception ValueError If more than one reference and
-        specification is provided, but they lists are not equal in
-        length, ie: not a 1:1 mapping of entities to specs. The
+        relationship are provided, but they lists are not equal in
+        length, ie: not a 1:1 mapping of entities to relationships. The
         abstraction of this interface into the Manager class does
         cursory validation that this is the case before calling this
         function.
 
-        @see @ref openassetio.specifications "specifications"
         @see @ref setRelatedReferences
         """
         raise NotImplementedError
 
     def setRelatedReferences(
-            self, entityRef, relationshipSpec, relatedRefs,
+            self, entityRef, relationshipTraitsData, relatedRefs,
             context, hostSession, append=True):
         """
         Creates a new relationship between the referenced entities.
@@ -1075,12 +880,12 @@ class ManagerInterface(object):
         asymmetry here, as it is not necessarily required to be able to
         setRelatedReferences directly. For example, in the case of a
         'shot' (as illustrated in the docs for getRelatedReferences) -
-        any new shots would be created by registering a new
-        ShotSpecification under the parent, rather than using this call.
-        The best way to think of it is that this call is reserved for
-        defining relationships between existing assets (such as
-        connecting the script used to define a render, with the image
-        sequences it creates) and 'register' as being defining the
+        any new shots would be created by registering a new entity with
+        the traits of a ShotSpecification under the parent, rather than
+        using this call. The best way to think of it is that this call
+        is reserved for defining relationships between existing assets
+        (such as connecting the script used to define a render, with the
+        image sequences it creates) and 'register' as being defining the
         relationship between a new asset and some existing one.
 
         In systems that don't support post-creation adjustment of
@@ -1089,7 +894,7 @@ class ManagerInterface(object):
         @param entityRef `str` The entity to which the relationship
         should be established.
 
-        @param relationshipSpec openassetio.specifications.RelationshipSpecification,
+        @param relationshipTraitsData @fqref{TraitsData} "TraitsData",
         The type of relationship to establish.
 
         @param relatedRefs List[str], The related entities for the
@@ -1104,7 +909,7 @@ class ManagerInterface(object):
 
         @param append bool, When True (default) new relationships will
         be added to any existing ones. If False, then any existing
-        relationships with the supplied specification will first be
+        relationships with the supplied traits will first be
         removed.
 
         @return None
@@ -1140,7 +945,7 @@ class ManagerInterface(object):
     # is beyond the scope of this layer of the API, and functions exists in
     # higher levels that combine browsing and publishing etc... Here, we simply
     # assert that there must be a meaningful reference given the @ref
-    # Specification of the entity that is being created or published.
+    # trait_set of the entity that is being created or published.
     #
     # @note 'Meaningful' is best defined by the asset manager itself. For
     # example, in a system that versions each 'asset' by creating children of the
@@ -1151,24 +956,20 @@ class ManagerInterface(object):
     # this asset to implicitly state which version it will be written to. Other
     # entity types may not have this flexibility.
     #
-    # **2 - The Specification**
+    # **2 - TraitsData**
     #
-    # The Specification allows ancillary information to be provided to help the
-    # implementation better interpret what type of entity may be best suited in
-    # any given situation. For example, a path to an image will generally be
-    # accompanied by with an spec, that details the file type, color space,
-    # resolution etc...
+    # The data for an entity is defined by one or more @ref trait
+    # "Traits" and their properties. The resulting @ref trait_set
+    # defines the "type" of the entity, and the trait property values
+    # hold the data for each specific entity.
     #
-    # @note The Specification should *not* be confused with @ref attributes.  The
-    # implementation must not directly store any information contained within the
-    # Specification, though it may be used to better define the type of entity.
-    # Hosts that wish to persist other properties of the published entity, will
-    # call @ref setEntityAttributes() directly instead, and as described in the
-    # attributes section, it is assumed that this is the channel for information
-    # that needs to persist.
+    # This means that OpenAssetIO it not just limited to working with
+    # file-based data. Traits allow ancillary information to be managed
+    # (such as the colorspace for an image), as well as container-like
+    # entities such as shots/sequences/etc.
     #
     # For more on the relationship between Entities, Specifications and
-    # attributes, please see @ref entities_specifications_and_attributes
+    # traits, please see @ref entities_traits_and_specifications
     # "this" page.
     #
     # The action of 'publishing' itself, is split into two parts, depending on
@@ -1190,7 +991,7 @@ class ManagerInterface(object):
     #
     # @{
 
-    def preflight(self, targetEntityRefs, entitySpecs, context, hostSession):
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
         """
         Prepares for some work to be done to create data for the
         referenced entity. The entity may not yet exist (@ref
@@ -1207,9 +1008,8 @@ class ManagerInterface(object):
         data to. See the notes in the API documentation for the
         specifics of this.
 
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        A description of each entity that is being published.
+        @param traitSet `Set(str)` The @ref trait_set of the
+        entities that are being published.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
@@ -1241,15 +1041,17 @@ class ManagerInterface(object):
         """
         return targetEntityRefs
 
-    def register(self, primaryStrings, targetEntityRefs, entitySpecs, context, hostSession):
+    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession):
         """
         Publish entities to the @ref asset_management_system.
 
         This instructs the implementation to ensure a valid entity
-        exists for each given reference and spec. This will be called
+        exists for each given reference and to persist the data provided
+        in the @fqref{TraitsData}. This will be called
         either in isolation or after calling preflight, depending on the
         nature of the data being published and the `kWillManagePath` bit
-        of the returned @ref managementPolicy.
+        of the returned @ref managementPolicy for the supplied data's
+        @ref trait_set.
 
         This is an opportunity to do other things in the host as part of
         publishing if required. The context's locale will tell you more
@@ -1259,35 +1061,32 @@ class ManagerInterface(object):
         information or schedule additional processes to produce
         derivative data.
 
-        @param primaryStrings `List[str]` The @ref primary_string that
-        each entity should resolve to if passed to a call to
-        resolveEntityReference(). This may be left blank if there is
-        no meaningful string representation of that entity (eg: a
-        'sequence' in a hierarchy). This must be stored by the
-        manager and a logically equivalent value returned by @ref
-        resolveEntityReference for the same reference. The meaning of
-        'logical' here, in the case of a URL, is that it points to
-        the same data. The manager is free to relocate data as
-        required. If a primary string is not a URL, then it should be
-        returned verbatim.
-
         @param targetEntityRefs `List[str]` The @ref entity_reference
         of each entity to publish. It is up to the manager to ensure
         that this is meaningful, as it is most likely implementation
-        specific. For example, if a 'Shot' specification is requested
-        to be published to a reference that points to a 'Sequence' it
-        makes sense to interpret this as a 'add a shot of this spec
-        to the sequence'. For other types of entity, there may be
+        specific. For example, if an entity with the traits of a 'Shot'
+        specification is requested to be published to a reference that
+        points to a 'Sequence' it makes sense to interpret this as a
+        'add a shot of this spec to the sequence'. For other types of
+        entity, there may be
         different constraints on what makes sense.
 
-        @param entitySpecs `List[`
-            specifications.EntitySpecification `]`
-        A description of each entity (or 'asset') that is being
-        published. It is *not* required for the implementation to
-        store any information contained in the specification, though
-        it may choose to use it if it is meaningful. The host will
-        separately call setEntityAttributes() if it wishes to persist
-        any other information in an entity.
+        @param entityTraitsDatas `List[` @fqref{TraitsData} "TraitsData"
+        `]` The data for each entity (or 'asset') that is being
+        published. The implementation must persist the list of traits,
+        and any properties set. Such that a subsequent call to @ref
+        resolve for any of these traits contains the same data. It is
+        guaranteed that the trait sets of these instances are constant
+        across the batch.
+
+        @note Generally speaking, the data within a the supplied
+        trait properties should be persisted verbatim. If however, the
+        implementation has any specific understanding of any given
+        trait, it is free to rewrite this data in any meaningful
+        fashion. The simplest example of this is a `file` trait, where a
+        path may be updated to the long-term persistent storage location
+        of the registered data, after it has been re-located by the
+        manager.
 
         @param context Context The calling context. This is not
         replaced with an array in order to simplify implementation.
@@ -1311,8 +1110,9 @@ class ManagerInterface(object):
         openassetio.Context.Context.retention, as not all Hosts will
         support the reference changing at this point.
 
+        @see @fqref{TraitsData} "TraitsData"
         @see @ref preflight
-        @see @ref resolveEntityReference
+        @see @ref resolve
         """
         raise NotImplementedError
 

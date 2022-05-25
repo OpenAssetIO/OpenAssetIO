@@ -114,9 +114,9 @@
  *     deactivate TransactionCoordinator
  *     worker -> worker : context.access = context.kWrite
  *     worker -> worker : working_reference = ref_map["ref://asset"]
- *     worker -> Manager : path = resolveEntityReference([working_reference], context)[0]
- *     Manager --> worker : "file://out.####.exr"
- *     worker -> worker : write_data(path)
+ *     worker -> Manager : [spec] = resolve([working_reference], {FileTrait.id}, context)
+ *     Manager --> worker : Specification({"file": {"url": "file:///out.####.exr"}})
+ *     worker -> worker : write_data(FileTrait(spec).url())
  *     worker --> scheduler
  *     deactivate Session
  *     deactivate Manager
@@ -135,9 +135,9 @@
  * deactivate TransactionCoordinator
  * worker -> worker : context.access = context.kWrite
  * worker -> worker : working_reference = ref_map["ref://asset"]
- * worker -> Manager : path = resolveEntityReference([working_reference], context)[0]
+ * worker -> Manager : path = resolve([working_reference], FileTrait.id, context)[0]
  * Manager --> worker : "file://out.####.exr"
- * worker -> Manager : final_reference = register([path], [working_reference], [spec], context)[0]
+ * worker -> Manager : final_reference = register([working_reference], [path], context)[0]
  * Manager --> worker : "ref://asset=v4"
  * worker -> worker : update_state_file({"ref://asset": final_reference})
  * worker --> scheduler

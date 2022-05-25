@@ -34,7 +34,7 @@ from openassetio.exceptions import InvalidEntityReference
 
 
 EntityInfo = namedtuple("EntityInfo", ("name"), defaults=("",))
-Entity = namedtuple("Entity", ("primary_string"), defaults=("",))
+Entity = namedtuple("Entity", ("traits"), defaults=({},))
 
 
 def make_default_settings() -> dict:

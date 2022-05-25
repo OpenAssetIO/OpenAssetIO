@@ -118,7 +118,7 @@ Before publishing:
 
 1. Make your required changes.
 2. Check the docs build correctly.
-3. Update `doc/CHANGES.md`.
+3. Update `doc/RELEASE_NOTES.md`.
 4. Update `CONTAINER_VERSION` in the `Makefile` according to SemVer.
 5. Create a PR, get it reviewed and merged.
 

@@ -14,7 +14,7 @@
  *   several discrete services, but within any OpenAssetIO session, it is
  *   represented though a singular @ref ManagerPlugin.
  *
- * - The API is initialized and managed by a @ref host. The host may
+ * - The API is initialized and coordinated by a @ref host. The host may
  *   create one or more sessions. Each session allows the host to
  *   communicate with a single manager instance.
  *
@@ -41,33 +41,32 @@
  *   entity_reference. These are URIs that uniquely identify an @ref
  *   entity within the management system. The form of an entity reference
  *   is entirely determined by the manager. They are considered to be
- *   opaque by the host.
+ *   opaque handles by the host, even if they look like well-formed
+ *   strings.
  *
- * - The manager is expected to store and recall the
- *   @ref primary_string and @ref attributes
+ * - The manager is expected to store and recall the trait data
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
- *   "registered" to any given @ref entity_reference,
- *   grouped by its @ref Specification "specification", and return these
- *   values from the relevant query methods when supplied the
- *   reference returned from the registration.
+ *   "registered" to any given @ref entity_reference, and return this
+ *   data from the relevant query methods when supplied the reference
+ *   returned from the registration.
  *
- * - A @ref host may query other well-known or host-specific @ref attributes
- *   to provide additional customization of behavior or the handling of
- *   data referenced by an @ref entity_reference. For example,
- *   determining the correct frame range and colorspace of an image
- *   sequence.
+ * - A @ref host may query other well-known or host-specific @needsref
+ *   traits to provide additional customization of behavior or the
+ *   handling of data referenced by an @ref entity_reference. For
+ *   example, determining the correct frame range and colorspace of an
+ *   image sequence.
  *
- * - The @ref Context supplied to a method can be used to understand
- *   the intentions of the caller, as well as to determine which part of
- *   an application is involved in the call, for example, which image read
- *   node in a compositor is resolving a reference.
+ * - The @ref Context supplied to a method can be used to understand the
+ *   intentions and/or requirements of the caller, as well as to
+ *   determine which part of an application is involved in the call.
+ *   This can be used to help determine the correct values for @ref
+ *   trait properties during @ref resolve.
  *
- * - Many API calls are passed a @ref Specification. They form a
- *   strong hierarchical type mechanism. It is not expected for a manager
- *   to persist any data contained within a specification - but they must
- *   be respected as a filter predicate for browsing/query operations, and
- *   as a type specifier for creation operations. See @ref entities_specifications_and_attributes
- *   for more details on this mechanism.
+ * - Many API calls are passed a @ref trait_set. They form a strong type
+ *   mechanism, and must be respected as a filter predicate for
+ *   browsing/query operations, and as a type specifier for creation
+ *   operations. See @ref entities_traits_and_specifications for more
+ *   details on this mechanism.
  *
  * - The @ref ManagerInterface implementation will be passed a
  *   @ref openassetio.managerAPI.HostSession "HostSession" to the
@@ -107,10 +106,8 @@
  *
  * - Implement the @ref openassetio.managerAPI.ManagerInterface
  *   "ManagerInterface" class methods
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.identifier
- *   "identifier" an
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.displayName
- *   "displayName".
+ *   @fqref{managerAPI::ManagerInterface::identifier} "identifier" an
+ *   @fqref{managerAPI::ManagerInterface::displayName} "displayName".
  *
  * - Implement @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to control which Host-side data types you wish to be
@@ -129,17 +126,6 @@
  * - Implement a @ref ManagerPlugin and install this on
  *   @ref plugin_path_var.
  *
- * @subsection manager_todo_attributes Required for Extended Functionality
- *
- *  Some hosts may make use of an entity's attributes to provide
- *  extended functionality. Such as automating the settings of read
- *  nodes or improving handling of the asset's data.
- *
- * - Implement
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getEntityAttributes
- *   "getEntityAttributes" to bridge any internal asset data to the
- *   well-known @ref attributes if possible.
- *
  * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
@@ -152,41 +138,30 @@
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
  *   "ManagerInterface", to support the registration of new assets.
  *
- * - Map supported OpenAssetIO specifications to internal asset types
- *   where possible.
+ * - Map supported OpenAssetIO @ref trait "traits" to internal asset
+ *   types where possible.
  *
- * - Persist the exact OpenAssetIO specific specification schema
- *   identifier supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ * - Persist the full @ref trait_set of the specification supplied to
+ *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
  *   "register". This allows new asset types to be registered and
- *   filtered, even if they don't have a unique type within a managers
- *   implementation - see @ref specification_hierarchy.
+ *   filtered, even if they don't have a unique type within the manager's
+ *   native data model.
  *
- * - Persist the @ref primary_string supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
- *   "register". It should be considered opaque, unless the
- *   @ref Specification is understood. In all other cases it should be
- *   returned verbatim by @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolveEntityReference
- *   "resolveEntityReference" when passed the reference returned from
- *   the registration (conditional on any subsequent registrations to
+ * - Persist the trait data supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ *   "register". It should be considered opaque, unless the trait is
+ *   well understood. In all other cases it should be returned verbatim
+ *   by @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolve
+ *   "resolve" when passed the reference returned from the registration
+ *   (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
  *
- * @note An example of a situation where the manager is allowed to mutate the
- * @ref primary_string is for all specifications derived from
- * FileSpecification. In this case, the primary string is known to be a
- * URL so may be rewritten at will providing it still points to
+ * @note An example of a situation where the manager is allowed to
+ * mutate trait property values is when it is semantically understood. A
+ * good example of this is the `location` property of the
+ * `locatableContent` trait, that is known to be a file path. In these
+ * cases, it may be rewritten at will providing it still points to
  * synonymous data. This allows data to be relocated after it has been
- * registered as appropriate.
- *
- * - In a similar way to @ref primary_string "primary strings", the @ref
- *   attributes set for the entity via @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setEntityAttributes
- *   "setEntityAttributes" should be stored. This can be freely remapped
- *   to internal fields, but should always be returned via the same
- *   name used when set. The data should be persisted verbatim unless the
- *   specification is understood.
- *
- * - Bridge any internal asset data to the well-known @ref attributes
- *   wherever possible. This will be used by the host as a preferential
- *   source of truth. For example, for the colorspace or frame range of
- *   an image sequence.
+ * registered, as appropriate.
  *
  * @subsection manager_todo_related_entities Supporting Relationships
  *
@@ -206,11 +181,11 @@
  * This may sound counterintuitive, but the references used for
  * publishing will generally originate either from the user, or the
  * manager itself - in response to browsing for a writable target entity
- * for the appropriate specification. Consequently, they should be
+ * for the appropriate @ref trait_set. Consequently, they should be
  * conceptually valid for the operation.
  *
  * Hosts will include in their documentation notes on specific
- * scenarios in which they register entities with one specification to
+ * scenarios in which they register entities with one set of traits to
  * references known to be of another, such as the editorial example
  * above.
  *
@@ -225,7 +200,7 @@
  * one. For example, if an image has been rendered from an assetized
  * script. The host may call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setRelatedReferences
  * "setRelatedReferences", to add the script's reference to the newly
- * registered image, using the SourceDocumentRelationship specification.
+ * registered image, using the SourceDocumentRelationship trait set.
  *
  * In order to support entity relationships:
  *
@@ -242,27 +217,27 @@
  *   "setRelatedReferences" to update any internal relationships that
  *   may be affected by the registered change.
  *
- * @note It is currently in flux as to whether relationship sets should
- * be a hard requirement of the API, or considered hints as set by the
- * host. There is even question as to the validity of the API allowing
- * sets at all, please contribute to the discussion here if you have any
- * opinion on the matter: https://github.com/OpenAssetIO/OpenAssetIO/discussions/18
+ * @note It is currently in flux as to whether relationship creation
+ * should be a hard requirement of the API, or considered hints as set
+ * by the host. There is even question as to the validity of the API
+ * allowing sets at all, please contribute to the discussion here if you
+ * have any opinion on the matter:
+ * https://github.com/OpenAssetIO/OpenAssetIO/discussions/18
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *
  * @note The UI layer of OpenAssetIO is yet to be ported to this code base,
  * this documentation section is currently in-progress.
  *
- * - Filter any browsers based on the supplied @ref Specification.
+ * - Filter any browsers based on the supplied @ref trait_set.
  *
  * @section manager_reading Recommended Reading
  *
- * @see @ref entities_specifications_and_attributes
+ * @see @ref entities_traits_and_specifications
  * @see @ref transactions
  * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
  * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
  * @see @ref openassetio.Context "Context"
- * @see @ref openassetio.specifications "specifications"
  * @see @ref openassetio.managerAPI.Host "Host"
  * @see @needsref ManagerUIDelegate
  * @see @needsref ui.widgets
