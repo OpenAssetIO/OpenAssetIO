@@ -9,7 +9,7 @@
 #include "../_openassetio.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerAPI {
 
 /**
@@ -33,7 +33,7 @@ struct PyManagerInterface : ManagerInterface {
 };
 
 }  // namespace managerAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
 
 void registerManagerInterface(const py::module& mod) {

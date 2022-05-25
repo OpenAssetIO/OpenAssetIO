@@ -2,10 +2,10 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <openassetio/export.h>  // For OPENASSETIO_VERSION
+#include <openassetio/export.h>  // For OPENASSETIO_CORE_ABI_VERSION
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * Provides utilities for converting between C++ types and C handles.
  */
@@ -35,5 +35,5 @@ struct Converter {
   static Type* toInstance(Handle handle) { return reinterpret_cast<Type*>(handle); }
 };
 }  // namespace handles
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

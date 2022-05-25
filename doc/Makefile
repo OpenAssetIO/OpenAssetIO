@@ -20,7 +20,7 @@ default: container-build
 ##
 
 CONTAINER_VERSION=1.1.1
-OPENASSETIO_VERSION=v0_0
+OPENASSETIO_CORE_ABI_VERSION=v1
 CONTAINER_NAME=openassetio-doc-build
 
 ##
@@ -90,7 +90,7 @@ SASS = ./node_modules/.bin/sass
 
 # Force clean-html as we don't declare all the sources
 html: clean-html src/styles.css tooling
-	. $(VENV)/bin/activate && OPENASSETIO_VERSION=$(OPENASSETIO_VERSION) doxygen ./Doxyfile
+	. $(VENV)/bin/activate && OPENASSETIO_CORE_ABI_VERSION=$(OPENASSETIO_CORE_ABI_VERSION) doxygen ./Doxyfile
 
 tooling: $(SASS) $(VENV)
 

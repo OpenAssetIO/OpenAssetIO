@@ -10,9 +10,9 @@
 #include "../Converter.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace handles::hostAPI {
 using Manager = Converter<openassetio::hostAPI::Manager, oa_hostAPI_Manager_h>;
 }
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

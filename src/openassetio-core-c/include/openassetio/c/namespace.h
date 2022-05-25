@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <openassetio/export.h>  // For OPENASSETIO_VERSION
+#include <openassetio/export.h>  // For OPENASSETIO_CORE_ABI_VERSION
 
 /**
  * @addtogroup CAPI C API
@@ -15,7 +15,7 @@
  *
  * @hideinitializer
  */
-#define OPENASSETIO_NS(symbol) OPENASSETIO_NS_WITH_VER(OPENASSETIO_VERSION, symbol)
+#define OPENASSETIO_NS(symbol) OPENASSETIO_NS_WITH_VER(OPENASSETIO_CORE_ABI_VERSION, symbol)
 
 /**
  * @}
@@ -26,7 +26,7 @@
  *
  *  Macros are not expanded when using the token pasing operator `##`.
  *  So we need two utility functions, the first expands the value of
- *  `OPENASSETIO_VERSION` passed from `OPENASSETIO_NS` as a `ver`
+ *  `OPENASSETIO_CORE_ABI_VERSION` passed from `OPENASSETIO_NS` as a `ver`
  *  parameter and passes that to the second macro, which does the final
  *  token pasting.
  *

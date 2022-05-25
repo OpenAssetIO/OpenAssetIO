@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <openassetio/export.h>  // For OPENASSETIO_VERSION
+#include <openassetio/export.h>  // For OPENASSETIO_CORE_ABI_VERSION
 
 #include <catch2/trompeloeil.hpp>
 
@@ -10,7 +10,7 @@
 #include <handles/Converter.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace test {
 
 /**
@@ -64,5 +64,5 @@ inline oa_managerAPI_CManagerInterface_s mockManagerInterfaceSuite() {
           }};
 }
 }  // namespace test
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

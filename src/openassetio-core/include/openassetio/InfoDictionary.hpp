@@ -9,7 +9,7 @@
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /// Types available as values in a InfoDictionary.
 using InfoDictionaryValue = std::variant<Bool, Int, Float, Str>;
 /**
@@ -17,5 +17,5 @@ using InfoDictionaryValue = std::variant<Bool, Int, Float, Str>;
  * "ManagerInterface::info".
  */
 using InfoDictionary = std::unordered_map<Str, InfoDictionaryValue>;
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

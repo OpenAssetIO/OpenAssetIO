@@ -8,7 +8,7 @@
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  This namespace contains code relevant to anyone wanting to add support
  for an asset management system.
@@ -231,5 +231,5 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
 using ManagerInterfacePtr = SharedPtr<ManagerInterface>;
 }  // namespace managerAPI
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

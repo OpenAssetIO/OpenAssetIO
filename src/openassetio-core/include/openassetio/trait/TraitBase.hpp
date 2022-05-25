@@ -11,7 +11,7 @@
 #include "../TraitsData.hpp"
 
 namespace openassetio {
-inline namespace OPENASSETIO_VERSION {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace trait {
 
 /**
@@ -151,5 +151,5 @@ struct TraitBase {
   TraitsDataPtr data_;
 };
 }  // namespace trait
-}  // namespace OPENASSETIO_VERSION
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
