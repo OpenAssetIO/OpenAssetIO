@@ -41,6 +41,11 @@ v1.0.0-alpha.X
 - Added CMake presets for development and testing.
   [#315](https://github.com/OpenAssetIO/OpenAssetIO/issues/315)
 
+- Added `OPENASSETIO_PYTHON_PIP_TIMEOUT` CMake cache variable to allow
+  customising `pip install` socket timeout. Useful if working offline
+  with dependencies already downloaded.
+  [#407](https://github.com/OpenAssetIO/OpenAssetIO/issues/407)
+
 - Updated the machine image bootstrap scripts in `resources/build` to
   use the `$WORKSPACE` env var instead of `$GITHUB_WORKSPACE` to
   determine the root of a checkout when configuring the environment.
