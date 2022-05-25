@@ -1,7 +1,5 @@
 # OpenAssetIO
 
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6046/badge)](https://bestpractices.coreinfrastructure.org/projects/6046)
-
 An open-source interoperability standard for tools and content
 management systems used in media production.
 
@@ -50,6 +48,8 @@ for a wider range of asset types and publishing workflows.
 The documentation for OpenAssetIO can be found here: [https://openassetio.github.io/OpenAssetIO](https://openassetio.github.io/OpenAssetIO/).
 
 ## Project status
+
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6046/badge)](https://bestpractices.coreinfrastructure.org/projects/6046)
 
 > **Important:** The project is currently in early beta stage and is
 > subject to change. Do not deploy the API in production critical
