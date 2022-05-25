@@ -128,7 +128,8 @@ Platform compatible [Docker](https://www.docker.com/) images [here](https://gith
 
 The CY22 image contains all dependencies currently required for building
 OpenAssetIO. For example, to build and install the C/C++ component of
-OpenAssetIO (by default  to a `dist` directory in the repository root)
+OpenAssetIO (by default  to a `dist` directory under the build 
+directory)
 via a container, from the repository root run
 
 ```shell
