@@ -108,7 +108,7 @@ if (Python_Interpreter_FOUND)
         COMMAND ${CMAKE_COMMAND} -E echo -- Downloading core Python libraries
         COMMAND
         ${Python_EXECUTABLE} -m pip download
-        --retries 0 --timeout 1 --find-links ${python_deps_dir}
+        --retries 0 --timeout ${OPENASSETIO_PYTHON_PIP_TIMEOUT} --find-links ${python_deps_dir}
         --destination-directory ${python_deps_dir}
         setuptools==62.3.2 wheel==0.37.1 pip==22.1
     )
@@ -157,7 +157,7 @@ if (Python_Interpreter_FOUND)
             COMMAND ${CMAKE_COMMAND} -E echo -- Downloading Python test libraries
             COMMAND
             ${Python_EXECUTABLE} -m pip download
-            --retries 0 --timeout 1
+            --retries 0 --timeout ${OPENASSETIO_PYTHON_PIP_TIMEOUT}
             --find-links ${python_deps_dir}
             --destination-directory ${python_deps_dir}
             --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
