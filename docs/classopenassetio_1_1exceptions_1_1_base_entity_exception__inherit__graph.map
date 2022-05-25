@@ -1,6 +1,6 @@
 <map id="BaseEntityException" name="BaseEntityException">
 <area shape="rect" id="node5" href="$classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="A base class for errors relating to entity&#45;centric actions. " alt="" coords="34,304,227,331"/>
-<area shape="rect" id="node8" href="$classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String..." alt="" coords="252,304,412,331"/>
+<area shape="rect" id="node8" href="$classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved..." alt="" coords="252,304,412,331"/>
 <area shape="rect" id="node9" href="$classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity&#45;based action is performed on a mal&#45;formed or unrecognized Entity Reference..." alt="" coords="436,304,607,331"/>
 <area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="261,155,403,181"/>
 <area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="247,80,417,107"/>

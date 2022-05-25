@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -117,24 +118,21 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 </div><table border="0" cellspacing="10" cellpadding="0">
 <tr><td><img src="inherit_graph_0.png" border="0" alt="" usemap="#_auditor"/>
 <map name="_auditor" id="_auditor">
-<area shape="rect" id="node2" href="classopenassetio_1_1_specification_1_1_specification_base.html" title="The simplest of Specifications that just holds the data store, and schema type. " alt="" coords="217,56,354,83"/>
-<area shape="rect" id="node3" href="classopenassetio_1_1_specification_1_1_specification.html" title="The simplest form of Specification in common use. " alt="" coords="449,56,554,83"/>
-<area shape="rect" id="node6" href="classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html" title="Manager Factories are responsible for instantiating classes that derive from openassetio.managerAPI.ManagerInterface or openassetio&#45;ui.implementation.ManagerUIDelegate for use within an host. " alt="" coords="409,107,593,133"/>
-<area shape="rect" id="node7" href="classopenassetio_1_1log_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t..." alt="" coords="439,157,563,184"/>
-<area shape="rect" id="node8" href="classopenassetio_1_1log_1_1_console_logger.html" title="A simple logger that prints messages to stdout/stderr. " alt="" coords="641,183,760,209"/>
-<area shape="rect" id="node9" href="classopenassetio_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="646,132,755,159"/>
-<area shape="rect" id="node12" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html" title="This class provides a quick&#45;and&#45;dirty accounting mechanism for Class, method and object usage..." alt="" coords="467,664,536,691"/>
-<area shape="rect" id="node13" href="classopenassetio_1_1__core_1_1debug_1_1___timer.html" title="A simple timer object that can be used, for, er, timing things from a wall&#45;clock point of view..." alt="" coords="468,715,535,741"/>
-<area shape="rect" id="node14" href="classopenassetio_1_1__core_1_1objects_1_1_fixed_interface_object.html" title="This class is a simple extension to object, to dis&#45;allow get/set of any attributes not defined with t..." alt="" coords="423,208,579,235"/>
-<area shape="rect" id="node15" href="classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html" title="The Property classes form the basis for the FixedInterfaceObject. " alt="" coords="435,259,567,285"/>
-<area shape="rect" id="node17" href="classopenassetio_1_1_context_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager..." alt="" coords="465,309,538,336"/>
-<area shape="rect" id="node18" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. " alt="" coords="446,360,557,387"/>
-<area shape="rect" id="node19" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html" title="A convenience class to push/pop an action group based on the lifetime of the object, useful when combined with a &#39;with&#39; statement. " alt="" coords="427,411,576,437"/>
-<area shape="rect" id="node20" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html" title="The HostSession is a manager&#45;facing class that represents a discreet API session started by a host in..." alt="" coords="450,461,553,488"/>
-<area shape="rect" id="node21" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. " alt="" coords="433,512,570,539"/>
-<area shape="rect" id="node22" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html" title="Loads Python Packages on a custom search path. " alt="" coords="446,563,557,589"/>
-<area shape="rect" id="node23" href="classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html" title="The base class that defines a plugin of the plugin system. " alt="" coords="426,613,577,640"/>
-<area shape="rect" id="node16" href="classopenassetio_1_1__core_1_1objects_1_1_typed_property.html" title="Extends the UntypedProperty to allow strict type checking of values. " alt="" coords="643,259,758,285"/>
+<area shape="rect" id="node2" href="classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html" title="Manager Factories are responsible for instantiating classes that derive from openassetio.managerAPI.ManagerInterface or openassetio&#45;ui.implementation.ManagerUIDelegate for use within an host. " alt="" coords="143,5,327,32"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1log_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t..." alt="" coords="173,56,297,83"/>
+<area shape="rect" id="node4" href="classopenassetio_1_1log_1_1_console_logger.html" title="A simple logger that prints messages to stdout/stderr. " alt="" coords="375,81,493,108"/>
+<area shape="rect" id="node5" href="classopenassetio_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="379,31,489,57"/>
+<area shape="rect" id="node8" href="classopenassetio_1_1__core_1_1audit_1_1_auditor.html" title="This class provides a quick&#45;and&#45;dirty accounting mechanism for Class, method and object usage..." alt="" coords="200,411,269,437"/>
+<area shape="rect" id="node9" href="classopenassetio_1_1__core_1_1debug_1_1___timer.html" title="A simple timer object that can be used, for, er, timing things from a wall&#45;clock point of view..." alt="" coords="201,461,268,488"/>
+<area shape="rect" id="node10" href="classopenassetio_1_1__core_1_1objects_1_1_fixed_interface_object.html" title="This class is a simple extension to object, to dis&#45;allow get/set of any attributes not defined with t..." alt="" coords="157,512,313,539"/>
+<area shape="rect" id="node11" href="classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html" title="The Property classes form the basis for the FixedInterfaceObject. " alt="" coords="169,563,301,589"/>
+<area shape="rect" id="node13" href="classopenassetio_1_1_context_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager..." alt="" coords="198,107,271,133"/>
+<area shape="rect" id="node14" href="classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. " alt="" coords="179,157,290,184"/>
+<area shape="rect" id="node15" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html" title="A convenience class to push/pop an action group based on the lifetime of the object, useful when combined with a &#39;with&#39; statement. " alt="" coords="160,208,309,235"/>
+<area shape="rect" id="node16" href="classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html" title="The HostSession is a manager&#45;facing class that represents a discreet API session started by a host in..." alt="" coords="183,259,286,285"/>
+<area shape="rect" id="node17" href="classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html" title="Loads Python Packages on a custom search path. " alt="" coords="179,309,290,336"/>
+<area shape="rect" id="node18" href="classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html" title="The base class that defines a plugin of the plugin system. " alt="" coords="159,360,310,387"/>
+<area shape="rect" id="node12" href="classopenassetio_1_1__core_1_1objects_1_1_typed_property.html" title="Extends the UntypedProperty to allow strict type checking of values. " alt="" coords="377,563,491,589"/>
 </map>
 </td></tr>
 <tr><td><img src="inherit_graph_1.png" border="0" alt="" usemap="#_debuggable"/>
@@ -142,20 +140,12 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <area shape="rect" id="node1" href="classopenassetio_1_1__core_1_1debug_1_1_debuggable.html" title="A base class for any objects that you with to make use of the debug decorators with. " alt="" coords="5,5,105,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#_entity_specification"/>
-<map name="_entity_specification" id="_entity_specification">
-<area shape="rect" id="node2" href="classopenassetio_1_1specifications_1_1_entity_specification.html" title="EntitySpecifications are used to &#39;type&#39; a entity. " alt="" coords="181,5,323,32"/>
-<area shape="rect" id="node3" href="classopenassetio_1_1specifications_1_1_locale_specification.html" title="LocaleSpecifications are used by a Host to define which part of the application is interacting with t..." alt="" coords="179,56,325,83"/>
-<area shape="rect" id="node5" href="classopenassetio_1_1specifications_1_1_relationship_specification.html" title="RelationshipSpecifications are used mainly with ManagerInterface.getRelatedReferences, in order to describe the kind of relation that is being requested, when a simply EntitySpecification will not suffice. " alt="" coords="159,107,345,133"/>
-<area shape="rect" id="node4" href="classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html" title="A locale for test cases run as part of one of the API supplied test harnesses. " alt="" coords="393,56,536,83"/>
-</map>
-</td></tr>
-<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#_fixture_augmented_test_case"/>
+<tr><td><img src="inherit_graph_2.png" border="0" alt="" usemap="#_fixture_augmented_test_case"/>
 <map name="_fixture_augmented_test_case" id="_fixture_augmented_test_case">
 <area shape="rect" id="node2" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html" title="Base test case class that all test classes must inherit from. " alt="" coords="133,5,333,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_manager"/>
+<tr><td><img src="inherit_graph_3.png" border="0" alt="" usemap="#_manager"/>
 <map name="_manager" id="_manager">
 <area shape="rect" id="node2" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="200,5,279,32"/>
 <area shape="rect" id="node3" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. " alt="" coords="203,56,275,83"/>
@@ -163,22 +153,59 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <area shape="rect" id="node5" href="classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. " alt="" coords="213,157,265,184"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_manager_plugin"/>
+<tr><td><img src="inherit_graph_4.png" border="0" alt="" usemap="#_manager"/>
+<map name="_manager" id="_manager">
+<area shape="rect" id="node1" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="5,5,84,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_5.png" border="0" alt="" usemap="#_manager_interface"/>
+<map name="_manager_interface" id="_manager_interface">
+<area shape="rect" id="node2" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. " alt="" coords="191,5,328,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_manager_interface"/>
+<map name="_manager_interface" id="_manager_interface">
+<area shape="rect" id="node1" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. " alt="" coords="5,5,143,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_manager_plugin"/>
 <map name="_manager_plugin" id="_manager_plugin">
 <area shape="rect" id="node2" href="classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html" title="This class represents the various derived classes that make up the binding to a Asset Management Syst..." alt="" coords="204,5,323,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_6.png" border="0" alt="" usemap="#_manager_test_harness_locale"/>
+<tr><td><img src="inherit_graph_8.png" border="0" alt="" usemap="#_manager_test_harness_locale"/>
 <map name="_manager_test_harness_locale" id="_manager_test_harness_locale">
 <area shape="rect" id="node2" href="classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html" title="A locale for tests cases in the manager test harness. " alt="" coords="196,5,396,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_7.png" border="0" alt="" usemap="#_mapper"/>
+<tr><td><img src="inherit_graph_9.png" border="0" alt="" usemap="#_manager_trait"/>
+<map name="_manager_trait" id="_manager_trait">
+<area shape="rect" id="node2" href="classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html" title="A trait that defines a calling context as being associated with an OpenAssetIO manager. " alt="" coords="104,5,211,32"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html" title="A trait that defines a calling context that is some kind of automated scriptable framework that opera..." alt="" coords="106,56,209,83"/>
+<area shape="rect" id="node4" href="classopenassetio_1_1test_1_1specifications_1_1_test_trait.html" title="A trait that represents a calling context that is some kind of test environment. " alt="" coords="119,107,195,133"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_10.png" border="0" alt="" usemap="#_mapper"/>
 <map name="_mapper" id="_mapper">
 <area shape="rect" id="node1" href="classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html" title="The Mapper class provides string substitution methods and lookups to determine the correct terminolog..." alt="" coords="5,5,76,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_8.png" border="0" alt="" usemap="#_open_asset_i_o_exception"/>
+<tr><td><img src="inherit_graph_11.png" border="0" alt="" usemap="#oa___const_string_view"/>
+<map name="oa___const_string_view" id="oa___const_string_view">
+<area shape="rect" id="node1" href="structoa___const_string_view.html" title="Immutable string view struct. " alt="" coords="5,5,157,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_12.png" border="0" alt="" usemap="#oa__manager_a_p_i___c_manager_interface__s"/>
+<map name="oa__manager_a_p_i___c_manager_interface__s" id="oa__manager_a_p_i___c_manager_interface__s">
+<area shape="rect" id="node1" href="structoa__manager_a_p_i___c_manager_interface__s.html" title="Function pointer suite provided by manager plugins that provide the ManagerInterface implementation v..." alt="" coords="5,5,275,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_13.png" border="0" alt="" usemap="#oa___string_view"/>
+<map name="oa___string_view" id="oa___string_view">
+<area shape="rect" id="node1" href="structoa___string_view.html" title="Mutable string view struct useful for out&#45;parameters. " alt="" coords="5,5,120,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_14.png" border="0" alt="" usemap="#_open_asset_i_o_exception"/>
 <map name="_open_asset_i_o_exception" id="_open_asset_i_o_exception">
 <area shape="rect" id="node2" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="161,157,332,184"/>
 <area shape="rect" id="node3" href="classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="380,132,523,159"/>
@@ -187,33 +214,53 @@ $(document).ready(function(){initNavTree('hierarchy.html','');});
 <area shape="rect" id="node10" href="classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior..." alt="" coords="591,132,707,159"/>
 <area shape="rect" id="node11" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. " alt="" coords="605,183,692,209"/>
 <area shape="rect" id="node5" href="classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="A base class for errors relating to entity&#45;centric actions. " alt="" coords="775,31,968,57"/>
-<area shape="rect" id="node8" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful Primary String..." alt="" coords="791,81,951,108"/>
+<area shape="rect" id="node8" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved..." alt="" coords="791,81,951,108"/>
 <area shape="rect" id="node9" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity&#45;based action is performed on a mal&#45;formed or unrecognized Entity Reference..." alt="" coords="786,132,957,159"/>
 <area shape="rect" id="node6" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre&#45;flight that isn&#39;t due to any specific of the Entity Referen..." alt="" coords="1029,5,1135,32"/>
 <area shape="rect" id="node7" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer..." alt="" coords="1016,56,1148,83"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_9.png" border="0" alt="" usemap="#_plugin_system_manager_factory"/>
+<tr><td><img src="inherit_graph_15.png" border="0" alt="" usemap="#_plugin_system_manager_factory"/>
 <map name="_plugin_system_manager_factory" id="_plugin_system_manager_factory">
 <area shape="rect" id="node2" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html" title="A Factory to manage openassetio.pluginSystem.ManagerPlugin derived plugins and instantiation of Manag..." alt="" coords="237,5,452,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_10.png" border="0" alt="" usemap="#_specification_factory"/>
-<map name="_specification_factory" id="_specification_factory">
-<area shape="rect" id="node2" href="classopenassetio_1_1_specification_factory_1_1_specification_factory.html" title="The Factory provides facility to create Specifications of the most derived class. ..." alt="" coords="104,5,256,32"/>
+<tr><td><img src="inherit_graph_16.png" border="0" alt="" usemap="#_specification_base"/>
+<map name="_specification_base" id="_specification_base">
+<area shape="rect" id="node1" href="classopenassetio_1_1_specification_base_1_1_specification_base.html" title="Specifications form a template for working with TraitsData instances. " alt="" coords="5,5,143,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_11.png" border="0" alt="" usemap="#_test__display_name"/>
+<tr><td><img src="inherit_graph_17.png" border="0" alt="" usemap="#_test__display_name"/>
 <map name="_test__display_name" id="_test__display_name">
-<area shape="rect" id="node2" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.displayName. " alt="" coords="286,5,427,32"/>
-<area shape="rect" id="node3" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.entityExists. " alt="" coords="291,56,423,83"/>
-<area shape="rect" id="node4" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.getSettings. " alt="" coords="292,107,421,133"/>
-<area shape="rect" id="node5" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.identifier. " alt="" coords="300,157,413,184"/>
-<area shape="rect" id="node6" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.info. " alt="" coords="317,208,397,235"/>
-<area shape="rect" id="node7" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.isEntityReference. " alt="" coords="271,259,442,285"/>
-<area shape="rect" id="node8" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.managementPolicy. " alt="" coords="266,309,447,336"/>
-<area shape="rect" id="node9" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.resolveEntityReference. " alt="" coords="253,360,460,387"/>
-<area shape="rect" id="node10" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.setSettings. " alt="" coords="293,411,421,437"/>
+<area shape="rect" id="node2" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.displayName. " alt="" coords="273,5,415,32"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.entityExists. " alt="" coords="278,56,410,83"/>
+<area shape="rect" id="node4" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.getSettings. " alt="" coords="279,107,409,133"/>
+<area shape="rect" id="node5" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.identifier. " alt="" coords="287,157,401,184"/>
+<area shape="rect" id="node6" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.info. " alt="" coords="304,208,384,235"/>
+<area shape="rect" id="node7" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.isEntityReference. " alt="" coords="259,259,429,285"/>
+<area shape="rect" id="node8" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.managementPolicy. " alt="" coords="253,309,435,336"/>
+<area shape="rect" id="node9" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.resolve. " alt="" coords="293,360,395,387"/>
+<area shape="rect" id="node10" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.setSettings. " alt="" coords="280,411,408,437"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_18.png" border="0" alt="" usemap="#_test_harness_locale"/>
+<map name="_test_harness_locale" id="_test_harness_locale">
+<area shape="rect" id="node2" href="classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html" title="A locale for test cases run as part of one of the API supplied test harnesses. " alt="" coords="191,5,333,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_19.png" border="0" alt="" usemap="#_trait"/>
+<map name="_trait" id="_trait">
+<area shape="rect" id="node1" href="classopenassetio_1_1_trait_1_1_trait.html" title="A single&#45;class module that provides the Trait class. " alt="" coords="5,5,56,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_20.png" border="0" alt="" usemap="#_trait_base_3_01_derived_01_4"/>
+<map name="_trait_base_3_01_derived_01_4" id="_trait_base_3_01_derived_01_4">
+<area shape="rect" id="node1" href="structopenassetio_1_1v1_1_1trait_1_1_trait_base.html" title="Abstract CRTP base class for specification traits. " alt="" coords="5,5,168,32"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_21.png" border="0" alt="" usemap="#_traits_data"/>
+<map name="_traits_data" id="_traits_data">
+<area shape="rect" id="node1" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport&#45;level container for data exchange between a host and a manager. " alt="" coords="5,5,93,32"/>
 </map>
 </td></tr>
 </table>

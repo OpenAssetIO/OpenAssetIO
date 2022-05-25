@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -138,8 +139,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html">Test_managementPolicy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check plugin's implementation of managerAPI.ManagerInterface.managementPolicy.  <a href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html">Test_resolveEntityReference</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check plugin's implementation of managerAPI.ManagerInterface.resolveEntityReference.  <a href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html">Test_resolve</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check plugin's implementation of managerAPI.ManagerInterface.resolve.  <a href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html">Test_setSettings</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check plugin's implementation of managerAPI.ManagerInterface.setSettings.  <a href="classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html#details">More...</a><br /></td></tr>
@@ -147,7 +148,7 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A manager test harness test case suite that validates that a specific manager plugin complies to the relevant core OpenAssetIO API contract. </p>
-<p>This suite is solely concerned with verifying that a plugin meets the requirements of the API, and can handle all documented calling patterns. For example, that when a <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aee934ba838f690ef3d1d88a56361cf5c">managementPolicy</a> query returns a non-ignored state, that there are no errors calling the other required methods for a managed entity of that <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a>.</p>
+<p>This suite is solely concerned with verifying that a plugin meets the requirements of the API, and can handle all documented calling patterns. For example, that when a <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#aa8f1fae8a123f0582287d1b2662062bf">managementPolicy</a> query returns a non-ignored state, that there are no errors calling the other required methods for a managed entity with those <a class="el" href="glossary.html#trait">traits</a>.</p>
 <p>The suite does not validate any specific business logic by checking the values API methods <em>may</em> return in certain situations. This should be handled through additional suites local to the manager's implementation. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

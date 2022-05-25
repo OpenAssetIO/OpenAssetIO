@@ -1,0 +1,8 @@
+<map id="C API" name="C API">
+<area shape="rect" id="node1" href="$group__oa___info_dictionary.html" title="C API for the InfoDictionary C++ type. " alt="" coords="168,5,305,32"/>
+<area shape="rect" id="node2" href="$group__oa__manager_a_p_i___shared_manager_interface.html" title="C API for the managerAPI::ManagerInterface C++ type. " alt="" coords="120,57,353,98"/>
+<area shape="rect" id="node3" href="$group__oa__host_a_p_i___manager.html" title="C API for the hostAPI::Manager C++ type. " alt="" coords="157,123,316,149"/>
+<area shape="rect" id="node4" href="$group__oa__manager_a_p_i___c_manager_interface.html" title="C API that C plugins must implement to satisfy the ManagerInterface contract. " alt="" coords="109,173,364,200"/>
+<area shape="rect" id="node5" href="$group__oa___error_code.html" title="C API error codes. " alt="" coords="182,224,291,251"/>
+<area shape="rect" id="node7" href="$group__oa___string_view.html" title="C API for views on character buffers. " alt="" coords="179,275,294,301"/>
+</map>

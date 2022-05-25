@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -115,8 +116,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 <h1><a class="anchor" id="intro_scope"></a>
 Scope</h1>
 <p>The API covers the following areas:</p><ul>
-<li><a class="el" href="glossary.html#resolve">Resolution</a> of asset references (URIs) into locatable data (URLs).</li>
-<li><a class="el" href="glossary.html#publish">Publishing</a> and retrieval of data for file-based and non-file-based assets.</li>
+<li><a class="el" href="glossary.html#resolve">Resolution</a> of asset references (URIs) into a dictionary of data, grouped into one or more <a class="el" href="glossary.html#trait">traits</a> (providing URLs for access and other asset data).</li>
+<li><a class="el" href="glossary.html#publish">Publishing</a> data for file-based and non-file-based assets.</li>
 <li>Discovery and registration of related assets.</li>
 <li>Replacement/augmentation of in-application UI elements such as browsers and other panels/controls.</li>
 </ul>
@@ -161,20 +162,18 @@ The Basic Design for a Host</h1>
 <li>Before the stored string is used, resolve it through OpenAssetIO and use the returned value instead.</li>
 <li>Involve the manager in creation of data through the <a class="el" href="examples.html#example_publishing_a_file">publishing</a> workflow.</li>
 </ul>
-<p>For this reason, OpenAssetIO has the concept of mapping an <a class="el" href="glossary.html#entity">entity</a> to a <a class="el" href="glossary.html#primary_string">Primary String</a> - which can be thought of as "the string a
-host would have used before". It is this string that is returned when an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is resolved. In many cases in the initial adoption of OpenAssetIO, the primary string for an entity will be a file URL.</p>
+<p>For this reason, OpenAssetIO has the concept of mapping an <a class="el" href="glossary.html#entity">entity</a> to one or more <a class="el" href="glossary.html#trait">traits</a> that contain meaningful data for someone wanting to consume the entity.</p>
 <dl class="section note"><dt>Note</dt><dd>The API is by no means limited to just file paths, they form a sensible first step. Any string used in an application, can be asset managed in the same way.</dd></dl>
 <p>OpenAssetIO also allows arbitrary key/value pairs to be associated with an entity. This means other more complex data structures can be managed by the asset management system. The only prerequisite being that they can be sensibly encoded in a string and/or simple typed key/value pairs.</p>
 <p>A renderer for example, could query the correct file format, colorspace and compression options from the manager for the images it is about to create.</p>
 <h1><a class="anchor" id="manager_implementation_concept"></a>
 The Asset Manager's Commitment</h1>
-<p>OpenAssetIO was developed to make it possible for an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> to support any <a class="el" href="glossary.html#host">host</a> application without specific knowledge, and vice versa. This is achieved though the use of common specifications and descriptions and three simple rules for the manager:</p>
+<p>OpenAssetIO was developed to make it possible for an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> to support any <a class="el" href="glossary.html#host">host</a> application without specific knowledge, and vice versa. This is achieved though the use of common specifications that define well-known traits and two simple rules for the manager:</p>
 <ul>
-<li>Store and recall a <a class="el" href="glossary.html#primary_string">Primary String</a></li>
-<li>Store and recall <a class="el" href="glossary.html#attributes">Attributes</a></li>
-<li>Allow filtering by <a class="el" href="glossary.html#Specification">Specification</a></li>
+<li>Store and recall the set of traits (and their properties) registered for any given entity.</li>
+<li>Allow filtering by these traits when browsing, etc.</li>
 </ul>
-<p>If these rules are followed, then arbitrary assets from arbitrary hosts can be round-tripped through an asset manager without specific support. However, there is scope to build more advanced and useful functionality by mapping OpenAssetIO <a class="el" href="glossary.html#Specification">specifications</a> to the manager's native asset types, and well-known <a class="el" href="glossary.html#attributes">Attributes</a> to its asset fields. </p>
+<p>If these rules are followed, then arbitrary assets from arbitrary hosts can be round-tripped through an asset manager without specific support. However, there is scope to build more advanced and useful functionality by mapping OpenAssetIO <a class="el" href="glossary.html#trait">traits</a> to the manager's native asset types and data. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

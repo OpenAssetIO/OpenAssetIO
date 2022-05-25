@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.displayName. " alt="" coords="273,5,415,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.entityExists. " alt="" coords="278,56,410,83"/>
+<area shape="rect" id="node4" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.getSettings. " alt="" coords="279,107,409,133"/>
+<area shape="rect" id="node5" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.identifier. " alt="" coords="287,157,401,184"/>
+<area shape="rect" id="node6" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.info. " alt="" coords="304,208,384,235"/>
+<area shape="rect" id="node7" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.isEntityReference. " alt="" coords="259,259,429,285"/>
+<area shape="rect" id="node8" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.managementPolicy. " alt="" coords="253,309,435,336"/>
+<area shape="rect" id="node9" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.resolve. " alt="" coords="293,360,395,387"/>
+<area shape="rect" id="node10" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html" title="Check plugin&#39;s implementation of managerAPI.ManagerInterface.setSettings. " alt="" coords="280,411,408,437"/>
+</map>

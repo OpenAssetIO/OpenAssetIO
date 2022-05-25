@@ -7,8 +7,8 @@ var namespaceopenassetio =
     [ "log", "namespaceopenassetio_1_1log.html", "namespaceopenassetio_1_1log" ],
     [ "managerAPI", "namespaceopenassetio_1_1manager_a_p_i.html", "namespaceopenassetio_1_1manager_a_p_i" ],
     [ "pluginSystem", "namespaceopenassetio_1_1plugin_system.html", "namespaceopenassetio_1_1plugin_system" ],
-    [ "Specification", "namespaceopenassetio_1_1_specification.html", "namespaceopenassetio_1_1_specification" ],
-    [ "SpecificationFactory", "namespaceopenassetio_1_1_specification_factory.html", "namespaceopenassetio_1_1_specification_factory" ],
-    [ "specifications", "namespaceopenassetio_1_1specifications.html", "namespaceopenassetio_1_1specifications" ],
-    [ "test", "namespaceopenassetio_1_1test.html", "namespaceopenassetio_1_1test" ]
+    [ "SpecificationBase", "namespaceopenassetio_1_1_specification_base.html", "namespaceopenassetio_1_1_specification_base" ],
+    [ "test", "namespaceopenassetio_1_1test.html", "namespaceopenassetio_1_1test" ],
+    [ "Trait", "namespaceopenassetio_1_1_trait.html", "namespaceopenassetio_1_1_trait" ],
+    [ "v1", "namespaceopenassetio_1_1v1.html", "namespaceopenassetio_1_1v1" ]
 ];

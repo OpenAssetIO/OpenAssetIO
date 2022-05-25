@@ -7,6 +7,6 @@ var namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite =
     [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info" ],
     [ "Test_isEntityReference", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference" ],
     [ "Test_managementPolicy", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy" ],
-    [ "Test_resolveEntityReference", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference" ],
+    [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve" ],
     [ "Test_setSettings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings" ]
 ];

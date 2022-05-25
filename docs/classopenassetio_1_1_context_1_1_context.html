@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -186,12 +187,12 @@ Properties</h2></td></tr>
 <tr class="memdesc:abc1e0df5ea26e8db743f495932630e4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A concession to the fact that it's not always possible to fully implement the spec of this API within a <a class="el" href="glossary.html#host">host</a>.  <a href="#abc1e0df5ea26e8db743f495932630e4b">More...</a><br /></td></tr>
 <tr class="separator:abc1e0df5ea26e8db743f495932630e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2287aeb3140dc753df7c798eb8f978a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_context_1_1_context.html#a2287aeb3140dc753df7c798eb8f978a6">locale</a> = property(__getLocale, __setLocale)</td></tr>
-<tr class="memdesc:a2287aeb3140dc753df7c798eb8f978a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">In many situations, the <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> of the desired <a class="el" href="glossary.html#entity">entity</a> itself is not entirely sufficient information to realize many functions that a <a class="el" href="glossary.html#manager">manager</a> wishes to implement.  <a href="#a2287aeb3140dc753df7c798eb8f978a6">More...</a><br /></td></tr>
+<tr class="memdesc:a2287aeb3140dc753df7c798eb8f978a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">In many situations, the <a class="el" href="glossary.html#trait_set">Trait Set</a> of the desired <a class="el" href="glossary.html#entity">entity</a> itself is not entirely sufficient information to realize many functions that a <a class="el" href="glossary.html#manager">manager</a> wishes to implement.  <a href="#a2287aeb3140dc753df7c798eb8f978a6">More...</a><br /></td></tr>
 <tr class="separator:a2287aeb3140dc753df7c798eb8f978a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1_context_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> object is used to convey information about the calling environment to a <a class="el" href="glossary.html#manager">manager</a>. </p>
-<p>It encapsulates several key access properties, as well as providing additional information about the <a class="el" href="glossary.html#host">host</a> that may be useful to the <a class="el" href="glossary.html#manager">manager</a> to decorate or extend the attributes associated with the stored <a class="el" href="glossary.html#entity">entity</a>.</p>
+<p>It encapsulates several key access properties, as well as providing additional information about the <a class="el" href="glossary.html#host">host</a> that may be useful to the <a class="el" href="glossary.html#manager">manager</a>.</p>
 <p>A Manager will also use this information to ensure it presents the correct UI, or behavior.</p>
 <p>The <a class="el" href="classopenassetio_1_1_context_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> is passed to many calls in this API, and it may, or may not need to be used directly.</p>
 <dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed. Hosts should use <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Session.Session.createContext</a>. A Manager implementation should never need to create a context of it's own, one will always be supplied through the ManagerInterface entry points. </dd></dl>
@@ -565,7 +566,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Describes what the <a class="el" href="glossary.html#host">host</a> is intending to do with the data. </p>
-<p>For example, when passed to resolveEntityReference, it specifies if the <a class="el" href="glossary.html#host">host</a> is about to read or write. When configuring a BrowserWidget, then it will hint as to whether the Host is wanting to choose a new file name to save, or open an existing one. </p>
+<p>For example, when passed to resolve, it specifies if the <a class="el" href="glossary.html#host">host</a> is about to read or write. When configuring a BrowserWidget, then it will hint as to whether the Host is wanting to choose a new file name to save, or open an existing one. </p>
 
 </div>
 </div>
@@ -587,9 +588,9 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>In many situations, the <a class="el" href="namespaceopenassetio_1_1_specification.html" title="Provides the Specification and SpecificationBase classes. ">Specification</a> of the desired <a class="el" href="glossary.html#entity">entity</a> itself is not entirely sufficient information to realize many functions that a <a class="el" href="glossary.html#manager">manager</a> wishes to implement. </p>
+<p>In many situations, the <a class="el" href="glossary.html#trait_set">Trait Set</a> of the desired <a class="el" href="glossary.html#entity">entity</a> itself is not entirely sufficient information to realize many functions that a <a class="el" href="glossary.html#manager">manager</a> wishes to implement. </p>
 <p>For example, when determining the final file path for an Image that is about to be published - knowing it came from a render catalog, rather than a 'Write node' from a comp tree could result in different behavior.</p>
-<p>The Locale uses a <a class="el" href="classopenassetio_1_1specifications_1_1_locale_specification.html">openassetio.specifications.LocaleSpecification</a> to describe in more detail, what specific part of a <a class="el" href="glossary.html#host">host</a> is requesting an action. In the case of a file browser for example, it may also include information such as whether or not multi-selection is required. </p>
+<p>The Locale uses a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> to describe in more detail, what specific part of a <a class="el" href="glossary.html#host">host</a> is requesting an action. In the case of a file browser for example, it may also include information such as whether or not multi-selection is required. </p>
 
 </div>
 </div>
@@ -658,7 +659,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A concession to the fact that it's not always possible to fully implement the spec of this API within a <a class="el" href="glossary.html#host">host</a>. </p>
-<p>For example, <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a707562acf3c83a743d45eb451bddf0c9">Manager.register()</a> can return an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the newly published <a class="el" href="glossary.html#entity">entity</a>. This is often not the same as the reference that was passed to the call. The Host is expected to store this new reference for future use. For example in the case of a Scene File added to an 'open recent' menu. A Manager may rely on this to ensure a reference that points to a specific version is used in the future.</p>
+<p>For example, <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abbd3bb320b56068b8e23e1aefd26767e">Manager.register()</a> can return an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the newly published <a class="el" href="glossary.html#entity">entity</a>. This is often not the same as the reference that was passed to the call. The Host is expected to store this new reference for future use. For example in the case of a Scene File added to an 'open recent' menu. A Manager may rely on this to ensure a reference that points to a specific version is used in the future.</p>
 <p>In some cases - such as batch rendering of an image sequence, it may not be possible to store this final reference, due to constraints of the distributed natured of such a render. Often, it is not actually of consequence. To allow the <a class="el" href="glossary.html#manager">manager</a> to handle these situations correctly, Hosts are required to set this property to reflect their ability to persist this information. </p>
 
 </div>

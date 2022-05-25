@@ -11,14 +11,29 @@ var NAVTREE =
       [ "The Basic Design for a Host", "index.html#host_implementation_concept", null ],
       [ "The Asset Manager's Commitment", "index.html#manager_implementation_concept", null ]
     ] ],
-    [ "Entities, Specifications and Attributes", "entities_specifications_and_attributes.html", [
-      [ "Entities", "entities_specifications_and_attributes.html#Entities", null ],
-      [ "Specifications", "entities_specifications_and_attributes.html#Specifications", [
-        [ "The Specification Hierarchy", "entities_specifications_and_attributes.html#specification_hierarchy", null ],
-        [ "Mapping to Native Types", "entities_specifications_and_attributes.html#specification_mapping", null ],
-        [ "Picking a Specification to Use", "entities_specifications_and_attributes.html#specification_selection", null ]
+    [ "Entities, Traits and Specifications", "entities_traits_and_specifications.html", [
+      [ "Entities", "entities_traits_and_specifications.html#Entities", null ],
+      [ "Traits", "entities_traits_and_specifications.html#Traits", null ],
+      [ "Entity Data", "entities_traits_and_specifications.html#entity_data", [
+        [ "Not Just for Files", "entities_traits_and_specifications.html#entities_not_just_for_files", [
+          [ "Mapping to Existing Data", "entities_traits_and_specifications.html#trait_mapping", null ]
+        ] ],
+        [ "Modifying Trait Properties", "entities_traits_and_specifications.html#trait_property_modification", null ],
+        [ "Traits as Views", "entities_traits_and_specifications.html#traits_as_views", null ]
       ] ],
-      [ "Attributes", "entities_specifications_and_attributes.html#Attributes", null ]
+      [ "Specifications", "entities_traits_and_specifications.html#Specifications", [
+        [ "Locale Specifications", "entities_traits_and_specifications.html#locale_specifications", null ],
+        [ "Entity Specifications", "entities_traits_and_specifications.html#entity_specifications", null ],
+        [ "Relationship Specifications", "entities_traits_and_specifications.html#relationship_specifications", null ]
+      ] ],
+      [ "A Note on Trait Specificity and Entities", "entities_traits_and_specifications.html#specification_specificity", [
+        [ "Trait Sets as a Filter Predicate", "entities_traits_and_specifications.html#Using", null ],
+        [ "Publishing", "entities_traits_and_specifications.html#Publishing", null ],
+        [ "Descriptions", "entities_traits_and_specifications.html#Descriptions", null ]
+      ] ],
+      [ "Mapping to Native Types", "entities_traits_and_specifications.html#specification_mapping", [
+        [ "Picking Which Traits to Use", "entities_traits_and_specifications.html#specification_selection", null ]
+      ] ]
     ] ],
     [ "Examples", "examples.html", [
       [ "Initializing the API in a Host", "examples.html#examples_api_initialization", null ],
@@ -40,7 +55,6 @@ var NAVTREE =
       [ "Architecture Summary", "notes_for_managers.html#manager_architecture_summary", null ],
       [ "Implementation Check List", "notes_for_managers.html#manager_todo", [
         [ "Required for Resolution Only", "notes_for_managers.html#manager_todo_basic_resolution", null ],
-        [ "Required for Extended Functionality", "notes_for_managers.html#manager_todo_attributes", null ],
         [ "Required for Publishing", "notes_for_managers.html#manager_todo_publishing", null ],
         [ "Supporting Relationships", "notes_for_managers.html#manager_todo_related_entities", null ],
         [ "Embedding Custom UI Within the Host", "notes_for_managers.html#manager_todo_ui", null ]
@@ -60,16 +74,16 @@ var NAVTREE =
       [ "Manager Plugin", "glossary.html#ManagerPlugin", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
-      [ "Attributes", "glossary.html#attributes", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
       [ "preflight", "glossary.html#preflight", null ],
       [ "publish", "glossary.html#publish", null ],
       [ "register", "glossary.html#register", null ],
       [ "resolve", "glossary.html#resolve", null ],
-      [ "Primary String", "glossary.html#primary_string", null ],
       [ "session", "glossary.html#session", null ],
       [ "Specification", "glossary.html#Specification", null ],
+      [ "Trait", "glossary.html#trait", null ],
+      [ "Trait Set", "glossary.html#trait_set", null ],
       [ "Transaction", "glossary.html#transaction", null ]
     ] ],
     [ "Stable Entity Resolution", "stable_resolution.html", [
@@ -87,7 +101,7 @@ var NAVTREE =
     ] ],
     [ "Thumbnails", "thumbnails.html", [
       [ "Overview", "thumbnails.html#thumbnails_overview", null ],
-      [ "Requesting Thumbnail Creation During Publishing", "thumbnails.html#thumbnails_creation_during_publish", null ],
+      [ "Requesting Thumbnail Creation", "thumbnails.html#thumbnails_creation_during_publish", null ],
       [ "Looking Up Existing Thumbnails", "thumbnails.html#thumbnails_lookup", null ]
     ] ],
     [ "Transactions", "transactions.html", [
@@ -100,10 +114,13 @@ var NAVTREE =
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Environment Variable List", "envvar.html", null ],
+    [ "Modules", "modules.html", "modules" ],
     [ "Namespace Members", "namespacemembers.html", [
       [ "All", "namespacemembers.html", null ],
       [ "Functions", "namespacemembers_func.html", null ],
-      [ "Variables", "namespacemembers_vars.html", null ]
+      [ "Variables", "namespacemembers_vars.html", null ],
+      [ "Typedefs", "namespacemembers_type.html", null ],
+      [ "Enumerations", "namespacemembers_enum.html", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -113,6 +130,7 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
         [ "Properties", "functions_prop.html", null ]
       ] ]
     ] ]
@@ -122,7 +140,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html#a7a55201eb44f76d7c980d780177e5607"
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html#aa24233cebc07a0a749a36d73c9a2780b",
+"namespaceopenassetio_1_1host_a_p_i.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

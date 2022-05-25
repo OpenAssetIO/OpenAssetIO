@@ -8,12 +8,22 @@ var hierarchy =
       ] ]
     ] ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
+    [ "Manager", null, [
+      [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ]
+    ] ],
+    [ "Manager", "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html", null ],
+    [ "ManagerInterface", null, [
+      [ "ManagerInterface", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html", null ]
+    ] ],
+    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html", null ],
     [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
-      [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
+      [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ]
     ] ],
+    [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
+    [ "oa_managerAPI_CManagerInterface_s", "structoa__manager_a_p_i___c_manager_interface__s.html", null ],
+    [ "oa_StringView", "structoa___string_view.html", null ],
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
       [ "_Timer", "classopenassetio_1_1__core_1_1debug_1_1___timer.html", null ],
@@ -27,7 +37,6 @@ var hierarchy =
       [ "ScopedActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
       [ "HostSession", "classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html", null ],
-      [ "ManagerInterface", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
       [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", null ]
     ] ],
@@ -48,22 +57,18 @@ var hierarchy =
         [ "UserCanceled", "classopenassetio_1_1exceptions_1_1_user_canceled.html", null ]
       ] ]
     ] ],
+    [ "SpecificationBase", "classopenassetio_1_1_specification_base_1_1_specification_base.html", null ],
     [ "TestCase", null, [
       [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
     ] ],
-    [ "type", null, [
-      [ "SpecificationFactory", "classopenassetio_1_1_specification_factory_1_1_specification_factory.html", null ]
-    ] ],
+    [ "Trait", "classopenassetio_1_1_trait_1_1_trait.html", null ],
+    [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
+    [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Debuggable", null, [
       [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ],
       [ "Session", "classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html", null ],
       [ "TransactionCoordinator", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html", null ],
       [ "Host", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html", null ]
-    ] ],
-    [ "FixedInterfaceObject", null, [
-      [ "SpecificationBase", "classopenassetio_1_1_specification_1_1_specification_base.html", [
-        [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
-      ] ]
     ] ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],
@@ -73,7 +78,7 @@ var hierarchy =
       [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", null ],
       [ "Test_isEntityReference", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html", null ],
       [ "Test_managementPolicy", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html", null ],
-      [ "Test_resolveEntityReference", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve_entity_reference.html", null ],
+      [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", null ],
       [ "Test_setSettings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html", null ]
     ] ],
     [ "ManagerFactoryInterface", null, [
@@ -82,17 +87,15 @@ var hierarchy =
     [ "PluginSystemPlugin", null, [
       [ "ManagerPlugin", "classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html", null ]
     ] ],
-    [ "Specification", null, [
-      [ "EntitySpecification", "classopenassetio_1_1specifications_1_1_entity_specification.html", null ],
-      [ "LocaleSpecification", "classopenassetio_1_1specifications_1_1_locale_specification.html", [
-        [ "TestHarnessLocale", "classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html", null ]
-      ] ],
-      [ "RelationshipSpecification", "classopenassetio_1_1specifications_1_1_relationship_specification.html", null ]
-    ] ],
-    [ "SpecificationFactory", null, [
-      [ "Specification", "classopenassetio_1_1_specification_1_1_specification.html", null ]
+    [ "SpecificationBase", null, [
+      [ "TestHarnessLocale", "classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html", null ]
     ] ],
     [ "TestHarnessLocale", null, [
       [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
+    ] ],
+    [ "Trait", null, [
+      [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
+      [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
+      [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]
     ] ]
 ];
