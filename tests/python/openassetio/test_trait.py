@@ -51,7 +51,7 @@ class Test_Trait_imbue:
         trait = ACustomTrait(a_data)
         trait.imbue()
         assert trait.isValid()
-        assert trait.kId in a_data.traitIds()
+        assert trait.kId in a_data.traitSet()
 
     def test_when_data_has_trait_then_is_noop(self):
         a_data = TraitsData({ACustomTrait.kId})
@@ -63,7 +63,7 @@ class Test_Trait_imbueTo:
     def test_when_data_empty_then_adds_trait(self):
         a_data = TraitsData()
         ACustomTrait.imbueTo(a_data)
-        assert ACustomTrait.kId in a_data.traitIds()
+        assert ACustomTrait.kId in a_data.traitSet()
 
     def test_when_data_has_trait_then_is_noop(self):
         a_data = TraitsData({ACustomTrait.kId})

@@ -1024,9 +1024,9 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
         if entityTraitsDatas:
             # Check supplied traitsdata share a trait set
-            expectedTraits = entityTraitsDatas[0].traitIds()
+            expectedTraits = entityTraitsDatas[0].traitSet()
             for i, data in enumerate(entityTraitsDatas[1:]):
-                traits = data.traitIds()
+                traits = data.traitSet()
                 if traits != expectedTraits:
                     raise ValueError(
                             f"Mismatched traits at index {i+1}: {traits} != {expectedTraits}")

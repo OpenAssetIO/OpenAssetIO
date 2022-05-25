@@ -60,5 +60,5 @@ class SpecificationBase:
         @fqref{TraitsData} "TraitsData" instance, pre-populated with all
         of the specifications traits.
         """
-        data = TraitsData(cls.kTraitIds)  # pylint: disable=no-member
+        data = TraitsData(cls.kTraitSet)  # pylint: disable=no-member
         return cls(data)

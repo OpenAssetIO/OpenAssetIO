@@ -40,7 +40,7 @@ class ManagerTestHarnessLocale(TestHarnessLocale):
     A locale for tests cases in the manager test harness.
     """
 
-    kTraitIds = set.union(TestHarnessLocale.kTraitIds, {ManagerTrait.kId})
+    kTraitSet = set.union(TestHarnessLocale.kTraitSet, {ManagerTrait.kId})
 
     def managerTrait(self):
         return ManagerTrait(self)

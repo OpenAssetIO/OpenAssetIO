@@ -12,6 +12,13 @@ v1.0.0-alpha.X
   their properties.
   [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348)
 
+- Renamed the following trait related types and variables to better
+  align with the concepts of the API:
+  [#340](https://github.com/OpenAssetIO/OpenAssetIO/issues/340)
+  - `SpecificationBase.kTraitIds` to `kTraitSet`.
+  - `TraitsData::TraitIds` to `TraitSet`
+  - `TraitsData::traitIds()` to `traitSet()`
+
 
 ### Improvements
 

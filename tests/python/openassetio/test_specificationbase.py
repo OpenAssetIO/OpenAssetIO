@@ -49,7 +49,7 @@ class Test_SpecificationBase_create:
     def test_all_traits_set_in_data(self):
         specification = ATestSpecification.create()
         data = specification.traitsData()
-        assert data.traitIds() == ATestSpecification.kTraitIds
+        assert data.traitSet() == ATestSpecification.kTraitSet
 
 
 class ATrait(Trait):
@@ -63,7 +63,7 @@ class ATrait(Trait):
 
 
 class ATestSpecification(SpecificationBase):
-    kTraitIds = {ATrait.kId, "🐝"}
+    kTraitSet = {ATrait.kId, "🐝"}
 
     def aTrait(self):
         return ATrait(self._data)
