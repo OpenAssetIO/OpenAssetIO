@@ -110,15 +110,19 @@ if (Python_Interpreter_FOUND)
     # online connection to local install OpenAssetIO. Need to cache the
     # build tools explicitly due to build isolation, see:
     # https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/#build-process
+    # This also includes runtime dependencies of packages in the
+    # resources directory, whose install will otherwise fail due to
+    # --no-index.
     set(python_deps_dir "${CMAKE_BINARY_DIR}/dependencies/python")
     add_custom_target(
-        openassetio-python-download-core-deps
+        openassetio-python-download-deps
         COMMAND ${CMAKE_COMMAND} -E echo -- Downloading core Python libraries
         COMMAND
         ${Python_EXECUTABLE} -m pip download
         --retries 0 --timeout ${OPENASSETIO_PYTHON_PIP_TIMEOUT} --find-links ${python_deps_dir}
         --destination-directory ${python_deps_dir}
-        wheel==0.37.1
+        wheel==0.37.1 setuptools==49.0
+        --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/requirements.txt"
     )
     # Create a Python environment in the install directory. If the venv
     # already exists then this is a no-op.
@@ -127,12 +131,14 @@ if (Python_Interpreter_FOUND)
         COMMAND ${CMAKE_COMMAND} -E echo -- Creating Python environment in ${CMAKE_INSTALL_PREFIX}
         COMMAND ${Python_EXECUTABLE} -m venv ${CMAKE_INSTALL_PREFIX}
         # Install `wheel` so that setuptools can build OpenAssetIO.
-        COMMAND ${venv_python_exe} -m pip install --no-index --find-links ${python_deps_dir} wheel
+        COMMAND
+        ${venv_python_exe} -m pip install --no-index --find-links ${python_deps_dir}
+        wheel setuptools
     )
     add_dependencies(openassetio-python-venv
         # Ensure dependencies have been downloaded for constructing the
         # venv.
-        openassetio-python-download-core-deps)
+        openassetio-python-download-deps)
 
     # Install OpenAssetIO into the venv.
     add_custom_target(
@@ -151,6 +157,24 @@ if (Python_Interpreter_FOUND)
     add_dependencies(openassetio-python-py-install
         # Ensure C++ component has been installed.
         openassetio-install
+        # Ensure venv is available.
+        openassetio-python-venv)
+
+    # Install OpenAssetIO Code Generator into the venv.
+    add_custom_target(
+        openassetio-resources-codegen-install
+        COMMAND ${CMAKE_COMMAND} -E echo -- Installing OpenAssetIO Code Generator
+        COMMAND
+        ${venv_python_exe} -m pip install
+        # For speed, build from the venv rather than copying the whole
+        # project to a temporary environment. Note that this is a pip
+        # feature, setuptools also has its own build cache (see
+        # setup.cfg). This flag roughly halves test runtime.
+        --no-build-isolation
+        --no-index --find-links ${python_deps_dir}
+        ${PROJECT_SOURCE_DIR}/resources/codegen
+    )
+    add_dependencies(openassetio-resources-codegen-install
         # Ensure venv is available.
         openassetio-python-venv)
 endif ()

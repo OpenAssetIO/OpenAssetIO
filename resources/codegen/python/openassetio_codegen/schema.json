@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OpenAssetIO Trait/Specification code auto-generation schema",
+  "description": "Documents conforming to this schema describe a package of OpenAssetIO Traits and/or Specifications.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "description": "A description of the intended use of this package."
+    },
+    "package": {
+      "type": "string",
+      "description": "The package identifier. This should be universally unique across all organisations that use the API. It is a UTF-8 string, but will be conformed to a legal identifier in all target languages. Restricting the identifier to simple ASCII alpha-numeric characters, hyphens or underscores will yield broadest compatibility, with the fewest unexpected transformations.",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "traits": {
+      "type": "object",
+      "description": "Trait definitions, grouped by namespace. The universally unique identifier for each trait, is formed by concatenating the package, namespace and name as follows: '<package>:<namespace>.<name>'.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][a-zA-Z0-9]*$": {
+          "description": "A namespace. These only need be unique within each type (Trait or Specification) within any given package. Namespaces will be mapped to sub-packages, modules or namespaces in the resulting code.",
+          "type": "object",
+          "properties": {
+            "description": {
+              "description": "A description of the type or general usage of Traits found in this namespace.",
+              "type": "string"
+            },
+            "members": {
+              "description": "The Traits belonging to this namespace.",
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[A-Z][a-zA-Z0-9]*$": {
+                  "type": "object",
+                  "description": "A single Trait. The object's key forms the name of the trait, and will be used to generate the class name (or similar) in resulting code. Trait names need to be unique within each namespace.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "description": "A description of the trait and its uses.",
+                      "minLength": 1
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": "object",
+                      "description": "The Trait's properties.",
+                      "additionalProperties": false,
+                      "patternProperties": {
+                        "^[a-z][a-zA-Z0-9]*$": {
+                          "type": "object",
+                          "properties": {
+                            "description": {
+                              "type": "string",
+                              "description": "A description of the value held by the property and its use",
+                              "minLength": 1
+                            },
+                            "type": {
+                              "description": "The type of the value held by the property",
+                              "type": "string",
+                              "enum": [
+                                "string",
+                                "integer",
+                                "float",
+                                "boolean",
+                                "dictionary"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "description",
+                            "type"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "usage": {
+                      "description": "The potential use cases for the Trait, these map to specific areas of the OpenAssetIO API where it makes sense to use the Trait.",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "entity",
+                          "relationship",
+                          "locale",
+                          "managementPolicy"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "description"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "description",
+            "members"
+          ]
+        }
+      }
+    },
+    "specifications": {
+      "type": "object",
+      "description": "Specification definitions, grouped by namespace.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z][a-zA-Z0-9]*$": {
+          "type": "object",
+          "description": "A namespace. These only need be unique within each type (Trait or Specification) within any given package. Namespaces will be mapped to sub-packages, modules or namespaces in the resulting code.",
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A description of the type or general usage of Specifications found in this namespace."
+            },
+            "members": {
+              "description": "The Specifications belonging to this namespace.",
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[A-Z][a-zA-Z0-9]*$": {
+                  "type": "object",
+                  "description": "A single Specification. The object's key forms the name of the Specification, and will be used to generate the class name (or similar) in resulting code. Specification names need to be unique within each namespace.",
+                  "additionalProperties": false,
+                  "properties": {
+                    "description": {
+                      "type": "string",
+                      "description": "A description of the Specification and its uses.",
+                      "minLength": 1
+                    },
+                    "traitSet": {
+                      "description": "The Traits composed by the Specification. These can references Traits within this package, or another.",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "package": {
+                            "description": "The package the Trait belongs to, if it is not in the package defined by this description.",
+                            "type": "string",
+                            "pattern": "^[a-zA-Z0-9_-]+$"
+                          },
+                          "namespace": {
+                            "description": "The Trait's namespace",
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9]*$"
+                          },
+                          "name": {
+                            "description": "The Trait's name",
+                            "type": "string",
+                            "pattern": "^[A-Z][a-zA-Z0-9]*$"
+                          }
+                        },
+                        "required": [
+                          "namespace",
+                          "name"
+                        ]
+                      },
+                      "minItems": 1
+                    },
+                    "usage": {
+                      "description": "The potential use cases for the specification, these map to specific areas of the OpenAssetIO API where it makes sense to use supply the Specification's Trait Set.",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "entity",
+                          "relationship",
+                          "locale",
+                          "managementPolicy"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "description",
+                    "traitSet"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "description",
+            "members"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "package"
+  ]
+}
