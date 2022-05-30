@@ -17,15 +17,14 @@
 @namespace openassetio.managerAPI.Host
 A single-class module, providing the Host class.
 """
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
-from .._core.debug import debugApiCall, Debuggable
-from .._core.audit import auditApiCall
-
+from .._core.debug import Debuggable
 
 __all__ = ['Host']
 
 
-class Host(Debuggable):
+class Host(_openassetio.managerAPI.Host, Debuggable):
     """
     The Host object represents the tool or application that created a
     session with OpenAssetIO, and wants to query or store information
@@ -44,7 +43,8 @@ class Host(Debuggable):
     """
 
     def __init__(self, hostInterface):
-        super(Host, self).__init__()
+        _openassetio.managerAPI.Host.__init__(self, hostInterface)
+        Debuggable.__init__(self)
 
         self.__impl = hostInterface
 
@@ -59,55 +59,3 @@ class Host(Debuggable):
 
     def _interface(self):
         return self.__impl
-
-    ##
-    # @name Host Information
-    #
-    ## @{
-
-    @debugApiCall
-    @auditApiCall("Host methods")
-    def identifier(self):
-        """
-        Returns an identifier to uniquely identify the Host.
-
-        The identifier will be different for each tool or application,
-        but common to all versions of any one. The identifier will use
-        only alpha-numeric characters and '.', '_' or '-', commonly in
-        the form of a 'reverse-DNS' style string, for example:
-
-            "uk.co.foundry.katana"
-
-        @return str
-        """
-        return self.__impl.identifier()
-
-    @debugApiCall
-    @auditApiCall("Host methods")
-    def displayName(self):
-        """
-        Returns a human readable name to be used to reference this
-        specific host in user-facing messaging.
-        For example:
-
-            "Katana"
-        """
-        return self.__impl.displayName()
-
-    @debugApiCall
-    @auditApiCall("Host methods")
-    def info(self):
-        """
-        Returns other information that may be useful about the host.
-        This can contain arbitrary key/value pairs. There should be no
-        reliance on a specific key being supplied by all hosts. The
-        information may be more generally useful for diagnostic or
-        debugging purposes. For example:
-
-            { 'version' : '1.1v3' }
-
-        @return Dict[str, pod]
-        """
-        return self.__impl.info()
-
-    ## @}

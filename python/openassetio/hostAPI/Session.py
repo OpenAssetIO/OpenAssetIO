@@ -17,11 +17,11 @@
 @namespace openassetio.hostAPI.Session
 A single-class module, providing the Session class.
 """
+from .. import _openassetio  # pylint: disable=no-name-in-module
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
-from .HostInterface import HostInterface
 from .Manager import Manager
 
 from ..managerAPI import Host, HostSession
@@ -30,6 +30,7 @@ from .. import constants
 from ..Context import Context
 from ..exceptions import ManagerException
 
+HostInterface = _openassetio.hostAPI.HostInterface
 
 __all__ = ['Session']
 

@@ -26,12 +26,7 @@ from unittest import mock
 import pytest
 
 from openassetio import constants, exceptions, log, Context, TraitsData
-from openassetio.hostAPI import Session, HostInterface, Manager, ManagerFactoryInterface
-
-
-@pytest.fixture
-def mock_host_interface():
-    return mock.create_autospec(spec=HostInterface)
+from openassetio.hostAPI import Session, Manager, ManagerFactoryInterface
 
 
 @pytest.fixture
@@ -143,7 +138,7 @@ class Test_Session_currentManager:
         # by our StubManager during initialization (above) returns this
         # same value.
         expected_identifier = "some.identifier"
-        mock_host_interface.identifier.return_value = expected_identifier
+        mock_host_interface.mock.identifier.return_value = expected_identifier
         host_session = mock_manager_interface.mock.initialize.call_args[0][0]
         assert host_session.host().identifier() == expected_identifier
 

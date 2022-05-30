@@ -58,7 +58,9 @@ target_sources(
     openassetio-core
     PRIVATE
     TraitsData.cpp
+    hostAPI/HostInterface.cpp
     hostAPI/Manager.cpp
+    managerAPI/Host.cpp
     managerAPI/ManagerInterface.cpp
 )
 

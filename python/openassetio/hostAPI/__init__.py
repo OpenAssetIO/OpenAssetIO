@@ -23,7 +23,8 @@ If you are wanting to provide support for an asset management system,
 see @ref openassetio.managerAPI.
 """
 
-from .HostInterface import HostInterface
+from .. import _openassetio  # pylint: disable=no-name-in-module
 from .Manager import Manager
 from .ManagerFactoryInterface import ManagerFactoryInterface
 from .Session import Session
+HostInterface = _openassetio.hostAPI.HostInterface

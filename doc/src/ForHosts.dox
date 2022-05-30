@@ -71,12 +71,10 @@
  *
  * @subsection host_todo_required_resolution Required for Simple Resolution
  *
- * - Implement the @ref openassetio.hostAPI.HostInterface class
+ * - Implement the @fqref{hostAPI::HostInterface} "HostInterface" class
  *   methods:
- *   @ref openassetio.hostAPI.HostInterface.HostInterface.identifier
- *   "identifier" and @ref
- *   openassetio.hostAPI.HostInterface.HostInterface.displayName
- *   "displayName".
+ *   @fqref{hostAPI::HostInterface::identifier} "identifier" and
+ *   @fqref{hostAPI::HostInterface::displayName} "displayName".
  *
  * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
  *   provide the following objects:

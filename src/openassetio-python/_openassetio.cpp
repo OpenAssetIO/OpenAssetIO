@@ -15,10 +15,10 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerTraitsData(mod);
 
   py::module managerAPI = mod.def_submodule("managerAPI");
-
-  registerManagerInterface(managerAPI);
-
   py::module hostAPI = mod.def_submodule("hostAPI");
 
+  registerHostInterface(hostAPI);
+  registerHost(managerAPI);
+  registerManagerInterface(managerAPI);
   registerManager(hostAPI);
 }

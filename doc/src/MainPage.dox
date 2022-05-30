@@ -170,9 +170,9 @@
  *
  * The first step in any integration is to write an implementation of
  * one of the two abstract interfaces defined by the API, illustrated in
- * orange above - either the
- * @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
- * or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * orange above - either the @fqref{hostAPI::HostInterface}
+ * "HostInterface" or @ref
+ * openassetio.managerAPI.ManagerInterface.ManagerInterface
  * "ManagerInterface".
  *
  * - The asset management system implements the
@@ -180,11 +180,10 @@
  *   "ManagerInterface". This is a stateless, re-entrant interface that is
  *   the sole entry point for all interactions with the host.
  *
- * - The @ref openassetio.hostAPI.HostInterface.HostInterface
- *   "HostInterface" represents the caller of the API. It allows the
- *   asset management system to customize the @ref publish "publishing"
- *   process if desired and/or query additional information about the
- *   host.
+ * - The @fqref{hostAPI::HostInterface} "HostInterface" represents the
+ *   caller of the API. It allows the asset management system to
+ *   customize the @ref publish "publishing" process if desired and/or
+ *   query additional information about the host.
  *
  * The interface implementations are "wrapped" in the
  * @ref openassetio.managerAPI.Host.Host "Host" or

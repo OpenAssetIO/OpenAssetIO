@@ -43,6 +43,8 @@ target_sources(
     _openassetio.cpp
     TraitsDataBinding.cpp
     hostAPI/ManagerBinding.cpp
+    hostAPI/HostInterfaceBinding.cpp
+    managerAPI/HostBinding.cpp
     managerAPI/ManagerInterfaceBinding.cpp
 )
 
