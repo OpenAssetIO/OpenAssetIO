@@ -62,7 +62,7 @@ class Session(Debuggable):
     def __init__(self, hostInterface, logger, managerFactory):
         # pylint: disable=line-too-long
         """
-        @param hostInterface openassetio.hostAPI.HostInterface The current
+        @param hostInterface \fqref{hostAPI::HostInterface} The current
         HostInterface instance (note: only a single currently active
         HostInterface is supported, so if multiple sessions are created,
         they should all use the same HostInterface instance).

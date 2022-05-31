@@ -79,7 +79,7 @@
  * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
  *   provide the following objects:
  *    - An instance of the custom class derived from
- *      @ref openassetio.hostAPI.HostInterface "HostInterface".
+ *      @fqref{hostAPI::HostInterface} "HostInterface".
  *    - A `logger` (derived from
  *      @ref openassetio.log.LoggerInterface "LoggerInterface"), for
  *      simple console logging you can use a
