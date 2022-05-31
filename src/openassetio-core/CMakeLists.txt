@@ -61,6 +61,7 @@ target_sources(
     hostAPI/HostInterface.cpp
     hostAPI/Manager.cpp
     managerAPI/Host.cpp
+    managerAPI/HostSession.cpp
     managerAPI/ManagerInterface.cpp
 )
 

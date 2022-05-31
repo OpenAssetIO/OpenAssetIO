@@ -46,8 +46,8 @@ v1.0.0-alpha.X
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.
   [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
-- `Host` and `HostInterface` classes have been migrated to C++.
-  Debug and audit functionality is left for future work.
+- `Host`, `HostInterface` and `HostSession` classes have been migrated
+  to C++. Debug and audit functionality is left for future work.
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
 - Switched to preferring un-versioned `clang-tidy` executables when

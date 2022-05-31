@@ -30,6 +30,9 @@ void registerHostInterface(const py::module& mod);
 /// Register the Host class with Python.
 void registerHost(const py::module& mod);
 
+/// Register the HostSession class with Python.
+void registerHostSession(const py::module& mod);
+
 /// Register the ManagerInterface class with Python.
 void registerManagerInterface(const py::module& mod);
 

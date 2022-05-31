@@ -30,8 +30,8 @@ from openassetio.managerAPI import Host, HostSession
 
 
 @pytest.fixture
-def mock_host():
-    return mock.create_autospec(spec=Host)
+def a_host(mock_host_interface):
+    return Host(mock_host_interface)
 
 
 @pytest.fixture
@@ -40,14 +40,32 @@ def mock_logger():
 
 
 @pytest.fixture
-def host_session(mock_host, mock_logger):
-    return HostSession(mock_host, mock_logger)
+def host_session(a_host, mock_logger):
+    return HostSession(a_host, mock_logger)
+
+
+class Test_HostSession_init:
+    def test_when_host_is_None_then_raises_TypeError(self, mock_logger):
+        with pytest.raises(TypeError) as err:
+            HostSession(None, mock_logger)
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
+    def test_when_invalid_host_then_raises_TypeError(self, mock_logger):
+        with pytest.raises(TypeError) as err:
+            HostSession(object(), mock_logger)
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
+
+class Test_HostSession_host:
+    def test_returns_expected_host_instance(self, host_session, a_host):
+        actual_host = host_session.host()
+
+        assert actual_host is a_host
 
 
 class TestHostSession():
-
-    def test_construction(self, host_session, mock_host):
-        assert host_session.host() is mock_host
 
     def test_log(self, host_session, mock_logger):
         mock_logger.reset_mock()
