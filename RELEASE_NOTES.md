@@ -27,6 +27,11 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added `freezeContext` and `thawContext` methods to the `Session` class
+  to allow serialization of a manager's state for persistence or
+  distribution.
+  [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
+
 - Added short-form macros for C API symbols, so that, for example,
   `oa_symbolName` can be used instead of wrapping every reference in the
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.

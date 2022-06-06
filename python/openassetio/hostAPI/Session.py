@@ -230,6 +230,65 @@ class Session(Debuggable):
 
         return ctx
 
+
+    @auditApiCall("Session")
+    def freezeContext(self, context):
+        """
+        Freezes the supplied context into a serializable token that
+        can be persisted or distributed between processes to associate
+        subsequent API usage with the supplied context.
+
+        The returned token can be passed to @ref thawContext for
+        future API use in another @ref session with the same manager.
+
+        @param context @ref openassetio.Context The context to freeze.
+
+        @return `str` The managers frozen state token.
+
+        @see @ref stable_resolution
+        """
+        manager = self.currentManager()
+        if manager is None:
+            raise RuntimeError("Session.freezeContext called with no current manager")
+
+        # pylint: disable=protected-access
+        token = manager._freezeState(context.managerInterfaceState)
+        return token
+
+
+    @auditApiCall("Session")
+    def thawContext(self, stateToken):
+        """
+        Thaws a previously frozen manager state token, returning a @ref
+        Context associated with that state, that can be used for further
+        API calls.
+
+        @param stateToken `str` A token previously returned from @ref
+        freezeContext by the same manager that is in use in this
+        session.
+
+        @return @ref openassetio.Context A context that will be
+        associated with the previously frozen one by the manager.
+
+        @note The context's access, retention or locale is not restored
+        by this action.
+
+        @see @ref stable_resolution
+
+        @todo Should we concatenate the manager id in freeze so we can
+        verify that they match?
+        """
+
+        manager = self.currentManager()
+        if manager is None:
+            raise RuntimeError("Session.thawContext called with no current manager")
+
+        # pylint: disable=protected-access
+        ctx = Context()
+        ctx.managerInterfaceState = manager._thawState(stateToken)
+        return ctx
+
+
     @auditApiCall("Session")
     def getSettings(self):
         """
