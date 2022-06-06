@@ -96,10 +96,6 @@ namespace managerAPI {
  * batch render. This should allow you to implement stable resolution
  * of @ref meta_version "meta-versions" or other resolve-time concepts.
  *
- * One exception to the threading rule is that the transaction managing
- * functions won't be called from multiple threads with the same
- * transaction object.
- *
  * There should be no persistent state in the implementation, concepts
  * such as getError(), etc.. for example should not be used.
  *

@@ -63,7 +63,6 @@
  * @section host_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref transactions
  * @see @ref openassetio.hostAPI.Session.Session "Session"
  * @see @ref openassetio.hostAPI.Manager.Manager "Manager"
  * @see @ref openassetio.Context.Context "Context"

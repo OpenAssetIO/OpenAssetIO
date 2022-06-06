@@ -232,8 +232,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         Clears any internal caches.  Only applicable if the manager
         makes use of any caching, otherwise it is a no-op.  In caching
         interfaces, this should cause any retained data to be discarded
-        to ensure future queries are fresh. This should have no effect
-        on any open @ref transaction.
+        to ensure future queries are fresh.
         """
         return self.__impl.flushCaches(self.__hostSession)
 
@@ -1036,43 +1035,10 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     ## @}
 
     ##
-    # @name Transaction management
-    # These methods should not be used directly outside of the core API code.
-    # Always use a @ref openassetio.hostAPI.transactions.TransactionCoordinator
-    # instead.
-    ## @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _startTransaction(self, state):
-        """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.startTransaction "startTransaction"
-        """
-        return self.__impl.startTransaction(state, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _finishTransaction(self, state):
-        """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.finishTransaction "finishTransaction"
-        """
-        return self.__impl.finishTransaction(state, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _cancelTransaction(self, state):
-        """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.cancelTransaction "cancelTransaction"
-        """
-        return self.__impl.cancelTransaction(state, self.__hostSession)
-
-    ## @}
-
-    ##
     # @name State Management
     # These methods should not be used directly outside of the core API code.
-    # Always use a @ref openassetio.hostAPI.transactions.TransactionCoordinator
-    # instead.
+    # @see @ref openassetio.Session for Context management methods.
+    # @see @ref stable_resolution
     ## @{
 
     @debugApiCall

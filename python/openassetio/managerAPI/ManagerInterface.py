@@ -113,10 +113,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     batch render. This should allow you to implement stable resolution
     of @ref meta_version "meta-versions" or other resolve-time concepts.
 
-    One exception to the treading rule is that the transaction managing
-    functions won't be called from multiple threads with the same
-    transaction object.
-
     There should be no persistent state in the implementation, concepts
     such as getError(), etc.. for example should not be used.
 
@@ -287,8 +283,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         Clears any internal caches.  Only applicable if the
         implementation makes use of any caching, otherwise it is a
         no-op. In caching interfaces, this should cause any retained
-        data to be discarded to ensure future queries are fresh. This
-        should have no effect on any open @ref transaction.
+        data to be discarded to ensure future queries are fresh.
         """
 
     ## @}
@@ -1133,13 +1128,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     #
     # This mechanism may be used for a variety of purposes. For example, it
     # could ensure that queries are made from a coherent time stamp during a
-    # render, or to undo the publishing of multiple assets. It can also be used
-    # to define 'transactions' - groups of related actions that may be cancelled
-    # together/rolled back.
-    #
-    # @note Not all implementations may support transactions, there is no
-    # requirement for any of the functions in this group being implemented.  The
-    # defaults are effectively no-ops.
+    # render, or to undo the publishing of multiple assets.
     #
     # @{
 
@@ -1160,11 +1149,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         to anchor the api call to a particular snapshot of the state of
         the asset inventory.
 
-        This object is also extracted from the context and passed
-        directly to any of the 'transactional' calls in this API.  For
-        more on the transactional model in this API, and how these will
-        be called, see the @ref transactions Page.
-
         @param hostSession openassetio.managerAPI.HostSession, The host
         session that maps to the caller. This should be used for all
         logging and provides access to the openassetio.managerAPI.Host
@@ -1176,133 +1160,19 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         somewhere in a UI, etc... when further processing may change the
         access/retention of the Context. It is expected that the manager
         will migrate any applicable state components to this child
-        context, for example - a timestamp used for 'vlatest'. However
-        is it *not* expected to link the new state with any transaction
-        that is open in the parent state. So the returned state should
-        have any open transactions.
+        context, for example - a timestamp used for 'vlatest'.
 
         @return `object` Some object that represents self-contained
         state of the ManagerInterface. This will be passed to future
-        calls and to the transactional methods. Presently this can be
-        any hashable object.
+        calls. Presently this can be any hashable object.
 
         @exception exceptions.StateError If for some reason creation
         fails.
 
-        @see @ref startTransaction
-        @see @ref finishTransaction
-        @see @ref cancelTransaction
         @see @ref freezeState
         @see @ref thawState
-        @see The @ref transactions page.
         """
         return None
-
-    def startTransaction(self, state, hostSession):
-        """
-        Called to indicate the start of a series of connected actions.
-        The aim of a transaction is to allow undo/cancellation of all
-        related actions in one step. Largely to avoid inconsistent state
-        in the back end. It is important though that any queries made to
-        data that has been created or set within the transaction,
-        returns the updated or new data.
-
-        For more on the transactional model in this API, and how these
-        functions are called, see the @ref transactions Page.
-
-        This will never be called with the same state from multiple
-        threads, but may be called with different state objects.
-
-        This method **must** store any persistent state in the supplied
-        state object to ensure the API is stateless. It should not store
-        any state relating to the transaction within the
-        ManagerInterface instance itself.
-
-        @return `None`
-
-        @exception exceptions.StateError If for some reason the action
-        fails.
-
-        @see @ref createState
-        @see @ref finishTransaction
-        @see @ref cancelTransaction
-        @see The @ref transactions page.
-        """
-
-    def finishTransaction(self, state, hostSession):
-        """
-        Called at the end of a group of actions to inform the
-        ManagerInterface that any pending internal management should be
-        finalized.
-
-        For more on the transactional model in this API, and how these
-        functions will be called, see the @ref transactions Page.
-
-        This will never be called with the same state from  multiple
-        threads, but may be called with different state objects.
-
-        This method **must** only use or store any persistent state from
-        the supplied state object to ensure the API is stateless.
-
-        @return `None`
-
-        @exception exceptions.StateError If for some reason the action
-        fails, or finish is called before start.
-
-        @see @ref createState
-        @see @ref startTransaction
-        @see @ref cancelTransaction
-        @see The @ref transactions page.
-        """
-
-    def cancelTransaction(self, state, hostSession):
-        """
-        Can be called at any point after @ref startTransaction to undo
-        actions and reset the transaction state.
-
-        Generally called in response to some fatal error, in order to
-        request the implementation to unroll, or revert any changes made
-        since @ref startTransaction
-
-        The state should also be re-configured so that it is then safe
-        to call @ref startTransaction
-
-        @return Bool True if roll-back was successful, False in all
-        other cases.
-
-        @see @ref createState
-        @see @ref startTransaction
-        @see @ref finishTransaction
-        @see The @ref transactions page.
-        """
-        return False
-
-    ##
-    # @name State Persistence
-    #
-    # A Host may wish to distribute work. Often the workers may be in a
-    # different execution space. As such, it becomes necessary to pass a
-    # reference to the current transaction stack along with the work, so that
-    # actions can be correctly grouped.
-    #
-    # The freezeState() call can be made at any point, and
-    # The ManagerInterface should return a string that, when
-    # passed to thawState() in another process, will restore the
-    # state of the context so that future actions will be associated with the
-    # same state as before freezing.
-    #
-    # Included in this is the requirement that if a transaction has been started,
-    # this should also be persisted, so that actions on a thawed state are also
-    # associated with that transaction.
-    #
-    # This string could be a serialized representation of some transaction
-    # object, or a simple uuid or handle.
-    #
-    # If an implementation does not support freezing the state, then it should
-    # ensure that any outstanding internal tasks pending on @ref
-    # finishTransaction are completed prior to thawing, but the 'open' state of
-    # the transaction should be persisted to the thawed state - as @ref
-    # finishTransaction will most likely still be called.
 
     def freezeState(self, state, hostSession):
         """
@@ -1318,7 +1188,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         @return `str` A string that can be used to restore the stack.
 
         @see @ref thawState
-        @see The @ref transactions page.
         """
         return ""
 

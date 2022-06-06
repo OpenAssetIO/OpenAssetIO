@@ -141,15 +141,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def createState(self, hostSession, parentState=None):
         return self.mock.createState(hostSession, parentState)
 
-    def startTransaction(self, state, hostSession):
-        return self.mock.startTransaction(state, hostSession)
-
-    def finishTransaction(self, state, hostSession):
-        return self.mock.finishTransaction(state, hostSession)
-
-    def cancelTransaction(self, state, hostSession):
-        return self.mock.cancelTransaction(state, hostSession)
-
     def freezeState(self, state, hostSession):
         return self.mock.freezeState(state, hostSession)
 

@@ -89,9 +89,6 @@ class Test_hostAPI_imports:
     def test_importing_terminology_succeeds(self):
         from openassetio.hostAPI import terminology
 
-    def test_importing_transactions_succeeds(self):
-        from openassetio.hostAPI import transactions
-
 
 class Test_managerAPI_imports:
 

@@ -234,7 +234,6 @@
  * @section manager_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref transactions
  * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
  * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
  * @see @ref openassetio.Context "Context"

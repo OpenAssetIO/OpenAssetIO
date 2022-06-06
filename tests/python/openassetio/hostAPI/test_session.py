@@ -235,7 +235,6 @@ class Test_Session_createContext:
         assert context_a.access == Context.kRead
         assert context_a.retention == Context.kTransient
         assert context_a.managerInterfaceState is state_a
-        assert context_a._actionGroupDepth == 0  # pylint: disable=protected-access
         assert context_a.locale is None
         mock_manager_interface.mock.createState.assert_called_once()
 
@@ -251,7 +250,6 @@ class Test_Session_createContext:
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
         context_a.locale = TraitsData()
-        context_a._actionGroupDepth = 3
         mock_manager_interface.mock.reset_mock()
 
         state_b = "state-b"
@@ -265,7 +263,6 @@ class Test_Session_createContext:
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
-        assert context_b._actionGroupDepth == 0
         mock_manager_interface.mock.createState.assert_called_once_with(
             a_host_session, parentState=state_a)
 

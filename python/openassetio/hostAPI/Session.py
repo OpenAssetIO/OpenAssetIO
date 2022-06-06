@@ -197,10 +197,7 @@ class Session(Debuggable):
         will clone the supplied Context, and the Manager will be given a
         chance to migrate any meaningful state etc... This can be useful
         when certain UI elements need to 'take a copy' of a context in
-        its current state. It is not linked to the parent's transaction
-        if one has been created in the parent. The lifetime of any
-        context's transactions are only ever controlled by the context
-        that created them.
+        its current state.
 
         @see @ref openassetio.Context.Context "Context"
 
@@ -226,7 +223,6 @@ class Session(Debuggable):
 
         # pylint: disable=protected-access
         ctx.managerInterfaceState = manager._createState(parentState)
-        ctx._actionGroupDepth = 0
 
         return ctx
 
