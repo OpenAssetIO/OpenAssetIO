@@ -311,9 +311,9 @@ if (IS_GCC_OR_CLANG)
     message(STATUS "Sanitizer: Thread               = ${OPENASSETIO_ENABLE_SANITIZER_THREAD}")
     message(STATUS "Sanitizer: Memory               = ${OPENASSETIO_ENABLE_SANITIZER_MEMORY}")
 endif ()
-message(STATUS "Linter: clang-tidy              = ${OPENASSETIO_ENABLE_CLANG_TIDY}")
-message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT}")
-message(STATUS "Linter: clang-format            = ${OPENASSETIO_ENABLE_CLANG_FORMAT}")
+message(STATUS "Linter: clang-tidy              = ${OPENASSETIO_ENABLE_CLANG_TIDY} [${OPENASSETIO_CLANGTIDY_EXE}]")
+message(STATUS "Linter: cpplint                 = ${OPENASSETIO_ENABLE_CPPLINT} [${OPENASSETIO_CPPLINT_EXE}]")
+message(STATUS "Linter: clang-format            = ${OPENASSETIO_ENABLE_CLANG_FORMAT} [${OPENASSETIO_CLANGFORMAT_EXE}]")
 
 #-----------------------------------------------------------------------
 # Recurse to library targets
