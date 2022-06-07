@@ -34,6 +34,10 @@ v1.0.0-alpha.X
   (beyond tests). Note that `HostSession.host()` remains.
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
 
+- Marked `Host` class as `final` in both Python and C++ and so it cannot
+  be subclassed.
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+
 
 ### Improvements
 

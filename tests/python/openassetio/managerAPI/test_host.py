@@ -41,18 +41,20 @@ def a_context():
 #   assessing when this is ported to cpp
 
 class Test_Host_init:
+
+    def test_when_inheriting_then_raises_TypeError(self):
+        with pytest.raises(TypeError) as err:
+            class _Derived(Host):
+                pass
+
+        assert str(err.value) == (
+            "type 'openassetio._openassetio.managerAPI.Host' is not an acceptable base type")
+
     def test_when_invalid_interface_then_raises_TypeError(self):
         with pytest.raises(TypeError) as err:
             Host(object())
 
         assert str(err.value).startswith("__init__(): incompatible constructor arguments")
-
-
-class Test_Host_interface:
-    def test(self, mock_host_interface):
-        # pylint: disable=protected-access
-        a_host = Host(mock_host_interface)
-        assert a_host._interface() is mock_host_interface
 
 
 class Test_Host_identifier:

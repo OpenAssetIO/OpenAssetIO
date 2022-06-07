@@ -26,7 +26,7 @@
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
- *   @ref openassetio.managerAPI.Host.Host "Host" class before being
+ *   @fqref{managerAPI::Host} "Host" class before being
  *   exposed to the manager. This is to allow for assorted middleware
  *   auditing/logging functionality, and provide a degree of isolation
  *   against future API changes.

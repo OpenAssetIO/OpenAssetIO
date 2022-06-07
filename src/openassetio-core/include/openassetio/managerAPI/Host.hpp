@@ -25,8 +25,10 @@ namespace managerAPI {
  * current host through the @ref
  * openassetio.managerAPI.HostSession.HostSession.host
  * "HostSession.host" method
+ *
+ * @todo Add auditing functionality.
  */
-class OPENASSETIO_CORE_EXPORT Host {
+class OPENASSETIO_CORE_EXPORT Host final {
  public:
   explicit Host(hostAPI::HostInterfacePtr hostInterface);
 

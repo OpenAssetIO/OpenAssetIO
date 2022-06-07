@@ -186,7 +186,7 @@
  *   query additional information about the host.
  *
  * The interface implementations are "wrapped" in the
- * @ref openassetio.managerAPI.Host.Host "Host" or
+ * @fqref{managerAPI::Host} "Host" or
  * @ref openassetio.hostAPI.Manager.Manager "Manager" classes by the
  * API before being passed to the other side, to provide state
  * management and audit functionality.
