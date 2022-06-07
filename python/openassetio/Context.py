@@ -41,7 +41,7 @@ class Context(object):
     not need to be used directly.
 
     @warning Contexts should never be directly constructed. Hosts should
-    use @ref openassetio.hostAPI.Session.Session.createContext. A
+    use @ref openassetio.hostAPI.Manager.Manager.createContext. A
     Manager implementation should never need to create a context of it's
     own, one will always be supplied through the ManagerInterface entry
     points.

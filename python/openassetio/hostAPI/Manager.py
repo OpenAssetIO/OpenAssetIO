@@ -26,6 +26,7 @@ A single-class module, providing the Manager class.
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
+from .. import Context
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
@@ -1035,34 +1036,87 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     ## @}
 
     ##
-    # @name State Management
-    # These methods should not be used directly outside of the core API code.
-    # @see @ref openassetio.Session for Context management methods.
+    # @name Context Management
     # @see @ref stable_resolution
     ## @{
 
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _createState(self, parentState=None):
+    @auditApiCall("Manager")
+    def createContext(self, parent=None):
         """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState "ManagerInterface.createState"
-        """
-        return self.__impl.createState(self.__hostSession, parentState=parentState)
+        Creates a new Context for use with the manager.
 
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _freezeState(self, state):
-        """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.freezeState "ManagerInterface.freezeState"
-        """
-        return self.__impl.freezeState(state, self.__hostSession)
+        @warning Contexts should never be directly constructed, always
+        use this method to create a new one.
 
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def _thawState(self, token):
+        @param parent openassetio.Context If supplied, the new context
+        will clone the supplied Context, and the Manager will be given a
+        chance to migrate any meaningful state etc... This can be useful
+        when certain UI elements need to 'take a copy' of a context in
+        its current state.
+
+        @see @ref openassetio.Context.Context "Context"
         """
-        @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState "ManagerInterface.thawState"
+        context = Context()
+
+        # If we have a parent, copy its setup
+        if parent:
+            context.access = parent.access
+            context.retention = parent.retention
+            context.locale = parent.locale
+            context.managerOptions = parent.managerOptions
+
+        parentState = None
+        if parent:
+            parentState = parent.managerInterfaceState
+
+        context.managerInterfaceState = self.__impl.createState(self.__hostSession,
+                                                                parentState=parentState)
+        return context
+
+
+    @auditApiCall("Session")
+    def freezeContext(self, context):
         """
-        return self.__impl.thawState(token, self.__hostSession)
+        Freezes the supplied context into a serializable token that
+        can be persisted or distributed between processes to associate
+        subsequent API usage with the supplied context.
+
+        The returned token can be passed to @ref thawContext for
+        future API use in another @ref session with the same manager.
+
+        @param context @ref openassetio.Context The context to freeze.
+
+        @return `str` The managers frozen state token.
+
+        @see @ref stable_resolution
+        """
+        token = self.__impl.freezeState(context.managerInterfaceState, self.__hostSession)
+        return token
+
+
+    @auditApiCall("Session")
+    def thawContext(self, stateToken):
+        """
+        Thaws a previously frozen manager state token, returning a @ref
+        Context associated with that state, that can be used for further
+        API calls.
+
+        @param stateToken `str` A token previously returned from @ref
+        freezeContext by this manager.
+
+        @return @ref openassetio.Context A context that will be
+        associated with the previously frozen one by the manager.
+
+        @note The context's access, retention or locale is not restored
+        by this action.
+
+        @see @ref stable_resolution
+
+        @todo Should we concatenate the manager id in freeze so we can
+        verify that they match?
+        """
+        context = Context()
+        context.managerInterfaceState = self.__impl.thawState(stateToken, self.__hostSession)
+        return context
 
     ## @}

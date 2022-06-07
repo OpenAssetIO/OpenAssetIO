@@ -104,7 +104,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     called concurrently.
 
     When a @ref openassetio.Context object is constructed by @ref
-    openassetio.hostAPI.Session.Session.createContext, the @ref
+    openassetio.hostAPI.Manager.Manager.createContext, the @ref
     createState method will be called, and the resulting state object
     stored in the context. This context will then be re-used across
     related API calls to your implementation of the ManagerInterface.
@@ -1141,10 +1141,11 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         from this function.
 
         This method is called whenever a new @ref Context is made by a
-        @ref openassetio.hostAPI.Session.Session.createContext. The return is
-        then stored in the newly created Context, and is consequently
-        available to all the API calls in the ManagerInterface that take
-        a Context instance via @ref openassetio.Context.Context.managerInterfaceState
+        @ref openassetio.hostAPI.Manager.Manager.createContext. The
+        return is then stored in the newly created Context, and is
+        consequently available to all the API calls in the
+        ManagerInterface that take a Context instance via @ref
+        openassetio.Context.Context.managerInterfaceState
         "managerInterfaceState". Your implementation can then use this
         to anchor the api call to a particular snapshot of the state of
         the asset inventory.
@@ -1180,10 +1181,6 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         ManagerInterface represented by the supplied state
         object,(created by @ref createState) so that can be restored
         later, or in another process.
-
-        After calling this, the state should be considered frozen,
-        and any further cancel/finish calls should throw a @ref
-        exceptions.StateError if made without first thawing the stack.
 
         @return `str` A string that can be used to restore the stack.
 

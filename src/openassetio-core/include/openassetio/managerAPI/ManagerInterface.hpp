@@ -87,7 +87,7 @@ namespace managerAPI {
  * called concurrently.
  *
  * When a @ref openassetio.Context object is constructed by @ref
- * openassetio.hostAPI.Session.Session.createContext, the @needsref
+ * openassetio.hostAPI.Manager.Manager.createContext, the @needsref
  * createState method will be called, and the resulting state object
  * stored in the context. This context will then be re-used across
  * related API calls to your implementation of the ManagerInterface.
