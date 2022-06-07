@@ -38,12 +38,16 @@ class StubManager(ManagerInterface):
     def __init__(self):
         super().__init__()
         self.__settings = None
+        self.__info = {}
 
     def identifier(self):
         return "org.openassetio.test.manager.stubManager"
 
     def displayName(self):
         return "Stub Manager"
+
+    def info(self):
+        return self.__info
 
     def setSettings(self, settings, hostSession):
         self.__settings = settings
@@ -52,8 +56,7 @@ class StubManager(ManagerInterface):
         return self.__settings
 
     def initialize(self, hostSession):
-        # pylint: disable=unused-argument
-        pass
+        self.__info["host_identifier"] = hostSession.host().identifier()
 
     def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument

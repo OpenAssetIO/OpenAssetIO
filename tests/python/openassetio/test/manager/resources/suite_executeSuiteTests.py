@@ -38,12 +38,13 @@ class Test_executeSuite_manager_settings(FixtureAugmentedTestCase):
 
 class Test_executeSuite_session(FixtureAugmentedTestCase):
 
-    def test_when_called_then_session_is_set(self):
+    def test_manager_session_is_provided(self):
         self.assertIsInstance(self._session, Session)
 
-    def test_when_called_then_session_has_expected_host(self):
+    def test_host_session_provides_expected_host(self):
         self.assertEqual(
-            self._session.host().identifier(),
+            # See StubManager.initialize().
+            self._session.currentManager().info()["host_identifier"],
             "org.openassetio.test.manager.harness"
         )
 

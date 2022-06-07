@@ -30,6 +30,10 @@ v1.0.0-alpha.X
   serialization of a manager's state for persistence or distribution.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
 
+- Removed `Session.host()` as it is not useful for foreseeable workflows
+  (beyond tests). Note that `HostSession.host()` remains.
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+
 
 ### Improvements
 

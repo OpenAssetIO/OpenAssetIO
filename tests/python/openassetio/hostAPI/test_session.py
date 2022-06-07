@@ -27,7 +27,6 @@ import pytest
 
 from openassetio import constants, exceptions, log, Context, TraitsData
 from openassetio.hostAPI import Session, HostInterface, Manager, ManagerFactoryInterface
-from openassetio.managerAPI import Host
 
 
 @pytest.fixture
@@ -71,23 +70,6 @@ class Test_Session_init:
 
         with pytest.raises(ValueError):
             Session(mock_logger, mock_logger, mock_manager_factory)
-
-
-class Test_Session_host:
-
-    # pylint: disable=protected-access
-
-    def test_the_supplied_host_interface_is_wrapped_and_returned(
-            self, a_session, mock_host_interface):
-
-        host = a_session.host()
-        assert isinstance(host, Host)
-        assert host._interface() is mock_host_interface
-
-    def test_the_returned_wrapper_shares_the_sessions_debugLogFn(
-            self, a_session):
-
-        assert a_session.host()._debugLogFn is a_session._debugLogFn
 
 
 class Test_Session_registeredManagers:
@@ -140,7 +122,7 @@ class Test_Session_currentManager:
         mock_manager_factory.assert_not_called()
 
     def test_when_useManager_was_called_with_valid_identifier_then_initializes_expected_manager(
-            self, a_session, mock_manager_interface, mock_manager_factory):
+            self, a_session, mock_manager_interface, mock_manager_factory, mock_host_interface):
 
         an_id = "com.manager"
         a_session.useManager(an_id)
@@ -153,6 +135,17 @@ class Test_Session_currentManager:
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.mock.initialize.assert_called_once()
         mock_manager_interface.mock.setSettings.assert_not_called()
+        # Assert provided host session contains the expected host. We
+        # assume correct behaviour of Host methods, i.e. that they
+        # delegate to the HostInterface as appropriate.
+        # I.e. we set HostInterface.identifier() to some known value,
+        # then check that the host returned by the HostSession, captured
+        # by our StubManager during initialization (above) returns this
+        # same value.
+        expected_identifier = "some.identifier"
+        mock_host_interface.identifier.return_value = expected_identifier
+        host_session = mock_manager_interface.mock.initialize.call_args[0][0]
+        assert host_session.host().identifier() == expected_identifier
 
     def test_when_repeatedly_called_then_the_manager_is_only_initialized_once(
             self, a_session, mock_manager_interface, mock_manager_factory):

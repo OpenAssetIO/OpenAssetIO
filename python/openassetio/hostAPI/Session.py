@@ -95,10 +95,7 @@ class Session(Debuggable):
 
         self._debugLogFn = logger.log
 
-        ## @todo Should we wrap this here, let the Manager do that? Doing it here
-        # as it means that auditing will account any use of the Host, not just via the Manager
-        self._host = Host(hostInterface)
-        self._host._debugLogFn = logger.log
+        self._hostInterface = hostInterface
 
         self._logger = logger
 
@@ -108,14 +105,6 @@ class Session(Debuggable):
         self._manager = None
 
         self._factory = managerFactory
-
-    @auditApiCall("Session")
-    def host(self):
-        """
-        @return HostInterface, the HostInterface that the session was
-        started by.
-        """
-        return self._host
 
     @debugApiCall
     @auditApiCall("Session")
@@ -325,4 +314,4 @@ class Session(Debuggable):
         @returns a openassetio.managerAPI.HostSession object to proxy
         this session.
         """
-        return HostSession(self._host, self._logger)
+        return HostSession(Host(self._hostInterface), self._logger)
