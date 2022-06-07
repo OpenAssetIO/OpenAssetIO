@@ -4,8 +4,8 @@
 
 set -xeo pipefail
 sudo apt-get update
-# Install gcc, clang-tidy and Python 3.
-sudo apt-get install -y build-essential clang-tidy-12 python3-pip
+# Install gcc, linters, build tools used by conan and Python 3.
+sudo apt-get install -y build-essential pkgconf clang-format-12 clang-tidy-12 python3-pip
 # Install system packages required for the Python 3.9 conan package.
 # These would be installed as part of the conan package install, but
 # we're caching the conan directory via the `actions/cache` Github
@@ -15,7 +15,8 @@ sudo apt-get install -y  --no-install-recommends libfontenc-dev libx11-xcb-dev l
     libxcb-render-util0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-util-dev libxcb-xfixes0-dev \
     libxcb-xinerama0-dev libxcb-xkb-dev libxcomposite-dev libxcursor-dev libxdamage-dev \
     libxfixes-dev libxi-dev libxinerama-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev \
-    libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev
+    libxres-dev libxss-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev uuid-dev \
+    libxkbfile-dev
 
 # Install additional build tools.
 sudo pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
