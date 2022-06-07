@@ -33,3 +33,8 @@ conan profile update settings.compiler.libcxx=libstdc++ default
 # package repo.
 conan install --install-folder "$CONAN_USER_HOME" --build=missing \
     "$WORKSPACE/resources/build"
+# Ensure we have the expected version of clang-* available
+sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 10
+sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-12 10
+sudo update-alternatives --set clang-tidy /usr/bin/clang-tidy-12
+sudo update-alternatives --set clang-format /usr/bin/clang-format-12
