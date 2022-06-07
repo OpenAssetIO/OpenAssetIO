@@ -53,6 +53,9 @@ jobs:
         # conan packages.
         run: |
           source resources/build/bootstrap-ubuntu-20.04.sh
+          clang-tidy --version
+          clang-format --version
+          cpplint --version
         env:
           WORKSPACE: .
 

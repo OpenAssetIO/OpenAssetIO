@@ -18,7 +18,10 @@
         "enable-linters-cpp",
         "enable-targets-all",
         "enable-tests"
-      ]
+      ],
+      "cacheVariables": {
+        "CMAKE_VERBOSE_MAKEFILE": "ON"
+      }
     },
     {
       "name": "sanitize",
@@ -37,7 +40,10 @@
       "inherits": [
         "enable-targets-all",
         "enable-tests"
-      ]
+      ],
+      "cacheVariables": {
+        "CMAKE_VERBOSE_MAKEFILE": "ON"
+      }
     },
     {
       "name": "enable-tests",

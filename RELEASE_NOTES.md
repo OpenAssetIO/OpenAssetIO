@@ -56,6 +56,9 @@ v1.0.0-alpha.X
 - Bumped conan version installed by bootstrap scripts to `1.48.1`
   [#401](https://github.com/OpenAssetIO/OpenAssetIO/issues/401)
 
+- Updated the Ubuntu bootstrap script to ensure `clang-format` and
+  `clang-tidy` use the v12 alternatives.
+
 
 ### Bug fixes
 
