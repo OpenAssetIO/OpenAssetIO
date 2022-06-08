@@ -38,9 +38,10 @@ struct PyHostInterface : HostInterface {
 
 void registerHostInterface(const py::module& mod) {
   using openassetio::hostAPI::HostInterface;
+  using openassetio::hostAPI::HostInterfacePtr;
   using openassetio::hostAPI::PyHostInterface;
 
-  py::class_<HostInterface, PyHostInterface, Holder<HostInterface>>(mod, "HostInterface")
+  py::class_<HostInterface, PyHostInterface, HostInterfacePtr>(mod, "HostInterface")
       .def(py::init())
       .def("identifier", &HostInterface::identifier)
       .def("displayName", &HostInterface::displayName)
