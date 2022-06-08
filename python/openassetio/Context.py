@@ -78,7 +78,7 @@ class Context(object):
 
     def __init__(
             self, access=kRead, retention=kTransient, locale=None,
-            managerOptions=None, managerState=None, _actionGroupDepth=0):
+            managerOptions=None, managerState=None):
 
         super(Context, self).__init__()
 
@@ -88,8 +88,6 @@ class Context(object):
 
         self.__managerOptions = managerOptions if managerOptions else {}
         self.__managerState = managerState
-
-        self.__actionGroupDepth = _actionGroupDepth
 
     def __getManagerInterfaceState(self):
         # pylint: disable=unused-private-member
@@ -136,21 +134,6 @@ class Context(object):
     ## suitable propagated to other API calls. This will be generally
     ## be done using a @needsref openassetio-ui.widgets.ManagerOptionsWidget.
     managerOptions = property(__getManagerOptions, __setManagerOptions)
-
-    def __getActionGroupDepth(self):
-        # pylint: disable=unused-private-member
-        return self.__actionGroupDepth
-
-    def __setActionGroupDepth(self, depth):
-        # pylint: disable=unused-private-member
-        self.__actionGroupDepth = depth
-
-    ## @property _actionGroupDepth
-    ## @protected
-    ##
-    ## Defines the number of action groups in the stack managed by the @ref
-    ## openassetio.hostAPI.transactions.TransactionCoordinator "TransactionCoordinator".
-    _actionGroupDepth = property(__getActionGroupDepth, __setActionGroupDepth)
 
     def __getAccess(self):
         # pylint: disable=unused-private-member
@@ -248,8 +231,7 @@ class Context(object):
             ('retention', self.kRetentionNames[self.__retention]),
             ('locale', self.__locale),
             ('managerOptions', self.__managerOptions),
-            ('managerState', self.__managerState),
-            ('_actionGroupDepth', self.__actionGroupDepth)
+            ('managerState', self.__managerState)
         )
         kwargs = ", ".join(["%s=%r" % (i[0], i[1]) for i in data])
         return "Context(%s)" % kwargs

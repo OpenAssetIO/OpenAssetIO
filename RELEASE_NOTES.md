@@ -24,6 +24,12 @@ v1.0.0-alpha.X
   - `TraitsData::TraitIds` to `TraitSet`
   - `TraitsData::traitIds()` to `traitSet()`
 
+- Removed the Transactions API, including the `ManagerInterface`
+  methods, and `TransactionCoordinator` helpers. Added `freezeContext`
+  and `thawContext` methods to the `Session` class to allow
+  serialization of a manager's state for persistence or distribution.
+  [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
+
 
 ### Improvements
 

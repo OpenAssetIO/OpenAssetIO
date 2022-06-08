@@ -66,10 +66,9 @@
  * Distributed processing requires the same context to be shared by
  * multiple discrete working processes.
  *
- * The @ref openassetio.hostAPI.transactions.TransactionCoordinator
- * "TransactionCoordinator's" @ref openassetio.hostAPI.transactions.TransactionCoordinator.freezeManagerState
- * "freezeManagerState" and @ref openassetio.hostAPI.transactions.TransactionCoordinator.thawManagerState
- * "thawManagerState" methods provide a mechanism by which a @ref host
+ * The @ref openassetio.hostAPI.Session.Session.freezeContext
+ * "Session.freezeContext" and @ref openassetio.hostAPI.Session.Session.thawContext
+ * "thawContext" methods provide a mechanism by which a @ref host
  * can obtain a portable version of the manager's state token for a
  * given context for distribution to other processes that are logically
  * connected.
@@ -91,10 +90,8 @@
  * worker -> worker : context.access = context.kWrite
  * worker -> Manager : working_reference = preflight(["ref://asset"], context)[0]
  * Manager --> worker : "ref://asset=v4&state=inflight"
- * worker -> TransactionCoordinator : freezeManagerState(context)
- * activate TransactionCoordinator
- * TransactionCoordinator --> worker : token
- * deactivate TransactionCoordinator
+ * worker -> Session : freezeContext(context)
+ * Session --> worker : token
  * worker -> worker : write_state_file(token, {"ref://asset": working_entity_reference})
  * worker --> scheduler
  * deactivate Session
@@ -108,10 +105,8 @@
  *     activate Session
  *     activate Manager
  *     worker -> worker : token, ref_map = read_state_file("openassetio.json")
- *     worker -> TransactionCoordinator : thawManagerState(token)
- *     activate TransactionCoordinator
- *     TransactionCoordinator --> worker : context
- *     deactivate TransactionCoordinator
+ *     worker -> Session : thawContext(token)
+ *     Session --> worker : context
  *     worker -> worker : context.access = context.kWrite
  *     worker -> worker : working_reference = ref_map["ref://asset"]
  *     worker -> Manager : [spec] = resolve([working_reference], {FileTrait.id}, context)
@@ -129,10 +124,8 @@
  * activate Session
  * activate Manager
  * worker -> worker : token, ref_map = read_state_file("openassetio.json")
- * worker -> TransactionCoordinator : thawManagerState(token)
- * activate TransactionCoordinator
- * TransactionCoordinator --> worker : context
- * deactivate TransactionCoordinator
+ * worker -> Session : thawContext(token)
+ * Session --> worker : context
  * worker -> worker : context.access = context.kWrite
  * worker -> worker : working_reference = ref_map["ref://asset"]
  * worker -> Manager : path = resolve([working_reference], FileTrait.id, context)[0]
@@ -153,7 +146,8 @@
  * This mechanism allows for distributed API calls to be anchored to
  * specific snapshot of a manager's view of the world. It is not
  * intended to be used to group discrete publishing actions into a
- * batch. This is covered by the separate transaction API.
+ * batch. This (may be) covered (in the future) by a separate
+ * transaction API.
  *
  * The reason for this is that a host may need to perform multiple
  * independent transactions during the lifetime of a single context.
@@ -163,17 +157,4 @@
  * - Because a thawed state may be passed to multiple child processes,
  *   the manager must be prepared for the state to be restored more than once, at
  *   the same time.
- *
- * - The current transaction state is encoded in the token. A @ref host
- *   is responsible for making sure that in a distributed context
- *   scenario, where the same state is used in multiple processes, no
- *   @ref transactions_action_groups are pushed/popped in these parallel
- *   contexts such that a transaction would be started, cancelled or
- *   finished. In other words, the Host must ensure that there is only
- *   ever, globally, a single instance of any particular state object
- *   when controlling a transaction - either manually, or via an action
- *   group. This is to ensure that the transaction state does not
- *   become inconsistent across threads/processes.
- *
- * @see @ref transactions
  */

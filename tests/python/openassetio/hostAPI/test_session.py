@@ -235,7 +235,6 @@ class Test_Session_createContext:
         assert context_a.access == Context.kRead
         assert context_a.retention == Context.kTransient
         assert context_a.managerInterfaceState is state_a
-        assert context_a._actionGroupDepth == 0  # pylint: disable=protected-access
         assert context_a.locale is None
         mock_manager_interface.mock.createState.assert_called_once()
 
@@ -251,7 +250,6 @@ class Test_Session_createContext:
         context_a.access = Context.kWrite
         context_a.retention = Context.kSession
         context_a.locale = TraitsData()
-        context_a._actionGroupDepth = 3
         mock_manager_interface.mock.reset_mock()
 
         state_b = "state-b"
@@ -265,9 +263,62 @@ class Test_Session_createContext:
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
-        assert context_b._actionGroupDepth == 0
         mock_manager_interface.mock.createState.assert_called_once_with(
             a_host_session, parentState=state_a)
+
+
+class Test_Session_freezeContext:
+
+    def test_when_called_with_no_manager_then_RuntimeError_is_raised(self, a_session):
+
+        with pytest.raises(RuntimeError):
+            a_session.freezeContext(Context())
+
+    def test_when_called_then_the_managers_frozen_token_is_returned(
+             self, a_session, mock_manager_interface):
+
+        expected_token = "a_frozen_token"
+        mock_manager_interface.mock.freezeState.return_value = expected_token
+
+        a_session.useManager("com.manager")
+
+        initial_state = "initial_state"
+        a_context = Context()
+        a_context.managerInterfaceState = initial_state
+
+        actual_token = a_session.freezeContext(a_context)
+
+        assert actual_token == expected_token
+
+        # pylint: disable=protected-access
+        a_host_session = a_session.currentManager()._Manager__hostSession
+        mock_manager_interface.mock.freezeState.assert_called_once_with(
+            initial_state, a_host_session)
+
+
+class Test_Session_thawContext:
+
+    def test_when_called_with_no_manager_then_RuntimeError_is_raised(self, a_session):
+
+        with pytest.raises(RuntimeError):
+            a_session.thawContext(Context())
+
+    def test_when_called_then_the_managers_thawed_state_is_set_in_the_context(
+             self, a_session, mock_manager_interface):
+
+        expected_state = "thawed_state"
+        mock_manager_interface.mock.thawState.return_value = expected_state
+
+        a_session.useManager("com.manager")
+
+        a_token = "frozen_token"
+        a_context = a_session.thawContext(a_token)
+
+        assert a_context.managerInterfaceState is expected_state
+
+        # pylint: disable=protected-access
+        a_host_session = a_session.currentManager()._Manager__hostSession
+        mock_manager_interface.mock.thawState.assert_called_once_with(a_token, a_host_session)
 
 
 class Test_Session_getSettings:

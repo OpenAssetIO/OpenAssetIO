@@ -1,26 +1,6 @@
 /*!
  * @page glossary Glossary
  *
- * @section action_group Action Group
- *
- * Within the transaction model used by this API, on the host side,
- * multiple Action Groups can be pushed onto a 'stack'. This greatly
- * simplifies the handling of transactions within a @ref host.
- *
- * Each group represents a logical action. If this is a compound action
- * that re-uses several atomic actions, each of these may be represented
- * by their own Action Group on the stack. For example, publishing a
- * texture may be a single action group, publishing all textures could
- * simply re-use this function many times, wrapping the whole thing in
- * enclosing action group.
- *
- * The @ref openassetio.hostAPI.transactions.TransactionCoordinator
- * "TransactionCoordinator" class takes care of starting, ending or
- * cancelling a @ref transaction through the @ref ManagerInterface as
- * groups are pushed/popped from the action group stack. This means that
- * the implementation of the ManagerInterface doesn't have to concern
- * itself with the complexities of managing a stack.
- *
  *
  * @section asset_management_system Asset Management System
  *
@@ -531,13 +511,4 @@
  * sets.
  *
  * @see @ref entities_traits_and_specifications
- *
- *
- * @section transaction Transaction
- *
- * See the @ref transactions page for a full description of the
- * transactional model used in this API. In brief, The @ref manager_state
- * is used to help a @ref manager connect multiple calls to the API.
- * Often this is to allow a series of actions to be undone, or to ensure
- * that queries spread over time, produce coherent results.
  */
