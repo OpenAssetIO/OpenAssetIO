@@ -22,8 +22,7 @@ namespace managerAPI {
  * Hosts should never be directly constructed by the Manager's
  * implementation. Instead, the @ref managerAPI.HostSession class
  * provided to all manager API entry points provides access to the
- * current host through the @ref
- * openassetio.managerAPI.HostSession.HostSession.host
+ * current host through the @fqref{managerAPI::HostSession::host}
  * "HostSession.host" method
  *
  * @todo Add auditing functionality.
@@ -77,6 +76,8 @@ class OPENASSETIO_CORE_EXPORT Host final {
  private:
   hostAPI::HostInterfacePtr hostInterface_;
 };
+
+using HostPtr = SharedPtr<Host>;
 
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

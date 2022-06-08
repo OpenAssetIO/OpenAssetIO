@@ -18,10 +18,12 @@
 A single-class module, providing the HostSession class.
 """
 
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
+
 from ..log import LoggerInterface
 
 
-class HostSession(object):
+class HostSession(_openassetio.managerAPI.HostSession):
     """
     The HostSession is a manager-facing class that represents a discreet
     API session started by a @ref host in order to communicate with a
@@ -58,15 +60,9 @@ class HostSession(object):
 
         @private
         """
-        self.__host = host
-        self.__logger = logger
+        super().__init__(host)
 
-    def host(self):
-        """
-        @returns A @fqref{hostAPI::HostInterface} "HostInterface"
-        implementation.
-        """
-        return self.__host
+        self.__logger = logger
 
     def log(self, message, severity):
         """
