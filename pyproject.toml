@@ -10,6 +10,11 @@ disable = [
     "consider-using-f-string"
 ]
 
+# NB: This requires the use of pyproject-flake8
+[tool.flake8]
+max-line-length = 99
+extend-ignore = "E266,"
+
 [tool.pylint.format]
 max-line-length = 99
 
