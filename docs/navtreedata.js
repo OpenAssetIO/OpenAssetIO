@@ -62,7 +62,6 @@ var NAVTREE =
       [ "Recommended Reading", "notes_for_managers.html#manager_reading", null ]
     ] ],
     [ "Glossary", "glossary.html", [
-      [ "Action Group", "glossary.html#action_group", null ],
       [ "Asset Management System", "glossary.html#asset_management_system", null ],
       [ "Context", "glossary.html#Context", null ],
       [ "entity", "glossary.html#entity", null ],
@@ -83,8 +82,7 @@ var NAVTREE =
       [ "session", "glossary.html#session", null ],
       [ "Specification", "glossary.html#Specification", null ],
       [ "Trait", "glossary.html#trait", null ],
-      [ "Trait Set", "glossary.html#trait_set", null ],
-      [ "Transaction", "glossary.html#transaction", null ]
+      [ "Trait Set", "glossary.html#trait_set", null ]
     ] ],
     [ "Stable Entity Resolution", "stable_resolution.html", [
       [ "Overview", "stable_resolution.html#stable_resolution_overview", null ],
@@ -103,14 +101,6 @@ var NAVTREE =
       [ "Overview", "thumbnails.html#thumbnails_overview", null ],
       [ "Requesting Thumbnail Creation", "thumbnails.html#thumbnails_creation_during_publish", null ],
       [ "Looking Up Existing Thumbnails", "thumbnails.html#thumbnails_lookup", null ]
-    ] ],
-    [ "Transactions", "transactions.html", [
-      [ "Background", "transactions.html#transactions_background", null ],
-      [ "Example Host Code", "transactions.html#transactions_example", null ],
-      [ "Action Groups", "transactions.html#transactions_action_groups", null ],
-      [ "Transaction Support in a Manager", "transactions.html#transactions_for_the_manager", [
-        [ "Registration", "transactions.html#transactions_for_the_manager_registration", null ]
-      ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Environment Variable List", "envvar.html", null ],
@@ -140,8 +130,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html#aa24233cebc07a0a749a36d73c9a2780b",
-"namespaceopenassetio_1_1host_a_p_i.html"
+"classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html",
+"namespaceopenassetio_1_1test_1_1manager.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -105,12 +105,7 @@ $(document).ready(function(){initNavTree('glossary.html','');});
 <div class="title">Glossary </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="action_group"></a>
-Action Group</h1>
-<p>Within the transaction model used by this API, on the host side, multiple Action Groups can be pushed onto a 'stack'. This greatly simplifies the handling of transactions within a <a class="el" href="glossary.html#host">host</a>.</p>
-<p>Each group represents a logical action. If this is a compound action that re-uses several atomic actions, each of these may be represented by their own Action Group on the stack. For example, publishing a texture may be a single action group, publishing all textures could simply re-use this function many times, wrapping the whole thing in enclosing action group.</p>
-<p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html">TransactionCoordinator</a> class takes care of starting, ending or cancelling a <a class="el" href="glossary.html#transaction">Transaction</a> through the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> as groups are pushed/popped from the action group stack. This means that the implementation of the ManagerInterface doesn't have to concern itself with the complexities of managing a stack.</p>
-<h1><a class="anchor" id="asset_management_system"></a>
+<div class="textblock"><h1><a class="anchor" id="asset_management_system"></a>
 Asset Management System</h1>
 <p>Responsible for managing <a class="el" href="glossary.html#entity">Entities</a>, in some structured fashion. Often based around some kind of a database. Many asset management systems allow entities to be 'versioned', or related to each other. The primary goal being make collaborative working easier, and to allow the history of work to be tracked. Very similar to source control within a software development environment.</p>
 <h1><a class="anchor" id="Context"></a>
@@ -272,10 +267,7 @@ Trait</h1>
 Trait Set</h1>
 <p>A trait set is the logical conjunction of one or more <a class="el" href="glossary.html#trait">traits</a>. They are the basis of the classifications system used in OpenAssetIO. Sets of traits are additive when used to classify something - meaning that the thing in question has all of the traits in the set.</p>
 <p>Trait sets are supplied to the <a class="el" href="glossary.html#manager">manager</a> through the API whenever there is need to describe the type of something in advance. A good example of their useage is in the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a> query, where the manager declares its intent towards specific types of entity - described by the supplied trait sets.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a></dd></dl>
-<h1><a class="anchor" id="transaction"></a>
-Transaction</h1>
-<p>See the <a class="el" href="transactions.html">Transactions</a> page for a full description of the transactional model used in this API. In brief, The <a class="el" href="glossary.html#manager_state">Manager State</a> is used to help a <a class="el" href="glossary.html#manager">manager</a> connect multiple calls to the API. Often this is to allow a series of actions to be undone, or to ensure that queries spread over time, produce coherent results. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

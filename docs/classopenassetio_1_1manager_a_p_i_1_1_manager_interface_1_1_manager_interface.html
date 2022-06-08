@@ -240,29 +240,11 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Manager State</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>A single 'task' in a host, may require more than one interaction with the asset management system.</p>
 <p>Because the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
-<p>This mechanism may be used for a variety of purposes. For example, it could ensure that queries are made from a coherent time stamp during a render, or to undo the publishing of multiple assets. It can also be used to define 'transactions' - groups of related actions that may be cancelled together/rolled back.</p>
-<dl class="section note"><dt>Note</dt><dd>Not all implementations may support transactions, there is no requirement for any of the functions in this group being implemented. The defaults are effectively no-ops. </dd></dl>
+<p>This mechanism may be used for a variety of purposes. For example, it could ensure that queries are made from a coherent time stamp during a render, or to undo the publishing of multiple assets. </p>
 </div></td></tr>
 <tr class="memitem:abe56a91c7f91bb3b2789941e3d400d5e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> (self, hostSession, parentState=None)</td></tr>
 <tr class="memdesc:abe56a91c7f91bb3b2789941e3d400d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context).  <a href="#abe56a91c7f91bb3b2789941e3d400d5e">More...</a><br /></td></tr>
 <tr class="separator:abe56a91c7f91bb3b2789941e3d400d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2733c10fdc6a3a2763db937698fc7704"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> (self, state, hostSession)</td></tr>
-<tr class="memdesc:a2733c10fdc6a3a2763db937698fc7704"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to indicate the start of a series of connected actions.  <a href="#a2733c10fdc6a3a2763db937698fc7704">More...</a><br /></td></tr>
-<tr class="separator:a2733c10fdc6a3a2763db937698fc7704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ac10446eaffc0d310682e2c9a3d5b8a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> (self, state, hostSession)</td></tr>
-<tr class="memdesc:a4ac10446eaffc0d310682e2c9a3d5b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at the end of a group of actions to inform the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that any pending internal management should be finalized.  <a href="#a4ac10446eaffc0d310682e2c9a3d5b8a">More...</a><br /></td></tr>
-<tr class="separator:a4ac10446eaffc0d310682e2c9a3d5b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a178c25c66ff28b1b9f5d3900bbb0fe31"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> (self, state, hostSession)</td></tr>
-<tr class="memdesc:a178c25c66ff28b1b9f5d3900bbb0fe31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Can be called at any point after <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> to undo actions and reset the transaction state.  <a href="#a178c25c66ff28b1b9f5d3900bbb0fe31">More...</a><br /></td></tr>
-<tr class="separator:a178c25c66ff28b1b9f5d3900bbb0fe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">State Persistence</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>A <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html" title="A single-class module, providing the Host class. ">Host</a> may wish to distribute work.</p>
-<p>Often the workers may be in a different execution space. As such, it becomes necessary to pass a reference to the current transaction stack along with the work, so that actions can be correctly grouped.</p>
-<p>The <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9" title="Returns a string that encapsulates the current state of the ManagerInterface represented by the suppl...">freezeState()</a> call can be made at any point, and The <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should return a string that, when passed to <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707" title="Restores the supplied state object to a previously frozen state. ">thawState()</a> in another process, will restore the state of the context so that future actions will be associated with the same state as before freezing.</p>
-<p>Included in this is the requirement that if a transaction has been started, this should also be persisted, so that actions on a thawed state are also associated with that transaction.</p>
-<p>This string could be a serialized representation of some transaction object, or a simple uuid or handle.</p>
-<p>If an implementation does not support freezing the state, then it should ensure that any outstanding internal tasks pending on <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> are completed prior to thawing, but the 'open' state of the transaction should be persisted to the thawed state - as <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> will most likely still be called. </p>
-</div></td></tr>
 <tr class="memitem:a506b375ff476442b0068c9f31d6e1fd9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> (self, state, hostSession)</td></tr>
 <tr class="memdesc:a506b375ff476442b0068c9f31d6e1fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process.  <a href="#a506b375ff476442b0068c9f31d6e1fd9">More...</a><br /></td></tr>
 <tr class="separator:a506b375ff476442b0068c9f31d6e1fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -300,7 +282,6 @@ Public Member Functions</h2></td></tr>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
 <p>When a <a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> object is constructed by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Session.Session.createContext</a>, the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
-<p>One exception to the treading rule is that the transaction managing functions won't be called from multiple threads with the same transaction object.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
 <p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html">openassetio.managerAPI.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
@@ -315,53 +296,9 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a178c25c66ff28b1b9f5d3900bbb0fe31"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def cancelTransaction </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Can be called at any point after <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> to undo actions and reset the transaction state. </p>
-<p>Generally called in response to some fatal error, in order to request the implementation to unroll, or revert any changes made since <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a></p>
-<p>The state should also be re-configured so that it is then safe to call <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a></p>
-<dl class="section return"><dt>Returns</dt><dd>Bool True if roll-back was successful, False in all other cases.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
-<dd>
-The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="abe56a91c7f91bb3b2789941e3d400d5e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -395,32 +332,23 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context). </p>
 <p>You are free to implement this however you like, as long as it can be uniquely represented by the object returned from this function.</p>
 <p>This method is called whenever a new <a class="el" href="glossary.html#Context">Context</a> is made by a <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Session.Session.createContext</a>. The return is then stored in the newly created <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, and is consequently available to all the API calls in the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that take a <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> instance via <a class="el" href="classopenassetio_1_1_context_1_1_context.html#a4cb291e310d3a1174c83b124bacbeef1">managerInterfaceState</a>. Your implementation can then use this to anchor the api call to a particular snapshot of the state of the asset inventory.</p>
-<p>This object is also extracted from the context and passed directly to any of the 'transactional' calls in this API. For more on the transactional model in this API, and how these will be called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host.html" title="A single-class module, providing the Host class. ">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">parentState</td><td>obj, If present, it is to be assumed that the new state is considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access/retention of the <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'. However is it <em>not</em> expected to link the new state with any transaction that is open in the parent state. So the returned state should have any open transactions.</td></tr>
+    <tr><td class="paramname">parentState</td><td>obj, If present, it is to be assumed that the new state is considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access/retention of the <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>object</code> Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls and to the transactional methods. Presently this can be any hashable object.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls. Presently this can be any hashable object.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd>
-<dd>
-The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
 
 </div>
 </div>
@@ -816,57 +744,6 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4ac10446eaffc0d310682e2c9a3d5b8a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def finishTransaction </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called at the end of a group of actions to inform the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that any pending internal management should be finalized. </p>
-<p>For more on the transactional model in this API, and how these functions will be called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
-<p>This will never be called with the same state from multiple threads, but may be called with different state objects.</p>
-<p>This method <b>must</b> only use or store any persistent state from the supplied state object to ensure the API is stateless.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails, or finish is called before start.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704">startTransaction</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
-<dd>
-The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a53834a673004e2d1a4ad57a9b126e5d7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -892,7 +769,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 </div><div class="memdoc">
 
 <p>Clears any internal caches. </p>
-<p>Only applicable if the implementation makes use of any caching, otherwise it is a no-op. In caching interfaces, this should cause any retained data to be discarded to ensure future queries are fresh. This should have no effect on any open <a class="el" href="glossary.html#transaction">Transaction</a>. </p>
+<p>Only applicable if the implementation makes use of any caching, otherwise it is a no-op. In caching interfaces, this should cause any retained data to be discarded to ensure future queries are fresh. </p>
 
 </div>
 </div>
@@ -929,9 +806,7 @@ The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
 <p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process. </p>
 <p>After calling this, the state should be considered frozen, and any further cancel/finish calls should throw a <a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html">exceptions.StateError</a> if made without first thawing the stack.</p>
 <dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd>
-<dd>
-The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
 
 </div>
 </div>
@@ -1049,7 +924,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
@@ -1091,7 +966,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
 <li><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1554,59 +1429,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a2733c10fdc6a3a2763db937698fc7704"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def startTransaction </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called to indicate the start of a series of connected actions. </p>
-<p>The aim of a transaction is to allow undo/cancellation of all related actions in one step. Largely to avoid inconsistent state in the back end. It is important though that any queries made to data that has been created or set within the transaction, returns the updated or new data.</p>
-<p>For more on the transactional model in this API, and how these functions are called, see the <a class="el" href="transactions.html">Transactions</a> Page.</p>
-<p>This will never be called with the same state from multiple threads, but may be called with different state objects.</p>
-<p>This method <b>must</b> store any persistent state in the supplied state object to ensure the API is stateless. It should not store any state relating to the transaction within the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> instance itself.</p>
-<dl class="section return"><dt>Returns</dt><dd><code>None</code></dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerInterfaceState object. ">exceptions.StateError</a></td><td>If for some reason the action fails.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a">finishTransaction</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31">cancelTransaction</a> </dd>
-<dd>
-The <a class="el" href="transactions.html">Transactions</a> page. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>

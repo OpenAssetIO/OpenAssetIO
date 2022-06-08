@@ -1,6 +1,5 @@
 var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface =
 [
-    [ "cancelTransaction", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31", null ],
     [ "createState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e", null ],
     [ "defaultEntityReference", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2", null ],
     [ "entityDisplayName", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398", null ],
@@ -9,7 +8,6 @@ var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interfac
     [ "entityVersion", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a0a6b5bb4c687f561c8ccc88328db5813", null ],
     [ "entityVersions", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5", null ],
     [ "finalizedEntityVersion", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938", null ],
-    [ "finishTransaction", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ac10446eaffc0d310682e2c9a3d5b8a", null ],
     [ "flushCaches", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7", null ],
     [ "freezeState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9", null ],
     [ "getRelatedReferences", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a", null ],
@@ -23,7 +21,6 @@ var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interfac
     [ "resolve", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#adaa2dd5516f929be47c46d93aac57283", null ],
     [ "setRelatedReferences", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c", null ],
     [ "setSettings", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430", null ],
-    [ "startTransaction", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704", null ],
     [ "thawState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707", null ],
     [ "updateTerminology", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910", null ]
 ];

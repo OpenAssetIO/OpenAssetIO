@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['cancelactions',['cancelActions',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6a396366f536e00bc4564a316f3bbc24',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
-  ['canceltransaction',['cancelTransaction',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['coverage',['coverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ab6dd48378274dcd41943cc88f7d64909',1,'openassetio::_core::audit::Auditor']]],

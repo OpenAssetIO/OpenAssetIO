@@ -143,6 +143,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0cf0c66325b67abe2563c310c46e1565"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a0cf0c66325b67abe2563c310c46e1565">createContext</a> (self, parent=None)</td></tr>
 <tr class="memdesc:a0cf0c66325b67abe2563c310c46e1565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> with the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">Session</a>'s current <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a>.  <a href="#a0cf0c66325b67abe2563c310c46e1565">More...</a><br /></td></tr>
 <tr class="separator:a0cf0c66325b67abe2563c310c46e1565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d86dea60401ee1318fc4050bec1bfce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a3d86dea60401ee1318fc4050bec1bfce">freezeContext</a> (self, context)</td></tr>
+<tr class="memdesc:a3d86dea60401ee1318fc4050bec1bfce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Freezes the supplied context into a serializable token that can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#a3d86dea60401ee1318fc4050bec1bfce">More...</a><br /></td></tr>
+<tr class="separator:a3d86dea60401ee1318fc4050bec1bfce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729ce078566ad0a71f30cb1230fc2fe3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> (self, stateToken)</td></tr>
+<tr class="memdesc:a729ce078566ad0a71f30cb1230fc2fe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thaws a previously frozen manager state token, returning a <a class="el" href="glossary.html#Context">Context</a> associated with that state, that can be used for further API calls.  <a href="#a729ce078566ad0a71f30cb1230fc2fe3">More...</a><br /></td></tr>
+<tr class="separator:a729ce078566ad0a71f30cb1230fc2fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38bcbd14698c0804e581d39e85f4bd73"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a38bcbd14698c0804e581d39e85f4bd73">getSettings</a> (self)</td></tr>
 <tr class="memdesc:a38bcbd14698c0804e581d39e85f4bd73"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience for persisting a session.  <a href="#a38bcbd14698c0804e581d39e85f4bd73">More...</a><br /></td></tr>
 <tr class="separator:a38bcbd14698c0804e581d39e85f4bd73"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -252,7 +258,7 @@ ManagerInterface as required by the session.
 <dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed, always use this method to create a new one.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">openassetio.Context</a> If supplied, the new context will clone the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, and the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> will be given a chance to migrate any meaningful state etc... This can be useful when certain UI elements need to 'take a copy' of a context in its current state. It is not linked to the parent's transaction if one has been created in the parent. The lifetime of any context's transactions are only ever controlled by the context that created them.</td></tr>
+    <tr><td class="paramname">parent</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">openassetio.Context</a> If supplied, the new context will clone the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, and the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> will be given a chance to migrate any meaningful state etc... This can be useful when certain UI elements need to 'take a copy' of a context in its current state.</td></tr>
   </table>
   </dd>
 </dl>
@@ -280,6 +286,43 @@ ManagerInterface as required by the session.
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a>, an instance of the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> that has been set for this session using <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a7becbf9ac0660d5aae6976ab13730849">useManager()</a>. This will be lazily constructed the first time this function is called, then retained. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3d86dea60401ee1318fc4050bec1bfce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def freezeContext </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Freezes the supplied context into a serializable token that can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
+<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> The context to freeze.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>str</code> The managers frozen state token.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 
 </div>
 </div>
@@ -363,6 +406,44 @@ ManagerInterface as required by the session.
 
 <p>A convenience to restore the settings for a <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">Session</a>, the <a class="el" href="namespaceopenassetio_1_1constants.html#a758b897ce364c84b0ed166ba6e7a7a33">openassetio.constants.kSetting_ManagerIdentifier</a> key is used to determine which <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> to instantiate. </p>
 <p>All other keys are passed to the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> prior to initialization. If the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_manager.html" title="A single-class module, providing the Manager class. ">Manager</a> Identifier key is not present, no manager will be restored. </p>
+
+</div>
+</div>
+<a class="anchor" id="a729ce078566ad0a71f30cb1230fc2fe3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def thawContext </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>stateToken</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Thaws a previously frozen manager state token, returning a <a class="el" href="glossary.html#Context">Context</a> associated with that state, that can be used for further API calls. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stateToken</td><td><code>str</code> A token previously returned from <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a3d86dea60401ee1318fc4050bec1bfce">freezeContext</a> by the same manager that is in use in this session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> A context that will be associated with the previously frozen one by the manager.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Should we concatenate the manager id in freeze so we can verify that they match? </dd></dl>
 
 </div>
 </div>

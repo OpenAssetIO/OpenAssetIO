@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['cancelactions',['cancelActions',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a6a396366f536e00bc4564a316f3bbc24',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
-  ['cancelonexception',['cancelOnException',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html#aad2294128a03d0d62b962dbcd67e13e9',1,'openassetio::hostAPI::transactions::ScopedActionGroup']]],
-  ['canceltransaction',['cancelTransaction',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a178c25c66ff28b1b9f5d3900bbb0fe31',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['capacity',['capacity',['../structoa___string_view.html#a90557000426d4245a121ca4f5fd92299',1,'oa_StringView']]],
   ['c_20api',['C API',['../group___c_a_p_i.html',1,'']]],
   ['captureargs',['captureArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#ade88f01e5e56c7bd9f282c8cd83277ff',1,'openassetio::_core::audit']]],

@@ -34,7 +34,6 @@ var hierarchy =
       [ "Context", "classopenassetio_1_1_context_1_1_context.html", null ],
       [ "HostInterface", "classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html", null ],
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "ScopedActionGroup", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
       [ "HostSession", "classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
@@ -67,7 +66,6 @@ var hierarchy =
     [ "Debuggable", null, [
       [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ],
       [ "Session", "classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html", null ],
-      [ "TransactionCoordinator", "classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html", null ],
       [ "Host", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html", null ]
     ] ],
     [ "FixtureAugmentedTestCase", null, [

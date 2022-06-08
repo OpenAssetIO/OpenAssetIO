@@ -1,7 +1,6 @@
 var searchData=
 [
   ['scan',['scan',['../classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e',1,'openassetio::pluginSystem::PluginSystem::PluginSystem']]],
-  ['scopedactiongroup',['scopedActionGroup',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a18d526ea02433a4f48a7dad7a03f0f4d',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
   ['setcasename',['setCaseName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a5b29def330b76e51105db67501316363',1,'openassetio::test::specifications::TestTrait']]],
   ['setenabled',['setEnabled',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#adf51df57ed46e90f1ee61081bd8d75d2',1,'openassetio::_core::audit::Auditor']]],
   ['setrelatedreferences',['setRelatedReferences',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
@@ -10,6 +9,5 @@ var searchData=
   ['setsuitename',['setSuiteName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#aad092bdf6a03f8bc9ef91f513b4c226c',1,'openassetio::test::specifications::TestTrait']]],
   ['settraitproperty',['setTraitProperty',['../classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6',1,'openassetio::v1::TraitsData']]],
   ['setup',['setUp',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__set_settings.html#a26b1b5aaa859d024cb7114cc1d4c1fd2',1,'openassetio.test.manager.apiComplianceSuite.Test_setSettings.setUp()'],['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference.html#a26b1b5aaa859d024cb7114cc1d4c1fd2',1,'openassetio.test.manager.apiComplianceSuite.Test_isEntityReference.setUp()'],['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#a26b1b5aaa859d024cb7114cc1d4c1fd2',1,'openassetio.test.manager.apiComplianceSuite.Test_entityExists.setUp()'],['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a26b1b5aaa859d024cb7114cc1d4c1fd2',1,'openassetio.test.manager.apiComplianceSuite.Test_resolve.setUp()']]],
-  ['sprintcoverage',['sprintCoverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a6088865ee48c21326948f13eb9b93155',1,'openassetio::_core::audit::Auditor']]],
-  ['starttransaction',['startTransaction',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]]
+  ['sprintcoverage',['sprintCoverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a6088865ee48c21326948f13eb9b93155',1,'openassetio::_core::audit::Auditor']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
   ['scan',['scan',['../classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#a6423e8313300165e964a9c468adb897e',1,'openassetio::pluginSystem::PluginSystem::PluginSystem']]],
-  ['scopedactiongroup',['ScopedActionGroup',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_scoped_action_group.html',1,'openassetio::hostAPI::transactions']]],
-  ['scopedactiongroup',['scopedActionGroup',['../classopenassetio_1_1host_a_p_i_1_1transactions_1_1_transaction_coordinator.html#a18d526ea02433a4f48a7dad7a03f0f4d',1,'openassetio::hostAPI::transactions::TransactionCoordinator']]],
   ['session',['Session',['../classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html',1,'openassetio::hostAPI::Session']]],
   ['setcasename',['setCaseName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a5b29def330b76e51105db67501316363',1,'openassetio::test::specifications::TestTrait']]],
   ['setenabled',['setEnabled',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#adf51df57ed46e90f1ee61081bd8d75d2',1,'openassetio::_core::audit::Auditor']]],
@@ -19,7 +17,6 @@ var searchData=
   ['sprintcoverage',['sprintCoverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a6088865ee48c21326948f13eb9b93155',1,'openassetio::_core::audit::Auditor']]],
   ['stable_20entity_20resolution',['Stable Entity Resolution',['../stable_resolution.html',1,'']]],
   ['start',['start',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#a550769bbd4e7537ff90a656f5b0c23b2',1,'openassetio::_core::debug::_Timer']]],
-  ['starttransaction',['startTransaction',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a2733c10fdc6a3a2763db937698fc7704',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['stateerror',['StateError',['../classopenassetio_1_1exceptions_1_1_state_error.html',1,'openassetio::exceptions']]],
   ['str',['Str',['../namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6',1,'openassetio::v1']]]
 ];

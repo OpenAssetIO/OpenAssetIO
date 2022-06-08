@@ -32,12 +32,11 @@ var searchData=
   ['property',['property',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html',1,'openassetio::v1::trait']]],
   ['session',['Session',['../namespaceopenassetio_1_1host_a_p_i_1_1_session.html',1,'openassetio::hostAPI']]],
   ['specificationbase',['SpecificationBase',['../namespaceopenassetio_1_1_specification_base.html',1,'openassetio']]],
-  ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1specifications.html',1,'openassetio::test']]],
+  ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_a_p_i_1_1terminology.html',1,'openassetio::hostAPI']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
-  ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
   ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
-  ['transactions',['transactions',['../namespaceopenassetio_1_1host_a_p_i_1_1transactions.html',1,'openassetio::hostAPI']]],
+  ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];
