@@ -131,8 +131,6 @@ Inheritance diagram for Session:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a03ee176e3c2f158283d1d2c78619ed04"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a03ee176e3c2f158283d1d2c78619ed04">__init__</a> (self, hostInterface, logger, managerFactory)</td></tr>
 <tr class="separator:a03ee176e3c2f158283d1d2c78619ed04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a220724271877e8cdd21b98525bb92ad1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a220724271877e8cdd21b98525bb92ad1">host</a> (self)</td></tr>
-<tr class="separator:a220724271877e8cdd21b98525bb92ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a803b026c01595de23af785ae2c33071f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a803b026c01595de23af785ae2c33071f">registeredManagers</a> (self)</td></tr>
 <tr class="separator:a803b026c01595de23af785ae2c33071f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7becbf9ac0660d5aae6976ab13730849"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a7becbf9ac0660d5aae6976ab13730849">useManager</a> (self, identifier, settings=None)</td></tr>
@@ -202,7 +200,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">@param hostInterface openassetio.hostAPI.HostInterface The current
+<pre class="fragment">@param hostInterface \fqref{hostAPI::HostInterface} The current
 HostInterface instance (note: only a single currently active
 HostInterface is supported, so if multiple sessions are created,
 they should all use the same HostInterface instance).
@@ -346,23 +344,6 @@ ManagerInterface as required by the session.
 
 </div>
 </div>
-<a class="anchor" id="a220724271877e8cdd21b98525bb92ad1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def host </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_host_interface.html" title="A single-class module, providing the HostInterface class. ">HostInterface</a>, the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_host_interface.html" title="A single-class module, providing the HostInterface class. ">HostInterface</a> that the session was started by. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a803b026c01595de23af785ae2c33071f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -443,7 +424,7 @@ ManagerInterface as required by the session.
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> A context that will be associated with the previously frozen one by the manager.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Should we concatenate the manager id in freeze so we can verify that they match? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Should we concatenate the manager id in freeze so we can verify that they match? </dd></dl>
 
 </div>
 </div>

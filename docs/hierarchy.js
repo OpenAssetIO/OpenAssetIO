@@ -8,6 +8,8 @@ var hierarchy =
       ] ]
     ] ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
+    [ "Host", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host.html", null ],
+    [ "HostInterface", "classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html", null ],
     [ "Manager", null, [
       [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ]
     ] ],
@@ -32,7 +34,6 @@ var hierarchy =
         [ "TypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_typed_property.html", null ]
       ] ],
       [ "Context", "classopenassetio_1_1_context_1_1_context.html", null ],
-      [ "HostInterface", "classopenassetio_1_1host_a_p_i_1_1_host_interface_1_1_host_interface.html", null ],
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
       [ "HostSession", "classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html", null ],
@@ -65,8 +66,7 @@ var hierarchy =
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Debuggable", null, [
       [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ],
-      [ "Session", "classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html", null ],
-      [ "Host", "classopenassetio_1_1manager_a_p_i_1_1_host_1_1_host.html", null ]
+      [ "Session", "classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html", null ]
     ] ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],

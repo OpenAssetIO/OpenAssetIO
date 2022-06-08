@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['value',['Value',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d',1,'openassetio::v1::trait::property']]]
+  ['traitid',['TraitId',['../namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48',1,'openassetio::v1::trait']]],
+  ['traitsdataptr',['TraitsDataPtr',['../namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5',1,'openassetio::v1']]],
+  ['traitset',['TraitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#a6cedaa7e48d38328c5ccb514f44aac37',1,'openassetio::v1::TraitsData']]]
 ];
