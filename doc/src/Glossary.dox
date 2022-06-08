@@ -192,11 +192,10 @@
  *
  * @section HostInterface
  *
- * The @ref openassetio.hostAPI.HostInterface.HostInterface
- * "HostInterface" class is the abstract interface that any @ref host
- * must implement in order to initialize the API. It will usually
- * contain logic to map native features of the host into the
- * well-known terms defined by this API.
+ * The @fqref{hostAPI::HostInterface} "HostInterface" class is the
+ * abstract interface that any @ref host must implement in order to
+ * initialize the API. It will usually contain logic to map native
+ * features of the host into the well-known terms defined by this API.
  *
  * The HostInterface is never used directly by a @ref manager, and is
  * instead accessed through the @ref openassetio.managerAPI.Host

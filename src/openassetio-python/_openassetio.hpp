@@ -24,6 +24,12 @@ namespace py = pybind11;
 template <class T>
 using Holder = openassetio::SharedPtr<T>;
 
+/// Register the HostInterface class with Python.
+void registerHostInterface(const py::module& mod);
+
+/// Register the Host class with Python.
+void registerHost(const py::module& mod);
+
 /// Register the ManagerInterface class with Python.
 void registerManagerInterface(const py::module& mod);
 

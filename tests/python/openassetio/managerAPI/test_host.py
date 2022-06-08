@@ -21,18 +21,10 @@ Tests that cover the openassetio.managerAPI.host class.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest import mock
-
 import pytest
 
 from openassetio import Context
-from openassetio.hostAPI import HostInterface
 from openassetio.managerAPI import Host
-
-
-@pytest.fixture
-def mock_host_interface():
-    return mock.create_autospec(spec=HostInterface)
 
 
 @pytest.fixture
@@ -45,27 +37,81 @@ def a_context():
     return Context()
 
 
-class TestHost():
+# TODO(TC):  __str__ and __repr__ aren't tested as they're debug tricks that need
+#   assessing when this is ported to cpp
 
-    # __str__ and __repr__ aren't tested as they're debug tricks that need
-    # assessing when this is ported to cpp
+class Test_Host_init:
 
-    def test__interface(self, mock_host_interface):
-        # pylint: disable=protected-access
-        a_host = Host(mock_host_interface)
-        assert a_host._interface() is mock_host_interface
+    def test_when_inheriting_then_raises_TypeError(self):
+        with pytest.raises(TypeError) as err:
+            class _Derived(Host):
+                pass
 
-    def test_identifier(self, host, mock_host_interface):
-        method = mock_host_interface.identifier
-        assert host.identifier() == method.return_value
-        method.assert_called_once_with()
+        assert str(err.value) == (
+            "type 'openassetio._openassetio.managerAPI.Host' is not an acceptable base type")
 
-    def test_displayName(self, host, mock_host_interface):
-        method = mock_host_interface.displayName
-        assert host.displayName() == method.return_value
-        method.assert_called_once_with()
+    def test_when_invalid_interface_then_raises_TypeError(self):
+        with pytest.raises(TypeError) as err:
+            Host(object())
 
-    def test_info(self, host, mock_host_interface):
-        method = mock_host_interface.info
-        assert host.info() == method.return_value
-        method.assert_called_once_with()
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
+
+class Test_Host_identifier:
+    def test_wraps_the_corresponding_method_of_the_held_interface(self, host, mock_host_interface):
+        expected = "some identifier"
+        mock_host_interface.mock.identifier.return_value = expected
+
+        actual = host.identifier()
+
+        assert actual == expected
+        mock_host_interface.mock.identifier.assert_called_once_with()
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, host, mock_host_interface):
+        mock_host_interface.mock.identifier.return_value = 123
+
+        with pytest.raises(RuntimeError) as err:
+            host.identifier()
+
+        assert str(err.value).startswith("Unable to cast Python instance")
+
+
+class Test_Host_displayName:
+    def test_wraps_the_corresponding_method_of_the_held_interface(self, host, mock_host_interface):
+        expected = "some display name"
+        mock_host_interface.mock.displayName.return_value = expected
+
+        actual = host.displayName()
+
+        assert actual == expected
+        mock_host_interface.mock.displayName.assert_called_once_with()
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, host, mock_host_interface):
+        mock_host_interface.mock.displayName.return_value = 123
+
+        with pytest.raises(RuntimeError) as err:
+            host.displayName()
+
+        assert str(err.value).startswith("Unable to cast Python instance")
+
+
+class Test_Host_info:
+    def test_wraps_the_corresponding_method_of_the_held_interface(self, host, mock_host_interface):
+        expected = {"some": "info"}
+        mock_host_interface.mock.info.return_value = expected
+
+        actual = host.info()
+
+        assert actual == expected
+        mock_host_interface.mock.info.assert_called_once_with()
+
+    def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
+            self, host, mock_host_interface):
+        mock_host_interface.mock.info.return_value = {123: 123}
+
+        with pytest.raises(RuntimeError) as err:
+            host.info()
+
+        assert str(err.value).startswith("Unable to cast Python instance")

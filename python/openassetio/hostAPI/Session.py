@@ -17,11 +17,11 @@
 @namespace openassetio.hostAPI.Session
 A single-class module, providing the Session class.
 """
+from .. import _openassetio  # pylint: disable=no-name-in-module
 
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
-from .HostInterface import HostInterface
 from .Manager import Manager
 
 from ..managerAPI import Host, HostSession
@@ -30,6 +30,7 @@ from .. import constants
 from ..Context import Context
 from ..exceptions import ManagerException
 
+HostInterface = _openassetio.hostAPI.HostInterface
 
 __all__ = ['Session']
 
@@ -61,7 +62,7 @@ class Session(Debuggable):
     def __init__(self, hostInterface, logger, managerFactory):
         # pylint: disable=line-too-long
         """
-        @param hostInterface openassetio.hostAPI.HostInterface The current
+        @param hostInterface \fqref{hostAPI::HostInterface} The current
         HostInterface instance (note: only a single currently active
         HostInterface is supported, so if multiple sessions are created,
         they should all use the same HostInterface instance).
@@ -95,10 +96,7 @@ class Session(Debuggable):
 
         self._debugLogFn = logger.log
 
-        ## @todo Should we wrap this here, let the Manager do that? Doing it here
-        # as it means that auditing will account any use of the Host, not just via the Manager
-        self._host = Host(hostInterface)
-        self._host._debugLogFn = logger.log
+        self._hostInterface = hostInterface
 
         self._logger = logger
 
@@ -108,14 +106,6 @@ class Session(Debuggable):
         self._manager = None
 
         self._factory = managerFactory
-
-    @auditApiCall("Session")
-    def host(self):
-        """
-        @return HostInterface, the HostInterface that the session was
-        started by.
-        """
-        return self._host
 
     @debugApiCall
     @auditApiCall("Session")
@@ -325,4 +315,4 @@ class Session(Debuggable):
         @returns a openassetio.managerAPI.HostSession object to proxy
         this session.
         """
-        return HostSession(self._host, self._logger)
+        return HostSession(Host(self._hostInterface), self._logger)

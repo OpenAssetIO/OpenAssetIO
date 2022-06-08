@@ -30,6 +30,14 @@ v1.0.0-alpha.X
   serialization of a manager's state for persistence or distribution.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
 
+- Removed `Session.host()` as it is not useful for foreseeable workflows
+  (beyond tests). Note that `HostSession.host()` remains.
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+
+- Marked `Host` class as `final` in both Python and C++ and so it cannot
+  be subclassed.
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+
 
 ### Improvements
 
@@ -37,6 +45,10 @@ v1.0.0-alpha.X
   `oa_symbolName` can be used instead of wrapping every reference in the
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.
   [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
+
+- `Host` and `HostInterface` classes have been migrated to C++.
+  Debug and audit functionality is left for future work.
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We

@@ -20,7 +20,8 @@ for an asset management system.
 
 If you are a tool or application developer, see @ref openassetio.hostAPI
 """
-
-from .Host import Host
+from .. import _openassetio  # pylint: disable=no-name-in-module
 from .HostSession import HostSession
 from .ManagerInterface import ManagerInterface
+
+Host = _openassetio.managerAPI.Host

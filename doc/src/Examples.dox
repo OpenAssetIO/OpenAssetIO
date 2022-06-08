@@ -19,8 +19,8 @@
  * It makes use of the @ref openassetio.pluginSystem "Plugin System" to
  * discover available @ref ManagerPlugin "ManagerPlugins".
  *
- * It also includes a bare-minimum example of a @ref
- * openassetio.hostAPI.HostInterface "HostInterface" implementation.
+ * It also includes a bare-minimum example of a
+ * @fqref{hostAPI::HostInterface} "HostInterface" implementation.
  *
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter

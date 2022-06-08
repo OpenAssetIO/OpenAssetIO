@@ -24,6 +24,7 @@ import pytest
 
 from openassetio import Context, TraitsData
 from openassetio.managerAPI import ManagerInterface, HostSession
+from openassetio.hostAPI import HostInterface
 
 # pylint: disable=invalid-name
 
@@ -51,6 +52,15 @@ def unload_openassetio_modules():
     # Restore the previously imported modules
     for name, module in to_delete.items():
         sys.modules[name] = module
+
+
+@pytest.fixture
+def mock_host_interface():
+    """
+    Fixture for a `HostInterface` that forwards method calls to an
+    internal public `mock.Mock` instance.
+    """
+    return MockHostInterface()
 
 
 @pytest.fixture
@@ -224,3 +234,22 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def __assertCallingContext(context, hostSession):
         assert isinstance(context, Context)
         assert isinstance(hostSession, HostSession)
+
+
+class MockHostInterface(HostInterface):
+    """
+    `HostInterface` implementation that delegates all calls to a public
+    `Mock` instance.
+    """
+    def __init__(self):
+        super().__init__()
+        self.mock = mock.create_autospec(HostInterface, spec_set=True, instance=True)
+
+    def identifier(self):
+        return self.mock.identifier()
+
+    def displayName(self):
+        return self.mock.displayName()
+
+    def info(self):
+        return self.mock.info()

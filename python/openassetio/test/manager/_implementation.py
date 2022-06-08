@@ -164,11 +164,12 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
 
 class _ValidatorHarnessHostInterface(hostAPI.HostInterface):
     """
-    Minimal required OpenAssetIO hostAPI.HostInterface.HostInterface
-    implementation.
+    Minimal required OpenAssetIO \fqref{hostAPI::HostInterface}
+    "HostInterface" implementation.
 
     @private
     """
+    # pylint: disable=missing-function-docstring,no-self-use
     def identifier(self):
         return "org.openassetio.test.manager.harness"
 

@@ -33,15 +33,15 @@ class HostSession(object):
     directly constructed, cached or otherwise persisted by a Manager.
 
     The HostSession provides access to:
-      - A concrete instance of the @ref
-        openassetio.hostAPI.HostInterface, implemented by the tool or
+      - A concrete instance of the @fqref{hostAPI::HostInterface}
+        "HostInterface", implemented by the tool or
         application that initiated the API session.
       - A logging callback. All user-facing messaging should be directed
         through this entrypoint. This ensures it will be appropriately
         presented to the user.
 
     @see @ref log
-    @see @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
+    @see @fqref{hostAPI::HostInterface} "HostInterface"
     """
     kDebugAPI = LoggerInterface.kDebugAPI
     kDebug = LoggerInterface.kDebug
@@ -63,7 +63,7 @@ class HostSession(object):
 
     def host(self):
         """
-        @returns A @ref openassetio.hostAPI.HostInterface.HostInterface "HostInterface"
+        @returns A @fqref{hostAPI::HostInterface} "HostInterface"
         implementation.
         """
         return self.__host
