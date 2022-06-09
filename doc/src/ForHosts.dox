@@ -65,7 +65,7 @@
  * @see @ref entities_traits_and_specifications
  * @see @ref openassetio.hostAPI.Session.Session "Session"
  * @see @ref openassetio.hostAPI.Manager.Manager "Manager"
- * @see @ref openassetio.Context.Context "Context"
+ * @see @fqref{Context} "Context"
  *
  * @section host_todo Implementation Check List
  *

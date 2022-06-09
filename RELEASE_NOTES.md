@@ -55,6 +55,11 @@ v1.0.0-alpha.X
   context access to `kUnknown`. This better describes its use, and
   encourages hosts to properly configure the context before use.
 
+- Changed `Context` access and retention constants to `enum`s in C++
+  that are bound to Python as opaque instances (via `pybind11::enum_`),
+  rather than strings and integers, respectively.
+  [291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+
 
 ### Improvements
 
@@ -68,8 +73,10 @@ v1.0.0-alpha.X
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.
   [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
-- `Host`, `HostInterface` and `HostSession` classes have been migrated
-  to C++. Debug and audit functionality is left for future work.
+- `Context`, `Host`, `HostInterface` and `HostSession` classes have been
+  migrated to C++. Debug and audit functionality is left for future
+  work.
+  [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
 - Switched to preferring un-versioned `clang-tidy` executables when

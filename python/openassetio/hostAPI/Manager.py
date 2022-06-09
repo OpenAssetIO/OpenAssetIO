@@ -270,12 +270,12 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         write context) all of the supplied traits through @needsref
         resolve and @ref register.
 
-        @warning The @ref openassetio.Context.Context.access "access"
-        of the supplied context will be considered by the manager. If
-        it is set to read, then it's response applies to resolution.
-        If write, then it applies to publishing. Ignored reads can allow
-        optimisations in a host as there is no longer a need to
-        test/resolve applicable strings.
+        @warning The @fqref{Context::access} "access" of the supplied
+        context will be considered by the manager. If it is set to read,
+        then it's response applies to resolution. If write, then it
+        applies to publishing. Ignored reads can allow optimisations in
+        a host as there is no longer a need to test/resolve applicable
+        strings.
 
         @note One very important attribute returned as part of this
         policy is the @ref openassetio.constants.kWillManagePath bit. If
@@ -906,7 +906,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         temporary working path or some such.
 
         @note It's vital that the @ref Context is well configured here,
-        in particular the @ref openassetio.Context.Context.retention
+        in particular the @fqref{Context::retention}
         "Context.retention".
 
         @warning The working @ref entity_reference returned by this
@@ -1054,7 +1054,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         when certain UI elements need to 'take a copy' of a context in
         its current state.
 
-        @see @ref openassetio.Context.Context "Context"
+        @see @fqref{Context} "Context"
         """
         context = Context()
 
@@ -1083,7 +1083,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         The returned token can be passed to @ref thawContext for
         future API use in another @ref session with the same manager.
 
-        @param context @ref openassetio.Context The context to freeze.
+        @param context @fqref{Context} "Context" The context to freeze.
 
         @return `str` The managers frozen state token.
 
@@ -1103,7 +1103,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         @param stateToken `str` A token previously returned from @ref
         freezeContext by this manager.
 
-        @return @ref openassetio.Context A context that will be
+        @return @fqref{Context} "Context" A context that will be
         associated with the previously frozen one by the manager.
 
         @note The context's access, retention or locale is not restored

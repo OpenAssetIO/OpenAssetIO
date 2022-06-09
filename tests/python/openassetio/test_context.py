@@ -35,6 +35,26 @@ class Test_Context:
         )
         assert len(set(consts)) == len(consts)
 
+    def test_access_constants_alias_Access_child_class_constants(self):
+        assert Context.kRead is Context.Access.kRead
+        assert Context.kReadMultiple is Context.Access.kReadMultiple
+        assert Context.kWrite is Context.Access.kWrite
+        assert Context.kWriteMultiple is Context.Access.kWriteMultiple
+        assert Context.kUnknown is Context.Access.kUnknown
+
+    def test_access_names_indices_match_constants(self):
+        assert Context.kAccessNames[Context.kRead] == "read"
+        assert Context.kAccessNames[Context.kReadMultiple] == "readMultiple"
+        assert Context.kAccessNames[Context.kWrite] == "write"
+        assert Context.kAccessNames[Context.kWriteMultiple] == "writeMultiple"
+        assert Context.kAccessNames[Context.kUnknown] == "unknown"
+
+    def test_retention_constants_alias_Retention_child_class_constants(self):
+        assert Context.kIgnored is Context.Retention.kIgnored
+        assert Context.kTransient is Context.Retention.kTransient
+        assert Context.kSession is Context.Retention.kSession
+        assert Context.kPermanent is Context.Retention.kPermanent
+
     def test_retention_constants_are_unique(self):
         consts = (Context.kIgnored, Context.kTransient, Context.kSession, Context.kPermanent)
         assert len(set(consts)) == len(consts)
@@ -69,40 +89,83 @@ class Test_Context_init:
         assert a_context.retention == expected_retention
         assert a_context.locale is expected_locale
         assert a_context.managerState is expected_state
+        assert isinstance(a_context.managerState, TestState)
 
 
 class Test_Context_access:
-    def test_when_set_to_unknown_value_then_raises_ValueError(self, a_context):
-        with pytest.raises(ValueError) as err:
-            a_context.access = "unrecognized"
+    def test_when_set_to_unknown_type_then_raises_ValueError(self, a_context):
 
-        assert (str(err.value) ==
-                "'unrecognized' is not a valid Access Pattern"
-                " (read, readMultiple, write, writeMultiple, unknown)")
+        expected_msg = (r"incompatible function arguments.*\n"
+                        r".*arg0: openassetio._openassetio.Context.Access")
+
+        with pytest.raises(TypeError, match=expected_msg):
+            a_context.access = 0
+
+    def test_when_set_to_known_value_then_stores_that_value(self, a_context):
+
+        for expected_access in (
+                Context.kRead, Context.kReadMultiple, Context.kWrite, Context.kWriteMultiple):
+            a_context.access = expected_access
+            assert a_context.access == expected_access
 
 
 class Test_Context_retention:
-    def test_when_set_to_unknown_value_then_raises_ValueError(self, a_context):
-        with pytest.raises(ValueError) as err:
-            a_context.retention = 123
+    def test_when_set_to_unknown_type_then_raises_ValueError(self, a_context):
+        expected_msg = (r"incompatible function arguments.*\n"
+                        r".*arg0: openassetio._openassetio.Context.Retention")
 
-        assert (str(err.value) ==
-                "123 (123) is not a valid Retention (ignored, transient, session, permanent)")
+        with pytest.raises(TypeError, match=expected_msg):
+            a_context.retention = 0
+
+    def test_when_set_to_known_value_then_stores_that_value(self, a_context):
+        for expected_retention in (
+                Context.kIgnored, Context.kTransient, Context.kSession, Context.kPermanent):
+            a_context.retention = expected_retention
+            assert a_context.retention == expected_retention
 
 
 class Test_Context_locale:
     def test_when_set_to_unknown_value_then_raises_ValueError(self, a_context):
-        with pytest.raises(ValueError) as err:
-            a_context.locale = object()
+        expected_msg = (r"incompatible function arguments.*\n"
+                        r".*arg0: openassetio._openassetio.TraitsData")
 
-        assert (str(err.value) ==
-                "Locale must be an instance of"
-                " <class 'openassetio._openassetio.TraitsData'> (not <class 'object'>)")
+        with pytest.raises(TypeError, match=expected_msg):
+            a_context.locale = object()
 
     def test_when_set_to_None_then_returns_None(self, a_context):
         a_context.locale = None
 
         assert a_context.locale is None
+
+    def test_when_set_to_valid_data_then_holds_reference_to_that_data(self, a_context):
+        expected_data = TraitsData()
+        a_context.locale = expected_data
+
+        actual_data = a_context.locale
+
+        assert actual_data is expected_data
+
+
+class Test_Context_managerState:
+    def test_when_set_to_unknown_type_then_raises_TypeError(self, a_context):
+        expected_msg = (r"incompatible function arguments.*\n"
+                        r".*arg0: openassetio._openassetio.managerAPI.ManagerStateBase")
+
+        with pytest.raises(TypeError, match=expected_msg):
+            a_context.managerState = object()
+
+    def test_when_set_to_None_then_returns_None(self, a_context):
+        a_context.managerState = None
+
+        assert a_context.managerState is None
+
+    def test_when_set_to_valid_data_then_holds_reference_to_that_data(self, a_context):
+        expected_data = managerAPI.ManagerStateBase()
+        a_context.managerState = expected_data
+
+        actual_data = a_context.managerState
+
+        assert actual_data is expected_data
 
 
 class Test_Context_isForRead:

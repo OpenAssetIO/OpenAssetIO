@@ -25,16 +25,15 @@ from unittest import mock
 
 import pytest
 
-from openassetio import Context, TraitsData
+from openassetio import Context, TraitsData, managerAPI
 from openassetio.hostAPI import Manager
-from openassetio.managerAPI import HostSession
 
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
 
 @pytest.fixture
 def host_session():
-    return mock.create_autospec(HostSession)
+    return mock.create_autospec(managerAPI.HostSession)
 
 
 @pytest.fixture
@@ -479,7 +478,7 @@ class Test_Manager_createContext:
 
     def test_context_is_created_with_expected_properties(self, manager, mock_manager_interface):
 
-        state_a = "state-a"
+        state_a = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
 
         context_a = manager.createContext()
@@ -494,7 +493,7 @@ class Test_Manager_createContext:
             self, manager, mock_manager_interface):
         # pylint: disable=protected-access
 
-        state_a = "state-a"
+        state_a = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
         context_a = manager.createContext()
         context_a.access = Context.kWrite
@@ -502,7 +501,7 @@ class Test_Manager_createContext:
         context_a.locale = TraitsData()
         mock_manager_interface.mock.reset_mock()
 
-        state_b = "state-b"
+        state_b = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_b
         a_host_session = manager._Manager__hostSession
 
@@ -525,7 +524,7 @@ class Test_Manager_freezeContext:
         expected_token = "a_frozen_token"
         mock_manager_interface.mock.freezeState.return_value = expected_token
 
-        initial_state = "initial_state"
+        initial_state = managerAPI.ManagerStateBase()
         a_context = Context()
         a_context.managerState = initial_state
 
@@ -544,7 +543,7 @@ class Test_Manager_thawContext:
     def test_when_called_then_the_managers_thawed_state_is_set_in_the_context(
              self, manager, mock_manager_interface):
 
-        expected_state = "thawed_state"
+        expected_state = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.thawState.return_value = expected_state
 
         a_token = "frozen_token"

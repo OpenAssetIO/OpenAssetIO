@@ -72,8 +72,8 @@ The documentation for OpenAssetIO can be found here:
 """
 # TODO(DF): @pylint
 from ._openassetio import TraitsData  # pylint: disable=import-error
+from ._openassetio import Context  # pylint: disable=import-error
 
 # pylint: disable=wrong-import-position
-from .Context import Context
 from .SpecificationBase import SpecificationBase
 from .Trait import Trait
