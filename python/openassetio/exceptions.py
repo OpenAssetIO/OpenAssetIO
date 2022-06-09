@@ -54,7 +54,7 @@ class ManagerException(OpenAssetIOException):
 class StateError(ManagerException):
     """
     Thrown by managers in error situations relating to the
-    managerInterfaceState object.
+    managerState object.
     """
 
 

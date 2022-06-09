@@ -486,7 +486,7 @@ class Test_Manager_createContext:
 
         assert context_a.access == Context.kUnknown
         assert context_a.retention == Context.kTransient
-        assert context_a.managerInterfaceState is state_a
+        assert context_a.managerState is state_a
         assert context_a.locale is None
         mock_manager_interface.mock.createState.assert_called_once()
 
@@ -509,7 +509,7 @@ class Test_Manager_createContext:
         context_b = manager.createContext(parent=context_a)
 
         assert context_b is not context_a
-        assert context_b.managerInterfaceState is state_b
+        assert context_b.managerState is state_b
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
@@ -527,7 +527,7 @@ class Test_Manager_freezeContext:
 
         initial_state = "initial_state"
         a_context = Context()
-        a_context.managerInterfaceState = initial_state
+        a_context.managerState = initial_state
 
         actual_token = manager.freezeContext(a_context)
 
@@ -550,7 +550,7 @@ class Test_Manager_thawContext:
         a_token = "frozen_token"
         a_context = manager.thawContext(a_token)
 
-        assert a_context.managerInterfaceState is expected_state
+        assert a_context.managerState is expected_state
 
         # pylint: disable=protected-access
         a_host_session = manager._Manager__hostSession

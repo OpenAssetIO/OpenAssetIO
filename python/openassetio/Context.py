@@ -94,13 +94,13 @@ class Context(object):
         # pylint: disable=unused-private-member
         self.__managerState = state
 
-    ## @property managerInterfaceState
+    ## @property managerState
     ##
     ## The opaque state token owned by the @ref manager, used to
     ## correlate all API calls made using this context.
     ##
     ## @see @ref stable_resolution
-    managerInterfaceState = property(__getManagerInterfaceState, __setManagerInterfaceState)
+    managerState = property(__getManagerInterfaceState, __setManagerInterfaceState)
 
     def __getAccess(self):
         # pylint: disable=unused-private-member

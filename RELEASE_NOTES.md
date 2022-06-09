@@ -48,6 +48,9 @@ v1.0.0-alpha.X
 - Removed `Context.managerOptions`.
   [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
 
+- Renamed `Context.managerInterfaceState` to `Context.managerState`.
+  [291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+
 - Changed `Context.kOther` to `kUnknown`, and changed the default
   context access to `kUnknown`. This better describes its use, and
   encourages hosts to properly configure the context before use.

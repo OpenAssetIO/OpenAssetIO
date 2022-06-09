@@ -1066,10 +1066,10 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
         parentState = None
         if parent:
-            parentState = parent.managerInterfaceState
+            parentState = parent.managerState
 
-        context.managerInterfaceState = self.__impl.createState(self.__hostSession,
-                                                                parentState=parentState)
+        context.managerState = self.__impl.createState(
+            self.__hostSession, parentState=parentState)
         return context
 
 
@@ -1089,7 +1089,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
         @see @ref stable_resolution
         """
-        token = self.__impl.freezeState(context.managerInterfaceState, self.__hostSession)
+        token = self.__impl.freezeState(context.managerState, self.__hostSession)
         return token
 
 
@@ -1115,7 +1115,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         verify that they match?
         """
         context = Context()
-        context.managerInterfaceState = self.__impl.thawState(stateToken, self.__hostSession)
+        context.managerState = self.__impl.thawState(stateToken, self.__hostSession)
         return context
 
     ## @}

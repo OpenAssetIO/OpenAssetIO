@@ -264,7 +264,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         prefetched.
 
         @param context openassetio.Context You may wish to make use of
-        the managerInterfaceState object (if you supplied one on
+        the managerState object (if you supplied one on
         construction of the context), to simplify scoping any caching of
         data. Otherwise, it's up to you how to manage the lifetime of
         the data to avoid inconsistencies, but the @ref flushCaches
@@ -1145,8 +1145,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         return is then stored in the newly created Context, and is
         consequently available to all the API calls in the
         ManagerInterface that take a Context instance via @ref
-        openassetio.Context.Context.managerInterfaceState
-        "managerInterfaceState". Your implementation can then use this
+        openassetio.Context.Context.managerState
+        "managerState". Your implementation can then use this
         to anchor the api call to a particular snapshot of the state of
         the asset inventory.
 

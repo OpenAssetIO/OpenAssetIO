@@ -52,7 +52,7 @@ class Test_Context_init:
         assert context.access == Context.kUnknown
         assert context.retention == Context.kTransient
         assert context.locale is None
-        assert context.managerInterfaceState is None
+        assert context.managerState is None
 
     def test_when_constructed_with_args_then_has_configuration_from_args(self):
         class TestState(managerAPI.ManagerStateBase):
@@ -68,7 +68,7 @@ class Test_Context_init:
         assert a_context.access == expected_access
         assert a_context.retention == expected_retention
         assert a_context.locale is expected_locale
-        assert a_context.managerInterfaceState is expected_state
+        assert a_context.managerState is expected_state
 
 
 class Test_Context_access:
