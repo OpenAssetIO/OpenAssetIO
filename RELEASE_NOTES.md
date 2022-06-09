@@ -24,15 +24,22 @@ v1.0.0-alpha.X
   - `TraitsData::TraitIds` to `TraitSet`
   - `TraitsData::traitIds()` to `traitSet()`
 
-- Removed the Transactions API, including the `ManagerInterface`
-  methods, and `TransactionCoordinator` helpers. Added `freezeContext`
-  and `thawContext` methods to the `Session` class to allow
-  serialization of a manager's state for persistence or distribution.
-  [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
-
 - Removed `Session.host()` as it is not useful for foreseeable workflows
   (beyond tests). Note that `HostSession.host()` remains.
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+
+- Removed the Transactions API, including the `ManagerInterface`
+  methods, and `TransactionCoordinator` helpers.
+  [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
+
+- Removed `Session::createContext`.
+  [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
+
+- Added `createContext`, `freezeContext` and `thawContext` methods to
+  the `Manager` class to facilitate context creation and the
+  serialization of a manager's state for persistence or distribution.
+  [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421),
+  [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
 
 - Marked `Host` class as `final` in both Python and C++ and so it cannot
   be subclassed.

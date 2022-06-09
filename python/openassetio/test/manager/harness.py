@@ -201,7 +201,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param access `int` One of the context access policies (or None),
         if provided, the context's access will be set to this.
         """
-        context = self._session.createContext()
+        context = self._session.currentManager().createContext()
         context.locale = self._locale
         if access is not None:
             context.access = access

@@ -130,7 +130,7 @@
  *
  * # All calls to the manager must have a Context, these should always
  * # be created by the session, so that state is properly managed.
- * context = session.createContext()
+ * context = manager.createContext()
  *
  * # We describe what we want to do with the asset
  * context.access = context.kRead
@@ -162,7 +162,7 @@
  *
  *
  * # As ever, an appropriately configured context is required
- * context = session.createContext()
+ * context = manager.createContext()
  * context.access = context.kWrite
  * context.locale = APIDocumentationExampleLocale.create().traitsData()
  *

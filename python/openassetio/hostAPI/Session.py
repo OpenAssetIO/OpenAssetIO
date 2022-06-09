@@ -27,7 +27,6 @@ from .Manager import Manager
 from ..managerAPI import Host, HostSession
 
 from .. import constants
-from ..Context import Context
 from ..exceptions import ManagerException
 
 HostInterface = _openassetio.hostAPI.HostInterface
@@ -174,105 +173,6 @@ class Session(Debuggable):
             self._manager.initialize()
 
         return self._manager
-
-    @auditApiCall("Session")
-    def createContext(self, parent=None):
-        """
-        Creates a new Context with the Session's current Manager.
-
-        @warning Contexts should never be directly constructed, always
-        use this method to create a new one.
-
-        @param parent openassetio.Context If supplied, the new context
-        will clone the supplied Context, and the Manager will be given a
-        chance to migrate any meaningful state etc... This can be useful
-        when certain UI elements need to 'take a copy' of a context in
-        its current state.
-
-        @see @ref openassetio.Context.Context "Context"
-
-        @exception RuntimeError if called when the session has no
-        current manager.
-        """
-        ctx = Context()
-
-        # If we have a parent, copy its setup
-        if parent:
-            ctx.access = parent.access
-            ctx.retention = parent.retention
-            ctx.locale = parent.locale
-            ctx.managerOptions = parent.managerOptions
-
-        manager = self.currentManager()
-        if manager is None:
-            raise RuntimeError("Session.createContext called with no current manager")
-
-        parentState = None
-        if parent:
-            parentState = parent.managerInterfaceState
-
-        # pylint: disable=protected-access
-        ctx.managerInterfaceState = manager._createState(parentState)
-
-        return ctx
-
-
-    @auditApiCall("Session")
-    def freezeContext(self, context):
-        """
-        Freezes the supplied context into a serializable token that
-        can be persisted or distributed between processes to associate
-        subsequent API usage with the supplied context.
-
-        The returned token can be passed to @ref thawContext for
-        future API use in another @ref session with the same manager.
-
-        @param context @ref openassetio.Context The context to freeze.
-
-        @return `str` The managers frozen state token.
-
-        @see @ref stable_resolution
-        """
-        manager = self.currentManager()
-        if manager is None:
-            raise RuntimeError("Session.freezeContext called with no current manager")
-
-        # pylint: disable=protected-access
-        token = manager._freezeState(context.managerInterfaceState)
-        return token
-
-
-    @auditApiCall("Session")
-    def thawContext(self, stateToken):
-        """
-        Thaws a previously frozen manager state token, returning a @ref
-        Context associated with that state, that can be used for further
-        API calls.
-
-        @param stateToken `str` A token previously returned from @ref
-        freezeContext by the same manager that is in use in this
-        session.
-
-        @return @ref openassetio.Context A context that will be
-        associated with the previously frozen one by the manager.
-
-        @note The context's access, retention or locale is not restored
-        by this action.
-
-        @see @ref stable_resolution
-
-        @todo Should we concatenate the manager id in freeze so we can
-        verify that they match?
-        """
-
-        manager = self.currentManager()
-        if manager is None:
-            raise RuntimeError("Session.thawContext called with no current manager")
-
-        # pylint: disable=protected-access
-        ctx = Context()
-        ctx.managerInterfaceState = manager._thawState(stateToken)
-        return ctx
 
 
     @auditApiCall("Session")
