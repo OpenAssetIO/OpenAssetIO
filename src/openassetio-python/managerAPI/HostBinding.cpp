@@ -9,8 +9,9 @@
 void registerHost(const py::module& mod) {
   using openassetio::hostAPI::HostInterfacePtr;
   using openassetio::managerAPI::Host;
+  using openassetio::managerAPI::HostPtr;
 
-  py::class_<Host, Holder<Host>>(mod, "Host", py::is_final())
+  py::class_<Host, HostPtr>(mod, "Host", py::is_final())
       .def(py::init<HostInterfacePtr>(), py::arg("hostInterface").none(false))
       .def("identifier", &Host::identifier)
       .def("displayName", &Host::displayName)

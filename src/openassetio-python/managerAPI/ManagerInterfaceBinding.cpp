@@ -38,10 +38,10 @@ struct PyManagerInterface : ManagerInterface {
 
 void registerManagerInterface(const py::module& mod) {
   using openassetio::managerAPI::ManagerInterface;
+  using openassetio::managerAPI::ManagerInterfacePtr;
   using openassetio::managerAPI::PyManagerInterface;
 
-  py::class_<ManagerInterface, PyManagerInterface, Holder<ManagerInterface>>(mod,
-                                                                             "ManagerInterface")
+  py::class_<ManagerInterface, PyManagerInterface, ManagerInterfacePtr>(mod, "ManagerInterface")
       .def(py::init())
       .def("identifier", &ManagerInterface::identifier)
       .def("displayName", &ManagerInterface::displayName)

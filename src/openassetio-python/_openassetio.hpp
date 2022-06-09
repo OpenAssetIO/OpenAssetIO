@@ -14,16 +14,6 @@
 /// Concise pybind alias.
 namespace py = pybind11;
 
-/**
- * Holder type for pybind-registered classes whose instances can exist
- * simultaneously in C++ and Python.
- *
- * Ensuring all such types are constructed and held as a ref-counted
- * smart pointer saves many object lifetime headaches.
- */
-template <class T>
-using Holder = openassetio::SharedPtr<T>;
-
 /// Register the HostInterface class with Python.
 void registerHostInterface(const py::module& mod);
 
