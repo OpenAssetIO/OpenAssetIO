@@ -4,6 +4,10 @@
 
 #include <openassetio/export.h>  // For OPENASSETIO_CORE_ABI_VERSION
 
+#include <openassetio/c/StringView.h>
+#include <openassetio/c/managerAPI/CManagerInterface.h>
+
+#include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
 // private headers
