@@ -54,10 +54,10 @@ class Context(object):
     kReadMultiple = "readMultiple"
     kWrite = "write"
     kWriteMultiple = "writeMultiple"
-    kOther = "other"
+    kUnknown = "unknown"
     ## @}
 
-    __validAccess = (kRead, kReadMultiple, kWrite, kWriteMultiple, kOther)
+    __validAccess = (kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown)
 
     ##
     # @name Data Retention
@@ -76,7 +76,7 @@ class Context(object):
 
     ## @}
 
-    def __init__(self, access=kRead, retention=kTransient, locale=None, managerState=None):
+    def __init__(self, access=kUnknown, retention=kTransient, locale=None, managerState=None):
 
         super(Context, self).__init__()
 

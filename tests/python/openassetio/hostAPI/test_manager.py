@@ -484,7 +484,7 @@ class Test_Manager_createContext:
 
         context_a = manager.createContext()
 
-        assert context_a.access == Context.kRead
+        assert context_a.access == Context.kUnknown
         assert context_a.retention == Context.kTransient
         assert context_a.managerInterfaceState is state_a
         assert context_a.locale is None
