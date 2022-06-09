@@ -1063,7 +1063,6 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
             context.access = parent.access
             context.retention = parent.retention
             context.locale = parent.locale
-            context.managerOptions = parent.managerOptions
 
         parentState = None
         if parent:

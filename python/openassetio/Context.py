@@ -76,9 +76,7 @@ class Context(object):
 
     ## @}
 
-    def __init__(
-            self, access=kRead, retention=kTransient, locale=None,
-            managerOptions=None, managerState=None):
+    def __init__(self, access=kRead, retention=kTransient, locale=None, managerState=None):
 
         super(Context, self).__init__()
 
@@ -86,7 +84,6 @@ class Context(object):
         self.__retention = retention
         self.__locale = locale
 
-        self.__managerOptions = managerOptions if managerOptions else {}
         self.__managerState = managerState
 
     def __getManagerInterfaceState(self):
@@ -104,36 +101,6 @@ class Context(object):
     ##
     ## @see @ref stable_resolution
     managerInterfaceState = property(__getManagerInterfaceState, __setManagerInterfaceState)
-
-    def __getManagerOptions(self):
-        # pylint: disable=unused-private-member
-        return self.__managerOptions
-
-    def __setManagerOptions(self, options):
-        # pylint: disable=unused-private-member
-
-        if options is None or not isinstance(options, dict):
-            raise ValueError("The managerOptions must be a dict (not %s)" % type(options))
-
-        for key, value in options.items():
-            if type(value) not in kSupportedAttributeTypes:
-                raise ValueError(
-                    ("Manager Options '%s' is not of a " +
-                     "supported type '%s' must be %s")
-                    % (key, type(value), kSupportedAttributeTypes))
-
-        self.__managerOptions = options
-
-    ## @property managerOptions
-    ##
-    ## The manager options may contain custom locale data specific to
-    ## a @ref manager "manager's" implementation. Managers should never
-    ## attempt to set this themselves, it will not be preserved in many
-    ## situations overwritten by many hosts. Instead, the host will
-    ## ask you for this information on occasions that it can be
-    ## suitable propagated to other API calls. This will be generally
-    ## be done using a @needsref openassetio-ui.widgets.ManagerOptionsWidget.
-    managerOptions = property(__getManagerOptions, __setManagerOptions)
 
     def __getAccess(self):
         # pylint: disable=unused-private-member
@@ -230,7 +197,6 @@ class Context(object):
             ('access', self.__access),
             ('retention', self.kRetentionNames[self.__retention]),
             ('locale', self.__locale),
-            ('managerOptions', self.__managerOptions),
             ('managerState', self.__managerState)
         )
         kwargs = ", ".join(["%s=%r" % (i[0], i[1]) for i in data])

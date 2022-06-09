@@ -45,6 +45,9 @@ v1.0.0-alpha.X
   be subclassed.
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
 
+- Removed `Context.managerOptions`.
+  [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+
 
 ### Improvements
 
