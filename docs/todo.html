@@ -118,11 +118,13 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <dd>Implement missing setRelatedReferences()  </dd>
 <dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Manager.isEntityReference</a>  (self, tokens)</dt>
 <dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python.  </dd>
-<dt><a class="anchor" id="_todo000006"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html#afca19a0df300f49140c646dd9efbf29e">ManagerFactoryInterface.instantiate</a>  (self, identifier, cache=True)</dt>
+<dt><a class="anchor" id="_todo000006"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3">Manager.thawContext</a>  (self, stateToken)</dt>
+<dd>Should we concatenate the manager id in freeze so we can verify that they match?  </dd>
+<dt><a class="anchor" id="_todo000007"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html#afca19a0df300f49140c646dd9efbf29e">ManagerFactoryInterface.instantiate</a>  (self, identifier, cache=True)</dt>
 <dd>[tc] Should 'cache' be removed, or set to False by default? It prevents a <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_session.html" title="A single-class module, providing the Session class. ">Session</a> managing the lifetime of an instance.  </dd>
-<dt><a class="anchor" id="_todo000019"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a>  </dt>
-<dd>Finish/Document settings mechanism.  </dd>
 <dt><a class="anchor" id="_todo000010"></a>Class <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>  </dt>
+<dd>Finish/Document settings mechanism.  </dd>
+<dt><a class="anchor" id="_todo000019"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a>  </dt>
 <dd>Finish/Document settings mechanism.  </dd>
 <dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">ManagerInterface.getSettings</a>  (self, hostSession)</dt>
 <dd>Document settings mechanism  </dd>
@@ -136,8 +138,6 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <dd>[tc] Should these live here, or with their owning declarations, See <a class="el" href="classopenassetio_1_1log_1_1_logger_interface.html">openassetio.log.LoggerInterface</a> for example.  </dd>
 <dt><a class="anchor" id="_todo000003"></a>Namespace <a class="el" href="namespaceopenassetio_1_1exceptions.html">openassetio.exceptions</a>  </dt>
 <dd>[tc] Should these all live here, or in their respective homes eg: <a class="el" href="namespaceopenassetio_1_1plugin_system.html" title="This module provides a plugin system that can be used to register and instantiate manager plugins fro...">pluginSystem</a>, ManagerInterface, etc.  </dd>
-<dt><a class="anchor" id="_todo000007"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a729ce078566ad0a71f30cb1230fc2fe3">Session.thawContext</a>  (self, stateToken)</dt>
-<dd>Should we concatenate the manager id in freeze so we can verify that they match?  </dd>
 <dt><a class="anchor" id="_todo000015"></a>Page <a class="el" href="thumbnails.html">Thumbnails</a>  </dt>
 <dd>Document the <a class="el" href="glossary.html#trait">traits</a> used to determine width/height/format, these should be the same as the fields of the ThumbnailSpecification. </dd>
 <dt><a class="anchor" id="_todo000020"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>  </dt>

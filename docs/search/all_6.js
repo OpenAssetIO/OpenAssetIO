@@ -7,6 +7,6 @@ var searchData=
   ['fixturesfrompyfile',['fixturesFromPyFile',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html#ac51f257c0e8aa25dca723a8c22e01a14',1,'openassetio::test::manager::harness']]],
   ['float',['Float',['../namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038',1,'openassetio::v1']]],
   ['flushcaches',['flushCaches',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4',1,'openassetio.hostAPI.Manager.Manager.flushCaches()'],['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7',1,'openassetio.managerAPI.ManagerInterface.ManagerInterface.flushCaches()']]],
-  ['freezecontext',['freezeContext',['../classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a3d86dea60401ee1318fc4050bec1bfce',1,'openassetio::hostAPI::Session::Session']]],
+  ['freezecontext',['freezeContext',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce',1,'openassetio::hostAPI::Manager::Manager']]],
   ['freezestate',['freezeState',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]]
 ];

@@ -43,7 +43,7 @@ var searchData=
   ['testing_20your_20implementation',['Testing Your Implementation',['../testing.html',1,'']]],
   ['testtrait',['testTrait',['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a3e0655e6f12c848f8627d85757dd5941',1,'openassetio::test::specifications::TestHarnessLocale']]],
   ['testtrait',['TestTrait',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html',1,'openassetio::test::specifications']]],
-  ['thawcontext',['thawContext',['../classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html#a729ce078566ad0a71f30cb1230fc2fe3',1,'openassetio::hostAPI::Session::Session']]],
+  ['thawcontext',['thawContext',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3',1,'openassetio::hostAPI::Manager::Manager']]],
   ['thawstate',['thawState',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['thumbnails',['Thumbnails',['../thumbnails.html',1,'']]],
   ['todo_20list',['Todo List',['../todo.html',1,'']]],
@@ -53,9 +53,9 @@ var searchData=
   ['traitid',['TraitId',['../namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48',1,'openassetio::v1::trait']]],
   ['traitpropertystatus',['TraitPropertyStatus',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9',1,'openassetio::v1::trait']]],
   ['traitsdata',['TraitsData',['../classopenassetio_1_1v1_1_1_traits_data.html',1,'openassetio::v1']]],
-  ['traitsdata',['TraitsData',['../classopenassetio_1_1v1_1_1_traits_data.html#ae72f3f2b04e7a4c9e1e5a31504cdbadb',1,'openassetio::v1::TraitsData::TraitsData()'],['../classopenassetio_1_1v1_1_1_traits_data.html#a8504ce118224e2f0512122c60fc9a811',1,'openassetio::v1::TraitsData::TraitsData(const TraitSet &amp;traitSet)'],['../classopenassetio_1_1v1_1_1_traits_data.html#a45cfaa8c0a9617cb7205eacaa3c68143',1,'openassetio::v1::TraitsData::TraitsData(const TraitsData &amp;other)'],['../classopenassetio_1_1_specification_base_1_1_specification_base.html#af9bdad9903d7b2759f88f9f46f99b12d',1,'openassetio.SpecificationBase.SpecificationBase.traitsData()']]],
+  ['traitsdata',['traitsData',['../classopenassetio_1_1_specification_base_1_1_specification_base.html#af9bdad9903d7b2759f88f9f46f99b12d',1,'openassetio.SpecificationBase.SpecificationBase.traitsData()'],['../classopenassetio_1_1v1_1_1_traits_data.html#ae72f3f2b04e7a4c9e1e5a31504cdbadb',1,'openassetio::v1::TraitsData::TraitsData()'],['../classopenassetio_1_1v1_1_1_traits_data.html#a8504ce118224e2f0512122c60fc9a811',1,'openassetio::v1::TraitsData::TraitsData(const TraitSet &amp;traitSet)'],['../classopenassetio_1_1v1_1_1_traits_data.html#a45cfaa8c0a9617cb7205eacaa3c68143',1,'openassetio::v1::TraitsData::TraitsData(const TraitsData &amp;other)']]],
   ['traitsdataptr',['TraitsDataPtr',['../namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5',1,'openassetio::v1']]],
-  ['traitset',['traitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#a69978d534b35cf5a7114853c75cd535f',1,'openassetio::v1::TraitsData::traitSet() const '],['../classopenassetio_1_1v1_1_1_traits_data.html#a6cedaa7e48d38328c5ccb514f44aac37',1,'openassetio::v1::TraitsData::TraitSet()']]],
+  ['traitset',['TraitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#a6cedaa7e48d38328c5ccb514f44aac37',1,'openassetio::v1::TraitsData::TraitSet()'],['../classopenassetio_1_1v1_1_1_traits_data.html#a69978d534b35cf5a7114853c75cd535f',1,'openassetio::v1::TraitsData::traitSet() const ']]],
   ['typ',['typ',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html#a5574a1c4b4703a8658c3463fdbde74f3',1,'openassetio::_core::objects::TypedProperty']]],
   ['typedproperty',['TypedProperty',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html',1,'openassetio::_core::objects']]]
 ];
