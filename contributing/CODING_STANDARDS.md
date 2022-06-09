@@ -48,6 +48,59 @@ one code path. In that case shoehorning a test case description into a
 alternative. Best judgement should be used, bearing in mind readability
 and consistency trade-offs.
 
+## C++
+
+### Classes
+
+C++ classes that represent system components with reference semantics
+(as opposed to 'value' types) should inherit
+`std::enable_shared_from_this` and define a peer `Ptr` alias using
+the `openassetio::SharedPtr`.
+
+```cpp
+class MyClass : std::enable_shared_from_this<MyClass> { ... };
+using MyClassPtr = openassetio::SharedPtr<MyClass>;
+```
+
+This is to simplify memory management across the complex range of
+language bindings within the project.
+
+## C
+
+### Handles
+
+C Handles that manage reference semantics objects should always use a
+`<T>Ptr` over a raw pointer, and use a `Shared` suffix in their naming,
+to facilitate object exchange through multiple languages bindings.
+
+```cpp
+using SharedMyClass = Converter<MyClassPtr, oa_SharedMyClass_h>;
+```
+
+## Python bindings
+
+### Holder classes for reference-semantic types
+
+When binding something with reference semantics to python, the holder
+should always be a `<T>Ptr`. `pybind` understands `std::shared_ptr`, and
+this avoids memory management issues when objects are exchanged through
+multiple language bindings.
+
+```cpp
+py::class_<MyClass, MyClassPtr>(module, "MyClass")
+  ...
+```
+
+### Methods with pointer arguments
+
+When binding methods that take a `<T>Ptr`, (almost) always use the
+`.none(false)` modifier to ensure `None` is not implicitly converted to
+a null pointer.
+
+```cpp
+    .def("setHost", py::arg("host").none(false))
+```
+
 ## Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
