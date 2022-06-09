@@ -41,6 +41,7 @@ class OPENASSETIO_CORE_EXPORT HostSession {
   HostPtr host_;
 };
 
+using HostSessionPtr = SharedPtr<HostSession>;
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
