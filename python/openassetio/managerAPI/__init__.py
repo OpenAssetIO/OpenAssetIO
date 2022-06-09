@@ -25,3 +25,4 @@ from .HostSession import HostSession
 from .ManagerInterface import ManagerInterface
 
 Host = _openassetio.managerAPI.Host
+ManagerStateBase = _openassetio.managerAPI.ManagerStateBase
