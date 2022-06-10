@@ -41,6 +41,8 @@ var NAVTREEINDEX2 =
 "structoa__manager_a_p_i___c_manager_interface__s.html#a14feefda2e6a1f900e2a9a6ea04cdfc8":[11,0,3,1,2],
 "structoa__manager_a_p_i___c_manager_interface__s.html#a7c0aea3903599a523d90d2b7cb8dfe96":[11,0,3,1,3],
 "structoa__manager_a_p_i___c_manager_interface__s.html#aefc3df52925c09f10a98c17dfefbd2f8":[11,0,3,1,1],
+"structopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_state_base.html":[13,0,0,10,1,3],
+"structopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_state_base.html#aa603bae45be2d2c732db4d5249baf69b":[13,0,0,10,1,3,0],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html":[13,0,0,10,2,0],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a4d70f25d5ed9298c6a11913e27692623":[13,0,0,10,2,0,2],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a52f6124ca6499e6a10613497a1f00622":[13,0,0,10,2,0,4],

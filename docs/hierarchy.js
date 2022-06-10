@@ -22,6 +22,7 @@ var hierarchy =
       [ "ManagerInterface", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html", null ],
+    [ "ManagerStateBase", "structopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
