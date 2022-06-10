@@ -48,6 +48,11 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added `ManagerInterfaceState` abstract base class, that should be
+  used as a base for all instances returned from
+  `ManagerInterface::createState()`.
+  [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+
 - Added short-form macros for C API symbols, so that, for example,
   `oa_symbolName` can be used instead of wrapping every reference in the
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.

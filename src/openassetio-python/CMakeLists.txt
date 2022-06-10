@@ -47,6 +47,7 @@ target_sources(
     managerAPI/HostBinding.cpp
     managerAPI/HostSessionBinding.cpp
     managerAPI/ManagerInterfaceBinding.cpp
+    managerAPI/ManagerStateBaseBinding.cpp
 )
 
 # Give access to private headers.

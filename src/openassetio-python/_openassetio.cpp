@@ -17,6 +17,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   py::module managerAPI = mod.def_submodule("managerAPI");
   py::module hostAPI = mod.def_submodule("hostAPI");
 
+  registerManagerStateBase(managerAPI);
   registerHostInterface(hostAPI);
   registerHost(managerAPI);
   registerHostSession(managerAPI);

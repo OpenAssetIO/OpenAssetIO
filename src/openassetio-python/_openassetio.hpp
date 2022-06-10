@@ -31,3 +31,6 @@ void registerManager(const py::module& mod);
 
 /// Register the TraitsData class with Python.
 void registerTraitsData(const py::module& mod);
+
+/// Register the ManagerStateBase class with Python.
+void registerManagerStateBase(const py::module& mod);
