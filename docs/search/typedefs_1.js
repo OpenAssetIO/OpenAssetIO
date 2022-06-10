@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['float',['Float',['../namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038',1,'openassetio::v1']]]
+  ['contextptr',['ContextPtr',['../namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb',1,'openassetio::v1']]]
 ];

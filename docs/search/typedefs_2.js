@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hostinterfaceptr',['HostInterfacePtr',['../namespaceopenassetio_1_1v1_1_1host_a_p_i.html#a39593bbd961d6ce078c6d4eb7117a7d5',1,'openassetio::v1::hostAPI']]],
-  ['hostptr',['HostPtr',['../namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a917222924af42501ed0a68c71d2490ca',1,'openassetio::v1::managerAPI']]]
+  ['enumidx',['EnumIdx',['../structopenassetio_1_1v1_1_1_context.html#a64e8ac1e6ab9e446a03a134b59b5de66',1,'openassetio::v1::Context']]],
+  ['enumnames',['EnumNames',['../structopenassetio_1_1v1_1_1_context.html#a8573d9597eec4cf3f5e0387156fbef44',1,'openassetio::v1::Context']]]
 ];

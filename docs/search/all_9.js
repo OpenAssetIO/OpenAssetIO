@@ -16,9 +16,9 @@ var searchData=
   ['interval',['interval',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#ac0e8b5630adc65e2991ffcbe9897819f',1,'openassetio::_core::debug::_Timer']]],
   ['invalidentityreference',['InvalidEntityReference',['../classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html',1,'openassetio::exceptions']]],
   ['isentityreference',['isEntityReference',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e',1,'openassetio.hostAPI.Manager.Manager.isEntityReference()'],['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4a434983789e0b6bc77c596010a2830e',1,'openassetio.managerAPI.ManagerInterface.ManagerInterface.isEntityReference()']]],
-  ['isformultiple',['isForMultiple',['../classopenassetio_1_1_context_1_1_context.html#afc1254282688e92d76fe86a24931330b',1,'openassetio::Context::Context']]],
-  ['isforread',['isForRead',['../classopenassetio_1_1_context_1_1_context.html#a906563e05341ad827dda75b6b3e40b05',1,'openassetio::Context::Context']]],
-  ['isforwrite',['isForWrite',['../classopenassetio_1_1_context_1_1_context.html#a789a0c08ae06bdfc27669e50cf7b9022',1,'openassetio::Context::Context']]],
+  ['isformultiple',['isForMultiple',['../structopenassetio_1_1v1_1_1_context.html#aaf0c2d6b4ae660792de792464dede5c3',1,'openassetio::v1::Context']]],
+  ['isforread',['isForRead',['../structopenassetio_1_1v1_1_1_context.html#a8a43470d68fa651e356e61ff8f89b148',1,'openassetio::v1::Context']]],
+  ['isforwrite',['isForWrite',['../structopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976',1,'openassetio::v1::Context']]],
   ['issuccessful',['isSuccessful',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a3d275eae44512b72b40f0f4926ec1f61',1,'openassetio::test::manager::__main__']]],
   ['isvalid',['isValid',['../classopenassetio_1_1_trait_1_1_trait.html#aea3954f1cb4285e7d02b8ee6a4994f97',1,'openassetio.Trait.Trait.isValid()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#aac1b70a2ed67ead038c4d3f5ac4d8a81',1,'openassetio::v1::trait::TraitBase::isValid()']]]
 ];

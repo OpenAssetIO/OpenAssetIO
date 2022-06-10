@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['value',['Value',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d',1,'openassetio::v1::trait::property']]]
+  ['sharedptr',['SharedPtr',['../namespaceopenassetio_1_1v1.html#ad71c1f3b8d46b57fd328d48cee283c1f',1,'openassetio::v1']]],
+  ['str',['Str',['../namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6',1,'openassetio::v1']]]
 ];

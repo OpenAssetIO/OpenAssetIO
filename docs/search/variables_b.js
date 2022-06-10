@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['size',['size',['../structoa___const_string_view.html#a685609860d73ccd0d45ada287ab9ab5f',1,'oa_ConstStringView::size()'],['../structoa___string_view.html#a854352f53b148adc24983a58a1866d66',1,'oa_StringView::size()']]],
-  ['start',['start',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#a550769bbd4e7537ff90a656f5b0c23b2',1,'openassetio::_core::debug::_Timer']]]
+  ['ref',['ref',['../classopenassetio_1_1exceptions_1_1_base_entity_exception.html#a6752968761dc456fe241271e0b76440b',1,'openassetio::exceptions::BaseEntityException']]],
+  ['reprargs',['reprArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#afb1954ccc782d423973d59123b58f261',1,'openassetio::_core::audit']]],
+  ['required',['required',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#ae81948490ddf54e80a22593640178350',1,'openassetio::test::manager::__main__']]],
+  ['retention',['retention',['../structopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820',1,'openassetio::v1::Context']]]
 ];

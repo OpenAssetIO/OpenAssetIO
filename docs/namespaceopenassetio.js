@@ -1,7 +1,6 @@
 var namespaceopenassetio =
 [
     [ "_core", "namespaceopenassetio_1_1__core.html", "namespaceopenassetio_1_1__core" ],
-    [ "Context", "namespaceopenassetio_1_1_context.html", "namespaceopenassetio_1_1_context" ],
     [ "exceptions", "namespaceopenassetio_1_1exceptions.html", "namespaceopenassetio_1_1exceptions" ],
     [ "hostAPI", "namespaceopenassetio_1_1host_a_p_i.html", "namespaceopenassetio_1_1host_a_p_i" ],
     [ "log", "namespaceopenassetio_1_1log.html", "namespaceopenassetio_1_1log" ],

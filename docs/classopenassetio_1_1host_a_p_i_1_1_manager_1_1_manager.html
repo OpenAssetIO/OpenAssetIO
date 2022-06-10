@@ -157,7 +157,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa4931c7349835e00d2fd25f15e189052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Retrieval</div></td></tr>
 <tr class="memitem:a490a0ea76fa32a9b46366aa60dea0a13"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a490a0ea76fa32a9b46366aa60dea0a13">defaultEntityReference</a> (self, traitSets, context)</td></tr>
-<tr class="memdesc:a490a0ea76fa32a9b46366aa60dea0a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>.  <a href="#a490a0ea76fa32a9b46366aa60dea0a13">More...</a><br /></td></tr>
+<tr class="memdesc:a490a0ea76fa32a9b46366aa60dea0a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context.  <a href="#a490a0ea76fa32a9b46366aa60dea0a13">More...</a><br /></td></tr>
 <tr class="separator:a490a0ea76fa32a9b46366aa60dea0a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>There are several common requests for basic, generic information about an entity that is assumed to be valid for all entity types.</p>
@@ -234,7 +234,7 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 </div></td></tr>
 <tr class="memitem:a0cf0c66325b67abe2563c310c46e1565"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a0cf0c66325b67abe2563c310c46e1565">createContext</a> (self, parent=None)</td></tr>
-<tr class="memdesc:a0cf0c66325b67abe2563c310c46e1565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> for use with the manager.  <a href="#a0cf0c66325b67abe2563c310c46e1565">More...</a><br /></td></tr>
+<tr class="memdesc:a0cf0c66325b67abe2563c310c46e1565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new Context for use with the manager.  <a href="#a0cf0c66325b67abe2563c310c46e1565">More...</a><br /></td></tr>
 <tr class="separator:a0cf0c66325b67abe2563c310c46e1565"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d86dea60401ee1318fc4050bec1bfce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce">freezeContext</a> (self, context)</td></tr>
 <tr class="memdesc:a3d86dea60401ee1318fc4050bec1bfce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Freezes the supplied context into a serializable token that can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#a3d86dea60401ee1318fc4050bec1bfce">More...</a><br /></td></tr>
@@ -367,15 +367,15 @@ Initialization</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> for use with the manager. </p>
+<p>Creates a new Context for use with the manager. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed, always use this method to create a new one.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">openassetio.Context</a> If supplied, the new context will clone the supplied <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>, and the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> will be given a chance to migrate any meaningful state etc... This can be useful when certain UI elements need to 'take a copy' of a context in its current state.</td></tr>
+    <tr><td class="paramname">parent</td><td>openassetio.Context If supplied, the new context will clone the supplied Context, and the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> will be given a chance to migrate any meaningful state etc... This can be useful when certain UI elements need to 'take a copy' of a context in its current state.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1_context_1_1_context.html">Context</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> </dd></dl>
 
 </div>
 </div>
@@ -409,12 +409,12 @@ Initialization</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a>. </p>
+<p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context. </p>
 <p>This can be used to ensure dialogs, prompts or publish locations default to some sensible value, avoiding the need for a user to re-enter such information. There may be situations where there is no meaningful default, so the caller should be robust to this situation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">traitSets</td><td><code>List[Set[str]]</code> The relevant trait sets for the type of entities required, these will be interpreted in conjunction with the context to determine the most sensible default.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The context the resulting reference will be used in, particular care should be taken to the access pattern as it has great bearing on the resulting reference.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The context the resulting reference will be used in, particular care should be taken to the access pattern as it has great bearing on the resulting reference.</td></tr>
   </table>
   </dd>
 </dl>
@@ -453,7 +453,7 @@ Initialization</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns an unambiguous, humanised display name for each entity. </p>
-<p>The display name may consider the Host, and any other relevant <a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> information to form a display name for an entity that can uniquely identify the entity in that context.</p>
+<p>The display name may consider the Host, and any other relevant Context information to form a display name for an entity that can uniquely identify the entity in that context.</p>
 <p>For example:</p>
 <ul>
 <li><code>"dive / build / cuttlefish / model / v1"</code> - for a version of an asset in an 'open recent' menu. </li>
@@ -462,7 +462,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -507,7 +507,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -554,7 +554,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -596,7 +596,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -654,7 +654,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">includeMetaVersions</td><td><code>bool</code> If <code>True</code>, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions will be retrieved.</td></tr>
     <tr><td class="paramname">maxNumVersions</td><td><code>int</code> Limits the number of versions collected for each entity. If more results are available than the limit, then the newest versions will be returned. If a value of -1 is used, then all results will be returned.</td></tr>
   </table>
@@ -709,7 +709,7 @@ Initialization</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">overrideVersionName</td><td><code>str</code> If supplied, then the call will return entity references for the version of the referenced assets that match the name specified here, ignoring any version inferred by the input reference.</td></tr>
   </table>
   </dd>
@@ -768,7 +768,7 @@ Initialization</h2></td></tr>
 <p>The returned token can be passed to <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> The context to freeze.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> The context to freeze.</td></tr>
   </table>
   </dd>
 </dl>
@@ -842,7 +842,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">references</td><td>List[str] A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, see the notes on array length above.</td></tr>
     <tr><td class="paramname">relationshipTraitsDataOrDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code></td></tr>
     <tr><td class="paramname">resultTraitSet</td><td><code>Set[str]</code> or None, a hint as to what traits the returned entities should have.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -993,12 +993,12 @@ This method may block for extended periods of time. </dd></dl>
 <p>For example, you would call this in order to see if the manager would like to manage the path of a scene file whilst choosing a destination to save to.</p>
 <p>This information should then be used to determine which options should be presented to the user. For example, if kIgnored was returned for a query as to the management of scene files, you should hide or disable menu items that relate to publish or loading of assetized scene files.</p>
 <p>If a manager returns kManaged, then it can be assumed that it is capable of retrieving (for a read context) and storing (for a write context) all of the supplied traits through resolve and <a class="el" href="glossary.html#register">register</a>.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="classopenassetio_1_1_context_1_1_context.html#a6bd9cab4f3703fc4c54ffff337306931">access</a> of the supplied context will be considered by the manager. If it is set to read, then it's response applies to resolution. If write, then it applies to publishing. Ignored reads can allow optimisations in a host as there is no longer a need to test/resolve applicable strings.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="structopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd">access</a> of the supplied context will be considered by the manager. If it is set to read, then it's response applies to resolution. If write, then it applies to publishing. Ignored reads can allow optimisations in a host as there is no longer a need to test/resolve applicable strings.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>One very important attribute returned as part of this policy is the <a class="el" href="namespaceopenassetio_1_1constants.html#aee1f51159c5e4ddb759d0ba4566bf638">openassetio.constants.kWillManagePath</a> bit. If set, you can assume the asset management system will manage the path to use for the creation of any new assets. you must then always call <a class="el" href="glossary.html#preflight">preflight</a> before any file creation to allow the asset management system to determine and prepare the work path, and then use this path to write data to, prior to calling <a class="el" href="glossary.html#register">register</a>. If this bit is off, then you should take care of writing data yourself (maybe prompting the user for a location on disk), and then only call <a class="el" href="glossary.html#register">register</a> to create the new entity.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">traitSets</td><td><code>List[Set[str]]</code> The entity <a class="el" href="glossary.html#trait">traits</a> to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1043,7 +1043,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">references</td><td><code>List[</code> <a class="el" href="glossary.html#entity_reference">Entity Reference</a> <code>]</code> A list of references to prefetch data for.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a></td></tr>
+    <tr><td class="paramname">context</td><td>Context</td></tr>
   </table>
   </dd>
 </dl>
@@ -1090,13 +1090,13 @@ This method may block for extended periods of time. </dd></dl>
 <p>It signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. The entity does not need to exist yet (see <a class="el" href="glossary.html#entity_reference">Entity Reference</a>) or it may be a parent entity that you are about to create a child of or some other similar relationship (it actually doesn't matter really, as this <a class="el" href="glossary.html#entity_reference">Entity Reference</a> will ultimately have been determined by interaction with the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>, and it will have returned you something meaningful).</p>
 <p>It should be called before <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c" title="Register should be used to register new entities either when originating new data within the applicat...">register()</a> if you are about to create media or write to files. If the file or data already exists, then preflight is not needed. It will return a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each given entity, which can be resolved in order to determine a working path that the files should be written to.</p>
 <p>This call is designed to allow sanity checking, placeholder creation or any other sundry preparatory actions to be carried out by the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. In the case of file-based entities, the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> may even use this opportunity to switch to some temporary working path or some such.</p>
-<dl class="section note"><dt>Note</dt><dd>It's vital that the <a class="el" href="glossary.html#Context">Context</a> is well configured here, in particular the <a class="el" href="classopenassetio_1_1_context_1_1_context.html#abc1e0df5ea26e8db743f495932630e4b">Context.retention</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It's vital that the <a class="el" href="glossary.html#Context">Context</a> is well configured here, in particular the <a class="el" href="structopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820">Context.retention</a>.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned by this method should <em>always</em> be used in place of the original reference supplied to <code>preflight</code> for resolves prior to registration, and for the final call to <a class="el" href="glossary.html#register">register</a> itself. See <a class="el" href="examples.html#example_publishing_a_file">Publishing a File</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> The entity references to preflight prior to registration.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entites that are being published.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1159,7 +1159,7 @@ When registering files, it should never be assumed that the resulting <a class="
   <table class="params">
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> Entity references to publish to.</td></tr>
     <tr><td class="paramname">entityTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code> The data to register for each entity. NOTE: All supplied instances should have the same trait set.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1220,7 +1220,7 @@ When registering files, it should never be assumed that the resulting <a class="
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="namespaceopenassetio_1_1_context.html" title="A single-class module, providing the Context class. ">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The trait IDs to resolve for the supplied list of entity references. Only traits applicable to the supplied entity references will be set in the resulting data.</td></tr>
   </table>
   </dd>
@@ -1296,7 +1296,7 @@ When registering files, it should never be assumed that the resulting <a class="
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1_context.html">openassetio.Context</a> A context that will be associated with the previously frozen one by the manager.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> A context that will be associated with the previously frozen one by the manager.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Should we concatenate the manager id in freeze so we can verify that they match? </dd></dl>
