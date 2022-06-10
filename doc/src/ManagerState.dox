@@ -35,8 +35,8 @@
  * Whenever a @ref Context is created by the host, the
  * @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
  * "ManagerInterface.createState" method will be called, and the
- * returned token stored in the Context's @ref openassetio.Context.Context.managerInterfaceState
- * "managerInterfaceState" property.
+ * returned token stored in the Context's @fqref{Context::managerState}
+ * "managerState" property.
  *
  * @startuml
  * actor host
@@ -45,12 +45,12 @@
  * ManagerInterface -> ManagerInterface : __createSnapshotToken()
  * ManagerInterface --> Manager : token
  * Manager -> Manager : new Context()
- * Manager -> Manager : context.managerInterfaceState = token
+ * Manager -> Manager : context.managerState = token
  * Manager --> host : context
  * ...
  * host -> Manager : register(..., context)
  * Manager -> ManagerInterface : register(..., context, hostSession)
- * ManagerInterface -> ManagerInterface : state = context.managerInterfaceState
+ * ManagerInterface -> ManagerInterface : state = context.managerState
  * ...
  * @enduml
  *

@@ -86,7 +86,7 @@ namespace managerAPI {
  * The one exception being Manager::initialize, this will never be
  * called concurrently.
  *
- * When a @ref openassetio.Context object is constructed by @ref
+ * When a @fqref{Context} "Context" object is constructed by @ref
  * openassetio.hostAPI.Manager.Manager.createContext, the @needsref
  * createState method will be called, and the resulting state object
  * stored in the context. This context will then be re-used across

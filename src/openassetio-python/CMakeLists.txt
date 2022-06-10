@@ -41,6 +41,7 @@ target_sources(
     openassetio-python
     PRIVATE
     _openassetio.cpp
+    ContextBinding.cpp
     TraitsDataBinding.cpp
     hostAPI/ManagerBinding.cpp
     hostAPI/HostInterfaceBinding.cpp

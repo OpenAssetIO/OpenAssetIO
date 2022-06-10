@@ -81,9 +81,8 @@
  *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
  *   "createState", and return some token that can be used as an anchor. A
  *   new token will be requested each time a @ref Context is made, and
- *   will then be available via
- *   @ref openassetio.Context.Context.managerInterfaceState
- *   "Context.managerInterfaceState" in any call that receives a context.
+ *   will then be available via @fqref{Context::managerState}
+ *   "Context.managerState" in any call that receives a context.
  *   Hosts will take care of managing the lifetime of any given Context in
  *   terms that are meaningful for the user. Eg. the state token will be
  *   shared across distributed multi-host renders.
@@ -236,7 +235,7 @@
  * @see @ref entities_traits_and_specifications
  * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
  * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
- * @see @ref openassetio.Context "Context"
+ * @see @fqref{Context} "Context"
  * @see @ref openassetio.managerAPI.Host "Host"
  * @see @needsref ManagerUIDelegate
  * @see @needsref ui.widgets

@@ -103,7 +103,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     The one exception being Manager::initialize, this will never be
     called concurrently.
 
-    When a @ref openassetio.Context object is constructed by @ref
+    When a @fqref{Context} "Context" object is constructed by @ref
     openassetio.hostAPI.Manager.Manager.createContext, the @ref
     createState method will be called, and the resulting state object
     stored in the context. This context will then be re-used across
@@ -264,7 +264,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         prefetched.
 
         @param context openassetio.Context You may wish to make use of
-        the managerInterfaceState object (if you supplied one on
+        the managerState object (if you supplied one on
         construction of the context), to simplify scoping any caching of
         data. Otherwise, it's up to you how to manage the lifetime of
         the data to avoid inconsistencies, but the @ref flushCaches
@@ -312,7 +312,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         files, and not involve the manager in any actions realting to
         scene files.
 
-        @warning The @ref openassetio.Context.Context.access "access"
+        @warning The @fqref{Context::access} "access"
         specified in the supplied context should be carefully considered.
         A host will independently query the policy for both read and
         write access to determine if resolution and publishing features
@@ -1028,9 +1028,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         host should retry from the beginning of any given process.
 
         @note it is important for the implementation to pay attention
-        to @ref openassetio.Context.Context.retention
-        "Context.retention", as not all hosts will support the
-        reference changing at this point.
+        to @fqref{Context::retention} "Context.retention", as not all
+        hosts will support the reference changing at this point.
 
         @see @ref register
         """
@@ -1102,7 +1101,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         host should retry from the beginning of any given process.
 
         @note it is important for the implementation to pay attention to
-        openassetio.Context.Context.retention, as not all Hosts will
+        @fqref{Context::retention} "retention", as not all Hosts will
         support the reference changing at this point.
 
         @see @fqref{TraitsData} "TraitsData"
@@ -1144,11 +1143,10 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         @ref openassetio.hostAPI.Manager.Manager.createContext. The
         return is then stored in the newly created Context, and is
         consequently available to all the API calls in the
-        ManagerInterface that take a Context instance via @ref
-        openassetio.Context.Context.managerInterfaceState
-        "managerInterfaceState". Your implementation can then use this
-        to anchor the api call to a particular snapshot of the state of
-        the asset inventory.
+        ManagerInterface that take a Context instance via
+        @fqref{Context::managerState} "managerState". Your
+        implementation can then use this to anchor the api call to a
+        particular snapshot of the state of the asset inventory.
 
         @param hostSession openassetio.managerAPI.HostSession, The host
         session that maps to the caller. This should be used for all

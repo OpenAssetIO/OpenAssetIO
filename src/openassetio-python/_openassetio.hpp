@@ -14,6 +14,9 @@
 /// Concise pybind alias.
 namespace py = pybind11;
 
+/// Register the Context class with Python.
+void registerContext(const py::module& mod);
+
 /// Register the HostInterface class with Python.
 void registerHostInterface(const py::module& mod);
 
