@@ -24,7 +24,7 @@ Tests that cover the openassetio.hostAPI.terminology module.
 import pytest
 
 import openassetio.hostAPI.terminology as tgy
-from openassetio.hostAPI import Manager, Session
+from openassetio.hostAPI import Manager
 
 
 all_terminology_keys = (
@@ -73,9 +73,9 @@ class MockTerminologyManager(Manager):
 
 
 @pytest.fixture
-def mock_manager(mock_manager_interface):
+def mock_manager(mock_manager_interface, mock_host_session):
     return MockTerminologyManager(
-        mock_manager_interface, mock.create_autospec(Session))
+        mock_manager_interface, mock_host_session)
 
 
 @pytest.fixture
