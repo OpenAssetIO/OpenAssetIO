@@ -8,8 +8,9 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostAPI {
 
-Manager::Manager(managerAPI::ManagerInterfacePtr managerInterface)
-    : managerInterface_{std::move(managerInterface)} {}
+Manager::Manager(managerAPI::ManagerInterfacePtr managerInterface,
+                 managerAPI::HostSessionPtr hostSession)
+    : managerInterface_{std::move(managerInterface)}, hostSession_{std::move(hostSession)} {}
 
 Str Manager::identifier() const { return managerInterface_->identifier(); }
 Str Manager::displayName() const { return managerInterface_->displayName(); }

@@ -86,17 +86,16 @@ class Test_Manager_init:
 
     def test_when_constructed_with_ManagerInterface_as_None_then_raises_TypeError(
             self, mock_host_session):
-        with pytest.raises(TypeError) as err:
+
+        # Check the message is both helpful and that the bindings
+        # were loaded in the correct order such that types are
+        # described correctly.
+        matchExpr = \
+            r".+The following argument types are supported:[^(]+" \
+            r"Manager\([^,]+managerAPI.ManagerInterface,[^,]+managerAPI.HostSession.+"
+
+        with pytest.raises(TypeError, match=matchExpr):
             Manager(None, mock_host_session)
-
-        assert str(err.value) == (
-            '__init__(): incompatible constructor arguments. The following argument types '
-            'are supported:\n'
-            '    1. openassetio._openassetio.hostAPI.Manager(managerInterface: '
-            'openassetio._openassetio.managerAPI.ManagerInterface)\n'
-            '\n'
-            'Invoked with: None')
-
 
 class Test_Manager_identifier:
 
