@@ -293,6 +293,7 @@
  * The manager's state object is opaque to the host.
  *
  *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState "ManagerInterface.createState"
+ *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createChildState "ManagerInterface.createChildState"
  *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.freezeState "ManagerInterface.freezeState"
  *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.thawState "ManagerInterface.thawState"
  *

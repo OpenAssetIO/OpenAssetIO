@@ -49,7 +49,7 @@ v1.0.0-alpha.X
   [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
 
 - Renamed `Context.managerInterfaceState` to `Context.managerState`.
-  [291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+  [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
 
 - Changed `Context.kOther` to `kUnknown`, and changed the default
   context access to `kUnknown`. This better describes its use, and
@@ -58,7 +58,12 @@ v1.0.0-alpha.X
 - Changed `Context` access and retention constants to `enum`s in C++
   that are bound to Python as opaque instances (via `pybind11::enum_`),
   rather than strings and integers, respectively.
-  [291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+  [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
+
+- Split `ManagerInterface::createState` into `createState` and
+  `createChildState` to more explicitly state intent, and simplify
+  language bindings.
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 
 ### Improvements

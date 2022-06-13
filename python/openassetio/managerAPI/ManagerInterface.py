@@ -105,13 +105,14 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
 
     When a @fqref{Context} "Context" object is constructed by @ref
     openassetio.hostAPI.Manager.Manager.createContext, the @ref
-    createState method will be called, and the resulting state object
-    stored in the context. This context will then be re-used across
-    related API calls to your implementation of the ManagerInterface.
-    You can use this to determine which calls may be part of a specific
-    'action' in the same host, or logically grouped processes such as a
-    batch render. This should allow you to implement stable resolution
-    of @ref meta_version "meta-versions" or other resolve-time concepts.
+    createState (or @ref createChildState) method will be called, and
+    the resulting state object stored in the context. This context will
+    then be re-used across related API calls to your implementation of
+    the ManagerInterface. You can use this to determine which calls may
+    be part of a specific 'action' in the same host, or logically
+    grouped processes such as a batch render. This should allow you to
+    implement stable resolution of @ref meta_version "meta-versions" or
+    other resolve-time concepts.
 
     There should be no persistent state in the implementation, concepts
     such as getError(), etc.. for example should not be used.
@@ -1131,7 +1132,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     #
     # @{
 
-    def createState(self, hostSession, parentState=None):
+    def createState(self, hostSession):
         """
         Create a new object to represent the state of the interface and
         return it (or some handle that can be persisted within the
@@ -1153,13 +1154,44 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         logging and provides access to the openassetio.managerAPI.Host
         object representing the process that initiated the API session.
 
-        @param parentState obj, If present, it is to be assumed that the
-        new state is considered a 'child' of the supplied state. This
-        may be used when creating a child Context for persistence
-        somewhere in a UI, etc... when further processing may change the
-        access/retention of the Context. It is expected that the manager
-        will migrate any applicable state components to this child
-        context, for example - a timestamp used for 'vlatest'.
+        @return `object` Some object that represents self-contained
+        state of the ManagerInterface. This will be passed to future
+        calls. Presently this can be any hashable object.
+
+        @exception exceptions.StateError If for some reason creation
+        fails.
+
+        @see @ref createChildState
+        @see @ref freezeState
+        @see @ref thawState
+        """
+        return None
+
+    def createChildState(self, hostSession, parentState):
+        """
+        Create a state that is a child of the supplied state.
+
+        This method is called whenever a child @ref Context is made by
+        @ref openassetio.hostAPI.Manager.Manager.createContext. The
+        return is then stored in the newly created Context, and is
+        consequently available to all the API calls in the
+        ManagerInterface that take a Context instance via
+        @fqref{Context::managerState} "managerState". Your
+        implementation can then use this to anchor the api call to a
+        particular snapshot of the state of the asset inventory.
+
+        @param hostSession openassetio.managerAPI.HostSession, The host
+        session that maps to the caller. This should be used for all
+        logging and provides access to the openassetio.managerAPI.Host
+        object representing the process that initiated the API session.
+
+        @param parentState obj, The new state is to be considered a
+        'child' of the supplied state. This may be used when creating a
+        child Context for persistence somewhere in a UI, etc... when
+        further processing may change the access/retention of the
+        Context. It is expected that the manager will migrate any
+        applicable state components to this child context, for example -
+        a timestamp used for 'vlatest'.
 
         @return `object` Some object that represents self-contained
         state of the ManagerInterface. This will be passed to future
@@ -1168,10 +1200,12 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         @exception exceptions.StateError If for some reason creation
         fails.
 
+        @see @ref createState
         @see @ref freezeState
         @see @ref thawState
         """
         return None
+
 
     def freezeState(self, state, hostSession):
         """

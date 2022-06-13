@@ -180,8 +180,11 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession)
 
-    def createState(self, hostSession, parentState=None):
-        return self.mock.createState(hostSession, parentState)
+    def createState(self, hostSession):
+        return self.mock.createState(hostSession)
+
+    def createChildState(self, hostSession, parentState):
+        return self.mock.createChildState(hostSession, parentState)
 
     def freezeState(self, state, hostSession):
         return self.mock.freezeState(state, hostSession)

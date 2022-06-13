@@ -88,13 +88,14 @@ namespace managerAPI {
  *
  * When a @fqref{Context} "Context" object is constructed by @ref
  * openassetio.hostAPI.Manager.Manager.createContext, the @needsref
- * createState method will be called, and the resulting state object
- * stored in the context. This context will then be re-used across
- * related API calls to your implementation of the ManagerInterface.
- * You can use this to determine which calls may be part of a specific
- * 'action' in the same host, or logically grouped processes such as a
- * batch render. This should allow you to implement stable resolution
- * of @ref meta_version "meta-versions" or other resolve-time concepts.
+ * createState or @needsref createChildState method will be called, and
+ * the resulting state object stored in the context. This context will
+ * then be re-used across related API calls to your implementation of
+ * the ManagerInterface. You can use this to determine which calls may
+ * be part of a specific 'action' in the same host, or logically grouped
+ * processes such as a batch render. This should allow you to implement
+ * stable resolution of @ref meta_version "meta-versions" or other
+ * resolve-time concepts.
  *
  * There should be no persistent state in the implementation, concepts
  * such as getError(), etc.. for example should not be used.

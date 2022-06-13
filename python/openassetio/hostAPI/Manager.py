@@ -1064,12 +1064,13 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
             context.retention = parent.retention
             context.locale = parent.locale
 
-        parentState = None
+        # Ask the interface to create a state for us
         if parent:
-            parentState = parent.managerState
+            state = self.__impl.createChildState(self.__hostSession, parent.managerState)
+        else:
+            state = self.__impl.createState(self.__hostSession)
+        context.managerState = state
 
-        context.managerState = self.__impl.createState(
-            self.__hostSession, parentState=parentState)
         return context
 
 
