@@ -21,8 +21,6 @@ Tests that cover the openassetio.hostAPI.terminology module.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest import mock
-
 import pytest
 
 import openassetio.hostAPI.terminology as tgy
