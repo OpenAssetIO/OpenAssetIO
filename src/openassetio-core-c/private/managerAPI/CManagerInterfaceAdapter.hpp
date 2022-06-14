@@ -41,6 +41,10 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   /// Wrap the C suite's `info` function.
   [[nodiscard]] InfoDictionary info() const override;
 
+  /// Wrap the C suite's `initialize` function.
+  /// @todo Implement C API. Currently a no-op.
+  void initialize(HostSessionPtr hostSession) override;
+
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
   oa_managerAPI_CManagerInterface_h handle_;

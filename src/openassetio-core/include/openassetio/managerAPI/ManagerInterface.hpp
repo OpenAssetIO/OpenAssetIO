@@ -5,6 +5,7 @@
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -83,7 +84,7 @@ namespace managerAPI {
  * Threading
  * ---------
  * Any implementation of the ManagerInterface should be thread safe.
- * The one exception being Manager::initialize, this will never be
+ * The one exception being @ref initialize, this will never be
  * called concurrently.
  *
  * When a @fqref{Context} "Context" object is constructed by @ref
@@ -124,7 +125,7 @@ namespace managerAPI {
  * informational methods must be available pre-initialization, so that
  * UI and other display-type queries can be made relatively cheaply to
  * provide users with a list of managers and their settings. None of
- * the entity-related methods will be called until after @needsref
+ * the entity-related methods will be called until after @ref
  * initialize has been called. The following methods must be callable
  * prior to initialization:
  *
@@ -136,7 +137,7 @@ namespace managerAPI {
  *    @li @needsref setSettings()
  *
  * @todo Finish/Document settings mechanism.
- * @see @needsref initialize
+ * @see @ref initialize
  */
 class OPENASSETIO_CORE_EXPORT ManagerInterface {
  public:
@@ -222,6 +223,56 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @return Map of info string key to primitive value.
    */
   [[nodiscard]] virtual InfoDictionary info() const;
+
+  /**
+   * @}
+   */
+
+  /**
+   * @name Initialization
+   *
+   * @{
+   */
+
+  /**
+   * Prepares for interaction with a host.
+   *
+   * This is a good opportunity to initialize any persistent
+   * connections to a back end implementation, as @needsref setSettings
+   * will have already been called (if applicable). It is fine for
+   * this call to block for a period of time.
+   *
+   * If an exception is raised by this call, it signifies to the host
+   * that a fatal error occurred, and this @ref
+   * asset_management_system is not available with the current
+   * settings.
+   *
+   * If no exception is raised, it can be assumed that the @ref
+   * asset_management_system is ready. It is the implementations
+   * responsibility to deal with transient connection errors (if
+   * applicable) once initialized.
+   *
+   * The behavior of calling initialize() on an already initialized
+   * instance should be a no-op, but if an error was raised
+   * previously, then initialization should be re-attempted.
+   *
+   * @note This will always be called prior to any Entity-related
+   * calls. An exception should be raised if this is not the case. It
+   * is however, the following functions may be called prior to
+   * initialization:
+   *
+   *  @li @ref identifier()
+   *  @li @ref displayName()
+   *  @li @ref info()
+   *  @li @needsref updateTerminology()
+   *  @li @needsref getSettings()
+   *  @li @needsref setSettings()
+   *
+   * @todo We need a 'teardown' method to, before a manager is
+   * de-activated in a host, to allow any event registrations etc...
+   * to be removed.
+   */
+  virtual void initialize(HostSessionPtr hostSession) = 0;
 
   /**
    * @}

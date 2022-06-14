@@ -13,8 +13,12 @@ Manager::Manager(managerAPI::ManagerInterfacePtr managerInterface,
     : managerInterface_{std::move(managerInterface)}, hostSession_{std::move(hostSession)} {}
 
 Str Manager::identifier() const { return managerInterface_->identifier(); }
+
 Str Manager::displayName() const { return managerInterface_->displayName(); }
+
 InfoDictionary Manager::info() const { return managerInterface_->info(); }
+
+void Manager::initialize() { managerInterface_->initialize(hostSession_); }
 
 }  // namespace hostAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

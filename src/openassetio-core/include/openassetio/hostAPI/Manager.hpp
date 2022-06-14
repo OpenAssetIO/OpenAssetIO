@@ -51,7 +51,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * These functions provide general information about the @ref
    * asset_management_system itself. These can all be called before
-   * @needsref initialize has been called.
+   * @ref initialize has been called.
    *
    * @{
    */
@@ -94,6 +94,52 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * openassetio.constants.kField_EntityReferencesMatchPrefix.
    */
   [[nodiscard]] InfoDictionary info() const;
+
+  /**
+   * @}
+   */
+
+  /**
+   * @name Initialization
+   *
+   * @note Manager initialization is generally managed by the
+   * @ref openassetio.hostAPI.Session "Session" and these methods
+   * generally don't need to be called directly by host code.
+   *
+   * @{
+   */
+
+  /**
+   * Prepares the Manager for interaction with a host. In order to
+   * provide light weight inspection of available Managers, initial
+   * construction must be cheap. However most system require some
+   * kind of handshake or back-end setup in order to make
+   * entity-related queries. As such, the @ref initialize method is
+   * the instruction to the Manager to prepare itself for full
+   * interaction.
+   *
+   * If an exception is raised by this call, its is safe to assume
+   * that a fatal error occurred, and this @ref
+   * asset_management_system is not available, and should be retried
+   * later.
+   *
+   * If no exception is raised, it can be assumed that the @ref
+   * asset_management_system is ready. It is the implementations
+   * responsibility to deal with transient connection errors (if
+   * applicable) once initialized.
+   *
+   * The behavior of calling initialize() on an already initialized
+   * Manager should be a no-op, but if an error was raised
+   * previously, then initialization will be re-attempted.
+   *
+   * @note This must be called prior to any entity-related calls or
+   * an Exception will be raised.
+   *
+   * @note This method may block for extended periods of time.
+   *
+   * @protected
+   */
+  void initialize();
 
   /**
    * @}
