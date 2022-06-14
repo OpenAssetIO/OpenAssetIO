@@ -82,8 +82,8 @@ The process for feature development is as follows (we use the [GitHub flow](http
 
 The mix of languages used in this project means there are some important
 guidelines on how to format code and documentation written for the
-project. These are outlined in the [coding standards](CODING_STANDARDS.md)
-guide.
+project. These are outlined in the [coding style](CODING_STYLE.md) and
+[coding standards](CODING_STANDARDS.md) guides.
 
 ### Change Log
 
@@ -118,6 +118,7 @@ trusted committers for more information.
 
 ## Further reading
 
+- [Coding style](CODING_STYLE.md)
 - [Coding standards](CODING_STANDARDS.md)
 - [Pull Requests](PULL_REQUESTS.md)
 - [Commits and commit messages](COMMITS.md)

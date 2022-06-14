@@ -12,7 +12,7 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace handles::hostAPI {
-using Manager = Converter<openassetio::hostAPI::Manager, oa_hostAPI_Manager_h>;
+using SharedManager = Converter<openassetio::hostAPI::ManagerPtr, oa_hostAPI_Manager_h>;
 }
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

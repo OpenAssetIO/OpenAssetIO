@@ -119,9 +119,10 @@ SCENARIO("A host calls Manager::identifier") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
 
     // Create the Manager under test.
-    hostAPI::Manager manager{mockManagerInterfacePtr};
+    hostAPI::ManagerPtr manager =
+        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr);
     // Create the handle for the Manager under test.
-    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
@@ -178,9 +179,10 @@ SCENARIO("A host calls Manager::displayName") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
 
     // Create the Manager under test.
-    hostAPI::Manager manager{mockManagerInterfacePtr};
+    hostAPI::ManagerPtr manager =
+        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr);
     // Create the handle for the Manager under test.
-    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');
@@ -237,9 +239,9 @@ SCENARIO("A host calls Manager::info") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
 
     // Create the Manager under test.
-    hostAPI::Manager manager{mockManagerInterfacePtr};
+    hostAPI::ManagerPtr manager = std::make_shared<hostAPI::Manager>(mockManagerInterfacePtr);
     // Create the handle for the Manager under test.
-    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::Manager::toHandle(&manager);
+    oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStringBufferSize, '\0');

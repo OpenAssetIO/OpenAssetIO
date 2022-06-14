@@ -1,56 +1,10 @@
 # Coding Standards
 
-### Line wrapping
+This document covers the specifics of how code should be structured.
+Details on code formatting conventions can be found in the
+[Coding Style](CODING_STYLE.md) guide.
 
-Line wrapping is performed at 99 characters for code, and 72 characters
-for docstrings and comments (as per PEP8).
-
-This also applies to C++ code - 99 characters, apart from comments that
-we strive to keep within 72 characters.
-
-For markdown documents, line wrapping is also performed at 72
-characters, where possible.
-
-### C++
-
-We mostly follow the [Google Style Guide](https://google.github.io/styleguide/cppguide.html)
-with a few exceptions, as detailed in the configuration of the linters
-described below.
-
-CI is configured to enforce [Clang-Format](https://clang.llvm.org/docs/ClangFormat.html),
-[Clang-Tidy 12](https://releases.llvm.org/12.0.0/tools/clang/tools/extra/docs/clang-tidy)
-and [Cpplint](https://github.com/cpplint/cpplint) checks.
-
-Clang-Tidy and Cpplint can be enabled as part of the build process using
-CMake boolean variables `OPENASSETIO_ENABLE_CLANG_TIDY` and
-`OPENASSETIO_ENABLE_CPPLINT`, respectively.
-
-Clang-Format is configured as per the `.clang-format` at the root of the
-repository. 
-
-Similarly, Clang-Tidy is configured as per the `.clang-tidy`
-at the root of the repository, but with the additional command-line flag
-`-extra-arg=-Wno-unknown-warning-option` to avoid false positives when 
-using GCC.
-
-Cpplint is configured as per the `CPPLINT.cfg` in the `src` directory,
-but with the additional command-line flag 
-`--includeorder=standardcfirst` to avoid false positives with 
-third-party libraries.
-
-### Python
-
-For Python code we aim to adhere to the PEP8 convention, with a few
-exceptions. Of these exceptions, the most obvious is that the naming
-scheme is designed to more closely mirror our C++ naming conventions,
-to ease C++ interop implementation and readability.
-
-### Example code
-
-An exception to the above is for code examples written in Python. Here,
-PEP8 should be strictly followed, including its naming conventions.
-
-### Method/function naming
+## Method/function naming
 
 Accessor (getter) methods that do not have a corresponding mutator
 (setter) method at the same or higher access level (e.g. public getter
@@ -62,7 +16,7 @@ _should_ be prefixed with `get` and `set`, respectively.
 
 This makes it easier to determine the API surface at a glance.
 
-### Test cases
+## Test cases
 
 Where feasible, Python unit test cases should use a class for each unit,
 where the methods of the test class are the test cases for that unit. In
@@ -92,27 +46,62 @@ Sometimes the test is trivial, in that the unit is small and only has
 one code path. In that case shoehorning a test case description into a
 `when`/`then` style may be less readable than a simpler ad-hoc
 alternative. Best judgement should be used, bearing in mind readability
-and consistency tradeoffs.
+and consistency trade-offs.
 
-### IDE configuration
+## C++
 
-To aid in conforming to our coding style a [`.editorconfig`](https://editorconfig.org/)
-file is included in the root of the repository, which has wide support
-across various IDEs. For supported IDEs this config file can override
-the default settings for inspections and formatting refactors.
+### Classes
 
-In particular, more granular settings are included for IntelliJ-based
-IDEs (for example, PyCharm) via the `ij_*` extensions.
+C++ classes that represent system components with reference semantics
+(as opposed to 'value' types) should inherit
+`std::enable_shared_from_this` and define a peer `Ptr` alias using
+the `openassetio::SharedPtr`.
 
-Common file types that we expect to encounter during development of
-OpenAssetIO have their own settings, many of which remain commented out
-for reference and may be enabled and tweaked in future.
+```cpp
+class MyClass : std::enable_shared_from_this<MyClass> { ... };
+using MyClassPtr = openassetio::SharedPtr<MyClass>;
+```
 
-As mentioned in the [C++](#c) section above, a `.clang-format` 
-configuration for C++ is included at the root of the repository, which
-has wide support in various IDEs to aid in auto-formatting.
+This is to simplify memory management across the complex range of
+language bindings within the project.
 
-### Environment variables
+## C
+
+### Handles
+
+C Handles that manage reference semantics objects should always use a
+`<T>Ptr` over a raw pointer, and use a `Shared` suffix in their naming,
+to facilitate object exchange through multiple languages bindings.
+
+```cpp
+using SharedMyClass = Converter<MyClassPtr, oa_SharedMyClass_h>;
+```
+
+## Python bindings
+
+### Holder classes for reference-semantic types
+
+When binding something with reference semantics to python, the holder
+should always be a `<T>Ptr`. `pybind` understands `std::shared_ptr`, and
+this avoids memory management issues when objects are exchanged through
+multiple language bindings.
+
+```cpp
+py::class_<MyClass, MyClassPtr>(module, "MyClass")
+  ...
+```
+
+### Methods with pointer arguments
+
+When binding methods that take a `<T>Ptr`, (almost) always use the
+`.none(false)` modifier to ensure `None` is not implicitly converted to
+a null pointer.
+
+```cpp
+    .def("setHost", py::arg("host").none(false))
+```
+
+## Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
 For example, `OPENASSETIO_LOGGING_SEVERITY`.
@@ -121,22 +110,3 @@ When documenting environment variables in docstrings or doxygen comment
 blocks, precede the variable name with the `@envvar` tag, which will
 cause the variable and its description to be listed in the _Environment
 Variable List_ page of the generated documentation.
-
-### Parameter documentation
-
-All method parameters should be documented in docstrings or doxygen
-comment blocks.
-
-In Python, as our configuration can't determine parameter types, we must
-manually specify those. This should be in the following form for
-OpenAssetIO defined types:
-
-```
-@param <name> <path> "<short.path>" Description text.
-```
-
-And the following, for built-ins or external types (note the backticks):
-
-```
-@param <name> `<external_type>` Description text.
-```

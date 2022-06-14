@@ -101,6 +101,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
   managerAPI::ManagerInterfacePtr managerInterface_;
 };
 
+using ManagerPtr = SharedPtr<Manager>;
 }  // namespace hostAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -32,22 +32,22 @@ oa_ErrorCode oa_hostAPI_Manager_ctor(
     managerAPI::ManagerInterfacePtr& managerInterfacePtr =
         *handles::managerAPI::SharedManagerInterface::toInstance(managerInterfaceHandle);
 
-    auto* manager = new hostAPI::Manager{managerInterfacePtr};
-
-    *handle = handles::hostAPI::Manager::toHandle(manager);
+    auto* manager = new hostAPI::ManagerPtr;
+    *manager = std::make_shared<hostAPI::Manager>(managerInterfacePtr);
+    *handle = handles::hostAPI::SharedManager::toHandle(manager);
 
     return oa_ErrorCode_kOK;
   });
 }
 
 void oa_hostAPI_Manager_dtor(oa_hostAPI_Manager_h handle) {
-  delete handles::hostAPI::Manager::toInstance(handle);
+  delete handles::hostAPI::SharedManager::toInstance(handle);
 }
 
 oa_ErrorCode oa_hostAPI_Manager_identifier(oa_StringView* err, oa_StringView* out,
                                            oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
-    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
+    const hostAPI::ManagerPtr manager = *handles::hostAPI::SharedManager::toInstance(handle);
     openassetio::assignStringView(out, manager->identifier());
 
     return oa_ErrorCode_kOK;
@@ -57,7 +57,7 @@ oa_ErrorCode oa_hostAPI_Manager_identifier(oa_StringView* err, oa_StringView* ou
 oa_ErrorCode oa_hostAPI_Manager_displayName(oa_StringView* err, oa_StringView* out,
                                             oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
-    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
+    const hostAPI::ManagerPtr manager = *handles::hostAPI::SharedManager::toInstance(handle);
     openassetio::assignStringView(out, manager->displayName());
 
     return oa_ErrorCode_kOK;
@@ -68,7 +68,7 @@ oa_ErrorCode oa_hostAPI_Manager_info(oa_StringView* err, oa_InfoDictionary_h out
                                      oa_hostAPI_Manager_h handle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     openassetio::InfoDictionary* outDict = handles::InfoDictionary::toInstance(out);
-    const hostAPI::Manager* manager = handles::hostAPI::Manager::toInstance(handle);
+    const hostAPI::ManagerPtr manager = *handles::hostAPI::SharedManager::toInstance(handle);
 
     *outDict = manager->info();
 

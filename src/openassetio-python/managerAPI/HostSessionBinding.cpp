@@ -10,10 +10,9 @@
 void registerHostSession(const py::module& mod) {
   using openassetio::managerAPI::HostPtr;
   using openassetio::managerAPI::HostSession;
+  using openassetio::managerAPI::HostSessionPtr;
 
-  // HostSession is cheap and has no independent shared state, so no
-  // need for a `shared_ptr` holder.
-  py::class_<HostSession>(mod, "HostSession")
+  py::class_<HostSession, HostSessionPtr>(mod, "HostSession")
       .def(py::init<HostPtr>(), py::arg("host").none(false))
       .def("host", &HostSession::host);
 }
