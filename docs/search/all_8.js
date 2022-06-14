@@ -12,5 +12,6 @@ var searchData=
   ['hostptr',['HostPtr',['../namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a917222924af42501ed0a68c71d2490ca',1,'openassetio::v1::managerAPI']]],
   ['hostsession',['HostSession',['../classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html',1,'openassetio::v1::managerAPI']]],
   ['hostsession',['HostSession',['../classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html#ac9368ecf418415728132e1d9bf069743',1,'openassetio::v1::managerAPI::HostSession']]],
-  ['hostsession',['HostSession',['../classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html',1,'openassetio::managerAPI::HostSession']]]
+  ['hostsession',['HostSession',['../classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html',1,'openassetio::managerAPI::HostSession']]],
+  ['hostsessionptr',['HostSessionPtr',['../namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933',1,'openassetio::v1::managerAPI']]]
 ];
