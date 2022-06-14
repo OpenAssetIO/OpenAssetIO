@@ -1,6 +1,7 @@
 var classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface =
 [
-    [ "createState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e", null ],
+    [ "createChildState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8", null ],
+    [ "createState", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128", null ],
     [ "defaultEntityReference", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2", null ],
     [ "entityDisplayName", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398", null ],
     [ "entityExists", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229", null ],

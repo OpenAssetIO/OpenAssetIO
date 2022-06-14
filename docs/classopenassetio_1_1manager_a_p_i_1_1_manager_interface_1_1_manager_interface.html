@@ -242,11 +242,14 @@ Public Member Functions</h2></td></tr>
 <p>Because the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
 <p>This mechanism may be used for a variety of purposes. For example, it could ensure that queries are made from a coherent time stamp during a render, or to undo the publishing of multiple assets. </p>
 </div></td></tr>
-<tr class="memitem:abe56a91c7f91bb3b2789941e3d400d5e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> (self, hostSession, parentState=None)</td></tr>
-<tr class="memdesc:abe56a91c7f91bb3b2789941e3d400d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context).  <a href="#abe56a91c7f91bb3b2789941e3d400d5e">More...</a><br /></td></tr>
-<tr class="separator:abe56a91c7f91bb3b2789941e3d400d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce2720f1e8c3859230a910c17d80128"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> (self, hostSession)</td></tr>
+<tr class="memdesc:a4ce2720f1e8c3859230a910c17d80128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context).  <a href="#a4ce2720f1e8c3859230a910c17d80128">More...</a><br /></td></tr>
+<tr class="separator:a4ce2720f1e8c3859230a910c17d80128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a> (self, hostSession, parentState)</td></tr>
+<tr class="memdesc:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a state that is a child of the supplied state.  <a href="#a7750cb6bf5b3fa91ff15c505e26ee2c8">More...</a><br /></td></tr>
+<tr class="separator:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a506b375ff476442b0068c9f31d6e1fd9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> (self, state, hostSession)</td></tr>
-<tr class="memdesc:a506b375ff476442b0068c9f31d6e1fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process.  <a href="#a506b375ff476442b0068c9f31d6e1fd9">More...</a><br /></td></tr>
+<tr class="memdesc:a506b375ff476442b0068c9f31d6e1fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a>) so that can be restored later, or in another process.  <a href="#a506b375ff476442b0068c9f31d6e1fd9">More...</a><br /></td></tr>
 <tr class="separator:a506b375ff476442b0068c9f31d6e1fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0cfcd6931793d50252248e670e4707"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> (self, token, hostSession)</td></tr>
 <tr class="memdesc:a1e0cfcd6931793d50252248e670e4707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously frozen state.  <a href="#a1e0cfcd6931793d50252248e670e4707">More...</a><br /></td></tr>
@@ -281,7 +284,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being Manager::initialize, this will never be called concurrently.</p>
-<p>When a <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Manager.Manager.createContext</a>, the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a> method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
+<p>When a <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Manager.Manager.createContext</a>, the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> (or <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
 <p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
@@ -299,12 +302,12 @@ Public Member Functions</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a783b8b2ee266936a68ed27f9329b2efc">initialize</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="abe56a91c7f91bb3b2789941e3d400d5e"></a>
+<a class="anchor" id="a7750cb6bf5b3fa91ff15c505e26ee2c8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def createState </td>
+          <td class="memname">def createChildState </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -319,7 +322,55 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>parentState</em> = <code>None</code>&#160;</td>
+          <td class="paramname"><em>parentState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a state that is a child of the supplied state. </p>
+<p>This method is called whenever a child <a class="el" href="glossary.html#Context">Context</a> is made by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a0cf0c66325b67abe2563c310c46e1565">openassetio.hostAPI.Manager.Manager.createContext</a>. The return is then stored in the newly created Context, and is consequently available to all the API calls in the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that take a Context instance via <a class="el" href="structopenassetio_1_1v1_1_1_context.html#a0db519ea93f514ded47d6d4f686ad8a3">managerState</a>. Your implementation can then use this to anchor the api call to a particular snapshot of the state of the asset inventory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">parentState</td><td>obj, The new state is to be considered a 'child' of the supplied state. This may be used when creating a child Context for persistence somewhere in a UI, etc... when further processing may change the access/retention of the Context. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls. Presently this can be any hashable object.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4ce2720f1e8c3859230a910c17d80128"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def createState </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -335,7 +386,6 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">parentState</td><td>obj, If present, it is to be assumed that the new state is considered a 'child' of the supplied state. This may be used when creating a child Context for persistence somewhere in a UI, etc... when further processing may change the access/retention of the Context. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
   </table>
   </dd>
 </dl>
@@ -346,7 +396,9 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
 
@@ -803,7 +855,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">createState</a>) so that can be restored later, or in another process. </p>
+<p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a>) so that can be restored later, or in another process. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
 
@@ -1463,7 +1515,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 </div><div class="memdoc">
 
 <p>Restores the supplied state object to a previously frozen state. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>

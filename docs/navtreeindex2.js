@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"namespaceopenassetio_1_1test_1_1manager_1_1harness.html":[13,0,0,7,0,1],
 "namespaceopenassetio_1_1test_1_1manager_1_1specifications.html":[13,0,0,7,0,2],
 "namespaceopenassetio_1_1test_1_1specifications.html":[13,0,0,7,1],
 "namespaceopenassetio_1_1v1.html":[13,0,0,9],

@@ -193,7 +193,9 @@ Manager State</h1>
 <p>OpenAssetIO provides a mechanism to support the entire range of use cases for 'session state' whilst keeping the interface itself stateless.</p>
 <p>This is achieved by allowing the manager to inject state into each <a class="el" href="glossary.html#Context">Context</a> created by the <a class="el" href="glossary.html#host">host</a>. The host guarantees to manage the lifetime of their contexts appropriately, and re-use the same context for logically related API calls. The result of this is that the manager can use injected state object to form a persistent anchor across distributed calls.</p>
 <p>The manager's state object is opaque to the host.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abe56a91c7f91bb3b2789941e3d400d5e">ManagerInterface.createState</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">ManagerInterface.createState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">ManagerInterface.createChildState</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">ManagerInterface.freezeState</a> </dd>
 <dd>
