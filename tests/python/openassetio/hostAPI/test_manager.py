@@ -471,7 +471,8 @@ class Test_Manager_register:
 
 class Test_Manager_createContext:
 
-    def test_context_is_created_with_expected_properties(self, manager, mock_manager_interface):
+    def test_context_is_created_with_expected_properties(
+            self, manager, mock_manager_interface, mock_host_session):
 
         state_a = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
@@ -482,11 +483,10 @@ class Test_Manager_createContext:
         assert context_a.retention == Context.kTransient
         assert context_a.managerState is state_a
         assert context_a.locale is None
-        mock_manager_interface.mock.createState.assert_called_once()
+        mock_manager_interface.mock.createState.assert_called_once_with(mock_host_session)
 
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
-            self, manager, mock_manager_interface):
-        # pylint: disable=protected-access
+            self, manager, mock_manager_interface, mock_host_session):
 
         state_a = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
@@ -497,8 +497,7 @@ class Test_Manager_createContext:
         mock_manager_interface.mock.reset_mock()
 
         state_b = managerAPI.ManagerStateBase()
-        mock_manager_interface.mock.createState.return_value = state_b
-        a_host_session = manager._Manager__hostSession
+        mock_manager_interface.mock.createChildState.return_value = state_b
 
         context_b = manager.createContext(parent=context_a)
 
@@ -507,14 +506,15 @@ class Test_Manager_createContext:
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
-        mock_manager_interface.mock.createState.assert_called_once_with(
-            a_host_session, parentState=state_a)
+        mock_manager_interface.mock.createChildState.assert_called_once_with(
+            mock_host_session, state_a)
+        mock_manager_interface.mock.createState.assert_not_called()
 
 
 class Test_Manager_freezeContext:
 
     def test_when_called_then_the_managers_frozen_token_is_returned(
-             self, manager, mock_manager_interface):
+             self, manager, mock_manager_interface, mock_host_session):
 
         expected_token = "a_frozen_token"
         mock_manager_interface.mock.freezeState.return_value = expected_token
@@ -527,16 +527,14 @@ class Test_Manager_freezeContext:
 
         assert actual_token == expected_token
 
-        # pylint: disable=protected-access
-        a_host_session = manager._Manager__hostSession
         mock_manager_interface.mock.freezeState.assert_called_once_with(
-            initial_state, a_host_session)
+            initial_state, mock_host_session)
 
 
 class Test_Manager_thawContext:
 
     def test_when_called_then_the_managers_thawed_state_is_set_in_the_context(
-             self, manager, mock_manager_interface):
+             self, manager, mock_manager_interface, mock_host_session):
 
         expected_state = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.thawState.return_value = expected_state
@@ -546,6 +544,4 @@ class Test_Manager_thawContext:
 
         assert a_context.managerState is expected_state
 
-        # pylint: disable=protected-access
-        a_host_session = manager._Manager__hostSession
-        mock_manager_interface.mock.thawState.assert_called_once_with(a_token, a_host_session)
+        mock_manager_interface.mock.thawState.assert_called_once_with(a_token, mock_host_session)
