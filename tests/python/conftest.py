@@ -186,11 +186,11 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def createChildState(self, hostSession, parentState):
         return self.mock.createChildState(hostSession, parentState)
 
-    def freezeState(self, state, hostSession):
-        return self.mock.freezeState(state, hostSession)
+    def persistenceTokenForState(self, state, hostSession):
+        return self.mock.persistenceTokenForState(state, hostSession)
 
-    def thawState(self, token, hostSession):
-        return self.mock.thawState(token, hostSession)
+    def stateFromPersistenceToken(self, token, hostSession):
+        return self.mock.stateFromPersistenceToken(token, hostSession)
 
     def identifier(self):
         return self.mock.identifier()
