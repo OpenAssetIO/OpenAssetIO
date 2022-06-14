@@ -1172,7 +1172,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         Create a state that is a child of the supplied state.
 
         This method is called whenever a child @ref Context is made by
-        @ref openassetio.hostAPI.Manager.Manager.createContext. The
+        @ref openassetio.hostAPI.Manager.Manager.createChildContext. The
         return is then stored in the newly created Context, and is
         consequently available to all the API calls in the
         ManagerInterface that take a Context instance via
