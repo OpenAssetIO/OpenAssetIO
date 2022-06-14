@@ -16,14 +16,15 @@
 """
 Shared fixtures/code for pytest cases.
 """
-# pylint: disable=missing-function-docstring
+# pylint: disable=missing-function-docstring,redefined-outer-name
 from unittest import mock
 import sys
 
 import pytest
 
 from openassetio import Context, TraitsData
-from openassetio.managerAPI import ManagerInterface, HostSession
+from openassetio.log import LoggerInterface
+from openassetio.managerAPI import ManagerInterface, Host, HostSession
 from openassetio.hostAPI import HostInterface
 
 # pylint: disable=invalid-name
@@ -55,6 +56,14 @@ def unload_openassetio_modules():
 
 
 @pytest.fixture
+def mock_logger():
+    """
+    Fixture providing a mock that conforms to the LoggerInterface.
+    """
+    return mock.create_autospec(spec=LoggerInterface)
+
+
+@pytest.fixture
 def mock_host_interface():
     """
     Fixture for a `HostInterface` that forwards method calls to an
@@ -64,12 +73,35 @@ def mock_host_interface():
 
 
 @pytest.fixture
+def mock_host_session(mock_host_interface, mock_logger):
+    """
+    Fixture for a `HostSesssion`, configured with a mock_host_interface,
+    that forwards method calls to an internal public `mock.Mock` instance.
+    """
+    return MockHostSession(Host(mock_host_interface), mock_logger)
+
+
+@pytest.fixture
 def mock_manager_interface():
     """
     Fixture for a `ManagerInterface` that asserts parameter types and
     forwards method calls to an internal public `mock.Mock` instance.
     """
     return ValidatingMockManagerInterface()
+
+
+class MockHostSession(HostSession):
+    """
+    `HostSession` that forwards calls to an internal mock.
+    @see mock_host_session
+    """
+
+    def __init__(self, host, logger):
+        super().__init__(host, logger)
+        self.mock = mock.create_autospec(HostSession, spec_set=True, instance=True)
+
+    def host(self):
+        return self.mock.host()
 
 
 class ValidatingMockManagerInterface(ManagerInterface):
@@ -140,7 +172,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def setRelatedReferences(self, entityRef, relationshipTraitsData, relatedRefs, context,
                 hostSession, append=True):
         return self.mock.setRelatedReferences(
-            entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True)
+            entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append)
 
     def preflight(self, targetEntityRefs, traitSet, context, hostSession):
         self.__assertIsIterableOf(targetEntityRefs, str)

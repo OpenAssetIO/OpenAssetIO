@@ -2,19 +2,24 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <openassetio/c/errors.h>
 #include <openassetio/c/hostAPI/Manager.h>
+#include <openassetio/c/managerAPI/HostSession.h>
 #include <openassetio/c/managerAPI/ManagerInterface.h>
 #include <openassetio/c/namespace.h>
 
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
+#include <openassetio/hostAPI/HostInterface.hpp>
 #include <openassetio/hostAPI/Manager.hpp>
+#include <openassetio/managerAPI/Host.hpp>
+#include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 
 // Private headers.
 #include <handles/InfoDictionary.hpp>
 #include <handles/hostAPI/Manager.hpp>
+#include <handles/managerAPI/HostSession.hpp>
 #include <handles/managerAPI/ManagerInterface.hpp>
 
 #include "../StringViewReporting.hpp"
@@ -35,6 +40,16 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerAPI::ManagerInt
   IMPLEMENT_CONST_MOCK0(displayName);
   IMPLEMENT_CONST_MOCK0(info);
 };
+/**
+ * Mock implementation of a HostInterface.
+ *
+ * Used as constructor parameter to Host classes required as part of these tests
+ */
+struct MockHostInterface : trompeloeil::mock_interface<hostAPI::HostInterface> {
+  IMPLEMENT_CONST_MOCK0(identifier);
+  IMPLEMENT_CONST_MOCK0(displayName);
+  IMPLEMENT_CONST_MOCK0(info);
+};
 }  // namespace
 
 SCENARIO("A Manager is constructed and destructed") {
@@ -43,38 +58,52 @@ SCENARIO("A Manager is constructed and destructed") {
   oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
   // A mock ManagerInterface whose lifetime is tracked.
   using DeathwatchedMockManagerInterface = trompeloeil::deathwatched<MockManagerInterface>;
+  using DeathwatchedMockHostInterface = trompeloeil::deathwatched<MockHostInterface>;
 
-  GIVEN("a shared pointer to a ManagerInterface and its C handle") {
-    auto* managerInterface = new DeathwatchedMockManagerInterface{};
-    // Wrap deathwatched mock ManagerInterface in a SharedPtr.
-    managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
-    // Convert the ManagerInterface pointer to a handle.
-    oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
-        handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
+  GIVEN("a shared pointer to a HostSession and its C handle") {
+    auto* hostInterface = new DeathwatchedMockHostInterface{};
+    auto hostSessionPtr = openassetio::makeShared<managerAPI::HostSession>(
+        openassetio::makeShared<managerAPI::Host>(hostAPI::HostInterfacePtr{hostInterface}));
+    oa_managerAPI_SharedHostSession_h hostSessionHandle =
+        handles::managerAPI::SharedHostSession::toHandle(&hostSessionPtr);
 
-    AND_GIVEN("a Manager constructed using the C API") {
-      // C handle for Manager
-      oa_hostAPI_Manager_h managerHandle;
-      // Construct Manager through C API.
-      oa_ErrorCode actualErrorCode =
-          oa_hostAPI_Manager_ctor(&actualErrorMsg, &managerHandle, mockManagerInterfaceHandle);
-      CHECK(actualErrorCode == oa_ErrorCode_kOK);
+    AND_GIVEN("a shared pointer to a ManagerInterface and its C handle") {
+      auto* managerInterface = new DeathwatchedMockManagerInterface{};
+      // Wrap deathwatched mock ManagerInterface in a SharedPtr.
+      managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
+      // Convert the ManagerInterface pointer to a handle.
+      oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
+          handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
-      AND_GIVEN("the Manager has exclusive ownership of the ManagerInterface shared pointer") {
-        // Release test's pointer to ManagerInterface, so it is
-        // exclusively owned by the Manager.
-        mockManagerInterfacePtr.reset();
+      AND_GIVEN("a Manager constructed using the C API") {
+        // C handle for Manager
+        oa_hostAPI_Manager_h managerHandle;
+        // Construct Manager through C API.
+        oa_ErrorCode actualErrorCode = oa_hostAPI_Manager_ctor(
+            &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
-        AND_GIVEN("the ManagerInterface expects to be destroyed") {
-          // By the time this block exits, the ManagerInterface should
-          // be destroyed because we're about to call `dtor`.
-          REQUIRE_DESTRUCTION(*managerInterface);
+        AND_GIVEN(
+            "the Manager has exclusive ownership of the ManagerInterface and HostSession shared "
+            "pointers") {
+          // Release test's pointer to ManagerInterface/HostInterface
+          // and HostSession so it is exclusively owned by the Manager.
+          mockManagerInterfacePtr.reset();
+          hostSessionPtr.reset();
 
-          WHEN("Manager's dtor C API function is called") {
-            oa_hostAPI_Manager_dtor(managerHandle);
+          AND_GIVEN("the ManagerInterface and HostInterface expect to be destroyed") {
+            // By the time this block exits, the ManagerInterface and
+            // HostInterface should be destroyed because we're about to
+            // call `dtor`.
+            REQUIRE_DESTRUCTION(*managerInterface);
+            REQUIRE_DESTRUCTION(*hostInterface);
 
-            THEN("wrapped ManagerInterface is destroyed") {
-              // Asserted by REQUIRE_DESTRUCTION.
+            WHEN("Manager's dtor C API function is called") {
+              oa_hostAPI_Manager_dtor(managerHandle);
+
+              THEN("wrapped ManagerInterface and hostInterface have been destroyed") {
+                // Asserted by REQUIRE_DESTRUCTION.
+              }
             }
           }
         }
@@ -82,29 +111,40 @@ SCENARIO("A Manager is constructed and destructed") {
     }
   }
 
-  GIVEN("a shared pointer to a ManagerInterface and its C handle") {
-    auto* managerInterface = new DeathwatchedMockManagerInterface{};
+  GIVEN("a shared pointer to a HostSession and its C handle") {
+    auto* hostInterface = new DeathwatchedMockHostInterface{};
     // We must have this expectation here to avoid a false positive.
-    REQUIRE_DESTRUCTION(*managerInterface);
-    // Wrap deathwatched mock ManagerInterface in a SharedPtr.
-    managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
-    // Convert the ManagerInterface pointer to a handle.
-    oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
-        handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
+    REQUIRE_DESTRUCTION(*hostInterface);
+    auto hostSessionPtr = openassetio::makeShared<managerAPI::HostSession>(
+        openassetio::makeShared<managerAPI::Host>(hostAPI::HostInterfacePtr(hostInterface)));
+    oa_managerAPI_SharedHostSession_h hostSessionHandle =
+        handles::managerAPI::SharedHostSession::toHandle(&hostSessionPtr);
 
-    AND_GIVEN("a Manager constructed using the C API") {
-      // C handle for Manager
-      oa_hostAPI_Manager_h managerHandle;
-      // Construct Manager through C API.
-      oa_ErrorCode actualErrorCode =
-          oa_hostAPI_Manager_ctor(&actualErrorMsg, &managerHandle, mockManagerInterfaceHandle);
-      CHECK(actualErrorCode == oa_ErrorCode_kOK);
+    AND_GIVEN("a shared pointer to a ManagerInterface and its C handle") {
+      auto* managerInterface = new DeathwatchedMockManagerInterface{};
+      // We must have this expectation here to avoid a false positive.
+      REQUIRE_DESTRUCTION(*managerInterface);
+      // Wrap deathwatched mock ManagerInterface in a SharedPtr.
+      managerAPI::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
+      // Convert the ManagerInterface pointer to a handle.
+      oa_managerAPI_SharedManagerInterface_h mockManagerInterfaceHandle =
+          handles::managerAPI::SharedManagerInterface::toHandle(&mockManagerInterfacePtr);
 
-      WHEN("Manager's dtor C API function is called") {
-        oa_hostAPI_Manager_dtor(managerHandle);
+      AND_GIVEN("a Manager constructed using the C API") {
+        // C handle for Manager
+        oa_hostAPI_Manager_h managerHandle;
+        // Construct Manager through C API.
+        oa_ErrorCode actualErrorCode = oa_hostAPI_Manager_ctor(
+            &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
+        CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
-        THEN("wrapped ManagerInterface is not destroyed") {
-          // Asserted implicitly by DeathwatchedMockManagerInterface.
+        WHEN("Manager's dtor C API function is called") {
+          oa_hostAPI_Manager_dtor(managerHandle);
+
+          THEN("wrapped ManagerInterface and HostInterface is not destroyed") {
+            // Asserted implicitly by DeathwatchedMockManagerInterface.
+            // Asserted implicitly by DeathwatchedMockHostInterface.
+          }
         }
       }
     }
@@ -117,10 +157,15 @@ SCENARIO("A host calls Manager::identifier") {
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr =
         openassetio::makeShared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    // Create a HostSession with our mock HostInterface
+    managerAPI::HostSessionPtr hostSessionPtr =
+        openassetio::makeShared<openassetio::managerAPI::HostSession>(
+            openassetio::makeShared<managerAPI::Host>(
+                openassetio::makeShared<MockHostInterface>()));
 
     // Create the Manager under test.
     hostAPI::ManagerPtr manager =
-        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr);
+        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr, hostSessionPtr);
     // Create the handle for the Manager under test.
     oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 
@@ -177,10 +222,15 @@ SCENARIO("A host calls Manager::displayName") {
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr =
         openassetio::makeShared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    // Create a HostSession with our mock HostInterface
+    managerAPI::HostSessionPtr hostSessionPtr =
+        openassetio::makeShared<openassetio::managerAPI::HostSession>(
+            openassetio::makeShared<managerAPI::Host>(
+                openassetio::makeShared<MockHostInterface>()));
 
     // Create the Manager under test.
     hostAPI::ManagerPtr manager =
-        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr);
+        openassetio::makeShared<hostAPI::Manager>(mockManagerInterfacePtr, hostSessionPtr);
     // Create the handle for the Manager under test.
     oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 
@@ -237,9 +287,15 @@ SCENARIO("A host calls Manager::info") {
     managerAPI::ManagerInterfacePtr mockManagerInterfacePtr =
         openassetio::makeShared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    // Create a HostSession with our mock HostInterface
+    managerAPI::HostSessionPtr hostSessionPtr =
+        openassetio::makeShared<openassetio::managerAPI::HostSession>(
+            openassetio::makeShared<managerAPI::Host>(
+                openassetio::makeShared<MockHostInterface>()));
 
     // Create the Manager under test.
-    hostAPI::ManagerPtr manager = std::make_shared<hostAPI::Manager>(mockManagerInterfacePtr);
+    hostAPI::ManagerPtr manager =
+        std::make_shared<hostAPI::Manager>(mockManagerInterfacePtr, hostSessionPtr);
     // Create the handle for the Manager under test.
     oa_hostAPI_Manager_h managerHandle = handles::hostAPI::SharedManager::toHandle(&manager);
 

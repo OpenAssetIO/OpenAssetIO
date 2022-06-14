@@ -75,7 +75,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         session the manager is part of.
         """
 
-        _openassetio.hostAPI.Manager .__init__(self, interfaceInstance)
+        _openassetio.hostAPI.Manager .__init__(self, interfaceInstance, hostSession)
         Debuggable.__init__(self)
 
         self.__impl = interfaceInstance

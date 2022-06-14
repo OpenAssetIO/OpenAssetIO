@@ -10,13 +10,16 @@
 #include <openassetio/c/namespace.h>
 
 #include <openassetio/hostAPI/Manager.hpp>
+#include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 
 #include "../StringView.hpp"
 #include "../errors.hpp"
 #include "../handles/InfoDictionary.hpp"
 #include "../handles/hostAPI/Manager.hpp"
+#include "../handles/managerAPI/HostSession.hpp"
 #include "../handles/managerAPI/ManagerInterface.hpp"
+#include "openassetio/c/managerAPI/HostSession.h"
 
 namespace errors = openassetio::errors;
 namespace handles = openassetio::handles;
@@ -25,15 +28,18 @@ namespace managerAPI = openassetio::managerAPI;
 
 extern "C" {
 
-oa_ErrorCode oa_hostAPI_Manager_ctor(
-    oa_StringView* err, oa_hostAPI_Manager_h* handle,
-    oa_managerAPI_SharedManagerInterface_h managerInterfaceHandle) {
+oa_ErrorCode oa_hostAPI_Manager_ctor(oa_StringView* err, oa_hostAPI_Manager_h* handle,
+                                     oa_managerAPI_SharedManagerInterface_h managerInterfaceHandle,
+                                     oa_managerAPI_SharedHostSession_h hostSessionHandle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
     managerAPI::ManagerInterfacePtr& managerInterfacePtr =
         *handles::managerAPI::SharedManagerInterface::toInstance(managerInterfaceHandle);
 
+    managerAPI::HostSessionPtr& hostSessionPtr =
+        *handles::managerAPI::SharedHostSession::toInstance(hostSessionHandle);
+
     auto* manager = new hostAPI::ManagerPtr;
-    *manager = std::make_shared<hostAPI::Manager>(managerInterfacePtr);
+    *manager = std::make_shared<hostAPI::Manager>(managerInterfacePtr, hostSessionPtr);
     *handle = handles::hostAPI::SharedManager::toHandle(manager);
 
     return oa_ErrorCode_kOK;

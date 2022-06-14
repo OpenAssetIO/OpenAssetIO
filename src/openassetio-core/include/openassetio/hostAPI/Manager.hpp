@@ -3,6 +3,7 @@
 #pragma once
 
 #include <openassetio/export.h>
+#include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -42,7 +43,8 @@ namespace hostAPI {
  */
 class OPENASSETIO_CORE_EXPORT Manager {
  public:
-  explicit Manager(managerAPI::ManagerInterfacePtr managerInterface);
+  explicit Manager(managerAPI::ManagerInterfacePtr managerInterface,
+                   managerAPI::HostSessionPtr hostSession);
 
   /**
    * @name Asset Management System Information
@@ -99,6 +101,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
 
  private:
   managerAPI::ManagerInterfacePtr managerInterface_;
+  managerAPI::HostSessionPtr hostSession_;
 };
 
 using ManagerPtr = SharedPtr<Manager>;
