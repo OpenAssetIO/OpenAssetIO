@@ -136,9 +136,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga740c315e2d82cdadedecef2fdeb430ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__oa___error_code.html#ga58ccb041c66e26f6c9637909914209fb">oa_ErrorCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__oa__host_a_p_i___manager.html#ga740c315e2d82cdadedecef2fdeb430ed">oa_hostAPI_Manager_ctor</a> (<a class="el" href="structoa___string_view.html">oa_StringView</a> *err, <a class="el" href="group__oa__host_a_p_i___manager.html#gafbde6af6f9ae949cc7fcaf2fc57d4bb3">oa_hostAPI_Manager_h</a> *handle, <a class="el" href="group__oa__manager_a_p_i___shared_manager_interface.html#gaac0403725b10d356f0987ff9a79e2742">oa_managerAPI_SharedManagerInterface_h</a> managerInterfaceHandle)</td></tr>
-<tr class="memdesc:ga740c315e2d82cdadedecef2fdeb430ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor function.  <a href="#ga740c315e2d82cdadedecef2fdeb430ed">More...</a><br /></td></tr>
-<tr class="separator:ga740c315e2d82cdadedecef2fdeb430ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga96707adf82323167511ef5b58ccde331"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__oa___error_code.html#ga58ccb041c66e26f6c9637909914209fb">oa_ErrorCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__oa__host_a_p_i___manager.html#ga96707adf82323167511ef5b58ccde331">oa_hostAPI_Manager_ctor</a> (<a class="el" href="structoa___string_view.html">oa_StringView</a> *err, <a class="el" href="group__oa__host_a_p_i___manager.html#gafbde6af6f9ae949cc7fcaf2fc57d4bb3">oa_hostAPI_Manager_h</a> *handle, <a class="el" href="group__oa__manager_a_p_i___shared_manager_interface.html#gaac0403725b10d356f0987ff9a79e2742">oa_managerAPI_SharedManagerInterface_h</a> managerInterfaceHandle, <a class="el" href="group__oa__manager_a_p_i___shared_host_session.html#ga377c7f4f7f038640b79292284cbf4afb">oa_managerAPI_SharedHostSession_h</a> hostSessionHandle)</td></tr>
+<tr class="memdesc:ga96707adf82323167511ef5b58ccde331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor function.  <a href="#ga96707adf82323167511ef5b58ccde331">More...</a><br /></td></tr>
+<tr class="separator:ga96707adf82323167511ef5b58ccde331"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad2196703c5d1f6266833b7257c042774"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__oa__host_a_p_i___manager.html#gad2196703c5d1f6266833b7257c042774">oa_hostAPI_Manager_dtor</a> (<a class="el" href="group__oa__host_a_p_i___manager.html#gafbde6af6f9ae949cc7fcaf2fc57d4bb3">oa_hostAPI_Manager_h</a> handle)</td></tr>
 <tr class="memdesc:gad2196703c5d1f6266833b7257c042774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor function.  <a href="#gad2196703c5d1f6266833b7257c042774">More...</a><br /></td></tr>
 <tr class="separator:gad2196703c5d1f6266833b7257c042774"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,7 +170,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ga740c315e2d82cdadedecef2fdeb430ed"></a>
+<a class="anchor" id="ga96707adf82323167511ef5b58ccde331"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -190,7 +190,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__oa__manager_a_p_i___shared_manager_interface.html#gaac0403725b10d356f0987ff9a79e2742">oa_managerAPI_SharedManagerInterface_h</a>&#160;</td>
-          <td class="paramname"><em>managerInterfaceHandle</em>&#160;</td>
+          <td class="paramname"><em>managerInterfaceHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__oa__manager_a_p_i___shared_host_session.html#ga377c7f4f7f038640b79292284cbf4afb">oa_managerAPI_SharedHostSession_h</a>&#160;</td>
+          <td class="paramname"><em>hostSessionHandle</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -206,7 +212,8 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">err</td><td>Storage for error message, if any. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">handle</td><td></td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">managerInterfaceHandle</td><td>A handle to a <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html">openassetio::v1::managerAPI::ManagerInterface</a> that the <code>Manager</code> will delegate to. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">managerInterfaceHandle</td><td>A handle to a <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html">openassetio::v1::managerAPI::ManagerInterface</a> that the <code>Manager</code> will delegate </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">hostSessionHandle</td><td>A handle to a <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html">openassetio::v1::managerAPI::HostSession</a> that the <code>Manager</code> will supply to the held interface as required. to. </td></tr>
   </table>
   </dd>
 </dl>
@@ -271,7 +278,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destructor function. </p>
-<p>Deallocates a <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html">Manager</a> that was previously created using <a class="el" href="group__oa__host_a_p_i___manager.html#ga740c315e2d82cdadedecef2fdeb430ed">oa_hostAPI_Manager_ctor</a>. The handle should not be used after calling this function. </p>
+<p>Deallocates a <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html">Manager</a> that was previously created using <a class="el" href="group__oa__host_a_p_i___manager.html#ga96707adf82323167511ef5b58ccde331">oa_hostAPI_Manager_ctor</a>. The handle should not be used after calling this function. </p>
 
 </div>
 </div>

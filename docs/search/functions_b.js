@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['oa_5fhostapi_5fmanager_5fctor',['oa_hostAPI_Manager_ctor',['../group__oa__host_a_p_i___manager.html#ga740c315e2d82cdadedecef2fdeb430ed',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5fctor',['oa_hostAPI_Manager_ctor',['../group__oa__host_a_p_i___manager.html#ga96707adf82323167511ef5b58ccde331',1,'Manager.h']]],
   ['oa_5fhostapi_5fmanager_5fdisplayname',['oa_hostAPI_Manager_displayName',['../group__oa__host_a_p_i___manager.html#gacc7483da375148b616a08d57befa387f',1,'Manager.h']]],
   ['oa_5fhostapi_5fmanager_5fdtor',['oa_hostAPI_Manager_dtor',['../group__oa__host_a_p_i___manager.html#gad2196703c5d1f6266833b7257c042774',1,'Manager.h']]],
   ['oa_5fhostapi_5fmanager_5fidentifier',['oa_hostAPI_Manager_identifier',['../group__oa__host_a_p_i___manager.html#ga48b401e29199b9a4a25ca52c93630d84',1,'Manager.h']]],

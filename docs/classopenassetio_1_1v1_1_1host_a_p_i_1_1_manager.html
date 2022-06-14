@@ -124,8 +124,8 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_a_p_i_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0fb55b5a29f7320c0ea98fefd5848677"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a0fb55b5a29f7320c0ea98fefd5848677">Manager</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#afbf29323a35446166333967f5a879c60">managerAPI::ManagerInterfacePtr</a> managerInterface)</td></tr>
-<tr class="separator:a0fb55b5a29f7320c0ea98fefd5848677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be83d1aedffb59932d98c4989ab25e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a9be83d1aedffb59932d98c4989ab25e2">Manager</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#afbf29323a35446166333967f5a879c60">managerAPI::ManagerInterfacePtr</a> managerInterface, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">managerAPI::HostSessionPtr</a> hostSession)</td></tr>
+<tr class="separator:a9be83d1aedffb59932d98c4989ab25e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>These functions provide general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.</p>
 <p>These can all be called before initialize has been called. </p>
@@ -146,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <div class="fragment"><div class="line">session = <a class="code" href="namespaceopenassetio.html">openassetio</a>.<a class="code" href="namespaceopenassetio_1_1host_a_p_i.html">hostAPI</a>.<a class="code" href="namespaceopenassetio_1_1host_a_p_i_1_1_session.html">Session</a>(</div><div class="line">    hostImpl, consoleLogger, pluginFactory)</div><div class="line">session.useManager(<span class="stringliteral">&quot;org.openassetio.test&quot;</span>)</div><div class="line">manager = session.currentManager()</div></div><!-- fragment --><p>A <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> instance is the single point of interaction with an asset management system. It provides methods to uniquely identify the underlying implementation, querying and resolving <a class="el" href="glossary.html#entity_reference">entity references</a> and publishing new data.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API is threadsafe and can be called from multiple threads concurrently. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0fb55b5a29f7320c0ea98fefd5848677"></a>
+<a class="anchor" id="a9be83d1aedffb59932d98c4989ab25e2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -157,8 +157,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html">Manager</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#afbf29323a35446166333967f5a879c60">managerAPI::ManagerInterfacePtr</a>&#160;</td>
-          <td class="paramname"><em>managerInterface</em></td><td>)</td>
+          <td class="paramname"><em>managerInterface</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">managerAPI::HostSessionPtr</a>&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
