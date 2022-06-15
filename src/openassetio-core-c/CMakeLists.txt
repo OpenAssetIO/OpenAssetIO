@@ -40,7 +40,7 @@ target_sources(
     openassetio-core-c
     PRIVATE
     private/hostAPI/Manager.cpp
-    private/managerAPI/CManagerInterface.cpp
+    private/managerAPI/CManagerInterfaceAdapter.cpp
     private/InfoDictionary.cpp
 )
 
