@@ -138,7 +138,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9a47563093dfc5ba12274b66e368920c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>These functions provide general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.</p>
-<p>These can all be called before <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac56fbc7b556bcd16388c80f8761eb296">initialize</a> has been called. </p>
+<p>These can all be called before initialize has been called. </p>
 </div></td></tr>
 <tr class="memitem:a021e2cb20906f304cb8bd6dd288782b8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8">updateTerminology</a> (self, stringDict)</td></tr>
 <tr class="memdesc:a021e2cb20906f304cb8bd6dd288782b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a021e2cb20906f304cb8bd6dd288782b8">More...</a><br /></td></tr>
@@ -262,9 +262,6 @@ Initialization</h2></td></tr>
 <tr class="memitem:af2868b38666ef26da26225236a50631c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#af2868b38666ef26da26225236a50631c">setSettings</a> (self, settings)</td></tr>
 <tr class="memdesc:af2868b38666ef26da26225236a50631c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"></pre>  <a href="#af2868b38666ef26da26225236a50631c">More...</a><br /></td></tr>
 <tr class="separator:af2868b38666ef26da26225236a50631c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac56fbc7b556bcd16388c80f8761eb296"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac56fbc7b556bcd16388c80f8761eb296">initialize</a> (self)</td></tr>
-<tr class="memdesc:ac56fbc7b556bcd16388c80f8761eb296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host.  <a href="#ac56fbc7b556bcd16388c80f8761eb296">More...</a><br /></td></tr>
-<tr class="separator:ac56fbc7b556bcd16388c80f8761eb296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
@@ -907,39 +904,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 </div><div class="memdoc">
 
 <p><pre class="fragment"></pre> </p>
-
-</div>
-</div>
-<a class="anchor" id="ac56fbc7b556bcd16388c80f8761eb296"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">def initialize </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Prepares the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host. </p>
-<p>In order to provide light weight inspection of available Managers, initial construction must be cheap. However most system require some kind of handshake or back-end setup in order to make entity-related queries. As such, the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac56fbc7b556bcd16388c80f8761eb296">initialize</a> method is the instruction to the <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to prepare itself for full interaction.</p>
-<p>If an exception is raised by this call, its is safe to assume that a fatal error occurred, and this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is not available, and should be retried later.</p>
-<p>If no exception is raised, it can be assumed that the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is ready. It is the implementations responsibility to deal with transient connection errors (if applicable) once initialized.</p>
-<p>The behavior of calling <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac56fbc7b556bcd16388c80f8761eb296" title="Prepares the Manager for interaction with a host. ">initialize()</a> on an already initialized <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> should be a no-op, but if an error was raised previously, then initialization will be re-attempted.</p>
-<dl class="section note"><dt>Note</dt><dd>This must be called prior to any entity-related calls or an Exception will be raised.</dd>
-<dd>
-This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>

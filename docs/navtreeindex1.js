@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6":[13,0,0,9,4,10],
-"classopenassetio_1_1v1_1_1_traits_data.html#ae72f3f2b04e7a4c9e1e5a31504cdbadb":[13,0,0,9,4,1],
 "classopenassetio_1_1v1_1_1_traits_data.html#af88d42f1323368b780c781befcb4db7a":[13,0,0,9,4,6],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html":[13,0,0,9,0,0],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260":[13,0,0,9,0,0,4],
@@ -11,6 +9,7 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92":[13,0,0,9,0,0,2],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html":[13,0,0,9,0,1],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[13,0,0,9,0,1,1],
+"classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a25a40b6614565f755233080a384c35f1":[13,0,0,9,0,1,4],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a39c8f51b23a3fcb925182e787d240dc3":[13,0,0,9,0,1,2],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a9be83d1aedffb59932d98c4989ab25e2":[13,0,0,9,0,1,0],
 "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a":[13,0,0,9,0,1,3],
@@ -27,6 +26,7 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260":[13,0,0,9,1,2,4],
 "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a5e4597b03727fca61c28d21a071e060f":[13,0,0,9,1,2,3],
 "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e":[13,0,0,9,1,2,0],
+"classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c":[13,0,0,9,1,2,5],
 "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92":[13,0,0,9,1,2,2],
 "entities_traits_and_specifications.html":[1],
 "entities_traits_and_specifications.html#Descriptions":[1,4,2],

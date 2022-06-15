@@ -16,7 +16,6 @@ var classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager =
     [ "freezeContext", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce", null ],
     [ "getRelatedReferences", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a", null ],
     [ "getSettings", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a38bcbd14698c0804e581d39e85f4bd73", null ],
-    [ "initialize", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac56fbc7b556bcd16388c80f8761eb296", null ],
     [ "isEntityReference", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e", null ],
     [ "managementPolicy", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24", null ],
     [ "prefetch", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a90f43f7116f1cb507b1bd73df4cf4250", null ],
