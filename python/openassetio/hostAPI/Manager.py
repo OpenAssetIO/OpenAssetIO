@@ -1041,38 +1041,44 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     ## @{
 
     @auditApiCall("Manager")
-    def createContext(self, parent=None):
+    def createContext(self):
         """
         Creates a new Context for use with the manager.
 
         @warning Contexts should never be directly constructed, always
-        use this method to create a new one.
+        use this method or @ref createChildContext to create a new one.
 
-        @param parent openassetio.Context If supplied, the new context
-        will clone the supplied Context, and the Manager will be given a
-        chance to migrate any meaningful state etc... This can be useful
-        when certain UI elements need to 'take a copy' of a context in
-        its current state.
-
+        @see @ref createChildContext
         @see @fqref{Context} "Context"
         """
-        context = Context()
+        return  Context(managerState=self.__impl.createState(self.__hostSession))
 
-        # If we have a parent, copy its setup
-        if parent:
-            context.access = parent.access
-            context.retention = parent.retention
-            context.locale = parent.locale
+    @auditApiCall("Manager")
+    def createChildContext(self, parentContext):
+        """
+        Creates a child Context for use with the manager.
 
-        # Ask the interface to create a state for us
-        if parent:
-            state = self.__impl.createChildState(self.__hostSession, parent.managerState)
-        else:
-            state = self.__impl.createState(self.__hostSession)
-        context.managerState = state
+        @warning Contexts should never be directly constructed, always
+        use this method or @ref createContext to create a new one.
 
-        return context
+        @param parentContext openassetio.Context The new context will
+        clone the supplied Context, and the Manager will be given a
+        chance to migrate any meaningful state etc... This can be useful
+        when certain UI elements need to 'take a copy' of a context in
+        its current state in order to parallelise actions that are part
+        of the same logical group, but have different locales, access or
+        retention.
 
+        @see @ref createContext
+        @see @fqref{Context} "Context"
+        """
+        return Context(
+            access=parentContext.access,
+            retention=parentContext.retention,
+            locale=parentContext.locale,
+            managerState=self.__impl.createChildState(self.__hostSession,
+                                                      parentContext.managerState)
+        )
 
     @auditApiCall("Session")
     def freezeContext(self, context):

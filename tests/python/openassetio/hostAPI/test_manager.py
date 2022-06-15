@@ -485,6 +485,9 @@ class Test_Manager_createContext:
         assert context_a.locale is None
         mock_manager_interface.mock.createState.assert_called_once_with(mock_host_session)
 
+
+class Test_Manager_createChildContext:
+
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
             self, manager, mock_manager_interface, mock_host_session):
 
@@ -499,7 +502,7 @@ class Test_Manager_createContext:
         state_b = managerAPI.ManagerStateBase()
         mock_manager_interface.mock.createChildState.return_value = state_b
 
-        context_b = manager.createContext(parent=context_a)
+        context_b = manager.createChildContext(context_a)
 
         assert context_b is not context_a
         assert context_b.managerState is state_b

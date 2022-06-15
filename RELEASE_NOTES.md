@@ -35,11 +35,13 @@ v1.0.0-alpha.X
 - Removed `Session::createContext`.
   [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
 
-- Added `createContext`, `freezeContext` and `thawContext` methods to
-  the `Manager` class to facilitate context creation and the
-  serialization of a manager's state for persistence or distribution.
+- Added `createContext`, `createChildContext`, `freezeContext` and
+  `thawContext` methods to the `Manager` class to facilitate context
+  creation and the serialization of a manager's state for persistence or
+  distribution.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421),
   [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
+  [#452](https://github.com/OpenAssetIO/OpenAssetIO/issues/452)
 
 - Marked `Host` class as `final` in both Python and C++ and so it cannot
   be subclassed.
