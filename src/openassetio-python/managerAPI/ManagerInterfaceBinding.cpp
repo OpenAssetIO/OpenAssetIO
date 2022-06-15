@@ -30,6 +30,10 @@ struct PyManagerInterface : ManagerInterface {
   [[nodiscard]] InfoDictionary info() const override {
     PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
   }
+
+  void initialize(HostSessionPtr hostSession) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, hostSession);
+  }
 };
 
 }  // namespace managerAPI
@@ -45,5 +49,6 @@ void registerManagerInterface(const py::module& mod) {
       .def(py::init())
       .def("identifier", &ManagerInterface::identifier)
       .def("displayName", &ManagerInterface::displayName)
-      .def("info", &ManagerInterface::info);
+      .def("info", &ManagerInterface::info)
+      .def("initialize", &ManagerInterface::initialize);
 }

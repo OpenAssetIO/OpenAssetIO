@@ -210,9 +210,9 @@ class Test_Manager_initialize:
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, mock_host_session):
 
-        method = mock_manager_interface.mock.initialize
-        assert manager.initialize() == method.return_value
-        method.assert_called_once_with(mock_host_session)
+        manager.initialize()
+
+        mock_manager_interface.mock.initialize.assert_called_once_with(mock_host_session)
 
 
 class Test_Manager_prefetch:

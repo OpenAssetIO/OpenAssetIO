@@ -97,8 +97,8 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # @name Asset Management System Information
     #
     # These functions provide general information about the @ref
-    # asset_management_system itself. These can all be called before @ref
-    # initialize has been called.
+    # asset_management_system itself. These can all be called before
+    # @needsref initialize has been called.
     #
     # @{
 
@@ -156,41 +156,6 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         @protected
         """
         return self.__impl.setSettings(settings, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def initialize(self):
-        """
-        Prepares the Manager for interaction with a host. In order to
-        provide light weight inspection of available Managers, initial
-        construction must be cheap. However most system require some
-        kind of handshake or back-end setup in order to make
-        entity-related queries. As such, the @ref initialize method is
-        the instruction to the Manager to prepare itself for full
-        interaction.
-
-        If an exception is raised by this call, its is safe to assume
-        that a fatal error occurred, and this @ref
-        asset_management_system is not available, and should be retried
-        later.
-
-        If no exception is raised, it can be assumed that the @ref
-        asset_management_system is ready. It is the implementations
-        responsibility to deal with transient connection errors (if
-        applicable) once initialized.
-
-        The behavior of calling initialize() on an already initialized
-        Manager should be a no-op, but if an error was raised
-        previously, then initialization will be re-attempted.
-
-        @note This must be called prior to any entity-related calls or
-        an Exception will be raised.
-
-        @note This method may block for extended periods of time.
-
-        @protected
-        """
-        return self.__impl.initialize(self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")

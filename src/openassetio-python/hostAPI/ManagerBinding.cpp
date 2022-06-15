@@ -16,5 +16,6 @@ void registerManager(const py::module& mod) {
            py::arg("managerInterface").none(false), py::arg("hostSession").none(false))
       .def("identifier", &Manager::identifier)
       .def("displayName", &Manager::displayName)
-      .def("info", &Manager::info);
+      .def("info", &Manager::info)
+      .def("initialize", &Manager::initialize);
 }
