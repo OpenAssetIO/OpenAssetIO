@@ -3,7 +3,9 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
+#include <openassetio/managerAPI/ManagerStateBase.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
@@ -34,6 +36,16 @@ struct PyManagerInterface : ManagerInterface {
   void initialize(const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, hostSession);
   }
+
+  ManagerStateBasePtr createState(const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, createState, hostSession);
+  }
+
+  ManagerStateBasePtr createChildState(const ManagerStateBasePtr& parentState,
+                                       const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, createChildState, parentState,
+                      hostSession);
+  }
 };
 
 }  // namespace managerAPI
@@ -50,5 +62,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("identifier", &ManagerInterface::identifier)
       .def("displayName", &ManagerInterface::displayName)
       .def("info", &ManagerInterface::info)
-      .def("initialize", &ManagerInterface::initialize);
+      .def("initialize", &ManagerInterface::initialize)
+      .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
+      .def("createChildState", &ManagerInterface::createChildState,
+           py::arg("parentState").none(false), py::arg("hostSession").none(false));
 }

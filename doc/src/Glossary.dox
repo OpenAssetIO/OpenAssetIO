@@ -292,8 +292,8 @@
  *
  * The manager's state object is opaque to the host.
  *
- *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createState "ManagerInterface.createState"
- *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.createChildState "ManagerInterface.createChildState"
+ *   @see @fqref{managerAPI.ManagerInterface.createState} "ManagerInterface.createState"
+ *   @see @fqref{managerAPI.ManagerInterface.createChildState} "ManagerInterface.createChildState"
  *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.persistenceTokenForState "ManagerInterface.persistenceTokenForState"
  *   @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.stateFromPersistenceToken "ManagerInterface.stateFromPersistenceToken"
  *

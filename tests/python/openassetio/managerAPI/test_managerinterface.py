@@ -25,7 +25,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from openassetio.managerAPI import ManagerInterface
+from openassetio.managerAPI import ManagerInterface, ManagerStateBase
 
 
 class Test_ManagerInterface_identifier:
@@ -62,6 +62,32 @@ class Test_ManagerInterface_info:
 
         assert isinstance(info, dict)
         assert info == {"stub": "info"}
+
+
+class Test_ManagerInterface_createState:
+    def test_default_implementation_returns_none(self, mock_host_session):
+        assert ManagerInterface().createState(mock_host_session) is None
+
+    def test_when_overridden_then_returns_value(self, manager_interface, mock_host_session):
+        assert manager_interface.createState(mock_host_session).value == "a state"
+
+
+class Test_ManagerInterface_createChildState:
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().createChildState(ManagerStateBase(), mock_host_session)
+
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().createChildState(None, mock_host_session)
+
+    def test_when_overridden_then_returns_value(self, manager_interface, mock_host_session):
+        a_state = manager_interface.createState(mock_host_session)
+
+        assert (
+            manager_interface.createChildState(a_state, mock_host_session).value
+            == "a child state of a state"
+        )
 
 
 class Test_ManagerInterface_defaultEntityReference:
@@ -109,8 +135,14 @@ class Test_ManagerInterface_finalizedEntityVersion:
 
 
 class StubManagerInterface(ManagerInterface):
-    # TODO(DF): @pylint - remove once all abstract methods migrated
     # pylint: disable=abstract-method
+
+    class StubManagerState(ManagerStateBase):
+        def __init__(self, value):
+            super().__init__()
+            self.value = value
+
+    # TODO(DF): @pylint - remove once all abstract methods migrated
     def identifier(self):
         return "stub.manager"
 
@@ -120,6 +152,11 @@ class StubManagerInterface(ManagerInterface):
     def info(self):
         return {"stub": "info"}
 
+    def createState(self, _):
+        return StubManagerInterface.StubManagerState("a state")
+
+    def createChildState(self, parentState, _):
+        return StubManagerInterface.StubManagerState(f"a child state of {parentState.value}")
 
 @pytest.fixture
 def manager_interface():

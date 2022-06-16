@@ -32,10 +32,10 @@
  * The manager state mechanism allows a @ref manager to embed state
  * within the @ref host, such that it can correlate API calls.
  *
- * Whenever a @ref Context is created by the host, the @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
- * "ManagerInterface.createState" (or @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.createChildState
+ * Whenever a @ref Context is created by the host, the
+ * @fqref{managerAPI.ManagerInterface.createState}
+ * "ManagerInterface.createState" (or
+ * @fqref{managerAPI.ManagerInterface.createChildState}
  * "ManagerInterface.createChildState") method will be called, and the
  * returned token stored in the Context's @fqref{Context::managerState}
  * "managerState" property.
