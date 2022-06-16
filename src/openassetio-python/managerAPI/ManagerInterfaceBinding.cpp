@@ -46,6 +46,18 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, createChildState, parentState,
                       hostSession);
   }
+
+  std::string persistenceTokenForState(const ManagerStateBasePtr& parentState,
+                                       const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(std::string, ManagerInterface, persistenceTokenForState, parentState,
+                      hostSession);
+  }
+
+  ManagerStateBasePtr stateFromPersistenceToken(const std::string& token,
+                                                const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken, token,
+                      hostSession);
+  }
 };
 
 }  // namespace managerAPI
@@ -65,5 +77,9 @@ void registerManagerInterface(const py::module& mod) {
       .def("initialize", &ManagerInterface::initialize)
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
       .def("createChildState", &ManagerInterface::createChildState,
-           py::arg("parentState").none(false), py::arg("hostSession").none(false));
+           py::arg("parentState").none(false), py::arg("hostSession").none(false))
+      .def("persistenceTokenForState", &ManagerInterface::persistenceTokenForState,
+           py::arg("state").none(false), py::arg("hostSession").none(false))
+      .def("stateFromPersistenceToken", &ManagerInterface::stateFromPersistenceToken,
+           py::arg("token"), py::arg("hostSession").none(false));
 }

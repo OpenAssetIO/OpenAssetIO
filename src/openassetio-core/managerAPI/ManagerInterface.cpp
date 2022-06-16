@@ -24,6 +24,20 @@ ManagerStateBasePtr ManagerInterface::createChildState(
       "createChildState called on a manager that does not implement a custom state.");
 }
 
+std::string ManagerInterface::persistenceTokenForState(
+    [[maybe_unused]] const ManagerStateBasePtr& state,
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
+  throw std::runtime_error(
+      "persistenceTokenForState called on a manager that does not implement a custom state.");
+}
+
+ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
+    [[maybe_unused]] const std::string& token,
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
+  throw std::runtime_error(
+      "stateFromPersistenceToken called on a manager that does not implement a custom state.");
+}
+
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

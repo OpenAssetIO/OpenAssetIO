@@ -81,6 +81,44 @@ class Test_ManagerInterface_createChildState:
         with pytest.raises(TypeError):
             ManagerInterface().createChildState(None, mock_host_session)
 
+    def test_when_overridden_then_returns_value(
+            self, persistence_manager_interface, mock_host_session):
+        a_state = persistence_manager_interface.createState(mock_host_session)
+
+        assert (
+            persistence_manager_interface.createChildState(a_state, mock_host_session).value
+            == "a child state of a state"
+        )
+
+
+class Test_ManagerInterface_persistenceTokenForState:
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().persistenceTokenForState(None, mock_host_session)
+
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().persistenceTokenForState(ManagerStateBase(), mock_host_session)
+
+    def test_when_overridden_then_returns_value(
+            self, persistence_manager_interface, mock_host_session):
+        a_state = persistence_manager_interface.createState(mock_host_session)
+        expected_token = f"<{a_state.value}>"
+        assert (
+            persistence_manager_interface.persistenceTokenForState(a_state, mock_host_session)
+            == expected_token
+        )
+
+
+class Test_ManagerInterface_stateFromPersistenceToken:
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().createChildState(None, mock_host_session)
+
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().stateFromPersistenceToken("", mock_host_session)
+
     def test_when_overridden_then_returns_value(self, manager_interface, mock_host_session):
         a_state = manager_interface.createState(mock_host_session)
 
@@ -158,6 +196,22 @@ class StubManagerInterface(ManagerInterface):
     def createChildState(self, parentState, _):
         return StubManagerInterface.StubManagerState(f"a child state of {parentState.value}")
 
+
+class PersistenceStubManagerInterface(StubManagerInterface):
+    # pylint: disable=abstract-method
+
+    def persistenceTokenForState(self, state, _):
+        return f"<{state.value}>"
+
+    def stateFromPersistenceToken(self, token, _):
+        value = token[1:-1]
+        return StubManagerInterface.StubManagerState(value)
+
+
 @pytest.fixture
 def manager_interface():
     return StubManagerInterface()
+
+@pytest.fixture
+def persistence_manager_interface():
+    return PersistenceStubManagerInterface()

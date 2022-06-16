@@ -1073,33 +1073,3 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         raise NotImplementedError
 
     ## @}
-
-
-    def persistenceTokenForState(self, state, hostSession):
-        """
-        Returns a string that encapsulates the current state of the
-        ManagerInterface represented by the supplied state object,
-        (created by @fqref{managerAPI.ManagerInterface.createState} or
-        @fqref{managerAPI.ManagerInterface.createChildState}
-        "createChildState") so that can be restored later, or in another
-        process.
-
-        @return `str` A string that can be used to restore the stack.
-
-        @see @ref stateFromPersistenceToken
-        """
-        return ""
-
-    def stateFromPersistenceToken(self, token, hostSession):
-        """
-        Restores the supplied state object to a previously persisted
-        state.
-
-        @return `object` A state object, as per createState(), except
-        restored to the previous state encapsulated in the token, which
-        is the same string as returned by persistenceTokenForState.
-
-        @exception exceptions.StateError If the supplied token is not
-        meaningful, or that a state has already been restored.
-        """
-        return None

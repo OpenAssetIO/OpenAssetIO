@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <string>
+
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/managerAPI/HostSession.hpp>
@@ -319,7 +321,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * The default implementation of this method returns a nullptr,
    * indicating that the manager does not perform custom state
    * management. Manager's implementing this method must also implement
-   * @ref createChildState.
+   * @ref createChildState, @ref persistenceTokenForState and @ref
+   * stateFromPersistenceToken.
    *
    * @param hostSession openassetio.managerAPI.HostSession, The host
    * session that maps to the caller. This should be used for all
@@ -333,8 +336,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * fails.
    *
    * @see @ref createChildState
-   * @see @needsref persistenceTokenForState
-   * @see @needsref stateFromPersistenceToken
+   * @see @ref persistenceTokenForState
+   * @see @ref stateFromPersistenceToken
    */
   [[nodiscard]] virtual ManagerStateBasePtr createState(const HostSessionPtr& hostSession);
 
@@ -369,18 +372,49 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @return Some object that represents self-contained state of the
    * ManagerInterface. This will be passed to future calls.
    *
-   *
    * @exception exceptions.StateError If for some reason creation
    * fails.
    * @exception std::runtime_error If called on a manager that does not
    * implement custom state management.
    *
    * @see @ref createState
-   * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.persistenceTokenForState
-   * @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.stateFromPersistenceToken
+   * @see @ref persistenceTokenForState
+   * @see @ref stateFromPersistenceToken
    */
   [[nodiscard]] virtual ManagerStateBasePtr createChildState(
       const ManagerStateBasePtr& parentState, const HostSessionPtr& hostSession);
+
+  /**
+   * Returns a string that encapsulates the current state of the
+   * ManagerInterface represented by the supplied state
+   * object, (created by @ref createState or @ref createChildState)
+   * so that can be restored later, or in another process.
+   *
+   * @return  A string that can be used to restore the stack.
+   *
+   * @exception std::runtime_error If called on a manager that does not
+   * implement custom state management.
+   *
+   * @see @ref stateFromPersistenceToken
+   */
+  [[nodiscard]] virtual std::string persistenceTokenForState(const ManagerStateBasePtr& state,
+                                                             const HostSessionPtr& hostSession);
+
+  /**
+   * Restores the supplied state object to a previously persisted
+   * state.
+   *
+   * @return A state object, as per createState(), except restored to
+   * the previous state encapsulated in the token, which is the same
+   * string as returned by persistenceTokenForState.
+   *
+   * @exception exceptions.StateError If the supplied token is not
+   * meaningful, or that a state has already been restored.
+   * @exception std::runtime_error If called on a manager that does not
+   * implement custom state management.
+   */
+  [[nodiscard]] virtual ManagerStateBasePtr stateFromPersistenceToken(
+      const std::string& token, const HostSessionPtr& hostSession);
   /**
    * @}
    */

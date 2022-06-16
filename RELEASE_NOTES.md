@@ -102,7 +102,8 @@ v1.0.0-alpha.X
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
 
 - Migrated the following `ManagerInterface` methods to C++
-  `initialize`, `createState`, `createChildState`.
+  `initialize`, `createState`, `createChildState`,
+  `persistenceTokenForState`, `stateFromPersistenceToken`.
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 - Switched to preferring un-versioned `clang-tidy` executables when
