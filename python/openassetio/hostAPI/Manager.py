@@ -1037,13 +1037,17 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         @see @ref createContext
         @see @fqref{Context} "Context"
         """
-        return Context(
+        context = Context(
             access=parentContext.access,
             retention=parentContext.retention,
-            locale=parentContext.locale,
-            managerState=self.__impl.createChildState(self.__hostSession,
-                                                        parentContext.managerState)
+            locale=parentContext.locale
         )
+
+        if parentContext.managerState:
+            context.managerState = \
+                self.__impl.createChildState(self.__hostSession, parentContext.managerState)
+
+        return context
 
     @auditApiCall("Session")
     def persistenceTokenForContext(self, context):

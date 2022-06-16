@@ -513,6 +513,19 @@ class Test_Manager_createChildContext:
             mock_host_session, state_a)
         mock_manager_interface.mock.createState.assert_not_called()
 
+    def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(
+            self, manager, mock_manager_interface):
+        context_a = Context()
+        context_a.access = Context.kWrite
+        context_a.retention = Context.kSession
+        context_a.locale = TraitsData()
+        context_b = manager.createChildContext(context_a)
+
+        assert context_b.access == context_a.access
+        assert context_b.retention == context_a.retention
+        assert context_b.locale == context_b.locale
+        mock_manager_interface.mock.createChildState.assert_not_called()
+
 
 class Test_Manager_persistenceTokenForContext:
 
