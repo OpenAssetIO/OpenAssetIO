@@ -293,3 +293,47 @@ class Test_resolve(FixtureAugmentedTestCase):
         [result] = self._manager.resolve([reference], self.a_set_of_valid_traits, context)
         self.assertIsInstance(result, EntityResolutionError)
         self.assertEqual(str(result), str(expected_error))
+
+
+class Test_createChildState(FixtureAugmentedTestCase):
+    """
+    Tests that the createChildState method is implemented if createState
+    has been implemented to return a custom state object.
+    """
+    def test_when_createState_implemented_then_createChildState_returns_state(self):
+        context = self._manager.createContext()
+        if not context.managerState:
+            self.skipTest("createState returned None")
+
+        child_context = self._manager.createChildState(context)
+        self.assertIsNotNone(child_context.managerState)
+
+
+class Test_persistenceTokenForState(FixtureAugmentedTestCase):
+    """
+    Tests that the persistenceTokenForState method is implemented if
+    createState has been implemented to return a custom state object.
+    """
+    def test_when_createState_implemented_then_persistenceTokenForState_returns_string(self):
+        context = self._manager.createContext()
+        if not context.managerState:
+            self.skipTest("createState returned None")
+
+        token = self._manager.persistenceTokenForContext(context)
+        self.assertIsInstance(token, str)
+
+
+class Test_stateFromPersistenceToken(FixtureAugmentedTestCase):
+    """
+    Tests that the persistenceTokenForState method is implemented if
+    createState has been implemented to return a custom state object.
+    """
+    def test_when_createState_implemented_then_stateFromPersistenceToken_returns_state(self):
+        context = self._manager.createContext()
+        if not context.managerState:
+            self.skipTest("createState returned None")
+
+        token = self._manager.persistenceTokenForContext(context)
+
+        restored_context = self._manager.contextFromPersistenceToken(token)
+        self.assertIsNotNone(restored_context.managerState)
