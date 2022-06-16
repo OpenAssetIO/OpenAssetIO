@@ -1077,6 +1077,9 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
 
         @see @ref stable_resolution
         """
+        if not context.managerState :
+            return ""
+
         token = self.__impl.persistenceTokenForState(context.managerState, self.__hostSession)
         return token
 
@@ -1107,7 +1110,9 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         persistenceTokenForContext so we can verify that they match?
         """
         context = Context()
-        context.managerState = self.__impl.stateFromPersistenceToken(persistenceToken,
+
+        if persistenceToken:
+            context.managerState = self.__impl.stateFromPersistenceToken(persistenceToken,
                                                                      self.__hostSession)
         return context
 

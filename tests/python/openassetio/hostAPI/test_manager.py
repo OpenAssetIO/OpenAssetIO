@@ -546,6 +546,14 @@ class Test_Manager_persistenceTokenForContext:
         mock_manager_interface.mock.persistenceTokenForState.assert_called_once_with(
             initial_state, mock_host_session)
 
+    def test_when_no_state_then_return_is_empty_and_persistenceTokenForState_is_not_called(
+            self, manager, mock_manager_interface):
+
+        a_context = Context()
+
+        assert manager.persistenceTokenForContext(a_context) == ""
+        mock_manager_interface.mock.persistenceTokenForState.assert_not_called()
+
 
 class Test_Manager_contextFromPersistenceToken:
 
@@ -562,3 +570,10 @@ class Test_Manager_contextFromPersistenceToken:
 
         mock_manager_interface.mock.stateFromPersistenceToken.assert_called_once_with(
                 a_token, mock_host_session)
+
+    def test_when_empty_then_no_state_and_stateFromPersistenceToken_is_not_called(
+            self, manager, mock_manager_interface):
+
+        a_context = manager.contextFromPersistenceToken("")
+        assert a_context.managerState is None
+        mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
