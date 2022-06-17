@@ -104,10 +104,10 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
     never be called concurrently.
 
     When a @fqref{Context} "Context" object is constructed by
-    @ref hostAPI.Manager.Manager.createContext "Manager.createContext", the
+    @fqref{hostAPI.Manager.createContext} "Manager.createContext", the
     @fqref{managerAPI.ManagerInterface.createState} "createState" (or
     @fqref{managerAPI.ManagerInterface.createChildState}
-    "createChildState" for @ref hostAPI.Manager.Manager.createChildContext
+    "createChildState" for @fqref{hostAPI.Manager.createChildContext}
     "createChildContext") method will be called, and the resulting state
     object stored in the context. This context will then be re-used
     across related API calls to your implementation of the

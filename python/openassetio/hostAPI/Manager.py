@@ -1005,50 +1005,6 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
     # @see @ref stable_resolution
     ## @{
 
-    @auditApiCall("Manager")
-    def createContext(self):
-        """
-        Creates a new Context for use with the manager.
-
-        @warning Contexts should never be directly constructed, always
-        use this method or @ref createChildContext to create a new one.
-
-        @see @ref createChildContext
-        @see @fqref{Context} "Context"
-        """
-        return  Context(managerState=self.__impl.createState(self.__hostSession))
-
-    @auditApiCall("Manager")
-    def createChildContext(self, parentContext):
-        """
-        Creates a child Context for use with the manager.
-
-        @warning Contexts should never be directly constructed, always
-        use this method or @ref createContext to create a new one.
-
-        @param parentContext openassetio.Context The new context will
-        clone the supplied Context, and the Manager will be given a
-        chance to migrate any meaningful state etc... This can be useful
-        when certain UI elements need to 'take a copy' of a context in
-        its current state in order to parallelise actions that are part
-        of the same logical group, but have different locales, access or
-        retention.
-
-        @see @ref createContext
-        @see @fqref{Context} "Context"
-        """
-        context = Context(
-            access=parentContext.access,
-            retention=parentContext.retention,
-            locale=parentContext.locale
-        )
-
-        if parentContext.managerState:
-            context.managerState = \
-                self.__impl.createChildState(self.__hostSession, parentContext.managerState)
-
-        return context
-
     @auditApiCall("Session")
     def persistenceTokenForContext(self, context):
         """

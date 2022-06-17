@@ -17,5 +17,8 @@ void registerManager(const py::module& mod) {
       .def("identifier", &Manager::identifier)
       .def("displayName", &Manager::displayName)
       .def("info", &Manager::info)
-      .def("initialize", &Manager::initialize);
+      .def("initialize", &Manager::initialize)
+      .def("createContext", &Manager::createContext)
+      .def("createChildContext", &Manager::createChildContext,
+           py::arg("parentContext").none(false));
 }

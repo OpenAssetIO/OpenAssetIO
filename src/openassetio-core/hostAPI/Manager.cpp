@@ -20,6 +20,24 @@ InfoDictionary Manager::info() const { return managerInterface_->info(); }
 
 void Manager::initialize() { managerInterface_->initialize(hostSession_); }
 
+ContextPtr Manager::createContext() {
+  ContextPtr context = openassetio::makeShared<Context>();
+  context->managerState = managerInterface_->createState(hostSession_);
+  return context;
+}
+
+ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
+  ContextPtr context = openassetio::makeShared<Context>();
+  context->access = parentContext->access;
+  context->retention = parentContext->retention;
+  context->locale = parentContext->locale;
+  if (parentContext->managerState) {
+    context->managerState =
+        managerInterface_->createChildState(parentContext->managerState, hostSession_);
+  }
+  return context;
+}
+
 }  // namespace hostAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

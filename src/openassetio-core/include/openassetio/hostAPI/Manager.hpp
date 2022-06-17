@@ -3,6 +3,7 @@
 #pragma once
 
 #include <openassetio/export.h>
+#include <openassetio/Context.hpp>
 #include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
@@ -145,6 +146,46 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @}
    */
 
+  /**
+   * @name Context Management
+   * @see @ref stable_resolution
+   *
+   * @{
+   */
+
+  /**
+   *  Creates a new Context for use with the manager.
+   *
+   *  @warning Contexts should never be directly constructed, always
+   *  use this method or @ref createChildContext to create a new one.
+   *
+   *  @see @ref createChildContext
+   *  @see @fqref{Context} "Context"
+   */
+  ContextPtr createContext();
+
+  /**
+   *
+   *  Creates a child Context for use with the manager.
+   *
+   *  @warning Contexts should never be directly constructed, always
+   *  use this method or @ref createContext to create a new one.
+   *
+   *  @param parentContext The new context will clone the supplied
+   *  Context, and the Manager will be given a chance to migrate any
+   *  meaningful state etc... This can be useful when certain UI
+   *  elements need to 'take a copy' of a context in its current state
+   *  in order to parallelise actions that are part of the same logical
+   *  group, but have different locales, access or retention.
+   *
+   *  @see @ref createContext
+   *  @see @fqref{Context} "Context"
+   */
+  ContextPtr createChildContext(const ContextPtr& parentContext);
+
+  /**
+   * @}
+   */
  private:
   managerAPI::ManagerInterfacePtr managerInterface_;
   managerAPI::HostSessionPtr hostSession_;

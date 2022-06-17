@@ -90,18 +90,17 @@ namespace managerAPI {
  * The one exception being @ref initialize, this will never be
  * called concurrently.
  *
- * When a @fqref{Context} "Context" object is constructed by @ref
- * openassetio.hostAPI.Manager.Manager.createContext, the @ref
- * createState (or @ref createChildState for @ref
- * openassetio.hostAPI.Manager.Manager.createChildContext
- * "createChildContext") method will be called, and the resulting state
- * object stored in the context. This context will then be re-used
- * across related API calls to your implementation of the
- * ManagerInterface. You can use this to determine which calls may be
- * part of a specific 'action' in the same host, or logically grouped
- * processes such as a batch render. This should allow you to implement
- * stable resolution of @ref meta_version "meta-versions" or other
- * resolve-time concepts.
+ * When a @fqref{Context} "Context" object is constructed by
+ * @fqref{hostAPI.Manager.createContext} "createContext", the @ref
+ * createState (or @ref createChildState for
+ * @fqref{hostAPI.Manager.createChildContext} "createChildContext")
+ * method will be called, and the resulting state object stored in the
+ * context. This context will then be re-used across related API calls
+ * to your implementation of the ManagerInterface. You can use this to
+ * determine which calls may be part of a specific 'action' in the same
+ * host, or logically grouped processes such as a batch render. This
+ * should allow you to implement stable resolution of @ref meta_version
+ * "meta-versions" or other resolve-time concepts.
  *
  * There should be no persistent state in the implementation, concepts
  * such as getError(), etc.. for example should not be used.
@@ -310,12 +309,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * from this function.
    *
    * This method is called whenever a new @ref Context is made by a
-   * @ref openassetio.hostAPI.Manager.Manager.createContext. The
-   * return is then stored in the newly created Context, and is
-   * consequently available to all the API calls in the
-   * ManagerInterface that take a Context instance via
-   * @fqref{Context::managerState} "managerState". Your
-   * implementation can then use this to anchor the api call to a
+   * @fqref{hostAPI.Manager.createContext} "createContext". The return
+   * is then stored in the newly created Context, and is consequently
+   * available to all the API calls in the ManagerInterface that take a
+   * Context instance via @fqref{Context::managerState} "managerState".
+   * Your implementation can then use this to anchor the api call to a
    * particular snapshot of the state of the asset inventory.
    *
    * The default implementation of this method returns a nullptr,
@@ -345,13 +343,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Create a state that is a child of the supplied state.
    *
    * This method is called whenever a child @ref Context is made by
-   * @ref openassetio.hostAPI.Manager.Manager.createChildContext. The
-   * return is then stored in the newly created Context, and is
-   * consequently available to all the API calls in the
-   * ManagerInterface that take a Context instance via
-   * @fqref{Context::managerState} "managerState". Your
-   * implementation can then use this to anchor the api call to a
-   * particular snapshot of the state of the asset inventory.
+   * @fqref{hostAPI.Manager.createChildContext} "createChildContext".
+   * The return is then stored in the newly created Context, and is
+   * consequently available to all the API calls in the ManagerInterface
+   * that take a Context instance via @fqref{Context::managerState}
+   * "managerState". Your implementation can then use this to anchor the
+   * api call to a particular snapshot of the state of the asset
+   * inventory.
    *
    * The default implementation will raise if called. This method must
    * be implemented by any manager implementing @ref createState.

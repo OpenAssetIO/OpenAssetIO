@@ -106,6 +106,10 @@ v1.0.0-alpha.X
   `persistenceTokenForState`, `stateFromPersistenceToken`.
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
+- Migrated the following `Manager` methods to C++
+  `createContext`, `createChildContext`.
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
+
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We
   currently target LLVM v12, earlier or later versions may yield
