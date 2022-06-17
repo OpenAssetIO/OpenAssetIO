@@ -43,7 +43,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Wrap the C suite's `initialize` function.
   /// @todo Implement C API. Currently a no-op.
-  void initialize(HostSessionPtr hostSession) override;
+  void initialize(const HostSessionPtr& hostSession) override;
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.

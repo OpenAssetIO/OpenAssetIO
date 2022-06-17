@@ -272,7 +272,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * de-activated in a host, to allow any event registrations etc...
    * to be removed.
    */
-  virtual void initialize(HostSessionPtr hostSession) = 0;
+  virtual void initialize(const HostSessionPtr& hostSession) = 0;
 
   /**
    * @}

@@ -31,7 +31,7 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
   }
 
-  void initialize(HostSessionPtr hostSession) override {
+  void initialize(const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, hostSession);
   }
 };
