@@ -513,6 +513,19 @@ class Test_Manager_createChildContext:
             mock_host_session, state_a)
         mock_manager_interface.mock.createState.assert_not_called()
 
+    def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(
+            self, manager, mock_manager_interface):
+        context_a = Context()
+        context_a.access = Context.kWrite
+        context_a.retention = Context.kSession
+        context_a.locale = TraitsData()
+        context_b = manager.createChildContext(context_a)
+
+        assert context_b.access == context_a.access
+        assert context_b.retention == context_a.retention
+        assert context_b.locale == context_b.locale
+        mock_manager_interface.mock.createChildState.assert_not_called()
+
 
 class Test_Manager_persistenceTokenForContext:
 
@@ -533,6 +546,14 @@ class Test_Manager_persistenceTokenForContext:
         mock_manager_interface.mock.persistenceTokenForState.assert_called_once_with(
             initial_state, mock_host_session)
 
+    def test_when_no_state_then_return_is_empty_and_persistenceTokenForState_is_not_called(
+            self, manager, mock_manager_interface):
+
+        a_context = Context()
+
+        assert manager.persistenceTokenForContext(a_context) == ""
+        mock_manager_interface.mock.persistenceTokenForState.assert_not_called()
+
 
 class Test_Manager_contextFromPersistenceToken:
 
@@ -549,3 +570,10 @@ class Test_Manager_contextFromPersistenceToken:
 
         mock_manager_interface.mock.stateFromPersistenceToken.assert_called_once_with(
                 a_token, mock_host_session)
+
+    def test_when_empty_then_no_state_and_stateFromPersistenceToken_is_not_called(
+            self, manager, mock_manager_interface):
+
+        a_context = manager.contextFromPersistenceToken("")
+        assert a_context.managerState is None
+        mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
