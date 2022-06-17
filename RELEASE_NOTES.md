@@ -32,16 +32,23 @@ v1.0.0-alpha.X
   methods, and `TransactionCoordinator` helpers.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
 
-- Removed `Session::createContext`.
+- Removed the `Session` methods `createContext`, `freezeContext` and
+  `thawContext`.
   [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
-- Added `createContext`, `createChildContext`, `freezeContext` and
-  `thawContext` methods to the `Manager` class to facilitate context
-  creation and the serialization of a manager's state for persistence or
-  distribution.
+- Added `createContext`, `createChildContext`,
+  `persistenceTokenForContext` and `contextFromPersistenceToken` methods
+  to the `Manager` class to facilitate context creation and the
+  serialization of a manager's state for persistence or distribution.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421),
   [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
   [#452](https://github.com/OpenAssetIO/OpenAssetIO/issues/452)
+
+- Renamed the `ManagerInterface` methods `freezeState` and `thawState`
+  to `persistenceTokenForState` and `stateFromPersistenceToken` to
+  better describe their behavior.
+  [#452](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 - Marked `Host` class as `final` in both Python and C++ and so it cannot
   be subclassed.

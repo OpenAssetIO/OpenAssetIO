@@ -514,37 +514,38 @@ class Test_Manager_createChildContext:
         mock_manager_interface.mock.createState.assert_not_called()
 
 
-class Test_Manager_freezeContext:
+class Test_Manager_persistenceTokenForContext:
 
-    def test_when_called_then_the_managers_frozen_token_is_returned(
+    def test_when_called_then_the_managers_persistence_token_is_returned(
              self, manager, mock_manager_interface, mock_host_session):
 
-        expected_token = "a_frozen_token"
-        mock_manager_interface.mock.freezeState.return_value = expected_token
+        expected_token = "a_persistence_token"
+        mock_manager_interface.mock.persistenceTokenForState.return_value = expected_token
 
         initial_state = managerAPI.ManagerStateBase()
         a_context = Context()
         a_context.managerState = initial_state
 
-        actual_token = manager.freezeContext(a_context)
+        actual_token = manager.persistenceTokenForContext(a_context)
 
         assert actual_token == expected_token
 
-        mock_manager_interface.mock.freezeState.assert_called_once_with(
+        mock_manager_interface.mock.persistenceTokenForState.assert_called_once_with(
             initial_state, mock_host_session)
 
 
-class Test_Manager_thawContext:
+class Test_Manager_contextFromPersistenceToken:
 
-    def test_when_called_then_the_managers_thawed_state_is_set_in_the_context(
+    def test_when_called_then_the_managers_restored_state_is_set_in_the_context(
              self, manager, mock_manager_interface, mock_host_session):
 
         expected_state = managerAPI.ManagerStateBase()
-        mock_manager_interface.mock.thawState.return_value = expected_state
+        mock_manager_interface.mock.stateFromPersistenceToken.return_value = expected_state
 
-        a_token = "frozen_token"
-        a_context = manager.thawContext(a_token)
+        a_token = "a_persistence_token"
+        a_context = manager.contextFromPersistenceToken(a_token)
 
         assert a_context.managerState is expected_state
 
-        mock_manager_interface.mock.thawState.assert_called_once_with(a_token, mock_host_session)
+        mock_manager_interface.mock.stateFromPersistenceToken.assert_called_once_with(
+                a_token, mock_host_session)

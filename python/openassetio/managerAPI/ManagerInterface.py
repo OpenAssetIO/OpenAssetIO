@@ -1120,8 +1120,8 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         fails.
 
         @see @ref createChildState
-        @see @ref freezeState
-        @see @ref thawState
+        @see @ref persistenceTokenForState
+        @see @ref stateFromPersistenceToken
         """
         return None
 
@@ -1159,35 +1159,36 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         fails.
 
         @see @ref createState
-        @see @ref freezeState
-        @see @ref thawState
+        @see @ref persistenceTokenForState
+        @see @ref stateFromPersistenceToken
         """
         return None
 
 
-    def freezeState(self, state, hostSession):
+    def persistenceTokenForState(self, state, hostSession):
         """
         Returns a string that encapsulates the current state of the
         ManagerInterface represented by the supplied state
-        object,(created by @ref createState) so that can be restored
-        later, or in another process.
+        object, (created by @ref createState or @ref createChildState)
+        so that can be restored later, or in another process.
 
         @return `str` A string that can be used to restore the stack.
 
-        @see @ref thawState
+        @see @ref stateFromPersistenceToken
         """
         return ""
 
-    def thawState(self, token, hostSession):
+    def stateFromPersistenceToken(self, token, hostSession):
         """
-        Restores the supplied state object to a previously frozen state.
+        Restores the supplied state object to a previously persisted
+        state.
 
         @return `object` A state object, as per createState(), except
         restored to the previous state encapsulated in the token, which
-        is the same string as returned by freezeState.
+        is the same string as returned by persistenceTokenForState.
 
         @exception exceptions.StateError If the supplied token is not
-        meaningful, or that a state has already been thawed.
+        meaningful, or that a state has already been restored.
         """
         return None
 

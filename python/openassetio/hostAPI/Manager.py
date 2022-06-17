@@ -1042,52 +1042,69 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
             retention=parentContext.retention,
             locale=parentContext.locale,
             managerState=self.__impl.createChildState(self.__hostSession,
-                                                      parentContext.managerState)
+                                                        parentContext.managerState)
         )
 
     @auditApiCall("Session")
-    def freezeContext(self, context):
+    def persistenceTokenForContext(self, context):
         """
-        Freezes the supplied context into a serializable token that
-        can be persisted or distributed between processes to associate
-        subsequent API usage with the supplied context.
+        Returns a serializable token that represents the supplied
+        context's managerState, such that it can be persisted or
+        distributed between processes to associate subsequent API usage
+        with the supplied context.
 
-        The returned token can be passed to @ref thawContext for
-        future API use in another @ref session with the same manager.
+        The returned token can be passed to @ref
+        contextFromPersistenceToken for future API use in another @ref
+        session with the same manager.
 
-        @param context @fqref{Context} "Context" The context to freeze.
+        @param context @fqref{Context} "Context" The context to derive a
+        persistence token for.
 
-        @return `str` The managers frozen state token.
+        @return `str` A persistence token that can be used with @ref
+        contextFromPersistenceToken to create a context associated with
+        the same logical group of actions as the one supplied to this
+        method.
+
+        @warning This only encapsulates the logical identity of the
+        Context, such that when restored, any API calls made using the
+        resulting Context will be logically associated with the one
+        supplied here. It does not encode the current access, retention
+        or locale.
 
         @see @ref stable_resolution
         """
-        token = self.__impl.freezeState(context.managerState, self.__hostSession)
+        token = self.__impl.persistenceTokenForState(context.managerState, self.__hostSession)
         return token
 
 
     @auditApiCall("Session")
-    def thawContext(self, stateToken):
+    def contextFromPersistenceToken(self, persistenceToken):
         """
-        Thaws a previously frozen manager state token, returning a @ref
-        Context associated with that state, that can be used for further
-        API calls.
+        Returns a @ref Context linked to a previous manager state, based
+        on the supplied persistence token derived from @ref
+        persistenceTokenForContext. This context, when used with API
+        methods will be considered part of the same logical series of
+        actions.
 
-        @param stateToken `str` A token previously returned from @ref
-        freezeContext by this manager.
+        @param persistenceToken `str` A token previously returned from
+        @ref persistenceTokenForContext by this manager.
 
         @return @fqref{Context} "Context" A context that will be
-        associated with the previously frozen one by the manager.
+        associated with the same logical group of actions as the context
+        supplied to @ref persistenceTokenForContext to generate the
+        token.
 
-        @note The context's access, retention or locale is not restored
-        by this action.
+        @warning The context's access, retention or locale is not
+        restored by this action.
 
         @see @ref stable_resolution
 
-        @todo Should we concatenate the manager id in freeze so we can
-        verify that they match?
+        @todo Should we concatenate the manager id in
+        persistenceTokenForContext so we can verify that they match?
         """
         context = Context()
-        context.managerState = self.__impl.thawState(stateToken, self.__hostSession)
+        context.managerState = self.__impl.stateFromPersistenceToken(persistenceToken,
+                                                                     self.__hostSession)
         return context
 
     ## @}
