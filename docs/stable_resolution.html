@@ -123,7 +123,7 @@ Manager State</h1>
 <h1><a class="anchor" id="stable_resolution_manager_state_distribution"></a>
 Distributed Processing</h1>
 <p>Distributed processing requires the same context to be shared by multiple discrete working processes.</p>
-<p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce">Manager.freezeContext</a> and <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> methods provide a mechanism by which a <a class="el" href="glossary.html#host">host</a> can obtain a portable version of the manager's state token for a given context for distribution to other processes that are logically connected.</p>
+<p>The <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">Manager.persistenceTokenForContext</a> and <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9e5137741cdf52fa1f904ae1a75a78f2">contextFromPersistenceToken</a> methods provide a mechanism by which a <a class="el" href="glossary.html#host">host</a> can obtain a portable version of the manager's state token for a given context for distribution to other processes that are logically connected.</p>
 <div align="center">
 <img src="inline_umlgraph_2.png" />
 </div>
@@ -133,7 +133,7 @@ Distributed Processing</h1>
 <h1><a class="anchor" id="stable_resolution_manager_state_guidelines"></a>
 Implementation Guidelines</h1>
 <ul>
-<li>Because a thawed state may be passed to multiple child processes, the manager must be prepared for the state to be restored more than once, at the same time. </li>
+<li>Because a state restored from a persistence token may be passed to multiple child processes, the manager must be prepared for the state to be restored more than once, at the same time. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

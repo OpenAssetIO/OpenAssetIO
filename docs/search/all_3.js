@@ -8,6 +8,7 @@ var searchData=
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['consolelogger',['ConsoleLogger',['../classopenassetio_1_1log_1_1_console_logger.html',1,'openassetio::log']]],
   ['context',['Context',['../structopenassetio_1_1v1_1_1_context.html',1,'openassetio::v1']]],
+  ['contextfrompersistencetoken',['contextFromPersistenceToken',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9e5137741cdf52fa1f904ae1a75a78f2',1,'openassetio::hostAPI::Manager::Manager']]],
   ['contextptr',['ContextPtr',['../namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb',1,'openassetio::v1']]],
   ['coverage',['coverage',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ab6dd48378274dcd41943cc88f7d64909',1,'openassetio::_core::audit::Auditor']]],
   ['create',['create',['../classopenassetio_1_1_specification_base_1_1_specification_base.html#aeadffb9df4df6d3f2862c20c41876841',1,'openassetio::SpecificationBase::SpecificationBase']]],

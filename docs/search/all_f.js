@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['persistencetokenforcontext',['persistenceTokenForContext',['../classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1',1,'openassetio::hostAPI::Manager::Manager']]],
+  ['persistencetokenforstate',['persistenceTokenForState',['../classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7650f55a17e1c90c6eed3ac609b2fa39',1,'openassetio::managerAPI::ManagerInterface::ManagerInterface']]],
   ['plugin',['plugin',['../classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de',1,'openassetio::pluginSystem::PluginSystem::PluginSystem']]],
   ['pluginsystem',['PluginSystem',['../classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html',1,'openassetio::pluginSystem::PluginSystem']]],
   ['pluginsystemmanagerfactory',['PluginSystemManagerFactory',['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html',1,'openassetio::pluginSystem::PluginSystemManagerFactory']]],

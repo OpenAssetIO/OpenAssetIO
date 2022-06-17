@@ -239,12 +239,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acb216921b673698dcdbcfd5f6f96a121"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#acb216921b673698dcdbcfd5f6f96a121">createChildContext</a> (self, parentContext)</td></tr>
 <tr class="memdesc:acb216921b673698dcdbcfd5f6f96a121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a child Context for use with the manager.  <a href="#acb216921b673698dcdbcfd5f6f96a121">More...</a><br /></td></tr>
 <tr class="separator:acb216921b673698dcdbcfd5f6f96a121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d86dea60401ee1318fc4050bec1bfce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce">freezeContext</a> (self, context)</td></tr>
-<tr class="memdesc:a3d86dea60401ee1318fc4050bec1bfce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Freezes the supplied context into a serializable token that can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#a3d86dea60401ee1318fc4050bec1bfce">More...</a><br /></td></tr>
-<tr class="separator:a3d86dea60401ee1318fc4050bec1bfce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a729ce078566ad0a71f30cb1230fc2fe3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> (self, stateToken)</td></tr>
-<tr class="memdesc:a729ce078566ad0a71f30cb1230fc2fe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thaws a previously frozen manager state token, returning a <a class="el" href="glossary.html#Context">Context</a> associated with that state, that can be used for further API calls.  <a href="#a729ce078566ad0a71f30cb1230fc2fe3">More...</a><br /></td></tr>
-<tr class="separator:a729ce078566ad0a71f30cb1230fc2fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba42920d4e7edb1217bc90252a5687c1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">persistenceTokenForContext</a> (self, context)</td></tr>
+<tr class="memdesc:aba42920d4e7edb1217bc90252a5687c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#aba42920d4e7edb1217bc90252a5687c1">More...</a><br /></td></tr>
+<tr class="separator:aba42920d4e7edb1217bc90252a5687c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e5137741cdf52fa1f904ae1a75a78f2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9e5137741cdf52fa1f904ae1a75a78f2">contextFromPersistenceToken</a> (self, persistenceToken)</td></tr>
+<tr class="memdesc:a9e5137741cdf52fa1f904ae1a75a78f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">persistenceTokenForContext</a>.  <a href="#a9e5137741cdf52fa1f904ae1a75a78f2">More...</a><br /></td></tr>
+<tr class="separator:a9e5137741cdf52fa1f904ae1a75a78f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Initialization</h2></td></tr>
@@ -340,6 +340,45 @@ Initialization</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9e5137741cdf52fa1f904ae1a75a78f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def contextFromPersistenceToken </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>persistenceToken</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">persistenceTokenForContext</a>. </p>
+<p>This context, when used with API methods will be considered part of the same logical series of actions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">persistenceToken</td><td><code>str</code> A token previously returned from <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">persistenceTokenForContext</a> by this manager.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#aba42920d4e7edb1217bc90252a5687c1">persistenceTokenForContext</a> to generate the token.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
 
 </div>
 </div>
@@ -764,43 +803,6 @@ Initialization</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3d86dea60401ee1318fc4050bec1bfce"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def freezeContext </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Freezes the supplied context into a serializable token that can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
-<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a729ce078566ad0a71f30cb1230fc2fe3">thawContext</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">context</td><td><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> The context to freeze.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>str</code> The managers frozen state token.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a4d3241352a8c58e8cee15f376ac99a9a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -994,6 +996,44 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[int]</code> Bitfields, one for each element in <code>traits</code>. See <a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aba42920d4e7edb1217bc90252a5687c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def persistenceTokenForContext </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
+<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9e5137741cdf52fa1f904ae1a75a78f2">contextFromPersistenceToken</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> The context to derive a persistence token for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>str</code> A persistence token that can be used with <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a9e5137741cdf52fa1f904ae1a75a78f2">contextFromPersistenceToken</a> to create a context associated with the same logical group of actions as the one supplied to this method.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the Context, such that when restored, any API calls made using the resulting Context will be logically associated with the one supplied here. It does not encode the current access, retention or locale.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 
 </div>
 </div>
@@ -1253,44 +1293,6 @@ When registering files, it should never be assumed that the resulting <a class="
 </div><div class="memdoc">
 
 <p><pre class="fragment"></pre> </p>
-
-</div>
-</div>
-<a class="anchor" id="a729ce078566ad0a71f30cb1230fc2fe3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def thawContext </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>stateToken</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Thaws a previously frozen manager state token, returning a <a class="el" href="glossary.html#Context">Context</a> associated with that state, that can be used for further API calls. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stateToken</td><td><code>str</code> A token previously returned from <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a3d86dea60401ee1318fc4050bec1bfce">freezeContext</a> by this manager.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> A context that will be associated with the previously frozen one by the manager.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Should we concatenate the manager id in freeze so we can verify that they match? </dd></dl>
 
 </div>
 </div>

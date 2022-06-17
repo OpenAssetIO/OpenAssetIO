@@ -245,12 +245,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a> (self, hostSession, parentState)</td></tr>
 <tr class="memdesc:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a state that is a child of the supplied state.  <a href="#a7750cb6bf5b3fa91ff15c505e26ee2c8">More...</a><br /></td></tr>
 <tr class="separator:a7750cb6bf5b3fa91ff15c505e26ee2c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a506b375ff476442b0068c9f31d6e1fd9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> (self, state, hostSession)</td></tr>
-<tr class="memdesc:a506b375ff476442b0068c9f31d6e1fd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a>) so that can be restored later, or in another process.  <a href="#a506b375ff476442b0068c9f31d6e1fd9">More...</a><br /></td></tr>
-<tr class="separator:a506b375ff476442b0068c9f31d6e1fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e0cfcd6931793d50252248e670e4707"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> (self, token, hostSession)</td></tr>
-<tr class="memdesc:a1e0cfcd6931793d50252248e670e4707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously frozen state.  <a href="#a1e0cfcd6931793d50252248e670e4707">More...</a><br /></td></tr>
-<tr class="separator:a1e0cfcd6931793d50252248e670e4707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7650f55a17e1c90c6eed3ac609b2fa39"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7650f55a17e1c90c6eed3ac609b2fa39">persistenceTokenForState</a> (self, state, hostSession)</td></tr>
+<tr class="memdesc:a7650f55a17e1c90c6eed3ac609b2fa39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> or <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a>) so that can be restored later, or in another process.  <a href="#a7650f55a17e1c90c6eed3ac609b2fa39">More...</a><br /></td></tr>
+<tr class="separator:a7650f55a17e1c90c6eed3ac609b2fa39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c412d784283e1661ece934f6c01f10"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a40c412d784283e1661ece934f6c01f10">stateFromPersistenceToken</a> (self, token, hostSession)</td></tr>
+<tr class="memdesc:a40c412d784283e1661ece934f6c01f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a40c412d784283e1661ece934f6c01f10">More...</a><br /></td></tr>
+<tr class="separator:a40c412d784283e1661ece934f6c01f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -347,9 +347,9 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7650f55a17e1c90c6eed3ac609b2fa39">persistenceTokenForState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a40c412d784283e1661ece934f6c01f10">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -395,9 +395,9 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a506b375ff476442b0068c9f31d6e1fd9">freezeState</a> </dd>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7650f55a17e1c90c6eed3ac609b2fa39">persistenceTokenForState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a40c412d784283e1661ece934f6c01f10">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -822,42 +822,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a506b375ff476442b0068c9f31d6e1fd9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def freezeState </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object,(created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a>) so that can be restored later, or in another process. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a1e0cfcd6931793d50252248e670e4707">thawState</a> </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ad27922210d9d184adf7f1545267d151a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1078,6 +1042,42 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[int]</code> Bitfields, one for each element in <code>traitSets</code>. See <a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a7650f55a17e1c90c6eed3ac609b2fa39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def persistenceTokenForState </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">createState</a> or <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">createChildState</a>) so that can be restored later, or in another process. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>str</code> A string that can be used to restore the stack.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a40c412d784283e1661ece934f6c01f10">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -1439,12 +1439,12 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="a1e0cfcd6931793d50252248e670e4707"></a>
+<a class="anchor" id="a40c412d784283e1661ece934f6c01f10"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def thawState </td>
+          <td class="memname">def stateFromPersistenceToken </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1469,11 +1469,11 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
       </table>
 </div><div class="memdoc">
 
-<p>Restores the supplied state object to a previously frozen state. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by freezeState.</dd></dl>
+<p>Restores the supplied state object to a previously persisted state. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>object</code> A state object, as per <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by persistenceTokenForState.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been thawed. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been restored. </td></tr>
   </table>
   </dd>
 </dl>
