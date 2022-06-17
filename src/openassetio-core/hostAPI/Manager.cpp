@@ -38,6 +38,21 @@ ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
   return context;
 }
 
+std::string Manager::persistenceTokenForContext(const ContextPtr &context) {
+  if (context->managerState) {
+    return managerInterface_->persistenceTokenForState(context->managerState, hostSession_);
+  }
+  return "";
+}
+
+ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
+  ContextPtr context = openassetio::makeShared<Context>();
+  if (!token.empty()) {
+    context->managerState = managerInterface_->stateFromPersistenceToken(token, hostSession_);
+  }
+  return context;
+}
+
 }  // namespace hostAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

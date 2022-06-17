@@ -26,7 +26,6 @@ A single-class module, providing the Manager class.
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
-from .. import Context
 from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
@@ -997,79 +996,5 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
                             f"Mismatched traits at index {i+1}: {traits} != {expectedTraits}")
 
         return self.__impl.register(targetEntityRefs, entityTraitsDatas, context, self.__hostSession)
-
-    ## @}
-
-    ##
-    # @name Context Management
-    # @see @ref stable_resolution
-    ## @{
-
-    @auditApiCall("Session")
-    def persistenceTokenForContext(self, context):
-        """
-        Returns a serializable token that represents the supplied
-        context's managerState, such that it can be persisted or
-        distributed between processes to associate subsequent API usage
-        with the supplied context.
-
-        The returned token can be passed to @ref
-        contextFromPersistenceToken for future API use in another @ref
-        session with the same manager.
-
-        @param context @fqref{Context} "Context" The context to derive a
-        persistence token for.
-
-        @return `str` A persistence token that can be used with @ref
-        contextFromPersistenceToken to create a context associated with
-        the same logical group of actions as the one supplied to this
-        method.
-
-        @warning This only encapsulates the logical identity of the
-        Context, such that when restored, any API calls made using the
-        resulting Context will be logically associated with the one
-        supplied here. It does not encode the current access, retention
-        or locale.
-
-        @see @ref stable_resolution
-        """
-        if not context.managerState :
-            return ""
-
-        token = self.__impl.persistenceTokenForState(context.managerState, self.__hostSession)
-        return token
-
-
-    @auditApiCall("Session")
-    def contextFromPersistenceToken(self, persistenceToken):
-        """
-        Returns a @ref Context linked to a previous manager state, based
-        on the supplied persistence token derived from @ref
-        persistenceTokenForContext. This context, when used with API
-        methods will be considered part of the same logical series of
-        actions.
-
-        @param persistenceToken `str` A token previously returned from
-        @ref persistenceTokenForContext by this manager.
-
-        @return @fqref{Context} "Context" A context that will be
-        associated with the same logical group of actions as the context
-        supplied to @ref persistenceTokenForContext to generate the
-        token.
-
-        @warning The context's access, retention or locale is not
-        restored by this action.
-
-        @see @ref stable_resolution
-
-        @todo Should we concatenate the manager id in
-        persistenceTokenForContext so we can verify that they match?
-        """
-        context = Context()
-
-        if persistenceToken:
-            context.managerState = self.__impl.stateFromPersistenceToken(persistenceToken,
-                                                                     self.__hostSession)
-        return context
 
     ## @}

@@ -20,5 +20,8 @@ void registerManager(const py::module& mod) {
       .def("initialize", &Manager::initialize)
       .def("createContext", &Manager::createContext)
       .def("createChildContext", &Manager::createChildContext,
-           py::arg("parentContext").none(false));
+           py::arg("parentContext").none(false))
+      .def("persistenceTokenForContext", &Manager::persistenceTokenForContext,
+           py::arg("context").none(false))
+      .def("contextFromPersistenceToken", &Manager::contextFromPersistenceToken, py::arg("token"));
 }

@@ -2,6 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <string>
+
 #include <openassetio/export.h>
 #include <openassetio/Context.hpp>
 #include <openassetio/managerAPI/HostSession.hpp>
@@ -182,6 +184,57 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *  @see @fqref{Context} "Context"
    */
   ContextPtr createChildContext(const ContextPtr& parentContext);
+
+  /**
+   *  Returns a serializable token that represents the supplied
+   *  context's managerState, such that it can be persisted or
+   *  distributed between processes to associate subsequent API usage
+   *  with the supplied context.
+   *
+   *  The returned token can be passed to @ref
+   *  contextFromPersistenceToken for future API use in another @ref
+   *  session with the same manager.
+   *
+   *  @param context The context to derive a persistence token for.
+   *
+   *  @return A persistence token that can be used with @ref
+   *  contextFromPersistenceToken to create a context associated with
+   *  the same logical group of actions as the one supplied to this
+   *  method.
+   *
+   *  @warning This only encapsulates the logical identity of the
+   *  Context, such that when restored, any API calls made using the
+   *  resulting Context will be logically associated with the one
+   *  supplied here. It does not encode the current access, retention
+   *  or locale.
+   *
+   *  @see @ref stable_resolution
+   */
+  std::string persistenceTokenForContext(const ContextPtr& context);
+
+  /**
+   * Returns a @ref Context linked to a previous manager state, based
+   * on the supplied persistence token derived from @ref
+   * persistenceTokenForContext. This context, when used with API
+   * methods will be considered part of the same logical series of
+   * actions.
+   *
+   * @param token A token previously returned from @ref
+   * persistenceTokenForContext by this manager.
+   *
+   * @return A context that will be associated with the same logical
+   * group of actions as the context supplied to @ref
+   * persistenceTokenForContext to generate the token.
+   *
+   * @warning The context's access, retention or locale is not
+   * restored by this action.
+   *
+   * @see @ref stable_resolution
+   *
+   * @todo Should we concatenate the manager id in
+   * persistenceTokenForContext so we can verify that they match?
+   */
+  ContextPtr contextFromPersistenceToken(const std::string& token);
 
   /**
    * @}

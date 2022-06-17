@@ -106,8 +106,9 @@ v1.0.0-alpha.X
   `persistenceTokenForState`, `stateFromPersistenceToken`.
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
-- Migrated the following `Manager` methods to C++
-  `createContext`, `createChildContext`.
+- Migrated the following `Manager` methods to C++ `createContext`,
+  `createChildContext`, `persistenceTokenForContext`,
+  `contextFromPersistenceToken`.
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 - Switched to preferring un-versioned `clang-tidy` executables when

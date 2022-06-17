@@ -66,10 +66,9 @@
  * Distributed processing requires the same context to be shared by
  * multiple discrete working processes.
  *
- * The @ref
- * openassetio.hostAPI.Manager.Manager.persistenceTokenForContext
- * "Manager.persistenceTokenForContext" and @ref
- * openassetio.hostAPI.Manager.Manager.contextFromPersistenceToken
+ * The @fqref{hostAPI.Manager.persistenceTokenForContext}
+ * "Manager.persistenceTokenForContext" and
+ * @fqref{hostAPI.Manager.contextFromPersistenceToken}
  * "contextFromPersistenceToken" methods provide a mechanism by which a
  * @ref host can obtain a portable version of the manager's state token
  * for a given context for distribution to other processes that are
