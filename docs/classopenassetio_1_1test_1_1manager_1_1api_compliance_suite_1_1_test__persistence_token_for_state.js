@@ -1,0 +1,4 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__persistence_token_for_state =
+[
+    [ "test_when_createState_implemented_then_persistenceTokenForState_returns_string", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__persistence_token_for_state.html#a5f810ffb4532a860f4618076fc7ad387", null ]
+];

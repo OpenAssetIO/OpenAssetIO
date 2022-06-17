@@ -1,0 +1,4 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state =
+[
+    [ "test_when_createState_implemented_then_createChildState_returns_state", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html#a61d70f395401ab5ec0af04b397c2e535", null ]
+];
