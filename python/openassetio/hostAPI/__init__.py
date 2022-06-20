@@ -28,5 +28,5 @@ from .Manager import Manager
 from .ManagerFactoryInterface import ManagerFactoryInterface
 from .Session import Session
 
-## Python binding of \fqref{hostAPI::HostInterface} "C++ HostInterface".
+## Python binding of \fqref{hostAPI.HostInterface} "C++ HostInterface".
 HostInterface = _openassetio.hostAPI.HostInterface

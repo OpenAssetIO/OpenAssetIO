@@ -15,7 +15,7 @@ extern "C" {
 /**
  * @defgroup oa_managerAPI_SharedManagerInterface oa_managerAPI_SharedManagerInterface
  *
- * C API for the \fqref{managerAPI::ManagerInterface}
+ * C API for the \fqref{managerAPI.ManagerInterface}
  * "managerAPI::ManagerInterface C++ type".
  *
  * @{
@@ -33,7 +33,7 @@ extern "C" {
 // oa_managerAPI_SharedManagerInterface_aliases
 
 /**
- * Opaque handle type representing a @fqref{managerAPI::ManagerInterface}
+ * Opaque handle type representing a @fqref{managerAPI.ManagerInterface}
  * "ManagerInterface" instance.
  */
 // NOLINTNEXTLINE(modernize-use-using)

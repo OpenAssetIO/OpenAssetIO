@@ -15,7 +15,7 @@ extern "C" {
 /**
  * @defgroup oa_managerAPI_SharedHostSession oa_managerAPI_SharedHostSession
  *
- * C API for the \fqref{managerAPI::HostSession}
+ * C API for the \fqref{managerAPI.HostSession}
  * "managerAPI::HostSession C++ type".
  *
  * @{
@@ -35,7 +35,7 @@ extern "C" {
 // oa_managerAPI_SharedHostSession_aliases
 
 /**
- * Opaque handle type representing a @fqref{managerAPI::HostSession}
+ * Opaque handle type representing a @fqref{managerAPI.HostSession}
  * "HostSession" instance.
  */
 // NOLINTNEXTLINE(modernize-use-using)

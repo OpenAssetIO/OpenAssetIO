@@ -312,7 +312,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @fqref{hostAPI.Manager.createContext} "createContext". The return
    * is then stored in the newly created Context, and is consequently
    * available to all the API calls in the ManagerInterface that take a
-   * Context instance via @fqref{Context::managerState} "managerState".
+   * Context instance via @fqref{Context.managerState} "managerState".
    * Your implementation can then use this to anchor the api call to a
    * particular snapshot of the state of the asset inventory.
    *
@@ -346,7 +346,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @fqref{hostAPI.Manager.createChildContext} "createChildContext".
    * The return is then stored in the newly created Context, and is
    * consequently available to all the API calls in the ManagerInterface
-   * that take a Context instance via @fqref{Context::managerState}
+   * that take a Context instance via @fqref{Context.managerState}
    * "managerState". Your implementation can then use this to anchor the
    * api call to a particular snapshot of the state of the asset
    * inventory.

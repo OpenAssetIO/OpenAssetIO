@@ -26,7 +26,7 @@
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
- *   @fqref{managerAPI::Host} "Host" class before being
+ *   @fqref{managerAPI.Host} "Host" class before being
  *   exposed to the manager. This is to allow for assorted middleware
  *   auditing/logging functionality, and provide a degree of isolation
  *   against future API changes.
@@ -71,15 +71,15 @@
  *
  * @subsection host_todo_required_resolution Required for Simple Resolution
  *
- * - Implement the @fqref{hostAPI::HostInterface} "HostInterface" class
+ * - Implement the @fqref{hostAPI.HostInterface} "HostInterface" class
  *   methods:
- *   @fqref{hostAPI::HostInterface::identifier} "identifier" and
- *   @fqref{hostAPI::HostInterface::displayName} "displayName".
+ *   @fqref{hostAPI.HostInterface.identifier} "identifier" and
+ *   @fqref{hostAPI.HostInterface.displayName} "displayName".
  *
  * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
  *   provide the following objects:
  *    - An instance of the custom class derived from
- *      @fqref{hostAPI::HostInterface} "HostInterface".
+ *      @fqref{hostAPI.HostInterface} "HostInterface".
  *    - A `logger` (derived from
  *      @ref openassetio.log.LoggerInterface "LoggerInterface"), for
  *      simple console logging you can use a

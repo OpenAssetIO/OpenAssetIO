@@ -164,7 +164,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
 
 class _ValidatorHarnessHostInterface(hostAPI.HostInterface):
     """
-    Minimal required OpenAssetIO \fqref{hostAPI::HostInterface}
+    Minimal required OpenAssetIO \fqref{hostAPI.HostInterface}
     "HostInterface" implementation.
 
     @private

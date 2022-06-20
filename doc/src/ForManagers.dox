@@ -81,7 +81,7 @@
  *   implement @fqref{managerAPI.ManagerInterface.createState}
  *   "createState", and return some token that can be used as an anchor.
  *   A new token will be requested each time a @ref Context is made, and
- *   will then be available via @fqref{Context::managerState}
+ *   will then be available via @fqref{Context.managerState}
  *   "Context.managerState" in any call that receives a context. Hosts
  *   will take care of managing the lifetime of any given Context in
  *   terms that are meaningful for the user. Eg. the state token will be
@@ -105,8 +105,8 @@
  *
  * - Implement the @ref openassetio.managerAPI.ManagerInterface
  *   "ManagerInterface" class methods
- *   @fqref{managerAPI::ManagerInterface::identifier} "identifier" an
- *   @fqref{managerAPI::ManagerInterface::displayName} "displayName".
+ *   @fqref{managerAPI.ManagerInterface.identifier} "identifier" an
+ *   @fqref{managerAPI.ManagerInterface.displayName} "displayName".
  *
  * - Implement @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to control which Host-side data types you wish to be

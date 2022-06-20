@@ -19,7 +19,7 @@ extern "C" {
  * @defgroup oa_managerAPI_CManagerInterface oa_managerAPI_CManagerInterface
  *
  * C API that C plugins must implement to satisfy the
- * \fqref{managerAPI::ManagerInterface} "ManagerInterface" contract.
+ * \fqref{managerAPI.ManagerInterface} "ManagerInterface" contract.
  *
  * @{
  */
@@ -38,7 +38,7 @@ extern "C" {
 
 /**
  * Opaque handle type provided by @ref manager plugins that provide
- * their @fqref{managerAPI::ManagerInterface} "ManagerInterface"
+ * their @fqref{managerAPI.ManagerInterface} "ManagerInterface"
  * implementation via the C API plugin system.
  *
  * The associated @fqcref{managerAPI_CManagerInterface_s}
@@ -56,13 +56,13 @@ typedef struct oa_managerAPI_CManagerInterface_t* oa_managerAPI_CManagerInterfac
 
 /**
  * Function pointer suite provided by @ref manager plugins that provide
- * the @fqref{managerAPI::ManagerInterface} "ManagerInterface"
+ * the @fqref{managerAPI.ManagerInterface} "ManagerInterface"
  * implementation via the C API plugin system.
  *
  * Instances of this suite are provided by a @ref manager C plugin.
  *
  * The function pointers correspond to member functions of the
- * @fqref{managerAPI::ManagerInterface} "ManagerInterface" C++ class,
+ * @fqref{managerAPI.ManagerInterface} "ManagerInterface" C++ class,
  * and are expected to provide the same functionality but as a
  * C-friendly API.
  *
@@ -88,7 +88,7 @@ typedef struct {
 
   /**
    * C equivalent of the
-   * @fqref{managerAPI::ManagerInterface::identifier} "identifier"
+   * @fqref{managerAPI.ManagerInterface.identifier} "identifier"
    * member function.
    *
    * @param[out] err Storage for error message, if any.
@@ -103,7 +103,7 @@ typedef struct {
 
   /**
    * C equivalent of the
-   * @fqref{managerAPI::ManagerInterface::displayName} "displayName"
+   * @fqref{managerAPI.ManagerInterface.displayName} "displayName"
    * member function.
    *
    * @param[out] err Storage for error message, if any.
@@ -119,7 +119,7 @@ typedef struct {
 
   /**
    * C equivalent of the
-   * @fqref{managerAPI::ManagerInterface::info} "info"
+   * @fqref{managerAPI.ManagerInterface.info} "info"
    * member function.
    *
    * @param[out] err Storage for error message, if any.

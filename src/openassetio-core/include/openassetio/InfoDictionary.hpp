@@ -13,8 +13,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /// Types available as values in a InfoDictionary.
 using InfoDictionaryValue = std::variant<Bool, Int, Float, Str>;
 /**
- * Dictionary type used for @fqref{managerAPI::ManagerInterface::info}
- * "ManagerInterface::info".
+ * Dictionary type used for @fqref{managerAPI.ManagerInterface.info}
+ * "ManagerInterface.info".
  */
 using InfoDictionary = std::unordered_map<Str, InfoDictionaryValue>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
