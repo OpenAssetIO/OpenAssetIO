@@ -510,7 +510,7 @@ class Test_Manager_createChildContext:
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
-            mock_host_session, state_a)
+            state_a, mock_host_session)
         mock_manager_interface.mock.createState.assert_not_called()
 
     def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(

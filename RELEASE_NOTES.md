@@ -94,12 +94,22 @@ v1.0.0-alpha.X
   namespacing macro, i.e. `OPENASSETIO_NS(symbolName)`.
   [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
-- `Context`, `Host`, `HostInterface` and `HostSession` classes, and the
-  `ManagerInterface.initialize()` method, have been migrated to C++.
-  Debug and audit functionality is left for future work.
+- Migrated the following classes to C++: `Context`, `Host`,
+  `HostInterface` and `HostSession`. Debug and audit functionality is
+  left for future work.
   [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
+
+- Migrated the following `ManagerInterface` methods to C++
+  `initialize`, `createState`, `createChildState`,
+  `persistenceTokenForState`, `stateFromPersistenceToken`.
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
+
+- Migrated the following `Manager` methods to C++ `createContext`,
+  `createChildContext`, `persistenceTokenForContext`,
+  `contextFromPersistenceToken`.
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We

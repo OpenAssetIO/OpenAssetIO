@@ -2,7 +2,10 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <string>
+
 #include <openassetio/export.h>
+#include <openassetio/Context.hpp>
 #include <openassetio/managerAPI/HostSession.hpp>
 #include <openassetio/managerAPI/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
@@ -145,6 +148,97 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @}
    */
 
+  /**
+   * @name Context Management
+   * @see @ref stable_resolution
+   *
+   * @{
+   */
+
+  /**
+   *  Creates a new Context for use with the manager.
+   *
+   *  @warning Contexts should never be directly constructed, always
+   *  use this method or @ref createChildContext to create a new one.
+   *
+   *  @see @ref createChildContext
+   *  @see @fqref{Context} "Context"
+   */
+  ContextPtr createContext();
+
+  /**
+   *
+   *  Creates a child Context for use with the manager.
+   *
+   *  @warning Contexts should never be directly constructed, always
+   *  use this method or @ref createContext to create a new one.
+   *
+   *  @param parentContext The new context will clone the supplied
+   *  Context, and the Manager will be given a chance to migrate any
+   *  meaningful state etc... This can be useful when certain UI
+   *  elements need to 'take a copy' of a context in its current state
+   *  in order to parallelise actions that are part of the same logical
+   *  group, but have different locales, access or retention.
+   *
+   *  @see @ref createContext
+   *  @see @fqref{Context} "Context"
+   */
+  ContextPtr createChildContext(const ContextPtr& parentContext);
+
+  /**
+   *  Returns a serializable token that represents the supplied
+   *  context's managerState, such that it can be persisted or
+   *  distributed between processes to associate subsequent API usage
+   *  with the supplied context.
+   *
+   *  The returned token can be passed to @ref
+   *  contextFromPersistenceToken for future API use in another @ref
+   *  session with the same manager.
+   *
+   *  @param context The context to derive a persistence token for.
+   *
+   *  @return A persistence token that can be used with @ref
+   *  contextFromPersistenceToken to create a context associated with
+   *  the same logical group of actions as the one supplied to this
+   *  method.
+   *
+   *  @warning This only encapsulates the logical identity of the
+   *  Context, such that when restored, any API calls made using the
+   *  resulting Context will be logically associated with the one
+   *  supplied here. It does not encode the current access, retention
+   *  or locale.
+   *
+   *  @see @ref stable_resolution
+   */
+  std::string persistenceTokenForContext(const ContextPtr& context);
+
+  /**
+   * Returns a @ref Context linked to a previous manager state, based
+   * on the supplied persistence token derived from @ref
+   * persistenceTokenForContext. This context, when used with API
+   * methods will be considered part of the same logical series of
+   * actions.
+   *
+   * @param token A token previously returned from @ref
+   * persistenceTokenForContext by this manager.
+   *
+   * @return A context that will be associated with the same logical
+   * group of actions as the context supplied to @ref
+   * persistenceTokenForContext to generate the token.
+   *
+   * @warning The context's access, retention or locale is not
+   * restored by this action.
+   *
+   * @see @ref stable_resolution
+   *
+   * @todo Should we concatenate the manager id in
+   * persistenceTokenForContext so we can verify that they match?
+   */
+  ContextPtr contextFromPersistenceToken(const std::string& token);
+
+  /**
+   * @}
+   */
  private:
   managerAPI::ManagerInterfacePtr managerInterface_;
   managerAPI::HostSessionPtr hostSession_;

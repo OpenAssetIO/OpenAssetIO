@@ -25,7 +25,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from openassetio.managerAPI import ManagerInterface
+from openassetio.managerAPI import ManagerInterface, ManagerStateBase
 
 
 class Test_ManagerInterface_identifier:
@@ -35,9 +35,6 @@ class Test_ManagerInterface_identifier:
         assert(str(err.value) ==
                'Tried to call pure virtual function "ManagerInterface::identifier"')
 
-    def test_when_overridden_then_returns_value(self, manager_interface):
-        assert manager_interface.identifier() == "stub.manager"
-
 
 class Test_ManagerInterface_displayName:
     def test_when_not_overridden_then_raises_exception(self):
@@ -45,9 +42,6 @@ class Test_ManagerInterface_displayName:
             ManagerInterface().displayName()
         assert(str(err.value) ==
                'Tried to call pure virtual function "ManagerInterface::displayName"')
-
-    def test_when_overridden_then_returns_value(self, manager_interface):
-        assert manager_interface.displayName() == "Stub Manager"
 
 
 class Test_ManagerInterface_info:
@@ -57,11 +51,40 @@ class Test_ManagerInterface_info:
         assert isinstance(info, dict)
         assert info == {}
 
-    def test_when_overridden_then_returns_expected_dict(self, manager_interface):
-        info = manager_interface.info()
 
-        assert isinstance(info, dict)
-        assert info == {"stub": "info"}
+class Test_ManagerInterface_createState:
+    def test_default_implementation_returns_none(self, mock_host_session):
+        assert ManagerInterface().createState(mock_host_session) is None
+
+
+class Test_ManagerInterface_createChildState:
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().createChildState(ManagerStateBase(), mock_host_session)
+
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().createChildState(None, mock_host_session)
+
+
+class Test_ManagerInterface_persistenceTokenForState:
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().persistenceTokenForState(None, mock_host_session)
+
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().persistenceTokenForState(ManagerStateBase(), mock_host_session)
+
+
+class Test_ManagerInterface_stateFromPersistenceToken:
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+        with pytest.raises(TypeError):
+            ManagerInterface().createChildState(None, mock_host_session)
+
+    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+        with pytest.raises(RuntimeError):
+            ManagerInterface().stateFromPersistenceToken("", mock_host_session)
 
 
 class Test_ManagerInterface_defaultEntityReference:
@@ -108,19 +131,6 @@ class Test_ManagerInterface_finalizedEntityVersion:
         assert finalized_refs == refs
 
 
-class StubManagerInterface(ManagerInterface):
-    # TODO(DF): @pylint - remove once all abstract methods migrated
-    # pylint: disable=abstract-method
-    def identifier(self):
-        return "stub.manager"
-
-    def displayName(self):
-        return "Stub Manager"
-
-    def info(self):
-        return {"stub": "info"}
-
-
 @pytest.fixture
 def manager_interface():
-    return StubManagerInterface()
+    return ManagerInterface()

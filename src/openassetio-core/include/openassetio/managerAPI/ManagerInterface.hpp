@@ -3,9 +3,12 @@
 
 #pragma once
 
+#include <string>
+
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/managerAPI/HostSession.hpp>
+#include <openassetio/managerAPI/ManagerStateBase.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -87,18 +90,17 @@ namespace managerAPI {
  * The one exception being @ref initialize, this will never be
  * called concurrently.
  *
- * When a @fqref{Context} "Context" object is constructed by @ref
- * openassetio.hostAPI.Manager.Manager.createContext, the @needsref
- * createState (or @needsref createChildState for @ref
- * openassetio.hostAPI.Manager.Manager.createChildContext
- * "createChildContext") method will be called, and the resulting state
- * object stored in the context. This context will then be re-used
- * across related API calls to your implementation of the
- * ManagerInterface. You can use this to determine which calls may be
- * part of a specific 'action' in the same host, or logically grouped
- * processes such as a batch render. This should allow you to implement
- * stable resolution of @ref meta_version "meta-versions" or other
- * resolve-time concepts.
+ * When a @fqref{Context} "Context" object is constructed by
+ * @fqref{hostAPI.Manager.createContext} "createContext", the @ref
+ * createState (or @ref createChildState for
+ * @fqref{hostAPI.Manager.createChildContext} "createChildContext")
+ * method will be called, and the resulting state object stored in the
+ * context. This context will then be re-used across related API calls
+ * to your implementation of the ManagerInterface. You can use this to
+ * determine which calls may be part of a specific 'action' in the same
+ * host, or logically grouped processes such as a batch render. This
+ * should allow you to implement stable resolution of @ref meta_version
+ * "meta-versions" or other resolve-time concepts.
  *
  * There should be no persistent state in the implementation, concepts
  * such as getError(), etc.. for example should not be used.
@@ -272,8 +274,145 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * de-activated in a host, to allow any event registrations etc...
    * to be removed.
    */
-  virtual void initialize(HostSessionPtr hostSession) = 0;
+  virtual void initialize(const HostSessionPtr& hostSession) = 0;
 
+  /**
+   * @}
+   */
+
+  /**
+   *
+   * @name Manager State
+   *
+   * A single 'task' in a host, may require more than one interaction
+   * with the asset management system.
+   *
+   * Because the @ref ManagerInterface is effectively state-less. To
+   * simplify error handling, and allow an implementation to know which
+   * interactions are related, this API supports the concept of a @ref
+   * manager_state object. This is contained in every @ref Context and
+   * passed to relevant calls.
+   *
+   * This mechanism may be used for a variety of purposes. For example,
+   * it could ensure that queries are made from a coherent time stamp
+   * during a render, or to undo the publishing of multiple assets.
+   *
+   * @{
+   */
+
+  /**
+   *
+   * Create a new object to represent the state of the interface and
+   * return it (or some handle that can be persisted within the
+   * context). You are free to implement this however you like, as
+   * long as it can be uniquely represented by the object returned
+   * from this function.
+   *
+   * This method is called whenever a new @ref Context is made by a
+   * @fqref{hostAPI.Manager.createContext} "createContext". The return
+   * is then stored in the newly created Context, and is consequently
+   * available to all the API calls in the ManagerInterface that take a
+   * Context instance via @fqref{Context::managerState} "managerState".
+   * Your implementation can then use this to anchor the api call to a
+   * particular snapshot of the state of the asset inventory.
+   *
+   * The default implementation of this method returns a nullptr,
+   * indicating that the manager does not perform custom state
+   * management. Manager's implementing this method must also implement
+   * @ref createChildState, @ref persistenceTokenForState and @ref
+   * stateFromPersistenceToken.
+   *
+   * @param hostSession openassetio.managerAPI.HostSession, The host
+   * session that maps to the caller. This should be used for all
+   * logging and provides access to the openassetio.managerAPI.Host
+   * object representing the process that initiated the API session.
+   *
+   * @return Some object that represents self-contained state of the
+   * ManagerInterface. This will be passed to future calls.
+   *
+   * @exception exceptions.StateError If for some reason creation
+   * fails.
+   *
+   * @see @ref createChildState
+   * @see @ref persistenceTokenForState
+   * @see @ref stateFromPersistenceToken
+   */
+  [[nodiscard]] virtual ManagerStateBasePtr createState(const HostSessionPtr& hostSession);
+
+  /**
+   * Create a state that is a child of the supplied state.
+   *
+   * This method is called whenever a child @ref Context is made by
+   * @fqref{hostAPI.Manager.createChildContext} "createChildContext".
+   * The return is then stored in the newly created Context, and is
+   * consequently available to all the API calls in the ManagerInterface
+   * that take a Context instance via @fqref{Context::managerState}
+   * "managerState". Your implementation can then use this to anchor the
+   * api call to a particular snapshot of the state of the asset
+   * inventory.
+   *
+   * The default implementation will raise if called. This method must
+   * be implemented by any manager implementing @ref createState.
+   *
+   * @param hostSession openassetio.managerAPI.HostSession, The host
+   * session that maps to the caller. This should be used for all
+   * logging and provides access to the openassetio.managerAPI.Host
+   * object representing the process that initiated the API session.
+   *
+   * @param parentState obj, The new state is to be considered a
+   * 'child' of the supplied state. This may be used when creating a
+   * child Context for persistence somewhere in a UI, etc... when
+   * further processing may change the access/retention of the
+   * Context. It is expected that the manager will migrate any
+   * applicable state components to this child context, for example -
+   * a timestamp used for 'vlatest'.
+   *
+   * @return Some object that represents self-contained state of the
+   * ManagerInterface. This will be passed to future calls.
+   *
+   * @exception exceptions.StateError If for some reason creation
+   * fails.
+   * @exception std::runtime_error If called on a manager that does not
+   * implement custom state management.
+   *
+   * @see @ref createState
+   * @see @ref persistenceTokenForState
+   * @see @ref stateFromPersistenceToken
+   */
+  [[nodiscard]] virtual ManagerStateBasePtr createChildState(
+      const ManagerStateBasePtr& parentState, const HostSessionPtr& hostSession);
+
+  /**
+   * Returns a string that encapsulates the current state of the
+   * ManagerInterface represented by the supplied state
+   * object, (created by @ref createState or @ref createChildState)
+   * so that can be restored later, or in another process.
+   *
+   * @return  A string that can be used to restore the stack.
+   *
+   * @exception std::runtime_error If called on a manager that does not
+   * implement custom state management.
+   *
+   * @see @ref stateFromPersistenceToken
+   */
+  [[nodiscard]] virtual std::string persistenceTokenForState(const ManagerStateBasePtr& state,
+                                                             const HostSessionPtr& hostSession);
+
+  /**
+   * Restores the supplied state object to a previously persisted
+   * state.
+   *
+   * @return A state object, as per createState(), except restored to
+   * the previous state encapsulated in the token, which is the same
+   * string as returned by persistenceTokenForState.
+   *
+   * @exception exceptions.StateError If the supplied token is not
+   * meaningful, or that a state has already been restored.
+   * @exception std::runtime_error If called on a manager that does not
+   * implement custom state management.
+   */
+  [[nodiscard]] virtual ManagerStateBasePtr stateFromPersistenceToken(
+      const std::string& token, const HostSessionPtr& hostSession);
   /**
    * @}
    */

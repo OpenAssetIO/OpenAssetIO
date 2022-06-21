@@ -24,10 +24,10 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  *  not need to be used directly.
  *
  *  @warning Contexts should never be directly constructed. Hosts should
- *  use @ref openassetio.hostAPI.Manager.Manager.createContext or @ref
- *  openassetio.hostAPI.Manager.Manager.createChildContext. A Manager
- *  implementation should never need to create a context of it's own,
- *  one will always be supplied through the ManagerInterface entry
+ *  use @fqref{hostAPI.Manager.createContext} "createContext" or
+ *  @fqref{hostAPI.Manager.createChildContext} "createChildContext". A
+ *  Manager implementation should never need to create a context of it's
+ *  own, one will always be supplied through the ManagerInterface entry
  *  points.
  */
 struct Context final {

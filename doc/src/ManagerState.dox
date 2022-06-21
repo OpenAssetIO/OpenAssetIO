@@ -32,10 +32,10 @@
  * The manager state mechanism allows a @ref manager to embed state
  * within the @ref host, such that it can correlate API calls.
  *
- * Whenever a @ref Context is created by the host, the @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.createState
- * "ManagerInterface.createState" (or @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.createChildState
+ * Whenever a @ref Context is created by the host, the
+ * @fqref{managerAPI.ManagerInterface.createState}
+ * "ManagerInterface.createState" (or
+ * @fqref{managerAPI.ManagerInterface.createChildState}
  * "ManagerInterface.createChildState") method will be called, and the
  * returned token stored in the Context's @fqref{Context::managerState}
  * "managerState" property.
@@ -66,10 +66,9 @@
  * Distributed processing requires the same context to be shared by
  * multiple discrete working processes.
  *
- * The @ref
- * openassetio.hostAPI.Manager.Manager.persistenceTokenForContext
- * "Manager.persistenceTokenForContext" and @ref
- * openassetio.hostAPI.Manager.Manager.contextFromPersistenceToken
+ * The @fqref{hostAPI.Manager.persistenceTokenForContext}
+ * "Manager.persistenceTokenForContext" and
+ * @fqref{hostAPI.Manager.contextFromPersistenceToken}
  * "contextFromPersistenceToken" methods provide a mechanism by which a
  * @ref host can obtain a portable version of the manager's state token
  * for a given context for distribution to other processes that are

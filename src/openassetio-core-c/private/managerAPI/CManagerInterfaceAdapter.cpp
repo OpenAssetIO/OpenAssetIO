@@ -79,7 +79,7 @@ InfoDictionary CManagerInterfaceAdapter::info() const {
   return infoDict;
 }
 
-void CManagerInterfaceAdapter::initialize([[maybe_unused]] HostSessionPtr hostSession) {}
+void CManagerInterfaceAdapter::initialize([[maybe_unused]] const HostSessionPtr& hostSession) {}
 
 }  // namespace managerAPI
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
