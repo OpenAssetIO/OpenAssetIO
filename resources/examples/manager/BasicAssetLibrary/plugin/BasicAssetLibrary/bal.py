@@ -30,6 +30,7 @@ from collections import namedtuple
 from urllib.parse import urlparse
 
 
+from openassetio import constants
 from openassetio.exceptions import InvalidEntityReference
 
 
@@ -96,3 +97,21 @@ def entity(entity_info: EntityInfo, library: dict) -> Entity:
     Retrieves the Entity data addressed by the supplied EntityInfo
     """
     return Entity(**library["entities"][entity_info.name]["versions"][-1])
+
+
+def managementPolicy(trait_set: set[str], library: dict) -> int:
+    """
+    Retrieves the management policy for the supplied trait set. The
+    default will be used unless an alternate default or trait set
+    specific exception is provided in the library.
+    """
+    read_policies = library.get("managementPolicy", {}).get("read", {})
+    exceptions = read_policies.get("exceptions", [])
+    matching_policies = [e["policy"] for e in exceptions if set(e["traitSet"]) == trait_set]
+
+    # By default, cooperatively manager all trait sets, unless the
+    # library tells us otherwise.
+    policy = read_policies.get("default", constants.kManaged)
+    if matching_policies:
+        policy = matching_policies[0]
+    return policy
