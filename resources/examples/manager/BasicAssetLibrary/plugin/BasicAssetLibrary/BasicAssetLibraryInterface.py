@@ -21,7 +21,7 @@ import os
 
 from openassetio import constants, TraitsData
 from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
-from openassetio.managerAPI import ManagerInterface
+from openassetio.managerApi import ManagerInterface
 
 from . import bal
 

@@ -25,7 +25,7 @@ See @ref openassetio.log.LoggerInterface for example.
 kSupportedAttributeTypes = (str, int, float, bool, type(None))
 
 ## @name Management States
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## @see @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
 ## "ManagerInterface.managementPolicy"
 ## @{
 
@@ -48,7 +48,7 @@ kStateMask = 7
 ## @}
 
 ## @name Publishing control
-## @see @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+## @see @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
 ## "ManagerInterface.managementPolicy"
 ## @{
 

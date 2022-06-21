@@ -6,7 +6,7 @@
 
 #include <openassetio/export.h>
 #include <openassetio/TraitsData.hpp>
-#include <openassetio/managerAPI/ManagerStateBase.hpp>
+#include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -24,8 +24,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  *  not need to be used directly.
  *
  *  @warning Contexts should never be directly constructed. Hosts should
- *  use @fqref{hostAPI.Manager.createContext} "createContext" or
- *  @fqref{hostAPI.Manager.createChildContext} "createChildContext". A
+ *  use @fqref{hostApi.Manager.createContext} "createContext" or
+ *  @fqref{hostApi.Manager.createChildContext} "createChildContext". A
  *  Manager implementation should never need to create a context of it's
  *  own, one will always be supplied through the ManagerInterface entry
  *  points.
@@ -81,7 +81,7 @@ struct Context final {
    * A concession to the fact that it's not always possible to fully
    * implement the spec of this API within a @ref host.
    *
-   * For example, @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+   * For example, @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
    * "Manager.register()" can return an @ref entity_reference that
    * points to the newly published @ref entity. This is often not the
    * same as the reference that was passed to the call. The Host is
@@ -122,7 +122,7 @@ struct Context final {
    *
    * @see @ref stable_resolution
    */
-  managerAPI::ManagerStateBasePtr managerState{};
+  managerApi::ManagerStateBasePtr managerState{};
 
   /**
    * @return `true` if the context is any of the 'Read' based access

@@ -43,12 +43,12 @@ target_sources(
     _openassetio.cpp
     ContextBinding.cpp
     TraitsDataBinding.cpp
-    hostAPI/ManagerBinding.cpp
-    hostAPI/HostInterfaceBinding.cpp
-    managerAPI/HostBinding.cpp
-    managerAPI/HostSessionBinding.cpp
-    managerAPI/ManagerInterfaceBinding.cpp
-    managerAPI/ManagerStateBaseBinding.cpp
+    hostApi/ManagerBinding.cpp
+    hostApi/HostInterfaceBinding.cpp
+    managerApi/HostBinding.cpp
+    managerApi/HostSessionBinding.cpp
+    managerApi/ManagerInterfaceBinding.cpp
+    managerApi/ManagerStateBaseBinding.cpp
 )
 
 # Give access to private headers.

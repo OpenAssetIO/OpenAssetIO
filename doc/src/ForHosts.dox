@@ -12,8 +12,8 @@
  *   represent an asset management system.
  *
  * - Hosts interact with an @ref asset_management_system through an
- *   instance of the @ref openassetio.hostAPI.Manager "Manager" class.
- *   The @ref openassetio.hostAPI.Session "Session" class is used to
+ *   instance of the @ref openassetio.hostApi.Manager "Manager" class.
+ *   The @ref openassetio.hostApi.Session "Session" class is used to
  *   instantiate and access this instance for any given manager. The
  *   Manager class wraps the implementation of the API by a specific
  *   asset manager to help with state management.
@@ -26,7 +26,7 @@
  *
  * - The specific implementation of the @ref HostInterface class
  *   provided by a host when starting a @ref session is wrapped in the
- *   @fqref{managerAPI.Host} "Host" class before being
+ *   @fqref{managerApi.Host} "Host" class before being
  *   exposed to the manager. This is to allow for assorted middleware
  *   auditing/logging functionality, and provide a degree of isolation
  *   against future API changes.
@@ -38,7 +38,7 @@
  *   considered to be opaque handles by the host, even if they look like
  *   well-formed strings.
  *
- * - Nearly all interactions with a @ref openassetio.hostAPI.Manager
+ * - Nearly all interactions with a @ref openassetio.hostApi.Manager
  *   "Manager" require an appropriately configured @ref Context. This
  *   tells the @ref asset_management_system about the intended actions
  *   of the host. For example, whether an @ref entity_reference is being
@@ -63,23 +63,23 @@
  * @section host_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref openassetio.hostAPI.Session.Session "Session"
- * @see @ref openassetio.hostAPI.Manager.Manager "Manager"
+ * @see @ref openassetio.hostApi.Session.Session "Session"
+ * @see @ref openassetio.hostApi.Manager.Manager "Manager"
  * @see @fqref{Context} "Context"
  *
  * @section host_todo Implementation Check List
  *
  * @subsection host_todo_required_resolution Required for Simple Resolution
  *
- * - Implement the @fqref{hostAPI.HostInterface} "HostInterface" class
+ * - Implement the @fqref{hostApi.HostInterface} "HostInterface" class
  *   methods:
- *   @fqref{hostAPI.HostInterface.identifier} "identifier" and
- *   @fqref{hostAPI.HostInterface.displayName} "displayName".
+ *   @fqref{hostApi.HostInterface.identifier} "identifier" and
+ *   @fqref{hostApi.HostInterface.displayName} "displayName".
  *
- * - Create a @ref openassetio.hostAPI.Session to bootstrap the API,
+ * - Create a @ref openassetio.hostApi.Session to bootstrap the API,
  *   provide the following objects:
  *    - An instance of the custom class derived from
- *      @fqref{hostAPI.HostInterface} "HostInterface".
+ *      @fqref{hostApi.HostInterface} "HostInterface".
  *    - A `logger` (derived from
  *      @ref openassetio.log.LoggerInterface "LoggerInterface"), for
  *      simple console logging you can use a
@@ -95,12 +95,12 @@
  *
  * - Ask the @ref manager if they support resolve for the relevant
  *   data by supplying its @ref trait_set to
- *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" with a @ref Context with `kRead` access,
  *   respecting the returned flags.
  *
  * - Always check any suspected entity references with @ref
- *   openassetio.hostAPI.Manager.Manager.isEntityReference
+ *   openassetio.hostApi.Manager.Manager.isEntityReference
  *   "Manager.isEntityReference" before passing to any other API calls.
  *
  * @see @ref examples_api_initialization
@@ -111,11 +111,11 @@
  *
  * - Ask the @ref manager if they support publishing for the relevant
  *   data by supplying its @ref trait_set to
- *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" with a @ref Context with `kWrite` access,
  *   respecting the returned flags.
  *
- * - Follow the @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ * - Follow the @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "policy", @ref preflight, resolve, write, @ref register process
  *   illustrated @ref example_publishing_a_file "here" whenever
  *   generating new data.
@@ -135,22 +135,22 @@
  *   manager to use to interact with an @ref asset_management_system,
  *   storing applicable options, etc...
  *
- * - @ref openassetio.hostAPI.Manager.Manager.isEntityReference "Test"
+ * - @ref openassetio.hostApi.Manager.Manager.isEntityReference "Test"
  *   and resolve any strings that may represent file system locations
- *   (@ref openassetio.hostAPI.Manager.Manager.resolve
+ *   (@ref openassetio.hostApi.Manager.Manager.resolve
  *   "Manager.resolve")
  *
  * - Ensure the use of a correctly configured @ref Context for all
  *   calls to the API.
  *
- * - If a manager's @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ * - If a manager's @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "managementPolicy" sets @ref openassetio.constants.kWantsThumbnail
  *   "kWantsThumbnail", where possible, generate thumbnails as requested
  *   during publishing.
  *
  * - Allow the @needsref ManagerUIDelegate to participate in browsing/etc...
  *   for any data types they have expressed an interest in managing via
- *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy".
  *
  * - Make the drawing of any parameters that may hold an @ref

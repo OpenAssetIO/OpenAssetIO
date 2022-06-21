@@ -12,15 +12,15 @@ PYBIND11_MODULE(_openassetio, mod) {
   // pybind11 will properly report type names in its docstring/error
   // output.
 
-  py::module managerAPI = mod.def_submodule("managerAPI");
-  py::module hostAPI = mod.def_submodule("hostAPI");
+  py::module managerApi = mod.def_submodule("managerApi");
+  py::module hostApi = mod.def_submodule("hostApi");
 
   registerTraitsData(mod);
-  registerManagerStateBase(managerAPI);
+  registerManagerStateBase(managerApi);
   registerContext(mod);
-  registerHostInterface(hostAPI);
-  registerHost(managerAPI);
-  registerHostSession(managerAPI);
-  registerManagerInterface(managerAPI);
-  registerManager(hostAPI);
+  registerHostInterface(hostApi);
+  registerHost(managerApi);
+  registerHostSession(managerApi);
+  registerManagerInterface(managerApi);
+  registerManager(hostApi);
 }

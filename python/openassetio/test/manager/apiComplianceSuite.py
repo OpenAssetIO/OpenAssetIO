@@ -21,7 +21,7 @@ manager plugin complies to the relevant core OpenAssetIO API contract.
 This suite is solely concerned with verifying that a plugin meets the
 requirements of the API, and can handle all documented calling patterns.
 For example, that when a
-@ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+@ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
 "managementPolicy" query returns a non-ignored state, that there are no
 errors calling the other required methods for a managed entity with
 those @ref trait "traits".
@@ -44,7 +44,7 @@ __all__ = []
 class Test_identifier(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.identifier.
+    managerApi.ManagerInterface.identifier.
     """
     def test_is_correct_type(self):
         self.assertIsInstance(self._manager.identifier(), str)
@@ -59,7 +59,7 @@ class Test_identifier(FixtureAugmentedTestCase):
 class Test_displayName(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.displayName.
+    managerApi.ManagerInterface.displayName.
     """
     def test_is_correct_type(self):
         self.assertIsInstance(self._manager.displayName(), str)
@@ -73,7 +73,7 @@ class Test_displayName(FixtureAugmentedTestCase):
 
 class Test_info(FixtureAugmentedTestCase):
     """
-    Check plugin's implementation of managerAPI.ManagerInterface.info.
+    Check plugin's implementation of managerApi.ManagerInterface.info.
     """
     # TODO(DF): Once `isEntityReference` tests are added, check that
     #   `kField_EntityReferencesMatchPrefix` in info dict is used.
@@ -86,7 +86,7 @@ class Test_info(FixtureAugmentedTestCase):
 class Test_setSettings(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.setSettings.
+    managerApi.ManagerInterface.setSettings.
     """
     def setUp(self):
         self.collectRequiredFixture('some_settings_with_valid_keys', skipTestIfMissing=True)
@@ -102,7 +102,7 @@ class Test_setSettings(FixtureAugmentedTestCase):
 
 class Test_getSettings(FixtureAugmentedTestCase):
     """
-    Check plugin's implementation of managerAPI.ManagerInterface.getSettings.
+    Check plugin's implementation of managerApi.ManagerInterface.getSettings.
     """
 
     def test_when_set_then_get_returns_updated_settings(self):
@@ -121,7 +121,7 @@ class Test_getSettings(FixtureAugmentedTestCase):
 
 class Test_managementPolicy(FixtureAugmentedTestCase):
     """
-    Check plugin's implementation of managerAPI.ManagerInterface.managementPolicy
+    Check plugin's implementation of managerApi.ManagerInterface.managementPolicy
     """
 
     def test_when_called_with_single_trait_set_returns_single_result(self):
@@ -182,7 +182,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 class Test_isEntityReference(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.isEntityReference.
+    managerApi.ManagerInterface.isEntityReference.
     """
 
     def setUp(self):
@@ -213,7 +213,7 @@ class Test_isEntityReference(FixtureAugmentedTestCase):
 class Test_entityExists(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.entityExists.
+    managerApi.ManagerInterface.entityExists.
     """
 
     def setUp(self):
@@ -240,7 +240,7 @@ class Test_entityExists(FixtureAugmentedTestCase):
 class Test_resolve(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerAPI.ManagerInterface.resolve.
+    managerApi.ManagerInterface.resolve.
     """
     def setUp(self):
         self.collectRequiredFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)

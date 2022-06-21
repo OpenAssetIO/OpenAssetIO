@@ -61,30 +61,30 @@ incomplete and ultimately unused class. We then `reinterpret_cast` it
 to/from our actual pointer type on the C++ side. I.e.
 
 ```c
-#define oa_managerAPI_ManagerInterface_t OPENASSETIO_NS(managerAPI_ManagerInterface_t)
-#define oa_managerAPI_ManagerInterface_h OPENASSETIO_NS(managerAPI_ManagerInterface_h)
+#define oa_managerApi_ManagerInterface_t OPENASSETIO_NS(managerApi_ManagerInterface_t)
+#define oa_managerApi_ManagerInterface_h OPENASSETIO_NS(managerApi_ManagerInterface_h)
 
-typedef struct oa_managerAPI_ManagerInterface_t *oa_managerAPI_ManagerInterface_h;
+typedef struct oa_managerApi_ManagerInterface_t *oa_managerApi_ManagerInterface_h;
 ```
 
-The type `managerAPI_ManagerInterface_t` is never used in practice, its
+The type `managerApi_ManagerInterface_t` is never used in practice, its
 name is unimportant (but obviously cannot conflict with other symbols).
-It is the `managerAPI_ManagerInterface_h` "handle" (pointer) type that
+It is the `managerApi_ManagerInterface_h` "handle" (pointer) type that
 we will `reinterpret_cast` to/from.
 
 ### Alternatives
 
 Alternative schemes exist for adding type safety to opaque pointer
-handles. For example, the `managerAPI_ManagerInterface_t` could be
+handles. For example, the `managerApi_ManagerInterface_t` could be
 replaced with an anonymous `struct`, but this struct cannot be empty in
 C, so would look like
 ```c
 typedef struct {
     char unused;
-} * oa_managerAPI_ManagerInterface_h;
+} * oa_managerApi_ManagerInterface_h;
 ```
 This has the advantage of removing the need to define a throwaway global
-symbol name (`managerAPI_ManagerInterface_t`). However, it has the
+symbol name (`managerApi_ManagerInterface_t`). However, it has the
 disadvantage that `handle->unused` is a valid expression, rather than
 a compile-time error.
 
@@ -93,7 +93,7 @@ like
 ```c
 typedef struct {
     void* ptr;
-} oa_managerAPI_ManagerInterface_h;
+} oa_managerApi_ManagerInterface_h;
 ```
 The underlying data would then be accessed as `handle.ptr`. One minor
 advantage of this is that `static_cast` can be used convert between the
@@ -167,19 +167,19 @@ For our oversimplified `ManagerInterface` whose only methods are
 `identifier` and `displayName`
 
 ```c
-#define oa_managerAPI_ManagerInterface_s OPENASSETIO_NS(managerAPI_ManagerInterface_s)
+#define oa_managerApi_ManagerInterface_s OPENASSETIO_NS(managerApi_ManagerInterface_s)
 
 typedef struct {
-  void (*dtor)(oa_managerAPI_ManagerInterface_h);
+  void (*dtor)(oa_managerApi_ManagerInterface_h);
 
   int (*identifier)(oa_SimpleString *,
                     oa_SimpleString *,
-                    oa_managerAPI_ManagerInterface_h);
+                    oa_managerApi_ManagerInterface_h);
 
   int (*displayName)(oa_SimpleString *,
                      oa_SimpleString *,
-                     oa_managerAPI_ManagerInterface_h);
-} oa_managerAPI_ManagerInterface_s;
+                     oa_managerApi_ManagerInterface_h);
+} oa_managerApi_ManagerInterface_s;
 ```
 
 Note that in this case there is a `dtor` (destructor) function but no
@@ -202,8 +202,8 @@ constexpr size_t kStringBufferSize = 500;
 
 // Constructor expects to be supplied a valid handle and suite.
 CManagerInterface::CManagerInterface(
-    oa_managerAPI_ManagerInterface_h handle,
-    oa_managerAPI_ManagerInterface_s suite)
+    oa_managerApi_ManagerInterface_h handle,
+    oa_managerApi_ManagerInterface_s suite)
     : handle_{handle}, suite_{suite} {}
 
 // Destructor calls suite's `dtor` function.
@@ -241,7 +241,7 @@ src/openassetio-core-c
 │   └── openassetio
 │       └── c
 │           ├── errors.h
-│           ├── managerAPI
+│           ├── managerApi
 │           │   └── ManagerInterface.h
 │           ├── namespace.h
 │           └── SimpleString.h

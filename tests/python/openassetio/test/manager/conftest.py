@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import hostAPI, log
+from openassetio import hostApi, log
 from openassetio import TraitsData
 
 
@@ -51,19 +51,19 @@ def openassetio_env_with_test_resources(resources_dir, monkeypatch):
 
 @pytest.fixture
 def mock_manager_factory():
-    return mock.create_autospec(hostAPI.ManagerFactoryInterface, instance=True, spec_set=True)
+    return mock.create_autospec(hostApi.ManagerFactoryInterface, instance=True, spec_set=True)
 
 
 @pytest.fixture
 def mock_session(mock_manager):
-    sess = mock.create_autospec(hostAPI.Session, instance=True, spec_set=True)
+    sess = mock.create_autospec(hostApi.Session, instance=True, spec_set=True)
     sess.currentManager.return_value = mock_manager
     return sess
 
 
 @pytest.fixture
 def mock_manager():
-    return mock.create_autospec(hostAPI.Manager, instance=True, spec_set=True)
+    return mock.create_autospec(hostApi.Manager, instance=True, spec_set=True)
 
 
 @pytest.fixture

@@ -11,7 +11,7 @@ void registerContext(const py::module& mod) {
   using openassetio::Context;
   using openassetio::ContextPtr;
   using openassetio::TraitsDataPtr;
-  using openassetio::managerAPI::ManagerStateBasePtr;
+  using openassetio::managerApi::ManagerStateBasePtr;
 
   py::class_<Context, ContextPtr> context{mod, "Context", py::is_final()};
 

@@ -7,7 +7,7 @@
  * held by the caller and supplied to the manager as part of the method
  * signature. This is to allow multi-threaded access to the @ref ManagerInterface
  * and avoid the need for any additional internal state to exist within
- * its implementation. The @ref openassetio.hostAPI.Manager "Manager"
+ * its implementation. The @ref openassetio.hostApi.Manager "Manager"
  * class wraps the interface implementation to help the @ref host
  * with basic session state management.
  *
@@ -33,9 +33,9 @@
  * within the @ref host, such that it can correlate API calls.
  *
  * Whenever a @ref Context is created by the host, the
- * @fqref{managerAPI.ManagerInterface.createState}
+ * @fqref{managerApi.ManagerInterface.createState}
  * "ManagerInterface.createState" (or
- * @fqref{managerAPI.ManagerInterface.createChildState}
+ * @fqref{managerApi.ManagerInterface.createChildState}
  * "ManagerInterface.createChildState") method will be called, and the
  * returned token stored in the Context's @fqref{Context.managerState}
  * "managerState" property.
@@ -66,9 +66,9 @@
  * Distributed processing requires the same context to be shared by
  * multiple discrete working processes.
  *
- * The @fqref{hostAPI.Manager.persistenceTokenForContext}
+ * The @fqref{hostApi.Manager.persistenceTokenForContext}
  * "Manager.persistenceTokenForContext" and
- * @fqref{hostAPI.Manager.contextFromPersistenceToken}
+ * @fqref{hostApi.Manager.contextFromPersistenceToken}
  * "contextFromPersistenceToken" methods provide a mechanism by which a
  * @ref host can obtain a portable version of the manager's state token
  * for a given context for distribution to other processes that are

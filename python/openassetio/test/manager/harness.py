@@ -175,7 +175,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param fixtures `Dict[Any, Any]` Dictionary of fixtures specific
         to the current test case.
 
-        @param session hostAPI.Session.Session The OpenAssetIO
+        @param session hostApi.Session.Session The OpenAssetIO
         @ref session to be used by test cases.
 
         @param locale @fqref{TraitsData} "TraitsData" The @ref locale to
@@ -188,9 +188,9 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         along to the base class.
         """
         self._fixtures = fixtures  # type: dict
-        self._session = session  # type: hostAPI.Session
+        self._session = session  # type: hostApi.Session
         self._locale = locale  # type: openassetio.Specification
-        self._manager = session.currentManager()  # type: managerAPI.Manager
+        self._manager = session.currentManager()  # type: managerApi.Manager
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
 
     def createTestContext(self, access=None):

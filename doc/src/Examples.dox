@@ -20,11 +20,11 @@
  * discover available @ref ManagerPlugin "ManagerPlugins".
  *
  * It also includes a bare-minimum example of a
- * @fqref{hostAPI.HostInterface} "HostInterface" implementation.
+ * @fqref{hostApi.HostInterface} "HostInterface" implementation.
  *
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter
- * from openassetio.hostAPI import HostInterface, Manager, Session
+ * from openassetio.hostApi import HostInterface, Manager, Session
  * from openassetio.pluginSystem import PluginSystemManagerFactory
  *
  * class ExampleHost(HostInterface):
@@ -109,7 +109,7 @@
  *
  * The API middleware provides assorted short-circuit validation
  * optimisations that can reduce the number of inter-language hops
- * required. See @fqref{managerAPI.ManagerInterface.info}
+ * required. See @fqref{managerApi.ManagerInterface.info}
  * "ManagerInterface.info" and the `kField_EntityReferencesMatchPrefix`
  * key.
  *
@@ -219,7 +219,7 @@
  *
  * This example demonstrates the correct handling in a @ref host of the
  * @ref openassetio.constants.kWantsThumbnail flag if set by a @ref manager
- * in its @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ * in its @ref openassetio.hostApi.Manager.Manager.managementPolicy
  * "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.

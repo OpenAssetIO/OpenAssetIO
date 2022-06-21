@@ -88,7 +88,7 @@
  * key/value pairs of data (properties) that the entity (may) hold.
  *
  * Traits are the mechanism by which a @ref host requests specific data
- * about an entity at runtime. The @ref openassetio.hostAPI.Manager.Manager.resolve
+ * about an entity at runtime. The @ref openassetio.hostApi.Manager.Manager.resolve
  * "resolve" method asks the manager to retrieve the data for a specific
  * set of traits for one or more @ref entity_reference
  * "entity references".
@@ -277,7 +277,7 @@
  * @subsection Using Trait Sets as a Filter Predicate
  *
  * When a @ref trait_set is used as a predicate to search for entities.
- * Such as in @ref openassetio.hostAPI.Manager.Manager.getRelatedReferences
+ * Such as in @ref openassetio.hostApi.Manager.Manager.getRelatedReferences
  * "getRelatedReferences", or when browsing for assets, traits are
  * considered additive, and they must all be satisifed.
  *
@@ -322,7 +322,7 @@
  * @subsection Descriptions
  *
  * When a manager populates data in
- * @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolve
+ * @ref openassetio.managerApi.ManagerInterface.ManagerInterface.resolve
  * "resolve", then it should set all of the requested traits that are
  * applicable to the entity, and only those that have data in the case
  * of traits with properties. Traits that are not relevant, missing all
