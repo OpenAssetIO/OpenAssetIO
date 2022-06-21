@@ -20,6 +20,8 @@ BasicAssetLibrary manager behaves with the correct business logic.
 
 # pylint: disable=invalid-name, missing-function-docstring
 
+import os
+
 from openassetio import constants, Context
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
@@ -27,10 +29,10 @@ from openassetio.test.manager.harness import FixtureAugmentedTestCase
 __all__ = []
 
 
-class Test_managementPolicy(FixtureAugmentedTestCase):
+class Test_managementPolicy_default_behavior(FixtureAugmentedTestCase):
     """
-    Tests that the BAL manages all entities, for read, but nothing
-    for write.
+    Tests that by default, the BAL manages all entities, for read, but
+    nothing for write.
     """
 
     __trait_sets = (
@@ -45,6 +47,53 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         for policy in policies:
             self.assertEqual(policy & constants.kManaged, constants.kManaged)
             self.assertNotEqual(policy & constants.kExclusive, constants.kExclusive)
+
+    def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
+        context = self.createTestContext(access=Context.kWrite)
+        policies = self._manager.managementPolicy(self.__trait_sets, context)
+        for policy in policies:
+            self.assertEqual(policy, constants.kIgnored)
+
+
+class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase):
+    """
+    Tests that custom policies are loaded and respected.
+    """
+
+    __trait_sets = (
+        {"definitely", "unique"},
+        {"an", "ignored", "trait", "set"},
+        {"a", "non", "exclusive", "trait", "set"},
+    )
+
+    __expected_policies = [4, 0, 1]
+
+    # We need to load a different library for these tests. This is
+    # a little fiddly as the manager isn't (currently) recreated
+    # for each test.
+
+    ## @todo Extend openassetio.test.manager to allow settings to be
+    ## varied per test class/method.
+
+    def setUp(self):
+        self.__old_settings = self._manager.getSettings()
+        new_settings = self.__old_settings.copy()
+        new_settings["library_path"] = os.path.join(
+            os.path.dirname(__file__),
+            "resources",
+            "library_business_logic_suite_customManagementPolicy.json",
+        )
+        self._manager.setSettings(new_settings)
+        self._manager.initialize()
+
+    def tearDown(self):
+        self._manager.setSettings(self.__old_settings)
+        self._manager.initialize()
+
+    def test_returns_expected_policies_for_all_trait_sets(self):
+        context = self.createTestContext(access=Context.kRead)
+        policies = self._manager.managementPolicy(self.__trait_sets, context)
+        self.assertListEqual(policies, self.__expected_policies)
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kWrite)

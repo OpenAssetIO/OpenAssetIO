@@ -5,6 +5,49 @@
   "description": "The data store that backs an instance of the BAL manager",
   "type": "object",
   "properties": {
+    "managementPolicy": {
+      "description": "Custom managementPolicy responses",
+      "type": "object",
+      "properties": {
+        "read": {
+          "type": "object",
+          "description": "Custom managementPolicy responses for read access contexts",
+          "properties": {
+            "default": {
+              "description": "The default policy unless an exception is specified",
+              "type": "integer",
+              "minimum": 0
+            },
+            "exceptions": {
+              "descriptions": "Custom policies that override the default",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "A policy for a specific trait set, that must match the request exactly",
+                "properties": {
+                  "traitSet": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "policy": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "additionalProperties": false,
+                "required": ["traitSet", "policy"]
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "additionalProperties": false
+      }
+    },
     "entities": {
       "description": "The entities in the library, they key is used as the entity name.",
       "type": "object",

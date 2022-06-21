@@ -138,6 +138,11 @@ v1.0.0-alpha.X
 - Updated the Ubuntu bootstrap script to ensure `clang-format` and
   `clang-tidy` use the v12 alternatives.
 
+- Added support for customisable `managementPolicy` responses to
+  the `BasicAssetLibrary` example/test manager. See:
+    `resources/examples/manager/BasicAssetLibrary/schema.json`
+  [#459](https://github.com/OpenAssetIO/OpenAssetIO/issues/459)
+
 
 ### Bug fixes
 
