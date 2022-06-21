@@ -143,9 +143,26 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2a0b607f49506ffe57659036be754260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a2a0b607f49506ffe57659036be754260">More...</a><br /></td></tr>
 <tr class="separator:a2a0b607f49506ffe57659036be754260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:af3f7a61aa95cb438243b5bdd7dda525c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> hostSession)=0</td></tr>
-<tr class="memdesc:af3f7a61aa95cb438243b5bdd7dda525c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#af3f7a61aa95cb438243b5bdd7dda525c">More...</a><br /></td></tr>
-<tr class="separator:af3f7a61aa95cb438243b5bdd7dda525c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fdab835837291c6fd2864feaa8aca31"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
+<tr class="memdesc:a6fdab835837291c6fd2864feaa8aca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#a6fdab835837291c6fd2864feaa8aca31">More...</a><br /></td></tr>
+<tr class="separator:a6fdab835837291c6fd2864feaa8aca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Manager State</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>A single 'task' in a host, may require more than one interaction with the asset management system.</p>
+<p>Because the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
+<p>This mechanism may be used for a variety of purposes. For example, it could ensure that queries are made from a coherent time stamp during a render, or to undo the publishing of multiple assets. </p>
+</div></td></tr>
+<tr class="memitem:adffc166914014188f1df417d1e832e62"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:adffc166914014188f1df417d1e832e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context).  <a href="#adffc166914014188f1df417d1e832e62">More...</a><br /></td></tr>
+<tr class="separator:adffc166914014188f1df417d1e832e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e784143c880610d29428209c6af3cea"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;parentState, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:a4e784143c880610d29428209c6af3cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a state that is a child of the supplied state.  <a href="#a4e784143c880610d29428209c6af3cea">More...</a><br /></td></tr>
+<tr class="separator:a4e784143c880610d29428209c6af3cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af856481998ca19fa574471312cafa07a"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;state, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:af856481998ca19fa574471312cafa07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>) so that can be restored later, or in another process.  <a href="#af856481998ca19fa574471312cafa07a">More...</a><br /></td></tr>
+<tr class="separator:af856481998ca19fa574471312cafa07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59774e380f794405642d4cafeb180b46"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> (const std::string &amp;token, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:a59774e380f794405642d4cafeb180b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a59774e380f794405642d4cafeb180b46">More...</a><br /></td></tr>
+<tr class="separator:a59774e380f794405642d4cafeb180b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -175,14 +192,14 @@ Public Member Functions</h2></td></tr>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
-<p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c">initialize</a>, this will never be called concurrently.</p>
-<p>When a <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ae7568134166521593b20cb2aea0400b6">openassetio.hostAPI.Manager.Manager.createContext</a>, the createState (or createChildState for <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#acb216921b673698dcdbcfd5f6f96a121">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
+<p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a>, this will never be called concurrently.</p>
+<p>When a <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>, the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> for <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
 <p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html">openassetio.managerAPI.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">Host</a></dd></dl>
 <h2>Initialization </h2>
-<p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
+<p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
 <ul>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a5e4597b03727fca61c28d21a071e060f">identifier()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92">displayName()</a> </li>
@@ -192,7 +209,7 @@ Public Member Functions</h2></td></tr>
 <li>setSettings()</li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c">initialize</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa04a409e53c1238eb9889c6f62bbae2e"></a>
 <div class="memitem">
@@ -238,6 +255,111 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a4e784143c880610d29428209c6af3cea"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> createChildState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>parentState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a state that is a child of the supplied state. </p>
+<p>This method is called whenever a child <a class="el" href="glossary.html#Context">Context</a> is made by <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>. The return is then stored in the newly created <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, and is consequently available to all the API calls in the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that take a <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> instance via <a class="el" href="structopenassetio_1_1v1_1_1_context.html#a0db519ea93f514ded47d6d4f686ad8a3">managerState</a>. Your implementation can then use this to anchor the api call to a particular snapshot of the state of the asset inventory.</p>
+<p>The default implementation will raise if called. This method must be implemented by any manager implementing <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">parentState</td><td>obj, The new state is to be considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access/retention of the <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If for some reason creation fails. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adffc166914014188f1df417d1e832e62"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> createState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context). </p>
+<p>You are free to implement this however you like, as long as it can be uniquely represented by the object returned from this function.</p>
+<p>This method is called whenever a new <a class="el" href="glossary.html#Context">Context</a> is made by a <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>. The return is then stored in the newly created <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, and is consequently available to all the API calls in the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that take a <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> instance via <a class="el" href="structopenassetio_1_1v1_1_1_context.html#a0db519ea93f514ded47d6d4f686ad8a3">managerState</a>. Your implementation can then use this to anchor the api call to a particular snapshot of the state of the asset inventory.</p>
+<p>The default implementation of this method returns a nullptr, indicating that the manager does not perform custom state management. Manager's implementing this method must also implement <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>, <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> and <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerAPI.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerAPI.Host</a> object representing the process that initiated the API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afe51f23c7b60c6f5ba182c57bbeeda92"></a>
 <div class="memitem">
 <div class="memproto">
@@ -329,7 +451,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af3f7a61aa95cb438243b5bdd7dda525c"></a>
+<a class="anchor" id="a6fdab835837291c6fd2864feaa8aca31"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -339,7 +461,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void initialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em></td><td>)</td>
           <td></td>
         </tr>
@@ -355,7 +477,7 @@ Public Member Functions</h2></td></tr>
 <p>This is a good opportunity to initialize any persistent connections to a back end implementation, as setSettings will have already been called (if applicable). It is fine for this call to block for a period of time.</p>
 <p>If an exception is raised by this call, it signifies to the host that a fatal error occurred, and this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is not available with the current settings.</p>
 <p>If no exception is raised, it can be assumed that the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is ready. It is the implementations responsibility to deal with transient connection errors (if applicable) once initialized.</p>
-<p>The behavior of calling <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af3f7a61aa95cb438243b5bdd7dda525c" title="Prepares for interaction with a host. ">initialize()</a> on an already initialized instance should be a no-op, but if an error was raised previously, then initialization should be re-attempted.</p>
+<p>The behavior of calling <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31" title="Prepares for interaction with a host. ">initialize()</a> on an already initialized instance should be a no-op, but if an error was raised previously, then initialization should be re-attempted.</p>
 <dl class="section note"><dt>Note</dt><dd>This will always be called prior to any Entity-related calls. An exception should be raised if this is not the case. It is however, the following functions may be called prior to initialization:</dd></dl>
 <ul>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a5e4597b03727fca61c28d21a071e060f">identifier()</a> </li>
@@ -366,6 +488,94 @@ Public Member Functions</h2></td></tr>
 <li>setSettings()</li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af856481998ca19fa574471312cafa07a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string persistenceTokenForState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>) so that can be restored later, or in another process. </p>
+<dl class="section return"><dt>Returns</dt><dd>A string that can be used to restore the stack.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a59774e380f794405642d4cafeb180b46"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> stateFromPersistenceToken </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Restores the supplied state object to a previously persisted state. </p>
+<dl class="section return"><dt>Returns</dt><dd>A state object, as per <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by persistenceTokenForState.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been restored. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

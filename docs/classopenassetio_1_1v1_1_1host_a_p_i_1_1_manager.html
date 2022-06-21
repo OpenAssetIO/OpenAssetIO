@@ -139,6 +139,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac82a7565b39bc7092b624bc2c54c864a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a">info</a> () const </td></tr>
 <tr class="memdesc:ac82a7565b39bc7092b624bc2c54c864a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#ac82a7565b39bc7092b624bc2c54c864a">More...</a><br /></td></tr>
 <tr class="separator:ac82a7565b39bc7092b624bc2c54c864a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Context Management</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
+</div></td></tr>
+<tr class="memitem:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> ()</td></tr>
+<tr class="memdesc:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager.  <a href="#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">More...</a><br /></td></tr>
+<tr class="separator:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a951a0ebcb54c4abd6f7a13325e514021"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> &amp;parentContext)</td></tr>
+<tr class="memdesc:a951a0ebcb54c4abd6f7a13325e514021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a child <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager.  <a href="#a951a0ebcb54c4abd6f7a13325e514021">More...</a><br /></td></tr>
+<tr class="separator:a951a0ebcb54c4abd6f7a13325e514021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b04adcd844de3172adc8d899e6d698b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> &amp;context)</td></tr>
+<tr class="memdesc:a1b04adcd844de3172adc8d899e6d698b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#a1b04adcd844de3172adc8d899e6d698b">More...</a><br /></td></tr>
+<tr class="separator:a1b04adcd844de3172adc8d899e6d698b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d8494f43bc88e4ba4ff8efaae19105"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> (const std::string &amp;token)</td></tr>
+<tr class="memdesc:a74d8494f43bc88e4ba4ff8efaae19105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a>.  <a href="#a74d8494f43bc88e4ba4ff8efaae19105">More...</a><br /></td></tr>
+<tr class="separator:a74d8494f43bc88e4ba4ff8efaae19105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -190,6 +205,84 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a74d8494f43bc88e4ba4ff8efaae19105"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> contextFromPersistenceToken </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a>. </p>
+<p>This context, when used with API methods will be considered part of the same logical series of actions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">token</td><td>A token previously returned from <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a> by this manager.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a> to generate the token.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a951a0ebcb54c4abd6f7a13325e514021"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> createChildContext </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>parentContext</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a child <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed, always use this method or <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> to create a new one.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parentContext</td><td>The new context will clone the supplied <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, and the <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> will be given a chance to migrate any meaningful state etc... This can be useful when certain UI elements need to 'take a copy' of a context in its current state in order to parallelise actions that are part of the same logical group, but have different locales, access or retention.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> </dd>
+<dd>
+<a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> createContext </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager. </p>
+<dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed, always use this method or <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> to create a new one.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> </dd>
+<dd>
+<a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a23ee7fe8e44aa1895e2bfcf5d6b7804e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -273,6 +366,34 @@ Protected Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>This must be called prior to any entity-related calls or an Exception will be raised.</dd>
 <dd>
 This method may block for extended periods of time. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1b04adcd844de3172adc8d899e6d698b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string persistenceTokenForContext </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
+<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>The context to derive a persistence token for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A persistence token that can be used with <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> to create a context associated with the same logical group of actions as the one supplied to this method.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, such that when restored, any API calls made using the resulting <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> will be logically associated with the one supplied here. It does not encode the current access, retention or locale.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 
 </div>
 </div>

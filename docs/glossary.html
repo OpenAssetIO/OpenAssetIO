@@ -193,13 +193,13 @@ Manager State</h1>
 <p>OpenAssetIO provides a mechanism to support the entire range of use cases for 'session state' whilst keeping the interface itself stateless.</p>
 <p>This is achieved by allowing the manager to inject state into each <a class="el" href="glossary.html#Context">Context</a> created by the <a class="el" href="glossary.html#host">host</a>. The host guarantees to manage the lifetime of their contexts appropriately, and re-use the same context for logically related API calls. The result of this is that the manager can use injected state object to form a persistent anchor across distributed calls.</p>
 <p>The manager's state object is opaque to the host.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a4ce2720f1e8c3859230a910c17d80128">ManagerInterface.createState</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">ManagerInterface.createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7750cb6bf5b3fa91ff15c505e26ee2c8">ManagerInterface.createChildState</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">ManagerInterface.createChildState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a7650f55a17e1c90c6eed3ac609b2fa39">ManagerInterface.persistenceTokenForState</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">ManagerInterface.persistenceTokenForState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a40c412d784283e1661ece934f6c01f10">ManagerInterface.stateFromPersistenceToken</a></dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">ManagerInterface.stateFromPersistenceToken</a></dd></dl>
 <h1><a class="anchor" id="meta_version"></a>
 Meta-version</h1>
 <p>It is common for am <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> to allow an <a class="el" href="glossary.html#entity">entity</a> version managed. Some systems also allow the concept of what we call a 'meta-version'. For example "latest" or "latestApprovedForLighting". These are version strings that need to be further resolved using <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a7d7e21b2b629933fd4175521de8b6c6e">finalizedEntityVersion()</a> before they can be assumed to be pointing to a specific 'concrete' version of an entity.</p>
