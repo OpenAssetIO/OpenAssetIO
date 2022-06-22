@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include <openassetio/export.h>
@@ -418,7 +419,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 };
 
-using ManagerInterfacePtr = SharedPtr<ManagerInterface>;
+using ManagerInterfacePtr = std::shared_ptr<ManagerInterface>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

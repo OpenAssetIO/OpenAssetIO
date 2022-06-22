@@ -3,6 +3,7 @@
 #pragma once
 #include <array>
 #include <cstddef>
+#include <memory>
 
 #include <openassetio/export.h>
 #include <openassetio/TraitsData.hpp>
@@ -152,6 +153,6 @@ struct Context final {
   }
 };
 
-using ContextPtr = openassetio::SharedPtr<Context>;
+using ContextPtr = std::shared_ptr<Context>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
