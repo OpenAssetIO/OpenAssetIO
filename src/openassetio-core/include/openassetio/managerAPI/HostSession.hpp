@@ -20,11 +20,11 @@ namespace managerAPI {
  * directly constructed, cached or otherwise persisted by a Manager.
  *
  * The HostSession provides access to:
- *   - A concrete instance of the @fqref{managerAPI::Host} "Host",
+ *   - A concrete instance of the @fqref{managerAPI.Host} "Host",
  *     implemented by the tool or application that initiated the API
  *     session.
  *
- * @see @fqref{managerAPI::Host} "Host"
+ * @see @fqref{managerAPI.Host} "Host"
  *
  * @todo Expose logging mechanism through HostSession
  */

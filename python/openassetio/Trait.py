@@ -41,8 +41,8 @@ class Trait:
 
     In addition, the derived class should implement appropriate typed
     accessor / mutator methods that internally call the wrapped
-    data's @fqref{TraitsData::getTraitProperty}
-    "getTraitProperty" / @fqref{TraitsData::setTraitProperty}
+    data's @fqref{TraitsData.getTraitProperty}
+    "getTraitProperty" / @fqref{TraitsData.setTraitProperty}
     "setTraitProperty".
 
     @note Attempting to access a trait's properties without first

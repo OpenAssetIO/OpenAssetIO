@@ -221,7 +221,7 @@
  * @subsection locale_specifications Locale Specifications
  *
  * Specifications only ever intended for use in the
- * @fqref{Context::locale} "Context.locale" (to describe
+ * @fqref{Context.locale} "Context.locale" (to describe
  * which part of a host or application is calling the API) are known as
  * "locale specifications".
  *

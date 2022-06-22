@@ -234,7 +234,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         write context) all of the supplied traits through @needsref
         resolve and @ref register.
 
-        @warning The @fqref{Context::access} "access" of the supplied
+        @warning The @fqref{Context.access} "access" of the supplied
         context will be considered by the manager. If it is set to read,
         then it's response applies to resolution. If write, then it
         applies to publishing. Ignored reads can allow optimisations in
@@ -870,7 +870,7 @@ class Manager(_openassetio.hostAPI.Manager, Debuggable):
         temporary working path or some such.
 
         @note It's vital that the @ref Context is well configured here,
-        in particular the @fqref{Context::retention}
+        in particular the @fqref{Context.retention}
         "Context.retention".
 
         @warning The working @ref entity_reference returned by this

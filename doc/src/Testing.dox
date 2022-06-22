@@ -28,7 +28,7 @@
  * values to pass to methods such as
  * @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.isEntityReference
  * "isEntityReference", and the expected values from methods such as
- * @fqref{managerAPI::ManagerInterface::identifier} "identifier"
+ * @fqref{managerAPI.ManagerInterface.identifier} "identifier"
  *
  * The file should set a top level variable called `fixtures`, holding
  * a dict structured as-per the `fixtures` parameter documented

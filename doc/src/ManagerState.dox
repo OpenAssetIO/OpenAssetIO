@@ -37,7 +37,7 @@
  * "ManagerInterface.createState" (or
  * @fqref{managerAPI.ManagerInterface.createChildState}
  * "ManagerInterface.createChildState") method will be called, and the
- * returned token stored in the Context's @fqref{Context::managerState}
+ * returned token stored in the Context's @fqref{Context.managerState}
  * "managerState" property.
  *
  * @startuml

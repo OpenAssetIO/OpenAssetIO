@@ -20,7 +20,7 @@
  * discover available @ref ManagerPlugin "ManagerPlugins".
  *
  * It also includes a bare-minimum example of a
- * @fqref{hostAPI::HostInterface} "HostInterface" implementation.
+ * @fqref{hostAPI.HostInterface} "HostInterface" implementation.
  *
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter
@@ -109,8 +109,8 @@
  *
  * The API middleware provides assorted short-circuit validation
  * optimisations that can reduce the number of inter-language hops
- * required. See @fqref{managerAPI::ManagerInterface::info}
- * "ManagerInterface::info" and the `kField_EntityReferencesMatchPrefix`
+ * required. See @fqref{managerAPI.ManagerInterface.info}
+ * "ManagerInterface.info" and the `kField_EntityReferencesMatchPrefix`
  * key.
  *
  * @code{.py}

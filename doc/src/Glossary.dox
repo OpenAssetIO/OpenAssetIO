@@ -192,7 +192,7 @@
  *
  * @section HostInterface
  *
- * The @fqref{hostAPI::HostInterface} "HostInterface" class is the
+ * The @fqref{hostAPI.HostInterface} "HostInterface" class is the
  * abstract interface that any @ref host must implement in order to
  * initialize the API. It will usually contain logic to map native
  * features of the host into the well-known terms defined by this API.
@@ -209,7 +209,7 @@
  * Within OpenAssetIO, the term "locale" is used to define which part of
  * a @ref host "host's" implementation is making a particular call to
  * the API. A suitably configured @fqref{TraitsData} "TraitsData"
- * instance is supplied through the @fqref{Context::locale}
+ * instance is supplied through the @fqref{Context.locale}
  * "locale" property of the @fqref{Context} "Context", which is in turn
  * supplied to most @ref ManagerInterface method calls.
  *

@@ -23,7 +23,7 @@ extern "C" {
 /**
  * @defgroup oa_hostAPI_Manager oa_hostAPI_Manager
  *
- * C API for the \fqref{hostAPI::Manager} "hostAPI::Manager C++ type".
+ * C API for the \fqref{hostAPI.Manager} "hostAPI::Manager C++ type".
  *
  * @{
  */
@@ -45,7 +45,7 @@ extern "C" {
 // oa_hostAPI_Manager_aliases
 
 /**
- * Opaque handle type representing a \fqref{hostAPI::Manager} "Manager".
+ * Opaque handle type representing a \fqref{hostAPI.Manager} "Manager".
  */
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct oa_hostAPI_Manager_t* oa_hostAPI_Manager_h;
@@ -53,16 +53,16 @@ typedef struct oa_hostAPI_Manager_t* oa_hostAPI_Manager_h;
 /**
  * Constructor function.
  *
- * Allocates a new \fqref{hostAPI::Manager} "Manager", which should be
+ * Allocates a new \fqref{hostAPI.Manager} "Manager", which should be
  * deallocated by \fqcref{hostAPI_Manager_dtor} "dtor" when the
  * `Manager` is no longer in use.
  *
  * @param[out] err Storage for error message, if any.
  * @param[out] handle
  * @param managerInterfaceHandle  A handle to a
- * \fqref{managerAPI::ManagerInterface} that the `Manager` will delegate
+ * \fqref{managerAPI.ManagerInterface} that the `Manager` will delegate
  * @param hostSessionHandle  A handle to a
- * \fqref{managerAPI::HostSession} that the `Manager` will supply to the
+ * \fqref{managerAPI.HostSession} that the `Manager` will supply to the
  * held interface as required.
  * to.
  *
@@ -83,7 +83,7 @@ oa_hostAPI_Manager_ctor(oa_StringView* err, oa_hostAPI_Manager_h* handle,
 /**
  * Destructor function.
  *
- * Deallocates a \fqref{hostAPI::Manager} "Manager" that was previously
+ * Deallocates a \fqref{hostAPI.Manager} "Manager" that was previously
  * created using \fqcref{hostAPI_Manager_ctor}. The handle should not
  * be used after calling this function.
  */
@@ -91,7 +91,7 @@ OPENASSETIO_CORE_C_EXPORT void oa_hostAPI_Manager_dtor(oa_hostAPI_Manager_h hand
 
 /**
  * C equivalent of the
- * @fqref{hostAPI::Manager::identifier} "identifier"
+ * @fqref{hostAPI.Manager.identifier} "identifier"
  * member function.
  *
  * @param[out] err Storage for error message, if any.
@@ -107,7 +107,7 @@ OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_identifier(oa_StringVi
 
 /**
  * C equivalent of the
- * @fqref{hostAPI::Manager::displayName} "displayName"
+ * @fqref{hostAPI.Manager.displayName} "displayName"
  * member function.
  *
  * @param[out] err Storage for error message, if any.
@@ -124,7 +124,7 @@ OPENASSETIO_CORE_C_EXPORT oa_ErrorCode oa_hostAPI_Manager_displayName(oa_StringV
 
 /**
  * C equivalent of the
- * @fqref{hostAPI::Manager::info} "info"
+ * @fqref{hostAPI.Manager.info} "info"
  * member function.
  *
  * @param[out] err Storage for error message, if any.

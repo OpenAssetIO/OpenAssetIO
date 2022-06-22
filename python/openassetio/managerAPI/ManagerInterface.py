@@ -274,7 +274,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         files, and not involve the manager in any actions realting to
         scene files.
 
-        @warning The @fqref{Context::access} "access"
+        @warning The @fqref{Context.access} "access"
         specified in the supplied context should be carefully considered.
         A host will independently query the policy for both read and
         write access to determine if resolution and publishing features
@@ -990,7 +990,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         host should retry from the beginning of any given process.
 
         @note it is important for the implementation to pay attention
-        to @fqref{Context::retention} "Context.retention", as not all
+        to @fqref{Context.retention} "Context.retention", as not all
         hosts will support the reference changing at this point.
 
         @see @ref register
@@ -1063,7 +1063,7 @@ class ManagerInterface(_openassetio.managerAPI.ManagerInterface):
         host should retry from the beginning of any given process.
 
         @note it is important for the implementation to pay attention to
-        @fqref{Context::retention} "retention", as not all Hosts will
+        @fqref{Context.retention} "retention", as not all Hosts will
         support the reference changing at this point.
 
         @see @fqref{TraitsData} "TraitsData"
