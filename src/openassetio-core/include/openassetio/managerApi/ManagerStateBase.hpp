@@ -2,6 +2,8 @@
 // Copyright 2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <memory>
+
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
@@ -26,7 +28,7 @@ struct ManagerStateBase {
   virtual ~ManagerStateBase() = default;
 };
 
-using ManagerStateBasePtr = openassetio::SharedPtr<ManagerStateBase>;
+using ManagerStateBasePtr = std::shared_ptr<ManagerStateBase>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -2,6 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <memory>
+
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/typedefs.hpp>
@@ -89,7 +91,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
   /// @}
 };
 
-using HostInterfacePtr = SharedPtr<HostInterface>;
+using HostInterfacePtr = std::shared_ptr<HostInterface>;
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -2,6 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <memory>
+
 #include <openassetio/export.h>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/typedefs.hpp>
@@ -41,7 +43,7 @@ class OPENASSETIO_CORE_EXPORT HostSession {
   HostPtr host_;
 };
 
-using HostSessionPtr = SharedPtr<HostSession>;
+using HostSessionPtr = std::shared_ptr<HostSession>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

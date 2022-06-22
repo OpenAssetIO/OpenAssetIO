@@ -70,7 +70,7 @@ SCENARIO("A Manager is constructed and destructed") {
 
     AND_GIVEN("a shared pointer to a ManagerInterface and its C handle") {
       auto* managerInterface = new DeathwatchedMockManagerInterface{};
-      // Wrap deathwatched mock ManagerInterface in a SharedPtr.
+      // Wrap deathwatched mock ManagerInterface in a std::shared_ptr.
       managerApi::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
       // Convert the ManagerInterface pointer to a handle.
       oa_managerApi_SharedManagerInterface_h mockManagerInterfaceHandle =
@@ -125,7 +125,7 @@ SCENARIO("A Manager is constructed and destructed") {
       auto* managerInterface = new DeathwatchedMockManagerInterface{};
       // We must have this expectation here to avoid a false positive.
       REQUIRE_DESTRUCTION(*managerInterface);
-      // Wrap deathwatched mock ManagerInterface in a SharedPtr.
+      // Wrap deathwatched mock ManagerInterface in a std::shared_ptr.
       managerApi::ManagerInterfacePtr mockManagerInterfacePtr{managerInterface};
       // Convert the ManagerInterface pointer to a handle.
       oa_managerApi_SharedManagerInterface_h mockManagerInterfaceHandle =

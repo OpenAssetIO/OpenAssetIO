@@ -55,11 +55,11 @@ and consistency trade-offs.
 C++ classes that represent system components with reference semantics
 (as opposed to 'value' types) should inherit
 `std::enable_shared_from_this` and define a peer `Ptr` alias using
-the `openassetio::SharedPtr`.
+`std::shared_ptr`.
 
 ```cpp
 class MyClass : std::enable_shared_from_this<MyClass> { ... };
-using MyClassPtr = openassetio::SharedPtr<MyClass>;
+using MyClassPtr = std::shared_ptr<MyClass>;
 ```
 
 This is to simplify memory management across the complex range of

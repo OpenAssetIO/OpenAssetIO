@@ -46,13 +46,9 @@ using Str = std::string;
  * @}
  */
 
-/// Shared smart pointer type.
-template <class T>
-using SharedPtr = std::shared_ptr<T>;
-
 /// Make an instance wrapped in a shared smart pointer.
 template <class T, typename... Args>
-SharedPtr<T> makeShared(Args&&... args) {
+std::shared_ptr<T> makeShared(Args&&... args) {
   return std::make_shared<T>(std::forward<Args>(args)...);
 }
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
