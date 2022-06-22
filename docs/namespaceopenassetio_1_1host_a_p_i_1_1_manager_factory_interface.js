@@ -1,4 +1,0 @@
-var namespaceopenassetio_1_1host_a_p_i_1_1_manager_factory_interface =
-[
-    [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface" ]
-];

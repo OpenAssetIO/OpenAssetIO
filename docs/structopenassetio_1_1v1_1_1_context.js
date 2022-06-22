@@ -20,6 +20,6 @@ var structopenassetio_1_1v1_1_1_context =
     [ "isForWrite", "structopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976", null ],
     [ "access", "structopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd", null ],
     [ "locale", "structopenassetio_1_1v1_1_1_context.html#ab46b43ae312ee13e8e17e4ee207bcbcf", null ],
-    [ "managerState", "structopenassetio_1_1v1_1_1_context.html#a0db519ea93f514ded47d6d4f686ad8a3", null ],
+    [ "managerState", "structopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917", null ],
     [ "retention", "structopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820", null ]
 ];

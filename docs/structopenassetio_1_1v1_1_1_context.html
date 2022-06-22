@@ -154,9 +154,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab46b43ae312ee13e8e17e4ee207bcbcf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5">TraitsDataPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1_context.html#ab46b43ae312ee13e8e17e4ee207bcbcf">locale</a> {}</td></tr>
 <tr class="memdesc:ab46b43ae312ee13e8e17e4ee207bcbcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">In many situations, the <a class="el" href="glossary.html#trait_set">Trait Set</a> of the desired <a class="el" href="glossary.html#entity">entity</a> itself is not entirely sufficient information to realize many functions that a <a class="el" href="glossary.html#manager">manager</a> wishes to implement.  <a href="#ab46b43ae312ee13e8e17e4ee207bcbcf">More...</a><br /></td></tr>
 <tr class="separator:ab46b43ae312ee13e8e17e4ee207bcbcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0db519ea93f514ded47d6d4f686ad8a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">managerAPI::ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1_context.html#a0db519ea93f514ded47d6d4f686ad8a3">managerState</a> {}</td></tr>
-<tr class="memdesc:a0db519ea93f514ded47d6d4f686ad8a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The opaque state token owned by the <a class="el" href="glossary.html#manager">manager</a>, used to correlate all API calls made using this context.  <a href="#a0db519ea93f514ded47d6d4f686ad8a3">More...</a><br /></td></tr>
-<tr class="separator:a0db519ea93f514ded47d6d4f686ad8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd7f8f8c42945369c5077f314db5b917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">managerApi::ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917">managerState</a> {}</td></tr>
+<tr class="memdesc:acd7f8f8c42945369c5077f314db5b917"><td class="mdescLeft">&#160;</td><td class="mdescRight">The opaque state token owned by the <a class="el" href="glossary.html#manager">manager</a>, used to correlate all API calls made using this context.  <a href="#acd7f8f8c42945369c5077f314db5b917">More...</a><br /></td></tr>
+<tr class="separator:acd7f8f8c42945369c5077f314db5b917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Access Pattern</h2></td></tr>
@@ -189,7 +189,7 @@ Data Retention</h2></td></tr>
 <p>It encapsulates several key access properties, as well as providing additional information about the <a class="el" href="glossary.html#host">host</a> that may be useful to the <a class="el" href="glossary.html#manager">manager</a>.</p>
 <p>A Manager will also use this information to ensure it presents the correct UI, or behavior.</p>
 <p>The <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> is passed to many calls in this API, and it may, or may not need to be used directly.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed. Hosts should use <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> or <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>. A Manager implementation should never need to create a context of it's own, one will always be supplied through the ManagerInterface entry points. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Contexts should never be directly constructed. Hosts should use <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> or <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>. A Manager implementation should never need to create a context of it's own, one will always be supplied through the ManagerInterface entry points. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a64e8ac1e6ab9e446a03a134b59b5de66"></a>
 <div class="memitem">
@@ -415,12 +415,12 @@ Data Retention</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0db519ea93f514ded47d6d4f686ad8a3"></a>
+<a class="anchor" id="acd7f8f8c42945369c5077f314db5b917"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_a_p_i.html#abba13c1c235aeb1e1a420bf148dc37c8">managerAPI::ManagerStateBasePtr</a> managerState {}</td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">managerApi::ManagerStateBasePtr</a> managerState {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -441,7 +441,7 @@ Data Retention</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A concession to the fact that it's not always possible to fully implement the spec of this API within a <a class="el" href="glossary.html#host">host</a>. </p>
-<p>For example, <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#abbd3bb320b56068b8e23e1aefd26767e">Manager.register()</a> can return an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the newly published <a class="el" href="glossary.html#entity">entity</a>. This is often not the same as the reference that was passed to the call. The Host is expected to store this new reference for future use. For example in the case of a Scene File added to an 'open recent' menu. A Manager may rely on this to ensure a reference that points to a specific version is used in the future.</p>
+<p>For example, <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#abbd3bb320b56068b8e23e1aefd26767e">Manager.register()</a> can return an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the newly published <a class="el" href="glossary.html#entity">entity</a>. This is often not the same as the reference that was passed to the call. The Host is expected to store this new reference for future use. For example in the case of a Scene File added to an 'open recent' menu. A Manager may rely on this to ensure a reference that points to a specific version is used in the future.</p>
 <p>In some cases - such as batch rendering of an image sequence, it may not be possible to store this final reference, due to constraints of the distributed natured of such a render. Often, it is not actually of consequence. To allow the <a class="el" href="glossary.html#manager">manager</a> to handle these situations correctly, Hosts are required to set this property to reflect their ability to persist this information. </p>
 
 </div>

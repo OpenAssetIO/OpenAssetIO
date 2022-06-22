@@ -139,7 +139,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaeab2519784cff893e6787b263b21a58"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#aaeab2519784cff893e6787b263b21a58">managerRegistered</a> (self, identifier)</td></tr>
 <tr class="separator:aaeab2519784cff893e6787b263b21a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afca19a0df300f49140c646dd9efbf29e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#afca19a0df300f49140c646dd9efbf29e">instantiate</a> (self, identifier, cache=True)</td></tr>
-<tr class="memdesc:afca19a0df300f49140c646dd9efbf29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an instance of the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> with the specified identifier.  <a href="#afca19a0df300f49140c646dd9efbf29e">More...</a><br /></td></tr>
+<tr class="memdesc:afca19a0df300f49140c646dd9efbf29e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an instance of the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> with the specified identifier.  <a href="#afca19a0df300f49140c646dd9efbf29e">More...</a><br /></td></tr>
 <tr class="separator:afca19a0df300f49140c646dd9efbf29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6038fbf14651550b966b937dc8cebd47"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#a6038fbf14651550b966b937dc8cebd47">instantiateUIDelegate</a> (self, managerInterfaceInstance, cache=True)</td></tr>
 <tr class="memdesc:a6038fbf14651550b966b937dc8cebd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an instance of the ManagerUIDelegate for the specified identifier.  <a href="#a6038fbf14651550b966b937dc8cebd47">More...</a><br /></td></tr>
@@ -153,7 +153,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Factory to manage <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html">openassetio.pluginSystem.ManagerPlugin</a> derived plugins and instantiation of Manager and UIDelegate instances. </p>
-<p>Not usually used directly by a <a class="el" href="glossary.html#host">host</a>, which instead uses the <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_session.html">openassetio.hostAPI.Session</a></p>
+<p>Not usually used directly by a <a class="el" href="glossary.html#host">host</a>, which instead uses the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_session.html">openassetio.hostApi.Session</a></p>
 <dl class="envvar"><dt><b><a class="el" href="envvar.html#_envvar000004">Environment Variables:</a></b></dt><dd><b>OPENASSETIO_PLUGIN_PATH</b> <em>str</em> A PATH-style list of directories to search for <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html">openassetio.pluginSystem.ManagerPlugin</a> based plugins. It uses the platform-native delimiter. Searched left to right. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a900fc22db8d86630035bf7bd50b18120"></a>
@@ -237,7 +237,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an instance of the <a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a> with the specified identifier. </p>
+<p>Creates an instance of the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> with the specified identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">identifier</td><td><code>str</code> The identifier of the ManagerInterface to instantiate.</td></tr>
@@ -245,7 +245,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerAPI.ManagerInterface</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerApi.ManagerInterface</a> </dd></dl>
 
 </div>
 </div>
@@ -282,7 +282,7 @@ Static Public Attributes</h2></td></tr>
 <p>Creates an instance of the ManagerUIDelegate for the specified identifier. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">managerInterfaceInstance</td><td><a class="el" href="namespaceopenassetio_1_1manager_a_p_i_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerAPI.ManagerInterface</a> The instance of a ManagerInterface to retrieve the UI delegate for.</td></tr>
+    <tr><td class="paramname">managerInterfaceInstance</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerApi.ManagerInterface</a> The instance of a ManagerInterface to retrieve the UI delegate for.</td></tr>
     <tr><td class="paramname">cache</td><td><code>bool</code> When True the created instance will be cached, and immediately returned by subsequence calls to this function with the same identifier - instead of creating a new instance. If False, a new instance will be created each, and never retained. </td></tr>
   </table>
   </dd>
@@ -333,7 +333,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>dict, Keyed by identifiers, each value is a dict containing information about the Manager provided by the plugin. This dict has the following keys: <ul>
 <li><b>name</b> The display name of the Manager suitable for UI use. </li>
 <li><b>identifier</b> It's identifier </li>
-<li><b>info</b> The info dict from the Manager (see: <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260">ManagerInterface.info</a>) </li>
+<li><b>info</b> The info dict from the Manager (see: <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260">ManagerInterface.info</a>) </li>
 <li><b>plugin</b> The plugin class that represents the Manager (see: <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html">ManagerPlugin</a>) </li>
 </ul>
 </dd></dl>

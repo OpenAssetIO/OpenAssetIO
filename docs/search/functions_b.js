@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['oa_5fhostapi_5fmanager_5fctor',['oa_hostAPI_Manager_ctor',['../group__oa__host_a_p_i___manager.html#ga96707adf82323167511ef5b58ccde331',1,'Manager.h']]],
-  ['oa_5fhostapi_5fmanager_5fdisplayname',['oa_hostAPI_Manager_displayName',['../group__oa__host_a_p_i___manager.html#gacc7483da375148b616a08d57befa387f',1,'Manager.h']]],
-  ['oa_5fhostapi_5fmanager_5fdtor',['oa_hostAPI_Manager_dtor',['../group__oa__host_a_p_i___manager.html#gad2196703c5d1f6266833b7257c042774',1,'Manager.h']]],
-  ['oa_5fhostapi_5fmanager_5fidentifier',['oa_hostAPI_Manager_identifier',['../group__oa__host_a_p_i___manager.html#ga48b401e29199b9a4a25ca52c93630d84',1,'Manager.h']]],
-  ['oa_5fhostapi_5fmanager_5finfo',['oa_hostAPI_Manager_info',['../group__oa__host_a_p_i___manager.html#ga660bdac07d0049b4d8bbfe071f48b833',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5fctor',['oa_hostApi_Manager_ctor',['../group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5fdisplayname',['oa_hostApi_Manager_displayName',['../group__oa__host_api___manager.html#ga170b445384832a6f49ae60f77b3d1b89',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5fdtor',['oa_hostApi_Manager_dtor',['../group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5fidentifier',['oa_hostApi_Manager_identifier',['../group__oa__host_api___manager.html#gad0220c0c96b94354c24d10e112586c6b',1,'Manager.h']]],
+  ['oa_5fhostapi_5fmanager_5finfo',['oa_hostApi_Manager_info',['../group__oa__host_api___manager.html#ga639858f5e0e84e8f733ba6a6cb93eb36',1,'Manager.h']]],
   ['oa_5finfodictionary_5fctor',['oa_InfoDictionary_ctor',['../group__oa___info_dictionary.html#ga3f825e01a716d788782ae69bfe0cbb46',1,'InfoDictionary.h']]],
   ['oa_5finfodictionary_5fdtor',['oa_InfoDictionary_dtor',['../group__oa___info_dictionary.html#ga4b5945074e30c5e0a4cd079124a17102',1,'InfoDictionary.h']]],
   ['oa_5finfodictionary_5fgetbool',['oa_InfoDictionary_getBool',['../group__oa___info_dictionary.html#gaa9fb3341d5a3066b7a3b550ef7c156c5',1,'InfoDictionary.h']]],

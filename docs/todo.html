@@ -108,32 +108,32 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <div class="textblock"><dl class="reflist">
 <dt><a class="anchor" id="_todo000008"></a>Module <a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#amgrp4a6c8547cad0dd193b4c1629d711cdc9">Filter Severity</a>  </dt>
 <dd>Revisit severity &lt;&gt; int mappings etc...  </dd>
-<dt><a class="anchor" id="_todo000016"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host.html">Host</a>  </dt>
+<dt><a class="anchor" id="_todo000016"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a>  </dt>
 <dd>Add auditing functionality.  </dd>
-<dt><a class="anchor" id="_todo000014"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260">HostInterface::info</a>  () const </dt>
+<dt><a class="anchor" id="_todo000014"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260">HostInterface::info</a>  () const </dt>
 <dd>Definitions for well-known keys such as 'version' etc.  </dd>
-<dt><a class="anchor" id="_todo000017"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html">HostSession</a>  </dt>
-<dd>Expose logging mechanism through <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a>  </dd>
-<dt><a class="anchor" id="_todo000005"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a">Manager.getRelatedReferences</a>  (self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None)</dt>
+<dt><a class="anchor" id="_todo000017"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a>  </dt>
+<dd>Expose logging mechanism through <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a>  </dd>
+<dt><a class="anchor" id="_todo000005"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a">Manager.getRelatedReferences</a>  (self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None)</dt>
 <dd>Implement missing setRelatedReferences()  </dd>
-<dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Manager.isEntityReference</a>  (self, tokens)</dt>
+<dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Manager.isEntityReference</a>  (self, tokens)</dt>
 <dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python.  </dd>
-<dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">Manager::contextFromPersistenceToken</a>  (const std::string &amp;token)</dt>
+<dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">Manager::contextFromPersistenceToken</a>  (const std::string &amp;token)</dt>
 <dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match?  </dd>
-<dt><a class="anchor" id="_todo000006"></a>Member <a class="el" href="classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html#afca19a0df300f49140c646dd9efbf29e">ManagerFactoryInterface.instantiate</a>  (self, identifier, cache=True)</dt>
-<dd>[tc] Should 'cache' be removed, or set to False by default? It prevents a <a class="el" href="namespaceopenassetio_1_1host_a_p_i_1_1_session.html" title="A single-class module, providing the Session class. ">Session</a> managing the lifetime of an instance.  </dd>
-<dt><a class="anchor" id="_todo000009"></a>Class <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>  </dt>
+<dt><a class="anchor" id="_todo000006"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html#afca19a0df300f49140c646dd9efbf29e">ManagerFactoryInterface.instantiate</a>  (self, identifier, cache=True)</dt>
+<dd>[tc] Should 'cache' be removed, or set to False by default? It prevents a <a class="el" href="namespaceopenassetio_1_1host_api_1_1_session.html" title="A single-class module, providing the Session class. ">Session</a> managing the lifetime of an instance.  </dd>
+<dt><a class="anchor" id="_todo000009"></a>Class <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>  </dt>
 <dd>Finish/Document settings mechanism.  </dd>
-<dt><a class="anchor" id="_todo000018"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html">ManagerInterface</a>  </dt>
+<dt><a class="anchor" id="_todo000018"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>  </dt>
 <dd>Finish/Document settings mechanism.  </dd>
-<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">ManagerInterface.getSettings</a>  (self, hostSession)</dt>
+<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">ManagerInterface.getSettings</a>  (self, hostSession)</dt>
 <dd>Document settings mechanism  </dd>
-<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">ManagerInterface.setSettings</a>  (self, settings, hostSession)</dt>
+<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">ManagerInterface.setSettings</a>  (self, settings, hostSession)</dt>
 <dd>Document settings mechanism  </dd>
-<dt><a class="anchor" id="_todo000019"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">ManagerInterface::initialize</a>  (const HostSessionPtr &amp;hostSession)=0</dt>
+<dt><a class="anchor" id="_todo000019"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">ManagerInterface::initialize</a>  (const HostSessionPtr &amp;hostSession)=0</dt>
 <dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed.  </dd>
-<dt><a class="anchor" id="_todo000021"></a>Member <a class="el" href="group__oa__manager_a_p_i___shared_host_session.html#ga377c7f4f7f038640b79292284cbf4afb">oa_managerAPI_SharedHostSession_h</a>  </dt>
-<dd><a class="el" href="classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> method bindings  </dd>
+<dt><a class="anchor" id="_todo000021"></a>Member <a class="el" href="group__oa__manager_api___shared_host_session.html#ga1fc894635958397b357d2908df835092">oa_managerApi_SharedHostSession_h</a>  </dt>
+<dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> method bindings  </dd>
 <dt><a class="anchor" id="_todo000001"></a>Namespace <a class="el" href="namespaceopenassetio_1_1__core_1_1debug.html">openassetio._core.debug</a>  </dt>
 <dd>The current logging implementation doesn't have any global 'display severity' concept (for good reasons), this has precluded any of the optimisations we used to make earlying-out when we're at kInfo or less. Once we port this implementation to cpp, then we may wish to adjust how we enable/disable this functionality to avoid any unwanted overhead per-call.  </dd>
 <dt><a class="anchor" id="_todo000002"></a>Namespace <a class="el" href="namespaceopenassetio_1_1constants.html">openassetio.constants</a>  </dt>

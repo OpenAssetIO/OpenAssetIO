@@ -1,7 +1,7 @@
 var hierarchy =
 [
     [ "ABCMeta", null, [
-      [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", [
         [ "ConsoleLogger", "classopenassetio_1_1log_1_1_console_logger.html", null ],
         [ "SeverityFilter", "classopenassetio_1_1log_1_1_severity_filter.html", null ]
@@ -9,28 +9,28 @@ var hierarchy =
     ] ],
     [ "Context", "structopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
-    [ "Host", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host.html", null ],
-    [ "HostInterface", "classopenassetio_1_1v1_1_1host_a_p_i_1_1_host_interface.html", null ],
+    [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
+    [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", null, [
-      [ "HostSession", "classopenassetio_1_1manager_a_p_i_1_1_host_session_1_1_host_session.html", null ]
+      [ "HostSession", "classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html", null ]
     ] ],
-    [ "HostSession", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_host_session.html", null ],
+    [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "Manager", null, [
-      [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ]
+      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],
-    [ "Manager", "classopenassetio_1_1v1_1_1host_a_p_i_1_1_manager.html", null ],
+    [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerInterface", null, [
-      [ "ManagerInterface", "classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html", null ]
+      [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
-    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_interface.html", null ],
-    [ "ManagerStateBase", "structopenassetio_1_1v1_1_1manager_a_p_i_1_1_manager_state_base.html", null ],
-    [ "Mapper", "classopenassetio_1_1host_a_p_i_1_1terminology_1_1_mapper.html", null ],
+    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
+    [ "ManagerStateBase", "structopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
+    [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
-      [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ]
     ] ],
     [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
-    [ "oa_managerAPI_CManagerInterface_s", "structoa__manager_a_p_i___c_manager_interface__s.html", null ],
+    [ "oa_managerApi_CManagerInterface_s", "structoa__manager_api___c_manager_interface__s.html", null ],
     [ "oa_StringView", "structoa___string_view.html", null ],
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
@@ -39,7 +39,7 @@ var hierarchy =
       [ "UntypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html", [
         [ "TypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_typed_property.html", null ]
       ] ],
-      [ "ManagerFactoryInterface", "classopenassetio_1_1host_a_p_i_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
       [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
       [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", null ]
@@ -69,8 +69,8 @@ var hierarchy =
     [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Debuggable", null, [
-      [ "Manager", "classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html", null ],
-      [ "Session", "classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html", null ]
+      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ],
+      [ "Session", "classopenassetio_1_1host_api_1_1_session_1_1_session.html", null ]
     ] ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],

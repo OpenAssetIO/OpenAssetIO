@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classopenassetio_1_1host_a_p_i_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="153,5,232,32"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1host_a_p_i_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. " alt="" coords="157,56,229,83"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="153,5,232,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1host_api_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. " alt="" coords="157,56,229,83"/>
 </map>
