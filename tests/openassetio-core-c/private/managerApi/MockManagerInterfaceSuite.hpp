@@ -43,7 +43,7 @@ using MockCManagerInterfaceHandleConverter =
 
 /**
  * Get a ManagerInterface C API function pointer suite that assumes the
- * provided `handle` is a `MockCAPI` instance.
+ * provided `handle` is a `MockCManagerInterfaceImpl` instance.
  */
 inline oa_managerApi_CManagerInterface_s mockManagerInterfaceSuite() {
   return {// dtor
