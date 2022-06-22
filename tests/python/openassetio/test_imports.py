@@ -72,34 +72,34 @@ class Test_core_imports:
         from openassetio._core import objects
 
 
-class Test_hostAPI_imports:
+class Test_hostApi_imports:
 
     def test_importing_HostInterface_succeeds(self):
-        from openassetio.hostAPI import HostInterface
+        from openassetio.hostApi import HostInterface
 
     def test_importing_Manager_succeeds(self):
-        from openassetio.hostAPI import Manager
+        from openassetio.hostApi import Manager
 
     def test_importing_ManagerFactoryInterface_succeeds(self):
-        from openassetio.hostAPI import ManagerFactoryInterface
+        from openassetio.hostApi import ManagerFactoryInterface
 
     def test_importing_Session_succeeds(self):
-        from openassetio.hostAPI import Session
+        from openassetio.hostApi import Session
 
     def test_importing_terminology_succeeds(self):
-        from openassetio.hostAPI import terminology
+        from openassetio.hostApi import terminology
 
 
-class Test_managerAPI_imports:
+class Test_managerApi_imports:
 
     def test_importing_Host_succeeds(self):
-        from openassetio.managerAPI import Host
+        from openassetio.managerApi import Host
 
     def test_importing_HostSession_succeeds(self):
-        from openassetio.managerAPI import HostSession
+        from openassetio.managerApi import HostSession
 
     def test_importing_ManagerInterface_succeeds(self):
-        from openassetio.managerAPI import ManagerInterface
+        from openassetio.managerApi import ManagerInterface
 
 
 class Test_pluginSystem_imports:

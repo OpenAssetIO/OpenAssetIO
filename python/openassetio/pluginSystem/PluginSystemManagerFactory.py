@@ -20,7 +20,7 @@ A single-class module, providing the PluginSystemManagerFactory class.
 
 import os
 
-from ..hostAPI.ManagerFactoryInterface import ManagerFactoryInterface
+from ..hostApi.ManagerFactoryInterface import ManagerFactoryInterface
 
 from .PluginSystem import PluginSystem
 
@@ -33,7 +33,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
     derived plugins and instantiation of Manager and UIDelegate
     instances. Not usually used directly by a @ref host, which instead
-    uses the @ref openassetio.hostAPI.Session
+    uses the @ref openassetio.hostApi.Session
 
     @envvar **OPENASSETIO_PLUGIN_PATH** *str* A PATH-style list of
     directories to search for @ref
@@ -96,7 +96,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
           use.
           @li **identifier** It's identifier
           @li **info** The info dict from the Manager (see:
-          @fqref{managerAPI.ManagerInterface.info}
+          @fqref{managerApi.ManagerInterface.info}
           "ManagerInterface.info")
           @li **plugin** The plugin class that represents the Manager
           (see: @ref openassetio.pluginSystem.ManagerPlugin
@@ -148,7 +148,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
     def instantiate(self, identifier, cache=True):
         """
         Creates an instance of the @ref
-        openassetio.managerAPI.ManagerInterface "ManagerInterface" with
+        openassetio.managerApi.ManagerInterface "ManagerInterface" with
         the specified identifier.
 
         @param identifier `str` The identifier of the ManagerInterface
@@ -160,7 +160,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         instance. If False, a new instance will be created each, and
         never retained.
 
-        @returns openassetio.managerAPI.ManagerInterface
+        @returns openassetio.managerApi.ManagerInterface
         """
 
         if not self.__pluginManager:
@@ -183,7 +183,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
         Creates an instance of the @needsref ManagerUIDelegate for the
         specified identifier.
 
-        @param managerInterfaceInstance openassetio.managerAPI.ManagerInterface
+        @param managerInterfaceInstance openassetio.managerApi.ManagerInterface
         The instance of a ManagerInterface to retrieve the UI
         delegate for.
 

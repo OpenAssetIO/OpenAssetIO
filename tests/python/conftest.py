@@ -24,8 +24,8 @@ import pytest
 
 from openassetio import Context, TraitsData
 from openassetio.log import LoggerInterface
-from openassetio.managerAPI import ManagerInterface, Host, HostSession
-from openassetio.hostAPI import HostInterface
+from openassetio.managerApi import ManagerInterface, Host, HostSession
+from openassetio.hostApi import HostInterface
 
 # pylint: disable=invalid-name
 

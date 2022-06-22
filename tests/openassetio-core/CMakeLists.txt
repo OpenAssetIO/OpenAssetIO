@@ -17,7 +17,7 @@ install(
 target_sources(openassetio-core-cpp-test-exe
     PRIVATE
     main.cpp
-    managerAPI/ManagerStateBaseTest.cpp
+    managerApi/ManagerStateBaseTest.cpp
     trait/TraitBaseTest.cpp
 )
 

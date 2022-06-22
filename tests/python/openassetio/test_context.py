@@ -21,7 +21,7 @@ Tests that cover the openassetio.Context class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
-from openassetio import Context, managerAPI, TraitsData
+from openassetio import Context, managerApi, TraitsData
 
 
 class Test_Context:
@@ -75,7 +75,7 @@ class Test_Context_init:
         assert context.managerState is None
 
     def test_when_constructed_with_args_then_has_configuration_from_args(self):
-        class TestState(managerAPI.ManagerStateBase):
+        class TestState(managerApi.ManagerStateBase):
             pass
 
         expected_access = Context.kReadMultiple
@@ -149,7 +149,7 @@ class Test_Context_locale:
 class Test_Context_managerState:
     def test_when_set_to_unknown_type_then_raises_TypeError(self, a_context):
         expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg0: openassetio._openassetio.managerAPI.ManagerStateBase")
+                        r".*arg0: openassetio._openassetio.managerApi.ManagerStateBase")
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.managerState = object()
@@ -160,7 +160,7 @@ class Test_Context_managerState:
         assert a_context.managerState is None
 
     def test_when_set_to_valid_data_then_holds_reference_to_that_data(self, a_context):
-        expected_data = managerAPI.ManagerStateBase()
+        expected_data = managerApi.ManagerStateBase()
         a_context.managerState = expected_data
 
         actual_data = a_context.managerState

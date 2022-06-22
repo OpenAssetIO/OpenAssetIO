@@ -112,7 +112,7 @@
  * ------------------
  * It is essential that any given string can be readily identified
  * identified as being an entity reference or not. The @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface.isEntityReference
+ * openassetio.managerApi.ManagerInterface.ManagerInterface.isEntityReference
  * "isEntityReference" method will be called frequently by a @ref host
  * to determine if the arbitrary user input is a reference to a managed
  * entity.
@@ -147,7 +147,7 @@
  *
  * In such a system, the ManagerInterface may provide access to
  * alternate paths from any one of these path-specific references via
- * the @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getRelatedReferences
+ * the @ref openassetio.managerApi.ManagerInterface.ManagerInterface.getRelatedReferences
  * "getRelatedReferences" method, with a suitable @ref Specification
  *
  * 3. 'Potential' entity representation
@@ -157,7 +157,7 @@
  * created.
  *
  * For example, a 'Save As...' dialog will need to return an entity
- * reference that can be passed to @ref openassetio.hostAPI.Manager.Manager.register().
+ * reference that can be passed to @ref openassetio.hostApi.Manager.Manager.register().
  *
  * This does not preclude the use of UUID-style references in some cases
  * if desired, it simply means that the Manager may need to support
@@ -174,17 +174,17 @@
  *
  * The purpose of OpenAssetIO is to standardize the interaction between a host
  * and an @ref asset_management_system in order to persis or query data.
- * A host communicates with a @ref manager via the @ref openassetio.hostAPI.Manager.Manager class.
+ * A host communicates with a @ref manager via the @ref openassetio.hostApi.Manager.Manager class.
  *
  * > Note: The Manager class is an abstraction, that takes care of
  * > sundry housekeeping and helps manage session state. Internally it
- * > holds an instance of the @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * > holds an instance of the @ref openassetio.managerApi.ManagerInterface.ManagerInterface
  * > "ManagerInterface" implementation supplied by the @ref
  * > asset_management_system.
  *
  * The host itself is made available to a @ref manager "manager's" @ref
  * ManagerInterface via the @ref
- * openassetio.managerAPI.HostSession "HostSession" supplied to each API
+ * openassetio.managerApi.HostSession "HostSession" supplied to each API
  * call. This allows the manager to adapt its behavior accordingly (if
  * required), and perform any additional actions it may wish to as part
  * of @ref publish "publishing".
@@ -192,14 +192,14 @@
  *
  * @section HostInterface
  *
- * The @fqref{hostAPI.HostInterface} "HostInterface" class is the
+ * The @fqref{hostApi.HostInterface} "HostInterface" class is the
  * abstract interface that any @ref host must implement in order to
  * initialize the API. It will usually contain logic to map native
  * features of the host into the well-known terms defined by this API.
  *
  * The HostInterface is never used directly by a @ref manager, and is
- * instead accessed through the @ref openassetio.managerAPI.Host
- * abstraction, provided by the @ref openassetio.managerAPI.HostSession
+ * instead accessed through the @ref openassetio.managerApi.Host
+ * abstraction, provided by the @ref openassetio.managerApi.HostSession
  * passed to the manager's implementation. This allows assorted
  * house-keeping and auditing to be performed by the API middleware.
  *
@@ -224,14 +224,14 @@
  *
  * @section ManagerInterface
  *
- * The @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * The @ref openassetio.managerApi.ManagerInterface.ManagerInterface
  * "ManagerInterface" class is the abstract interface that any @ref
  * asset_management_system must implement in order to be used by the
  * API. It will usually contain appropriate logic to map native features
  * of the asset manager into the well-known terms defined by this API.
  *
  * The ManagerInterface is never used directly by a @ref host, and is
- * instead accessed through the @ref openassetio.hostAPI.Manager
+ * instead accessed through the @ref openassetio.hostApi.Manager
  * abstraction. This allows assorted house-keeping and state management
  * to be performed by the API middleware.
  *
@@ -247,7 +247,7 @@
  *
  * The ManagerPlugin instance is then responsible for constructing an
  * instance of the respective @ref asset_management_system's
- * implementation of the @ref openassetio.managerAPI.ManagerInterface
+ * implementation of the @ref openassetio.managerApi.ManagerInterface
  * "ManagerInterface".
  *
  *
@@ -292,10 +292,10 @@
  *
  * The manager's state object is opaque to the host.
  *
- *   @see @fqref{managerAPI.ManagerInterface.createState} "ManagerInterface.createState"
- *   @see @fqref{managerAPI.ManagerInterface.createChildState} "ManagerInterface.createChildState"
- *   @see @fqref{managerAPI.ManagerInterface.persistenceTokenForState} "ManagerInterface.persistenceTokenForState"
- *   @see @fqref{managerAPI.ManagerInterface.stateFromPersistenceToken} "ManagerInterface.stateFromPersistenceToken"
+ *   @see @fqref{managerApi.ManagerInterface.createState} "ManagerInterface.createState"
+ *   @see @fqref{managerApi.ManagerInterface.createChildState} "ManagerInterface.createChildState"
+ *   @see @fqref{managerApi.ManagerInterface.persistenceTokenForState} "ManagerInterface.persistenceTokenForState"
+ *   @see @fqref{managerApi.ManagerInterface.stateFromPersistenceToken} "ManagerInterface.stateFromPersistenceToken"
  *
  *
  * @section meta_version Meta-version
@@ -304,7 +304,7 @@
  * version managed. Some systems also allow the concept of what we call a
  * 'meta-version'. For example "latest" or "latestApprovedForLighting".  These
  * are version strings that need to be further resolved using @ref
- * openassetio.hostAPI.Manager.Manager.finalizedEntityVersion
+ * openassetio.hostApi.Manager.Manager.finalizedEntityVersion
  * "finalizedEntityVersion()" before they can be assumed to be
  * pointing to a specific 'concrete' version of an entity.
  *
@@ -330,7 +330,7 @@
  * registers classes derived from the @ref ManagerInterface.
  *
  * A @ref host never uses the ManagerInterface class directly, but instead
- * uses the @ref openassetio.hostAPI.Manager "Manager" class. This
+ * uses the @ref openassetio.hostApi.Manager "Manager" class. This
  * indirection allows sundry house keeping and state management.
  *
  *
@@ -341,12 +341,12 @@
  * the location at which data should be created, and those that simply
  * track data at its existing location. A @ref manager implementation
  * declares its behavior to the host via the @ref
- * openassetio.hostAPI.Manager.Manager.managementPolicy
+ * openassetio.hostApi.Manager.Manager.managementPolicy
  * "managementPolicy" method.
  *
  * If a manager has said it is capable of defining the location for
  * future data ahead of time, the host must call the @ref
- * openassetio.hostAPI.Manager.Manager.preflight "preflight" method and
+ * openassetio.hostApi.Manager.Manager.preflight "preflight" method and
  * resolve the returned @ref entity_reference to determine the manager's
  * chosen location for the data and use this for any write operations.
  *
@@ -399,7 +399,7 @@
  *
  * - Check whether the @ref manager is interested in that particular
  *   @ref entity "entity's" @ref trait "traits", via the manager's
- *   @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "managementPolicy".
  * - Call @ref preflight to allow any prerequisite housekeeping
  *   to be performed, and a working @ref entity_reference returned.
@@ -451,7 +451,7 @@
  *
  * OpenAssetIO is instantiated by a @ref host in order to talk to one or
  * more @ref asset_management_system "asset management systems". To do
- * so, the host creates a new @ref openassetio.hostAPI.Session "Session"
+ * so, the host creates a new @ref openassetio.hostApi.Session "Session"
  * for each manager it wishes to communicate with. The Session object is
  * responsible for managing the lifetime of a @ref manager and provides
  * mechanisms for creating a @ref Context and persisting details of
@@ -505,7 +505,7 @@
  * Trait sets are supplied to the @ref manager through the API whenever
  * there is need to describe the type of something in advance. A good
  * example of their useage is in the
- * @ref openassetio.hostAPI.Manager.Manager.managementPolicy
+ * @ref openassetio.hostApi.Manager.Manager.managementPolicy
  * "managementPolicy" query, where the manager declares its intent
  * towards specific types of entity - described by the supplied trait
  * sets.

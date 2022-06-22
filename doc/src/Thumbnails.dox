@@ -25,7 +25,7 @@
  * relevant data to hand to do it.
  *
  * To this end, a @ref manager can set the @ref openassetio.constants.kWantsThumbnail
- * "kWantsThumbnail" flag in it's response to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+ * "kWantsThumbnail" flag in it's response to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
  * "managementPolicy" for any given set of entity @ref trait "traits".
  *
  * If supported by the host, it will then:
@@ -47,7 +47,7 @@
  *
  * @section thumbnails_lookup Looking Up Existing Thumbnails
  *
- * A host can use the standard @ref openassetio.hostAPI.Manager.Manager.getRelatedReferences
+ * A host can use the standard @ref openassetio.hostApi.Manager.Manager.getRelatedReferences
  * "getRelatedReferences" method of the @ref manager to request the
  * @ref entity_reference "entity references" of any existing thumbnails
  * that depict a particular @ref entity.

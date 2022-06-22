@@ -22,7 +22,7 @@ that the harness implementation supplies the correct state to each test.
 # pylint: disable=invalid-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from openassetio.hostAPI import Manager, Session
+from openassetio.hostApi import Manager, Session
 from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 

@@ -20,7 +20,7 @@ by default.
 
 @envvar **OPENASSETIO_DEBUG** *int* [1] when non-zero, debug decorators
 will be enabled, allowing API calls to be monitored and timed using the
-kDebug and kDebugAPI logging severity displays
+kDebug and kDebugApi logging severity displays
 
 In order to use these decorators the target class must derive from
 Debuggable, and have its `_debugLogFn` set to an callable that matches
@@ -92,7 +92,7 @@ def debugCall(function):
 def debugApiCall(function):
     """
     Use as a decorator to trace usage of the decorated API functions
-    through the kDebugAPI logging severity. This should only be used on
+    through the kDebugApi logging severity. This should only be used on
     bound methods.
     """
     # See notes in debugCall
@@ -107,7 +107,7 @@ def debugApiCall(function):
 
     @functools.wraps(function)
     def _debugApiCall(*args, **kwargs):
-        return __debugCall(function, debugFn, LoggerInterface.kDebugAPI, *args, **kwargs)
+        return __debugCall(function, debugFn, LoggerInterface.kDebugApi, *args, **kwargs)
 
     return _debugApiCall
 

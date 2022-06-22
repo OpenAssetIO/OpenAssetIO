@@ -20,7 +20,7 @@ test suite.
 """
 
 from openassetio import constants
-from openassetio.managerAPI import ManagerInterface
+from openassetio.managerApi import ManagerInterface
 from openassetio.pluginSystem import ManagerPlugin
 
 

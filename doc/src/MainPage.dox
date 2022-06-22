@@ -113,7 +113,7 @@
  * a simplified version of the architecture as a UML Class Diagram:
  *
  * @startuml
- * package openassetio.managerAPI {
+ * package openassetio.managerApi {
  *     class Host #white ##black {
  *         +identifier()
  *         ..
@@ -123,7 +123,7 @@
  *     interface ManagerInterface #white;line.dotted ##black
  * }
  *
- * package openassetio.hostAPI {
+ * package openassetio.hostApi {
  *     interface HostInterface #white;line.dotted ##black
  *     class Session #white ##black {
  *         +registeredManagers()
@@ -162,32 +162,32 @@
  * @enduml
  *
  * It attempts to show that the API is organized into two main
- * namespaces - the @ref openassetio.hostAPI "hostAPI" and @ref
- * openassetio.managerAPI "managerAPI". Within each of these, you will
+ * namespaces - the @ref openassetio.hostApi "hostApi" and @ref
+ * openassetio.managerApi "managerApi". Within each of these, you will
  * find the components you need depending on whether you are adopting
  * the API in a @ref host or providing support for a @ref manager
  * through a plugin.
  *
  * The first step in any integration is to write an implementation of
  * one of the two abstract interfaces defined by the API, illustrated in
- * orange above - either the @fqref{hostAPI.HostInterface}
+ * orange above - either the @fqref{hostApi.HostInterface}
  * "HostInterface" or @ref
- * openassetio.managerAPI.ManagerInterface.ManagerInterface
+ * openassetio.managerApi.ManagerInterface.ManagerInterface
  * "ManagerInterface".
  *
  * - The asset management system implements the
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
  *   "ManagerInterface". This is a stateless, re-entrant interface that is
  *   the sole entry point for all interactions with the host.
  *
- * - The @fqref{hostAPI.HostInterface} "HostInterface" represents the
+ * - The @fqref{hostApi.HostInterface} "HostInterface" represents the
  *   caller of the API. It allows the asset management system to
  *   customize the @ref publish "publishing" process if desired and/or
  *   query additional information about the host.
  *
  * The interface implementations are "wrapped" in the
- * @fqref{managerAPI.Host} "Host" or
- * @ref openassetio.hostAPI.Manager.Manager "Manager" classes by the
+ * @fqref{managerApi.Host} "Host" or
+ * @ref openassetio.hostApi.Manager.Manager "Manager" classes by the
  * API before being passed to the other side, to provide state
  * management and audit functionality.
  *

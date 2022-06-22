@@ -62,7 +62,7 @@ class ManagerPlugin(PluginSystemPlugin):
 
         @return str
 
-        @see @ref openassetio.managerAPI.ManagerInterface
+        @see @ref openassetio.managerApi.ManagerInterface
         "ManagerInterface"
         """
         raise NotImplementedError
@@ -71,10 +71,10 @@ class ManagerPlugin(PluginSystemPlugin):
     def interface(cls):
         """
         Constructs an instance of the @ref
-        openassetio.managerAPI.ManagerInterface.
+        openassetio.managerApi.ManagerInterface.
 
         This is an instance of some class derived from ManagerInterface
-        to be bound to the Host-facing @ref openassetio.hostAPI.Manager.
+        to be bound to the Host-facing @ref openassetio.hostApi.Manager.
 
         Generally this is only directly called by the @ref
         openassetio.pluginSystem.PluginSystemManagerFactory. It may be

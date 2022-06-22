@@ -58,11 +58,11 @@ target_sources(
     openassetio-core
     PRIVATE
     TraitsData.cpp
-    hostAPI/HostInterface.cpp
-    hostAPI/Manager.cpp
-    managerAPI/Host.cpp
-    managerAPI/HostSession.cpp
-    managerAPI/ManagerInterface.cpp
+    hostApi/HostInterface.cpp
+    hostApi/Manager.cpp
+    managerApi/Host.cpp
+    managerApi/HostSession.cpp
+    managerApi/ManagerInterface.cpp
 )
 
 # Public header dependency.

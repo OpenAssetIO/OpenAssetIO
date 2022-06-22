@@ -20,7 +20,7 @@ Private implementation classes for the manager test framework.
 """
 import unittest
 
-from openassetio import hostAPI, log, pluginSystem
+from openassetio import hostApi, log, pluginSystem
 
 from .specifications import ManagerTestHarnessLocale
 
@@ -37,7 +37,7 @@ def createHarness(managerIdentifier, settings=None):
     logger = log.SeverityFilter(log.ConsoleLogger())
     managerFactory = pluginSystem.PluginSystemManagerFactory(logger)
 
-    session = hostAPI.Session(hostInterface, logger, managerFactory)
+    session = hostApi.Session(hostInterface, logger, managerFactory)
     session.useManager(managerIdentifier, settings)
 
     loader = _ValidatorTestLoader(session)
@@ -107,7 +107,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
         """
         Initializes an instance of this class.
 
-        @param session hostAPI.Session.Session Test harness OpenAssetIO
+        @param session hostApi.Session.Session Test harness OpenAssetIO
         @ref session
         """
         self.__session = session
@@ -162,9 +162,9 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
         self.__fixtures = fixtures
 
 
-class _ValidatorHarnessHostInterface(hostAPI.HostInterface):
+class _ValidatorHarnessHostInterface(hostApi.HostInterface):
     """
-    Minimal required OpenAssetIO \fqref{hostAPI.HostInterface}
+    Minimal required OpenAssetIO \fqref{hostApi.HostInterface}
     "HostInterface" implementation.
 
     @private

@@ -33,7 +33,7 @@ class LoggerInterface(object, metaclass=abc.ABCMeta):
     # @name Log Severity
     # @{
 
-    kDebugAPI = 6
+    kDebugApi = 6
     kDebug = 5
     kInfo = 4
     kProgress = 3
@@ -42,7 +42,7 @@ class LoggerInterface(object, metaclass=abc.ABCMeta):
     kCritical = 0
 
     ## A mapping of severity levels to readable labels
-    kSeverityNames = ['critical', 'error', 'warning', 'progress', 'info', 'debug', 'debugAPI']
+    kSeverityNames = ['critical', 'error', 'warning', 'progress', 'info', 'debug', 'debugApi']
 
     ## @}
 
@@ -206,7 +206,7 @@ class ConsoleLogger(LoggerInterface):
 
         if severity == LoggerInterface.kDebug:
             return "%s%s%s" % (color % 2, msg, end)
-        if severity == LoggerInterface.kDebugAPI:
+        if severity == LoggerInterface.kDebugApi:
             return "%s%s%s" % (color % 6, msg, end)
         if severity == LoggerInterface.kWarning:
             return "%s%s%s" % (color % 3, msg, end)

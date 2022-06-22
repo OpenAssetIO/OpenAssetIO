@@ -26,7 +26,7 @@
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
  *   through its @ref ManagerPlugin is wrapped in the @ref
- *   openassetio.hostAPI.Manager.Manager "Manager" class before being made
+ *   openassetio.hostApi.Manager.Manager "Manager" class before being made
  *   available to the @ref host. This is to allow for host session state
  *   management and other auditing/logging functionality. It also
  *   provides a degree of isolation against future API changes.
@@ -45,7 +45,7 @@
  *   strings.
  *
  * - The manager is expected to store and recall the trait data
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  *   "registered" to any given @ref entity_reference, and return this
  *   data from the relevant query methods when supplied the reference
  *   returned from the registration.
@@ -69,16 +69,16 @@
  *   details on this mechanism.
  *
  * - The @ref ManagerInterface implementation will be passed a
- *   @ref openassetio.managerAPI.HostSession "HostSession" to the
+ *   @ref openassetio.managerApi.HostSession "HostSession" to the
  *   majority of API calls. This should be used for *all* logging, and
  *   any generic host queries via the supplied
- *   @ref openassetio.managerAPI.Host "Host" object. Managers may wish
+ *   @ref openassetio.managerApi.Host "Host" object. Managers may wish
  *   to use details of the @ref host obtained from this object to adapt
  *   their behavior if desired.
  *
  * - If a manager wants to support some kind of temporally stable
  *   resolution of @ref meta_version "Meta-versions" or similar,
- *   implement @fqref{managerAPI.ManagerInterface.createState}
+ *   implement @fqref{managerApi.ManagerInterface.createState}
  *   "createState", and return some token that can be used as an anchor.
  *   A new token will be requested each time a @ref Context is made, and
  *   will then be available via @fqref{Context.managerState}
@@ -103,23 +103,23 @@
  *
  * @subsection manager_todo_basic_resolution Required for Resolution Only
  *
- * - Implement the @ref openassetio.managerAPI.ManagerInterface
+ * - Implement the @ref openassetio.managerApi.ManagerInterface
  *   "ManagerInterface" class methods
- *   @fqref{managerAPI.ManagerInterface.identifier} "identifier" an
- *   @fqref{managerAPI.ManagerInterface.displayName} "displayName".
+ *   @fqref{managerApi.ManagerInterface.identifier} "identifier" an
+ *   @fqref{managerApi.ManagerInterface.displayName} "displayName".
  *
- * - Implement @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+ * - Implement @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to control which Host-side data types you wish to be
  *   involved in managing. Return `kIgnored` for any queries with
  *   a context with `kWrite` access (this disables publishing).
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
  *   "ManagerInterface", along with
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.entityName
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityName
  *   "entityName" and
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.entityDisplayName
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityDisplayName
  *   "entityDisplayName" to support lookup of assets.
  *
  * - Implement a @ref ManagerPlugin and install this on
@@ -128,28 +128,28 @@
  * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.managementPolicy
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
  *   "managementPolicy" to return a suitable mask for contexts with a
  *   `kWrite` access.
  *
  * - Implement the methods grouped under the "Publishing" section, and
  *   the remaining methods in the "Entity Information" section of
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
  *   "ManagerInterface", to support the registration of new assets.
  *
  * - Map supported OpenAssetIO @ref trait "traits" to internal asset
  *   types where possible.
  *
  * - Persist the full @ref trait_set of the specification supplied to
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  *   "register". This allows new asset types to be registered and
  *   filtered, even if they don't have a unique type within the manager's
  *   native data model.
  *
- * - Persist the trait data supplied to @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ * - Persist the trait data supplied to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  *   "register". It should be considered opaque, unless the trait is
  *   well understood. In all other cases it should be returned verbatim
- *   by @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.resolve
+ *   by @ref openassetio.managerApi.ManagerInterface.ManagerInterface.resolve
  *   "resolve" when passed the reference returned from the registration
  *   (conditional on any subsequent registrations to
  *   the reference and the policy regarding entity versioning).
@@ -169,8 +169,8 @@
  *
  * Relationships aren't required for publishing itself, as the parent
  * for an new entity is always inferred from the entity addressed by the
- * reference used in the @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.preflight
- * "preflight" or @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.register
+ * reference used in the @ref openassetio.managerApi.ManagerInterface.ManagerInterface.preflight
+ * "preflight" or @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  * "register" call.
  *
  * For example, publishing an ImageSpecification to the entity reference
@@ -197,14 +197,14 @@
  * relationship to an entity. Generally speaking, this is when an
  * existing entity is known to be relevant to a newly created
  * one. For example, if an image has been rendered from an assetized
- * script. The host may call @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setRelatedReferences
+ * script. The host may call @ref openassetio.managerApi.ManagerInterface.ManagerInterface.setRelatedReferences
  * "setRelatedReferences", to add the script's reference to the newly
  * registered image, using the SourceDocumentRelationship trait set.
  *
  * In order to support entity relationships:
  *
  * - Implement
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.getRelatedReferences
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.getRelatedReferences
  *   "getRelatedReferences" to return any appropriate @ref entity_reference
  *   "entity references" for the supplied @ref Specification. Hosts may
  *   use these relationships to simplify common pipeline integration
@@ -212,7 +212,7 @@
  *   determining data dependencies when transferring assets.
  *
  * - If appropriate, implement
- *   @ref openassetio.managerAPI.ManagerInterface.ManagerInterface.setRelatedReferences
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.setRelatedReferences
  *   "setRelatedReferences" to update any internal relationships that
  *   may be affected by the registered change.
  *
@@ -233,10 +233,10 @@
  * @section manager_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref openassetio.managerAPI.ManagerInterface "ManagerInterface"
+ * @see @ref openassetio.managerApi.ManagerInterface "ManagerInterface"
  * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
  * @see @fqref{Context} "Context"
- * @see @ref openassetio.managerAPI.Host "Host"
+ * @see @ref openassetio.managerApi.Host "Host"
  * @see @needsref ManagerUIDelegate
  * @see @needsref ui.widgets
  */

@@ -24,7 +24,7 @@ The manager currently ignores all entity types.
 #   https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
 # As such, any expensive module imports should be deferred.
 from openassetio import constants
-from openassetio.managerAPI import ManagerInterface
+from openassetio.managerApi import ManagerInterface
 
 __all__ = ['SampleAssetManagerInterface', ]
 

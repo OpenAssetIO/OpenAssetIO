@@ -303,20 +303,20 @@ extern "C"
 // Dummy Manager declaration
 
 #undef ns
-#define ns(thing) OpenAssetIO_C_NAMESPACE(hostAPI_##thing)
+#define ns(thing) OpenAssetIO_C_NAMESPACE(hostApi_##thing)
 
 namespace openassetio
 {
 inline namespace OpenAssetIO_VERSION
 {
-namespace hostAPI
+namespace hostApi
 {
 struct Manager
 {
     void updateTerminology(StringMap & terminology) const;
     std::string displayName() const;
 };
-}  // namespace hostAPI
+}  // namespace hostApi
 }  // namespace OpenAssetIO_VERSION
 }  // namespace openassetio
 extern "C"
@@ -384,7 +384,7 @@ std::string replaceTerms(const StringMap & terminology, const std::string & sour
 class Mapper
 {
 public:
-    explicit Mapper(const hostAPI::Manager & manager, StringMap terminology = defaultTerminology)
+    explicit Mapper(const hostApi::Manager & manager, StringMap terminology = defaultTerminology)
         : m_terminology{std::move(terminology)}
     {
         manager.updateTerminology(m_terminology);
@@ -411,10 +411,10 @@ extern "C"
 {
     typedef struct ns(MapperOpaque) * ns(MapperHandle);
 
-    ns(MapperHandle) ns(Mapper_create)(OpenAssetIO_C_NAMESPACE(hostAPI_ManagerHandle) hManager)
+    ns(MapperHandle) ns(Mapper_create)(OpenAssetIO_C_NAMESPACE(hostApi_ManagerHandle) hManager)
     {
         using openassetio::CHandle;
-        using openassetio::hostAPI::Manager;
+        using openassetio::hostApi::Manager;
         using openassetio::terminology::Mapper;
 
         // By-reference means we're "stealing" the pointer (but not for
