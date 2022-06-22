@@ -64,7 +64,7 @@ def severity_filter(mock_logger):
 
 
 all_severities = (
-    lg.LoggerInterface.kDebugAPI,
+    lg.LoggerInterface.kDebugApi,
     lg.LoggerInterface.kDebug,
     lg.LoggerInterface.kInfo,
     lg.LoggerInterface.kProgress,
@@ -91,7 +91,7 @@ class Test_SeverityFilter_init:
         for value, expected in (
                 ("", lg.LoggerInterface.kWarning),
                 ("not a valid value", lg.LoggerInterface.kWarning),
-                (lg.LoggerInterface.kDebugAPI, lg.LoggerInterface.kDebugAPI),
+                (lg.LoggerInterface.kDebugApi, lg.LoggerInterface.kDebugApi),
                 (lg.LoggerInterface.kDebug, lg.LoggerInterface.kDebug),
                 (lg.LoggerInterface.kInfo, lg.LoggerInterface.kInfo),
                 (lg.LoggerInterface.kProgress, lg.LoggerInterface.kProgress),

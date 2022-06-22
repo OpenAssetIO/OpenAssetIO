@@ -10,6 +10,9 @@ v1.0.0-alpha.X
   consistency with the rest of the codebase.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
 
+- Renamed the `LoggerInterface` constant `kDebugAPI` to `kDebugApi`.
+  [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
+
 - Split `Specification` class into `SpecificationBase` and `TraitsData`
   This properly defines the separation of the generic data container
   from the strongly typed views used to get/set well known traits and

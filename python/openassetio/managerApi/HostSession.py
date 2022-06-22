@@ -45,7 +45,7 @@ class HostSession(_openassetio.managerApi.HostSession):
     @see @ref log
     @see @fqref{hostApi.HostInterface} "HostInterface"
     """
-    kDebugAPI = LoggerInterface.kDebugAPI
+    kDebugApi = LoggerInterface.kDebugApi
     kDebug = LoggerInterface.kDebug
     kInfo = LoggerInterface.kInfo
     kProgress = LoggerInterface.kProgress
