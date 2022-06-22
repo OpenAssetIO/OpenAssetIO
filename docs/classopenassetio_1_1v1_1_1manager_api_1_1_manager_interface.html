@@ -143,7 +143,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2a0b607f49506ffe57659036be754260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a2a0b607f49506ffe57659036be754260">More...</a><br /></td></tr>
 <tr class="separator:a2a0b607f49506ffe57659036be754260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:a6fdab835837291c6fd2864feaa8aca31"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
+<tr class="memitem:a6fdab835837291c6fd2864feaa8aca31"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31">initialize</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
 <tr class="memdesc:a6fdab835837291c6fd2864feaa8aca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#a6fdab835837291c6fd2864feaa8aca31">More...</a><br /></td></tr>
 <tr class="separator:a6fdab835837291c6fd2864feaa8aca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Manager State</div></td></tr>
@@ -151,16 +151,16 @@ Public Member Functions</h2></td></tr>
 <p>Because the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
 <p>This mechanism may be used for a variety of purposes. For example, it could ensure that queries are made from a coherent time stamp during a render, or to undo the publishing of multiple assets. </p>
 </div></td></tr>
-<tr class="memitem:adffc166914014188f1df417d1e832e62"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memitem:adffc166914014188f1df417d1e832e62"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:adffc166914014188f1df417d1e832e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context).  <a href="#adffc166914014188f1df417d1e832e62">More...</a><br /></td></tr>
 <tr class="separator:adffc166914014188f1df417d1e832e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e784143c880610d29428209c6af3cea"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;parentState, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memitem:a4e784143c880610d29428209c6af3cea"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> &amp;parentState, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:a4e784143c880610d29428209c6af3cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a state that is a child of the supplied state.  <a href="#a4e784143c880610d29428209c6af3cea">More...</a><br /></td></tr>
 <tr class="separator:a4e784143c880610d29428209c6af3cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af856481998ca19fa574471312cafa07a"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;state, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memitem:af856481998ca19fa574471312cafa07a"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> &amp;state, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:af856481998ca19fa574471312cafa07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>) so that can be restored later, or in another process.  <a href="#af856481998ca19fa574471312cafa07a">More...</a><br /></td></tr>
 <tr class="separator:af856481998ca19fa574471312cafa07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59774e380f794405642d4cafeb180b46"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> (const std::string &amp;token, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memitem:a59774e380f794405642d4cafeb180b46"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> (const std::string &amp;token, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:a59774e380f794405642d4cafeb180b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a59774e380f794405642d4cafeb180b46">More...</a><br /></td></tr>
 <tr class="separator:a59774e380f794405642d4cafeb180b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -263,15 +263,15 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> createChildState </td>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> createChildState </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>parentState</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>
@@ -321,9 +321,9 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> createState </td>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> createState </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em></td><td>)</td>
           <td></td>
         </tr>
@@ -461,7 +461,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void initialize </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em></td><td>)</td>
           <td></td>
         </tr>
@@ -501,13 +501,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual std::string persistenceTokenForState </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>state</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>
@@ -543,7 +543,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#abba13c1c235aeb1e1a420bf148dc37c8">ManagerStateBasePtr</a> stateFromPersistenceToken </td>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4a1676ca2eaf467326ce7d6df6d914cb">ManagerStateBasePtr</a> stateFromPersistenceToken </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>token</em>, </td>
@@ -551,7 +551,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a84f053be55a9e96e775b5ce48f299933">HostSessionPtr</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a4797d4c9028324ef47c7c861c0bbed38">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>

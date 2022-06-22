@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['makeshared',['makeShared',['../namespaceopenassetio_1_1v1.html#a1828f48c2d5a31e34947c19f91674ebf',1,'openassetio::v1']]],
+  ['makeshared',['makeShared',['../namespaceopenassetio_1_1v1.html#ab4d0cd4c5f2168ad4092cf494190d98c',1,'openassetio::v1']]],
   ['managementpolicy',['managementPolicy',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24',1,'openassetio.hostApi.Manager.Manager.managementPolicy()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aa8f1fae8a123f0582287d1b2662062bf',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy()']]],
   ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab5720aaa27019eae6e812b79d0a5aba1',1,'openassetio::v1::hostApi::Manager']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e',1,'openassetio::v1::managerApi::ManagerInterface']]],

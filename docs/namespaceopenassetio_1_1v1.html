@@ -139,8 +139,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ad7e4ffedbf46e76f4a5ab34e9910d3fb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> = openassetio::SharedPtr&lt; <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> &gt;</td></tr>
-<tr class="separator:ad7e4ffedbf46e76f4a5ab34e9910d3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a0d9d6462f5c91e1bc148ce5ba754e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a18a0d9d6462f5c91e1bc148ce5ba754e">ContextPtr</a> = std::shared_ptr&lt; <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> &gt;</td></tr>
+<tr class="separator:a18a0d9d6462f5c91e1bc148ce5ba754e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9259b8747e04a2617e45e526fda835d7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a9259b8747e04a2617e45e526fda835d7">InfoDictionaryValue</a> = std::variant&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a39011fca2df8f8b3d2cf72a39108c588">Bool</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a1941127620eb673d937ee1117a94497c">Int</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038">Float</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &gt;</td></tr>
 <tr class="memdesc:a9259b8747e04a2617e45e526fda835d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types available as values in a InfoDictionary.  <a href="#a9259b8747e04a2617e45e526fda835d7">More...</a><br /></td></tr>
 <tr class="separator:a9259b8747e04a2617e45e526fda835d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,9 +150,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5">TraitsDataPtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> &gt;</td></tr>
 <tr class="memdesc:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ref-counted smart pointer to underlying <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a>.  <a href="#a9d14e69b1251dcaf7c6e6dc060a329a5">More...</a><br /></td></tr>
 <tr class="separator:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad71c1f3b8d46b57fd328d48cee283c1f"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:ad71c1f3b8d46b57fd328d48cee283c1f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#ad71c1f3b8d46b57fd328d48cee283c1f">SharedPtr</a> = std::shared_ptr&lt; T &gt;</td></tr>
-<tr class="separator:ad71c1f3b8d46b57fd328d48cee283c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Primitive Types</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p><a class="anchor" id="CppPrimitiveTypes"></a></p>
 <p>These types are used throughout OpenAssetIO, especially within dictionary-like types such as <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> or <a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>.</p>
@@ -175,10 +172,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1828f48c2d5a31e34947c19f91674ebf"><td class="memTemplParams" colspan="2">template&lt;class T , typename... Args&gt; </td></tr>
-<tr class="memitem:a1828f48c2d5a31e34947c19f91674ebf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ad71c1f3b8d46b57fd328d48cee283c1f">SharedPtr</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a1828f48c2d5a31e34947c19f91674ebf">makeShared</a> (Args &amp;&amp;...args)</td></tr>
-<tr class="memdesc:a1828f48c2d5a31e34947c19f91674ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make an instance wrapped in a shared smart pointer.  <a href="#a1828f48c2d5a31e34947c19f91674ebf">More...</a><br /></td></tr>
-<tr class="separator:a1828f48c2d5a31e34947c19f91674ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4d0cd4c5f2168ad4092cf494190d98c"><td class="memTemplParams" colspan="2">template&lt;class T , typename... Args&gt; </td></tr>
+<tr class="memitem:ab4d0cd4c5f2168ad4092cf494190d98c"><td class="memTemplItemLeft" align="right" valign="top">std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#ab4d0cd4c5f2168ad4092cf494190d98c">makeShared</a> (Args &amp;&amp;...args)</td></tr>
+<tr class="separator:ab4d0cd4c5f2168ad4092cf494190d98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="a39011fca2df8f8b3d2cf72a39108c588"></a>
@@ -195,12 +191,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7e4ffedbf46e76f4a5ab34e9910d3fb"></a>
+<a class="anchor" id="a18a0d9d6462f5c91e1bc148ce5ba754e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#ad7e4ffedbf46e76f4a5ab34e9910d3fb">ContextPtr</a> =  openassetio::SharedPtr&lt;<a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a>&gt;</td>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#a18a0d9d6462f5c91e1bc148ce5ba754e">ContextPtr</a> =  std::shared_ptr&lt;<a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -263,19 +259,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad71c1f3b8d46b57fd328d48cee283c1f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#ad71c1f3b8d46b57fd328d48cee283c1f">SharedPtr</a> =  std::shared_ptr&lt;T&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Shared smart pointer type. </p>
-
-</div>
-</div>
 <a class="anchor" id="a376207d46bd161163b9089964e8fbed6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -305,12 +288,12 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a1828f48c2d5a31e34947c19f91674ebf"></a>
+<a class="anchor" id="ab4d0cd4c5f2168ad4092cf494190d98c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#ad71c1f3b8d46b57fd328d48cee283c1f">SharedPtr</a>&lt;T&gt; openassetio::v1::makeShared </td>
+          <td class="memname">std::shared_ptr&lt;T&gt; openassetio::v1::makeShared </td>
           <td>(</td>
           <td class="paramtype">Args &amp;&amp;...&#160;</td>
           <td class="paramname"><em>args</em></td><td>)</td>
@@ -318,7 +301,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
 <p>Make an instance wrapped in a shared smart pointer. </p>
 
 </div>
