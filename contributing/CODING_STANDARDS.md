@@ -52,18 +52,64 @@ and consistency trade-offs.
 
 ### Classes
 
+#### Smart pointers
+
 C++ classes that represent system components with reference semantics
 (as opposed to 'value' types) should inherit
 `std::enable_shared_from_this` and define a peer `Ptr` alias using
 `std::shared_ptr`.
 
-```cpp
-class MyClass : std::enable_shared_from_this<MyClass> { ... };
-using MyClassPtr = std::shared_ptr<MyClass>;
-```
-
 This is to simplify memory management across the complex range of
 language bindings within the project.
+
+There is a convenience macro `OPENASSETIO_DECLARE_PTR` available in
+`typedefs.hpp` that should be used to declare the `shared_ptr`. A macro
+gives us a single point of change should we wish to alter or add more
+declarations.
+
+Usage example:
+
+```cpp
+namespace openassetio {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace managerApi {
+
+OPENASSETIO_DECLARE_PTR(Host)
+
+class OPENASSETIO_CORE_EXPORT Host final {
+...
+```
+
+#### Forward declarations
+
+To decrease coupling and improve compile times it is idiomatic in C++ to
+forward declare classes when the full definition is not yet required, so
+that `#include`ing the class's associated header can be deferred until
+needed (typically within the `.cpp` source file).
+
+There is a convenience macro `OPENASSETIO_FWD_DECLARE` in `typedefs.hpp`
+that should be used to forward declare classes. The macro wraps the
+class declaration in the appropriate top-level namespaces, plus
+optionally a child namespace (depending on whether one or two arguments
+are provided). Hence the macro should be used _outside_ of any other
+namespace.
+
+Usage example:
+
+```cpp
+#include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
+
+namespace openassetio {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
+...
+```
+
+> **Warning**: The Windows MSVC compiler mangles `struct` and `class`
+> declarations differently in the compiled binary. Since the above
+> macro forward declares using `class`, we must avoid using `struct`
+> to define classes or we risk linker errors on Windows.
 
 ## C
 

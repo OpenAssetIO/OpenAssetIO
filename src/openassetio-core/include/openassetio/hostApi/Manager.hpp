@@ -6,10 +6,12 @@
 #include <string>
 
 #include <openassetio/export.h>
-#include <openassetio/Context.hpp>
-#include <openassetio/managerApi/HostSession.hpp>
-#include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(managerApi, HostSession)
+OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
+OPENASSETIO_FWD_DECLARE(Context)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -20,6 +22,9 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  If you are a asset management system developer, see @ref managerApi.
 */
 namespace hostApi {
+
+OPENASSETIO_DECLARE_PTR(Manager)
+
 /**
  * The Manager is the Host facing representation of an @ref
  * asset_management_system. The Manager class shouldn't be directly
@@ -244,8 +249,6 @@ class OPENASSETIO_CORE_EXPORT Manager {
   managerApi::ManagerInterfacePtr managerInterface_;
   managerApi::HostSessionPtr hostSession_;
 };
-
-using ManagerPtr = std::shared_ptr<Manager>;
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

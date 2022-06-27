@@ -10,6 +10,9 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
+
+OPENASSETIO_DECLARE_PTR(ManagerStateBase)
+
 /**
  * An abstract base for all @ref manager_state objects.
  *
@@ -28,8 +31,6 @@ class ManagerStateBase {
  public:
   virtual ~ManagerStateBase() = default;
 };
-
-using ManagerStateBasePtr = std::shared_ptr<ManagerStateBase>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

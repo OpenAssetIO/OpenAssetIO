@@ -8,9 +8,10 @@
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
-#include <openassetio/managerApi/HostSession.hpp>
-#include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
+OPENASSETIO_FWD_DECLARE(managerApi, HostSession)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -21,6 +22,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  If you are a tool or application developer, see @ref hostApi.
 */
 namespace managerApi {
+
+OPENASSETIO_DECLARE_PTR(ManagerInterface)
 
 /**
  * This Interface binds a @ref asset_management_system into
@@ -418,8 +421,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @}
    */
 };
-
-using ManagerInterfacePtr = std::shared_ptr<ManagerInterface>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

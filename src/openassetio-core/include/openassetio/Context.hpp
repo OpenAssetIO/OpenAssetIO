@@ -6,12 +6,15 @@
 #include <memory>
 
 #include <openassetio/export.h>
-#include <openassetio/TraitsData.hpp>
-#include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(TraitsData)
+OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+OPENASSETIO_DECLARE_PTR(Context)
+
 /**
  *  The Context object is used to convey information about the calling
  *  environment to a @ref manager. It encapsulates several key access
@@ -153,7 +156,5 @@ class Context final {
     return access == kReadMultiple || access == kWriteMultiple;
   }
 };
-
-using ContextPtr = std::shared_ptr<Context>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

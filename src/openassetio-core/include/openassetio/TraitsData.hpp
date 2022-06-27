@@ -15,6 +15,8 @@
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+OPENASSETIO_DECLARE_PTR(TraitsData)
+
 /**
  * A transport-level container for data exchange between a @ref host and
  * a @ref manager.
@@ -166,8 +168,5 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   class Impl;
   std::unique_ptr<Impl> impl_;
 };
-
-/// Ref-counted smart pointer to underlying TraitsData.
-using TraitsDataPtr = std::shared_ptr<TraitsData>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
