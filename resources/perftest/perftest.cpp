@@ -1,14 +1,15 @@
-#include <algorithm>
 #include <chrono>
 #include <functional>
 #include <iostream>
+#include <numeric>
 #include <random>
 #include <string>
 #include <unordered_map>
-#include <numeric>
 
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/hostApi/HostInterface.hpp>
+#include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 
 #include "lib.hpp"
@@ -381,7 +382,7 @@ struct Benchmarker {
     // Summary statistics.
 
     std::cout << "\n";
-    std::cout <<"numerator/denominator, mean, std dev\n";
+    std::cout << "numerator/denominator, mean, std dev\n";
 
     for (Idx ratioIdx = 0; ratioIdx < kRatioPairs.size(); ++ratioIdx) {
       std::cout << kCases[kRatioPairs[ratioIdx].first].name << "/"
