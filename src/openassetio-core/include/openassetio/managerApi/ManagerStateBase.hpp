@@ -24,7 +24,8 @@ namespace managerApi {
  * @see @ref stable_resolution
  * @see @ref manager_state
  */
-struct ManagerStateBase {
+class ManagerStateBase {
+ public:
   virtual ~ManagerStateBase() = default;
 };
 

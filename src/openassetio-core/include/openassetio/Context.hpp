@@ -31,7 +31,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  *  own, one will always be supplied through the ManagerInterface entry
  *  points.
  */
-struct Context final {
+class Context final {
+ public:
   /**
    * Storage for enum name lookup array.
    */
