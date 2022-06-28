@@ -4,6 +4,8 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/TraitsData.hpp>
+#include <openassetio/managerApi/ManagerStateBase.hpp>
 
 #include "_openassetio.hpp"
 

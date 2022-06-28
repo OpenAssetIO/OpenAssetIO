@@ -5,12 +5,16 @@
 #include <memory>
 
 #include <openassetio/export.h>
-#include <openassetio/managerApi/Host.hpp>
 #include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(managerApi, Host)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
+
+OPENASSETIO_DECLARE_PTR(HostSession)
+
 /**
  * The HostSession is a manager-facing class that represents a discrete
  * API session started by a @ref host in order to communicate with a
@@ -42,8 +46,6 @@ class OPENASSETIO_CORE_EXPORT HostSession {
  private:
   HostPtr host_;
 };
-
-using HostSessionPtr = std::shared_ptr<HostSession>;
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

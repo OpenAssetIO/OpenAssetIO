@@ -11,6 +11,9 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
+
+OPENASSETIO_DECLARE_PTR(HostInterface)
+
 /**
  * The HostInterface provides an abstraction of the 'caller of the
  * API'. Colloquially, we refer to this as the '@ref host'. This may be
@@ -62,7 +65,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    *
    * @return host identifier.
    */
-  [[nodiscard]] virtual openassetio::Str identifier() const = 0;
+  [[nodiscard]] virtual Str identifier() const = 0;
 
   /**
    * Returns a human readable name to be used to reference this
@@ -90,8 +93,6 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
   [[nodiscard]] virtual InfoDictionary info() const;
   /// @}
 };
-
-using HostInterfacePtr = std::shared_ptr<HostInterface>;
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

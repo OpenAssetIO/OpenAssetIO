@@ -5,12 +5,17 @@
 #include <memory>
 
 #include <openassetio/export.h>
-#include <openassetio/hostApi/HostInterface.hpp>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/typedefs.hpp>
+
+OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
+
+OPENASSETIO_DECLARE_PTR(Host)
+
 /**
  * The Host object represents the tool or application that created a
  * session with OpenAssetIO, and wants to query or store information
@@ -78,8 +83,6 @@ class OPENASSETIO_CORE_EXPORT Host final {
  private:
   hostApi::HostInterfacePtr hostInterface_;
 };
-
-using HostPtr = std::shared_ptr<Host>;
 
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
