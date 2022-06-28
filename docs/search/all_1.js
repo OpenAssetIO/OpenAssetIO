@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['access',['access',['../structopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd',1,'openassetio::v1::Context::access()'],['../structopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdb',1,'openassetio::v1::Context::Access()']]],
+  ['access',['access',['../classopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd',1,'openassetio::v1::Context::access()'],['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdb',1,'openassetio::v1::Context::Access()']]],
   ['action',['action',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a2f4ab7bf743142dae2e459aa18f9f1d4',1,'openassetio::test::manager::__main__']]],
   ['addclass',['addClass',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#aa0f36b01871a4032e46135b2ad47fa85',1,'openassetio::_core::audit::Auditor']]],
   ['addmethod',['addMethod',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ac5aa86eff765712798b1aa1006e919a8',1,'openassetio::_core::audit::Auditor']]],

@@ -130,8 +130,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="structopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> object is used to convey information about the calling environment to a <a class="el" href="glossary.html#manager">manager</a>.  <a href="structopenassetio_1_1v1_1_1_context.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> object is used to convey information about the calling environment to a <a class="el" href="glossary.html#manager">manager</a>.  <a href="classopenassetio_1_1v1_1_1_context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A transport-level container for data exchange between a <a class="el" href="glossary.html#host">host</a> and a <a class="el" href="glossary.html#manager">manager</a>.  <a href="classopenassetio_1_1v1_1_1_traits_data.html#details">More...</a><br /></td></tr>
@@ -139,17 +139,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a18a0d9d6462f5c91e1bc148ce5ba754e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a18a0d9d6462f5c91e1bc148ce5ba754e">ContextPtr</a> = std::shared_ptr&lt; <a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a> &gt;</td></tr>
-<tr class="separator:a18a0d9d6462f5c91e1bc148ce5ba754e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9259b8747e04a2617e45e526fda835d7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a9259b8747e04a2617e45e526fda835d7">InfoDictionaryValue</a> = std::variant&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a39011fca2df8f8b3d2cf72a39108c588">Bool</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a1941127620eb673d937ee1117a94497c">Int</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038">Float</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &gt;</td></tr>
 <tr class="memdesc:a9259b8747e04a2617e45e526fda835d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types available as values in a InfoDictionary.  <a href="#a9259b8747e04a2617e45e526fda835d7">More...</a><br /></td></tr>
 <tr class="separator:a9259b8747e04a2617e45e526fda835d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ef60a7889e0a9346624d77b0127be0a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> = std::unordered_map&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a9259b8747e04a2617e45e526fda835d7">InfoDictionaryValue</a> &gt;</td></tr>
 <tr class="memdesc:a8ef60a7889e0a9346624d77b0127be0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary type used for <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260">ManagerInterface.info</a>.  <a href="#a8ef60a7889e0a9346624d77b0127be0a">More...</a><br /></td></tr>
 <tr class="separator:a8ef60a7889e0a9346624d77b0127be0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5">TraitsDataPtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> &gt;</td></tr>
-<tr class="memdesc:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ref-counted smart pointer to underlying <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a>.  <a href="#a9d14e69b1251dcaf7c6e6dc060a329a5">More...</a><br /></td></tr>
-<tr class="separator:a9d14e69b1251dcaf7c6e6dc060a329a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Primitive Types</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p><a class="anchor" id="CppPrimitiveTypes"></a></p>
 <p>These types are used throughout OpenAssetIO, especially within dictionary-like types such as <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> or <a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>.</p>
@@ -188,18 +183,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Boolean value type. </p>
-
-</div>
-</div>
-<a class="anchor" id="a18a0d9d6462f5c91e1bc148ce5ba754e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#a18a0d9d6462f5c91e1bc148ce5ba754e">ContextPtr</a> =  std::shared_ptr&lt;<a class="el" href="structopenassetio_1_1v1_1_1_context.html">Context</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -270,20 +253,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>String value type. </p>
-
-</div>
-</div>
-<a class="anchor" id="a9d14e69b1251dcaf7c6e6dc060a329a5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#a9d14e69b1251dcaf7c6e6dc060a329a5">TraitsDataPtr</a> =  std::shared_ptr&lt;<a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Ref-counted smart pointer to underlying <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a>. </p>
 
 </div>
 </div>

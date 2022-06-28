@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kaccessnames',['kAccessNames',['../structopenassetio_1_1v1_1_1_context.html#ab0785204b0582eca42bf5c30cbf920c3',1,'openassetio::v1::Context']]],
+  ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#ab0785204b0582eca42bf5c30cbf920c3',1,'openassetio::v1::Context']]],
   ['kcritical',['kCritical',['../classopenassetio_1_1log_1_1_logger_interface.html#a43805953da1a721196df337104feabd2',1,'openassetio.log.LoggerInterface.kCritical()'],['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a09df177326ffacc9d8c74913e79fc9f3',1,'openassetio.managerApi.HostSession.HostSession.kCritical()']]],
   ['kdebug',['kDebug',['../classopenassetio_1_1log_1_1_logger_interface.html#a4cb5966014ce54fa89ec59d69dc6c23e',1,'openassetio.log.LoggerInterface.kDebug()'],['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a12e63825bb15eb9bbd6f74d2982e952c',1,'openassetio.managerApi.HostSession.HostSession.kDebug()']]],
   ['kdebugapi',['kDebugApi',['../classopenassetio_1_1log_1_1_logger_interface.html#ab33ee683cfc090ec1f5663b6d358944c',1,'openassetio.log.LoggerInterface.kDebugApi()'],['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a6f9ed8c06582110d9a7101aa471b032b',1,'openassetio.managerApi.HostSession.HostSession.kDebugApi()']]],
@@ -46,7 +46,7 @@ var searchData=
   ['kmanaged',['kManaged',['../namespaceopenassetio_1_1constants.html#a0ddc1194bdd657f8cf7979d12c36b26f',1,'openassetio::constants']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PluginSystemManagerFactory::PluginSystemManagerFactory']]],
   ['kprogress',['kProgress',['../classopenassetio_1_1log_1_1_logger_interface.html#a34453aca18cad53a51b856cdfa9cd1bd',1,'openassetio.log.LoggerInterface.kProgress()'],['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a953866c5d6fdd08eadf3bade2d3988a2',1,'openassetio.managerApi.HostSession.HostSession.kProgress()']]],
-  ['kretentionnames',['kRetentionNames',['../structopenassetio_1_1v1_1_1_context.html#a0d4f9c0297edb401d6b9bac6c0fb32e4',1,'openassetio::v1::Context']]],
+  ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a0d4f9c0297edb401d6b9bac6c0fb32e4',1,'openassetio::v1::Context']]],
   ['ksetting_5floggingseverity',['kSetting_LoggingSeverity',['../namespaceopenassetio_1_1constants.html#abc3b2f6603ea0b538dacd24e728d5dae',1,'openassetio::constants']]],
   ['ksetting_5fmanageridentifier',['kSetting_ManagerIdentifier',['../namespaceopenassetio_1_1constants.html#a758b897ce364c84b0ed166ba6e7a7a33',1,'openassetio::constants']]],
   ['kseveritynames',['kSeverityNames',['../classopenassetio_1_1log_1_1_logger_interface.html#a61a19d1d5ca277bb3b290d0f83dee2dc',1,'openassetio::log::LoggerInterface']]],

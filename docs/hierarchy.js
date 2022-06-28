@@ -7,7 +7,7 @@ var hierarchy =
         [ "SeverityFilter", "classopenassetio_1_1log_1_1_severity_filter.html", null ]
       ] ]
     ] ],
-    [ "Context", "structopenassetio_1_1v1_1_1_context.html", null ],
+    [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
@@ -23,7 +23,7 @@ var hierarchy =
       [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
-    [ "ManagerStateBase", "structopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
+    [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
