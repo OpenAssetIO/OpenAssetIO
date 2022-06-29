@@ -65,6 +65,16 @@ class TraitsData::Impl {
   PropertiesByTrait data_;
 };
 
+TraitsDataPtr TraitsData::make() { return std::shared_ptr<TraitsData>(new TraitsData()); }
+
+TraitsDataPtr TraitsData::make(const TraitSet& traitSet) {
+  return std::shared_ptr<TraitsData>(new TraitsData(traitSet));
+}
+
+TraitsDataPtr TraitsData::make(const TraitsDataConstPtr& other) {
+  return std::shared_ptr<TraitsData>(new TraitsData(*other));
+}
+
 TraitsData::TraitsData() : impl_{std::make_unique<Impl>()} {}
 
 TraitsData::TraitsData(const TraitSet& traitSet) : impl_{std::make_unique<Impl>(traitSet)} {}

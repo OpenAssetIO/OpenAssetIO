@@ -52,13 +52,13 @@ struct Fixture {
   /// Dummy host application to call with resolve()d element.
   HostApplication hostApplication{};
   /// Context required for API methods.
-  const openassetio::ContextPtr context = std::make_shared<openassetio::Context>();
+  const openassetio::ContextPtr context = openassetio::Context::make();
   /// Host required for HostSession.
   openassetio::managerApi::HostPtr host =
-      std::make_shared<openassetio::managerApi::Host>(std::make_shared<HostImpl>());
+      openassetio::managerApi::Host::make(std::make_shared<HostImpl>());
   /// HostSession required for API methods.
   const openassetio::managerApi::HostSessionPtr hostSession =
-      std::make_shared<openassetio::managerApi::HostSession>(host);
+      openassetio::managerApi::HostSession::make(host);
 
  private:
   /// A dummy HostInterface implementation to satisfy abstract base.

@@ -13,7 +13,7 @@ void registerHost(const py::module& mod) {
   using openassetio::managerApi::HostPtr;
 
   py::class_<Host, HostPtr>(mod, "Host", py::is_final())
-      .def(py::init<HostInterfacePtr>(), py::arg("hostInterface").none(false))
+      .def(py::init(&Host::make), py::arg("hostInterface").none(false))
       .def("identifier", &Host::identifier)
       .def("displayName", &Host::displayName)
       .def("info", &Host::info);

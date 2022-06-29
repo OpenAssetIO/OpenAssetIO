@@ -8,6 +8,10 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
 
+HostPtr Host::make(hostApi::HostInterfacePtr hostInterface) {
+  return std::shared_ptr<Host>(new Host(std::move(hostInterface)));
+}
+
 Host::Host(hostApi::HostInterfacePtr hostInterface) : hostInterface_{std::move(hostInterface)} {}
 
 Str Host::identifier() const { return hostInterface_->identifier(); }

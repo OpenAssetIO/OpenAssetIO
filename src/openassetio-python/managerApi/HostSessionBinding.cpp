@@ -13,6 +13,6 @@ void registerHostSession(const py::module& mod) {
   using openassetio::managerApi::HostSessionPtr;
 
   py::class_<HostSession, HostSessionPtr>(mod, "HostSession")
-      .def(py::init<HostPtr>(), py::arg("host").none(false))
+      .def(py::init(&HostSession::make), py::arg("host").none(false))
       .def("host", &HostSession::host);
 }

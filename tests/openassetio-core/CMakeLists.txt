@@ -17,6 +17,11 @@ install(
 target_sources(openassetio-core-cpp-test-exe
     PRIVATE
     main.cpp
+    ContextTest.cpp
+    TraitsDataTest.cpp
+    hostApi/ManagerTest.cpp
+    managerApi/HostTest.cpp
+    managerApi/HostSessionTest.cpp
     managerApi/ManagerStateBaseTest.cpp
     trait/TraitBaseTest.cpp
 )

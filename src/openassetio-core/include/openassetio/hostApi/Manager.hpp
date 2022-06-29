@@ -52,8 +52,12 @@ OPENASSETIO_DECLARE_PTR(Manager)
  */
 class OPENASSETIO_CORE_EXPORT Manager {
  public:
-  explicit Manager(managerApi::ManagerInterfacePtr managerInterface,
-                   managerApi::HostSessionPtr hostSession);
+  /**
+   * Constructs a new Manager wrapping the supplied manager interface
+   * and host session.
+   */
+  static ManagerPtr make(managerApi::ManagerInterfacePtr managerInterface,
+                         managerApi::HostSessionPtr hostSession);
 
   /**
    * @name Asset Management System Information
@@ -246,6 +250,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @}
    */
  private:
+  explicit Manager(managerApi::ManagerInterfacePtr managerInterface,
+                   managerApi::HostSessionPtr hostSession);
+
   managerApi::ManagerInterfacePtr managerInterface_;
   managerApi::HostSessionPtr hostSession_;
 };

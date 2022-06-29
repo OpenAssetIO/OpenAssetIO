@@ -36,7 +36,10 @@ OPENASSETIO_DECLARE_PTR(HostSession)
  */
 class OPENASSETIO_CORE_EXPORT HostSession {
  public:
-  explicit HostSession(HostPtr host);
+  /**
+   * Constructs a new HostSession holding the supplied host.
+   */
+  static HostSessionPtr make(HostPtr host);
 
   /**
    * @return The host that initiated the API session.
@@ -44,6 +47,7 @@ class OPENASSETIO_CORE_EXPORT HostSession {
   [[nodiscard]] HostPtr host() const;
 
  private:
+  explicit HostSession(HostPtr host);
   HostPtr host_;
 };
 }  // namespace managerApi

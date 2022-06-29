@@ -99,6 +99,11 @@ v1.0.0-alpha.X
   `openassetio.test.manager` `apiComplianceSuite` to validate manager
   implementations agains this requirement.
 
+- Made the constructors of the following classes private: `Context`,
+  `Host`, `HostSession`, `Manager`, `TraitsData`. The static `make`
+  methods should be used to construct new instances.
+  [#481](https://github.com/OpenAssetIO/OpenAssetIO/issues/481)
+
 
 ### Improvements
 

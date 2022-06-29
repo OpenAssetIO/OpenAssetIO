@@ -39,7 +39,7 @@ oa_ErrorCode oa_hostApi_Manager_ctor(oa_StringView* err, oa_hostApi_Manager_h* h
         *handles::managerApi::SharedHostSession::toInstance(hostSessionHandle);
 
     auto* manager = new hostApi::ManagerPtr;
-    *manager = std::make_shared<hostApi::Manager>(managerInterfacePtr, hostSessionPtr);
+    *manager = hostApi::Manager::make(managerInterfacePtr, hostSessionPtr);
     *handle = handles::hostApi::SharedManager::toHandle(manager);
 
     return oa_ErrorCode_kOK;

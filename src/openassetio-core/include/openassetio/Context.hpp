@@ -34,7 +34,7 @@ OPENASSETIO_DECLARE_PTR(Context)
  *  own, one will always be supplied through the ManagerInterface entry
  *  points.
  */
-class Context final {
+class OPENASSETIO_CORE_EXPORT Context final {
  public:
   /**
    * Storage for enum name lookup array.
@@ -80,7 +80,7 @@ class Context final {
    * then it will hint as to whether the Host is wanting to choose a
    * new file name to save, or open an existing one.
    */
-  Access access{kUnknown};
+  Access access;
 
   /**
    * A concession to the fact that it's not always possible to fully
@@ -102,7 +102,7 @@ class Context final {
    * to handle these situations correctly, Hosts are required to set
    * this property to reflect their ability to persist this information.
    */
-  Retention retention{kTransient};
+  Retention retention;
 
   /**
    * In many situations, the @ref trait_set of the desired @ref entity
@@ -119,7 +119,7 @@ class Context final {
    * include information such as whether or not multi-selection is
    * required.
    */
-  TraitsDataPtr locale{};
+  TraitsDataPtr locale;
 
   /**
    * The opaque state token owned by the @ref manager, used to
@@ -127,8 +127,18 @@ class Context final {
    *
    * @see @ref stable_resolution
    */
-  managerApi::ManagerStateBasePtr managerState{};
+  managerApi::ManagerStateBasePtr managerState;
 
+  /**
+   * Constructs a new context.
+   *
+   * @warning This method should never be called directly by host code -
+   * @fqref{hostApi.Manager.createContext} "Manager.createContext"
+   * should always be used instead.
+   */
+  [[nodiscard]] static ContextPtr make(Access access = kUnknown, Retention retention = kTransient,
+                                       TraitsDataPtr locale = nullptr,
+                                       managerApi::ManagerStateBasePtr managerState = nullptr);
   /**
    * @return `true` if the context is any of the 'Read' based access
    * patterns. If the access is unknown (Access::kUnknown), then `false`
@@ -155,6 +165,10 @@ class Context final {
   [[nodiscard]] inline bool isForMultiple() const {
     return access == kReadMultiple || access == kWriteMultiple;
   }
+
+ private:
+  Context(Access access, Retention retention, TraitsDataPtr locale,
+          managerApi::ManagerStateBasePtr managerState);
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
