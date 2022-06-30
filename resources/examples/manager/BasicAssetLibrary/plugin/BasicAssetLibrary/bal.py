@@ -99,7 +99,7 @@ def entity(entity_info: EntityInfo, library: dict) -> Entity:
     return Entity(**library["entities"][entity_info.name]["versions"][-1])
 
 
-def managementPolicy(trait_set: set[str], library: dict) -> int:
+def managementPolicy(trait_set: set[str], library: dict) -> dict:
     """
     Retrieves the management policy for the supplied trait set. The
     default will be used unless an alternate default or trait set
@@ -111,7 +111,8 @@ def managementPolicy(trait_set: set[str], library: dict) -> int:
 
     # By default, cooperatively manager all trait sets, unless the
     # library tells us otherwise.
-    policy = read_policies.get("default", constants.kManaged)
     if matching_policies:
         policy = matching_policies[0]
+    else:
+        policy = read_policies.get("default", {"openassetio.Managed": {}})
     return policy

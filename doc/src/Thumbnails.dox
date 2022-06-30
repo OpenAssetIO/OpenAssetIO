@@ -24,8 +24,8 @@
  * the host not only understands how this might be done, but has the
  * relevant data to hand to do it.
  *
- * To this end, a @ref manager can set the @ref openassetio.constants.kWantsThumbnail
- * "kWantsThumbnail" flag in it's response to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
+ * To this end, a @ref manager can set the @needsref WantsThumbnail
+ * trait in it's response to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
  * "managementPolicy" for any given set of entity @ref trait "traits".
  *
  * If supported by the host, it will then:

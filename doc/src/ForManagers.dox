@@ -109,9 +109,10 @@
  *   @fqref{managerApi.ManagerInterface.displayName} "displayName".
  *
  * - Implement @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
- *   "managementPolicy" to control which Host-side data types you wish to be
- *   involved in managing. Return `kIgnored` for any queries with
- *   a context with `kWrite` access (this disables publishing).
+ *   "managementPolicy" to control which Host-side data types you wish to
+ *   be involved in managing. Return an empty @fqref{TraitsData}
+ *   "TraitsData" for any queries with a context with `kWrite` access
+ *   (this disables publishing).
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
@@ -129,7 +130,7 @@
  *
  * - Update the implementation of
  *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
- *   "managementPolicy" to return a suitable mask for contexts with a
+ *   "managementPolicy" to return suitable traits for contexts with a
  *   `kWrite` access.
  *
  * - Implement the methods grouped under the "Publishing" section, and

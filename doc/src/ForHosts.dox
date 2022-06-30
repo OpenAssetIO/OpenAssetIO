@@ -97,7 +97,7 @@
  *   data by supplying its @ref trait_set to
  *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" with a @ref Context with `kRead` access,
- *   respecting the returned flags.
+ *   respecting the returned traits.
  *
  * - Always check any suspected entity references with @ref
  *   openassetio.hostApi.Manager.Manager.isEntityReference
@@ -113,7 +113,7 @@
  *   data by supplying its @ref trait_set to
  *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "Manager.managementPolicy" with a @ref Context with `kWrite` access,
- *   respecting the returned flags.
+ *   respecting the returned traits.
  *
  * - Follow the @ref openassetio.hostApi.Manager.Manager.managementPolicy
  *   "policy", @ref preflight, resolve, write, @ref register process
@@ -144,9 +144,8 @@
  *   calls to the API.
  *
  * - If a manager's @ref openassetio.hostApi.Manager.Manager.managementPolicy
- *   "managementPolicy" sets @ref openassetio.constants.kWantsThumbnail
- *   "kWantsThumbnail", where possible, generate thumbnails as requested
- *   during publishing.
+ *   "managementPolicy" sets the @needsref WantsThumbnail trait, where
+ *   possible, generate thumbnails as requested during publishing.
  *
  * - Allow the @needsref ManagerUIDelegate to participate in browsing/etc...
  *   for any data types they have expressed an interest in managing via

@@ -15,8 +15,22 @@
           "properties": {
             "default": {
               "description": "The default policy unless an exception is specified",
-              "type": "integer",
-              "minimum": 0
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "description": "The trait's property values.",
+                  "type": "object",
+                  "patternProperties": {
+                    ".*": {
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean"
+                      ]
+                    }
+                  }
+                }
+              }
             },
             "exceptions": {
               "descriptions": "Custom policies that override the default",
@@ -34,8 +48,22 @@
                     }
                   },
                   "policy": {
-                    "type": "integer",
-                    "minimum": 0
+                    "type": "object",
+                    "patternProperties": {
+                      ".*": {
+                        "description": "The trait's property values.",
+                        "type": "object",
+                        "patternProperties": {
+                          ".*": {
+                            "type": [
+                              "string",
+                              "number",
+                              "boolean"
+                            ]
+                          }
+                        }
+                      }
+                    }
                   }
                 },
                 "additionalProperties": false,

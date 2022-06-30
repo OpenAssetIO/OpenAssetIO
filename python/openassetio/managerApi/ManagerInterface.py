@@ -268,11 +268,12 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         This information is then used to determine which options should
         be presented to the user or which workflows may be performed by
-        the host. For example, if `kIgnored` was returned for a query as
-        to the management of scene files, a Host will hide or disable
-        menu items that relate to publish or loading of assetized scene
-        files, and not involve the manager in any actions realting to
-        scene files.
+        the host. For example, if @ref
+        traits.managementPolicy.ManagedTrait "ManagedTrait" was not
+        imbued for a query as to the management of scene files, a Host
+        will hide or disable menu items that relate to publish or
+        loading of assetized scene files, and not involve the manager in
+        any actions realting to scene files.
 
         @warning The @fqref{Context.access} "access"
         specified in the supplied context should be carefully considered.
@@ -280,30 +281,33 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         write access to determine if resolution and publishing features
         are applicable to this implementation.
 
-        @note One very important attribute returned as part of this
-        policy is the @ref openassetio.constants.kWillManagePath bit. If
-        set, this instructs the host that the asset management system
-        will manage the path use for the creation of any new assets.
-        When set, @ref preflight will be called before any file creation
-        to allow the asset management system to determine and prepare
-        the work path. If this bit if off, then only @ref register will
-        ever be called, and the user will be tasked with determining
-        where new files should be located. In many cases, this greatly
-        reduces the sophistication of the integration as registering the
-        asset becomes a partially manual task, rather than one that can
-        be fully automated for new assets.
+        @note One very important trait that may be imbued in the policy
+        is the @ref traits.managementPolicy.WillManagePathTrait
+        "WillManagePathTrait". If set, this instructs the host that the
+        asset management system will manage the path use for the
+        creation of any new assets. When set, @ref preflight will be
+        called before any file creation to allow the asset management
+        system to determine and prepare the work path. If this trait is
+        not imbued, then only @ref register will ever be called, and the
+        user will be tasked with determining where new files should be
+        located. In many cases, this greatly reduces the sophistication
+        of the integration as registering the asset becomes a partially
+        manual task, rather than one that can be fully automated for new
+        assets.
 
-        For read contexts, kManaged should only be returned if the
-        manager can potentially resolve data for all of the supplied
-        traits. Hosts are required to deal with the properties for any
-        given trait being unset when resolved, as they may not be
-        available for existing assets, as long as the traits are
-        understood.
+        For read contexts, the @ref traits.managementPolicy.ManagedTrait
+        "ManagedTrait" should only be imbued in the returned
+        @fqref{TraitsData} "TraitsData" if the manager can potentially
+        resolve data for all of the supplied traits. Hosts are required
+        to deal with the properties for any given trait being unset when
+        resolved, as they may not be available for existing assets, as
+        long as the traits are understood.
 
-        For write contexts, kManaged should only be returned if the
-        manager is capable of persisting all traits (and any of their
-        property data) when they are registered for an entity, and
-        returning that data via resolve.
+        For write contexts, the @ref traits.managementPolicy.ManagedTrait
+        "ManagedTrait" should only be imbued if the manager is capable
+        of persisting all traits (and any of their property data) when
+        they are registered for an entity, and returning that data via
+        resolve.
 
         @param traitSets `List[Set[str]]` The entity @ref trait "traits"
         to query.
@@ -312,8 +316,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @return `List[int]` Bitfields, one for each element in
-        `traitSets`. See @ref openassetio.constants.
+        @return `List[` @fqref{TraitsData} "TraitsData" `]` one for each
+        element in `traitSets`.
         """
         raise NotImplementedError
 
@@ -958,7 +962,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         Generally, this will be called before register() in any host
         that creates media, where the return to @ref managementPolicy
-        has the constants.kWillManagePath bit set.
+        has the @ref openassetio.traits.managementPolicy.WillManagePathTrait
+        "WillManagePathTrait" set.
 
         @param targetEntityRefs `List[str]` An @ref entity_reference
         for each entity that it is desired to publish the forthcoming
@@ -1003,11 +1008,12 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         This instructs the implementation to ensure a valid entity
         exists for each given reference and to persist the data provided
-        in the @fqref{TraitsData}. This will be called
-        either in isolation or after calling preflight, depending on the
-        nature of the data being published and the `kWillManagePath` bit
-        of the returned @ref managementPolicy for the supplied data's
-        @ref trait_set.
+        in the @fqref{TraitsData}. This will be called either in
+        isolation or after calling preflight, depending on the nature of
+        the data being published and the @ref
+        traits.managementPolicy.WillManagePathTrait
+        "WillManagePathTrait" of the returned @ref managementPolicy for
+        the supplied data's @ref trait_set.
 
         This is an opportunity to do other things in the host as part of
         publishing if required. The context's locale will tell you more

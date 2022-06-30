@@ -224,15 +224,18 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         choosing a destination to save to.
 
         This information should then be used to determine which options
-        should be presented to the user. For example, if kIgnored was
-        returned for a query as to the management of scene files, you
-        should hide or disable menu items that relate to publish or
-        loading of assetized scene files.
+        should be presented to the user. For example, if the returned
+        @fqref{TraitsData} "TraitsData" is not imbued with the @ref
+        traits.managementPolicy.ManagedTrait "ManagedTrait" for a query
+        as to the management of scene files, you should hide or disable
+        menu items that relate to publish or loading of assetized scene
+        files.
 
-        If a manager returns kManaged, then it can be assumed that it is
-        capable of retrieving (for a read context) and storing (for a
-        write context) all of the supplied traits through @needsref
-        resolve and @ref register.
+        If a returned @fqref{TraitsData} "TraitsData" is imbued with the
+        @ref traits.managementPolicy.ManagedTrait "ManagedTrait", then it
+        can be assumed that the manager is capable of retrieving (for a
+        read context) and storing (for a write context) all of the
+        supplied traits through @needsref resolve and @ref register.
 
         @warning The @fqref{Context.access} "access" of the supplied
         context will be considered by the manager. If it is set to read,
@@ -241,17 +244,17 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         a host as there is no longer a need to test/resolve applicable
         strings.
 
-        @note One very important attribute returned as part of this
-        policy is the @ref openassetio.constants.kWillManagePath bit. If
-        set, you can assume the asset management system will manage the
-        path to use for the creation of any new assets. you must then
-        always call @ref preflight before any file creation to allow the
-        asset management system to determine and prepare the work path,
-        and then use this path to write data to, prior to calling @ref
-        register. If this bit is off, then you should take care of
-        writing data yourself (maybe prompting the user for a location
-        on disk), and then only call @ref register to create the new
-        entity.
+        @note One very important trait that may be imbued in the
+        policy is the @ref openassetio.traits.managementPolicy.WillManagePathTrait
+        "WillManagePathTrait". If set, you can assume the asset
+        management system will manage the path to use for the creation
+        of any new assets. you must then always call @ref preflight
+        before any file creation to allow the asset management system to
+        determine and prepare the work path, and then use this path to
+        write data to, prior to calling @ref register. If this trait is
+        not imbued, then you should take care of writing data yourself
+        (maybe prompting the user for a location on disk), and then only
+        call @ref register to create the new entity.
 
         @param traitSets `List[Set[str]]` The entity @ref trait "traits"
         to query.
@@ -842,9 +845,9 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     def preflight(self, targetEntityRefs, traitSet, context):
         """
         @note This call is only applicable when the manager you are
-        communicating with sets the constants.kWillManagePath bit in
-        response to a @ref Manager.managementPolicy for the traits of
-        entities you are intending to publish.
+        communicating with sets the @ref openassetio.traits.managementPolicy.WillManagePathTrait
+        "WillManagePathTrait" in response to @ref Manager.managementPolicy
+        for the traits of entities you are intending to publish.
 
         It signals your intent as a host application to do some work to
         create data in relation to each supplied @ref entity_reference.
@@ -921,11 +924,11 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
         @note The registration call is applicable to all kinds of
         Manager (path managing, or librarian), as long as the @ref
-        constants.kIgnored bit is not set in response to a @ref
-        Manager.managementPolicy for the traits of the entities you are
-        intending to publish. In this case, the Manager is saying it
-        doesn't handle entities with those traits, and it should not be
-        registered.
+        traits.managementPolicy.ManagedTrait "ManagedTrait" is present
+        in the response to @ref Manager.managementPolicy for the
+        traits of the entities you are intending to publish. In this
+        case, the Manager is saying it doesn't handle entities with
+        those traits, and it should not be registered.
 
         As each @ref entity_reference has (ultimately) come from the
         manager (either in response to delegation of UI/etc... or as a

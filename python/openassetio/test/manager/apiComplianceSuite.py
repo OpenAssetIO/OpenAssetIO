@@ -35,7 +35,7 @@ handled through additional suites local to the manager's implementation.
 
 from .harness import FixtureAugmentedTestCase
 from ...exceptions import EntityResolutionError
-from ... import Context
+from ... import Context, TraitsData
 
 
 __all__ = []
@@ -175,7 +175,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 
         policies = self._manager.managementPolicy(traitSets, context)
 
-        self.assertValuesOfType(policies, int)
+        self.assertValuesOfType(policies, TraitsData)
         self.assertEqual(len(policies), numTraitSets)
 
 
