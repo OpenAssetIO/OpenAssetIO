@@ -6,7 +6,9 @@
 #include <openassetio/export.h>
 
 #include <openassetio/c/managerApi/CManagerInterface.h>
+
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/collection.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -44,6 +46,12 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   /// Wrap the C suite's `initialize` function.
   /// @todo Implement C API. Currently a no-op.
   void initialize(const HostSessionPtr& hostSession) override;
+
+  /// Wrap the C suite's `managementPolicy` function.
+  /// @todo Implement C API. Currently a no-op.
+  [[nodiscard]] trait::TraitsDatas managementPolicy(
+      const trait::TraitSets& traitSets, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession) const override;
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.

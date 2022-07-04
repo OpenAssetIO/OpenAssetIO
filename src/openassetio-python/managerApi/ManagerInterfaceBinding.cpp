@@ -2,10 +2,13 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <pybind11/stl.h>
 
+#include <openassetio/Context.hpp>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/TraitsData.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
@@ -35,6 +38,13 @@ struct PyManagerInterface : ManagerInterface {
 
   void initialize(const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, hostSession);
+  }
+
+  [[nodiscard]] trait::TraitsDatas managementPolicy(
+      const trait::TraitSets& traitSets, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession) const override {
+    PYBIND11_OVERRIDE_PURE(trait::TraitsDatas, ManagerInterface, managementPolicy, traitSets,
+                           context, hostSession);
   }
 
   ManagerStateBasePtr createState(const HostSessionPtr& hostSession) override {
@@ -75,6 +85,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("displayName", &ManagerInterface::displayName)
       .def("info", &ManagerInterface::info)
       .def("initialize", &ManagerInterface::initialize)
+      .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSet"),
+           py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
       .def("createChildState", &ManagerInterface::createChildState,
            py::arg("parentState").none(false), py::arg("hostSession").none(false))

@@ -12,6 +12,8 @@
 #include <openassetio/trait/property.hpp>
 #include <openassetio/typedefs.hpp>
 
+OPENASSETIO_FWD_DECLARE(TraitsData)
+
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace trait {
@@ -23,6 +25,16 @@ namespace trait {
  * has no meaning and is not preserved.
  */
 using TraitSet = std::unordered_set<TraitId>;
+
+/**
+ * An ordered list of trait sets.
+ */
+using TraitSets = std::vector<TraitSet>;
+
+/**
+ * An ordered list of @fqref{TraitsData} "TraitsData" instances.
+ */
+using TraitsDatas = std::vector<TraitsDataPtr>;
 }  // namespace trait
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

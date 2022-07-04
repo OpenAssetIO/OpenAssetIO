@@ -251,79 +251,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     ## @}
 
     ##
-    # @name Policy
-    #
-    # @{
-
-    @abc.abstractmethod
-    def managementPolicy(self, traitSets, context, hostSession):
-        """
-        Determines if the asset manager is interested in participating
-        in interactions with @ref entity "entities" with the specified
-        sets of @ref trait "traits".
-
-        For example, a host may call this in order to see if the manager
-        would like to manage the path of a scene file whilst choosing a
-        destination to save to.
-
-        This information is then used to determine which options should
-        be presented to the user or which workflows may be performed by
-        the host. For example, if @ref
-        traits.managementPolicy.ManagedTrait "ManagedTrait" was not
-        imbued for a query as to the management of scene files, a Host
-        will hide or disable menu items that relate to publish or
-        loading of assetized scene files, and not involve the manager in
-        any actions realting to scene files.
-
-        @warning The @fqref{Context.access} "access"
-        specified in the supplied context should be carefully considered.
-        A host will independently query the policy for both read and
-        write access to determine if resolution and publishing features
-        are applicable to this implementation.
-
-        @note One very important trait that may be imbued in the policy
-        is the @ref traits.managementPolicy.WillManagePathTrait
-        "WillManagePathTrait". If set, this instructs the host that the
-        asset management system will manage the path use for the
-        creation of any new assets. When set, @ref preflight will be
-        called before any file creation to allow the asset management
-        system to determine and prepare the work path. If this trait is
-        not imbued, then only @ref register will ever be called, and the
-        user will be tasked with determining where new files should be
-        located. In many cases, this greatly reduces the sophistication
-        of the integration as registering the asset becomes a partially
-        manual task, rather than one that can be fully automated for new
-        assets.
-
-        For read contexts, the @ref traits.managementPolicy.ManagedTrait
-        "ManagedTrait" should only be imbued in the returned
-        @fqref{TraitsData} "TraitsData" if the manager can potentially
-        resolve data for all of the supplied traits. Hosts are required
-        to deal with the properties for any given trait being unset when
-        resolved, as they may not be available for existing assets, as
-        long as the traits are understood.
-
-        For write contexts, the @ref traits.managementPolicy.ManagedTrait
-        "ManagedTrait" should only be imbued if the manager is capable
-        of persisting all traits (and any of their property data) when
-        they are registered for an entity, and returning that data via
-        resolve.
-
-        @param traitSets `List[Set[str]]` The entity @ref trait "traits"
-        to query.
-
-        @param context Context The calling context.
-
-        @param hostSession HostSession The API session.
-
-        @return `List[` @fqref{TraitsData} "TraitsData" `]` one for each
-        element in `traitSets`.
-        """
-        raise NotImplementedError
-
-    ## @}
-
-    ##
     # @name Entity Reference inspection
     #
     # Because of the nature of an @ref entity_reference, it is often
@@ -961,8 +888,10 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         actions to be carried out.
 
         Generally, this will be called before register() in any host
-        that creates media, where the return to @ref managementPolicy
-        has the @ref openassetio.traits.managementPolicy.WillManagePathTrait
+        that creates media, where the return to
+        @fqref{managerApi.ManagerInterface.managementPolicy}
+        "managementPolicy" has the @ref
+        openassetio.traits.managementPolicy.WillManagePathTrait
         "WillManagePathTrait" set.
 
         @param targetEntityRefs `List[str]` An @ref entity_reference
@@ -1012,8 +941,9 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         isolation or after calling preflight, depending on the nature of
         the data being published and the @ref
         traits.managementPolicy.WillManagePathTrait
-        "WillManagePathTrait" of the returned @ref managementPolicy for
-        the supplied data's @ref trait_set.
+        "WillManagePathTrait" of the returned
+        @fqref{managerApi.ManagerInterface.managementPolicy}
+        "managementPolicy" for the supplied data's @ref trait_set.
 
         This is an opportunity to do other things in the host as part of
         publishing if required. The context's locale will tell you more

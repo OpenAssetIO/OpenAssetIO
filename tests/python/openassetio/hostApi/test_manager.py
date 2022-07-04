@@ -407,14 +407,23 @@ class Test_Manager_resolve:
                                        mock_host_session)
 
 
-class Test_Manager_managentPolicy:
+class Test_Manager_managementPolicy:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, mock_host_session, some_entity_trait_sets,
             a_context):
 
+        data1 = TraitsData()
+        data1.setTraitProperty("t1", "p1", 1)
+        data2 = TraitsData()
+        data2.setTraitProperty("t2", "p2", 2)
+        expected = [data1, data2]
         method = mock_manager_interface.mock.managementPolicy
-        assert manager.managementPolicy(some_entity_trait_sets, a_context) == method.return_value
+        method.return_value = expected
+
+        actual = manager.managementPolicy(some_entity_trait_sets, a_context)
+
+        assert actual == expected
         method.assert_called_once_with(some_entity_trait_sets, a_context, mock_host_session)
 
 

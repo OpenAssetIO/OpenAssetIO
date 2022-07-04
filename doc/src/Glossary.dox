@@ -340,9 +340,8 @@
  * divided into two camps - those that can tell a @ref host in advance
  * the location at which data should be created, and those that simply
  * track data at its existing location. A @ref manager implementation
- * declares its behavior to the host via the @ref
- * openassetio.hostApi.Manager.Manager.managementPolicy
- * "managementPolicy" method.
+ * declares its behavior to the host via the
+ * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" method.
  *
  * If a manager has said it is capable of defining the location for
  * future data ahead of time, the host must call the @ref
@@ -399,8 +398,7 @@
  *
  * - Check whether the @ref manager is interested in that particular
  *   @ref entity "entity's" @ref trait "traits", via the manager's
- *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
- *   "managementPolicy".
+ *   @fqref{hostApi.Manager.managementPolicy} "managementPolicy".
  * - Call @ref preflight to allow any prerequisite housekeeping
  *   to be performed, and a working @ref entity_reference returned.
  * - Resolve the working reference to determine the URL for new data to
@@ -505,10 +503,9 @@
  * Trait sets are supplied to the @ref manager through the API whenever
  * there is need to describe the type of something in advance. A good
  * example of their useage is in the
- * @ref openassetio.hostApi.Manager.Manager.managementPolicy
- * "managementPolicy" query, where the manager declares its intent
- * towards specific types of entity - described by the supplied trait
- * sets.
+ * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" query,
+ * where the manager declares its intent towards specific types of
+ * entity - described by the supplied trait sets.
  *
  * @see @ref entities_traits_and_specifications
  */

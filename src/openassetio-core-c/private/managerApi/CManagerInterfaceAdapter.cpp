@@ -79,7 +79,16 @@ InfoDictionary CManagerInterfaceAdapter::info() const {
   return infoDict;
 }
 
-void CManagerInterfaceAdapter::initialize([[maybe_unused]] const HostSessionPtr& hostSession) {}
+void CManagerInterfaceAdapter::initialize([[maybe_unused]] const HostSessionPtr& hostSession) {
+  throw std::runtime_error{"Not implemented"};
+}
+
+trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
+    [[maybe_unused]] const trait::TraitSets& traitSets,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+  throw std::runtime_error{"Not implemented"};
+}
 
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

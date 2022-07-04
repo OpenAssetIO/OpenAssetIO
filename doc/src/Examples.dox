@@ -219,9 +219,8 @@
  * @section example_generating_a_thumbnail Generating a Thumbnail During Publish
  *
  * This example demonstrates the correct handling in a @ref host of a
- * @needsref WantsThumbnail trait if set by a @ref manager in its @ref
- * openassetio.hostApi.Manager.Manager.managementPolicy
- * "managementPolicy" response.
+ * @needsref WantsThumbnail trait if set by a @ref manager in its
+ * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.
  *
