@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 
-#include <openassetio/TraitsData.hpp>
 #include <unordered_map>
+
+#include <openassetio/TraitsData.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -10,14 +11,14 @@ class TraitsData::Impl {
  public:
   Impl() = default;
 
-  explicit Impl(const TraitSet& traitSet) { addTraits(traitSet); }
+  explicit Impl(const trait::TraitSet& traitSet) { addTraits(traitSet); }
 
   Impl(const Impl& other) = default;
 
   ~Impl() = default;
 
-  [[nodiscard]] TraitSet traitSet() const {
-    TraitSet ids;
+  [[nodiscard]] trait::TraitSet traitSet() const {
+    trait::TraitSet ids;
     ids.reserve(data_.size());
     for (const auto& item : data_) {
       ids.insert(item.first);
@@ -31,7 +32,7 @@ class TraitsData::Impl {
 
   void addTrait(const trait::TraitId& traitId) { data_[traitId]; }
 
-  void addTraits(const TraitSet& traitSet) {
+  void addTraits(const trait::TraitSet& traitSet) {
     for (const auto& traitId : traitSet) {
       data_[traitId];
     }
@@ -67,7 +68,7 @@ class TraitsData::Impl {
 
 TraitsDataPtr TraitsData::make() { return std::shared_ptr<TraitsData>(new TraitsData()); }
 
-TraitsDataPtr TraitsData::make(const TraitSet& traitSet) {
+TraitsDataPtr TraitsData::make(const trait::TraitSet& traitSet) {
   return std::shared_ptr<TraitsData>(new TraitsData(traitSet));
 }
 
@@ -77,17 +78,18 @@ TraitsDataPtr TraitsData::make(const TraitsDataConstPtr& other) {
 
 TraitsData::TraitsData() : impl_{std::make_unique<Impl>()} {}
 
-TraitsData::TraitsData(const TraitSet& traitSet) : impl_{std::make_unique<Impl>(traitSet)} {}
+TraitsData::TraitsData(const trait::TraitSet& traitSet)
+    : impl_{std::make_unique<Impl>(traitSet)} {}
 
 TraitsData::TraitsData(const TraitsData& other) : impl_{std::make_unique<Impl>(*other.impl_)} {}
 
 TraitsData::~TraitsData() = default;
 
-TraitsData::TraitSet TraitsData::traitSet() const { return impl_->traitSet(); }
+trait::TraitSet TraitsData::traitSet() const { return impl_->traitSet(); }
 
 void TraitsData::addTrait(const trait::TraitId& traitId) { impl_->addTrait(traitId); }
 
-void TraitsData::addTraits(const TraitSet& traitSet) { impl_->addTraits(traitSet); }
+void TraitsData::addTraits(const trait::TraitSet& traitSet) { impl_->addTraits(traitSet); }
 
 bool TraitsData::hasTrait(const trait::TraitId& traitId) const { return impl_->hasTrait(traitId); }
 

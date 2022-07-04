@@ -5,6 +5,7 @@
 #include <catch2/catch.hpp>
 
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/trait/property.hpp>
 
 using openassetio::Int;
@@ -18,7 +19,7 @@ SCENARIO("TraitsData constructor is private") {
 }
 
 SCENARIO("TraitsData trait set constructor is private") {
-  STATIC_REQUIRE_FALSE(std::is_constructible_v<TraitsData, const TraitsData::TraitSet&>);
+  STATIC_REQUIRE_FALSE(std::is_constructible_v<TraitsData, const openassetio::trait::TraitSet&>);
 }
 
 SCENARIO("TraitsData copy constructor is private") {

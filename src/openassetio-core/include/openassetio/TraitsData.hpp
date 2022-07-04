@@ -10,8 +10,8 @@
 #include <unordered_set>
 
 #include <openassetio/export.h>
-
-#include "trait/property.hpp"
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/trait/property.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -65,15 +65,6 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
 class OPENASSETIO_CORE_EXPORT TraitsData final {
  public:
   /**
-   * A collection of trait IDs
-   *
-   * ID collections are a set, rather than a list. In that,
-   * no single ID can appear more than once and the order of the IDs
-   * has no meaning and is not preserved.
-   */
-  using TraitSet = std::unordered_set<trait::TraitId>;
-
-  /**
    * Construct an empty instance, with no traits.
    */
   static TraitsDataPtr make();
@@ -83,7 +74,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    *
    * @param traitSet The constituent traits IDs.
    */
-  static TraitsDataPtr make(const TraitSet& traitSet);
+  static TraitsDataPtr make(const trait::TraitSet& traitSet);
 
   /**
    * Construct such that this instance is a deep copy of the other.
@@ -100,7 +91,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Return the trait IDs held by the instance.
    */
-  [[nodiscard]] TraitSet traitSet() const;
+  [[nodiscard]] trait::TraitSet traitSet() const;
 
   /**
    * Return whether this instance has the given trait.
@@ -127,7 +118,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    *
    * @param traitSet A trait set with the traits to add.
    */
-  void addTraits(const TraitSet& traitSet);
+  void addTraits(const trait::TraitSet& traitSet);
 
   /**
    * Get the value of a given trait property, if the property has
@@ -166,7 +157,7 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
 
  private:
   TraitsData();
-  explicit TraitsData(const TraitSet& traitSet);
+  explicit TraitsData(const trait::TraitSet& traitSet);
   TraitsData(const TraitsData& other);
 
   class Impl;
