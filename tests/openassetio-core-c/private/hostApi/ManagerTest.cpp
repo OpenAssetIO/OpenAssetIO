@@ -156,11 +156,11 @@ SCENARIO("A host calls Manager::identifier") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
     managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
-        openassetio::makeShared<MockManagerInterface>();
+        std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(openassetio::makeShared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()));
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
@@ -218,11 +218,11 @@ SCENARIO("A host calls Manager::displayName") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
     managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
-        openassetio::makeShared<MockManagerInterface>();
+        std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(openassetio::makeShared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()));
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
@@ -280,11 +280,11 @@ SCENARIO("A host calls Manager::info") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
     managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
-        openassetio::makeShared<MockManagerInterface>();
+        std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(openassetio::makeShared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()));
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);

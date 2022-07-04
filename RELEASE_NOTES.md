@@ -104,6 +104,10 @@ v1.0.0-alpha.X
   methods should be used to construct new instances.
   [#481](https://github.com/OpenAssetIO/OpenAssetIO/issues/481)
 
+- Removed the `makeShared` pointer factory. The per-class static `make`
+  methods should be used instead.
+  [#481](https://github.com/OpenAssetIO/OpenAssetIO/issues/481)
+
 
 ### Improvements
 
