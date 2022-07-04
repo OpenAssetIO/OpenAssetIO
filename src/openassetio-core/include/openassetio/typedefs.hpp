@@ -56,11 +56,15 @@ std::shared_ptr<T> makeShared(Args&&... args) {
  * Forward declare a shared_ptr for a given class.
  *
  * Assumes the surrounding namespace is valid for the given class.
+ *
+ * Declares both non-const and const variants as `ClassPtr` and
+ * `ClassConstPtr`, respectively.
  */
 #define OPENASSETIO_DECLARE_PTR(Class)             \
   /* NOLINTNEXTLINE(bugprone-macro-parentheses) */ \
   class Class;                                     \
-  using Class##Ptr = std::shared_ptr<Class>;
+  using Class##Ptr = std::shared_ptr<Class>;       \
+  using Class##ConstPtr = std::shared_ptr<const Class>;
 
 /**
  * Forward declare a class and its smart pointers.
