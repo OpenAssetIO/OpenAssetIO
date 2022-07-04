@@ -23,7 +23,7 @@ The manager currently ignores all entity types.
 # the this class. See the notes under the "Initialization" section of:
 #   https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1manager_a_p_i_1_1_manager_interface_1_1_manager_interface.html#details (pylint: disable=line-too-long)
 # As such, any expensive module imports should be deferred.
-from openassetio import constants
+from openassetio import constants, TraitsData
 from openassetio.managerApi import ManagerInterface
 
 __all__ = ['SampleAssetManagerInterface', ]
@@ -62,4 +62,4 @@ class SampleAssetManagerInterface(ManagerInterface):
 
     def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument
-        return [constants.kIgnored for _ in traitSets]
+        return [TraitsData() for _ in traitSets]

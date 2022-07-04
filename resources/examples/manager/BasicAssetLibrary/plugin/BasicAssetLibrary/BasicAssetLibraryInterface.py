@@ -88,10 +88,14 @@ class BasicAssetLibraryInterface(ManagerInterface):
         self.__library = bal.load_library(self.__settings["library_path"])
 
     def managementPolicy(self, traitSets, context, hostSession):
-        # pylint: disable=unused-argument
         if not context.isForRead():
-            return [constants.kIgnored for _ in traitSets]
-        return [bal.managementPolicy(trait_set, self.__library) for trait_set in traitSets]
+            # BAL cannot manage publishing.
+            return [TraitsData() for _ in traitSets]
+
+        return [
+            self.__dict_to_traits_data(bal.managementPolicy(trait_set, self.__library))
+            for trait_set in traitSets
+        ]
 
     def isEntityReference(self, tokens, hostSession):
         # pylint: disable=unused-argument
@@ -120,11 +124,22 @@ class BasicAssetLibraryInterface(ManagerInterface):
                 for trait in traitSet:
                     trait_data = entity.traits.get(trait)
                     if trait_data is not None:
-                        result.addTrait(trait)
-                        for property_, value in trait_data.items():
-                            result.setTraitProperty(trait, property_, value)
+                        self.__add_trait_to_traits_data(trait, trait_data, result)
             except Exception as exc:  # pylint: disable=broad-except
                 exc_name = exc.__class__.__name__
                 result = EntityResolutionError(f"{exc_name}: {exc}", ref)
             results.append(result)
         return results
+
+    @classmethod
+    def __dict_to_traits_data(cls, traits_dict: dict):
+        traits_data = TraitsData()
+        for trait_id, trait_properties in traits_dict.items():
+            cls.__add_trait_to_traits_data(trait_id, trait_properties, traits_data)
+        return traits_data
+
+    @staticmethod
+    def __add_trait_to_traits_data(trait_id: str, trait_properties: dict, traits_data: TraitsData):
+        traits_data.addTrait(trait_id)
+        for name, value in trait_properties.items():
+            traits_data.setTraitProperty(trait_id, name, value)

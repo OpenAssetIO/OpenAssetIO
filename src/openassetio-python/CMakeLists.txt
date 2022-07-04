@@ -220,7 +220,7 @@ if (Python_Interpreter_FOUND)
         add_custom_target(
             openassetio-python-pytest
             COMMAND cmake -E echo -- Running pytest
-            COMMAND ${pytest_env} ${venv_python_exe} -m pytest -s tests/python resources
+            COMMAND ${pytest_env} ${venv_python_exe} -m pytest -v -s tests/python resources
             WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
             USES_TERMINAL
         )

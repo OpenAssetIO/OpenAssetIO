@@ -19,7 +19,7 @@ providing dummy data and input validation for the manager
 test suite.
 """
 
-from openassetio import constants
+from openassetio import TraitsData
 from openassetio.managerApi import ManagerInterface
 from openassetio.pluginSystem import ManagerPlugin
 
@@ -60,7 +60,7 @@ class StubManager(ManagerInterface):
 
     def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument
-        return [constants.kIgnored for _ in traitSets]
+        return [TraitsData() for _ in traitSets]
 
 
 class StubManagerPlugin(ManagerPlugin):

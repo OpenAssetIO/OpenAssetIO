@@ -6,6 +6,17 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Redesigned `managementPolicy` to return a `TraitsData` rather than a
+  bitfield for specifying the policy of the manager for a given trait
+  set. This deprecated the `managementPolicy` constants, which have been
+  removed.
+  [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
+
+- Removed thumbnail support from the core API and updated docs to make
+  use of an imagined `WantsThumbnailTrait` policy trait, since this is
+  an industry-specific feature.
+  [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
+
 - Renamed the manager/host namespaces to `managerApi` and `hostApi` for
   consistency with the rest of the codebase.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)

@@ -158,6 +158,7 @@
  *
  * @code{.py}
  * from openassetio import constants
+ * from openassetio.traits.managementPolicy import ManagedTrait, WillManagePathTrait
  * from openassetio_mediacreation.specification.entity import TextFileSpecification
  *
  *
@@ -169,7 +170,7 @@
  * # The first step is to see if the manager wants to manage text files
  * policy = manager.managementPolicy([TextFileSpecification.kTraitSet], context)[0]
  *
- * if not policy & constants.kManaged:
+ * if not policy.hasTrait(ManagedTrait.kId):
  *   # The manager doesn't care about this type of asset
  *   return
  *
@@ -185,7 +186,7 @@
  * working_ref = manager.preflight([entity_ref], TextFileSpecification.kTraitSet, context)[0]
  *
  * # We then check if the manager can tell us where to save the file.
- * if policy & constants.kWillManagePath:
+ * if policy.hasTrait(WillManagePathTrait.kId):
  *     working_data = manager.resolve([working_ref], TextFileSpecification.kTraitSet, context)[0]
  *     working_spec = TextFileSpecification(working_data)
  *     save_path = working_spec.locatableContentTrait().getUrl()
@@ -217,16 +218,16 @@
  *
  * @section example_generating_a_thumbnail Generating a Thumbnail During Publish
  *
- * This example demonstrates the correct handling in a @ref host of the
- * @ref openassetio.constants.kWantsThumbnail flag if set by a @ref manager
- * in its @ref openassetio.hostApi.Manager.Manager.managementPolicy
+ * This example demonstrates the correct handling in a @ref host of a
+ * @needsref WantsThumbnail trait if set by a @ref manager in its @ref
+ * openassetio.hostApi.Manager.Manager.managementPolicy
  * "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.
  *
  * @code{.py}
  * # See if the manager wants a thumbnail
- * if not policy & constants.kWantsThumbnail:
+ * if not policy.hasTrait(WantsThumbnail.kId):
  *   return
  *
  * from openassetio_mediacreation.specification.entity import ThumbnailFileSpecification
@@ -240,7 +241,7 @@
  * thumbnail_attr = {"width": 128, "height": 128}
  *
  * # See if the manager can tell us where to put it, and what it should be like
- * if policy & constants.kWillManagePath:
+ * if policy.hasTrait(WillManagePathTrait.kId):
  *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     file_trait = requested_spec.fileTrait()

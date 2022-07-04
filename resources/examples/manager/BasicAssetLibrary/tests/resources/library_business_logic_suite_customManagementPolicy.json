@@ -2,15 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/OpenAssetIO/OpenAssetIO/main/resources/examples/manager/BasicAssetLibrary/schema.json",
   "managementPolicy": {
     "read": {
-      "default": 4,
+      "default": {"openassetio.Managed": {"exclusive": true}},
       "exceptions": [
         {
           "traitSet": ["an", "ignored", "trait", "set"],
-          "policy": 0
+          "policy": {}
         },
         {
-            "traitSet": ["a", "non", "exclusive", "trait", "set"],
-            "policy": 1
+          "traitSet": ["a", "non", "exclusive", "trait", "set"],
+          "policy": {"openassetio.Managed": {}}
         }
       ]
     }

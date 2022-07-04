@@ -22,7 +22,8 @@ BasicAssetLibrary manager behaves with the correct business logic.
 
 import os
 
-from openassetio import constants, Context
+from openassetio import Context, TraitsData
+from openassetio.traits.managementPolicy import ManagedTrait
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
@@ -45,14 +46,15 @@ class Test_managementPolicy_default_behavior(FixtureAugmentedTestCase):
         context = self.createTestContext(access=Context.kRead)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
-            self.assertEqual(policy & constants.kManaged, constants.kManaged)
-            self.assertNotEqual(policy & constants.kExclusive, constants.kExclusive)
+            managedTrait = ManagedTrait(policy)
+            self.assertTrue(managedTrait.isValid())
+            self.assertIsNone(managedTrait.getExclusive())
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kWrite)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
-            self.assertEqual(policy, constants.kIgnored)
+            self.assertFalse(policy.hasTrait(ManagedTrait.kId))
 
 
 class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase):
@@ -65,8 +67,6 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
         {"an", "ignored", "trait", "set"},
         {"a", "non", "exclusive", "trait", "set"},
     )
-
-    __expected_policies = [4, 0, 1]
 
     # We need to load a different library for these tests. This is
     # a little fiddly as the manager isn't (currently) recreated
@@ -92,14 +92,20 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
 
     def test_returns_expected_policies_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kRead)
-        policies = self._manager.managementPolicy(self.__trait_sets, context)
-        self.assertListEqual(policies, self.__expected_policies)
+        expected = [TraitsData({ManagedTrait.kId}), TraitsData(), TraitsData({ManagedTrait.kId})]
+        ManagedTrait(expected[0]).setExclusive(True)
+
+        actual = self._manager.managementPolicy(self.__trait_sets, context)
+
+        self.assertListEqual(actual, expected)
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kWrite)
-        policies = self._manager.managementPolicy(self.__trait_sets, context)
-        for policy in policies:
-            self.assertEqual(policy, constants.kIgnored)
+        expected = [TraitsData(), TraitsData(), TraitsData()]
+
+        actual = self._manager.managementPolicy(self.__trait_sets, context)
+
+        self.assertListEqual(actual, expected)
 
 
 class Test_resolve(FixtureAugmentedTestCase):

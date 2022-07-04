@@ -65,9 +65,9 @@ class Test_fixturesFromPyFile:
     def test_when_called_with_valid_path_then_returns_expected_fixture_dict(self, tmpdir):
         valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
                 from openassetio import constants
-                fixtures = {'ignored': constants.kIgnored}
+                fixtures = {'display_name_field': constants.kField_DisplayName}
                 """))
-        expected_dict = {"ignored": constants.kIgnored}
+        expected_dict = {"display_name_field": constants.kField_DisplayName}
         assert fixturesFromPyFile(valid) == expected_dict
 
 
@@ -88,11 +88,11 @@ class Test_moduleFromFile:
     def test_when_called_with_valid_path_then_returns_expected_module(self, tmpdir):
         valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
                 from openassetio import constants
-                some_var = {'ignored': constants.kIgnored}
+                some_var = {'display_name_field': constants.kField_DisplayName}
                 some_class = str
                 """))
         module = moduleFromFile(valid)
-        assert module.some_var == {"ignored": constants.kIgnored}
+        assert module.some_var == {"display_name_field": constants.kField_DisplayName}
         assert module.some_class is str
 
 
