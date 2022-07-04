@@ -120,29 +120,6 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1constants.html
 Variables</h2></td></tr>
 <tr class="memitem:ae23f5269edf384900b19dc73af80e45d"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#ae23f5269edf384900b19dc73af80e45d">kSupportedAttributeTypes</a> = (str, int, float, bool, type(None))</td></tr>
 <tr class="separator:ae23f5269edf384900b19dc73af80e45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Management States</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aa8f1fae8a123f0582287d1b2662062bf">ManagerInterface.managementPolicy</a> </dd></dl>
-</div></td></tr>
-<tr class="memitem:ad40cf66a6f97f98b7901f82f5c520e98"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#ad40cf66a6f97f98b7901f82f5c520e98">kIgnored</a> = 0</td></tr>
-<tr class="memdesc:ad40cf66a6f97f98b7901f82f5c520e98"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Manager has no interest in participating in the management of this kind of entity, or a supplied specification is not publishable to a specific entity reference.  <a href="#ad40cf66a6f97f98b7901f82f5c520e98">More...</a><br /></td></tr>
-<tr class="separator:ad40cf66a6f97f98b7901f82f5c520e98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ddc1194bdd657f8cf7979d12c36b26f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a0ddc1194bdd657f8cf7979d12c36b26f">kManaged</a> = 1</td></tr>
-<tr class="memdesc:a0ddc1194bdd657f8cf7979d12c36b26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Manager would like the opportunity to manage the entity, but the user should still be presented with standard Host UI for the type as an option.  <a href="#a0ddc1194bdd657f8cf7979d12c36b26f">More...</a><br /></td></tr>
-<tr class="separator:a0ddc1194bdd657f8cf7979d12c36b26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab28387d4e3c8c0d09a0eca56f69e35cf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#ab28387d4e3c8c0d09a0eca56f69e35cf">kExclusive</a> = 3</td></tr>
-<tr class="memdesc:ab28387d4e3c8c0d09a0eca56f69e35cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Manager takes exclusive control over this asset type, and any st host interfaces/etc...  <a href="#ab28387d4e3c8c0d09a0eca56f69e35cf">More...</a><br /></td></tr>
-<tr class="separator:ab28387d4e3c8c0d09a0eca56f69e35cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5b0bf8c65a9c3874c03b0dc233ebb7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a8e5b0bf8c65a9c3874c03b0dc233ebb7">kStateMask</a> = 7</td></tr>
-<tr class="separator:a8e5b0bf8c65a9c3874c03b0dc233ebb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Publishing control</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aa8f1fae8a123f0582287d1b2662062bf">ManagerInterface.managementPolicy</a> </dd></dl>
-</div></td></tr>
-<tr class="memitem:aee1f51159c5e4ddb759d0ba4566bf638"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#aee1f51159c5e4ddb759d0ba4566bf638">kWillManagePath</a> = 8</td></tr>
-<tr class="memdesc:aee1f51159c5e4ddb759d0ba4566bf638"><td class="mdescLeft">&#160;</td><td class="mdescRight">If False, the manager is not capable of determining the URL for a new <a class="el" href="glossary.html#entity">entity's</a> data, and will only keep track of existing data.  <a href="#aee1f51159c5e4ddb759d0ba4566bf638">More...</a><br /></td></tr>
-<tr class="separator:aee1f51159c5e4ddb759d0ba4566bf638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa58867bc9f0e28ae40ae99d5a1c7906a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#aa58867bc9f0e28ae40ae99d5a1c7906a">kWantsThumbnail</a> = 16</td></tr>
-<tr class="memdesc:aa58867bc9f0e28ae40ae99d5a1c7906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If True, and supported by a <a class="el" href="glossary.html#host">host</a>, a thumbnail will be generated by the host during the <a class="el" href="glossary.html#publish">publishing</a> of an <a class="el" href="glossary.html#entity">entity</a>.  <a href="#aa58867bc9f0e28ae40ae99d5a1c7906a">More...</a><br /></td></tr>
-<tr class="separator:aa58867bc9f0e28ae40ae99d5a1c7906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Field Names</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Field names are to be used whenever data is get or set from a dictionary by key, rather than through an accessor in some wrapper class (eg: Item/Specification etc...).</p>
 <p>Bare strings should never be used to help protect against inconsistencies and future changes.</p>
@@ -264,21 +241,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab28387d4e3c8c0d09a0eca56f69e35cf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kExclusive = 3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The Manager takes exclusive control over this asset type, and any st host interfaces/etc... </p>
-<p>should be suppressed. </p>
 
 </div>
 </div>
@@ -633,34 +595,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad40cf66a6f97f98b7901f82f5c520e98"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kIgnored = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The Manager has no interest in participating in the management of this kind of entity, or a supplied specification is not publishable to a specific entity reference. </p>
-
-</div>
-</div>
-<a class="anchor" id="a0ddc1194bdd657f8cf7979d12c36b26f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kManaged = 1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The Manager would like the opportunity to manage the entity, but the user should still be presented with standard Host UI for the type as an option. </p>
-
-</div>
-</div>
 <a class="anchor" id="abc3b2f6603ea0b538dacd24e728d5dae"></a>
 <div class="memitem">
 <div class="memproto">
@@ -679,18 +613,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">string kSetting_ManagerIdentifier = 'OpenAssetIO:managerIdentifier'</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8e5b0bf8c65a9c3874c03b0dc233ebb7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kStateMask = 7</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -718,36 +640,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aa58867bc9f0e28ae40ae99d5a1c7906a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kWantsThumbnail = 16</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If True, and supported by a <a class="el" href="glossary.html#host">host</a>, a thumbnail will be generated by the host during the <a class="el" href="glossary.html#publish">publishing</a> of an <a class="el" href="glossary.html#entity">entity</a>. </p>
-<p>See <a class="el" href="thumbnails.html">Thumbnails</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="aee1f51159c5e4ddb759d0ba4566bf638"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int kWillManagePath = 8</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If False, the manager is not capable of determining the URL for a new <a class="el" href="glossary.html#entity">entity's</a> data, and will only keep track of existing data. </p>
-<p>If True, the manager will determine the URL to use for writing data for new entities </p>
 
 </div>
 </div>

@@ -1,9 +1,10 @@
 var searchData=
 [
   ['makeshared',['makeShared',['../namespaceopenassetio_1_1v1.html#ab4d0cd4c5f2168ad4092cf494190d98c',1,'openassetio::v1']]],
+  ['managedtrait',['ManagedTrait',['../classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html',1,'openassetio::traits::managementPolicy']]],
   ['managementpolicy',['managementPolicy',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24',1,'openassetio.hostApi.Manager.Manager.managementPolicy()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aa8f1fae8a123f0582287d1b2662062bf',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy()']]],
-  ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html',1,'openassetio::v1::hostApi']]],
   ['manager',['Manager',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html',1,'openassetio::hostApi::Manager']]],
+  ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html',1,'openassetio::v1::hostApi']]],
   ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab5720aaa27019eae6e812b79d0a5aba1',1,'openassetio::v1::hostApi::Manager']]],
   ['managerexception',['ManagerException',['../classopenassetio_1_1exceptions_1_1_manager_exception.html',1,'openassetio::exceptions']]],
   ['managerfactoryinterface',['ManagerFactoryInterface',['../classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html',1,'openassetio::hostApi::ManagerFactoryInterface']]],
@@ -14,8 +15,8 @@ var searchData=
   ['managerregistered',['managerRegistered',['../classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html#aaeab2519784cff893e6787b263b21a58',1,'openassetio.hostApi.ManagerFactoryInterface.ManagerFactoryInterface.managerRegistered()'],['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#aaeab2519784cff893e6787b263b21a58',1,'openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managerRegistered()']]],
   ['managers',['managers',['../classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html#ac54bcb4b38f5f1214843debbf26f6784',1,'openassetio.hostApi.ManagerFactoryInterface.ManagerFactoryInterface.managers()'],['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html#ac54bcb4b38f5f1214843debbf26f6784',1,'openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managers()']]],
   ['managerstate',['managerState',['../classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917',1,'openassetio::v1::Context']]],
-  ['managerstatebase',['ManagerStateBase',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html',1,'openassetio::v1::managerApi']]],
   ['managerstatebase',['ManagerStateBase',['../namespaceopenassetio_1_1manager_api.html#a4c7a8f38f54faaa148d311f21ad54b0e',1,'openassetio::managerApi']]],
+  ['managerstatebase',['ManagerStateBase',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html',1,'openassetio::v1::managerApi']]],
   ['managertestharnesslocale',['ManagerTestHarnessLocale',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html',1,'openassetio::test::manager::specifications']]],
   ['managertrait',['ManagerTrait',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html',1,'openassetio::test::manager::specifications']]],
   ['managertrait',['managerTrait',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#ac472688109b4f646392eb4389f9e031f',1,'openassetio::test::manager::specifications::ManagerTestHarnessLocale']]],

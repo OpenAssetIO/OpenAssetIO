@@ -140,7 +140,7 @@ Required for Simple Resolution</h2>
 </ul>
 </li>
 <li>Create, persist and configure a <a class="el" href="glossary.html#Context">Context</a> as appropriate for all calls to the API.</li>
-<li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support resolve for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kRead</code> access, respecting the returned flags.</li>
+<li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support resolve for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kRead</code> access, respecting the returned traits.</li>
 <li>Always check any suspected entity references with <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Manager.isEntityReference</a> before passing to any other API calls.</li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="examples.html#examples_api_initialization">Initializing the API in a Host</a> </dd>
@@ -151,7 +151,7 @@ Required for Simple Resolution</h2>
 <h2><a class="anchor" id="host_todo_required_publishing"></a>
 Required for Publishing</h2>
 <ul>
-<li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support publishing for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kWrite</code> access, respecting the returned flags.</li>
+<li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support publishing for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kWrite</code> access, respecting the returned traits.</li>
 <li>Follow the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">policy</a>, <a class="el" href="glossary.html#preflight">preflight</a>, resolve, write, <a class="el" href="glossary.html#register">register</a> process illustrated <a class="el" href="examples.html#example_publishing_a_file">here</a> whenever generating new data.</li>
 <li>Include in your documentation, any scenarios in which entities are registered to references known to be of a different <a class="el" href="glossary.html#trait_set">Trait Set</a>. For example, an editorial application registering the traits of an ImageSpecification to a reference with the traits of a ShotSpecification indicates that the images should be published "under" that shot.</li>
 </ul>
@@ -162,7 +162,7 @@ Recommended</h2>
 <li>Present users with the ability to enable and select a <a class="el" href="glossary.html#manager">manager</a> to use to interact with an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, storing applicable options, etc...</li>
 <li><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Test</a> and resolve any strings that may represent file system locations (<a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a815e3f348d3f24396e7cc74357f8568b">Manager.resolve</a>)</li>
 <li>Ensure the use of a correctly configured <a class="el" href="glossary.html#Context">Context</a> for all calls to the API.</li>
-<li>If a manager's <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a> sets <a class="el" href="namespaceopenassetio_1_1constants.html#aa58867bc9f0e28ae40ae99d5a1c7906a">kWantsThumbnail</a>, where possible, generate thumbnails as requested during publishing.</li>
+<li>If a manager's <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a> sets the WantsThumbnail trait, where possible, generate thumbnails as requested during publishing.</li>
 <li>Allow the ManagerUIDelegate to participate in browsing/etc... for any data types they have expressed an interest in managing via <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">Manager.managementPolicy</a>.</li>
 <li>Make the drawing of any parameters that may hold an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> delegatable to the ManagerUIDeleagate.</li>
 <li>Create <a class="el" href="glossary.html#Specification">specifications</a> for any custom 'asset types' you may deal with.</li>

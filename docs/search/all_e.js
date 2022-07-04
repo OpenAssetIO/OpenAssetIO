@@ -13,6 +13,7 @@ var searchData=
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1host_api.html',1,'openassetio']]],
   ['hostsession',['HostSession',['../namespaceopenassetio_1_1manager_api_1_1_host_session.html',1,'openassetio::managerApi']]],
   ['log',['log',['../namespaceopenassetio_1_1log.html',1,'openassetio']]],
+  ['managementpolicy',['managementPolicy',['../namespaceopenassetio_1_1traits_1_1management_policy.html',1,'openassetio::traits']]],
   ['manager',['Manager',['../namespaceopenassetio_1_1host_api_1_1_manager.html',1,'openassetio::hostApi']]],
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1manager_api.html',1,'openassetio']]],
@@ -84,7 +85,8 @@ var searchData=
   ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_api_1_1terminology.html',1,'openassetio::hostApi']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
-  ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
   ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
+  ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
+  ['traits',['traits',['../namespaceopenassetio_1_1traits.html',1,'openassetio']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];
