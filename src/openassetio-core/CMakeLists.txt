@@ -57,6 +57,7 @@ endif()
 target_sources(
     openassetio-core
     PRIVATE
+    Context.cpp
     TraitsData.cpp
     hostApi/HostInterface.cpp
     hostApi/Manager.cpp

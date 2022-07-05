@@ -36,7 +36,10 @@ OPENASSETIO_DECLARE_PTR(Host)
  */
 class OPENASSETIO_CORE_EXPORT Host final {
  public:
-  explicit Host(hostApi::HostInterfacePtr hostInterface);
+  /**
+   * Constructs a new Host wrapping the supplied host interface.
+   */
+  [[nodiscard]] static HostPtr make(hostApi::HostInterfacePtr hostInterface);
 
   /**
    * @name Host Information
@@ -81,6 +84,7 @@ class OPENASSETIO_CORE_EXPORT Host final {
    */
 
  private:
+  explicit Host(hostApi::HostInterfacePtr hostInterface);
   hostApi::HostInterfacePtr hostInterface_;
 };
 

@@ -76,21 +76,21 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Construct an empty instance, with no traits.
    */
-  TraitsData();
+  static TraitsDataPtr make();
 
   /**
    * Construct such that this instance has the given set of traits.
    *
-   * @param traitSet The consituent traits IDs.
+   * @param traitSet The constituent traits IDs.
    */
-  explicit TraitsData(const TraitSet& traitSet);
+  static TraitsDataPtr make(const TraitSet& traitSet);
 
   /**
    * Construct such that this instance is a deep copy of the other.
    *
    * @param other The instance to copy.
    */
-  TraitsData(const TraitsData& other);
+  static TraitsDataPtr make(const TraitsDataConstPtr& other);
 
   /**
    * Defaulted destructor.
@@ -165,6 +165,10 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   bool operator==(const TraitsData& other) const;
 
  private:
+  TraitsData();
+  explicit TraitsData(const TraitSet& traitSet);
+  TraitsData(const TraitsData& other);
+
   class Impl;
   std::unique_ptr<Impl> impl_;
 };

@@ -19,7 +19,7 @@ VectorManagerInterface::Results VectorManagerInterface::resolve(
       results[idx] = ErrorCodeAndMessage{kErrorInvalidEntityReference, "not found in database"};
 
     } else {
-      auto traitsData = std::make_shared<openassetio::TraitsData>();
+      auto traitsData = openassetio::TraitsData::make();
 
       for (const auto& traitId : traitSet) {
         if (traitId == openassetio::LocateableContentTrait::kId) {
@@ -46,7 +46,7 @@ void CallbackManagerInterface::resolve(
                     ErrorCodeAndMessage{kErrorInvalidEntityReference, "not found in database"});
 
     } else {
-      auto traitsData = std::make_shared<openassetio::TraitsData>();
+      auto traitsData = openassetio::TraitsData::make();
 
       for (const auto& traitId : traitSet) {
         if (traitId == openassetio::LocateableContentTrait::kId) {
@@ -74,7 +74,7 @@ void CallbackFnPtrManagerInterface::resolve(
                     ErrorCodeAndMessage{kErrorInvalidEntityReference, "not found in database"});
 
     } else {
-      auto traitsData = std::make_shared<openassetio::TraitsData>();
+      auto traitsData = openassetio::TraitsData::make();
 
       for (const auto& traitId : traitSet) {
         if (traitId == openassetio::LocateableContentTrait::kId) {

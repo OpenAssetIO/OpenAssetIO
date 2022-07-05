@@ -37,8 +37,7 @@ void registerContext(const py::module& mod) {
   context.def_readonly_static("kRetentionNames", &Context::kRetentionNames);
 
   context
-      .def(py::init<Context::Access, Context::Retention, TraitsDataPtr, ManagerStateBasePtr>(),
-           py::arg_v("access", Context::Access::kUnknown),
+      .def(py::init(&Context::make), py::arg_v("access", Context::Access::kUnknown),
            py::arg_v("retention", Context::Retention::kTransient),
            py::arg_v("locale", TraitsDataPtr{}), py::arg_v("managerState", ManagerStateBasePtr{}))
       .def_readwrite("access", &Context::access)

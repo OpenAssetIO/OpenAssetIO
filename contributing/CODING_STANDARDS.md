@@ -57,7 +57,8 @@ and consistency trade-offs.
 C++ classes that represent system components with reference semantics
 (as opposed to 'value' types) should inherit
 `std::enable_shared_from_this` and define a peer `Ptr` alias using
-`std::shared_ptr`.
+`std::shared_ptr`. Their constructors should be private, and a static
+`make` method provided.
 
 This is to simplify memory management across the complex range of
 language bindings within the project.
@@ -77,6 +78,12 @@ namespace managerApi {
 OPENASSETIO_DECLARE_PTR(Host)
 
 class OPENASSETIO_CORE_EXPORT Host final {
+public:
+    static HostPtr make(...);
+
+private:
+    Host(...);
+}
 ...
 ```
 

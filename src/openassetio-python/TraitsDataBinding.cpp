@@ -11,15 +11,18 @@
 
 void registerTraitsData(const py::module& mod) {
   using openassetio::TraitsData;
+  using openassetio::TraitsDataConstPtr;
   using openassetio::TraitsDataPtr;
   namespace trait = openassetio::trait;
   namespace property = openassetio::trait::property;
   using MaybeValue = std::optional<property::Value>;
 
   py::class_<TraitsData, TraitsDataPtr>(mod, "TraitsData", py::is_final())
-      .def(py::init())
-      .def(py::init<const TraitsData::TraitSet&>(), py::arg("traitSet"))
-      .def(py::init<const TraitsData&>())
+      .def(py::init(static_cast<TraitsDataPtr (*)()>(&TraitsData::make)))
+      .def(
+          py::init(static_cast<TraitsDataPtr (*)(const TraitsData::TraitSet&)>(&TraitsData::make)),
+          py::arg("traitSet"))
+      .def(py::init(static_cast<TraitsDataPtr (*)(const TraitsDataConstPtr&)>(&TraitsData::make)))
       .def("traitSet", &TraitsData::traitSet)
       .def("hasTrait", &TraitsData::hasTrait, py::arg("id"))
       .def("addTrait", &TraitsData::addTrait)

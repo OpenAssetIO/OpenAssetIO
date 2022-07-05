@@ -10,6 +10,12 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
 
+ManagerPtr Manager::make(managerApi::ManagerInterfacePtr managerInterface,
+                         managerApi::HostSessionPtr hostSession) {
+  return std::shared_ptr<Manager>(
+      new Manager(std::move(managerInterface), std::move(hostSession)));
+}
+
 Manager::Manager(managerApi::ManagerInterfacePtr managerInterface,
                  managerApi::HostSessionPtr hostSession)
     : managerInterface_{std::move(managerInterface)}, hostSession_{std::move(hostSession)} {}
@@ -23,16 +29,14 @@ InfoDictionary Manager::info() const { return managerInterface_->info(); }
 void Manager::initialize() { managerInterface_->initialize(hostSession_); }
 
 ContextPtr Manager::createContext() {
-  ContextPtr context = openassetio::makeShared<Context>();
+  ContextPtr context = Context::make();
   context->managerState = managerInterface_->createState(hostSession_);
   return context;
 }
 
 ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
-  ContextPtr context = openassetio::makeShared<Context>();
-  context->access = parentContext->access;
-  context->retention = parentContext->retention;
-  context->locale = parentContext->locale;
+  ContextPtr context =
+      Context::make(parentContext->access, parentContext->retention, parentContext->locale);
   if (parentContext->managerState) {
     context->managerState =
         managerInterface_->createChildState(parentContext->managerState, hostSession_);
@@ -48,7 +52,7 @@ std::string Manager::persistenceTokenForContext(const ContextPtr &context) {
 }
 
 ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
-  ContextPtr context = openassetio::makeShared<Context>();
+  ContextPtr context = Context::make();
   if (!token.empty()) {
     context->managerState = managerInterface_->stateFromPersistenceToken(token, hostSession_);
   }

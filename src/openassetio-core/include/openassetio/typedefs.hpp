@@ -46,12 +46,6 @@ using Str = std::string;
  * @}
  */
 
-/// Make an instance wrapped in a shared smart pointer.
-template <class T, typename... Args>
-std::shared_ptr<T> makeShared(Args&&... args) {
-  return std::make_shared<T>(std::forward<Args>(args)...);
-}
-
 /**
  * Forward declare a shared_ptr for a given class.
  *
