@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1manager_api_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">HostSession Class Reference</div>  </div>
@@ -124,10 +125,14 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1manager_api_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac9368ecf418415728132e1d9bf069743"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#ac9368ecf418415728132e1d9bf069743">HostSession</a> (HostPtr <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a2b9752f9bea6688ca26d989003675aa8">host</a>)</td></tr>
-<tr class="separator:ac9368ecf418415728132e1d9bf069743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b9752f9bea6688ca26d989003675aa8"><td class="memItemLeft" align="right" valign="top">HostPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a2b9752f9bea6688ca26d989003675aa8">host</a> () const </td></tr>
 <tr class="separator:a2b9752f9bea6688ca26d989003675aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a33e41eb39944157695f5c0695783402b"><td class="memItemLeft" align="right" valign="top">static HostSessionPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a33e41eb39944157695f5c0695783402b">make</a> (HostPtr <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a2b9752f9bea6688ca26d989003675aa8">host</a>)</td></tr>
+<tr class="memdesc:a33e41eb39944157695f5c0695783402b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> holding the supplied host.  <a href="#a33e41eb39944157695f5c0695783402b">More...</a><br /></td></tr>
+<tr class="separator:a33e41eb39944157695f5c0695783402b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> is a manager-facing class that represents a discrete API session started by a <a class="el" href="glossary.html#host">host</a> in order to communicate with a manager. </p>
@@ -137,32 +142,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a></dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Expose logging mechanism through <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ac9368ecf418415728132e1d9bf069743"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> </td>
-          <td>(</td>
-          <td class="paramtype">HostPtr&#160;</td>
-          <td class="paramname"><em>host</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a2b9752f9bea6688ca26d989003675aa8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -176,6 +156,32 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The host that initiated the API session. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a33e41eb39944157695f5c0695783402b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static HostSessionPtr make </td>
+          <td>(</td>
+          <td class="paramtype">HostPtr&#160;</td>
+          <td class="paramname"><em>host</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> holding the supplied host. </p>
 
 </div>
 </div>

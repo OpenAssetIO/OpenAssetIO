@@ -1,9 +1,6 @@
 var classopenassetio_1_1v1_1_1_traits_data =
 [
     [ "TraitSet", "classopenassetio_1_1v1_1_1_traits_data.html#a6cedaa7e48d38328c5ccb514f44aac37", null ],
-    [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html#ae72f3f2b04e7a4c9e1e5a31504cdbadb", null ],
-    [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html#a8504ce118224e2f0512122c60fc9a811", null ],
-    [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html#a45cfaa8c0a9617cb7205eacaa3c68143", null ],
     [ "~TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0", null ],
     [ "addTrait", "classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be", null ],
     [ "addTraits", "classopenassetio_1_1v1_1_1_traits_data.html#af88d42f1323368b780c781befcb4db7a", null ],

@@ -1,6 +1,5 @@
 var classopenassetio_1_1v1_1_1host_api_1_1_manager =
 [
-    [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab5720aaa27019eae6e812b79d0a5aba1", null ],
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],
