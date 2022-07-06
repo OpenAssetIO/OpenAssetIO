@@ -6,7 +6,7 @@ var searchData=
   ['addmethod',['addMethod',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ac5aa86eff765712798b1aa1006e919a8',1,'openassetio::_core::audit::Auditor']]],
   ['addobj',['addObj',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#aabd639be4870caa7db40894c2797e4c8',1,'openassetio::_core::audit::Auditor']]],
   ['addtrait',['addTrait',['../classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be',1,'openassetio::v1::TraitsData']]],
-  ['addtraits',['addTraits',['../classopenassetio_1_1v1_1_1_traits_data.html#af88d42f1323368b780c781befcb4db7a',1,'openassetio::v1::TraitsData']]],
+  ['addtraits',['addTraits',['../classopenassetio_1_1v1_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436',1,'openassetio::v1::TraitsData']]],
   ['args',['args',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a8187411843a6284ffb964ef3fb9fcab3',1,'openassetio::test::manager::__main__']]],
   ['assertisstringkeyprimitivevaluedict',['assertIsStringKeyPrimitiveValueDict',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ab2aab2dabbe6b11a6246f95374f2a399',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['assertvaluesoftype',['assertValuesOfType',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ad0acbba99dff86d3e0065cf0e3fa7bc6',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],

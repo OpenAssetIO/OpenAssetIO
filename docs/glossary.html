@@ -213,7 +213,7 @@ manager</h1>
 <p>A <a class="el" href="glossary.html#host">host</a> never uses the ManagerInterface class directly, but instead uses the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_manager.html">Manager</a> class. This indirection allows sundry house keeping and state management.</p>
 <h1><a class="anchor" id="preflight"></a>
 preflight</h1>
-<p><a class="el" href="glossary.html#asset_management_system">Asset management systems</a> are roughly divided into two camps - those that can tell a <a class="el" href="glossary.html#host">host</a> in advance the location at which data should be created, and those that simply track data at its existing location. A <a class="el" href="glossary.html#manager">manager</a> implementation declares its behavior to the host via the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a> method.</p>
+<p><a class="el" href="glossary.html#asset_management_system">Asset management systems</a> are roughly divided into two camps - those that can tell a <a class="el" href="glossary.html#host">host</a> in advance the location at which data should be created, and those that simply track data at its existing location. A <a class="el" href="glossary.html#manager">manager</a> implementation declares its behavior to the host via the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> method.</p>
 <p>If a manager has said it is capable of defining the location for future data ahead of time, the host must call the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae83571f5e05bf1ee3456aac42fd72ed1">preflight</a> method and resolve the returned <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to determine the manager's chosen location for the data and use this for any write operations.</p>
 <p>The <code>preflight</code> method is also allowed to change the entity reference as required. This mechanism serves several purposes:</p>
 <ul>
@@ -234,7 +234,7 @@ publish</h1>
 <p>'Publish' is an ambiguous term, if ever there was one. It seems to mean so many completely different things depending on who you ask. As such, we defined it in this API, and documentation, as the process of creating a new asset in an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, or updating an existing one - which usually means a new version should be created.</p>
 <p>The canonical publishing process for new data from a <a class="el" href="glossary.html#host">host</a> requires it to:</p>
 <ul>
-<li>Check whether the <a class="el" href="glossary.html#manager">manager</a> is interested in that particular <a class="el" href="glossary.html#entity">entity's</a> <a class="el" href="glossary.html#trait">traits</a>, via the manager's <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a>.</li>
+<li>Check whether the <a class="el" href="glossary.html#manager">manager</a> is interested in that particular <a class="el" href="glossary.html#entity">entity's</a> <a class="el" href="glossary.html#trait">traits</a>, via the manager's <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a>.</li>
 <li>Call <a class="el" href="glossary.html#preflight">preflight</a> to allow any prerequisite housekeeping to be performed, and a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned.</li>
 <li>Resolve the working reference to determine the URL for new data to be written to.</li>
 <li>Write the data accordingly.</li>
@@ -268,7 +268,7 @@ Trait</h1>
 <h1><a class="anchor" id="trait_set"></a>
 Trait Set</h1>
 <p>A trait set is the logical conjunction of one or more <a class="el" href="glossary.html#trait">traits</a>. They are the basis of the classifications system used in OpenAssetIO. Sets of traits are additive when used to classify something - meaning that the thing in question has all of the traits in the set.</p>
-<p>Trait sets are supplied to the <a class="el" href="glossary.html#manager">manager</a> through the API whenever there is need to describe the type of something in advance. A good example of their useage is in the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ac5587cc282127b7e48e73b6840f04b24">managementPolicy</a> query, where the manager declares its intent towards specific types of entity - described by the supplied trait sets.</p>
+<p>Trait sets are supplied to the <a class="el" href="glossary.html#manager">manager</a> through the API whenever there is need to describe the type of something in advance. A good example of their useage is in the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> query, where the manager declares its intent towards specific types of entity - described by the supplied trait sets.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

@@ -133,6 +133,15 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:ab8370686417ae635f48d34e8732a485f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">TraitSet</a> = std::unordered_set&lt; <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">TraitId</a> &gt;</td></tr>
+<tr class="memdesc:ab8370686417ae635f48d34e8732a485f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of trait IDs.  <a href="#ab8370686417ae635f48d34e8732a485f">More...</a><br /></td></tr>
+<tr class="separator:ab8370686417ae635f48d34e8732a485f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37f4808caeb63bc488756d50cb9911b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">TraitSets</a> = std::vector&lt; <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">TraitSet</a> &gt;</td></tr>
+<tr class="memdesc:ac37f4808caeb63bc488756d50cb9911b"><td class="mdescLeft">&#160;</td><td class="mdescRight">An ordered list of trait sets.  <a href="#ac37f4808caeb63bc488756d50cb9911b">More...</a><br /></td></tr>
+<tr class="separator:ac37f4808caeb63bc488756d50cb9911b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85498884b976e67239a35add1aa39f88"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">TraitsDatas</a> = std::vector&lt; TraitsDataPtr &gt;</td></tr>
+<tr class="memdesc:a85498884b976e67239a35add1aa39f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">An ordered list of <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instances.  <a href="#a85498884b976e67239a35add1aa39f88">More...</a><br /></td></tr>
+<tr class="separator:a85498884b976e67239a35add1aa39f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f56f286cd392503ebbf20c97932cf48"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">TraitId</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">property::Key</a></td></tr>
 <tr class="memdesc:a0f56f286cd392503ebbf20c97932cf48"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceopenassetio_1_1_trait.html">Trait</a> unique ID type.  <a href="#a0f56f286cd392503ebbf20c97932cf48">More...</a><br /></td></tr>
 <tr class="separator:a0f56f286cd392503ebbf20c97932cf48"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,6 +171,49 @@ Enumerations</h2></td></tr>
 <p><a class="el" href="namespaceopenassetio_1_1_trait.html">Trait</a> unique ID type. </p>
 <p>IDs must be UTF-8 compatible strings for required portability.</p>
 <p>Note that typically <a class="el" href="structopenassetio_1_1v1_1_1trait_1_1_trait_base.html">trait views</a> will be used to access properties within a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instance, rather than direct property access using a <code>TraitId</code>, so it is desirable that trait IDs are ASCII to maximise portability when mapping IDs to class names. </p>
+
+</div>
+</div>
+<a class="anchor" id="a85498884b976e67239a35add1aa39f88"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">TraitsDatas</a> =  std::vector&lt;TraitsDataPtr&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An ordered list of <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instances. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab8370686417ae635f48d34e8732a485f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">TraitSet</a> =  std::unordered_set&lt;<a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">TraitId</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A collection of trait IDs. </p>
+<p>ID collections are a set, rather than a list. In that, no single ID can appear more than once and the order of the IDs has no meaning and is not preserved. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac37f4808caeb63bc488756d50cb9911b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">TraitSets</a> =  std::vector&lt;<a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">TraitSet</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>An ordered list of trait sets. </p>
 
 </div>
 </div>
