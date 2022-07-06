@@ -79,7 +79,8 @@ InfoDictionary CManagerInterfaceAdapter::info() const {
   return infoDict;
 }
 
-void CManagerInterfaceAdapter::initialize([[maybe_unused]] const HostSessionPtr& hostSession) {
+void CManagerInterfaceAdapter::initialize([[maybe_unused]] InfoDictionary managerSettings,
+                                          [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw std::runtime_error{"Not implemented"};
 }
 

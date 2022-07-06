@@ -76,19 +76,17 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
     ## varied per test class/method.
 
     def setUp(self):
-        self.__old_settings = self._manager.getSettings()
+        self.__old_settings = self._manager.settings()
         new_settings = self.__old_settings.copy()
         new_settings["library_path"] = os.path.join(
             os.path.dirname(__file__),
             "resources",
             "library_business_logic_suite_customManagementPolicy.json",
         )
-        self._manager.setSettings(new_settings)
-        self._manager.initialize()
+        self._manager.initialize(new_settings)
 
     def tearDown(self):
-        self._manager.setSettings(self.__old_settings)
-        self._manager.initialize()
+        self._manager.initialize(self.__old_settings)
 
     def test_returns_expected_policies_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.kRead)

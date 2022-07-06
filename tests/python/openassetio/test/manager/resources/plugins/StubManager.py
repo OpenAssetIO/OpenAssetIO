@@ -37,7 +37,7 @@ class StubManager(ManagerInterface):
 
     def __init__(self):
         super().__init__()
-        self.__settings = None
+        self.__settings = {}
         self.__info = {}
 
     def identifier(self):
@@ -49,13 +49,12 @@ class StubManager(ManagerInterface):
     def info(self):
         return self.__info
 
-    def setSettings(self, settings, hostSession):
-        self.__settings = settings
-
-    def getSettings(self, hostSession):
+    def settings(self, hostSession):
+        # pylint: disable=unused-argument
         return self.__settings
 
-    def initialize(self, hostSession):
+    def initialize(self, managerSettings, hostSession):
+        self.__settings = managerSettings
         self.__info["host_identifier"] = hostSession.host().identifier()
 
     def managementPolicy(self, traitSets, context, hostSession):

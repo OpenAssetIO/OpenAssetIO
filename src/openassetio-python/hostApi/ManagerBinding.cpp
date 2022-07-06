@@ -21,7 +21,8 @@ void registerManager(const py::module& mod) {
       .def("identifier", &Manager::identifier)
       .def("displayName", &Manager::displayName)
       .def("info", &Manager::info)
-      .def("initialize", &Manager::initialize)
+      .def("settings", &Manager::settings)
+      .def("initialize", &Manager::initialize, py::arg("managerSettings"))
       .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSet"),
            py::arg("context").none(false))
       .def("createContext", &Manager::createContext)

@@ -139,10 +139,9 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *
  *    @li @ref identifier()
  *    @li @ref displayName()
- *    @li @needsref info()
+ *    @li @ref info()
  *    @li @needsref updateTerminology()
- *    @li @needsref getSettings()
- *    @li @needsref setSettings()
+ *    @li @ref settings()
  *
  * @todo Finish/Document settings mechanism.
  * @see @ref initialize
@@ -243,12 +242,24 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
+   * @todo Document settings mechanism
+   *
+   * @param hostSession The API session.
+   *
+   * @return Any settings relevant to the function of the manager with
+   * their current values (or their defaults if @ref initialize has
+   * not yet been called).
+   *
+   * The default implementation returns an empty dictionary.
+   */
+  [[nodiscard]] virtual InfoDictionary settings(const HostSessionPtr& hostSession) const;
+
+  /**
    * Prepares for interaction with a host.
    *
-   * This is a good opportunity to initialize any persistent
-   * connections to a back end implementation, as @needsref setSettings
-   * will have already been called (if applicable). It is fine for
-   * this call to block for a period of time.
+   * This is a good opportunity to initialize any persistent connections
+   * to a back end implementation. It is fine for this call to block for
+   * a period of time.
    *
    * If an exception is raised by this call, it signifies to the host
    * that a fatal error occurred, and this @ref
@@ -273,14 +284,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *  @li @ref displayName()
    *  @li @ref info()
    *  @li @needsref updateTerminology()
-   *  @li @needsref getSettings()
-   *  @li @needsref setSettings()
+   *  @li @ref settings()
    *
    * @todo We need a 'teardown' method to, before a manager is
    * de-activated in a host, to allow any event registrations etc...
    * to be removed.
    */
-  virtual void initialize(const HostSessionPtr& hostSession) = 0;
+  virtual void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) = 0;
 
   /**
    * @}

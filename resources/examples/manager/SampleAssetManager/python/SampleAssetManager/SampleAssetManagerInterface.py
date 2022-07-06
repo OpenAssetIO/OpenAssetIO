@@ -45,7 +45,7 @@ class SampleAssetManagerInterface(ManagerInterface):
     def identifier(self):
         return "org.openassetio.examples.manager.sam"
 
-    def initialize(self, hostSession):
+    def initialize(self, managerSettings, hostSession):
         pass
 
     def displayName(self):

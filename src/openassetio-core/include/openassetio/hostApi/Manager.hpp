@@ -124,6 +124,18 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
 
   /**
+   * @todo Document settings mechanism
+   *
+   * @return Any settings relevant to the function of the manager with
+   * their current values (or their defaults if @ref initialize has
+   * not yet been called).
+   *
+   * Some managers may not have any settings, so this function will
+   * return an empty dictionary.
+   */
+  [[nodiscard]] InfoDictionary settings() const;
+
+  /**
    * Prepares the Manager for interaction with a host. In order to
    * provide light weight inspection of available Managers, initial
    * construction must be cheap. However most system require some
@@ -153,7 +165,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @protected
    */
-  void initialize();
+  void initialize(InfoDictionary managerSettings);
 
   /**
    * @}

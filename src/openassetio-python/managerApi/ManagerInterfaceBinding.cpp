@@ -36,8 +36,13 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
   }
 
-  void initialize(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, hostSession);
+  [[nodiscard]] InfoDictionary settings(const HostSessionPtr& hostSession) const override {
+    PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, settings, hostSession);
+  }
+
+  void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, initialize, std::move(managerSettings),
+                           hostSession);
   }
 
   [[nodiscard]] trait::TraitsDatas managementPolicy(
@@ -84,7 +89,9 @@ void registerManagerInterface(const py::module& mod) {
       .def("identifier", &ManagerInterface::identifier)
       .def("displayName", &ManagerInterface::displayName)
       .def("info", &ManagerInterface::info)
-      .def("initialize", &ManagerInterface::initialize)
+      .def("settings", &ManagerInterface::settings, py::arg("hostSession").none(false))
+      .def("initialize", &ManagerInterface::initialize, py::arg("managerSettings"),
+           py::arg("hostSession").none(false))
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))

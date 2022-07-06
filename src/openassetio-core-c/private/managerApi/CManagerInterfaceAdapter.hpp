@@ -7,6 +7,7 @@
 
 #include <openassetio/c/managerApi/CManagerInterface.h>
 
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/trait/collection.hpp>
 
@@ -45,7 +46,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Wrap the C suite's `initialize` function.
   /// @todo Implement C API. Currently a no-op.
-  void initialize(const HostSessionPtr& hostSession) override;
+  void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) override;
 
   /// Wrap the C suite's `managementPolicy` function.
   /// @todo Implement C API. Currently a no-op.

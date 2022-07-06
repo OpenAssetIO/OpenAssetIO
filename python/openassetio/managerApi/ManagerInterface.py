@@ -150,8 +150,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
        @li @needsref displayName()
        @li @needsref info()
        @li @ref updateTerminology()
-       @li @ref getSettings()
-       @li @ref setSettings()
+       @li @needsref settings()
 
     @todo Finish/Document settings mechanism.
     @see @needsref initialize
@@ -193,19 +192,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     # @name Initialization
     #
     ## @{
-
-    def getSettings(self, hostSession):
-        """
-        @todo Document settings mechanism
-        """
-        return {}
-
-    def setSettings(self, settings, hostSession):
-        """
-        @todo Document settings mechanism
-        """
-        if settings != {}:
-            raise KeyError(f"{self.displayName} has no settings")
 
     def prefetch(self, entityRefs, context, hostSession):
         """

@@ -184,35 +184,30 @@ class Test_Manager_updateTerminology:
         method.assert_called_once_with(a_dict, mock_host_session)
 
 
-class Test_Manager_getSettings:
+class Test_Manager_settings:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, mock_host_session):
 
-        method = mock_manager_interface.mock.getSettings
-        assert manager.getSettings() == method.return_value
+        expected = {"some": "setting"}
+        method = mock_manager_interface.mock.settings
+        method.return_value = expected
+
+        actual = manager.settings()
+
         method.assert_called_once_with(mock_host_session)
-
-
-class Test_Manager_setSettings:
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, mock_host_session):
-
-        method = mock_manager_interface.mock.setSettings
-        a_dict = {"k", "v"}
-        assert manager.setSettings(a_dict) == method.return_value
-        method.assert_called_once_with(a_dict, mock_host_session)
+        assert actual == expected
 
 
 class Test_Manager_initialize:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, mock_host_session):
+        a_dict = {"k": "v"}
 
-        manager.initialize()
+        manager.initialize(a_dict)
 
-        mock_manager_interface.mock.initialize.assert_called_once_with(mock_host_session)
+        mock_manager_interface.mock.initialize.assert_called_once_with(a_dict, mock_host_session)
 
 
 class Test_Manager_prefetch:

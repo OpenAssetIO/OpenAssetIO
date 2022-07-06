@@ -66,6 +66,10 @@ def load_library(path: str) -> dict:
     """
     Loads a library from the supplied path
     """
+    if not path:
+        # Allow an empty path, meaning an empty library.
+        return {}
+
     with open(path, "r", encoding="utf-8") as file:
         return json.load(file)
 
