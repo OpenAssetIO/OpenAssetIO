@@ -95,9 +95,9 @@
  *
  * - Ask the @ref manager if they support resolve for the relevant
  *   data by supplying its @ref trait_set to
- *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" with a @ref Context with `kRead` access,
- *   respecting the returned traits.
+ *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
+ *   with a @ref Context with `kRead` access, respecting the returned
+ *   traits.
  *
  * - Always check any suspected entity references with @ref
  *   openassetio.hostApi.Manager.Manager.isEntityReference
@@ -111,14 +111,13 @@
  *
  * - Ask the @ref manager if they support publishing for the relevant
  *   data by supplying its @ref trait_set to
- *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
- *   "Manager.managementPolicy" with a @ref Context with `kWrite` access,
- *   respecting the returned traits.
+ *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
+ *   with a @ref Context with `kWrite` access, respecting the returned
+ *   traits.
  *
- * - Follow the @ref openassetio.hostApi.Manager.Manager.managementPolicy
- *   "policy", @ref preflight, resolve, write, @ref register process
- *   illustrated @ref example_publishing_a_file "here" whenever
- *   generating new data.
+ * - Follow the @fqref{hostApi.Manager.managementPolicy} "policy", @ref
+ *   preflight, resolve, write, @ref register process illustrated @ref
+ *   example_publishing_a_file "here" whenever generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
  *   registered to references known to be of a different @ref trait_set.
@@ -143,13 +142,13 @@
  * - Ensure the use of a correctly configured @ref Context for all
  *   calls to the API.
  *
- * - If a manager's @ref openassetio.hostApi.Manager.Manager.managementPolicy
+ * - If a manager's @fqref{hostApi.Manager.managementPolicy}
  *   "managementPolicy" sets the @needsref WantsThumbnail trait, where
  *   possible, generate thumbnails as requested during publishing.
  *
  * - Allow the @needsref ManagerUIDelegate to participate in browsing/etc...
  *   for any data types they have expressed an interest in managing via
- *   @ref openassetio.hostApi.Manager.Manager.managementPolicy
+ *   @fqref{hostApi.Manager.managementPolicy}
  *   "Manager.managementPolicy".
  *
  * - Make the drawing of any parameters that may hold an @ref

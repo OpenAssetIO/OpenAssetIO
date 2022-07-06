@@ -6,6 +6,7 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 
 #include "_openassetio.hpp"
 
@@ -19,9 +20,8 @@ void registerTraitsData(const py::module& mod) {
 
   py::class_<TraitsData, TraitsDataPtr>(mod, "TraitsData", py::is_final())
       .def(py::init(static_cast<TraitsDataPtr (*)()>(&TraitsData::make)))
-      .def(
-          py::init(static_cast<TraitsDataPtr (*)(const TraitsData::TraitSet&)>(&TraitsData::make)),
-          py::arg("traitSet"))
+      .def(py::init(static_cast<TraitsDataPtr (*)(const trait::TraitSet&)>(&TraitsData::make)),
+           py::arg("traitSet"))
       .def(py::init(static_cast<TraitsDataPtr (*)(const TraitsDataConstPtr&)>(&TraitsData::make)))
       .def("traitSet", &TraitsData::traitSet)
       .def("hasTrait", &TraitsData::hasTrait, py::arg("id"))

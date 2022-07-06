@@ -108,9 +108,9 @@
  *   @fqref{managerApi.ManagerInterface.identifier} "identifier" an
  *   @fqref{managerApi.ManagerInterface.displayName} "displayName".
  *
- * - Implement @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
- *   "managementPolicy" to control which Host-side data types you wish to
- *   be involved in managing. Return an empty @fqref{TraitsData}
+ * - Implement @fqref{managerApi.ManagerInterface.managementPolicy}
+ *   "managementPolicy" to control which Host-side data types you wish
+ *   to be involved in managing. Return an empty @fqref{TraitsData}
  *   "TraitsData" for any queries with a context with `kWrite` access
  *   (this disables publishing).
  *
@@ -129,7 +129,7 @@
  * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
+ *   @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to return suitable traits for contexts with a
  *   `kWrite` access.
  *

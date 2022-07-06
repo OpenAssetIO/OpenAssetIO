@@ -7,6 +7,7 @@
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(managerApi, HostSession)
@@ -153,6 +154,68 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @protected
    */
   void initialize();
+
+  /**
+   * @}
+   */
+
+  /**
+   * @name Policy
+   *
+   * @{
+   */
+  /**
+   * Determines if the manager is interested in participating in
+   * interactions with entities with the specified sets of @ref trait
+   * traits. The supplied @ref Context determines whether this is for
+   * resolution or publishing. It is *vital* to call this before
+   * attempting to publish data to the manager, as the entity
+   * @ref trait_set you desire to work with may not be supported.
+   *
+   * For example, you would call this in order to see if the manager
+   * would like to manage the path of a scene file whilst choosing a
+   * destination to save to.
+   *
+   * This information should then be used to determine which options
+   * should be presented to the user. For example, if the returned
+   * @fqref{TraitsData} "TraitsData" is not imbued with the @ref
+   * traits.managementPolicy.ManagedTrait "ManagedTrait" for a query as
+   * to the management of scene files, you should hide or disable menu
+   * items that relate to publish or loading of assetized scene files.
+   *
+   * If a returned @fqref{TraitsData} "TraitsData" is imbued with the
+   * @ref traits.managementPolicy.ManagedTrait "ManagedTrait", then it
+   * can be assumed that the manager is capable of retrieving (for a
+   * read context) and storing (for a write context) all of the
+   * supplied traits through @needsref resolve and @needsref register.
+   *
+   * @warning The @fqref{Context.access} "access" of the supplied
+   * context will be considered by the manager. If it is set to read,
+   * then it's response applies to resolution. If write, then it
+   * applies to publishing. Ignored reads can allow optimisations in
+   * a host as there is no longer a need to test/resolve applicable
+   * strings.
+   *
+   * @note One very important trait that may be imbued in the
+   * policy is the @ref openassetio.traits.managementPolicy.WillManagePathTrait
+   * "WillManagePathTrait". If set, you can assume the asset
+   * management system will manage the path to use for the creation
+   * of any new assets. you must then always call @ref preflight
+   * before any file creation to allow the asset management system to
+   * determine and prepare the work path, and then use this path to
+   * write data to, prior to calling @ref register. If this trait is
+   * not imbued, then you should take care of writing data yourself
+   * (maybe prompting the user for a location on disk), and then only
+   * call @ref register to create the new entity.
+   *
+   * @param traitSets The entity @ref trait "traits" to query.
+   *
+   * @param context The calling context.
+   *
+   * @return a `TraitsData` for each element in `traitSets`.
+   */
+  [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
+                                                    const ContextConstPtr& context) const;
 
   /**
    * @}

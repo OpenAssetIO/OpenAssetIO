@@ -3,6 +3,7 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -21,6 +22,8 @@ void registerManager(const py::module& mod) {
       .def("displayName", &Manager::displayName)
       .def("info", &Manager::info)
       .def("initialize", &Manager::initialize)
+      .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSet"),
+           py::arg("context").none(false))
       .def("createContext", &Manager::createContext)
       .def("createChildContext", &Manager::createChildContext,
            py::arg("parentContext").none(false))

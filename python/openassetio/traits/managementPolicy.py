@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-Traits returned by @ref hostApi.Manager.Manager.managementPolicy
+Traits returned by @fqref{hostApi.Manager.managementPolicy}
 "Manager.managementPolicy"
 """
 from typing import Union
@@ -24,7 +24,7 @@ from ..Trait import Trait
 
 class ManagedTrait(Trait):
     """
-    @ref hostApi.Manager.Manager.managementPolicy "managementPolicy"
+    @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
     trait specifying that a given @ref trait_set can be managed by the
     @ref manager plugin.
 
@@ -73,7 +73,7 @@ class ManagedTrait(Trait):
 
 class WillManagePathTrait(Trait):
     """
-    @ref hostApi.Manager.Manager.managementPolicy "managementPolicy"
+    @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
     policy trait for determining whether a @ref manager can determine
     URLs for a new @ref entity "entity's" data.
 

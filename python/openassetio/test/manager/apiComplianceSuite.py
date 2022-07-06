@@ -20,8 +20,7 @@ manager plugin complies to the relevant core OpenAssetIO API contract.
 
 This suite is solely concerned with verifying that a plugin meets the
 requirements of the API, and can handle all documented calling patterns.
-For example, that when a
-@ref openassetio.managerApi.ManagerInterface.ManagerInterface.managementPolicy
+For example, that when a @fqref{managerApi.ManagerInterface.managementPolicy}
 "managementPolicy" query returns a non-ignored state, that there are no
 errors calling the other required methods for a managed entity with
 those @ref trait "traits".
@@ -154,14 +153,14 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 
     def test_calling_with_empty_trait_set_does_not_error(self):
         context = self.createTestContext()
-        self.__assertPolicyResults(1, context, traitSet=())
+        self.__assertPolicyResults(1, context, traitSet=set())
 
     def test_calling_with_unknown_complex_trait_set_does_not_error(self):
         context = self.createTestContext()
-        traits = ("🐟🐠🐟🐠", "asdfsdfasdf", "⿂")
+        traits = {"🐟🐠🐟🐠", "asdfsdfasdf", "⿂"}
         self.__assertPolicyResults(1, context, traitSet=traits)
 
-    def __assertPolicyResults(self, numTraitSets, context, traitSet=("entity",)):
+    def __assertPolicyResults(self, numTraitSets, context, traitSet={"entity"}):
         """
         Tests the validity and coherency of the results of a call to
         `managementPolicy` for a given number of trait sets and
@@ -171,6 +170,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         @param traitSet `List[str]` The set of traits to pass to
         the call to managementPolicy.
         """
+        # pylint: disable=dangerous-default-value
         traitSets = [traitSet for _ in range(numTraitSets)]
 
         policies = self._manager.managementPolicy(traitSets, context)

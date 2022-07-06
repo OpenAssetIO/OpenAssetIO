@@ -28,6 +28,11 @@ InfoDictionary Manager::info() const { return managerInterface_->info(); }
 
 void Manager::initialize() { managerInterface_->initialize(hostSession_); }
 
+trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
+                                             const ContextConstPtr &context) const {
+  return managerInterface_->managementPolicy(traitSets, context, hostSession_);
+}
+
 ContextPtr Manager::createContext() {
   ContextPtr context = Context::make();
   context->managerState = managerInterface_->createState(hostSession_);
