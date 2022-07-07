@@ -25,7 +25,7 @@ see @ref openassetio.managerApi.
 
 from .. import _openassetio  # pylint: disable=no-name-in-module
 from .Manager import Manager
-from .ManagerFactoryInterface import ManagerFactoryInterface
+from .ManagerInterfaceFactoryInterface import ManagerInterfaceFactoryInterface
 from .Session import Session
 
 ## Python binding of \fqref{hostApi.HostInterface} "C++ HostInterface".

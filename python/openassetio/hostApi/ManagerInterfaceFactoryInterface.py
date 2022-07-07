@@ -14,30 +14,30 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.hostApi.ManagerFactoryInterface
-A single-class module, providing the ManagerFactoryInterface class.
+@namespace openassetio.hostApi.ManagerInterfaceFactoryInterface
+A single-class module, providing the ManagerInterfaceFactoryInterface class.
 """
 
 
 import abc
 
 
-__all__ = ['ManagerFactoryInterface']
+__all__ = ['ManagerInterfaceFactoryInterface']
 
 
-class ManagerFactoryInterface(object, metaclass=abc.ABCMeta):
+class ManagerInterfaceFactoryInterface(object, metaclass=abc.ABCMeta):
     """
     Manager Factories are responsible for instantiating classes that
     derive from @ref openassetio.managerApi.ManagerInterface or @needsref
     openassetio-ui.implementation.ManagerUIDelegate for use within an
     host.
 
-    ManagerFactoryInterface defines the abstract interface that any such
-    factory must adopt.
+    ManagerInterfaceFactoryInterface defines the abstract interface that
+    any such factory must adopt.
     """
 
     def __init__(self, logger):
-        super(ManagerFactoryInterface, self).__init__()
+        super(ManagerInterfaceFactoryInterface, self).__init__()
         self._logger = logger
 
     @abc.abstractmethod

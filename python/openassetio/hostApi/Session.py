@@ -74,17 +74,17 @@ class Session(Debuggable):
         desired.
 
         @param managerFactory
-        openassetio.hostApi.ManagerFactoryInterface An in stance of some
+        openassetio.hostApi.ManagerInterfaceFactoryInterface An in stance of some
         factory that will provide instances of a manager's
         ManagerInterface as required by the session.
 
           @see @ref useManager
           @see @ref currentManager
           @see @ref openassetio.log "log"
-          @see @ref openassetio.hostApi.ManagerFactoryInterface
-          "ManagerFactoryInterface"
-          @see @ref openassetio.pluginSystem.PluginSystemManagerFactory
-          "PluginSystemManagerFactory"
+          @see @ref openassetio.hostApi.ManagerInterfaceFactoryInterface
+          "ManagerInterfaceFactoryInterface"
+          @see @ref openassetio.pluginSystem.PluginSystemManagerInterfaceFactory
+          "PluginSystemManagerInterfaceFactory"
         """
         super(Session, self).__init__()
 
@@ -111,7 +111,8 @@ class Session(Debuggable):
     def registeredManagers(self):
         # pylint: disable=line-too-long
         """
-        @see @ref openassetio.pluginSystem.PluginSystemManagerFactory.PluginSystemManagerFactory.managers "managers"
+        @see @ref openassetio.pluginSystem.PluginSystemManagerInterfaceFactory.PluginSystemManagerInterfaceFactory.managers
+        "managers"
         """
         return self._factory.managers()
 

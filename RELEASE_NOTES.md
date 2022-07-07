@@ -28,6 +28,13 @@ v1.0.0-alpha.X
   consistency with the rest of the codebase.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
 
+- Renamed both `ManagerFactoryInterface` as well as the subclass
+  `PluginSystemManagerFactory` to `ManagerInterfaceFactoryInterface`
+  and `PluginSystemManagerInterfaceFactory`, respectively, to avoid
+  potential ambiguity. I.e. that they instantiate instances of
+  `ManagerInterface` rather than `Manager`.
+  [#506](https://github.com/OpenAssetIO/OpenAssetIO/issues/506)
+
 - Renamed the `LoggerInterface` constant `kDebugAPI` to `kDebugApi`.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
 
