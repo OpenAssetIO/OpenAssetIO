@@ -42,6 +42,7 @@ target_sources(
     PRIVATE
     _openassetio.cpp
     ContextBinding.cpp
+    LoggerInterfaceBinding.cpp
     TraitsDataBinding.cpp
     hostApi/ManagerBinding.cpp
     hostApi/HostInterfaceBinding.cpp
