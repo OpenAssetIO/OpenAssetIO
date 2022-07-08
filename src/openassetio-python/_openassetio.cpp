@@ -15,6 +15,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   py::module managerApi = mod.def_submodule("managerApi");
   py::module hostApi = mod.def_submodule("hostApi");
 
+  registerLoggerInterface(mod);
   registerTraitsData(mod);
   registerManagerStateBase(managerApi);
   registerContext(mod);

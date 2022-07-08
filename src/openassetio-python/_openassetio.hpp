@@ -14,6 +14,9 @@
 /// Concise pybind alias.
 namespace py = pybind11;
 
+/// Register the LoggerInterface class with Python.
+void registerLoggerInterface(const py::module& mod);
+
 /// Register the Context class with Python.
 void registerContext(const py::module& mod);
 

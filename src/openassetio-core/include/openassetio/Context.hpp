@@ -6,6 +6,7 @@
 #include <memory>
 
 #include <openassetio/export.h>
+#include <openassetio/enum.hpp>
 #include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(TraitsData)
@@ -36,16 +37,6 @@ OPENASSETIO_DECLARE_PTR(Context)
  */
 class OPENASSETIO_CORE_EXPORT Context final {
  public:
-  /**
-   * Storage for enum name lookup array.
-   */
-  template <std::size_t N>
-  using EnumNames = std::array<std::string_view, N>;
-  /**
-   * Explicit enum type so that name lookups do not require a cast.
-   */
-  using EnumIdx = EnumNames<0>::size_type;
-
   /**
    * @name Access Pattern
    */

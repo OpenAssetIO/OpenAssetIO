@@ -24,7 +24,7 @@ kDebug and kDebugApi logging severity displays
 
 In order to use these decorators the target class must derive from
 Debuggable, and have its `_debugLogFn` set to an callable that matches
-the @ref openassetio.log.LoggerInterface.log signature. This
+the @fqref{LoggerInterface.log} "LoggerInterface.log" signature. This
 callback will be used to output debug information. If no callback is
 set, no debug output will be produced.
 

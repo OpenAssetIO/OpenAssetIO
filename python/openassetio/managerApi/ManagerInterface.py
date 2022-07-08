@@ -87,7 +87,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     result in output being lost.
 
     @see @ref openassetio.managerApi.HostSession.HostSession.log "HostSession.log"
-    @see @ref openassetio.managerApi.HostSession.HostSession.progress "HostSession.progress"
 
     Exceptions should be thrown to handle any in-flight errors that
     occur.  The error should be mapped to a derived class of

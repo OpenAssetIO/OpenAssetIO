@@ -18,68 +18,13 @@
 Provides the core classes that facilitate message and progress logging.
 """
 
-import abc
 import os
 import sys
 
+from . import _openassetio  # pylint: disable=no-name-in-module
 
-class LoggerInterface(object, metaclass=abc.ABCMeta):
-    """
-    An abstract base class that defines the receiving interface for log
-    messages generated a @ref manager or the API middleware.
-    """
 
-    ##
-    # @name Log Severity
-    # @{
-
-    kDebugApi = 6
-    kDebug = 5
-    kInfo = 4
-    kProgress = 3
-    kWarning = 2
-    kError = 1
-    kCritical = 0
-
-    ## A mapping of severity levels to readable labels
-    kSeverityNames = ['critical', 'error', 'warning', 'progress', 'info', 'debug', 'debugApi']
-
-    ## @}
-
-    @abc.abstractmethod
-    def log(self, message, severity):
-        """
-        Logs a message to the user.
-
-        This method must be implemented to present the supplied message
-        to the user in an appropriate fashion.
-
-        @param message str, The message string to be logged.
-
-        @param severity int, One of the severity constants defined in
-        @ref openassetio.log
-        """
-        raise NotImplementedError
-
-    def progress(self, decimalProgress, message=""):
-        """
-        Logs the progress of a task.
-
-        This method should be overridden if you wish to customize the
-        presentation of progress messages beyond the default
-        implementation that simply logs them as any other message.
-
-        @param decimalProgress float, Normalised progress between 0 and
-        1, if set to a value less than 0 it should be considered
-        cancelled, if greater than one, complete.
-
-        @param message str, A message to display with the progress. If
-        None is supplied, assume that there is no message and any
-        previous message may remain. Set to an empty string if it is
-        desired to always clear any previous message.
-        """
-        msg = "%3d%% %s" % (int(100 * decimalProgress), message if message is not None else "")
-        self.log(msg, self.kProgress)
+LoggerInterface = _openassetio.LoggerInterface
 
 
 class SeverityFilter(LoggerInterface):
@@ -93,6 +38,7 @@ class SeverityFilter(LoggerInterface):
     """
 
     def __init__(self, upstreamLogger):
+        LoggerInterface.__init__(self)
 
         self.__maxSeverity = self.kWarning
 
@@ -147,18 +93,14 @@ class SeverityFilter(LoggerInterface):
     # LoggerInterface methods
 
     def log(self, message, severity):
-
+        """
+        Log only if `severity` is greater than or equal to this logger's
+        configured severity level.
+        """
         if severity > self.__maxSeverity:
             return
 
         self.__upstreamLogger.log(message, severity)
-
-    def progress(self, decimalProgress, message=""):
-
-        if self.__maxSeverity < self.kProgress:
-            return
-
-        self.__upstreamLogger.progress(decimalProgress, message)
 
 
 class ConsoleLogger(LoggerInterface):
@@ -177,6 +119,7 @@ class ConsoleLogger(LoggerInterface):
         outputs. If these have been closed, it will fall back to the
         remapped outputs.
         """
+        LoggerInterface.__init__(self)
         self.__colorOutput = colorOutput
 
         self.__stdout = sys.stdout
@@ -192,7 +135,10 @@ class ConsoleLogger(LoggerInterface):
                 self.__stderr = sys.__stderr__
 
     def log(self, message, severity):
-
+        """
+        Log to stderr for severity greater than `kInfo`, stdout
+        otherwise.
+        """
         severityStr = "[%s]" % self.kSeverityNames[severity]
         msg = "%11s: %s\n" % (severityStr, message)
         outStream = self.__stderr if severity < self.kInfo else self.__stdout

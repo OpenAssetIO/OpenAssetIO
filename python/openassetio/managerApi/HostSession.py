@@ -75,21 +75,3 @@ class HostSession(_openassetio.managerApi.HostSession):
         @see @ref openassetio.log "log"
         """
         self.__logger.log(message, severity)
-
-    def progress(self, decimalProgress, message=None):
-        """
-        Logs the supplied progress. Hosts may implement specific
-        handling for progress messages, mapping them to custom UI
-        element. If not, it will be logged as-per other messages, with a
-        kProgress severity.
-
-        @param decimalProgress float, Normalised progress between 0 and
-        1, if set to a value less than 0 it will be considered
-        cancelled, if greater than one, complete.
-
-        @param message str, A string message to display with the
-        progress. If None is supplied, it is assumed that there is no
-        message and the previous message may remain. Set to an empty
-        string if it is desired to always clear the previous message.
-        """
-        self.__logger.progress(decimalProgress, message=message)
