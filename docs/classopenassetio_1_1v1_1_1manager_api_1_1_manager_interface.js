@@ -7,8 +7,9 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "displayName", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92", null ],
     [ "identifier", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5e4597b03727fca61c28d21a071e060f", null ],
     [ "info", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260", null ],
-    [ "initialize", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6fdab835837291c6fd2864feaa8aca31", null ],
+    [ "initialize", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd", null ],
     [ "persistenceTokenForState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a", null ],
+    [ "settings", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583", null ],
     [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46", null ]
 ];

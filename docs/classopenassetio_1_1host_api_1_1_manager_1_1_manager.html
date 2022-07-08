@@ -143,6 +143,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a021e2cb20906f304cb8bd6dd288782b8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8">updateTerminology</a> (self, stringDict)</td></tr>
 <tr class="memdesc:a021e2cb20906f304cb8bd6dd288782b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a021e2cb20906f304cb8bd6dd288782b8">More...</a><br /></td></tr>
 <tr class="separator:a021e2cb20906f304cb8bd6dd288782b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><dl class="section note"><dt>Note</dt><dd><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> initialization is generally managed by the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_session.html">Session</a> and these methods generally don't need to be called directly by host code. </dd></dl>
+</div></td></tr>
+<tr class="memitem:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a90f43f7116f1cb507b1bd73df4cf4250">prefetch</a> (self, references, context)</td></tr>
+<tr class="memdesc:a90f43f7116f1cb507b1bd73df4cf4250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Because query latency may be high with certain managers, it is often desirable to 'batch' requests.  <a href="#a90f43f7116f1cb507b1bd73df4cf4250">More...</a><br /></td></tr>
+<tr class="separator:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5cb722a05be4762724ae302d00291c4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4">flushCaches</a> (self)</td></tr>
+<tr class="memdesc:ae5cb722a05be4762724ae302d00291c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#ae5cb722a05be4762724ae302d00291c4">More...</a><br /></td></tr>
+<tr class="separator:ae5cb722a05be4762724ae302d00291c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
@@ -226,23 +235,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c">register</a> (self, targetEntityRefs, entityTraitsDatas, context)</td></tr>
 <tr class="memdesc:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to register new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ab27e1fd0ead5ef30767454fdfa750f7c">More...</a><br /></td></tr>
 <tr class="separator:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Initialization</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp61bcd96a2c1f8026527cbf2019d6e9a4"></a> </p><dl class="section note"><dt>Note</dt><dd><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> initialization is generally managed by the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_session.html">Session</a> and these methods generally don't need to be called directly by host code. </dd></dl>
-</td></tr>
-<tr class="memitem:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a90f43f7116f1cb507b1bd73df4cf4250">prefetch</a> (self, references, context)</td></tr>
-<tr class="memdesc:a90f43f7116f1cb507b1bd73df4cf4250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Because query latency may be high with certain managers, it is often desirable to 'batch' requests.  <a href="#a90f43f7116f1cb507b1bd73df4cf4250">More...</a><br /></td></tr>
-<tr class="separator:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5cb722a05be4762724ae302d00291c4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4">flushCaches</a> (self)</td></tr>
-<tr class="memdesc:ae5cb722a05be4762724ae302d00291c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#ae5cb722a05be4762724ae302d00291c4">More...</a><br /></td></tr>
-<tr class="separator:ae5cb722a05be4762724ae302d00291c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38bcbd14698c0804e581d39e85f4bd73"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a38bcbd14698c0804e581d39e85f4bd73">getSettings</a> (self)</td></tr>
-<tr class="memdesc:a38bcbd14698c0804e581d39e85f4bd73"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"></pre>  <a href="#a38bcbd14698c0804e581d39e85f4bd73">More...</a><br /></td></tr>
-<tr class="separator:a38bcbd14698c0804e581d39e85f4bd73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2868b38666ef26da26225236a50631c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#af2868b38666ef26da26225236a50631c">setSettings</a> (self, settings)</td></tr>
-<tr class="memdesc:af2868b38666ef26da26225236a50631c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><pre class="fragment"></pre>  <a href="#af2868b38666ef26da26225236a50631c">More...</a><br /></td></tr>
-<tr class="separator:af2868b38666ef26da26225236a50631c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
@@ -765,32 +757,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="a38bcbd14698c0804e581d39e85f4bd73"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">def getSettings </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><pre class="fragment"></pre> </p>
-
-</div>
-</div>
 <a class="anchor" id="ab4346bb060396f0285495d46eb3aec5e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1053,42 +1019,6 @@ When registering files, it should never be assumed that the resulting <a class="
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either a populated TraitsData instance for each reference; <code>EntityResolutionError</code> if there is any runtime error during the resolution of the entity, including internal failure modes; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version - the exception means that it is not a valid action to perform on the entity. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af2868b38666ef26da26225236a50631c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">def setSettings </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><pre class="fragment"></pre> </p>
 
 </div>
 </div>

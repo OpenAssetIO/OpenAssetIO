@@ -12,12 +12,10 @@ var classopenassetio_1_1host_api_1_1_manager_1_1_manager =
     [ "finalizedEntityVersion", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a7d7e21b2b629933fd4175521de8b6c6e", null ],
     [ "flushCaches", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4", null ],
     [ "getRelatedReferences", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a", null ],
-    [ "getSettings", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a38bcbd14698c0804e581d39e85f4bd73", null ],
     [ "isEntityReference", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e", null ],
     [ "prefetch", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a90f43f7116f1cb507b1bd73df4cf4250", null ],
     [ "preflight", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae83571f5e05bf1ee3456aac42fd72ed1", null ],
     [ "register", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c", null ],
     [ "resolve", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a815e3f348d3f24396e7cc74357f8568b", null ],
-    [ "setSettings", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#af2868b38666ef26da26225236a50631c", null ],
     [ "updateTerminology", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8", null ]
 ];

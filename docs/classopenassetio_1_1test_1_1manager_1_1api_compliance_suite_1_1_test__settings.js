@@ -1,0 +1,4 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings =
+[
+    [ "test_when_retrieved_settings_modified_then_newly_queried_settings_unmodified", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html#a103bd74fecfb81a1801619d34debf222", null ]
+];

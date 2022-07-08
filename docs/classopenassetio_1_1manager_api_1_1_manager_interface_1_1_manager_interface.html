@@ -135,10 +135,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
 <tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:a6515f7c39c44ed9c5367a2b9a000d9e9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings</a> (self, hostSession)</td></tr>
-<tr class="separator:a6515f7c39c44ed9c5367a2b9a000d9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af245c8e9709d11838c642a785510b430"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings</a> (self, settings, hostSession)</td></tr>
-<tr class="separator:af245c8e9709d11838c642a785510b430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd4fd3fc6ab34519967e7396c429801"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a8bd4fd3fc6ab34519967e7396c429801">prefetch</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:a8bd4fd3fc6ab34519967e7396c429801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list.  <a href="#a8bd4fd3fc6ab34519967e7396c429801">More...</a><br /></td></tr>
 <tr class="separator:a8bd4fd3fc6ab34519967e7396c429801"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,8 +268,7 @@ Public Member Functions</h2></td></tr>
 <li>displayName() </li>
 <li>info() </li>
 <li><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology()</a> </li>
-<li><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a6515f7c39c44ed9c5367a2b9a000d9e9">getSettings()</a> </li>
-<li><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#af245c8e9709d11838c642a785510b430">setSettings()</a></li>
+<li>settings()</li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>initialize </dd></dl>
@@ -790,33 +785,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="a6515f7c39c44ed9c5367a2b9a000d9e9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def getSettings </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a4a434983789e0b6bc77c596010a2830e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1189,39 +1157,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> </dd>
 <dd>
 <a class="el" href="glossary.html#register">register</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af245c8e9709d11838c642a785510b430"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def setSettings </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>settings</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Document settings mechanism </dd></dl>
 
 </div>
 </div>
