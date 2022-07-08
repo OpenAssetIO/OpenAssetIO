@@ -142,22 +142,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def getSettings(self):
-        """
-        @protected
-        """
-        return self.__impl.getSettings(self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def setSettings(self, settings):
-        """
-        @protected
-        """
-        return self.__impl.setSettings(settings, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
     def prefetch(self, references, context):
         """
         Because query latency may be high with certain managers, it is

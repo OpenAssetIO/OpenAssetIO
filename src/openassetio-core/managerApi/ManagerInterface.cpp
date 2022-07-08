@@ -12,6 +12,11 @@ ManagerInterface::ManagerInterface() = default;
 
 InfoDictionary ManagerInterface::info() const { return {}; }
 
+InfoDictionary ManagerInterface::settings(
+    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+  return openassetio::InfoDictionary{};
+}
+
 ManagerStateBasePtr ManagerInterface::createState(
     [[maybe_unused]] const HostSessionPtr& hostSession) {
   return nullptr;

@@ -59,27 +59,25 @@ class BasicAssetLibraryInterface(ManagerInterface):
     def info(self):
         return {constants.kField_EntityReferencesMatchPrefix: self.__reference_prefix}
 
-    def setSettings(self, settings, hostSession):
-        # pylint: disable=unused-argument
-        bal.validate_settings(settings)
-        self.__settings.update(settings)
-
-    def getSettings(self, hostSession):
+    def settings(self, hostSession):
         # pylint: disable=unused-argument
         return self.__settings.copy()
 
-    def initialize(self, hostSession):
+    def initialize(self, managerSettings, hostSession):
+        # pylint: disable=unused-argument
+        bal.validate_settings(managerSettings)
+        self.__settings.update(managerSettings)
 
         self.__library = {}
 
-        if not self.__settings["library_path"]:
+        if self.__settings.get("library_path") is None:
             hostSession.log(
                 f"'library_path' not in settings, checking {self.__lib_path_envvar_name}",
                 hostSession.kDebug,
             )
             self.__settings["library_path"] = os.environ.get(self.__lib_path_envvar_name)
 
-        if not self.__settings["library_path"]:
+        if self.__settings.get("library_path") is None:
             raise PluginError("'library_path' not set")
 
         hostSession.log(

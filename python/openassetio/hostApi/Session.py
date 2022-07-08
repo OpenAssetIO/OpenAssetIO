@@ -150,7 +150,7 @@ class Session(Debuggable):
             return
 
         self._managerId = identifier
-        self._managerSettings = dict(settings) if settings else None
+        self._managerSettings = dict(settings) if settings else {}
         self._manager = None
 
     def currentManager(self):
@@ -168,12 +168,9 @@ class Session(Debuggable):
             interface = self._factory.instantiate(self._managerId)
             self._manager = Manager(interface, self._hostSession())
             self._manager._debugLogFn = self._debugLogFn  # pylint: disable=protected-access
-            if self._managerSettings:
-                self._manager.setSettings(self._managerSettings)
-            self._manager.initialize()
+            self._manager.initialize(self._managerSettings)
 
         return self._manager
-
 
     @auditApiCall("Session")
     def getSettings(self):
@@ -189,7 +186,7 @@ class Session(Debuggable):
 
         manager = self.currentManager()
         if manager:
-            settings.update(manager.getSettings())
+            settings.update(manager.settings())
 
         settings[constants.kSetting_ManagerIdentifier] = self._managerId
         return settings

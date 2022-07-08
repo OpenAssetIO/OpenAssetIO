@@ -6,6 +6,13 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Redesigned the manager initialization workflow, such that
+  `ManagerInterface`/`Manager.setSettings` and `initialize` are no
+  longer independent calls. Specifically, `setSettings` is removed and
+  `initialize` now takes settings as an argument. This also entailed
+  renaming `ManagerInterface`/`Manager.getSettings` to `settings`.
+  [#503](https://github.com/OpenAssetIO/OpenAssetIO/issues/503)
+
 - Redesigned `managementPolicy` to return a `TraitsData` rather than a
   bitfield for specifying the policy of the manager for a given trait
   set. This deprecated the `managementPolicy` constants, which have been

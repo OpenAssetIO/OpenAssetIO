@@ -129,7 +129,6 @@ class Test_Session_currentManager:
         assert manager._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.mock.initialize.assert_called_once()
-        mock_manager_interface.mock.setSettings.assert_not_called()
         # Assert provided host session contains the expected host. We
         # assume correct behaviour of Host methods, i.e. that they
         # delegate to the HostInterface as appropriate.
@@ -139,7 +138,7 @@ class Test_Session_currentManager:
         # same value.
         expected_identifier = "some.identifier"
         mock_host_interface.mock.identifier.return_value = expected_identifier
-        host_session = mock_manager_interface.mock.initialize.call_args[0][0]
+        host_session = mock_manager_interface.mock.initialize.call_args[0][1]
         assert host_session.host().identifier() == expected_identifier
 
     def test_when_repeatedly_called_then_the_manager_is_only_initialized_once(
@@ -155,7 +154,6 @@ class Test_Session_currentManager:
         assert manager._debugLogFn is a_session._debugLogFn
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.mock.initialize.assert_called_once()
-        mock_manager_interface.mock.setSettings.assert_not_called()
         mock_manager_factory.reset_mock()
 
         assert a_session.currentManager() is manager
@@ -190,14 +188,12 @@ class Test_Session_currentManager:
         a_session.useManager(an_id, settings=some_settings)
 
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_interface.mock.setSettings.assert_not_called()
 
         _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
         mock_manager_interface.mock.initialize.assert_called_once()
-        mock_manager_interface.mock.setSettings.assert_called_once()
-        assert mock_manager_interface.mock.setSettings.call_args[0][0] == some_settings
+        assert mock_manager_interface.mock.initialize.call_args[0][0] == some_settings
 
 
 class Test_Session_getSettings:
@@ -212,14 +208,14 @@ class Test_Session_getSettings:
 
         an_id = "com.manager"
         some_manager_settings = {"k": "v"}
-        mock_manager_interface.mock.getSettings.return_value = some_manager_settings
+        mock_manager_interface.mock.settings.return_value = some_manager_settings
         expected_settings = dict(some_manager_settings)
         expected_settings.update({constants.kSetting_ManagerIdentifier: an_id})
 
         a_session.useManager(an_id)
 
         assert a_session.getSettings() == expected_settings
-        mock_manager_interface.mock.getSettings.assert_called_once()
+        mock_manager_interface.mock.settings.assert_called_once()
 
 
 class Test_Session_setSettings:
@@ -235,10 +231,10 @@ class Test_Session_setSettings:
         a_session.setSettings(some_settings)
 
         mock_manager_factory.instantiate.assert_not_called()
-        mock_manager_interface.mock.setSettings.assert_not_called()
+        mock_manager_interface.mock.initialize.assert_not_called()
 
         _ = a_session.currentManager()
 
         mock_manager_factory.instantiate.assert_called_once_with(an_id)
-        mock_manager_interface.mock.setSettings.assert_called_once()
-        assert mock_manager_interface.mock.setSettings.call_args[0][0] == manager_settings
+        mock_manager_interface.mock.initialize.assert_called_once()
+        assert mock_manager_interface.mock.initialize.call_args[0][0] == manager_settings

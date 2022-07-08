@@ -82,40 +82,71 @@ class Test_info(FixtureAugmentedTestCase):
     def test_matches_fixture(self):
         self.assertEqual(self._fixtures["info"], self._manager.info())
 
-class Test_setSettings(FixtureAugmentedTestCase):
+
+class Test_settings(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of managerApi.ManagerInterface.settings.
+    """
+    def test_when_retrieved_settings_modified_then_newly_queried_settings_unmodified(self):
+        original = self._manager.settings()
+        expected = original.copy()
+        original["update"] = 123
+        self.assertEqual(self._manager.settings(), expected)
+
+
+class Test_initialize(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerApi.ManagerInterface.setSettings.
+    managerApi.ManagerInterface.initialize.
     """
     def setUp(self):
-        self.collectRequiredFixture('some_settings_with_valid_keys', skipTestIfMissing=True)
+        self.__original_settings = self._manager.settings()
 
-    def test_valid_settings_succeeds(self):
-        self._manager.setSettings(self.some_settings_with_valid_keys)
+    def tearDown(self):
+        self._manager.initialize(self.__original_settings)
 
-    def test_unknown_settings_keys_raise_KeyError(self):
-        unknown_settings = self.requireFixture("some_settings_with_invalid_keys")
+    def test_when_settings_are_empty_then_all_settings_unchanged(self):
+        expected = self._manager.settings()
+
+        self._manager.initialize({})
+
+        self.assertEqual(self._manager.settings(), expected)
+
+    def test_when_settings_have_invalid_keys_then_raises_KeyError(self):
+        invalid_settings = self.requireFixture(
+            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True)
+
         with self.assertRaises(KeyError):
-            self._manager.setSettings(unknown_settings)
+            self._manager.initialize(invalid_settings)
 
+    def test_when_settings_have_invalid_keys_then_all_settings_unchanged(self):
+        expected = self._manager.settings()
+        invalid_settings = self.requireFixture(
+            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True)
 
-class Test_getSettings(FixtureAugmentedTestCase):
-    """
-    Check plugin's implementation of managerApi.ManagerInterface.getSettings.
-    """
+        try:
+            self._manager.initialize(invalid_settings)
+        except Exception:  # pylint: disable=broad-except
+            pass
 
-    def test_when_set_then_get_returns_updated_settings(self):
-        updated = self.requireFixture("some_new_settings_with_all_keys", skipTestIfMissing=True)
-        self._manager.setSettings(updated)
-        self.assertEqual(self._manager.getSettings(), updated)
+        self.assertEqual(self._manager.settings(), expected)
 
-    def test_when_set_with_subset_then_other_settings_unchanged(self):
+    def test_when_settings_have_all_keys_then_all_settings_updated(self):
+        updated = self.requireFixture("some_settings_with_all_keys", skipTestIfMissing=True)
+
+        self._manager.initialize(updated)
+
+        self.assertEqual(self._manager.settings(), updated)
+
+    def test_when_settings_have_subset_of_keys_then_other_settings_unchanged(self):
         partial = self.requireFixture(
-                "some_new_settings_with_a_subset_of_keys", skipTestIfMissing=True)
-        settings = self._manager.getSettings()
-        self._manager.setSettings(partial)
-        settings.update(partial)
-        self.assertEqual(self._manager.getSettings(), settings)
+            "some_settings_with_a_subset_of_keys", skipTestIfMissing=True)
+        expected = self._manager.settings()
+        expected.update(partial)
+
+        self._manager.initialize(partial)
+
+        self.assertEqual(self._manager.settings(), expected)
 
 
 class Test_managementPolicy(FixtureAugmentedTestCase):

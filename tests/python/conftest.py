@@ -129,11 +129,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def updateTerminology(self, stringDict, hostSession):
         return self.mock.updateTerminology(stringDict, hostSession)
 
-    def getSettings(self, hostSession):
-        return self.mock.getSettings(hostSession)
-
-    def setSettings(self, settings, hostSession):
-        return self.mock.setSettings(settings, hostSession)
+    def settings(self, hostSession):
+        return self.mock.settings(hostSession)
 
     def prefetch(self, entityRefs, context, hostSession):
         return self.mock.prefetch(entityRefs, context, hostSession)
@@ -198,8 +195,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def displayName(self):
         return self.mock.displayName()
 
-    def initialize(self, hostSession):
-        return self.mock.initialize(hostSession)
+    def initialize(self, managerSettings, hostSession):
+        return self.mock.initialize(managerSettings, hostSession)
 
     def managementPolicy(self, traitSets, context, hostSession):
         self.__assertIsIterableOf(traitSets, set)

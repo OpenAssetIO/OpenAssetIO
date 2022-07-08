@@ -71,18 +71,15 @@ fixtures = {
             }
         }
     },
-    "Test_setSettings": {
+    "Test_initialize": {
         "shared": {
-            "some_settings_with_valid_keys": {"library_path": "/dev/null"},
-            "some_settings_with_invalid_keys": {"cat": True}
-        }
-    },
-    "Test_getSettings": {
-        "test_when_set_then_get_returns_updated_settings": {
-            "some_new_settings_with_all_keys": {"library_path": "/dev/null"}
+            "some_settings_with_new_values_and_invalid_keys": {"library_path": "", "cat": True}
         },
-        "test_when_set_with_subset_then_other_settings_unchanged": {
-            "some_new_settings_with_a_subset_of_keys": {}
+        "test_when_settings_expanded_then_manager_settings_updated": {
+            "some_settings_with_all_keys": {"library_path": ""}
+        },
+        "test_when_subset_of_settings_modified_then_other_settings_unchanged": {
+            "some_settings_with_a_subset_of_keys": {}
         }
     },
     "Test_entityExists": {

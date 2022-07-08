@@ -26,7 +26,11 @@ Str Manager::displayName() const { return managerInterface_->displayName(); }
 
 InfoDictionary Manager::info() const { return managerInterface_->info(); }
 
-void Manager::initialize() { managerInterface_->initialize(hostSession_); }
+InfoDictionary Manager::settings() const { return managerInterface_->settings(hostSession_); }
+
+void Manager::initialize(InfoDictionary managerSettings) {
+  managerInterface_->initialize(std::move(managerSettings), hostSession_);
+}
 
 trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
                                              const ContextConstPtr &context) const {
