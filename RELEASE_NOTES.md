@@ -31,6 +31,11 @@ v1.0.0-alpha.X
 - Renamed the `LoggerInterface` constant `kDebugAPI` to `kDebugApi`.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
 
+- Removed the `LoggerInterface.progress()` method as it requires some
+  careful thought how best to implement, and in the meantime is unused
+  and only complicates the C++ migration.
+  [#504](https://github.com/OpenAssetIO/OpenAssetIO/issues/504)
+
 - Split `Specification` class into `SpecificationBase` and `TraitsData`
   This properly defines the separation of the generic data container
   from the strongly typed views used to get/set well known traits and
