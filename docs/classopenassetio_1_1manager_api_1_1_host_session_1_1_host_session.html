@@ -136,9 +136,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3d98eb4bcc27668915b50e5d279ef426"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a3d98eb4bcc27668915b50e5d279ef426">log</a> (self, message, severity)</td></tr>
 <tr class="memdesc:a3d98eb4bcc27668915b50e5d279ef426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a message to the user.  <a href="#a3d98eb4bcc27668915b50e5d279ef426">More...</a><br /></td></tr>
 <tr class="separator:a3d98eb4bcc27668915b50e5d279ef426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42aa88371914a95d2083efa0b839425b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a42aa88371914a95d2083efa0b839425b">progress</a> (self, decimalProgress, message=None)</td></tr>
-<tr class="memdesc:a42aa88371914a95d2083efa0b839425b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs the supplied progress.  <a href="#a42aa88371914a95d2083efa0b839425b">More...</a><br /></td></tr>
-<tr class="separator:a42aa88371914a95d2083efa0b839425b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -237,48 +234,6 @@ Static Public Attributes</h2></td></tr>
 <p>Logs a message to the user. </p>
 <p>All user-facing messaging should be routed though this method. It will be mapped to the correct host sub-systems to ensure that it is presented correctly.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1log.html">log</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a42aa88371914a95d2083efa0b839425b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def progress </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>decimalProgress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>message</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Logs the supplied progress. </p>
-<p>Hosts may implement specific handling for progress messages, mapping them to custom UI element. If not, it will be logged as-per other messages, with a kProgress severity.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">decimalProgress</td><td>float, Normalised progress between 0 and 1, if set to a value less than 0 it will be considered cancelled, if greater than one, complete.</td></tr>
-    <tr><td class="paramname">message</td><td>str, A string message to display with the progress. If None is supplied, it is assumed that there is no message and the previous message may remain. Set to an empty string if it is desired to always clear the previous message. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

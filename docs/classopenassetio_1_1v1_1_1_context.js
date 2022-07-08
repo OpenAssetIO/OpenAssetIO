@@ -1,7 +1,5 @@
 var classopenassetio_1_1v1_1_1_context =
 [
-    [ "EnumIdx", "classopenassetio_1_1v1_1_1_context.html#a64e8ac1e6ab9e446a03a134b59b5de66", null ],
-    [ "EnumNames", "classopenassetio_1_1v1_1_1_context.html#a8573d9597eec4cf3f5e0387156fbef44", null ],
     [ "Access", "classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdb", [
       [ "kRead", "classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdbae167dd2fad7acd9aadcc0ecbbfb6d11f", null ],
       [ "kReadMultiple", "classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba9a1e7ce25f0efd0dd88793fafacc4736", null ],

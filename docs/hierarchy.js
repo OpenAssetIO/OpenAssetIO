@@ -1,11 +1,7 @@
 var hierarchy =
 [
     [ "ABCMeta", null, [
-      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", [
-        [ "ConsoleLogger", "classopenassetio_1_1log_1_1_console_logger.html", null ],
-        [ "SeverityFilter", "classopenassetio_1_1log_1_1_severity_filter.html", null ]
-      ] ]
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ]
     ] ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
@@ -15,6 +11,7 @@ var hierarchy =
       [ "HostSession", "classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html", null ]
     ] ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
+    [ "LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html", null ],
     [ "Manager", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],
@@ -26,8 +23,7 @@ var hierarchy =
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "metaclass", null, [
-      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ]
+      [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ]
     ] ],
     [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
     [ "oa_managerApi_CManagerInterface_s", "structoa__manager_api___c_manager_interface__s.html", null ],
@@ -40,7 +36,6 @@ var hierarchy =
         [ "TypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_typed_property.html", null ]
       ] ],
       [ "ManagerFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_factory_interface_1_1_manager_factory_interface.html", null ],
-      [ "LoggerInterface", "classopenassetio_1_1log_1_1_logger_interface.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
       [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", null ]
     ] ],
@@ -85,6 +80,10 @@ var hierarchy =
       [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", null ],
       [ "Test_settings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html", null ],
       [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", null ]
+    ] ],
+    [ "LoggerInterface", null, [
+      [ "ConsoleLogger", "classopenassetio_1_1log_1_1_console_logger.html", null ],
+      [ "SeverityFilter", "classopenassetio_1_1log_1_1_severity_filter.html", null ]
     ] ],
     [ "ManagerFactoryInterface", null, [
       [ "PluginSystemManagerFactory", "classopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory_1_1_plugin_system_manager_factory.html", null ]
