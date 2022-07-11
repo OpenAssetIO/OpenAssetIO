@@ -1,0 +1,4 @@
+var namespaceopenassetio_1_1host_api_1_1_manager_interface_factory_interface =
+[
+    [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface" ]
+];

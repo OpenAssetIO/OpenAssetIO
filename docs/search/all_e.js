@@ -18,8 +18,8 @@ var searchData=
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1manager_api.html',1,'openassetio']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1v1_1_1manager_api.html',1,'openassetio::v1']]],
-  ['managerfactoryinterface',['ManagerFactoryInterface',['../namespaceopenassetio_1_1host_api_1_1_manager_factory_interface.html',1,'openassetio::hostApi']]],
   ['managerinterface',['ManagerInterface',['../namespaceopenassetio_1_1manager_api_1_1_manager_interface.html',1,'openassetio::managerApi']]],
+  ['managerinterfacefactoryinterface',['ManagerInterfaceFactoryInterface',['../namespaceopenassetio_1_1host_api_1_1_manager_interface_factory_interface.html',1,'openassetio::hostApi']]],
   ['managerplugin',['ManagerPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html',1,'openassetio::pluginSystem']]],
   ['oa_5fconststringview',['oa_ConstStringView',['../structoa___const_string_view.html',1,'oa_ConstStringView'],['../group__oa___string_view__aliases.html#ga353932e42c606da973e6eaa6ee11d128',1,'oa_ConstStringView():&#160;StringView.h']]],
   ['oa_5ferrorcode',['oa_ErrorCode',['../group__oa___error_code__aliases.html#gafa91adb36c274fe10b67b6884993ab02',1,'oa_ErrorCode():&#160;errors.h'],['../group__oa___error_code.html#ga58ccb041c66e26f6c9637909914209fb',1,'oa_ErrorCode():&#160;errors.h'],['../group__oa___error_code.html',1,'(Global Namespace)']]],
@@ -76,7 +76,7 @@ var searchData=
   ['order',['order',['../classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html#a9f4e8630516f3da89537313b4c828759',1,'openassetio::_core::objects::UntypedProperty']]],
   ['pluginsystem',['PluginSystem',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system.html',1,'openassetio::pluginSystem']]],
   ['pluginsystem',['pluginSystem',['../namespaceopenassetio_1_1plugin_system.html',1,'openassetio']]],
-  ['pluginsystemmanagerfactory',['PluginSystemManagerFactory',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_factory.html',1,'openassetio::pluginSystem']]],
+  ['pluginsystemmanagerinterfacefactory',['PluginSystemManagerInterfaceFactory',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory.html',1,'openassetio::pluginSystem']]],
   ['pluginsystemplugin',['PluginSystemPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html',1,'openassetio::pluginSystem']]],
   ['property',['property',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html',1,'openassetio::v1::trait']]],
   ['session',['Session',['../namespaceopenassetio_1_1host_api_1_1_session.html',1,'openassetio::hostApi']]],
@@ -85,8 +85,8 @@ var searchData=
   ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_api_1_1terminology.html',1,'openassetio::hostApi']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
-  ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
   ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
+  ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
   ['traits',['traits',['../namespaceopenassetio_1_1traits.html',1,'openassetio']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];
