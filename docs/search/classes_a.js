@@ -6,6 +6,7 @@ var searchData=
   ['managerexception',['ManagerException',['../classopenassetio_1_1exceptions_1_1_manager_exception.html',1,'openassetio::exceptions']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html',1,'openassetio::managerApi::ManagerInterface']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html',1,'openassetio::v1::managerApi']]],
+  ['managerinterfacefactoryinterface',['ManagerInterfaceFactoryInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_interface_factory_interface.html',1,'openassetio::v1::hostApi']]],
   ['managerinterfacefactoryinterface',['ManagerInterfaceFactoryInterface',['../classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html',1,'openassetio::hostApi::ManagerInterfaceFactoryInterface']]],
   ['managerplugin',['ManagerPlugin',['../classopenassetio_1_1plugin_system_1_1_manager_plugin_1_1_manager_plugin.html',1,'openassetio::pluginSystem::ManagerPlugin']]],
   ['managerstatebase',['ManagerStateBase',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html',1,'openassetio::v1::managerApi']]],

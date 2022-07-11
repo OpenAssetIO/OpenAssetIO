@@ -85,12 +85,10 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4":[13,0,0,2,0,0,10],
 "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae83571f5e05bf1ee3456aac42fd72ed1":[13,0,0,2,0,0,14],
 "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html":[13,0,0,2,1,0],
-"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#a6038fbf14651550b966b937dc8cebd47":[13,0,0,2,1,0,3],
+"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#a6038fbf14651550b966b937dc8cebd47":[13,0,0,2,1,0,1],
 "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#aac3cdede3d1da7dd5e392212b10c4cf5":[13,0,0,2,1,0,0],
-"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#aaeab2519784cff893e6787b263b21a58":[13,0,0,2,1,0,4],
-"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#ac54bcb4b38f5f1214843debbf26f6784":[13,0,0,2,1,0,5],
-"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#ac5a497055ee194e573cd76f9957782cb":[13,0,0,2,1,0,1],
-"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#afca19a0df300f49140c646dd9efbf29e":[13,0,0,2,1,0,2],
+"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#aaeab2519784cff893e6787b263b21a58":[13,0,0,2,1,0,2],
+"classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html#ac54bcb4b38f5f1214843debbf26f6784":[13,0,0,2,1,0,3],
 "classopenassetio_1_1host_api_1_1_session_1_1_session.html":[13,0,0,2,2,0],
 "classopenassetio_1_1host_api_1_1_session_1_1_session.html#a03ee176e3c2f158283d1d2c78619ed04":[13,0,0,2,2,0,0],
 "classopenassetio_1_1host_api_1_1_session_1_1_session.html#a0c06bdf8317346e8a3330d36b93f5dd7":[13,0,0,2,2,0,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1_context.html#aaf0c2d6b4ae660792de792464dede5c3":[13,0,0,10,3,2],
 "classopenassetio_1_1v1_1_1_context.html#ab46b43ae312ee13e8e17e4ee207bcbcf":[13,0,0,10,3,6],
 "classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917":[13,0,0,10,3,7],
-"classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976":[13,0,0,10,3,4]
+"classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976":[13,0,0,10,3,4],
+"classopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd":[13,0,0,10,3,5],
+"classopenassetio_1_1v1_1_1_logger_interface.html":[13,0,0,10,4]
 };

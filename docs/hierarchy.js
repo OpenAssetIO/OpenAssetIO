@@ -1,8 +1,5 @@
 var hierarchy =
 [
-    [ "ABCMeta", null, [
-      [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", null ]
-    ] ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
@@ -20,11 +17,12 @@ var hierarchy =
       [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
-    [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
-    [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
-    [ "metaclass", null, [
+    [ "ManagerInterfaceFactoryInterface", null, [
       [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", null ]
     ] ],
+    [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_interface_factory_interface.html", null ],
+    [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
+    [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
     [ "oa_managerApi_CManagerInterface_s", "structoa__manager_api___c_manager_interface__s.html", null ],
     [ "oa_StringView", "structoa___string_view.html", null ],
@@ -35,7 +33,6 @@ var hierarchy =
       [ "UntypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html", [
         [ "TypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_typed_property.html", null ]
       ] ],
-      [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", null ],
       [ "PluginSystem", "classopenassetio_1_1plugin_system_1_1_plugin_system_1_1_plugin_system.html", null ],
       [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", null ]
     ] ],
