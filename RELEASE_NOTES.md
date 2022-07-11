@@ -130,6 +130,10 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added `MangerFactory` as a new, simpler, mechanism for querying for
+  and instantiating available managers, intended to replace `Session`.
+  [#507](https://github.com/OpenAssetIO/OpenAssetIO/issues/507)
+
 - Added `ManagerInterfaceState` abstract base class, that should be
   used as a base for all instances returned from
   `ManagerInterface::createState()`.

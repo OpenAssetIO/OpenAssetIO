@@ -77,6 +77,9 @@ class Test_hostApi_imports:
     def test_importing_HostInterface_succeeds(self):
         from openassetio.hostApi import HostInterface
 
+    def test_importing_ManagerFactory(self):
+        from openassetio.hostApi import ManagerFactory
+
     def test_importing_Manager_succeeds(self):
         from openassetio.hostApi import Manager
 
