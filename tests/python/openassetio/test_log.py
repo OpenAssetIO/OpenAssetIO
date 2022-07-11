@@ -21,8 +21,6 @@ Tests that cover the openassetio.log module.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest import mock
-
 import pytest
 
 import openassetio.log as lg
@@ -36,11 +34,6 @@ import openassetio.log as lg
 # The tests focus upon any API critical semantics of logging, vs the robustness
 # of any of the placeholder implementation, or implementation borrowed from
 # the old API.
-
-
-@pytest.fixture
-def mock_logger():
-    return mock.create_autospec(spec=lg.LoggerInterface)
 
 
 @pytest.fixture
@@ -128,10 +121,10 @@ class Test_SeverityFilter_log:
             severity_filter.setSeverity(filter_severity)
 
             for message_severity in all_severities:
-                mock_logger.reset_mock()
+                mock_logger.mock.reset_mock()
                 severity_filter.log(msg, message_severity)
                 if message_severity <= filter_severity:
-                    mock_logger.log.assert_called_once_with(
+                    mock_logger.mock.log.assert_called_once_with(
                         msg, message_severity)
                 else:
-                    mock_logger.log.assert_not_called()
+                    mock_logger.mock.log.assert_not_called()

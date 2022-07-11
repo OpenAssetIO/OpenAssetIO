@@ -46,6 +46,7 @@ target_sources(
     TraitsDataBinding.cpp
     hostApi/ManagerBinding.cpp
     hostApi/HostInterfaceBinding.cpp
+    hostApi/ManagerInterfaceFactoryInterfaceBinding.cpp
     managerApi/HostBinding.cpp
     managerApi/HostSessionBinding.cpp
     managerApi/ManagerInterfaceBinding.cpp

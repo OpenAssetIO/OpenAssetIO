@@ -24,11 +24,9 @@ ManagerInterfaceFactoryInterface implementation.
 
 import os
 from pathlib import PurePath
-from unittest import mock
 
 import pytest
 
-from openassetio.log import LoggerInterface
 from openassetio.pluginSystem import PluginSystemManagerInterfaceFactory
 
 #
@@ -74,80 +72,72 @@ def local_plugin_identifiers():
 #
 
 
-@pytest.fixture
-def a_logger():
-    """
-    Provides a suitable mock LoggerInterface for test purposes.
-    """
-    return mock.create_autospec(spec=LoggerInterface)
-
-
 class Test_PluginSystemManagerInterfaceFactory_init:
 
     def test_plugin_factory_uses_the_expected_env_var(self):
         assert PluginSystemManagerInterfaceFactory.kPluginEnvVar == "OPENASSETIO_PLUGIN_PATH"
 
-    def test_when_env_var_not_set_then_logs_warning(self, a_logger, monkeypatch):
+    def test_when_env_var_not_set_then_logs_warning(self, mock_logger, monkeypatch):
 
         expected_msg = f"{PluginSystemManagerInterfaceFactory.kPluginEnvVar} is not set. " \
                         "It is somewhat unlikely that you will find any plugins..."
-        expected_severity = a_logger.kWarning
+        expected_severity = mock_logger.kWarning
 
         if PluginSystemManagerInterfaceFactory.kPluginEnvVar in os.environ:
             monkeypatch.delenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger)
         # Plugins are scanned lazily when first requested
         _ = factory.identifiers()
-        a_logger.log.assert_called_once_with(expected_msg, expected_severity)
+        mock_logger.mock.log.assert_called_once_with(expected_msg, expected_severity)
 
 
 class Test_PluginSystemManagerInterfaceFactory_identifiers:
 
-    def test_when_env_var_not_set_then_returns_empty_list(self, a_logger, monkeypatch):
+    def test_when_env_var_not_set_then_returns_empty_list(self, mock_logger, monkeypatch):
 
         if PluginSystemManagerInterfaceFactory.kPluginEnvVar in os.environ:
             monkeypatch.delenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger)
         identifiers = factory.identifiers()
         # Check it is an empty list, not None, or any other value
         # that would satisty == [] as a boolean comparison.
         assert isinstance(identifiers, list)
         assert len(identifiers) == 0
 
-    def test_when_env_var_empty_then_returns_empty_list(self, a_logger, monkeypatch):
+    def test_when_env_var_empty_then_returns_empty_list(self, mock_logger, monkeypatch):
 
         plugin_paths = ""
         monkeypatch.setenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar, plugin_paths)
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger)
         identifiers = factory.identifiers()
         assert isinstance(identifiers, list)
         assert len(identifiers) == 0
 
     def test_when_env_var_set_to_local_plugin_path_then_finds_local_plugins(
-            self, a_logger, local_plugin_path,
+            self, mock_logger, local_plugin_path,
             local_plugin_identifiers, monkeypatch):
 
         monkeypatch.setenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar, local_plugin_path)
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger)
         assert factory.identifiers() == local_plugin_identifiers
 
     def test_when_paths_set_to_local_plugin_path_then_finds_local_plugins(
-            self, a_logger, local_plugin_path, local_plugin_identifiers, monkeypatch):
+            self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch):
 
         if PluginSystemManagerInterfaceFactory.kPluginEnvVar in os.environ:
             monkeypatch.delenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger, paths=local_plugin_path)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger, paths=local_plugin_path)
         assert factory.identifiers() == local_plugin_identifiers
 
     def test_when_env_var_overridden_to_local_plugin_path_then_finds_local_plugins(
-            self, a_logger, local_plugin_path, local_plugin_identifiers, monkeypatch):
+            self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch):
 
         monkeypatch.setenv(PluginSystemManagerInterfaceFactory.kPluginEnvVar, "some invalid value")
 
-        factory = PluginSystemManagerInterfaceFactory(a_logger, paths=local_plugin_path)
+        factory = PluginSystemManagerInterfaceFactory(mock_logger, paths=local_plugin_path)
         assert factory.identifiers() == local_plugin_identifiers
