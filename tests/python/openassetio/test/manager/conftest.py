@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import hostApi, log
+from openassetio import hostApi
 from openassetio import TraitsData
 
 
@@ -65,11 +65,6 @@ def mock_session(mock_manager):
 @pytest.fixture
 def mock_manager():
     return mock.create_autospec(hostApi.Manager, instance=True, spec_set=True)
-
-
-@pytest.fixture
-def mock_logger():
-    return mock.create_autospec(log.LoggerInterface, instance=True, spec_set=False)
 
 
 @pytest.fixture

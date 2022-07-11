@@ -21,8 +21,6 @@ Tests that cover the openassetio.managerApi.HostSession class.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest import mock
-
 import pytest
 
 from openassetio import log
@@ -32,11 +30,6 @@ from openassetio.managerApi import Host, HostSession
 @pytest.fixture
 def a_host(mock_host_interface):
     return Host(mock_host_interface)
-
-
-@pytest.fixture
-def mock_logger():
-    return mock.create_autospec(spec=log.LoggerInterface)
 
 
 @pytest.fixture
@@ -67,10 +60,8 @@ class Test_HostSession_host:
 
 class TestHostSession_log:
     def test_forwards_to_logger(self, host_session, mock_logger):
-        mock_logger.reset_mock()
-
         a_message = "A message"
         a_severity = log.LoggerInterface.kCritical
 
         host_session.log(a_message, a_severity)
-        mock_logger.log.assert_called_once_with(a_message, a_severity)
+        mock_logger.mock.log.assert_called_once_with(a_message, a_severity)

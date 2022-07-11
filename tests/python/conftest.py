@@ -60,7 +60,7 @@ def mock_logger():
     """
     Fixture providing a mock that conforms to the LoggerInterface.
     """
-    return mock.create_autospec(spec=LoggerInterface)
+    return MockLogger()
 
 
 @pytest.fixture
@@ -285,3 +285,16 @@ class MockHostInterface(HostInterface):
 
     def info(self):
         return self.mock.info()
+
+
+class MockLogger(LoggerInterface):
+    """
+    `LoggerInterface` implementation that delegates all calls to a
+    public `Mock` instance.
+    """
+    def __init__(self):
+        LoggerInterface.__init__(self)
+        self.mock = mock.create_autospec(LoggerInterface, spec_set=True, instance=True)
+
+    def log(self, message, severity):
+        self.mock.log(message, severity)

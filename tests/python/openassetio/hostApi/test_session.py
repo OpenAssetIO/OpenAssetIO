@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import constants, exceptions, log
+from openassetio import constants, exceptions
 from openassetio.hostApi import Session, Manager, ManagerInterfaceFactoryInterface
 
 
@@ -34,11 +34,6 @@ def mock_manager_factory(mock_manager_interface):
     factory = mock.create_autospec(spec=ManagerInterfaceFactoryInterface)
     factory.instantiate.return_value = mock_manager_interface
     return factory
-
-
-@pytest.fixture
-def mock_logger():
-    return mock.create_autospec(spec=log.LoggerInterface)
 
 
 @pytest.fixture
@@ -52,7 +47,7 @@ class Test_Session_init:
             self, a_session, mock_logger):
 
         # pylint: disable=protected-access
-        assert a_session._debugLogFn is mock_logger.log
+        assert a_session._debugLogFn == mock_logger.log
 
     def test_when_constructed_with_null_host_interface_then_ValueError_is_raised(
             self, mock_logger, mock_manager_factory):
