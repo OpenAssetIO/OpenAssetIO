@@ -32,6 +32,9 @@ void registerHostSession(const py::module& mod);
 /// Register the ManagerInterface class with Python.
 void registerManagerInterface(const py::module& mod);
 
+/// Register the ManagerInterfaceFactoryInterface class with Python.
+void registerManagerInterfaceFactoryInterface(const py::module& mod);
+
 /// Register the Manager class with Python.
 void registerManager(const py::module& mod);
 

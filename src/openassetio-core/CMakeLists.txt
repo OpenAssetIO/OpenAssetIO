@@ -62,6 +62,7 @@ target_sources(
     TraitsData.cpp
     hostApi/HostInterface.cpp
     hostApi/Manager.cpp
+    hostApi/ManagerInterfaceFactoryInterface.cpp
     managerApi/Host.cpp
     managerApi/HostSession.cpp
     managerApi/ManagerInterface.cpp

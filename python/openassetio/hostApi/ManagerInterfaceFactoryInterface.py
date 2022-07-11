@@ -18,14 +18,13 @@
 A single-class module, providing the ManagerInterfaceFactoryInterface class.
 """
 
-
-import abc
+from .. import _openassetio  # pylint: disable=no-name-in-module
 
 
 __all__ = ['ManagerInterfaceFactoryInterface']
 
 
-class ManagerInterfaceFactoryInterface(object, metaclass=abc.ABCMeta):
+class ManagerInterfaceFactoryInterface(_openassetio.hostApi.ManagerInterfaceFactoryInterface):
     """
     Manager Factories are responsible for instantiating classes that
     derive from @ref openassetio.managerApi.ManagerInterface or @needsref
@@ -37,18 +36,8 @@ class ManagerInterfaceFactoryInterface(object, metaclass=abc.ABCMeta):
     """
 
     def __init__(self, logger):
-        super(ManagerInterfaceFactoryInterface, self).__init__()
-        self._logger = logger
+        _openassetio.hostApi.ManagerInterfaceFactoryInterface.__init__(self, logger)
 
-    @abc.abstractmethod
-    def identifiers(self):
-        """
-        @return list, all identifiers known to the factory.
-        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def managers(self):
         """
         @return dict, Keyed by identifiers, each value is a dict
@@ -65,7 +54,6 @@ class ManagerInterfaceFactoryInterface(object, metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
-    @abc.abstractmethod
     def managerRegistered(self, identifier):
         """
         @return bool, True if the supplied identifier is known to the
@@ -73,30 +61,6 @@ class ManagerInterfaceFactoryInterface(object, metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def instantiate(self, identifier, cache=True):
-        """
-        Creates an instance of the @ref
-        openassetio.managerApi.ManagerInterface "ManagerInterface" with
-        the specified identifier.
-
-        @param identifier str, The identifier of the ManagerInterface
-        to instantiate.
-
-        @param cache bool, When True the created instance will be
-        cached, and immediately returned by subsequence calls to this
-        function with the same identifier - instead of creating a new
-        instance. If False, a new instance will be created each, and
-        never retained.
-
-        @returns openassetio.managerApi.ManagerInterface
-
-        @todo[tc] Should 'cache' be removed, or set to False by default?
-        It prevents a Session managing the lifetime of an instance.
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def instantiateUIDelegate(self, managerInterfaceInstance, cache=True):
         """
         Creates an instance of the @needsref ManagerUIDelegate for the
