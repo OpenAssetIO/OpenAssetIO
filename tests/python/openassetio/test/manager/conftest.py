@@ -51,7 +51,8 @@ def openassetio_env_with_test_resources(resources_dir, monkeypatch):
 
 @pytest.fixture
 def mock_manager_factory():
-    return mock.create_autospec(hostApi.ManagerFactoryInterface, instance=True, spec_set=True)
+    return mock.create_autospec(
+        hostApi.ManagerInterfaceFactoryInterface, instance=True, spec_set=True)
 
 
 @pytest.fixture

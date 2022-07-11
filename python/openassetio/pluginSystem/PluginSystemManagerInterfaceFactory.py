@@ -14,21 +14,22 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.pluginSystem.PluginSystemManagerFactory
-A single-class module, providing the PluginSystemManagerFactory class.
+@namespace openassetio.pluginSystem.PluginSystemManagerInterfaceFactory
+A single-class module, providing the PluginSystemManagerInterfaceFactory
+class.
 """
 
 import os
 
-from ..hostApi.ManagerFactoryInterface import ManagerFactoryInterface
+from ..hostApi.ManagerInterfaceFactoryInterface import ManagerInterfaceFactoryInterface
 
 from .PluginSystem import PluginSystem
 
 
-__all__ = ['PluginSystemManagerFactory', ]
+__all__ = ['PluginSystemManagerInterfaceFactory', ]
 
 
-class PluginSystemManagerFactory(ManagerFactoryInterface):
+class PluginSystemManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
     """
     A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
     derived plugins and instantiation of Manager and UIDelegate
@@ -46,7 +47,7 @@ class PluginSystemManagerFactory(ManagerFactoryInterface):
 
     def __init__(self, logger, paths=None):
 
-        super(PluginSystemManagerFactory, self).__init__(logger)
+        super(PluginSystemManagerInterfaceFactory, self).__init__(logger)
 
         self.__pluginManager = None
         self.__instances = {}

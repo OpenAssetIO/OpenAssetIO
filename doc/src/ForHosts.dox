@@ -87,8 +87,8 @@
  *      in a @ref openassetio.log.SeverityFilter "SeverityFilter".
  *    - A `managerFactory` capable of instantiating managers,
  *      in the majority of cases a default-configured @ref
- *      openassetio.pluginSystem.PluginSystemManagerFactory
- *      "PluginSystemManagerFactory" will be sufficient.
+ *      openassetio.pluginSystem.PluginSystemManagerInterfaceFactory
+ *      "PluginSystemManagerInterfaceFactory" will be sufficient.
  *
  * - Create, persist and configure a @ref Context as appropriate for
  *   all calls to the API.

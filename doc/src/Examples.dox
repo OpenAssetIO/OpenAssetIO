@@ -25,7 +25,7 @@
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter
  * from openassetio.hostApi import HostInterface, Manager, Session
- * from openassetio.pluginSystem import PluginSystemManagerFactory
+ * from openassetio.pluginSystem import PluginSystemManagerInterfaceFactory
  *
  * class ExampleHost(HostInterface):
  *     """
@@ -48,7 +48,7 @@
  * # We need to provide the mechanism by which managers are created, the
  * # built-in plugin system allows these to be loaded from
  * # FOUNDRY_ASSET_PLUGIN_PATH.
- * factory = PluginSystemManagerFactory(logger)
+ * factory = PluginSystemManagerInterfaceFactory(logger)
  *
  * # We then need out implementation of the HostInterface class
  * host_interface = ExampleHost()

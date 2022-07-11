@@ -26,12 +26,12 @@ from unittest import mock
 import pytest
 
 from openassetio import constants, exceptions, log
-from openassetio.hostApi import Session, Manager, ManagerFactoryInterface
+from openassetio.hostApi import Session, Manager, ManagerInterfaceFactoryInterface
 
 
 @pytest.fixture
 def mock_manager_factory(mock_manager_interface):
-    factory = mock.create_autospec(spec=ManagerFactoryInterface)
+    factory = mock.create_autospec(spec=ManagerInterfaceFactoryInterface)
     factory.instantiate.return_value = mock_manager_interface
     return factory
 

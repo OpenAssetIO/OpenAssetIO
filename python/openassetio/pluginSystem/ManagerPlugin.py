@@ -77,8 +77,8 @@ class ManagerPlugin(PluginSystemPlugin):
         to be bound to the Host-facing @ref openassetio.hostApi.Manager.
 
         Generally this is only directly called by the @ref
-        openassetio.pluginSystem.PluginSystemManagerFactory. It may be
-        called multiple times in a session, but there as the
+        openassetio.pluginSystem.PluginSystemManagerInterfaceFactory. It
+        may be called multiple times in a session, but there as the
         ManagerInterface API itself is specified as being stateless
         (aside from any internal caching/etc...) then there is no
         pre-requisite to always return a new instance.
