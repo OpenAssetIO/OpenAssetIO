@@ -7,6 +7,7 @@
 #include <openassetio/TraitsData.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
 
+#include "PyRetainingSharedPtr.hpp"
 #include "_openassetio.hpp"
 
 void registerContext(const py::module& mod) {
@@ -14,6 +15,8 @@ void registerContext(const py::module& mod) {
   using openassetio::ContextPtr;
   using openassetio::TraitsDataPtr;
   using openassetio::managerApi::ManagerStateBasePtr;
+  using PyRetainingManagerStateBasePtr =
+      openassetio::PyRetainingSharedPtr<openassetio::managerApi::ManagerStateBase>;
 
   py::class_<Context, ContextPtr> context{mod, "Context", py::is_final()};
 
@@ -37,13 +40,18 @@ void registerContext(const py::module& mod) {
   context.def_readonly_static("kRetentionNames", &Context::kRetentionNames);
 
   context
-      .def(py::init(&Context::make), py::arg_v("access", Context::Access::kUnknown),
+      .def(py::init(RetainCommonPyArgs::forFn<&Context::make>()),
+           py::arg_v("access", Context::Access::kUnknown),
            py::arg_v("retention", Context::Retention::kTransient),
            py::arg_v("locale", TraitsDataPtr{}), py::arg_v("managerState", ManagerStateBasePtr{}))
       .def_readwrite("access", &Context::access)
       .def_readwrite("retention", &Context::retention)
       .def_readwrite("locale", &Context::locale)
-      .def_readwrite("managerState", &Context::managerState)
+      .def_property(
+          "managerState", [](const Context& self) { return self.managerState; },
+          [](Context& self, PyRetainingManagerStateBasePtr managerState) {
+            self.managerState = std::move(managerState);
+          })
       .def("isForRead", &Context::isForRead)
       .def("isForWrite", &Context::isForWrite)
       .def("isForMultiple", &Context::isForMultiple);

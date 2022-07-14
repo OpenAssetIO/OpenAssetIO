@@ -7,6 +7,7 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 
+#include "../PyRetainingSharedPtr.hpp"
 #include "../_openassetio.hpp"
 
 namespace openassetio {
@@ -26,8 +27,8 @@ struct PyManagerInterfaceFactoryInterface : ManagerInterfaceFactoryInterface {
   }
 
   [[nodiscard]] managerApi::ManagerInterfacePtr instantiate(const Str& identifier) override {
-    PYBIND11_OVERRIDE_PURE(managerApi::ManagerInterfacePtr, ManagerInterfaceFactoryInterface,
-                           instantiate, identifier);
+    PYBIND11_OVERRIDE_PURE(PyRetainingSharedPtr<managerApi::ManagerInterface>,
+                           ManagerInterfaceFactoryInterface, instantiate, identifier);
   }
 
   using ManagerInterfaceFactoryInterface::logger_;
@@ -41,10 +42,12 @@ void registerManagerInterfaceFactoryInterface(const py::module& mod) {
   using openassetio::hostApi::ManagerInterfaceFactoryInterface;
   using openassetio::hostApi::ManagerInterfaceFactoryInterfacePtr;
   using openassetio::hostApi::PyManagerInterfaceFactoryInterface;
+  using PyRetainingLoggerInterfacePtr =
+      openassetio::PyRetainingSharedPtr<openassetio::LoggerInterface>;
 
   py::class_<ManagerInterfaceFactoryInterface, PyManagerInterfaceFactoryInterface,
              ManagerInterfaceFactoryInterfacePtr>(mod, "ManagerInterfaceFactoryInterface")
-      .def(py::init<openassetio::LoggerInterfacePtr>(), py::arg("logger").none(false))
+      .def(py::init<PyRetainingLoggerInterfacePtr>(), py::arg("logger").none(false))
       .def("identifiers", &ManagerInterfaceFactoryInterface::identifiers)
       .def("instantiate", &ManagerInterfaceFactoryInterface::instantiate, py::arg("identifier"))
       .def_readonly("_logger", &PyManagerInterfaceFactoryInterface::logger_);

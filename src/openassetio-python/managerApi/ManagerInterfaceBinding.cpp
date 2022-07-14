@@ -24,6 +24,8 @@ namespace managerApi {
 struct PyManagerInterface : ManagerInterface {
   using ManagerInterface::ManagerInterface;
 
+  using PyRetainingManagerStateBasePtr = PyRetainingSharedPtr<ManagerStateBase>;
+
   [[nodiscard]] Str identifier() const override {
     PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, identifier, /* no args */);
   }
@@ -53,13 +55,13 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   ManagerStateBasePtr createState(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, createState, hostSession);
+    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, createState, hostSession);
   }
 
   ManagerStateBasePtr createChildState(const ManagerStateBasePtr& parentState,
                                        const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, createChildState, parentState,
-                      hostSession);
+    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, createChildState,
+                      parentState, hostSession);
   }
 
   std::string persistenceTokenForState(const ManagerStateBasePtr& parentState,
@@ -70,8 +72,8 @@ struct PyManagerInterface : ManagerInterface {
 
   ManagerStateBasePtr stateFromPersistenceToken(const std::string& token,
                                                 const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(ManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken, token,
-                      hostSession);
+    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken,
+                      token, hostSession);
   }
 };
 
@@ -82,6 +84,7 @@ struct PyManagerInterface : ManagerInterface {
 void registerManagerInterface(const py::module& mod) {
   using openassetio::managerApi::ManagerInterface;
   using openassetio::managerApi::ManagerInterfacePtr;
+  using openassetio::managerApi::ManagerStateBasePtr;
   using openassetio::managerApi::PyManagerInterface;
 
   py::class_<ManagerInterface, PyManagerInterface, ManagerInterfacePtr>(mod, "ManagerInterface")
@@ -95,9 +98,10 @@ void registerManagerInterface(const py::module& mod) {
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
-      .def("createChildState", &ManagerInterface::createChildState,
+      .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),
            py::arg("parentState").none(false), py::arg("hostSession").none(false))
-      .def("persistenceTokenForState", &ManagerInterface::persistenceTokenForState,
+      .def("persistenceTokenForState",
+           RetainCommonPyArgs::forFn<&ManagerInterface::persistenceTokenForState>(),
            py::arg("state").none(false), py::arg("hostSession").none(false))
       .def("stateFromPersistenceToken", &ManagerInterface::stateFromPersistenceToken,
            py::arg("token"), py::arg("hostSession").none(false));

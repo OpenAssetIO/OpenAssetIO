@@ -87,15 +87,16 @@ class Test_Manager_init:
     def test_when_constructed_with_ManagerInterface_as_None_then_raises_TypeError(
             self, mock_host_session):
 
-        # Check the message is both helpful and that the bindings
-        # were loaded in the correct order such that types are
-        # described correctly.
+        # Check the message is both helpful and that the bindings
+        # were loaded in the correct order such that types are
+        # described correctly.
         matchExpr = \
             r".+The following argument types are supported:[^(]+" \
             r"Manager\([^,]+managerApi.ManagerInterface,[^,]+managerApi.HostSession.+"
 
         with pytest.raises(TypeError, match=matchExpr):
             Manager(None, mock_host_session)
+
 
 class Test_Manager_identifier:
 
