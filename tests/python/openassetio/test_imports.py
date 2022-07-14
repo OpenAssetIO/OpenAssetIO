@@ -86,9 +86,6 @@ class Test_hostApi_imports:
     def test_importing_ManagerInterfaceFactoryInterface_succeeds(self):
         from openassetio.hostApi import ManagerInterfaceFactoryInterface
 
-    def test_importing_Session_succeeds(self):
-        from openassetio.hostApi import Session
-
     def test_importing_terminology_succeeds(self):
         from openassetio.hostApi import terminology
 

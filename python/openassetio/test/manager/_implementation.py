@@ -33,14 +33,16 @@ def createHarness(managerIdentifier, settings=None):
     Create the test harness used begin test case execution.
     @private
     """
+    if settings is None:
+        settings = {}
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
-    managerFactory = pluginSystem.PluginSystemManagerInterfaceFactory(logger)
+    managerFactoryImplementation = pluginSystem.PluginSystemManagerInterfaceFactory(logger)
+    manager = hostApi.ManagerFactory.createManagerForInterface(
+        managerIdentifier, hostInterface, managerFactoryImplementation, logger)
+    manager.initialize(settings)
 
-    session = hostApi.Session(hostInterface, logger, managerFactory)
-    session.useManager(managerIdentifier, settings)
-
-    loader = _ValidatorTestLoader(session)
+    loader = _ValidatorTestLoader(manager)
     return _ValidatorHarness(unittest.main, loader)
 
 
@@ -103,21 +105,21 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
 
     @private
     """
-    def __init__(self, session):
+    def __init__(self, manager):
         """
         Initializes an instance of this class.
 
-        @param session hostApi.Session.Session Test harness OpenAssetIO
-        @ref session
+        @param manager @fqref{hostApi.Manager} "Manager" Test harness
+        OpenAssetIO @ref manager.
         """
-        self.__session = session
+        self.__manager = manager
         self.__fixtures = {}
         super(_ValidatorTestLoader, self).__init__()
 
     def loadTestsFromTestCase(self, testCaseClass):
         """
         Override of base class to additionally inject fixtures and
-        OpenAssetIO @ref session into test cases.
+        OpenAssetIO @ref manager into test cases.
 
         Injects the child dict of the `fixtures` dict that corresponds
         to the test case class and method. If no such dict is available
@@ -147,7 +149,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
 
             cases.append(
-                testCaseClass(caseFixtures, self.__session, locale.traitsData(),testCaseName)
+                testCaseClass(caseFixtures, self.__manager, locale.traitsData(),testCaseName)
             )
 
         return self.suiteClass(cases)

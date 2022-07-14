@@ -94,7 +94,7 @@ kField_MediaFrameOut = 'mediaOutFrame'
 
 
 ## @name Setting Key Names
-## Name for keys in the session settings dict, where applicable.
+## Name for keys in the manager settings dict, where applicable.
 ## @{
 
 kSetting_ManagerIdentifier = 'OpenAssetIO:managerIdentifier'

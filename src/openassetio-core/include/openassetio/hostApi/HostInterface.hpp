@@ -25,9 +25,9 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
  * information about available documents and their known entity
  * references.
  *
- * In order for a host to use the API, it must provide an
- * implementation of the HostInterface to the @ref
- * openassetio.hostApi.Session class upon construction.
+ * In order for a host to use the API, it must provide an implementation
+ * of the HostInterface to the @fqref{hostApi.ManagerFactory}
+ * "ManagerFactory" class upon construction.
  *
  * A @ref manager does not call the HostInterface directly, it is
  * always accessed via the @ref openassetio.managerApi.Host wrapper.

@@ -125,11 +125,10 @@
  *
  * package openassetio.hostApi {
  *     interface HostInterface #white;line.dotted ##black
- *     class Session #white ##black {
- *         +registeredManagers()
+ *     class ManagerFactory #white ##black {
+ *         +availableManagers()
  *         ..
- *         +useManager()
- *         +currentManager()
+ *         +createManager()
  *     }
  *     class Manager #white ##black {
  *         +identifier()
@@ -148,7 +147,7 @@
  *     class ManagerInterfaceImplementation #ffe699 ##black
  * }
  *
- * Session *-- Manager
+ * ManagerFactory ..> Manager : creates
  *
  * ManagerInterfaceImplementation --* Manager
  * ManagerInterfaceImplementation -up[thickness=4]-> Host : queries
@@ -157,7 +156,7 @@
  * Host o-l- HostInterfaceImplementation
  *
  * HostInterfaceImplementation ..|> HostInterface
- * "API Host" -[thickness=4]-> Session : controls
+ * "API Host" -[thickness=4]-> ManagerFactory : initialization
  * "API Host" -[thickness=4]-> Manager : queries
  * @enduml
  *

@@ -15,8 +15,7 @@
  *   represented though a singular @ref ManagerPlugin.
  *
  * - The API is initialized and coordinated by a @ref host. The host may
- *   create one or more sessions. Each session allows the host to
- *   communicate with a single manager instance.
+ *   instantiate one or more managers.
  *
  * - All interaction between the @ref host and a @ref manager occurs
  *   through the manager's implementation of the @ref ManagerInterface.

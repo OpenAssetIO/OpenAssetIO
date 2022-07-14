@@ -34,7 +34,7 @@ class PluginSystemManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
     A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
     derived plugins and instantiation of Manager and UIDelegate
     instances. Not usually used directly by a @ref host, which instead
-    uses the @ref openassetio.hostApi.Session
+    uses the @fqref{hostApi.ManagerFactory} "ManagerFactory".
 
     @envvar **OPENASSETIO_PLUGIN_PATH** *str* A PATH-style list of
     directories to search for @ref

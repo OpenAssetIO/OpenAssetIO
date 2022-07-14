@@ -6,6 +6,14 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Removed the `Session` Python class in favour of the `ManagerFactory`
+  C++/Python class.
+  [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
+  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
+  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
+  [#507](https://github.com/OpenAssetIO/OpenAssetIO/issues/507)
+  [#510](https://github.com/OpenAssetIO/OpenAssetIO/issues/510)
+
 - Redesigned the manager initialization workflow, such that
   `ManagerInterface`/`Manager.setSettings` and `initialize` are no
   longer independent calls. Specifically, `setSettings` is removed and
@@ -61,18 +69,9 @@ v1.0.0-alpha.X
   - `TraitsData::TraitIds` to `TraitSet`
   - `TraitsData::traitIds()` to `traitSet()`
 
-- Removed `Session.host()` as it is not useful for foreseeable workflows
-  (beyond tests). Note that `HostSession.host()` remains.
-  [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
-
 - Removed the Transactions API, including the `ManagerInterface`
   methods, and `TransactionCoordinator` helpers.
   [#421](https://github.com/OpenAssetIO/OpenAssetIO/issues/421)
-
-- Removed the `Session` methods `createContext`, `freezeContext` and
-  `thawContext`.
-  [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
-  [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
 - Added `createContext`, `createChildContext`,
   `persistenceTokenForContext` and `contextFromPersistenceToken` methods
