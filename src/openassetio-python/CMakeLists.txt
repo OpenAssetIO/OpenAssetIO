@@ -117,7 +117,7 @@ if (Python_Interpreter_FOUND)
         ${Python_EXECUTABLE} -m pip download
         --retries 0 --timeout ${OPENASSETIO_PYTHON_PIP_TIMEOUT} --find-links ${python_deps_dir}
         --destination-directory ${python_deps_dir}
-        setuptools==62.3.2 wheel==0.37.1 pip==22.1
+        wheel==0.37.1
     )
     # Create a Python environment in the install directory. If the venv
     # already exists then this is a no-op.
@@ -125,18 +125,13 @@ if (Python_Interpreter_FOUND)
         openassetio-python-venv
         COMMAND ${CMAKE_COMMAND} -E echo -- Creating Python environment in ${CMAKE_INSTALL_PREFIX}
         COMMAND ${Python_EXECUTABLE} -m venv ${CMAKE_INSTALL_PREFIX}
+        # Install `wheel` so that setuptools can build OpenAssetIO.
+        COMMAND ${venv_python_exe} -m pip install --no-index --find-links ${python_deps_dir} wheel
     )
-    # Upgrade pip to get modern packaging behaviour (e.g. build
-    # isolation).
-    add_custom_target(
-        openassetio-python-venv-pip
-        COMMAND ${CMAKE_COMMAND} -E echo -- Upgrading pip in Python environment
-        COMMAND
-        ${venv_python_exe} -m pip install --no-index --find-links ${python_deps_dir} --upgrade pip
-    )
-    add_dependencies(openassetio-python-venv-pip
-        # Ensure Python environment has been created.
-        openassetio-python-venv)
+    add_dependencies(openassetio-python-venv
+        # Ensure dependencies have been downloaded for constructing the
+        # venv.
+        openassetio-python-download-core-deps)
 
     # Install OpenAssetIO into the venv.
     add_custom_target(
@@ -144,17 +139,19 @@ if (Python_Interpreter_FOUND)
         COMMAND ${CMAKE_COMMAND} -E echo -- Installing OpenAssetIO
         COMMAND
         ${venv_python_exe} -m pip install
+        # For speed, build from the venv rather than copying the whole
+        # project to a temporary environment. Note that this is a pip
+        # feature, setuptools also has its own build cache (see
+        # setup.cfg). This flag roughly halves test runtime.
+        --no-build-isolation
         --no-index --find-links ${python_deps_dir}
         ${PROJECT_SOURCE_DIR}
     )
     add_dependencies(openassetio-python-py-install
         # Ensure C++ component has been installed.
         openassetio-install
-        # Ensure venv pip is available and up-to-date.
-        openassetio-python-venv-pip
-        # Ensure dependencies have been downloaded (required for
-        # setuptools build isolation).
-        openassetio-python-download-core-deps)
+        # Ensure venv is available.
+        openassetio-python-venv)
 
     if (OPENASSETIO_ENABLE_TESTS)
         # Download test-specific dependencies so we don't always need an
@@ -180,8 +177,8 @@ if (Python_Interpreter_FOUND)
             --requirement ${PROJECT_SOURCE_DIR}/tests/python/requirements.txt
         )
         add_dependencies(openassetio-python-install-test-deps
-            # Ensure venv pip is available and up-to-date.
-            openassetio-python-venv-pip
+            # Ensure venv is available.
+            openassetio-python-venv
             # Ensure dependencies have been downloaded
             openassetio-python-download-test-deps)
 
