@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include <openassetio/export.h>
 
@@ -41,6 +42,27 @@ using Int = int64_t;
 using Float = double;
 /// String value type.
 using Str = std::string;
+
+/**
+ * @}
+ */
+
+/**
+ * @name Identifiers
+ *
+ * Both @ref host "hosts" and @ref manager "managers" must have a
+ * unique identifier. The following aliases ensure that a consistent
+ * type is used for these identifiers, and allows semantic documentation
+ * of an identifier as a parameter/return type.
+ *
+ * @{
+ */
+
+/// A @ref host or @ref manager identifier.
+using Identifier = Str;
+
+/// A list of identifiers.
+using Identifiers = std::vector<Identifier>;
 
 /**
  * @}

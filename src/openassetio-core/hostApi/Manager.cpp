@@ -20,7 +20,7 @@ Manager::Manager(managerApi::ManagerInterfacePtr managerInterface,
                  managerApi::HostSessionPtr hostSession)
     : managerInterface_{std::move(managerInterface)}, hostSession_{std::move(hostSession)} {}
 
-Str Manager::identifier() const { return managerInterface_->identifier(); }
+Identifier Manager::identifier() const { return managerInterface_->identifier(); }
 
 Str Manager::displayName() const { return managerInterface_->displayName(); }
 

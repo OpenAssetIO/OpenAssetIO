@@ -181,7 +181,7 @@ SCENARIO("A host calls Manager::identifier") {
                                    initialStrValue.size()};
 
     AND_GIVEN("ManagerInterface::identifier() will succeed") {
-      const openassetio::Str expectedIdentifier = "my.id";
+      const openassetio::Identifier expectedIdentifier = "my.id";
       REQUIRE_CALL(mockManagerInterface, identifier()).RETURN(expectedIdentifier);
 
       WHEN("the Manager C API is queried for the identifier") {

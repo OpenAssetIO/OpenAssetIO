@@ -26,8 +26,8 @@ struct PyManagerInterface : ManagerInterface {
 
   using PyRetainingManagerStateBasePtr = PyRetainingSharedPtr<ManagerStateBase>;
 
-  [[nodiscard]] Str identifier() const override {
-    PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, identifier, /* no args */);
+  [[nodiscard]] Identifier identifier() const override {
+    PYBIND11_OVERRIDE_PURE(Identifier, ManagerInterface, identifier, /* no args */);
   }
 
   [[nodiscard]] Str displayName() const override {

@@ -36,7 +36,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   ~CManagerInterfaceAdapter() override;
 
   /// Wrap the C suite's `identifier` function.
-  [[nodiscard]] Str identifier() const override;
+  [[nodiscard]] Identifier identifier() const override;
 
   /// Wrap the C suite's `displayName` function.
   [[nodiscard]] Str displayName() const override;

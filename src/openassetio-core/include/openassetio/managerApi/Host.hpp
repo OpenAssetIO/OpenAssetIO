@@ -57,7 +57,7 @@ class OPENASSETIO_CORE_EXPORT Host final {
    *
    *     "org.openassetio.host.test"
    */
-  [[nodiscard]] Str identifier() const;
+  [[nodiscard]] Identifier identifier() const;
 
   /**
    * Returns a human readable name to be used to reference this

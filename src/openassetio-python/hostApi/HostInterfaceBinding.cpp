@@ -19,8 +19,8 @@ namespace hostApi {
 struct PyHostInterface : HostInterface {
   using HostInterface::HostInterface;
 
-  [[nodiscard]] Str identifier() const override {
-    PYBIND11_OVERRIDE_PURE(Str, HostInterface, identifier, /* no args */);
+  [[nodiscard]] Identifier identifier() const override {
+    PYBIND11_OVERRIDE_PURE(Identifier, HostInterface, identifier, /* no args */);
   }
 
   [[nodiscard]] Str displayName() const override {
