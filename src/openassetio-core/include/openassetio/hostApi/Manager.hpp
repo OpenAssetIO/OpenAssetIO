@@ -29,18 +29,17 @@ OPENASSETIO_DECLARE_PTR(Manager)
 /**
  * The Manager is the Host facing representation of an @ref
  * asset_management_system. The Manager class shouldn't be directly
- * constructed by the host.  An instance of the class for any given
- * asset management system can be retrieved from an API @needsref
- * Session, using the @ref
- * openassetio.hostApi.Session.Session.currentManager
- * "Session.currentManager" method, after configuring the session with
- * the appropriate manager @ref identifier.
+ * constructed by the host. An instance of the class for any given
+ * asset management system can be retrieved from a
+ * @fqref{hostApi.ManagerFactory} "ManagerFactory", using the
+ * @fqref{hostApi.ManagerFactory.createManager}
+ * "ManagerFactory.createManager()" method with an appropriate manager
+ * @needsref identifier.
  *
  * @code
- * session = openassetio.hostApi.Session(
+ * factory = openassetio.hostApi.ManagerFactory(
  *     hostImpl, consoleLogger, pluginFactory)
- * session.useManager("org.openassetio.test")
- * manager = session.currentManager()
+ * manager = factory.createManager("org.openassetio.test")
  * @endcode
  *
  * A Manager instance is the single point of interaction with an asset
@@ -73,11 +72,11 @@ class OPENASSETIO_CORE_EXPORT Manager {
   /**
    * Returns an identifier to uniquely identify the Manager.
    *
-   * This identifier is used with the Session class to select which
-   * Manager to initialize, and so can be used as in preferences etc...
-   * to persist the chosen Manager. The identifier will use only
-   * alpha-numeric characters and '.', '_' or '-'. They generally follow
-   * the 'reverse-DNS' style, for example:
+   * This identifier is used with the @fqref{hostApi.ManagerFactory}
+   * "ManagerFactory" to select which Manager to initialize, and so can
+   * be used in preferences etc to persist the chosen Manager. The
+   * identifier will use only alpha-numeric characters and '.', '_' or
+   * '-'. They generally follow the 'reverse-DNS' style, for example:
    *
    *     "org.openassetio.manager.test"
    */
@@ -115,10 +114,6 @@ class OPENASSETIO_CORE_EXPORT Manager {
 
   /**
    * @name Initialization
-   *
-   * @note Manager initialization is generally managed by the
-   * @ref openassetio.hostApi.Session "Session" and these methods
-   * generally don't need to be called directly by host code.
    *
    * @{
    */
@@ -277,8 +272,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *  with the supplied context.
    *
    *  The returned token can be passed to @ref
-   *  contextFromPersistenceToken for future API use in another @ref
-   *  session with the same manager.
+   *  contextFromPersistenceToken for future API use in another session
+   *  with the same manager.
    *
    *  @param context The context to derive a persistence token for.
    *

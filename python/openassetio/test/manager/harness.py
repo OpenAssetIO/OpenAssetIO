@@ -153,30 +153,30 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     """
     Base test case class that all test classes must inherit from.
 
-    Expects test harness fixtures and an OpenAssetIO session to be
+    Expects test harness fixtures and an OpenAssetIO @ref manager to be
     provided, hence requires that `unittest` is provided with the custom
     ValidatorTestLoader test case loader.
 
-    Fixtures, session manager interface and a suitable locale are then
-    provided to subclasses via protected members.
+    Fixtures, manager and a suitable locale are then provided to
+    subclasses via protected members.
 
     @warning The supplied locale should always be used for interactions
     with the manager under test, the @ref createTestContext convenience
     method will create a new context pre-configured with this locale.
     """
 
-    def __init__(self, fixtures, session, locale, *args, **kwargs):
+    def __init__(self, fixtures, manager, locale, *args, **kwargs):
         """
         Initializes an instance of this class.
 
-        Makes available `_fixtures`, `_session` and `_manager` to
+        Makes available `_fixtures` and `_manager` to
         subclasses.
 
         @param fixtures `Dict[Any, Any]` Dictionary of fixtures specific
         to the current test case.
 
-        @param session hostApi.Session.Session The OpenAssetIO
-        @ref session to be used by test cases.
+        @param manager hostApi.Manager.Manager The OpenAssetIO
+        @ref manager to be used by test cases.
 
         @param locale @fqref{TraitsData} "TraitsData" The @ref locale to
         use by test cases.
@@ -188,9 +188,8 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         along to the base class.
         """
         self._fixtures = fixtures  # type: dict
-        self._session = session  # type: hostApi.Session
+        self._manager = manager  # type: hostApi.Manager
         self._locale = locale  # type: openassetio.Specification
-        self._manager = session.currentManager()  # type: managerApi.Manager
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
 
     def createTestContext(self, access=None):
@@ -201,7 +200,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param access `int` One of the context access policies (or None),
         if provided, the context's access will be set to this.
         """
-        context = self._session.currentManager().createContext()
+        context = self._manager.createContext()
         context.locale = self._locale
         if access is not None:
             context.access = access

@@ -38,11 +38,11 @@ from openassetio.test.manager._implementation import (
 class Test_Loader_loadTestsFromTestCase:
 
     def test_when_class_of_cases_has_no_fixtures_then_initializes_test_cases_with_no_fixtures(
-            self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
+            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
             mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
-        loader = _ValidatorTestLoader(mock_session)
+        loader = _ValidatorTestLoader(mock_manager)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -54,13 +54,13 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call({}, mock_session, test_case_one_locale, "test_one"),
-            call({}, mock_session, test_case_two_locale, "test_two")
+            call({}, mock_manager, test_case_one_locale, "test_one"),
+            call({}, mock_manager, test_case_two_locale, "test_two")
         ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_cases_have_fixtures_then_initializes_test_cases_with_fixtures(
-            self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
+            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
             mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
@@ -71,7 +71,7 @@ class Test_Loader_loadTestsFromTestCase:
             "test_one": case_one_fixtures,
             "test_two": case_two_fixtures
         }
-        loader = _ValidatorTestLoader(mock_session)
+        loader = _ValidatorTestLoader(mock_manager)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -83,12 +83,12 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call(case_one_fixtures, mock_session, test_case_one_locale, "test_one"),
-            call(case_two_fixtures, mock_session, test_case_two_locale, "test_two")])
+            call(case_one_fixtures, mock_manager, test_case_one_locale, "test_one"),
+            call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two")])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_case_has_no_fixtures_then_initializes_test_case_with_no_fixtures(
-            self, a_fixture_dict, mock_session, mock_test_case_class, mock_test_case_one,
+            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
             mock_test_case_two, test_case_one_locale, test_case_two_locale):
         # setup
 
@@ -97,7 +97,7 @@ class Test_Loader_loadTestsFromTestCase:
         a_fixture_dict["Test_MockTest"] = {
             "test_two": case_two_fixtures
         }
-        loader = _ValidatorTestLoader(mock_session)
+        loader = _ValidatorTestLoader(mock_manager)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -109,8 +109,8 @@ class Test_Loader_loadTestsFromTestCase:
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
         mock_test_case_class.assert_has_calls([
-            call({}, mock_session, test_case_one_locale, "test_one"),
-            call(case_two_fixtures, mock_session, test_case_two_locale, "test_two")
+            call({}, mock_manager, test_case_one_locale, "test_one"),
+            call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two")
         ])
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
@@ -128,17 +128,16 @@ class Test_ValidatorHostInterface_displayName:
 
 
 class Test_FixtureAugmentedTestCase_init:
-    def test_has_fixtures_session_and_manager(
-            self, a_test_case, a_fixture_dict, mock_session, mock_manager, a_locale):
+    def test_has_fixtures_and_manager(
+            self, a_test_case, a_fixture_dict, mock_manager, a_locale):
         assert a_test_case._fixtures is a_fixture_dict
-        assert a_test_case._session is mock_session
         assert a_test_case._manager is mock_manager
         assert a_test_case._locale is a_locale
 
 
 @pytest.fixture
-def a_test_case(a_fixture_dict, mock_session, a_locale):
-    return FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
+def a_test_case(a_fixture_dict, mock_manager, a_locale):
+    return FixtureAugmentedTestCase(a_fixture_dict, mock_manager, a_locale)
 
 
 @pytest.fixture

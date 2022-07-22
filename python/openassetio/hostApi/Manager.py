@@ -37,17 +37,17 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     """
     The Manager is the Host facing representation of an @ref
     asset_management_system. The Manager class shouldn't be directly
-    constructed by the host.  An instance of the class for any given
-    asset management system can be retrieved from an API @ref Session,
-    using the @ref openassetio.hostApi.Session.Session.currentManager
-    "Session.currentManager" method, after configuring the session with
-    the appropriate manager @needsref identifier.
+    constructed by the host. An instance of the class for any given
+    asset management system can be retrieved from a
+    @fqref{hostApi.ManagerFactory} "ManagerFactory", using the
+    @fqref{hostApi.ManagerFactory.createManager}
+    "ManagerFactory.createManager()" method with an appropriate manager
+    @needsref identifier.
 
     @code
-    session = openassetio.hostApi.Session(
+    factory = openassetio.hostApi.ManagerFactory(
         hostImpl, consoleLogger, pluginFactory)
-    session.useManager("org.openassetio.test")
-    manager = session.currentManager()
+    manager = factory.createManager("org.openassetio.test")
     @endcode
 
     A Manager instance is the single point of interaction with an asset
@@ -64,8 +64,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @private
 
         A Manager should never be constructed directly by a host,
-        instead use the @ref Session class, which takes care of their
-        instantiation.
+        instead use the @fqref{hostApi.ManagerFactory} "ManagerFactory"
+        class, which takes care of their instantiation.
 
         @param interfaceInstance openassetio.managerApi.ManagerInterface
         An instance of a Manager Interface to wrap.
@@ -133,10 +133,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     ##
     # @name Initialization
-    #
-    # @note Manager initialization is generally managed by the @ref Session
-    # and these methods generally don't need to be called directly by
-    # host code.
     #
     ## @{
 

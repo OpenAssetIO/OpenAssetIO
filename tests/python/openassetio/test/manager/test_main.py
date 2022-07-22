@@ -30,7 +30,12 @@ import pytest
 class Test_CLI_exit_code:
 
     def test_when_passing_then_exit_code_is_zero(self, a_passing_fixtures_file):
-        assert execute_cli(a_passing_fixtures_file).returncode == 0
+        proc = execute_cli(a_passing_fixtures_file)
+        try:
+            assert proc.returncode == 0
+        except AssertionError:
+            print("STDOUT:\n%s\n\nSTDERR:\n%s" % (proc.stdout.decode(), proc.stderr.decode()))
+            raise
 
     def test_when_failing_then_exit_code_is_one(self, a_failing_fixtures_file):
         result = execute_cli(a_failing_fixtures_file)

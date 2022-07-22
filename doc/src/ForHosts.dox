@@ -13,10 +13,10 @@
  *
  * - Hosts interact with an @ref asset_management_system through an
  *   instance of the @ref openassetio.hostApi.Manager "Manager" class.
- *   The @ref openassetio.hostApi.Session "Session" class is used to
- *   instantiate and access this instance for any given manager. The
- *   Manager class wraps the implementation of the API by a specific
- *   asset manager to help with state management.
+ *   The @fqref{hostApi.ManagerFactory} "ManagerFactory" class is used
+ *   to instantiate this instance for any given manager. The Manager
+ *   class wraps the implementation of the API by a specific asset
+ *   manager to help with state management.
  *
  * - In order to use the API, every host must provide an
  *   implementation of the @ref HostInterface class. This represents the
@@ -25,11 +25,11 @@
  *   if necessary.
  *
  * - The specific implementation of the @ref HostInterface class
- *   provided by a host when starting a @ref session is wrapped in the
- *   @fqref{managerApi.Host} "Host" class before being
- *   exposed to the manager. This is to allow for assorted middleware
- *   auditing/logging functionality, and provide a degree of isolation
- *   against future API changes.
+ *   provided by a host when creating a ManagerFactory is wrapped in the
+ *   @fqref{managerApi.Host} "Host" class before being exposed to the
+ *   manager. This is to allow for assorted middleware auditing/logging
+ *   functionality, and provide a degree of isolation against future API
+ *   changes.
  *
  * - The main currency in the interactions with a @ref manager is the
  *   @ref entity_reference. These are URIs that uniquely identify an
@@ -63,7 +63,7 @@
  * @section host_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref openassetio.hostApi.Session.Session "Session"
+ * @see @fqref{hostApi.ManagerFactory} "ManagerFactory"
  * @see @ref openassetio.hostApi.Manager.Manager "Manager"
  * @see @fqref{Context} "Context"
  *
@@ -76,7 +76,7 @@
  *   @fqref{hostApi.HostInterface.identifier} "identifier" and
  *   @fqref{hostApi.HostInterface.displayName} "displayName".
  *
- * - Create a @ref openassetio.hostApi.Session to bootstrap the API,
+ * - Create a @fqref{hostApi.ManagerFactory} to bootstrap the API,
  *   provide the following objects:
  *    - An instance of the custom class derived from
  *      @fqref{hostApi.HostInterface} "HostInterface".
@@ -85,8 +85,9 @@
  *      simple console logging you can use a
  *      @ref openassetio.log.ConsoleLogger "ConsoleLogger" wrapped
  *      in a @ref openassetio.log.SeverityFilter "SeverityFilter".
- *    - A `managerFactory` capable of instantiating managers,
- *      in the majority of cases a default-configured @ref
+ *    - A @fqref{hostApi.ManagerInterfaceFactoryInterface}
+ *      "ManagerInterfaceFactoryInterface" capable of instantiating
+ *      managers. In the majority of cases a default-configured @ref
  *      openassetio.pluginSystem.PluginSystemManagerInterfaceFactory
  *      "PluginSystemManagerInterfaceFactory" will be sufficient.
  *

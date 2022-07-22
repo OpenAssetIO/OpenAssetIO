@@ -122,13 +122,12 @@ class Test_executeSuite:
 class Test_FixtureAugmentedTestCase:
 
     def test_when_constructed_then_objects_are_exposed_via_protected_members(
-            self, a_fixture_dict, a_locale, mock_session):
+            self, a_fixture_dict, a_locale, mock_manager):
 
-        case = FixtureAugmentedTestCase(a_fixture_dict, mock_session, a_locale)
+        case = FixtureAugmentedTestCase(a_fixture_dict, mock_manager, a_locale)
         # pylint: disable=protected-access
-        assert case._session == mock_session
         assert case._fixtures == a_fixture_dict
-        assert case._manager == mock_session.currentManager.return_value
+        assert case._manager == mock_manager
 
 
 class Test_FixtureAugmentedTestCase_createTestContext:
@@ -382,9 +381,10 @@ def some_case_fixtures():
         "key2": "2"
     }
 
+
 @pytest.fixture
-def a_test_case(some_case_fixtures, mock_session, a_locale):
-    return FixtureAugmentedTestCase(some_case_fixtures, mock_session, a_locale)
+def a_test_case(some_case_fixtures, mock_manager, a_locale):
+    return FixtureAugmentedTestCase(some_case_fixtures, mock_manager, a_locale)
 
 #
 # Helpers

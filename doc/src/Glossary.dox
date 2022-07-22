@@ -444,18 +444,6 @@
  * correct/appropriate as it can be for the current resolution @ref
  * Context.
  *
- *
- * @section session session
- *
- * OpenAssetIO is instantiated by a @ref host in order to talk to one or
- * more @ref asset_management_system "asset management systems". To do
- * so, the host creates a new @ref openassetio.hostApi.Session "Session"
- * for each manager it wishes to communicate with. The Session object is
- * responsible for managing the lifetime of a @ref manager and provides
- * mechanisms for creating a @ref Context and persisting details of
- * which manager is currently in use.
- *
- *
  * @section Specification Specification
  *
  * Within OpenAssetIO, it is often required to describe the 'type' of

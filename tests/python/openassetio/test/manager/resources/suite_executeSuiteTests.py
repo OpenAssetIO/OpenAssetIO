@@ -22,7 +22,7 @@ that the harness implementation supplies the correct state to each test.
 # pylint: disable=invalid-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from openassetio.hostApi import Manager, Session
+from openassetio.hostApi import Manager
 from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
@@ -36,26 +36,10 @@ class Test_executeSuite_manager_settings(FixtureAugmentedTestCase):
         self.assertEqual(self._manager.settings(), {"test_setting": "a_value"})
 
 
-class Test_executeSuite_session(FixtureAugmentedTestCase):
-
-    def test_manager_session_is_provided(self):
-        self.assertIsInstance(self._session, Session)
-
-    def test_host_session_provides_expected_host(self):
-        self.assertEqual(
-            # See StubManager.initialize().
-            self._session.currentManager().info()["host_identifier"],
-            "org.openassetio.test.manager.harness"
-        )
-
-
 class Test_executeSuite_manager(FixtureAugmentedTestCase):
 
     def test_when_called_then_manager_is_set(self):
         self.assertIsInstance(self._manager, Manager)
-
-    def test_when_called_then_manager_is_that_of_the_session(self):
-        self.assertIs(self._manager, self._session.currentManager())
 
     def test_when_called_then_manager_is_the_expected_manager(self):
         self.assertEqual(
