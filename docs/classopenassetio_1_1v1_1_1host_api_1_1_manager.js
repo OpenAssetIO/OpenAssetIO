@@ -4,7 +4,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e", null ],
-    [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a39c8f51b23a3fcb925182e787d240dc3", null ],
+    [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39", null ],
     [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354", null ],

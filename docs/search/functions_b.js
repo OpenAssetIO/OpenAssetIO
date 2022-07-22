@@ -17,5 +17,5 @@ var searchData=
   ['oa_5finfodictionary_5fsetstr',['oa_InfoDictionary_setStr',['../group__oa___info_dictionary.html#ga077a8417194551119866c52c0fcc839f',1,'InfoDictionary.h']]],
   ['oa_5finfodictionary_5fsize',['oa_InfoDictionary_size',['../group__oa___info_dictionary.html#ga9836ad632b24c104fff6ba26649b814c',1,'InfoDictionary.h']]],
   ['oa_5finfodictionary_5ftypeof',['oa_InfoDictionary_typeOf',['../group__oa___info_dictionary.html#gae054c819c1af25a3caf81a683d35ea17',1,'InfoDictionary.h']]],
-  ['operator_3d_3d',['operator==',['../classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822',1,'openassetio::v1::TraitsData']]]
+  ['operator_3d_3d',['operator==',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html#af13e67be02994df6fc0b70afad1a5af9',1,'openassetio::v1::hostApi::ManagerFactory::ManagerDetail::operator==()'],['../classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822',1,'openassetio::v1::TraitsData::operator==()']]]
 ];

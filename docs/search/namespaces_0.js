@@ -18,6 +18,7 @@ var searchData=
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1v1_1_1manager_api.html',1,'openassetio::v1']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1manager_api.html',1,'openassetio']]],
+  ['managerfactory',['ManagerFactory',['../namespaceopenassetio_1_1host_api_1_1_manager_factory.html',1,'openassetio::hostApi']]],
   ['managerinterface',['ManagerInterface',['../namespaceopenassetio_1_1manager_api_1_1_manager_interface.html',1,'openassetio::managerApi']]],
   ['managerinterfacefactoryinterface',['ManagerInterfaceFactoryInterface',['../namespaceopenassetio_1_1host_api_1_1_manager_interface_factory_interface.html',1,'openassetio::hostApi']]],
   ['managerplugin',['ManagerPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html',1,'openassetio::pluginSystem']]],
@@ -34,8 +35,8 @@ var searchData=
   ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_api_1_1terminology.html',1,'openassetio::hostApi']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
-  ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
   ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
+  ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
   ['traits',['traits',['../namespaceopenassetio_1_1traits.html',1,'openassetio']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];

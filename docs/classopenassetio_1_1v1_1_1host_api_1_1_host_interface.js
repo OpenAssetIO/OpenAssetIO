@@ -3,6 +3,6 @@ var classopenassetio_1_1v1_1_1host_api_1_1_host_interface =
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#af807ad34031837034e95bdfd729313c9", null ],
     [ "~HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#aaf88a5b2775fb4ece49e6797c9aa3b17", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92", null ],
-    [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5e4597b03727fca61c28d21a071e060f", null ],
+    [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5c0c22c1c2681d3a1deae2da9f487870", null ],
     [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260", null ]
 ];

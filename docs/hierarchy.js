@@ -4,19 +4,24 @@ var hierarchy =
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
+    [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "HostSession", null, [
       [ "HostSession", "classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html", null ]
     ] ],
-    [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html", null ],
     [ "Manager", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
+    [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
+    [ "ManagerFactory", null, [
+      [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
+    ] ],
+    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
+    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterface", null, [
       [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
-    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterfaceFactoryInterface", null, [
       [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", null ]
     ] ],
