@@ -16,8 +16,8 @@ void registerManager(const py::module& mod) {
   using openassetio::managerApi::ManagerInterfacePtr;
 
   py::class_<Manager, ManagerPtr>(mod, "Manager")
-      .def(py::init(&Manager::make), py::arg("managerInterface").none(false),
-           py::arg("hostSession").none(false))
+      .def(py::init(RetainCommonPyArgs::forFn<&Manager::make>()),
+           py::arg("managerInterface").none(false), py::arg("hostSession").none(false))
       .def("identifier", &Manager::identifier)
       .def("displayName", &Manager::displayName)
       .def("info", &Manager::info)

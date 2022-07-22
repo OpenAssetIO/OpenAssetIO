@@ -199,6 +199,12 @@ v1.0.0-alpha.X
 
 ### Bug fixes
 
+- Python objects that inherit from a C++ base class, and are held by a
+  C++ object as a C++ base class pointer, will no longer be destroyed
+  prematurely.
+  See [pybind/1333](https://github.com/pybind/pybind11/issues/1333).
+  [#523](https://github.com/OpenAssetIO/OpenAssetIO/pull/523)
+
 - The CMake `clean` target no longer breaks subsequent builds, including
   offline builds.
   [#311](https://github.com/OpenAssetIO/OpenAssetIO/issues/311)

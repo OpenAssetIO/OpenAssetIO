@@ -149,7 +149,7 @@ class Test_Context_locale:
 class Test_Context_managerState:
     def test_when_set_to_unknown_type_then_raises_TypeError(self, a_context):
         expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg0: openassetio._openassetio.managerApi.ManagerStateBase")
+                        r".*arg1: openassetio._openassetio.managerApi.ManagerStateBase")
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.managerState = object()

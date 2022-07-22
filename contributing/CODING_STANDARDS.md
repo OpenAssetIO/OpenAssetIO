@@ -154,6 +154,87 @@ a null pointer.
     .def("setHost", py::arg("host").none(false))
 ```
 
+### Python object lifetime
+
+Due to a [Pybind issue](https://github.com/pybind/pybind11/issues/1333),
+it is possible for a Python object to be destroyed even if a C++
+instance holds a `shared_ptr` to it (via a pointer to base class
+instance).
+
+This causes problems in particular when we use Pybind "trampoline"
+classes to call a Python method override from a C++ virtual member
+function. For example, if the Python instance is destroyed, then in the
+case of pure virtual member functions, `pybind` may throw an exception
+```
+RuntimeError: Tried to call pure virtual function
+```
+
+As a workaround until there is an upstream fix, we have introduced a
+`PyRetainingSharedPtr` type, which should be used as the argument type
+and return type for any C++ bindings where the Python instance going
+into C++ must be kept alive.
+
+#### Constructors
+
+For constructors bound using the `pybind11::init<Args...>()` helper
+(where `Args...` is the signature of the constructor), it is sufficient
+to replace any `shared_ptr` types (whose associated Python instance must
+be kept alive) in `Args` to instead be `PyRetainingSharedPtr` types.
+
+#### Return values
+
+To handle instances returned from a Python method to C++ we must modify
+the `PYBIND11_OVERRIDE` macro arguments in the Pybind "trampoline" class
+member functions from, for example
+```c++
+std::shared_ptr<MyReturnType> PyMyClass::myMethod(myArg) override {
+  PYBIND11_OVERRIDE(
+      std::shared_ptr<MyReturnType>, MyClass, myMethod, myArg);
+}
+```
+to
+```c++
+std::shared_ptr<MyReturnType> PyMyClass::myMethod(myArg) override {
+  PYBIND11_OVERRIDE(
+      PyRetainingSharedPtr<MyReturnType>, MyClass, myMethod, myArg);
+}
+```
+Note that the return type of the C++ member function is unchanged.
+
+This ensures that the `shared_ptr` returned by the member function call
+also keeps the Python object alive.
+
+#### Function arguments
+
+When binding C++ member functions as Python methods we must modify the
+signature from, for example
+```c++
+.def("myMethod",
+     [](MyClass& myObject, std::shared_ptr<MyArg> myArg, ...
+```
+to
+```c++
+.def("myMethod",
+     [](MyClass& myObject, PyRetainingSharedPtr<MyArg> myArg, ...
+```
+for all `MyArg` types where we need to keep the incoming Python object
+alive for at least as long as the `shared_ptr`.
+
+As a convenience for decorating (member) function pointers, we have
+added a `RetainPyArgs` helper, which can be used to decorate a function
+such that specific `shared_ptr` arguments are converted to
+`PyRetainingSharedPtr`. For example,
+```c++
+.def("myMethod",
+     RetainPyArgs<
+         std::shared_ptr<MyArg1>,
+         std::shared_ptr<MyArg2>>::forFn<&MyClass::myMethod>(), ...
+```
+will ensure all `shared_ptr<MyArg1>` or `shared_ptr<MyArg2>` arguments
+will be converted to `PyRetainingSharedPtr<MyArg1>` or
+`PyRetainingSharedPtr<MyArg2>`, respectively. This is equivalent to
+manually wrapping in a lambda, as shown above.
+
 ## Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
