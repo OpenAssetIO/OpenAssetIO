@@ -13,9 +13,11 @@
 
 #include "PyRetainingSharedPtr.hpp"
 
+OPENASSETIO_FWD_DECLARE(LoggerInterface)
 OPENASSETIO_FWD_DECLARE(ManagerStateBase)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
+OPENASSETIO_FWD_DECLARE(hostApi, ManagerInterfaceFactoryInterface)
 
 /**
  * Declare a `RetainPyArgs` alias with common template arguments.
@@ -31,9 +33,11 @@ OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
  * @see PyRetainingSharedPtr
  * @see RetainPyArgs
  */
-using RetainCommonPyArgs = openassetio::RetainPyArgs<openassetio::ManagerStateBasePtr,
-                                                     openassetio::managerApi::ManagerInterfacePtr,
-                                                     openassetio::hostApi::HostInterfacePtr>;
+using RetainCommonPyArgs =
+    openassetio::RetainPyArgs<openassetio::LoggerInterfacePtr, openassetio::ManagerStateBasePtr,
+                              openassetio::managerApi::ManagerInterfacePtr,
+                              openassetio::hostApi::HostInterfacePtr,
+                              openassetio::hostApi::ManagerInterfaceFactoryInterfacePtr>;
 
 /// Concise pybind alias.
 namespace py = pybind11;
@@ -61,6 +65,9 @@ void registerManagerInterfaceFactoryInterface(const py::module& mod);
 
 /// Register the Manager class with Python.
 void registerManager(const py::module& mod);
+
+/// Register the ManagerFactory class with Python.
+void registerManagerFactory(const py::module& mod);
 
 /// Register the TraitsData class with Python.
 void registerTraitsData(const py::module& mod);

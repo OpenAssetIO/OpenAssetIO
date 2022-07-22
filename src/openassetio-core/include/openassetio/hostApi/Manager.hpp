@@ -81,7 +81,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    *     "org.openassetio.manager.test"
    */
-  [[nodiscard]] Str identifier() const;
+  [[nodiscard]] Identifier identifier() const;
 
   /**
    * Returns a human readable name to be used to reference this

@@ -65,7 +65,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    *
    * @return host identifier.
    */
-  [[nodiscard]] virtual Str identifier() const = 0;
+  [[nodiscard]] virtual Identifier identifier() const = 0;
 
   /**
    * Returns a human readable name to be used to reference this

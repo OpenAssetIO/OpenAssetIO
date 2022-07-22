@@ -20,7 +20,7 @@ CManagerInterfaceAdapter::CManagerInterfaceAdapter(oa_managerApi_CManagerInterfa
 
 CManagerInterfaceAdapter::~CManagerInterfaceAdapter() { suite_.dtor(handle_); }
 
-Str CManagerInterfaceAdapter::identifier() const {
+Identifier CManagerInterfaceAdapter::identifier() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.

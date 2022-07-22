@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -88,6 +88,20 @@ def mock_manager_interface():
     forwards method calls to an internal public `mock.Mock` instance.
     """
     return ValidatingMockManagerInterface()
+
+
+@pytest.fixture
+def create_mock_manager_interface():
+    """
+    Fixture providing a factory function for creating new
+    `ValidatingMockManagerInterface` instances.
+
+    This avoids the need to explicitly import `conftest` in test
+    modules.
+    """
+    def creator():
+        return ValidatingMockManagerInterface()
+    return creator
 
 
 class MockHostSession(HostSession):

@@ -26,7 +26,8 @@ struct PyManagerInterfaceFactoryInterface : ManagerInterfaceFactoryInterface {
                            /* no args */);
   }
 
-  [[nodiscard]] managerApi::ManagerInterfacePtr instantiate(const Str& identifier) override {
+  [[nodiscard]] managerApi::ManagerInterfacePtr instantiate(
+      const Identifier& identifier) override {
     PYBIND11_OVERRIDE_PURE(PyRetainingSharedPtr<managerApi::ManagerInterface>,
                            ManagerInterfaceFactoryInterface, instantiate, identifier);
   }

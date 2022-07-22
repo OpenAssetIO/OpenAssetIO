@@ -40,9 +40,6 @@ OPENASSETIO_DECLARE_PTR(ManagerInterfaceFactoryInterface)
  */
 class OPENASSETIO_CORE_EXPORT ManagerInterfaceFactoryInterface {
  public:
-  /// List of @ref manager identifiers.
-  using Identifiers = std::vector<Str>;
-
   /**
    * Construct an instance of this class.
    *
@@ -70,7 +67,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterfaceFactoryInterface {
    *
    * @return Newly created `ManagerInterface`.
    */
-  [[nodiscard]] virtual managerApi::ManagerInterfacePtr instantiate(const Str& identifier) = 0;
+  [[nodiscard]] virtual managerApi::ManagerInterfacePtr instantiate(
+      const Identifier& identifier) = 0;
 
  protected:
   /// Logger instance that should be used for all logging.
