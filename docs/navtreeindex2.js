@@ -1,13 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"group__oa__manager_api___shared_manager_interface__aliases.html":[11,0,5,0],
-"group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[11,0,5,0,0],
-"group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[11,0,5,0,1],
-"hierarchy.html":[13,2],
-"index.html":[],
-"index.html":[0],
-"index.html#architecture_overview":[0,2],
-"index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],
 "index.html#intro_approach":[0,1],
 "index.html#intro_host":[0,1,1],
@@ -31,8 +23,7 @@ var NAVTREEINDEX2 =
 "namespaceopenassetio_1_1host_api_1_1_manager.html":[13,0,0,2,0],
 "namespaceopenassetio_1_1host_api_1_1_manager_factory.html":[13,0,0,2,1],
 "namespaceopenassetio_1_1host_api_1_1_manager_interface_factory_interface.html":[13,0,0,2,2],
-"namespaceopenassetio_1_1host_api_1_1_session.html":[13,0,0,2,3],
-"namespaceopenassetio_1_1host_api_1_1terminology.html":[13,0,0,2,4],
+"namespaceopenassetio_1_1host_api_1_1terminology.html":[13,0,0,2,3],
 "namespaceopenassetio_1_1log.html":[13,0,0,3],
 "namespaceopenassetio_1_1manager_api.html":[13,0,0,4],
 "namespaceopenassetio_1_1manager_api_1_1_host_session.html":[13,0,0,4,0],

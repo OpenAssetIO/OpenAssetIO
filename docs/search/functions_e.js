@@ -5,7 +5,6 @@ var searchData=
   ['setenabled',['setEnabled',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#adf51df57ed46e90f1ee61081bd8d75d2',1,'openassetio::_core::audit::Auditor']]],
   ['setexclusive',['setExclusive',['../classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html#af8a3eb2b2813049fedf1055c2d08d0b1',1,'openassetio::traits::managementPolicy::ManagedTrait']]],
   ['setrelatedreferences',['setRelatedReferences',['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c',1,'openassetio::managerApi::ManagerInterface::ManagerInterface']]],
-  ['setsettings',['setSettings',['../classopenassetio_1_1host_api_1_1_session_1_1_session.html#a9bd3c8457f9430f3166a246fb55bcbb5',1,'openassetio::hostApi::Session::Session']]],
   ['setseverity',['setSeverity',['../classopenassetio_1_1log_1_1_severity_filter.html#a0fa1fa32536745064d74b0baaf5dd454',1,'openassetio::log::SeverityFilter']]],
   ['setsuitename',['setSuiteName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#aad092bdf6a03f8bc9ef91f513b4c226c',1,'openassetio::test::specifications::TestTrait']]],
   ['settings',['settings',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95',1,'openassetio::v1::hostApi::Manager::settings()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583',1,'openassetio::v1::managerApi::ManagerInterface::settings()']]],

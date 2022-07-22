@@ -129,9 +129,9 @@ Inheritance diagram for FixtureAugmentedTestCase:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a006263cdd6e67debf23ecad6ec8ab591"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a006263cdd6e67debf23ecad6ec8ab591">__init__</a> (self, fixtures, session, locale, args, kwargs)</td></tr>
-<tr class="memdesc:a006263cdd6e67debf23ecad6ec8ab591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an instance of this class.  <a href="#a006263cdd6e67debf23ecad6ec8ab591">More...</a><br /></td></tr>
-<tr class="separator:a006263cdd6e67debf23ecad6ec8ab591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8356458d4256547b84035ed90b54e3f9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a8356458d4256547b84035ed90b54e3f9">__init__</a> (self, fixtures, manager, locale, args, kwargs)</td></tr>
+<tr class="memdesc:a8356458d4256547b84035ed90b54e3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an instance of this class.  <a href="#a8356458d4256547b84035ed90b54e3f9">More...</a><br /></td></tr>
+<tr class="separator:a8356458d4256547b84035ed90b54e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ed73cb742bb437b27fe15e1fdebad54"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> (self, access=None)</td></tr>
 <tr class="memdesc:a2ed73cb742bb437b27fe15e1fdebad54"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience method to create a context with the test locale, as provided by the test harness mechanism.  <a href="#a2ed73cb742bb437b27fe15e1fdebad54">More...</a><br /></td></tr>
 <tr class="separator:a2ed73cb742bb437b27fe15e1fdebad54"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,11 +156,11 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base test case class that all test classes must inherit from. </p>
-<p>Expects test harness fixtures and an OpenAssetIO session to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
-<p>Fixtures, session manager interface and a suitable locale are then provided to subclasses via protected members.</p>
+<p>Expects test harness fixtures and an OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
+<p>Fixtures, manager and a suitable locale are then provided to subclasses via protected members.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> convenience method will create a new context pre-configured with this locale. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a006263cdd6e67debf23ecad6ec8ab591"></a>
+<a class="anchor" id="a8356458d4256547b84035ed90b54e3f9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -180,7 +180,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>session</em>, </td>
+          <td class="paramname"><em>manager</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -209,11 +209,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes an instance of this class. </p>
-<p>Makes available <code>_fixtures</code>, <code>_session</code> and <code>_manager</code> to subclasses.</p>
+<p>Makes available <code>_fixtures</code> and <code>_manager</code> to subclasses.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fixtures</td><td><code>Dict[Any, Any]</code> Dictionary of fixtures specific to the current test case.</td></tr>
-    <tr><td class="paramname">session</td><td><a class="el" href="classopenassetio_1_1host_api_1_1_session_1_1_session.html" title="The Session is the primary mechanism for managing the lifetime of a Manager. ">hostApi.Session.Session</a> The OpenAssetIO <a class="el" href="glossary.html#session">session</a> to be used by test cases.</td></tr>
+    <tr><td class="paramname">manager</td><td><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">hostApi.Manager.Manager</a> The OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be used by test cases.</td></tr>
     <tr><td class="paramname">locale</td><td><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> The <a class="el" href="glossary.html#locale">locale</a> to use by test cases.</td></tr>
     <tr><td class="paramname">args</td><td><code>List[Any]</code> Additional args passed along to the base class.</td></tr>
     <tr><td class="paramname">kwargs</td><td><code>Dict[str, Any]</code> Additional keyword args passed along to the base class. </td></tr>

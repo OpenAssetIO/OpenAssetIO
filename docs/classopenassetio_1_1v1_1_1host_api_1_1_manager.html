@@ -165,8 +165,6 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Initialization</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp61bcd96a2c1f8026527cbf2019d6e9a4"></a></p><dl class="section note"><dt>Note</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> initialization is generally managed by the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_session.html">Session</a> and these methods generally don't need to be called directly by host code. </dd></dl>
-</td></tr>
 <tr class="memitem:ad5c992d40b519fc33f129dc92a67fb95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95">settings</a> () const </td></tr>
 <tr class="separator:ad5c992d40b519fc33f129dc92a67fb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings)</td></tr>
@@ -175,8 +173,8 @@ Initialization</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
-<p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> class shouldn't be directly constructed by the host. An instance of the class for any given asset management system can be retrieved from an API Session, using the <a class="el" href="classopenassetio_1_1host_api_1_1_session_1_1_session.html#a0c06bdf8317346e8a3330d36b93f5dd7">Session.currentManager</a> method, after configuring the session with the appropriate manager <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39">identifier</a>.</p>
-<div class="fragment"><div class="line">session = <a class="code" href="namespaceopenassetio.html">openassetio</a>.<a class="code" href="namespaceopenassetio_1_1host_api.html">hostApi</a>.<a class="code" href="namespaceopenassetio_1_1host_api_1_1_session.html">Session</a>(</div><div class="line">    hostImpl, consoleLogger, pluginFactory)</div><div class="line">session.useManager(<span class="stringliteral">&quot;org.openassetio.test&quot;</span>)</div><div class="line">manager = session.currentManager()</div></div><!-- fragment --><p>A <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> instance is the single point of interaction with an asset management system. It provides methods to uniquely identify the underlying implementation, querying and resolving <a class="el" href="glossary.html#entity_reference">entity references</a> and publishing new data.</p>
+<p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> class shouldn't be directly constructed by the host. An instance of the class for any given asset management system can be retrieved from a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>, using the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5">ManagerFactory.createManager()</a> method with an appropriate manager identifier.</p>
+<div class="fragment"><div class="line">factory = <a class="code" href="namespaceopenassetio.html">openassetio</a>.<a class="code" href="namespaceopenassetio_1_1host_api.html">hostApi</a>.<a class="code" href="namespaceopenassetio_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>(</div><div class="line">    hostImpl, consoleLogger, pluginFactory)</div><div class="line">manager = factory.createManager(<span class="stringliteral">&quot;org.openassetio.test&quot;</span>)</div></div><!-- fragment --><p>A <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> instance is the single point of interaction with an asset management system. It provides methods to uniquely identify the underlying implementation, querying and resolving <a class="el" href="glossary.html#entity_reference">entity references</a> and publishing new data.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API is threadsafe and can be called from multiple threads concurrently. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a74d8494f43bc88e4ba4ff8efaae19105"></a>
@@ -204,7 +202,7 @@ Initialization</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a> to generate the token.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
 
 </div>
 </div>
@@ -288,7 +286,7 @@ Initialization</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns an identifier to uniquely identify the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. </p>
-<p>This identifier is used with the Session class to select which <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to initialize, and so can be used as in preferences etc... to persist the chosen <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. The identifier will use only alpha-numeric characters and '.', '_' or '-'. They generally follow the 'reverse-DNS' style, for example: </p><pre class="fragment">"org.openassetio.manager.test"</pre> 
+<p>This identifier is used with the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a> to select which <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to initialize, and so can be used in preferences etc to persist the chosen <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. The identifier will use only alpha-numeric characters and '.', '_' or '-'. They generally follow the 'reverse-DNS' style, for example: </p><pre class="fragment">"org.openassetio.manager.test"</pre> 
 </div>
 </div>
 <a class="anchor" id="ac82a7565b39bc7092b624bc2c54c864a"></a>
@@ -437,7 +435,7 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
-<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> for future API use in another <a class="el" href="glossary.html#session">session</a> with the same manager.</p>
+<p>The returned token can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> for future API use in another session with the same manager.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>The context to derive a persistence token for.</td></tr>
@@ -462,7 +460,7 @@ This method may block for extended periods of time. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has not yet been called).</dd></dl>
 <p>Some managers may not have any settings, so this function will return an empty dictionary. </p>
 

@@ -4,10 +4,10 @@ var hierarchy =
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
-    [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "HostSession", null, [
       [ "HostSession", "classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html", null ]
     ] ],
+    [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html", null ],
     [ "Manager", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
@@ -66,8 +66,7 @@ var hierarchy =
     [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Debuggable", null, [
-      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ],
-      [ "Session", "classopenassetio_1_1host_api_1_1_session_1_1_session.html", null ]
+      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],
