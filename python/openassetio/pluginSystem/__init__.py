@@ -23,4 +23,4 @@ openassetio package.
 from .ManagerPlugin import ManagerPlugin
 from .PluginSystem import PluginSystem
 from .PluginSystemPlugin import PluginSystemPlugin
-from .PluginSystemManagerInterfaceFactory import PluginSystemManagerInterfaceFactory
+from .PluginSystemManagerImplementationFactory import PluginSystemManagerImplementationFactory

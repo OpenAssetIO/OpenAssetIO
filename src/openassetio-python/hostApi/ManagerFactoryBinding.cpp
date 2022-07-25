@@ -7,7 +7,7 @@
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
-#include <openassetio/hostApi/ManagerInterfaceFactoryInterface.hpp>
+#include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 
 #include "../_openassetio.hpp"
 
@@ -19,8 +19,8 @@ void registerManagerFactory(const py::module& mod) {
   py::class_<ManagerFactory, ManagerFactoryPtr> managerFactory(mod, "ManagerFactory");
   managerFactory
       .def(py::init(RetainCommonPyArgs::forFn<&ManagerFactory::make>()),
-           py::arg("hostInterface").none(false), py::arg("managerInterfaceFactory").none(false),
-           py::arg("logger").none(false))
+           py::arg("hostInterface").none(false),
+           py::arg("managerImplementationFactory").none(false), py::arg("logger").none(false))
       .def("identifiers", &ManagerFactory::identifiers);
 
   py::class_<ManagerFactory::ManagerDetail>(managerFactory, "ManagerDetail")
@@ -36,5 +36,6 @@ void registerManagerFactory(const py::module& mod) {
       .def_static("createManagerForInterface",
                   RetainCommonPyArgs::forFn<&ManagerFactory::createManagerForInterface>(),
                   py::arg("identifier"), py::arg("hostInterface").none(false),
-                  py::arg("managerInterfaceFactory").none(false), py::arg("logger").none(false));
+                  py::arg("managerImplementationFactory").none(false),
+                  py::arg("logger").none(false));
 }

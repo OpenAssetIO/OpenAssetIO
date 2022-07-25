@@ -25,7 +25,7 @@ from unittest import mock
 import pytest
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
-from openassetio.hostApi import ManagerFactory, Manager, ManagerInterfaceFactoryInterface
+from openassetio.hostApi import ManagerFactory, Manager, ManagerImplementationFactoryInterface
 
 
 CppManagerFactory = _openassetio.hostApi.ManagerFactory
@@ -271,21 +271,21 @@ def a_cpp_manager_factory(mock_host_interface, mock_manager_interface_factory, m
 
 @pytest.fixture
 def mock_manager_interface_factory(mock_logger, mock_manager_interface):
-    factory = MockManagerInterfaceFactory(mock_logger)
+    factory = MockManagerImplementationFactory(mock_logger)
     factory.mock.instantiate.return_value = mock_manager_interface
     return factory
 
 
-class MockManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
+class MockManagerImplementationFactory(ManagerImplementationFactoryInterface):
     """
-    `ManagerInterfaceFactoryInterface` that forwards calls to an
+    `ManagerImplementationFactoryInterface` that forwards calls to an
     internal mock.
     @see mock_manager_interface_factory
     """
     def __init__(self, logger):
-        ManagerInterfaceFactoryInterface.__init__(self, logger)
+        ManagerImplementationFactoryInterface.__init__(self, logger)
         self.mock = mock.create_autospec(
-            ManagerInterfaceFactoryInterface, spec_set=True, instance=True)
+            ManagerImplementationFactoryInterface, spec_set=True, instance=True)
 
     def identifiers(self):
         return self.mock.identifiers()

@@ -34,10 +34,10 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
     """
     @see @fqref{hostApi.ManagerFactory} "hostApi.ManagerFactory".
     """
-    def __init__(self, hostInterface, managerInterfaceFactory, logger):
+    def __init__(self, hostInterface, managerImplementationFactory, logger):
         _openassetio.hostApi.ManagerFactory.__init__(
-            self, hostInterface, managerInterfaceFactory, logger)
-        self.__managerInterfaceFactory = managerInterfaceFactory
+            self, hostInterface, managerImplementationFactory, logger)
+        self.__managerImplementationFactory = managerImplementationFactory
         self.__hostInterface = hostInterface
         self.__logger = logger
 
@@ -47,15 +47,15 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         "ManagerFactory.createManager".
         """
         return Manager(
-            self.__managerInterfaceFactory.instantiate(identifier),
+            self.__managerImplementationFactory.instantiate(identifier),
             HostSession(_openassetio.managerApi.Host(self.__hostInterface), self.__logger))
 
     @staticmethod
-    def createManagerForInterface(identifier, hostInterface, managerInterfaceFactory, logger):
+    def createManagerForInterface(identifier, hostInterface, managerImplementationFactory, logger):
         """
         @see @fqref{hostApi.ManagerFactory.createManagerForInterface}
         "ManagerFactory.createManagerForInterface".
         """
         return Manager(
-            managerInterfaceFactory.instantiate(identifier),
+            managerImplementationFactory.instantiate(identifier),
             HostSession(_openassetio.managerApi.Host(hostInterface), logger))

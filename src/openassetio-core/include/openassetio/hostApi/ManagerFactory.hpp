@@ -12,7 +12,7 @@
 
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, Manager)
-OPENASSETIO_FWD_DECLARE(hostApi, ManagerInterfaceFactoryInterface)
+OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
 OPENASSETIO_FWD_DECLARE(LoggerInterface)
 
@@ -28,8 +28,8 @@ OPENASSETIO_DECLARE_PTR(ManagerFactory)
  * @fqref{hostApi.Manager} "Manager".
  *
  * The underlying manager implementation is constructed using the
- * supplied \fqref{hostApi.ManagerInterfaceFactoryInterface}
- * "ManagerInterfaceFactoryInterface" factory implementation.
+ * supplied \fqref{hostApi.ManagerImplementationFactoryInterface}
+ * "ManagerImplementationFactoryInterface" factory implementation.
  *
  * Hosts should never attempt to directly construct a `Manager` class or
  * interact with the implementation factory directly.
@@ -84,18 +84,19 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * common hooks for the @ref manager to query asset-related properties
    * from the host.
    *
-   * @param managerInterfaceFactory The factory that will be used to
+   * @param managerImplementationFactory The factory that will be used to
    * instantiate managers. See, for example, @ref
-   * pluginSystem.PluginSystemManagerInterfaceFactory.PluginSystemManagerInterfaceFactory
-   * "PluginSystemManagerInterfaceFactory".
+   * pluginSystem.PluginSystemManagerImplementationFactory.PluginSystemManagerImplementationFactory
+   * "PluginSystemManagerImplementationFactory".
    *
    * @param logger The logger instance that will be used for all
    * messaging from the factory and instantiated @fqref{hostApi.Manager}
    * "Manager" instances.
    */
-  static ManagerFactoryPtr make(HostInterfacePtr hostInterface,
-                                ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory,
-                                LoggerInterfacePtr logger);
+  static ManagerFactoryPtr make(
+      HostInterfacePtr hostInterface,
+      ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
+      LoggerInterfacePtr logger);
 
   /**
    * All identifiers known to the factory.
@@ -153,10 +154,10 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * common hooks for the @ref manager to query asset-related properties
    * from the host.
    *
-   * @param managerInterfaceFactory The factory that will be used to
+   * @param managerImplementationFactory The factory that will be used to
    * instantiate the manager. See, for example, @ref
-   * pluginSystem.PluginSystemManagerInterfaceFactory.PluginSystemManagerInterfaceFactory
-   * "PluginSystemManagerInterfaceFactory".
+   * pluginSystem.PluginSystemManagerImplementationFactory.PluginSystemManagerImplementationFactory
+   * "PluginSystemManagerImplementationFactory".
    *
    * @param logger The logger instance that will be used for all
    * messaging from the factory and instantiated @fqref{hostApi.Manager}
@@ -166,16 +167,16 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    */
   [[nodiscard]] static ManagerPtr createManagerForInterface(
       const Identifier& identifier, const HostInterfacePtr& hostInterface,
-      const ManagerInterfaceFactoryInterfacePtr& managerInterfaceFactory,
+      const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
       const LoggerInterfacePtr& logger);
 
  private:
   ManagerFactory(HostInterfacePtr hostInterface,
-                 ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory,
+                 ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
                  LoggerInterfacePtr logger);
 
   const HostInterfacePtr hostInterface_;
-  const ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory_;
+  const ManagerImplementationFactoryInterfacePtr managerImplementationFactory_;
   const LoggerInterfacePtr logger_;
 };
 

@@ -17,7 +17,7 @@ OPENASSETIO_FWD_DECLARE(LoggerInterface)
 OPENASSETIO_FWD_DECLARE(ManagerStateBase)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
-OPENASSETIO_FWD_DECLARE(hostApi, ManagerInterfaceFactoryInterface)
+OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
 
 /**
  * Declare a `RetainPyArgs` alias with common template arguments.
@@ -37,7 +37,7 @@ using RetainCommonPyArgs =
     openassetio::RetainPyArgs<openassetio::LoggerInterfacePtr, openassetio::ManagerStateBasePtr,
                               openassetio::managerApi::ManagerInterfacePtr,
                               openassetio::hostApi::HostInterfacePtr,
-                              openassetio::hostApi::ManagerInterfaceFactoryInterfacePtr>;
+                              openassetio::hostApi::ManagerImplementationFactoryInterfacePtr>;
 
 /// Concise pybind alias.
 namespace py = pybind11;
@@ -60,8 +60,8 @@ void registerHostSession(const py::module& mod);
 /// Register the ManagerInterface class with Python.
 void registerManagerInterface(const py::module& mod);
 
-/// Register the ManagerInterfaceFactoryInterface class with Python.
-void registerManagerInterfaceFactoryInterface(const py::module& mod);
+/// Register the ManagerImplementationFactoryInterface class with Python.
+void registerManagerImplementationFactoryInterface(const py::module& mod);
 
 /// Register the Manager class with Python.
 void registerManager(const py::module& mod);

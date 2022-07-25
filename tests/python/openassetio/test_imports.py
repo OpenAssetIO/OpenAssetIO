@@ -90,8 +90,8 @@ class Test_hostApi_imports:
     def test_importing_Manager_succeeds(self):
         from openassetio.hostApi import Manager
 
-    def test_importing_ManagerInterfaceFactoryInterface_succeeds(self):
-        from openassetio.hostApi import ManagerInterfaceFactoryInterface
+    def test_importing_ManagerImplementationFactoryInterface_succeeds(self):
+        from openassetio.hostApi import ManagerImplementationFactoryInterface
 
     def test_importing_terminology_succeeds(self):
         from openassetio.hostApi import terminology
@@ -120,8 +120,8 @@ class Test_pluginSystem_imports:
     def test_importing_PluginSystem_succeeds(self):
         from openassetio.pluginSystem import PluginSystem
 
-    def test_importing_PluginSystemManagerInterfaceFactory_succeeds(self):
-        from openassetio.pluginSystem import PluginSystemManagerInterfaceFactory
+    def test_importing_PluginSystemManagerImplementationFactory_succeeds(self):
+        from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
 
     def test_importing_PluginSystemPlugin_succeeds(self):
         from openassetio.pluginSystem import PluginSystemPlugin

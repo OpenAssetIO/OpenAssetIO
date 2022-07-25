@@ -23,7 +23,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerHost(managerApi);
   registerHostSession(managerApi);
   registerManagerInterface(managerApi);
-  registerManagerInterfaceFactoryInterface(hostApi);
+  registerManagerImplementationFactoryInterface(hostApi);
   registerManager(hostApi);
   registerManagerFactory(hostApi);
 }

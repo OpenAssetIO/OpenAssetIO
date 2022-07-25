@@ -43,8 +43,8 @@ v1.0.0-alpha.X
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
 
 - Renamed both `ManagerFactoryInterface` as well as the subclass
-  `PluginSystemManagerFactory` to `ManagerInterfaceFactoryInterface`
-  and `PluginSystemManagerInterfaceFactory`, respectively, to avoid
+  `PluginSystemManagerFactory` to `ManagerImplementationFactoryInterface`
+  and `PluginSystemManagerImplementationFactory`, respectively, to avoid
   potential ambiguity. I.e. that they instantiate instances of
   `ManagerInterface` rather than `Manager`.
   [#506](https://github.com/OpenAssetIO/OpenAssetIO/issues/506)
@@ -151,8 +151,8 @@ v1.0.0-alpha.X
 
 - Migrated the following classes to C++: `Context`, `Host`,
   `HostInterface`, `HostSession` and `LoggerInterface`,
-  `ManagerInterfaceFactoryInterface`. Debug and audit functionality is
-  left for future work.
+  `ManagerImplementationFactoryInterface`. Debug and audit functionality
+  is left for future work.
   [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)

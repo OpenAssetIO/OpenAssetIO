@@ -37,7 +37,7 @@ def createHarness(managerIdentifier, settings=None):
         settings = {}
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
-    managerFactoryImplementation = pluginSystem.PluginSystemManagerInterfaceFactory(logger)
+    managerFactoryImplementation = pluginSystem.PluginSystemManagerImplementationFactory(logger)
     manager = hostApi.ManagerFactory.createManagerForInterface(
         managerIdentifier, hostInterface, managerFactoryImplementation, logger)
     manager.initialize(settings)

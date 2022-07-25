@@ -15,7 +15,7 @@
 #
 """
 Tests for the default implementations of
-ManagerInterfaceFactoryIntreface methods.
+ManagerImplementationFactoryIntreface methods.
 """
 
 # pylint: disable=no-self-use
@@ -24,10 +24,10 @@ ManagerInterfaceFactoryIntreface methods.
 
 import pytest
 
-from openassetio.hostApi import ManagerInterfaceFactoryInterface
+from openassetio.hostApi import ManagerImplementationFactoryInterface
 
 
-class Test_ManagerInterfaceFactoryInterface:
+class Test_ManagerImplementationFactoryInterface:
     def test_has_logger(self, mock_logger, a_manager_interface_factory_interface):
         # pylint: disable=protected-access
         assert a_manager_interface_factory_interface._logger is mock_logger
@@ -40,26 +40,26 @@ class Test_ManagerInterfaceFactoryInterface:
         assert str(err.value) == "can't set attribute"
 
 
-class Test_ManagerInterfaceFactoryInterface_identifiers:
+class Test_ManagerImplementationFactoryInterface_identifiers:
     def test_when_not_overridden_then_raises_exception(
             self, a_manager_interface_factory_interface):
         with pytest.raises(RuntimeError) as err:
             a_manager_interface_factory_interface.identifiers()
         assert(str(err.value) ==
                'Tried to call pure virtual function'
-               ' "ManagerInterfaceFactoryInterface::identifiers"')
+               ' "ManagerImplementationFactoryInterface::identifiers"')
 
 
-class Test_ManagerInterfaceFactoryInterface_instantiate:
+class Test_ManagerImplementationFactoryInterface_instantiate:
     def test_when_not_overridden_then_raises_exception(
             self, a_manager_interface_factory_interface):
         with pytest.raises(RuntimeError) as err:
             a_manager_interface_factory_interface.instantiate("a.manager.identifier")
         assert (str(err.value) ==
                 'Tried to call pure virtual function'
-                ' "ManagerInterfaceFactoryInterface::instantiate"')
+                ' "ManagerImplementationFactoryInterface::instantiate"')
 
 
 @pytest.fixture
 def a_manager_interface_factory_interface(mock_logger):
-    return ManagerInterfaceFactoryInterface(mock_logger)
+    return ManagerImplementationFactoryInterface(mock_logger)
