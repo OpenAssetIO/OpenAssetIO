@@ -94,7 +94,7 @@ class Test_PluginSystemManagerImplementationFactory_init:
         factory = PluginSystemManagerImplementationFactory(mock_logger)
         # Plugins are scanned lazily when first requested
         _ = factory.identifiers()
-        mock_logger.mock.log.assert_called_once_with(expected_msg, expected_severity)
+        mock_logger.mock.log.assert_called_once_with(expected_severity, expected_msg)
 
 
 class Test_PluginSystemManagerImplementationFactory_identifiers:

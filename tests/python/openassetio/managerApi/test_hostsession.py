@@ -63,5 +63,5 @@ class TestHostSession_log:
         a_message = "A message"
         a_severity = log.LoggerInterface.kCritical
 
-        host_session.log(a_message, a_severity)
-        mock_logger.mock.log.assert_called_once_with(a_message, a_severity)
+        host_session.log(a_severity, a_message)
+        mock_logger.mock.log.assert_called_once_with(a_severity, a_message)

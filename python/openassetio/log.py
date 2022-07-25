@@ -92,7 +92,7 @@ class SeverityFilter(LoggerInterface):
 
     # LoggerInterface methods
 
-    def log(self, message, severity):
+    def log(self, severity, message):
         """
         Log only if `severity` is greater than or equal to this logger's
         configured severity level.
@@ -100,7 +100,7 @@ class SeverityFilter(LoggerInterface):
         if severity > self.__maxSeverity:
             return
 
-        self.__upstreamLogger.log(message, severity)
+        self.__upstreamLogger.log(severity, message)
 
 
 class ConsoleLogger(LoggerInterface):
@@ -134,7 +134,7 @@ class ConsoleLogger(LoggerInterface):
             if not sys.__stderr__.closed:
                 self.__stderr = sys.__stderr__
 
-    def log(self, message, severity):
+    def log(self, severity, message):
         """
         Log to stderr for severity greater than `kInfo`, stdout
         otherwise.

@@ -71,13 +71,13 @@ class PluginSystem(object):
         """
         self.reset()
 
-        self.__logger.log("PluginSystem: Searching %s" % paths, self.__logger.kDebug)
+        self.__logger.log(self.__logger.kDebug, "PluginSystem: Searching %s" % paths)
 
         for path in paths.split(os.pathsep):
 
             if not os.path.isdir(path):
                 msg = "PluginSystem: Skipping as it is not a directory %s" % path
-                self.__logger.log(msg, self.__logger.kDebug)
+                self.__logger.log(self.__logger.kDebug, msg)
 
             for item in os.listdir(path):
 
@@ -91,19 +91,19 @@ class PluginSystem(object):
                     else:
                         msg = "PluginSystem: Ignoring as it is not a python package " \
                               "contianing __init__.py %s" % itemPath
-                        self.__logger.log(msg, self.__logger.kDebug)
+                        self.__logger.log(self.__logger.kDebug, msg)
                         continue
                 else:
                     # Its a file, check if it is a .py/.pyc module
                     _, ext = os.path.splitext(itemPath)
                     if ext not in self.__validModuleExtensions:
                         msg = "PluginSystem: Ignoring as its not a python module %s" % itemPath
-                        self.__logger.log(msg, self.__logger.kDebug)
+                        self.__logger.log(self.__logger.kDebug, msg)
                         continue
 
                 self.__logger.log(
-                    "PluginSystem: Attempting to load %s" % itemPath,
-                    self.__logger.kDebug)
+                    self.__logger.kDebug,
+                    "PluginSystem: Attempting to load %s" % itemPath)
 
                 self.__load(itemPath)
 
@@ -153,11 +153,11 @@ class PluginSystem(object):
         if identifier in self.__map:
             msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \
                   % (cls, path, self.__paths[identifier])
-            self.__logger.log(msg, self.__logger.kDebug)
+            self.__logger.log(self.__logger.kDebug, msg)
             return
 
         msg = "PluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
-        self.__logger.log(msg, self.__logger.kDebug)
+        self.__logger.log(self.__logger.kDebug, msg)
 
         self.__map[identifier] = cls
         self.__paths[identifier] = path
@@ -191,12 +191,12 @@ class PluginSystem(object):
 
         except Exception as ex:  # pylint: disable=broad-except
             msg = "PluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
-            self.__logger.log(msg, self.__logger.kWarning)
+            self.__logger.log(self.__logger.kWarning, msg)
             return
 
         if not hasattr(module, 'plugin'):
             msg = "PluginSystem: No top-level 'plugin' variable %s" % path
-            self.__logger.log(msg, self.__logger.kWarning)
+            self.__logger.log(self.__logger.kWarning, msg)
             return
 
         # Store where this plugin was loaded from. Not entirely
