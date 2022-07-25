@@ -282,9 +282,6 @@ class MockManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
     internal mock.
     @see mock_manager_interface_factory
     """
-    # TODO(DF): @pylint Remove once ManagerInterfaceFactoryInterface
-    #   fully migrated to C++.
-    # pylint: disable=abstract-method
     def __init__(self, logger):
         ManagerInterfaceFactoryInterface.__init__(self, logger)
         self.mock = mock.create_autospec(

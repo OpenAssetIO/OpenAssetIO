@@ -14,6 +14,12 @@ v1.0.0-alpha.X
   [#507](https://github.com/OpenAssetIO/OpenAssetIO/issues/507)
   [#510](https://github.com/OpenAssetIO/OpenAssetIO/issues/510)
 
+- Removed redundant `ManagerIntefaceFactoryInterface` methods
+  `managers` and `managerRegistered`, whose functionality has been
+  migrated to `ManagerFactory`. Removed `instantiateUIDelegate`
+  until UI layer work is underway.
+  [#505](https://github.com/OpenAssetIO/OpenAssetIO/issues/505)
+
 - Redesigned the manager initialization workflow, such that
   `ManagerInterface`/`Manager.setSettings` and `initialize` are no
   longer independent calls. Specifically, `setSettings` is removed and
