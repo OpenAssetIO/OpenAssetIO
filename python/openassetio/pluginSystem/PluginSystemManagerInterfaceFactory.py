@@ -49,7 +49,6 @@ class PluginSystemManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
         super(PluginSystemManagerInterfaceFactory, self).__init__(logger)
 
         self.__pluginManager = None
-        self.__instances = {}
         self.__paths = paths
 
     def __scan(self):
@@ -86,7 +85,7 @@ class PluginSystemManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
 
         return self.__pluginManager.identifiers()
 
-    def instantiate(self, identifier, cache=True):
+    def instantiate(self, identifier):
         """
         Creates an instance of the @ref
         openassetio.managerApi.ManagerInterface "ManagerInterface" with
@@ -95,26 +94,14 @@ class PluginSystemManagerInterfaceFactory(ManagerInterfaceFactoryInterface):
         @param identifier `str` The identifier of the ManagerInterface
         to instantiate.
 
-        @param cache `bool` When True the created instance will be
-        cached, and immediately returned by subsequence calls to this
-        function with the same identifier - instead of creating a new
-        instance. If False, a new instance will be created each, and
-        never retained.
-
         @returns openassetio.managerApi.ManagerInterface
         """
 
         if not self.__pluginManager:
             self.__scan()
 
-        if cache and identifier in self.__instances:
-            return self.__instances[identifier]
-
         self._logger.log(f"Instantiating {identifier}", self._logger.kDebug)
         plugin = self.__pluginManager.plugin(identifier)
         interface = plugin.interface()
-
-        if cache:
-            self.__instances[identifier] = interface
 
         return interface
