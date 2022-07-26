@@ -41,6 +41,7 @@ target_sources(
     openassetio-python-test
     PRIVATE
     _openassetio_test.cpp
+    PyRetainingSharedPtrTest.cpp
 )
 
 # Give access to private headers.
