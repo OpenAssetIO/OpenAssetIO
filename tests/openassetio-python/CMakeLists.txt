@@ -42,6 +42,7 @@ target_sources(
     PRIVATE
     _openassetio_test.cpp
     PyRetainingSharedPtrTest.cpp
+    hostApiTest.cpp
 )
 
 # Give access to private headers.
@@ -52,6 +53,8 @@ target_link_libraries(openassetio-python-test
     PRIVATE
     # Core C++ library.
     openassetio-core
+    # Python C++ bridge library.
+    openassetio-python-bridge
     # pybind, including its handy transitive Python-specific properties.
     pybind11::module pybind11::windows_extras)
 

@@ -30,6 +30,7 @@ namespace python::pointers {
  * linked by the Python object refcount.
  *
  * @see PyRetainingSharedPtr
+ * @see createPythonPluginSystemManagerImplementationFactory
  *
  * @tparam Ptr Type of smart pointer (shared_ptr compatible).
  * @param pyInstance Python object whose lifetime will be modified..

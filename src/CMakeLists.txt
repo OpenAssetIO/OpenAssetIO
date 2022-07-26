@@ -20,5 +20,5 @@ endif ()
 # Python bindings
 
 if (OPENASSETIO_ENABLE_PYTHON)
-    add_subdirectory(openassetio-python/module)
+    add_subdirectory(openassetio-python)
 endif ()
