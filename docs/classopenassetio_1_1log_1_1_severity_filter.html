@@ -134,9 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a> (self)</td></tr>
 <tr class="memdesc:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logger wrapped by the filter.  <a href="#a0b828cc45291e3f21cc27a0d1a56c0ee">More...</a><br /></td></tr>
 <tr class="separator:a0b828cc45291e3f21cc27a0d1a56c0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d98eb4bcc27668915b50e5d279ef426"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a3d98eb4bcc27668915b50e5d279ef426">log</a> (self, message, severity)</td></tr>
-<tr class="memdesc:a3d98eb4bcc27668915b50e5d279ef426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log only if <code>severity</code> is greater than or equal to this logger's configured severity level.  <a href="#a3d98eb4bcc27668915b50e5d279ef426">More...</a><br /></td></tr>
-<tr class="separator:a3d98eb4bcc27668915b50e5d279ef426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d272d2ff0a65036e02f14c589e12e9c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a1d272d2ff0a65036e02f14c589e12e9c">log</a> (self, severity, message)</td></tr>
+<tr class="memdesc:a1d272d2ff0a65036e02f14c589e12e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log only if <code>severity</code> is greater than or equal to this logger's configured severity level.  <a href="#a1d272d2ff0a65036e02f14c589e12e9c">More...</a><br /></td></tr>
+<tr class="separator:a1d272d2ff0a65036e02f14c589e12e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Filter Severity</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Messages logged with a severity greater or equal to this will be displayed.</p>
 <p>Note: Confusingly, greater severities (ie. worse consequence) have a lower numerical equivalent. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Revisit severity &lt;&gt; int mappings etc... </dd></dl>
@@ -200,7 +200,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3d98eb4bcc27668915b50e5d279ef426"></a>
+<a class="anchor" id="a1d272d2ff0a65036e02f14c589e12e9c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -214,13 +214,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>message</em>, </td>
+          <td class="paramname"><em>severity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>severity</em>&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
