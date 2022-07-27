@@ -18,13 +18,10 @@ var hierarchy =
       [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
     ] ],
     [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
-    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterface", null, [
       [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
     ] ],
-    [ "ManagerInterfaceFactoryInterface", null, [
-      [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1host_api_1_1_manager_interface_factory_interface_1_1_manager_interface_factory_interface.html", null ]
-    ] ],
+    [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterfaceFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_interface_factory_interface.html", null ],
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
@@ -99,12 +96,12 @@ var hierarchy =
       [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
     ] ],
     [ "Trait", null, [
-      [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
-      [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
-    ] ],
-    [ "Trait", null, [
       [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
       [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
       [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]
+    ] ],
+    [ "Trait", null, [
+      [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
+      [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
     ] ]
 ];

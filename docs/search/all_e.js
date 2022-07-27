@@ -20,7 +20,6 @@ var searchData=
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1v1_1_1manager_api.html',1,'openassetio::v1']]],
   ['managerfactory',['ManagerFactory',['../namespaceopenassetio_1_1host_api_1_1_manager_factory.html',1,'openassetio::hostApi']]],
   ['managerinterface',['ManagerInterface',['../namespaceopenassetio_1_1manager_api_1_1_manager_interface.html',1,'openassetio::managerApi']]],
-  ['managerinterfacefactoryinterface',['ManagerInterfaceFactoryInterface',['../namespaceopenassetio_1_1host_api_1_1_manager_interface_factory_interface.html',1,'openassetio::hostApi']]],
   ['managerplugin',['ManagerPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html',1,'openassetio::pluginSystem']]],
   ['oa_5fconststringview',['oa_ConstStringView',['../structoa___const_string_view.html',1,'oa_ConstStringView'],['../group__oa___string_view__aliases.html#ga353932e42c606da973e6eaa6ee11d128',1,'oa_ConstStringView():&#160;StringView.h']]],
   ['oa_5ferrorcode',['oa_ErrorCode',['../group__oa___error_code__aliases.html#gafa91adb36c274fe10b67b6884993ab02',1,'oa_ErrorCode():&#160;errors.h'],['../group__oa___error_code.html#ga58ccb041c66e26f6c9637909914209fb',1,'oa_ErrorCode():&#160;errors.h'],['../group__oa___error_code.html',1,'(Global Namespace)']]],
