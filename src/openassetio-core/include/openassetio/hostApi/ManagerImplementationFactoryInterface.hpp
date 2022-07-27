@@ -15,7 +15,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
 
-OPENASSETIO_DECLARE_PTR(ManagerInterfaceFactoryInterface)
+OPENASSETIO_DECLARE_PTR(ManagerImplementationFactoryInterface)
 
 /**
  * Manager Factories are responsible for instantiating classes that
@@ -23,8 +23,8 @@ OPENASSETIO_DECLARE_PTR(ManagerInterfaceFactoryInterface)
  * openassetio-ui.implementation.ManagerUIDelegate for use within an
  * host.
  *
- * ManagerInterfaceFactoryInterface defines the abstract interface that
- * any such factory must adopt.
+ * ManagerImplementationFactoryInterface defines the abstract interface
+ * that any such factory must adopt.
  *
  * Factories are expected to be lazy, so should be cheap to construct,
  * and work to discover plugins should be done in @ref identifiers /
@@ -38,7 +38,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterfaceFactoryInterface)
  * logger to report any non-critical messages. For any critical failures
  * exceptions should be thrown, and logging left up to the caller.
  */
-class OPENASSETIO_CORE_EXPORT ManagerInterfaceFactoryInterface {
+class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
  public:
   /**
    * Construct an instance of this class.
@@ -46,9 +46,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterfaceFactoryInterface {
    * @param logger Logger object that should be used for all logging
    * by the factory. Obtainable in subclasses through @ref logger_.
    */
-  explicit ManagerInterfaceFactoryInterface(LoggerInterfacePtr logger);
+  explicit ManagerImplementationFactoryInterface(LoggerInterfacePtr logger);
 
-  virtual ~ManagerInterfaceFactoryInterface() = 0;
+  virtual ~ManagerImplementationFactoryInterface() = 0;
 
   /**
    * All identifiers known to the factory.

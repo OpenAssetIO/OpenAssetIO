@@ -85,11 +85,11 @@
  *      simple console logging you can use a
  *      @ref openassetio.log.ConsoleLogger "ConsoleLogger" wrapped
  *      in a @ref openassetio.log.SeverityFilter "SeverityFilter".
- *    - A @fqref{hostApi.ManagerInterfaceFactoryInterface}
- *      "ManagerInterfaceFactoryInterface" capable of instantiating
+ *    - A @fqref{hostApi.ManagerImplementationFactoryInterface}
+ *      "ManagerImplementationFactoryInterface" capable of instantiating
  *      managers. In the majority of cases a default-configured @ref
- *      openassetio.pluginSystem.PluginSystemManagerInterfaceFactory
- *      "PluginSystemManagerInterfaceFactory" will be sufficient.
+ *      openassetio.pluginSystem.PluginSystemManagerImplementationFactory
+ *      "PluginSystemManagerImplementationFactory" will be sufficient.
  *
  * - Create, persist and configure a @ref Context as appropriate for
  *   all calls to the API.

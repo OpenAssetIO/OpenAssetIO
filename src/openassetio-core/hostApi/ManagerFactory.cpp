@@ -4,7 +4,7 @@
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
-#include <openassetio/hostApi/ManagerInterfaceFactoryInterface.hpp>
+#include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -14,21 +14,25 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
 
-ManagerFactoryPtr ManagerFactory::make(HostInterfacePtr hostInterface,
-                                       ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory,
-                                       LoggerInterfacePtr logger) {
+ManagerFactoryPtr ManagerFactory::make(
+    HostInterfacePtr hostInterface,
+    ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
+    LoggerInterfacePtr logger) {
   return openassetio::hostApi::ManagerFactoryPtr{new ManagerFactory{
-      std::move(hostInterface), std::move(managerInterfaceFactory), std::move(logger)}};
+      std::move(hostInterface), std::move(managerImplementationFactory), std::move(logger)}};
 }
 
-ManagerFactory::ManagerFactory(HostInterfacePtr hostInterface,
-                               ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory,
-                               LoggerInterfacePtr logger)
+ManagerFactory::ManagerFactory(
+    HostInterfacePtr hostInterface,
+    ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
+    LoggerInterfacePtr logger)
     : hostInterface_{std::move(hostInterface)},
-      managerInterfaceFactory_{std::move(managerInterfaceFactory)},
+      managerImplementationFactory_{std::move(managerImplementationFactory)},
       logger_{std::move(logger)} {}
 
-Identifiers ManagerFactory::identifiers() const { return managerInterfaceFactory_->identifiers(); }
+Identifiers ManagerFactory::identifiers() const {
+  return managerImplementationFactory_->identifiers();
+}
 
 ManagerFactory::ManagerDetails ManagerFactory::availableManagers() const {
   const Identifiers& ids = identifiers();
@@ -44,7 +48,7 @@ ManagerFactory::ManagerDetails ManagerFactory::availableManagers() const {
 
   for (const Identifier& identifier : ids) {
     const managerApi::ManagerInterfacePtr managerInterface =
-        managerInterfaceFactory_->instantiate(identifier);
+        managerImplementationFactory_->instantiate(identifier);
 
     managerDetails.insert({identifier,
                            {managerInterface->identifier(), managerInterface->displayName(),
@@ -54,14 +58,15 @@ ManagerFactory::ManagerDetails ManagerFactory::availableManagers() const {
 }
 
 ManagerPtr ManagerFactory::createManager(const Identifier& identifier) const {
-  return createManagerForInterface(identifier, hostInterface_, managerInterfaceFactory_, logger_);
+  return createManagerForInterface(identifier, hostInterface_, managerImplementationFactory_,
+                                   logger_);
 }
 
 ManagerPtr ManagerFactory::createManagerForInterface(
     const Identifier& identifier, const HostInterfacePtr& hostInterface,
-    const ManagerInterfaceFactoryInterfacePtr& managerInterfaceFactory,
+    const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
     [[maybe_unused]] const LoggerInterfacePtr& logger) {
-  return Manager::make(managerInterfaceFactory->instantiate(identifier),
+  return Manager::make(managerImplementationFactory->instantiate(identifier),
                        managerApi::HostSession::make(managerApi::Host::make(hostInterface)));
 }
 }  // namespace hostApi

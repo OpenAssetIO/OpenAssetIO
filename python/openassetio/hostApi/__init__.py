@@ -28,4 +28,4 @@ from .Manager import Manager
 from .ManagerFactory import ManagerFactory
 
 HostInterface = _openassetio.hostApi.HostInterface
-ManagerInterfaceFactoryInterface = _openassetio.hostApi.ManagerInterfaceFactoryInterface
+ManagerImplementationFactoryInterface = _openassetio.hostApi.ManagerImplementationFactoryInterface
