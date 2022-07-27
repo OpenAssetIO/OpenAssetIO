@@ -122,9 +122,9 @@ class Test_SeverityFilter_log:
 
             for message_severity in all_severities:
                 mock_logger.mock.reset_mock()
-                severity_filter.log(msg, message_severity)
+                severity_filter.log(message_severity, msg)
                 if message_severity <= filter_severity:
                     mock_logger.mock.log.assert_called_once_with(
-                        msg, message_severity)
+                        message_severity, msg)
                 else:
                     mock_logger.mock.log.assert_not_called()

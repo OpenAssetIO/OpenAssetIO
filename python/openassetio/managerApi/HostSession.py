@@ -64,7 +64,7 @@ class HostSession(_openassetio.managerApi.HostSession):
 
         self.__logger = logger
 
-    def log(self, message, severity):
+    def log(self, severity, message):
         """
         Logs a message to the user.
 
@@ -74,4 +74,4 @@ class HostSession(_openassetio.managerApi.HostSession):
 
         @see @ref openassetio.log "log"
         """
-        self.__logger.log(message, severity)
+        self.__logger.log(severity, message)

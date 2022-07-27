@@ -72,8 +72,8 @@ class BasicAssetLibraryInterface(ManagerInterface):
 
         if self.__settings.get("library_path") is None:
             hostSession.log(
-                f"'library_path' not in settings, checking {self.__lib_path_envvar_name}",
                 hostSession.kDebug,
+                f"'library_path' not in settings, checking {self.__lib_path_envvar_name}",
             )
             self.__settings["library_path"] = os.environ.get(self.__lib_path_envvar_name)
 
@@ -81,7 +81,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
             raise PluginError("'library_path' not set")
 
         hostSession.log(
-            f"Loading library from {self.__settings['library_path']}", hostSession.kDebug
+            hostSession.kDebug, f"Loading library from {self.__settings['library_path']}"
         )
         self.__library = bal.load_library(self.__settings["library_path"])
 

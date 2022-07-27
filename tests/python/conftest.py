@@ -310,5 +310,5 @@ class MockLogger(LoggerInterface):
         LoggerInterface.__init__(self)
         self.mock = mock.create_autospec(LoggerInterface, spec_set=True, instance=True)
 
-    def log(self, message, severity):
-        self.mock.log(message, severity)
+    def log(self, severity, message):
+        self.mock.log(severity, message)

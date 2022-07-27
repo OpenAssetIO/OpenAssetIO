@@ -6,6 +6,10 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Swapped the order of `severity` and `message` in the
+  `LoggerInterface::log` method.
+  [#531](https://github.com/OpenAssetIO/OpenAssetIO/issues/531)
+
 - Removed the `Session` Python class in favour of the `ManagerFactory`
   C++/Python class.
   [#430](https://github.com/OpenAssetIO/OpenAssetIO/issues/430)
