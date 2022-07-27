@@ -18,6 +18,10 @@
 These test ensure that all modules are importable. This can help catch
 dependencies between packages due to the hoisting required to hide
 duplicate namespaces to match the future C++ implementation appearance.
+
+Cases should be added for any of the following:
+ - Discreet Python modules.
+ - C++ implementations hoisted in an __init__.py file.
 """
 
 import pytest
@@ -38,7 +42,7 @@ def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: dis
 
 class Test_package_imports:
 
-    def test_importing_openassetui_succeeds(self):
+    def test_importing_openassetio_succeeds(self):
         import openassetio
 
     def test_importing_constants_succeeds(self):
@@ -58,6 +62,9 @@ class Test_package_imports:
 
     def test_importing_Trait_succeeds(self):
         from openassetio import Trait
+
+    def test_importing_TraitsData_succeeds(self):
+        from openassetio import TraitsData
 
 
 class Test_core_imports:
@@ -101,6 +108,9 @@ class Test_managerApi_imports:
     def test_importing_ManagerInterface_succeeds(self):
         from openassetio.managerApi import ManagerInterface
 
+    def test_importing_ManagerStateBase_succeeds(self):
+        from openassetio.managerApi import ManagerStateBase
+
 
 class Test_pluginSystem_imports:
 
@@ -115,3 +125,30 @@ class Test_pluginSystem_imports:
 
     def test_importing_PluginSystemPlugin_succeeds(self):
         from openassetio.pluginSystem import PluginSystemPlugin
+
+
+class Test_test_imports:
+
+    def test_importing_manager_succeeds(self):
+        from openassetio.test import manager
+
+    def test_importing_specifications_succeeds(self):
+        from openassetio.test import specifications
+
+
+class Test_test_manager_imports:
+
+    def test_importing_apiComplianceSuite_succeeds(self):
+        from openassetio.test.manager import apiComplianceSuite
+
+    def test_importing_harness_succeeds(self):
+        from openassetio.test.manager import harness
+
+    def test_importing_specifications_succeeds(self):
+        from openassetio.test.manager import specifications
+
+
+class Test_traits_imports:
+
+    def test_importing_managementPolicy_succeeds(self):
+        from openassetio.traits import managementPolicy
