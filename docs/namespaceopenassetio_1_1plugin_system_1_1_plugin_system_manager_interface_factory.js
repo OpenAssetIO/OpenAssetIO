@@ -1,4 +1,0 @@
-var namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory =
-[
-    [ "PluginSystemManagerInterfaceFactory", "classopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory_1_1_plugin_system_manager_interface_factory.html", "classopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory_1_1_plugin_system_manager_interface_factory" ]
-];

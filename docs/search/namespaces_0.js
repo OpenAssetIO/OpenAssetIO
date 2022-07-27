@@ -25,7 +25,7 @@ var searchData=
   ['openassetio',['openassetio',['../namespaceopenassetio.html',1,'']]],
   ['pluginsystem',['pluginSystem',['../namespaceopenassetio_1_1plugin_system.html',1,'openassetio']]],
   ['pluginsystem',['PluginSystem',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system.html',1,'openassetio::pluginSystem']]],
-  ['pluginsystemmanagerinterfacefactory',['PluginSystemManagerInterfaceFactory',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory.html',1,'openassetio::pluginSystem']]],
+  ['pluginsystemmanagerimplementationfactory',['PluginSystemManagerImplementationFactory',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory.html',1,'openassetio::pluginSystem']]],
   ['pluginsystemplugin',['PluginSystemPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html',1,'openassetio::pluginSystem']]],
   ['property',['property',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html',1,'openassetio::v1::trait']]],
   ['specificationbase',['SpecificationBase',['../namespaceopenassetio_1_1_specification_base.html',1,'openassetio']]],

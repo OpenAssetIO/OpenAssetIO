@@ -22,7 +22,7 @@ var NAVTREEINDEX2 =
 "namespaceopenassetio_1_1plugin_system.html":[13,0,0,5],
 "namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html":[13,0,0,5,0],
 "namespaceopenassetio_1_1plugin_system_1_1_plugin_system.html":[13,0,0,5,1],
-"namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory.html":[13,0,0,5,2],
+"namespaceopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory.html":[13,0,0,5,2],
 "namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin.html":[13,0,0,5,3],
 "namespaceopenassetio_1_1test.html":[13,0,0,7],
 "namespaceopenassetio_1_1test_1_1manager.html":[13,0,0,7,0],

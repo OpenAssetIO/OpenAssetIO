@@ -151,16 +151,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae1257818d0693fd995cd4a4ac894c842"><td class="memItemLeft" align="right" valign="top">static ManagerFactoryPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#ae1257818d0693fd995cd4a4ac894c842">make</a> (HostInterfacePtr hostInterface, ManagerInterfaceFactoryInterfacePtr managerInterfaceFactory, LoggerInterfacePtr logger)</td></tr>
-<tr class="memdesc:ae1257818d0693fd995cd4a4ac894c842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an instance of this class.  <a href="#ae1257818d0693fd995cd4a4ac894c842">More...</a><br /></td></tr>
-<tr class="separator:ae1257818d0693fd995cd4a4ac894c842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2213d72434226bee8fd9438db5464edc"><td class="memItemLeft" align="right" valign="top">static ManagerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a2213d72434226bee8fd9438db5464edc">createManagerForInterface</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da">Identifier</a> &amp;identifier, const HostInterfacePtr &amp;hostInterface, const ManagerInterfaceFactoryInterfacePtr &amp;managerInterfaceFactory, const LoggerInterfacePtr &amp;logger)</td></tr>
-<tr class="memdesc:a2213d72434226bee8fd9438db5464edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> instance for the <a class="el" href="glossary.html#manager">manager</a> associated with the given identifier.  <a href="#a2213d72434226bee8fd9438db5464edc">More...</a><br /></td></tr>
-<tr class="separator:a2213d72434226bee8fd9438db5464edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2278c5746c0e2f5d912399ce1425e9b"><td class="memItemLeft" align="right" valign="top">static ManagerFactoryPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#ab2278c5746c0e2f5d912399ce1425e9b">make</a> (HostInterfacePtr hostInterface, ManagerImplementationFactoryInterfacePtr managerImplementationFactory, LoggerInterfacePtr logger)</td></tr>
+<tr class="memdesc:ab2278c5746c0e2f5d912399ce1425e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an instance of this class.  <a href="#ab2278c5746c0e2f5d912399ce1425e9b">More...</a><br /></td></tr>
+<tr class="separator:ab2278c5746c0e2f5d912399ce1425e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db47d830d91f6723bc5ad4dee3995bb"><td class="memItemLeft" align="right" valign="top">static ManagerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a5db47d830d91f6723bc5ad4dee3995bb">createManagerForInterface</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da">Identifier</a> &amp;identifier, const HostInterfacePtr &amp;hostInterface, const ManagerImplementationFactoryInterfacePtr &amp;managerImplementationFactory, const LoggerInterfacePtr &amp;logger)</td></tr>
+<tr class="memdesc:a5db47d830d91f6723bc5ad4dee3995bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> instance for the <a class="el" href="glossary.html#manager">manager</a> associated with the given identifier.  <a href="#a5db47d830d91f6723bc5ad4dee3995bb">More...</a><br /></td></tr>
+<tr class="separator:a5db47d830d91f6723bc5ad4dee3995bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html" title="The ManagerFactory is the primary mechanism for querying for available managers and constructing a Ma...">ManagerFactory</a> is the primary mechanism for querying for available <a class="el" href="glossary.html#manager">managers</a> and constructing a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a>. </p>
-<p>The underlying manager implementation is constructed using the supplied <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_interface_factory_interface.html">ManagerInterfaceFactoryInterface</a> factory implementation.</p>
+<p>The underlying manager implementation is constructed using the supplied <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html">ManagerImplementationFactoryInterface</a> factory implementation.</p>
 <p>Hosts should never attempt to directly construct a <code><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a></code> class or interact with the implementation factory directly. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a01bd0dda4387ae9989db6d8759dc1d71"></a>
@@ -225,7 +225,7 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2213d72434226bee8fd9438db5464edc"></a>
+<a class="anchor" id="a5db47d830d91f6723bc5ad4dee3995bb"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -247,8 +247,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ManagerInterfaceFactoryInterfacePtr &amp;&#160;</td>
-          <td class="paramname"><em>managerInterfaceFactory</em>, </td>
+          <td class="paramtype">const ManagerImplementationFactoryInterfacePtr &amp;&#160;</td>
+          <td class="paramname"><em>managerImplementationFactory</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -275,7 +275,7 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">identifier</td><td>Unique manager identifier.</td></tr>
     <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a></code> that uniquely identifies the host and provides common hooks for the <a class="el" href="glossary.html#manager">manager</a> to query asset-related properties from the host.</td></tr>
-    <tr><td class="paramname">managerInterfaceFactory</td><td>The factory that will be used to instantiate the manager. See, for example, <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory_1_1_plugin_system_manager_interface_factory.html">PluginSystemManagerInterfaceFactory</a>.</td></tr>
+    <tr><td class="paramname">managerImplementationFactory</td><td>The factory that will be used to instantiate the manager. See, for example, <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory_1_1_plugin_syff7573b8b7647b4f7369c388c223be94.html">PluginSystemManagerImplementationFactory</a>.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the factory and instantiated <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> instances.</td></tr>
   </table>
   </dd>
@@ -303,7 +303,7 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae1257818d0693fd995cd4a4ac894c842"></a>
+<a class="anchor" id="ab2278c5746c0e2f5d912399ce1425e9b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -319,8 +319,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ManagerInterfaceFactoryInterfacePtr&#160;</td>
-          <td class="paramname"><em>managerInterfaceFactory</em>, </td>
+          <td class="paramtype">ManagerImplementationFactoryInterfacePtr&#160;</td>
+          <td class="paramname"><em>managerImplementationFactory</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -345,7 +345,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a></code> that uniquely identifies the host and provides common hooks for the <a class="el" href="glossary.html#manager">manager</a> to query asset-related properties from the host.</td></tr>
-    <tr><td class="paramname">managerInterfaceFactory</td><td>The factory that will be used to instantiate managers. See, for example, <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory_1_1_plugin_system_manager_interface_factory.html">PluginSystemManagerInterfaceFactory</a>.</td></tr>
+    <tr><td class="paramname">managerImplementationFactory</td><td>The factory that will be used to instantiate managers. See, for example, <a class="el" href="classopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory_1_1_plugin_syff7573b8b7647b4f7369c388c223be94.html">PluginSystemManagerImplementationFactory</a>.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the factory and instantiated <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> instances. </td></tr>
   </table>
   </dd>

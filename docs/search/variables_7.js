@@ -41,7 +41,7 @@ var searchData=
   ['kinfo',['kInfo',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a43608ad7833b0aac20cba06a66778e2a',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
-  ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_interface_factory_1_1_plugin_system_manager_interface_factory.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PluginSystemManagerInterfaceFactory::PluginSystemManagerInterfaceFactory']]],
+  ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory_1_1_plugin_syff7573b8b7647b4f7369c388c223be94.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PluginSystemManagerImplementationFactory::PluginSystemManagerImplementationFactory']]],
   ['kprogress',['kProgress',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a953866c5d6fdd08eadf3bade2d3988a2',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a0d4f9c0297edb401d6b9bac6c0fb32e4',1,'openassetio::v1::Context']]],
   ['ksetting_5floggingseverity',['kSetting_LoggingSeverity',['../namespaceopenassetio_1_1constants.html#abc3b2f6603ea0b538dacd24e728d5dae',1,'openassetio::constants']]],
