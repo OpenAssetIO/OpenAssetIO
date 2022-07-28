@@ -1,20 +1,20 @@
 #-----------------------------------------------------------------------
 # Python module target
 
-add_library(openassetio-python MODULE)
-set_default_target_properties(openassetio-python)
+add_library(openassetio-python-module MODULE)
+set_default_target_properties(openassetio-python-module)
 
 set(install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
 
 # Add to the set of installable targets.
 install(
-    TARGETS openassetio-python
+    TARGETS openassetio-python-module
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
     DESTINATION ${install_subdir}
 )
 
 # Set Python extension module name, and remove any ("lib") prefix.
-set_target_properties(openassetio-python
+set_target_properties(openassetio-python-module
     PROPERTIES
     OUTPUT_NAME _openassetio
     PREFIX ""
@@ -28,8 +28,8 @@ set_target_properties(openassetio-python
     VERSION "")
 
 if (WIN32)
-    set_target_properties(openassetio-python PROPERTIES SUFFIX ".pyd")
-    install(FILES $<TARGET_PDB_FILE:openassetio-python>
+    set_target_properties(openassetio-python-module PROPERTIES SUFFIX ".pyd")
+    install(FILES $<TARGET_PDB_FILE:openassetio-python-module>
         CONFIGURATIONS "Debug" "RelWithDebInfo"
         DESTINATION ${install_subdir})
 endif ()
@@ -38,7 +38,7 @@ endif ()
 # Target dependencies
 
 target_sources(
-    openassetio-python
+    openassetio-python-module
     PRIVATE
     _openassetio.cpp
     ContextBinding.cpp
@@ -54,7 +54,7 @@ target_sources(
     managerApi/ManagerStateBaseBinding.cpp
 )
 
-target_link_libraries(openassetio-python
+target_link_libraries(openassetio-python-module
     PRIVATE
     # Core C++ library.
     openassetio-core
@@ -65,7 +65,7 @@ target_link_libraries(openassetio-python
 #-----------------------------------------------------------------------
 # Override build tree to look like install tree.
 
-set_target_properties(openassetio-python
+set_target_properties(openassetio-python-module
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir}
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir})
@@ -88,7 +88,7 @@ if (UNIX)
         set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
     endif ()
 
-    set_target_properties(openassetio-python PROPERTIES INSTALL_RPATH "${rpath}")
+    set_target_properties(openassetio-python-module PROPERTIES INSTALL_RPATH "${rpath}")
 endif ()
 
 

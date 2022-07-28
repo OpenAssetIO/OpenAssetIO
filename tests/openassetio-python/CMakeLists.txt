@@ -46,7 +46,7 @@ target_sources(
 
 # Give access to private headers.
 target_include_directories(openassetio-python-test
-    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python)
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python/module)
 
 target_link_libraries(openassetio-python-test
     PRIVATE
@@ -55,7 +55,7 @@ target_link_libraries(openassetio-python-test
     # pybind, including its handy transitive Python-specific properties.
     pybind11::module pybind11::windows_extras)
 
-add_dependencies(openassetio-python-test openassetio-python)
+add_dependencies(openassetio-python-test openassetio-python-module)
 
 #-----------------------------------------------------------------------
 # Override build tree to look like install tree.
