@@ -73,12 +73,20 @@ def mock_host_interface():
 
 
 @pytest.fixture
-def mock_host_session(mock_host_interface, mock_logger):
+def a_host(mock_host_interface):
     """
-    Fixture for a `HostSesssion`, configured with a mock_host_interface,
-    that forwards method calls to an internal public `mock.Mock` instance.
+    Fixture for a `Host` that wraps the mock_host_interface.
     """
-    return MockHostSession(Host(mock_host_interface), mock_logger)
+    return Host(mock_host_interface)
+
+
+@pytest.fixture
+def a_host_session(a_host, mock_logger):
+    """
+    Fixture for a `HostSession`, configured with a mock_host_interface,
+    (via a_host) and a mock_logger.
+    """
+    return HostSession(a_host, mock_logger)
 
 
 @pytest.fixture
@@ -102,20 +110,6 @@ def create_mock_manager_interface():
     def creator():
         return ValidatingMockManagerInterface()
     return creator
-
-
-class MockHostSession(HostSession):
-    """
-    `HostSession` that forwards calls to an internal mock.
-    @see mock_host_session
-    """
-
-    def __init__(self, host, logger):
-        super().__init__(host, logger)
-        self.mock = mock.create_autospec(HostSession, spec_set=True, instance=True)
-
-    def host(self):
-        return self.mock.host()
 
 
 class ValidatingMockManagerInterface(ManagerInterface):

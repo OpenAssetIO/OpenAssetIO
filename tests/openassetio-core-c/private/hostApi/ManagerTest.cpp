@@ -9,6 +9,7 @@
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
+#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/Host.hpp>
@@ -27,6 +28,9 @@
 namespace managerApi = openassetio::managerApi;
 namespace hostApi = openassetio::hostApi;
 namespace handles = openassetio::handles;
+
+using openassetio::LoggerInterface;
+using openassetio::LoggerInterfacePtr;
 
 namespace {
 constexpr size_t kStringBufferSize = 500;
@@ -52,6 +56,14 @@ struct MockHostInterface : trompeloeil::mock_interface<hostApi::HostInterface> {
   IMPLEMENT_CONST_MOCK0(displayName);
   IMPLEMENT_CONST_MOCK0(info);
 };
+/**
+ * Mock implementation of a LoggerInterface
+ *
+ * Used as constructor parameter to Host classes required as part of these tests
+ */
+struct MockLoggerInterface : trompeloeil::mock_interface<LoggerInterface> {
+  IMPLEMENT_MOCK2(log);
+};
 }  // namespace
 
 SCENARIO("A Manager is constructed and destructed") {
@@ -61,11 +73,14 @@ SCENARIO("A Manager is constructed and destructed") {
   // A mock ManagerInterface whose lifetime is tracked.
   using DeathwatchedMockManagerInterface = trompeloeil::deathwatched<MockManagerInterface>;
   using DeathwatchedMockHostInterface = trompeloeil::deathwatched<MockHostInterface>;
+  using DeathwatchedMockLoggerInterface = trompeloeil::deathwatched<MockLoggerInterface>;
 
   GIVEN("a shared pointer to a HostSession and its C handle") {
     auto* hostInterface = new DeathwatchedMockHostInterface{};
+    auto* logger = new DeathwatchedMockLoggerInterface{};
     auto hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(hostApi::HostInterfacePtr{hostInterface}));
+        managerApi::Host::make(hostApi::HostInterfacePtr{hostInterface}),
+        LoggerInterfacePtr{logger});
     oa_managerApi_SharedHostSession_h hostSessionHandle =
         handles::managerApi::SharedHostSession::toHandle(&hostSessionPtr);
 
@@ -93,17 +108,21 @@ SCENARIO("A Manager is constructed and destructed") {
           mockManagerInterfacePtr.reset();
           hostSessionPtr.reset();
 
-          AND_GIVEN("the ManagerInterface and HostInterface expect to be destroyed") {
+          AND_GIVEN(
+              "the ManagerInterface, HostInterface and LoggerInterface expect to be destroyed") {
             // By the time this block exits, the ManagerInterface and
             // HostInterface should be destroyed because we're about to
             // call `dtor`.
             REQUIRE_DESTRUCTION(*managerInterface);
             REQUIRE_DESTRUCTION(*hostInterface);
+            REQUIRE_DESTRUCTION(*logger);
 
             WHEN("Manager's dtor C API function is called") {
               oa_hostApi_Manager_dtor(managerHandle);
 
-              THEN("wrapped ManagerInterface and hostInterface have been destroyed") {
+              THEN(
+                  "wrapped ManagerInterface, HostInterface and LoggerInterface have been "
+                  "destroyed") {
                 // Asserted by REQUIRE_DESTRUCTION.
               }
             }
@@ -115,10 +134,13 @@ SCENARIO("A Manager is constructed and destructed") {
 
   GIVEN("a shared pointer to a HostSession and its C handle") {
     auto* hostInterface = new DeathwatchedMockHostInterface{};
+    auto* logger = new DeathwatchedMockLoggerInterface{};
     // We must have this expectation here to avoid a false positive.
     REQUIRE_DESTRUCTION(*hostInterface);
+    REQUIRE_DESTRUCTION(*logger);
     auto hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(hostApi::HostInterfacePtr(hostInterface)));
+        managerApi::Host::make(hostApi::HostInterfacePtr(hostInterface)),
+        LoggerInterfacePtr{logger});
     oa_managerApi_SharedHostSession_h hostSessionHandle =
         handles::managerApi::SharedHostSession::toHandle(&hostSessionPtr);
 
@@ -143,9 +165,10 @@ SCENARIO("A Manager is constructed and destructed") {
         WHEN("Manager's dtor C API function is called") {
           oa_hostApi_Manager_dtor(managerHandle);
 
-          THEN("wrapped ManagerInterface and HostInterface is not destroyed") {
+          THEN("wrapped ManagerInterface, HostInterface and LoggerInterface are not destroyed") {
             // Asserted implicitly by DeathwatchedMockManagerInterface.
             // Asserted implicitly by DeathwatchedMockHostInterface.
+            // Asserted implicitly by DeathwatchedMockLoggerInterface.
           }
         }
       }
@@ -161,7 +184,8 @@ SCENARIO("A host calls Manager::identifier") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(std::make_shared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()),
+        std::make_shared<MockLoggerInterface>());
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
@@ -223,7 +247,8 @@ SCENARIO("A host calls Manager::displayName") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(std::make_shared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()),
+        std::make_shared<MockLoggerInterface>());
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
@@ -285,7 +310,8 @@ SCENARIO("A host calls Manager::info") {
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(std::make_shared<MockHostInterface>()));
+        managerApi::Host::make(std::make_shared<MockHostInterface>()),
+        std::make_shared<MockLoggerInterface>());
 
     // Create the Manager under test.
     hostApi::ManagerPtr manager = hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);

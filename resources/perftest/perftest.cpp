@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
@@ -58,13 +59,18 @@ struct Fixture {
       openassetio::managerApi::Host::make(std::make_shared<HostImpl>());
   /// HostSession required for API methods.
   const openassetio::managerApi::HostSessionPtr hostSession =
-      openassetio::managerApi::HostSession::make(host);
+      openassetio::managerApi::HostSession::make(host, std::make_shared<LoggerImpl>());
 
  private:
   /// A dummy HostInterface implementation to satisfy abstract base.
   struct HostImpl : openassetio::hostApi::HostInterface {
     [[nodiscard]] openassetio::Str identifier() const override { return {}; }
     [[nodiscard]] openassetio::Str displayName() const override { return {}; }
+  };
+  /// A dummy LoggerInterface implementation
+  struct LoggerImpl : openassetio::LoggerInterface {
+    void log([[maybe_unused]] openassetio::LoggerInterface::Severity severity,
+             [[maybe_unused]] const openassetio::Str& message) override {}
   };
 
   /// Enlarge the path so we likely exceed the small string optimization length

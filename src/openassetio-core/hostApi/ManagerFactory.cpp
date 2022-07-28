@@ -40,10 +40,6 @@ ManagerFactory::ManagerDetails ManagerFactory::availableManagers() const {
     return {};
   }
 
-  // `HostSession` required for `settings()` calls.
-  const managerApi::HostSessionPtr hostSession =
-      managerApi::HostSession::make(managerApi::Host::make(hostInterface_));
-
   ManagerDetails managerDetails;
 
   for (const Identifier& identifier : ids) {
@@ -66,8 +62,9 @@ ManagerPtr ManagerFactory::createManagerForInterface(
     const Identifier& identifier, const HostInterfacePtr& hostInterface,
     const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
     [[maybe_unused]] const LoggerInterfacePtr& logger) {
-  return Manager::make(managerImplementationFactory->instantiate(identifier),
-                       managerApi::HostSession::make(managerApi::Host::make(hostInterface)));
+  return Manager::make(
+      managerImplementationFactory->instantiate(identifier),
+      managerApi::HostSession::make(managerApi::Host::make(hostInterface), logger));
 }
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

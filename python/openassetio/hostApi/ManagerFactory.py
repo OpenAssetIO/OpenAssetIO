@@ -24,7 +24,6 @@ C++ and Python Manager and HostSession classes.
 from .. import _openassetio  # pylint: disable=no-name-in-module
 
 from .Manager import Manager
-from ..managerApi.HostSession import HostSession
 
 
 __all__ = ['ManagerFactory']
@@ -34,9 +33,11 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
     """
     @see @fqref{hostApi.ManagerFactory} "hostApi.ManagerFactory".
     """
+
     def __init__(self, hostInterface, managerImplementationFactory, logger):
         _openassetio.hostApi.ManagerFactory.__init__(
-            self, hostInterface, managerImplementationFactory, logger)
+            self, hostInterface, managerImplementationFactory, logger
+        )
         self.__managerImplementationFactory = managerImplementationFactory
         self.__hostInterface = hostInterface
         self.__logger = logger
@@ -48,7 +49,10 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         """
         return Manager(
             self.__managerImplementationFactory.instantiate(identifier),
-            HostSession(_openassetio.managerApi.Host(self.__hostInterface), self.__logger))
+            _openassetio.managerApi.HostSession(
+                _openassetio.managerApi.Host(self.__hostInterface), self.__logger
+            ),
+        )
 
     @staticmethod
     def createManagerForInterface(identifier, hostInterface, managerImplementationFactory, logger):
@@ -58,4 +62,7 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         """
         return Manager(
             managerImplementationFactory.instantiate(identifier),
-            HostSession(_openassetio.managerApi.Host(hostInterface), logger))
+            _openassetio.managerApi.HostSession(
+                _openassetio.managerApi.Host(hostInterface), logger
+            ),
+        )
