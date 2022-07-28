@@ -54,9 +54,6 @@ target_sources(
     managerApi/ManagerStateBaseBinding.cpp
 )
 
-# Give access to private headers.
-target_include_directories(openassetio-python PRIVATE ../openassetio-core)
-
 target_link_libraries(openassetio-python
     PRIVATE
     # Core C++ library.
