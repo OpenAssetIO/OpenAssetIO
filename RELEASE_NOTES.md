@@ -146,6 +146,8 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Made `LogggerInterface::log` non-const.
+
 - Added `MangerFactory` as a new, simpler, mechanism for querying for
   and instantiating available managers, intended to replace `Session`.
   [#507](https://github.com/OpenAssetIO/OpenAssetIO/issues/507)

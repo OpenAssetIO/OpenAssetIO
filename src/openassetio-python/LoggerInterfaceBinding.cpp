@@ -15,7 +15,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 struct PyLoggerInterface : LoggerInterface {
   using LoggerInterface::LoggerInterface;
 
-  void log(Severity severity, const Str& message) const override {
+  void log(Severity severity, const Str& message) override {
     PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
   }
 };
