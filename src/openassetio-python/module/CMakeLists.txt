@@ -59,8 +59,12 @@ target_link_libraries(openassetio-python-module
     # Core C++ library.
     openassetio-core
     # pybind, including its handy transitive Python-specific properties.
-    pybind11::module pybind11::windows_extras
-    )
+    pybind11::module pybind11::windows_extras)
+
+target_include_directories(openassetio-python-module
+    PRIVATE
+    # Common helpers only available at build time.
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../private/include>")
 
 #-----------------------------------------------------------------------
 # Override build tree to look like install tree.
