@@ -3,9 +3,10 @@ Provides a plugin that uses the same identifier as the ModulePlugin in
 the `pathA` folder.
 """
 
-from openassetio.pluginSystem import PluginSystemPlugin
+from openassetio.pluginSystem import PythonPluginSystemPlugin
 
-class ModulePlugin(PluginSystemPlugin):
+
+class ModulePlugin(PythonPluginSystemPlugin):
     """
     Provides an alternate implementation of the ModulePlugin
     to aid testing of path precedence.
@@ -15,6 +16,7 @@ class ModulePlugin(PluginSystemPlugin):
     def identifier(cls):
         identifier = "org.openassetio.test.pluginSystem.resources.modulePlugin"
         return identifier
+
 
 # pylint: disable=invalid-name
 plugin = ModulePlugin

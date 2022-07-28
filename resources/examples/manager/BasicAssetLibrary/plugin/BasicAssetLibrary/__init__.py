@@ -48,15 +48,15 @@ of extending Python's runtime paths accordingly.
 # It is important to minimise imports here. This module will be loaded
 # when the plugin system scans for plugins. Postpone importing any
 # of the actual implementation until it is needed by the
-# ManagerPlugin's implementation.
-from openassetio.pluginSystem import ManagerPlugin
+# PythonPluginSystemManagerPlugin's implementation.
+from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
 
-class BasicAssetLibraryPlugin(ManagerPlugin):
+class BasicAssetLibraryPlugin(PythonPluginSystemManagerPlugin):
     """
-    The ManagerPlugin is responsible for constructing instances of the
-    manager's implementation of the OpenAssetIO interfaces and
-    returning them to the host.
+    The PythonPluginSystemManagerPlugin is responsible for constructing
+    instances of the manager's implementation of the OpenAssetIO
+    interfaces and returning them to the host.
     """
 
     @staticmethod
@@ -72,7 +72,7 @@ class BasicAssetLibraryPlugin(ManagerPlugin):
 
 # Set the plugin class as the public entrypoint for the plugin system.
 # A plugin is only considered if it exposes a `plugin` variable at this
-# level, holding a class derived from ManagerPlugin.
+# level, holding a class derived from PythonPluginSystemManagerPlugin.
 
 # pylint: disable=invalid-name
 plugin = BasicAssetLibraryPlugin

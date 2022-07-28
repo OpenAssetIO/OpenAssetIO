@@ -14,25 +14,26 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.pluginSystem.ManagerPlugin
-A single-class module, providing the ManagerPlugin class.
+@namespace openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+A single-class module, providing the PythonPluginSystemManagerPlugin
+class.
 """
 
-from .PluginSystemPlugin import PluginSystemPlugin
+from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
 
 # As this is an abstract interface, these are expected
 # pylint: disable=unused-argument
 
-__all__ = ['ManagerPlugin']
+__all__ = ['PythonPluginSystemManagerPlugin']
 
 
-class ManagerPlugin(PluginSystemPlugin):
+class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
     """
     This class represents the various derived classes that make up the
     binding to a @ref asset_management_system.
 
     It used by the dynamic plug-in discovery mechanism (@ref
-    openassetio.pluginSystem.PluginSystem) to instantiate the main
+    openassetio.pluginSystem.PythonPluginSystem) to instantiate the main
     classes in an implementation.
 
     The class will never be instantiated itself, so all functionality is
@@ -77,7 +78,7 @@ class ManagerPlugin(PluginSystemPlugin):
         to be bound to the Host-facing @ref openassetio.hostApi.Manager.
 
         Generally this is only directly called by the @ref
-        openassetio.pluginSystem.PluginSystemManagerImplementationFactory.
+        openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory.
         It may be called multiple times in a session, but there as the
         ManagerInterface API itself is specified as being stateless
         (aside from any internal caching/etc...) then there is no

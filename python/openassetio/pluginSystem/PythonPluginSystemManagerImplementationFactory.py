@@ -14,31 +14,31 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.pluginSystem.PluginSystemManagerImplementationFactory
+@namespace openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory
 A single-class module, providing the
-PluginSystemManagerImplementationFactory class.
+PythonPluginSystemManagerImplementationFactory class.
 """
 
 import os
 
 from ..hostApi import ManagerImplementationFactoryInterface
 
-from .PluginSystem import PluginSystem
+from .PythonPluginSystem import PythonPluginSystem
 
 
-__all__ = ['PluginSystemManagerImplementationFactory', ]
+__all__ = ['PythonPluginSystemManagerImplementationFactory', ]
 
 
-class PluginSystemManagerImplementationFactory(ManagerImplementationFactoryInterface):
+class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactoryInterface):
     """
-    A Factory to manage @ref openassetio.pluginSystem.ManagerPlugin
-    derived plugins. Not usually used directly by a @ref host, which instead
-    uses the @fqref{hostApi.ManagerFactory} "ManagerFactory".
+    A Factory to manage @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+    derived plugins. Not usually used directly by a @ref host, which
+    instead uses the @fqref{hostApi.ManagerFactory} "ManagerFactory".
 
     @envvar **OPENASSETIO_PLUGIN_PATH** *str* A PATH-style list of
-    directories to search for @ref
-    openassetio.pluginSystem.ManagerPlugin based plugins. It uses the
-    platform-native delimiter.  Searched left to right.
+    directories to search for @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+    based plugins. It uses the platform-native delimiter.  Searched left
+    to right.
     """
 
     ## The Environment Variable to read the plug-in search path from
@@ -46,15 +46,15 @@ class PluginSystemManagerImplementationFactory(ManagerImplementationFactoryInter
 
     def __init__(self, logger, paths=None):
 
-        super(PluginSystemManagerImplementationFactory, self).__init__(logger)
+        super(PythonPluginSystemManagerImplementationFactory, self).__init__(logger)
 
         self.__pluginManager = None
         self.__paths = paths
 
     def __scan(self):
         """
-        Scans for ManagerPlugins, and registers them with the factory
-        instance.
+        Scans for PythonPluginSystemManagerPlugins, and registers them
+        with the factory instance.
 
         @param paths `str` A searchpath string to search for plug-ins.
         If None, then the contents of the Environment Variable
@@ -68,7 +68,7 @@ class PluginSystemManagerImplementationFactory(ManagerImplementationFactoryInter
                     self._logger.kWarning, ("%s is not set. It is somewhat unlikely that you will "
                      + "find any plugins...") % self.kPluginEnvVar)
 
-        self.__pluginManager = PluginSystem(self._logger)
+        self.__pluginManager = PythonPluginSystem(self._logger)
 
         # We do this after instantiating, so that the lifetime of the manager is
         # consistent with cases where some paths were set.
@@ -78,7 +78,8 @@ class PluginSystemManagerImplementationFactory(ManagerImplementationFactoryInter
     def identifiers(self):
         """
         @return list, all identifiers known to the factory.
-        @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
+        @see @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+        "PythonPluginSystemManagerPlugin"
         """
         if not self.__pluginManager:
             self.__scan()

@@ -17,7 +17,8 @@
  * interact with an @ref asset_management_system.
  *
  * It makes use of the @ref openassetio.pluginSystem "Plugin System" to
- * discover available @ref ManagerPlugin "ManagerPlugins".
+ * discover available @ref PythonPluginSystemManagerPlugin
+ * "PythonPluginSystemManagerPlugins".
  *
  * It also includes a bare-minimum example of a
  * @fqref{hostApi.HostInterface} "HostInterface" implementation.
@@ -25,7 +26,7 @@
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter
  * from openassetio.hostApi import HostInterface, Manager, ManagerFactory
- * from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
+ * from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
  *
  * class ExampleHost(HostInterface):
  *     """
@@ -46,7 +47,7 @@
  * # We need to provide the mechanism by which managers are created, the
  * # built-in plugin system allows these to be loaded from
  * # FOUNDRY_ASSET_PLUGIN_PATH.
- * factory_impl = PluginSystemManagerImplementationFactory(logger)
+ * factory_impl = PythonPluginSystemManagerImplementationFactory(logger)
  *
  * # We then need our implementation of the HostInterface class
  * host_interface = ExampleHost()

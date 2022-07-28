@@ -1,10 +1,11 @@
 """
-Provides a test PluginSystemPlugin implementation.
+Provides a test PythonPluginSystemPlugin implementation.
 """
 
-from openassetio.pluginSystem import PluginSystemPlugin
+from openassetio.pluginSystem import PythonPluginSystemPlugin
 
-class PackagePlugin(PluginSystemPlugin):
+
+class PackagePlugin(PythonPluginSystemPlugin):
     # pylint: disable=missing-class-docstring
 
     @classmethod

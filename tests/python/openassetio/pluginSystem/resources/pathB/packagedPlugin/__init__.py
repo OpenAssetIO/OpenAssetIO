@@ -1,5 +1,5 @@
 """
-Provides a test PluginSystemPlugin implemented within a package.
+Provides a test PythonPluginSystemPlugin implemented within a package.
 """
 
 # pylint gets upset, but this is fine due to

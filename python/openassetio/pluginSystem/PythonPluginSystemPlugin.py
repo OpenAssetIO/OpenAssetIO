@@ -14,11 +14,12 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.pluginSystem.PluginSystemPlugin
-A single-class module, providing the PluginSystemPlugin class.
+@namespace openassetio.pluginSystem.PythonPluginSystemPlugin
+A single-class module, providing the PythonPluginSystemPlugin class.
 """
 
-class PluginSystemPlugin(object):
+
+class PythonPluginSystemPlugin(object):
     """
     The base class that defines a plugin of the plugin system.
 

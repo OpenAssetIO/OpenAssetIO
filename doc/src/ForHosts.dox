@@ -88,8 +88,9 @@
  *    - A @fqref{hostApi.ManagerImplementationFactoryInterface}
  *      "ManagerImplementationFactoryInterface" capable of instantiating
  *      managers. In the majority of cases a default-configured @ref
- *      openassetio.pluginSystem.PluginSystemManagerImplementationFactory
- *      "PluginSystemManagerImplementationFactory" will be sufficient.
+ *      openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory
+ *      "PythonPluginSystemManagerImplementationFactory" will be
+ *      sufficient.
  *
  * - Create, persist and configure a @ref Context as appropriate for
  *   all calls to the API.

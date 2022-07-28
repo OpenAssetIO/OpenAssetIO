@@ -24,8 +24,9 @@ ManagerImplementationFactoryInterfacePtr createPythonPluginSystemManagerImplemen
     LoggerInterfacePtr logger) {  // NOLINT(performance-unnecessary-value-param)
   // Get Python class.
   py::object pyClass =
-      py::module_::import("openassetio.pluginSystem.PluginSystemManagerImplementationFactory")
-          .attr("PluginSystemManagerImplementationFactory");
+      py::module_::import(
+          "openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory")
+          .attr("PythonPluginSystemManagerImplementationFactory");
 
   // Instantiate Python object.
   py::object pyInstance = pyClass(std::move(logger));

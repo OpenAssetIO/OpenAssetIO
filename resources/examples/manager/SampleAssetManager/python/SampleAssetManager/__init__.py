@@ -16,7 +16,8 @@
 
 """
 The SampleAssetManager provides a working example of a primitive
-asset management system, exposed through an OpenAssetIO ManagerPlugin.
+asset management system, exposed through an OpenAssetIO
+PythonPluginSystemManagerPlugin.
 
 It aims to demonstrate a canonical binding of a manager to the
 OpenAssetIO API.
@@ -37,16 +38,16 @@ of extending Python's runtime paths accordingly.
 # It is important to minimise imports here. This module will be loaded
 # when the plugin system scans for plugins. Postpone importing any
 # of the actual implementation until it is needed by the
-# ManagerPlugin's implementation.
+# PythonPluginSystemManagerPlugin's implementation.
 
-from openassetio.pluginSystem import ManagerPlugin
+from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
 
-class SampleAssetManagerPlugin(ManagerPlugin):
+class SampleAssetManagerPlugin(PythonPluginSystemManagerPlugin):
     """
-    The ManagerPlugin is responsible for constructing instances of the
-    manager's implementation of the OpenAssetIO interfaces and
-    returning them to the host.
+    The PythonPluginSystemManagerPlugin is responsible for constructing
+    instances of the manager's implementation of the OpenAssetIO
+    interfaces and returning them to the host.
     """
 
     @staticmethod
@@ -67,7 +68,7 @@ class SampleAssetManagerPlugin(ManagerPlugin):
 
 # Set the plugin class as the public entrypoint for the plugin system.
 # A plugin is only considered if it exposes a `plugin` variable at this
-# level, holding a class derived from ManagerPlugin.
+# level, holding a class derived from PythonPluginSystemManagerPlugin.
 
 # pylint: disable=invalid-name
 plugin = SampleAssetManagerPlugin

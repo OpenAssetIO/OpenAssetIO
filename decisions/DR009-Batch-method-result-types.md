@@ -11,8 +11,8 @@
 
 OpenAssetIO employs a batch-first design. In that, all data centric
 methods take multiple inputs, and produce multiple outputs. This allows
-a `ManagerPlugin` to optimize queries to potentially high-latency
-back-end services.
+a `PythonPluginSystemManagerPlugin` to optimize queries to potentially
+high-latency back-end services.
 
 Many methods may have per-value error states, such that the output of
 these methods is never of a uniform type. For example, `resolve` for any

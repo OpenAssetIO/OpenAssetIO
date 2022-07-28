@@ -114,17 +114,17 @@ class Test_managerApi_imports:
 
 class Test_pluginSystem_imports:
 
-    def test_importing_ManagerPlugin_succeeds(self):
-        from openassetio.pluginSystem import ManagerPlugin
+    def test_importing_PythonPluginSystemManagerPlugin_succeeds(self):
+        from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
-    def test_importing_PluginSystem_succeeds(self):
-        from openassetio.pluginSystem import PluginSystem
+    def test_importing_PythonPluginSystem_succeeds(self):
+        from openassetio.pluginSystem import PythonPluginSystem
 
-    def test_importing_PluginSystemManagerImplementationFactory_succeeds(self):
-        from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
+    def test_importing_PythonPluginSystemManagerImplementationFactory_succeeds(self):
+        from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
-    def test_importing_PluginSystemPlugin_succeeds(self):
-        from openassetio.pluginSystem import PluginSystemPlugin
+    def test_importing_PythonPluginSystemPlugin_succeeds(self):
+        from openassetio.pluginSystem import PythonPluginSystemPlugin
 
 
 class Test_test_imports:

@@ -27,7 +27,7 @@ from pathlib import PurePath
 
 import pytest
 
-from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
+from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
 #
 # Plugin fixtures
@@ -43,7 +43,7 @@ from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
 def plugin_path_var_name():
     """
     Provides the name of the environment variable that controls the
-    default search paths in the PluginSystem.
+    default search paths in the PythonPluginSystem.
     """
     return "OPENASSETIO_PLUGIN_PATH"
 
@@ -51,7 +51,7 @@ def plugin_path_var_name():
 @pytest.fixture
 def local_plugin_path():
     """
-    Provides a suitable PluginSystem search path that includes plugins
+    Provides a suitable PythonPluginSystem search path that includes plugins
     provided by the project.
     """
     test_path = PurePath(__file__)
@@ -76,34 +76,35 @@ def local_plugin_identifiers():
 #
 
 
-class Test_PluginSystemManagerImplementationFactory_init:
+class Test_PythonPluginSystemManagerImplementationFactory_init:
     def test_plugin_factory_uses_the_expected_env_var(self):
-        assert PluginSystemManagerImplementationFactory.kPluginEnvVar == "OPENASSETIO_PLUGIN_PATH"
+        assert (PythonPluginSystemManagerImplementationFactory.kPluginEnvVar ==
+                "OPENASSETIO_PLUGIN_PATH")
 
     def test_when_env_var_not_set_then_logs_warning(self, mock_logger, monkeypatch):
 
         expected_msg = (
-            f"{PluginSystemManagerImplementationFactory.kPluginEnvVar} is not set. "
+            f"{PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is not set. "
             "It is somewhat unlikely that you will find any plugins..."
         )
         expected_severity = mock_logger.kWarning
 
-        if PluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PluginSystemManagerImplementationFactory.kPluginEnvVar)
+        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
+            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger)
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
         # Plugins are scanned lazily when first requested
         _ = factory.identifiers()
         mock_logger.mock.log.assert_called_once_with(expected_severity, expected_msg)
 
 
-class Test_PluginSystemManagerImplementationFactory_identifiers:
+class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
     def test_when_env_var_not_set_then_returns_empty_list(self, mock_logger, monkeypatch):
 
-        if PluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PluginSystemManagerImplementationFactory.kPluginEnvVar)
+        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
+            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger)
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
         identifiers = factory.identifiers()
         # Check it is an empty list, not None, or any other value
         # that would satisty == [] as a boolean comparison.
@@ -113,9 +114,10 @@ class Test_PluginSystemManagerImplementationFactory_identifiers:
     def test_when_env_var_empty_then_returns_empty_list(self, mock_logger, monkeypatch):
 
         plugin_paths = ""
-        monkeypatch.setenv(PluginSystemManagerImplementationFactory.kPluginEnvVar, plugin_paths)
+        monkeypatch.setenv(
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, plugin_paths)
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger)
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
         identifiers = factory.identifiers()
         assert isinstance(identifiers, list)
         assert len(identifiers) == 0
@@ -125,20 +127,21 @@ class Test_PluginSystemManagerImplementationFactory_identifiers:
     ):
 
         monkeypatch.setenv(
-            PluginSystemManagerImplementationFactory.kPluginEnvVar, local_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, local_plugin_path
         )
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger)
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
         assert factory.identifiers() == local_plugin_identifiers
 
     def test_when_paths_set_to_local_plugin_path_then_finds_local_plugins(
         self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
     ):
 
-        if PluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PluginSystemManagerImplementationFactory.kPluginEnvVar)
+        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
+            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger, paths=local_plugin_path)
+        factory = PythonPluginSystemManagerImplementationFactory(
+            mock_logger, paths=local_plugin_path)
         assert factory.identifiers() == local_plugin_identifiers
 
     def test_when_env_var_overridden_to_local_plugin_path_then_finds_local_plugins(
@@ -146,8 +149,9 @@ class Test_PluginSystemManagerImplementationFactory_identifiers:
     ):
 
         monkeypatch.setenv(
-            PluginSystemManagerImplementationFactory.kPluginEnvVar, "some invalid value"
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, "some invalid value"
         )
 
-        factory = PluginSystemManagerImplementationFactory(mock_logger, paths=local_plugin_path)
+        factory = PythonPluginSystemManagerImplementationFactory(
+            mock_logger, paths=local_plugin_path)
         assert factory.identifiers() == local_plugin_identifiers

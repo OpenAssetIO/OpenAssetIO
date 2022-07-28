@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-These tests check the functionality of the PluginSystem class.
+These tests check the functionality of the PythonPluginSystem class.
 """
 
 # pylint: disable=no-self-use
@@ -26,10 +26,10 @@ import os
 import pytest
 
 from openassetio.log import ConsoleLogger
-from openassetio.pluginSystem import PluginSystem
+from openassetio.pluginSystem import PythonPluginSystem
 
 
-class Test_PluginSystem_scan:
+class Test_PythonPluginSystem_scan:
 
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
             self, a_plugin_system, a_module_plugin_path, module_plugin_identifier):
@@ -78,7 +78,7 @@ class Test_PluginSystem_scan:
 
 @pytest.fixture
 def a_plugin_system(a_logger):
-    return PluginSystem(a_logger)
+    return PythonPluginSystem(a_logger)
 
 
 # We use a real logger vs a mock, as it makes debugging test failures

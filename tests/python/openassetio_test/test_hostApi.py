@@ -23,7 +23,7 @@ approach just avoids some unnecessary boilerplate.
 # pylint: disable=invalid-name,missing-class-docstring,no-self-use
 # pylint: disable=missing-function-docstring
 from openassetio import _openassetio_test, log  # pylint: disable=no-name-in-module
-from openassetio.pluginSystem import PluginSystemManagerImplementationFactory
+from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
 
 class Test_createPythonPluginSystemManagerImplementationFactory:
@@ -31,4 +31,4 @@ class Test_createPythonPluginSystemManagerImplementationFactory:
         factory = _openassetio_test.callCreatePythonPluginSystemManagerImplementationFactory(
             log.ConsoleLogger())
 
-        assert isinstance(factory, PluginSystemManagerImplementationFactory)
+        assert isinstance(factory, PythonPluginSystemManagerImplementationFactory)

@@ -53,10 +53,13 @@ v1.0.0-alpha.X
 
 - Renamed both `ManagerFactoryInterface` as well as the subclass
   `PluginSystemManagerFactory` to `ManagerImplementationFactoryInterface`
-  and `PluginSystemManagerImplementationFactory`, respectively, to avoid
-  potential ambiguity. I.e. that they instantiate instances of
-  `ManagerInterface` rather than `Manager`.
+  and `PythonPluginSystemManagerImplementationFactory`, respectively, to
+  avoid potential ambiguity. I.e. that they instantiate (Python)
+  instances of `ManagerInterface` rather than `Manager`. For
+  consistency and clarity, also prefixed other Python plugin system
+  classes with `PythonPluginSystem`.
   [#506](https://github.com/OpenAssetIO/OpenAssetIO/issues/506)
+  [#508](https://github.com/OpenAssetIO/OpenAssetIO/issues/508)
 
 - Renamed the `LoggerInterface` constant `kDebugAPI` to `kDebugApi`.
   [#457](https://github.com/OpenAssetIO/OpenAssetIO/issues/457)
