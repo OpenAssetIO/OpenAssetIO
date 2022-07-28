@@ -137,6 +137,13 @@ v1.0.0-alpha.X
   [#481](https://github.com/OpenAssetIO/OpenAssetIO/issues/481)
 
 
+### Features
+
+- Added `openassetio-codegen` tool to auto-generate `Trait` and
+  `Specification` classes from simple YAML descriptions.
+  [#415](https://github.com/OpenAssetIO/OpenAssetIO/issues/415)
+
+
 ### Improvements
 
 - Added `MangerFactory` as a new, simpler, mechanism for querying for
