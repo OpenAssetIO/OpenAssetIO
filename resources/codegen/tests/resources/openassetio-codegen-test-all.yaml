@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=../../python/openassetio_codegen/schema.json
+# yamllint disable-line rule:document-start
+package: openassetio-codegen-test-all
+
+description:
+    Test classes to validate the integrity of the openassetio-codegen tool.
+
+traits:
+    aNamespace:
+        description: A Namespace
+        members:
+            NoProperties:
+                description: Another trait, this time with no properties.
+
+            NoPropertiesMultipleUsage:
+                description: Another trait, this time with multiple usage.
+                usage:
+                    - entity
+                    - relationship
+
+            AllProperties:
+                description: A trait with properties of all types.
+                properties:
+                    stringProperty:
+                        type: string
+                        description: A string-typed property.
+                    intProperty:
+                        type: integer
+                        description: A int-typed property.
+                    floatProperty:
+                        type: float
+                        description: A float-typed property.
+                    boolProperty:
+                        type: boolean
+                        description: A bool-typed property.
+                    dictProperty:
+                        type: dictionary
+                        description: A dict-typed property.
+
+    anotherNamespace:
+        description: Another Namespace
+        members:
+            NoProperties:
+                description: Another NoProperties trait in a different namespace
+
+specifications:
+    test:
+        description: Test specifications.
+        members:
+            TwoLocalTraits:
+                description: A specification with two traits.
+                traitSet:
+                    - namespace: aNamespace
+                      name: NoProperties
+                    - namespace: anotherNamespace
+                      name: NoProperties
+
+            OneExternalTrait:
+                description: A specification referencing traits in another package.
+                traitSet:
+                    - package: openassetio-codegen-test-traits-only
+                      namespace: test
+                      name: Another
+
+            LocalAndExternalTrait:
+                description: A specification referencing traits in this and another package.
+                traitSet:
+                    - package: openassetio-codegen-test-traits-only
+                      namespace: aNamespace
+                      name: NoProperties
+                    - namespace: aNamespace
+                      name: NoProperties
+                usage:
+                    - entity
+                    - managementPolicy

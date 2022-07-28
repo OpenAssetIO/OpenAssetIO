@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=../../python/openassetio_codegen/schema.json
+# yamllint disable-line rule:document-start
+package: some-package
+
+inavlidKey: value

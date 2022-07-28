@@ -94,10 +94,13 @@ if (Python_Interpreter_FOUND)
     # so that people can work offline.
     set(python_deps_dir "${CMAKE_BINARY_DIR}/dependencies/python")
 
-    # Get path to Python executable in the created venv.
+    # Get path to Python executable in the created venv, and a way to activate
+    # the venv itself.
     if (WIN32)
+        set(venv_activate "${CMAKE_INSTALL_PREFIX}/Scripts/activate.bat")
         set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/Scripts/python.exe")
     else ()
+        set(venv_activate . "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/activate")
         set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/python")
     endif ()
 
@@ -112,6 +115,7 @@ if (Python_Interpreter_FOUND)
         --find-links ${python_deps_dir}
         --destination-directory ${python_deps_dir}
         --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+        --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
     )
 
     # Install test-specific dependencies (e.g. pytest).
@@ -121,7 +125,8 @@ if (Python_Interpreter_FOUND)
         COMMAND
         ${venv_python_exe} -m pip install
         --no-index --find-links ${python_deps_dir}
-        --requirement ${PROJECT_SOURCE_DIR}/tests/python/requirements.txt
+        --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+        --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
     )
     add_dependencies(openassetio-python-test-install-test-deps
         # Ensure venv pip is available and up-to-date.
@@ -166,17 +171,57 @@ if (Python_Interpreter_FOUND)
     add_custom_target(
         openassetio-python-test-pytest
         COMMAND cmake -E echo -- Running pytest
-        COMMAND ${pytest_env} ${venv_python_exe} -m pytest -v -s tests/python resources
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v -s tests/python
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
         USES_TERMINAL
     )
     add_dependencies(openassetio-python-test-pytest
         openassetio-python-test-install-test-deps openassetio-python-py-install)
 
-    # Add a CTest target.
+    # Target to run tests on examples included in the resources
+    # directory.
+    add_custom_target(
+        openassetio-resources-examples-test-pytest
+        COMMAND cmake -E echo -- Running pytest
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v
+        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/examples"
+        USES_TERMINAL
+    )
+    add_dependencies(openassetio-resources-examples-test-pytest
+        openassetio-python-test-install-test-deps openassetio-python-py-install)
+
+    # Target to run tests on the openassetio-codegen tool included in
+    # the resources directory.
+    add_custom_target(
+        openassetio-resources-codegen-test-pytest
+        COMMAND cmake -E echo -- Running pytest
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v
+        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/codegen"
+        USES_TERMINAL
+    )
+    add_dependencies(openassetio-resources-codegen-test-pytest
+        openassetio-python-test-install-test-deps openassetio-python-py-install
+        openassetio-resources-codegen-install)
+
+    # Add CTest targets.
+
     add_test(
         NAME openassetio-python
         COMMAND
         ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target openassetio-python-test-pytest
+    )
+
+    add_test(
+        NAME openassetio-resources-examples
+        COMMAND
+        ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target
+        openassetio-resources-examples-test-pytest
+    )
+
+    add_test(
+        NAME openassetio-resources-codegen
+        COMMAND
+        ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target
+        openassetio-resources-codegen-test-pytest
     )
 endif ()
