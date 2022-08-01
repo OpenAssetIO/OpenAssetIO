@@ -53,38 +53,38 @@ class Test_ManagerInterface_info:
 
 
 class Test_ManagerInterface_createState:
-    def test_default_implementation_returns_none(self, mock_host_session):
-        assert ManagerInterface().createState(mock_host_session) is None
+    def test_default_implementation_returns_none(self, a_host_session):
+        assert ManagerInterface().createState(a_host_session) is None
 
 
 class Test_ManagerInterface_createChildState:
-    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+    def test_default_implementation_raises_RuntimeError(self, a_host_session):
         with pytest.raises(RuntimeError):
-            ManagerInterface().createChildState(ManagerStateBase(), mock_host_session)
+            ManagerInterface().createChildState(ManagerStateBase(), a_host_session)
 
-    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
-            ManagerInterface().createChildState(None, mock_host_session)
+            ManagerInterface().createChildState(None, a_host_session)
 
 
 class Test_ManagerInterface_persistenceTokenForState:
-    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
-            ManagerInterface().persistenceTokenForState(None, mock_host_session)
+            ManagerInterface().persistenceTokenForState(None, a_host_session)
 
-    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+    def test_default_implementation_raises_RuntimeError(self, a_host_session):
         with pytest.raises(RuntimeError):
-            ManagerInterface().persistenceTokenForState(ManagerStateBase(), mock_host_session)
+            ManagerInterface().persistenceTokenForState(ManagerStateBase(), a_host_session)
 
 
 class Test_ManagerInterface_stateFromPersistenceToken:
-    def test_when_none_is_supplied_then_TypeError_is_raised(self, mock_host_session):
+    def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
-            ManagerInterface().createChildState(None, mock_host_session)
+            ManagerInterface().createChildState(None, a_host_session)
 
-    def test_default_implementation_raises_RuntimeError(self, mock_host_session):
+    def test_default_implementation_raises_RuntimeError(self, a_host_session):
         with pytest.raises(RuntimeError):
-            ManagerInterface().stateFromPersistenceToken("", mock_host_session)
+            ManagerInterface().stateFromPersistenceToken("", a_host_session)
 
 
 class Test_ManagerInterface_defaultEntityReference:

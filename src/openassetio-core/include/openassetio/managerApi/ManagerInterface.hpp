@@ -65,20 +65,20 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * Logging and Error Handling
  * --------------------------
  *
- * The supplied @ref openassetio.managerApi.HostSession.HostSession
- * "HostSession" object provides logging methods that allow messages
- * and progress to be reported back to the user. All logging should go
- * through these methods otherwise it may not be correctly presented to
- * the user. The loose term "user" also covers developers, who may need
- * to see log output for debugging and other purposes.
+ * The supplied @fqref{managerApi.HostSession} "HostSession" object
+ * provides access to a logger that allow messages and progress to be
+ * reported back to the user. All logging should go through these
+ * methods otherwise it may not be correctly presented to the user. The
+ * loose term "user" also covers developers, who may need to see log
+ * output for debugging and other purposes.
  *
  * @warning Your plugin may be hosted out of process, or even on
  * another machine, the HostSession bridge takes care of relaying
  * messages accordingly. Using custom logging mechanisms may well
  * result in output being lost.
  *
- * @see @ref openassetio.managerApi.HostSession.HostSession.log
- * "HostSession.log"
+ * @see @fqref{managerApi.HostSession.logger} "HostSession.logger"
+ * @see @fqref{LoggerInterface} "LoggerInterface"
  *
  * Exceptions should be thrown to handle any in-flight errors that
  * occur. The error should be mapped to a derived class of

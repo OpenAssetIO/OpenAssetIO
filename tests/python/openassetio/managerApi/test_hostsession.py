@@ -23,18 +23,15 @@ Tests that cover the openassetio.managerApi.HostSession class.
 
 import pytest
 
-from openassetio import log
-from openassetio.managerApi import Host, HostSession
+from openassetio.managerApi import HostSession
 
 
-@pytest.fixture
-def a_host(mock_host_interface):
-    return Host(mock_host_interface)
+class Test_HostSession_inheritance:
+    def test_class_is_final(self):
+        with pytest.raises(TypeError):
 
-
-@pytest.fixture
-def host_session(a_host, mock_logger):
-    return HostSession(a_host, mock_logger)
+            class _(HostSession):
+                pass
 
 
 class Test_HostSession_init:
@@ -50,18 +47,28 @@ class Test_HostSession_init:
 
         assert str(err.value).startswith("__init__(): incompatible constructor arguments")
 
+    def test_when_logger_is_None_then_raises_TypeError(self, a_host):
+        with pytest.raises(TypeError) as err:
+            HostSession(a_host, None)
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
+    def test_when_invalid_logger_then_raises_TypeError(self, a_host):
+        with pytest.raises(TypeError) as err:
+            HostSession(a_host, object())
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
 
 class Test_HostSession_host:
-    def test_returns_expected_host_instance(self, host_session, a_host):
-        actual_host = host_session.host()
+    def test_returns_expected_host_instance(self, a_host_session, a_host):
+        actual_host = a_host_session.host()
 
         assert actual_host is a_host
 
 
-class TestHostSession_log:
-    def test_forwards_to_logger(self, host_session, mock_logger):
-        a_message = "A message"
-        a_severity = log.LoggerInterface.kCritical
+class Test_HostSession_logger:
+    def test_returns_expected_logger_instance(self, a_host_session, mock_logger):
+        actual_logger = a_host_session.logger()
 
-        host_session.log(a_severity, a_message)
-        mock_logger.mock.log.assert_called_once_with(a_severity, a_message)
+        assert actual_logger is mock_logger

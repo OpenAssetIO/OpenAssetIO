@@ -73,9 +73,9 @@ class MockTerminologyManager(Manager):
 
 
 @pytest.fixture
-def mock_manager(mock_manager_interface, mock_host_session):
+def mock_manager(mock_manager_interface, a_host_session):
     return MockTerminologyManager(
-        mock_manager_interface, mock_host_session)
+        mock_manager_interface, a_host_session)
 
 
 @pytest.fixture

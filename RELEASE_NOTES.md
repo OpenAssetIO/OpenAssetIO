@@ -6,6 +6,11 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Removed the logging abstraction in `HostSession`. The `log` method has
+  been replaced with the `logger` accessor that provides the sessions
+  `LoggerInterface` derived class directly.
+  [#531](https://github.com/OpenAssetIO/OpenAssetIO/issues/531)
+
 - Swapped the order of `severity` and `message` in the
   `LoggerInterface::log` method.
   [#531](https://github.com/OpenAssetIO/OpenAssetIO/issues/531)
@@ -145,6 +150,8 @@ v1.0.0-alpha.X
 
 
 ### Improvements
+
+- Made `LogggerInterface::log` non-const.
 
 - Added `MangerFactory` as a new, simpler, mechanism for querying for
   and instantiating available managers, intended to replace `Session`.

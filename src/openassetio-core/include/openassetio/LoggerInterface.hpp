@@ -38,7 +38,7 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @param severity One of the severity constants defined in @ref
    * Severity.
    */
-  virtual void log(Severity severity, const Str& message) const = 0;
+  virtual void log(Severity severity, const Str& message) = 0;
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

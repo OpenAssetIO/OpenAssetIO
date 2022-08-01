@@ -7,6 +7,7 @@
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
+OPENASSETIO_FWD_DECLARE(LoggerInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, Host)
 
 namespace openassetio {
@@ -29,26 +30,33 @@ OPENASSETIO_DECLARE_PTR(HostSession)
  *   - A concrete instance of the @fqref{managerApi.Host} "Host",
  *     implemented by the tool or application that initiated the API
  *     session.
+ *   - A concrete instance of the @fqref{LoggerInterface}
+ *     "LoggerInterface", to be used for all message reporting.
  *
  * @see @fqref{managerApi.Host} "Host"
- *
- * @todo Expose logging mechanism through HostSession
+ * @see @fqref{LoggerInterface} "LoggerInterface"
  */
-class OPENASSETIO_CORE_EXPORT HostSession {
+class OPENASSETIO_CORE_EXPORT HostSession final {
  public:
   /**
    * Constructs a new HostSession holding the supplied host.
    */
-  static HostSessionPtr make(HostPtr host);
+  static HostSessionPtr make(HostPtr host, LoggerInterfacePtr logger);
 
   /**
    * @return The host that initiated the API session.
    */
   [[nodiscard]] HostPtr host() const;
 
+  /**
+   * @return The logger associated with this session
+   */
+  [[nodiscard]] LoggerInterfacePtr logger() const;
+
  private:
-  explicit HostSession(HostPtr host);
+  explicit HostSession(HostPtr host, LoggerInterfacePtr logger);
   HostPtr host_;
+  LoggerInterfacePtr logger_;
 };
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
