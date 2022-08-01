@@ -16,6 +16,8 @@
 #include <pybind11/pybind11.h>
 
 #include <openassetio/export.h>
+// Private headers
+#include <openassetio/private/python/pointers.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -105,8 +107,8 @@ class type_caster<PyRetainingSharedPtr<T>> : public type_caster_holder<T, std::s
   using BaseCaster = type_caster_holder<T, std::shared_ptr<T>>;
 
   bool load(pybind11::handle src, bool convert) {
-    // Load into base class data structures, giving us the `holder`
-    // shared_ptr
+    // Load into base class data structures, giving us the `value` raw
+    // pointer (and the `holder` shared_ptr).
     if (!BaseCaster::load(src, convert)) {
       return false;
     }
@@ -117,25 +119,9 @@ class type_caster<PyRetainingSharedPtr<T>> : public type_caster_holder<T, std::s
     // this line.
     auto pyObj = reinterpret_borrow<object>(src);
 
-    // Use a shared_ptr to bump the PyObject refcount, and decrement
-    // again when the shared_ptr chain is cleaned up. This may result in
-    // destruction of the PyObject and hence decrementing the refcount
-    // of the original shared_ptr holder stored on the PyObject.
-    auto pyObjPtr = std::shared_ptr<object>{new object{pyObj}, [](object* pyObjectPtr) {
-                                              // Acquire the GIL, in
-                                              // case deleter runs in a
-                                              // non-Python thread.
-                                              gil_scoped_acquire gil;
-                                              delete pyObjectPtr;
-                                            }};
-    // This is the value that is passed to the C++ function. We use the
-    // shared_ptr aliasing constructor to track the lifetime of the
-    // py::object, but dereference to the C++ instance. When this
-    // shared_ptr (and any other shared_ptrs copy-constructed from it)
-    // is destroyed, then the PyObject refcount will be decremented (see
-    // above), potentially resulting in destruction of the PyObject and
-    // hence decrementing the originating C++ shared_ptr refcount.
-    value = PyRetainingSharedPtr<T>(pyObjPtr, static_cast<T*>(BaseCaster::value));
+    // This is the value that is passed to the C++ function.
+    value = openassetio::python::pointers::createPyRetainingPtr<PyRetainingSharedPtr<T>>(
+        pyObj, static_cast<T*>(BaseCaster::value));
     return true;
   }
 };

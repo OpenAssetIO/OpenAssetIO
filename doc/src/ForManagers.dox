@@ -11,8 +11,9 @@
  *   as it moves between various tools and applications.
  *
  * - The implementation of any given manager may consist of
- *   several discrete services, but within any OpenAssetIO session, it is
- *   represented though a singular @ref ManagerPlugin.
+ *   several discrete services, but within any OpenAssetIO session, it
+ *   is represented though a singular @ref
+ *   PythonPluginSystemManagerPlugin.
  *
  * - The API is initialized and coordinated by a @ref host. The host may
  *   instantiate one or more managers.
@@ -24,11 +25,11 @@
  *   by the API middleware.
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
- *   through its @ref ManagerPlugin is wrapped in the @ref
- *   openassetio.hostApi.Manager.Manager "Manager" class before being made
- *   available to the @ref host. This is to allow for host session state
- *   management and other auditing/logging functionality. It also
- *   provides a degree of isolation against future API changes.
+ *   through its @ref PythonPluginSystemManagerPlugin is wrapped in the
+ *   @ref openassetio.hostApi.Manager.Manager "Manager" class before
+ *   being made available to the @ref host. This is to allow for host
+ *   session state management and other auditing/logging functionality.
+ *   It also provides a degree of isolation against future API changes.
  *
  * - The @ref ManagerInterface is designed to be stateless. The
  *   response to any method should only depend on the underlying asset
@@ -122,8 +123,8 @@
  *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityDisplayName
  *   "entityDisplayName" to support lookup of assets.
  *
- * - Implement a @ref ManagerPlugin and install this on
- *   @ref plugin_path_var.
+ * - Implement a @ref PythonPluginSystemManagerPlugin and install this
+ *   on @ref plugin_path_var.
  *
  * @subsection manager_todo_publishing Required for Publishing
  *
@@ -234,7 +235,8 @@
  *
  * @see @ref entities_traits_and_specifications
  * @see @ref openassetio.managerApi.ManagerInterface "ManagerInterface"
- * @see @ref openassetio.pluginSystem.ManagerPlugin "ManagerPlugin"
+ * @see @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+ * "PythonPluginSystemManagerPlugin"
  * @see @fqref{Context} "Context"
  * @see @ref openassetio.managerApi.Host "Host"
  * @see @needsref ManagerUIDelegate

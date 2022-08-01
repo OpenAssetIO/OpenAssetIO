@@ -86,8 +86,8 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param managerImplementationFactory The factory that will be used to
    * instantiate managers. See, for example, @ref
-   * pluginSystem.PluginSystemManagerImplementationFactory.PluginSystemManagerImplementationFactory
-   * "PluginSystemManagerImplementationFactory".
+   * pluginSystem.PythonPluginSystemManagerImplementationFactory.PythonPluginSystemManagerImplementationFactory
+   * "PythonPluginSystemManagerImplementationFactory".
    *
    * @param logger The logger instance that will be used for all
    * messaging from the factory and instantiated @fqref{hostApi.Manager}
@@ -156,8 +156,8 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param managerImplementationFactory The factory that will be used to
    * instantiate the manager. See, for example, @ref
-   * pluginSystem.PluginSystemManagerImplementationFactory.PluginSystemManagerImplementationFactory
-   * "PluginSystemManagerImplementationFactory".
+   * pluginSystem.PythonPluginSystemManagerImplementationFactory.PythonPluginSystemManagerImplementationFactory
+   * "PythonPluginSystemManagerImplementationFactory".
    *
    * @param logger The logger instance that will be used for all
    * messaging from the factory and instantiated @fqref{hostApi.Manager}

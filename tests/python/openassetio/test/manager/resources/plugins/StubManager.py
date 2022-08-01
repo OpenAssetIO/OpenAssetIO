@@ -14,14 +14,14 @@
 #   limitations under the License.
 #
 """
-An OpenAssetIO ManagerPlugin and stub ManagerInterface implementation
-providing dummy data and input validation for the manager
+An OpenAssetIO PythonPluginSystemManagerPlugin and stub ManagerInterface
+implementation providing dummy data and input validation for the manager
 test suite.
 """
 
 from openassetio import TraitsData
 from openassetio.managerApi import ManagerInterface
-from openassetio.pluginSystem import ManagerPlugin
+from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
 
 class StubManager(ManagerInterface):
@@ -62,7 +62,7 @@ class StubManager(ManagerInterface):
         return [TraitsData() for _ in traitSets]
 
 
-class StubManagerPlugin(ManagerPlugin):
+class StubManagerPlugin(PythonPluginSystemManagerPlugin):
     """
     Provides an alternate implementation of the ModulePlugin
     to aid testing of path precedence.

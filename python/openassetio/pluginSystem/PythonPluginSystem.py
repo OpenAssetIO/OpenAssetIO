@@ -14,8 +14,8 @@
 #   limitations under the License.
 #
 """
-@namespace openassetio.pluginSystem.PluginSystem
-A single-class module, providing the PluginSystem class.
+@namespace openassetio.pluginSystem.PythonPluginSystem
+A single-class module, providing the PythonPluginSystem class.
 """
 
 import os.path
@@ -26,16 +26,16 @@ import sys
 from .. import exceptions
 
 
-__all__ = ['PluginSystem']
+__all__ = ['PythonPluginSystem']
 
 
-class PluginSystem(object):
+class PythonPluginSystem(object):
     """
     Loads Python Packages on a custom search path. If they manager a
     top-level 'plugin' attribute, that holds a class derived from
-    PluginSystemPlugin, it will be registered with its identifier. Once
-    a plug-in has registered an identifier, any subsequent registrations
-    with that id will be skipped.
+    PythonPluginSystemPlugin, it will be registered with its identifier.
+    Once a plug-in has registered an identifier, any subsequent
+    registrations with that id will be skipped.
     """
     __validModuleExtensions = (".py", ".pyc")
 
@@ -53,7 +53,7 @@ class PluginSystem(object):
     def scan(self, paths):
         """
         Searches the supplied paths for modules that define a
-        PluginSystemPlugin through a top-level `plugin` variable.
+        PythonPluginSystemPlugin through a top-level `plugin` variable.
 
         Paths are searched right-to-left, but only the first instance of
         any given plugin identifier will be used, and subsequent
@@ -63,7 +63,7 @@ class PluginSystem(object):
         @note Precedence order is undefined for plugins sharing the
         same identifier within the same directory.
 
-        Any existing plugins registered with the PluginSystem will be
+        Any existing plugins registered with the PythonPluginSystem will be
         cleared before scanning.
 
         @param paths `str` A list of paths to search, delimited by
@@ -71,12 +71,12 @@ class PluginSystem(object):
         """
         self.reset()
 
-        self.__logger.log(self.__logger.kDebug, "PluginSystem: Searching %s" % paths)
+        self.__logger.log(self.__logger.kDebug, "PythonPluginSystem: Searching %s" % paths)
 
         for path in paths.split(os.pathsep):
 
             if not os.path.isdir(path):
-                msg = "PluginSystem: Skipping as it is not a directory %s" % path
+                msg = "PythonPluginSystem: Skipping as it is not a directory %s" % path
                 self.__logger.log(self.__logger.kDebug, msg)
 
             for item in os.listdir(path):
@@ -89,7 +89,7 @@ class PluginSystem(object):
                     if os.path.exists(initFile):
                         itemPath = initFile
                     else:
-                        msg = "PluginSystem: Ignoring as it is not a python package " \
+                        msg = "PythonPluginSystem: Ignoring as it is not a python package " \
                               "contianing __init__.py %s" % itemPath
                         self.__logger.log(self.__logger.kDebug, msg)
                         continue
@@ -97,13 +97,14 @@ class PluginSystem(object):
                     # Its a file, check if it is a .py/.pyc module
                     _, ext = os.path.splitext(itemPath)
                     if ext not in self.__validModuleExtensions:
-                        msg = "PluginSystem: Ignoring as its not a python module %s" % itemPath
+                        msg = ("PythonPluginSystem: Ignoring as its not a python module %s"
+                               % itemPath)
                         self.__logger.log(self.__logger.kDebug, msg)
                         continue
 
                 self.__logger.log(
                     self.__logger.kDebug,
-                    "PluginSystem: Attempting to load %s" % itemPath)
+                    "PythonPluginSystem: Attempting to load %s" % itemPath)
 
                 self.__load(itemPath)
 
@@ -121,29 +122,29 @@ class PluginSystem(object):
         """
         Retrieves the plugin that provides the given identifier.
 
-        @return @ref openassetio.pluginSystem.PluginSystemPlugin
-        "PluginSystemPlugin"
+        @return @ref openassetio.pluginSystem.PythonPluginSystemPlugin
+        "PythonPluginSystemPlugin"
 
         @exception openassetio.exceptions.PluginError Raised if no
         plugin provides the specified identifier.
         """
 
         if identifier not in self.__map:
-            msg = "PluginSystem: No plug-in registered with the identifier '%s'" % identifier
+            msg = "PythonPluginSystem: No plug-in registered with the identifier '%s'" % identifier
             raise exceptions.PluginError(msg)
 
         return self.__map[identifier]
 
     def register(self, cls, path="<unknown>"):
         """
-        Allows manual registration of a PluginSystemPlugin derived
+        Allows manual registration of a PythonPluginSystemPlugin derived
         class.
 
         This can be used to register plugins using means other than
         the built-in file system scanning.
 
-        @param cls @ref openassetio.pluginSystem.PluginSystemPlugin
-        "PluginSystemPlugin"
+        @param cls @ref openassetio.pluginSystem.PythonPluginSystemPlugin
+        "PythonPluginSystemPlugin"
 
         @param path `str` Some reference to where this plugin
         originated, used for debug messaging when duplicate
@@ -151,12 +152,13 @@ class PluginSystem(object):
         """
         identifier = cls.identifier()
         if identifier in self.__map:
-            msg = "PluginSystem: Skipping class '%s' defined in '%s'. Already registered by '%s'" \
-                  % (cls, path, self.__paths[identifier])
+            msg = ("PythonPluginSystem: Skipping class '%s' defined in '%s'."
+                   " Already registered by '%s'"
+                  % (cls, path, self.__paths[identifier]))
             self.__logger.log(self.__logger.kDebug, msg)
             return
 
-        msg = "PluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
+        msg = "PythonPluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
         self.__logger.log(self.__logger.kDebug, msg)
 
         self.__map[identifier] = cls
@@ -190,12 +192,12 @@ class PluginSystem(object):
             spec.loader.exec_module(module)
 
         except Exception as ex:  # pylint: disable=broad-except
-            msg = "PluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
+            msg = "PythonPluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
             self.__logger.log(self.__logger.kWarning, msg)
             return
 
         if not hasattr(module, 'plugin'):
-            msg = "PluginSystem: No top-level 'plugin' variable %s" % path
+            msg = "PythonPluginSystem: No top-level 'plugin' variable %s" % path
             self.__logger.log(self.__logger.kWarning, msg)
             return
 

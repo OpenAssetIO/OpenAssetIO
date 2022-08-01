@@ -20,7 +20,8 @@ instantiate manager plugins from code that lives outside of the
 openassetio package.
 """
 
-from .ManagerPlugin import ManagerPlugin
-from .PluginSystem import PluginSystem
-from .PluginSystemPlugin import PluginSystemPlugin
-from .PluginSystemManagerImplementationFactory import PluginSystemManagerImplementationFactory
+from .PythonPluginSystemManagerPlugin import PythonPluginSystemManagerPlugin
+from .PythonPluginSystem import PythonPluginSystem
+from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
+from .PythonPluginSystemManagerImplementationFactory import (
+    PythonPluginSystemManagerImplementationFactory)
