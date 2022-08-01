@@ -156,7 +156,7 @@ class ConsoleLogger(LoggerInterface):
             return "%s%s%s" % (color % 6, msg, end)
         if severity == LoggerInterface.kWarning:
             return "%s%s%s" % (color % 3, msg, end)
-        if severity < LoggerInterface.kWarning:
+        if severity > LoggerInterface.kWarning:
             return "%s%s%s" % (color % 1, msg, end)
 
         return msg
