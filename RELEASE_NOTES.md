@@ -6,6 +6,11 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Reversed the order of logging severity constants, such that the
+  numerical value of the constant increases with the logical severity
+  (i.e. `kDebugApi` is now `0` and `kCritical` is now `6`).
+  [#516](https://github.com/OpenAssetIO/OpenAssetIO/issues/516)
+
 - Removed the logging abstraction in `HostSession`. The `log` method has
   been replaced with the `logger` accessor that provides the sessions
   `LoggerInterface` derived class directly.

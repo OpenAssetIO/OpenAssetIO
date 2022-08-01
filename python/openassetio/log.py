@@ -40,11 +40,11 @@ class SeverityFilter(LoggerInterface):
     def __init__(self, upstreamLogger):
         LoggerInterface.__init__(self)
 
-        self.__maxSeverity = self.kWarning
+        self.__minSeverity = self.kWarning
 
         if "OPENASSETIO_LOGGING_SEVERITY" in os.environ:
             try:
-                self.__maxSeverity = int(os.environ["OPENASSETIO_LOGGING_SEVERITY"])
+                self.__minSeverity = int(os.environ["OPENASSETIO_LOGGING_SEVERITY"])
             except ValueError:
                 pass
 
@@ -60,9 +60,6 @@ class SeverityFilter(LoggerInterface):
 
     ## @name Filter Severity
     # Messages logged with a severity greater or equal to this will be displayed.
-    # Note: Confusingly, greater severities (ie. worse consequence) have a lower
-    # numerical equivalent.
-    # @todo Revisit severity <> int mappings etc...
     ## @{
 
     def setSeverity(self, severity):
@@ -75,7 +72,7 @@ class SeverityFilter(LoggerInterface):
 
         @see @ref LoggerInterface
         """
-        self.__maxSeverity = severity
+        self.__minSeverity = severity
 
     def getSeverity(self):
         """
@@ -86,7 +83,7 @@ class SeverityFilter(LoggerInterface):
 
         @see @ref LoggerInterface
         """
-        return self.__maxSeverity
+        return self.__minSeverity
 
     ## @}
 
@@ -97,7 +94,7 @@ class SeverityFilter(LoggerInterface):
         Log only if `severity` is greater than or equal to this logger's
         configured severity level.
         """
-        if severity > self.__maxSeverity:
+        if severity < self.__minSeverity:
             return
 
         self.__upstreamLogger.log(severity, message)
@@ -141,7 +138,7 @@ class ConsoleLogger(LoggerInterface):
         """
         severityStr = "[%s]" % self.kSeverityNames[severity]
         msg = "%11s: %s\n" % (severityStr, message)
-        outStream = self.__stderr if severity < self.kInfo else self.__stdout
+        outStream = self.__stderr if severity > self.kInfo else self.__stdout
         outStream.write(self.__colorMsg(msg, severity) if self.__colorOutput else msg)
 
     @staticmethod
@@ -156,7 +153,7 @@ class ConsoleLogger(LoggerInterface):
             return "%s%s%s" % (color % 6, msg, end)
         if severity == LoggerInterface.kWarning:
             return "%s%s%s" % (color % 3, msg, end)
-        if severity < LoggerInterface.kWarning:
+        if severity > LoggerInterface.kWarning:
             return "%s%s%s" % (color % 1, msg, end)
 
         return msg

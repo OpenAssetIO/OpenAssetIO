@@ -54,7 +54,7 @@ class Test_CLI_exit_code:
 class Test_CLI_output:
 
     def test_api_logging_goes_to_standard_out(self, a_passing_fixtures_file, monkeypatch):
-        monkeypatch.setenv("OPENASSETIO_LOGGING_SEVERITY", "6")
+        monkeypatch.setenv("OPENASSETIO_LOGGING_SEVERITY", "0")
         assert "[debug]: PythonPluginSystem" in str(execute_cli(a_passing_fixtures_file).stdout)
 
     def test_unittest_output_written_to_stderr(self, a_passing_fixtures_file):

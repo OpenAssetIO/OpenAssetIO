@@ -19,10 +19,10 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @name Log Severity
    * @{
    */
-  enum Severity : EnumIdx { kCritical = 0, kError, kWarning, kProgress, kInfo, kDebug, kDebugApi };
+  enum Severity : EnumIdx { kDebugApi = 0, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
 
-  static constexpr EnumNames<7> kSeverityNames{"critical", "error", "warning", "progress",
-                                               "info",     "debug", "debugApi"};
+  static constexpr EnumNames<7> kSeverityNames{"debugApi", "debug", "info",    "progress",
+                                               "warning",  "error", "critical"};
   /// @}
 
   virtual ~LoggerInterface() = 0;

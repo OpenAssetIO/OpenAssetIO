@@ -41,6 +41,7 @@ def severity_filter(mock_logger):
     return lg.SeverityFilter(mock_logger)
 
 
+# Ordered by increasing severity value
 all_severities = (
     lg.LoggerInterface.kDebugApi,
     lg.LoggerInterface.kDebug,
@@ -63,6 +64,10 @@ class Test_LoggerInterface:
         assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kInfo] == "info"
         assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kDebug] == "debug"
         assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kDebugApi] == "debugApi"
+
+    def test_severity_index(self):
+        for index, severity in enumerate(all_severities):
+            assert severity.value == index
 
 
 class Test_SeverityFilter_init:
@@ -123,7 +128,7 @@ class Test_SeverityFilter_log:
             for message_severity in all_severities:
                 mock_logger.mock.reset_mock()
                 severity_filter.log(message_severity, msg)
-                if message_severity <= filter_severity:
+                if message_severity >= filter_severity:
                     mock_logger.mock.log.assert_called_once_with(
                         message_severity, msg)
                 else:
