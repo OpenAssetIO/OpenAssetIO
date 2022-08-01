@@ -1,8 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436":[13,0,0,10,5,2],
-"classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822":[13,0,0,10,5,5],
-"classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be":[13,0,0,10,5,1],
 "classopenassetio_1_1v1_1_1_traits_data.html#ab156681737e47cc39be246cd986b7d2e":[13,0,0,10,5,4],
 "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0":[13,0,0,10,5,0],
 "classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6":[13,0,0,10,5,6],
@@ -41,6 +38,7 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1manager_api_1_1_host.html#acd6071a3e45f9d19590366df23aaac39":[13,0,0,10,1,0,1],
 "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html":[13,0,0,10,1,1],
 "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a2b9752f9bea6688ca26d989003675aa8":[13,0,0,10,1,1,0],
+"classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#ab26455c42ab34184af5344d1fbb6812a":[13,0,0,10,1,1,1],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html":[13,0,0,10,1,2],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a23f620c631306fbcb518c3eb1dcba92b":[13,0,0,10,1,2,1],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260":[13,0,0,10,1,2,6],
@@ -91,8 +89,8 @@ var NAVTREEINDEX1 =
 "functions_enum.html":[13,3,4],
 "functions_eval.html":[13,3,5],
 "functions_f.html":[13,3,0,5],
-"functions_func.html":[13,3,1,0],
 "functions_func.html":[13,3,1],
+"functions_func.html":[13,3,1,0],
 "functions_func_0x7e.html":[13,3,1,17],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_c.html":[13,3,1,2],
@@ -217,8 +215,8 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[11,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[11,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[11,0,3],
@@ -238,8 +236,8 @@ var NAVTREEINDEX1 =
 "group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[11,0,5,0,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[11,0,5,0,1],
 "hierarchy.html":[13,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "index.html#manager_implementation_concept":[0,4],
 "modules.html":[11],
 "namespacemembers.html":[12,0],
-"namespacemembers_enum.html":[12,4]
+"namespacemembers_enum.html":[12,4],
+"namespacemembers_func.html":[12,1],
+"namespacemembers_type.html":[12,3]
 };

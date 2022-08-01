@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"namespacemembers_func.html":[12,1],
-"namespacemembers_type.html":[12,3],
 "namespacemembers_vars.html":[12,2],
 "namespaceopenassetio.html":[13,0,0],
 "namespaceopenassetio_1_1__core.html":[13,0,0,0],
@@ -17,8 +15,7 @@ var NAVTREEINDEX2 =
 "namespaceopenassetio_1_1host_api_1_1terminology.html":[13,0,0,2,2],
 "namespaceopenassetio_1_1log.html":[13,0,0,3],
 "namespaceopenassetio_1_1manager_api.html":[13,0,0,4],
-"namespaceopenassetio_1_1manager_api_1_1_host_session.html":[13,0,0,4,0],
-"namespaceopenassetio_1_1manager_api_1_1_manager_interface.html":[13,0,0,4,1],
+"namespaceopenassetio_1_1manager_api_1_1_manager_interface.html":[13,0,0,4,0],
 "namespaceopenassetio_1_1plugin_system.html":[13,0,0,5],
 "namespaceopenassetio_1_1plugin_system_1_1_manager_plugin.html":[13,0,0,5,0],
 "namespaceopenassetio_1_1plugin_system_1_1_plugin_system.html":[13,0,0,5,1],

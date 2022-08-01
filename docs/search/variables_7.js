@@ -1,13 +1,9 @@
 var searchData=
 [
   ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#ab0785204b0582eca42bf5c30cbf920c3',1,'openassetio::v1::Context']]],
-  ['kcritical',['kCritical',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a09df177326ffacc9d8c74913e79fc9f3',1,'openassetio::managerApi::HostSession::HostSession']]],
-  ['kdebug',['kDebug',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a12e63825bb15eb9bbd6f74d2982e952c',1,'openassetio::managerApi::HostSession::HostSession']]],
-  ['kdebugapi',['kDebugApi',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a6f9ed8c06582110d9a7101aa471b032b',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kdocumentaction_5fsave',['kDocumentAction_Save',['../namespaceopenassetio_1_1constants.html#ac53f766f74ca7ae4aa9715b1484e95b5',1,'openassetio::constants']]],
   ['kdocumentaction_5fsaveas',['kDocumentAction_SaveAs',['../namespaceopenassetio_1_1constants.html#a87815a4e1cc6779c048a11e63877f323',1,'openassetio::constants']]],
   ['kdocumentaction_5fsavenewversion',['kDocumentAction_SaveNewVersion',['../namespaceopenassetio_1_1constants.html#ae5a449c90157a7eff1b70e25e9db0746',1,'openassetio::constants']]],
-  ['kerror',['kError',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a5f0ef6efde97ea66ceaa10242a50a520',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kfield_5fdisplayname',['kField_DisplayName',['../namespaceopenassetio_1_1constants.html#a24860557832616158a6274e8a9938c4b',1,'openassetio::constants']]],
   ['kfield_5fdropframe',['kField_DropFrame',['../namespaceopenassetio_1_1constants.html#a2d90c12922e009085461fe30fa08842a',1,'openassetio::constants']]],
   ['kfield_5fentityreferencesmatchprefix',['kField_EntityReferencesMatchPrefix',['../namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098',1,'openassetio::constants']]],
@@ -38,11 +34,9 @@ var searchData=
   ['kfield_5fsmallicon',['kField_SmallIcon',['../namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe',1,'openassetio::constants']]],
   ['kfield_5fstatus',['kField_Status',['../namespaceopenassetio_1_1constants.html#ac1973756f9b4f6d92f660e12cd82d25e',1,'openassetio::constants']]],
   ['kid',['kId',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.manager.specifications.ManagerTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.TestTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.HarnessTrait.kId()'],['../classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.traits.managementPolicy.ManagedTrait.kId()'],['../classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.traits.managementPolicy.WillManagePathTrait.kId()']]],
-  ['kinfo',['kInfo',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a43608ad7833b0aac20cba06a66778e2a',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_plugin_system_manager_implementation_factory_1_1_plugin_syff7573b8b7647b4f7369c388c223be94.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PluginSystemManagerImplementationFactory::PluginSystemManagerImplementationFactory']]],
-  ['kprogress',['kProgress',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a953866c5d6fdd08eadf3bade2d3988a2',1,'openassetio::managerApi::HostSession::HostSession']]],
   ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a0d4f9c0297edb401d6b9bac6c0fb32e4',1,'openassetio::v1::Context']]],
   ['ksetting_5floggingseverity',['kSetting_LoggingSeverity',['../namespaceopenassetio_1_1constants.html#abc3b2f6603ea0b538dacd24e728d5dae',1,'openassetio::constants']]],
   ['ksetting_5fmanageridentifier',['kSetting_ManagerIdentifier',['../namespaceopenassetio_1_1constants.html#a758b897ce364c84b0ed166ba6e7a7a33',1,'openassetio::constants']]],
@@ -57,6 +51,5 @@ var searchData=
   ['kterm_5fshot',['kTerm_Shot',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ab39066cfaab5028793d15a13c9632fd2',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshots',['kTerm_Shots',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a7b9c89b2cdc69b6027aceeaf4b0cbcd4',1,'openassetio::hostApi::terminology']]],
   ['ktraitset',['kTraitSet',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#a3573e751580ba06c9da69a853173dd70',1,'openassetio.test.manager.specifications.ManagerTestHarnessLocale.kTraitSet()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a7e57e516ab8013fc97a8638d17fb2d07',1,'openassetio.test.specifications.TestHarnessLocale.kTraitSet()']]],
-  ['kversiondict_5forderkey',['kVersionDict_OrderKey',['../namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3',1,'openassetio::constants']]],
-  ['kwarning',['kWarning',['../classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#aebf75aac5e62b537d37c9faa398266e2',1,'openassetio::managerApi::HostSession::HostSession']]]
+  ['kversiondict_5forderkey',['kVersionDict_OrderKey',['../namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3',1,'openassetio::constants']]]
 ];

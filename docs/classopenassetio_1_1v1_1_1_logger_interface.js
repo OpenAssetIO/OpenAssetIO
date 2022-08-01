@@ -10,5 +10,5 @@ var classopenassetio_1_1v1_1_1_logger_interface =
       [ "kDebugApi", "classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7cabd5a08407ccd3f6d6971df9106bed3c7", null ]
     ] ],
     [ "~LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766", null ],
-    [ "log", "classopenassetio_1_1v1_1_1_logger_interface.html#afd703a563c7c94b4232a7f92de267aa2", null ]
+    [ "log", "classopenassetio_1_1v1_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085", null ]
 ];

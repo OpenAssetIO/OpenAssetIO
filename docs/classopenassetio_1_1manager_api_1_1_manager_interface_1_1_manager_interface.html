@@ -247,9 +247,11 @@ Public Member Functions</h2></td></tr>
 <li>You generally don't need to call the superclass implementation of any methods in this interface, unless you are deriving from your own subclass which requires it.</li>
 </ul>
 <h2>Logging and Error Handling </h2>
-<p>The supplied <a class="el" href="classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html">HostSession</a> object provides logging methods that allow messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Your plugin may be hosted out of process, or even on another machine, the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html#a1d272d2ff0a65036e02f14c589e12e9c">HostSession.log</a></dd></dl>
+<p>The supplied <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> object provides access to a logger that allows messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Your plugin may be hosted out of process, or even on another machine, the HostSession bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#ab26455c42ab34184af5344d1fbb6812a">HostSession.logger</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html">LoggerInterface</a></dd></dl>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind, will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>
@@ -257,7 +259,7 @@ Public Member Functions</h2></td></tr>
 <p>When a <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">Manager.createContext</a>, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> for <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
-<p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html">openassetio.managerApi.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
+<p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">Host</a></dd></dl>
 <h2>Initialization </h2>
 <p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after initialize has been called. The following methods must be callable prior to initialization:</p>
@@ -314,7 +316,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">traitSets</td><td><code>List[Set[str]]</code> The relevant trait sets for the type of entities a host is about to work with. These should be interpreted in conjunction with the context to determine the most sensible default.</td></tr>
     <tr><td class="paramname">context</td><td>Context The context the resulting reference will be used in. When determining a suitable reference to return, it is important to pay particular attention to the access pattern. It differentiates between a reference that will be used for reading or writing, and critically single or multiple entities.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -369,7 +371,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -421,7 +423,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -475,7 +477,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -524,7 +526,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -589,7 +591,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">includeMetaVersions</td><td><code>bool</code> If <code>True</code>, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions need to be returned.</td></tr>
     <tr><td class="paramname">maxNumVersions</td><td><code>int</code> Limits the number of versions collected for each entity. If more results are available than the limit, then the newest versions should be returned. If a value of -1 is used, then all results should be returned.</td></tr>
   </table>
@@ -651,7 +653,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entity references to finalize.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">overrideVersionName</td><td><code>str</code> If supplied, then the call should return entity references for the version of the referenced assets that match the name specified here, ignoring any version inferred by the input reference.</td></tr>
   </table>
   </dd>
@@ -767,7 +769,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">entityRefs</td><td>List[str]</td></tr>
     <tr><td class="paramname">relationshipTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code></td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">resultTraitSet</td><td><code>Set[str]</code> or None, a hint as to what traits the caller is expecting the returned entities to have.</td></tr>
   </table>
   </dd>
@@ -821,7 +823,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokens</td><td><code>List[str]</code> The strings to be inspected.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -877,7 +879,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entities whose data should be prefetched.</td></tr>
     <tr><td class="paramname">context</td><td>openassetio.Context You may wish to make use of the managerState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -935,7 +937,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each entity that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set(str)</code> The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entities that are being published.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1001,7 +1003,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>Context The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1072,7 +1074,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The traits to resolve for the supplied list of entity references.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">HostSession</a> The API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1146,7 +1148,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">relationshipTraitsData</td><td><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>, The type of relationship to establish.</td></tr>
     <tr><td class="paramname">relatedRefs</td><td>List[str], The related entities for the given relationship.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_host_session.html" title="A single-class module, providing the HostSession class. ">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">append</td><td>bool, When True (default) new relationships will be added to any existing ones. If False, then any existing relationships with the supplied traits will first be removed.</td></tr>
   </table>
   </dd>

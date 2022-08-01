@@ -4,9 +4,6 @@ var hierarchy =
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
-    [ "HostSession", null, [
-      [ "HostSession", "classopenassetio_1_1manager_api_1_1_host_session_1_1_host_session.html", null ]
-    ] ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html", null ],
     [ "Manager", null, [
