@@ -1,4 +1,0 @@
-var namespaceopenassetio_1_1plugin_system_1_1_plugin_system_plugin =
-[
-    [ "PluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin.html", "classopenassetio_1_1plugin_system_1_1_plugin_system_plugin_1_1_plugin_system_plugin" ]
-];

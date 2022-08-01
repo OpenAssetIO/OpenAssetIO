@@ -1,0 +1,4 @@
+var namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system =
+[
+    [ "PythonPluginSystem", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system" ]
+];

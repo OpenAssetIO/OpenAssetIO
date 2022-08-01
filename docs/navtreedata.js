@@ -70,7 +70,7 @@ var NAVTREE =
       [ "HostInterface", "glossary.html#HostInterface", null ],
       [ "locale", "glossary.html#locale", null ],
       [ "ManagerInterface", "glossary.html#ManagerInterface", null ],
-      [ "Manager Plugin", "glossary.html#ManagerPlugin", null ],
+      [ "Manager Plugin", "glossary.html#PythonPluginSystemManagerPlugin", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
