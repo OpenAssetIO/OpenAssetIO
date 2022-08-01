@@ -8,6 +8,16 @@
 #pragma once
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+/**
+ This namespace contains code relevant to message logging within the
+ API.
+
+ @ref host "Host" authors provide an implementation of @ref
+ LoggerInterface to a @ref manager to channel its messages. The API
+ middleware also makes use of this logger to provide debugging
+ information about use of the API at runtime.
+*/
+namespace log {
 OPENASSETIO_DECLARE_PTR(LoggerInterface)
 /**
  * An abstract base class that defines the receiving interface for
@@ -40,5 +50,6 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    */
   virtual void log(Severity severity, const Str& message) = 0;
 };
+}  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

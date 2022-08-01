@@ -6,8 +6,8 @@
 
 #include <pybind11/embed.h>
 
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 // Private headers
 #include <openassetio/private/python/pointers.hpp>
 
@@ -21,7 +21,7 @@ using openassetio::hostApi::ManagerImplementationFactoryInterface;
 using openassetio::hostApi::ManagerImplementationFactoryInterfacePtr;
 
 ManagerImplementationFactoryInterfacePtr createPythonPluginSystemManagerImplementationFactory(
-    LoggerInterfacePtr logger) {  // NOLINT(performance-unnecessary-value-param)
+    log::LoggerInterfacePtr logger) {  // NOLINT(performance-unnecessary-value-param)
   // Get Python class.
   py::object pyClass =
       py::module_::import(

@@ -13,8 +13,8 @@
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, Manager)
 OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
+OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
-OPENASSETIO_FWD_DECLARE(LoggerInterface)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -96,7 +96,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   static ManagerFactoryPtr make(
       HostInterfacePtr hostInterface,
       ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
-      LoggerInterfacePtr logger);
+      log::LoggerInterfacePtr logger);
 
   /**
    * All identifiers known to the factory.
@@ -168,16 +168,16 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   [[nodiscard]] static ManagerPtr createManagerForInterface(
       const Identifier& identifier, const HostInterfacePtr& hostInterface,
       const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
-      const LoggerInterfacePtr& logger);
+      const log::LoggerInterfacePtr& logger);
 
  private:
   ManagerFactory(HostInterfacePtr hostInterface,
                  ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
-                 LoggerInterfacePtr logger);
+                 log::LoggerInterfacePtr logger);
 
   const HostInterfacePtr hostInterface_;
   const ManagerImplementationFactoryInterfacePtr managerImplementationFactory_;
-  const LoggerInterfacePtr logger_;
+  const log::LoggerInterfacePtr logger_;
 };
 
 }  // namespace hostApi

@@ -9,9 +9,9 @@
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -29,8 +29,8 @@ namespace managerApi = openassetio::managerApi;
 namespace hostApi = openassetio::hostApi;
 namespace handles = openassetio::handles;
 
-using openassetio::LoggerInterface;
-using openassetio::LoggerInterfacePtr;
+using openassetio::log::LoggerInterface;
+using openassetio::log::LoggerInterfacePtr;
 
 namespace {
 constexpr size_t kStringBufferSize = 500;

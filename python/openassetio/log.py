@@ -24,7 +24,7 @@ import sys
 from . import _openassetio  # pylint: disable=no-name-in-module
 
 
-LoggerInterface = _openassetio.LoggerInterface
+LoggerInterface = _openassetio.log.LoggerInterface
 
 
 class SeverityFilter(LoggerInterface):

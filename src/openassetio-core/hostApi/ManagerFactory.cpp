@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -17,7 +17,7 @@ namespace hostApi {
 ManagerFactoryPtr ManagerFactory::make(
     HostInterfacePtr hostInterface,
     ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
-    LoggerInterfacePtr logger) {
+    log::LoggerInterfacePtr logger) {
   return openassetio::hostApi::ManagerFactoryPtr{new ManagerFactory{
       std::move(hostInterface), std::move(managerImplementationFactory), std::move(logger)}};
 }
@@ -25,7 +25,7 @@ ManagerFactoryPtr ManagerFactory::make(
 ManagerFactory::ManagerFactory(
     HostInterfacePtr hostInterface,
     ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
-    LoggerInterfacePtr logger)
+    log::LoggerInterfacePtr logger)
     : hostInterface_{std::move(hostInterface)},
       managerImplementationFactory_{std::move(managerImplementationFactory)},
       logger_{std::move(logger)} {}
@@ -61,7 +61,7 @@ ManagerPtr ManagerFactory::createManager(const Identifier& identifier) const {
 ManagerPtr ManagerFactory::createManagerForInterface(
     const Identifier& identifier, const HostInterfacePtr& hostInterface,
     const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
-    [[maybe_unused]] const LoggerInterfacePtr& logger) {
+    [[maybe_unused]] const log::LoggerInterfacePtr& logger) {
   return Manager::make(
       managerImplementationFactory->instantiate(identifier),
       managerApi::HostSession::make(managerApi::Host::make(hostInterface), logger));

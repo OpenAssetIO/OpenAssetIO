@@ -7,9 +7,9 @@
 #include <unordered_map>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 
@@ -68,8 +68,8 @@ struct Fixture {
     [[nodiscard]] openassetio::Str displayName() const override { return {}; }
   };
   /// A dummy LoggerInterface implementation
-  struct LoggerImpl : openassetio::LoggerInterface {
-    void log([[maybe_unused]] openassetio::LoggerInterface::Severity severity,
+  struct LoggerImpl : openassetio::log::LoggerInterface {
+    void log([[maybe_unused]] openassetio::log::LoggerInterface::Severity severity,
              [[maybe_unused]] const openassetio::Str& message) override {}
   };
 

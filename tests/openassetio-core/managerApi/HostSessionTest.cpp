@@ -10,7 +10,7 @@ OPENASSETIO_FWD_DECLARE(LoggerInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, Host)
 
 SCENARIO("HostSession constructor is private") {
-  STATIC_REQUIRE_FALSE(
-      std::is_constructible_v<openassetio::managerApi::HostSession,
-                              openassetio::managerApi::HostPtr, openassetio::LoggerInterfacePtr>);
+  STATIC_REQUIRE_FALSE(std::is_constructible_v<openassetio::managerApi::HostSession,
+                                               openassetio::managerApi::HostPtr,
+                                               openassetio::log::LoggerInterfacePtr>);
 }

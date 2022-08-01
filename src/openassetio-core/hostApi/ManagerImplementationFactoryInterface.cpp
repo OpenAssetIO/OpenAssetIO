@@ -9,7 +9,7 @@ namespace hostApi {
 ManagerImplementationFactoryInterface::~ManagerImplementationFactoryInterface() = default;
 
 ManagerImplementationFactoryInterface::ManagerImplementationFactoryInterface(
-    LoggerInterfacePtr logger)
+    log::LoggerInterfacePtr logger)
     : logger_{std::move(logger)} {}
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

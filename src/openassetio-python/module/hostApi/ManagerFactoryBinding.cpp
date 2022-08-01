@@ -3,11 +3,11 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 
 #include "../_openassetio.hpp"
 
