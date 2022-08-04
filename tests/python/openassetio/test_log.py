@@ -119,42 +119,77 @@ class Test_LoggerInterface:
             assert severity.value == index
 
 
+class Test_SeverityFilter_inheritance:
+    def test_class_is_final(self):
+        with pytest.raises(TypeError):
+
+            class _(lg.SeverityFilter):
+                pass
+
+
 class Test_SeverityFilter_init:
+    def test_when_logger_is_None_then_raises_TypeError(self):
+        with pytest.raises(TypeError) as err:
+            lg.SeverityFilter(None)
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
+    def test_when_invalid_logger_then_raises_TypeError(self):
+        with pytest.raises(TypeError) as err:
+            lg.SeverityFilter(object())
+
+        assert str(err.value).startswith("__init__(): incompatible constructor arguments")
+
 
     def test_when_severity_envvar_not_set_then_initial_severity_is_warning(
-            self, mock_logger, monkeypatch):
-
+        self, mock_logger, monkeypatch
+    ):
         monkeypatch.delenv(severity_control_envvar, raising=False)
         f = lg.SeverityFilter(mock_logger)
         assert f.getSeverity() == lg.LoggerInterface.kWarning
 
     def test_when_severity_envvar_set_then_initial_severity_matches_envvar_value(
-            self, mock_logger, monkeypatch):
-
+        self, mock_logger, monkeypatch
+    ):
         for value, expected in (
-                ("", lg.LoggerInterface.kWarning),
-                ("not a valid value", lg.LoggerInterface.kWarning),
+            ("", lg.LoggerInterface.kWarning),
+            ("not a valid value", lg.LoggerInterface.kWarning),
         ):
             monkeypatch.setenv(severity_control_envvar, value)
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
         for value, expected in (
-                (lg.LoggerInterface.kDebugApi, lg.LoggerInterface.kDebugApi),
-                (lg.LoggerInterface.kDebug, lg.LoggerInterface.kDebug),
-                (lg.LoggerInterface.kInfo, lg.LoggerInterface.kInfo),
-                (lg.LoggerInterface.kProgress, lg.LoggerInterface.kProgress),
-                (lg.LoggerInterface.kWarning, lg.LoggerInterface.kWarning),
-                (lg.LoggerInterface.kError, lg.LoggerInterface.kError),
-                (lg.LoggerInterface.kCritical, lg.LoggerInterface.kCritical)
+            (lg.LoggerInterface.kDebugApi, lg.LoggerInterface.kDebugApi),
+            (lg.LoggerInterface.kDebug, lg.LoggerInterface.kDebug),
+            (lg.LoggerInterface.kInfo, lg.LoggerInterface.kInfo),
+            (lg.LoggerInterface.kProgress, lg.LoggerInterface.kProgress),
+            (lg.LoggerInterface.kWarning, lg.LoggerInterface.kWarning),
+            (lg.LoggerInterface.kError, lg.LoggerInterface.kError),
+            (lg.LoggerInterface.kCritical, lg.LoggerInterface.kCritical),
         ):
             monkeypatch.setenv(severity_control_envvar, str(int(value)))
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
+    def test_when_invalid_envvar_string_set_then_error_is_logged(self, mock_logger, monkeypatch):
+        monkeypatch.setenv(severity_control_envvar, "invalid")
+        _ = lg.SeverityFilter(mock_logger)
+        mock_logger.mock.log.assert_called_with(
+            lg.LoggerInterface.kError,
+            "SeverityFilter: Invalid OPENASSETIO_LOGGING_SEVERITY value 'invalid' - ignoring.",
+        )
+
+    def test_when_invalid_envvar_severity_set_then_error_is_logged(self, mock_logger, monkeypatch):
+        monkeypatch.setenv(severity_control_envvar, "12")
+        _ = lg.SeverityFilter(mock_logger)
+        mock_logger.mock.log.assert_called_with(
+            lg.LoggerInterface.kError,
+            "SeverityFilter: Invalid OPENASSETIO_LOGGING_SEVERITY value '12' - ignoring.",
+        )
+
 
 class Test_SeverityFilter_setSeverity_getSeverity:
-
     def test_when_severity_is_set_then_get_returns_the_new_value(self, severity_filter):
         for severity in all_severities:
             severity_filter.setSeverity(severity)
@@ -162,9 +197,7 @@ class Test_SeverityFilter_setSeverity_getSeverity:
 
 
 class Test_SeverityFilter_log:
-
-    def test_only_messages_of_equal_or_greater_severity_are_relayed(
-            self, severity_filter):
+    def test_only_messages_of_equal_or_greater_severity_are_relayed(self, severity_filter):
 
         mock_logger = severity_filter.upstreamLogger()
 
@@ -178,7 +211,12 @@ class Test_SeverityFilter_log:
                 mock_logger.mock.reset_mock()
                 severity_filter.log(message_severity, msg)
                 if message_severity >= filter_severity:
-                    mock_logger.mock.log.assert_called_once_with(
-                        message_severity, msg)
+                    mock_logger.mock.log.assert_called_once_with(message_severity, msg)
                 else:
                     mock_logger.mock.log.assert_not_called()
+
+
+class Test_SeverityFilter_upstreamLogger:
+    def test_returns_the_constructor_supplied_logger(self, mock_logger):
+        a_filter = lg.SeverityFilter(mock_logger)
+        assert a_filter.upstreamLogger() is mock_logger

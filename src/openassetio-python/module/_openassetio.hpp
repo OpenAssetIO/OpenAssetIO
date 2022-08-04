@@ -47,6 +47,9 @@ void registerLoggerInterface(const py::module& mod);
 /// Register the ConsoleLogger class with Python.
 void registerConsoleLogger(const py::module& mod);
 
+/// Register the SeverityFilter class with Python.
+void registerSeverityFilter(const py::module& mod);
+
 /// Register the Context class with Python.
 void registerContext(const py::module& mod);
 

@@ -65,6 +65,7 @@ target_sources(
     hostApi/ManagerImplementationFactoryInterface.cpp
     log/ConsoleLogger.cpp
     log/LoggerInterface.cpp
+    log/SeverityFilter.cpp
     managerApi/Host.cpp
     managerApi/HostSession.cpp
     managerApi/ManagerInterface.cpp

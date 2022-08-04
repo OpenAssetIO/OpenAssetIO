@@ -18,6 +18,7 @@ PYBIND11_MODULE(_openassetio, mod) {
 
   registerLoggerInterface(log);
   registerConsoleLogger(log);
+  registerSeverityFilter(log);
   registerTraitsData(mod);
   registerManagerStateBase(managerApi);
   registerContext(mod);
