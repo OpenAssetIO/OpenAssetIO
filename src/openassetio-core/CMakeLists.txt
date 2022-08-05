@@ -63,6 +63,7 @@ target_sources(
     hostApi/Manager.cpp
     hostApi/ManagerFactory.cpp
     hostApi/ManagerImplementationFactoryInterface.cpp
+    log/ConsoleLogger.cpp
     log/LoggerInterface.cpp
     managerApi/Host.cpp
     managerApi/HostSession.cpp

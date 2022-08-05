@@ -47,6 +47,7 @@ target_sources(
     hostApi/HostInterfaceBinding.cpp
     hostApi/ManagerFactoryBinding.cpp
     hostApi/ManagerImplementationFactoryInterfaceBinding.cpp
+    log/ConsoleLoggerBinding.cpp
     log/LoggerInterfaceBinding.cpp
     managerApi/HostBinding.cpp
     managerApi/HostSessionBinding.cpp

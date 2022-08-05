@@ -55,6 +55,55 @@ all_severities = (
 severity_control_envvar = "OPENASSETIO_LOGGING_SEVERITY"
 
 
+class Test_ConsoleLogger_inheritance:
+    def test_class_is_final(self):
+        with pytest.raises(TypeError):
+
+            class _(lg.ConsoleLogger):
+                pass
+
+
+class Test_ConsoleLogger:
+    def test_when_logging_then_messages_are_written_to_stderr(self, capfd):
+        # Clear the capture so we don't get swamped by any output from
+        # previous tests.
+        _ = capfd.readouterr()
+
+        logger = lg.ConsoleLogger(shouldColorOutput=False)
+        for severity in all_severities:
+            logger.log(severity, "A message")
+        output = capfd.readouterr()
+
+        assert output.out == ""
+        assert output.err == "\n".join(
+            [f"{lg.LoggerInterface.kSeverityNames[s] : >11}: A message" for s in all_severities]
+        ) + "\n"
+
+    def test_when_shouldColorOutput_not_set_then_messages_are_colored(self, capfd):
+        _ = capfd.readouterr()
+        logger = lg.ConsoleLogger(shouldColorOutput=True)
+        logger.log(lg.LoggerInterface.kCritical, "A message")
+        output = capfd.readouterr()
+
+        assert "\033[0m" in output.err
+
+    def test_when_shouldColorOutput_set_true_then_messages_are_colored(self, capfd):
+        _ = capfd.readouterr()
+        logger = lg.ConsoleLogger(shouldColorOutput=True)
+        logger.log(lg.LoggerInterface.kCritical, "A message")
+        output = capfd.readouterr()
+
+        assert "\033[0m" in output.err
+
+    def test_when_shouldColorOutput_set_false_then_messages_are_not_colored(self, capfd):
+        _ = capfd.readouterr()
+        logger = lg.ConsoleLogger(shouldColorOutput=False)
+        logger.log(lg.LoggerInterface.kCritical, "A message")
+        output = capfd.readouterr()
+
+        assert "\033[0m" not in output.err
+
+
 class Test_LoggerInterface:
     def test_severity_names(self):
         assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kCritical] == "critical"

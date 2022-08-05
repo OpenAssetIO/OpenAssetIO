@@ -17,6 +17,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   py::module log = mod.def_submodule("log");
 
   registerLoggerInterface(log);
+  registerConsoleLogger(log);
   registerTraitsData(mod);
   registerManagerStateBase(managerApi);
   registerContext(mod);
