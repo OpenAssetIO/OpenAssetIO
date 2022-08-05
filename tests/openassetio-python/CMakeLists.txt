@@ -175,7 +175,8 @@ if (Python_Interpreter_FOUND)
     add_custom_target(
         openassetio-python-test-pytest
         COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v -s tests/python
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
+        tests/python
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
         USES_TERMINAL
     )
@@ -187,7 +188,7 @@ if (Python_Interpreter_FOUND)
     add_custom_target(
         openassetio-resources-examples-test-pytest
         COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/examples"
         USES_TERMINAL
     )
@@ -199,7 +200,7 @@ if (Python_Interpreter_FOUND)
     add_custom_target(
         openassetio-resources-codegen-test-pytest
         COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v
+        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
         WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/codegen"
         USES_TERMINAL
     )
