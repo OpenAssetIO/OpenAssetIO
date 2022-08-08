@@ -182,9 +182,9 @@ v1.0.0-alpha.X
   [#370](https://github.com/OpenAssetIO/OpenAssetIO/issues/370)
 
 - Migrated the following classes to C++: `Context`, `Host`,
-  `HostInterface`, `HostSession` and `LoggerInterface`,
-  `ManagerImplementationFactoryInterface`. Debug and audit functionality
-  is left for future work.
+  `HostInterface`, `HostSession` and `LoggerInterface`, `ConsoleLogger`
+  `SeverityFilter` and `ManagerImplementationFactoryInterface`. Debug
+  and audit functionality is left for future work.
   [#291](https://github.com/OpenAssetIO/OpenAssetIO/issues/291)
   [#331](https://github.com/OpenAssetIO/OpenAssetIO/issues/331)
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)

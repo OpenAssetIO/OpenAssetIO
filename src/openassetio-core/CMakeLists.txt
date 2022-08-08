@@ -58,12 +58,14 @@ target_sources(
     openassetio-core
     PRIVATE
     Context.cpp
-    LoggerInterface.cpp
     TraitsData.cpp
     hostApi/HostInterface.cpp
     hostApi/Manager.cpp
     hostApi/ManagerFactory.cpp
     hostApi/ManagerImplementationFactoryInterface.cpp
+    log/ConsoleLogger.cpp
+    log/LoggerInterface.cpp
+    log/SeverityFilter.cpp
     managerApi/Host.cpp
     managerApi/HostSession.cpp
     managerApi/ManagerInterface.cpp

@@ -8,7 +8,7 @@
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
-OPENASSETIO_FWD_DECLARE(LoggerInterface)
+OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
 
 namespace openassetio {
@@ -46,7 +46,7 @@ class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
    * @param logger Logger object that should be used for all logging
    * by the factory. Obtainable in subclasses through @ref logger_.
    */
-  explicit ManagerImplementationFactoryInterface(LoggerInterfacePtr logger);
+  explicit ManagerImplementationFactoryInterface(log::LoggerInterfacePtr logger);
 
   virtual ~ManagerImplementationFactoryInterface() = 0;
 
@@ -75,7 +75,7 @@ class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
   // Allow violation of no protected members, since this is const and
   // within an abstract interface.
   // NOLINTNEXTLINE(misc-non-private-member-variables-in-classes)
-  const LoggerInterfacePtr logger_;
+  const log::LoggerInterfacePtr logger_;
 };
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

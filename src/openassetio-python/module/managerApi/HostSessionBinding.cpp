@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <pybind11/stl.h>
 
-#include <openassetio/LoggerInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 

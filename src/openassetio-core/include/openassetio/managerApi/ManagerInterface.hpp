@@ -78,7 +78,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * result in output being lost.
  *
  * @see @fqref{managerApi.HostSession.logger} "HostSession.logger"
- * @see @fqref{LoggerInterface} "LoggerInterface"
+ * @see @fqref{log.LoggerInterface} "LoggerInterface"
  *
  * Exceptions should be thrown to handle any in-flight errors that
  * occur. The error should be mapped to a derived class of

@@ -3,11 +3,12 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/LoggerInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 
-#include "_openassetio.hpp"
+#include "../_openassetio.hpp"
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace log {
 /**
  * Trampoline class required for pybind to bind pure virtual methods
  * and allow C++ -> Python calls via a C++ instance.
@@ -19,15 +20,16 @@ struct PyLoggerInterface : LoggerInterface {
     PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
   }
 };
+}  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
 
 void registerLoggerInterface(const py::module& mod) {
   using openassetio::Float;
-  using openassetio::LoggerInterface;
-  using openassetio::LoggerInterfacePtr;
-  using openassetio::PyLoggerInterface;
   using openassetio::Str;
+  using openassetio::log::LoggerInterface;
+  using openassetio::log::LoggerInterfacePtr;
+  using openassetio::log::PyLoggerInterface;
 
   py::class_<LoggerInterface, PyLoggerInterface, LoggerInterfacePtr> loggerInterface{
       mod, "LoggerInterface"};

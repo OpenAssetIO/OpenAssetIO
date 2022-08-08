@@ -2,8 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <pybind11/stl.h>
 
-#include <openassetio/LoggerInterface.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -44,7 +44,7 @@ void registerManagerImplementationFactoryInterface(const py::module& mod) {
   using openassetio::hostApi::ManagerImplementationFactoryInterfacePtr;
   using openassetio::hostApi::PyManagerImplementationFactoryInterface;
   using PyRetainingLoggerInterfacePtr =
-      openassetio::PyRetainingSharedPtr<openassetio::LoggerInterface>;
+      openassetio::PyRetainingSharedPtr<openassetio::log::LoggerInterface>;
 
   py::class_<ManagerImplementationFactoryInterface, PyManagerImplementationFactoryInterface,
              ManagerImplementationFactoryInterfacePtr>(mod,

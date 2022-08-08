@@ -13,9 +13,9 @@
 
 #include "PyRetainingSharedPtr.hpp"
 
-OPENASSETIO_FWD_DECLARE(LoggerInterface)
 OPENASSETIO_FWD_DECLARE(ManagerStateBase)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerInterface)
+OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
 
@@ -33,17 +33,22 @@ OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
  * @see PyRetainingSharedPtr
  * @see RetainPyArgs
  */
-using RetainCommonPyArgs =
-    openassetio::RetainPyArgs<openassetio::LoggerInterfacePtr, openassetio::ManagerStateBasePtr,
-                              openassetio::managerApi::ManagerInterfacePtr,
-                              openassetio::hostApi::HostInterfacePtr,
-                              openassetio::hostApi::ManagerImplementationFactoryInterfacePtr>;
+using RetainCommonPyArgs = openassetio::RetainPyArgs<
+    openassetio::log::LoggerInterfacePtr, openassetio::ManagerStateBasePtr,
+    openassetio::managerApi::ManagerInterfacePtr, openassetio::hostApi::HostInterfacePtr,
+    openassetio::hostApi::ManagerImplementationFactoryInterfacePtr>;
 
 /// Concise pybind alias.
 namespace py = pybind11;
 
 /// Register the LoggerInterface class with Python.
 void registerLoggerInterface(const py::module& mod);
+
+/// Register the ConsoleLogger class with Python.
+void registerConsoleLogger(const py::module& mod);
+
+/// Register the SeverityFilter class with Python.
+void registerSeverityFilter(const py::module& mod);
 
 /// Register the Context class with Python.
 void registerContext(const py::module& mod);

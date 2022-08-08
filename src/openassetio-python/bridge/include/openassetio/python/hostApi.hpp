@@ -6,7 +6,7 @@
 #include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
-OPENASSETIO_FWD_DECLARE(LoggerInterface)
+OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -22,7 +22,7 @@ namespace hostApi {
  * @return Python plugin system.
  */
 OPENASSETIO_PYTHON_BRIDGE_EXPORT openassetio::hostApi::ManagerImplementationFactoryInterfacePtr
-createPythonPluginSystemManagerImplementationFactory(LoggerInterfacePtr logger);
+createPythonPluginSystemManagerImplementationFactory(log::LoggerInterfacePtr logger);
 }  // namespace hostApi
 }  // namespace python
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
