@@ -192,9 +192,9 @@ Public Member Functions</h2></td></tr>
 <h2>Logging and Error Handling </h2>
 <p>The supplied <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> object provides access to a logger that allow messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
 <dl class="section warning"><dt>Warning</dt><dd>Your plugin may be hosted out of process, or even on another machine, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> bridge takes care of relaying messages accordingly. Using custom logging mechanisms may well result in output being lost.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#ab26455c42ab34184af5344d1fbb6812a">HostSession.logger</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a0a8c67fe6ad061b65e2971210b427f3e">HostSession.logger</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html">LoggerInterface</a></dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a></dd></dl>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
 <h2>Threading </h2>

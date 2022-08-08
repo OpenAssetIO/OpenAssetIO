@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1_logger_interface.html','');});
+$(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1log_1_1_logger_interface.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -111,40 +111,49 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1_logger_inte
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classopenassetio_1_1v1_1_1_logger_interface-members.html">List of all members</a>  </div>
+<a href="classopenassetio_1_1v1_1_1log_1_1_logger_interface-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">LoggerInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>An abstract base class that defines the receiving interface for log messages generated a <a class="el" href="glossary.html#manager">manager</a> or the API middleware.  
- <a href="classopenassetio_1_1v1_1_1_logger_interface.html#details">More...</a></p>
+ <a href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#details">More...</a></p>
 
 <p><code>#include &lt;LoggerInterface.hpp&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for LoggerInterface:</div>
+<div class="dyncontent">
+<div class="center"><img src="classopenassetio_1_1v1_1_1log_1_1_logger_interface__inherit__graph.png" border="0" usemap="#_logger_interface_inherit__map" alt="Inheritance graph"/></div>
+<map name="_logger_interface_inherit__map" id="_logger_interface_inherit__map">
+<area shape="rect" id="node2" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html" title="A logger that sends messages to the console (stderr). " alt="" coords="5,80,124,107"/>
+<area shape="rect" id="node3" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="149,80,258,107"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4e3fe520c4703d0cc29c5d41bbb8766"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766">~LoggerInterface</a> ()=0</td></tr>
+<tr class="memitem:ad4e3fe520c4703d0cc29c5d41bbb8766"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766">~LoggerInterface</a> ()=0</td></tr>
 <tr class="separator:ad4e3fe520c4703d0cc29c5d41bbb8766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085">log</a> (<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> severity, const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;message)=0</td></tr>
+<tr class="memitem:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085">log</a> (<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> severity, const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;message)=0</td></tr>
 <tr class="memdesc:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a message to the user.  <a href="#a599b5dad27e6ac3d6c96dbd0a00c5085">More...</a><br /></td></tr>
 <tr class="separator:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Log Severity</h2></td></tr>
-<tr class="memitem:a011d7a2676876e27a697b26d754e9d7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> : EnumIdx { <br />
-&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7cabd5a08407ccd3f6d6971df9106bed3c7">kDebugApi</a> = 0, 
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7ca5f66aaa2354d753bfaad7a8887e39216">kDebug</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caf5f198c05e424cf59cf410fb0de5591e">kInfo</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caf53d5d50cb21fd9f2a1e60c29064a4d4">kProgress</a>, 
+<tr class="memitem:a011d7a2676876e27a697b26d754e9d7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> : EnumIdx { <br />
+&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7cabd5a08407ccd3f6d6971df9106bed3c7">kDebugApi</a> = 0, 
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7ca5f66aaa2354d753bfaad7a8887e39216">kDebug</a>, 
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caf5f198c05e424cf59cf410fb0de5591e">kInfo</a>, 
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caf53d5d50cb21fd9f2a1e60c29064a4d4">kProgress</a>, 
 <br />
-&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7ca017887ee6e6d711cdb453f275fd971dc">kWarning</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caacb2c04376333850bff6fb1065c0c171">kError</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7cab6c55dafe64e4ed39a08f11ad1ddbc26">kCritical</a>
+&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7ca017887ee6e6d711cdb453f275fd971dc">kWarning</a>, 
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7caacb2c04376333850bff6fb1065c0c171">kError</a>, 
+<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7cab6c55dafe64e4ed39a08f11ad1ddbc26">kCritical</a>
 <br />
  }</td></tr>
 <tr class="separator:a011d7a2676876e27a697b26d754e9d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9cd2ebb8c2c1135f48da0b9762ee061"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="namespaceopenassetio_1_1v1.html#a8573d9597eec4cf3f5e0387156fbef44">EnumNames</a>&lt; 7 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#ae9cd2ebb8c2c1135f48da0b9762ee061">kSeverityNames</a></td></tr>
+<tr class="memitem:ae9cd2ebb8c2c1135f48da0b9762ee061"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="namespaceopenassetio_1_1v1.html#a8573d9597eec4cf3f5e0387156fbef44">EnumNames</a>&lt; 7 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ae9cd2ebb8c2c1135f48da0b9762ee061">kSeverityNames</a></td></tr>
 <tr class="separator:ae9cd2ebb8c2c1135f48da0b9762ee061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -155,7 +164,7 @@ Log Severity</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> : <a class="el" href="namespaceopenassetio_1_1v1.html#a64e8ac1e6ab9e446a03a134b59b5de66">EnumIdx</a></td>
+          <td class="memname">enum <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a> : <a class="el" href="namespaceopenassetio_1_1v1.html#a64e8ac1e6ab9e446a03a134b59b5de66">EnumIdx</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -187,7 +196,7 @@ Log Severity</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual ~<a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html">LoggerInterface</a> </td>
+          <td class="memname">virtual ~<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -213,7 +222,7 @@ Log Severity</h2></td></tr>
         <tr>
           <td class="memname">virtual void log </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a>&#160;</td>
           <td class="paramname"><em>severity</em>, </td>
         </tr>
         <tr>
@@ -240,10 +249,12 @@ Log Severity</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>The message string to be logged.</td></tr>
-    <tr><td class="paramname">severity</td><td>One of the severity constants defined in <a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a>. </td></tr>
+    <tr><td class="paramname">severity</td><td>One of the severity constants defined in <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7c">Severity</a>. </td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Implemented in <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#adb4112a1344f2675caa43657941864ac">SeverityFilter</a>, and <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html#adb4112a1344f2675caa43657941864ac">ConsoleLogger</a>.</p>
 
 </div>
 </div>
@@ -269,7 +280,7 @@ Log Severity</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/src/src/openassetio-core/include/openassetio/LoggerInterface.hpp</li>
+<li>/src/src/openassetio-core/include/openassetio/log/LoggerInterface.hpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -277,7 +288,7 @@ Log Severity</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceopenassetio.html">openassetio</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1.html">v1</a></li><li class="navelem"><a class="el" href="classopenassetio_1_1v1_1_1_logger_interface.html">LoggerInterface</a></li>
+    <li class="navelem"><a class="el" href="namespaceopenassetio.html">openassetio</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1.html">v1</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html">log</a></li><li class="navelem"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a></li>
   </ul>
 </div>
 <hr class="footer"/>

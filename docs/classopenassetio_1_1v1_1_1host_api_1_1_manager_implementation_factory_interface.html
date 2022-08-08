@@ -125,9 +125,9 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a94fc1eb2c29ada1b7d20e15e454393a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a94fc1eb2c29ada1b7d20e15e454393a6">ManagerImplementationFactoryInterface</a> (LoggerInterfacePtr logger)</td></tr>
-<tr class="memdesc:a94fc1eb2c29ada1b7d20e15e454393a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an instance of this class.  <a href="#a94fc1eb2c29ada1b7d20e15e454393a6">More...</a><br /></td></tr>
-<tr class="separator:a94fc1eb2c29ada1b7d20e15e454393a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e7870960546eeee22da01fe2d7ea436"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a8e7870960546eeee22da01fe2d7ea436">ManagerImplementationFactoryInterface</a> (log::LoggerInterfacePtr logger)</td></tr>
+<tr class="memdesc:a8e7870960546eeee22da01fe2d7ea436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an instance of this class.  <a href="#a8e7870960546eeee22da01fe2d7ea436">More...</a><br /></td></tr>
+<tr class="separator:a8e7870960546eeee22da01fe2d7ea436"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a055c922e8337e22bbbac4003839453cc"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a055c922e8337e22bbbac4003839453cc">~ManagerImplementationFactoryInterface</a> ()=0</td></tr>
 <tr class="separator:a055c922e8337e22bbbac4003839453cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a827699c443ec2eff2275144fcec2ae0e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1.html#a85da9c7e6b9c400a51a15b9f304803be">Identifiers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a827699c443ec2eff2275144fcec2ae0e">identifiers</a> ()=0</td></tr>
@@ -139,9 +139,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a60b7c0eee997a40e8ab53c4d900098e5"><td class="memItemLeft" align="right" valign="top">const LoggerInterfacePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a60b7c0eee997a40e8ab53c4d900098e5">logger_</a></td></tr>
-<tr class="memdesc:a60b7c0eee997a40e8ab53c4d900098e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger instance that should be used for all logging.  <a href="#a60b7c0eee997a40e8ab53c4d900098e5">More...</a><br /></td></tr>
-<tr class="separator:a60b7c0eee997a40e8ab53c4d900098e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b9cdcc96378167ea406fb7b5ead7c67"><td class="memItemLeft" align="right" valign="top">const log::LoggerInterfacePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a3b9cdcc96378167ea406fb7b5ead7c67">logger_</a></td></tr>
+<tr class="memdesc:a3b9cdcc96378167ea406fb7b5ead7c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger instance that should be used for all logging.  <a href="#a3b9cdcc96378167ea406fb7b5ead7c67">More...</a><br /></td></tr>
+<tr class="separator:a3b9cdcc96378167ea406fb7b5ead7c67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> Factories are responsible for instantiating classes that derive from <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">openassetio.managerApi.ManagerInterface</a> or openassetio-ui.implementation.ManagerUIDelegate for use within an host. </p>
@@ -150,7 +150,7 @@ Protected Attributes</h2></td></tr>
 <p>There is no guarantee that any one member function will be called before another (for example, you cannot rely on <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a827699c443ec2eff2275144fcec2ae0e">identifiers</a> being called before <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#ac842ca22f0df30e9b5f3e343f313a309">instantiate</a>).</p>
 <p>Implementations deriving from this class should use the provided logger to report any non-critical messages. For any critical failures exceptions should be thrown, and logging left up to the caller. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a94fc1eb2c29ada1b7d20e15e454393a6"></a>
+<a class="anchor" id="a8e7870960546eeee22da01fe2d7ea436"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -160,7 +160,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html">ManagerImplementationFactoryInterface</a> </td>
           <td>(</td>
-          <td class="paramtype">LoggerInterfacePtr&#160;</td>
+          <td class="paramtype">log::LoggerInterfacePtr&#160;</td>
           <td class="paramname"><em>logger</em></td><td>)</td>
           <td></td>
         </tr>
@@ -175,7 +175,7 @@ Protected Attributes</h2></td></tr>
 <p>Construct an instance of this class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">logger</td><td>Logger object that should be used for all logging by the factory. Obtainable in subclasses through <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a60b7c0eee997a40e8ab53c4d900098e5">logger_</a>. </td></tr>
+    <tr><td class="paramname">logger</td><td>Logger object that should be used for all logging by the factory. Obtainable in subclasses through <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a3b9cdcc96378167ea406fb7b5ead7c67">logger_</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -266,7 +266,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a60b7c0eee997a40e8ab53c4d900098e5"></a>
+<a class="anchor" id="a3b9cdcc96378167ea406fb7b5ead7c67"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -274,7 +274,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const LoggerInterfacePtr logger_</td>
+          <td class="memname">const log::LoggerInterfacePtr logger_</td>
         </tr>
       </table>
   </td>

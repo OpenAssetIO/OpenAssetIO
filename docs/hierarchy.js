@@ -5,7 +5,10 @@ var hierarchy =
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
-    [ "LoggerInterface", "classopenassetio_1_1v1_1_1_logger_interface.html", null ],
+    [ "LoggerInterface", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html", [
+      [ "ConsoleLogger", "classopenassetio_1_1v1_1_1log_1_1_console_logger.html", null ],
+      [ "SeverityFilter", "classopenassetio_1_1v1_1_1log_1_1_severity_filter.html", null ]
+    ] ],
     [ "Manager", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],
@@ -76,10 +79,6 @@ var hierarchy =
       [ "Test_settings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html", null ],
       [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", null ]
     ] ],
-    [ "LoggerInterface", null, [
-      [ "ConsoleLogger", "classopenassetio_1_1log_1_1_console_logger.html", null ],
-      [ "SeverityFilter", "classopenassetio_1_1log_1_1_severity_filter.html", null ]
-    ] ],
     [ "ManagerImplementationFactoryInterface", null, [
       [ "PythonPluginSystemManagerImplementationFactory", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html", null ]
     ] ],
@@ -93,12 +92,12 @@ var hierarchy =
       [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
     ] ],
     [ "Trait", null, [
+      [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
+      [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
+    ] ],
+    [ "Trait", null, [
       [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
       [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
       [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]
-    ] ],
-    [ "Trait", null, [
-      [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
-      [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
     ] ]
 ];

@@ -13,6 +13,7 @@ var searchData=
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1v1_1_1python_1_1host_api.html',1,'openassetio::v1::python']]],
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1host_api.html',1,'openassetio']]],
   ['log',['log',['../namespaceopenassetio_1_1log.html',1,'openassetio']]],
+  ['log',['log',['../namespaceopenassetio_1_1v1_1_1log.html',1,'openassetio::v1']]],
   ['managementpolicy',['managementPolicy',['../namespaceopenassetio_1_1traits_1_1management_policy.html',1,'openassetio::traits']]],
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['manager',['Manager',['../namespaceopenassetio_1_1host_api_1_1_manager.html',1,'openassetio::hostApi']]],

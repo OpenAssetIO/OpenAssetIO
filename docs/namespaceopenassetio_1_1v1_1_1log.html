@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>OpenAssetIO [beta]: Member List</title>
+<title>OpenAssetIO [beta]: openassetio::v1::log Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -52,7 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -73,10 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
-      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
+      <li><a href="namespacemembers.html"><span>Namespace&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -91,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('classopenassetio_1_1log_1_1_severity_filter.html','');});
+$(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1log.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -109,24 +106,38 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1log_1_1_severity_f
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">SeverityFilter Member List</div>  </div>
+<div class="title">openassetio::v1::log Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a0eda99a9ee47b02308111f765143d129">__init__</a>(self, upstreamLogger)</td><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a9c33f7bd1b64ae30a0c8d9fd0bf1b6c9">getSeverity</a>(self)</td><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a1d272d2ff0a65036e02f14c589e12e9c">log</a>(self, severity, message)</td><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a0fa1fa32536745064d74b0baaf5dd454">setSeverity</a>(self, severity)</td><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html#a0b828cc45291e3f21cc27a0d1a56c0ee">upstreamLogger</a>(self)</td><td class="entry"><a class="el" href="classopenassetio_1_1log_1_1_severity_filter.html">SeverityFilter</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>This namespace contains code relevant to message logging within the API.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html">ConsoleLogger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A logger that sends messages to the console (stderr).  <a href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An abstract base class that defines the receiving interface for log messages generated a <a class="el" href="glossary.html#manager">manager</a> or the API middleware.  <a href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity...">SeverityFilter</a> is a wrapper for a logger that drops messages below a requested severity.  <a href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This namespace contains code relevant to message logging within the API. </p>
+<p><a class="el" href="glossary.html#host">Host</a> authors provide an implementation of <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> to a <a class="el" href="glossary.html#manager">manager</a> to channel its messages. The API middleware also makes use of this logger to provide debugging information about use of the API at runtime. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespaceopenassetio.html">openassetio</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1.html">v1</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html">log</a></li>
   </ul>
 </div>
 <hr class="footer"/>
