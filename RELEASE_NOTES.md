@@ -159,6 +159,10 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added `EntityReference` type to encapsulate a validated string
+  so it can be used with entity-related API methods.
+  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
+
 - Added `openassetio-python` C++-to-Python bridge library, providing
   a `createPythonPluginSystemManagerImplementationFactory` function,
   which allows a C++ host to load managers using the Python plugin
