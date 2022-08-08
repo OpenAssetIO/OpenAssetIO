@@ -61,7 +61,7 @@ ManagerPtr ManagerFactory::createManager(const Identifier& identifier) const {
 ManagerPtr ManagerFactory::createManagerForInterface(
     const Identifier& identifier, const HostInterfacePtr& hostInterface,
     const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
-    [[maybe_unused]] const log::LoggerInterfacePtr& logger) {
+    const log::LoggerInterfacePtr& logger) {
   return Manager::make(
       managerImplementationFactory->instantiate(identifier),
       managerApi::HostSession::make(managerApi::Host::make(hostInterface), logger));
