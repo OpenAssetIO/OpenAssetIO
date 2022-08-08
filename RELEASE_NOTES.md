@@ -163,7 +163,7 @@ v1.0.0-alpha.X
   a `createPythonPluginSystemManagerImplementationFactory` function,
   which allows a C++ host to load managers using the Python plugin
   system.
-  [508](https://github.com/OpenAssetIO/OpenAssetIO/issues/508)
+  [#508](https://github.com/OpenAssetIO/OpenAssetIO/issues/508)
 
 - Made `LogggerInterface::log` non-const.
 
