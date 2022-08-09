@@ -8,6 +8,7 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "identifier", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870", null ],
     [ "info", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f", null ],
+    [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd", null ],
     [ "persistenceTokenForState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a", null ],
     [ "settings", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583", null ],

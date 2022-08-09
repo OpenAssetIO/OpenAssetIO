@@ -156,6 +156,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a74d8494f43bc88e4ba4ff8efaae19105"><td class="memItemLeft" align="right" valign="top">ContextPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> (const std::string &amp;token)</td></tr>
 <tr class="memdesc:a74d8494f43bc88e4ba4ff8efaae19105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a>.  <a href="#a74d8494f43bc88e4ba4ff8efaae19105">More...</a><br /></td></tr>
 <tr class="separator:a74d8494f43bc88e4ba4ff8efaae19105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
+</div></td></tr>
+<tr class="memitem:a1d8861fea27702b8b74d4abe71e329b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a> (const std::string &amp;someString) const </td></tr>
+<tr class="separator:a1d8861fea27702b8b74d4abe71e329b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -173,7 +178,7 @@ Initialization</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
-<p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> class shouldn't be directly constructed by the host. An instance of the class for any given asset management system can be retrieved from a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>, using the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5">ManagerFactory.createManager()</a> method with an appropriate manager identifier.</p>
+<p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> class shouldn't be directly constructed by the host. An instance of the class for any given asset management system can be retrieved from a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>, using the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5">ManagerFactory.createManager()</a> method with an appropriate manager <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39">identifier</a>.</p>
 <div class="fragment"><div class="line">factory = <a class="code" href="namespaceopenassetio.html">openassetio</a>.<a class="code" href="namespaceopenassetio_1_1host_api.html">hostApi</a>.<a class="code" href="namespaceopenassetio_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>(</div><div class="line">    hostImpl, consoleLogger, pluginFactory)</div><div class="line">manager = factory.createManager(<span class="stringliteral">&quot;org.openassetio.test&quot;</span>)</div></div><!-- fragment --><p>A <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> instance is the single point of interaction with an asset management system. It provides methods to uniquely identify the underlying implementation, querying and resolving <a class="el" href="glossary.html#entity_reference">entity references</a> and publishing new data.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API is threadsafe and can be called from multiple threads concurrently. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -202,7 +207,7 @@ Initialization</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1b04adcd844de3172adc8d899e6d698b">persistenceTokenForContext</a> to generate the token.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
 
 </div>
 </div>
@@ -342,6 +347,38 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
+<a class="anchor" id="a1d8861fea27702b8b74d4abe71e329b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isEntityReferenceString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>someString</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section warning"><dt>Warning</dt><dd>It is essential, as a host, that only valid references are supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API calls. Before any reference is passed to any other methods of this class, they must first be validated through this method.</dd></dl>
+<p>Determines if the supplied string (in its entirety) matches the pattern of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. It does not verify that it points to a valid entity in the system, simply that the pattern of the string is recognised by the manager.</p>
+<p>If it returns <code>true</code>, the string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered as a managed entity (or a future one). Consequently, it should be resolved before use. It also confirms that it can be passed to any other method that requires an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
+<p>If <code>false</code>, this manager should no longer be involved in actions relating to the string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">someString</td><td><code>str</code> The string to be inspected.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This call does not verify an entity exits, just that the format of the string is recognised. The call is notionally trivial and does not involve back-end system queries.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>entityExists </dd>
+<dd>
+resolve</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ab02f37f04ca3b55732cd98283ed83b74"></a>
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +497,7 @@ This method may block for extended periods of time. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has not yet been called).</dd></dl>
 <p>Some managers may not have any settings, so this function will return an empty dictionary. </p>
 

@@ -142,11 +142,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a53834a673004e2d1a4ad57a9b126e5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a53834a673004e2d1a4ad57a9b126e5d7">More...</a><br /></td></tr>
 <tr class="separator:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
-</div></td></tr>
-<tr class="memitem:aba761ee86f50f8bcb0109dc81a53107d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aba761ee86f50f8bcb0109dc81a53107d">isEntityReferenceString</a> (self, someString, hostSession)</td></tr>
-<tr class="memdesc:aba761ee86f50f8bcb0109dc81a53107d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#aba761ee86f50f8bcb0109dc81a53107d">More...</a><br /></td></tr>
-<tr class="separator:aba761ee86f50f8bcb0109dc81a53107d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21510517947f62a366e873af29218229"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:a21510517947f62a366e873af29218229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a21510517947f62a366e873af29218229">More...</a><br /></td></tr>
 <tr class="separator:a21510517947f62a366e873af29218229"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -270,7 +265,7 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology()</a> </li>
 <li>settings()</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>initialize </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7fc6f92f083cef123dc4a266c5515ac2"></a>
@@ -785,56 +780,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="aba761ee86f50f8bcb0109dc81a53107d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def isEntityReferenceString </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>someString</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system. </p>
-<p>It does not need to verify that it points to a valid entity in the system, simply that the pattern of the string is recognised by this implementation.</p>
-<p>If this returns <code>True</code>, the string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered usable with the other methods of this interface.</p>
-<p>If <code>False</code>, this manager should no longer be involved in actions relating to the string.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The result of this call should not depend on the context Locale.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">someString</td><td>str The string to be inspected.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied string should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This call should not verify an entity exits, just that the format of the string is recognised.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
-<dd>
-<a class="el" href="glossary.html#resolve">resolve</a> </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a8bd4fd3fc6ab34519967e7396c429801"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1068,7 +1013,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 </ul>
 <p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
 <p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The Context should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The caller will have first called <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aba761ee86f50f8bcb0109dc81a53107d" title="Determines if the supplied string (in its entirety) matches the pattern of a valid Entity Reference i...">isEntityReferenceString()</a> on the supplied strings.</p>
+<p>The caller will have first called isEntityReferenceString() on the supplied strings.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
@@ -1081,7 +1026,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either a populated TraitsData instance for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aba761ee86f50f8bcb0109dc81a53107d">isEntityReferenceString</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a> </dd></dl>
 
 </div>
 </div>

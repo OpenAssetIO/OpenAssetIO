@@ -108,19 +108,19 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <div class="textblock"><dl class="reflist">
 <dt><a class="anchor" id="_todo000012"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a>  </dt>
 <dd>Add auditing functionality.  </dd>
-<dt><a class="anchor" id="_todo000009"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260">HostInterface::info</a>  () const </dt>
+<dt><a class="anchor" id="_todo000008"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260">HostInterface::info</a>  () const </dt>
 <dd>Definitions for well-known keys such as 'version' etc.  </dd>
-<dt><a class="anchor" id="_todo000005"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a">Manager.getRelatedReferences</a>  (self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None)</dt>
+<dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a">Manager.getRelatedReferences</a>  (self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None)</dt>
 <dd>Implement missing setRelatedReferences()  </dd>
-<dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a526a7b8e9c39e6e592b15d9ab68ffd32">Manager.isEntityReferenceString</a>  (self, someString)</dt>
-<dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python.  </dd>
-<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">Manager::contextFromPersistenceToken</a>  (const std::string &amp;token)</dt>
+<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">Manager::contextFromPersistenceToken</a>  (const std::string &amp;token)</dt>
 <dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match?  </dd>
-<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95">Manager::settings</a>  () const </dt>
+<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">Manager::isEntityReferenceString</a>  (const std::string &amp;someString) const </dt>
+<dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python.  </dd>
+<dt><a class="anchor" id="_todo000009"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95">Manager::settings</a>  () const </dt>
 <dd>Document settings mechanism </dd>
 <dt><a class="anchor" id="_todo000013"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>  </dt>
 <dd>Finish/Document settings mechanism.  </dd>
-<dt><a class="anchor" id="_todo000007"></a>Class <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>  </dt>
+<dt><a class="anchor" id="_todo000006"></a>Class <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>  </dt>
 <dd>Finish/Document settings mechanism.  </dd>
 <dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">ManagerInterface::initialize</a>  (InfoDictionary managerSettings, const HostSessionPtr &amp;hostSession)=0</dt>
 <dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed.  </dd>
@@ -134,9 +134,9 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <dd>[tc] Should these live here, or with their owning declarations, See <a class="el" href="namespaceopenassetio_1_1log.html#a235d89f5f7e5415506cc50fa849930ca">openassetio.log.LoggerInterface</a> for example.  </dd>
 <dt><a class="anchor" id="_todo000003"></a>Namespace <a class="el" href="namespaceopenassetio_1_1exceptions.html">openassetio.exceptions</a>  </dt>
 <dd>[tc] Should these all live here, or in their respective homes eg: <a class="el" href="namespaceopenassetio_1_1plugin_system.html" title="This module provides a plugin system that can be used to register and instantiate manager plugins fro...">pluginSystem</a>, ManagerInterface, etc.  </dd>
-<dt><a class="anchor" id="_todo000006"></a>Namespace <a class="el" href="namespaceopenassetio_1_1host_api_1_1_manager.html">openassetio.hostApi.Manager</a>  </dt>
+<dt><a class="anchor" id="_todo000005"></a>Namespace <a class="el" href="namespaceopenassetio_1_1host_api_1_1_manager.html">openassetio.hostApi.Manager</a>  </dt>
 <dd>This module is a temporary measure until we reach parity between C++ and Python <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> and HostSession classes.  </dd>
-<dt><a class="anchor" id="_todo000008"></a>Page <a class="el" href="thumbnails.html">Thumbnails</a>  </dt>
+<dt><a class="anchor" id="_todo000007"></a>Page <a class="el" href="thumbnails.html">Thumbnails</a>  </dt>
 <dd>Document the <a class="el" href="glossary.html#trait">traits</a> used to determine width/height/format, these should be the same as the fields of the ThumbnailSpecification. </dd>
 <dt><a class="anchor" id="_todo000016"></a>Class <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>  </dt>
 <dd>Add InfoDictionary trait property value type.</dd>

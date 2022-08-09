@@ -169,6 +169,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a59774e380f794405642d4cafeb180b46"><td class="memItemLeft" align="right" valign="top">virtual ManagerStateBasePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> (const std::string &amp;token, const HostSessionPtr &amp;hostSession)</td></tr>
 <tr class="memdesc:a59774e380f794405642d4cafeb180b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a59774e380f794405642d4cafeb180b46">More...</a><br /></td></tr>
 <tr class="separator:a59774e380f794405642d4cafeb180b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
+</div></td></tr>
+<tr class="memitem:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e">isEntityReferenceString</a> (const std::string &amp;someString, const HostSessionPtr &amp;hostSession) const  =0</td></tr>
+<tr class="memdesc:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#ab29edc2e2ce9bd00f2b18152c09fed8e">More...</a><br /></td></tr>
+<tr class="separator:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -448,7 +454,7 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so isEntityReferenceString should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e">isEntityReferenceString</a> should be implemented regardless.</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
 </ul>
@@ -502,6 +508,58 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583">settings()</a></li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab29edc2e2ce9bd00f2b18152c09fed8e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool isEntityReferenceString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>someString</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system. </p>
+<p>It does not need to verify that it points to a valid entity in the system, simply that the pattern of the string is recognised by this implementation.</p>
+<p>Return <code>True</code> if the string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered usable with the other methods of this interface.</p>
+<p>Return <code>False</code>, if this should no longer be involved in actions relating to the string as it is not recognised.</p>
+<dl class="section warning"><dt>Warning</dt><dd>The result of this call should not depend on the context Locale, and should be trivial to compute. If for example, a manager makes use of URL-based entity references, then it is sufficient to check that the string's schema is that owned by the manager. This method should not validate the correctness of all supplied host, path or query components. The API middleware may cache or short-circuit calls to this method when bridging between languages.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">someString</td><td>str The string to be inspected.</td></tr>
+    <tr><td class="paramname">hostSession</td><td><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html" title="The HostSession is a manager-facing class that represents a discrete API session started by a host in...">HostSession</a> The API session.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied string should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This call should not verify an entity exits, just that the format of the string is recognised as a potential entity reference by the manager.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>entityExists </dd>
+<dd>
+resolve </dd></dl>
 
 </div>
 </div>
