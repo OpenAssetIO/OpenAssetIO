@@ -15,8 +15,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  * before being used as an @ref entity_reference in the various entity
  * related API calls.
  *
- * It can be assumed that if @ref
- * openassetio.hostApi.Manager.Manager.isEntityReferenceString
+ * It can be assumed that if
+ * @fqref{hostApi.Manager.isEntityReferenceString}
  * "isEntityReferenceString" is true for a given string, then an
  * EntityReference can be constructed from that string.
  *

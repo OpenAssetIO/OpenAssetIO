@@ -232,12 +232,13 @@ class Test_Manager_flushCaches:
 
 
 class Test_Manager_isEntityReferenceString:
-
+    @pytest.mark.parametrize("expected", (True, False))
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref):
-
+            self, manager, mock_manager_interface, a_host_session, a_ref, expected):
         method = mock_manager_interface.mock.isEntityReferenceString
-        assert manager.isEntityReferenceString(a_ref) == method.return_value
+        method.return_value = expected
+
+        assert manager.isEntityReferenceString(a_ref) == expected
         method.assert_called_once_with(a_ref, a_host_session)
 
 

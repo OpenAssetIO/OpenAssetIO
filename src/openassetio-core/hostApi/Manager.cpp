@@ -68,6 +68,10 @@ ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
   return context;
 }
 
+bool Manager::isEntityReferenceString(const std::string &someString) const {
+  return managerInterface_->isEntityReferenceString(someString, hostSession_);
+}
+
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -28,7 +28,7 @@
  *
  * Consequently the test harness needs to be supplied with valid
  * values to pass to methods such as
- * @ref openassetio.managerApi.ManagerInterface.ManagerInterface.isEntityReferenceString
+ * @fqref{hostApi.Manager.isEntityReferenceString}
  * "isEntityReferenceString", and the expected values from methods such
  * as @fqref{managerApi.ManagerInterface.identifier} "identifier"
  *
