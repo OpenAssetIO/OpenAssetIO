@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html" title="The Mapper class provides string substitution methods and lookups to determine the correct terminolog..." alt="" coords="5,5,76,32"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html" title="A trait that defines a calling context as being associated with an OpenAssetIO manager. " alt="" coords="104,5,211,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html" title="A trait that defines a calling context that is some kind of automated scriptable framework that opera..." alt="" coords="106,56,209,83"/>
+<area shape="rect" id="node4" href="$classopenassetio_1_1test_1_1specifications_1_1_test_trait.html" title="A trait that represents a calling context that is some kind of test environment. " alt="" coords="119,107,195,133"/>
 </map>

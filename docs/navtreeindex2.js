@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"namespacemembers_type.html":[12,3],
+"namespacemembers_vars.html":[12,2],
+"namespaceopenassetio.html":[13,0,0],
 "namespaceopenassetio_1_1__core.html":[13,0,0,0],
 "namespaceopenassetio_1_1__core_1_1audit.html":[13,0,0,0,0],
 "namespaceopenassetio_1_1__core_1_1debug.html":[13,0,0,0,1],

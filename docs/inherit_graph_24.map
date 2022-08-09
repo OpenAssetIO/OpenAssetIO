@@ -1,13 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="161,157,332,184"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="380,132,523,159"/>
-<area shape="rect" id="node12" href="$classopenassetio_1_1exceptions_1_1_user_canceled.html" title="Thrown by the progress mechanism to interrupt execution whenever the user cancels an action (perhaps ..." alt="" coords="395,183,507,209"/>
-<area shape="rect" id="node4" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="571,81,727,108"/>
-<area shape="rect" id="node10" href="$classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior..." alt="" coords="591,132,707,159"/>
-<area shape="rect" id="node11" href="$classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. " alt="" coords="605,183,692,209"/>
-<area shape="rect" id="node5" href="$classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="A base class for errors relating to entity&#45;centric actions. " alt="" coords="775,31,968,57"/>
-<area shape="rect" id="node8" href="$classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved..." alt="" coords="791,81,951,108"/>
-<area shape="rect" id="node9" href="$classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity&#45;based action is performed on a mal&#45;formed or unrecognized Entity Reference..." alt="" coords="786,132,957,159"/>
-<area shape="rect" id="node6" href="$classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre&#45;flight that isn&#39;t due to any specific of the Entity Referen..." alt="" coords="1029,5,1135,32"/>
-<area shape="rect" id="node7" href="$classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer..." alt="" coords="1016,56,1148,83"/>
+<area shape="rect" id="node1" href="$structoa___string_view.html" title="Mutable string view struct useful for out&#45;parameters. " alt="" coords="5,5,120,32"/>
 </map>
