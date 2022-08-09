@@ -7,7 +7,7 @@ It aims to reduce the integration effort and maintenance overhead of
 modern CGI pipelines, and pioneer new, standardized asset-centric
 workflows in content creation tooling.
 
-## Problem Statement Summary
+## Problem statement summary
 
 In modern creative pipelines, data is often managed by an authoritative
 system (Asset Management System, Digital Asset Manager, MAM, et. al).
