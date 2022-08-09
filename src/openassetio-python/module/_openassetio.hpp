@@ -79,3 +79,6 @@ void registerTraitsData(const py::module& mod);
 
 /// Register the ManagerStateBase class with Python.
 void registerManagerStateBase(const py::module& mod);
+
+/// Register the EntityReference type with Python.
+void registerEntityReference(const py::module& mod);
