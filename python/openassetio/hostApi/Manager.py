@@ -194,7 +194,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def isEntityReference(self, tokens):
+    def isEntityReferenceString(self, tokens):
         """
         @warning It is essential, as a host, that only valid
         references are supplied to Manager API calls. Before any
@@ -234,7 +234,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         # We need to add support here for using the supplied prefix match string,
         # or regex, if supplied, instead of calling the manager, this is less
         # relevant in python though, more in C, but the note is here to remind us.
-        return self.__impl.isEntityReference(tokens, self.__hostSession)
+        return self.__impl.isEntityReferenceString(tokens, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -647,9 +647,9 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         caller to handle requested data being missing in a fashion
         appropriate to its intended use.
 
-        @note You should always call @ref isEntityReference first if
-        there is any doubt as to whether or not a string you have is a
-        valid reference for the manager, and only call resolve, or any
+        @note You should always call @ref isEntityReferenceString first
+        if there is any doubt as to whether or not a string you have is
+        a valid reference for the manager, and only call resolve, or any
         other methods, if it is a reference recognised by the manager.
 
         The API defines that all file paths passed though the API that

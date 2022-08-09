@@ -246,7 +246,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def isEntityReference(self, tokens, hostSession):
+    def isEntityReferenceString(self, tokens, hostSession):
         """
         Determines if each supplied token (in its entirety) matches the
         pattern of a valid @ref entity_reference in your system.  It
@@ -369,8 +369,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         any rules of the system - for example, resolving an existing
         entity reference for write.
 
-        The caller will have first called isEntityReference() on the
-        supplied strings.
+        The caller will have first called isEntityReferenceString() on
+        the supplied strings.
 
         @param entityRefs `List[str]` Entity references to query.
 
@@ -393,7 +393,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         access is `kWrite` and the entity is an existing version.
 
         @see @ref entityExists
-        @see @ref isEntityReference
+        @see @ref isEntityReferenceString
         """
         raise NotImplementedError
 

@@ -217,11 +217,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * info can also contain an additional field - a prefix that
    * identifies a string as a valid entity reference. If supplied,
    * this will be used by the API to optimize calls to
-   * isEntityReference when bridging between C/Python etc.
-   * If this isn't supplied, then isEntityReference will always be
+   * isEntityReferenceString when bridging between C/Python etc.
+   * If this isn't supplied, then isEntityReferenceString will always be
    * called to determine if a string is an @ref entity_reference or
    * not. Note, not all invocations require this optimization, so
-   * @needsref isEntityReference should be implemented regardless.
+   * @needsref isEntityReferenceString should be implemented regardless.
    *
    *   @li openassetio.constants.kField_EntityReferencesMatchPrefix
    *

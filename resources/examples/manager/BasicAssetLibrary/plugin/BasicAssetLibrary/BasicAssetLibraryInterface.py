@@ -95,7 +95,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
             for trait_set in traitSets
         ]
 
-    def isEntityReference(self, tokens, hostSession):
+    def isEntityReferenceString(self, tokens, hostSession):
         # pylint: disable=unused-argument
         return [token.startswith(self.__reference_prefix) for token in tokens]
 

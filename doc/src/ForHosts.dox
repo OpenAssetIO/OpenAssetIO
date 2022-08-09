@@ -102,8 +102,9 @@
  *   traits.
  *
  * - Always check any suspected entity references with @ref
- *   openassetio.hostApi.Manager.Manager.isEntityReference
- *   "Manager.isEntityReference" before passing to any other API calls.
+ *   openassetio.hostApi.Manager.Manager.isEntityReferenceString
+ *   "Manager.isEntityReferenceString" before passing to any other API
+ *   calls.
  *
  * @see @ref examples_api_initialization
  * @see @ref examples_picking_a_manager
@@ -136,9 +137,9 @@
  *   manager to use to interact with an @ref asset_management_system,
  *   storing applicable options, etc...
  *
- * - @ref openassetio.hostApi.Manager.Manager.isEntityReference "Test"
- *   and resolve any strings that may represent file system locations
- *   (@ref openassetio.hostApi.Manager.Manager.resolve
+ * - @ref openassetio.hostApi.Manager.Manager.isEntityReferenceString
+ *   "Test" and resolve any strings that may represent file system
+ *   locations (@ref openassetio.hostApi.Manager.Manager.resolve
  *   "Manager.resolve")
  *
  * - Ensure the use of a correctly configured @ref Context for all
@@ -148,9 +149,9 @@
  *   "managementPolicy" sets the @needsref WantsThumbnail trait, where
  *   possible, generate thumbnails as requested during publishing.
  *
- * - Allow the @needsref ManagerUIDelegate to participate in browsing/etc...
- *   for any data types they have expressed an interest in managing via
- *   @fqref{hostApi.Manager.managementPolicy}
+ * - Allow the @needsref ManagerUIDelegate to participate in
+ *   browsing/etc... for any data types they have expressed an interest
+ *   in managing via @fqref{hostApi.Manager.managementPolicy}
  *   "Manager.managementPolicy".
  *
  * - Make the drawing of any parameters that may hold an @ref
