@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a":[13,0,0,9,0,1,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39":[13,0,0,9,0,1,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354":[13,0,0,9,0,1,7],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95":[13,0,0,9,0,1,9],
@@ -90,8 +89,8 @@ var NAVTREEINDEX1 =
 "functions_enum.html":[13,3,4],
 "functions_eval.html":[13,3,5],
 "functions_f.html":[13,3,0,5],
-"functions_func.html":[13,3,1],
 "functions_func.html":[13,3,1,0],
+"functions_func.html":[13,3,1],
 "functions_func_0x7e.html":[13,3,1,17],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_c.html":[13,3,1,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "modules.html":[11],
 "namespacemembers.html":[12,0],
 "namespacemembers_enum.html":[12,4],
-"namespacemembers_func.html":[12,1]
+"namespacemembers_func.html":[12,1],
+"namespacemembers_type.html":[12,3]
 };

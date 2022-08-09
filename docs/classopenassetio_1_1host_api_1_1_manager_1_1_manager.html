@@ -153,8 +153,8 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
-<tr class="memitem:ab4346bb060396f0285495d46eb3aec5e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">isEntityReference</a> (self, tokens)</td></tr>
-<tr class="separator:ab4346bb060396f0285495d46eb3aec5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a526a7b8e9c39e6e592b15d9ab68ffd32"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a526a7b8e9c39e6e592b15d9ab68ffd32">isEntityReferenceString</a> (self, someString)</td></tr>
+<tr class="separator:a526a7b8e9c39e6e592b15d9ab68ffd32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4931c7349835e00d2fd25f15e189052"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa4931c7349835e00d2fd25f15e189052">entityExists</a> (self, entityRefs, context)</td></tr>
 <tr class="memdesc:aa4931c7349835e00d2fd25f15e189052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#aa4931c7349835e00d2fd25f15e189052">More...</a><br /></td></tr>
 <tr class="separator:aa4931c7349835e00d2fd25f15e189052"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -755,12 +755,12 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="ab4346bb060396f0285495d46eb3aec5e"></a>
+<a class="anchor" id="a526a7b8e9c39e6e592b15d9ab68ffd32"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def isEntityReference </td>
+          <td class="memname">def isEntityReferenceString </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -769,7 +769,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>tokens</em>&#160;</td>
+          <td class="paramname"><em>someString</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -779,21 +779,21 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
       </table>
 </div><div class="memdoc">
 <dl class="section warning"><dt>Warning</dt><dd>It is essential, as a host, that only valid references are supplied to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API calls. Before any reference is passed to any other methods of this class, they must first be validated through this method.</dd></dl>
-<p>Determines if each supplied token (in its entirety) matches the pattern of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. It does not verify that it points to a valid entity in the system, simply that the pattern of the token is recognised by the manager.</p>
-<p>If it returns <code>True</code>, the token is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered as a managed entity (or a future one). Consequently, it should be resolved before use. It also confirms that it can be passed to any other method that requires an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
-<p>If <code>False</code>, this manager should no longer be involved in actions relating to the token.</p>
+<p>Determines if the supplied string (in its entirety) matches the pattern of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. It does not verify that it points to a valid entity in the system, simply that the pattern of the string is recognised by the manager.</p>
+<p>If it returns <code>True</code>, the string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered as a managed entity (or a future one). Consequently, it should be resolved before use. It also confirms that it can be passed to any other method that requires an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
+<p>If <code>False</code>, this manager should no longer be involved in actions relating to the string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tokens</td><td><code>List[str]</code> The strings to be inspected.</td></tr>
+    <tr><td class="paramname">someString</td><td><code>str</code> The string to be inspected.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if a supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call does not verify an entity exits, just that the format of the string is recognised.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa4931c7349835e00d2fd25f15e189052">entityExists</a> </dd>
 <dd>
 <a class="el" href="glossary.html#resolve">resolve</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
 
 </div>
 </div>
@@ -1006,7 +1006,7 @@ When registering files, it should never be assumed that the resulting <a class="
 <p>Returns a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <p>Any traits that aren't applicable to any particular entity reference will not be set in the returned data. Consequently, a trait being set in the result is confirmation that an entity has that trait.</p>
 <p>There is however, no guarantee that a manager will have data for all of a traits properties. It is the responsibility of the caller to handle requested data being missing in a fashion appropriate to its intended use.</p>
-<dl class="section note"><dt>Note</dt><dd>You should always call <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">isEntityReference</a> first if there is any doubt as to whether or not a string you have is a valid reference for the manager, and only call resolve, or any other methods, if it is a reference recognised by the manager.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You should always call <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a526a7b8e9c39e6e592b15d9ab68ffd32">isEntityReferenceString</a> first if there is any doubt as to whether or not a string you have is a valid reference for the manager, and only call resolve, or any other methods, if it is a reference recognised by the manager.</dd></dl>
 <p>The API defines that all file paths passed though the API that represent file sequences should retain the frame token, and use the 'format' syntax, compatible with sprintf (eg. %04d").</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

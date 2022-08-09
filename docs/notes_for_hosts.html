@@ -141,7 +141,7 @@ Required for Simple Resolution</h2>
 </li>
 <li>Create, persist and configure a <a class="el" href="glossary.html#Context">Context</a> as appropriate for all calls to the API.</li>
 <li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support resolve for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kRead</code> access, respecting the returned traits.</li>
-<li>Always check any suspected entity references with <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Manager.isEntityReference</a> before passing to any other API calls.</li>
+<li>Always check any suspected entity references with <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a526a7b8e9c39e6e592b15d9ab68ffd32">Manager.isEntityReferenceString</a> before passing to any other API calls.</li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="examples.html#examples_api_initialization">Initializing the API in a Host</a> </dd>
 <dd>
@@ -160,7 +160,7 @@ Required for Publishing</h2>
 Recommended</h2>
 <ul>
 <li>Present users with the ability to enable and select a <a class="el" href="glossary.html#manager">manager</a> to use to interact with an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, storing applicable options, etc...</li>
-<li><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab4346bb060396f0285495d46eb3aec5e">Test</a> and resolve any strings that may represent file system locations (<a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a815e3f348d3f24396e7cc74357f8568b">Manager.resolve</a>)</li>
+<li><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a526a7b8e9c39e6e592b15d9ab68ffd32">Test</a> and resolve any strings that may represent file system locations (<a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a815e3f348d3f24396e7cc74357f8568b">Manager.resolve</a>)</li>
 <li>Ensure the use of a correctly configured <a class="el" href="glossary.html#Context">Context</a> for all calls to the API.</li>
 <li>If a manager's <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> sets the WantsThumbnail trait, where possible, generate thumbnails as requested during publishing.</li>
 <li>Allow the ManagerUIDelegate to participate in browsing/etc... for any data types they have expressed an interest in managing via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">Manager.managementPolicy</a>.</li>

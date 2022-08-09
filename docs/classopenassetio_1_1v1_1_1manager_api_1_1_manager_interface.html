@@ -448,9 +448,9 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReference when bridging between C/Python etc. If this isn't supplied, then isEntityReference will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so isEntityReference should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so isEntityReferenceString should be implemented regardless.</p>
 <ul>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReference in situations where bridgi...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
+<li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Map of info string key to primitive value. </dd></dl>
 
