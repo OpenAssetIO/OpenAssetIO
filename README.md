@@ -3,24 +3,59 @@
 An open-source interoperability standard for tools and content
 management systems used in media production.
 
-OpenAssetIO defines a common set of interactions between a host of the
-API (eg: a Digital Content Creation tool or pipeline script) and an
-Asset Management System.
-
 It aims to reduce the integration effort and maintenance overhead of
 modern CGI pipelines, and pioneer new, standardized asset-centric
-workflows in post-production tooling.
+workflows in content creation tooling.
+
+## Problem Statement Summary
+
+In modern creative pipelines, data is often managed by an authoritative
+system (Asset Management System, Digital Asset Manager, MAM, et. al).
+
+It is common for media creation tools to reference this managed data by
+its present location in a file system.
+
+This not only limits document portability, but strips semantically
+meaningful information about the identity, purpose or heritage of the
+data - complicating topics such as loading, version management and
+distributed computation.
+
+Common workarounds to the restrictions associated with path-based
+referencing can be fragile and require on-going maintenance as tools and
+workflows evolve.
+
+## What OpenAssetIO provides
+
+OpenAssetIO enables tools to reference managed data by identity (using
+an "Entity Reference") instead of a file system path.
+
+This allows for any properties of the entity (such as its location or
+available versions) to be "resolved" on demand, taking into account the
+current compute environment.
+
+This is achieved through the definition of a common set of interactions
+between a host of the API (eg: a Digital Content Creation tool or
+pipeline script) and an Asset Management System (or DAM, MAM, etc.).
+
+This common API surface area hopes to remove the need for common
+pipeline business logic to be re-implemented against the native API of
+each tool, and allows the tools themselves to design new workflows
+that streamline the creation of complex assets.
 
 OpenAssetIO enabled tools and asset management systems can freely
 communicate with each other, without needing to know any specifics of
 their respective implementations.
 
+OpenAssetIO is not unique in the ability to resolve identifiers, but it
+is the first to offer an industry-wide, truly open standard that can be
+used in any relevant tool or application.
+
+## Scope
+
 The API has no inherent functionality. It exists as a bridge - at the
 boundary between a process that consumes or produces data (the host),
 and the systems that provide data coordination and version management
 functionality.
-
-## Scope
 
 The API covers the following areas:
 
@@ -128,7 +163,7 @@ Platform compatible [Docker](https://www.docker.com/) images [here](https://gith
 
 The CY22 image contains all dependencies currently required for building
 OpenAssetIO. For example, to build and install the C/C++ component of
-OpenAssetIO (by default  to a `dist` directory under the build 
+OpenAssetIO (by default  to a `dist` directory under the build
 directory)
 via a container, from the repository root run
 
