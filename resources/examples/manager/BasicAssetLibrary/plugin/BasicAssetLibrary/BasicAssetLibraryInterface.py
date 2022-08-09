@@ -95,9 +95,9 @@ class BasicAssetLibraryInterface(ManagerInterface):
             for trait_set in traitSets
         ]
 
-    def isEntityReferenceString(self, tokens, hostSession):
+    def isEntityReferenceString(self, someString, hostSession):
         # pylint: disable=unused-argument
-        return [token.startswith(self.__reference_prefix) for token in tokens]
+        return someString.startswith(self.__reference_prefix)
 
     def entityExists(self, entityRefs, context, hostSession):
         results = []

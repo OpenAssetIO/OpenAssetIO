@@ -246,29 +246,29 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def isEntityReferenceString(self, tokens, hostSession):
+    def isEntityReferenceString(self, someString, hostSession):
         """
-        Determines if each supplied token (in its entirety) matches the
-        pattern of a valid @ref entity_reference in your system.  It
+        Determines if the supplied string (in its entirety) matches the
+        pattern of a valid @ref entity_reference in your system. It
         does not need to verify that it points to a valid entity in the
-        system, simply that the pattern of the token is recognised by
+        system, simply that the pattern of the string is recognised by
         this implementation.
 
-        If this returns `True`, the token is an @ref entity_reference
+        If this returns `True`, the string is an @ref entity_reference
         and should be considered usable with the other methods of this
         interface.
 
         If `False`, this manager should no longer be involved in actions
-        relating to the token.
+        relating to the string.
 
         @warning The result of this call should not depend on the
         context Locale.
 
-        @param tokens `List[str]` The strings to be inspected.
+        @param someString str The string to be inspected.
 
         @param hostSession HostSession The API session.
 
-        @return `List[bool]` `True` if the supplied token should be
+        @return `bool` `True` if the supplied string should be
         considered as an @ref entity_reference, `False` if the pattern is
         not recognised.
 

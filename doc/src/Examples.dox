@@ -134,7 +134,7 @@
  *
  * # We must **ALWAYS** validate that a string is an entity reference
  * # before passing it to any other manager API call.
- * if not manager.isEntityReferenceString([some_string])[0]:
+ * if not manager.isEntityReferenceString(some_string):
  *    raise ValueError(f'"{some_string}" isn't an entity reference.')
  *
  * # All calls to the manager must have a Context, these should always

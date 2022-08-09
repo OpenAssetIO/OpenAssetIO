@@ -10,6 +10,10 @@ v1.0.0-alpha.X
   ambiguity when also working with the new `EntityReference` type.
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
+- Made `isEntityReferenceString` a non-batch method to simplify common
+  usage, as it is always in-process.
+  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
+
 - Reversed the order of logging severity constants, such that the
   numerical value of the constant increases with the logical severity
   (i.e. `kDebugApi` is now `0` and `kCritical` is now `6`).
