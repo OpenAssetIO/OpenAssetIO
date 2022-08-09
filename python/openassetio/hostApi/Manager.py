@@ -194,30 +194,30 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def isEntityReference(self, tokens):
+    def isEntityReferenceString(self, someString):
         """
         @warning It is essential, as a host, that only valid
         references are supplied to Manager API calls. Before any
         reference is passed to any other methods of this class, they
         must first be validated through this method.
 
-        Determines if each supplied token (in its entirety) matches the
+        Determines if the supplied string (in its entirety) matches the
         pattern of an @ref entity_reference.  It does not verify that it
         points to a valid entity in the system, simply that the pattern
-        of the token is recognised by the manager.
+        of the string is recognised by the manager.
 
-        If it returns `True`, the token is an @ref entity_reference and
+        If it returns `True`, the string is an @ref entity_reference and
         should be considered as a managed entity (or a future one).
         Consequently, it should be resolved before use. It also confirms
         that it can be passed to any other method that requires an @ref
         entity_reference.
 
         If `False`, this manager should no longer be involved in actions
-        relating to the token.
+        relating to the string.
 
-        @param tokens `List[str]` The strings to be inspected.
+        @param someString `str` The string to be inspected.
 
-        @return `List[bool]` `True` if a supplied token should be
+        @return `bool` `True` if the supplied token should be
         considered as an @ref entity_reference, `False` if the pattern
         is not recognised.
 
@@ -234,7 +234,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         # We need to add support here for using the supplied prefix match string,
         # or regex, if supplied, instead of calling the manager, this is less
         # relevant in python though, more in C, but the note is here to remind us.
-        return self.__impl.isEntityReference(tokens, self.__hostSession)
+        return self.__impl.isEntityReferenceString(someString, self.__hostSession)
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -647,9 +647,9 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         caller to handle requested data being missing in a fashion
         appropriate to its intended use.
 
-        @note You should always call @ref isEntityReference first if
-        there is any doubt as to whether or not a string you have is a
-        valid reference for the manager, and only call resolve, or any
+        @note You should always call @ref isEntityReferenceString first
+        if there is any doubt as to whether or not a string you have is
+        a valid reference for the manager, and only call resolve, or any
         other methods, if it is a reference recognised by the manager.
 
         The API defines that all file paths passed though the API that

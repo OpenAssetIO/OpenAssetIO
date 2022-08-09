@@ -10,8 +10,8 @@
 
 The current API assumes a "honor agreement" in which the host will never
 pass a string to an API call that accepts an entity reference unless it
-has first run it through `isEntityReference` at least once, and that
-method has returned `True` for the manager in question.
+has first run it through `isEntityReferenceString` at least once, and
+that method has returned `True` for the manager in question.
 
 Note that this does not imply the entity reference actually corresponds
 to an entity, only that it is understood and handled by a particular
@@ -42,9 +42,9 @@ entity references, and each reference may well be of non-trivial length,
 so references should not use memory longer than their natural scope in
 the host codebase.
 
-In theory, a host only needs to check `isEntityReference` once for any
-given string/manager combination, and that string can then be used with
-any other API method with that manager.
+In theory, a host only needs to check `isEntityReferenceString` once for
+any given string/manager combination, and that string can then be used
+with any other API method with that manager.
 
 However, there is an obvious potential for host applications to break
 this contract, either by not validating the reference or by validating
@@ -59,8 +59,8 @@ relevant to them:
 
 In the current API, this translates to
 
-1. Has `isEntityReference` been called on the string?
-2. Was `isEntityReference` called using the correct manager
+1. Has `isEntityReferenceString` been called on the string?
+2. Was `isEntityReferenceString` called using the correct manager
    implementation?
 
 The current trust-based system solves this by simply assuming the host
@@ -70,7 +70,7 @@ answered and enforced automatically, and cheaply.
 One further consideration is the possibility of entity references that
 are known to be valid. For example, they may have been validated at some
 point in the past or in a separate process. Forcing an ultimately
-pointless (if cheap) `isEntityReference` check in this case is
+pointless (if cheap) `isEntityReferenceString` check in this case is
 undesirable. Again, the current trust-based system solves this
 trivially, if not robustly.
 
@@ -115,10 +115,10 @@ and
 ### Option 1
 
 Keep the current trust-based solution expecting hosts to call
-`isEntityReference` before using a reference in any manager API call.
+`isEntityReferenceString` before using a reference in any manager API
+call.
 
 #### Pros
-
 - Conceptually simple.
 - No changes required.
 - No global state.
@@ -149,7 +149,7 @@ reference is not valid.
 
 `createEntityReference` does not need to be implemented by the manager
 plugin, this is a convenience that will make use of the current API's
-`isEntityReference`.
+`isEntityReferenceString`.
 
 #### Pros
 
@@ -160,7 +160,7 @@ plugin, this is a convenience that will make use of the current API's
   relevant to a given manager. This could be added to all middleware
   methods as further validation.
 - If independently trivially constructible, then retains the advantage
-  of allowing optional circumvention of `isEntityReference`, for
+  of allowing optional circumvention of `isEntityReferenceString`, for
   references the host is already sure of.
 - No need for global state.
 - Strong typing of domain concepts, avoiding "primitive obsession", is
@@ -201,7 +201,7 @@ reference is not valid.
 
 `createEntityReference` does not need to be implemented by the manager
 plugin, this is a convenience that will make use of the current API's
-`isEntityReference` (assuming the string is not already interned).
+`isEntityReferenceString` (assuming the string is not already interned).
 
 #### Pros
 

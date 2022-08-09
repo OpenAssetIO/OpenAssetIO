@@ -52,10 +52,12 @@ class SampleAssetManagerInterface(ManagerInterface):
         return "Sample Asset Manager (SAM)"
 
     def info(self):
-        # This hint allows the API middleware to short-circuit calls to `isEntityReference`
-        # using string prefix comparisons. If your implementation's entity reference format
-        # supports this kind of matching, you should set this key. It allows for multi-threaded
-        # reference testing in C++ as it avoids the need to acquire the GIL and enter Python.
+        # This hint allows the API middleware to short-circuit calls to
+        # `isEntityReferenceString` using string prefix comparisons. If
+        # your implementation's entity reference format supports this
+        # kind of matching, you should set this key. It allows for
+        # multi-threaded reference testing in C++ as it avoids the need
+        # to acquire the GIL and enter Python.
         return {
             constants.kField_EntityReferencesMatchPrefix: "sam:///"
         }

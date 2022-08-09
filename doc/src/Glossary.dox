@@ -110,12 +110,12 @@
  *
  * 1. Discoverability
  * ------------------
- * It is essential that any given string can be readily identified
- * identified as being an entity reference or not. The @ref
- * openassetio.managerApi.ManagerInterface.ManagerInterface.isEntityReference
- * "isEntityReference" method will be called frequently by a @ref host
- * to determine if the arbitrary user input is a reference to a managed
- * entity.
+ * It is essential that any given string can be readily identified as
+ * being an entity reference or not. The @ref
+ * openassetio.managerApi.ManagerInterface.ManagerInterface.isEntityReferenceString
+ * "isEntityReferenceString" method will be called frequently by a @ref
+ * host to determine if the arbitrary user input is a reference to a
+ * managed entity.
  *
  * 2. Uniform Resource Location
  * ----------------------------

@@ -4,12 +4,12 @@
 - **Impact:** Medium
 - **Driver:** @feltech
 - **Approver:** @foundrytom
-- **Outcome:** Support all options: `isEntityReference`, and both
+- **Outcome:** Support all options: `isEntityReferenceString`, and both
   throwing and `optional`-based variants of `createEntityReference`
 
 ## Background
 
-The current API's `Manager.isEntityReference` must be called by
+The current API's `Manager.isEntityReferenceString` must be called by
 a host before the entity reference is used. This is a brittle mechanism
 based on trust.
 
@@ -18,9 +18,9 @@ strongly typed identifiers for entity references instead. This allows
 (some) compile-time guarantees, extensibility, and opens up additional
 validation options.
 
-However, `isEntityReference` is also useful for the host, allowing it to
-(cheaply) decide whether to use an assetized or non-assetized code path
-when given a string to process.
+However, `isEntityReferenceString` is also useful for the host, allowing
+it to (cheaply) decide whether to use an assetized or non-assetized code
+path when given a string to process.
 
 This begs the question, with the new strong typing mechanism, what is
 the host workflow for deciding on asssetized vs. non-assetized code
@@ -49,10 +49,10 @@ We can assume that testing whether a string is an entity reference,
 relevant to a given manager, is a cheap operation. It is performed
 entirely in-process within the plugin (possibly even in the middleware
 if a prefix is given by `Manager.info()`). In an analogy to URLs,
-`isEntityReference` is like checking the URL schema. In particular, this
-means entity-specific details, e.g. whether a URL query parameter is
-relevant for the type of entity being referenced, is out of scope for
-`isEntityReference`.
+`isEntityReferenceString` is like checking the URL schema. In
+particular, this means entity-specific details, e.g. whether a URL query
+parameter is relevant for the type of entity being referenced, is out of
+scope for `isEntityReferenceString`.
 
 The sketch of the `Manager.createEntityReference` method from
 [DR011](DR011-Entity-reference-type-safety.md) assumes the method throws
@@ -71,7 +71,7 @@ See issue [#532](https://github.com/OpenAssetIO/OpenAssetIO/issues/532).
 
 ### Option 1
 
-Allow hosts to call `isEntityReference` as well as
+Allow hosts to call `isEntityReferenceString` as well as
 `createEntityReference` (which throws if given an invalid reference).
 
 #### Pros
@@ -85,14 +85,14 @@ Allow hosts to call `isEntityReference` as well as
 
 - Duplicated validation effort if the code path goes on to use
   `createEntityReference`.
-- Hosts may forget to check `isEntityReference` first, leading to
+- Hosts may forget to check `isEntityReferenceString` first, leading to
   unexpected exceptions.
 
 ### Option 2
 
-`isEntityReference` is hidden from the host. `createEntityReference` is
-the only way to construct and validate an entity reference, and
-throws if invalid.
+`isEntityReferenceString` is hidden from the host.
+`createEntityReference` is the only way to construct and validate an
+entity reference, and throws if invalid.
 
 #### Pros
 
@@ -111,10 +111,10 @@ throws if invalid.
 
 ### Option 3
 
-`isEntityReference` hidden from the host. `createEntityReferenceIfValid`
-is instead used to return an `optional<EntityRef>` in C++
-(`None`/`EntityRef` in Python; `NULL` (and error code)/`EntityRef_h` in
-C).
+`isEntityReferenceString` hidden from the host.
+`createEntityReferenceIfValid` is instead used to return an
+`optional<EntityRef>` in C++ (`None`/`EntityRef` in Python; `NULL` (and
+error code)/`EntityRef_h` in C).
 
 #### Pros
 
@@ -130,8 +130,8 @@ C).
 
 #### Cons
 
-- Very slightly less performant than `isEntityReference` in the invalid
-  reference case (at the risk of second-guessing compiler
+- Very slightly less performant than `isEntityReferenceString` in the
+  invalid reference case (at the risk of second-guessing compiler
   optimisations).
 - Not immediately obvious in Python that the host must test the returned
   value is valid (not `None`).
@@ -167,7 +167,7 @@ each case.
 ```python
 file_path_or_ref = file_widget.get_value()
 
-if manager.isEntityReference(file_path_or_ref):
+if manager.isEntityReferenceString(file_path_or_ref):
     # Note: duplicated validation.
     ref = manager.createEntityReference(file_path_or_ref)
     assetized_publish(ref)
@@ -210,7 +210,7 @@ references.
 ```python
 file_path_or_ref = file_widget.get_value()
 
-if manager.isEntityReference(file_path_or_ref):
+if manager.isEntityReferenceString(file_path_or_ref):
     raise TypeError("Assetized workflow is not yet supported")
 
 process_file_path(file_path_or_ref)
@@ -262,7 +262,7 @@ nonassetized_nodes = []
 for node in node_graph:
     file_path_or_ref = node.get_script()
 
-    if manager.isEntityReference(file_path_or_ref):
+    if manager.isEntityReferenceString(file_path_or_ref):
         assetized_nodes.append(node)
         ref = manager.createEntityReference(file_path_or_ref)
         refs.append(ref)
@@ -349,7 +349,7 @@ attempting to use a now-incorrect entity reference from the
 #### Option 1 / 2
 
 We're already certain that the paths are valid for the current manager,
-and so do not need to check `isEntityReference`.
+and so do not need to check `isEntityReferenceString`.
 
 ```c++
 auto ref_str = asset_widget->getValue();

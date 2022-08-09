@@ -74,8 +74,8 @@ class Test_info(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of managerApi.ManagerInterface.info.
     """
-    # TODO(DF): Once `isEntityReference` tests are added, check that
-    #   `kField_EntityReferencesMatchPrefix` in info dict is used.
+    # TODO(DF): Once `isEntityReferenceString` tests are added, check
+    # that `kField_EntityReferencesMatchPrefix` in info dict is used.
     def test_is_correct_type(self):
         self.assertIsStringKeyPrimitiveValueDict(self._manager.info())
 
@@ -210,10 +210,10 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         self.assertEqual(len(policies), numTraitSets)
 
 
-class Test_isEntityReference(FixtureAugmentedTestCase):
+class Test_isEntityReferenceString(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerApi.ManagerInterface.isEntityReference.
+    managerApi.ManagerInterface.isEntityReferenceString.
     """
 
     def setUp(self):
@@ -221,24 +221,18 @@ class Test_isEntityReference(FixtureAugmentedTestCase):
         self.collectRequiredFixture("a_malformed_reference")
 
     def test_valid_reference_returns_true(self):
-        assert self._manager.isEntityReference([self.a_valid_reference]) == [True]
+        assert self._manager.isEntityReferenceString(self.a_valid_reference) is True
 
     def test_non_reference_returns_false(self):
         assert self.a_malformed_reference != ""
-        assert self._manager.isEntityReference([self.a_malformed_reference]) == [False]
+        assert self._manager.isEntityReferenceString(self.a_malformed_reference) is False
 
     def test_empty_string_returns_false(self):
-        assert self._manager.isEntityReference([""]) == [False]
-
-    def test_mixed_inputs_returns_mixed_output(self):
-        reference = self.a_valid_reference
-        non_reference = self.a_malformed_reference
-        expected = [True, False]
-        assert self._manager.isEntityReference([reference, non_reference]) == expected
+        assert self._manager.isEntityReferenceString("") is False
 
     def test_random_unicode_input_returns_false(self):
         unicode_reference = "🦆🦆🦑"
-        assert self._manager.isEntityReference([unicode_reference]) == [False]
+        assert self._manager.isEntityReferenceString(unicode_reference) is False
 
 
 class Test_entityExists(FixtureAugmentedTestCase):

@@ -231,14 +231,14 @@ class Test_Manager_flushCaches:
         method.assert_called_once_with(a_host_session)
 
 
-class Test_Manager_isEntityReference:
+class Test_Manager_isEntityReferenceString:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs):
+            self, manager, mock_manager_interface, a_host_session, a_ref):
 
-        method = mock_manager_interface.mock.isEntityReference
-        assert manager.isEntityReference(some_refs) == method.return_value
-        method.assert_called_once_with(some_refs, a_host_session)
+        method = mock_manager_interface.mock.isEntityReferenceString
+        assert manager.isEntityReferenceString(a_ref) == method.return_value
+        method.assert_called_once_with(a_ref, a_host_session)
 
 
 class Test_Manager_entityExists:

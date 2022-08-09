@@ -214,10 +214,10 @@ class ValidatingMockManagerInterface(ManagerInterface):
 
         return self.mock.managementPolicy(traitSets, context, hostSession)
 
-    def isEntityReference(self, tokens, hostSession):
-        self.__assertIsIterableOf(tokens, str)
+    def isEntityReferenceString(self, someString, hostSession):
+        assert isinstance(someString, str)
         assert isinstance(hostSession, HostSession)
-        return self.mock.isEntityReference(tokens, hostSession)
+        return self.mock.isEntityReferenceString(someString, hostSession)
 
     def entityExists(self, entityRefs, context, hostSession):
         self.__assertIsIterableOf(entityRefs, str)

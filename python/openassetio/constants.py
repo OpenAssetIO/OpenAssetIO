@@ -45,7 +45,7 @@ kField_Icon = 'icon'
 # Entity Reference Properties
 
 ## This field may be used by the API to optimize queries to
-## isEntityReference in situations where bridging languages, etc.
+## isEntityReferenceString in situations where bridging languages, etc.
 ## can be expensive (particularly in the case of python plug-ins
 ## called from multi-threaded C++).
 kField_EntityReferencesMatchPrefix = "entityReferencesMatchPrefix"
