@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
+#include <string>
 
 #include <openassetio/c/export.h>
 #include <openassetio/export.h>
@@ -45,14 +46,19 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   [[nodiscard]] InfoDictionary info() const override;
 
   /// Wrap the C suite's `initialize` function.
-  /// @todo Implement C API. Currently a no-op.
+  /// @todo Implement C API. Currently throws `runtime_error`.
   void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) override;
 
   /// Wrap the C suite's `managementPolicy` function.
-  /// @todo Implement C API. Currently a no-op.
+  /// @todo Implement C API. Currently throws `runtime_error`.
   [[nodiscard]] trait::TraitsDatas managementPolicy(
       const trait::TraitSets& traitSets, const ContextConstPtr& context,
       const HostSessionPtr& hostSession) const override;
+
+  /// Wrap the C suite's `isEntityReferenceString` function.
+  /// @todo Implement C API. Currently throws `runtime_error`.
+  [[nodiscard]] bool isEntityReferenceString(const std::string& someString,
+                                             const HostSessionPtr& hostSession) const override;
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.

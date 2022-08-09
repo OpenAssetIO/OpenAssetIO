@@ -30,5 +30,6 @@ void registerManager(const py::module& mod) {
            py::arg("parentContext").none(false))
       .def("persistenceTokenForContext", &Manager::persistenceTokenForContext,
            py::arg("context").none(false))
-      .def("contextFromPersistenceToken", &Manager::contextFromPersistenceToken, py::arg("token"));
+      .def("contextFromPersistenceToken", &Manager::contextFromPersistenceToken, py::arg("token"))
+      .def("isEntityReferenceString", &Manager::isEntityReferenceString, py::arg("someString"));
 }

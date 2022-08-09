@@ -221,7 +221,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * If this isn't supplied, then isEntityReferenceString will always be
    * called to determine if a string is an @ref entity_reference or
    * not. Note, not all invocations require this optimization, so
-   * @needsref isEntityReferenceString should be implemented regardless.
+   * @ref isEntityReferenceString should be implemented regardless.
    *
    *   @li openassetio.constants.kField_EntityReferencesMatchPrefix
    *
@@ -500,6 +500,60 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
   [[nodiscard]] virtual ManagerStateBasePtr stateFromPersistenceToken(
       const std::string& token, const HostSessionPtr& hostSession);
+  /**
+   * @}
+   */
+
+  /**
+   * @name Entity Reference inspection
+   *
+   * Because of the nature of an @ref entity_reference, it is often
+   * necessary to determine if some working string is actually an @ref
+   * entity_reference or not, to ensure it is handled correctly.
+   *
+   * @{
+   */
+
+  /**
+   * Determines if the supplied string (in its entirety) matches the
+   * pattern of a valid @ref entity_reference in your system. It
+   * does not need to verify that it points to a valid entity in the
+   * system, simply that the pattern of the string is recognised by
+   * this implementation.
+   *
+   * Return `True` if the string is an @ref entity_reference
+   * and should be considered usable with the other methods of this
+   * interface.
+   *
+   * Return `False`, if this should no longer be involved in actions
+   * relating to the string as it is not recognised.
+   *
+   * @warning The result of this call should not depend on the context
+   * Locale, and should be trivial to compute. If for example, a manager
+   * makes use of URL-based entity references, then it is sufficient to
+   * check that the string's schema is that owned by the manager. This
+   * method should not validate the correctness of all supplied host,
+   * path or query components. The API middleware may cache or
+   * short-circuit calls to this method when bridging between languages.
+   *
+   * @param someString str The string to be inspected.
+   *
+   * @param hostSession HostSession The API session.
+   *
+   * @return `bool` `True` if the supplied string should be
+   * considered as an @ref entity_reference, `False` if the pattern is
+   * not recognised.
+   *
+   * @note This call should not verify an entity exits, just that the
+   * format of the string is recognised as a potential entity reference
+   * by the manager.
+   *
+   * @see @needsref entityExists
+   * @see @needsref resolve
+   */
+  [[nodiscard]] virtual bool isEntityReferenceString(const std::string& someString,
+                                                     const HostSessionPtr& hostSession) const = 0;
+
   /**
    * @}
    */

@@ -2,6 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 
 #include <stdexcept>
+#include <string>
 
 #include "CManagerInterfaceAdapter.hpp"
 
@@ -87,6 +88,12 @@ void CManagerInterfaceAdapter::initialize([[maybe_unused]] InfoDictionary manage
 trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
     [[maybe_unused]] const trait::TraitSets& traitSets,
     [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+  throw std::runtime_error{"Not implemented"};
+}
+
+bool CManagerInterfaceAdapter::isEntityReferenceString(
+    [[maybe_unused]] const std::string& someString,
     [[maybe_unused]] const HostSessionPtr& hostSession) const {
   throw std::runtime_error{"Not implemented"};
 }

@@ -45,6 +45,7 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerApi::ManagerInt
   IMPLEMENT_CONST_MOCK0(info);
   IMPLEMENT_MOCK2(initialize);
   IMPLEMENT_CONST_MOCK3(managementPolicy);
+  IMPLEMENT_CONST_MOCK2(isEntityReferenceString);
 };
 /**
  * Mock implementation of a HostInterface.

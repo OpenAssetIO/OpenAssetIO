@@ -205,17 +205,21 @@ v1.0.0-alpha.X
 
 - Migrated the following `ManagerInterface` methods to C++
   `initialize`, `managementPolicy`, `createState`, `createChildState`,
-  `persistenceTokenForState`, `stateFromPersistenceToken`.
+  `persistenceTokenForState`, `stateFromPersistenceToken`,
+  `isEntityReferenceString`.
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
   [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
+  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
 - Migrated the following `Manager` methods to C++ `initialize`
   `managementPolicy`, `createContext`, `createChildContext`,
-  `persistenceTokenForContext`, `contextFromPersistenceToken`.
+  `persistenceTokenForContext`, `contextFromPersistenceToken`,
+  `isEntityReferenceString`.
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
   [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
+  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We

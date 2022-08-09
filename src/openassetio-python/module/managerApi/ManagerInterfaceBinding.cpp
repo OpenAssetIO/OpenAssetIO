@@ -75,6 +75,12 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken,
                       token, hostSession);
   }
+
+  [[nodiscard]] bool isEntityReferenceString(const std::string& someString,
+                                             const HostSessionPtr& hostSession) const override {
+    PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, isEntityReferenceString, someString,
+                           hostSession);
+  }
 };
 
 }  // namespace managerApi
@@ -104,5 +110,7 @@ void registerManagerInterface(const py::module& mod) {
            RetainCommonPyArgs::forFn<&ManagerInterface::persistenceTokenForState>(),
            py::arg("state").none(false), py::arg("hostSession").none(false))
       .def("stateFromPersistenceToken", &ManagerInterface::stateFromPersistenceToken,
-           py::arg("token"), py::arg("hostSession").none(false));
+           py::arg("token"), py::arg("hostSession").none(false))
+      .def("isEntityReferenceString", &ManagerInterface::isEntityReferenceString,
+           py::arg("someString"), py::arg("hostSession").none(false));
 }

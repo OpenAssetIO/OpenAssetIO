@@ -239,46 +239,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     ##
     # @name Entity Reference inspection
     #
-    # Because of the nature of an @ref entity_reference, it is often
-    # necessary to determine if some working string is actually an @ref
-    # entity_reference or not, to ensure it is handled correctly.
     #
     # @{
-
-    @abc.abstractmethod
-    def isEntityReferenceString(self, someString, hostSession):
-        """
-        Determines if the supplied string (in its entirety) matches the
-        pattern of a valid @ref entity_reference in your system. It
-        does not need to verify that it points to a valid entity in the
-        system, simply that the pattern of the string is recognised by
-        this implementation.
-
-        If this returns `True`, the string is an @ref entity_reference
-        and should be considered usable with the other methods of this
-        interface.
-
-        If `False`, this manager should no longer be involved in actions
-        relating to the string.
-
-        @warning The result of this call should not depend on the
-        context Locale.
-
-        @param someString str The string to be inspected.
-
-        @param hostSession HostSession The API session.
-
-        @return `bool` `True` if the supplied string should be
-        considered as an @ref entity_reference, `False` if the pattern is
-        not recognised.
-
-        @note This call should not verify an entity exits, just that
-        the format of the string is recognised.
-
-        @see @ref entityExists
-        @see @ref resolve
-        """
-        raise NotImplementedError
 
     @abc.abstractmethod
     def entityExists(self, entityRefs, context, hostSession):
@@ -393,7 +355,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         access is `kWrite` and the entity is an existing version.
 
         @see @ref entityExists
-        @see @ref isEntityReferenceString
+        @see @fqref{hostApi.Manager.isEntityReferenceString}
+        "isEntityReferenceString"
         """
         raise NotImplementedError
 

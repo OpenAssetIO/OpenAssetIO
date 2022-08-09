@@ -111,8 +111,8 @@
  * 1. Discoverability
  * ------------------
  * It is essential that any given string can be readily identified as
- * being an entity reference or not. The @ref
- * openassetio.managerApi.ManagerInterface.ManagerInterface.isEntityReferenceString
+ * being an entity reference or not. The
+ * @fqref{hostApi.Manager.isEntityReferenceString}
  * "isEntityReferenceString" method will be called frequently by a @ref
  * host to determine if the arbitrary user input is a reference to a
  * managed entity.

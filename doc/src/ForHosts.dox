@@ -101,8 +101,8 @@
  *   with a @ref Context with `kRead` access, respecting the returned
  *   traits.
  *
- * - Always check any suspected entity references with @ref
- *   openassetio.hostApi.Manager.Manager.isEntityReferenceString
+ * - Always check any suspected entity references with
+ *   @fqref{hostApi.Manager.isEntityReferenceString}
  *   "Manager.isEntityReferenceString" before passing to any other API
  *   calls.
  *
@@ -137,10 +137,9 @@
  *   manager to use to interact with an @ref asset_management_system,
  *   storing applicable options, etc...
  *
- * - @ref openassetio.hostApi.Manager.Manager.isEntityReferenceString
- *   "Test" and resolve any strings that may represent file system
- *   locations (@ref openassetio.hostApi.Manager.Manager.resolve
- *   "Manager.resolve")
+ * - @fqref{hostApi.Manager.isEntityReferenceString} "Test" and resolve
+ *   any strings that may represent file system locations (@ref
+ *   openassetio.hostApi.Manager.Manager.resolve "Manager.resolve")
  *
  * - Ensure the use of a correctly configured @ref Context for all
  *   calls to the API.

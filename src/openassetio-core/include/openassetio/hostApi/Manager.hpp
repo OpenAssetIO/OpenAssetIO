@@ -34,7 +34,7 @@ OPENASSETIO_DECLARE_PTR(Manager)
  * @fqref{hostApi.ManagerFactory} "ManagerFactory", using the
  * @fqref{hostApi.ManagerFactory.createManager}
  * "ManagerFactory.createManager()" method with an appropriate manager
- * @needsref identifier.
+ * @ref identifier.
  *
  * @code
  * factory = openassetio.hostApi.ManagerFactory(
@@ -319,6 +319,60 @@ class OPENASSETIO_CORE_EXPORT Manager {
   /**
    * @}
    */
+
+  /**
+   * @name Entity Reference inspection
+   *
+   * Because of the nature of an @ref entity_reference, it is often
+   * necessary to determine if some working string is actually an @ref
+   * entity_reference or not, to ensure it is handled correctly.
+   *
+   * @{
+   */
+
+  /**
+   * @warning It is essential, as a host, that only valid references are
+   * supplied to Manager API calls. Before any reference is passed to
+   * any other methods of this class, they must first be validated
+   * through this method.
+   *
+   * Determines if the supplied string (in its entirety) matches the
+   * pattern of an @ref entity_reference.  It does not verify that it
+   * points to a valid entity in the system, simply that the pattern of
+   * the string is recognised by the manager.
+   *
+   * If it returns `true`, the string is an @ref entity_reference and
+   * should be considered as a managed entity (or a future one).
+   * Consequently, it should be resolved before use. It also confirms
+   * that it can be passed to any other method that requires an @ref
+   * entity_reference.
+   *
+   * If `false`, this manager should no longer be involved in actions
+   * relating to the string.
+   *
+   * @param someString `str` The string to be inspected.
+   *
+   * @return `bool` `True` if the supplied token should be
+   * considered as an @ref entity_reference, `False` if the pattern
+   * is not recognised.
+   *
+   * @note This call does not verify an entity exits, just that the
+   * format of the string is recognised. The call is notionally trivial
+   * and does not involve back-end system queries.
+   *
+   * @see @needsref entityExists
+   * @see @needsref resolve
+   *
+   * @todo Make use of
+   * openassetio.constants.kField_EntityReferencesMatchPrefix if
+   * supplied, especially when bridging between C/python.
+   */
+  [[nodiscard]] bool isEntityReferenceString(const std::string& someString) const;
+
+  /**
+   * @}
+   */
+
  private:
   explicit Manager(managerApi::ManagerInterfacePtr managerInterface,
                    managerApi::HostSessionPtr hostSession);
