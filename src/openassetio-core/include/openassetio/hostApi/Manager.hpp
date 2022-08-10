@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <string>
 
 #include <openassetio/export.h>
@@ -390,6 +391,23 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @todo Use a custom exception type rather than std::domain_error.
    */
   [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
+
+  /**
+   * Create an @ref EntityReference object wrapping a given
+   * @ref entity_reference string, if it is valid according to
+   * @ref isEntityReferenceString.
+   *
+   * @see @ref createEntityReference
+   *
+   * @param entityReferenceString Raw string representation of the
+   * entity reference. Taken by value to enable move semantics, on the
+   * assumption that an invalid entity reference is a rare case.
+   *
+   * @return `std::optional` containing an `EntityReference` value if
+   * valid, not containing a value otherwise.
+   */
+  [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
+      Str entityReferenceString) const;
 
   /**
    * @}

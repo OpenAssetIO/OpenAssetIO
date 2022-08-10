@@ -266,6 +266,29 @@ class Test_Manager_createEntityReference:
         assert entity_reference.toString() == a_ref_string
 
 
+class Test_Manager_createEntityReferenceIfValid:
+    def test_when_invalid_then_returns_None(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = False
+
+        entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert entity_reference is None
+
+    def test_when_valid_then_returns_configured_EntityReference(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = True
+
+        entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert isinstance(entity_reference, EntityReference)
+        assert entity_reference.toString() == a_ref_string
+
+
 class Test_Manager_entityExists:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(

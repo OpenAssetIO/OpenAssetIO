@@ -83,6 +83,14 @@ EntityReference Manager::createEntityReference(Str entityReferenceString) const 
   return EntityReference{std::move(entityReferenceString)};
 }
 
+std::optional<EntityReference> Manager::createEntityReferenceIfValid(
+    Str entityReferenceString) const {
+  if (!isEntityReferenceString(entityReferenceString)) {
+    return {};
+  }
+  return EntityReference{std::move(entityReferenceString)};
+}
+
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

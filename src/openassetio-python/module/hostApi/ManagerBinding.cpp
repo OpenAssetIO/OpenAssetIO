@@ -33,5 +33,7 @@ void registerManager(const py::module& mod) {
       .def("contextFromPersistenceToken", &Manager::contextFromPersistenceToken, py::arg("token"))
       .def("isEntityReferenceString", &Manager::isEntityReferenceString, py::arg("someString"))
       .def("createEntityReference", &Manager::createEntityReference,
+           py::arg("entityReferenceString"))
+      .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"));
 }
