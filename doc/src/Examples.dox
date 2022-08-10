@@ -103,15 +103,21 @@
  * @section examples_resolving_a_reference Resolving a Reference
  *
  * This example shows how to use the instantiated manager to resolve a
- * string (`some_string`) that may be an entity reference to an entity
- * with the 'file' @ref trait - covering use of the correct context
- * and a custom @ref locale to describe the call site.
+ * string (`some_string`) that is assumed to be an entity reference to
+ * an entity with the 'file' @ref trait - covering use of the correct
+ * context and a custom @ref locale to describe the call site.
  *
- * @note Note how it is the callers responsibility to validate
- * that a string is a @ref entity_reference before passing it to any
- * other OpenAssetIO API that expects one.
+ * @note The caller must convert a string to an @fqref{EntityReference}
+ * "EntityReference" object in order to use any OpenAssetIO API that
+ * expects an @ref entity_reference. There is more than one approach to
+ * this. Below we rely on the exception thrown by
+ * @fqref{hostApi.Manager.createEntityReference} "createEntityReference"
+ * when given an invalid reference. Alternatively, we could use
+ * @fqref{hostApi.Manager.createEntityReferenceIfValid}
+ * "createEntityReferenceIfValid" and test if the result is falsey.
  *
- * This is to reduce the validation overhead in the manager's
+ * @note Ensuring that an entity reference is valid before handing it
+ * to the manager reduces the validation overhead in the manager's
  * implementation of the API. This affords significant gains in
  * real-world production use cases where thousands of references
  * may be operated upon in time-critical scenarios.
@@ -132,10 +138,11 @@
  *     """
  *     kTraitSet = {"documentation", "example"}
  *
- * # We must **ALWAYS** validate that a string is an entity reference
- * # before passing it to any other manager API call.
- * if not manager.isEntityReferenceString(some_string):
- *    raise ValueError(f'"{some_string}" isn't an entity reference.')
+ * # Note: this will raise an exception if given a string that is not
+ * # recognized by this manager as a valid entity reference (ValueError
+ * # in Python, std::domain_error in C++). Consider
+ * # createEntityReferenceIfValid, if unsure of the string.
+ * entity_reference = manager.createEntityReference(some_string)
  *
  * # All calls to the manager must have a Context, these should always
  * # be created by the target manager. The Context expresses the host's
@@ -157,7 +164,7 @@
  * # We can now resolve a token we may have if it is a reference. In
  * # this example, we'll attempt to resolve the asset with the
  * # file trait.
- * [resolved_asset] = manager.resolve([some_string], {FileTrait.id}, context)
+ * [resolved_asset] = manager.resolve([entity_reference], {FileTrait.id}, context)
  * if resolved_asset.hasTrait(FileTrait.id):
  *    path = FileTrait(resolved_asset).getPath()
  * @endcode

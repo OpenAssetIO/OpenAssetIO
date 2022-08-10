@@ -103,7 +103,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
         results = []
         for ref in entityRefs:
             try:
-                entity_info = bal.parse_entity_ref(ref)
+                entity_info = bal.parse_entity_ref(ref.toString())
                 result = bal.exists(entity_info, self.__library)
             except InvalidEntityReference as exc:
                 result = exc
@@ -116,7 +116,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
         results = []
         for ref in entityRefs:
             try:
-                entity_info = bal.parse_entity_ref(ref)
+                entity_info = bal.parse_entity_ref(ref.toString())
                 entity = bal.entity(entity_info, self.__library)
                 result = TraitsData()
                 for trait in traitSet:

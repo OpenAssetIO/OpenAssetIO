@@ -83,11 +83,12 @@ class BaseEntityException(ManagerException):
         """
         @param message str, The message of the exception.
 
-        @param entityReference str, The entity reference associated with
-        the error. This should be provided wherever known, and will be
-        printed along with the message in any traceback/etc... As such,
-        there is no need to embedded the entity reference in the message
-        when using this exception type.
+        @param entityReference @fqref{EntityReference} "EntityReference"
+        The entity reference associated with the error. This should be
+        provided wherever known, and will be printed along with the
+        message in any traceback/etc... As such, there is no need to
+        embedded the entity reference in the message when using this
+        exception type.
         """
         super(BaseEntityException, self).__init__(message)
         self.ref = entityReference

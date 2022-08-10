@@ -214,7 +214,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         definition of 'exists' in some cases too, as it better explains
         the use-case of the call.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -282,7 +283,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
          @li `"Cuttlefish v1"` - for a versioned asset
          @li `"seq003"` - for a sequence in a hierarchy
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -308,7 +310,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
          @li `"Sequence 003 [ Dive / Episode 1 ]"` - for a sequence in
          an hierarchy as a window title.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -340,7 +343,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         Retrieves the identifier of the version pointed to by each
         supplied @ref entity_reference.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -365,7 +369,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         entity_reference (including the supplied ref, if it points to a
         specific version).
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -408,7 +413,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         If versioning is unsupported for a given @ref
         entity_reference, then the input reference will be returned.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -599,18 +605,19 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         caller to handle requested data being missing in a fashion
         appropriate to its intended use.
 
-        @note You should always call
-        @fqref{hostApi.Manager.isEntityReferenceString}
-        "isEntityReferenceString" first if there is any doubt as to
-        whether or not a string you have is a valid reference for the
-        manager, and only call resolve, or any other methods, if it is a
-        reference recognised by the manager.
+        @note @fqref{EntityReference} "EntityReference" objects _must_
+        be constructed using either
+        @fqref{hostApi.Manager.createEntityReference}
+        "createEntityReference" or
+        @fqref{hostApi.Manager.createEntityReferenceIfValid}
+        "createEntityReferenceIfValid".
 
         The API defines that all file paths passed though the API that
         represent file sequences should retain the frame token, and
         use the 'format' syntax, compatible with sprintf (eg.  %04d").
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -752,8 +759,9 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         registration, and for the final call to @ref
         register itself. See @ref example_publishing_a_file.
 
-        @param targetEntityRefs `List[str]` The entity references to
-        preflight prior to registration.
+        @param targetEntityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` The entity references to preflight prior
+        to registration.
 
         @param traitSet `Set[str]` The @ref trait_set of the
         entites that are being published.
@@ -831,8 +839,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         same path. Managers may freely relocate, copy, move or rename
         files as part of registration.
 
-        @param targetEntityRefs `List[str]` Entity references to publish
-        to.
+        @param targetEntityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to publish to.
 
         @param entityTraitsDatas `List[` @fqref{TraitsData}
         "TraitsData" `]` The data to register for each entity.

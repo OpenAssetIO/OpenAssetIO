@@ -208,7 +208,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         designated thread safe, it is important to implement any
         pre-fetch mechanism with suitable locks/etc... if required.
 
-        @param entityRefs `List[str]` The entities whose data should be
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` The entities whose data should be
         prefetched.
 
         @param context openassetio.Context You may wish to make use of
@@ -266,7 +267,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         to disambiguating this subtle definition of 'exists' in some
         cases too, as it better explains the use-case of the call.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -331,10 +333,13 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         any rules of the system - for example, resolving an existing
         entity reference for write.
 
-        The caller will have first called isEntityReferenceString() on
-        the supplied strings.
+        The supplied entity references will have already been validated
+        as relevant to this manager (via
+        @fqref{hostApi.Manager.isEntityReferenceString}
+        "isEntityReferenceString").
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param traitSet `Set[str]` The traits to resolve for the
         supplied list of entity references.
@@ -421,7 +426,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
          @li `"Cuttlefish v1"` - for a version of an asset
          @li `"seq003"` - for a sequence in a hierarchy
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -451,7 +457,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
          @li `"Sequence 003 [ Dive / Episode 1 ]"` - for a sequence in
          an hierarchy as a window title.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -486,7 +493,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         Retrieves the identifier of the version pointed to by each
         supplied @ref entity_reference.
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -514,7 +522,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         entity_reference (including the supplied ref, if it points to a
         specific version).
 
-        @param entityRefs `List[str]` Entity references to query.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` Entity references to query.
 
         @param context Context The calling context.
 
@@ -558,7 +567,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         If versioning is unsupported for a given @ref
         entity_reference, then the input reference should be returned.
 
-        @param entityRefs `List[str]` The entity references to finalize.
+        @param entityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` The entity references to finalize.
 
         @param context Context The calling context.
 
@@ -677,7 +687,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         should be returned for that relationship, and no errors should
         be raised.
 
-        @param entityRefs List[str]
+        @param entityRefs List[` @fqref{EntityReference}
+        "EntityReference" `]
 
         @param relationshipTraitsDatas `List[`
         @fqref{TraitsData} "TraitsData" `]`
@@ -728,8 +739,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         In systems that don't support post-creation adjustment of
         relationships, this can simply be a no-op.
 
-        @param entityRef `str` The entity to which the relationship
-        should be established.
+        @param entityRef @fqref{EntityReference} "EntityReference" The
+        entity to which the relationship should be established.
 
         @param relationshipTraitsData @fqref{TraitsData} "TraitsData",
         The type of relationship to establish.
@@ -843,10 +854,10 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         openassetio.traits.managementPolicy.WillManagePathTrait
         "WillManagePathTrait" set.
 
-        @param targetEntityRefs `List[str]` An @ref entity_reference
-        for each entity that it is desired to publish the forthcoming
-        data to. See the notes in the API documentation for the
-        specifics of this.
+        @param targetEntityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` An @ref entity_reference for each entity
+        that it is desired to publish the forthcoming data to. See the
+        notes in the API documentation for the specifics of this.
 
         @param traitSet `Set(str)` The @ref trait_set of the
         entities that are being published.
@@ -902,15 +913,15 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         information or schedule additional processes to produce
         derivative data.
 
-        @param targetEntityRefs `List[str]` The @ref entity_reference
-        of each entity to publish. It is up to the manager to ensure
-        that this is meaningful, as it is most likely implementation
-        specific. For example, if an entity with the traits of a 'Shot'
-        specification is requested to be published to a reference that
-        points to a 'Sequence' it makes sense to interpret this as a
-        'add a shot of this spec to the sequence'. For other types of
-        entity, there may be
-        different constraints on what makes sense.
+        @param targetEntityRefs `List[` @fqref{EntityReference}
+        "EntityReference" `]` The @ref entity_reference of each entity
+        to publish. It is up to the manager to ensure that this is
+        meaningful, as it is most likely implementation specific. For
+        example, if an entity with the traits of a 'Shot' specification
+        is requested to be published to a reference that points to a
+        'Sequence' it makes sense to interpret this as a 'add a shot of
+        this spec to the sequence'. For other types of entity, there may
+        be different constraints on what makes sense.
 
         @param entityTraitsDatas `List[` @fqref{TraitsData} "TraitsData"
         `]` The data for each entity (or 'asset') that is being

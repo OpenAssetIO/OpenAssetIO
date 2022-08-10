@@ -31,6 +31,9 @@ from openassetio.hostApi import Manager
 
 @pytest.fixture
 def manager(mock_manager_interface, a_host_session):
+    # Default to accepting anything as an entity reference string, to
+    # make constructing EntityReference objects a bit easier.
+    mock_manager_interface.mock.isEntityReferenceString.return_value = True
     return Manager(mock_manager_interface, a_host_session)
 
 
@@ -69,8 +72,13 @@ def a_ref_string():
 
 
 @pytest.fixture
-def some_refs():
-    return ["asset://a", "asset://b"]
+def a_ref(manager):
+    return manager.createEntityReference("asset://a")
+
+
+@pytest.fixture
+def some_refs(manager):
+    return [manager.createEntityReference("asset://a"), manager.createEntityReference("asset://b")]
 
 # __str__ and __repr__ aren't tested as they're debug tricks that need
 # assessing when this is ported to cpp
@@ -392,16 +400,16 @@ class Test_Manager_finalizedEntityVersion:
 class Test_Manager_getRelatedReferences:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref_string,
+            self, manager, mock_manager_interface, a_host_session, a_ref,
             an_empty_traitsdata, an_entity_trait_set, a_context):
 
         # pylint: disable=too-many-locals
 
         method = mock_manager_interface.mock.getRelatedReferences
 
-        one_ref = a_ref_string
-        two_refs = [a_ref_string, a_ref_string]
-        three_refs = [a_ref_string, a_ref_string, a_ref_string]
+        one_ref = a_ref
+        two_refs = [a_ref, a_ref]
+        three_refs = [a_ref, a_ref, a_ref]
         one_data = an_empty_traitsdata
         two_datas = [an_empty_traitsdata, an_empty_traitsdata]
         three_datas = [an_empty_traitsdata, an_empty_traitsdata, an_empty_traitsdata]
