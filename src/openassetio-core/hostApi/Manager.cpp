@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <stdexcept>
+
 #include <openassetio/Context.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
@@ -70,6 +72,15 @@ ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
 
 bool Manager::isEntityReferenceString(const std::string &someString) const {
   return managerInterface_->isEntityReferenceString(someString, hostSession_);
+}
+
+const Str kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";
+
+EntityReference Manager::createEntityReference(Str entityReferenceString) const {
+  if (!isEntityReferenceString(entityReferenceString)) {
+    throw std::domain_error{kCreateEntityReferenceErrorMessage + entityReferenceString};
+  }
+  return EntityReference{std::move(entityReferenceString)};
 }
 
 }  // namespace hostApi

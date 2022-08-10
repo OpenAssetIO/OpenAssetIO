@@ -168,7 +168,8 @@ v1.0.0-alpha.X
 ### Improvements
 
 - Added `EntityReference` type to encapsulate a validated string
-  so it can be used with entity-related API methods.
+  so it can be used with entity-related API methods. These should
+  always be created with `Manager.createEntityReference`.
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
 - Added `openassetio-python` C++-to-Python bridge library, providing

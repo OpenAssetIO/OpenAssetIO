@@ -6,6 +6,7 @@
 #include <string>
 
 #include <openassetio/export.h>
+#include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
@@ -368,6 +369,27 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * supplied, especially when bridging between C/python.
    */
   [[nodiscard]] bool isEntityReferenceString(const std::string& someString) const;
+
+  /**
+   * Create an @ref EntityReference object wrapping a given
+   * @ref entity_reference string.
+   *
+   * First validates that the given entity reference string is
+   * meaningful for this manager via @ref isEntityReferenceString,
+   * throwing a `std::domain_error` if not.
+   *
+   * @param entityReferenceString Raw string representation of the
+   * entity reference. Taken by value to enable move semantics, on the
+   * assumption that an invalid entity reference is a rare case.
+   *
+   * @return Validated entity reference object.
+   *
+   * @throw std::domain_error If the given string is not recognized as
+   * an entity reference by this manager.
+   *
+   * @todo Use a custom exception type rather than std::domain_error.
+   */
+  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
 
   /**
    * @}
