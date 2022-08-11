@@ -161,6 +161,12 @@ Public Member Functions</h2></td></tr>
 </div></td></tr>
 <tr class="memitem:a1d8861fea27702b8b74d4abe71e329b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a> (const std::string &amp;someString) const </td></tr>
 <tr class="separator:a1d8861fea27702b8b74d4abe71e329b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a60af0503cefffe5543360ccbcb2d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86">createEntityReference</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
+<tr class="memdesc:a8a60af0503cefffe5543360ccbcb2d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string.  <a href="#a8a60af0503cefffe5543360ccbcb2d86">More...</a><br /></td></tr>
+<tr class="separator:a8a60af0503cefffe5543360ccbcb2d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250">createEntityReferenceIfValid</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
+<tr class="memdesc:ad5b1862cc47ab4bcb4919def42d4c250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string, if it is valid according to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>.  <a href="#ad5b1862cc47ab4bcb4919def42d4c250">More...</a><br /></td></tr>
+<tr class="separator:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -257,6 +263,65 @@ Initialization</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8a60af0503cefffe5543360ccbcb2d86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> createEntityReference </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td>
+          <td class="paramname"><em>entityReferenceString</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string. </p>
+<p>First validates that the given entity reference string is meaningful for this manager via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>, throwing a <code>std::domain_error</code> if not.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferenceString</td><td>Raw string representation of the entity reference. Taken by value to enable move semantics, on the assumption that an invalid entity reference is a rare case.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Validated entity reference object.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>If the given string is not recognized as an entity reference by this manager.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad5b1862cc47ab4bcb4919def42d4c250"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt; createEntityReferenceIfValid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td>
+          <td class="paramname"><em>entityReferenceString</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string, if it is valid according to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86">createEntityReference</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferenceString</td><td>Raw string representation of the entity reference. Taken by value to enable move semantics, on the assumption that an invalid entity reference is a rare case.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>std::optional</code> containing an <code><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html" title="EntityReference forms a strongly typed wrapper around arbitrary strings to ensure they have been vali...">EntityReference</a></code> value if valid, not containing a value otherwise. </dd></dl>
 
 </div>
 </div>
