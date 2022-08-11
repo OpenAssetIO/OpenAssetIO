@@ -2,6 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <openassetio/errors.h>
+
 #include "./namespace.h"
 
 #ifdef __cplusplus
@@ -41,7 +43,7 @@ typedef enum {
   /// Error code indicating an OK result from a C API function.
   oa_ErrorCode_kOK = 0,
   /// Error code representing a generic non-exception type thrown.
-  oa_ErrorCode_kUnknown,
+  oa_ErrorCode_kUnknown = OPENASSETIO_ErrorCode_BEGIN,
   /// Error code representing a generic C++ exception.
   oa_ErrorCode_kException,
   /// Error code representing a C++ std::bad_variant_access exception.

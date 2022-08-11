@@ -82,3 +82,6 @@ void registerManagerStateBase(const py::module& mod);
 
 /// Register the EntityReference type with Python.
 void registerEntityReference(const py::module& mod);
+
+/// Register the BatchElementError type with Python.
+void registerBatchElementError(const py::module& mod);
