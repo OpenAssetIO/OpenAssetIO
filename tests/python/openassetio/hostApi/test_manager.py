@@ -23,7 +23,7 @@ Tests that cover the openassetio.hostApi.Manager wrapper class.
 
 import pytest
 
-from openassetio import Context, TraitsData, managerApi
+from openassetio import Context, EntityReference, TraitsData, managerApi
 from openassetio.hostApi import Manager
 
 
@@ -64,7 +64,7 @@ def a_context():
 
 
 @pytest.fixture
-def a_ref():
+def a_ref_string():
     return "asset://a"
 
 
@@ -234,12 +234,59 @@ class Test_Manager_flushCaches:
 class Test_Manager_isEntityReferenceString:
     @pytest.mark.parametrize("expected", (True, False))
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref, expected):
+            self, manager, mock_manager_interface, a_host_session, a_ref_string, expected):
         method = mock_manager_interface.mock.isEntityReferenceString
         method.return_value = expected
 
-        assert manager.isEntityReferenceString(a_ref) == expected
-        method.assert_called_once_with(a_ref, a_host_session)
+        assert manager.isEntityReferenceString(a_ref_string) == expected
+        method.assert_called_once_with(a_ref_string, a_host_session)
+
+
+class Test_Manager_createEntityReference:
+    def test_when_invalid_then_raises_ValueError(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = False
+
+        with pytest.raises(ValueError) as err:
+            manager.createEntityReference(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert str(err.value) == f"Invalid entity reference: {a_ref_string}"
+
+    def test_when_valid_then_returns_configured_EntityReference(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = True
+
+        entity_reference = manager.createEntityReference(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert isinstance(entity_reference, EntityReference)
+        assert entity_reference.toString() == a_ref_string
+
+
+class Test_Manager_createEntityReferenceIfValid:
+    def test_when_invalid_then_returns_None(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = False
+
+        entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert entity_reference is None
+
+    def test_when_valid_then_returns_configured_EntityReference(
+            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        mock_manager_interface.mock.isEntityReferenceString.return_value = True
+
+        entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
+
+        mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
+            a_ref_string, a_host_session)
+        assert isinstance(entity_reference, EntityReference)
+        assert entity_reference.toString() == a_ref_string
 
 
 class Test_Manager_entityExists:
@@ -345,16 +392,16 @@ class Test_Manager_finalizedEntityVersion:
 class Test_Manager_getRelatedReferences:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref, an_empty_traitsdata,
-            an_entity_trait_set, a_context):
+            self, manager, mock_manager_interface, a_host_session, a_ref_string,
+            an_empty_traitsdata, an_entity_trait_set, a_context):
 
         # pylint: disable=too-many-locals
 
         method = mock_manager_interface.mock.getRelatedReferences
 
-        one_ref = a_ref
-        two_refs = [a_ref, a_ref]
-        three_refs = [a_ref, a_ref, a_ref]
+        one_ref = a_ref_string
+        two_refs = [a_ref_string, a_ref_string]
+        three_refs = [a_ref_string, a_ref_string, a_ref_string]
         one_data = an_empty_traitsdata
         two_datas = [an_empty_traitsdata, an_empty_traitsdata]
         three_datas = [an_empty_traitsdata, an_empty_traitsdata, an_empty_traitsdata]
