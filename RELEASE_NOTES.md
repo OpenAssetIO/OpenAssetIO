@@ -6,6 +6,10 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Changed `resolve` to use a callback-based API, rather than returning
+  a list of results.
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
+
 - Removed the `Manager`/`ManagerInterface` `prefetch` method, which
   is redundant now the API is batch-first.
   [#511](https://github.com/OpenAssetIO/OpenAssetIO/issues/511)
@@ -178,6 +182,10 @@ v1.0.0-alpha.X
 
 
 ### Improvements
+
+- Added `kEntityResolutionError` batch element error code, to mirror
+  the `EntityResolutionError` exception class.
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
 
 - Added `openassetio-python` C++-to-Python bridge library, providing
   a `createPythonPluginSystemManagerImplementationFactory` function,

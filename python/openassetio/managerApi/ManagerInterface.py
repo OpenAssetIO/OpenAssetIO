@@ -263,11 +263,15 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     # @{
 
     @abc.abstractmethod
-    def resolve(self, entityRefs, traitSet, context, hostSession):
+    def resolve(self, entityRefs, traitSet, context, hostSession, successCallback, errorCallback):
         """
-        Returns a @fqref{TraitsData} "TraitsData"
+        Provides a @fqref{TraitsData} "TraitsData"
         populated with the available data for the requested set of
         traits for each given @ref entity_reference.
+
+        This call should block until all resolutions are complete and
+        callbacks have been called. Callbacks must be called on the
+        same thread that called `resolve`.
 
         Any traits that aren't applicable to any particular entity
         reference should not be set in the resulting data. This covers
@@ -314,20 +318,24 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @return `List[Union[str,`
-            exceptions.EntityResolutionError,
-            exceptions.InvalidEntityReference `]]`
-        A list containing either a populated TraitsData instance for
-        each reference; `EntityResolutionError` if a supplied entity
-        reference does not have a meaningful string representation,
-        or it is a valid reference format that doesn't exist; or
-        `InvalidEntityReference` if a supplied entity reference should
-        not be resolved for that context, for example, if the context
-        access is `kWrite` and the entity is an existing version.
+        @param successCallback Callback that must be called for each
+        successful resolution of an entity reference. It should be
+        given the corresponding index of the entity reference in
+        `entityRefs` along with its `TraitsData`. The callback must be
+        called on the same thread that initiated the call to `resolve`.
+
+        @param errorCallback Callback that must be called for each
+        failed resolution of an entity reference. It should be given the
+        corresponding index of the entity reference in `entityRefs`
+        along with a populated @fqref{BatchElementError}
+        "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+        "ErrorCodes"). The callback must be called on the same thread
+        that initiated the call to `resolve`.
 
         @see @ref entityExists
-        @see @fqref{hostApi.Manager.isEntityReferenceString}
+        @see @fqref{managerApi.ManagerInterface.isEntityReferenceString}
         "isEntityReferenceString"
+        @see @fqref{BatchElementError} "BatchElementError"
         """
         raise NotImplementedError
 

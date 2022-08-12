@@ -28,3 +28,6 @@
 
 /// Unknown error when processing a batch element.
 #define OPENASSETIO_BatchErrorCode_kUnknown (OPENASSETIO_BatchErrorCode_BEGIN + 0)
+
+/// Entity resolution failure.
+#define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 1)

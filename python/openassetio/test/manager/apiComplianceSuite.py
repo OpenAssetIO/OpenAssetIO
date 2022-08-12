@@ -33,8 +33,7 @@ handled through additional suites local to the manager's implementation.
 # pylint: disable=invalid-name, missing-function-docstring, no-member
 
 from .harness import FixtureAugmentedTestCase
-from ...exceptions import EntityResolutionError
-from ... import Context, TraitsData
+from ... import BatchElementError, Context, TraitsData
 
 
 __all__ = []
@@ -304,10 +303,21 @@ class Test_resolve(FixtureAugmentedTestCase):
     def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_writeonly_entity", Context.kRead)
 
+    def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
+        self.__testResolutionError("a_reference_to_a_missing_entity", Context.kRead)
+
     def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
         context.access = access
-        results = self._manager.resolve(references, traits, context)
+        results = []
+
+        self._manager.resolve(
+            references, traits, context,
+            lambda _idx, traits_data: results.append(traits_data),
+            lambda idx, batch_element_error: self.fail(
+                f"Error processing '{references[idx].toString()}': {batch_element_error.message}")
+        )
+
         self.assertEqual(len(results), len(references))
         for result in results:
             self.assertEqual(result.traitSet(), expected_traits)
@@ -315,13 +325,25 @@ class Test_resolve(FixtureAugmentedTestCase):
     def __testResolutionError(self, fixture_name, access):
         reference = self._manager.createEntityReference(
             self.requireFixture(fixture_name, skipTestIfMissing=True))
+
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
-        expected_error = EntityResolutionError(expected_msg, reference)
+        expected_error = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, expected_msg)
+
         context = self.createTestContext()
         context.access = access
-        [result] = self._manager.resolve([reference], self.a_set_of_valid_traits, context)
-        self.assertIsInstance(result, EntityResolutionError)
-        self.assertEqual(str(result), str(expected_error))
+
+        results = []
+        self._manager.resolve(
+            [reference], self.a_set_of_valid_traits, context,
+            lambda _idx, _traits_data: self.fail("Unexpected success callback"),
+            lambda _idx, batch_element_error: results.append(batch_element_error)
+        )
+        [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
+
+        self.assertIsInstance(actual_error, BatchElementError)
+        self.assertEqual(actual_error.code, expected_error.code)
+        self.assertEqual(actual_error.message, expected_error.message)
 
 
 class Test_createChildState(FixtureAugmentedTestCase):

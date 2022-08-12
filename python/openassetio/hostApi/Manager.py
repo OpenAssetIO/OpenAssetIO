@@ -555,11 +555,15 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def resolve(self, entityRefs, traitSet, context):
+    def resolve(self, entityRefs, traitSet, context, successCallback, errorCallback):
         """
-        Returns a @fqref{TraitsData} "TraitsData"
+        Provides a @fqref{TraitsData} "TraitsData"
         populated with the available data for the requested set of
         traits for each given @ref entity_reference.
+
+        This call will block until all resolutions are complete and
+        callbacks have been called. Callbacks will be called on the
+        same thread that called `resolve`
 
         Any traits that aren't applicable to any particular entity
         reference will not be set in the returned data. Consequently, a
@@ -592,21 +596,22 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         the supplied entity references will be set in the resulting
         data.
 
-        @return `List[Union[`
-            @fqref{TraitsData}
-            "TraitsData",
-            exceptions.EntityResolutionError,
-            exceptions.InvalidEntityReference `]]`
-        A list containing either a populated TraitsData instance for
-        each reference; `EntityResolutionError` if there is any runtime
-        error during the resolution of the entity, including internal
-        failure modes; or `InvalidEntityReference` if a supplied entity
-        reference should not be resolved for that context, for example,
-        if the context access is `kWrite` and the entity is an existing
-        version - the exception means that it is not a valid action to
-        perform on the entity.
+        @param successCallback Callback that will be called for each
+        successful resolution of an entity reference. It will be
+        given the corresponding index of the entity reference in
+        `entityRefs` along with its `TraitsData`. The callback will be
+        called on the same thread that initiated the call to `resolve`.
+
+        @param errorCallback Callback that will be called for each
+        failed resolution of an entity reference. It will be given the
+        corresponding index of the entity reference in `entityRefs`
+        along with a populated @fqref{BatchElementError}
+        "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+        "ErrorCodes"). The callback will be called on the same thread
+        that initiated the call to `resolve`.
         """
-        return self.__impl.resolve(entityRefs, traitSet, context, self.__hostSession)
+        self.__impl.resolve(
+            entityRefs, traitSet, context, self.__hostSession, successCallback, errorCallback)
 
     ## @}
 

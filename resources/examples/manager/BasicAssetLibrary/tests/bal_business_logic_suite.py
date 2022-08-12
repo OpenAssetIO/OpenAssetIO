@@ -22,7 +22,7 @@ BasicAssetLibrary manager behaves with the correct business logic.
 
 import os
 
-from openassetio import Context, TraitsData
+from openassetio import BatchElementError, Context, TraitsData
 from openassetio.traits.managementPolicy import ManagedTrait
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
@@ -123,13 +123,26 @@ class Test_resolve(FixtureAugmentedTestCase):
         },
     }
 
-    def test_matches_expected_values(self):
+    def test_when_refs_found_then_success_callback_called_with_expected_values(self):
         entity_references = [
-            self._manager.createEntityReference(ref_str) for ref_str in self.__entities.keys()
+            self._manager.createEntityReference(ref_str) for ref_str in self.__entities
         ]
         trait_set = {"string", "number", "test-data"}
         context = self.createTestContext(access=Context.kRead)
-        results = self._manager.resolve(list(entity_references), trait_set, context)
+
+        results = [None] * len(entity_references)
+
+        def success_cb(idx, traits_data):
+            results[idx] = traits_data
+
+        def error_cb(idx, batchElementError):
+            self.fail(
+                f"Unexpected error for '{entity_references[idx].toString()}':"
+                f" {batchElementError.message}")
+
+        self._manager.resolve(
+            entity_references, trait_set, context, success_cb, error_cb)
+
         for ref, result in zip(entity_references, results):
             # Check all traits are present, and their properties.
             # TODO(tc): When we have a better introspection API in

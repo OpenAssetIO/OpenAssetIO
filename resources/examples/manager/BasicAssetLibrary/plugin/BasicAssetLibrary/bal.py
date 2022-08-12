@@ -100,7 +100,12 @@ def entity(entity_info: EntityInfo, library: dict) -> Entity:
     """
     Retrieves the Entity data addressed by the supplied EntityInfo
     """
-    return Entity(**library["entities"][entity_info.name]["versions"][-1])
+    entities_dict = library["entities"]
+    entity_dict = entities_dict.get(entity_info.name)
+    if entity_dict is None:
+        raise UnknownBALEntity()
+
+    return Entity(**entity_dict["versions"][-1])
 
 
 def managementPolicy(trait_set: set[str], library: dict) -> dict:
@@ -120,3 +125,7 @@ def managementPolicy(trait_set: set[str], library: dict) -> dict:
     else:
         policy = read_policies.get("default", {"openassetio.Managed": {}})
     return policy
+
+
+class UnknownBALEntity(Exception):
+    pass
