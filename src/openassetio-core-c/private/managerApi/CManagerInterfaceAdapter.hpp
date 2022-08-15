@@ -60,6 +60,13 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   [[nodiscard]] bool isEntityReferenceString(const std::string& someString,
                                              const HostSessionPtr& hostSession) const override;
 
+  /// Wrap the C suite's `resolve` function.
+  /// @todo Implement C API. Currently throws `runtime_error`.
+  void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+               const ContextConstPtr& context, const HostSessionPtr& hostSession,
+               const ResolveSuccessCallback& successCallback,
+               const ResolveErrorCallback& errorCallback) override;
+
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
   oa_managerApi_CManagerInterface_h handle_;

@@ -81,6 +81,14 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, isEntityReferenceString, someString,
                            hostSession);
   }
+
+  void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+               const ContextConstPtr& context, const HostSessionPtr& hostSession,
+               const ResolveSuccessCallback& successCallback,
+               const ResolveErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet, context,
+                           hostSession, successCallback, errorCallback);
+  }
 };
 
 }  // namespace managerApi
@@ -112,5 +120,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("stateFromPersistenceToken", &ManagerInterface::stateFromPersistenceToken,
            py::arg("token"), py::arg("hostSession").none(false))
       .def("isEntityReferenceString", &ManagerInterface::isEntityReferenceString,
-           py::arg("someString"), py::arg("hostSession").none(false));
+           py::arg("someString"), py::arg("hostSession").none(false))
+      .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"));
 }

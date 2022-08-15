@@ -3,10 +3,13 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <string>
 
 #include <openassetio/export.h>
+#include <openassetio/BatchElementError.hpp>
+#include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
@@ -549,7 +552,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * by the manager.
    *
    * @see @needsref entityExists
-   * @see @needsref resolve
+   * @see @ref resolve
    */
   [[nodiscard]] virtual bool isEntityReferenceString(const std::string& someString,
                                                      const HostSessionPtr& hostSession) const = 0;
@@ -557,6 +560,127 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * @}
    */
+
+  /**
+   * @name Entity Reference Resolution
+   *
+   * The concept of resolution is turning an @ref entity_reference into
+   * a 'finalized' string. This, ultimately, is anything meaningful to
+   * the situation. It could be a color space, a directory, a script or
+   * image sequence. A rule of thumb is that a resolved @ref
+   * entity_reference should be the string that the application would
+   * have anyway, in a unmanaged environment. For some kind of Entity -
+   * such as a 'Shot', for example, there may not be a meaningful
+   * string, though often some sensible value can be returned.
+   *
+   * @{
+   */
+
+  /**
+   * Callback signature used for a successful entity resolution.
+   */
+  using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataConstPtr&)>;
+
+  /**
+   * Callback signature used for an unsuccessful entity resolution.
+   *
+   * This must be called for errors that are specific to a particular
+   * reference in a batch. Exceptions can be thrown to indicate a
+   * whole-batch error.
+   *
+   * The appropriate error code should be used for these errors. See
+   * @fqref{BatchElementError.ErrorCode} "ErrorCode".
+   */
+  using ResolveErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
+
+  /**
+   * Provides a @fqref{TraitsData} "TraitsData"
+   * populated with the available data for the requested set of
+   * traits for each given @ref entity_reference.
+   *
+   * This call should block until all resolutions are complete and
+   * callbacks have been called. Callbacks must be called on the
+   * same thread that called `resolve`.
+   *
+   * Any traits that aren't applicable to any particular entity
+   * reference should not be set in the resulting data. This covers
+   * any traits that are understood by the implementation, but not
+   * appliable to the entity in question, or are entirely unknown to
+   * the manager. Setting a trait in the result is an indication to
+   * the caller that that entity conceptually has that trait.
+   *
+   * @warning There is no requirement for a manager to populate all
+   * properties of known traits if appropriate data is not available.
+   * It is the responsibility of the caller to handle requested data
+   * being missing in a fashion appropriate to its intended use.
+   *
+   * In summary:
+   *   - Set the trait in the result TraitsData instance for each
+   *     entity if it is known and applicable to that entity, even if
+   *     it has no properties or there is no data available for
+   *     properties it does have.
+   *   - Set the properties of each trait where possible.
+   *
+   * When an @ref entity_reference points to a sequence of files,
+   * the frame, view, etc substitution tokens should be preserved,
+   * and in the sprintf compatible syntax.
+   *
+   * This function should attempt to take into account the current
+   * host/Context to ensure that any other substitution tokens are
+   * presented in a suitable form. The Context should also be
+   * carefully considered to ensure that the access does not violate
+   * any rules of the system - for example, resolving an existing
+   * entity reference for write.
+   *
+   * The supplied entity references will have already been validated
+   * as relevant to this manager (via
+   * @fqref{hostApi.Manager.isEntityReferenceString}
+   * "isEntityReferenceString").
+   *
+   * There may still be errors during resolution. An exception can be
+   * thrown for unexpected errors that should fail the whole batch, and
+   * it is up to the host to handle the exception. For errors specific
+   * to a particular entity, where other entities may still resolve
+   * successfully, an appropriate @fqref{BatchElementError}
+   * "BatchElementError" should be given to the `errorCallback`. Using
+   * HTTP status codes as an analogy, typically a server error (5xx)
+   * would correspond to an exception whereas a client error (4xx) would
+   * correspond to a `BatchElementError`.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param traitSet The traits to resolve for the supplied list of
+   * entity references.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The API session.
+   *
+   * @param successCallback Callback that must be called for each
+   * successful resolution of an entity reference. It should be
+   * given the corresponding index of the entity reference in
+   * `entityRefs` along with its `TraitsData`. The callback must be
+   * called on the same thread that initiated the call to `resolve`.
+   *
+   * @param errorCallback Callback that must be called for each
+   * failed resolution of an entity reference. It should be given the
+   * corresponding index of the entity reference in `entityRefs`
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback must be called on the same thread
+   * that initiated the call to `resolve`.
+   *
+   * @see @needsref entityExists
+   * @see @fqref{managerApi.ManagerInterface.isEntityReferenceString}
+   * "isEntityReferenceString"
+   * @see @fqref{BatchElementError} "BatchElementError"
+   */
+  virtual void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+                       const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                       const ResolveSuccessCallback& successCallback,
+                       const ResolveErrorCallback& errorCallback) = 0;
+
+  /// @}
 };
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

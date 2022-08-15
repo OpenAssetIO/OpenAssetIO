@@ -150,10 +150,10 @@
  * - Persist the trait data supplied to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  *   "register". It should be considered opaque, unless the trait is
  *   well understood. In all other cases it should be returned verbatim
- *   by @ref openassetio.managerApi.ManagerInterface.ManagerInterface.resolve
- *   "resolve" when passed the reference returned from the registration
- *   (conditional on any subsequent registrations to
- *   the reference and the policy regarding entity versioning).
+ *   by @fqref{managerApi.ManagerInterface.resolve} "resolve" when passed
+ *   the reference returned from the registration (conditional on any
+ *   subsequent registrations to the reference and the policy regarding
+ *   entity versioning).
  *
  * @note An example of a situation where the manager is allowed to
  * mutate trait property values is when it is semantically understood. A

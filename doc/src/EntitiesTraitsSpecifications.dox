@@ -322,11 +322,11 @@
  * @subsection Descriptions
  *
  * When a manager populates data in
- * @ref openassetio.managerApi.ManagerInterface.ManagerInterface.resolve
- * "resolve", then it should set all of the requested traits that are
- * applicable to the entity, and only those that have data in the case
- * of traits with properties. Traits that are not relevant, missing all
- * data, or not known to the manager should be omitted.
+ * @fqref{managerApi.ManagerInterface.resolve} "resolve", then it should
+ * set all of the requested traits that are applicable to the entity,
+ * and only those that have data in the case of traits with properties.
+ * Traits that are not relevant, missing all data, or not known to the
+ * manager should be omitted.
  *
  * When populating @needsref entityTraits, any traits that are
  * applicable, or the manager is capable of providing data for should be

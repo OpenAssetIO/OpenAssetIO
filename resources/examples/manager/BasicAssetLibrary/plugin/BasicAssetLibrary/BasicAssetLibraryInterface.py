@@ -110,16 +110,18 @@ class BasicAssetLibraryInterface(ManagerInterface):
             results.append(result)
         return results
 
-    def resolve(self, entityRefs, traitSet, context, hostSession, successCallback, errorCallback):
+    def resolve(
+        self, entityReferences, traitSet, context, hostSession, successCallback, errorCallback
+    ):
         if context.isForWrite():
             result = BatchElementError(
                 BatchElementError.ErrorCode.kEntityResolutionError,
                 "BAL entities are read-only")
-            for idx in range(len(entityRefs)):
+            for idx in range(len(entityReferences)):
                 errorCallback(idx, result)
             return
 
-        for idx, ref in enumerate(entityRefs):
+        for idx, ref in enumerate(entityReferences):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
             except bal.InvalidBALReference as exc:

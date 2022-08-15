@@ -3,6 +3,7 @@
 #pragma once
 
 #include <utility>
+#include <vector>
 
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
@@ -47,5 +48,8 @@ class EntityReference final {
  private:
   Str entityReferenceString_;
 };
+
+/// A list of entity references, used or batch-first functions.
+using EntityReferences = std::vector<EntityReference>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
