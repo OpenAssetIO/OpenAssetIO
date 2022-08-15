@@ -31,3 +31,6 @@
 
 /// Entity resolution failure.
 #define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 1)
+
+/// Failure due to malformed entity reference.
+#define OPENASSETIO_BatchErrorCode_kInvalidEntityReference (OPENASSETIO_BatchErrorCode_BEGIN + 2)

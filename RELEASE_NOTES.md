@@ -183,8 +183,9 @@ v1.0.0-alpha.X
 
 ### Improvements
 
-- Added `kEntityResolutionError` batch element error code, to mirror
-  the `EntityResolutionError` exception class.
+- Added `kEntityResolutionError` and `kInvalidEntityReference` batch
+  element error codes, to mirror the `EntityResolutionError` and
+  `InvalidEntityReference` exception classes, respectively.
   [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
 
 - Added `openassetio-python` C++-to-Python bridge library, providing

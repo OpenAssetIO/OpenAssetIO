@@ -298,13 +298,19 @@ class Test_resolve(FixtureAugmentedTestCase):
         self.__testResolution([ref], mixed_traits, Context.kRead, traits)
 
     def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
-        self.__testResolutionError("a_reference_to_a_readonly_entity", Context.kWrite)
+        self.__testResolutionError("a_reference_to_a_readonly_entity", access=Context.kWrite)
 
     def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
-        self.__testResolutionError("a_reference_to_a_writeonly_entity", Context.kRead)
+        self.__testResolutionError("a_reference_to_a_writeonly_entity", access=Context.kRead)
 
     def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
-        self.__testResolutionError("a_reference_to_a_missing_entity", Context.kRead)
+        self.__testResolutionError("a_reference_to_a_missing_entity")
+
+    def test_when_resolving_malformed_reference_then_then_invalid_reference_error_is_returned(
+            self):
+        self.__testResolutionError(
+            "a_malformed_entity_reference",
+            errorCode=BatchElementError.ErrorCode.kInvalidEntityReference)
 
     def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
@@ -322,13 +328,14 @@ class Test_resolve(FixtureAugmentedTestCase):
         for result in results:
             self.assertEqual(result.traitSet(), expected_traits)
 
-    def __testResolutionError(self, fixture_name, access):
+    def __testResolutionError(
+            self, fixture_name, access=Context.kRead,
+            errorCode=BatchElementError.ErrorCode.kEntityResolutionError):
         reference = self._manager.createEntityReference(
             self.requireFixture(fixture_name, skipTestIfMissing=True))
 
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
-        expected_error = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, expected_msg)
+        expected_error = BatchElementError(errorCode, expected_msg)
 
         context = self.createTestContext()
         context.access = access

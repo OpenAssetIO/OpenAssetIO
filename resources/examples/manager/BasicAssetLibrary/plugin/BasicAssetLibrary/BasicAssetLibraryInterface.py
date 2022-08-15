@@ -122,20 +122,27 @@ class BasicAssetLibraryInterface(ManagerInterface):
         for idx, ref in enumerate(entityRefs):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
-                entity = bal.entity(entity_info, self.__library)
-                result = TraitsData()
-                for trait in traitSet:
-                    trait_data = entity.traits.get(trait)
-                    if trait_data is not None:
-                        self.__add_trait_to_traits_data(trait, trait_data, result)
-
-                successCallback(idx, result)
-
-            except bal.UnknownBALEntity:
+            except bal.InvalidBALReference as exc:
                 result = BatchElementError(
-                    BatchElementError.ErrorCode.kEntityResolutionError,
-                    f"Entity '{ref.toString()}' not found")
+                    BatchElementError.ErrorCode.kInvalidEntityReference, str(exc))
                 errorCallback(idx, result)
+            else:
+                try:
+                    entity = bal.entity(entity_info, self.__library)
+                except bal.UnknownBALEntity:
+                    result = BatchElementError(
+                        BatchElementError.ErrorCode.kEntityResolutionError,
+                        f"Entity '{ref.toString()}' not found")
+                    errorCallback(idx, result)
+                else:
+                    result = TraitsData()
+                    for trait in traitSet:
+                        trait_data = entity.traits.get(trait)
+                        if trait_data is not None:
+                            self.__add_trait_to_traits_data(trait, trait_data, result)
+
+                    successCallback(idx, result)
+
 
     @classmethod
     def __dict_to_traits_data(cls, traits_dict: dict):

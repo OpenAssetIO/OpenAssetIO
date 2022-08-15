@@ -21,7 +21,15 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  * EntityReference can be constructed from that string.
  *
  * @warning EntityReferences should not be constructed directly by the
- * @ref host, use the creation methods of the manager instead.
+ * @ref host, use the creation methods of the manager instead,
+ * @fqref{hostApi.Manager.createEntityReference} "createEntityReference"
+ * and @fqref{hostApi.Manager.createEntityReferenceIfValid}
+ * "createEntityReferenceIfValid".
+ *
+ * Note that this does not preclude the possibility of a malformed
+ * reference. See
+ * @fqref{BatchElementError.ErrorCode.kInvalidEntityReference}
+ * "kInvalidEntityReference".
  */
 class EntityReference final {
  public:

@@ -96,7 +96,10 @@ fixtures = {
             "the_error_string_for_a_reference_to_a_readonly_entity": "BAL entities are read-only",
             "a_reference_to_a_missing_entity": "bal:///missing_entity",
             "the_error_string_for_a_reference_to_a_missing_entity": (
-                "Entity 'bal:///missing_entity' not found")
+                "Entity 'bal:///missing_entity' not found"),
+            "a_malformed_entity_reference": f"bal:///",
+            "the_error_string_for_a_malformed_entity_reference": (
+                f"Missing entity name in path component")
         }
     }
 }
