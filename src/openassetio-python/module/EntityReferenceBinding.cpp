@@ -10,6 +10,6 @@ void registerEntityReference(const py::module &mod) {
   using openassetio::EntityReference;
 
   py::class_<EntityReference>{mod, "EntityReference", py::is_final()}
-      .def(py::init<openassetio::Str>(), py::arg("entityReferenceString"))
+      .def(py::init<std::string>(), py::arg("entityReferenceString"))
       .def("toString", &EntityReference::toString);
 }

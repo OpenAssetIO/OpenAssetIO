@@ -74,9 +74,9 @@ bool Manager::isEntityReferenceString(const std::string &someString) const {
   return managerInterface_->isEntityReferenceString(someString, hostSession_);
 }
 
-const Str kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";
+const char *kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";
 
-EntityReference Manager::createEntityReference(Str entityReferenceString) const {
+EntityReference Manager::createEntityReference(std::string entityReferenceString) const {
   if (!isEntityReferenceString(entityReferenceString)) {
     throw std::domain_error{kCreateEntityReferenceErrorMessage + entityReferenceString};
   }
@@ -84,7 +84,7 @@ EntityReference Manager::createEntityReference(Str entityReferenceString) const 
 }
 
 std::optional<EntityReference> Manager::createEntityReferenceIfValid(
-    Str entityReferenceString) const {
+    std::string entityReferenceString) const {
   if (!isEntityReferenceString(entityReferenceString)) {
     return {};
   }

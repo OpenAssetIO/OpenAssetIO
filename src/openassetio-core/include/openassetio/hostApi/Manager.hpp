@@ -396,7 +396,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @todo Use a custom exception type rather than std::domain_error.
    */
-  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
+  [[nodiscard]] EntityReference createEntityReference(std::string entityReferenceString) const;
 
   /**
    * Create an @ref EntityReference object wrapping a given
@@ -413,7 +413,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * valid, not containing a value otherwise.
    */
   [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
-      Str entityReferenceString) const;
+      std::string entityReferenceString) const;
 
   /**
    * @}

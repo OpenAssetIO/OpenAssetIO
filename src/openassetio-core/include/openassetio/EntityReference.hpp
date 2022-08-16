@@ -2,6 +2,7 @@
 // Copyright 2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <string>
 #include <utility>
 
 #include <openassetio/export.h>
@@ -28,16 +29,16 @@ class EntityReference final {
   /**
    * Constructs an EntityReference around the supplied string.
    */
-  explicit EntityReference(Str entityReferenceString)
+  explicit EntityReference(std::string entityReferenceString)
       : entityReferenceString_(std::move(entityReferenceString)) {}
 
   /**
    * @return The string representation of this entity reference.
    */
-  [[nodiscard]] const Str& toString() const { return entityReferenceString_; }
+  [[nodiscard]] const std::string& toString() const { return entityReferenceString_; }
 
  private:
-  Str entityReferenceString_;
+  std::string entityReferenceString_;
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
