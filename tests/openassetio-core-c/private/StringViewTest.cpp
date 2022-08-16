@@ -16,7 +16,7 @@
 
 SCENARIO("Creating, modifying and querying a C API mutable StringView") {
   GIVEN("A populated C++ string") {
-    openassetio::Str expectedStr = "some string";
+    std::string expectedStr = "some string";
 
     WHEN("a StringView is constructed wrapping the C++ string") {
       oa_StringView actualStringView{expectedStr.size(), expectedStr.data(), expectedStr.size()};
@@ -39,7 +39,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     }
 
     AND_GIVEN("a StringView wrapping a buffer with sufficient capacity for C++ string") {
-      openassetio::Str storage(expectedStr.size(), '\0');
+      std::string storage(expectedStr.size(), '\0');
 
       oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
@@ -54,7 +54,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     }
 
     AND_GIVEN("a StringView wrapping a buffer with insufficient capacity for C++ string") {
-      openassetio::Str storage(3, '\0');
+      std::string storage(3, '\0');
 
       oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
@@ -70,7 +70,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
     constexpr const char* kExpectedStr = "some string";
 
     AND_GIVEN("a StringView wrapping a buffer with sufficient capacity") {
-      openassetio::Str storage(std::string_view(kExpectedStr).size(), '\0');
+      std::string storage(std::string_view(kExpectedStr).size(), '\0');
 
       oa_StringView actualStringView{storage.size(), storage.data(), 0};
 
@@ -85,7 +85,7 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
 
 SCENARIO("Creating and querying a C API immutable ConstStringView") {
   GIVEN("A char buffer storing a string") {
-    openassetio::Str expectedStr;
+    std::string expectedStr;
     expectedStr = "some string";
 
     WHEN("a ConstStringView is constructed wrapping the buffer") {
