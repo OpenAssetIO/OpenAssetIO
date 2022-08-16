@@ -6,6 +6,14 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Added `EntityReference` type to encapsulate a validated string
+  so it can be used with entity-related API methods. These should always
+  be created with either `Manager.createEntityReference` or
+  `Manager.createEntityReferenceIfValid`. Updated the signature of
+  `Manager` and `ManagerInterface` methods to take `EntityReference`
+  object arguments, rather than entity reference strings.
+  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
+
 - Renamed `isEntityReference` to `isEntityReferenceString` to avoid
   ambiguity when also working with the new `EntityReference` type.
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
@@ -166,12 +174,6 @@ v1.0.0-alpha.X
 
 
 ### Improvements
-
-- Added `EntityReference` type to encapsulate a validated string
-  so it can be used with entity-related API methods. These should
-  always be created with either `Manager.createEntityReference` or
-  `Manager.createEntityReferenceIfValid`.
-  [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
 - Added `openassetio-python` C++-to-Python bridge library, providing
   a `createPythonPluginSystemManagerImplementationFactory` function,

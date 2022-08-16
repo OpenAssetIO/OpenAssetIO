@@ -22,7 +22,7 @@ import sys
 
 import pytest
 
-from openassetio import Context, TraitsData
+from openassetio import Context, EntityReference, TraitsData
 from openassetio.log import LoggerInterface
 from openassetio.managerApi import ManagerInterface, Host, HostSession
 from openassetio.hostApi import HostInterface
@@ -154,13 +154,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.defaultEntityReference(traitSets, context, hostSession)
 
     def entityVersion(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         return self.mock.entityVersion(entityRefs, context, hostSession)
 
     def entityVersions(
             self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(includeMetaVersions, bool)
         assert isinstance(maxNumVersions, int)
@@ -168,7 +168,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, context, hostSession, includeMetaVersions, maxNumVersions)
 
     def finalizedEntityVersion(self, entityRefs, context, hostSession, overrideVersionName=None):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(overrideVersionName, str) or overrideVersionName is None
         return self.mock.finalizedEntityVersion(
@@ -176,11 +176,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
 
     def setRelatedReferences(self, entityRef, relationshipTraitsData, relatedRefs, context,
                 hostSession, append=True):
+        assert isinstance(entityRef, EntityReference)
+        self.__assertIsIterableOf(relatedRefs, EntityReference)
         return self.mock.setRelatedReferences(
             entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append)
 
     def preflight(self, targetEntityRefs, traitSet, context, hostSession):
-        self.__assertIsIterableOf(targetEntityRefs, str)
+        self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
         return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession)
@@ -220,29 +222,29 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.isEntityReferenceString(someString, hostSession)
 
     def entityExists(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         return self.mock.entityExists(entityRefs, context, hostSession)
 
     def resolve(self, entityRefs, traitSet, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
         return self.mock.resolve(entityRefs, traitSet, context, hostSession)
 
     def entityName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         return self.mock.entityName(entityRefs, context, hostSession)
 
     def entityDisplayName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         return self.mock.entityDisplayName(entityRefs, context, hostSession)
 
     def getRelatedReferences(
             self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None):
-        self.__assertIsIterableOf(entityRefs, str)
+        self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
         if resultTraitSet is not None:
@@ -252,7 +254,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet)
 
     def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession):
-        self.__assertIsIterableOf(targetEntityRefs, str)
+        self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(entityTraitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
         assert len(targetEntityRefs) == len(entityTraitsDatas)

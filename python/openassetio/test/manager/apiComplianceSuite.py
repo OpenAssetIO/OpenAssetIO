@@ -242,8 +242,10 @@ class Test_entityExists(FixtureAugmentedTestCase):
     """
 
     def setUp(self):
-        self.collectRequiredFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True)
-        self.collectRequiredFixture("a_reference_to_a_nonexisting_entity")
+        self.a_reference_to_an_existing_entity = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True))
+        self.a_reference_to_a_nonexisting_entity = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_nonexisting_entity"))
 
     def test_existing_reference_returns_true(self):
         context = self.createTestContext()
@@ -268,7 +270,8 @@ class Test_resolve(FixtureAugmentedTestCase):
     managerApi.ManagerInterface.resolve.
     """
     def setUp(self):
-        self.collectRequiredFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)
+        self.a_reference_to_a_readable_entity = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True))
         self.collectRequiredFixture("a_set_of_valid_traits")
 
     def test_when_no_traits_then_returned_specification_is_empty(self):
@@ -310,7 +313,8 @@ class Test_resolve(FixtureAugmentedTestCase):
             self.assertEqual(result.traitSet(), expected_traits)
 
     def __testResolutionError(self, fixture_name, access):
-        reference = self.requireFixture(fixture_name, skipTestIfMissing=True)
+        reference = self._manager.createEntityReference(
+            self.requireFixture(fixture_name, skipTestIfMissing=True))
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
         expected_error = EntityResolutionError(expected_msg, reference)
         context = self.createTestContext()

@@ -352,6 +352,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * If `false`, this manager should no longer be involved in actions
    * relating to the string.
    *
+   * This function is useful for control flow where constructing an
+   * @fqref{EntityReference} "EntityReference" object is not (yet)
+   * needed. For other situations, consider using @ref
+   * createEntityReferenceIfValid instead, to validate and (potentially)
+   * return an `EntityReference` in a single call.
+   *
    * @param someString `str` The string to be inspected.
    *
    * @return `bool` `True` if the supplied token should be

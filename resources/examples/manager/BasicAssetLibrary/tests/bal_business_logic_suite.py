@@ -124,7 +124,9 @@ class Test_resolve(FixtureAugmentedTestCase):
     }
 
     def test_matches_expected_values(self):
-        entity_references = self.__entities.keys()
+        entity_references = [
+            self._manager.createEntityReference(ref_str) for ref_str in self.__entities.keys()
+        ]
         trait_set = {"string", "number", "test-data"}
         context = self.createTestContext(access=Context.kRead)
         results = self._manager.resolve(list(entity_references), trait_set, context)
@@ -132,7 +134,7 @@ class Test_resolve(FixtureAugmentedTestCase):
             # Check all traits are present, and their properties.
             # TODO(tc): When we have a better introspection API in
             # TraitsData, we can assert there aren't any bonus values.
-            for trait in self.__entities[ref].keys():
+            for trait in self.__entities[ref.toString()].keys():
                 self.assertTrue(result.hasTrait(trait))
-                for property_, value in self.__entities[ref][trait].items():
+                for property_, value in self.__entities[ref.toString()][trait].items():
                     self.assertEqual(result.getTraitProperty(trait, property_), value)
