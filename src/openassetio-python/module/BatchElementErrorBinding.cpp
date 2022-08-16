@@ -15,7 +15,7 @@ void registerBatchElementError(const py::module &mod) {
       "kUnknown", BatchElementError::ErrorCode::kUnknown);
 
   batchElementError
-      .def(py::init<BatchElementError::ErrorCode, openassetio::Str>(), py::arg("code"),
+      .def(py::init<BatchElementError::ErrorCode, std::string>(), py::arg("code"),
            py::arg("message"))
       .def_readonly("code", &BatchElementError::code)
       .def_readonly("message", &BatchElementError::message);
