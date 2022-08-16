@@ -55,7 +55,7 @@ class OPENASSETIO_CORE_EXPORT Host final {
    * only alpha-numeric characters and '.', '_' or '-', commonly in
    * the form of a 'reverse-DNS' style string, for example:
    *
-   *     "org.openassetio.host.test"
+   *     "org.openassetio.test.host"
    */
   [[nodiscard]] Identifier identifier() const;
 

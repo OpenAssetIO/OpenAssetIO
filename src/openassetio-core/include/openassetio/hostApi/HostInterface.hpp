@@ -61,7 +61,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    * '_' or '-'. We suggest using the "reverse DNS" style, for
    * example:
    *
-   *    "org.openassetio.host.test"
+   *    "org.openassetio.test.host"
    *
    * @return host identifier.
    */

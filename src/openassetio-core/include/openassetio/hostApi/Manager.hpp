@@ -41,7 +41,7 @@ OPENASSETIO_DECLARE_PTR(Manager)
  * @code
  * factory = openassetio.hostApi.ManagerFactory(
  *     hostImpl, consoleLogger, pluginFactory)
- * manager = factory.createManager("org.openassetio.test")
+ * manager = factory.createManager("org.openassetio.test.manager")
  * @endcode
  *
  * A Manager instance is the single point of interaction with an asset
@@ -80,7 +80,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * identifier will use only alpha-numeric characters and '.', '_' or
    * '-'. They generally follow the 'reverse-DNS' style, for example:
    *
-   *     "org.openassetio.manager.test"
+   *     "org.openassetio.test.manager"
    */
   [[nodiscard]] Identifier identifier() const;
 
