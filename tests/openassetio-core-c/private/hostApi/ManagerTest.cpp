@@ -262,14 +262,14 @@ SCENARIO("A host calls Manager::displayName") {
 
     // Storage for displayName - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
-    const openassetio::Str initialStrValue = "initial string";
-    openassetio::Str displayNameStorage = initialStrValue;
+    const std::string initialStrValue = "initial string";
+    std::string displayNameStorage = initialStrValue;
     displayNameStorage.resize(kStringBufferSize, '\0');
     oa_StringView actualDisplayName{displayNameStorage.size(), displayNameStorage.data(),
                                     initialStrValue.size()};
 
     AND_GIVEN("ManagerInterface::displayName() will succeed") {
-      const openassetio::Str expectedDisplayName = "My Display Name";
+      const std::string expectedDisplayName = "My Display Name";
       REQUIRE_CALL(mockManagerInterface, displayName()).RETURN(expectedDisplayName);
 
       WHEN("the Manager C API is queried for the displayName") {

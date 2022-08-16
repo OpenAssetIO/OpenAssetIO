@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -53,7 +54,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
      *
      * @see @fqref{hostApi.Manager.displayName} "Manager.displayName"
      */
-    Str displayName;
+    std::string displayName;
     /**
      * Arbitrary key-value information supplied by the manager.
      *

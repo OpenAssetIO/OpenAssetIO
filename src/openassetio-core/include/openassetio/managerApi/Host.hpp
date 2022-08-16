@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
@@ -66,7 +67,7 @@ class OPENASSETIO_CORE_EXPORT Host final {
    *
    *     "OpenAssetIO Test Host"
    */
-  [[nodiscard]] Str displayName() const;
+  [[nodiscard]] std::string displayName() const;
 
   /**
    * Returns other information that may be useful about the host.

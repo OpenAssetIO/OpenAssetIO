@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <string>
+
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
@@ -30,8 +32,8 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE_PURE(Identifier, ManagerInterface, identifier, /* no args */);
   }
 
-  [[nodiscard]] Str displayName() const override {
-    PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, displayName, /* no args */);
+  [[nodiscard]] std::string displayName() const override {
+    PYBIND11_OVERRIDE_PURE(std::string, ManagerInterface, displayName, /* no args */);
   }
 
   [[nodiscard]] InfoDictionary info() const override {

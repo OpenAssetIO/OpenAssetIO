@@ -15,7 +15,7 @@ HostPtr Host::make(hostApi::HostInterfacePtr hostInterface) {
 Host::Host(hostApi::HostInterfacePtr hostInterface) : hostInterface_{std::move(hostInterface)} {}
 
 Identifier Host::identifier() const { return hostInterface_->identifier(); }
-Str Host::displayName() const { return hostInterface_->displayName(); }
+std::string Host::displayName() const { return hostInterface_->displayName(); }
 InfoDictionary Host::info() const { return hostInterface_->info(); }
 
 }  // namespace managerApi

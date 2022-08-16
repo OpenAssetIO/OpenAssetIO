@@ -24,7 +24,7 @@ Manager::Manager(managerApi::ManagerInterfacePtr managerInterface,
 
 Identifier Manager::identifier() const { return managerInterface_->identifier(); }
 
-Str Manager::displayName() const { return managerInterface_->displayName(); }
+std::string Manager::displayName() const { return managerInterface_->displayName(); }
 
 InfoDictionary Manager::info() const { return managerInterface_->info(); }
 

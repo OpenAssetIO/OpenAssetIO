@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <string>
+
 #include <pybind11/stl.h>
 
 #include <openassetio/InfoDictionary.hpp>
@@ -23,8 +25,8 @@ struct PyHostInterface : HostInterface {
     PYBIND11_OVERRIDE_PURE(Identifier, HostInterface, identifier, /* no args */);
   }
 
-  [[nodiscard]] Str displayName() const override {
-    PYBIND11_OVERRIDE_PURE(Str, HostInterface, displayName, /* no args */);
+  [[nodiscard]] std::string displayName() const override {
+    PYBIND11_OVERRIDE_PURE(std::string, HostInterface, displayName, /* no args */);
   }
 
   [[nodiscard]] InfoDictionary info() const override {

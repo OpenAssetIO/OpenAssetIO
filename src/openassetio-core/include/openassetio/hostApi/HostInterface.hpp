@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
@@ -75,7 +76,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    *
    * @return Host's display name.
    */
-  [[nodiscard]] virtual Str displayName() const = 0;
+  [[nodiscard]] virtual std::string displayName() const = 0;
 
   /**
    * Returns other information that may be useful about this Host.

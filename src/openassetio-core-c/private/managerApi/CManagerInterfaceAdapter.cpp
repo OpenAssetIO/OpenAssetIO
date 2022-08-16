@@ -41,7 +41,7 @@ Identifier CManagerInterfaceAdapter::identifier() const {
   return {out.data, out.size};
 }
 
-Str CManagerInterfaceAdapter::displayName() const {
+std::string CManagerInterfaceAdapter::displayName() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.

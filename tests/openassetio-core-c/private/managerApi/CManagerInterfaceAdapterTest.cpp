@@ -137,7 +137,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
           .RETURN(oa_ErrorCode_kOK);
 
       WHEN("the manager's displayName is queried") {
-        const openassetio::Str actualDisplayName = cManagerInterface.displayName();
+        const std::string actualDisplayName = cManagerInterface.displayName();
 
         THEN("the returned displayName matches expected displayName") {
           CHECK(actualDisplayName == expectedDisplayName);

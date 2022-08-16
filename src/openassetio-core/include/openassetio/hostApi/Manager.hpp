@@ -91,7 +91,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    *     "OpenAssetIO Test Manager"
    */
-  [[nodiscard]] Str displayName() const;
+  [[nodiscard]] std::string displayName() const;
 
   /**
    * Returns other information that may be useful about this @ref

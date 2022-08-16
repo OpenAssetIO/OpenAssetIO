@@ -198,7 +198,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @return Manager's display name.
    */
-  [[nodiscard]] virtual Str displayName() const = 0;
+  [[nodiscard]] virtual std::string displayName() const = 0;
 
   /**
    * Returns other information that may be useful about this @ref
