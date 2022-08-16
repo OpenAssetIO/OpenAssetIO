@@ -199,8 +199,8 @@ SCENARIO("A host calls Manager::identifier") {
 
     // Storage for identifier - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
-    const openassetio::Str initialStrValue = "initial string";
-    openassetio::Str identifierStorage = initialStrValue;
+    const std::string initialStrValue = "initial string";
+    openassetio::Identifier identifierStorage = initialStrValue;
     identifierStorage.resize(kStringBufferSize, '\0');
     oa_StringView actualIdentifier{identifierStorage.size(), identifierStorage.data(),
                                    initialStrValue.size()};

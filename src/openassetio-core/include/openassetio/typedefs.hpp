@@ -59,7 +59,7 @@ using Str = std::string;
  */
 
 /// A @ref host or @ref manager identifier.
-using Identifier = Str;
+using Identifier = std::string;
 
 /// A list of identifiers.
 using Identifiers = std::vector<Identifier>;

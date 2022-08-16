@@ -70,7 +70,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
           .RETURN(oa_ErrorCode_kOK);
 
       WHEN("the manager's identifier is queried") {
-        const openassetio::Str actualIdentifier = cManagerInterface.identifier();
+        const openassetio::Identifier actualIdentifier = cManagerInterface.identifier();
 
         THEN("the returned identifier matches expected identifier") {
           CHECK(actualIdentifier == expectedIdentifier);
