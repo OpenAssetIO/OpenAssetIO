@@ -40,9 +40,6 @@ using Bool = bool;
 using Int = int64_t;
 /// Real value type.
 using Float = double;
-/// String value type.
-using Str = std::string;
-
 /**
  * @}
  */
