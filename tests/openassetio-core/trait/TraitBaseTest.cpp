@@ -8,9 +8,9 @@
 
 namespace {
 
-using openassetio::Str;
 using openassetio::TraitsData;
 using openassetio::TraitsDataPtr;
+using std::string;
 namespace trait = openassetio::trait;
 
 // TraitBase can't be tested directly, so we derive a test trait.
@@ -23,11 +23,13 @@ struct TestTrait : trait::TraitBase<TestTrait> {
 
   using TraitBase<TestTrait>::TraitBase;
 
-  [[nodiscard]] trait::TraitPropertyStatus getSomeProperty(Str* out) const {
+  [[nodiscard]] trait::TraitPropertyStatus getSomeProperty(std::string* out) const {
     return getTraitProperty(out, kId, kSomeProperty);
   }
 
-  void setSomeProperty(const Str& value) { data()->setTraitProperty(kId, kSomeProperty, value); }
+  void setSomeProperty(const std::string& value) {
+    data()->setTraitProperty(kId, kSomeProperty, value);
+  }
 
   // Helpers for tests
 

@@ -52,7 +52,7 @@ struct LocateableContentTrait : trait::TraitBase<LocateableContentTrait> {
 
   using TraitBase<LocateableContentTrait>::TraitBase;
 
-  void setUrl(Str url);
+  void setUrl(std::string url);
 };
 }  // namespace openassetio
 

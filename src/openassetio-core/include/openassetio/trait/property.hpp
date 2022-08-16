@@ -35,9 +35,9 @@ namespace property {
  * functions, so it is highly desirable that keys are ASCII to maximise
  * portability when mapping property keys to member function names.
  */
-using Key = openassetio::Str;
+using Key = std::string;
 /// Property dictionary values.
-using Value = std::variant<Bool, Int, Float, Str>;
+using Value = std::variant<Bool, Int, Float, std::string>;
 }  // namespace property
 
 /**

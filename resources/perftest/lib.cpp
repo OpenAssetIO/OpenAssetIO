@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include "lib.hpp"
 
-void openassetio::LocateableContentTrait::setUrl(openassetio::Str url) {
+void openassetio::LocateableContentTrait::setUrl(std::string url) {
   data()->setTraitProperty(kId, kUrl, std::move(url));
 }
 
