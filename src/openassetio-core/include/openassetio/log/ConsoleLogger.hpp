@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
+#include <string>
 
 #include <openassetio/export.h>
 #include <openassetio/log/LoggerInterface.hpp>
@@ -24,7 +25,7 @@ class OPENASSETIO_CORE_EXPORT ConsoleLogger final : public LoggerInterface {
 
   /**
    */
-  void log(Severity severity, const Str& message) override;
+  void log(Severity severity, const std::string& message) override;
 
  private:
   explicit ConsoleLogger(bool shouldColorOutput);

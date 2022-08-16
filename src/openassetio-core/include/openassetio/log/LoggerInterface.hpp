@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <string>
 
 #include <openassetio/export.h>
 #include <openassetio/enum.hpp>
@@ -48,7 +49,7 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @param severity One of the severity constants defined in @ref
    * Severity.
    */
-  virtual void log(Severity severity, const Str& message) = 0;
+  virtual void log(Severity severity, const std::string& message) = 0;
 };
 }  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

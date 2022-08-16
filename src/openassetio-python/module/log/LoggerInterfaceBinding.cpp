@@ -16,7 +16,7 @@ namespace log {
 struct PyLoggerInterface : LoggerInterface {
   using LoggerInterface::LoggerInterface;
 
-  void log(Severity severity, const Str& message) override {
+  void log(Severity severity, const std::string& message) override {
     PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
   }
 };
@@ -26,7 +26,6 @@ struct PyLoggerInterface : LoggerInterface {
 
 void registerLoggerInterface(const py::module& mod) {
   using openassetio::Float;
-  using openassetio::Str;
   using openassetio::log::LoggerInterface;
   using openassetio::log::LoggerInterfacePtr;
   using openassetio::log::PyLoggerInterface;

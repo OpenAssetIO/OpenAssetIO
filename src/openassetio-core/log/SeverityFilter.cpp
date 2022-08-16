@@ -32,7 +32,7 @@ SeverityFilter::SeverityFilter(LoggerInterfacePtr upstreamLogger)
   }
 }
 
-void SeverityFilter::log(Severity severity, const Str& message) {
+void SeverityFilter::log(Severity severity, const std::string& message) {
   if (severity < minSeverity_) {
     return;
   }

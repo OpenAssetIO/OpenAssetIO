@@ -70,7 +70,7 @@ struct Fixture {
   /// A dummy LoggerInterface implementation
   struct LoggerImpl : openassetio::log::LoggerInterface {
     void log([[maybe_unused]] openassetio::log::LoggerInterface::Severity severity,
-             [[maybe_unused]] const openassetio::Str& message) override {}
+             [[maybe_unused]] const std::string& message) override {}
   };
 
   /// Enlarge the path so we likely exceed the small string optimization length

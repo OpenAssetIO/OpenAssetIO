@@ -17,7 +17,7 @@ ConsoleLoggerPtr ConsoleLogger::make(bool shouldColorOutput) {
 
 ConsoleLogger::ConsoleLogger(bool shouldColorOutput) : shouldColorOutput_(shouldColorOutput) {}
 
-void ConsoleLogger::log(Severity severity, const Str& message) {
+void ConsoleLogger::log(Severity severity, const std::string& message) {
   if (shouldColorOutput_) {
     std::cerr << "\033[0;" << kSeverityColors[severity] << "m";
   }
