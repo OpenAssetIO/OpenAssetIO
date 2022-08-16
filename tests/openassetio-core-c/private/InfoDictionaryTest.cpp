@@ -25,7 +25,7 @@ constexpr std::size_t kStrStorageCapacity = 500;
 
 SCENARIO("InfoDictionary construction, conversion and destruction") {
   // Storage for error messages coming from C API functions.
-  openassetio::Str errStorage(kStrStorageCapacity, '\0');
+  std::string errStorage(kStrStorageCapacity, '\0');
   oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
   GIVEN("a InfoDictionary handle constructed using the C API") {
@@ -150,7 +150,7 @@ TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
     const auto& expectedValueType = Fixture::kExpectedValueType;
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    std::string errStorage(kStrStorageCapacity, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("the type of an entry is queried") {
@@ -178,7 +178,7 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
       const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
       oa_ConstStringView key{nonExistentKey.data(), nonExistentKey.size()};
       // Storage for error message.
-      openassetio::Str errStorage(kStrStorageCapacity, '\0');
+      std::string errStorage(kStrStorageCapacity, '\0');
       oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
       // Initial value of storage for return value.
       const oa_InfoDictionary_ValueType initialValueType{};
@@ -328,7 +328,7 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     const std::string& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    std::string errStorage(kStrStorageCapacity, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("existing value is retrieved through C API") {
@@ -411,7 +411,7 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
     const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    std::string errStorage(kStrStorageCapacity, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     AND_GIVEN(
@@ -509,7 +509,7 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     // Storage for error messages coming from C API functions.
     // TODO(DF): The only exception currently possible is `bad_alloc`,
     //  which is tricky to test.
-    openassetio::Str errStorage(kStrStorageCapacity, '\0');
+    std::string errStorage(kStrStorageCapacity, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("an existing value of the same type is updated") {

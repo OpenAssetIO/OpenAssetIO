@@ -24,7 +24,7 @@ SCENARIO("throwIfError error code/message handling") {
 
   GIVEN("an error code and message") {
     const auto code = oa_ErrorCode_kUnknown;
-    openassetio::Str message = "some error";
+    std::string message = "some error";
 
     oa_StringView cmessage{
         message.size(),
@@ -45,10 +45,10 @@ SCENARIO("Using extractExceptionMessage to copy a C++ exception message to a C S
   using openassetio::errors::extractExceptionMessage;
 
   GIVEN("An exception and a StringView") {
-    const openassetio::Str expectedMessage = "some error";
+    const std::string expectedMessage = "some error";
     const std::runtime_error runtimeError{expectedMessage};
 
-    openassetio::Str storage(expectedMessage.size(), '\0');
+    std::string storage(expectedMessage.size(), '\0');
     oa_StringView actualMessage{storage.capacity(), storage.data(), 0};
 
     WHEN("extractExceptionMessage copies the message from the exception to the StringView") {
@@ -72,7 +72,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
 
   // Error message storage.
   constexpr std::size_t kErrorStorageSize = 100;
-  openassetio::Str storage(kErrorStorageSize, '\0');
+  std::string storage(kErrorStorageSize, '\0');
   oa_StringView actualErrorMessage{storage.size(), storage.data(), 0};
 
   GIVEN("A callable that doesn't throw") {
@@ -89,7 +89,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
   }
 
   GIVEN("A callable that throws an exception") {
-    const openassetio::Str expectedErrorMessage = "some error";
+    const std::string expectedErrorMessage = "some error";
 
     auto const callable = [&]() -> oa_ErrorCode { throw std::length_error{expectedErrorMessage}; };
 
@@ -104,7 +104,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
   }
 
   GIVEN("A callable that throws a non-exception") {
-    const openassetio::Str expectedErrorMessage = "Unknown non-exception object thrown";
+    const std::string expectedErrorMessage = "Unknown non-exception object thrown";
 
     auto const callable = [&]() -> oa_ErrorCode { throw "some error"; };
 

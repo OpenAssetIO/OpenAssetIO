@@ -69,7 +69,7 @@ struct MockLoggerInterface : trompeloeil::mock_interface<LoggerInterface> {
 
 SCENARIO("A Manager is constructed and destructed") {
   // Storage for error messages coming from C API functions.
-  openassetio::Str errStorage(kStringBufferSize, '\0');
+  std::string errStorage(kStringBufferSize, '\0');
   oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
   // A mock ManagerInterface whose lifetime is tracked.
   using DeathwatchedMockManagerInterface = trompeloeil::deathwatched<MockManagerInterface>;
@@ -194,7 +194,7 @@ SCENARIO("A host calls Manager::identifier") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize, '\0');
+    std::string errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for identifier - set to an initial value so that we can
@@ -222,7 +222,7 @@ SCENARIO("A host calls Manager::identifier") {
     }
 
     AND_GIVEN("ManagerInterface::identifier() will fail with an exception") {
-      const openassetio::Str expectedErrorMsg = "Some error";
+      const std::string expectedErrorMsg = "Some error";
       REQUIRE_CALL(mockManagerInterface, identifier()).THROW(std::logic_error{expectedErrorMsg});
 
       WHEN("the Manager C API is queried for the identifier") {
@@ -257,7 +257,7 @@ SCENARIO("A host calls Manager::displayName") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize, '\0');
+    std::string errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for displayName - set to an initial value so that we can
@@ -285,7 +285,7 @@ SCENARIO("A host calls Manager::displayName") {
     }
 
     AND_GIVEN("ManagerInterface::displayName() will fail with an exception") {
-      const openassetio::Str expectedErrorMsg = "Some error";
+      const std::string expectedErrorMsg = "Some error";
       REQUIRE_CALL(mockManagerInterface, displayName()).THROW(std::logic_error{expectedErrorMsg});
 
       WHEN("the Manager C API is queried for the displayName") {
@@ -320,7 +320,7 @@ SCENARIO("A host calls Manager::info") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize, '\0');
+    std::string errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for info - pre-populate so we can assert that calls are
@@ -349,7 +349,7 @@ SCENARIO("A host calls Manager::info") {
     }
 
     AND_GIVEN("ManagerInterface::info() will fail with an exception") {
-      const openassetio::Str expectedErrorMsg = "Some error";
+      const std::string expectedErrorMsg = "Some error";
       REQUIRE_CALL(mockManagerInterface, info()).THROW(std::logic_error{expectedErrorMsg});
 
       WHEN("the Manager C API is queried for the info") {

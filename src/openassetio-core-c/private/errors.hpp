@@ -2,6 +2,8 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <string>
+
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/namespace.h>
@@ -23,7 +25,7 @@ namespace errors {
  */
 inline void throwIfError(const oa_ErrorCode code, [[maybe_unused]] const oa_StringView &msg) {
   if (code != oa_ErrorCode_kOK) {
-    Str errorMessageWithCode = std::to_string(code);
+    std::string errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
     errorMessageWithCode += std::string_view{msg.data, msg.size};
     throw std::runtime_error(errorMessageWithCode);

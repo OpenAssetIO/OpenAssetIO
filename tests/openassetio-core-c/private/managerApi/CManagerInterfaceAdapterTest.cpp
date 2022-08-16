@@ -81,7 +81,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
     AND_GIVEN("the C suite's identifier() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
       const auto expectedErrorCode = oa_ErrorCode_kUnknown;
-      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
+      const std::string expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
 
@@ -148,7 +148,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
     AND_GIVEN("the C suite's displayName() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
       const auto expectedErrorCode = oa_ErrorCode_kUnknown;
-      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
+      const std::string expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
 
@@ -212,7 +212,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
     AND_GIVEN("the C suite's info() call fails") {
       const std::string_view expectedErrorMsg = "some error happened";
       const auto expectedErrorCode = oa_ErrorCode_kUnknown;
-      const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
+      const std::string expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
 
