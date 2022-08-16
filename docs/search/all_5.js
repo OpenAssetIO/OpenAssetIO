@@ -14,6 +14,7 @@ var searchData=
   ['enumidx',['EnumIdx',['../namespaceopenassetio_1_1v1.html#a64e8ac1e6ab9e446a03a134b59b5de66',1,'openassetio::v1']]],
   ['enumnames',['EnumNames',['../namespaceopenassetio_1_1v1.html#a8573d9597eec4cf3f5e0387156fbef44',1,'openassetio::v1']]],
   ['environment_20variable_20list',['Environment Variable List',['../envvar.html',1,'']]],
+  ['errorcode',['ErrorCode',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f',1,'openassetio::v1::BatchElementError']]],
   ['examples',['Examples',['../examples.html',1,'']]],
   ['executesuite',['executeSuite',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html#a244a8eaccd46805e8346659c6e6a8912',1,'openassetio::test::manager::harness']]],
   ['extraargs',['extraArgs',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a015e99ec13adb5cdfb2e0bf79d8a7572',1,'openassetio::test::manager::__main__']]]

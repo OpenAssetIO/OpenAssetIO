@@ -15,7 +15,7 @@ var searchData=
   ['kreadmultiple',['kReadMultiple',['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba9a1e7ce25f0efd0dd88793fafacc4736',1,'openassetio::v1::Context']]],
   ['ksession',['kSession',['../classopenassetio_1_1v1_1_1_context.html#a9d220600ffed997889eae9093d89880fac5a3a1bf38be3f661efce4a020d43547',1,'openassetio::v1::Context']]],
   ['ktransient',['kTransient',['../classopenassetio_1_1v1_1_1_context.html#a9d220600ffed997889eae9093d89880fa058fbeac61aacfc4c37b04d3a056a876',1,'openassetio::v1::Context']]],
-  ['kunknown',['kUnknown',['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba8e792321b79a4aa90e75bd3fcc2e4141',1,'openassetio::v1::Context']]],
+  ['kunknown',['kUnknown',['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba8e792321b79a4aa90e75bd3fcc2e4141',1,'openassetio::v1::Context::kUnknown()'],['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390',1,'openassetio::v1::BatchElementError::kUnknown()']]],
   ['kwarning',['kWarning',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a011d7a2676876e27a697b26d754e9d7ca017887ee6e6d711cdb453f275fd971dc',1,'openassetio::v1::log::LoggerInterface']]],
   ['kwrite',['kWrite',['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba7df238f9e1ead00d81f7b659517e9f5a',1,'openassetio::v1::Context']]],
   ['kwritemultiple',['kWriteMultiple',['../classopenassetio_1_1v1_1_1_context.html#a0bb2ec7c0a1c0eb4050e2c4d91ff3bdba097795e06d01f397d18b0dc16f82073c',1,'openassetio::v1::Context']]]
