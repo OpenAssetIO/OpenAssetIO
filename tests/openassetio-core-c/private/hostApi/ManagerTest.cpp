@@ -325,8 +325,7 @@ SCENARIO("A host calls Manager::info") {
 
     // Storage for info - pre-populate so we can assert that calls are
     // destructive (or not).
-    const openassetio::InfoDictionary initialInfo{
-        {"initial key", openassetio::Str{"initial value"}}};
+    const openassetio::InfoDictionary initialInfo{{"initial key", std::string{"initial value"}}};
     openassetio::InfoDictionary actualInfo = initialInfo;
 
     AND_GIVEN("ManagerInterface::info() will succeed") {

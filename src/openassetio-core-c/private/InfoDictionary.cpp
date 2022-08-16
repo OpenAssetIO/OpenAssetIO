@@ -89,8 +89,7 @@ oa_ErrorCode get(oa_StringView *err, Type *out, oa_InfoDictionary_h handle,
 template <class Type>
 void set(oa_InfoDictionary_h handle, const oa_ConstStringView key, Type value) {
   InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
-  infoDictionary->insert_or_assign(openassetio::Str{key.data, key.size},
-                                   std::forward<Type>(value));
+  infoDictionary->insert_or_assign(std::string{key.data, key.size}, std::forward<Type>(value));
 }
 
 /**
@@ -144,7 +143,7 @@ oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView *err, oa_InfoDictionary_Valu
             *out = oa_InfoDictionary_ValueType_kInt;
           } else if constexpr (std::is_same_v<ValueType, openassetio::Float>) {
             *out = oa_InfoDictionary_ValueType_kFloat;
-          } else if constexpr (std::is_same_v<ValueType, openassetio::Str>) {
+          } else if constexpr (std::is_same_v<ValueType, std::string>) {
             *out = oa_InfoDictionary_ValueType_kStr;
           } else {
             static_assert(kAlwaysFalse<ValueType>, "Unhandled variant type");
@@ -173,7 +172,7 @@ oa_ErrorCode oa_InfoDictionary_getFloat(oa_StringView *err, openassetio::Float *
 
 oa_ErrorCode oa_InfoDictionary_getStr(oa_StringView *err, oa_StringView *out,
                                       oa_InfoDictionary_h handle, const oa_ConstStringView key) {
-  openassetio::Str str;
+  std::string str;
   const oa_ErrorCode errorCode = get(err, &str, handle, key);
 
   if (errorCode != oa_ErrorCode_kOK) {
@@ -211,7 +210,7 @@ oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView *err, oa_InfoDictionary_h ha
                                       const oa_ConstStringView key,
                                       const oa_ConstStringView value) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
-    set(handle, key, openassetio::Str{value.data, value.size});
+    set(handle, key, std::string{value.data, value.size});
     return oa_ErrorCode_kOK;
   });
 }

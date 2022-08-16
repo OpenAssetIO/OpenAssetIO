@@ -187,7 +187,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
     openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's info() call succeeds") {
-      const openassetio::Str expectedInfoKey = "info key";
+      const std::string expectedInfoKey = "info key";
       const openassetio::Float expectedInfoValue = 123.456;
 
       using trompeloeil::_;

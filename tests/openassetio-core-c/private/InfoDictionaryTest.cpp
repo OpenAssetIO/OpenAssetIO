@@ -41,10 +41,10 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
       InfoDictionary* infoDictionary = handles::InfoDictionary::toInstance(infoDictionaryHandle);
 
       THEN("instance can be used as a C++ InfoDictionary") {
-        const openassetio::Str key = "some key";
-        const openassetio::Str expectedValue = "some value";
+        const std::string key = "some key";
+        const std::string expectedValue = "some value";
         infoDictionary->insert({key, expectedValue});
-        const openassetio::Str actualValue = std::get<openassetio::Str>(infoDictionary->at(key));
+        const std::string actualValue = std::get<std::string>(infoDictionary->at(key));
         CHECK(actualValue == expectedValue);
 
         AND_WHEN("dtor function is called") {
@@ -80,14 +80,14 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
  * its C handle.
  */
 struct InfoDictionaryFixture {
-  inline static const openassetio::Str kBoolKey = "aBool";
+  inline static const std::string kBoolKey = "aBool";
   static constexpr openassetio::Bool kBoolValue = true;
-  inline static const openassetio::Str kIntKey = "anInt";
+  inline static const std::string kIntKey = "anInt";
   static constexpr openassetio::Int kIntValue = 123;
-  inline static const openassetio::Str kFloatKey = "aFloat";
+  inline static const std::string kFloatKey = "aFloat";
   static constexpr openassetio::Float kFloatValue = 0.456;
-  inline static const openassetio::Str kStrKey = "aStr";
-  inline static const openassetio::Str kStrValue = "string value";
+  inline static const std::string kStrKey = "aStr";
+  inline static const std::string kStrValue = "string value";
 
   InfoDictionary infoDictionary_{{kBoolKey, kBoolValue},
                                  {kIntKey, kIntValue},
@@ -95,7 +95,7 @@ struct InfoDictionaryFixture {
                                  {kStrKey, kStrValue}};
 
   // Key that doesn't exist in the map.
-  static inline const openassetio::Str kNonExistentKeyStr = "nonExistent";
+  static inline const std::string kNonExistentKeyStr = "nonExistent";
 
   // Note that this models the ownership semantic of "owned by service",
   // i.e. the C client should not call `dtor` to destroy the instance.
@@ -114,36 +114,35 @@ struct TypeOfFixture;
 
 template <>
 struct TypeOfFixture<openassetio::Bool> : InfoDictionaryFixture {
-  inline static const openassetio::Str kKeyStr = kBoolKey;
+  inline static const std::string kKeyStr = kBoolKey;
   static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
       oa_InfoDictionary_ValueType_kBool;
 };
 
 template <>
 struct TypeOfFixture<openassetio::Int> : InfoDictionaryFixture {
-  inline static const openassetio::Str kKeyStr = kIntKey;
+  inline static const std::string kKeyStr = kIntKey;
   static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
       oa_InfoDictionary_ValueType_kInt;
 };
 
 template <>
 struct TypeOfFixture<openassetio::Float> : InfoDictionaryFixture {
-  inline static const openassetio::Str kKeyStr = kFloatKey;
+  inline static const std::string kKeyStr = kFloatKey;
   static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
       oa_InfoDictionary_ValueType_kFloat;
 };
 
 template <>
-struct TypeOfFixture<openassetio::Str> : InfoDictionaryFixture {
-  inline static const openassetio::Str kKeyStr = kStrKey;
+struct TypeOfFixture<std::string> : InfoDictionaryFixture {
+  inline static const std::string kKeyStr = kStrKey;
   static constexpr oa_InfoDictionary_ValueType kExpectedValueType =
       oa_InfoDictionary_ValueType_kStr;
 };
 
 TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
                           "Retrieving the type of an entry in a InfoDictionary via C API", "",
-                          openassetio::Bool, openassetio::Int, openassetio::Float,
-                          openassetio::Str) {
+                          openassetio::Bool, openassetio::Int, openassetio::Float, std::string) {
   GIVEN("a populated C++ InfoDictionary and its C handle") {
     using Fixture = TypeOfFixture<TestType>;
     const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
@@ -257,8 +256,8 @@ struct AccessorFixture<openassetio::Bool> : InfoDictionaryFixture {
   static constexpr openassetio::Bool kInitialValue = !kBoolValue;
   static constexpr openassetio::Bool kExpectedValue = kBoolValue;
   static constexpr openassetio::Bool kAlternativeValue = !kBoolValue;
-  inline static const openassetio::Str kKeyStr = kBoolKey;
-  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
+  inline static const std::string kKeyStr = kBoolKey;
+  inline static const std::string kWrongValueTypeKeyStr = kIntKey;
   openassetio::Bool actualValue_ = kInitialValue;
 };
 
@@ -269,8 +268,8 @@ struct AccessorFixture<openassetio::Int> : InfoDictionaryFixture {
   static constexpr openassetio::Int kInitialValue = 0;
   static constexpr openassetio::Int kExpectedValue = kIntValue;
   static constexpr openassetio::Int kAlternativeValue = kIntValue + 1;
-  inline static const openassetio::Str kKeyStr = kIntKey;
-  inline static const openassetio::Str kWrongValueTypeKeyStr = kBoolKey;
+  inline static const std::string kKeyStr = kIntKey;
+  inline static const std::string kWrongValueTypeKeyStr = kBoolKey;
   openassetio::Int actualValue_ = kInitialValue;
 };
 
@@ -281,27 +280,26 @@ struct AccessorFixture<openassetio::Float> : InfoDictionaryFixture {
   static constexpr openassetio::Float kInitialValue = 0.0;
   static constexpr openassetio::Float kExpectedValue = kFloatValue;
   static constexpr openassetio::Float kAlternativeValue = kFloatValue / 2;
-  inline static const openassetio::Str kKeyStr = kFloatKey;
-  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
+  inline static const std::string kKeyStr = kFloatKey;
+  inline static const std::string kWrongValueTypeKeyStr = kIntKey;
   openassetio::Float actualValue_ = kInitialValue;
 };
 
 /// Specialisation for getStr.
 template <>
-struct AccessorFixture<openassetio::Str> : InfoDictionaryFixture {
+struct AccessorFixture<std::string> : InfoDictionaryFixture {
   INFODICTIONARY_FN(getStr);
-  openassetio::Str valueStorage_ = openassetio::Str(kStrStorageCapacity, '\0');
+  std::string valueStorage_ = std::string(kStrStorageCapacity, '\0');
   oa_StringView kInitialValue{valueStorage_.size(), valueStorage_.data(), 0};
-  inline static const openassetio::Str kExpectedValue = kStrValue;
-  inline static const openassetio::Str kAlternativeValue = kStrValue + " alternative";
-  inline static const openassetio::Str kKeyStr = kStrKey;
-  inline static const openassetio::Str kWrongValueTypeKeyStr = kIntKey;
+  inline static const std::string kExpectedValue = kStrValue;
+  inline static const std::string kAlternativeValue = kStrValue + " alternative";
+  inline static const std::string kKeyStr = kStrKey;
+  inline static const std::string kWrongValueTypeKeyStr = kIntKey;
   oa_StringView actualValue_ = kInitialValue;
 };
 
 TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", "",
-                          openassetio::Bool, openassetio::Int, openassetio::Float,
-                          openassetio::Str) {
+                          openassetio::Bool, openassetio::Int, openassetio::Float, std::string) {
   GIVEN("a populated C++ InfoDictionary and its C handle function pointer") {
     using Fixture = AccessorFixture<TestType>;
     // Map constructed with some initial data.
@@ -327,7 +325,7 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     // can be found.
     const auto& wrongValueTypeKeyStr = Fixture::kWrongValueTypeKeyStr;
     // Key that doesn't exist in the map.
-    const openassetio::Str& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
+    const std::string& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
 
     // Storage for error messages coming from C API functions.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
@@ -420,11 +418,11 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
         "a StringView with insufficient storage capacity for string stored in "
         "InfoDictionary") {
       constexpr std::size_t kReducedStrStorageCapacity = 5;
-      openassetio::Str valueStorage(kReducedStrStorageCapacity, '\0');
+      std::string valueStorage(kReducedStrStorageCapacity, '\0');
       oa_StringView actualValue{valueStorage.size(), valueStorage.data(), 0};
 
       WHEN("string is retrieved into insufficient-capacity StringView") {
-        openassetio::Str keyStr = "aStr";
+        std::string keyStr = "aStr";
         oa_ConstStringView key{keyStr.data(), keyStr.size()};
 
         oa_ErrorCode actualErrorCode =
@@ -455,8 +453,8 @@ template <>
 struct MutatorFixture<openassetio::Bool> : InfoDictionaryFixture {
   INFODICTIONARY_FN(setBool);
   static constexpr openassetio::Bool kExpectedValue = !kBoolValue;
-  inline static const openassetio::Str kKeyStr = kBoolKey;
-  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+  inline static const std::string kKeyStr = kBoolKey;
+  inline static const std::string kOtherValueTypeKeyStr = kIntKey;
 };
 
 /// Specialisation for setInt.
@@ -464,8 +462,8 @@ template <>
 struct MutatorFixture<openassetio::Int> : InfoDictionaryFixture {
   INFODICTIONARY_FN(setInt);
   static constexpr openassetio::Int kExpectedValue = kIntValue + 1;
-  inline static const openassetio::Str kKeyStr = kIntKey;
-  inline static const openassetio::Str kOtherValueTypeKeyStr = kBoolKey;
+  inline static const std::string kKeyStr = kIntKey;
+  inline static const std::string kOtherValueTypeKeyStr = kBoolKey;
 };
 
 /// Specialisation for setFloat.
@@ -473,18 +471,17 @@ template <>
 struct MutatorFixture<openassetio::Float> : InfoDictionaryFixture {
   INFODICTIONARY_FN(setFloat);
   static constexpr openassetio::Float kExpectedValue = kFloatValue / 2;
-  inline static const openassetio::Str kKeyStr = kFloatKey;
-  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+  inline static const std::string kKeyStr = kFloatKey;
+  inline static const std::string kOtherValueTypeKeyStr = kIntKey;
 };
 
 /// Specialisation for setStr.
 template <>
-struct MutatorFixture<openassetio::Str> : InfoDictionaryFixture {
+struct MutatorFixture<std::string> : InfoDictionaryFixture {
   INFODICTIONARY_FN(setStr);
-  inline static const openassetio::Str kExpectedValue =
-      InfoDictionaryFixture::kStrValue + " updated";
-  inline static const openassetio::Str kKeyStr = kStrKey;
-  inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
+  inline static const std::string kExpectedValue = InfoDictionaryFixture::kStrValue + " updated";
+  inline static const std::string kKeyStr = kStrKey;
+  inline static const std::string kOtherValueTypeKeyStr = kIntKey;
 };
 
 TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", "",
@@ -507,7 +504,7 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     // can be found.
     const auto& otherValueTypeKeyStr = Fixture::kOtherValueTypeKeyStr;
     // Key that doesn't exist in the map.
-    const openassetio::Str& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
+    const std::string& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
 
     // Storage for error messages coming from C API functions.
     // TODO(DF): The only exception currently possible is `bad_alloc`,
