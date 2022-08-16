@@ -132,6 +132,8 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#a26b1b5aaa859d024cb7114cc1d4c1fd2":[13,0,0,6,0,0,2,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#a428dd12e2a7d8335838325ab2ac03907":[13,0,0,6,0,0,2,1],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#a54efc8296510b753c9419e9e1b7836f0":[13,0,0,6,0,0,2,3],
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#ad6ee7804a61b7e1223da94dddba6e0cb":[13,0,0,6,0,0,2,4],
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#ae972b1946288e9a91f90bb34beec753c":[13,0,0,6,0,0,2,5],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#aee2328d0af073b44f55f4b27d8bc2a4c":[13,0,0,6,0,0,2,2],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html":[13,0,0,6,0,0,3],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html#a3077ba60c453891a520ecc9dbef24ac1":[13,0,0,6,0,0,3,0],
@@ -166,6 +168,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__persistence_token_for_state.html":[13,0,0,6,0,0,8],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__persistence_token_for_state.html#a5f810ffb4532a860f4618076fc7ad387":[13,0,0,6,0,0,8,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html":[13,0,0,6,0,0,9],
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a15d55a839a05995919e022d0116c0e7d":[13,0,0,6,0,0,9,8],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a26b1b5aaa859d024cb7114cc1d4c1fd2":[13,0,0,6,0,0,9,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a71de542b71fe9800fd7d68905991c98b":[13,0,0,6,0,0,9,6],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a8472bd6f567f68ef7452ecf525945120":[13,0,0,6,0,0,9,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[13,0,0,9,0,1,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1":[13,0,0,9,0,1,2],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105":[13,0,0,9,0,1,0],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86":[13,0,0,9,0,1,3],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021":[13,0,0,9,0,1,1],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df":[13,0,0,9,0,1,8],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a":[13,0,0,9,0,1,7]
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86":[13,0,0,9,0,1,3]
 };

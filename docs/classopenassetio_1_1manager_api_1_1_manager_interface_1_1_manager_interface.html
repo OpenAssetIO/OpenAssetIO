@@ -364,7 +364,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
@@ -416,7 +416,7 @@ Public Member Functions</h2></td></tr>
 <p>The supplied context's locale may contain information pertinent to disambiguating this subtle definition of 'exists' in some cases too, as it better explains the use-case of the call.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
@@ -470,7 +470,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
@@ -519,7 +519,7 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the identifier of the version pointed to by each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
   </table>
@@ -584,7 +584,7 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves all available versions of each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> (including the supplied ref, if it points to a specific version). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">includeMetaVersions</td><td><code>bool</code> If <code>True</code>, <a class="el" href="glossary.html#meta_version">meta-versions</a> such as 'latest', etc... should be included, otherwise, only concrete versions need to be returned.</td></tr>
@@ -646,7 +646,7 @@ Public Member Functions</h2></td></tr>
 <p>If versioning is unsupported for a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, then the input reference should be returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entity references to finalize.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> The entity references to finalize.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">overrideVersionName</td><td><code>str</code> If supplied, then the call should return entity references for the version of the referenced assets that match the name specified here, ignoring any version inferred by the input reference.</td></tr>
@@ -761,7 +761,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <p>If any relationship definition is unknown, then an empty list should be returned for that relationship, and no errors should be raised.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td>List[str]</td></tr>
+    <tr><td class="paramname">entityRefs</td><td>List[<code>@ref <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html" title="EntityReference forms a strongly typed wrapper around arbitrary strings to ensure they have been vali...">openassetio::v1::EntityReference</a> "EntityReference"</code>]</td></tr>
     <tr><td class="paramname">relationshipTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code></td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
@@ -822,7 +822,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <dl class="section warning"><dt>Warning</dt><dd>Because the majority of the resolution API itself is designated thread safe, it is important to implement any pre-fetch mechanism with suitable locks/etc... if required.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> The entities whose data should be prefetched.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> The entities whose data should be prefetched.</td></tr>
     <tr><td class="paramname">context</td><td>openassetio.Context You may wish to make use of the managerState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
     <tr><td class="paramname">hostSession</td><td>HostSession The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
@@ -879,7 +879,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <p>Generally, this will be called before <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#abbd3bb320b56068b8e23e1aefd26767e" title="Publish entities to the Asset Management System. ">register()</a> in any host that creates media, where the return to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd">managementPolicy</a> has the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html">WillManagePathTrait</a> set.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each entity that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
+    <tr><td class="paramname">targetEntityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each entity that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set(str)</code> The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entities that are being published.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
     <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
@@ -939,7 +939,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <p>This is an opportunity to do other things in the host as part of publishing if required. The context's locale will tell you more about the specifics of the calling application. Depending on the implementation of your plugin, you can use this opportunity to make use of the host-native SDK to extract additional information or schedule additional processes to produce derivative data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetEntityRefs</td><td><code>List[str]</code> The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of each entity to publish. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if an entity with the traits of a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
+    <tr><td class="paramname">targetEntityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of each entity to publish. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if an entity with the traits of a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
     <tr><td class="paramname">entityTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code> The data for each entity (or 'asset') that is being published. The implementation must persist the list of traits, and any properties set. Such that a subsequent call to <a class="el" href="glossary.html#resolve">resolve</a> for any of these traits contains the same data. It is guaranteed that the trait sets of these instances are constant across the batch.</td></tr>
   </table>
   </dd>
@@ -1013,10 +1013,10 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 </ul>
 <p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
 <p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The Context should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The caller will have first called isEntityReferenceString() on the supplied strings.</p>
+<p>The supplied entity references will have already been validated as relevant to this manager (via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[str]</code> Entity references to query.</td></tr>
+    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The traits to resolve for the supplied list of entity references.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
@@ -1089,7 +1089,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <p>In systems that don't support post-creation adjustment of relationships, this can simply be a no-op.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entityRef</td><td><code>str</code> The entity to which the relationship should be established.</td></tr>
+    <tr><td class="paramname">entityRef</td><td><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> The entity to which the relationship should be established.</td></tr>
     <tr><td class="paramname">relationshipTraitsData</td><td><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>, The type of relationship to establish.</td></tr>
     <tr><td class="paramname">relatedRefs</td><td>List[str], The related entities for the given relationship.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>

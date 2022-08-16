@@ -7,5 +7,6 @@ var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolv
     [ "test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#ac17bd7e4bee90b1b2f83316d07a1122f", null ],
     [ "test_when_unknown_traits_then_returned_specification_is_empty", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a8472bd6f567f68ef7452ecf525945120", null ],
     [ "test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a71de542b71fe9800fd7d68905991c98b", null ],
-    [ "test_when_valid_traits_then_returned_specification_has_those_traits", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#adf6789ffa8d68c606ec5fdc70bc3e0b4", null ]
+    [ "test_when_valid_traits_then_returned_specification_has_those_traits", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#adf6789ffa8d68c606ec5fdc70bc3e0b4", null ],
+    [ "a_reference_to_a_readable_entity", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a15d55a839a05995919e022d0116c0e7d", null ]
 ];
