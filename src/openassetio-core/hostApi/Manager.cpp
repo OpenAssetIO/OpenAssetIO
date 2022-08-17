@@ -91,6 +91,14 @@ std::optional<EntityReference> Manager::createEntityReferenceIfValid(
   return EntityReference{std::move(entityReferenceString)};
 }
 
+void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+                      const ContextConstPtr &context,
+                      const ResolveSuccessCallback &successCallback,
+                      const ResolveErrorCallback &errorCallback) {
+  managerInterface_->resolve(entityReferences, traitSet, context, hostSession_, successCallback,
+                             errorCallback);
+}
+
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -2,11 +2,13 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
 
 #include <openassetio/export.h>
+#include <openassetio/BatchElementError.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/trait/collection.hpp>
@@ -196,7 +198,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @ref traits.managementPolicy.ManagedTrait "ManagedTrait", then it
    * can be assumed that the manager is capable of retrieving (for a
    * read context) and storing (for a write context) all of the
-   * supplied traits through @needsref resolve and @needsref register.
+   * supplied traits through @ref resolve and @needsref register.
    *
    * @warning The @fqref{Context.access} "access" of the supplied
    * context will be considered by the manager. If it is set to read,
@@ -369,7 +371,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * and does not involve back-end system queries.
    *
    * @see @needsref entityExists
-   * @see @needsref resolve
+   * @see @ref resolve
    *
    * @todo Make use of
    * openassetio.constants.kField_EntityReferencesMatchPrefix if
@@ -415,6 +417,105 @@ class OPENASSETIO_CORE_EXPORT Manager {
   [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
       Str entityReferenceString) const;
 
+  /**
+   * @}
+   */
+
+  /**
+   * @name Entity Resolution
+   *
+   * The concept of resolution is turning an @ref entity_reference into
+   * the data for one or more @ref trait "traits" that are meaningful to
+   * the situation. It could be a color space, a directory, a script or
+   * a frame range for an image sequence.
+   *
+   * @{
+   */
+  /**
+   * Callback signature used for a successful entity resolution.
+   */
+  using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataConstPtr&)>;
+
+  /**
+   * Callback signature used for an unsuccessful entity resolution.
+   *
+   * This will be called for errors that are specific to a particular
+   * reference in a batch. Exceptions may be thrown to indicate a
+   * whole-batch error.
+   *
+   * The appropriate error code will be used for these errors. See
+   * @fqref{BatchElementError.ErrorCode} "ErrorCode".
+   */
+  using ResolveErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
+
+  /**
+   * Provides a @fqref{TraitsData} "TraitsData"
+   * populated with the available data for the requested set of
+   * traits for each given @ref entity_reference.
+   *
+   * This call will block until all resolutions are complete and
+   * callbacks have been called. Callbacks will be called on the
+   * same thread that called `resolve`
+   *
+   * Any traits that aren't applicable to any particular entity
+   * reference will not be set in the returned data. Consequently, a
+   * trait being set in the result is confirmation that an entity has
+   * that trait.
+   *
+   * There is however, no guarantee that a manager will have data
+   * for all of a traits properties. It is the responsibility of the
+   * caller to handle requested data being missing in a fashion
+   * appropriate to its intended use.
+   *
+   * @note @fqref{EntityReference} "EntityReference" objects _must_ be
+   * constructed using either
+   * @fqref{hostApi.Manager.createEntityReference}
+   * "createEntityReference" or
+   * @fqref{hostApi.Manager.createEntityReferenceIfValid}
+   * "createEntityReferenceIfValid". As a convenience, you may check if
+   * a string is a valid entity reference for the manager using
+   * @fqref{hostApi.Manager.isEntityReferenceString}
+   * "isEntityReferenceString" first.
+   *
+   * The API defines that all file paths passed though the API that
+   * represent file sequences should retain the frame token, and
+   * use the 'format' syntax, compatible with sprintf (eg.  %04d").
+   *
+   * There may be errors during resolution. These can either be
+   * exceptions thrown from `resolve`, or @fqref{BatchElementError}
+   * "BatchElementError"s given to the `errorCallback`. Exceptions are
+   * unexpected errors that fail the whole batch. `BatchElementError`s
+   * are errors that are specific to a particular entity - other
+   * entities may still resolve successfully. Using HTTP status codes as
+   * an analogy, typically a server error (5xx) would correspond to an
+   * exception whereas a client error (4xx) would correspond to a
+   * `BatchElementError`.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param context The calling context.
+   *
+   * @param traitSet The trait IDs to resolve for the supplied list of
+   * entity references. Only traits applicable to the supplied entity
+   * references will be set in the resulting data.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful resolution of an entity reference. It will be
+   * given the corresponding index of the entity reference in
+   * `entityRefs` along with its `TraitsData`. The callback will be
+   * called on the same thread that initiated the call to `resolve`.
+   *
+   * @param errorCallback Callback that will be called for each
+   * failed resolution of an entity reference. It will be given the
+   * corresponding index of the entity reference in `entityRefs`
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback will be called on the same thread
+   * that initiated the call to `resolve`.
+   */
+  void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+               const ContextConstPtr& context, const ResolveSuccessCallback& successCallback,
+               const ResolveErrorCallback& errorCallback);
   /**
    * @}
    */

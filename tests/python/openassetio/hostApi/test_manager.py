@@ -20,10 +20,11 @@ Tests that cover the openassetio.hostApi.Manager wrapper class.
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
+from unittest import mock
 
 import pytest
 
-from openassetio import Context, EntityReference, TraitsData, managerApi
+from openassetio import BatchElementError, Context, EntityReference, TraitsData, managerApi
 from openassetio.hostApi import Manager
 
 
@@ -50,6 +51,11 @@ def some_entity_traitsdatas():
 @pytest.fixture
 def a_traitsdata():
     return TraitsData(set())
+
+
+@pytest.fixture
+def a_batch_element_error():
+    return BatchElementError(BatchElementError.ErrorCode.kUnknown, "some message")
 
 
 @pytest.fixture
@@ -440,13 +446,31 @@ class Test_Manager_resolve:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs,
-            an_entity_trait_set, a_context):
+            an_entity_trait_set, a_context, a_traitsdata, a_batch_element_error):
+
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
 
         method = mock_manager_interface.mock.resolve
-        assert manager.resolve(some_refs, an_entity_trait_set, a_context) \
-                == method.return_value
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(123, a_traitsdata)
+            # Error
+            callback = method.call_args[0][5]
+            callback(456, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        manager.resolve(
+            some_refs, an_entity_trait_set, a_context, success_callback, error_callback)
+
         method.assert_called_once_with(some_refs, an_entity_trait_set, a_context,
-                                       a_host_session)
+                                       a_host_session, success_callback, error_callback)
+
+        success_callback.assert_called_once_with(123, a_traitsdata)
+        error_callback.assert_called_once_with(456, a_batch_element_error)
 
 
 class Test_Manager_managementPolicy:

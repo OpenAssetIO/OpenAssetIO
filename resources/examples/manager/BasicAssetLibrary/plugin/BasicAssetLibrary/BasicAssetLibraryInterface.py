@@ -19,7 +19,7 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 
 import os
 
-from openassetio import constants, TraitsData
+from openassetio import constants, BatchElementError, TraitsData
 from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
 from openassetio.managerApi import ManagerInterface
 
@@ -110,24 +110,41 @@ class BasicAssetLibraryInterface(ManagerInterface):
             results.append(result)
         return results
 
-    def resolve(self, entityRefs, traitSet, context, hostSession):
+    def resolve(
+        self, entityReferences, traitSet, context, hostSession, successCallback, errorCallback
+    ):
         if context.isForWrite():
-            return [EntityResolutionError("BAL entities are read-only", ref) for ref in entityRefs]
-        results = []
-        for ref in entityRefs:
+            result = BatchElementError(
+                BatchElementError.ErrorCode.kEntityResolutionError,
+                "BAL entities are read-only")
+            for idx in range(len(entityReferences)):
+                errorCallback(idx, result)
+            return
+
+        for idx, ref in enumerate(entityReferences):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
-                entity = bal.entity(entity_info, self.__library)
-                result = TraitsData()
-                for trait in traitSet:
-                    trait_data = entity.traits.get(trait)
-                    if trait_data is not None:
-                        self.__add_trait_to_traits_data(trait, trait_data, result)
-            except Exception as exc:  # pylint: disable=broad-except
-                exc_name = exc.__class__.__name__
-                result = EntityResolutionError(f"{exc_name}: {exc}", ref)
-            results.append(result)
-        return results
+            except bal.InvalidBALReference as exc:
+                result = BatchElementError(
+                    BatchElementError.ErrorCode.kInvalidEntityReference, str(exc))
+                errorCallback(idx, result)
+            else:
+                try:
+                    entity = bal.entity(entity_info, self.__library)
+                except bal.UnknownBALEntity:
+                    result = BatchElementError(
+                        BatchElementError.ErrorCode.kEntityResolutionError,
+                        f"Entity '{ref.toString()}' not found")
+                    errorCallback(idx, result)
+                else:
+                    result = TraitsData()
+                    for trait in traitSet:
+                        trait_data = entity.traits.get(trait)
+                        if trait_data is not None:
+                            self.__add_trait_to_traits_data(trait, trait_data, result)
+
+                    successCallback(idx, result)
+
 
     @classmethod
     def __dict_to_traits_data(cls, traits_dict: dict):

@@ -6,6 +6,10 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Changed `resolve` to use a callback-based API, rather than returning
+  a list of results.
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
+
 - Removed the `Manager`/`ManagerInterface` `prefetch` method, which
   is redundant now the API is batch-first.
   [#511](https://github.com/OpenAssetIO/OpenAssetIO/issues/511)
@@ -179,6 +183,11 @@ v1.0.0-alpha.X
 
 ### Improvements
 
+- Added `kEntityResolutionError` and `kInvalidEntityReference` batch
+  element error codes, to mirror the `EntityResolutionError` and
+  `InvalidEntityReference` exception classes, respectively.
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
+
 - Added `openassetio-python` C++-to-Python bridge library, providing
   a `createPythonPluginSystemManagerImplementationFactory` function,
   which allows a C++ host to load managers using the Python plugin
@@ -214,20 +223,22 @@ v1.0.0-alpha.X
 - Migrated the following `ManagerInterface` methods to C++
   `initialize`, `managementPolicy`, `createState`, `createChildState`,
   `persistenceTokenForState`, `stateFromPersistenceToken`,
-  `isEntityReferenceString`.
+  `isEntityReferenceString`, `resolve`.
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
   [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
 
 - Migrated the following `Manager` methods to C++ `initialize`
   `managementPolicy`, `createContext`, `createChildContext`,
   `persistenceTokenForContext`, `contextFromPersistenceToken`,
-  `isEntityReferenceString`.
+  `isEntityReferenceString`, `resolve`.
   [#455](https://github.com/OpenAssetIO/OpenAssetIO/issues/455)
   [#458](https://github.com/OpenAssetIO/OpenAssetIO/issues/458)
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
+  [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)
 
 - Switched to preferring un-versioned `clang-tidy` executables when
   the `OPENASSETIO_ENABLE_CLANG_TIDY` build option is enabled. We
