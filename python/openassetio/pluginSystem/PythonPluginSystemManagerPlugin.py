@@ -59,7 +59,7 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
         The identifier should use only alpha-numeric characters and '.',
         '_' or '-'. For example:
 
-            "uk.co.foundry.asset.testManager"
+            "org.openassetio.test.manager"
 
         @return str
 

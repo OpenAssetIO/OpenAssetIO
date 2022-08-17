@@ -181,7 +181,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * characters and '.', '_' or '-'.  Generally speaking, we recommend
    * using the 'reverse-DNS' convention, for example:
    *
-   *     "org.openassetio.manager.test"
+   *     "org.openassetio.test.manager"
    *
    * @return Unique identifier of the manager.
    */

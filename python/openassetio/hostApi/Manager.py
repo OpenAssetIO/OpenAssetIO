@@ -47,7 +47,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     @code
     factory = openassetio.hostApi.ManagerFactory(
         hostImpl, consoleLogger, pluginFactory)
-    manager = factory.createManager("org.openassetio.test")
+    manager = factory.createManager("org.openassetio.test.manager")
     @endcode
 
     A Manager instance is the single point of interaction with an asset
