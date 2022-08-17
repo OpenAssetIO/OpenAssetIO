@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4":[13,0,0,9,0,1,9],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[13,0,0,9,0,1,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1":[13,0,0,9,0,1,2],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105":[13,0,0,9,0,1,0],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86":[13,0,0,9,0,1,3],
@@ -225,8 +223,8 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[11,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[11,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[11,0,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "index.html":[],
 "index.html":[0],
 "index.html#architecture_overview":[0,2],
-"index.html#host_implementation_concept":[0,3]
+"index.html#host_implementation_concept":[0,3],
+"index.html#intro_ams":[0,1,0],
+"index.html#intro_approach":[0,1]
 };

@@ -144,9 +144,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a021e2cb20906f304cb8bd6dd288782b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a021e2cb20906f304cb8bd6dd288782b8">More...</a><br /></td></tr>
 <tr class="separator:a021e2cb20906f304cb8bd6dd288782b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a90f43f7116f1cb507b1bd73df4cf4250">prefetch</a> (self, references, context)</td></tr>
-<tr class="memdesc:a90f43f7116f1cb507b1bd73df4cf4250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Because query latency may be high with certain managers, it is often desirable to 'batch' requests.  <a href="#a90f43f7116f1cb507b1bd73df4cf4250">More...</a><br /></td></tr>
-<tr class="separator:a90f43f7116f1cb507b1bd73df4cf4250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5cb722a05be4762724ae302d00291c4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4">flushCaches</a> (self)</td></tr>
 <tr class="memdesc:ae5cb722a05be4762724ae302d00291c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#ae5cb722a05be4762724ae302d00291c4">More...</a><br /></td></tr>
 <tr class="separator:ae5cb722a05be4762724ae302d00291c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -748,51 +745,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   </dd>
 </dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Implement missing setRelatedReferences() </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a90f43f7116f1cb507b1bd73df4cf4250"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def prefetch </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>references</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Because query latency may be high with certain managers, it is often desirable to 'batch' requests. </p>
-<p>However, in many cases, it is not always practical or desirable to adjust the flow of your application in order to facilitate this. The preflight call is designed for these situations. It should be called wherever possible before you make a series of calls to query information about multiple entities in close proximity. It gives the manager a chance to retrieve information in advance.</p>
-<p>The prefetch calls instructs the manager to retrieve any information needed to resolve the supplied list of entities.</p>
-<p>The lifetime of the data is managed by the manager, as it may have mechanisms to auto-dirty any caches. It is <em>highly</em> recommended to supply a suitably managed <a class="el" href="glossary.html#Context">Context</a> to this call, as it can be used as a cache key, so that the cache lifetime is inherently well-managed by your persistence (or not) of the context.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">references</td><td><code>List[</code> <a class="el" href="glossary.html#entity_reference">Entity Reference</a> <code>]</code> A list of references to prefetch data for.</td></tr>
-    <tr><td class="paramname">context</td><td>Context</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>None</code> </dd></dl>
 
 </div>
 </div>

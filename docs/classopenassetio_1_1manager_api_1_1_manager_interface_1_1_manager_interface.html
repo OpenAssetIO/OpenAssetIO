@@ -135,9 +135,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
 <tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:a8bd4fd3fc6ab34519967e7396c429801"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a8bd4fd3fc6ab34519967e7396c429801">prefetch</a> (self, entityRefs, context, hostSession)</td></tr>
-<tr class="memdesc:a8bd4fd3fc6ab34519967e7396c429801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list.  <a href="#a8bd4fd3fc6ab34519967e7396c429801">More...</a><br /></td></tr>
-<tr class="separator:a8bd4fd3fc6ab34519967e7396c429801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> (self, hostSession)</td></tr>
 <tr class="memdesc:a53834a673004e2d1a4ad57a9b126e5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a53834a673004e2d1a4ad57a9b126e5d7">More...</a><br /></td></tr>
 <tr class="separator:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -777,58 +774,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c">setRelatedReferences</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a8bd4fd3fc6ab34519967e7396c429801"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def prefetch </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called by a host to express interest in the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> list. </p>
-<p>This usually means that the host is about to make multiple queries to the same references. This can be left unimplemented, but it is advisable to batch request the data for resolve here if possible.</p>
-<p>The implementation should ignore any entities to which no action is applicable (maybe as they don't exist yet).</p>
-<dl class="section warning"><dt>Warning</dt><dd>Because the majority of the resolution API itself is designated thread safe, it is important to implement any pre-fetch mechanism with suitable locks/etc... if required.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> The entities whose data should be prefetched.</td></tr>
-    <tr><td class="paramname">context</td><td>openassetio.Context You may wish to make use of the managerState object (if you supplied one on construction of the context), to simplify scoping any caching of data. Otherwise, it's up to you how to manage the lifetime of the data to avoid inconsistencies, but the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> method should clear any otherwise sorted data for this call.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>HostSession The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>None</code> </dd></dl>
 
 </div>
 </div>
