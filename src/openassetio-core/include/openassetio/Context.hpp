@@ -6,7 +6,6 @@
 #include <memory>
 
 #include <openassetio/export.h>
-#include <openassetio/enum.hpp>
 #include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(TraitsData)
@@ -40,16 +39,16 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * @name Access Pattern
    */
-  enum Access : EnumIdx { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
+  enum Access { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
 
-  static constexpr EnumNames<5> kAccessNames{"read", "readMultiple", "write", "writeMultiple",
-                                             "unknown"};
+  static constexpr std::array kAccessNames{"read", "readMultiple", "write", "writeMultiple",
+                                           "unknown"};
   /// @}
 
   /**
    * @name Data Retention
    */
-  enum Retention : EnumIdx {
+  enum Retention {
     /// Data will not be used
     kIgnored,
     /// Data will be re-used during a particular action
@@ -60,7 +59,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
     kPermanent
   };
 
-  static constexpr EnumNames<4> kRetentionNames{"ignored", "transient", "session", "permanent"};
+  static constexpr std::array kRetentionNames{"ignored", "transient", "session", "permanent"};
   /// @}
 
   /**

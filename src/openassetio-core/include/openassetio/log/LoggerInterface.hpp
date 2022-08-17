@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <array>
 
 #include <openassetio/export.h>
-#include <openassetio/enum.hpp>
 #include <openassetio/typedefs.hpp>
 
 #pragma once
@@ -29,10 +29,10 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @name Log Severity
    * @{
    */
-  enum Severity : EnumIdx { kDebugApi = 0, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
+  enum Severity { kDebugApi = 0, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
 
-  static constexpr EnumNames<7> kSeverityNames{"debugApi", "debug", "info",    "progress",
-                                               "warning",  "error", "critical"};
+  static constexpr std::array kSeverityNames{"debugApi", "debug", "info",    "progress",
+                                             "warning",  "error", "critical"};
   /// @}
 
   virtual ~LoggerInterface() = 0;
