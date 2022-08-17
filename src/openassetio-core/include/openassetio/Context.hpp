@@ -39,7 +39,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * @name Access Pattern
    */
-  enum Access { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
+  enum class Access { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
 
   static constexpr std::array kAccessNames{"read", "readMultiple", "write", "writeMultiple",
                                            "unknown"};
@@ -48,7 +48,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * @name Data Retention
    */
-  enum Retention {
+  enum class Retention {
     /// Data will not be used
     kIgnored,
     /// Data will be re-used during a particular action
@@ -126,7 +126,8 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * @fqref{hostApi.Manager.createContext} "Manager.createContext"
    * should always be used instead.
    */
-  [[nodiscard]] static ContextPtr make(Access access = kUnknown, Retention retention = kTransient,
+  [[nodiscard]] static ContextPtr make(Access access = Access::kUnknown,
+                                       Retention retention = Retention::kTransient,
                                        TraitsDataPtr locale = nullptr,
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
   /**
@@ -135,7 +136,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForRead() const {
-    return access == kRead || access == kReadMultiple;
+    return access == Access::kRead || access == Access::kReadMultiple;
   }
 
   /**
@@ -144,7 +145,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForWrite() const {
-    return access == kWrite || access == kWriteMultiple;
+    return access == Access::kWrite || access == Access::kWriteMultiple;
   }
 
   /**
@@ -153,7 +154,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForMultiple() const {
-    return access == kReadMultiple || access == kWriteMultiple;
+    return access == Access::kReadMultiple || access == Access::kWriteMultiple;
   }
 
  private:

@@ -43,7 +43,7 @@ class Test_managementPolicy_default_behavior(FixtureAugmentedTestCase):
     )
 
     def test_returns_cooperative_policy_for_read_for_all_trait_sets(self):
-        context = self.createTestContext(access=Context.kRead)
+        context = self.createTestContext(access=Context.Access.kRead)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
             managedTrait = ManagedTrait(policy)
@@ -51,7 +51,7 @@ class Test_managementPolicy_default_behavior(FixtureAugmentedTestCase):
             self.assertIsNone(managedTrait.getExclusive())
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
-        context = self.createTestContext(access=Context.kWrite)
+        context = self.createTestContext(access=Context.Access.kWrite)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
             self.assertFalse(policy.hasTrait(ManagedTrait.kId))
@@ -89,7 +89,7 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
         self._manager.initialize(self.__old_settings)
 
     def test_returns_expected_policies_for_all_trait_sets(self):
-        context = self.createTestContext(access=Context.kRead)
+        context = self.createTestContext(access=Context.Access.kRead)
         expected = [TraitsData({ManagedTrait.kId}), TraitsData(), TraitsData({ManagedTrait.kId})]
         ManagedTrait(expected[0]).setExclusive(True)
 
@@ -98,7 +98,7 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
         self.assertListEqual(actual, expected)
 
     def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
-        context = self.createTestContext(access=Context.kWrite)
+        context = self.createTestContext(access=Context.Access.kWrite)
         expected = [TraitsData(), TraitsData(), TraitsData()]
 
         actual = self._manager.managementPolicy(self.__trait_sets, context)
@@ -128,7 +128,7 @@ class Test_resolve(FixtureAugmentedTestCase):
             self._manager.createEntityReference(ref_str) for ref_str in self.__entities
         ]
         trait_set = {"string", "number", "test-data"}
-        context = self.createTestContext(access=Context.kRead)
+        context = self.createTestContext(access=Context.Access.kRead)
 
         results = [None] * len(entity_references)
 

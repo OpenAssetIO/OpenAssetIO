@@ -554,8 +554,8 @@ class Test_Manager_createContext:
 
         context_a = manager.createContext()
 
-        assert context_a.access == Context.kUnknown
-        assert context_a.retention == Context.kTransient
+        assert context_a.access == Context.Access.kUnknown
+        assert context_a.retention == Context.Retention.kTransient
         assert context_a.managerState is state_a
         assert context_a.locale is None
         mock_manager_interface.mock.createState.assert_called_once_with(a_host_session)
@@ -569,8 +569,8 @@ class Test_Manager_createChildContext:
         state_a = managerApi.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
         context_a = manager.createContext()
-        context_a.access = Context.kWrite
-        context_a.retention = Context.kSession
+        context_a.access = Context.Access.kWrite
+        context_a.retention = Context.Retention.kSession
         context_a.locale = TraitsData()
         mock_manager_interface.mock.reset_mock()
 
@@ -591,8 +591,8 @@ class Test_Manager_createChildContext:
     def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(
             self, manager, mock_manager_interface):
         context_a = Context()
-        context_a.access = Context.kWrite
-        context_a.retention = Context.kSession
+        context_a.access = Context.Access.kWrite
+        context_a.retention = Context.Retention.kSession
         context_a.locale = TraitsData()
         context_b = manager.createChildContext(context_a)
 

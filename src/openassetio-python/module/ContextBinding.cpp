@@ -25,8 +25,7 @@ void registerContext(const py::module& mod) {
       .value("kReadMultiple", Context::Access::kReadMultiple)
       .value("kWrite", Context::Access::kWrite)
       .value("kWriteMultiple", Context::Access::kWriteMultiple)
-      .value("kUnknown", Context::Access::kUnknown)
-      .export_values();
+      .value("kUnknown", Context::Access::kUnknown);
 
   context.def_readonly_static("kAccessNames", &Context::kAccessNames);
 
@@ -34,8 +33,7 @@ void registerContext(const py::module& mod) {
       .value("kIgnored", Context::Retention::kIgnored)
       .value("kTransient", Context::Retention::kTransient)
       .value("kSession", Context::Retention::kSession)
-      .value("kPermanent", Context::Retention::kPermanent)
-      .export_values();
+      .value("kPermanent", Context::Retention::kPermanent);
 
   context.def_readonly_static("kRetentionNames", &Context::kRetentionNames);
 

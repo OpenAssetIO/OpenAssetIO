@@ -163,22 +163,22 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 
     def test_calling_with_read_context(self):
         context = self.createTestContext()
-        context.access = context.kRead
+        context.access = context.Access.kRead
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_write_context(self):
         context = self.createTestContext()
-        context.access = context.kWrite
+        context.access = context.Access.kWrite
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_read_multiple_context(self):
         context = self.createTestContext()
-        context.access = context.kReadMultiple
+        context.access = context.Access.kReadMultiple
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_write_multiple_context(self):
         context = self.createTestContext()
-        context.access = context.kWriteMultiple
+        context.access = context.Access.kWriteMultiple
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_empty_trait_set_does_not_error(self):
@@ -275,33 +275,35 @@ class Test_resolve(FixtureAugmentedTestCase):
 
     def test_when_no_traits_then_returned_specification_is_empty(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref], set(), Context.kRead, set())
+        self.__testResolution([ref], set(), Context.Access.kRead, set())
 
     def test_when_multiple_references_then_same_number_of_returned_specifications(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref, ref, ref, ref, ref], set(), Context.kRead, set())
+        self.__testResolution([ref, ref, ref, ref, ref], set(), Context.Access.kRead, set())
 
     def test_when_unknown_traits_then_returned_specification_is_empty(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref], {"₲₪₡🤯"}, Context.kRead, set())
+        self.__testResolution([ref], {"₲₪₡🤯"}, Context.Access.kRead, set())
 
     def test_when_valid_traits_then_returned_specification_has_those_traits(self):
         ref = self.a_reference_to_a_readable_entity
         traits = self.a_set_of_valid_traits
-        self.__testResolution([ref], traits, Context.kRead, traits)
+        self.__testResolution([ref], traits, Context.Access.kRead, traits)
 
     def test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits(self):
         ref = self.a_reference_to_a_readable_entity
         traits = self.a_set_of_valid_traits
         mixed_traits = set(traits)
         mixed_traits.add("₲₪₡🤯")
-        self.__testResolution([ref], mixed_traits, Context.kRead, traits)
+        self.__testResolution([ref], mixed_traits, Context.Access.kRead, traits)
 
     def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
-        self.__testResolutionError("a_reference_to_a_readonly_entity", access=Context.kWrite)
+        self.__testResolutionError(
+            "a_reference_to_a_readonly_entity", access=Context.Access.kWrite)
 
     def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
-        self.__testResolutionError("a_reference_to_a_writeonly_entity", access=Context.kRead)
+        self.__testResolutionError(
+            "a_reference_to_a_writeonly_entity", access=Context.Access.kRead)
 
     def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_missing_entity")
@@ -329,7 +331,7 @@ class Test_resolve(FixtureAugmentedTestCase):
             self.assertEqual(result.traitSet(), expected_traits)
 
     def __testResolutionError(
-            self, fixture_name, access=Context.kRead,
+            self, fixture_name, access=Context.Access.kRead,
             errorCode=BatchElementError.ErrorCode.kEntityResolutionError):
         reference = self._manager.createEntityReference(
             self.requireFixture(fixture_name, skipTestIfMissing=True))
