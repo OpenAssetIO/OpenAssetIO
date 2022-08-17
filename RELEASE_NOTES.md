@@ -6,6 +6,10 @@ v1.0.0-alpha.X
 
 ### Breaking changes
 
+- Removed the `Manager`/`ManagerInterface` `prefetch` method, which
+  is redundant now the API is batch-first.
+  [#511](https://github.com/OpenAssetIO/OpenAssetIO/issues/511)
+
 - Added `EntityReference` type to encapsulate a validated string
   so it can be used with entity-related API methods. These should always
   be created with either `Manager.createEntityReference` or

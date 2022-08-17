@@ -193,40 +193,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     #
     ## @{
 
-    def prefetch(self, entityRefs, context, hostSession):
-        """
-        Called by a host to express interest in the supplied @ref
-        entity_reference list. This usually means that the host is about
-        to make multiple queries to the same references.  This can be
-        left unimplemented, but it is advisable to batch request the
-        data for resolve here if possible.
-
-        The implementation should ignore any entities to which no action
-        is applicable (maybe as they don't exist yet).
-
-        @warning Because the majority of the resolution API itself is
-        designated thread safe, it is important to implement any
-        pre-fetch mechanism with suitable locks/etc... if required.
-
-        @param entityRefs `List[` @fqref{EntityReference}
-        "EntityReference" `]` The entities whose data should be
-        prefetched.
-
-        @param context openassetio.Context You may wish to make use of
-        the managerState object (if you supplied one on
-        construction of the context), to simplify scoping any caching of
-        data. Otherwise, it's up to you how to manage the lifetime of
-        the data to avoid inconsistencies, but the @ref flushCaches
-        method should clear any otherwise sorted data for this call.
-
-        @param hostSession HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerApi.Host
-        object representing the process that initiated the API session.
-
-        @return `None`
-        """
-
     def flushCaches(self, hostSession):
         """
         Clears any internal caches.  Only applicable if the

@@ -138,40 +138,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def prefetch(self, references, context):
-        """
-        Because query latency may be high with certain managers, it is
-        often desirable to 'batch' requests. However, in many cases, it
-        is not always practical or desirable to adjust the flow of your
-        application in order to facilitate this. The preflight call is
-        designed for these situations. It should be called wherever
-        possible before you make a series of calls to query information
-        about multiple entities in close proximity. It gives the manager
-        a chance to retrieve information in advance.
-
-        The prefetch calls instructs the manager to retrieve any
-        information needed to resolve the supplied list of entities.
-
-        The lifetime of the data is managed by the manager, as it may
-        have mechanisms to auto-dirty any caches. It is *highly*
-        recommended to supply a suitably managed @ref Context to this
-        call, as it can be used as a cache key, so that the cache
-        lifetime is inherently well-managed by your persistence (or not)
-        of the context.
-
-        @param references `List[` @ref entity_reference `]` A list of
-        references to prefetch data for.
-
-        @param context Context
-
-        @return `None`
-        """
-        if not isinstance(references, (list, tuple)):
-            references = [references, ]
-        return self.__impl.prefetch(references, context, self.__hostSession)
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
     def flushCaches(self):
         """
         Clears any internal caches.  Only applicable if the manager
