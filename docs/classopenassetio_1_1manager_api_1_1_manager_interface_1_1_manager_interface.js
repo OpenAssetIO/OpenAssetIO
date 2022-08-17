@@ -11,7 +11,6 @@ var classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface 
     [ "getRelatedReferences", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a", null ],
     [ "preflight", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ae26852e96b33172789f7b3f5d7fd97ad", null ],
     [ "register", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#abbd3bb320b56068b8e23e1aefd26767e", null ],
-    [ "resolve", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#adaa2dd5516f929be47c46d93aac57283", null ],
     [ "setRelatedReferences", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c", null ],
     [ "updateTerminology", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910", null ]
 ];

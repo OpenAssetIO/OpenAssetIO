@@ -181,13 +181,59 @@ Initialization</h2></td></tr>
 <tr class="memitem:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings)</td></tr>
 <tr class="memdesc:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host.  <a href="#aa52c7436ff63ae96e33d7db8d6fd38df">More...</a><br /></td></tr>
 <tr class="separator:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Entity Resolution</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp741d94f50e28c89dc0549426792d7518"></a>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into the data for one or more <a class="el" href="glossary.html#trait">traits</a> that are meaningful to the situation.</p>
+<p>It could be a color space, a directory, a script or a frame range for an image sequence. </p>
+</td></tr>
+<tr class="memitem:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, const TraitsDataConstPtr &amp;)&gt;</td></tr>
+<tr class="memdesc:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity resolution.  <a href="#a7f91b24a1999ea50e0b82a3bab38e70d">More...</a><br /></td></tr>
+<tr class="separator:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d41d8cfaab1e75f4faebf824989f00e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> = std::function&lt; void(std::size_t, const <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> &amp;)&gt;</td></tr>
+<tr class="memdesc:a3d41d8cfaab1e75f4faebf824989f00e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for an unsuccessful entity resolution.  <a href="#a3d41d8cfaab1e75f4faebf824989f00e">More...</a><br /></td></tr>
+<tr class="separator:a3d41d8cfaab1e75f4faebf824989f00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c930fa7c9fc65de04fbb8f3e3558257">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a3c930fa7c9fc65de04fbb8f3e3558257">More...</a><br /></td></tr>
+<tr class="separator:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> class shouldn't be directly constructed by the host. An instance of the class for any given asset management system can be retrieved from a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>, using the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5">ManagerFactory.createManager()</a> method with an appropriate manager <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39">identifier</a>.</p>
 <div class="fragment"><div class="line">factory = <a class="code" href="namespaceopenassetio.html">openassetio</a>.<a class="code" href="namespaceopenassetio_1_1host_api.html">hostApi</a>.<a class="code" href="namespaceopenassetio_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>(</div><div class="line">    hostImpl, consoleLogger, pluginFactory)</div><div class="line">manager = factory.createManager(<span class="stringliteral">&quot;org.openassetio.test.manager&quot;</span>)</div></div><!-- fragment --><p>A <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> instance is the single point of interaction with an asset management system. It provides methods to uniquely identify the underlying implementation, querying and resolving <a class="el" href="glossary.html#entity_reference">entity references</a> and publishing new data.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> API is threadsafe and can be called from multiple threads concurrently. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a3d41d8cfaab1e75f4faebf824989f00e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> =  std::function&lt;void(std::size_t, const <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature used for an unsuccessful entity resolution. </p>
+<p>This will be called for errors that are specific to a particular reference in a batch. Exceptions may be thrown to indicate a whole-batch error.</p>
+<p>The appropriate error code will be used for these errors. See <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7f91b24a1999ea50e0b82a3bab38e70d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> =  std::function&lt;void(std::size_t, const TraitsDataConstPtr&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature used for a successful entity resolution. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a74d8494f43bc88e4ba4ff8efaae19105"></a>
 <div class="memitem">
 <div class="memproto">
@@ -440,7 +486,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call does not verify an entity exits, just that the format of the string is recognised. The call is notionally trivial and does not involve back-end system queries.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>entityExists </dd>
 <dd>
-resolve</dd></dl>
+<a class="el" href="glossary.html#resolve">resolve</a></dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
 
 </div>
@@ -509,7 +555,7 @@ resolve</dd></dl>
 <p>The supplied <a class="el" href="glossary.html#Context">Context</a> determines whether this is for resolution or publishing. It is <em>vital</em> to call this before attempting to publish data to the manager, as the entity <a class="el" href="glossary.html#trait_set">Trait Set</a> you desire to work with may not be supported.</p>
 <p>For example, you would call this in order to see if the manager would like to manage the path of a scene file whilst choosing a destination to save to.</p>
 <p>This information should then be used to determine which options should be presented to the user. For example, if the returned <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> is not imbued with the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html">ManagedTrait</a> for a query as to the management of scene files, you should hide or disable menu items that relate to publish or loading of assetized scene files.</p>
-<p>If a returned <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> is imbued with the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html">ManagedTrait</a>, then it can be assumed that the manager is capable of retrieving (for a read context) and storing (for a write context) all of the supplied traits through resolve and register.</p>
+<p>If a returned <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> is imbued with the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html">ManagedTrait</a>, then it can be assumed that the manager is capable of retrieving (for a read context) and storing (for a write context) all of the supplied traits through <a class="el" href="glossary.html#resolve">resolve</a> and register.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="classopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd">access</a> of the supplied context will be considered by the manager. If it is set to read, then it's response applies to resolution. If write, then it applies to publishing. Ignored reads can allow optimisations in a host as there is no longer a need to test/resolve applicable strings.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>One very important trait that may be imbued in the policy is the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html">WillManagePathTrait</a>. If set, you can assume the asset management system will manage the path to use for the creation of any new assets. you must then always call <a class="el" href="glossary.html#preflight">preflight</a> before any file creation to allow the asset management system to determine and prepare the work path, and then use this path to write data to, prior to calling <a class="el" href="glossary.html#register">register</a>. If this trait is not imbued, then you should take care of writing data yourself (maybe prompting the user for a location on disk), and then only call <a class="el" href="glossary.html#register">register</a> to create the new entity.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -548,6 +594,68 @@ resolve</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>A persistence token that can be used with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a74d8494f43bc88e4ba4ff8efaae19105">contextFromPersistenceToken</a> to create a context associated with the same logical group of actions as the one supplied to this method.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, such that when restored, any API calls made using the resulting <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> will be logically associated with the one supplied here. It does not encode the current access, retention or locale.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3c930fa7c9fc65de04fbb8f3e3558257"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void resolve </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>This call will block until all resolutions are complete and callbacks have been called. Callbacks will be called on the same thread that called <code>resolve</code></p>
+<p>Any traits that aren't applicable to any particular entity reference will not be set in the returned data. Consequently, a trait being set in the result is confirmation that an entity has that trait.</p>
+<p>There is however, no guarantee that a manager will have data for all of a traits properties. It is the responsibility of the caller to handle requested data being missing in a fashion appropriate to its intended use.</p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> objects <em>must</em> be constructed using either <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86">createEntityReference</a> or <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250">createEntityReferenceIfValid</a>. As a convenience, you may check if a string is a valid entity reference for the manager using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a> first.</dd></dl>
+<p>The API defines that all file paths passed though the API that represent file sequences should retain the frame token, and use the 'format' syntax, compatible with sprintf (eg. %04d").</p>
+<p>There may be errors during resolution. These can either be exceptions thrown from <code>resolve</code>, or <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>s given to the <code>errorCallback</code>. Exceptions are unexpected errors that fail the whole batch. <code><a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a></code>s are errors that are specific to a particular entity - other entities may still resolve successfully. Using HTTP status codes as an analogy, typically a server error (5xx) would correspond to an exception whereas a client error (4xx) would correspond to a <code><a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferences</td><td>Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">traitSet</td><td>The trait IDs to resolve for the supplied list of entity references. Only traits applicable to the supplied entity references will be set in the resulting data.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful resolution of an entity reference. It will be given the corresponding index of the entity reference in <code>entityRefs</code> along with its <code><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a></code>. The callback will be called on the same thread that initiated the call to <code>resolve</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed resolution of an entity reference. It will be given the corresponding index of the entity reference in <code>entityRefs</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>resolve</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

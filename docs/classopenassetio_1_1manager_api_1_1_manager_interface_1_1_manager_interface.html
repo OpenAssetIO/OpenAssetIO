@@ -146,9 +146,6 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into a 'finalized' string.</p>
 <p>This, ultimately, is anything meaningful to the situation. It could be a color space, a directory, a script or image sequence. A rule of thumb is that a resolved <a class="el" href="glossary.html#entity_reference">Entity Reference</a> should be the string that the application would have anyway, in a unmanaged environment. For some kind of Entity - such as a 'Shot', for example, there may not be a meaningful string, though often some sensible value can be returned. </p>
 </div></td></tr>
-<tr class="memitem:adaa2dd5516f929be47c46d93aac57283"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#adaa2dd5516f929be47c46d93aac57283">resolve</a> (self, entityRefs, traitSet, context, hostSession)</td></tr>
-<tr class="memdesc:adaa2dd5516f929be47c46d93aac57283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#adaa2dd5516f929be47c46d93aac57283">More...</a><br /></td></tr>
-<tr class="separator:adaa2dd5516f929be47c46d93aac57283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fc6f92f083cef123dc4a266c5515ac2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2">defaultEntityReference</a> (self, traitSets, context, hostSession)</td></tr>
 <tr class="memdesc:a7fc6f92f083cef123dc4a266c5515ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context.  <a href="#a7fc6f92f083cef123dc4a266c5515ac2">More...</a><br /></td></tr>
 <tr class="separator:a7fc6f92f083cef123dc4a266c5515ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -904,74 +901,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 <a class="el" href="glossary.html#preflight">preflight</a> </dd>
 <dd>
 <a class="el" href="glossary.html#resolve">resolve</a> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="adaa2dd5516f929be47c46d93aac57283"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def resolve </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>Any traits that aren't applicable to any particular entity reference should not be set in the resulting data. This covers any traits that are understood by the implementation, but not appliable to the entity in question, or are entirely unknown to the manager. Setting a trait in the result is an indication to the caller that that entity conceptually has that trait.</p>
-<dl class="section warning"><dt>Warning</dt><dd>There is no requirement for a manager to populate all properties of known traits if appropriate data is not available. It is the responsibility of the caller to handle requested data being missing in a fashion appropriate to its intended use.</dd></dl>
-<p>In summary:</p><ul>
-<li>Set the trait in the result TraitsData instance for each entity if it is known and applicable to that entity, even if it has no properties or there is no data available for properties it does have.</li>
-<li>Set the properties of each trait where possible.</li>
-</ul>
-<p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
-<p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The Context should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The supplied entity references will have already been validated as relevant to this manager (via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>).</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The traits to resolve for the supplied list of entity references.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_entity_resolution_error.html" title="Thrown during entity resolution, if the Entity is valid, but has no meaningful data to be resolved...">exceptions.EntityResolutionError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on a mal-formed or unrecognized Entity Reference...">exceptions.InvalidEntityReference</a> <code>]]</code> A list containing either a populated TraitsData instance for each reference; <code>EntityResolutionError</code> if a supplied entity reference does not have a meaningful string representation, or it is a valid reference format that doesn't exist; or <code>InvalidEntityReference</code> if a supplied entity reference should not be resolved for that context, for example, if the context access is <code>kWrite</code> and the entity is an existing version.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a> </dd></dl>
 
 </div>
 </div>
