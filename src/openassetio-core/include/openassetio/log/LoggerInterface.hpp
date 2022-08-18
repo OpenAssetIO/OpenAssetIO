@@ -29,7 +29,7 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @name Log Severity
    * @{
    */
-  enum Severity { kDebugApi = 0, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
+  enum class Severity { kDebugApi, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
 
   static constexpr std::array kSeverityNames{"debugApi", "debug", "info",    "progress",
                                              "warning",  "error", "critical"};

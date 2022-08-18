@@ -13,6 +13,13 @@ v1.0.0-alpha.X
   type in C++.
   [#568](https://github.com/OpenAssetIO/OpenAssetIO/issues/568)
 
+- Scoped `LoggerInterface` severity constants under
+  `LoggerInterface.Severity`, for consistency with enumerated constants,
+  e.g. `Context` and `BatchElementError`, where enums have their own
+  child scope. This uses the more modern `enum class` scoped enumeration
+  type in C++.
+  [#568](https://github.com/OpenAssetIO/OpenAssetIO/issues/568)
+
 - Changed `resolve` to use a callback-based API, rather than returning
   a list of results.
   [#530](https://github.com/OpenAssetIO/OpenAssetIO/issues/530)

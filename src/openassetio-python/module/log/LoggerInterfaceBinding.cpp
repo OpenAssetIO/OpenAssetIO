@@ -41,8 +41,7 @@ void registerLoggerInterface(const py::module& mod) {
       .value("kProgress", LoggerInterface::Severity::kProgress)
       .value("kInfo", LoggerInterface::Severity::kInfo)
       .value("kDebug", LoggerInterface::Severity::kDebug)
-      .value("kDebugApi", LoggerInterface::Severity::kDebugApi)
-      .export_values();
+      .value("kDebugApi", LoggerInterface::Severity::kDebugApi);
 
   loggerInterface.def_readonly_static("kSeverityNames", &LoggerInterface::kSeverityNames);
 

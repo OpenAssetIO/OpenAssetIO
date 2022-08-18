@@ -43,13 +43,13 @@ def severity_filter(mock_logger):
 
 # Ordered by increasing severity value
 all_severities = (
-    lg.LoggerInterface.kDebugApi,
-    lg.LoggerInterface.kDebug,
-    lg.LoggerInterface.kInfo,
-    lg.LoggerInterface.kProgress,
-    lg.LoggerInterface.kWarning,
-    lg.LoggerInterface.kError,
-    lg.LoggerInterface.kCritical
+    lg.LoggerInterface.Severity.kDebugApi,
+    lg.LoggerInterface.Severity.kDebug,
+    lg.LoggerInterface.Severity.kInfo,
+    lg.LoggerInterface.Severity.kProgress,
+    lg.LoggerInterface.Severity.kWarning,
+    lg.LoggerInterface.Severity.kError,
+    lg.LoggerInterface.Severity.kCritical,
 )
 
 severity_control_envvar = "OPENASSETIO_LOGGING_SEVERITY"
@@ -82,7 +82,7 @@ class Test_ConsoleLogger:
     def test_when_shouldColorOutput_not_set_then_messages_are_colored(self, capfd):
         _ = capfd.readouterr()
         logger = lg.ConsoleLogger(shouldColorOutput=True)
-        logger.log(lg.LoggerInterface.kCritical, "A message")
+        logger.log(lg.LoggerInterface.Severity.kCritical, "A message")
         output = capfd.readouterr()
 
         assert "\033[0m" in output.err
@@ -90,7 +90,7 @@ class Test_ConsoleLogger:
     def test_when_shouldColorOutput_set_true_then_messages_are_colored(self, capfd):
         _ = capfd.readouterr()
         logger = lg.ConsoleLogger(shouldColorOutput=True)
-        logger.log(lg.LoggerInterface.kCritical, "A message")
+        logger.log(lg.LoggerInterface.Severity.kCritical, "A message")
         output = capfd.readouterr()
 
         assert "\033[0m" in output.err
@@ -98,7 +98,7 @@ class Test_ConsoleLogger:
     def test_when_shouldColorOutput_set_false_then_messages_are_not_colored(self, capfd):
         _ = capfd.readouterr()
         logger = lg.ConsoleLogger(shouldColorOutput=False)
-        logger.log(lg.LoggerInterface.kCritical, "A message")
+        logger.log(lg.LoggerInterface.Severity.kCritical, "A message")
         output = capfd.readouterr()
 
         assert "\033[0m" not in output.err
@@ -106,13 +106,19 @@ class Test_ConsoleLogger:
 
 class Test_LoggerInterface:
     def test_severity_names(self):
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kCritical] == "critical"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kError] == "error"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kWarning] == "warning"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kProgress] == "progress"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kInfo] == "info"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kDebug] == "debug"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.kDebugApi] == "debugApi"
+        assert (
+            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kCritical] == "critical"
+        )
+        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kError] == "error"
+        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kWarning] == "warning"
+        assert (
+            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kProgress] == "progress"
+        )
+        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kInfo] == "info"
+        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kDebug] == "debug"
+        assert (
+            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kDebugApi] == "debugApi"
+        )
 
     def test_severity_index(self):
         for index, severity in enumerate(all_severities):
@@ -140,35 +146,34 @@ class Test_SeverityFilter_init:
 
         assert str(err.value).startswith("__init__(): incompatible constructor arguments")
 
-
     def test_when_severity_envvar_not_set_then_initial_severity_is_warning(
         self, mock_logger, monkeypatch
     ):
         monkeypatch.delenv(severity_control_envvar, raising=False)
         f = lg.SeverityFilter(mock_logger)
-        assert f.getSeverity() == lg.LoggerInterface.kWarning
+        assert f.getSeverity() == lg.LoggerInterface.Severity.kWarning
 
     def test_when_severity_envvar_set_then_initial_severity_matches_envvar_value(
         self, mock_logger, monkeypatch
     ):
         for value, expected in (
-            ("", lg.LoggerInterface.kWarning),
-            ("not a valid value", lg.LoggerInterface.kWarning),
+            ("", lg.LoggerInterface.Severity.kWarning),
+            ("not a valid value", lg.LoggerInterface.Severity.kWarning),
         ):
             monkeypatch.setenv(severity_control_envvar, value)
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
-        for value, expected in (
-            (lg.LoggerInterface.kDebugApi, lg.LoggerInterface.kDebugApi),
-            (lg.LoggerInterface.kDebug, lg.LoggerInterface.kDebug),
-            (lg.LoggerInterface.kInfo, lg.LoggerInterface.kInfo),
-            (lg.LoggerInterface.kProgress, lg.LoggerInterface.kProgress),
-            (lg.LoggerInterface.kWarning, lg.LoggerInterface.kWarning),
-            (lg.LoggerInterface.kError, lg.LoggerInterface.kError),
-            (lg.LoggerInterface.kCritical, lg.LoggerInterface.kCritical),
+        for expected in (
+                lg.LoggerInterface.Severity.kDebugApi,
+                lg.LoggerInterface.Severity.kDebug,
+                lg.LoggerInterface.Severity.kInfo,
+                lg.LoggerInterface.Severity.kProgress,
+                lg.LoggerInterface.Severity.kWarning,
+                lg.LoggerInterface.Severity.kError,
+                lg.LoggerInterface.Severity.kCritical,
         ):
-            monkeypatch.setenv(severity_control_envvar, str(int(value)))
+            monkeypatch.setenv(severity_control_envvar, str(int(expected)))
             f = lg.SeverityFilter(mock_logger)
             assert f.getSeverity() == expected
 
@@ -176,7 +181,7 @@ class Test_SeverityFilter_init:
         monkeypatch.setenv(severity_control_envvar, "invalid")
         _ = lg.SeverityFilter(mock_logger)
         mock_logger.mock.log.assert_called_with(
-            lg.LoggerInterface.kError,
+            lg.LoggerInterface.Severity.kError,
             "SeverityFilter: Invalid OPENASSETIO_LOGGING_SEVERITY value 'invalid' - ignoring.",
         )
 
@@ -184,7 +189,7 @@ class Test_SeverityFilter_init:
         monkeypatch.setenv(severity_control_envvar, "12")
         _ = lg.SeverityFilter(mock_logger)
         mock_logger.mock.log.assert_called_with(
-            lg.LoggerInterface.kError,
+            lg.LoggerInterface.Severity.kError,
             "SeverityFilter: Invalid OPENASSETIO_LOGGING_SEVERITY value '12' - ignoring.",
         )
 
