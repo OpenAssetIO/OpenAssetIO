@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+v1.0.0-alpha.X
+--------------
+
+### Improvements
+
+- Added boolean comparison based on content to `EntityReference` types.
+
+
 v1.0.0-alpha.2
 --------------
 
