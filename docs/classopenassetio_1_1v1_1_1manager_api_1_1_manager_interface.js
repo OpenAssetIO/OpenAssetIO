@@ -10,10 +10,10 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "identifier", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870", null ],
     [ "info", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f", null ],
-    [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e", null ],
+    [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd", null ],
-    [ "persistenceTokenForState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a", null ],
+    [ "persistenceTokenForState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2047967ea3666dd6edfc78a52537ca99", null ],
     [ "settings", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583", null ],
-    [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46", null ]
+    [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b", null ]
 ];

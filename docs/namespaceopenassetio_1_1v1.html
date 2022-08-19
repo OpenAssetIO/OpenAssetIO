@@ -164,7 +164,7 @@ Typedefs</h2></td></tr>
 <p>These types are used throughout OpenAssetIO, especially within dictionary-like types such as <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> or <a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>.</p>
 <p>OpenAssetIO must be able to bridge disparate platforms, including serialization of data. It is therefore useful to ensure that our core primitive types are as predictable and portable as possible.</p>
 <p>The following type list aims to standardise on types that share a common binary layout across platforms.</p>
-<p>This also gives us a single point to change should we need to switch to a different primitive representation in future. Therefore all use of primitive types by OpenAssetIO hosts and plugins should use these typedefs where possible, to reduce potential find-and-replace pain later. </p>
+<p>This also gives us a single point to change should we need to switch to a different primitive representation in future, or to switch conditionally for a particular platform. Therefore all use of primitive types by OpenAssetIO hosts and plugins should use these typedefs where possible, to reduce potential find-and-replace pain later. </p>
 </div></td></tr>
 <tr class="memitem:a39011fca2df8f8b3d2cf72a39108c588"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a39011fca2df8f8b3d2cf72a39108c588">Bool</a> = bool</td></tr>
 <tr class="memdesc:a39011fca2df8f8b3d2cf72a39108c588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boolean value type.  <a href="#a39011fca2df8f8b3d2cf72a39108c588">More...</a><br /></td></tr>
@@ -313,6 +313,7 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p>String value type. </p>
+<p>This type is guaranteed to be API compatible with <code>std::string</code>. </p>
 
 </div>
 </div>

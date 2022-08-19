@@ -211,7 +211,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5":[13,0,0,9,5,0,1],
 "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3":[13,0,0,9,5,0,2],
 "classopenassetio_1_1v1_1_1_batch_element_error.html#a663cd681ccfa529e1c0612cca88b7c49":[13,0,0,9,5,1],
-"classopenassetio_1_1v1_1_1_batch_element_error.html#af0c2e85dc178154db23549b7474f37d1":[13,0,0,9,5,2],
+"classopenassetio_1_1v1_1_1_batch_element_error.html#a9160f4a81db4db65d9d25c657cef7c8a":[13,0,0,9,5,2],
 "classopenassetio_1_1v1_1_1_context.html":[13,0,0,9,6],
 "classopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820":[13,0,0,9,6,8],
 "classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951":[13,0,0,9,6,0],

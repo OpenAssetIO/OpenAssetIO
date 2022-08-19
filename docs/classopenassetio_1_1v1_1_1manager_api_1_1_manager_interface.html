@@ -163,18 +163,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4e784143c880610d29428209c6af3cea"><td class="memItemLeft" align="right" valign="top">virtual ManagerStateBasePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> (const ManagerStateBasePtr &amp;parentState, const HostSessionPtr &amp;hostSession)</td></tr>
 <tr class="memdesc:a4e784143c880610d29428209c6af3cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a state that is a child of the supplied state.  <a href="#a4e784143c880610d29428209c6af3cea">More...</a><br /></td></tr>
 <tr class="separator:a4e784143c880610d29428209c6af3cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af856481998ca19fa574471312cafa07a"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> (const ManagerStateBasePtr &amp;state, const HostSessionPtr &amp;hostSession)</td></tr>
-<tr class="memdesc:af856481998ca19fa574471312cafa07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>) so that can be restored later, or in another process.  <a href="#af856481998ca19fa574471312cafa07a">More...</a><br /></td></tr>
-<tr class="separator:af856481998ca19fa574471312cafa07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59774e380f794405642d4cafeb180b46"><td class="memItemLeft" align="right" valign="top">virtual ManagerStateBasePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> (const std::string &amp;token, const HostSessionPtr &amp;hostSession)</td></tr>
-<tr class="memdesc:a59774e380f794405642d4cafeb180b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a59774e380f794405642d4cafeb180b46">More...</a><br /></td></tr>
-<tr class="separator:a59774e380f794405642d4cafeb180b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae23c0f2f48ee4e4dbef3eba64608b5de"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> (const ManagerStateBasePtr &amp;state, const HostSessionPtr &amp;hostSession)</td></tr>
+<tr class="memdesc:ae23c0f2f48ee4e4dbef3eba64608b5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string that encapsulates the current state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> represented by the supplied state object, (created by <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>) so that can be restored later, or in another process.  <a href="#ae23c0f2f48ee4e4dbef3eba64608b5de">More...</a><br /></td></tr>
+<tr class="separator:ae23c0f2f48ee4e4dbef3eba64608b5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73a774a6c37d939eeba276e5ae1b229b"><td class="memItemLeft" align="right" valign="top">virtual ManagerStateBasePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;token, const HostSessionPtr &amp;hostSession)</td></tr>
+<tr class="memdesc:a73a774a6c37d939eeba276e5ae1b229b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the supplied state object to a previously persisted state.  <a href="#a73a774a6c37d939eeba276e5ae1b229b">More...</a><br /></td></tr>
+<tr class="separator:a73a774a6c37d939eeba276e5ae1b229b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
 </div></td></tr>
-<tr class="memitem:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e">isEntityReferenceString</a> (const std::string &amp;someString, const HostSessionPtr &amp;hostSession) const  =0</td></tr>
-<tr class="memdesc:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#ab29edc2e2ce9bd00f2b18152c09fed8e">More...</a><br /></td></tr>
-<tr class="separator:ab29edc2e2ce9bd00f2b18152c09fed8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c1005609599f0fa6c5d632bebfd90fb"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb">isEntityReferenceString</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;someString, const HostSessionPtr &amp;hostSession) const  =0</td></tr>
+<tr class="memdesc:a4c1005609599f0fa6c5d632bebfd90fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#a4c1005609599f0fa6c5d632bebfd90fb">More...</a><br /></td></tr>
+<tr class="separator:a4c1005609599f0fa6c5d632bebfd90fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Entity Reference Resolution</h2></td></tr>
@@ -364,9 +364,9 @@ Entity Reference Resolution</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -395,7 +395,7 @@ Entity Reference Resolution</h2></td></tr>
 <p>Create a new object to represent the state of the interface and return it (or some handle that can be persisted within the context). </p>
 <p>You are free to implement this however you like, as long as it can be uniquely represented by the object returned from this function.</p>
 <p>This method is called whenever a new <a class="el" href="glossary.html#Context">Context</a> is made by a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>. The return is then stored in the newly created <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, and is consequently available to all the API calls in the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> that take a <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> instance via <a class="el" href="classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917">managerState</a>. Your implementation can then use this to anchor the api call to a particular snapshot of the state of the asset inventory.</p>
-<p>The default implementation of this method returns a nullptr, indicating that the manager does not perform custom state management. Manager's implementing this method must also implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>, <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> and <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a>.</p>
+<p>The default implementation of this method returns a nullptr, indicating that the manager does not perform custom state management. Manager's implementing this method must also implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>, <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> and <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
@@ -411,9 +411,9 @@ Entity Reference Resolution</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af856481998ca19fa574471312cafa07a">persistenceTokenForState</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -500,7 +500,7 @@ Entity Reference Resolution</h2></td></tr>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e">isEntityReferenceString</a> should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb">isEntityReferenceString</a> should be implemented regardless.</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
 </ul>
@@ -557,7 +557,7 @@ Entity Reference Resolution</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab29edc2e2ce9bd00f2b18152c09fed8e"></a>
+<a class="anchor" id="a4c1005609599f0fa6c5d632bebfd90fb"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -567,7 +567,7 @@ Entity Reference Resolution</h2></td></tr>
         <tr>
           <td class="memname">virtual bool isEntityReferenceString </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;&#160;</td>
           <td class="paramname"><em>someString</em>, </td>
         </tr>
         <tr>
@@ -666,7 +666,7 @@ Entity Reference Resolution</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af856481998ca19fa574471312cafa07a"></a>
+<a class="anchor" id="ae23c0f2f48ee4e4dbef3eba64608b5de"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -674,7 +674,7 @@ Entity Reference Resolution</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string persistenceTokenForState </td>
+          <td class="memname">virtual <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> persistenceTokenForState </td>
           <td>(</td>
           <td class="paramtype">const ManagerStateBasePtr &amp;&#160;</td>
           <td class="paramname"><em>state</em>, </td>
@@ -706,7 +706,7 @@ Entity Reference Resolution</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46">stateFromPersistenceToken</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
@@ -776,7 +776,7 @@ Entity Reference Resolution</h2></td></tr>
 </ul>
 <p>When an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to a sequence of files, the frame, view, etc substitution tokens should be preserved, and in the sprintf compatible syntax.</p>
 <p>This function should attempt to take into account the current host/Context to ensure that any other substitution tokens are presented in a suitable form. The <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
-<p>The supplied entity references will have already been validated as relevant to this manager (via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1d8861fea27702b8b74d4abe71e329b4">isEntityReferenceString</a>).</p>
+<p>The supplied entity references will have already been validated as relevant to this manager (via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">isEntityReferenceString</a>).</p>
 <p>There may still be errors during resolution. An exception can be thrown for unexpected errors that should fail the whole batch, and it is up to the host to handle the exception. For errors specific to a particular entity, where other entities may still resolve successfully, an appropriate <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> should be given to the <code>errorCallback</code>. Using HTTP status codes as an analogy, typically a server error (5xx) would correspond to an exception whereas a client error (4xx) would correspond to a <code><a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a></code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -791,7 +791,7 @@ Entity Reference Resolution</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd>entityExists </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab29edc2e2ce9bd00f2b18152c09fed8e">isEntityReferenceString</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb">isEntityReferenceString</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> </dd></dl>
 
@@ -830,7 +830,7 @@ Entity Reference Resolution</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a59774e380f794405642d4cafeb180b46"></a>
+<a class="anchor" id="a73a774a6c37d939eeba276e5ae1b229b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -840,7 +840,7 @@ Entity Reference Resolution</h2></td></tr>
         <tr>
           <td class="memname">virtual ManagerStateBasePtr stateFromPersistenceToken </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;&#160;</td>
           <td class="paramname"><em>token</em>, </td>
         </tr>
         <tr>

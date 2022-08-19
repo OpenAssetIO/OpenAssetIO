@@ -19,6 +19,6 @@ var searchData=
   ['stable_20entity_20resolution',['Stable Entity Resolution',['../stable_resolution.html',1,'']]],
   ['start',['start',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#a550769bbd4e7537ff90a656f5b0c23b2',1,'openassetio::_core::debug::_Timer']]],
   ['stateerror',['StateError',['../classopenassetio_1_1exceptions_1_1_state_error.html',1,'openassetio::exceptions']]],
-  ['statefrompersistencetoken',['stateFromPersistenceToken',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a59774e380f794405642d4cafeb180b46',1,'openassetio::v1::managerApi::ManagerInterface']]],
+  ['statefrompersistencetoken',['stateFromPersistenceToken',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b',1,'openassetio::v1::managerApi::ManagerInterface']]],
   ['str',['Str',['../namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6',1,'openassetio::v1']]]
 ];
