@@ -87,7 +87,7 @@ class Test_PythonPluginSystemManagerImplementationFactory_init:
             f"{PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is not set. "
             "It is somewhat unlikely that you will find any plugins..."
         )
-        expected_severity = mock_logger.kWarning
+        expected_severity = mock_logger.Severity.kWarning
 
         if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
             monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)

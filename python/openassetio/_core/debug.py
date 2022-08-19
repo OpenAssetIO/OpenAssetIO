@@ -84,7 +84,7 @@ def debugCall(function):
 
     @functools.wraps(function)
     def _debugCall(*args, **kwargs):
-        return __debugCall(function, debugFn, LoggerInterface.kDebug, *args, **kwargs)
+        return __debugCall(function, debugFn, LoggerInterface.Severity.kDebug, *args, **kwargs)
 
     return _debugCall
 
@@ -107,7 +107,7 @@ def debugApiCall(function):
 
     @functools.wraps(function)
     def _debugApiCall(*args, **kwargs):
-        return __debugCall(function, debugFn, LoggerInterface.kDebugApi, *args, **kwargs)
+        return __debugCall(function, debugFn, LoggerInterface.Severity.kDebugApi, *args, **kwargs)
 
     return _debugApiCall
 

@@ -6,7 +6,6 @@
 #include <memory>
 
 #include <openassetio/export.h>
-#include <openassetio/enum.hpp>
 #include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(TraitsData)
@@ -40,16 +39,16 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * @name Access Pattern
    */
-  enum Access : EnumIdx { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
+  enum class Access { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
 
-  static constexpr EnumNames<5> kAccessNames{"read", "readMultiple", "write", "writeMultiple",
-                                             "unknown"};
+  static constexpr std::array kAccessNames{"read", "readMultiple", "write", "writeMultiple",
+                                           "unknown"};
   /// @}
 
   /**
    * @name Data Retention
    */
-  enum Retention : EnumIdx {
+  enum class Retention {
     /// Data will not be used
     kIgnored,
     /// Data will be re-used during a particular action
@@ -60,7 +59,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
     kPermanent
   };
 
-  static constexpr EnumNames<4> kRetentionNames{"ignored", "transient", "session", "permanent"};
+  static constexpr std::array kRetentionNames{"ignored", "transient", "session", "permanent"};
   /// @}
 
   /**
@@ -127,7 +126,8 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * @fqref{hostApi.Manager.createContext} "Manager.createContext"
    * should always be used instead.
    */
-  [[nodiscard]] static ContextPtr make(Access access = kUnknown, Retention retention = kTransient,
+  [[nodiscard]] static ContextPtr make(Access access = Access::kUnknown,
+                                       Retention retention = Retention::kTransient,
                                        TraitsDataPtr locale = nullptr,
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
   /**
@@ -136,7 +136,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForRead() const {
-    return access == kRead || access == kReadMultiple;
+    return access == Access::kRead || access == Access::kReadMultiple;
   }
 
   /**
@@ -145,7 +145,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForWrite() const {
-    return access == kWrite || access == kWriteMultiple;
+    return access == Access::kWrite || access == Access::kWriteMultiple;
   }
 
   /**
@@ -154,7 +154,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * is returned.
    */
   [[nodiscard]] inline bool isForMultiple() const {
-    return access == kReadMultiple || access == kWriteMultiple;
+    return access == Access::kReadMultiple || access == Access::kWriteMultiple;
   }
 
  private:

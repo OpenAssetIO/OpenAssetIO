@@ -65,8 +65,9 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
             self.__paths = os.environ.get(self.kPluginEnvVar, "")
             if not self.__paths:
                 self._logger.log(
-                    self._logger.kWarning, ("%s is not set. It is somewhat unlikely that you will "
-                     + "find any plugins...") % self.kPluginEnvVar)
+                    self._logger.Severity.kWarning,
+                    "%s is not set. It is somewhat unlikely that you will find any plugins..."
+                    % self.kPluginEnvVar)
 
         self.__pluginManager = PythonPluginSystem(self._logger)
 
@@ -101,7 +102,7 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         if not self.__pluginManager:
             self.__scan()
 
-        self._logger.log(self._logger.kDebug, f"Instantiating {identifier}")
+        self._logger.log(self._logger.Severity.kDebug, f"Instantiating {identifier}")
         plugin = self.__pluginManager.plugin(identifier)
         interface = plugin.interface()
 

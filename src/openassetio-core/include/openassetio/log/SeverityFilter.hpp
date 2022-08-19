@@ -21,7 +21,8 @@ class OPENASSETIO_CORE_EXPORT SeverityFilter final : public LoggerInterface {
   /**
    * Creates a new instance of the SeverityFilter
    *
-   * The filter defaults to the @ref kWarning severity.
+   * The filter defaults to the @ref Severity.kWarning "kWarning"
+   * severity.
    *
    * @param upstreamLogger A logger that will receive messages of the
    * requested severity or above.
@@ -68,7 +69,7 @@ class OPENASSETIO_CORE_EXPORT SeverityFilter final : public LoggerInterface {
  private:
   explicit SeverityFilter(LoggerInterfacePtr upstreamLogger);
 
-  LoggerInterface::Severity minSeverity_ = kWarning;
+  Severity minSeverity_ = Severity::kWarning;
   LoggerInterfacePtr upstreamLogger_;
 };
 }  // namespace log

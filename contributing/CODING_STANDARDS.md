@@ -118,6 +118,21 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 > macro forward declares using `class`, we must avoid using `struct`
 > to define classes or we risk linker errors on Windows.
 
+### Enumerations
+
+All enumerations in C++ should use scoped enumerations, i.e.
+`enum class`, to ensure constants do not pollute the parent namespace,
+and to add strong typing, avoiding a class of programmer error. This
+matches the [ISO C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Renum-class).
+
+Python bindings should therefore not use [export_values()](https://pybind11.readthedocs.io/en/stable/classes.html#enumerations-and-internal-types)
+when binding a scoped enum type, for consistency with C++. That is,
+when binding a C++ `enum class` using pybind, use
+`py::enum_<...>{...}.value(...)` without the common terminating
+`.export_values()`. This then ensures the enum is available in Python
+namespaced in the same way as in C++, i.e. not polluting the parent
+namespace.
+
 ## C
 
 ### Handles

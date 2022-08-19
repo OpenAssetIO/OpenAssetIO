@@ -18,12 +18,14 @@ ConsoleLoggerPtr ConsoleLogger::make(bool shouldColorOutput) {
 ConsoleLogger::ConsoleLogger(bool shouldColorOutput) : shouldColorOutput_(shouldColorOutput) {}
 
 void ConsoleLogger::log(Severity severity, const Str& message) {
+  auto severityIdx = static_cast<std::size_t>(severity);
+
   if (shouldColorOutput_) {
-    std::cerr << "\033[0;" << kSeverityColors[severity] << "m";
+    std::cerr << "\033[0;" << kSeverityColors[severityIdx] << "m";
   }
 
   // NOLINTNEXTLINE(readability-magic-numbers)
-  std::cerr << std::setw(11) << kSeverityNames[severity] << ": " << message;
+  std::cerr << std::setw(11) << kSeverityNames[severityIdx] << ": " << message;
 
   if (shouldColorOutput_) {
     std::cerr << "\033[0m";
