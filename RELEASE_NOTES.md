@@ -171,12 +171,12 @@ v1.0.0-alpha.X
   language bindings.
   [#445](https://github.com/OpenAssetIO/OpenAssetIO/issues/445)
 
-- Ammended the behaviour of `ManagerInterface` such that derived classes
+- Amended the behaviour of `ManagerInterface` such that derived classes
   who implement the `createState` method _must_ also implement
   `createChildState`, `persistenceTokenForState` and
   `stateFromPersistenceToken`. Checks have been added to the
   `openassetio.test.manager` `apiComplianceSuite` to validate manager
-  implementations agains this requirement.
+  implementations against this requirement.
 
 - Made the constructors of the following classes private: `Context`,
   `Host`, `HostSession`, `Manager`, `TraitsData`. The static `make`
