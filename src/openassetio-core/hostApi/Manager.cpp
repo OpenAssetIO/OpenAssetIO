@@ -55,14 +55,14 @@ ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
   return context;
 }
 
-std::string Manager::persistenceTokenForContext(const ContextPtr &context) {
+Str Manager::persistenceTokenForContext(const ContextPtr &context) {
   if (context->managerState) {
     return managerInterface_->persistenceTokenForState(context->managerState, hostSession_);
   }
   return "";
 }
 
-ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
+ContextPtr Manager::contextFromPersistenceToken(const Str &token) {
   ContextPtr context = Context::make();
   if (!token.empty()) {
     context->managerState = managerInterface_->stateFromPersistenceToken(token, hostSession_);
@@ -70,7 +70,7 @@ ContextPtr Manager::contextFromPersistenceToken(const std::string &token) {
   return context;
 }
 
-bool Manager::isEntityReferenceString(const std::string &someString) const {
+bool Manager::isEntityReferenceString(const Str &someString) const {
   return managerInterface_->isEntityReferenceString(someString, hostSession_);
 }
 

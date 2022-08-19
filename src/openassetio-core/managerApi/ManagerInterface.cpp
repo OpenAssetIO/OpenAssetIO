@@ -29,7 +29,7 @@ ManagerStateBasePtr ManagerInterface::createChildState(
       "createChildState called on a manager that does not implement a custom state.");
 }
 
-std::string ManagerInterface::persistenceTokenForState(
+Str ManagerInterface::persistenceTokenForState(
     [[maybe_unused]] const ManagerStateBasePtr& state,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw std::runtime_error(
@@ -37,8 +37,7 @@ std::string ManagerInterface::persistenceTokenForState(
 }
 
 ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
-    [[maybe_unused]] const std::string& token,
-    [[maybe_unused]] const HostSessionPtr& hostSession) {
+    [[maybe_unused]] const Str& token, [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw std::runtime_error(
       "stateFromPersistenceToken called on a manager that does not implement a custom state.");
 }

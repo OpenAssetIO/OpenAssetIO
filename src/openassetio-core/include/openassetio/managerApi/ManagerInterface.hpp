@@ -485,8 +485,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @see @ref stateFromPersistenceToken
    */
-  [[nodiscard]] virtual std::string persistenceTokenForState(const ManagerStateBasePtr& state,
-                                                             const HostSessionPtr& hostSession);
+  [[nodiscard]] virtual Str persistenceTokenForState(const ManagerStateBasePtr& state,
+                                                     const HostSessionPtr& hostSession);
 
   /**
    * Restores the supplied state object to a previously persisted
@@ -502,7 +502,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * implement custom state management.
    */
   [[nodiscard]] virtual ManagerStateBasePtr stateFromPersistenceToken(
-      const std::string& token, const HostSessionPtr& hostSession);
+      const Str& token, const HostSessionPtr& hostSession);
   /**
    * @}
    */
@@ -554,7 +554,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @see @needsref entityExists
    * @see @ref resolve
    */
-  [[nodiscard]] virtual bool isEntityReferenceString(const std::string& someString,
+  [[nodiscard]] virtual bool isEntityReferenceString(const Str& someString,
                                                      const HostSessionPtr& hostSession) const = 0;
 
   /**

@@ -294,7 +294,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    *  @see @ref stable_resolution
    */
-  std::string persistenceTokenForContext(const ContextPtr& context);
+  Str persistenceTokenForContext(const ContextPtr& context);
 
   /**
    * Returns a @ref Context linked to a previous manager state, based
@@ -318,7 +318,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @todo Should we concatenate the manager id in
    * persistenceTokenForContext so we can verify that they match?
    */
-  ContextPtr contextFromPersistenceToken(const std::string& token);
+  ContextPtr contextFromPersistenceToken(const Str& token);
 
   /**
    * @}
@@ -377,7 +377,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * openassetio.constants.kField_EntityReferencesMatchPrefix if
    * supplied, especially when bridging between C/python.
    */
-  [[nodiscard]] bool isEntityReferenceString(const std::string& someString) const;
+  [[nodiscard]] bool isEntityReferenceString(const Str& someString) const;
 
   /**
    * Create an @ref EntityReference object wrapping a given

@@ -24,7 +24,7 @@ void registerManagerFactory(const py::module& mod) {
       .def("identifiers", &ManagerFactory::identifiers);
 
   py::class_<ManagerFactory::ManagerDetail>(managerFactory, "ManagerDetail")
-      .def(py::init<openassetio::Str, openassetio::Str, openassetio::InfoDictionary>(),
+      .def(py::init<openassetio::Identifier, openassetio::Str, openassetio::InfoDictionary>(),
            py::arg("identifier"), py::arg("displayName"), py::arg("info"))
       .def_readwrite("identifier", &ManagerFactory::ManagerDetail::identifier)
       .def_readwrite("displayName", &ManagerFactory::ManagerDetail::displayName)
