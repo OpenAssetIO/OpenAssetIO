@@ -88,7 +88,7 @@
  * key/value pairs of data (properties) that the entity (may) hold.
  *
  * Traits are the mechanism by which a @ref host requests specific data
- * about an entity at runtime. The @ref openassetio.hostApi.Manager.Manager.resolve
+ * about an entity at runtime. The @fqref{hostApi.Manager.resolve}
  * "resolve" method asks the manager to retrieve the data for a specific
  * set of traits for one or more @ref entity_reference
  * "entity references".

@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
+#include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
@@ -35,5 +36,7 @@ void registerManager(const py::module& mod) {
       .def("createEntityReference", &Manager::createEntityReference,
            py::arg("entityReferenceString"))
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
-           py::arg("entityReferenceString"));
+           py::arg("entityReferenceString"))
+      .def("resolve", &Manager::resolve, py::arg("entityReferences"), py::arg("traitSet"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"));
 }

@@ -39,3 +39,11 @@ class Test_EntityReference_toString:
         expected = "ref://some/entity/🐈"
         an_entity_reference = EntityReference(expected)
         assert an_entity_reference.toString() == expected
+
+
+class Test_EntityReference_equality:
+    def test_when_same_then_compares_equal(self):
+        assert EntityReference("something") == EntityReference("something")
+
+    def test_when_not_same_then_compares_unequal(self):
+        assert EntityReference("something") != EntityReference("something else")
