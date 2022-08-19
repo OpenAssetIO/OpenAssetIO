@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#ab0785204b0582eca42bf5c30cbf920c3',1,'openassetio::v1::Context']]],
+  ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#a188aa4c7eee9d6254a9c65f61e5c67df',1,'openassetio::v1::Context']]],
   ['kdocumentaction_5fsave',['kDocumentAction_Save',['../namespaceopenassetio_1_1constants.html#ac53f766f74ca7ae4aa9715b1484e95b5',1,'openassetio::constants']]],
   ['kdocumentaction_5fsaveas',['kDocumentAction_SaveAs',['../namespaceopenassetio_1_1constants.html#a87815a4e1cc6779c048a11e63877f323',1,'openassetio::constants']]],
   ['kdocumentaction_5fsavenewversion',['kDocumentAction_SaveNewVersion',['../namespaceopenassetio_1_1constants.html#ae5a449c90157a7eff1b70e25e9db0746',1,'openassetio::constants']]],
@@ -37,10 +37,10 @@ var searchData=
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
-  ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a0d4f9c0297edb401d6b9bac6c0fb32e4',1,'openassetio::v1::Context']]],
+  ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a05e41dada6e859a26599bacb341eb2e4',1,'openassetio::v1::Context']]],
   ['ksetting_5floggingseverity',['kSetting_LoggingSeverity',['../namespaceopenassetio_1_1constants.html#abc3b2f6603ea0b538dacd24e728d5dae',1,'openassetio::constants']]],
   ['ksetting_5fmanageridentifier',['kSetting_ManagerIdentifier',['../namespaceopenassetio_1_1constants.html#a758b897ce364c84b0ed166ba6e7a7a33',1,'openassetio::constants']]],
-  ['kseveritynames',['kSeverityNames',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ae9cd2ebb8c2c1135f48da0b9762ee061',1,'openassetio::v1::log::LoggerInterface']]],
+  ['kseveritynames',['kSeverityNames',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#aa3cb2b138133655f027cd3759d797601',1,'openassetio::v1::log::LoggerInterface']]],
   ['ksupportedattributetypes',['kSupportedAttributeTypes',['../namespaceopenassetio_1_1constants.html#ae23f5269edf384900b19dc73af80e45d',1,'openassetio::constants']]],
   ['kterm_5fasset',['kTerm_Asset',['../namespaceopenassetio_1_1host_api_1_1terminology.html#aaa23b6cc3765db08611cdd681ddf3c18',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fassets',['kTerm_Assets',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a6fd9e47e6ef3538ec93821e20fb9bc84',1,'openassetio::hostApi::terminology']]],
