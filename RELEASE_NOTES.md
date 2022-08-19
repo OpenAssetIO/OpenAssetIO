@@ -9,6 +9,13 @@ v1.0.0-alpha.X
 - Added boolean comparison based on content to `EntityReference` types.
 
 
+### Bug fixes
+
+- Fixed calling `Manager.resolve` from C++, when the manager
+  implementation is written in Python.
+  [#582](https://github.com/OpenAssetIO/OpenAssetIO/issues/582)
+
+
 v1.0.0-alpha.2
 --------------
 
