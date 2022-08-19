@@ -64,7 +64,7 @@ struct Fixture {
  private:
   /// A dummy HostInterface implementation to satisfy abstract base.
   struct HostImpl : openassetio::hostApi::HostInterface {
-    [[nodiscard]] openassetio::Str identifier() const override { return {}; }
+    [[nodiscard]] openassetio::Identifier identifier() const override { return {}; }
     [[nodiscard]] openassetio::Str displayName() const override { return {}; }
   };
   /// A dummy LoggerInterface implementation
