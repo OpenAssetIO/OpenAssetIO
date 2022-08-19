@@ -64,19 +64,18 @@ struct PyManagerInterface : ManagerInterface {
                       parentState, hostSession);
   }
 
-  std::string persistenceTokenForState(const ManagerStateBasePtr& parentState,
-                                       const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(std::string, ManagerInterface, persistenceTokenForState, parentState,
-                      hostSession);
+  Str persistenceTokenForState(const ManagerStateBasePtr& parentState,
+                               const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(Str, ManagerInterface, persistenceTokenForState, parentState, hostSession);
   }
 
-  ManagerStateBasePtr stateFromPersistenceToken(const std::string& token,
+  ManagerStateBasePtr stateFromPersistenceToken(const Str& token,
                                                 const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken,
                       token, hostSession);
   }
 
-  [[nodiscard]] bool isEntityReferenceString(const std::string& someString,
+  [[nodiscard]] bool isEntityReferenceString(const Str& someString,
                                              const HostSessionPtr& hostSession) const override {
     PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, isEntityReferenceString, someString,
                            hostSession);

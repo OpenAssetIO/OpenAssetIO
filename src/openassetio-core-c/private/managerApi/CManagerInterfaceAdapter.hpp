@@ -57,7 +57,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Wrap the C suite's `isEntityReferenceString` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
-  [[nodiscard]] bool isEntityReferenceString(const std::string& someString,
+  [[nodiscard]] bool isEntityReferenceString(const Str& someString,
                                              const HostSessionPtr& hostSession) const override;
 
   /// Wrap the C suite's `resolve` function.

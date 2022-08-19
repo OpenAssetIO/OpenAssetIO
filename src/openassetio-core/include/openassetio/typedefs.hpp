@@ -27,8 +27,9 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  * common binary layout across platforms.
  *
  * This also gives us a single point to change should we need to switch
- * to a different primitive representation in future. Therefore all use
- * of primitive types by OpenAssetIO hosts and plugins should use these
+ * to a different primitive representation in future, or to switch
+ * conditionally for a particular platform. Therefore all use of
+ * primitive types by OpenAssetIO hosts and plugins should use these
  * typedefs where possible, to reduce potential find-and-replace pain
  * later.
  *
@@ -40,7 +41,11 @@ using Bool = bool;
 using Int = int64_t;
 /// Real value type.
 using Float = double;
-/// String value type.
+/**
+ * String value type.
+ *
+ * This type is guaranteed to be API compatible with `std::string`.
+ */
 using Str = std::string;
 
 /**

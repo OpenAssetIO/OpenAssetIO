@@ -93,7 +93,7 @@ trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
 }
 
 bool CManagerInterfaceAdapter::isEntityReferenceString(
-    [[maybe_unused]] const std::string& someString,
+    [[maybe_unused]] const Str& someString,
     [[maybe_unused]] const HostSessionPtr& hostSession) const {
   throw std::runtime_error{"Not implemented"};
 }

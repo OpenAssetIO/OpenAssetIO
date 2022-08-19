@@ -7,6 +7,7 @@
 
 #include <openassetio/errors.h>
 #include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -83,7 +84,7 @@ class BatchElementError final {
   /// Error code indicating the class of error.
   const ErrorCode code;
   /// Human-readable error message.
-  const std::string message;
+  const Str message;
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

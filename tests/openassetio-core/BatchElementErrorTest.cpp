@@ -12,7 +12,7 @@ using openassetio::BatchElementError;
 SCENARIO("BatchElementError usage") {
   GIVEN("an error code and message") {
     const auto code = BatchElementError::ErrorCode::kUnknown;
-    const std::string message = "some message";
+    const openassetio::Str message = "some message";
 
     WHEN("a BatchElementError is constructed wrapping the code and message") {
       BatchElementError error{code, message};
