@@ -466,8 +466,8 @@ class Test_Manager_resolve:
         manager.resolve(
             some_refs, an_entity_trait_set, a_context, success_callback, error_callback)
 
-        method.assert_called_once_with(some_refs, an_entity_trait_set, a_context,
-                                       a_host_session, success_callback, error_callback)
+        method.assert_called_once_with(
+            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY)
 
         success_callback.assert_called_once_with(123, a_traitsdata)
         error_callback.assert_called_once_with(456, a_batch_element_error)

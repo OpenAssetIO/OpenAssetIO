@@ -138,8 +138,8 @@
  *   storing applicable options, etc...
  *
  * - @fqref{hostApi.Manager.isEntityReferenceString} "Test" and resolve
- *   any strings that may represent file system locations (@ref
- *   openassetio.hostApi.Manager.Manager.resolve "Manager.resolve")
+ *   any strings that may represent file system locations
+ *   (@fqref{hostApi.Manager.resolve} "Manager.resolve")
  *
  * - Ensure the use of a correctly configured @ref Context for all
  *   calls to the API.
