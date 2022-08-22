@@ -20,6 +20,7 @@ Tests that cover the openassetio.hostApi.Manager wrapper class.
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
+import inspect
 from unittest import mock
 
 import pytest
@@ -113,6 +114,8 @@ class Test_Manager_init:
 
 
 class Test_Manager_identifier:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.identifier)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface):
@@ -141,6 +144,8 @@ class Test_Manager_identifier:
 
 
 class Test_Manager_displayName:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.displayName)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface):
@@ -165,6 +170,8 @@ class Test_Manager_displayName:
 
 
 class Test_Manager_info:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.info)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface):
@@ -189,6 +196,8 @@ class Test_Manager_info:
 
 
 class Test_Manager_updateTerminology:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.updateTerminology)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session):
@@ -200,6 +209,8 @@ class Test_Manager_updateTerminology:
 
 
 class Test_Manager_settings:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.settings)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session):
@@ -215,6 +226,8 @@ class Test_Manager_settings:
 
 
 class Test_Manager_initialize:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.initialize)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session):
@@ -226,6 +239,8 @@ class Test_Manager_initialize:
 
 
 class Test_Manager_flushCaches:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.flushCaches)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session):
@@ -236,6 +251,9 @@ class Test_Manager_flushCaches:
 
 
 class Test_Manager_isEntityReferenceString:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.isEntityReferenceString)
+
     @pytest.mark.parametrize("expected", (True, False))
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, a_ref_string, expected):
@@ -247,6 +265,9 @@ class Test_Manager_isEntityReferenceString:
 
 
 class Test_Manager_createEntityReference:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.createEntityReference)
+
     def test_when_invalid_then_raises_ValueError(
             self, manager, mock_manager_interface, a_ref_string, a_host_session):
         mock_manager_interface.mock.isEntityReferenceString.return_value = False
@@ -271,6 +292,9 @@ class Test_Manager_createEntityReference:
 
 
 class Test_Manager_createEntityReferenceIfValid:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.createEntityReferenceIfValid)
+
     def test_when_invalid_then_returns_None(
             self, manager, mock_manager_interface, a_ref_string, a_host_session):
         mock_manager_interface.mock.isEntityReferenceString.return_value = False
@@ -294,6 +318,8 @@ class Test_Manager_createEntityReferenceIfValid:
 
 
 class Test_Manager_entityExists:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.entityExists)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -304,6 +330,8 @@ class Test_Manager_entityExists:
 
 
 class Test_Manager_defaultEntityReference:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.defaultEntityReference)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, a_context,
@@ -316,6 +344,8 @@ class Test_Manager_defaultEntityReference:
 
 
 class Test_Manager_entityName:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.entityName)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -325,7 +355,9 @@ class Test_Manager_entityName:
         method.assert_called_once_with(some_refs, a_context, a_host_session)
 
 
-class Test_Manager_entityDisplayNamer:
+class Test_Manager_entityDisplayName:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.entityDisplayName)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -336,6 +368,8 @@ class Test_Manager_entityDisplayNamer:
 
 
 class Test_Manager_entityVersion:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.entityVersion)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -346,6 +380,8 @@ class Test_Manager_entityVersion:
 
 
 class Test_Manager_entityVersions:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.entityVersions)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -375,6 +411,8 @@ class Test_Manager_entityVersions:
 
 
 class Test_Manager_finalizedEntityVersion:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.finalizedEntityVersion)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
@@ -394,6 +432,8 @@ class Test_Manager_finalizedEntityVersion:
 
 
 class Test_Manager_getRelatedReferences:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.getRelatedReferences)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, a_ref,
@@ -443,6 +483,8 @@ class Test_Manager_getRelatedReferences:
 
 
 class Test_Manager_resolve:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.resolve)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs,
@@ -474,6 +516,8 @@ class Test_Manager_resolve:
 
 
 class Test_Manager_managementPolicy:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.managementPolicy)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_entity_trait_sets,
@@ -494,6 +538,8 @@ class Test_Manager_managementPolicy:
 
 
 class Test_Manager_preflight:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.preflight)
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs,
@@ -507,6 +553,8 @@ class Test_Manager_preflight:
 
 
 class Test_Manager_register:
+    def test_method_defined_in_python(self):
+        assert is_defined_in_python(Manager.register)
 
     def test_wraps_the_the_held_interface_register_methods(
             self, manager, mock_manager_interface, a_host_session, some_refs, a_traitsdata,
@@ -545,6 +593,8 @@ class Test_Manager_register:
 
 
 class Test_Manager_createContext:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.createContext)
 
     def test_context_is_created_with_expected_properties(
             self, manager, mock_manager_interface, a_host_session):
@@ -562,6 +612,8 @@ class Test_Manager_createContext:
 
 
 class Test_Manager_createChildContext:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.createChildContext)
 
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
             self, manager, mock_manager_interface, a_host_session):
@@ -603,6 +655,8 @@ class Test_Manager_createChildContext:
 
 
 class Test_Manager_persistenceTokenForContext:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.persistenceTokenForContext)
 
     def test_when_called_then_the_managers_persistence_token_is_returned(
              self, manager, mock_manager_interface, a_host_session):
@@ -631,6 +685,8 @@ class Test_Manager_persistenceTokenForContext:
 
 
 class Test_Manager_contextFromPersistenceToken:
+    def test_method_defined_in_cpp(self):
+        assert not is_defined_in_python(Manager.contextFromPersistenceToken)
 
     def test_when_called_then_the_managers_restored_state_is_set_in_the_context(
              self, manager, mock_manager_interface, a_host_session):
@@ -652,3 +708,23 @@ class Test_Manager_contextFromPersistenceToken:
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
+
+
+#
+# Helpers
+#
+
+def is_defined_in_python(method):
+    """
+    Returns True if the method is defined in Python (as opposed to
+    through a cmodule).
+
+    @param The method of a class to be checked (eg: Manager.info). This
+    should be passed from the Class itself, not an instance.
+    """
+    # The way pybind does its thing™, this returns True for a native
+    # Python implementation, False for a C++ method bound to Python
+    # (isntancemthod not function). Mildly tenuous, but serves a
+    # purpose. getsource and similar raise a TypeError if the supplied
+    # object isn't a function, so the flow control is simpler this way.
+    return inspect.isfunction(method)
