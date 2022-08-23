@@ -32,5 +32,8 @@
 /// Failure due to malformed entity reference.
 #define OPENASSETIO_BatchErrorCode_kInvalidEntityReference (OPENASSETIO_BatchErrorCode_BEGIN + 1)
 
+/// Failure due to an API method being called with an invalid @ref Context access.
+#define OPENASSETIO_BatchErrorCode_kEntityAccessError (OPENASSETIO_BatchErrorCode_BEGIN + 2)
+
 /// Entity resolution failure.
-#define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 2)
+#define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 3)

@@ -14,6 +14,7 @@ void registerBatchElementError(const py::module &mod) {
   py::enum_<BatchElementError::ErrorCode>{batchElementError, "ErrorCode"}
       .value("kUnknown", BatchElementError::ErrorCode::kUnknown)
       .value("kInvalidEntityReference", BatchElementError::ErrorCode::kInvalidEntityReference)
+      .value("kEntityAccessError", BatchElementError::ErrorCode::kEntityAccessError)
       .value("kEntityResolutionError", BatchElementError::ErrorCode::kEntityResolutionError);
 
   batchElementError

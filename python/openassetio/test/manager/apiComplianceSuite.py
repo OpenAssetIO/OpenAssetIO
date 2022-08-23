@@ -297,13 +297,15 @@ class Test_resolve(FixtureAugmentedTestCase):
         mixed_traits.add("₲₪₡🤯")
         self.__testResolution([ref], mixed_traits, Context.Access.kRead, traits)
 
-    def test_when_resolving_read_only_reference_for_write_then_resolution_error_is_returned(self):
+    def test_when_resolving_read_only_reference_for_write_then_access_error_is_returned(self):
         self.__testResolutionError(
-            "a_reference_to_a_readonly_entity", access=Context.Access.kWrite)
+            "a_reference_to_a_readonly_entity", access=Context.Access.kWrite,
+            errorCode=BatchElementError.ErrorCode.kEntityAccessError)
 
-    def test_when_resolving_write_only_reference_for_read_then_resolution_error_is_returned(self):
+    def test_when_resolving_write_only_reference_for_read_then_access_error_is_returned(self):
         self.__testResolutionError(
-            "a_reference_to_a_writeonly_entity", access=Context.Access.kRead)
+            "a_reference_to_a_writeonly_entity", access=Context.Access.kRead,
+            errorCode=BatchElementError.ErrorCode.kEntityAccessError)
 
     def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_missing_entity")
