@@ -44,21 +44,6 @@ class BatchElementError final {
   enum class ErrorCode {
     /// Fallback for uncommon errors.
     kUnknown = OPENASSETIO_BatchErrorCode_kUnknown,
-    /**
-     * Error code used during @ref resolve "entity resolution" when the
-     * reference itself is valid, but it is not possible to retrieve
-     * data for the referenced @ref entity.
-     *
-     * This could be because it does not exist, or a read-only entity is
-     * being resolved for write. This code should not be used if an
-     * entity does not have a requested trait - simply do not set that
-     * trait in the resulting data.
-     *
-     * This code is also used during version finalisation and any other
-     * entity-based operations on a valid @ref entity_reference that
-     * fail for some reason.
-     */
-    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError,
 
     /**
      * Error code used whenever an Entity-based action is performed on
@@ -78,7 +63,23 @@ class BatchElementError final {
      * pre-validation used when constructing an `EntityReference` object
      * is intended to be a simple in-process check.
      */
-    kInvalidEntityReference = OPENASSETIO_BatchErrorCode_kInvalidEntityReference
+    kInvalidEntityReference = OPENASSETIO_BatchErrorCode_kInvalidEntityReference,
+
+    /**
+     * Error code used during @ref resolve "entity resolution" when the
+     * reference itself is valid, but it is not possible to retrieve
+     * data for the referenced @ref entity.
+     *
+     * This could be because it does not exist, or a read-only entity is
+     * being resolved for write. This code should not be used if an
+     * entity does not have a requested trait - simply do not set that
+     * trait in the resulting data.
+     *
+     * This code is also used during version finalisation and any other
+     * entity-based operations on a valid @ref entity_reference that
+     * fail for some reason.
+     */
+    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError
   };
 
   /// Error code indicating the class of error.

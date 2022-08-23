@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Breaking changes
+
+- Reordered `BatchElementError.ErrorCode` constants to allow grouping of
+  entity-related errors.
+  [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
+
+
 v1.0.0-alpha.3
 --------------
 
