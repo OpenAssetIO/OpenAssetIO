@@ -3,6 +3,7 @@ var searchData=
   ['kcritical',['kCritical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebug',['kDebug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebugapi',['kDebugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4',1,'openassetio::v1::log::LoggerInterface']]],
+  ['kentityaccesserror',['kEntityAccessError',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485',1,'openassetio::v1::BatchElementError']]],
   ['kentityresolutionerror',['kEntityResolutionError',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5',1,'openassetio::v1::BatchElementError']]],
   ['kerror',['kError',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82bae3587c730cc1aa530fa4ddc9c4204e97',1,'openassetio::v1::log::LoggerInterface']]],
   ['kfound',['kFound',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9a343ee47b19145191b658cdf60ddd0061',1,'openassetio::v1::trait']]],

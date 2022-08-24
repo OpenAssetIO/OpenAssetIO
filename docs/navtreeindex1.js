@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html":[13,0,0,9,0,1],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[13,0,0,9,0,1,7],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d":[13,0,0,9,0,1,11],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c930fa7c9fc65de04fbb8f3e3558257":[13,0,0,9,0,1,14],
@@ -105,8 +106,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[13,3,0,4],
 "functions_enum.html":[13,3,4],
 "functions_f.html":[13,3,0,5],
-"functions_func.html":[13,3,1],
 "functions_func.html":[13,3,1,0],
+"functions_func.html":[13,3,1],
 "functions_func_0x7e.html":[13,3,1,17],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_c.html":[13,3,1,2],
@@ -231,8 +232,8 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[11,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[11,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[11,0,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "group__oa__manager_api___shared_host_session__aliases.html#ga642b119bf4a43b96f797d6c52db06b76":[11,0,4,0,1],
 "group__oa__manager_api___shared_manager_interface.html":[11,0,5],
 "group__oa__manager_api___shared_manager_interface.html#gac39779f51a07c78ea704ff755572358e":[11,0,5,1],
-"group__oa__manager_api___shared_manager_interface__aliases.html":[11,0,5,0],
-"group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[11,0,5,0,0]
+"group__oa__manager_api___shared_manager_interface__aliases.html":[11,0,5,0]
 };
