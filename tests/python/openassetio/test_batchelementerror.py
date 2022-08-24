@@ -29,8 +29,9 @@ from openassetio import BatchElementError
 class Test_BatchElementError_ErrorCode:
     def test_code_values(self):
         assert int(BatchElementError.ErrorCode.kUnknown) == 128
-        assert int(BatchElementError.ErrorCode.kEntityResolutionError) == 129
-        assert int(BatchElementError.ErrorCode.kInvalidEntityReference) == 130
+        assert int(BatchElementError.ErrorCode.kInvalidEntityReference) == 129
+        assert int(BatchElementError.ErrorCode.kEntityAccessError) == 130
+        assert int(BatchElementError.ErrorCode.kEntityResolutionError) == 131
 
 
 class Test_BatchElementError_inheritance:

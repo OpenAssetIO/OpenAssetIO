@@ -13,8 +13,9 @@ void registerBatchElementError(const py::module &mod) {
 
   py::enum_<BatchElementError::ErrorCode>{batchElementError, "ErrorCode"}
       .value("kUnknown", BatchElementError::ErrorCode::kUnknown)
-      .value("kEntityResolutionError", BatchElementError::ErrorCode::kEntityResolutionError)
-      .value("kInvalidEntityReference", BatchElementError::ErrorCode::kInvalidEntityReference);
+      .value("kInvalidEntityReference", BatchElementError::ErrorCode::kInvalidEntityReference)
+      .value("kEntityAccessError", BatchElementError::ErrorCode::kEntityAccessError)
+      .value("kEntityResolutionError", BatchElementError::ErrorCode::kEntityResolutionError);
 
   batchElementError
       .def(py::init<BatchElementError::ErrorCode, openassetio::Str>(), py::arg("code"),

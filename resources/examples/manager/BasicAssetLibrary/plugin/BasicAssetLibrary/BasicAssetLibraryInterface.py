@@ -116,7 +116,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
     ):
         if context.isForWrite():
             result = BatchElementError(
-                BatchElementError.ErrorCode.kEntityResolutionError,
+                BatchElementError.ErrorCode.kEntityAccessError,
                 "BAL entities are read-only")
             for idx in range(len(entityReferences)):
                 errorCallback(idx, result)
