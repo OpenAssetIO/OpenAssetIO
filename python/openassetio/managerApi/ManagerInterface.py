@@ -741,13 +741,13 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         """
         Prepares for some work to be done to create data for the
         referenced entity. The entity may not yet exist (@ref
-        entity_reference). This call is designed to allow sanity
-        checking, placeholder creation or any other sundry preparatory
-        actions to be carried out.
+        entity_reference). This call is designed to allow validation of
+        the target reference, placeholder creation or any other sundry
+        preparatory actions to be carried out.
 
         If this does not apply to the manager's workflow, then the
-        method is effectively a no-op and the default implementation
-        calls the success callback with the input entity reference.
+        method can pass back the input reference once the target entity
+        reference has been validated.
 
         Generally, this will be called before register() in any host
         that creates media, where the return to
@@ -792,7 +792,10 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         along with a populated @fqref{BatchElementError}
         "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
         "ErrorCodes"). The callback must be called on the same thread
-        that initiated the call to `preflight`.
+        that initiated the call to `preflight`. A
+        @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+        "kEntityAccessError" should be used for any target references
+        that are conceptually read-only.
 
         @return None
 
@@ -802,8 +805,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref register
         """
-        for idx, ref in enumerate(targetEntityRefs):
-            successCallback(idx, ref)
+        raise NotImplementedError
 
     def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession,
                  successCallback, errorCallback):
