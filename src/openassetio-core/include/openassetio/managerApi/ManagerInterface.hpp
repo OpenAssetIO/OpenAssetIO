@@ -681,6 +681,21 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                        const ResolveErrorCallback& errorCallback) = 0;
 
   /// @}
+ protected:
+  /**
+   * Create an @ref EntityReference object wrapping a given @ref
+   * entity_reference string. This should be used for all reference
+   * creation by a manager's implementation.
+   *
+   * No validation is performed as this method is only visible to the
+   * manager implementation, and so it is assumed that its internal
+   * business logic inherently ensures only valid strings are
+   * returned.
+   *
+   * @param entityReferenceString Raw string representation of the
+   * entity reference.
+   */
+  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
 };
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
