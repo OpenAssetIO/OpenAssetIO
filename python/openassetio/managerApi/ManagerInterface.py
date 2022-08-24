@@ -736,7 +736,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     #
     # @{
 
-    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession,
+                  successCallback, errorCallback):
         """
         Prepares for some work to be done to create data for the
         referenced entity. The entity may not yet exist (@ref
@@ -744,12 +745,20 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         checking, placeholder creation or any other sundry preparatory
         actions to be carried out.
 
+        If this does not apply to the manager's workflow, then the
+        method is effectively a no-op and the default implementation
+        calls the success callback with the input entity reference.
+
         Generally, this will be called before register() in any host
         that creates media, where the return to
         @fqref{managerApi.ManagerInterface.managementPolicy}
         "managementPolicy" has the @ref
         openassetio.traits.managementPolicy.WillManagePathTrait
         "WillManagePathTrait" set.
+
+        This call must block until preflight is complete for all
+        supplied references, and callbacks have been called on the same
+        thread that called `preflight`
 
         @param targetEntityRefs `List[` @fqref{EntityReference}
         "EntityReference" `]` An @ref entity_reference for each entity
@@ -766,19 +775,26 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @return `List[Union[str,`
-            exceptions.PreflightError, exceptions.RetryableError `]]`
-        The preflight result for each corresponding entity. If
-        successful, this should be an @ref entity_reference that the
-        host should resolve to determine the path to write media to.
-        This may or may not be the same as the input reference. A host
-        will resolve this reference to get the working URL before
-        writing any files or other data. If preflight was
-        unsuccessful, the result for an entity should be either a
-        `PreflightError` if some fatal exception happens during
-        preflight, indicating the process should be aborted; or
-        `RetryableError` if any non-fatal error occurs that means the
-        host should retry from the beginning of any given process.
+        @param successCallback Callback to be called for each successful
+        preflight of an entity reference. It should be called with the
+        corresponding index of the entity reference in `entityRefs`
+        along with the (potentially revised) working reference to be
+        used by the host for the rest of the publishing operation for
+        this specific entity (ie, resolve then register). This is an
+        opportunity to update the reference to one specific to any
+        placeholder/reserved entities if applicable. The callback must
+        be called on the same thread that initiated the call to
+        `preflight`.
+
+        @param errorCallback Callback to be called for each failed
+        preflight of an entity reference. It should be called with the
+        corresponding index of the entity reference in `entityRefs`
+        along with a populated @fqref{BatchElementError}
+        "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+        "ErrorCodes"). The callback must be called on the same thread
+        that initiated the call to `preflight`.
+
+        @return None
 
         @note it is important for the implementation to pay attention
         to @fqref{Context.retention} "Context.retention", as not all
@@ -786,9 +802,11 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref register
         """
-        return targetEntityRefs
+        for idx, ref in enumerate(targetEntityRefs):
+            successCallback(idx, ref)
 
-    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession):
+    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession,
+                 successCallback, errorCallback):
         """
         Publish entities to the @ref asset_management_system.
 
@@ -801,6 +819,10 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         "WillManagePathTrait" of the returned
         @fqref{managerApi.ManagerInterface.managementPolicy}
         "managementPolicy" for the supplied data's @ref trait_set.
+
+        This call must block until registration is complete for all
+        supplied references, and callbacks have been called on the same
+        thread that called `register`
 
         This is an opportunity to do other things in the host as part of
         publishing if required. The context's locale will tell you more
@@ -828,7 +850,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         guaranteed that the trait sets of these instances are constant
         across the batch.
 
-        @note Generally speaking, the data within a the supplied
+        @note Generally speaking, the data within the supplied
         trait properties should be persisted verbatim. If however, the
         implementation has any specific understanding of any given
         trait, it is free to rewrite this data in any meaningful
@@ -844,16 +866,25 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @param hostSession HostSession The API session.
 
-        @return `List[Union[str,`
-            exceptions.RegistrationError, exceptions.RetryableError `]]`
-        The publish result for each corresponding entity. This is
-        either an @ref entity_reference to the 'final' entity created
-        by the publish action (which does not need to be the same as
-        the corresponding entry in `targetEntityRefs`); a
-        `RegistrationError` if some fatal exception happens during
-        publishing, indicating the process should be aborted; or
-        `RetryableError` if any non-fatal error occurs that means the
-        host should retry from the beginning of any given process.
+        @param successCallback Callback to be called for each successful
+        registration. It should be called with the corresponding index
+        of the entity reference in `entityRefs` along with the
+        (potentially revised) final reference to be used by the host for
+        subsequent interactions with this specific entity. This is an
+        opportunity to update the reference to one specific to the
+        resulting entity and/or its specific version as applicable. The
+        callback must be called on the same thread that initiated the
+        call to `register`.
+
+        @param errorCallback Callback to be called for each failed
+        registration. It should be called with the corresponding index
+        of the entity reference in `entityRefs` along with a populated
+        @fqref{BatchElementError} "BatchElementError" (see
+        @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+        must be called on the same thread that initiated the call to
+        `register`.
+
+        @return None
 
         @note it is important for the implementation to pay attention to
         @fqref{Context.retention} "retention", as not all Hosts will

@@ -10,6 +10,10 @@ v1.0.0-alpha.x
   entity-related errors.
   [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
 
+- Migrated `Manager.preflight` and `Manager.register` to use the new
+  callback based batch API.
+  [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
+
 
 ### Improvements
 

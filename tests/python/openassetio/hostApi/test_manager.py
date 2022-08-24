@@ -543,33 +543,66 @@ class Test_Manager_preflight:
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
             self, manager, mock_manager_interface, a_host_session, some_refs,
-            an_entity_trait_set, a_context):
+            an_entity_trait_set, a_context, a_batch_element_error):
+
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
 
         method = mock_manager_interface.mock.preflight
-        assert manager.preflight(some_refs, an_entity_trait_set, a_context) \
-                == method.return_value
-        method.assert_called_once_with(some_refs, an_entity_trait_set, a_context,
-                                       a_host_session)
+
+        def call_callbacks(*_args):
+            input_refs = method.call_args[0][0]
+            # Success
+            callback = method.call_args[0][4]
+            callback(123, input_refs[0])
+            # Error
+            callback = method.call_args[0][5]
+            callback(456, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        manager.preflight(
+            some_refs, an_entity_trait_set, a_context, success_callback, error_callback)
+
+        method.assert_called_once_with(
+            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY)
+
+        success_callback.assert_called_once_with(123, some_refs[0])
+        error_callback.assert_called_once_with(456, a_batch_element_error)
 
 
 class Test_Manager_register:
     def test_method_defined_in_python(self):
         assert is_defined_in_python(Manager.register)
 
-    def test_wraps_the_the_held_interface_register_methods(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_traitsdata,
-            a_context):
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+            self, manager, mock_manager_interface, a_host_session, some_refs,
+            a_context, some_entity_traitsdatas, a_batch_element_error):
 
-        datas = [a_traitsdata for _ in some_refs]
-        mutated_refs = [f"{r}-registered" for r in some_refs]
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
 
-        register_method = mock_manager_interface.mock.register
-        register_method.return_value = mutated_refs
+        method = mock_manager_interface.mock.register
 
-        assert manager.register(some_refs, datas, a_context) \
-                == register_method.return_value
-        register_method.assert_called_once_with(some_refs, datas, a_context, a_host_session)
+        def call_callbacks(*_args):
+            input_refs = method.call_args[0][0]
+            # Success
+            callback = method.call_args[0][4]
+            callback(123, input_refs[0])
+            # Error
+            callback = method.call_args[0][5]
+            callback(456, a_batch_element_error)
 
+        method.side_effect = call_callbacks
+
+        manager.register(
+            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback)
+
+        method.assert_called_once_with(
+            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY)
+
+        success_callback.assert_called_once_with(123, some_refs[0])
+        error_callback.assert_called_once_with(456, a_batch_element_error)
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
             self, manager, some_refs, a_traitsdata, a_context):
@@ -577,10 +610,10 @@ class Test_Manager_register:
         datas = [a_traitsdata for _ in some_refs]
 
         with pytest.raises(IndexError):
-            manager.register(some_refs[1:], datas, a_context)
+            manager.register(some_refs[1:], datas, a_context, mock.Mock(), mock.Mock())
 
         with pytest.raises(IndexError):
-            manager.register(some_refs, datas[1:], a_context)
+            manager.register(some_refs, datas[1:], a_context, mock.Mock(), mock.Mock())
 
 
     def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
@@ -589,7 +622,7 @@ class Test_Manager_register:
         datas = [TraitsData({f"trait{i}", "🦀"})for i in range(len(some_refs))]
 
         with pytest.raises(ValueError):
-            manager.register(some_refs, datas, a_context)
+            manager.register(some_refs, datas, a_context, mock.Mock(), mock.Mock())
 
 
 class Test_Manager_createContext:

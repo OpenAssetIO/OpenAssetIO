@@ -25,6 +25,7 @@ from unittest.mock import Mock
 
 import pytest
 
+from openassetio import Context, EntityReference
 from openassetio.managerApi import ManagerInterface, ManagerStateBase
 
 
@@ -131,6 +132,24 @@ class Test_ManagerInterface_finalizedEntityVersion:
         assert finalized_refs == refs
 
 
+class Test_ManagerInterface_preflight:
+    def test_when_given_refs_then_success_callback_called_with_input_refs(
+            self, manager_interface, some_entity_refs, a_host_session):
+
+        resulting_refs = []
+
+        manager_interface.preflight(some_entity_refs, {"a_trait"}, Context(), a_host_session,
+                                    lambda _, ref: resulting_refs.append(ref),
+                                    lambda _, err: pytest.fail(err.message))
+
+        assert resulting_refs == some_entity_refs
+
+
 @pytest.fixture
 def manager_interface():
     return ManagerInterface()
+
+
+@pytest.fixture
+def some_entity_refs():
+    return [EntityReference(r) for r in ("ref:///🦆", "ref:///🐑")]

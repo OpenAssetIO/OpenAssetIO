@@ -33,7 +33,7 @@ handled through additional suites local to the manager's implementation.
 # pylint: disable=invalid-name, missing-function-docstring, no-member
 
 from .harness import FixtureAugmentedTestCase
-from ... import BatchElementError, Context, TraitsData
+from ... import BatchElementError, Context, EntityReference, TraitsData
 
 
 __all__ = []
@@ -355,6 +355,85 @@ class Test_resolve(FixtureAugmentedTestCase):
         self.assertIsInstance(actual_error, BatchElementError)
         self.assertEqual(actual_error.code, expected_error.code)
         self.assertEqual(actual_error.message, expected_error.message)
+
+
+class Test_preflight(FixtureAugmentedTestCase):
+    """
+    Check a plugin's implementation of
+    managerApi.ManagerInterface.preflight.
+    """
+    def setUp(self):
+        self.a_reference_to_a_writable_entity = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True))
+        self.collectRequiredFixture("a_set_of_valid_traits")
+
+    def test_when_multiple_references_then_same_number_of_returned_references(self):
+        ref = self.a_reference_to_a_writable_entity
+
+        results = []
+        self._manager.preflight(
+            [ref, ref], self.a_set_of_valid_traits, self.createTestContext(),
+            lambda _, ref: results.append(ref),
+            lambda _, err: self.fail(err.message)
+        )
+
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertIsInstance(result, EntityReference)
+
+    def test_when_reference_is_read_only_then_access_error_is_returned(self):
+        read_only_ref = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_readonly_entity", skipTestIfMissing=True))
+
+        errors = []
+        self._manager.preflight(
+            [read_only_ref], self.a_set_of_valid_traits, self.createTestContext(),
+            lambda _idx, _ref: self.fail("Preflight should not succeed"),
+            lambda _idx, error: errors.append(error)
+        )
+
+        self.assertEqual(errors[0].code, BatchElementError.ErrorCode.kEntityAccessError)
+
+
+class Test_register(FixtureAugmentedTestCase):
+    """
+    Check a plugin's implementation of
+    managerApi.ManagerInterface.register.
+    """
+    def setUp(self):
+        self.a_reference_to_a_writable_entity = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True))
+        self.collectRequiredFixture("a_traitsdata_for_a_reference_to_a_writable_entity")
+
+    def test_when_multiple_references_then_same_number_of_returned_references(self):
+        ref = self.a_reference_to_a_writable_entity
+        data = self.a_traitsdata_for_a_reference_to_a_writable_entity
+
+        results = []
+        self._manager.register(
+            [ref, ref], [data, data],
+            self.createTestContext(),
+            lambda _, ref: results.append(ref),
+            lambda _, err: self.fail(err.message)
+        )
+
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertIsInstance(result, EntityReference)
+
+    def test_when_reference_is_read_only_then_access_error_is_returned(self):
+        read_only_ref = self._manager.createEntityReference(
+            self.requireFixture("a_reference_to_a_readonly_entity", skipTestIfMissing=True))
+
+        errors = []
+        self._manager.register(
+            [read_only_ref], [self.a_traitsdata_for_a_reference_to_a_writable_entity],
+            self.createTestContext(),
+            lambda _idx, _ref: self.fail("Register should not succeed"),
+            lambda _idx, error: errors.append(error)
+        )
+
+        self.assertEqual(errors[0].code, BatchElementError.ErrorCode.kEntityAccessError)
 
 
 class Test_createChildState(FixtureAugmentedTestCase):
