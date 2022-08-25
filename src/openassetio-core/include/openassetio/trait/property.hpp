@@ -6,6 +6,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_set>
 #include <variant>
 
 #include <openassetio/export.h>
@@ -38,6 +39,16 @@ namespace property {
 using Key = openassetio::Str;
 /// Property dictionary values.
 using Value = std::variant<Bool, Int, Float, Str>;
+
+/**
+ * A collection of trait property keys.
+ *
+ * Trait property keys collections are a set, rather than a list. In
+ * that, no single key can appear more than once and the order of the
+ * keys has no meaning and is not preserved.
+ */
+using KeySet = std::unordered_set<Key>;
+
 }  // namespace property
 
 /**

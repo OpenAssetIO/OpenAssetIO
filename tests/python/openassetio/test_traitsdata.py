@@ -133,6 +133,21 @@ class Test_TraitsData_getsetTraitProperty:
             a_traitsdata.setTraitProperty("first_trait", "unknown type", None)
 
 
+class Test_TraitsData_traitPropertyKeys:
+    def test_when_trait_has_no_properties_then_returns_empty_set(self, a_traitsdata):
+        a_traitsdata.addTrait("a_trait")
+        assert a_traitsdata.traitPropertyKeys("a_trait") == set()
+
+    def test_when_has_trait_with_properties_then_returns_keys(self, a_traitsdata):
+        expected_keys = {"proprty_one", "🦆"}
+        for prop in expected_keys:
+            a_traitsdata.setTraitProperty("a_trait", prop, "a value")
+        assert a_traitsdata.traitPropertyKeys("a_trait") == expected_keys
+
+    def test_when_trait_not_set_then_returns_empty_set(self, a_traitsdata):
+        assert a_traitsdata.traitPropertyKeys("a_trait") == set()
+
+
 class Test_TraitsData_equality:
     def test_when_comparing_with_same_data_then_are_equal(self):
         data_a = TraitsData({"a_trait"})

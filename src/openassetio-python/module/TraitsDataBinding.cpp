@@ -39,5 +39,6 @@ void registerTraitsData(const py::module& mod) {
             return {};
           },
           py::arg("id"), py::arg("key"))
+      .def("traitPropertyKeys", &TraitsData::traitPropertyKeys, py::arg("id"))
       .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 }
