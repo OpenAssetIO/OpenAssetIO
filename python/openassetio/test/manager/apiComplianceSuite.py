@@ -217,14 +217,14 @@ class Test_isEntityReferenceString(FixtureAugmentedTestCase):
 
     def setUp(self):
         self.collectRequiredFixture("a_valid_reference", skipTestIfMissing=True)
-        self.collectRequiredFixture("a_malformed_reference")
+        self.collectRequiredFixture("an_invalid_reference")
 
     def test_valid_reference_returns_true(self):
         assert self._manager.isEntityReferenceString(self.a_valid_reference) is True
 
     def test_non_reference_returns_false(self):
-        assert self.a_malformed_reference != ""
-        assert self._manager.isEntityReferenceString(self.a_malformed_reference) is False
+        assert self.an_invalid_reference != ""
+        assert self._manager.isEntityReferenceString(self.an_invalid_reference) is False
 
     def test_empty_string_returns_false(self):
         assert self._manager.isEntityReferenceString("") is False
@@ -313,7 +313,7 @@ class Test_resolve(FixtureAugmentedTestCase):
     def test_when_resolving_malformed_reference_then_then_invalid_reference_error_is_returned(
             self):
         self.__testResolutionError(
-            "a_malformed_entity_reference",
+            "a_malformed_reference",
             errorCode=BatchElementError.ErrorCode.kInvalidEntityReference)
 
     def __testResolution(self, references, traits, access, expected_traits):

@@ -14,6 +14,11 @@ v1.0.0-alpha.x
   callback based batch API.
   [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
 
+- Renamed `apiComplianceSuite` fixtures to disambiguate their use:
+  - `a_malformed_reference` -> `an_invalid_reference`
+  - `a_malformed_entity_reference` -> `a_malformed_refrence`
+  [#585](https://github.com/OpenAssetIO/OpenAssetIO/issues/585)
+
 
 ### Improvements
 
