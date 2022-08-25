@@ -310,11 +310,11 @@ class Test_resolve(FixtureAugmentedTestCase):
     def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_missing_entity")
 
-    def test_when_resolving_malformed_reference_then_then_invalid_reference_error_is_returned(
+    def test_when_resolving_malformed_reference_then_then_malformed_reference_error_is_returned(
             self):
         self.__testResolutionError(
             "a_malformed_reference",
-            errorCode=BatchElementError.ErrorCode.kInvalidEntityReference)
+            errorCode=BatchElementError.ErrorCode.kMalformedEntityReference)
 
     def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
@@ -382,17 +382,35 @@ class Test_preflight(FixtureAugmentedTestCase):
             self.assertIsInstance(result, EntityReference)
 
     def test_when_reference_is_read_only_then_access_error_is_returned(self):
-        read_only_ref = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_readonly_entity", skipTestIfMissing=True))
+        self.__testPreflightError("a_reference_to_a_readonly_entity",
+                                  BatchElementError.ErrorCode.kEntityAccessError)
+
+    def test_when_reference_malformed_then_malformed_entity_reference_error_returned(self):
+        self.__testPreflightError("a_malformed_reference",
+                                  BatchElementError.ErrorCode.kMalformedEntityReference)
+
+    def __testPreflightError(self, fixture_name, errorCode):
+
+        reference = self._manager.createEntityReference(
+            self.requireFixture(fixture_name, skipTestIfMissing=True))
+
+        expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
+        expected_error = BatchElementError(errorCode, expected_msg)
+
+        context = self.createTestContext()
+        context.access = Context.Access.kWrite
 
         errors = []
         self._manager.preflight(
-            [read_only_ref], self.a_set_of_valid_traits, self.createTestContext(),
+            [reference], self.a_set_of_valid_traits, context,
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
             lambda _idx, error: errors.append(error)
         )
+        [actual_error] = errors  # pylint: disable=unbalanced-tuple-unpacking
 
-        self.assertEqual(errors[0].code, BatchElementError.ErrorCode.kEntityAccessError)
+        self.assertIsInstance(actual_error, BatchElementError)
+        self.assertEqual(actual_error.code, expected_error.code)
+        self.assertEqual(actual_error.message, expected_error.message)
 
 
 class Test_register(FixtureAugmentedTestCase):
@@ -422,18 +440,36 @@ class Test_register(FixtureAugmentedTestCase):
             self.assertIsInstance(result, EntityReference)
 
     def test_when_reference_is_read_only_then_access_error_is_returned(self):
-        read_only_ref = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_readonly_entity", skipTestIfMissing=True))
+        self.__testRegisterError("a_reference_to_a_readonly_entity",
+                                 BatchElementError.ErrorCode.kEntityAccessError)
+
+    def test_when_reference_malformed_then_malformed_entity_reference_error_returned(self):
+        self.__testRegisterError("a_malformed_reference",
+                                 BatchElementError.ErrorCode.kMalformedEntityReference)
+
+    def __testRegisterError(self, fixture_name, errorCode):
+        reference = self._manager.createEntityReference(
+            self.requireFixture(fixture_name, skipTestIfMissing=True))
+
+        expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
+        expected_error = BatchElementError(errorCode, expected_msg)
+
+        context = self.createTestContext()
+        context.access = Context.Access.kWrite
 
         errors = []
         self._manager.register(
-            [read_only_ref], [self.a_traitsdata_for_a_reference_to_a_writable_entity],
+            [reference],
+            [self.a_traitsdata_for_a_reference_to_a_writable_entity],
             self.createTestContext(),
-            lambda _idx, _ref: self.fail("Register should not succeed"),
+            lambda _idx, _ref: self.fail("Preflight should not succeed"),
             lambda _idx, error: errors.append(error)
         )
+        [actual_error] = errors  # pylint: disable=unbalanced-tuple-unpacking
 
-        self.assertEqual(errors[0].code, BatchElementError.ErrorCode.kEntityAccessError)
+        self.assertIsInstance(actual_error, BatchElementError)
+        self.assertEqual(actual_error.code, expected_error.code)
+        self.assertEqual(actual_error.message, expected_error.message)
 
 
 class Test_createChildState(FixtureAugmentedTestCase):

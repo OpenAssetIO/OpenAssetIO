@@ -29,11 +29,14 @@
 /// Unknown error when processing a batch element.
 #define OPENASSETIO_BatchErrorCode_kUnknown (OPENASSETIO_BatchErrorCode_BEGIN + 0)
 
-/// Failure due to malformed entity reference.
+/// Failure due to an entity reference not belonging to the manager.
 #define OPENASSETIO_BatchErrorCode_kInvalidEntityReference (OPENASSETIO_BatchErrorCode_BEGIN + 1)
 
+/// Failure due to an entity reference being malformed in the context of use.
+#define OPENASSETIO_BatchErrorCode_kMalformedEntityReference (OPENASSETIO_BatchErrorCode_BEGIN + 2)
+
 /// Failure due to an API method being called with an invalid @ref Context access.
-#define OPENASSETIO_BatchErrorCode_kEntityAccessError (OPENASSETIO_BatchErrorCode_BEGIN + 2)
+#define OPENASSETIO_BatchErrorCode_kEntityAccessError (OPENASSETIO_BatchErrorCode_BEGIN + 3)
 
 /// Entity resolution failure.
-#define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 3)
+#define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 4)

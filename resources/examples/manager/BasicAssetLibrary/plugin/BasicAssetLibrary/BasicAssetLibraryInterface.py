@@ -20,7 +20,7 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 import os
 
 from openassetio import constants, BatchElementError, TraitsData
-from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
+from openassetio.exceptions import MalformedEntityReference, PluginError
 from openassetio.managerApi import ManagerInterface
 
 from . import bal
@@ -106,8 +106,8 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
                 result = bal.exists(entity_info, self.__library)
-            except InvalidEntityReference as exc:
-                result = exc
+            except bal.MalformedBALReference as exc:
+                result = MalformedEntityReference(str(exc))
             results.append(result)
         return results
 
@@ -125,9 +125,10 @@ class BasicAssetLibraryInterface(ManagerInterface):
         for idx, ref in enumerate(entityReferences):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
-            except bal.InvalidBALReference as exc:
+            except bal.MalformedBALReference as exc:
                 result = BatchElementError(
-                    BatchElementError.ErrorCode.kInvalidEntityReference, str(exc))
+                    BatchElementError.ErrorCode.kMalformedEntityReference, str(exc)
+                )
                 errorCallback(idx, result)
             else:
                 try:

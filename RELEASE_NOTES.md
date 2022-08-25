@@ -6,6 +6,9 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- Added checks to the `test.manager.apiComplianceSuite` to ensure
+  the correct handling of malformed references.
+
 - Reordered `BatchElementError.ErrorCode` constants to allow grouping of
   entity-related errors.
   [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
@@ -22,9 +25,11 @@ v1.0.0-alpha.x
 
 ### Improvements
 
-- Added `BatchElementError.ErrorCode.kEntityAccessError` to better
-  encode the scenario where the supplied context's access is the
-  specific cause of the error.
+- Added new `BatchElementError.ErrorCode` constants:
+  - `kMalformedEntityReference` When an entity reference is valid, but
+    malformed for the calling context and target entity.
+  - `kEntityAccessError` When the supplied context's access is the
+    specific cause of the error.
   [#587](https://github.com/OpenAssetIO/OpenAssetIO/issues/587)
 
 - Added (protected) `ManagerInterface.createEntityReference` method

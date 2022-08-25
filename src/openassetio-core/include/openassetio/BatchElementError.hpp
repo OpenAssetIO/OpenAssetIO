@@ -46,24 +46,32 @@ class BatchElementError final {
     kUnknown = OPENASSETIO_BatchErrorCode_kUnknown,
 
     /**
-     * Error code used whenever an Entity-based action is performed on
-     * a mal-formed or unrecognized @ref entity_reference.
+     * Error code used whenever an entity reference is not one that
+     * is known to the manager.
+     *
+     * In the case of a manager that uses standard URIs, then it
+     * could be that the scheme is that of another manager.
+     */
+    kInvalidEntityReference = OPENASSETIO_BatchErrorCode_kInvalidEntityReference,
+
+    /**
+     * Error code used whenever an entity-based action is performed on
+     * a malformed @ref entity_reference.
      *
      * Entity references are initially validated as part of constructing
      * an @fqref{EntityReference} "EntityReference" object. However,
      * that is a naive check intended to validate the general format of
-     * a reference string. It is still possible that an entity reference
-     * is invalid in the context of the entity being referenced.
+     * a reference string is one belonging to the manager. It does not
+     * validate that all aspects of the reference are valid, as that may
+     * be situational, based on the target entity and the context of the
+     * API call.
      *
      * For example, assuming entity references are encoded as URIs, a
-     * `kInvalidEntityReference` could indicate that the query
-     * parameters suffixed to a reference string are not relevant to
-     * that particular reference. Such a check would likely require a
-     * query to the backend system. In contrast, the naive
-     * pre-validation used when constructing an `EntityReference` object
-     * is intended to be a simple in-process check.
+     * `kMalformedEntityReference` could indicate that a required query
+     * parameters is missing for a given operation, or a supplied
+     * parameter is not relevant to that particular operation/entity.
      */
-    kInvalidEntityReference = OPENASSETIO_BatchErrorCode_kInvalidEntityReference,
+    kMalformedEntityReference = OPENASSETIO_BatchErrorCode_kMalformedEntityReference,
 
     /**
      * Error code used when the reference is valid, but the supplied

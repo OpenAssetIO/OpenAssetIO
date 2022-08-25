@@ -77,7 +77,7 @@ def parse_entity_ref(entity_ref: str) -> EntityInfo:
     uri_parts = urlparse(entity_ref)
 
     if len(uri_parts.path) <= 1:
-        raise InvalidBALReference("Missing entity name in path component")
+        raise MalformedBALReference("Missing entity name in path component")
 
     # path will start with a /
     name = uri_parts.path[1:]
@@ -127,5 +127,5 @@ class UnknownBALEntity(Exception):
     pass
 
 
-class InvalidBALReference(Exception):
+class MalformedBALReference(Exception):
     pass
