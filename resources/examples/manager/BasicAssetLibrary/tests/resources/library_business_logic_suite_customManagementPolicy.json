@@ -13,6 +13,15 @@
           "policy": {"openassetio.Managed": {}}
         }
       ]
+    },
+    "write": {
+      "default": {},
+      "exceptions": [
+        {
+          "traitSet": ["a", "managed", "trait", "set"],
+          "policy": {"openassetio.Managed": {}}
+        }
+      ]
     }
   },
   "entities": {}

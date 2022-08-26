@@ -96,22 +96,21 @@ def entity(entity_info: EntityInfo, library: dict) -> Entity:
     """
     Retrieves the Entity data addressed by the supplied EntityInfo
     """
-    entities_dict = library["entities"]
-    entity_dict = entities_dict.get(entity_info.name)
+    entity_dict = _library_entity_dict(entity_info, library)
     if entity_dict is None:
         raise UnknownBALEntity()
 
     return Entity(**entity_dict["versions"][-1])
 
 
-def managementPolicy(trait_set: set[str], library: dict) -> dict:
+def management_policy(trait_set: set[str], access: str, library: dict) -> dict:
     """
     Retrieves the management policy for the supplied trait set. The
     default will be used unless an alternate default or trait set
     specific exception is provided in the library.
     """
-    read_policies = library.get("managementPolicy", {}).get("read", {})
-    exceptions = read_policies.get("exceptions", [])
+    policies = library.get("managementPolicy", {}).get(access, {})
+    exceptions = policies.get("exceptions", [])
     matching_policies = [e["policy"] for e in exceptions if set(e["traitSet"]) == trait_set]
 
     # By default, cooperatively manager all trait sets, unless the
@@ -119,8 +118,55 @@ def managementPolicy(trait_set: set[str], library: dict) -> dict:
     if matching_policies:
         policy = matching_policies[0]
     else:
-        policy = read_policies.get("default", {"openassetio.Managed": {}})
+        policy = policies.get("default", {"openassetio.Managed": {}})
     return policy
+
+
+def create_or_update_entity(
+    entity_info: EntityInfo, traits_dict: dict, library: dict
+) -> EntityInfo:
+    """
+    Creates a new entity, or updates an existing one to hold the
+    supplied traits data.
+
+    Note: This makes no attempt to validate that trait set has not
+    changed since the last version. Presently this appends a new
+    version to the entity's version list with the updated data.
+    """
+    version_dict = _next_entity_version_dict(entity_info, library)
+    version_dict["traits"] = traits_dict
+    # For now, we just keep the same reference until we properly
+    # support versioning.
+    return entity_info
+
+
+def _next_entity_version_dict(entity_info: EntityInfo, library: dict) -> dict:
+    """
+    Creates and returns a new version entry for the supplied EntityInfo.
+    If this is a new entity, it will be created.
+    """
+    entity_dict = _ensure_library_entity_dict(entity_info, library)
+    version_dict = {"traits": {}}
+    entity_dict["versions"].append(version_dict)
+    return version_dict
+
+
+def _ensure_library_entity_dict(entity_info: EntityInfo, library: dict) -> dict:
+    """
+    Ensures there is a top-level entity dict for the supplied
+    EntityInfo, creating one if required. Newly created entities will
+    have no versions.
+    """
+    entity_dict = library["entities"].setdefault(entity_info.name, {"versions": []})
+    return entity_dict
+
+
+def _library_entity_dict(entity_info: EntityInfo, library: dict):
+    """
+    Retrieves mutable the library entry for the specified entity.
+    """
+    entities_dict = library["entities"]
+    return entities_dict.get(entity_info.name)
 
 
 class UnknownBALEntity(Exception):

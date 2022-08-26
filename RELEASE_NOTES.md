@@ -23,6 +23,16 @@ v1.0.0-alpha.x
   [#585](https://github.com/OpenAssetIO/OpenAssetIO/issues/585)
 
 
+### New Features
+
+- Added basic publishing support to the `BasicAssetLibrary` (BAL)
+  example manager plugin. This allows rudimentary entity creation
+  workflows to be explored. Initially, support is limited to the simple
+  in-memory creation/update of entities, with verbatim store/recall of
+  the supplied traits data.
+  [#585](https://github.com/OpenAssetIO/OpenAssetIO/issues/585)
+
+
 ### Improvements
 
 - Added new `BatchElementError.ErrorCode` constants:

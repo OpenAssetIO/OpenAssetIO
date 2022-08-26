@@ -18,11 +18,12 @@ A manager test harness test case suite that validates that the
 BasicAssetLibrary manager behaves with the correct business logic.
 """
 
-# pylint: disable=invalid-name, missing-function-docstring
+# pylint: disable=invalid-name, missing-function-docstring, missing-class-docstring
 
+import operator
 import os
 
-from openassetio import BatchElementError, Context, TraitsData
+from openassetio import Context, TraitsData
 from openassetio.traits.managementPolicy import ManagedTrait
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
@@ -50,11 +51,11 @@ class Test_managementPolicy_default_behavior(FixtureAugmentedTestCase):
             self.assertTrue(managedTrait.isValid())
             self.assertIsNone(managedTrait.getExclusive())
 
-    def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
+    def test_returns_cooperative_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.Access.kWrite)
         policies = self._manager.managementPolicy(self.__trait_sets, context)
         for policy in policies:
-            self.assertFalse(policy.hasTrait(ManagedTrait.kId))
+            self.assertTrue(policy.hasTrait(ManagedTrait.kId))
 
 
 class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase):
@@ -62,10 +63,15 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
     Tests that custom policies are loaded and respected.
     """
 
-    __trait_sets = (
+    __read_trait_sets = (
         {"definitely", "unique"},
         {"an", "ignored", "trait", "set"},
         {"a", "non", "exclusive", "trait", "set"},
+    )
+
+    __write_trait_sets = (
+        {"definitely", "unique"},
+        {"a", "managed", "trait", "set"},
     )
 
     # We need to load a different library for these tests. This is
@@ -93,15 +99,15 @@ class Test_managementPolicy_library_specified_behavior(FixtureAugmentedTestCase)
         expected = [TraitsData({ManagedTrait.kId}), TraitsData(), TraitsData({ManagedTrait.kId})]
         ManagedTrait(expected[0]).setExclusive(True)
 
-        actual = self._manager.managementPolicy(self.__trait_sets, context)
+        actual = self._manager.managementPolicy(self.__read_trait_sets, context)
 
         self.assertListEqual(actual, expected)
 
-    def test_returns_ignored_policy_for_write_for_all_trait_sets(self):
+    def test_returns_expected_policy_for_write_for_all_trait_sets(self):
         context = self.createTestContext(access=Context.Access.kWrite)
-        expected = [TraitsData(), TraitsData(), TraitsData()]
+        expected = [TraitsData(), TraitsData({ManagedTrait.kId})]
 
-        actual = self._manager.managementPolicy(self.__trait_sets, context)
+        actual = self._manager.managementPolicy(self.__write_trait_sets, context)
 
         self.assertListEqual(actual, expected)
 
@@ -151,3 +157,105 @@ class Test_resolve(FixtureAugmentedTestCase):
                 self.assertTrue(result.hasTrait(trait))
                 for property_, value in self.__entities[ref.toString()][trait].items():
                     self.assertEqual(result.getTraitProperty(trait, property_), value)
+
+
+class Test_preflight(FixtureAugmentedTestCase):
+    def test_when_refs_valid_then_are_passed_through_unchanged(self):
+        entity_references = [
+            self._manager.createEntityReference(s)
+            for s in ["bal:///A ref to a 🐔", "bal:///anotherRef"]
+        ]
+        trait_set = {"a_trait", "another_trait"}
+        context = self.createTestContext(access=Context.Access.kWrite)
+
+        result_references = [None] * len(entity_references)
+
+        self._manager.preflight(
+            entity_references,
+            trait_set,
+            context,
+            lambda idx, ref: operator.setitem(result_references, idx, ref),
+            lambda _idx, _err: self.fail("Preflight should not error for this input"),
+        )
+
+        self.assertEqual(result_references, entity_references)
+
+
+class Test_register(FixtureAugmentedTestCase):
+    def test_when_ref_is_new_then_entity_created_with_same_reference(self):
+        context = self.createTestContext()
+        data = TraitsData()
+        data.setTraitProperty("a_trait", "a_property", 1)
+        new_entity_ref = self._manager.createEntityReference(
+            "bal:///test_when_ref_is_new_then_entity_created_with_same_reference")
+        published_entity_ref = self.__create_test_entity(new_entity_ref, data, context)
+
+        context.access = Context.Access.kRead
+        self.assertTrue(self._manager.entityExists([published_entity_ref], context)[0])
+        self.assertEqual(published_entity_ref, new_entity_ref)
+
+    def test_when_ref_exists_then_entity_updated_with_same_reference(self):
+        context = self.createTestContext()
+        data = TraitsData()
+        data.setTraitProperty("a_trait", "a_property", 1)
+
+        test_entity_ref = self._manager.createEntityReference(
+            "bal:///test_when_ref_exsits_then_entity_updated_with_same_reference")
+        existing_entity_ref = self.__create_test_entity(test_entity_ref, data, context)
+
+        original_data = TraitsData(data)
+        data.setTraitProperty("a_trait", "a_property", 2)
+
+        updated_refs = [None]
+
+        context.access = Context.Access.kWrite
+        self._manager.register(
+            [existing_entity_ref],
+            [data],
+            context,
+            lambda idx, ref: operator.setitem(updated_refs, idx, ref),
+            lambda _, err: self.fail(f"Register should not error: {err.code} {err.message}"),
+        )
+
+        resolved_data = [None]
+
+        context.access = Context.Access.kRead
+        self._manager.resolve(
+            updated_refs,
+            {"a_trait"},
+            context,
+            lambda idx, data: operator.setitem(resolved_data, idx, data),
+            lambda _, err: self.fail(f"Resolve should not error: {err.code} {err.message}"),
+        )
+
+        self.assertEqual(resolved_data[0], data)
+        self.assertNotEqual(resolved_data[0], original_data)
+
+
+    def __create_test_entity(self, ref, data, context):
+        """
+        Creates a new entity in the library for testing.
+        Asserts that the entity does not exist prior to creation.
+        """
+        ## @TODO (tc) Resurrect "scoped context override"?
+        old_access = context.access
+
+        context.access = Context.Access.kRead
+        self.assertFalse(
+            self._manager.entityExists([ref], context)[0],
+            f"Entity '{ref.toString()}' already exists"
+        )
+
+        published_refs = [None]
+
+        context.access = Context.Access.kWrite
+        self._manager.register(
+            [ref],
+            [data],
+            context,
+            lambda idx, published_ref: operator.setitem(published_refs, idx, published_ref),
+            lambda _, err: self.fail(f"Failed to create new entity: {err.code} {err.message}"),
+        )
+
+        context.access = old_access
+        return published_refs[0]
