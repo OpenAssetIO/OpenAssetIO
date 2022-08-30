@@ -10,6 +10,10 @@ catch2/2.13.8
 # Mocking library
 trompeloeil/42
 
+# Pin recipe version to avoid https://github.com/conan-io/conan/issues/11822.
+# Newer sqlite requires Conan 1.51.x
+sqlite3/3.36.0#743ab7e05e85b38c6c8223cae98ce343
+
 [generators]
 # Generate a CMake toolchain preamble file `conan_paths.cmake`, which
 # augments package search paths with conan package directories.
