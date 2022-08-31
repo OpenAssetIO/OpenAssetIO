@@ -2,8 +2,9 @@ var NAVTREEINDEX1 =
 {
 "classopenassetio_1_1v1_1_1_traits_data.html#ab156681737e47cc39be246cd986b7d2e":[13,0,0,9,8,4],
 "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0":[13,0,0,9,8,0],
+"classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2":[13,0,0,9,8,7],
 "classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6":[13,0,0,9,8,6],
-"classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd":[13,0,0,9,8,7],
+"classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd":[13,0,0,9,8,8],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html":[13,0,0,9,0,0],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260":[13,0,0,9,0,0,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5c0c22c1c2681d3a1deae2da9f487870":[13,0,0,9,0,0,3],
@@ -243,11 +244,10 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[11,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[11,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[11,0,3],
-"group__oa__manager_api___c_manager_interface.html#ga615c64fca0db70cea556dfefdbcbe51c":[11,0,3,2],
-"group__oa__manager_api___c_manager_interface__aliases.html":[11,0,3,0]
+"group__oa__manager_api___c_manager_interface.html#ga615c64fca0db70cea556dfefdbcbe51c":[11,0,3,2]
 };

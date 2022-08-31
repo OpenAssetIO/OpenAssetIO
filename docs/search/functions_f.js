@@ -43,6 +43,7 @@ var searchData=
   ['testtrait',['testTrait',['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a3e0655e6f12c848f8627d85757dd5941',1,'openassetio::test::specifications::TestHarnessLocale']]],
   ['tostring',['toString',['../classopenassetio_1_1v1_1_1_entity_reference.html#af9d34603c70d1903c55385ba1b6f369b',1,'openassetio::v1::EntityReference']]],
   ['traitbase',['TraitBase',['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#af19f1e7bc2b162a62af31e2623a93823',1,'openassetio::v1::trait::TraitBase']]],
+  ['traitpropertykeys',['traitPropertyKeys',['../classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2',1,'openassetio::v1::TraitsData']]],
   ['traitsdata',['traitsData',['../classopenassetio_1_1_specification_base_1_1_specification_base.html#af9bdad9903d7b2759f88f9f46f99b12d',1,'openassetio::SpecificationBase::SpecificationBase']]],
   ['traitset',['traitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd',1,'openassetio::v1::TraitsData']]]
 ];

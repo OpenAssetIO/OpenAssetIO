@@ -146,6 +146,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae46d963437c495a6ecc9ef063e71fef6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6">setTraitProperty</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">trait::TraitId</a> &amp;traitId, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">trait::property::Key</a> &amp;propertyKey, <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d">trait::property::Value</a> propertyValue)</td></tr>
 <tr class="memdesc:ae46d963437c495a6ecc9ef063e71fef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value of given trait property.  <a href="#ae46d963437c495a6ecc9ef063e71fef6">More...</a><br /></td></tr>
 <tr class="separator:ae46d963437c495a6ecc9ef063e71fef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a1defb5bf25ce5b76762bdcbcb0de2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a991ec35b2b5f7557d938a2780ba4b294">trait::property::KeySet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2">traitPropertyKeys</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">trait::TraitId</a> &amp;traitId) const </td></tr>
+<tr class="memdesc:ac9a1defb5bf25ce5b76762bdcbcb0de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the properties set for a given trait.  <a href="#ac9a1defb5bf25ce5b76762bdcbcb0de2">More...</a><br /></td></tr>
+<tr class="separator:ac9a1defb5bf25ce5b76762bdcbcb0de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d562237a6f72f18170521e0c71ce822"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822">operator==</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> &amp;other) const </td></tr>
 <tr class="memdesc:a8d562237a6f72f18170521e0c71ce822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares instances based on their trait and property values.  <a href="#a8d562237a6f72f18170521e0c71ce822">More...</a><br /></td></tr>
 <tr class="separator:a8d562237a6f72f18170521e0c71ce822"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -474,6 +477,25 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ac9a1defb5bf25ce5b76762bdcbcb0de2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a991ec35b2b5f7557d938a2780ba4b294">trait::property::KeySet</a> traitPropertyKeys </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48">trait::TraitId</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitId</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the properties set for a given trait. </p>
+<p>If the trait has not been given to this instance, or the trait has no properties set, then it will return an empty set. </p>
 
 </div>
 </div>

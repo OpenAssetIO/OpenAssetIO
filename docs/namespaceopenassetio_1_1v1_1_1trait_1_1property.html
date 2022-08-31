@@ -124,6 +124,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a298a4c28432011f2e2f2946ed5afc38d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d">Value</a> = std::variant&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a39011fca2df8f8b3d2cf72a39108c588">Bool</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a1941127620eb673d937ee1117a94497c">Int</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038">Float</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &gt;</td></tr>
 <tr class="memdesc:a298a4c28432011f2e2f2946ed5afc38d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Property dictionary values.  <a href="#a298a4c28432011f2e2f2946ed5afc38d">More...</a><br /></td></tr>
 <tr class="separator:a298a4c28432011f2e2f2946ed5afc38d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a991ec35b2b5f7557d938a2780ba4b294"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a991ec35b2b5f7557d938a2780ba4b294">KeySet</a> = std::unordered_set&lt; <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">Key</a> &gt;</td></tr>
+<tr class="memdesc:a991ec35b2b5f7557d938a2780ba4b294"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of trait property keys.  <a href="#a991ec35b2b5f7557d938a2780ba4b294">More...</a><br /></td></tr>
+<tr class="separator:a991ec35b2b5f7557d938a2780ba4b294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type aliases for <a class="el" href="glossary.html#trait">Trait</a> properties within a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instance. </p>
@@ -141,6 +144,21 @@ Typedefs</h2></td></tr>
 <p>Property dictionary keys. </p>
 <p>Keys must be UTF-8 compatible strings for required portability.</p>
 <p>Note that typically <a class="el" href="structopenassetio_1_1v1_1_1trait_1_1_trait_base.html">trait views</a> will be used to access properties in a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instance via concrete member functions, so it is highly desirable that keys are ASCII to maximise portability when mapping property keys to member function names. </p>
+
+</div>
+</div>
+<a class="anchor" id="a991ec35b2b5f7557d938a2780ba4b294"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a991ec35b2b5f7557d938a2780ba4b294">KeySet</a> =  std::unordered_set&lt;<a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">Key</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A collection of trait property keys. </p>
+<p><a class="el" href="namespaceopenassetio_1_1_trait.html">Trait</a> property keys collections are a set, rather than a list. In that, no single key can appear more than once and the order of the keys has no meaning and is not preserved. </p>
 
 </div>
 </div>
