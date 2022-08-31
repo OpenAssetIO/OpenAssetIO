@@ -25,6 +25,7 @@ from unittest.mock import Mock
 
 import pytest
 
+from openassetio import EntityReference
 from openassetio.managerApi import ManagerInterface, ManagerStateBase
 
 
@@ -129,6 +130,28 @@ class Test_ManagerInterface_finalizedEntityVersion:
         finalized_refs = manager_interface.finalizedEntityVersion(refs, Mock(), Mock())
 
         assert finalized_refs == refs
+
+
+class Test_ManagerInterface__createEntityReference:
+    def test_when_input_is_string_then_wrapped_in_entity_reference(self, manager_interface):
+        a_string = "some string"
+        # pylint: disable=protected-access
+        actual = manager_interface._createEntityReference(a_string)
+        assert isinstance(actual, EntityReference)
+        assert actual.toString() == a_string
+
+    def test_when_input_is_none_then_typeerror_raised(self, manager_interface):
+        with pytest.raises(TypeError):
+            manager_interface._createEntityReference(None)  # pylint: disable=protected-access
+
+    def test_when_input_is_not_a_string_then_typeerror_raised(self, manager_interface):
+        with pytest.raises(TypeError):
+            manager_interface._createEntityReference(1)  # pylint: disable=protected-access
+
+    def test_is_entity_reference_string_is_not_called(self, mock_manager_interface):
+        # pylint: disable=protected-access
+        _ = mock_manager_interface._createEntityReference("some string")
+        mock_manager_interface.mock.isEntityReferenceString.assert_not_called()
 
 
 @pytest.fixture

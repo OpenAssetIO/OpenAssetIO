@@ -42,6 +42,12 @@ ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
       "stateFromPersistenceToken called on a manager that does not implement a custom state.");
 }
 
+// To avoid changing this to non-static in the not too distant, when we
+// add manager validation (see https://github.com/OpenAssetIO/OpenAssetIO/issues/553).
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+EntityReference ManagerInterface::createEntityReference(Str entityReferenceString) const {
+  return EntityReference(std::move(entityReferenceString));
+}
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

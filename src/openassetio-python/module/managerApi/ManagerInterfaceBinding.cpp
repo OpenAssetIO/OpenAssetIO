@@ -89,6 +89,9 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet, context,
                            hostSession, successCallback, errorCallback);
   }
+
+  // Hoist protected members
+  using ManagerInterface::createEntityReference;
 };
 
 }  // namespace managerApi
@@ -123,5 +126,7 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("someString"), py::arg("hostSession").none(false))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"));
+           py::arg("successCallback"), py::arg("errorCallback"))
+      .def("_createEntityReference", &PyManagerInterface::createEntityReference,
+           py::arg("entityReferenceString"));
 }
