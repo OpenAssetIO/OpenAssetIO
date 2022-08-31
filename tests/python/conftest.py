@@ -178,11 +178,15 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.setRelatedReferences(
             entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append)
 
-    def preflight(self, targetEntityRefs, traitSet, context, hostSession):
+    def preflight(self, targetEntityRefs, traitSet, context, hostSession,
+                  successCallback, errorCallback):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
-        return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession,
+                                   successCallback, errorCallback)
 
     def createState(self, hostSession):
         return self.mock.createState(hostSession)
@@ -253,12 +257,16 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.getRelatedReferences(
             entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet)
 
-    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession):
+    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession,
+                 successCallback, errorCallback):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(entityTraitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
         assert len(targetEntityRefs) == len(entityTraitsDatas)
-        return self.mock.register(targetEntityRefs, entityTraitsDatas, context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.register(targetEntityRefs, entityTraitsDatas, context, hostSession,
+                                  successCallback, errorCallback)
 
     @staticmethod
     def __assertIsIterableOf(iterable, expectedElemType):

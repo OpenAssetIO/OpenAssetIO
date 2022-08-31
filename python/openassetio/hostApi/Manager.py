@@ -616,19 +616,12 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def preflight(self, targetEntityRefs, traitSet, context):
+    def preflight(self, targetEntityRefs, traitSet, context, successCallback, errorCallback):
         """
-        @note This call is only applicable when the manager you are
-        communicating with sets the @ref
-        openassetio.traits.managementPolicy.WillManagePathTrait
-        "WillManagePathTrait" in response to
-        @fqref{hostApi.Manager.managementPolicy} "managementPolicy" for
-        the traits of entities you are intending to publish.
-
-        It signals your intent as a host application to do some work to
-        create data in relation to each supplied @ref entity_reference.
-        The entity does not need to exist yet (see @ref
-        entity_reference) or it may be a parent entity that you are
+        This call signals your intent as a host application to do some
+        work to create data in relation to each supplied @ref
+        entity_reference. The entity does not need to exist yet (see
+        @ref entity_reference) or it may be a parent entity that you are
         about to create a child of or some other similar relationship
         (it actually doesn't matter really, as this @ref
         entity_reference will ultimately have been determined by
@@ -670,30 +663,38 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         Otherwise, transactional handling has the potential to be
         extremely complex if different contexts are allowed.
 
-        @return `List[Union[str,`
-            exceptions.PreflightError, exceptions.RetryableError `]]`
-        The preflight result for each corresponding entity. If
-        successful, this will be an @ref entity_reference that you
-        should resolve to determine the path to write media to. This
-        may or may not be the same as the input reference. It should
-        be resolved to get a working URL before writing any files or
-        other data. If preflight was unsuccessful, the result for an
-        entity will be either a `PreflightError` if some fatal exception
-        happens during preflight, indicating the process should be
-        aborted; or `RetryableError` if any non-fatal error occurs that
-        means the host should retry from the beginning of any given
-        process.
+        @param successCallback Callback that will be called for each
+        successful preflight of an entity reference. It will be given
+        the corresponding index of the entity reference in
+        `targetEntityRefs` along with an updated reference to use for
+        future interactions as part of the publishing operation. The
+        callback will be called on the same thread that initiated the
+        call to `preflight`.
 
-        @exception `IndexError` If `targetEntityRefs` and `traitSets`
-        are not lists of the same length.
+        @param errorCallback Callback that will be called for each
+        failed preflight of an entity reference. It will be given the
+        corresponding index of the entity reference in `entityRefs`
+        along with a populated @fqref{BatchElementError}
+        "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+        "ErrorCodes"). The callback will be called on the same thread
+        that initiated the call to `preflight`.
+
+        @return None
+
+        @exception `IndexError` If `targetEntityRefs` and
+        `entityTraitsDatas` are not lists of the same length. Other
+        exceptions may be raised for fatal runtime errors, for example
+        server communication failure.
 
         @see @ref register
         """
-        return self.__impl.preflight(targetEntityRefs, traitSet, context, self.__hostSession)
+        return self.__impl.preflight(targetEntityRefs, traitSet, context, self.__hostSession,
+                                     successCallback, errorCallback)
 
     @debugApiCall
     @auditApiCall("Manager methods")
-    def register(self, targetEntityRefs, entityTraitsDatas, context):
+    def register(self, targetEntityRefs, entityTraitsDatas, context,
+                 successCallback, errorCallback):
         """
         Register should be used to register new entities either when
         originating new data within the application process, or
@@ -747,19 +748,28 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
         @param context Context The calling context.
 
-        @return `List[Union[str,`
-            exceptions.RegistrationError, exceptions.RetryableError `]]`
-        The publish result for each corresponding entity. This is
-        either an @ref entity_reference to the 'final' entity created
-        by the publish action (which is not necessarily the same as
-        the corresponding entry in `targetEntityRefs`); a
-        `RegistrationError` if some fatal exception happens during
-        publishing, indicating the process should be aborted; or
-        `RetryableError` if any non-fatal error occurs that means you
-        should retry the process later.
+        @param successCallback Callback that will be called for each
+        successful registration of an entity reference. It will be given
+        the corresponding index of the entity reference in
+        `targetEntityRefs` along with an updated reference to use for
+        future interactions with the resulting new entity. The callback
+        will be called on the same thread that initiated the call to
+        `register`.
 
-        @exception `IndexError` If `targetEntityRefs` and `entityTraitsDatas`
-        are not lists of the same length.
+        @param errorCallback Callback that will be called for each
+        failed registration of an entity reference. It will be given the
+        corresponding index of the entity reference in `entityRefs`
+        along with a populated @fqref{BatchElementError}
+        "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+        "ErrorCodes"). The callback will be called on the same thread
+        that initiated the call to `register`.
+
+        @return None
+
+        @exception `IndexError` If `targetEntityRefs` and
+        `entityTraitsDatas` are not lists of the same length. Other
+        exceptions may be raised for fatal runtime errors, for example
+        server communication failure.
 
         @see @fqref{TraitsData} "TraitsData"
         @see @ref preflight
@@ -776,6 +786,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
                     raise ValueError(
                             f"Mismatched traits at index {i+1}: {traits} != {expectedTraits}")
 
-        return self.__impl.register(targetEntityRefs, entityTraitsDatas, context, self.__hostSession)
+        return self.__impl.register(targetEntityRefs, entityTraitsDatas, context,
+                                    self.__hostSession, successCallback, errorCallback)
 
     ## @}
