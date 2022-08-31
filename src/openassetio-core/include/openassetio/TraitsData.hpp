@@ -149,6 +149,14 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
                         trait::property::Value propertyValue);
 
   /**
+   * Returns the properties set for a given trait.
+   *
+   * If the trait has not been given to this instance, or the trait has
+   * no properties set, then it will return an empty set.
+   */
+  [[nodiscard]] trait::property::KeySet traitPropertyKeys(const trait::TraitId& traitId) const;
+
+  /**
    * Compares instances based on their trait and property values.
    *
    * @param other The instance to compare to.

@@ -58,6 +58,19 @@ class TraitsData::Impl {
     data_[traitId][propertyKey] = std::move(propertyValue);
   }
 
+  [[nodiscard]] trait::property::KeySet traitPropertyKeys(const trait::TraitId& traitId) const {
+    const auto& traitEntry = data_.find(traitId);
+    if (traitEntry == data_.end()) {
+      return {};
+    }
+    trait::property::KeySet propertyKeys;
+    propertyKeys.reserve(traitEntry->second.size());
+    for (const auto& propIter : traitEntry->second) {
+      propertyKeys.insert(propIter.first);
+    }
+    return propertyKeys;
+  }
+
   bool operator==(const Impl& other) const { return data_ == other.data_; }
 
  private:
@@ -102,6 +115,10 @@ void TraitsData::setTraitProperty(const trait::TraitId& traitId,
                                   const trait::property::Key& propertyKey,
                                   trait::property::Value propertyValue) {
   impl_->setTraitProperty(traitId, propertyKey, std::move(propertyValue));
+}
+
+trait::property::KeySet TraitsData::traitPropertyKeys(const trait::TraitId& traitId) const {
+  return impl_->traitPropertyKeys(traitId);
 }
 
 bool TraitsData::operator==(const TraitsData& other) const { return *impl_ == *other.impl_; }

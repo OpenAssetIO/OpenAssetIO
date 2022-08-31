@@ -27,6 +27,11 @@ v1.0.0-alpha.x
   a manager's implementation.
   [#549](https://github.com/OpenAssetIO/OpenAssetIO/issues/549)
 
+- Added `TraitsData.traitPropertyKeys` to return a set of the property
+  keys for a given trait.
+  [#498](https://github.com/OpenAssetIO/OpenAssetIO/issues/498)
+
+
 
 v1.0.0-alpha.3
 --------------
