@@ -2,6 +2,7 @@ var searchData=
 [
   ['a_5freference_5fto_5fa_5fnonexisting_5fentity',['a_reference_to_a_nonexisting_entity',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#ad6ee7804a61b7e1223da94dddba6e0cb',1,'openassetio::test::manager::apiComplianceSuite::Test_entityExists']]],
   ['a_5freference_5fto_5fa_5freadable_5fentity',['a_reference_to_a_readable_entity',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a15d55a839a05995919e022d0116c0e7d',1,'openassetio::test::manager::apiComplianceSuite::Test_resolve']]],
+  ['a_5freference_5fto_5fa_5fwritable_5fentity',['a_reference_to_a_writable_entity',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__preflight.html#ac2f6de328d9b01334c44ec97ff6f3254',1,'openassetio.test.manager.apiComplianceSuite.Test_preflight.a_reference_to_a_writable_entity()'],['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__register.html#ac2f6de328d9b01334c44ec97ff6f3254',1,'openassetio.test.manager.apiComplianceSuite.Test_register.a_reference_to_a_writable_entity()']]],
   ['a_5freference_5fto_5fan_5fexisting_5fentity',['a_reference_to_an_existing_entity',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html#ae972b1946288e9a91f90bb34beec753c',1,'openassetio::test::manager::apiComplianceSuite::Test_entityExists']]],
   ['access',['Access',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951',1,'openassetio::v1::Context::Access()'],['../classopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd',1,'openassetio::v1::Context::access()']]],
   ['action',['action',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a2f4ab7bf743142dae2e459aa18f9f1d4',1,'openassetio::test::manager::__main__']]],
@@ -16,8 +17,8 @@ var searchData=
   ['auditapicall',['auditApiCall',['../namespaceopenassetio_1_1__core_1_1audit.html#a648e4fb72c4ab553bc260e7445d33d8c',1,'openassetio::_core::audit']]],
   ['auditcall',['auditCall',['../namespaceopenassetio_1_1__core_1_1audit.html#a2d987a0d26439451e9e68aa5e12a2c51',1,'openassetio::_core::audit']]],
   ['auditcalls',['auditCalls',['../namespaceopenassetio_1_1__core_1_1audit.html#ab424af143cb41609d3dc55e283372b39',1,'openassetio::_core::audit']]],
-  ['auditor',['Auditor',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html',1,'openassetio::_core::audit']]],
   ['auditor',['auditor',['../namespaceopenassetio_1_1__core_1_1audit.html#aee59d3992d0ad53ce790ad31e30db919',1,'openassetio::_core::audit']]],
+  ['auditor',['Auditor',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html',1,'openassetio::_core::audit']]],
   ['availablemanagers',['availableManagers',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a1ca7b7135362b663eb8212e7ade3ba8f',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['an_20introduction',['An Introduction',['../index.html',1,'']]],
   ['aliases',['Aliases',['../group__oa___error_code__aliases.html',1,'']]],

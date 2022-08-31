@@ -77,6 +77,8 @@ var hierarchy =
       [ "Test_isEntityReferenceString", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference_string.html", null ],
       [ "Test_managementPolicy", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__management_policy.html", null ],
       [ "Test_persistenceTokenForState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__persistence_token_for_state.html", null ],
+      [ "Test_preflight", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__preflight.html", null ],
+      [ "Test_register", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__register.html", null ],
       [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", null ],
       [ "Test_settings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html", null ],
       [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", null ]

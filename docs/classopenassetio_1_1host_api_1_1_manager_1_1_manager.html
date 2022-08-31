@@ -214,11 +214,12 @@ Public Member Functions</h2></td></tr>
 <p><em>3 - Thumbnails</em></p>
 <p>The API provides a mechanism for a manager to request a thumbnail for an entity as it is being published, see: <a class="el" href="thumbnails.html">Thumbnails</a>. </p>
 </div></td></tr>
-<tr class="memitem:ae83571f5e05bf1ee3456aac42fd72ed1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae83571f5e05bf1ee3456aac42fd72ed1">preflight</a> (self, targetEntityRefs, traitSet, context)</td></tr>
-<tr class="separator:ae83571f5e05bf1ee3456aac42fd72ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c">register</a> (self, targetEntityRefs, entityTraitsDatas, context)</td></tr>
-<tr class="memdesc:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to register new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ab27e1fd0ead5ef30767454fdfa750f7c">More...</a><br /></td></tr>
-<tr class="separator:ab27e1fd0ead5ef30767454fdfa750f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75cc17da98e35ed2a7030f3a1be322fa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a75cc17da98e35ed2a7030f3a1be322fa">preflight</a> (self, targetEntityRefs, traitSet, context, successCallback, errorCallback)</td></tr>
+<tr class="memdesc:a75cc17da98e35ed2a7030f3a1be322fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a75cc17da98e35ed2a7030f3a1be322fa">More...</a><br /></td></tr>
+<tr class="separator:a75cc17da98e35ed2a7030f3a1be322fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa09ae31a6bb9c9016ad149991777ed18"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa09ae31a6bb9c9016ad149991777ed18">register</a> (self, targetEntityRefs, entityTraitsDatas, context, successCallback, errorCallback)</td></tr>
+<tr class="memdesc:aa09ae31a6bb9c9016ad149991777ed18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to register new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#aa09ae31a6bb9c9016ad149991777ed18">More...</a><br /></td></tr>
+<tr class="separator:aa09ae31a6bb9c9016ad149991777ed18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
@@ -741,7 +742,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="ae83571f5e05bf1ee3456aac42fd72ed1"></a>
+<a class="anchor" id="a75cc17da98e35ed2a7030f3a1be322fa"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -767,7 +768,19 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -776,9 +789,10 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>This call is only applicable when the manager you are communicating with sets the <a class="el" href="classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html">WillManagePathTrait</a> in response to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> for the traits of entities you are intending to publish.</dd></dl>
-<p>It signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. The entity does not need to exist yet (see <a class="el" href="glossary.html#entity_reference">Entity Reference</a>) or it may be a parent entity that you are about to create a child of or some other similar relationship (it actually doesn't matter really, as this <a class="el" href="glossary.html#entity_reference">Entity Reference</a> will ultimately have been determined by interaction with the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>, and it will have returned you something meaningful).</p>
-<p>It should be called before <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c" title="Register should be used to register new entities either when originating new data within the applicat...">register()</a> if you are about to create media or write to files. If the file or data already exists, then preflight is not needed. It will return a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each given entity, which can be resolved in order to determine a working path that the files should be written to.</p>
+
+<p>This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>The entity does not need to exist yet (see <a class="el" href="glossary.html#entity_reference">Entity Reference</a>) or it may be a parent entity that you are about to create a child of or some other similar relationship (it actually doesn't matter really, as this <a class="el" href="glossary.html#entity_reference">Entity Reference</a> will ultimately have been determined by interaction with the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>, and it will have returned you something meaningful).</p>
+<p>It should be called before <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa09ae31a6bb9c9016ad149991777ed18" title="Register should be used to register new entities either when originating new data within the applicat...">register()</a> if you are about to create media or write to files. If the file or data already exists, then preflight is not needed. It will return a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each given entity, which can be resolved in order to determine a working path that the files should be written to.</p>
 <p>This call is designed to allow sanity checking, placeholder creation or any other sundry preparatory actions to be carried out by the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. In the case of file-based entities, the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> may even use this opportunity to switch to some temporary working path or some such.</p>
 <dl class="section note"><dt>Note</dt><dd>It's vital that the <a class="el" href="glossary.html#Context">Context</a> is well configured here, in particular the <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820">Context.retention</a>.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned by this method should <em>always</em> be used in place of the original reference supplied to <code>preflight</code> for resolves prior to registration, and for the final call to <a class="el" href="glossary.html#register">register</a> itself. See <a class="el" href="examples.html#example_publishing_a_file">Publishing a File</a>.</dd></dl>
@@ -787,13 +801,15 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> The entity references to preflight prior to registration.</td></tr>
     <tr><td class="paramname">traitSet</td><td><code>Set[str]</code> The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entites that are being published.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful preflight of an entity reference. It will be given the corresponding index of the entity reference in <code>targetEntityRefs</code> along with an updated reference to use for future interactions as part of the publishing operation. The callback will be called on the same thread that initiated the call to <code>preflight</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed preflight of an entity reference. It will be given the corresponding index of the entity reference in <code>entityRefs</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>preflight</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre-flight that isn&#39;t due to any specific of the Entity Referen...">exceptions.PreflightError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior...">exceptions.RetryableError</a> <code>]]</code> The preflight result for each corresponding entity. If successful, this will be an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that you should resolve to determine the path to write media to. This may or may not be the same as the input reference. It should be resolved to get a working URL before writing any files or other data. If preflight was unsuccessful, the result for an entity will be either a <code>PreflightError</code> if some fatal exception happens during preflight, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means the host should retry from the beginning of any given process.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">&lt;tt&gt;IndexError&lt;/tt&gt;</td><td>If <code>targetEntityRefs</code> and <code>traitSets</code> are not lists of the same length.</td></tr>
+    <tr><td class="paramname">&lt;tt&gt;IndexError&lt;/tt&gt;</td><td>If <code>targetEntityRefs</code> and <code>entityTraitsDatas</code> are not lists of the same length. Other exceptions may be raised for fatal runtime errors, for example server communication failure.</td></tr>
   </table>
   </dd>
 </dl>
@@ -801,7 +817,7 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
 
 </div>
 </div>
-<a class="anchor" id="ab27e1fd0ead5ef30767454fdfa750f7c"></a>
+<a class="anchor" id="aa09ae31a6bb9c9016ad149991777ed18"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -827,7 +843,19 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -850,13 +878,15 @@ When registering files, it should never be assumed that the resulting <a class="
     <tr><td class="paramname">targetEntityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to publish to.</td></tr>
     <tr><td class="paramname">entityTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code> The data to register for each entity. NOTE: All supplied instances should have the same trait set.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful registration of an entity reference. It will be given the corresponding index of the entity reference in <code>targetEntityRefs</code> along with an updated reference to use for future interactions with the resulting new entity. The callback will be called on the same thread that initiated the call to <code>register</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed registration of an entity reference. It will be given the corresponding index of the entity reference in <code>entityRefs</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>register</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer...">exceptions.RegistrationError</a>, <a class="el" href="classopenassetio_1_1exceptions_1_1_retryable_error.html" title="Thrown by managers in error situations that can be safely retried with idempotent behavior...">exceptions.RetryableError</a> <code>]]</code> The publish result for each corresponding entity. This is either an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to the 'final' entity created by the publish action (which is not necessarily the same as the corresponding entry in <code>targetEntityRefs</code>); a <code>RegistrationError</code> if some fatal exception happens during publishing, indicating the process should be aborted; or <code>RetryableError</code> if any non-fatal error occurs that means you should retry the process later.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">&lt;tt&gt;IndexError&lt;/tt&gt;</td><td>If <code>targetEntityRefs</code> and <code>entityTraitsDatas</code> are not lists of the same length.</td></tr>
+    <tr><td class="paramname">&lt;tt&gt;IndexError&lt;/tt&gt;</td><td>If <code>targetEntityRefs</code> and <code>entityTraitsDatas</code> are not lists of the same length. Other exceptions may be raised for fatal runtime errors, for example server communication failure.</td></tr>
   </table>
   </dd>
 </dl>

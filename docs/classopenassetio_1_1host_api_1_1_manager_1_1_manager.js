@@ -12,7 +12,7 @@ var classopenassetio_1_1host_api_1_1_manager_1_1_manager =
     [ "finalizedEntityVersion", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a7d7e21b2b629933fd4175521de8b6c6e", null ],
     [ "flushCaches", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4", null ],
     [ "getRelatedReferences", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a", null ],
-    [ "preflight", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae83571f5e05bf1ee3456aac42fd72ed1", null ],
-    [ "register", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ab27e1fd0ead5ef30767454fdfa750f7c", null ],
+    [ "preflight", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a75cc17da98e35ed2a7030f3a1be322fa", null ],
+    [ "register", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa09ae31a6bb9c9016ad149991777ed18", null ],
     [ "updateTerminology", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8", null ]
 ];

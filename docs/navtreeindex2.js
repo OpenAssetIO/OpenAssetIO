@@ -1,5 +1,15 @@
 var NAVTREEINDEX2 =
 {
+"group__oa__manager_api___c_manager_interface__aliases.html#ga50e7ea2039e9842bb73a5e963f371663":[11,0,3,0,0],
+"group__oa__manager_api___c_manager_interface__aliases.html#ga52bafc1a99242c7f8af3e1be70a7ea4f":[11,0,3,0,1],
+"group__oa__manager_api___shared_host_session.html":[11,0,4],
+"group__oa__manager_api___shared_host_session.html#ga1fc894635958397b357d2908df835092":[11,0,4,1],
+"group__oa__manager_api___shared_host_session__aliases.html":[11,0,4,0],
+"group__oa__manager_api___shared_host_session__aliases.html#ga54ca6decf15ddd974ef97f6434276219":[11,0,4,0,0],
+"group__oa__manager_api___shared_host_session__aliases.html#ga642b119bf4a43b96f797d6c52db06b76":[11,0,4,0,1],
+"group__oa__manager_api___shared_manager_interface.html":[11,0,5],
+"group__oa__manager_api___shared_manager_interface.html#gac39779f51a07c78ea704ff755572358e":[11,0,5,1],
+"group__oa__manager_api___shared_manager_interface__aliases.html":[11,0,5,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[11,0,5,0,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[11,0,5,0,1],
 "hierarchy.html":[13,2],
