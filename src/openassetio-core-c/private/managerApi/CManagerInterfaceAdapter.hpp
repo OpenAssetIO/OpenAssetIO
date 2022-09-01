@@ -74,6 +74,13 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override;
 
+  /// Wrap the C suite's `register` function.
+  /// @todo Implement C API. Currently throws `runtime_error`.
+  void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
+                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 const RegisterSuccessCallback& successCallback,
+                 const BatchElementErrorCallback& errorCallback) override;
+
  private:
   /// Opaque handle representing a ManagerInterface for the C API.
   oa_managerApi_CManagerInterface_h handle_;

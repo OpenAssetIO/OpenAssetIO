@@ -98,6 +98,14 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession, successCallback, errorCallback);
   }
 
+  void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
+                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 const RegisterSuccessCallback& successCallback,
+                 const BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, register, entityReferences, traitsDatas,
+                           context, hostSession, successCallback, errorCallback);
+  }
+
   // Hoist protected members
   using ManagerInterface::createEntityReference;
 };
@@ -138,6 +146,10 @@ void registerManagerInterface(const py::module& mod) {
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
            py::arg("traitSet"), py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("register", &ManagerInterface::register_, py::arg("entityReferences"),
+           py::arg("entityTraitsDatas"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("_createEntityReference", &PyManagerInterface::createEntityReference,
            py::arg("entityReferenceString"));
 }

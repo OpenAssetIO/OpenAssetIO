@@ -6,6 +6,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include <openassetio/export.h>
 #include <openassetio/BatchElementError.hpp>
@@ -740,7 +741,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
-   * Callback signature used for a successful publish preflight.
+   * Callback signature used for a successful preflight operation on a
+   * particular entity.
    */
   using PreflightSuccessCallback = std::function<void(std::size_t, EntityReference)>;
 
@@ -805,11 +807,106 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @fqref{Context.retention} "Context.retention", as not all hosts
    * will support the reference changing at this point.
    *
-   * @see @needsref register
+   * @see @ref register
    */
   virtual void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                          const ContextConstPtr& context, const HostSessionPtr& hostSession,
                          const PreflightSuccessCallback& successCallback,
+                         const BatchElementErrorCallback& errorCallback) = 0;
+
+  /**
+   * Callback signature used for a successful register operation on a
+   * particular entity.
+   */
+  using RegisterSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+
+  /**
+   * Publish entities to the @ref asset_management_system.
+   *
+   * This instructs the implementation to ensure a valid entity
+   * exists for each given reference and to persist the data provided
+   * in the @fqref{TraitsData}. This will be called either in
+   * isolation or after calling preflight, depending on the nature of
+   * the data being published and the @ref
+   * traits.managementPolicy.WillManagePathTrait
+   * "WillManagePathTrait" of the returned
+   * @fqref{managerApi.ManagerInterface.managementPolicy}
+   * "managementPolicy" for the supplied data's @ref trait_set.
+   *
+   * This call must block until registration is complete for all
+   * supplied references, and callbacks have been called on the same
+   * thread that called `register`
+   *
+   * This is an opportunity to do other things in the host as part of
+   * publishing if required. The context's locale will tell you more
+   * about the specifics of the calling application. Depending on the
+   * implementation of your plugin, you can use this opportunity to
+   * make use of the host-native SDK to extract additional
+   * information or schedule additional processes to produce
+   * derivative data.
+   *
+   * @param entityReferences  The @ref entity_reference of each entity
+   * to register_. It is up to the manager to ensure that this is
+   * meaningful, as it is most likely implementation specific. For
+   * example, if an entity with the traits of a 'Shot' specification is
+   * requested to be published to a reference that points to a
+   * 'Sequence' it makes sense to interpret this as a 'add a shot of
+   * this spec to the sequence'. For other types of entity, there may be
+   * different constraints on what makes sense.
+   *
+   * @param entityTraitsDatas The data for each entity (or 'asset') that
+   * is being published. The implementation must persist the list of
+   * traits, and any properties set. Such that a subsequent call to @ref
+   * resolve for any of these traits contains the same data. It is
+   * guaranteed that the trait sets of these instances are constant
+   * across the batch.
+   *
+   * @note Generally speaking, the data within the supplied
+   * trait properties should be persisted verbatim. If however, the
+   * implementation has any specific understanding of any given
+   * trait, it is free to rewrite this data in any meaningful
+   * fashion. The simplest example of this is a `file` trait, where a
+   * path may be updated to the long-term persistent storage location
+   * of the registered data, after it has been re-located by the
+   * manager.
+   *
+   * @param context The calling context. This is not
+   * replaced with an array in order to simplify implementation.
+   * Otherwise, transactional handling has the potential to be
+   * extremely complex if different contexts are allowed.
+   *
+   * @param hostSession The API session.
+   *
+   * @param successCallback Callback to be called for each successful
+   * registration. It should be called with the corresponding index
+   * of the entity reference in `entityRefs` along with the
+   * (potentially revised) final reference to be used by the host for
+   * subsequent interactions with this specific entity. This is an
+   * opportunity to update the reference to one specific to the
+   * resulting entity and/or its specific version as applicable. The
+   * callback must be called on the same thread that initiated the
+   * call to `register`.
+   *
+   * @param errorCallback Callback to be called for each failed
+   * registration. It should be called with the corresponding index
+   * of the entity reference in `entityRefs` along with a populated
+   * @fqref{BatchElementError} "BatchElementError" (see
+   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+   * must be called on the same thread that initiated the call to
+   * `register`.
+   *
+   * @note it is important for the implementation to pay attention to
+   * @fqref{Context.retention} "retention", as not all Hosts will
+   * support the reference changing at this point.
+   *
+   * @see @fqref{TraitsData} "TraitsData"
+   * @see @ref preflight
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  virtual void register_(const EntityReferences& entityReferences,
+                         const trait::TraitsDatas& entityTraitsDatas,
+                         const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                         const RegisterSuccessCallback& successCallback,
                          const BatchElementErrorCallback& errorCallback) = 0;
 
   /// @}

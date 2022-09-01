@@ -198,7 +198,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @ref traits.managementPolicy.ManagedTrait "ManagedTrait", then it
    * can be assumed that the manager is capable of retrieving (for a
    * read context) and storing (for a write context) all of the
-   * supplied traits through @ref resolve and @needsref register.
+   * supplied traits through @ref resolve and @ref register.
    *
    * @warning The @fqref{Context.access} "access" of the supplied
    * context will be considered by the manager. If it is set to read,
@@ -584,7 +584,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
 
   /**
-   * Callback signature used for a successful publish preflight.
+   * Callback signature used for a successful preflight operation on a
+   * particular entity.
    */
   using PreflightSuccessCallback = std::function<void(std::size_t, EntityReference)>;
 
@@ -653,6 +654,99 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                  const ContextConstPtr& context, const PreflightSuccessCallback& successCallback,
+                 const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Callback signature used for a successful register operation on a
+   * particular entity.
+   */
+  using RegisterSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+
+  /**
+   * Register should be used to register new entities either when
+   * originating new data within the application process, or
+   * referencing some existing file, media or information.
+   *
+   * @note The registration call is applicable to all kinds of
+   * Manager (path managing, or librarian), as long as the @ref
+   * traits.managementPolicy.ManagedTrait "ManagedTrait" is present
+   * in the response to @fqref{hostApi.Manager.managementPolicy}
+   * "managementPolicy" for the traits of the entities you are
+   * intending to register_. In this case, the Manager is saying it
+   * doesn't handle entities with those traits, and it should not be
+   * registered.
+   *
+   * As each @ref entity_reference has (ultimately) come from the
+   * manager (either in response to delegation of UI/etc... or as a
+   * return from another call), then it can be assumed that the
+   * Manager will understand what it means for you to call `register`
+   * on this reference with the supplied @fqref{TraitsData}
+   * "TraitsData". The conceptual meaning of the call is:
+   *
+   * "I have this reference you gave me, and I would like to register
+   * a new entity to it with the traits I told you about before. I
+   * trust that this is ok, and you will give me back the reference
+   * that represents the result of this."
+   *
+   * It is up to the manager to understand the correct result for the
+   * particular trait set in relation to this reference. For example,
+   * if you received this reference in response to browsing for a
+   * target to `kWriteMultiple` and the traits of a
+   * `ShotSpecification`s, then the Manager should have returned you
+   * a reference that you can then register multiple
+   * `ShotSpecification` entities to without error. Each resulting
+   * entity reference should then reference the newly created Shot.
+   *
+   * @warning All supplied TraitsDatas should have the same trait
+   * sets. If you wish to register different "types" of entity, they
+   * need to be registered in separate calls.
+   *
+   * @warning When registering files, it should never be assumed
+   * that the resulting @ref entity_reference will resolve to the
+   * same path. Managers may freely relocate, copy, move or rename
+   * files as part of registration.
+   *
+   * @param entityReferences Entity references to register_ to.
+   *
+   * @param entityTraitsDatas The data to register for each entity.
+   * NOTE: All supplied instances should have the same trait set.
+   *
+   * @param context Context The calling context.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful registration of an entity reference. It will be given
+   * the corresponding index of the entity reference in
+   * `targetEntityRefs` along with an updated reference to use for
+   * future interactions with the resulting new entity. The callback
+   * will be called on the same thread that initiated the call to
+   * `register`.
+   *
+   * @param errorCallback Callback that will be called for each
+   * failed registration of an entity reference. It will be given the
+   * corresponding index of the entity reference in `entityRefs`
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback will be called on the same thread
+   * that initiated the call to `register`.
+   *
+   * @return None
+   *
+   * @exception `std::out_of_range` If `entityReferences` and
+   * `entityTraitsDatas` are not lists of the same length.
+   *
+   * @exception `std::invalid_argument` If all `entityTraitsDatas` do
+   * not share the same trait set.
+   *
+   * Other exceptions may be raised for fatal runtime errors, for
+   * example server communication failure.
+   *
+   * @see @fqref{TraitsData} "TraitsData"
+   * @see @ref preflight
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  void register_(const EntityReferences& entityReferences,
+                 const trait::TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
+                 const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
 
   /// @}

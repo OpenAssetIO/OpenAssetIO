@@ -157,7 +157,8 @@
  * created.
  *
  * For example, a 'Save As...' dialog will need to return an entity
- * reference that can be passed to @ref openassetio.hostApi.Manager.Manager.register().
+ * reference that can be passed to @fqref{hostApi.Manager.register_}
+ * "Manager.register()".
  *
  * This does not preclude the use of UUID-style references in some cases
  * if desired, it simply means that the Manager may need to support

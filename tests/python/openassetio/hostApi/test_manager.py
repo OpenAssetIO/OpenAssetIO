@@ -592,8 +592,8 @@ class Test_Manager_preflight:
 
 
 class Test_Manager_register:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.register)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.register)
         assert method_introspector.is_implemented_once(Manager, "register")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -636,7 +636,6 @@ class Test_Manager_register:
         with pytest.raises(IndexError):
             manager.register(some_refs, datas[1:], a_context, mock.Mock(), mock.Mock())
 
-
     def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
             self, manager, some_refs, a_context):
 
@@ -644,6 +643,12 @@ class Test_Manager_register:
 
         with pytest.raises(ValueError):
             manager.register(some_refs, datas, a_context, mock.Mock(), mock.Mock())
+
+    def test_when_called_with_None_data_then_TypeError_is_raised(
+            self, manager, some_refs, a_context, a_traitsdata):
+
+        with pytest.raises(TypeError):
+            manager.register(some_refs, [a_traitsdata, None], a_context, mock.Mock(), mock.Mock())
 
 
 class Test_Manager_createContext:

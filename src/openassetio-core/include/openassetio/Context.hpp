@@ -76,7 +76,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * A concession to the fact that it's not always possible to fully
    * implement the spec of this API within a @ref host.
    *
-   * For example, @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
+   * For example, @fqref{managerApi.ManagerInterface.register_}
    * "Manager.register()" can return an @ref entity_reference that
    * points to the newly published @ref entity. This is often not the
    * same as the reference that was passed to the call. The Host is

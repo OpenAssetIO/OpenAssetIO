@@ -48,6 +48,7 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerApi::ManagerInt
   IMPLEMENT_CONST_MOCK2(isEntityReferenceString);
   IMPLEMENT_MOCK6(resolve);
   IMPLEMENT_MOCK6(preflight);
+  IMPLEMENT_MOCK6(register_);  // NOLINT(readability-identifier-naming)
 };
 /**
  * Mock implementation of a HostInterface.

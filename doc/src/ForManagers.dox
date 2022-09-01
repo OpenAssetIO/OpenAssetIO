@@ -45,10 +45,10 @@
  *   strings.
  *
  * - The manager is expected to store and recall the trait data
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
- *   "registered" to any given @ref entity_reference, and return this
- *   data from the relevant query methods when supplied the reference
- *   returned from the registration.
+ *   @fqref{managerApi.ManagerInterface.register_} "registered" to any
+ *   given @ref entity_reference, and return this data from the relevant
+ *   query methods when supplied the reference returned from the
+ *   registration.
  *
  * - A @ref host may query other well-known or host-specific @needsref
  *   traits to provide additional customization of behavior or the
@@ -142,12 +142,11 @@
  *   types where possible.
  *
  * - Persist the full @ref trait_set of the specification supplied to
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
- *   "register". This allows new asset types to be registered and
- *   filtered, even if they don't have a unique type within the manager's
- *   native data model.
+ *   @fqref{managerApi.ManagerInterface.register_} "register". This
+ *   allows new asset types to be registered and filtered, even if they
+ *   don't have a unique type within the manager's native data model.
  *
- * - Persist the trait data supplied to @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
+ * - Persist the trait data supplied to @fqref{managerApi.ManagerInterface.register_}
  *   "register". It should be considered opaque, unless the trait is
  *   well understood. In all other cases it should be returned verbatim
  *   by @fqref{managerApi.ManagerInterface.resolve} "resolve" when passed
@@ -171,7 +170,7 @@
  * Relationships aren't required for publishing itself, as the parent
  * for an new entity is always inferred from the entity addressed by the
  * reference used in the @fqref{managerApi.ManagerInterface.preflight}
- * "preflight" or @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
+ * "preflight" or @fqref{managerApi.ManagerInterface.register_}
  * "register" call.
  *
  * For example, publishing an ImageSpecification to the entity reference
