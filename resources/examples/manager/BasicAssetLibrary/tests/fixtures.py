@@ -21,6 +21,7 @@ import json
 import os
 
 
+from openassetio import TraitsData
 from openassetio.constants import kField_EntityReferencesMatchPrefix
 
 #
@@ -41,8 +42,14 @@ identifier = "org.openassetio.examples.manager.bal"
 
 valid_ref = "bal:///references/can/contain/🐠"
 non_ref = "not a Ŕeference"
+malformed_ref = "bal:///"
 
 an_existing_entity_name = next(iter(test_library["entities"].keys()))
+
+some_registerable_traitset = {"trait1", "trait2"}
+some_registerable_traitsdata = TraitsData()
+some_registerable_traitsdata.setTraitProperty("trait1", "some", "stringValue")
+some_registerable_traitsdata.setTraitProperty("trait2", "count", 4)
 
 
 fixtures = {
@@ -52,7 +59,8 @@ fixtures = {
     },
     "shared": {
         "a_valid_reference": valid_ref,
-        "a_malformed_reference": non_ref,
+        "an_invalid_reference": non_ref,
+        "a_malformed_reference": malformed_ref,
     },
     "Test_identifier": {
         "test_matches_fixture": {
@@ -97,8 +105,24 @@ fixtures = {
             "a_reference_to_a_missing_entity": "bal:///missing_entity",
             "the_error_string_for_a_reference_to_a_missing_entity": (
                 "Entity 'bal:///missing_entity' not found"),
-            "a_malformed_entity_reference": f"bal:///",
-            "the_error_string_for_a_malformed_entity_reference": (
+            "a_malformed_reference": malformed_ref,
+            "the_error_string_for_a_malformed_reference": (
+                f"Missing entity name in path component")
+        }
+    },
+    "Test_preflight": {
+        "shared": {
+            "a_reference_to_a_writable_entity": "bal:///someNewEntity",
+            "a_set_of_valid_traits": some_registerable_traitset,
+            "the_error_string_for_a_malformed_reference": (
+                f"Missing entity name in path component")
+        }
+    },
+    "Test_register": {
+        "shared": {
+            "a_reference_to_a_writable_entity": "bal:///someNewEntity",
+            "a_traitsdata_for_a_reference_to_a_writable_entity": some_registerable_traitsdata,
+            "the_error_string_for_a_malformed_reference": (
                 f"Missing entity name in path component")
         }
     }

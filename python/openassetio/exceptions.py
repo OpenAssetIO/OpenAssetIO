@@ -100,12 +100,22 @@ class BaseEntityException(ManagerException):
 
 class InvalidEntityReference(BaseEntityException):
     """
-    Thrown whenever an Entity-based action is performed on a mal-formed
-    or unrecognized @ref entity_reference.
+    Thrown whenever an Entity-based action is performed on an
+    unrecognized @ref entity_reference.
     """
 
     def __init__(self, message="Invalid Entity Reference", entityReference=None):
         super(InvalidEntityReference, self).__init__(message, entityReference)
+
+
+class MalformedEntityReference(BaseEntityException):
+    """
+    Thrown whenever an Entity-based action is performed on a
+    malformed @ref entity_reference.
+    """
+
+    def __init__(self, message="Malformed Entity Reference", entityReference=None):
+        super(MalformedEntityReference, self).__init__(message, entityReference)
 
 
 class EntityResolutionError(BaseEntityException):

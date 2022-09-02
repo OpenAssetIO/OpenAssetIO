@@ -19,8 +19,8 @@ A single-class module, providing the BasicAssetLibraryInterface class.
 
 import os
 
-from openassetio import constants, BatchElementError, TraitsData
-from openassetio.exceptions import InvalidEntityReference, PluginError, EntityResolutionError
+from openassetio import constants, BatchElementError, EntityReference, TraitsData
+from openassetio.exceptions import MalformedEntityReference, PluginError
 from openassetio.managerApi import ManagerInterface
 
 from . import bal
@@ -33,6 +33,9 @@ __all__ = [
 # As we are building out the implementation vertically, we have known
 # fails for missing abstract methods.
 # pylint: disable=abstract-method
+# Methods in C++ end up with "missing docstring"
+# pylint: disable=missing-docstring
+# pylint: disable=no-self-use, too-many-arguments, invalid-name
 
 
 class BasicAssetLibraryInterface(ManagerInterface):
@@ -87,12 +90,10 @@ class BasicAssetLibraryInterface(ManagerInterface):
         self.__library = bal.load_library(self.__settings["library_path"])
 
     def managementPolicy(self, traitSets, context, hostSession):
-        if not context.isForRead():
-            # BAL cannot manage publishing.
-            return [TraitsData() for _ in traitSets]
 
+        access = "read" if context.isForRead() else "write"
         return [
-            self.__dict_to_traits_data(bal.managementPolicy(trait_set, self.__library))
+            self.__dict_to_traits_data(bal.management_policy(trait_set, access, self.__library))
             for trait_set in traitSets
         ]
 
@@ -106,8 +107,8 @@ class BasicAssetLibraryInterface(ManagerInterface):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
                 result = bal.exists(entity_info, self.__library)
-            except InvalidEntityReference as exc:
-                result = exc
+            except bal.MalformedBALReference as exc:
+                result = MalformedEntityReference(str(exc))
             results.append(result)
         return results
 
@@ -125,9 +126,10 @@ class BasicAssetLibraryInterface(ManagerInterface):
         for idx, ref in enumerate(entityReferences):
             try:
                 entity_info = bal.parse_entity_ref(ref.toString())
-            except bal.InvalidBALReference as exc:
+            except bal.MalformedBALReference as exc:
                 result = BatchElementError(
-                    BatchElementError.ErrorCode.kInvalidEntityReference, str(exc))
+                    BatchElementError.ErrorCode.kMalformedEntityReference, str(exc)
+                )
                 errorCallback(idx, result)
             else:
                 try:
@@ -146,6 +148,46 @@ class BasicAssetLibraryInterface(ManagerInterface):
 
                     successCallback(idx, result)
 
+    def preflight(
+        self, targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
+    ):
+        # Support publishing to any valid entity reference
+        for idx, ref in enumerate(targetEntityRefs):
+            try:
+                bal.parse_entity_ref(ref.toString())
+            except bal.MalformedBALReference as exc:
+                result = BatchElementError(
+                    BatchElementError.ErrorCode.kMalformedEntityReference, str(exc)
+                )
+                errorCallback(idx, result)
+            else:
+                successCallback(idx, ref)
+
+    def register(
+        self, targetEntityRefs, entityTraitsDatas, context, hostSession, successCallback,
+        errorCallback,
+    ):
+        for idx, ref in enumerate(targetEntityRefs):
+            try:
+                entity_info = bal.parse_entity_ref(ref.toString())
+            except bal.MalformedBALReference as exc:
+                result = BatchElementError(
+                    BatchElementError.ErrorCode.kMalformedEntityReference, str(exc)
+                )
+                errorCallback(idx, result)
+            else:
+                traits_dict = self.__traits_data_to_dict(entityTraitsDatas[idx])
+                updated_entity_info = bal.create_or_update_entity(
+                    entity_info, traits_dict, self.__library
+                )
+                successCallback(idx, self.__build_entity_ref(updated_entity_info))
+
+    def __build_entity_ref(self, entity_info: bal.EntityInfo) -> EntityReference:
+        """
+        Builds an openassetio EntityReference from a BAL EntityInfo
+        """
+        ref_string = f"bal:///{entity_info.name}"
+        return self._createEntityReference(ref_string)
 
     @classmethod
     def __dict_to_traits_data(cls, traits_dict: dict):
@@ -153,6 +195,16 @@ class BasicAssetLibraryInterface(ManagerInterface):
         for trait_id, trait_properties in traits_dict.items():
             cls.__add_trait_to_traits_data(trait_id, trait_properties, traits_data)
         return traits_data
+
+    @classmethod
+    def __traits_data_to_dict(cls, traits_data: TraitsData):
+        return {
+            trait_id: {
+                prop_key: traits_data.getTraitProperty(trait_id, prop_key)
+                for prop_key in traits_data.traitPropertyKeys(trait_id)
+            }
+            for trait_id in traits_data.traitSet()
+        }
 
     @staticmethod
     def __add_trait_to_traits_data(trait_id: str, trait_properties: dict, traits_data: TraitsData):
