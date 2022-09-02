@@ -434,7 +434,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
   /**
    * Callback signature used for a successful entity resolution.
    */
-  using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataConstPtr&)>;
+  using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataPtr&)>;
 
   /**
    * Callback signature used for an unsuccessful entity resolution.

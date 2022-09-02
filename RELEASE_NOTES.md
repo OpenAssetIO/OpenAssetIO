@@ -52,6 +52,12 @@ v1.0.0-alpha.x
   [#498](https://github.com/OpenAssetIO/OpenAssetIO/issues/498)
 
 
+### Bug fixes
+
+- Fixed `Manager.resolve` success callback such that the trait data
+  provided is compatible with C++ trait views.
+  [#605](https://github.com/OpenAssetIO/OpenAssetIO/pull/605)
+
 
 v1.0.0-alpha.3
 --------------
