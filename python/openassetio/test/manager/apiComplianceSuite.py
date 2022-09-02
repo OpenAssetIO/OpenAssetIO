@@ -307,10 +307,10 @@ class Test_resolve(FixtureAugmentedTestCase):
             "a_reference_to_a_writeonly_entity", access=Context.Access.kRead,
             errorCode=BatchElementError.ErrorCode.kEntityAccessError)
 
-    def test_when_resolving_missing_reference_then_then_resolution_error_is_returned(self):
+    def test_when_resolving_missing_reference_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_missing_entity")
 
-    def test_when_resolving_malformed_reference_then_then_malformed_reference_error_is_returned(
+    def test_when_resolving_malformed_reference_then_malformed_reference_error_is_returned(
             self):
         self.__testResolutionError(
             "a_malformed_reference",
