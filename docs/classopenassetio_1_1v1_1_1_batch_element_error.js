@@ -3,6 +3,7 @@ var classopenassetio_1_1v1_1_1_batch_element_error =
     [ "ErrorCode", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f", [
       [ "kUnknown", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390", null ],
       [ "kInvalidEntityReference", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3", null ],
+      [ "kMalformedEntityReference", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc", null ],
       [ "kEntityAccessError", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485", null ],
       [ "kEntityResolutionError", "classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5", null ]
     ] ],

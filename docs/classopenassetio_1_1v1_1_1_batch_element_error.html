@@ -125,10 +125,14 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1_batch_eleme
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a59e56af19e754a6aa26a612ebf91d05f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> { <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390">kUnknown</a> = OPENASSETIO_BatchErrorCode_kUnknown, 
+<tr class="memitem:a59e56af19e754a6aa26a612ebf91d05f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a> { <br />
+&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390">kUnknown</a> = OPENASSETIO_BatchErrorCode_kUnknown, 
 <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3">kInvalidEntityReference</a> = OPENASSETIO_BatchErrorCode_kInvalidEntityReference, 
+<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc">kMalformedEntityReference</a> = OPENASSETIO_BatchErrorCode_kMalformedEntityReference, 
 <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> = OPENASSETIO_BatchErrorCode_kEntityAccessError, 
-<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5">kEntityResolutionError</a> = OPENASSETIO_BatchErrorCode_kEntityResolutionError
+<br />
+&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5">kEntityResolutionError</a> = OPENASSETIO_BatchErrorCode_kEntityResolutionError
+<br />
  }<tr class="memdesc:a59e56af19e754a6aa26a612ebf91d05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible classes of error.  <a href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a59e56af19e754a6aa26a612ebf91d05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,9 +178,13 @@ Public Attributes</h2></td></tr>
 <p>Fallback for uncommon errors. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3"></a>kInvalidEntityReference&#160;</td><td class="fielddoc">
-<p>Error code used whenever an Entity-based action is performed on a mal-formed or unrecognized <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>Entity references are initially validated as part of constructing an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object. However, that is a naive check intended to validate the general format of a reference string. It is still possible that an entity reference is invalid in the context of the entity being referenced.</p>
-<p>For example, assuming entity references are encoded as URIs, a <code>kInvalidEntityReference</code> could indicate that the query parameters suffixed to a reference string are not relevant to that particular reference. Such a check would likely require a query to the backend system. In contrast, the naive pre-validation used when constructing an <code><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html" title="EntityReference forms a strongly typed wrapper around arbitrary strings to ensure they have been vali...">EntityReference</a></code> object is intended to be a simple in-process check. </p>
+<p>Error code used whenever an entity reference is not one that is known to the manager. </p>
+<p>In the case of a manager that uses standard URIs, then it could be that the scheme is that of another manager. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc"></a>kMalformedEntityReference&#160;</td><td class="fielddoc">
+<p>Error code used whenever an entity-based action is performed on a malformed <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>Entity references are initially validated as part of constructing an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object. However, that is a naive check intended to validate the general format of a reference string is one belonging to the manager. It does not validate that all aspects of the reference are valid, as that may be situational, based on the target entity and the context of the API call.</p>
+<p>For example, assuming entity references are encoded as URIs, a <code>kMalformedEntityReference</code> could indicate that a required query parameters is missing for a given operation, or a supplied parameter is not relevant to that particular operation/entity. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485"></a>kEntityAccessError&#160;</td><td class="fielddoc">
 <p>Error code used when the reference is valid, but the supplied <a class="el" href="glossary.html#Context">Context</a> access is invalid for the operation. </p>

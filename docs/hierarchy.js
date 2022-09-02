@@ -49,7 +49,8 @@ var hierarchy =
               [ "RegistrationError", "classopenassetio_1_1exceptions_1_1_registration_error.html", null ]
             ] ],
             [ "EntityResolutionError", "classopenassetio_1_1exceptions_1_1_entity_resolution_error.html", null ],
-            [ "InvalidEntityReference", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html", null ]
+            [ "InvalidEntityReference", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html", null ],
+            [ "MalformedEntityReference", "classopenassetio_1_1exceptions_1_1_malformed_entity_reference.html", null ]
           ] ],
           [ "RetryableError", "classopenassetio_1_1exceptions_1_1_retryable_error.html", null ],
           [ "StateError", "classopenassetio_1_1exceptions_1_1_state_error.html", null ]

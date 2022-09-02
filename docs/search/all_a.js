@@ -49,6 +49,7 @@ var searchData=
   ['kinvalidvalue',['kInvalidValue',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9a1b9f00267ee740a8664032f6d9c943ff',1,'openassetio::v1::trait']]],
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
+  ['kmalformedentityreference',['kMalformedEntityReference',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc',1,'openassetio::v1::BatchElementError']]],
   ['kmissing',['kMissing',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9acf5654d391f51afbdc947d31387dd666',1,'openassetio::v1::trait']]],
   ['kpermanent',['kPermanent',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca7856d2103ed1847108138f139e32b956',1,'openassetio::v1::Context']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],

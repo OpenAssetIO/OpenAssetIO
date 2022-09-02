@@ -4,6 +4,7 @@ var namespaceopenassetio_1_1exceptions =
     [ "BaseEntityInteractionError", "classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html", null ],
     [ "EntityResolutionError", "classopenassetio_1_1exceptions_1_1_entity_resolution_error.html", "classopenassetio_1_1exceptions_1_1_entity_resolution_error" ],
     [ "InvalidEntityReference", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference" ],
+    [ "MalformedEntityReference", "classopenassetio_1_1exceptions_1_1_malformed_entity_reference.html", "classopenassetio_1_1exceptions_1_1_malformed_entity_reference" ],
     [ "ManagerException", "classopenassetio_1_1exceptions_1_1_manager_exception.html", null ],
     [ "OpenAssetIOException", "classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html", null ],
     [ "PreflightError", "classopenassetio_1_1exceptions_1_1_preflight_error.html", null ],

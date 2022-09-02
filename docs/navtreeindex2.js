@@ -1,5 +1,10 @@
 var NAVTREEINDEX2 =
 {
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
+"group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
+"group__oa__manager_api___c_manager_interface.html":[11,0,3],
+"group__oa__manager_api___c_manager_interface.html#ga615c64fca0db70cea556dfefdbcbe51c":[11,0,3,2],
 "group__oa__manager_api___c_manager_interface__aliases.html":[11,0,3,0],
 "group__oa__manager_api___c_manager_interface__aliases.html#ga2840124a7a703a9591822900c0e4461b":[11,0,3,0,2],
 "group__oa__manager_api___c_manager_interface__aliases.html#ga50e7ea2039e9842bb73a5e963f371663":[11,0,3,0,0],
@@ -15,8 +20,8 @@ var NAVTREEINDEX2 =
 "group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[11,0,5,0,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[11,0,5,0,1],
 "hierarchy.html":[13,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],

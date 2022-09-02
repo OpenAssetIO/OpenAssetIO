@@ -1,12 +1,13 @@
 var searchData=
 [
+  ['malformedentityreference',['MalformedEntityReference',['../classopenassetio_1_1exceptions_1_1_malformed_entity_reference.html',1,'openassetio::exceptions']]],
   ['managedtrait',['ManagedTrait',['../classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html',1,'openassetio::traits::managementPolicy']]],
-  ['manager',['Manager',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html',1,'openassetio::hostApi::Manager']]],
   ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html',1,'openassetio::v1::hostApi']]],
+  ['manager',['Manager',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html',1,'openassetio::hostApi::Manager']]],
   ['managerdetail',['ManagerDetail',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['managerexception',['ManagerException',['../classopenassetio_1_1exceptions_1_1_manager_exception.html',1,'openassetio::exceptions']]],
-  ['managerfactory',['ManagerFactory',['../classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html',1,'openassetio::hostApi::ManagerFactory']]],
   ['managerfactory',['ManagerFactory',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html',1,'openassetio::v1::hostApi']]],
+  ['managerfactory',['ManagerFactory',['../classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html',1,'openassetio::hostApi::ManagerFactory']]],
   ['managerimplementationfactoryinterface',['ManagerImplementationFactoryInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html',1,'openassetio::v1::hostApi']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html',1,'openassetio::v1::managerApi']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html',1,'openassetio::managerApi::ManagerInterface']]],
