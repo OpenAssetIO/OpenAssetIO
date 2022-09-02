@@ -1,7 +1,7 @@
 var classopenassetio_1_1v1_1_1host_api_1_1_manager =
 [
     [ "ResolveErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e", null ],
-    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d", null ],
+    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8", null ],
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],

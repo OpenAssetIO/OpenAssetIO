@@ -187,13 +187,13 @@ Entity Resolution</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp741d94f50e28c89dc0549426792d7518"></a>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into the data for one or more <a class="el" href="glossary.html#trait">traits</a> that are meaningful to the situation.</p>
 <p>It could be a color space, a directory, a script or a frame range for an image sequence. </p>
 </td></tr>
-<tr class="memitem:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, const TraitsDataConstPtr &amp;)&gt;</td></tr>
-<tr class="memdesc:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity resolution.  <a href="#a7f91b24a1999ea50e0b82a3bab38e70d">More...</a><br /></td></tr>
-<tr class="separator:a7f91b24a1999ea50e0b82a3bab38e70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e2306e97bfeb86df1fd5ab514a9ba8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, const TraitsDataPtr &amp;)&gt;</td></tr>
+<tr class="memdesc:a11e2306e97bfeb86df1fd5ab514a9ba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity resolution.  <a href="#a11e2306e97bfeb86df1fd5ab514a9ba8">More...</a><br /></td></tr>
+<tr class="separator:a11e2306e97bfeb86df1fd5ab514a9ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d41d8cfaab1e75f4faebf824989f00e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> = std::function&lt; void(std::size_t, const <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> &amp;)&gt;</td></tr>
 <tr class="memdesc:a3d41d8cfaab1e75f4faebf824989f00e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for an unsuccessful entity resolution.  <a href="#a3d41d8cfaab1e75f4faebf824989f00e">More...</a><br /></td></tr>
 <tr class="separator:a3d41d8cfaab1e75f4faebf824989f00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c930fa7c9fc65de04fbb8f3e3558257">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memitem:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c930fa7c9fc65de04fbb8f3e3558257">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d41d8cfaab1e75f4faebf824989f00e">ResolveErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a3c930fa7c9fc65de04fbb8f3e3558257">More...</a><br /></td></tr>
 <tr class="separator:a3c930fa7c9fc65de04fbb8f3e3558257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -219,12 +219,12 @@ Entity Resolution</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7f91b24a1999ea50e0b82a3bab38e70d"></a>
+<a class="anchor" id="a11e2306e97bfeb86df1fd5ab514a9ba8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> =  std::function&lt;void(std::size_t, const TraitsDataConstPtr&amp;)&gt;</td>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8">ResolveSuccessCallback</a> =  std::function&lt;void(std::size_t, const TraitsDataPtr&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -622,7 +622,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a7f91b24a1999ea50e0b82a3bab38e70d">ResolveSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8">ResolveSuccessCallback</a> &amp;&#160;</td>
           <td class="paramname"><em>successCallback</em>, </td>
         </tr>
         <tr>
