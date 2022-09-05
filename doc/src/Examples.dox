@@ -100,6 +100,21 @@
  * manager.initialize(settings)
  * @endcode
  *
+ * To make it easier to deploy a range of OpenAssetIO enabled hosts, the
+ * API supports a simple file-based configuration mechanism. Users set
+ * the @ref default_config_var environment variable to
+ * point to a suitable TOML file, which contains their preferred manager
+ * identifier and settings. As a Host, you can use the
+ * @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
+ * "defaultManagerForInterface" method instead of creating your
+ * own ManagerFactory. This will return a fully initialized manager
+ * using this configuration if set:
+ *
+ * @code{.py}
+ * manager = ManagerFactory.defaultManagerForInterface(
+ *              host_interface, impl_factory, logger)
+ * @endcode
+ *
  * @section examples_resolving_a_reference Resolving a Reference
  *
  * This example shows how to use the instantiated manager to resolve a

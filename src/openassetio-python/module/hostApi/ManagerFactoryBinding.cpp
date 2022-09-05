@@ -32,10 +32,17 @@ void registerManagerFactory(const py::module& mod) {
       .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 
   managerFactory.def("availableManagers", &ManagerFactory::availableManagers)
+      .def_readonly_static("kDefaultManagerConfigEnvVarName",
+                           &ManagerFactory::kDefaultManagerConfigEnvVarName)
       .def("createManager", &ManagerFactory::createManager, py::arg("identifier"))
       .def_static("createManagerForInterface",
                   RetainCommonPyArgs::forFn<&ManagerFactory::createManagerForInterface>(),
                   py::arg("identifier"), py::arg("hostInterface").none(false),
+                  py::arg("managerImplementationFactory").none(false),
+                  py::arg("logger").none(false))
+      .def_static("defaultManagerForInterface",
+                  RetainCommonPyArgs::forFn<&ManagerFactory::defaultManagerForInterface>(),
+                  py::arg("hostInterface").none(false),
                   py::arg("managerImplementationFactory").none(false),
                   py::arg("logger").none(false));
 }

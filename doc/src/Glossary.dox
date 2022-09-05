@@ -252,6 +252,19 @@
  * openassetio.managerApi.ManagerInterface "ManagerInterface".
  *
  *
+ * @section default_config_var $OPENASSETIO_DEFAULT_CONFIG
+ *
+ * This is the environment variable used to discover a "default"
+ * configuration for an OpenAssetIO session. It defines which manager to
+ * use, along with any applicable settings. It should point to a simple
+ * TOML config file, see @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
+ * "ManagerFactory" for more details of supported options.
+ *
+ * All OpenAssetIO @ref host "hosts" should support deriving their
+ * configuration from this file, to simplify centralized config
+ * management.
+ *
+ *
  * @section plugin_path_var $OPENASSETIO_PLUGIN_PATH
  *
  * This is the environment variable used to discover @ref PythonPluginSystemManagerPlugin

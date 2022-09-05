@@ -60,3 +60,16 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         # pylint: disable=protected-access
         return Manager(cppManager._interface(), cppManager._hostSession())
 
+    @staticmethod
+    def defaultManagerForInterface(hostInterface, managerImplementationFactory, logger):
+        """
+        @see @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
+        "ManagerFactory.defaultManagerForInterface".
+        """
+        cppManager = _openassetio.hostApi.ManagerFactory.defaultManagerForInterface(
+            hostInterface, managerImplementationFactory, logger
+        )
+        if cppManager:
+            # pylint: disable=protected-access
+            return Manager(cppManager._interface(), cppManager._hostSession())
+        return None

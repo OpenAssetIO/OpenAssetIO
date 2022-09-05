@@ -20,6 +20,7 @@ Tests that cover the openassetio.hostApi.ManagerFactory class.
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
+import os
 from unittest import mock
 
 import pytest
@@ -28,7 +29,7 @@ from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from openassetio.hostApi import ManagerFactory, Manager, ManagerImplementationFactoryInterface
 
 
-CppManagerFactory = _openassetio.hostApi.ManagerFactory
+CppManagerFactory = _openassetio.hostApi.ManagerFactory  # pylint: disable=no-member
 
 
 class Test_ManagerFactory_ManagerDetail_equality:
@@ -125,6 +126,96 @@ class Test_ManagerFactory_availableManagers:
         # confirm
 
         assert actual == expected
+
+
+class Test_ManagerFactory_kDefaultManagerConfigEnvVarName:
+    def test_has_expected_value(self):
+        assert ManagerFactory.kDefaultManagerConfigEnvVarName == "OPENASSETIO_DEFAULT_CONFIG"
+
+
+class Test_ManagerFactory_defaultManagerForInterface:
+    def test_when_var_not_set_then_returns_none(
+        self, mock_manager_implementation_factory, mock_host_interface, mock_logger
+    ):
+        assert (
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+            is None
+        )
+
+    def test_when_var_set_to_non_existent_path_then_runtime_error_raised(
+        self,
+        env_with_non_existent_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(RuntimeError) as exc:
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+        assert (
+            str(exc.value)
+            == "Could not load default manager config from 'i/do/not/exist', file does not exist."
+        )
+
+    def test_when_var_set_to_invalid_content_then_runtime_error_raised(
+        self,
+        env_with_invalid_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(RuntimeError):
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+
+    def test_when_var_set_to_valid_path_then_expected_manager_returned_with_expected_settings(
+        self,
+        env_with_test_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+        create_mock_manager_interface,
+    ):
+
+        expected_host_identifier = "a.host"
+        mock_host_interface.mock.identifier.return_value = expected_host_identifier
+
+        expected_manager_identifier = "identifier.from.toml.file"
+
+        expected_settings = {
+            "a_string": "Hello 🐈",
+            "a_float": 3.141579,
+            "a_bool": False,
+            "a_int": 42,
+        }
+
+        mock_manager_interface = create_mock_manager_interface()
+        mock_manager_interface.mock.identifier.return_value = expected_manager_identifier
+
+        # Use a side-effect to check host_session as this is constructed
+        # privately by the factory.
+        def check_initialization(settings, host_session):
+            assert settings == expected_settings
+            assert host_session.host().identifier() == expected_host_identifier
+            return mock.DEFAULT
+
+        mock_manager_interface.mock.initialize.side_effect = check_initialization
+
+        mock_manager_implementation_factory.mock.instantiate.return_value = mock_manager_interface
+
+        manager = ManagerFactory.defaultManagerForInterface(
+            mock_host_interface, mock_manager_implementation_factory, mock_logger
+        )
+
+        assert manager.identifier() == expected_manager_identifier
+        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
+            expected_manager_identifier
+        )
+        mock_manager_interface.mock.initialize.assert_called_once()
 
 
 # TODO(DF) C++ specific tests can be removed once ManagerFactory is
@@ -304,6 +395,28 @@ def mock_manager_implementation_factory(mock_logger, mock_manager_interface):
     factory = MockManagerImplementationFactory(mock_logger)
     factory.mock.instantiate.return_value = mock_manager_interface
     return factory
+
+
+@pytest.fixture
+def resources_dir():
+    test_dir = os.path.dirname(__file__)
+    return os.path.join(test_dir, "resources")
+
+
+@pytest.fixture()
+def env_with_test_manager_config(resources_dir, monkeypatch):
+    toml_path = os.path.join(resources_dir, "default_manager.toml")
+    monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
+
+
+@pytest.fixture()
+def env_with_non_existent_manager_config(monkeypatch):
+    monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, "i/do/not/exist")
+
+
+@pytest.fixture()
+def env_with_invalid_manager_config(monkeypatch):
+    monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, __file__)
 
 
 class MockManagerImplementationFactory(ManagerImplementationFactoryInterface):
