@@ -60,10 +60,10 @@ class Test_ManagerFactory_ManagerDetail_equality:
 
 class Test_ManagerFactory_identifiers:
     def test_wraps_the_corresponding_method_of_the_held_interface(
-        self, mock_manager_interface_factory, a_manager_factory
+        self, mock_manager_implementation_factory, a_manager_factory
     ):
         expected = ["first.identifier", "second.identifier"]
-        mock_manager_interface_factory.mock.identifiers.return_value = expected
+        mock_manager_implementation_factory.mock.identifiers.return_value = expected
 
         actual = a_manager_factory.identifiers()
 
@@ -72,10 +72,10 @@ class Test_ManagerFactory_identifiers:
 
 class Test_ManagerFactory_availableManagers:
     def test_when_no_implemetations_then_reports_no_implemetation_detais(
-        self, mock_manager_interface_factory, a_manager_factory
+        self, mock_manager_implementation_factory, a_manager_factory
     ):
-        mock_manager_interface_factory.mock.identifiers.return_value = []
-        mock_manager_interface_factory.mock.instantiate.side_effect = []
+        mock_manager_implementation_factory.mock.identifiers.return_value = []
+        mock_manager_implementation_factory.mock.instantiate.side_effect = []
 
         expected = {}
 
@@ -88,12 +88,12 @@ class Test_ManagerFactory_availableManagers:
         assert actual == expected
 
     def test_when_has_implementations_then_reports_implementation_details(
-        self, create_mock_manager_interface, mock_manager_interface_factory, a_manager_factory
+        self, create_mock_manager_interface, mock_manager_implementation_factory, a_manager_factory
     ):
         # setup
 
         identifiers = ["first.identifier", "second.identifier"]
-        mock_manager_interface_factory.mock.identifiers.return_value = identifiers
+        mock_manager_implementation_factory.mock.identifiers.return_value = identifiers
 
         first_manager_interface = create_mock_manager_interface()
         second_manager_interface = create_mock_manager_interface()
@@ -104,7 +104,7 @@ class Test_ManagerFactory_availableManagers:
         first_manager_interface.mock.info.return_value = {"first": "info"}
         second_manager_interface.mock.info.return_value = {"second": "info"}
 
-        mock_manager_interface_factory.mock.instantiate.side_effect = [
+        mock_manager_implementation_factory.mock.instantiate.side_effect = [
             first_manager_interface,
             second_manager_interface,
         ]
@@ -136,7 +136,7 @@ class Test_CppManagerFactory_createManager:
         assert isinstance(manager, _openassetio.hostApi.Manager)
 
     def test_manager_is_properly_configured(
-        self, assert_expected_manager, a_cpp_manager_factory, mock_manager_interface_factory
+        self, assert_expected_manager, a_cpp_manager_factory, mock_manager_implementation_factory
     ):
         # setup
 
@@ -148,7 +148,7 @@ class Test_CppManagerFactory_createManager:
 
         # confirm
 
-        mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
+        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
             expected_identifier
         )
         assert_expected_manager(manager)
@@ -156,10 +156,11 @@ class Test_CppManagerFactory_createManager:
 
 class Test_CppManagerFactory_createManagerForInterface:
     def test_returns_a_cpp_manager(
-        self, mock_manager_interface_factory, mock_host_interface, mock_logger
+        self, mock_manager_implementation_factory, mock_host_interface, mock_logger
     ):
+
         manager = CppManagerFactory.createManagerForInterface(
-            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger
+            "a.manager", mock_host_interface, mock_manager_implementation_factory, mock_logger
         )
 
         assert isinstance(manager, _openassetio.hostApi.Manager)
@@ -167,7 +168,7 @@ class Test_CppManagerFactory_createManagerForInterface:
     def test_manager_is_properly_configured(
         self,
         assert_expected_manager,
-        mock_manager_interface_factory,
+        mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
     ):
@@ -178,12 +179,15 @@ class Test_CppManagerFactory_createManagerForInterface:
         # action
 
         manager = CppManagerFactory.createManagerForInterface(
-            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger
+            expected_identifier,
+            mock_host_interface,
+            mock_manager_implementation_factory,
+            mock_logger,
         )
 
         # confirm
 
-        mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
+        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
             expected_identifier
         )
         assert_expected_manager(manager)
@@ -204,7 +208,7 @@ class Test_ManagerFactory_createManager:
         assert isinstance(manager, Manager)
 
     def test_manager_is_properly_configured(
-        self, assert_expected_manager, a_manager_factory, mock_manager_interface_factory
+        self, assert_expected_manager, a_manager_factory, mock_manager_implementation_factory
     ):
         # setup
 
@@ -217,7 +221,7 @@ class Test_ManagerFactory_createManager:
         # confirm
 
         assert isinstance(manager, Manager)
-        mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
+        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
             expected_identifier
         )
         assert_expected_manager(manager)
@@ -225,10 +229,11 @@ class Test_ManagerFactory_createManager:
 
 class Test_ManagerFactory_createManagerForInterface:
     def test_returns_a_manager(
-        self, mock_manager_interface_factory, mock_host_interface, mock_logger
+        self, mock_manager_implementation_factory, mock_host_interface, mock_logger
     ):
+
         manager = ManagerFactory.createManagerForInterface(
-            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger
+            "a.manager", mock_host_interface, mock_manager_implementation_factory, mock_logger
         )
 
         assert isinstance(manager, Manager)
@@ -236,7 +241,7 @@ class Test_ManagerFactory_createManagerForInterface:
     def test_manager_is_properly_configured(
         self,
         assert_expected_manager,
-        mock_manager_interface_factory,
+        mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
     ):
@@ -247,12 +252,15 @@ class Test_ManagerFactory_createManagerForInterface:
         # action
 
         manager = ManagerFactory.createManagerForInterface(
-            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger
+            expected_identifier,
+            mock_host_interface,
+            mock_manager_implementation_factory,
+            mock_logger,
         )
 
         # confirm
 
-        mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
+        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
             expected_identifier
         )
         assert_expected_manager(manager)
@@ -282,17 +290,17 @@ def assert_expected_manager(mock_host_interface, mock_manager_interface):
 
 
 @pytest.fixture
-def a_manager_factory(mock_host_interface, mock_manager_interface_factory, mock_logger):
-    return ManagerFactory(mock_host_interface, mock_manager_interface_factory, mock_logger)
+def a_manager_factory(mock_host_interface, mock_manager_implementation_factory, mock_logger):
+    return ManagerFactory(mock_host_interface, mock_manager_implementation_factory, mock_logger)
 
 
 @pytest.fixture
-def a_cpp_manager_factory(mock_host_interface, mock_manager_interface_factory, mock_logger):
-    return CppManagerFactory(mock_host_interface, mock_manager_interface_factory, mock_logger)
+def a_cpp_manager_factory(mock_host_interface, mock_manager_implementation_factory, mock_logger):
+    return CppManagerFactory(mock_host_interface, mock_manager_implementation_factory, mock_logger)
 
 
 @pytest.fixture
-def mock_manager_interface_factory(mock_logger, mock_manager_interface):
+def mock_manager_implementation_factory(mock_logger, mock_manager_interface):
     factory = MockManagerImplementationFactory(mock_logger)
     factory.mock.instantiate.return_value = mock_manager_interface
     return factory
@@ -302,7 +310,7 @@ class MockManagerImplementationFactory(ManagerImplementationFactoryInterface):
     """
     `ManagerImplementationFactoryInterface` that forwards calls to an
     internal mock.
-    @see mock_manager_interface_factory
+    @see mock_manager_implementation_factory
     """
 
     def __init__(self, logger):
