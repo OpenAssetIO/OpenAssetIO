@@ -17,6 +17,7 @@
 Shared fixtures/code for pytest cases.
 """
 # pylint: disable=missing-function-docstring,redefined-outer-name
+import inspect
 from unittest import mock
 import sys
 
@@ -316,3 +317,69 @@ class MockLogger(LoggerInterface):
 
     def log(self, severity, message):
         self.mock.log(severity, message)
+
+
+#
+# Python to C++ migration helpers
+#
+
+
+@pytest.fixture
+def method_introspector():
+    return MethodIntrospector()
+
+
+class MethodIntrospector:
+    """
+    Utility function for introspecting methods.
+
+    @todo Remove this class and related tests once C++ migration is
+    complete.
+    """
+    @staticmethod
+    def is_defined_in_python(method):
+        """
+        Returns True if the method is defined in Python (as opposed to
+        through a cmodule).
+
+        @param The method of a class to be checked (eg: Manager.info). This
+        should be passed from the Class itself, not an instance.
+        """
+        # The way pybind does its thing™, this returns True for a native
+        # Python implementation, False for a C++ method bound to Python
+        # (isntancemthod not function). Mildly tenuous, but serves a
+        # purpose. getsource and similar raise a TypeError if the supplied
+        # object isn't a function, so the flow control is simpler this way.
+        return inspect.isfunction(method)
+
+    @staticmethod
+    def is_implemented_once(klass, method_name):
+        """
+        Check if a method is only implemented once in the class hierarchy.
+
+        In particular, this is useful to ensure we aren't hiding a (C++)
+        base class method with a (Python) subclass method. I.e. this checks
+        that we haven't migrated a method to C++ then forgot to remove the
+        Python implementation.
+
+        This acts as a backup check in case we migrate a method then forget
+        to update the `is_defined_in_python` assertion.
+
+        @param klass: Class whose base class hierarchy to check.
+
+        @param method_name: Name of method to check.
+
+        @return: True if the method is only defined once in the hierarchy,
+        false otherwise.
+        """
+        # Get class hierarchy, including class itself.
+        class_hierarchy = inspect.getmro(klass)
+        # C++ instance methods are not hashable, so constructing a `set`,
+        # and then checking its length, doesn't work here.
+        maybe_impls = (getattr(base, method_name, None) for base in class_hierarchy)
+        impls = filter(None, maybe_impls)
+        first_impl = next(impls, None)  # Consume first element.
+        if first_impl is None:
+            # Not even implemented once.
+            return False
+        return all(impl == first_impl for impl in impls)
