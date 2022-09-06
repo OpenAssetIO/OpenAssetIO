@@ -94,7 +94,7 @@ std::optional<EntityReference> Manager::createEntityReferenceIfValid(
 void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
                       const ContextConstPtr &context,
                       const ResolveSuccessCallback &successCallback,
-                      const ResolveErrorCallback &errorCallback) {
+                      const BatchElementErrorCallback &errorCallback) {
   managerInterface_->resolve(entityReferences, traitSet, context, hostSession_, successCallback,
                              errorCallback);
 }

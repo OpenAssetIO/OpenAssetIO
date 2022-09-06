@@ -85,7 +85,7 @@ struct PyManagerInterface : ManagerInterface {
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const ContextConstPtr& context, const HostSessionPtr& hostSession,
                const ResolveSuccessCallback& successCallback,
-               const ResolveErrorCallback& errorCallback) override {
+               const BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet, context,
                            hostSession, successCallback, errorCallback);
   }

@@ -22,6 +22,10 @@ v1.0.0-alpha.x
   - `a_malformed_entity_reference` -> `a_malformed_refrence`
   [#585](https://github.com/OpenAssetIO/OpenAssetIO/issues/585)
 
+- Renamed `ResolveErrorCallback` to `BatchElementErrorCallback` for use
+  more widely in callback based API functions.
+  [#588](https://github.com/OpenAssetIO/OpenAssetIO/issues/588)
+
 
 ### New Features
 

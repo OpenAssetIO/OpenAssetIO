@@ -437,18 +437,6 @@ class OPENASSETIO_CORE_EXPORT Manager {
   using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataPtr&)>;
 
   /**
-   * Callback signature used for an unsuccessful entity resolution.
-   *
-   * This will be called for errors that are specific to a particular
-   * reference in a batch. Exceptions may be thrown to indicate a
-   * whole-batch error.
-   *
-   * The appropriate error code will be used for these errors. See
-   * @fqref{BatchElementError.ErrorCode} "ErrorCode".
-   */
-  using ResolveErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
-
-  /**
    * Provides a @fqref{TraitsData} "TraitsData"
    * populated with the available data for the requested set of
    * traits for each given @ref entity_reference.
@@ -515,7 +503,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const ContextConstPtr& context, const ResolveSuccessCallback& successCallback,
-               const ResolveErrorCallback& errorCallback);
+               const BatchElementErrorCallback& errorCallback);
   /**
    * @}
    */

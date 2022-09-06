@@ -65,7 +65,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const ContextConstPtr& context, const HostSessionPtr& hostSession,
                const ResolveSuccessCallback& successCallback,
-               const ResolveErrorCallback& errorCallback) override;
+               const BatchElementErrorCallback& errorCallback) override;
 
  private:
   /// Opaque handle representing a ManagerInterface for the C API.

@@ -104,7 +104,7 @@ void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::ResolveErrorCallback& errorCallback) {
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw std::runtime_error{"Not implemented"};
 }
 
