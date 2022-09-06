@@ -55,6 +55,11 @@ v1.0.0-alpha.x
   keys for a given trait.
   [#498](https://github.com/OpenAssetIO/OpenAssetIO/issues/498)
 
+- Migrated the `ManagerInterface.preflight` method to C++.
+  [#588](https://github.com/OpenAssetIO/OpenAssetIO/issues/588)
+
+- Migrated the `Manager.preflight` method to C++.
+  [#588](https://github.com/OpenAssetIO/OpenAssetIO/issues/588)
 
 ### Bug fixes
 

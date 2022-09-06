@@ -108,6 +108,16 @@ void CManagerInterfaceAdapter::resolve(
   throw std::runtime_error{"Not implemented"};
 }
 
+void CManagerInterfaceAdapter::preflight(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitSet& traitSet,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::PreflightSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
+  throw std::runtime_error{"Not implemented"};
+}
+
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

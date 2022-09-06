@@ -667,6 +667,150 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                        const ContextConstPtr& context, const HostSessionPtr& hostSession,
                        const ResolveSuccessCallback& successCallback,
                        const BatchElementErrorCallback& errorCallback) = 0;
+  /// @}
+
+  /**
+   * @name Publishing
+   *
+   * The publishing functions allow a host create entities within the
+   * @ref asset_management_system represented by this implementation.
+   * The API is designed to accommodate the broad variety of roles that
+   * different asset managers embody. Some are 'librarians' that simply
+   * catalog the locations of existing media. Others take an active role
+   * in both the temporary and long-term paths to items they manage.
+   *
+   * There are two key components to publishing within this API.
+   *
+   * **1 - The Entity Reference**
+   *
+   * As with the other entry points in this API, it is assumed that an
+   * @ref entity_reference is known ahead of time. How this reference is
+   * determined is beyond the scope of this layer of the API, and
+   * functions exists in higher levels that combine browsing and
+   * publishing etc... Here, we simply assert that there must be a
+   * meaningful reference given the @ref trait_set of the entity that is
+   * being created or published.
+   *
+   * @note 'Meaningful' is best defined by the asset manager itself. For
+   * example, in a system that versions each 'asset' by creating
+   * children of the asset for each version, when talking about where to
+   * publish an image sequence of a render to, it may make sense to
+   * reference to the Asset itself, so that the system can determine the
+   * 'next' version number at the time of publish. It may also make
+   * sense to reference a specific version of this asset to implicitly
+   * state which version it will be written to. Other entity types may
+   * not have this flexibility.
+   *
+   * **2 - TraitsData**
+   *
+   * The data for an entity is defined by one or more @ref trait
+   * "Traits" and their properties. The resulting @ref trait_set
+   * defines the "type" of the entity, and the trait property values
+   * hold the data for each specific entity.
+   *
+   * This means that OpenAssetIO it not just limited to working with
+   * file-based data. Traits allow ancillary information to be managed
+   * (such as the colorspace for an image), as well as container-like
+   * entities such as shots/sequences/etc.
+   *
+   * For more on the relationship between Entities, Specifications and
+   * traits, please see @ref entities_traits_and_specifications
+   * "this" page.
+   *
+   * The action of 'publishing' itself, is split into two parts,
+   * depending on the nature of the item to be published.
+   *
+   *  @li **Preflight** When a Host is about to create some new
+   *  media/asset.
+   *  @li **Registration** When a Host is ready to publish
+   *  media that exists.
+   *
+   * For examples of how to correctly call these parts of the
+   * API within a host, see the @ref examples page.
+   *
+   * @note The term '@ref publish' is somewhat loaded. It generally
+   * means something different depending on who you are talking to. See
+   * the @ref publish "Glossary entry" for more on this, but to help
+   * avoid confusion, this API provides the @needsref updateTerminology
+   * call, in order to allow the implementation to standardize some of
+   * the language and terminology used in a Hosts presentation of the
+   * asset management system with other integrations of the system.
+   *
+   * @{
+   */
+
+  /**
+   * Callback signature used for a successful publish preflight.
+   */
+  using PreflightSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+
+  /**
+   * Prepares for some work to be done to create data for the
+   * referenced entity. The entity may not yet exist (@ref
+   * entity_reference). This call is designed to allow validation of
+   * the target reference, placeholder creation or any other sundry
+   * preparatory actions to be carried out.
+   *
+   * If this does not apply to the manager's workflow, then the
+   * method can pass back the input reference once the target entity
+   *   reference has been validated.
+   *
+   * Generally, this will be called before register() in any host
+   * that creates media, where the return to
+   * @fqref{managerApi.ManagerInterface.managementPolicy}
+   * "managementPolicy" has the @ref
+   * openassetio.traits.managementPolicy.WillManagePathTrait
+   * "WillManagePathTrait" set.
+   *
+   * This call must block until preflight is complete for all
+   * supplied references, and callbacks have been called on the same
+   * thread that called `preflight`
+   *
+   * @param entityReferences An @ref entity_reference for each entity
+   * that it is desired to publish the forthcoming data to. See the
+   * notes in the API documentation for the specifics of this.
+   *
+   * @param traitSet The @ref trait_set of the entities that are being
+   * published.
+   *
+   * @param context The calling context. This is not replaced with an
+   * array in order to simplify implementation. Otherwise, transactional
+   * handling has the potential to be extremely complex if different
+   * contexts are allowed.
+   *
+   * @param hostSession The API session.
+   *
+   * @param successCallback Callback to be called for each successful
+   * preflight of an entity reference. It should be called with the
+   * corresponding index of the entity reference in `entityRefs`
+   * along with the (potentially revised) working reference to be
+   * used by the host for the rest of the publishing operation for
+   * this specific entity (ie, resolve then register). This is an
+   * opportunity to update the reference to one specific to any
+   * placeholder/reserved entities if applicable. The callback must
+   * be called on the same thread that initiated the call to
+   * `preflight`.
+   *
+   * @param errorCallback Callback to be called for each failed
+   * preflight of an entity reference. It should be called with the
+   * corresponding index of the entity reference in `entityRefs` along
+   * with a populated @fqref{BatchElementError} "BatchElementError" (see
+   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+   * must be called on the same thread that initiated the call to
+   * `preflight`. A @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * "kEntityAccessError" should be used for any target references that
+   * are conceptually read-only.
+   *
+   * @note it is important for the implementation to pay attention to
+   * @fqref{Context.retention} "Context.retention", as not all hosts
+   * will support the reference changing at this point.
+   *
+   * @see @needsref register
+   */
+  virtual void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+                         const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                         const PreflightSuccessCallback& successCallback,
+                         const BatchElementErrorCallback& errorCallback) = 0;
 
   /// @}
  protected:

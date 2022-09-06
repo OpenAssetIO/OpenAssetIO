@@ -170,7 +170,7 @@
  *
  * Relationships aren't required for publishing itself, as the parent
  * for an new entity is always inferred from the entity addressed by the
- * reference used in the @ref openassetio.managerApi.ManagerInterface.ManagerInterface.preflight
+ * reference used in the @fqref{managerApi.ManagerInterface.preflight}
  * "preflight" or @ref openassetio.managerApi.ManagerInterface.ManagerInterface.register
  * "register" call.
  *

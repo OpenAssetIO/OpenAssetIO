@@ -558,7 +558,7 @@ class Test_Manager_managementPolicy:
 
 class Test_Manager_preflight:
     def test_method_defined_in_cpp(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.preflight)
+        assert not method_introspector.is_defined_in_python(Manager.preflight)
         assert method_introspector.is_implemented_once(Manager, "preflight")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(

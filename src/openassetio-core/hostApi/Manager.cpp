@@ -99,6 +99,14 @@ void Manager::resolve(const EntityReferences &entityReferences, const trait::Tra
                              errorCallback);
 }
 
+void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+                        const ContextConstPtr &context,
+                        const PreflightSuccessCallback &successCallback,
+                        const BatchElementErrorCallback &errorCallback) {
+  managerInterface_->preflight(entityReferences, traitSet, context, hostSession_, successCallback,
+                               errorCallback);
+}
+
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

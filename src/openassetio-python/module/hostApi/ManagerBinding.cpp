@@ -38,5 +38,7 @@ void registerManager(const py::module& mod) {
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"))
       .def("resolve", &Manager::resolve, py::arg("entityReferences"), py::arg("traitSet"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
+      .def("preflight", &Manager::preflight, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"));
 }
