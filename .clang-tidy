@@ -43,7 +43,7 @@ Checks: >
 # Turn all the warnings from the checks above into errors.
 WarningsAsErrors: "*"
 # Scan all (non-system) headers.
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '.*openassetio.*'
 # Use .clang-format for fix suggestions.
 FormatStyle: file
 
