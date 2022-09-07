@@ -41,6 +41,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache ccache cache
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/ccache
+          key: ubuntu-20.04-ccache-lint-cache-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-ccache-lint-cache
+
       - name: Cache conan packages
         id: cache-conan
         uses: actions/cache@v2
@@ -62,18 +69,32 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache
+          -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset lint
 
       - name: Build and lint
-        run: cmake --build build
+        run: |
+          /usr/bin/ccache -s
+          cmake --build build
+          /usr/bin/ccache -s
+        env:
+          CCACHE_DIR: /home/runner/ccache
 
   sanitizers:
     name: Sanitizers
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Cache ccache cache
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/ccache
+          key: ubuntu-20.04-ccache-sanitize-cache-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-ccache-sanitize-cache
 
       - name: Cache conan packages
         id: cache-conan
@@ -93,9 +114,16 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache
+          -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset sanitize
 
       - name: Build and test
-        run: ctest -VV --test-dir build
+        run: |
+          /usr/bin/ccache -s
+          ctest -VV --test-dir build
+          /usr/bin/ccache -s
+        env:
+          CCACHE_DIR: /home/runner/ccache
