@@ -39,11 +39,6 @@ Checks: >
     -modernize-return-braced-init-list,
     -modernize-use-trailing-return-type,
     -modernize-avoid-c-arrays,
-    -bugprone-suspicious-include,
-    -google-global-names-in-headers,
-    -readability-function-cognitive-complexity,
-    -readability-identifier-naming,
-    -readability-named-parameter
 
 # Turn all the warnings from the checks above into errors.
 WarningsAsErrors: "*"

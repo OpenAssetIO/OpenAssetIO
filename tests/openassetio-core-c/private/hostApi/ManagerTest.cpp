@@ -33,7 +33,7 @@ using openassetio::log::LoggerInterface;
 using openassetio::log::LoggerInterfacePtr;
 
 namespace {
-constexpr size_t kStringBufferSize2 = 500;
+constexpr size_t kStringBufferSize = 500;
 /**
  * Mock implementation of a ManagerInterface.
  *
@@ -70,7 +70,7 @@ struct MockLoggerInterface : trompeloeil::mock_interface<LoggerInterface> {
 
 SCENARIO("A Manager is constructed and destructed") {
   // Storage for error messages coming from C API functions.
-  openassetio::Str errStorage(kStringBufferSize2, '\0');
+  openassetio::Str errStorage(kStringBufferSize, '\0');
   oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
   // A mock ManagerInterface whose lifetime is tracked.
   using DeathwatchedMockManagerInterface = trompeloeil::deathwatched<MockManagerInterface>;
@@ -195,14 +195,14 @@ SCENARIO("A host calls Manager::identifier") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize2, '\0');
+    openassetio::Str errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for identifier - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
     const openassetio::Str initialStrValue = "initial string";
     openassetio::Str identifierStorage = initialStrValue;
-    identifierStorage.resize(kStringBufferSize2, '\0');
+    identifierStorage.resize(kStringBufferSize, '\0');
     oa_StringView actualIdentifier{identifierStorage.size(), identifierStorage.data(),
                                    initialStrValue.size()};
 
@@ -258,14 +258,14 @@ SCENARIO("A host calls Manager::displayName") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize2, '\0');
+    openassetio::Str errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for displayName - set to an initial value so that we can
     // assert that the underlying data was updated (or not).
     const openassetio::Str initialStrValue = "initial string";
     openassetio::Str displayNameStorage = initialStrValue;
-    displayNameStorage.resize(kStringBufferSize2, '\0');
+    displayNameStorage.resize(kStringBufferSize, '\0');
     oa_StringView actualDisplayName{displayNameStorage.size(), displayNameStorage.data(),
                                     initialStrValue.size()};
 
@@ -321,7 +321,7 @@ SCENARIO("A host calls Manager::info") {
     oa_hostApi_Manager_h managerHandle = handles::hostApi::SharedManager::toHandle(&manager);
 
     // Storage for error messages coming from C API functions.
-    openassetio::Str errStorage(kStringBufferSize2, '\0');
+    openassetio::Str errStorage(kStringBufferSize, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     // Storage for info - pre-populate so we can assert that calls are
