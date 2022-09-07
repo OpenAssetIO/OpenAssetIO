@@ -62,6 +62,7 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DBUILD_SHARED_LIBS=OFF
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset lint
