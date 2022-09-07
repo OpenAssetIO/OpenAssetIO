@@ -62,6 +62,8 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DCMAKE_UNITY_BUILD=ON
+          -DCMAKE_UNITY_BUILD_BATCH_SIZE=0
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset lint
