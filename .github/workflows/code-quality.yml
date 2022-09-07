@@ -67,7 +67,7 @@ jobs:
           --preset lint
 
       - name: Build and lint
-        run: cmake --build build
+        run: cmake --build build -- -j 2
 
   sanitizers:
     name: Sanitizers
