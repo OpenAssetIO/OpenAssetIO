@@ -85,9 +85,25 @@ struct PyManagerInterface : ManagerInterface {
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const ContextConstPtr& context, const HostSessionPtr& hostSession,
                const ResolveSuccessCallback& successCallback,
-               const ResolveErrorCallback& errorCallback) override {
+               const BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet, context,
                            hostSession, successCallback, errorCallback);
+  }
+
+  void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 const PreflightSuccessCallback& successCallback,
+                 const BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, preflight, entityReferences, traitSet, context,
+                           hostSession, successCallback, errorCallback);
+  }
+
+  void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
+                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 const RegisterSuccessCallback& successCallback,
+                 const BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, register, entityReferences, traitsDatas,
+                           context, hostSession, successCallback, errorCallback);
   }
 
   // Hoist protected members
@@ -127,6 +143,13 @@ void registerManagerInterface(const py::module& mod) {
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
+           py::arg("traitSet"), py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
+      .def("register", &ManagerInterface::register_, py::arg("entityReferences"),
+           py::arg("entityTraitsDatas"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("_createEntityReference", &PyManagerInterface::createEntityReference,
            py::arg("entityReferenceString"));
 }

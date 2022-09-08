@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -94,9 +95,44 @@ std::optional<EntityReference> Manager::createEntityReferenceIfValid(
 void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
                       const ContextConstPtr &context,
                       const ResolveSuccessCallback &successCallback,
-                      const ResolveErrorCallback &errorCallback) {
+                      const BatchElementErrorCallback &errorCallback) {
   managerInterface_->resolve(entityReferences, traitSet, context, hostSession_, successCallback,
                              errorCallback);
+}
+
+void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+                        const ContextConstPtr &context,
+                        const PreflightSuccessCallback &successCallback,
+                        const BatchElementErrorCallback &errorCallback) {
+  managerInterface_->preflight(entityReferences, traitSet, context, hostSession_, successCallback,
+                               errorCallback);
+}
+
+void Manager::register_(const EntityReferences &entityReferences,
+                        const trait::TraitsDatas &entityTraitsDatas,
+                        const ContextConstPtr &context,
+                        const RegisterSuccessCallback &successCallback,
+                        const BatchElementErrorCallback &errorCallback) {
+  if (entityReferences.size() != entityTraitsDatas.size()) {
+    throw std::out_of_range{"Parameter lists must be of the same length"};
+  }
+
+  if (!entityTraitsDatas.empty()) {
+    const trait::TraitSet firstTraitSet = entityTraitsDatas[0]->traitSet();
+    for (std::size_t idx = 1; idx < entityTraitsDatas.size(); ++idx) {
+      const trait::TraitSet currentTraitSet = entityTraitsDatas[idx]->traitSet();
+      if (currentTraitSet != firstTraitSet) {
+        Str msg = "Mismatched traits at index ";
+        msg += std::to_string(idx);
+        // TODO(DF): expand on error message to include actual trait
+        //  set.
+        throw std::invalid_argument{msg};
+      }
+    }
+  }
+
+  return managerInterface_->register_(entityReferences, entityTraitsDatas, context, hostSession_,
+                                      successCallback, errorCallback);
 }
 
 }  // namespace hostApi

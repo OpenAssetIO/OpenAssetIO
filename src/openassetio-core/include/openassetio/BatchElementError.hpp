@@ -2,6 +2,7 @@
 // Copyright 2022 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <functional>
 #include <string>
 #include <utility>
 
@@ -108,5 +109,18 @@ class BatchElementError final {
   /// Human-readable error message.
   const Str message;
 };
+
+/**
+ * Callback signature used for an unsuccessful operation on an
+ * element in a batch.
+ *
+ * This should be called for errors that are specific to a particular
+ * reference in a batch. Exceptions can be thrown to indicate a
+ * whole-batch error.
+ *
+ * The appropriate error code should be used for these errors. See
+ * @fqref{BatchElementError.ErrorCode} "ErrorCode".
+ */
+using BatchElementErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

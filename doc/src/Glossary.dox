@@ -157,7 +157,8 @@
  * created.
  *
  * For example, a 'Save As...' dialog will need to return an entity
- * reference that can be passed to @ref openassetio.hostApi.Manager.Manager.register().
+ * reference that can be passed to @fqref{hostApi.Manager.register_}
+ * "Manager.register()".
  *
  * This does not preclude the use of UUID-style references in some cases
  * if desired, it simply means that the Manager may need to support
@@ -345,10 +346,10 @@
  * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" method.
  *
  * If a manager has said it is capable of defining the location for
- * future data ahead of time, the host must call the @ref
- * openassetio.hostApi.Manager.Manager.preflight "preflight" method and
- * resolve the returned @ref entity_reference to determine the manager's
- * chosen location for the data and use this for any write operations.
+ * future data ahead of time, the host must call the
+ * @fqref{hostApi.Manager.preflight} "preflight" method and resolve the
+ * returned @ref entity_reference to determine the manager's chosen
+ * location for the data and use this for any write operations.
  *
  * The `preflight` method is also allowed to change the entity
  * reference as required. This mechanism serves several purposes:

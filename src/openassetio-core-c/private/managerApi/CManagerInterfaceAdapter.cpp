@@ -104,7 +104,27 @@ void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::ResolveErrorCallback& errorCallback) {
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
+  throw std::runtime_error{"Not implemented"};
+}
+
+void CManagerInterfaceAdapter::preflight(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitSet& traitSet,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const PreflightSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
+  throw std::runtime_error{"Not implemented"};
+}
+
+void CManagerInterfaceAdapter::register_(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitsDatas& traitsDatas,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const RegisterSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw std::runtime_error{"Not implemented"};
 }
 
