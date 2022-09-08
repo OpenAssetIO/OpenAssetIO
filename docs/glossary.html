@@ -154,7 +154,7 @@ target="_blank"&gt;RFC_3986.</p>
 <p>In such a system, the ManagerInterface may provide access to alternate paths from any one of these path-specific references via the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> method, with a suitable <a class="el" href="glossary.html#Specification">Specification</a></p>
 <h2>3. 'Potential' entity representation </h2>
 <p>It is required within the architecture of this API, to potentially derive an entity reference for new entity <b>before</b> it has been created.</p>
-<p>For example, a 'Save As...' dialog will need to return an entity reference that can be passed to <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa09ae31a6bb9c9016ad149991777ed18">openassetio.hostApi.Manager.Manager.register()</a>.</p>
+<p>For example, a 'Save As...' dialog will need to return an entity reference that can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">Manager.register()</a>.</p>
 <p>This does not preclude the use of UUID-style references in some cases if desired, it simply means that the Manager may need to support <em>multiple</em> formats for an entity reference. Again, this is entirely up to the manager to decide how it wishes to handle future entities.</p>
 <h1><a class="anchor" id="host"></a>
 host</h1>
@@ -214,7 +214,7 @@ manager</h1>
 <h1><a class="anchor" id="preflight"></a>
 preflight</h1>
 <p><a class="el" href="glossary.html#asset_management_system">Asset management systems</a> are roughly divided into two camps - those that can tell a <a class="el" href="glossary.html#host">host</a> in advance the location at which data should be created, and those that simply track data at its existing location. A <a class="el" href="glossary.html#manager">manager</a> implementation declares its behavior to the host via the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> method.</p>
-<p>If a manager has said it is capable of defining the location for future data ahead of time, the host must call the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a75cc17da98e35ed2a7030f3a1be322fa">preflight</a> method and resolve the returned <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to determine the manager's chosen location for the data and use this for any write operations.</p>
+<p>If a manager has said it is capable of defining the location for future data ahead of time, the host must call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">preflight</a> method and resolve the returned <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to determine the manager's chosen location for the data and use this for any write operations.</p>
 <p>The <code>preflight</code> method is also allowed to change the entity reference as required. This mechanism serves several purposes:</p>
 <ul>
 <li>It allows the manager to dictate if an existing target entity is mutable. It can return an updated entity reference if the original entity should be left untouched (ie. creating a new version).</li>

@@ -1,6 +1,7 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
 [
-    [ "ResolveErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3d41d8cfaab1e75f4faebf824989f00e", null ],
+    [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
+    [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a11e2306e97bfeb86df1fd5ab514a9ba8", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e", null ],
     [ "~ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a23f620c631306fbcb518c3eb1dcba92b", null ],
@@ -14,7 +15,9 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd", null ],
     [ "persistenceTokenForState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de", null ],
-    [ "resolve", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2047967ea3666dd6edfc78a52537ca99", null ],
+    [ "preflight", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5226696851997df1eda5be2d894a1e18", null ],
+    [ "register_", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a29497db96d9994b4c6fa6df154ad5ee4", null ],
+    [ "resolve", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6235d6c679711ac561ecc50d2c7f1fa3", null ],
     [ "settings", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583", null ],
     [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b", null ]
 ];

@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
