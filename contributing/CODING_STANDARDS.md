@@ -18,6 +18,38 @@ This makes it easier to determine the API surface at a glance.
 
 ## Test cases
 
+### CTest
+
+Our tests are broadly grouped into CMake [CTest](https://cmake.org/cmake/help/v3.23/manual/ctest.1.html)
+targets. This includes Python tests, whose CTest target(s) delegate to
+[pytest](https://docs.pytest.org).
+
+There are CTest [fixture tests](https://cmake.org/cmake/help/v3.23/prop_test/FIXTURES_REQUIRED.html),
+which run set-up and tear-down steps. In particular, these create a
+(Python) environment and install the project into it, so that tests can
+be run against the install tree, rather than the build tree.
+
+In order to facilitate parallel test execution, CMake build target
+dependencies should be carefully considered. CTest will execute each
+test in a separate process, and so will re-resolve any CMake build
+target dependencies for every test, potentially reproducing work
+unnecessarily, or even causing the build/test to fail due to race
+conditions (when executed in parallel). Instead, create a build target
+with minimal dependencies, then add the dependencies using CTest fixture
+tests. If a build target with non-trivial dependencies is still
+required, create a wrapper build target that executes the original, and
+configure only the wrapper build target to have the additional
+dependencies.
+
+Convenience CMake functions `openassetio_add_test_target`,
+`openassetio_add_test_fixture_target` and
+`openassetio_add_test_fixture_dependencies` can be used for adding
+a CMake target as a CTest test, adding a CMake target as a CTest
+fixture, and configuring the dependencies between fixtures and tests
+(including other fixtures), respectively.
+
+### Python
+
 Where feasible, Python unit test cases should use a class for each unit,
 where the methods of the test class are the test cases for that unit. In
 addition, test cases should ideally be written using `when` and `then`
