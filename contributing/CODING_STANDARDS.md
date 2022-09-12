@@ -48,6 +48,10 @@ a CMake target as a CTest test, adding a CMake target as a CTest
 fixture, and configuring the dependencies between fixtures and tests
 (including other fixtures), respectively.
 
+In particular, the `openassetio_add_test_target` function will add a
+`LABEL` property with the value `"Test"`, which is useful for
+disambiguating fixtures from tests.
+
 ### Python
 
 Where feasible, Python unit test cases should use a class for each unit,
