@@ -83,13 +83,13 @@ jobs:
     - name: Build, install and test (Unix)
       if: runner.os != 'Windows'
       run: |
-        ctest -VV --test-dir build
+        ctest -VV --test-dir build --parallel 2
 
     - name: Build, install and test (Windows)
       if: runner.os == 'Windows'
       run: |
         call "${{ matrix.config.vcvars }}"
-        ctest -VV --test-dir build
+        ctest -VV --test-dir build --parallel 2
       shell: cmd
 
   docs:
