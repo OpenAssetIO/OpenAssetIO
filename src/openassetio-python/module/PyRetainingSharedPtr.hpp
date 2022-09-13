@@ -11,6 +11,7 @@
  * https://github.com/pybind/pybind11/issues/1546
  */
 #include <memory>
+#include <type_traits>
 #include <utility>
 
 #include <pybind11/pybind11.h>
@@ -226,14 +227,22 @@ struct RetainPyArgs {
   template <class Arg>
   struct ConvertToPyRetainingSharedPtr {
     /**
+     * Remove const ref etc from Arg.
+     *
+     * We assume PtrsToPyRetain is a list of plain `shared_ptr`s, i.e.
+     * not const-qualified or reference types. So remove such qualifiers
+     * from Arg for comparison purposes.
+     */
+    using DecayedArg = std::decay_t<Arg>;
+    /**
      * Compare a single element of the `PtrsToPyRetain` list against
      * `Arg`.
      */
     template <class PtrToPyRetain>
-    struct ConvertIfMatches : std::is_same<Arg, PtrToPyRetain> {
+    struct ConvertIfMatches : std::is_same<DecayedArg, PtrToPyRetain> {
       // Note: this will be `std::nullptr_t` if `PtrToRetain` is not a
       // `shared_ptr`. See `static_assert` below.
-      using Type = typename PyRetainingIfSharedPtr<Arg>::Type;
+      using Type = typename PyRetainingIfSharedPtr<DecayedArg>::Type;
     };
 
     struct PassThrough : std::true_type {

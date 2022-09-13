@@ -67,8 +67,14 @@ struct SimpleCppListContainer {
  * PyRetainingSharedPtr decorators.
  */
 struct RetainingSimpleCppContainer : SimpleCppContainer {
-  static RetainingSimpleCppContainer make(std::shared_ptr<SimpleBaseCppType> heldObject) {
+  static RetainingSimpleCppContainer makeFromPtrValue(
+      std::shared_ptr<SimpleBaseCppType> heldObject) {
     return RetainingSimpleCppContainer(std::move(heldObject));
+  }
+
+  static RetainingSimpleCppContainer makeFromConstRefPtr(
+      const std::shared_ptr<SimpleBaseCppType>& heldObject) {
+    return RetainingSimpleCppContainer(heldObject);
   }
 
   using SimpleCppContainer::SimpleCppContainer;
@@ -227,8 +233,12 @@ void registerPyRetainingSharedPtrTestTypes(const py::module_& mod) {
 
   py::class_<RetainingSimpleCppContainer>(mod, "PyRetainingSimpleCppContainer")
       .def(py::init<openassetio::PyRetainingSharedPtr<SimpleBaseCppType>>())
-      .def_static("make", openassetio::RetainPyArgs<std::shared_ptr<SimpleBaseCppType>>::forFn<
-                              &RetainingSimpleCppContainer::make>())
+      .def_static("makeFromPtrValue",
+                  openassetio::RetainPyArgs<std::shared_ptr<SimpleBaseCppType>>::forFn<
+                      &RetainingSimpleCppContainer::makeFromPtrValue>())
+      .def_static("makeFromConstRefPtr",
+                  openassetio::RetainPyArgs<std::shared_ptr<SimpleBaseCppType>>::forFn<
+                      &RetainingSimpleCppContainer::makeFromConstRefPtr>())
       .def("heldObject", &RetainingSimpleCppContainer::heldObject);
 
   py::class_<OtherSimpleBaseCppType, std::shared_ptr<OtherSimpleBaseCppType>,
