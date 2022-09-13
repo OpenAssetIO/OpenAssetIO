@@ -44,3 +44,4 @@ ignore-imports = true
 
 [tool.black]
 line-length = 99
+target-version = ["py39"]

@@ -62,6 +62,9 @@ v1.0.0-alpha.x
 - Migrated the `preflight` and `register` `Manager` methods to C++.
   [#588](https://github.com/OpenAssetIO/OpenAssetIO/issues/588)
 
+- Reformatted the Python codebase using [black](https://black.readthedocs.io/en/stable/),
+  and added CI checks to enforce Python formatting going forward.
+
 ### Bug fixes
 
 - Fixed `Manager.resolve` success callback such that the trait data
