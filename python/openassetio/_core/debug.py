@@ -46,8 +46,7 @@ import time
 from ..log import LoggerInterface
 
 
-__all__ = ['debugCall', 'debugApiCall', 'Debuggable']
-
+__all__ = ["debugCall", "debugApiCall", "Debuggable"]
 
 enableDebugDecorators = os.environ.get("OPENASSETIO_DEBUG", "1") != "0"
 
@@ -79,7 +78,7 @@ def debugCall(function):
     # original function, otherwise we just log the decorator, which is
     # useful to neither man nor beast (only our decorators bother to set this).
     debugFn = function
-    if hasattr(function, 'func_wrapped'):
+    if hasattr(function, "func_wrapped"):
         debugFn = function.func_wrapped
 
     @functools.wraps(function)
@@ -102,7 +101,7 @@ def debugApiCall(function):
         return function
 
     debugFn = function
-    if hasattr(function, 'func_wrapped'):
+    if hasattr(function, "func_wrapped"):
         debugFn = function.func_wrapped
 
     @functools.wraps(function)
@@ -116,7 +115,8 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     if not isinstance(self, Debuggable):
         raise RuntimeError(
             "Debug tracing methods can only be used on instances of a"
-            " class derived from Debuggable")
+            " class derived from Debuggable"
+        )
 
     # pylint: disable=protected-access
 
@@ -133,8 +133,7 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
     allArgs = [repr(a) for a in args]
     allArgs.extend(["%s=%r" % (k, v) for k, v in kwargs.items()])
 
-    msg = "-> %x %r.%s( %s )" % (
-        id(self), self, traceFn.__name__, ", ".join(allArgs))
+    msg = "-> %x %r.%s( %s )" % (id(self), self, traceFn.__name__, ", ".join(allArgs))
     self._debugLogFn(msg, severity)
 
     result = "<exception>"
@@ -143,8 +142,7 @@ def __debugCall(function, traceFn, severity, self, *args, **kwargs):
         with timer:
             result = function(self, *args, **kwargs)
     finally:
-        msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__,
-                                       timer, result)
+        msg = "<- %x %r.%s [%s] %r" % (id(self), self, traceFn.__name__, timer, result)
         self._debugLogFn(msg, severity)
 
     return result

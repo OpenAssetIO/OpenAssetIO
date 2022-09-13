@@ -75,9 +75,16 @@ class Test_ConsoleLogger:
         output = capfd.readouterr()
 
         assert output.out == ""
-        assert output.err == "\n".join(
-            [f"{lg.LoggerInterface.kSeverityNames[s] : >11}: A message" for s in all_severities]
-        ) + "\n"
+        assert (
+            output.err
+            == "\n".join(
+                [
+                    f"{lg.LoggerInterface.kSeverityNames[s] : >11}: A message"
+                    for s in all_severities
+                ]
+            )
+            + "\n"
+        )
 
     def test_when_shouldColorOutput_not_set_then_messages_are_colored(self, capfd):
         _ = capfd.readouterr()
@@ -165,13 +172,13 @@ class Test_SeverityFilter_init:
             assert f.getSeverity() == expected
 
         for expected in (
-                lg.LoggerInterface.Severity.kDebugApi,
-                lg.LoggerInterface.Severity.kDebug,
-                lg.LoggerInterface.Severity.kInfo,
-                lg.LoggerInterface.Severity.kProgress,
-                lg.LoggerInterface.Severity.kWarning,
-                lg.LoggerInterface.Severity.kError,
-                lg.LoggerInterface.Severity.kCritical,
+            lg.LoggerInterface.Severity.kDebugApi,
+            lg.LoggerInterface.Severity.kDebug,
+            lg.LoggerInterface.Severity.kInfo,
+            lg.LoggerInterface.Severity.kProgress,
+            lg.LoggerInterface.Severity.kWarning,
+            lg.LoggerInterface.Severity.kError,
+            lg.LoggerInterface.Severity.kCritical,
         ):
             monkeypatch.setenv(severity_control_envvar, str(int(expected)))
             f = lg.SeverityFilter(mock_logger)

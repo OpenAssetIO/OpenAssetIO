@@ -34,30 +34,26 @@ class Test_ManagedTrait:
 
 
 class Test_ManagedTrait_getExclusive:
-
     @pytest.mark.parametrize("expected", [True, False])
     def test_when_property_is_set_then_returns_expected_value(
-            self, a_managed_traitsData, expected):
-        a_managed_traitsData.setTraitProperty(
-            ManagedTrait.kId, "exclusive", expected
-        )
+        self, a_managed_traitsData, expected
+    ):
+        a_managed_traitsData.setTraitProperty(ManagedTrait.kId, "exclusive", expected)
         assert ManagedTrait(a_managed_traitsData).getExclusive() == expected
 
-    def test_when_property_not_set_then_returns_None(
-            self, a_managed_traitsData):
-
+    def test_when_property_not_set_then_returns_None(self, a_managed_traitsData):
         assert ManagedTrait(a_managed_traitsData).getExclusive() is None
 
     def test_when_property_not_set_and_default_given_then_returns_default(
-            self, a_managed_traitsData):
+        self, a_managed_traitsData
+    ):
         expected = "something"
 
         actual = ManagedTrait(a_managed_traitsData).getExclusive(defaultValue=expected)
 
         assert actual == expected
 
-    def test_when_property_has_wrong_type_then_raises_TypeError(
-            self, a_managed_traitsData):
+    def test_when_property_has_wrong_type_then_raises_TypeError(self, a_managed_traitsData):
         a_managed_traitsData.setTraitProperty(ManagedTrait.kId, "exclusive", 123)
 
         with pytest.raises(TypeError) as err:
@@ -66,7 +62,8 @@ class Test_ManagedTrait_getExclusive:
         assert str(err.value) == "Invalid stored value type: '123' [int]"
 
     def test_when_property_has_wrong_type_and_default_given_then_returns_default(
-            self, a_managed_traitsData):
+        self, a_managed_traitsData
+    ):
         a_managed_traitsData.setTraitProperty(ManagedTrait.kId, "exclusive", 123)
 
         expected = "something"
@@ -77,7 +74,6 @@ class Test_ManagedTrait_getExclusive:
 
 
 class Test_ManagedTrait_setExclusive:
-
     @pytest.mark.parametrize("expected", [True, False])
     def test_when_set_then_trait_data_contains_value(self, a_managed_traitsData, expected):
         trait = ManagedTrait(a_managed_traitsData)
@@ -89,7 +85,8 @@ class Test_ManagedTrait_setExclusive:
 
     @pytest.mark.parametrize("expected", [True, False])
     def test_when_traitsData_does_not_have_trait_then_set_also_imbues(
-            self, an_empty_traitsData, expected):
+        self, an_empty_traitsData, expected
+    ):
         trait = ManagedTrait(an_empty_traitsData)
 
         trait.setExclusive(expected)
@@ -97,8 +94,7 @@ class Test_ManagedTrait_setExclusive:
         actual = an_empty_traitsData.getTraitProperty(ManagedTrait.kId, "exclusive")
         assert actual == expected
 
-    def test_when_type_is_wrong_then_TypeError_is_raised(
-            self, a_managed_traitsData):
+    def test_when_type_is_wrong_then_TypeError_is_raised(self, a_managed_traitsData):
         trait = ManagedTrait(a_managed_traitsData)
 
         with pytest.raises(TypeError) as err:

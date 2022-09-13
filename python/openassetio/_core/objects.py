@@ -25,7 +25,7 @@ import copy
 import inspect
 
 
-__all__ = ['UntypedProperty', 'TypedProperty', 'FixedInterfaceObject']
+__all__ = ["UntypedProperty", "TypedProperty", "FixedInterfaceObject"]
 
 
 class UntypedProperty(object):
@@ -62,7 +62,7 @@ class UntypedProperty(object):
         super(UntypedProperty, self).__init__()
         self.__doc__ = doc
         self.initialValue = initVal
-        self.dataVar = dataVar if dataVar else '__dict__'
+        self.dataVar = dataVar if dataVar else "__dict__"
         # I don't know how well this will serialize but its to avoid you always
         # having to name it twice. Though most Factories take care of this now.
         self.dataName = dataName if dataName else "__%s" % id(self)
@@ -91,9 +91,7 @@ class TypedProperty(UntypedProperty):
     the property's typ from the supplied value. ie: typ(value).
     """
 
-    def __init__(
-            self, typ, initVal=None, doc=None, dataVar=None, dataName=None,
-            order=-1):
+    def __init__(self, typ, initVal=None, doc=None, dataVar=None, dataName=None, order=-1):
         if initVal is None:
             initVal = typ()
         super(TypedProperty, self).__init__(initVal, doc, dataVar, dataName, order)
@@ -140,7 +138,7 @@ class FixedInterfaceObject(object):
         raise AttributeError("%s does not have an attribute '%s'" % (classname, name))
 
     def __setattr__(self, name, value):
-        if name.startswith('_') or name in self.definedPropertyNames():
+        if name.startswith("_") or name in self.definedPropertyNames():
             object.__setattr__(self, name, value)
         else:
             classname = self.__class__.__name__

@@ -27,8 +27,8 @@ import sys
 
 import pytest
 
-class Test_CLI_exit_code:
 
+class Test_CLI_exit_code:
     def test_when_passing_then_exit_code_is_zero(self, a_passing_fixtures_file):
         proc = execute_cli(a_passing_fixtures_file)
         try:
@@ -43,8 +43,8 @@ class Test_CLI_exit_code:
         # errors could have an exit code of 1
         assert (
             "FAIL: test_matches_fixture "
-            "(openassetio.test.manager.apiComplianceSuite.Test_identifier)"
-            in str(result.stderr))
+            "(openassetio.test.manager.apiComplianceSuite.Test_identifier)" in str(result.stderr)
+        )
         assert result.returncode == 1
 
     def test_when_fixtures_file_is_missing_then_exit_code_is_one(self):
@@ -52,7 +52,6 @@ class Test_CLI_exit_code:
 
 
 class Test_CLI_output:
-
     def test_api_logging_goes_to_standard_out(self, a_passing_fixtures_file, monkeypatch):
         monkeypatch.setenv("OPENASSETIO_LOGGING_SEVERITY", "0")
         assert "debug: PythonPluginSystem" in str(execute_cli(a_passing_fixtures_file).stderr)
@@ -65,14 +64,14 @@ class Test_CLI_output:
 
 
 class Test_CLI_arguments:
-
     def test_when_called_without_fixtures_arg_then_exits_with_usage_and_exit_code_is_two(self):
         result = execute_cli(None)
         assert result.returncode == 2
         assert "usage:" in str(result.stderr)
 
     def test_when_called_with_additional_args_then_they_are_passed_to_unittest(
-            self, a_passing_fixtures_file):
+        self, a_passing_fixtures_file
+    ):
         # We use the "-v" flag that includes the test name in the
         # output to stderr
         result = execute_cli(a_passing_fixtures_file, "-v")

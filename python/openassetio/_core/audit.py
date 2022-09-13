@@ -24,12 +24,20 @@ import functools
 import inspect
 import os
 
+
 # Support the existing names for module-level vars
 # pylint: disable=invalid-name
 
 
-__all__ = ['auditor', 'auditCall', 'auditApiCall', 'auditCalls',
-           'captureArgs', 'reprArgs', 'Auditor']
+__all__ = [
+    "auditor",
+    "auditCall",
+    "auditApiCall",
+    "auditCalls",
+    "captureArgs",
+    "reprArgs",
+    "Auditor",
+]
 
 ##
 # @namespace openassetio._core.audit
@@ -46,11 +54,11 @@ __auditor = None
 ## When set to True, decorated calls will be audited. When False, minimal
 ## additional code is run, to minimize performance impact. This should always
 ## be False by default.
-auditCalls = os.environ.get('OPENASSETIO_AUDIT', "0") != "0"
+auditCalls = os.environ.get("OPENASSETIO_AUDIT", "0") != "0"
 
 ## If True, the args for each invocation of a function will be recorded, to
 ## aide debugging
-captureArgs = os.environ.get('OPENASSETIO_AUDIT_ARGS', "0") != "0"
+captureArgs = os.environ.get("OPENASSETIO_AUDIT_ARGS", "0") != "0"
 
 ## Some hosts have issues with us holding onto objects. Setting this to True
 ## will ensure that we repr the objects whilst they are still alive.
@@ -70,6 +78,7 @@ def auditor():
 
 ## @name Decorators
 ## @{
+
 
 def auditCall(function):
     """
@@ -184,10 +193,8 @@ def __auditObj(aud, obj):
     elif isinstance(obj, Context):
         # If its a Context, add the context, and its options
         aud.addClass(obj)
-        aud.addObj('Context.%s' % obj.access, group="Context Access")
-        aud.addObj(
-            'Context.%s' % obj.kRetentionNames[obj.retention],
-            group="Context Retention")
+        aud.addObj("Context.%s" % obj.access, group="Context Access")
+        aud.addObj("Context.%s" % obj.kRetentionNames[obj.retention], group="Context Retention")
         if obj.locale:
             aud.addClass(obj.locale, group="Locales")
 
@@ -212,8 +219,8 @@ class Auditor(object):
     Raw coverage data is accessible, or can be sprinted to a string.
     """
 
-    kKey_Count = '__count__'
-    kKey_Args = '__args__'
+    kKey_Count = "__count__"
+    kKey_Args = "__args__"
 
     def __init__(self):
         super(Auditor, self).__init__()
@@ -308,7 +315,7 @@ class Auditor(object):
 
         # Unpack the function object if its a bound method
         func = instanceMethod
-        if hasattr(instanceMethod, 'im_func'):
+        if hasattr(instanceMethod, "im_func"):
             func = instanceMethod.im_func
 
         # Now count the function as a key under it's parent Class's dict
@@ -321,7 +328,7 @@ class Auditor(object):
             argsList = methodDict.setdefault(self.kKey_Args, [])
             try:
                 argsList.append(copy.deepcopy(arg))
-            except BaseException: # pylint: disable=broad-except
+            except BaseException:  # pylint: disable=broad-except
                 pass
 
         # If we have a group, count the method there too. We don't keep args here,
@@ -395,14 +402,14 @@ class Auditor(object):
             for key in sorted(self.__coverage.keys()):
                 # key will be a Class or arbitrary object
                 itemDict = self.__coverage[key]
-                objName = key.__name__ if hasattr(key, '__name__') else key
+                objName = key.__name__ if hasattr(key, "__name__") else key
                 outputStr += "  %s (%d)\n" % (objName, itemDict.get(self.kKey_Count, 0))
                 for method, data in itemDict.items():
                     # method will be a method or function (or the count key for the class)
                     # data will be the data for that method
                     if method == self.kKey_Count:
                         continue
-                    objName = method.__name__ if hasattr(method, '__name__') else method
+                    objName = method.__name__ if hasattr(method, "__name__") else method
                     outputStr += "    %s (%s)\n" % (objName, data.get(self.kKey_Count, 0))
                     # Print the args list for each invocation if we have the data
                     args = data.get(self.kKey_Args, [])
@@ -411,7 +418,7 @@ class Auditor(object):
                             # Some hosts will raise here based on binding issues, etc...
                             try:
                                 outputStr += "        %r\n" % (arg,)
-                            except BaseException: # pylint: disable=broad-except
+                            except BaseException:  # pylint: disable=broad-except
                                 pass
                         outputStr += "\n"
 
@@ -424,7 +431,7 @@ class Auditor(object):
                 gDict = self.__groups[coverageGroup]
                 for key in sorted(gDict.keys()):
                     # key could be a class, or anything really
-                    objName = key.__name__ if hasattr(key, '__name__') else key
+                    objName = key.__name__ if hasattr(key, "__name__") else key
                     outputStr += "    %s (%d)\n" % (objName, gDict[key].get(self.kKey_Count, 0))
                 outputStr += "\n"
 
@@ -440,7 +447,7 @@ class Auditor(object):
 
         # If its an instance method then get self, which will be an instance, or a
         # class in the case of @classmethods
-        if hasattr(obj, 'im_self'):
+        if hasattr(obj, "im_self"):
             obj = obj.im_self
 
         # If its a class, were good
@@ -448,7 +455,7 @@ class Auditor(object):
             return obj
 
         # Else, see if we can get the class
-        if hasattr(obj, '__class__'):
+        if hasattr(obj, "__class__"):
             return obj.__class__
 
         # Fall back on Type

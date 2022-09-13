@@ -34,30 +34,34 @@ CppManagerFactory = _openassetio.hostApi.ManagerFactory
 class Test_ManagerFactory_ManagerDetail_equality:
     def test_when_other_is_equal_then_compares_equal(self):
         managerDetails = ManagerFactory.ManagerDetail(
-            identifier="a", displayName="b", info={"c": "d"})
+            identifier="a", displayName="b", info={"c": "d"}
+        )
         otherManagerDetail = ManagerFactory.ManagerDetail(
-            identifier="a", displayName="b", info={"c": "d"})
+            identifier="a", displayName="b", info={"c": "d"}
+        )
 
         assert managerDetails == otherManagerDetail
 
     @pytest.mark.parametrize(
-        "otherManagerDetail", [
-            ManagerFactory.ManagerDetail(
-                identifier="z", displayName="b", info={"c": "d"}),
-            ManagerFactory.ManagerDetail(
-                identifier="a", displayName="z", info={"c": "d"}),
-            ManagerFactory.ManagerDetail(
-                identifier="a", displayName="b", info={"c": "z"})])
+        "otherManagerDetail",
+        [
+            ManagerFactory.ManagerDetail(identifier="z", displayName="b", info={"c": "d"}),
+            ManagerFactory.ManagerDetail(identifier="a", displayName="z", info={"c": "d"}),
+            ManagerFactory.ManagerDetail(identifier="a", displayName="b", info={"c": "z"}),
+        ],
+    )
     def test_when_other_has_unequal_field_then_object_compares_unequal(self, otherManagerDetail):
         managerDetails = ManagerFactory.ManagerDetail(
-            identifier="a", displayName="b", info={"c": "d"})
+            identifier="a", displayName="b", info={"c": "d"}
+        )
 
         assert managerDetails != otherManagerDetail
 
 
 class Test_ManagerFactory_identifiers:
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, mock_manager_interface_factory, a_manager_factory):
+        self, mock_manager_interface_factory, a_manager_factory
+    ):
         expected = ["first.identifier", "second.identifier"]
         mock_manager_interface_factory.mock.identifiers.return_value = expected
 
@@ -68,7 +72,8 @@ class Test_ManagerFactory_identifiers:
 
 class Test_ManagerFactory_availableManagers:
     def test_when_no_implemetations_then_reports_no_implemetation_detais(
-            self, mock_manager_interface_factory, a_manager_factory):
+        self, mock_manager_interface_factory, a_manager_factory
+    ):
         mock_manager_interface_factory.mock.identifiers.return_value = []
         mock_manager_interface_factory.mock.instantiate.side_effect = []
 
@@ -83,8 +88,8 @@ class Test_ManagerFactory_availableManagers:
         assert actual == expected
 
     def test_when_has_implementations_then_reports_implementation_details(
-            self, create_mock_manager_interface, mock_manager_interface_factory,
-            a_manager_factory):
+        self, create_mock_manager_interface, mock_manager_interface_factory, a_manager_factory
+    ):
         # setup
 
         identifiers = ["first.identifier", "second.identifier"]
@@ -100,14 +105,17 @@ class Test_ManagerFactory_availableManagers:
         second_manager_interface.mock.info.return_value = {"second": "info"}
 
         mock_manager_interface_factory.mock.instantiate.side_effect = [
-            first_manager_interface, second_manager_interface
+            first_manager_interface,
+            second_manager_interface,
         ]
 
         expected = {
             "first.identifier": ManagerFactory.ManagerDetail(
-                identifier="first.identifier", displayName="First", info={"first": "info"}),
+                identifier="first.identifier", displayName="First", info={"first": "info"}
+            ),
             "second.identifier": ManagerFactory.ManagerDetail(
-                identifier="second.identifier", displayName="Second", info={"second": "info"})
+                identifier="second.identifier", displayName="Second", info={"second": "info"}
+            ),
         }
 
         # action
@@ -123,13 +131,13 @@ class Test_ManagerFactory_availableManagers:
 #  fully migrated to C++ (i.e. once Manager and possibly HostSession is
 #  fully migrated to C++).
 class Test_CppManagerFactory_createManager:
-
     def test_returns_a_cpp_manager(self, a_cpp_manager_factory):
         manager = a_cpp_manager_factory.createManager("a.manager")
         assert isinstance(manager, _openassetio.hostApi.Manager)
 
     def test_manager_is_properly_configured(
-            self, assert_expected_manager, a_cpp_manager_factory, mock_manager_interface_factory):
+        self, assert_expected_manager, a_cpp_manager_factory, mock_manager_interface_factory
+    ):
         # setup
 
         expected_identifier = "a.manager"
@@ -141,23 +149,28 @@ class Test_CppManagerFactory_createManager:
         # confirm
 
         mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier)
+            expected_identifier
+        )
         assert_expected_manager(manager)
 
 
 class Test_CppManagerFactory_createManagerForInterface:
-
-    def test_returns_a_cpp_manager(self, mock_manager_interface_factory, mock_host_interface,
-            mock_logger):
-
+    def test_returns_a_cpp_manager(
+        self, mock_manager_interface_factory, mock_host_interface, mock_logger
+    ):
         manager = CppManagerFactory.createManagerForInterface(
-            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger)
+            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger
+        )
 
         assert isinstance(manager, _openassetio.hostApi.Manager)
 
     def test_manager_is_properly_configured(
-            self, assert_expected_manager, mock_manager_interface_factory, mock_host_interface,
-            mock_logger):
+        self,
+        assert_expected_manager,
+        mock_manager_interface_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
         # setup
 
         expected_identifier = "a.manager"
@@ -165,12 +178,14 @@ class Test_CppManagerFactory_createManagerForInterface:
         # action
 
         manager = CppManagerFactory.createManagerForInterface(
-            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger)
+            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger
+        )
 
         # confirm
 
         mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier)
+            expected_identifier
+        )
         assert_expected_manager(manager)
 
 
@@ -184,13 +199,13 @@ class Test_ManagerFactory:
 
 
 class Test_ManagerFactory_createManager:
-
     def test_returns_a_manager(self, a_manager_factory):
         manager = a_manager_factory.createManager("a.manager")
         assert isinstance(manager, Manager)
 
     def test_manager_is_properly_configured(
-            self, assert_expected_manager, a_manager_factory, mock_manager_interface_factory):
+        self, assert_expected_manager, a_manager_factory, mock_manager_interface_factory
+    ):
         # setup
 
         expected_identifier = "a.manager"
@@ -203,23 +218,28 @@ class Test_ManagerFactory_createManager:
 
         assert isinstance(manager, Manager)
         mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier)
+            expected_identifier
+        )
         assert_expected_manager(manager)
 
 
 class Test_ManagerFactory_createManagerForInterface:
-
     def test_returns_a_manager(
-            self, mock_manager_interface_factory, mock_host_interface, mock_logger):
-
+        self, mock_manager_interface_factory, mock_host_interface, mock_logger
+    ):
         manager = ManagerFactory.createManagerForInterface(
-            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger)
+            "a.manager", mock_host_interface, mock_manager_interface_factory, mock_logger
+        )
 
         assert isinstance(manager, Manager)
 
     def test_manager_is_properly_configured(
-            self, assert_expected_manager, mock_manager_interface_factory, mock_host_interface,
-            mock_logger):
+        self,
+        assert_expected_manager,
+        mock_manager_interface_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
         # setup
 
         expected_identifier = "a.manager"
@@ -227,12 +247,14 @@ class Test_ManagerFactory_createManagerForInterface:
         # action
 
         manager = ManagerFactory.createManagerForInterface(
-            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger)
+            expected_identifier, mock_host_interface, mock_manager_interface_factory, mock_logger
+        )
 
         # confirm
 
         mock_manager_interface_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier)
+            expected_identifier
+        )
         assert_expected_manager(manager)
 
 
@@ -282,10 +304,12 @@ class MockManagerImplementationFactory(ManagerImplementationFactoryInterface):
     internal mock.
     @see mock_manager_interface_factory
     """
+
     def __init__(self, logger):
         ManagerImplementationFactoryInterface.__init__(self, logger)
         self.mock = mock.create_autospec(
-            ManagerImplementationFactoryInterface, spec_set=True, instance=True)
+            ManagerImplementationFactoryInterface, spec_set=True, instance=True
+        )
 
     def identifiers(self):
         return self.mock.identifiers()

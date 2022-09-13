@@ -42,22 +42,26 @@ class Test_ManagerImplementationFactoryInterface:
 
 class Test_ManagerImplementationFactoryInterface_identifiers:
     def test_when_not_overridden_then_raises_exception(
-            self, a_manager_interface_factory_interface):
+        self, a_manager_interface_factory_interface
+    ):
         with pytest.raises(RuntimeError) as err:
             a_manager_interface_factory_interface.identifiers()
-        assert(str(err.value) ==
-               'Tried to call pure virtual function'
-               ' "ManagerImplementationFactoryInterface::identifiers"')
+        assert (
+            str(err.value) == "Tried to call pure virtual function"
+            ' "ManagerImplementationFactoryInterface::identifiers"'
+        )
 
 
 class Test_ManagerImplementationFactoryInterface_instantiate:
     def test_when_not_overridden_then_raises_exception(
-            self, a_manager_interface_factory_interface):
+        self, a_manager_interface_factory_interface
+    ):
         with pytest.raises(RuntimeError) as err:
             a_manager_interface_factory_interface.instantiate("a.manager.identifier")
-        assert (str(err.value) ==
-                'Tried to call pure virtual function'
-                ' "ManagerImplementationFactoryInterface::instantiate"')
+        assert (
+            str(err.value) == "Tried to call pure virtual function"
+            ' "ManagerImplementationFactoryInterface::instantiate"'
+        )
 
 
 @pytest.fixture

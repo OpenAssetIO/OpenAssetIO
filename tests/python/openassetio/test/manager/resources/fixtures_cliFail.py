@@ -28,16 +28,11 @@ fixtures = {
             "identifier": "not.the.right.identifier"
         }
     },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "display_name": "Stub Manager"
-        }
-    },
+    "Test_displayName": {"test_matches_fixture": {"display_name": "Stub Manager"}},
     "Test_info": {
         "test_matches_fixture": {
             # See: test_host_session_provides_expected_host
             "info": {"host_identifier": "org.openassetio.test.manager.harness"}
         }
-    }
+    },
 }
-

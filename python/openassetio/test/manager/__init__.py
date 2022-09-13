@@ -19,4 +19,4 @@ This package contains a test harness that can exercise a manager plugin
 implementation against a standard API compliance suite, or other user
 supplied test cases.
 """
-pass # Some statement is required so the above shows up in built docs
+pass  # Some statement is required so the above shows up in built docs

@@ -29,7 +29,6 @@ import json
 from collections import namedtuple
 from urllib.parse import urlparse
 
-
 EntityInfo = namedtuple("EntityInfo", ("name"), defaults=("",))
 Entity = namedtuple("Entity", ("traits"), defaults=({},))
 
@@ -40,9 +39,7 @@ def make_default_settings() -> dict:
     Note: as a library is required, the default settings are not enough
     to initialize the manager.
     """
-    return {
-        "library_path": ""
-    }
+    return {"library_path": ""}
 
 
 def validate_settings(settings: dict):

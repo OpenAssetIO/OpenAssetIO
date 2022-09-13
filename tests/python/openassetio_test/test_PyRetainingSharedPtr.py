@@ -31,7 +31,8 @@ from openassetio import _openassetio_test  # pylint: disable=no-name-in-module
 
 class Test_PyRetainingSharedPtr_arg:
     def test_when_not_using_PyRetainingSharedPtr_in_constructor_then_python_implementation_is_lost(
-            self):
+        self,
+    ):
         container = _openassetio_test.SimpleCppContainer(SimpleCppType())
         element = container.heldObject()
 
@@ -41,7 +42,8 @@ class Test_PyRetainingSharedPtr_arg:
         assert str(err.value) == 'Tried to call pure virtual function "SimpleBaseCppType::value"'
 
     def test_when_not_using_PyRetainingSharedPtr_in_factory_then_python_implementation_is_lost(
-            self):
+        self,
+    ):
         container = _openassetio_test.SimpleCppContainer.make(SimpleCppType())
         element = container.heldObject()
 
@@ -50,8 +52,7 @@ class Test_PyRetainingSharedPtr_arg:
 
         assert str(err.value) == 'Tried to call pure virtual function "SimpleBaseCppType::value"'
 
-    def test_when_not_using_PyRetainingSharedPtr_in_list_then_python_implementation_is_lost(
-            self):
+    def test_when_not_using_PyRetainingSharedPtr_in_list_then_python_implementation_is_lost(self):
         container = _openassetio_test.SimpleCppListContainer([SimpleCppType(), SimpleCppType()])
         elements = container.heldObjects()
 
@@ -80,22 +81,26 @@ class Test_PyRetainingSharedPtr_arg:
 
     def test_when_using_factory_then_python_implementation_is_retained(self):
         container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromPtrValue(
-            SimpleCppType())
+            SimpleCppType()
+        )
         element = container.heldObject()
 
         assert element.value() == 2
 
     def test_when_using_factory_taking_const_ref_argument_then_python_implementation_is_retained(
-            self):
+        self,
+    ):
         container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromConstRefPtr(
-            SimpleCppType())
+            SimpleCppType()
+        )
         element = container.heldObject()
 
         assert element.value() == 2
 
     def test_when_using_multi_arg_constructor_then_python_implementation_is_retained(self):
         container = _openassetio_test.PyRetainingMultiElementCppContainer(
-            SimpleCppType(), OtherSimpleCppType(), SimpleCppType())
+            SimpleCppType(), OtherSimpleCppType(), SimpleCppType()
+        )
         element1 = container.heldObject1()
         element2 = container.heldObject2()
         element3 = container.heldObject3()
@@ -108,7 +113,11 @@ class Test_PyRetainingSharedPtr_arg:
         container = _openassetio_test.PyRetainingMultiElementCppContainer.make(
             # Note: the False has no effect, just used to check
             # signature matching.
-            SimpleCppType(), False, OtherSimpleCppType(), SimpleCppType())
+            SimpleCppType(),
+            False,
+            OtherSimpleCppType(),
+            SimpleCppType(),
+        )
 
         element1 = container.heldObject1()
         element2 = container.heldObject2()
@@ -119,8 +128,9 @@ class Test_PyRetainingSharedPtr_arg:
         assert element3.value() == 2
 
     def test_when_using_list_container_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingSimpleCppListContainer([
-            SimpleCppType(), SimpleCppType()])
+        container = _openassetio_test.PyRetainingSimpleCppListContainer(
+            [SimpleCppType(), SimpleCppType()]
+        )
         elements = container.heldObjects()
 
         assert len(elements) == 2
@@ -212,7 +222,8 @@ class Test_PyRetainingSharedPtr_cleanup:
             #   shared_ptr as it expects, and pybind converts this to
             #   the Python object `element` below.
             element = PyRetainingDeathwatchedFactory(
-                self.death_watcher).createNewObjectInDerivedInstance()
+                self.death_watcher
+            ).createNewObjectInDerivedInstance()
             self.weak_ref = weakref.ref(element)
 
             # Store element in container. `element` will be "cast" to a
@@ -265,7 +276,6 @@ class DeathwatchedSimpleCppType(_openassetio_test.DeathwatchedSimpleCppType):
 
 
 class PyRetainingDeathwatchedFactory(_openassetio_test.PyRetainingSimpleBaseCppFactory):
-
     def __init__(self, callback):
         _openassetio_test.PyRetainingSimpleBaseCppFactory.__init__(self)
         self.__callback = callback

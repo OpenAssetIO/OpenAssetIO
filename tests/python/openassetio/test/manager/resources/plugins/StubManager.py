@@ -30,6 +30,7 @@ class StubManager(ManagerInterface):
     required for the tests/python/openassetio/test/manager
     test suite to function.
     """
+
     # TODO: @pylint Remove once we have closed #163
     # pylint: disable=abstract-method
 
@@ -67,6 +68,7 @@ class StubManagerPlugin(PythonPluginSystemManagerPlugin):
     Provides an alternate implementation of the ModulePlugin
     to aid testing of path precedence.
     """
+
     @staticmethod
     def identifier():
         return "org.openassetio.test.manager.stubManager"

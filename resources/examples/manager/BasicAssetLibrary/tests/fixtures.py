@@ -20,7 +20,6 @@ Manager test harness fixtures for the apiComplianceSuite
 import json
 import os
 
-
 from openassetio import TraitsData
 from openassetio.constants import kField_EntityReferencesMatchPrefix
 
@@ -28,7 +27,9 @@ from openassetio.constants import kField_EntityReferencesMatchPrefix
 # Test library
 #
 
-test_library_path = os.path.join(os.path.dirname(__file__), "resources", "library_apiComplianceSuite.json")
+test_library_path = os.path.join(
+    os.path.dirname(__file__), "resources", "library_apiComplianceSuite.json"
+)
 test_libray = {}
 
 with open(test_library_path, "r", encoding="utf-8") as file:
@@ -51,33 +52,18 @@ some_registerable_traitsdata = TraitsData()
 some_registerable_traitsdata.setTraitProperty("trait1", "some", "stringValue")
 some_registerable_traitsdata.setTraitProperty("trait2", "count", 4)
 
-
 fixtures = {
     "identifier": identifier,
-    "settings": {
-        "library_path": test_library_path
-    },
+    "settings": {"library_path": test_library_path},
     "shared": {
         "a_valid_reference": valid_ref,
         "an_invalid_reference": non_ref,
         "a_malformed_reference": malformed_ref,
     },
-    "Test_identifier": {
-        "test_matches_fixture": {
-            "identifier": identifier
-        }
-    },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "display_name": "Basic Asset Library 📖"
-        }
-    },
+    "Test_identifier": {"test_matches_fixture": {"identifier": identifier}},
+    "Test_displayName": {"test_matches_fixture": {"display_name": "Basic Asset Library 📖"}},
     "Test_info": {
-        "test_matches_fixture": {
-            "info" : {
-                kField_EntityReferencesMatchPrefix: "bal:///"
-            }
-        }
+        "test_matches_fixture": {"info": {kField_EntityReferencesMatchPrefix: "bal:///"}}
     },
     "Test_initialize": {
         "shared": {
@@ -88,12 +74,12 @@ fixtures = {
         },
         "test_when_subset_of_settings_modified_then_other_settings_unchanged": {
             "some_settings_with_a_subset_of_keys": {}
-        }
+        },
     },
     "Test_entityExists": {
         "shared": {
             "a_reference_to_an_existing_entity": f"bal:///{an_existing_entity_name}",
-            "a_reference_to_a_nonexisting_entity": valid_ref
+            "a_reference_to_a_nonexisting_entity": valid_ref,
         }
     },
     "Test_resolve": {
@@ -104,10 +90,12 @@ fixtures = {
             "the_error_string_for_a_reference_to_a_readonly_entity": "BAL entities are read-only",
             "a_reference_to_a_missing_entity": "bal:///missing_entity",
             "the_error_string_for_a_reference_to_a_missing_entity": (
-                "Entity 'bal:///missing_entity' not found"),
+                "Entity 'bal:///missing_entity' not found"
+            ),
             "a_malformed_reference": malformed_ref,
             "the_error_string_for_a_malformed_reference": (
-                f"Missing entity name in path component")
+                f"Missing entity name in path component"
+            ),
         }
     },
     "Test_preflight": {
@@ -115,7 +103,8 @@ fixtures = {
             "a_reference_to_a_writable_entity": "bal:///someNewEntity",
             "a_set_of_valid_traits": some_registerable_traitset,
             "the_error_string_for_a_malformed_reference": (
-                f"Missing entity name in path component")
+                f"Missing entity name in path component"
+            ),
         }
     },
     "Test_register": {
@@ -123,7 +112,8 @@ fixtures = {
             "a_reference_to_a_writable_entity": "bal:///someNewEntity",
             "a_traitsdata_for_a_reference_to_a_writable_entity": some_registerable_traitsdata,
             "the_error_string_for_a_malformed_reference": (
-                f"Missing entity name in path component")
+                f"Missing entity name in path component"
+            ),
         }
-    }
+    },
 }

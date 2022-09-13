@@ -27,7 +27,6 @@ __all__ = []
 
 
 class Test_failingSuite(FixtureAugmentedTestCase):
-
     def test_that_will_always_fail(self):
         # pylint: disable=redundant-unittest-assert
         self.assertTrue(False)

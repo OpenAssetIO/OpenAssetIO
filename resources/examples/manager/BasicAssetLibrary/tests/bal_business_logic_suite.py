@@ -27,7 +27,6 @@ from openassetio import Context, TraitsData
 from openassetio.traits.managementPolicy import ManagedTrait
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
-
 __all__ = []
 
 
@@ -144,10 +143,10 @@ class Test_resolve(FixtureAugmentedTestCase):
         def error_cb(idx, batchElementError):
             self.fail(
                 f"Unexpected error for '{entity_references[idx].toString()}':"
-                f" {batchElementError.message}")
+                f" {batchElementError.message}"
+            )
 
-        self._manager.resolve(
-            entity_references, trait_set, context, success_cb, error_cb)
+        self._manager.resolve(entity_references, trait_set, context, success_cb, error_cb)
 
         for ref, result in zip(entity_references, results):
             # Check all traits are present, and their properties.
@@ -187,7 +186,8 @@ class Test_register(FixtureAugmentedTestCase):
         data = TraitsData()
         data.setTraitProperty("a_trait", "a_property", 1)
         new_entity_ref = self._manager.createEntityReference(
-            "bal:///test_when_ref_is_new_then_entity_created_with_same_reference")
+            "bal:///test_when_ref_is_new_then_entity_created_with_same_reference"
+        )
         published_entity_ref = self.__create_test_entity(new_entity_ref, data, context)
 
         context.access = Context.Access.kRead
@@ -200,7 +200,8 @@ class Test_register(FixtureAugmentedTestCase):
         data.setTraitProperty("a_trait", "a_property", 1)
 
         test_entity_ref = self._manager.createEntityReference(
-            "bal:///test_when_ref_exsits_then_entity_updated_with_same_reference")
+            "bal:///test_when_ref_exsits_then_entity_updated_with_same_reference"
+        )
         existing_entity_ref = self.__create_test_entity(test_entity_ref, data, context)
 
         original_data = TraitsData(data)
@@ -231,7 +232,6 @@ class Test_register(FixtureAugmentedTestCase):
         self.assertEqual(resolved_data[0], data)
         self.assertNotEqual(resolved_data[0], original_data)
 
-
     def __create_test_entity(self, ref, data, context):
         """
         Creates a new entity in the library for testing.
@@ -243,7 +243,7 @@ class Test_register(FixtureAugmentedTestCase):
         context.access = Context.Access.kRead
         self.assertFalse(
             self._manager.entityExists([ref], context)[0],
-            f"Entity '{ref.toString()}' already exists"
+            f"Entity '{ref.toString()}' already exists",
         )
 
         published_refs = [None]

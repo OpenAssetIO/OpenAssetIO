@@ -24,4 +24,5 @@ from .PythonPluginSystemManagerPlugin import PythonPluginSystemManagerPlugin
 from .PythonPluginSystem import PythonPluginSystem
 from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
 from .PythonPluginSystemManagerImplementationFactory import (
-    PythonPluginSystemManagerImplementationFactory)
+    PythonPluginSystemManagerImplementationFactory,
+)

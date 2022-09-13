@@ -60,7 +60,6 @@ class Trait:
         """
         self._data = traitsData
 
-
     def isValid(self):
         """
         Checks whether the data this trait has been applied to
@@ -71,7 +70,6 @@ class Trait:
         """
         return self._data.hasTrait(self.kId)  # pylint: disable=no-member
 
-
     def imbue(self):
         """
         Adds this trait to the held data.
@@ -79,7 +77,6 @@ class Trait:
         If the data already has this trait, it is a no-op.
         """
         self._data.addTrait(self.kId)  # pylint: disable=no-member
-
 
     @classmethod
     def imbueTo(cls, traitsData):

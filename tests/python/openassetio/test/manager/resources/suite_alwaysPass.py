@@ -27,7 +27,6 @@ __all__ = []
 
 
 class Test_passingSuite(FixtureAugmentedTestCase):
-
     def test_that_will_always_pass(self):
         # pylint: disable=redundant-unittest-assert
         self.assertTrue(True)

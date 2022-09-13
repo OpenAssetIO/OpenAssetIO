@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 
-
 setup(
     name="openassetio-codegen",
     version="1.0.0-alpha.3",

@@ -27,12 +27,15 @@ A single-class module, providing the ManagerInterface class.
 # pylint: disable=unused-argument,no-self-use
 
 import abc
+
 # TODO(DF): Remove pylint disable once CI is fixed.
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from .. import exceptions
 
 
-__all__ = ['ManagerInterface', ]
+__all__ = [
+    "ManagerInterface",
+]
 
 
 class ManagerInterface(_openassetio.managerApi.ManagerInterface):
@@ -413,7 +416,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         return ["" for _ in entityRefs]
 
     def entityVersions(
-            self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1):
+        self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1
+    ):
         """
         Retrieves all available versions of each supplied @ref
         entity_reference (including the supplied ref, if it points to a
@@ -537,7 +541,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
     @abc.abstractmethod
     def getRelatedReferences(
-            self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None):
+        self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None
+    ):
         """
         Returns related entity references, based on a relationship
         defined by a set of traits and their properties.
@@ -616,8 +621,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         raise NotImplementedError
 
     def setRelatedReferences(
-            self, entityRef, relationshipTraitsData, relatedRefs,
-            context, hostSession, append=True):
+        self, entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True
+    ):
         """
         Creates a new relationship between the referenced entities.
 

@@ -28,6 +28,7 @@ from openassetio.log import LoggerInterface
 from openassetio.managerApi import ManagerInterface, Host, HostSession
 from openassetio.hostApi import HostInterface
 
+
 # pylint: disable=invalid-name
 
 
@@ -108,8 +109,10 @@ def create_mock_manager_interface():
     This avoids the need to explicitly import `conftest` in test
     modules.
     """
+
     def creator():
         return ValidatingMockManagerInterface()
+
     return creator
 
 
@@ -157,37 +160,44 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.entityVersion(entityRefs, context, hostSession)
 
     def entityVersions(
-            self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1):
+        self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1
+    ):
         self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(includeMetaVersions, bool)
         assert isinstance(maxNumVersions, int)
         return self.mock.entityVersions(
-            entityRefs, context, hostSession, includeMetaVersions, maxNumVersions)
+            entityRefs, context, hostSession, includeMetaVersions, maxNumVersions
+        )
 
     def finalizedEntityVersion(self, entityRefs, context, hostSession, overrideVersionName=None):
         self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(overrideVersionName, str) or overrideVersionName is None
         return self.mock.finalizedEntityVersion(
-            entityRefs, context, hostSession, overrideVersionName)
+            entityRefs, context, hostSession, overrideVersionName
+        )
 
-    def setRelatedReferences(self, entityRef, relationshipTraitsData, relatedRefs, context,
-                hostSession, append=True):
+    def setRelatedReferences(
+        self, entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True
+    ):
         assert isinstance(entityRef, EntityReference)
         self.__assertIsIterableOf(relatedRefs, EntityReference)
         return self.mock.setRelatedReferences(
-            entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append)
+            entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append
+        )
 
-    def preflight(self, targetEntityRefs, traitSet, context, hostSession,
-                  successCallback, errorCallback):
+    def preflight(
+        self, targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
+    ):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
-        return self.mock.preflight(targetEntityRefs, traitSet, context, hostSession,
-                                   successCallback, errorCallback)
+        return self.mock.preflight(
+            targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
+        )
 
     def createState(self, hostSession):
         return self.mock.createState(hostSession)
@@ -235,7 +245,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.resolve(
-            entityRefs, traitSet, context, hostSession, successCallback, errorCallback)
+            entityRefs, traitSet, context, hostSession, successCallback, errorCallback
+        )
 
     def entityName(self, entityRefs, context, hostSession):
         self.__assertIsIterableOf(entityRefs, EntityReference)
@@ -248,7 +259,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.entityDisplayName(entityRefs, context, hostSession)
 
     def getRelatedReferences(
-            self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None):
+        self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None
+    ):
         self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
@@ -256,18 +268,32 @@ class ValidatingMockManagerInterface(ManagerInterface):
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
         return self.mock.getRelatedReferences(
-            entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet)
+            entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet
+        )
 
-    def register(self, targetEntityRefs, entityTraitsDatas, context, hostSession,
-                 successCallback, errorCallback):
+    def register(
+        self,
+        targetEntityRefs,
+        entityTraitsDatas,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+    ):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(entityTraitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
         assert len(targetEntityRefs) == len(entityTraitsDatas)
         assert callable(successCallback)
         assert callable(errorCallback)
-        return self.mock.register(targetEntityRefs, entityTraitsDatas, context, hostSession,
-                                  successCallback, errorCallback)
+        return self.mock.register(
+            targetEntityRefs,
+            entityTraitsDatas,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
+        )
 
     @staticmethod
     def __assertIsIterableOf(iterable, expectedElemType):
@@ -292,6 +318,7 @@ class MockHostInterface(HostInterface):
     `HostInterface` implementation that delegates all calls to a public
     `Mock` instance.
     """
+
     def __init__(self):
         super().__init__()
         self.mock = mock.create_autospec(HostInterface, spec_set=True, instance=True)
@@ -311,6 +338,7 @@ class MockLogger(LoggerInterface):
     `LoggerInterface` implementation that delegates all calls to a
     public `Mock` instance.
     """
+
     def __init__(self):
         LoggerInterface.__init__(self)
         self.mock = mock.create_autospec(LoggerInterface, spec_set=True, instance=True)
@@ -336,6 +364,7 @@ class MethodIntrospector:
     @todo Remove this class and related tests once C++ migration is
     complete.
     """
+
     @staticmethod
     def is_defined_in_python(method):
         """

@@ -18,25 +18,14 @@ Manager test harness test case fixtures for Sample Asset Manager (SAM).
 """
 from openassetio.constants import kField_EntityReferencesMatchPrefix
 
+
 kIdentifier = "org.openassetio.examples.manager.sam"
 
 fixtures = {
     "identifier": kIdentifier,
-    "Test_identifier": {
-        "test_matches_fixture": {
-            "identifier": kIdentifier
-        }
-    },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "display_name": "Sample Asset Manager (SAM)"
-        }
-    },
+    "Test_identifier": {"test_matches_fixture": {"identifier": kIdentifier}},
+    "Test_displayName": {"test_matches_fixture": {"display_name": "Sample Asset Manager (SAM)"}},
     "Test_info": {
-        "test_matches_fixture": {
-            "info" : {
-                kField_EntityReferencesMatchPrefix: "sam:///"
-            }
-        }
-    }
+        "test_matches_fixture": {"info": {kField_EntityReferencesMatchPrefix: "sam:///"}}
+    },
 }

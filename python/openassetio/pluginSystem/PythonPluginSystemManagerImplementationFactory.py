@@ -26,7 +26,9 @@ from ..hostApi import ManagerImplementationFactoryInterface
 from .PythonPluginSystem import PythonPluginSystem
 
 
-__all__ = ['PythonPluginSystemManagerImplementationFactory', ]
+__all__ = [
+    "PythonPluginSystemManagerImplementationFactory",
+]
 
 
 class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactoryInterface):
@@ -67,7 +69,8 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
                 self._logger.log(
                     self._logger.Severity.kWarning,
                     "%s is not set. It is somewhat unlikely that you will find any plugins..."
-                    % self.kPluginEnvVar)
+                    % self.kPluginEnvVar,
+                )
 
         self.__pluginManager = PythonPluginSystem(self._logger)
 

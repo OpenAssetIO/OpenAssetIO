@@ -21,10 +21,11 @@ class.
 
 from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
 
+
 # As this is an abstract interface, these are expected
 # pylint: disable=unused-argument
 
-__all__ = ['PythonPluginSystemManagerPlugin']
+__all__ = ["PythonPluginSystemManagerPlugin"]
 
 
 class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):

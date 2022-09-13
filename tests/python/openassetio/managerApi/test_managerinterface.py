@@ -37,8 +37,9 @@ class Test_ManagerInterface_identifier:
     def test_when_not_overridden_then_raises_exception(self):
         with pytest.raises(RuntimeError) as err:
             ManagerInterface().identifier()
-        assert(str(err.value) ==
-               'Tried to call pure virtual function "ManagerInterface::identifier"')
+        assert (
+            str(err.value) == 'Tried to call pure virtual function "ManagerInterface::identifier"'
+        )
 
 
 class Test_ManagerInterface_displayName:
@@ -49,8 +50,9 @@ class Test_ManagerInterface_displayName:
     def test_when_not_overridden_then_raises_exception(self):
         with pytest.raises(RuntimeError) as err:
             ManagerInterface().displayName()
-        assert(str(err.value) ==
-               'Tried to call pure virtual function "ManagerInterface::displayName"')
+        assert (
+            str(err.value) == 'Tried to call pure virtual function "ManagerInterface::displayName"'
+        )
 
 
 class Test_ManagerInterface_info:
@@ -91,9 +93,11 @@ class Test_ManagerInterface_createChildState:
 class Test_ManagerInterface_persistenceTokenForState:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(
-            ManagerInterface.persistenceTokenForState)
+            ManagerInterface.persistenceTokenForState
+        )
         assert method_introspector.is_implemented_once(
-            ManagerInterface, "persistenceTokenForState")
+            ManagerInterface, "persistenceTokenForState"
+        )
 
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
@@ -107,9 +111,11 @@ class Test_ManagerInterface_persistenceTokenForState:
 class Test_ManagerInterface_stateFromPersistenceToken:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(
-            ManagerInterface.stateFromPersistenceToken)
+            ManagerInterface.stateFromPersistenceToken
+        )
         assert method_introspector.is_implemented_once(
-            ManagerInterface, "stateFromPersistenceToken")
+            ManagerInterface, "stateFromPersistenceToken"
+        )
 
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
@@ -130,7 +136,8 @@ class Test_ManagerInterface_defaultEntityReference:
         assert refs == [""]
 
     def test_when_given_multiple_trait_set_then_returns_corresponding_number_of_empty_refs(
-            self, manager_interface):
+        self, manager_interface
+    ):
         refs = manager_interface.defaultEntityReference([(), (), ()], Mock(), Mock())
         assert refs == ["", "", ""]
 
@@ -145,7 +152,8 @@ class Test_ManagerInterface_entityVersion:
         assert names == [""]
 
     def test_when_given_multiple_refs_then_returns_corresponding_number_of_empty_names(
-            self, manager_interface):
+        self, manager_interface
+    ):
         names = manager_interface.entityVersion([Mock(), Mock(), Mock()], Mock(), Mock())
         assert names == ["", "", ""]
 
@@ -156,12 +164,14 @@ class Test_ManagerInterface_entityVersions:
         assert method_introspector.is_implemented_once(ManagerInterface, "entityVersions")
 
     def test_when_given_single_ref_then_returns_single_empty_version_dicts(
-            self, manager_interface):
+        self, manager_interface
+    ):
         versions = manager_interface.entityVersions([Mock()], Mock(), Mock())
         assert versions == [{}]
 
     def test_when_given_multiple_refs_then_returns_corresponding_number_of_empty_version_dicts(
-            self, manager_interface):
+        self, manager_interface
+    ):
         versions = manager_interface.entityVersions([Mock(), Mock(), Mock()], Mock(), Mock())
         assert versions == [{}, {}, {}]
 
@@ -182,7 +192,8 @@ class Test_ManagerInterface_finalizedEntityVersion:
 class Test_ManagerInterface__createEntityReference:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(
-            ManagerInterface._createEntityReference)  # pylint:disable=protected-access
+            ManagerInterface._createEntityReference  # pylint:disable=protected-access
+        )
         assert method_introspector.is_implemented_once(ManagerInterface, "_createEntityReference")
 
     def test_when_input_is_string_then_wrapped_in_entity_reference(self, manager_interface):

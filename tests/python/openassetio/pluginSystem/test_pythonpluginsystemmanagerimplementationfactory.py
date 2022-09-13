@@ -29,6 +29,7 @@ import pytest
 
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
+
 #
 # Plugin fixtures
 #
@@ -78,11 +79,12 @@ def local_plugin_identifiers():
 
 class Test_PythonPluginSystemManagerImplementationFactory_init:
     def test_plugin_factory_uses_the_expected_env_var(self):
-        assert (PythonPluginSystemManagerImplementationFactory.kPluginEnvVar ==
-                "OPENASSETIO_PLUGIN_PATH")
+        assert (
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar
+            == "OPENASSETIO_PLUGIN_PATH"
+        )
 
     def test_when_env_var_not_set_then_logs_warning(self, mock_logger, monkeypatch):
-
         expected_msg = (
             f"{PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is not set. "
             "It is somewhat unlikely that you will find any plugins..."
@@ -115,7 +117,8 @@ class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
 
         plugin_paths = ""
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, plugin_paths)
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, plugin_paths
+        )
 
         factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
         identifiers = factory.identifiers()
@@ -141,7 +144,8 @@ class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
             monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
 
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path)
+            mock_logger, paths=local_plugin_path
+        )
         assert factory.identifiers() == local_plugin_identifiers
 
     def test_when_env_var_overridden_to_local_plugin_path_then_finds_local_plugins(
@@ -153,5 +157,6 @@ class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
         )
 
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path)
+            mock_logger, paths=local_plugin_path
+        )
         assert factory.identifiers() == local_plugin_identifiers

@@ -52,8 +52,11 @@ class Test_Context:
 
     def test_retention_constants_are_unique(self):
         consts = (
-            Context.Retention.kIgnored, Context.Retention.kTransient, Context.Retention.kSession,
-            Context.Retention.kPermanent)
+            Context.Retention.kIgnored,
+            Context.Retention.kTransient,
+            Context.Retention.kSession,
+            Context.Retention.kPermanent,
+        )
         assert len(set(consts)) == len(consts)
 
     def test_retention_names_indices_match_constants(self):
@@ -91,41 +94,51 @@ class Test_Context_init:
 
 class Test_Context_access:
     def test_when_set_to_unknown_type_then_raises_ValueError(self, a_context):
-
-        expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg0: openassetio._openassetio.Context.Access")
+        expected_msg = (
+            r"incompatible function arguments.*\n"
+            r".*arg0: openassetio._openassetio.Context.Access"
+        )
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.access = 0
 
     def test_when_set_to_known_value_then_stores_that_value(self, a_context):
         for expected_access in (
-                Context.Access.kRead, Context.Access.kReadMultiple, Context.Access.kWrite,
-                Context.Access.kWriteMultiple):
+            Context.Access.kRead,
+            Context.Access.kReadMultiple,
+            Context.Access.kWrite,
+            Context.Access.kWriteMultiple,
+        ):
             a_context.access = expected_access
             assert a_context.access == expected_access
 
 
 class Test_Context_retention:
     def test_when_set_to_unknown_type_then_raises_ValueError(self, a_context):
-        expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg0: openassetio._openassetio.Context.Retention")
+        expected_msg = (
+            r"incompatible function arguments.*\n"
+            r".*arg0: openassetio._openassetio.Context.Retention"
+        )
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.retention = 0
 
     def test_when_set_to_known_value_then_stores_that_value(self, a_context):
         for expected_retention in (
-                Context.Retention.kIgnored, Context.Retention.kTransient,
-                Context.Retention.kSession, Context.Retention.kPermanent):
+            Context.Retention.kIgnored,
+            Context.Retention.kTransient,
+            Context.Retention.kSession,
+            Context.Retention.kPermanent,
+        ):
             a_context.retention = expected_retention
             assert a_context.retention == expected_retention
 
 
 class Test_Context_locale:
     def test_when_set_to_unknown_value_then_raises_ValueError(self, a_context):
-        expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg0: openassetio._openassetio.TraitsData")
+        expected_msg = (
+            r"incompatible function arguments.*\n.*arg0: openassetio._openassetio.TraitsData"
+        )
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.locale = object()
@@ -146,8 +159,10 @@ class Test_Context_locale:
 
 class Test_Context_managerState:
     def test_when_set_to_unknown_type_then_raises_TypeError(self, a_context):
-        expected_msg = (r"incompatible function arguments.*\n"
-                        r".*arg1: openassetio._openassetio.managerApi.ManagerStateBase")
+        expected_msg = (
+            r"incompatible function arguments.*\n"
+            r".*arg1: openassetio._openassetio.managerApi.ManagerStateBase"
+        )
 
         with pytest.raises(TypeError, match=expected_msg):
             a_context.managerState = object()

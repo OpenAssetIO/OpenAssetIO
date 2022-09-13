@@ -30,6 +30,7 @@ from openassetio.hostApi import Manager
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
 
+
 @pytest.fixture
 def manager(mock_manager_interface, a_host_session):
     # Default to accepting anything as an entity reference string, to
@@ -67,6 +68,7 @@ def an_entity_trait_set():
 def some_entity_trait_sets():
     return [{"blob"}, {"blob", "image"}]
 
+
 @pytest.fixture
 def a_context():
     return Context()
@@ -86,27 +88,29 @@ def a_ref(manager):
 def some_refs(manager):
     return [manager.createEntityReference("asset://a"), manager.createEntityReference("asset://b")]
 
+
 # __str__ and __repr__ aren't tested as they're debug tricks that need
 # assessing when this is ported to cpp
 
+
 class Test_Manager_init:
-
     def test_interface_returns_the_constructor_supplied_object(
-            self, mock_manager_interface, a_host_session):
-
+        self, mock_manager_interface, a_host_session
+    ):
         # pylint: disable=protected-access
         a_manager = Manager(mock_manager_interface, a_host_session)
         assert a_manager._interface() is mock_manager_interface
 
     def test_when_constructed_with_ManagerInterface_as_None_then_raises_TypeError(
-            self, a_host_session):
-
+        self, a_host_session
+    ):
         # Check the message is both helpful and that the bindings
         # were loaded in the correct order such that types are
         # described correctly.
-        matchExpr = \
-            r".+The following argument types are supported:[^(]+" \
+        matchExpr = (
+            r".+The following argument types are supported:[^(]+"
             r"Manager\([^,]+managerApi.ManagerInterface,[^,]+managerApi.HostSession.+"
+        )
 
         with pytest.raises(TypeError, match=matchExpr):
             Manager(None, a_host_session)
@@ -118,7 +122,8 @@ class Test_Manager_identifier:
         assert method_introspector.is_implemented_once(Manager, "identifier")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface):
+        self, manager, mock_manager_interface
+    ):
         expected = "stub.manager"
         mock_manager_interface.mock.identifier.return_value = expected
 
@@ -127,8 +132,8 @@ class Test_Manager_identifier:
         assert actual == expected
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         mock_manager_interface.mock.identifier.return_value = 123
 
         with pytest.raises(RuntimeError) as err:
@@ -149,8 +154,8 @@ class Test_Manager_displayName:
         assert method_introspector.is_implemented_once(Manager, "displayName")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         expected = "stub.manager"
         mock_manager_interface.mock.displayName.return_value = expected
 
@@ -159,8 +164,8 @@ class Test_Manager_displayName:
         assert actual == expected
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         mock_manager_interface.mock.displayName.return_value = 123
 
         with pytest.raises(RuntimeError) as err:
@@ -176,8 +181,8 @@ class Test_Manager_info:
         assert method_introspector.is_implemented_once(Manager, "info")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         expected = {"an int": 123}
         mock_manager_interface.mock.info.return_value = expected
 
@@ -186,8 +191,8 @@ class Test_Manager_info:
         assert actual == expected
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         mock_manager_interface.mock.info.return_value = {123: 123}
 
         with pytest.raises(RuntimeError) as err:
@@ -203,8 +208,8 @@ class Test_Manager_updateTerminology:
         assert method_introspector.is_implemented_once(Manager, "updateTerminology")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         method = mock_manager_interface.mock.updateTerminology
         a_dict = {"k", "v"}
         assert manager.updateTerminology(a_dict) is a_dict
@@ -217,8 +222,8 @@ class Test_Manager_settings:
         assert method_introspector.is_implemented_once(Manager, "settings")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         expected = {"some": "setting"}
         method = mock_manager_interface.mock.settings
         method.return_value = expected
@@ -235,7 +240,8 @@ class Test_Manager_initialize:
         assert method_introspector.is_implemented_once(Manager, "initialize")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session):
+        self, manager, mock_manager_interface, a_host_session
+    ):
         a_dict = {"k": "v"}
 
         manager.initialize(a_dict)
@@ -249,8 +255,8 @@ class Test_Manager_flushCaches:
         assert method_introspector.is_implemented_once(Manager, "flushCaches")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         method = mock_manager_interface.mock.flushCaches
         assert manager.flushCaches() == method.return_value
         method.assert_called_once_with(a_host_session)
@@ -263,7 +269,8 @@ class Test_Manager_isEntityReferenceString:
 
     @pytest.mark.parametrize("expected", (True, False))
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref_string, expected):
+        self, manager, mock_manager_interface, a_host_session, a_ref_string, expected
+    ):
         method = mock_manager_interface.mock.isEntityReferenceString
         method.return_value = expected
 
@@ -277,24 +284,28 @@ class Test_Manager_createEntityReference:
         assert method_introspector.is_implemented_once(Manager, "createEntityReference")
 
     def test_when_invalid_then_raises_ValueError(
-            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        self, manager, mock_manager_interface, a_ref_string, a_host_session
+    ):
         mock_manager_interface.mock.isEntityReferenceString.return_value = False
 
         with pytest.raises(ValueError) as err:
             manager.createEntityReference(a_ref_string)
 
         mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
-            a_ref_string, a_host_session)
+            a_ref_string, a_host_session
+        )
         assert str(err.value) == f"Invalid entity reference: {a_ref_string}"
 
     def test_when_valid_then_returns_configured_EntityReference(
-            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        self, manager, mock_manager_interface, a_ref_string, a_host_session
+    ):
         mock_manager_interface.mock.isEntityReferenceString.return_value = True
 
         entity_reference = manager.createEntityReference(a_ref_string)
 
         mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
-            a_ref_string, a_host_session)
+            a_ref_string, a_host_session
+        )
         assert isinstance(entity_reference, EntityReference)
         assert entity_reference.toString() == a_ref_string
 
@@ -305,23 +316,27 @@ class Test_Manager_createEntityReferenceIfValid:
         assert method_introspector.is_implemented_once(Manager, "createEntityReferenceIfValid")
 
     def test_when_invalid_then_returns_None(
-            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        self, manager, mock_manager_interface, a_ref_string, a_host_session
+    ):
         mock_manager_interface.mock.isEntityReferenceString.return_value = False
 
         entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
 
         mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
-            a_ref_string, a_host_session)
+            a_ref_string, a_host_session
+        )
         assert entity_reference is None
 
     def test_when_valid_then_returns_configured_EntityReference(
-            self, manager, mock_manager_interface, a_ref_string, a_host_session):
+        self, manager, mock_manager_interface, a_ref_string, a_host_session
+    ):
         mock_manager_interface.mock.isEntityReferenceString.return_value = True
 
         entity_reference = manager.createEntityReferenceIfValid(a_ref_string)
 
         mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
-            a_ref_string, a_host_session)
+            a_ref_string, a_host_session
+        )
         assert isinstance(entity_reference, EntityReference)
         assert entity_reference.toString() == a_ref_string
 
@@ -332,8 +347,8 @@ class Test_Manager_entityExists:
         assert method_introspector.is_implemented_once(Manager, "entityExists")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.entityExists
         assert manager.entityExists(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, a_host_session)
@@ -345,12 +360,13 @@ class Test_Manager_defaultEntityReference:
         assert method_introspector.is_implemented_once(Manager, "defaultEntityReference")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_context,
-            some_entity_trait_sets):
-
+        self, manager, mock_manager_interface, a_host_session, a_context, some_entity_trait_sets
+    ):
         method = mock_manager_interface.mock.defaultEntityReference
-        assert manager.defaultEntityReference(some_entity_trait_sets, a_context) \
-                == method.return_value
+        assert (
+            manager.defaultEntityReference(some_entity_trait_sets, a_context)
+            == method.return_value
+        )
         method.assert_called_once_with(some_entity_trait_sets, a_context, a_host_session)
 
 
@@ -360,8 +376,8 @@ class Test_Manager_entityName:
         assert method_introspector.is_implemented_once(Manager, "entityName")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.entityName
         assert manager.entityName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, a_host_session)
@@ -373,8 +389,8 @@ class Test_Manager_entityDisplayName:
         assert method_introspector.is_implemented_once(Manager, "entityDisplayName")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.entityDisplayName
         assert manager.entityDisplayName(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, a_host_session)
@@ -386,8 +402,8 @@ class Test_Manager_entityVersion:
         assert method_introspector.is_implemented_once(Manager, "entityVersion")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.entityVersion
         assert manager.entityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(some_refs, a_context, a_host_session)
@@ -399,30 +415,44 @@ class Test_Manager_entityVersions:
         assert method_introspector.is_implemented_once(Manager, "entityVersions")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.entityVersions
 
         assert manager.entityVersions(some_refs, a_context) == method.return_value
         method.assert_called_once_with(
-            some_refs, a_context, a_host_session, includeMetaVersions=False, maxNumVersions=-1)
+            some_refs, a_context, a_host_session, includeMetaVersions=False, maxNumVersions=-1
+        )
         method.reset_mock()
 
         max_results = 5
-        assert manager.entityVersions(
-            some_refs, a_context, maxNumVersions=max_results) == method.return_value
+        assert (
+            manager.entityVersions(some_refs, a_context, maxNumVersions=max_results)
+            == method.return_value
+        )
         method.assert_called_once_with(
-            some_refs, a_context, a_host_session,
-            includeMetaVersions=False, maxNumVersions=max_results)
+            some_refs,
+            a_context,
+            a_host_session,
+            includeMetaVersions=False,
+            maxNumVersions=max_results,
+        )
         method.reset_mock()
 
         include_meta = True
-        assert manager.entityVersions(
-            some_refs, a_context, maxNumVersions=max_results,
-            includeMetaVersions=include_meta) == method.return_value
+        assert (
+            manager.entityVersions(
+                some_refs, a_context, maxNumVersions=max_results, includeMetaVersions=include_meta
+            )
+            == method.return_value
+        )
         method.assert_called_once_with(
-            some_refs, a_context, a_host_session, includeMetaVersions=include_meta,
-            maxNumVersions=max_results)
+            some_refs,
+            a_context,
+            a_host_session,
+            includeMetaVersions=include_meta,
+            maxNumVersions=max_results,
+        )
 
 
 class Test_Manager_finalizedEntityVersion:
@@ -431,20 +461,26 @@ class Test_Manager_finalizedEntityVersion:
         assert method_introspector.is_implemented_once(Manager, "finalizedEntityVersion")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs, a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+    ):
         method = mock_manager_interface.mock.finalizedEntityVersion
         assert manager.finalizedEntityVersion(some_refs, a_context) == method.return_value
         method.assert_called_once_with(
-            some_refs, a_context, a_host_session, overrideVersionName=None)
+            some_refs, a_context, a_host_session, overrideVersionName=None
+        )
         method.reset_mock()
 
         a_version_name = "aVersion"
         method = mock_manager_interface.mock.finalizedEntityVersion
-        assert manager.finalizedEntityVersion(
-            some_refs, a_context, overrideVersionName=a_version_name) == method.return_value
+        assert (
+            manager.finalizedEntityVersion(
+                some_refs, a_context, overrideVersionName=a_version_name
+            )
+            == method.return_value
+        )
         method.assert_called_once_with(
-            some_refs, a_context, a_host_session, overrideVersionName=a_version_name)
+            some_refs, a_context, a_host_session, overrideVersionName=a_version_name
+        )
 
 
 class Test_Manager_getRelatedReferences:
@@ -453,8 +489,15 @@ class Test_Manager_getRelatedReferences:
         assert method_introspector.is_implemented_once(Manager, "getRelatedReferences")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, a_ref,
-            an_empty_traitsdata, an_entity_trait_set, a_context):
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+    ):
 
         # pylint: disable=too-many-locals
 
@@ -469,34 +512,39 @@ class Test_Manager_getRelatedReferences:
 
         # Check validation that one to many or equal length ref/data args are required
 
-        for refs_arg, datas_arg in (
-                (two_refs, three_datas),
-                (three_refs, two_datas)
-        ):
+        for refs_arg, datas_arg in ((two_refs, three_datas), (three_refs, two_datas)):
             with pytest.raises(ValueError):
                 manager.getRelatedReferences(refs_arg, datas_arg, a_context)
             method.assert_not_called()
             method.reset_mock()
 
         for refs_arg, datas_arg, expected_refs_arg, expected_datas_arg in (
-                (one_ref, three_datas, [one_ref], three_datas),
-                (three_refs, one_data, three_refs, [one_data]),
-                (three_refs, three_datas, three_refs, three_datas)
+            (one_ref, three_datas, [one_ref], three_datas),
+            (three_refs, one_data, three_refs, [one_data]),
+            (three_refs, three_datas, three_refs, three_datas),
         ):
-            assert manager.getRelatedReferences(
-                refs_arg, datas_arg, a_context) == method.return_value
+            assert (
+                manager.getRelatedReferences(refs_arg, datas_arg, a_context) == method.return_value
+            )
             method.assert_called_once_with(
-                expected_refs_arg, expected_datas_arg, a_context, a_host_session,
-                resultTraitSet=None)
+                expected_refs_arg,
+                expected_datas_arg,
+                a_context,
+                a_host_session,
+                resultTraitSet=None,
+            )
             method.reset_mock()
 
         # Check optional resultTraitSet
-        assert manager.getRelatedReferences(
-            one_ref, one_data, a_context, resultTraitSet=an_entity_trait_set) \
-                    == method.return_value
+        assert (
+            manager.getRelatedReferences(
+                one_ref, one_data, a_context, resultTraitSet=an_entity_trait_set
+            )
+            == method.return_value
+        )
         method.assert_called_once_with(
-            [one_ref], [one_data], a_context, a_host_session,
-            resultTraitSet=an_entity_trait_set)
+            [one_ref], [one_data], a_context, a_host_session, resultTraitSet=an_entity_trait_set
+        )
 
 
 class Test_Manager_resolve:
@@ -505,9 +553,16 @@ class Test_Manager_resolve:
         assert method_introspector.is_implemented_once(Manager, "resolve")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs,
-            an_entity_trait_set, a_context, a_traitsdata, a_batch_element_error):
-
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        a_traitsdata,
+        a_batch_element_error,
+    ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
@@ -524,10 +579,12 @@ class Test_Manager_resolve:
         method.side_effect = call_callbacks
 
         manager.resolve(
-            some_refs, an_entity_trait_set, a_context, success_callback, error_callback)
+            some_refs, an_entity_trait_set, a_context, success_callback, error_callback
+        )
 
         method.assert_called_once_with(
-            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY)
+            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
 
         success_callback.assert_called_once_with(123, a_traitsdata)
         error_callback.assert_called_once_with(456, a_batch_element_error)
@@ -539,9 +596,8 @@ class Test_Manager_managementPolicy:
         assert method_introspector.is_implemented_once(Manager, "managementPolicy")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_entity_trait_sets,
-            a_context):
-
+        self, manager, mock_manager_interface, a_host_session, some_entity_trait_sets, a_context
+    ):
         data1 = TraitsData()
         data1.setTraitProperty("t1", "p1", 1)
         data2 = TraitsData()
@@ -562,9 +618,15 @@ class Test_Manager_preflight:
         assert method_introspector.is_implemented_once(Manager, "preflight")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs,
-            an_entity_trait_set, a_context, a_batch_element_error):
-
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        a_batch_element_error,
+    ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
@@ -582,10 +644,12 @@ class Test_Manager_preflight:
         method.side_effect = call_callbacks
 
         manager.preflight(
-            some_refs, an_entity_trait_set, a_context, success_callback, error_callback)
+            some_refs, an_entity_trait_set, a_context, success_callback, error_callback
+        )
 
         method.assert_called_once_with(
-            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY)
+            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
 
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
@@ -597,9 +661,15 @@ class Test_Manager_register:
         assert method_introspector.is_implemented_once(Manager, "register")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-            self, manager, mock_manager_interface, a_host_session, some_refs,
-            a_context, some_entity_traitsdatas, a_batch_element_error):
-
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        a_context,
+        some_entity_traitsdatas,
+        a_batch_element_error,
+    ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
@@ -617,17 +687,19 @@ class Test_Manager_register:
         method.side_effect = call_callbacks
 
         manager.register(
-            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback)
+            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback
+        )
 
         method.assert_called_once_with(
-            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY)
+            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY
+        )
 
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
-            self, manager, some_refs, a_traitsdata, a_context):
-
+        self, manager, some_refs, a_traitsdata, a_context
+    ):
         datas = [a_traitsdata for _ in some_refs]
 
         with pytest.raises(IndexError):
@@ -637,16 +709,16 @@ class Test_Manager_register:
             manager.register(some_refs, datas[1:], a_context, mock.Mock(), mock.Mock())
 
     def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
-            self, manager, some_refs, a_context):
-
-        datas = [TraitsData({f"trait{i}", "🦀"})for i in range(len(some_refs))]
+        self, manager, some_refs, a_context
+    ):
+        datas = [TraitsData({f"trait{i}", "🦀"}) for i in range(len(some_refs))]
 
         with pytest.raises(ValueError):
             manager.register(some_refs, datas, a_context, mock.Mock(), mock.Mock())
 
     def test_when_called_with_None_data_then_TypeError_is_raised(
-            self, manager, some_refs, a_context, a_traitsdata):
-
+        self, manager, some_refs, a_context, a_traitsdata
+    ):
         with pytest.raises(TypeError):
             manager.register(some_refs, [a_traitsdata, None], a_context, mock.Mock(), mock.Mock())
 
@@ -657,8 +729,8 @@ class Test_Manager_createContext:
         assert method_introspector.is_implemented_once(Manager, "createContext")
 
     def test_context_is_created_with_expected_properties(
-            self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         state_a = managerApi.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
 
@@ -677,8 +749,8 @@ class Test_Manager_createChildContext:
         assert method_introspector.is_implemented_once(Manager, "createChildContext")
 
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
-            self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         state_a = managerApi.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
         context_a = manager.createContext()
@@ -698,11 +770,13 @@ class Test_Manager_createChildContext:
         assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
-            state_a, a_host_session)
+            state_a, a_host_session
+        )
         mock_manager_interface.mock.createState.assert_not_called()
 
     def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(
-            self, manager, mock_manager_interface):
+        self, manager, mock_manager_interface
+    ):
         context_a = Context()
         context_a.access = Context.Access.kWrite
         context_a.retention = Context.Retention.kSession
@@ -721,8 +795,8 @@ class Test_Manager_persistenceTokenForContext:
         assert method_introspector.is_implemented_once(Manager, "persistenceTokenForContext")
 
     def test_when_called_then_the_managers_persistence_token_is_returned(
-             self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         expected_token = "a_persistence_token"
         mock_manager_interface.mock.persistenceTokenForState.return_value = expected_token
 
@@ -735,11 +809,12 @@ class Test_Manager_persistenceTokenForContext:
         assert actual_token == expected_token
 
         mock_manager_interface.mock.persistenceTokenForState.assert_called_once_with(
-            initial_state, a_host_session)
+            initial_state, a_host_session
+        )
 
     def test_when_no_state_then_return_is_empty_and_persistenceTokenForState_is_not_called(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         a_context = Context()
 
         assert manager.persistenceTokenForContext(a_context) == ""
@@ -752,8 +827,8 @@ class Test_Manager_contextFromPersistenceToken:
         assert method_introspector.is_implemented_once(Manager, "contextFromPersistenceToken")
 
     def test_when_called_then_the_managers_restored_state_is_set_in_the_context(
-             self, manager, mock_manager_interface, a_host_session):
-
+        self, manager, mock_manager_interface, a_host_session
+    ):
         expected_state = managerApi.ManagerStateBase()
         mock_manager_interface.mock.stateFromPersistenceToken.return_value = expected_state
 
@@ -763,11 +838,12 @@ class Test_Manager_contextFromPersistenceToken:
         assert a_context.managerState is expected_state
 
         mock_manager_interface.mock.stateFromPersistenceToken.assert_called_once_with(
-                a_token, a_host_session)
+            a_token, a_host_session
+        )
 
     def test_when_empty_then_no_state_and_stateFromPersistenceToken_is_not_called(
-            self, manager, mock_manager_interface):
-
+        self, manager, mock_manager_interface
+    ):
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()

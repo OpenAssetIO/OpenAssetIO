@@ -44,6 +44,7 @@ class Test_identifier(FixtureAugmentedTestCase):
     Check plugin's implementation of
     managerApi.ManagerInterface.identifier.
     """
+
     def test_is_correct_type(self):
         self.assertIsInstance(self._manager.identifier(), str)
 
@@ -59,6 +60,7 @@ class Test_displayName(FixtureAugmentedTestCase):
     Check plugin's implementation of
     managerApi.ManagerInterface.displayName.
     """
+
     def test_is_correct_type(self):
         self.assertIsInstance(self._manager.displayName(), str)
 
@@ -73,6 +75,7 @@ class Test_info(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of managerApi.ManagerInterface.info.
     """
+
     # TODO(DF): Once `isEntityReferenceString` tests are added, check
     # that `kField_EntityReferencesMatchPrefix` in info dict is used.
     def test_is_correct_type(self):
@@ -86,6 +89,7 @@ class Test_settings(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of managerApi.ManagerInterface.settings.
     """
+
     def test_when_retrieved_settings_modified_then_newly_queried_settings_unmodified(self):
         original = self._manager.settings()
         expected = original.copy()
@@ -98,6 +102,7 @@ class Test_initialize(FixtureAugmentedTestCase):
     Check plugin's implementation of
     managerApi.ManagerInterface.initialize.
     """
+
     def setUp(self):
         self.__original_settings = self._manager.settings()
 
@@ -113,7 +118,8 @@ class Test_initialize(FixtureAugmentedTestCase):
 
     def test_when_settings_have_invalid_keys_then_raises_KeyError(self):
         invalid_settings = self.requireFixture(
-            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True)
+            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True
+        )
 
         with self.assertRaises(KeyError):
             self._manager.initialize(invalid_settings)
@@ -121,7 +127,8 @@ class Test_initialize(FixtureAugmentedTestCase):
     def test_when_settings_have_invalid_keys_then_all_settings_unchanged(self):
         expected = self._manager.settings()
         invalid_settings = self.requireFixture(
-            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True)
+            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True
+        )
 
         try:
             self._manager.initialize(invalid_settings)
@@ -139,7 +146,8 @@ class Test_initialize(FixtureAugmentedTestCase):
 
     def test_when_settings_have_subset_of_keys_then_other_settings_unchanged(self):
         partial = self.requireFixture(
-            "some_settings_with_a_subset_of_keys", skipTestIfMissing=True)
+            "some_settings_with_a_subset_of_keys", skipTestIfMissing=True
+        )
         expected = self._manager.settings()
         expected.update(partial)
 
@@ -242,19 +250,23 @@ class Test_entityExists(FixtureAugmentedTestCase):
 
     def setUp(self):
         self.a_reference_to_an_existing_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True))
+            self.requireFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True)
+        )
         self.a_reference_to_a_nonexisting_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_nonexisting_entity"))
+            self.requireFixture("a_reference_to_a_nonexisting_entity")
+        )
 
     def test_existing_reference_returns_true(self):
         context = self.createTestContext()
-        assert self._manager.entityExists(
-                [self.a_reference_to_an_existing_entity], context) == [True]
+        assert self._manager.entityExists([self.a_reference_to_an_existing_entity], context) == [
+            True
+        ]
 
     def test_non_existant_reference_returns_false(self):
         context = self.createTestContext()
-        assert self._manager.entityExists(
-                [self.a_reference_to_a_nonexisting_entity], context) == [False]
+        assert self._manager.entityExists([self.a_reference_to_a_nonexisting_entity], context) == [
+            False
+        ]
 
     def test_mixed_inputs_returns_mixed_output(self):
         existing = self.a_reference_to_an_existing_entity
@@ -268,9 +280,11 @@ class Test_resolve(FixtureAugmentedTestCase):
     Check plugin's implementation of
     managerApi.ManagerInterface.resolve.
     """
+
     def setUp(self):
         self.a_reference_to_a_readable_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True))
+            self.requireFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)
+        )
         self.collectRequiredFixture("a_set_of_valid_traits")
 
     def test_when_no_traits_then_returned_specification_is_empty(self):
@@ -299,22 +313,26 @@ class Test_resolve(FixtureAugmentedTestCase):
 
     def test_when_resolving_read_only_reference_for_write_then_access_error_is_returned(self):
         self.__testResolutionError(
-            "a_reference_to_a_readonly_entity", access=Context.Access.kWrite,
-            errorCode=BatchElementError.ErrorCode.kEntityAccessError)
+            "a_reference_to_a_readonly_entity",
+            access=Context.Access.kWrite,
+            errorCode=BatchElementError.ErrorCode.kEntityAccessError,
+        )
 
     def test_when_resolving_write_only_reference_for_read_then_access_error_is_returned(self):
         self.__testResolutionError(
-            "a_reference_to_a_writeonly_entity", access=Context.Access.kRead,
-            errorCode=BatchElementError.ErrorCode.kEntityAccessError)
+            "a_reference_to_a_writeonly_entity",
+            access=Context.Access.kRead,
+            errorCode=BatchElementError.ErrorCode.kEntityAccessError,
+        )
 
     def test_when_resolving_missing_reference_then_resolution_error_is_returned(self):
         self.__testResolutionError("a_reference_to_a_missing_entity")
 
-    def test_when_resolving_malformed_reference_then_malformed_reference_error_is_returned(
-            self):
+    def test_when_resolving_malformed_reference_then_malformed_reference_error_is_returned(self):
         self.__testResolutionError(
             "a_malformed_reference",
-            errorCode=BatchElementError.ErrorCode.kMalformedEntityReference)
+            errorCode=BatchElementError.ErrorCode.kMalformedEntityReference,
+        )
 
     def __testResolution(self, references, traits, access, expected_traits):
         context = self.createTestContext()
@@ -322,10 +340,13 @@ class Test_resolve(FixtureAugmentedTestCase):
         results = []
 
         self._manager.resolve(
-            references, traits, context,
+            references,
+            traits,
+            context,
             lambda _idx, traits_data: results.append(traits_data),
             lambda idx, batch_element_error: self.fail(
-                f"Error processing '{references[idx].toString()}': {batch_element_error.message}")
+                f"Error processing '{references[idx].toString()}': {batch_element_error.message}"
+            ),
         )
 
         self.assertEqual(len(results), len(references))
@@ -333,10 +354,14 @@ class Test_resolve(FixtureAugmentedTestCase):
             self.assertEqual(result.traitSet(), expected_traits)
 
     def __testResolutionError(
-            self, fixture_name, access=Context.Access.kRead,
-            errorCode=BatchElementError.ErrorCode.kEntityResolutionError):
+        self,
+        fixture_name,
+        access=Context.Access.kRead,
+        errorCode=BatchElementError.ErrorCode.kEntityResolutionError,
+    ):
         reference = self._manager.createEntityReference(
-            self.requireFixture(fixture_name, skipTestIfMissing=True))
+            self.requireFixture(fixture_name, skipTestIfMissing=True)
+        )
 
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
         expected_error = BatchElementError(errorCode, expected_msg)
@@ -346,9 +371,11 @@ class Test_resolve(FixtureAugmentedTestCase):
 
         results = []
         self._manager.resolve(
-            [reference], self.a_set_of_valid_traits, context,
+            [reference],
+            self.a_set_of_valid_traits,
+            context,
             lambda _idx, _traits_data: self.fail("Unexpected success callback"),
-            lambda _idx, batch_element_error: results.append(batch_element_error)
+            lambda _idx, batch_element_error: results.append(batch_element_error),
         )
         [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
 
@@ -362,9 +389,11 @@ class Test_preflight(FixtureAugmentedTestCase):
     Check a plugin's implementation of
     managerApi.ManagerInterface.preflight.
     """
+
     def setUp(self):
         self.a_reference_to_a_writable_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True))
+            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True)
+        )
         self.collectRequiredFixture("a_set_of_valid_traits")
 
     def test_when_multiple_references_then_same_number_of_returned_references(self):
@@ -372,9 +401,11 @@ class Test_preflight(FixtureAugmentedTestCase):
 
         results = []
         self._manager.preflight(
-            [ref, ref], self.a_set_of_valid_traits, self.createTestContext(),
+            [ref, ref],
+            self.a_set_of_valid_traits,
+            self.createTestContext(),
             lambda _, ref: results.append(ref),
-            lambda _, err: self.fail(err.message)
+            lambda _, err: self.fail(err.message),
         )
 
         self.assertEqual(len(results), 2)
@@ -382,17 +413,19 @@ class Test_preflight(FixtureAugmentedTestCase):
             self.assertIsInstance(result, EntityReference)
 
     def test_when_reference_is_read_only_then_access_error_is_returned(self):
-        self.__testPreflightError("a_reference_to_a_readonly_entity",
-                                  BatchElementError.ErrorCode.kEntityAccessError)
+        self.__testPreflightError(
+            "a_reference_to_a_readonly_entity", BatchElementError.ErrorCode.kEntityAccessError
+        )
 
     def test_when_reference_malformed_then_malformed_entity_reference_error_returned(self):
-        self.__testPreflightError("a_malformed_reference",
-                                  BatchElementError.ErrorCode.kMalformedEntityReference)
+        self.__testPreflightError(
+            "a_malformed_reference", BatchElementError.ErrorCode.kMalformedEntityReference
+        )
 
     def __testPreflightError(self, fixture_name, errorCode):
-
         reference = self._manager.createEntityReference(
-            self.requireFixture(fixture_name, skipTestIfMissing=True))
+            self.requireFixture(fixture_name, skipTestIfMissing=True)
+        )
 
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
         expected_error = BatchElementError(errorCode, expected_msg)
@@ -402,9 +435,11 @@ class Test_preflight(FixtureAugmentedTestCase):
 
         errors = []
         self._manager.preflight(
-            [reference], self.a_set_of_valid_traits, context,
+            [reference],
+            self.a_set_of_valid_traits,
+            context,
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
-            lambda _idx, error: errors.append(error)
+            lambda _idx, error: errors.append(error),
         )
         [actual_error] = errors  # pylint: disable=unbalanced-tuple-unpacking
 
@@ -418,9 +453,11 @@ class Test_register(FixtureAugmentedTestCase):
     Check a plugin's implementation of
     managerApi.ManagerInterface.register.
     """
+
     def setUp(self):
         self.a_reference_to_a_writable_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True))
+            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True)
+        )
         self.collectRequiredFixture("a_traitsdata_for_a_reference_to_a_writable_entity")
 
     def test_when_multiple_references_then_same_number_of_returned_references(self):
@@ -429,10 +466,11 @@ class Test_register(FixtureAugmentedTestCase):
 
         results = []
         self._manager.register(
-            [ref, ref], [data, data],
+            [ref, ref],
+            [data, data],
             self.createTestContext(),
             lambda _, ref: results.append(ref),
-            lambda _, err: self.fail(err.message)
+            lambda _, err: self.fail(err.message),
         )
 
         self.assertEqual(len(results), 2)
@@ -440,16 +478,19 @@ class Test_register(FixtureAugmentedTestCase):
             self.assertIsInstance(result, EntityReference)
 
     def test_when_reference_is_read_only_then_access_error_is_returned(self):
-        self.__testRegisterError("a_reference_to_a_readonly_entity",
-                                 BatchElementError.ErrorCode.kEntityAccessError)
+        self.__testRegisterError(
+            "a_reference_to_a_readonly_entity", BatchElementError.ErrorCode.kEntityAccessError
+        )
 
     def test_when_reference_malformed_then_malformed_entity_reference_error_returned(self):
-        self.__testRegisterError("a_malformed_reference",
-                                 BatchElementError.ErrorCode.kMalformedEntityReference)
+        self.__testRegisterError(
+            "a_malformed_reference", BatchElementError.ErrorCode.kMalformedEntityReference
+        )
 
     def __testRegisterError(self, fixture_name, errorCode):
         reference = self._manager.createEntityReference(
-            self.requireFixture(fixture_name, skipTestIfMissing=True))
+            self.requireFixture(fixture_name, skipTestIfMissing=True)
+        )
 
         expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
         expected_error = BatchElementError(errorCode, expected_msg)
@@ -463,7 +504,7 @@ class Test_register(FixtureAugmentedTestCase):
             [self.a_traitsdata_for_a_reference_to_a_writable_entity],
             self.createTestContext(),
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
-            lambda _idx, error: errors.append(error)
+            lambda _idx, error: errors.append(error),
         )
         [actual_error] = errors  # pylint: disable=unbalanced-tuple-unpacking
 
@@ -477,6 +518,7 @@ class Test_createChildState(FixtureAugmentedTestCase):
     Tests that the createChildState method is implemented if createState
     has been implemented to return a custom state object.
     """
+
     def test_when_createState_implemented_then_createChildState_returns_state(self):
         context = self._manager.createContext()
         if not context.managerState:
@@ -491,6 +533,7 @@ class Test_persistenceTokenForState(FixtureAugmentedTestCase):
     Tests that the persistenceTokenForState method is implemented if
     createState has been implemented to return a custom state object.
     """
+
     def test_when_createState_implemented_then_persistenceTokenForState_returns_string(self):
         context = self._manager.createContext()
         if not context.managerState:
@@ -505,6 +548,7 @@ class Test_stateFromPersistenceToken(FixtureAugmentedTestCase):
     Tests that the persistenceTokenForState method is implemented if
     createState has been implemented to return a custom state object.
     """
+
     def test_when_createState_implemented_then_stateFromPersistenceToken_returns_state(self):
         context = self._manager.createContext()
         if not context.managerState:

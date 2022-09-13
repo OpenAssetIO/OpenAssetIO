@@ -27,7 +27,6 @@ import jsonschema
 
 from . import datamodel
 
-
 __all__ = ("load_yaml", "validate_package_description", "build_package_declaration")
 
 
@@ -84,7 +83,6 @@ def _unpack_specifications(model: dict, package_id: str) -> list[datamodel.Names
     """
     namespaces = []
     for namespace, data in model.items():
-
         specifications = [
             datamodel.SpecificationDeclaration(
                 id=name,
@@ -179,7 +177,6 @@ def _unpack_traits(
     """
     namespaces = []
     for namespace, data in model.items():
-
         traits = [
             datamodel.TraitDeclaration(
                 id=_build_trait_id(package_id, namespace, name),

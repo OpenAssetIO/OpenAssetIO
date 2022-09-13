@@ -19,4 +19,4 @@ This module provides utilities to test an OpenAssetIO implementation.
 
 Submodules split these between host and manager-centric tasks.
 """
-pass # Some statement is required for the above shows up in built docs
+pass  # Some statement is required for the above shows up in built docs
