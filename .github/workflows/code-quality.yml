@@ -54,18 +54,32 @@ jobs:
       - name: Check Python formatting
         run: black --check .
 
+  # Note: in order to keep an `actions/cache` cache up to date, we must
+  # use the approach detailed in
+  # https://github.com/actions/cache/blob/main/workarounds.md#update-a-cache
+  # i.e. load the most recently created cache that matches a prefix,
+  # then create an entirely new cache with every run.
+
   cpp-linters:
     name: C++ linters
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache ccache cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/ccache
+          key: ubuntu-20.04-ccache-lint-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-ccache-lint-
+
       - name: Cache conan packages
         id: cache-conan
         uses: actions/cache@v2
         with:
           path: ~/conan
-          key: ubuntu-20.04-conan
+          key: ubuntu-20.04-conan-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-conan-
 
       - name: Install dependencies
         # Configure the system and install library dependencies via
@@ -82,12 +96,19 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache
+          -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset lint
 
       - name: Build and lint
-        run: cmake --build build
+        run: |
+          /usr/bin/ccache -s
+          cmake --build build
+          /usr/bin/ccache -s
+        env:
+          CCACHE_DIR: /tmp/ccache
 
   sanitizers:
     name: Sanitizers
@@ -95,12 +116,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache ccache cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/ccache
+          key: ubuntu-20.04-ccache-sanitize-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-ccache-sanitize-
+
       - name: Cache conan packages
         id: cache-conan
         uses: actions/cache@v2
         with:
           path: ~/conan
-          key: ubuntu-20.04-conan
+          key: ubuntu-20.04-conan-${{ github.run_id }}
+          restore-keys: ubuntu-20.04-conan-
 
       - name: Install dependencies
         # Configure the system and install library dependencies via
@@ -113,9 +142,16 @@ jobs:
       - name: Configure CMake build
         run: >
           cmake -S . -B build -G Ninja
+          -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache
+          -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset sanitize
 
       - name: Build and test
-        run: ctest -VV --test-dir build
+        run: |
+          /usr/bin/ccache -s
+          ctest -VV --test-dir build
+          /usr/bin/ccache -s
+        env:
+          CCACHE_DIR: /tmp/ccache
