@@ -69,7 +69,7 @@ project(
     VERSION 1.0.0
     DESCRIPTION "An open-source interoperability standard for tools and content management systems\
  used in media production."
-    HOMEPAGE_URL https://github.com/TheFoundryVisionmongers/OpenAssetIO
+    HOMEPAGE_URL https://github.com/OpenAssetIO/OpenAssetIO
     LANGUAGES C CXX)
 
 
