@@ -68,6 +68,14 @@ v1.0.0-alpha.x
   provided is compatible with C++ trait views.
   [#605](https://github.com/OpenAssetIO/OpenAssetIO/pull/605)
 
+- Fixed the `RetainPyArgs` Python binding helper to
+  work with functions that take `shared_ptr`s by const reference, as
+  well as by value. This affected the Python bindings of
+  `createManagerForInterface`, which would allow the Python objects given
+  to it to go out of scope and be destroyed, despite the associated C++
+  objects remaining alive.
+  [#620](https://github.com/OpenAssetIO/OpenAssetIO/pull/620)
+
 
 v1.0.0-alpha.3
 --------------

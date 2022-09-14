@@ -68,7 +68,7 @@ class Test_PyRetainingSharedPtr_arg:
 
     def test_when_using_factory_then_TypeError_reports_expected_type_in_error_message(self):
         with pytest.raises(TypeError) as err:
-            _openassetio_test.PyRetainingSimpleCppContainer.make(123)
+            _openassetio_test.PyRetainingSimpleCppContainer.makeFromPtrValue(123)
 
         assert "SimpleBaseCppType" in str(err.value)
 
@@ -79,7 +79,16 @@ class Test_PyRetainingSharedPtr_arg:
         assert element.value() == 2
 
     def test_when_using_factory_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingSimpleCppContainer.make(SimpleCppType())
+        container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromPtrValue(
+            SimpleCppType())
+        element = container.heldObject()
+
+        assert element.value() == 2
+
+    def test_when_using_factory_taking_const_ref_argument_then_python_implementation_is_retained(
+            self):
+        container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromConstRefPtr(
+            SimpleCppType())
         element = container.heldObject()
 
         assert element.value() == 2
