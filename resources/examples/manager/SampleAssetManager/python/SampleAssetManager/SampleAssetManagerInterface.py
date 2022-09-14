@@ -26,12 +26,17 @@ The manager currently ignores all entity types.
 from openassetio import constants, TraitsData
 from openassetio.managerApi import ManagerInterface
 
-__all__ = ['SampleAssetManagerInterface', ]
+
+__all__ = [
+    "SampleAssetManagerInterface",
+]
+
 
 # TODO(TC): @pylint-disable
 # As we are building out the implementation vertically, we have known
 # fails for missing abstract methods.
 # pylint: disable=abstract-method
+
 
 class SampleAssetManagerInterface(ManagerInterface):
     """
@@ -58,9 +63,7 @@ class SampleAssetManagerInterface(ManagerInterface):
         # kind of matching, you should set this key. It allows for
         # multi-threaded reference testing in C++ as it avoids the need
         # to acquire the GIL and enter Python.
-        return {
-            constants.kField_EntityReferencesMatchPrefix: "sam:///"
-        }
+        return {constants.kField_EntityReferencesMatchPrefix: "sam:///"}
 
     def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument

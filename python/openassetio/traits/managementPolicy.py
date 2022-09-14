@@ -42,6 +42,7 @@ class ManagedTrait(Trait):
       takes exclusive control over entities that match the queried trait
       set, and any host interfaces etc should be suppressed.
     """
+
     kId = "openassetio.Managed"
 
     __kExclusive = "exclusive"
@@ -82,4 +83,5 @@ class WillManagePathTrait(Trait):
     this trait is imbued, the manager will determine the URL to use for
     writing data for new entities.
     """
+
     kId = "openassetio.WillManagePath"

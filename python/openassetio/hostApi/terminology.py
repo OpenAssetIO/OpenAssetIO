@@ -35,14 +35,14 @@ from .._core.audit import auditApiCall
 ## @name Terminology dict keys
 ## @{
 
-kTerm_Asset = 'asset'
-kTerm_Assets = 'assets'
-kTerm_Manager = 'manager'
-kTerm_Publish = 'publish'
-kTerm_Publishing = 'publishing'
-kTerm_Published = 'published'
-kTerm_Shot = 'shot'
-kTerm_Shots = 'shots'
+kTerm_Asset = "asset"
+kTerm_Assets = "assets"
+kTerm_Manager = "manager"
+kTerm_Publish = "publish"
+kTerm_Publishing = "publishing"
+kTerm_Published = "published"
+kTerm_Shot = "shot"
+kTerm_Shots = "shots"
 
 ## @}
 
@@ -52,14 +52,14 @@ kTerm_Shots = 'shots'
 # any given manager would customize keys other than the
 # defaultTerminology.
 defaultTerminology = {
-    kTerm_Asset: 'Asset',
-    kTerm_Assets: 'Assets',
-    kTerm_Manager: 'Asset Manager',
-    kTerm_Publish: 'Publish',
-    kTerm_Publishing: 'Publishing',
-    kTerm_Published: 'Published',
-    kTerm_Shot: 'Shot',
-    kTerm_Shots: 'Shots',
+    kTerm_Asset: "Asset",
+    kTerm_Assets: "Assets",
+    kTerm_Manager: "Asset Manager",
+    kTerm_Publish: "Publish",
+    kTerm_Publishing: "Publishing",
+    kTerm_Published: "Published",
+    kTerm_Shot: "Shot",
+    kTerm_Shots: "Shots",
 }
 
 
@@ -120,7 +120,7 @@ class Mapper:
         return sourceStr.replace("{", "").replace("}", "")
 
     @auditApiCall("Terminology")
-    def term(self, key, default=''):
+    def term(self, key, default=""):
         """
         Returns the term corresponding to the supplied key, @ref
         openassetio.hostApi.terminology under kTerm_*

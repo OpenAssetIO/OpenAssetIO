@@ -40,10 +40,12 @@ class UserCanceled(OpenAssetIOException):
     def __str__(self):
         return "Operation Canceled"
 
+
 ##
 # @name Manager related Exceptions
 #
 ## @{
+
 
 class ManagerException(OpenAssetIOException):
     """
@@ -64,6 +66,7 @@ class RetryableError(ManagerException):
     with idempotent behavior.
     """
 
+
 ## @}
 
 
@@ -71,6 +74,7 @@ class RetryableError(ManagerException):
 # @name Entity related Exceptions
 #
 ## @{
+
 
 class BaseEntityException(ManagerException):
     """

@@ -27,18 +27,21 @@ import pytest
 
 from openassetio.test.manager import harness, apiComplianceSuite
 
+
 #
 # Tests
 #
 
-class Test_SampleAssetManager:
 
+class Test_SampleAssetManager:
     def test_passes_apiComplianceSuite(self, api_compliance_fixtures):
         assert harness.executeSuite(apiComplianceSuite, api_compliance_fixtures)
+
 
 #
 # Fixtures
 #
+
 
 @pytest.fixture(autouse=True)
 def sam_plugin_env(sam_base_dir, monkeypatch):

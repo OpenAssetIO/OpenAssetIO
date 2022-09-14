@@ -27,5 +27,6 @@ from .. import _openassetio  # pylint: disable=no-name-in-module
 from .Manager import Manager
 from .ManagerFactory import ManagerFactory
 
+
 HostInterface = _openassetio.hostApi.HostInterface
 ManagerImplementationFactoryInterface = _openassetio.hostApi.ManagerImplementationFactoryInterface

@@ -49,6 +49,10 @@ exceptions. Of these exceptions, the most obvious is that the naming
 scheme is designed to more closely mirror our C++ naming conventions,
 to ease C++ interop implementation and readability.
 
+We use (and enforce on CI) the [black](https://black.readthedocs.io/en/stable/)
+code formatter for our Python code. This is configured via the top-level
+`pyproject.toml` file (discovered by `black` automatically).
+
 ### Example code
 
 An exception to the above is for code examples written in Python. Here,

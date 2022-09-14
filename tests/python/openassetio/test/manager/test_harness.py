@@ -31,10 +31,14 @@ from unittest.case import SkipTest
 import uuid
 import pytest
 
-
 from openassetio import constants, Context
-from openassetio.test.manager.harness import \
-        executeSuite, fixturesFromPyFile, moduleFromFile, FixtureAugmentedTestCase
+from openassetio.test.manager.harness import (
+    executeSuite,
+    fixturesFromPyFile,
+    moduleFromFile,
+    FixtureAugmentedTestCase,
+)
+
 
 #
 # Tests
@@ -42,7 +46,6 @@ from openassetio.test.manager.harness import \
 
 
 class Test_fixturesFromPyFile:
-
     def test_when_called_with_missing_path_then_raises_Exception(self):
         invalid_path = "/i/do/not/exist"
         with pytest.raises(RuntimeError) as exc:
@@ -59,20 +62,24 @@ class Test_fixturesFromPyFile:
         malformed = tempfile_with_contents(tmpdir, ".py", "cabbages = {}")
         with pytest.raises(RuntimeError) as exc:
             fixturesFromPyFile(malformed)
-        assert str(
-            exc.value) == f"Missing top-level 'fixtures' variable in '{malformed}'"
+        assert str(exc.value) == f"Missing top-level 'fixtures' variable in '{malformed}'"
 
     def test_when_called_with_valid_path_then_returns_expected_fixture_dict(self, tmpdir):
-        valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
-                from openassetio import constants
-                fixtures = {'display_name_field': constants.kField_DisplayName}
-                """))
+        valid = tempfile_with_contents(
+            tmpdir,
+            ".py",
+            inspect.cleandoc(
+                """
+                                from openassetio import constants
+                                fixtures = {'display_name_field': constants.kField_DisplayName}
+                                """
+            ),
+        )
         expected_dict = {"display_name_field": constants.kField_DisplayName}
         assert fixturesFromPyFile(valid) == expected_dict
 
 
 class Test_moduleFromFile:
-
     def test_when_called_with_missing_path_then_raises_Exception(self):
         invalid_path = "/i/do/not/exist"
         with pytest.raises(RuntimeError) as exc:
@@ -86,33 +93,41 @@ class Test_moduleFromFile:
         assert str(exc.value) == f"Unable to parse '{text_file}'"
 
     def test_when_called_with_valid_path_then_returns_expected_module(self, tmpdir):
-        valid = tempfile_with_contents(tmpdir, ".py", inspect.cleandoc("""
-                from openassetio import constants
-                some_var = {'display_name_field': constants.kField_DisplayName}
-                some_class = str
-                """))
+        valid = tempfile_with_contents(
+            tmpdir,
+            ".py",
+            inspect.cleandoc(
+                """
+                                from openassetio import constants
+                                some_var = {'display_name_field': constants.kField_DisplayName}
+                                some_class = str
+                                """
+            ),
+        )
         module = moduleFromFile(valid)
         assert module.some_var == {"display_name_field": constants.kField_DisplayName}
         assert module.some_class is str
 
 
 class Test_executeSuite:
-
     def test_when_called_with_failing_module_then_false_is_returned(
-            self, a_failing_tests_module, executeSuiteTests_fixtures):
+        self, a_failing_tests_module, executeSuiteTests_fixtures
+    ):
         assert executeSuite(a_failing_tests_module, executeSuiteTests_fixtures) is False
 
     def test_when_called_with_passing_module_then_true_is_returned(
-            self, a_passing_tests_module, executeSuiteTests_fixtures):
+        self, a_passing_tests_module, executeSuiteTests_fixtures
+    ):
         assert executeSuite(a_passing_tests_module, executeSuiteTests_fixtures) is True
 
     def test_when_called_with_executeSuiteTests_module_then_all_tests_pass(
-            self, executeSuiteTests_module, executeSuiteTests_fixtures):
+        self, executeSuiteTests_module, executeSuiteTests_fixtures
+    ):
         assert executeSuite(executeSuiteTests_module, executeSuiteTests_fixtures) is True
 
     def test_when_called_with_extra_args_then_they_are_passed_to_unittest_main(
-            self, monkeypatch, a_passing_tests_module, executeSuiteTests_fixtures):
-
+        self, monkeypatch, a_passing_tests_module, executeSuiteTests_fixtures
+    ):
         dummyStderr = io.StringIO()
         monkeypatch.setattr(sys, "stderr", dummyStderr)
         executeSuite(a_passing_tests_module, executeSuiteTests_fixtures, ["-v"])
@@ -120,10 +135,9 @@ class Test_executeSuite:
 
 
 class Test_FixtureAugmentedTestCase:
-
     def test_when_constructed_then_objects_are_exposed_via_protected_members(
-            self, a_fixture_dict, a_locale, mock_manager):
-
+        self, a_fixture_dict, a_locale, mock_manager
+    ):
         case = FixtureAugmentedTestCase(a_fixture_dict, mock_manager, a_locale)
         # pylint: disable=protected-access
         assert case._fixtures == a_fixture_dict
@@ -131,7 +145,6 @@ class Test_FixtureAugmentedTestCase:
 
 
 class Test_FixtureAugmentedTestCase_createTestContext:
-
     def test_has_test_harness_locale(self, a_test_case):
         context = a_test_case.createTestContext()
         assert context.locale is a_test_case._locale  # pylint: disable=protected-access
@@ -145,7 +158,6 @@ class Test_FixtureAugmentedTestCase_createTestContext:
 
 
 class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:
-
     def test_when_not_dict_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
             a_test_case.assertIsStringKeyPrimitiveValueDict("something")
@@ -154,37 +166,28 @@ class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:
         a_test_case.assertIsStringKeyPrimitiveValueDict({})
 
     def test_when_dict_ok_then_passes(self, a_test_case):
-        a_test_case.assertIsStringKeyPrimitiveValueDict({
-            "k1": 1, "k2": 1.1, "k3": "v", "k4": True
-        })
+        a_test_case.assertIsStringKeyPrimitiveValueDict(
+            {"k1": 1, "k2": 1.1, "k3": "v", "k4": True}
+        )
 
     def test_when_dict_has_non_string_key_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            a_test_case.assertIsStringKeyPrimitiveValueDict({
-                1: 1
-            })
+            a_test_case.assertIsStringKeyPrimitiveValueDict({1: 1})
 
     def test_when_dict_has_nested_dict_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            a_test_case.assertIsStringKeyPrimitiveValueDict({
-                "k": {}
-            })
+            a_test_case.assertIsStringKeyPrimitiveValueDict({"k": {}})
 
     def test_when_dict_has_None_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            a_test_case.assertIsStringKeyPrimitiveValueDict({
-                "k": None
-            })
+            a_test_case.assertIsStringKeyPrimitiveValueDict({"k": None})
 
     def test_when_dict_has_object_then_fails(self, a_test_case):
         with pytest.raises(AssertionError):
-            a_test_case.assertIsStringKeyPrimitiveValueDict({
-                "k": object()
-            })
+            a_test_case.assertIsStringKeyPrimitiveValueDict({"k": object()})
 
 
 class Test_FixtureAugmentedTestCase_assertValuesOfType:
-
     def test_when_list_empty_then_passes(self, a_test_case):
         a_test_case.assertValuesOfType([], int)
 
@@ -195,10 +198,11 @@ class Test_FixtureAugmentedTestCase_assertValuesOfType:
         a_test_case.assertValuesOfType([1, 2, 3], int)
 
     def test_when_all_str_values_match_then_passes(self, a_test_case):
-        a_test_case.assertValuesOfType(["as", 'they', "should"], str)
+        a_test_case.assertValuesOfType(["as", "they", "should"], str)
 
     def test_when_all_class_values_match_then_passes(self, a_test_case):
         import datetime  # pylint: disable=import-outside-toplevel
+
         values = [datetime.date.today() for x in range(3)]
         a_test_case.assertValuesOfType(values, datetime.date)
 
@@ -217,7 +221,6 @@ class Test_FixtureAugmentedTestCase_assertValuesOfType:
 
 
 class Test_FixtureAugmentedTestCase_requireFixtures:
-
     def test_when_fixtures_present_then_returns_expected_values(self, a_test_case):
         required = ("key1", "key2")
         # pylint: disable=protected-access
@@ -227,8 +230,7 @@ class Test_FixtureAugmentedTestCase_requireFixtures:
         except SkipTest:
             pytest.fail("Test incorrectly skipped")
 
-    def test_when_fixtures_missing_then_fails_test_with_expected_message(
-            self, a_test_case):
+    def test_when_fixtures_missing_then_fails_test_with_expected_message(self, a_test_case):
         required = ("key2", "key4")
         expected_message = "Required fixtures not found: key4"
         with pytest.raises(AssertionError, match=expected_message):
@@ -238,7 +240,8 @@ class Test_FixtureAugmentedTestCase_requireFixtures:
                 pytest.fail("Test skipped not failed")
 
     def test_when_fixtures_missing_and_skip_set_then_skips_test_with_expected_message(
-            self, a_test_case):
+        self, a_test_case
+    ):
         required = ("key1", "key3", "key5")
         expected_message = "Required fixtures not found: key3, key5"
         with pytest.raises(SkipTest, match=expected_message):
@@ -246,7 +249,6 @@ class Test_FixtureAugmentedTestCase_requireFixtures:
 
 
 class Test_FixtureAugmentedTestCase_collectRequiredFixtures:
-
     def test_when_fixtures_present_then_sets_expected_values(self, a_test_case):
         required = ("key1", "key2")
         try:
@@ -269,7 +271,8 @@ class Test_FixtureAugmentedTestCase_collectRequiredFixtures:
             assert not hasattr(self, key)
 
     def test_when_fixtures_missing_and_skip_set_then_skips_test_and_no_values_set(
-            self, a_test_case):
+        self, a_test_case
+    ):
         required = ("key1", "key3", "key5")
         expected_message = "Required fixtures not found: key3, key5"
         with pytest.raises(SkipTest, match=expected_message):
@@ -279,7 +282,6 @@ class Test_FixtureAugmentedTestCase_collectRequiredFixtures:
 
 
 class Test_FixtureAugmentedTestCase_requireFixture:
-
     def test_when_fixture_present_then_returns_expected_value(self, a_test_case):
         required = "key1"
         # pylint: disable=protected-access
@@ -288,7 +290,6 @@ class Test_FixtureAugmentedTestCase_requireFixture:
             assert a_test_case.requireFixture(required) == expected
         except SkipTest:
             pytest.fail("Test should not be skipped")
-
 
     def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
         required = "key4"
@@ -300,7 +301,8 @@ class Test_FixtureAugmentedTestCase_requireFixture:
                 pytest.fail("Test skipped not failed")
 
     def test_when_fixture_missing_and_skip_set_then_skips_test_with_expected_message(
-            self, a_test_case):
+        self, a_test_case
+    ):
         required = "key5"
         expected_message = "Required fixtures not found: key5"
         with pytest.raises(SkipTest, match=expected_message):
@@ -308,15 +310,13 @@ class Test_FixtureAugmentedTestCase_requireFixture:
 
 
 class Test_FixtureAugmentedTestCase_collectRequiredFixture:
-
     def test_when_fixture_present_then_sets_expected_value(self, a_test_case):
         required = "key1"
         a_test_case.collectRequiredFixture(required)
         # pylint: disable=protected-access
         assert getattr(a_test_case, required, a_test_case._fixtures[required])
 
-    def test_when_fixture_missing_then_fails_test_with_expected_message(
-            self, a_test_case):
+    def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
         required = "key4"
         expected_message = "Required fixtures not found: key4"
         with pytest.raises(AssertionError, match=expected_message):
@@ -327,12 +327,15 @@ class Test_FixtureAugmentedTestCase_collectRequiredFixture:
         assert not hasattr(self, required)
 
     def test_when_fixture_missing_and_skip_set_then_skips_test_and_no_values_set(
-            self, a_test_case):
+        self, a_test_case
+    ):
         required = "key5"
         expected_message = "Required fixtures not found: key5"
         with pytest.raises(SkipTest, match=expected_message):
             a_test_case.collectRequiredFixture(required, skipTestIfMissing=True)
         assert not hasattr(self, required)
+
+
 #
 # Fixtures
 #
@@ -370,21 +373,19 @@ def executeSuiteTests_fixtures(resources_dir):
     """
     Returns the fixtues for the executeSuiteTests suite.
     """
-    fixtures_path = os.path.join(
-        resources_dir, "fixtures_executeSuiteTests.py")
+    fixtures_path = os.path.join(resources_dir, "fixtures_executeSuiteTests.py")
     return fixturesFromPyFile(fixtures_path)
+
 
 @pytest.fixture
 def some_case_fixtures():
-    return {
-        "key1": 1,
-        "key2": "2"
-    }
+    return {"key1": 1, "key2": "2"}
 
 
 @pytest.fixture
 def a_test_case(some_case_fixtures, mock_manager, a_locale):
     return FixtureAugmentedTestCase(some_case_fixtures, mock_manager, a_locale)
+
 
 #
 # Helpers
@@ -400,6 +401,7 @@ def suite_module(module_path):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
 
 def tempfile_with_contents(tmpdir, suffix, contents):
     """

@@ -32,6 +32,7 @@ from ..datamodel import PackageDeclaration, PropertyType
 
 __all__ = ["generate"]
 
+
 #
 ## Code Generation
 #
@@ -178,7 +179,7 @@ def _install_custom_filters(environment, logger):
         # creates a safe name from the package name anyway.
         # eg: openassetio-codegen -> openassetio_codegen
         no_hypens = string.replace("-", "_")
-        module_name = re.sub(r'[^a-zA-Z0-9_]', '_', no_hypens)
+        module_name = re.sub(r"[^a-zA-Z0-9_]", "_", no_hypens)
         if module_name != no_hypens:
             logger.warning(f"Conforming '{string}' to '{module_name}' for module name")
         return module_name
@@ -203,7 +204,9 @@ def _install_custom_filters(environment, logger):
         accessor_name = helpers.to_lower_camel_alnum(unique_name)
         # We expect the first letter to change to lowercase
         if accessor_name != f"{unique_name[0].lower()}{unique_name[1:]}":
-            logger.warning(f"Conforming '{unique_name}' to '{accessor_name}' for trait getter name")
+            logger.warning(
+                f"Conforming '{unique_name}' to '{accessor_name}' for trait getter name"
+            )
         validate_identifier(accessor_name, unique_name)
         return accessor_name
 

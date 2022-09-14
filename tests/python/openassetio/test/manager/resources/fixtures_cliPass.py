@@ -24,20 +24,12 @@ kIdentifier = "org.openassetio.test.manager.stubManager"
 
 fixtures = {
     "identifier": kIdentifier,
-    "Test_identifier": {
-        "test_matches_fixture": {
-            "identifier": kIdentifier
-        }
-    },
-    "Test_displayName": {
-        "test_matches_fixture": {
-            "display_name": "Stub Manager"
-        }
-    },
+    "Test_identifier": {"test_matches_fixture": {"identifier": kIdentifier}},
+    "Test_displayName": {"test_matches_fixture": {"display_name": "Stub Manager"}},
     "Test_info": {
         "test_matches_fixture": {
             # See: test_host_session_provides_expected_host
             "info": {"host_identifier": "org.openassetio.test.manager.harness"}
         }
-    }
+    },
 }

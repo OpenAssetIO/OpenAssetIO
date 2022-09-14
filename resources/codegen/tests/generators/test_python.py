@@ -34,6 +34,7 @@ from openassetio import SpecificationBase, Trait, TraitsData
 from openassetio_codegen import datamodel, generate
 from openassetio_codegen.generators import python as python_generator
 
+
 #
 # Tests: Packages and Structure
 #
@@ -218,7 +219,6 @@ class Test_python_package_all_specifications_test_TwoLocalTraitsSpecification:
         assert module_all.specifications.test.TwoLocalTraitsSpecification.kTraitSet == expected
 
     def test_has_trait_getters_with_expected_docstring(self, module_all):
-
         trait_one = module_all.traits.aNamespace.NoPropertiesTrait
         trait_two = module_all.traits.anotherNamespace.NoPropertiesTrait
 
@@ -295,7 +295,6 @@ class Test_python_package_all_specifications_test_LocalAndExternalTraitSpecifica
         )
 
     def test_has_trait_getters_with_expected_docstring(self, module_all, module_traits_only):
-
         trait_one = module_all.traits.aNamespace.NoPropertiesTrait
         trait_two = module_traits_only.traits.aNamespace.NoPropertiesTrait
 

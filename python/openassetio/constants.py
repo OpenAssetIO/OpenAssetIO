@@ -21,7 +21,6 @@ Constants used throughout the OpenAssetIO API.
 See @ref openassetio.log.LoggerInterface for example.
 """
 
-
 kSupportedAttributeTypes = (str, int, float, bool, type(None))
 
 ## @name Field Names
@@ -34,13 +33,13 @@ kSupportedAttributeTypes = (str, int, float, bool, type(None))
 ## classes of a @ref Specification.
 ## @{
 
-kField_ItemType = 'fnItemType'
+kField_ItemType = "fnItemType"
 
 # General
 
-kField_DisplayName = 'displayName'
-kField_SmallIcon = 'smallIcon'
-kField_Icon = 'icon'
+kField_DisplayName = "displayName"
+kField_SmallIcon = "smallIcon"
+kField_Icon = "icon"
 
 # Entity Reference Properties
 
@@ -52,43 +51,43 @@ kField_EntityReferencesMatchPrefix = "entityReferencesMatchPrefix"
 
 # Files
 
-kField_FilePath = 'path'
-kField_FileExtensions = 'extensions'
-kField_FileIsEnumerated = 'enumerated'
+kField_FilePath = "path"
+kField_FileExtensions = "extensions"
+kField_FileIsEnumerated = "enumerated"
 
 # Hints
 
-kField_HintPath = 'pathHint'
-kField_HintFilename = 'filenameHint'
-kField_HintName = 'nameHint'
+kField_HintPath = "pathHint"
+kField_HintFilename = "filenameHint"
+kField_HintName = "nameHint"
 
 # Image data
 
-kField_PixelColorspace = 'colorspace'
-kField_PixelAspectRatio = 'aspectRatio'
-kField_PixelWidth = 'width'
-kField_PixelHeight = 'height'
-kField_PixelNumChannels = 'numChannels'
-kField_PixelEncoding = 'encoding'
-kField_PixelCompression = 'compression'
-kField_PixelBitDepth = 'bitDepth'
+kField_PixelColorspace = "colorspace"
+kField_PixelAspectRatio = "aspectRatio"
+kField_PixelWidth = "width"
+kField_PixelHeight = "height"
+kField_PixelNumChannels = "numChannels"
+kField_PixelEncoding = "encoding"
+kField_PixelCompression = "compression"
+kField_PixelBitDepth = "bitDepth"
 
 # Task/Editorial
 
-kField_Status = 'status'
+kField_Status = "status"
 
 # Sequence
 
-kField_FrameStart = 'startFrame'
-kField_FrameEnd = 'endFrame'
-kField_FrameIn = 'inFrame'
-kField_FrameOut = 'outFrame'
-kField_FrameRate = 'frameRate'
-kField_DropFrame = 'dropFrame'
-kField_FieldDominance = 'fieldDominance'
+kField_FrameStart = "startFrame"
+kField_FrameEnd = "endFrame"
+kField_FrameIn = "inFrame"
+kField_FrameOut = "outFrame"
+kField_FrameRate = "frameRate"
+kField_DropFrame = "dropFrame"
+kField_FieldDominance = "fieldDominance"
 
-kField_MediaFrameIn = 'mediaInFrame'
-kField_MediaFrameOut = 'mediaOutFrame'
+kField_MediaFrameIn = "mediaInFrame"
+kField_MediaFrameOut = "mediaOutFrame"
 
 ## @}
 
@@ -97,8 +96,8 @@ kField_MediaFrameOut = 'mediaOutFrame'
 ## Name for keys in the manager settings dict, where applicable.
 ## @{
 
-kSetting_ManagerIdentifier = 'OpenAssetIO:managerIdentifier'
-kSetting_LoggingSeverity = 'OpenAssetIO:loggingSeverity'
+kSetting_ManagerIdentifier = "OpenAssetIO:managerIdentifier"
+kSetting_LoggingSeverity = "OpenAssetIO:loggingSeverity"
 
 ## @}
 
@@ -107,9 +106,9 @@ kSetting_LoggingSeverity = 'OpenAssetIO:loggingSeverity'
 ## @see @needsref DocumentLocale
 ## @{
 
-kDocumentAction_Save = 'save'
-kDocumentAction_SaveAs = 'saveAs'
-kDocumentAction_SaveNewVersion = 'saveNewVersion'
+kDocumentAction_Save = "save"
+kDocumentAction_SaveAs = "saveAs"
+kDocumentAction_SaveNewVersion = "saveNewVersion"
 
 ## @}
 
@@ -117,6 +116,6 @@ kDocumentAction_SaveNewVersion = 'saveNewVersion'
 ## @name Version dict keys
 ## @{
 
-kVersionDict_OrderKey = '__order__'
+kVersionDict_OrderKey = "__order__"
 
 ## @}

@@ -28,18 +28,25 @@ from unittest.mock import Mock, call
 
 import pytest
 
-
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager._implementation import (
-        _ValidatorHarnessHostInterface, _ValidatorTestLoader)
+    _ValidatorHarnessHostInterface,
+    _ValidatorTestLoader,
+)
 
 
 class Test_Loader_loadTestsFromTestCase:
-
     def test_when_class_of_cases_has_no_fixtures_then_initializes_test_cases_with_no_fixtures(
-            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two, test_case_one_locale, test_case_two_locale):
+        self,
+        a_fixture_dict,
+        mock_manager,
+        mock_test_case_class,
+        mock_test_case_one,
+        mock_test_case_two,
+        test_case_one_locale,
+        test_case_two_locale,
+    ):
         # setup
 
         loader = _ValidatorTestLoader(mock_manager)
@@ -53,15 +60,24 @@ class Test_Loader_loadTestsFromTestCase:
 
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
-        mock_test_case_class.assert_has_calls([
-            call({}, mock_manager, test_case_one_locale, "test_one"),
-            call({}, mock_manager, test_case_two_locale, "test_two")
-        ])
+        mock_test_case_class.assert_has_calls(
+            [
+                call({}, mock_manager, test_case_one_locale, "test_one"),
+                call({}, mock_manager, test_case_two_locale, "test_two"),
+            ]
+        )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_cases_have_fixtures_then_initializes_test_cases_with_fixtures(
-            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two, test_case_one_locale, test_case_two_locale):
+        self,
+        a_fixture_dict,
+        mock_manager,
+        mock_test_case_class,
+        mock_test_case_one,
+        mock_test_case_two,
+        test_case_one_locale,
+        test_case_two_locale,
+    ):
         # setup
 
         # Include fixtures for both test cases
@@ -69,7 +85,7 @@ class Test_Loader_loadTestsFromTestCase:
         case_two_fixtures = {}
         a_fixture_dict["Test_MockTest"] = {
             "test_one": case_one_fixtures,
-            "test_two": case_two_fixtures
+            "test_two": case_two_fixtures,
         }
         loader = _ValidatorTestLoader(mock_manager)
         loader.setFixtures(a_fixture_dict)
@@ -82,21 +98,29 @@ class Test_Loader_loadTestsFromTestCase:
 
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
-        mock_test_case_class.assert_has_calls([
-            call(case_one_fixtures, mock_manager, test_case_one_locale, "test_one"),
-            call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two")])
+        mock_test_case_class.assert_has_calls(
+            [
+                call(case_one_fixtures, mock_manager, test_case_one_locale, "test_one"),
+                call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two"),
+            ]
+        )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
     def test_when_case_has_no_fixtures_then_initializes_test_case_with_no_fixtures(
-            self, a_fixture_dict, mock_manager, mock_test_case_class, mock_test_case_one,
-            mock_test_case_two, test_case_one_locale, test_case_two_locale):
+        self,
+        a_fixture_dict,
+        mock_manager,
+        mock_test_case_class,
+        mock_test_case_one,
+        mock_test_case_two,
+        test_case_one_locale,
+        test_case_two_locale,
+    ):
         # setup
 
         # Only include fixtures for one test case
         case_two_fixtures = {}
-        a_fixture_dict["Test_MockTest"] = {
-            "test_two": case_two_fixtures
-        }
+        a_fixture_dict["Test_MockTest"] = {"test_two": case_two_fixtures}
         loader = _ValidatorTestLoader(mock_manager)
         loader.setFixtures(a_fixture_dict)
 
@@ -108,10 +132,12 @@ class Test_Loader_loadTestsFromTestCase:
 
         # Assert that the instances of the TestCase class are given the
         # Host instance in their constructors.
-        mock_test_case_class.assert_has_calls([
-            call({}, mock_manager, test_case_one_locale, "test_one"),
-            call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two")
-        ])
+        mock_test_case_class.assert_has_calls(
+            [
+                call({}, mock_manager, test_case_one_locale, "test_one"),
+                call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two"),
+            ]
+        )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
 
@@ -128,8 +154,7 @@ class Test_ValidatorHostInterface_displayName:
 
 
 class Test_FixtureAugmentedTestCase_init:
-    def test_has_fixtures_and_manager(
-            self, a_test_case, a_fixture_dict, mock_manager, a_locale):
+    def test_has_fixtures_and_manager(self, a_test_case, a_fixture_dict, mock_manager, a_locale):
         assert a_test_case._fixtures is a_fixture_dict
         assert a_test_case._manager is mock_manager
         assert a_test_case._locale is a_locale
@@ -146,12 +171,14 @@ def mock_test_case_class(mock_test_case_one, mock_test_case_two):
     # In unittest each method runs under a new instance of the
     # TestCase class.
     test_case_class = mock.create_autospec(
-        FixtureAugmentedTestCase, instance=False,
-        test_one=Mock(), test_two=Mock(),
+        FixtureAugmentedTestCase,
+        instance=False,
+        test_one=Mock(),
+        test_two=Mock(),
         # Note that __qualname__ is required simply to prevent
         # exceptions from `getTestCaseNames`.
         __qualname__="something",
-        __name__="Test_MockTest"
+        __name__="Test_MockTest",
     )
     test_case_class.side_effect = [mock_test_case_one, mock_test_case_two]
     return test_case_class
@@ -159,14 +186,12 @@ def mock_test_case_class(mock_test_case_one, mock_test_case_two):
 
 @pytest.fixture
 def mock_test_case_one():
-    return mock.create_autospec(
-        FixtureAugmentedTestCase, instance=True, spec_set=True)
+    return mock.create_autospec(FixtureAugmentedTestCase, instance=True, spec_set=True)
 
 
 @pytest.fixture
 def mock_test_case_two():
-    return mock.create_autospec(
-        FixtureAugmentedTestCase, instance=True, spec_set=True)
+    return mock.create_autospec(FixtureAugmentedTestCase, instance=True, spec_set=True)
 
 
 @pytest.fixture

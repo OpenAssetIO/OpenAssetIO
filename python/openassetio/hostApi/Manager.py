@@ -30,7 +30,7 @@ from .._core.debug import debugApiCall, Debuggable
 from .._core.audit import auditApiCall
 
 
-__all__ = ['Manager']
+__all__ = ["Manager"]
 
 
 class Manager(_openassetio.hostApi.Manager, Debuggable):
@@ -74,7 +74,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         session the manager is part of.
         """
 
-        _openassetio.hostApi.Manager .__init__(self, interfaceInstance, hostSession)
+        _openassetio.hostApi.Manager.__init__(self, interfaceInstance, hostSession)
         Debuggable.__init__(self)
 
         self.__impl = interfaceInstance
@@ -361,8 +361,12 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @see @ref finalizedEntityVersion
         """
         return self.__impl.entityVersions(
-            entityRefs, context, self.__hostSession, includeMetaVersions=includeMetaVersions,
-            maxNumVersions=maxNumVersions)
+            entityRefs,
+            context,
+            self.__hostSession,
+            includeMetaVersions=includeMetaVersions,
+            maxNumVersions=maxNumVersions,
+        )
 
     @debugApiCall
     @auditApiCall("Manager methods")
@@ -405,7 +409,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @see @ref entityVersions
         """
         return self.__impl.finalizedEntityVersion(
-            entityRefs, context, self.__hostSession, overrideVersionName=overrideVersionName)
+            entityRefs, context, self.__hostSession, overrideVersionName=overrideVersionName
+        )
 
     ## @}
 
@@ -449,7 +454,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     @debugApiCall
     @auditApiCall("Manager methods")
     def getRelatedReferences(
-            self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None):
+        self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None
+    ):
         """
         Returns related entity references, based on a relationship
         defined by a set of traits and their properties.
@@ -519,25 +525,36 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
-            references = [references, ]
+            references = [
+                references,
+            ]
 
         if not isinstance(relationshipTraitsDataOrDatas, (list, tuple)):
-            relationshipTraitsDataOrDatas = [relationshipTraitsDataOrDatas, ]
+            relationshipTraitsDataOrDatas = [
+                relationshipTraitsDataOrDatas,
+            ]
 
         numEntities = len(references)
         numRelationships = len(relationshipTraitsDataOrDatas)
 
         if (numEntities > 1 and numRelationships > 1) and numRelationships != numEntities:
             raise ValueError(
-                ("You must supply either a single entity and a "
-                 + "list of relationships, a single relationship "
-                 + "and a list of entities, or an equal number of "
-                 + "both... %s entities .vs. %s relationships")
-                % (numEntities, numRelationships))
+                (
+                    "You must supply either a single entity and a "
+                    + "list of relationships, a single relationship "
+                    + "and a list of entities, or an equal number of "
+                    + "both... %s entities .vs. %s relationships"
+                )
+                % (numEntities, numRelationships)
+            )
 
         result = self.__impl.getRelatedReferences(
             references,
-            relationshipTraitsDataOrDatas, context, self.__hostSession, resultTraitSet=resultTraitSet)
+            relationshipTraitsDataOrDatas,
+            context,
+            self.__hostSession,
+            resultTraitSet=resultTraitSet,
+        )
 
         return result
 

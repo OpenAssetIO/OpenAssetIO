@@ -25,7 +25,7 @@ from openassetio import hostApi, log, pluginSystem
 from .specifications import ManagerTestHarnessLocale
 
 
-__all__ = ['createHarness']
+__all__ = ["createHarness"]
 
 
 def createHarness(managerIdentifier, settings=None):
@@ -38,9 +38,11 @@ def createHarness(managerIdentifier, settings=None):
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
     managerFactoryImplementation = pluginSystem.PythonPluginSystemManagerImplementationFactory(
-        logger)
+        logger
+    )
     manager = hostApi.ManagerFactory.createManagerForInterface(
-        managerIdentifier, hostInterface, managerFactoryImplementation, logger)
+        managerIdentifier, hostInterface, managerFactoryImplementation, logger
+    )
     manager.initialize(settings)
 
     loader = _ValidatorTestLoader(manager)
@@ -56,6 +58,7 @@ class _ValidatorHarness:
 
     @private
     """
+
     # pylint: disable=too-few-public-methods
 
     _kValidatorHarnessProgramName = "openassetio.test.manager"
@@ -95,7 +98,8 @@ class _ValidatorHarness:
         if extraArgs:
             argv.extend(extraArgs)
         runnerInstance = self.__runner(
-            testLoader=self.__loader, argv=argv, module=module, exit=False)
+            testLoader=self.__loader, argv=argv, module=module, exit=False
+        )
         return runnerInstance.result.wasSuccessful()
 
 
@@ -106,6 +110,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
 
     @private
     """
+
     def __init__(self, manager):
         """
         Initializes an instance of this class.
@@ -142,7 +147,6 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
         testCaseNames = self.getTestCaseNames(testCaseClass)
         cases = []
         for testCaseName in testCaseNames:
-
             caseFixtures = sharedFixtures.copy()
             caseFixtures.update(classFixtures.get(testCaseName, {}))
 
@@ -150,7 +154,7 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
 
             cases.append(
-                testCaseClass(caseFixtures, self.__manager, locale.traitsData(),testCaseName)
+                testCaseClass(caseFixtures, self.__manager, locale.traitsData(), testCaseName)
             )
 
         return self.suiteClass(cases)
@@ -172,6 +176,7 @@ class _ValidatorHarnessHostInterface(hostApi.HostInterface):
 
     @private
     """
+
     # pylint: disable=missing-function-docstring,no-self-use
     def identifier(self):
         return "org.openassetio.test.manager.harness"

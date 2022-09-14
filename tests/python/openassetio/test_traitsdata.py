@@ -5,6 +5,7 @@ Tests for the traits data container
 # pylint: disable=redefined-outer-name,no-self-use
 # pylint: disable=missing-function-docstring
 import pytest
+
 # TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
 # pylint: disable=no-name-in-module
 from openassetio import TraitsData
@@ -13,6 +14,7 @@ from openassetio import TraitsData
 class Test_TraitsData_Inheritance:
     def test_class_is_final(self):
         with pytest.raises(TypeError):
+
             class _(TraitsData):
                 pass
 

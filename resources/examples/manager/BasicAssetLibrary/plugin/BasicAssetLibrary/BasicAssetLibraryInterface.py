@@ -29,6 +29,7 @@ __all__ = [
     "BasicAssetLibraryInterface",
 ]
 
+
 # TODO(TC): @pylint-disable
 # As we are building out the implementation vertically, we have known
 # fails for missing abstract methods.
@@ -85,7 +86,7 @@ class BasicAssetLibraryInterface(ManagerInterface):
 
         hostSession.logger().log(
             hostSession.logger().Severity.kDebug,
-            f"Loading library from {self.__settings['library_path']}"
+            f"Loading library from {self.__settings['library_path']}",
         )
         self.__library = bal.load_library(self.__settings["library_path"])
 
@@ -117,8 +118,8 @@ class BasicAssetLibraryInterface(ManagerInterface):
     ):
         if context.isForWrite():
             result = BatchElementError(
-                BatchElementError.ErrorCode.kEntityAccessError,
-                "BAL entities are read-only")
+                BatchElementError.ErrorCode.kEntityAccessError, "BAL entities are read-only"
+            )
             for idx in range(len(entityReferences)):
                 errorCallback(idx, result)
             return
@@ -137,7 +138,8 @@ class BasicAssetLibraryInterface(ManagerInterface):
                 except bal.UnknownBALEntity:
                     result = BatchElementError(
                         BatchElementError.ErrorCode.kEntityResolutionError,
-                        f"Entity '{ref.toString()}' not found")
+                        f"Entity '{ref.toString()}' not found",
+                    )
                     errorCallback(idx, result)
                 else:
                     result = TraitsData()
@@ -164,7 +166,12 @@ class BasicAssetLibraryInterface(ManagerInterface):
                 successCallback(idx, ref)
 
     def register(
-        self, targetEntityRefs, entityTraitsDatas, context, hostSession, successCallback,
+        self,
+        targetEntityRefs,
+        entityTraitsDatas,
+        context,
+        hostSession,
+        successCallback,
         errorCallback,
     ):
         for idx, ref in enumerate(targetEntityRefs):

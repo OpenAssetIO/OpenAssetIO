@@ -185,7 +185,6 @@ class Test_generate:
         mock_language_a,
         a_capturing_logger,
     ):
-
         openassetio_codegen.generate(
             description_path=yaml_path_all,
             output_directory=some_output_dir,
@@ -208,7 +207,6 @@ class Test_generate:
         mock_language_a,
         a_capturing_logger,
     ):
-
         extra_globals = {"a": 1, "b": "🤠", "copyrightOwner": "Me"}
 
         openassetio_codegen.generate(
@@ -235,7 +233,6 @@ class Test_generate:
         mock_language_a,
         a_capturing_logger,
     ):
-
         extra_globals = {"language": "b"}
 
         openassetio_codegen.generate(
@@ -266,7 +263,7 @@ class Test_generate:
             output_directory=some_output_dir,
             languages=[],
             creation_callback=some_creation_callback,
-            logger=a_capturing_logger
+            logger=a_capturing_logger,
         )
 
         assert a_capturing_logger.handlers[0].messages == structure_all_log_messages

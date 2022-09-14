@@ -26,7 +26,7 @@ from .. import _openassetio  # pylint: disable=no-name-in-module
 from .Manager import Manager
 
 
-__all__ = ['ManagerFactory']
+__all__ = ["ManagerFactory"]
 
 
 class ManagerFactory(_openassetio.hostApi.ManagerFactory):

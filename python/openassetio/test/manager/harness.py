@@ -33,7 +33,7 @@ import unittest
 from . import _implementation
 
 
-__all__ = ['executeSuite', 'fixturesFromPyFile', 'moduleFromFile', 'FixtureAugmentedTestCase']
+__all__ = ["executeSuite", "fixturesFromPyFile", "moduleFromFile", "FixtureAugmentedTestCase"]
 
 
 def executeSuite(testSuiteModule, fixtures, unittestExtraArgs=None):
@@ -116,8 +116,7 @@ def fixturesFromPyFile(path):
     """
     module = moduleFromFile(path)
     if not hasattr(module, "fixtures"):
-        raise RuntimeError(
-            f"Missing top-level 'fixtures' variable in '{path}'")
+        raise RuntimeError(f"Missing top-level 'fixtures' variable in '{path}'")
 
     return module.fixtures
 
@@ -289,11 +288,21 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         A convenience companion to requireFixtures, when only a single
         fixture is needed.
         """
-        return self.requireFixtures([fixtureName,], skipTestIfMissing)[0]
+        return self.requireFixtures(
+            [
+                fixtureName,
+            ],
+            skipTestIfMissing,
+        )[0]
 
     def collectRequiredFixture(self, fixtureName, skipTestIfMissing=False):
         """
         A convenience companion to collectRequiredFixtures, when only a
         single fixture is needed.
         """
-        self.collectRequiredFixtures([fixtureName,], skipTestIfMissing)
+        self.collectRequiredFixtures(
+            [
+                fixtureName,
+            ],
+            skipTestIfMissing,
+        )

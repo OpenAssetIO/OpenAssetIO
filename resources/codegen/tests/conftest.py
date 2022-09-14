@@ -115,16 +115,10 @@ def description_exotic_values():
                 "members": {
                     "t&": {
                         "description": "t",
-                        "properties": {
-                            "p$": {
-                                "type": "boolean",
-                                "description": "p"
-                            }
-                        }
+                        "properties": {"p$": {"type": "boolean", "description": "p"}},
                     }
-                }
+                },
             }
-
         },
         "specifications": {
             "s!n": {
@@ -132,17 +126,11 @@ def description_exotic_values():
                 "members": {
                     "s^": {
                         "description": "",
-                        "traitSet": [
-                            {
-                                "package": "p📦p",
-                                "namespace": "t!n",
-                                "name": "t&"
-                            }
-                        ]
+                        "traitSet": [{"package": "p📦p", "namespace": "t!n", "name": "t&"}],
                     }
-                }
+                },
             }
-        }
+        },
     }
 
 
@@ -232,7 +220,7 @@ def declaration_all():
                         description=(
                             "A specification referencing traits in this and another package."
                         ),
-                        usage=['entity', 'managementPolicy'],
+                        usage=["entity", "managementPolicy"],
                         trait_set=[
                             datamodel.TraitReference(
                                 id="openassetio-codegen-test-all:aNamespace.NoProperties",

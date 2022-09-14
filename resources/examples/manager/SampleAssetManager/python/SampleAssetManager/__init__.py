@@ -59,6 +59,7 @@ class SampleAssetManagerPlugin(PythonPluginSystemManagerPlugin):
     @classmethod
     def interface(cls):
         from .SampleAssetManagerInterface import SampleAssetManagerInterface
+
         # Note that it should always be light-weight to construct
         # instances of the ManagerInterface class. See the notes under
         # the "Initialization" section of:

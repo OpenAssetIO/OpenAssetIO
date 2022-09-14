@@ -63,9 +63,7 @@ def mock_manager():
 
 @pytest.fixture
 def a_fixture_dict():
-    return {
-        "identifier": "org.some.manager"
-    }
+    return {"identifier": "org.some.manager"}
 
 
 @pytest.fixture

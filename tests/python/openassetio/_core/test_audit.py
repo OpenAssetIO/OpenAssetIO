@@ -25,6 +25,7 @@ import os
 
 import pytest
 
+
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name
 # pylint: disable=import-outside-toplevel
@@ -36,7 +37,9 @@ audit_args_capture_env_var_name = "OPENASSETIO_AUDIT_ARGS"
 
 
 @pytest.fixture(autouse=True)
-def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: disable=unused-argument
+def always_unload_openassetio_modules(
+    unload_openassetio_modules,  # pylint: disable=unused-argument
+):
     """
     Removes openassetio modules from the sys.modules cache to
     ensure we have a clean module state for each test.
@@ -44,78 +47,81 @@ def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: dis
 
 
 class Test_global_toggles:
-
-    def test_when_imported_with_no_env_set_then_auditing_is_disabled(
-            self, monkeypatch):
+    def test_when_imported_with_no_env_set_then_auditing_is_disabled(self, monkeypatch):
 
         if audit_env_var_name in os.environ:
             monkeypatch.delenv(audit_env_var_name)
 
         from openassetio._core import audit
+
         assert audit.auditCalls is False
 
-    def test_when_imported_with_env_var_set_to_zero_then_auditing_is_disabled(
-            self, monkeypatch):
+    def test_when_imported_with_env_var_set_to_zero_then_auditing_is_disabled(self, monkeypatch):
 
         monkeypatch.setenv(audit_env_var_name, "0")
 
         from openassetio._core import audit
+
         assert audit.auditCalls is False
 
     def test_when_imported_with_env_var_set_to_not_zero_then_auditing_is_enabled(
-            self, monkeypatch):
+        self, monkeypatch
+    ):
 
         monkeypatch.setenv(audit_env_var_name, "1")
 
         from openassetio._core import audit
+
         assert audit.auditCalls is True
 
-    def test_when_imported_with_env_var_empty_then_auditing_is_enabled(
-            self, monkeypatch):
+    def test_when_imported_with_env_var_empty_then_auditing_is_enabled(self, monkeypatch):
 
         monkeypatch.setenv(audit_env_var_name, "")
 
         from openassetio._core import audit
+
         assert audit.auditCalls is True
 
-    def test_when_imported_with_no_env_set_then_args_capture_is_disabled(
-            self, monkeypatch):
+    def test_when_imported_with_no_env_set_then_args_capture_is_disabled(self, monkeypatch):
 
         if audit_args_capture_env_var_name in os.environ:
             monkeypatch.delenv(audit_args_capture_env_var_name)
 
         from openassetio._core import audit
+
         assert audit.captureArgs is False
 
     def test_when_imported_with_env_var_set_to_zero_then_args_capture_is_disabled(
-            self, monkeypatch):
+        self, monkeypatch
+    ):
 
         monkeypatch.setenv(audit_args_capture_env_var_name, "0")
 
         from openassetio._core import audit
+
         assert audit.captureArgs is False
 
     def test_when_imported_with_env_var_set_to_not_zero_then_args_capture_is_enabled(
-            self, monkeypatch):
+        self, monkeypatch
+    ):
 
         monkeypatch.setenv(audit_args_capture_env_var_name, "1")
 
         from openassetio._core import audit
+
         assert audit.captureArgs is True
 
-    def test_when_imported_with_env_var_empty_then_args_capture_is_enabled(
-            self, monkeypatch):
+    def test_when_imported_with_env_var_empty_then_args_capture_is_enabled(self, monkeypatch):
 
         monkeypatch.setenv(audit_args_capture_env_var_name, "")
 
         from openassetio._core import audit
+
         assert audit.captureArgs is True
 
 
 class Test_singleton_access:
-
     def test_when_called_multiple_times_then_returns_the_same_object(self):
-
         from openassetio._core import audit
 
         the_auditor = audit.auditor()
@@ -123,9 +129,7 @@ class Test_singleton_access:
 
 
 class Test_auditing:
-
     def test_when_decorator_applied_usage_is_captured(self):
-
         from openassetio._core import audit
 
         audit.auditCalls = True
@@ -137,14 +141,16 @@ class Test_auditing:
         a_method(1)
         a_method("cat")
 
-        assert audit.auditor().sprintCoverage() == """Coverage:
+        assert (
+            audit.auditor().sprintCoverage()
+            == """Coverage:
 
   function (2)
     a_method (2)
 """
+        )
 
     def test_when_api_decorator_applied_usage_and_args_are_captured(self):
-
         from openassetio._core import audit
 
         audit.auditCalls = True
@@ -159,7 +165,9 @@ class Test_auditing:
         a_method(["a", "list"])
         a_method(object)
 
-        assert audit.auditor().sprintCoverage() == """Coverage:
+        assert (
+            audit.auditor().sprintCoverage()
+            == """Coverage:
 
   function (4)
     a_method (4)
@@ -175,3 +183,4 @@ Groups:
     a_method (4)
 
 """
+        )

@@ -17,7 +17,7 @@
 A single-class module that provides the SpecificationBase class.
 """
 
-from ._openassetio import TraitsData  #pylint: disable=import-error
+from ._openassetio import TraitsData  # pylint: disable=import-error
 
 
 class SpecificationBase:

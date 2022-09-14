@@ -26,7 +26,7 @@ import sys
 from .. import exceptions
 
 
-__all__ = ['PythonPluginSystem']
+__all__ = ["PythonPluginSystem"]
 
 
 class PythonPluginSystem(object):
@@ -37,6 +37,7 @@ class PythonPluginSystem(object):
     Once a plug-in has registered an identifier, any subsequent
     registrations with that id will be skipped.
     """
+
     __validModuleExtensions = (".py", ".pyc")
 
     def __init__(self, logger):
@@ -72,7 +73,8 @@ class PythonPluginSystem(object):
         self.reset()
 
         self.__logger.log(
-            self.__logger.Severity.kDebug, "PythonPluginSystem: Searching %s" % paths)
+            self.__logger.Severity.kDebug, "PythonPluginSystem: Searching %s" % paths
+        )
 
         for path in paths.split(os.pathsep):
 
@@ -90,22 +92,26 @@ class PythonPluginSystem(object):
                     if os.path.exists(initFile):
                         itemPath = initFile
                     else:
-                        msg = "PythonPluginSystem: Ignoring as it is not a python package " \
-                              "contianing __init__.py %s" % itemPath
+                        msg = (
+                            "PythonPluginSystem: Ignoring as it is not a python package "
+                            "contianing __init__.py %s" % itemPath
+                        )
                         self.__logger.log(self.__logger.Severity.kDebug, msg)
                         continue
                 else:
                     # Its a file, check if it is a .py/.pyc module
                     _, ext = os.path.splitext(itemPath)
                     if ext not in self.__validModuleExtensions:
-                        msg = ("PythonPluginSystem: Ignoring as its not a python module %s"
-                               % itemPath)
+                        msg = (
+                            "PythonPluginSystem: Ignoring as its not a python module %s" % itemPath
+                        )
                         self.__logger.log(self.__logger.Severity.kDebug, msg)
                         continue
 
                 self.__logger.log(
                     self.__logger.Severity.kDebug,
-                    "PythonPluginSystem: Attempting to load %s" % itemPath)
+                    "PythonPluginSystem: Attempting to load %s" % itemPath,
+                )
 
                 self.__load(itemPath)
 
@@ -153,9 +159,10 @@ class PythonPluginSystem(object):
         """
         identifier = cls.identifier()
         if identifier in self.__map:
-            msg = ("PythonPluginSystem: Skipping class '%s' defined in '%s'."
-                   " Already registered by '%s'"
-                  % (cls, path, self.__paths[identifier]))
+            msg = (
+                "PythonPluginSystem: Skipping class '%s' defined in '%s'."
+                " Already registered by '%s'" % (cls, path, self.__paths[identifier])
+            )
             self.__logger.log(self.__logger.Severity.kDebug, msg)
             return
 
@@ -197,7 +204,7 @@ class PythonPluginSystem(object):
             self.__logger.log(self.__logger.Severity.kWarning, msg)
             return
 
-        if not hasattr(module, 'plugin'):
+        if not hasattr(module, "plugin"):
             msg = "PythonPluginSystem: No top-level 'plugin' variable %s" % path
             self.__logger.log(self.__logger.Severity.kWarning, msg)
             return

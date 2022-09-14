@@ -40,15 +40,17 @@ def a_context():
 # TODO(TC):  __str__ and __repr__ aren't tested as they're debug tricks that need
 #   assessing when this is ported to cpp
 
-class Test_Host_init:
 
+class Test_Host_init:
     def test_when_inheriting_then_raises_TypeError(self):
         with pytest.raises(TypeError) as err:
+
             class _Derived(Host):
                 pass
 
         assert str(err.value) == (
-            "type 'openassetio._openassetio.managerApi.Host' is not an acceptable base type")
+            "type 'openassetio._openassetio.managerApi.Host' is not an acceptable base type"
+        )
 
     def test_when_invalid_interface_then_raises_TypeError(self):
         with pytest.raises(TypeError) as err:
@@ -68,7 +70,8 @@ class Test_Host_identifier:
         mock_host_interface.mock.identifier.assert_called_once_with()
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, host, mock_host_interface):
+        self, host, mock_host_interface
+    ):
         mock_host_interface.mock.identifier.return_value = 123
 
         with pytest.raises(RuntimeError) as err:
@@ -88,7 +91,8 @@ class Test_Host_displayName:
         mock_host_interface.mock.displayName.assert_called_once_with()
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, host, mock_host_interface):
+        self, host, mock_host_interface
+    ):
         mock_host_interface.mock.displayName.return_value = 123
 
         with pytest.raises(RuntimeError) as err:
@@ -108,7 +112,8 @@ class Test_Host_info:
         mock_host_interface.mock.info.assert_called_once_with()
 
     def test_when_interface_provides_wrong_type_then_raises_RuntimeError(
-            self, host, mock_host_interface):
+        self, host, mock_host_interface
+    ):
         mock_host_interface.mock.info.return_value = {123: 123}
 
         with pytest.raises(RuntimeError) as err:

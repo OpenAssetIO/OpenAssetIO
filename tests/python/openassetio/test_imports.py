@@ -26,6 +26,7 @@ Cases should be added for any of the following:
 
 import pytest
 
+
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name
 # pylint: disable=unused-import,import-outside-toplevel
@@ -33,7 +34,9 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: disable=unused-argument
+def always_unload_openassetio_modules(
+    unload_openassetio_modules,  # pylint: disable=unused-argument
+):
     """
     Removes openassetio modules from the sys.modules cache that
     otherwise mask cyclic dependencies.
@@ -41,7 +44,6 @@ def always_unload_openassetio_modules(unload_openassetio_modules): # pylint: dis
 
 
 class Test_package_imports:
-
     def test_importing_openassetio_succeeds(self):
         import openassetio
 
@@ -71,7 +73,6 @@ class Test_package_imports:
 
 
 class Test_core_imports:
-
     def test_importing_audit_succeeds(self):
         from openassetio._core import audit
 
@@ -83,7 +84,6 @@ class Test_core_imports:
 
 
 class Test_hostApi_imports:
-
     def test_importing_HostInterface_succeeds(self):
         from openassetio.hostApi import HostInterface
 
@@ -101,7 +101,6 @@ class Test_hostApi_imports:
 
 
 class Test_managerApi_imports:
-
     def test_importing_Host_succeeds(self):
         from openassetio.managerApi import Host
 
@@ -116,7 +115,6 @@ class Test_managerApi_imports:
 
 
 class Test_pluginSystem_imports:
-
     def test_importing_PythonPluginSystemManagerPlugin_succeeds(self):
         from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
@@ -131,7 +129,6 @@ class Test_pluginSystem_imports:
 
 
 class Test_test_imports:
-
     def test_importing_manager_succeeds(self):
         from openassetio.test import manager
 
@@ -140,7 +137,6 @@ class Test_test_imports:
 
 
 class Test_test_manager_imports:
-
     def test_importing_apiComplianceSuite_succeeds(self):
         from openassetio.test.manager import apiComplianceSuite
 
@@ -152,6 +148,5 @@ class Test_test_manager_imports:
 
 
 class Test_traits_imports:
-
     def test_importing_managementPolicy_succeeds(self):
         from openassetio.traits import managementPolicy

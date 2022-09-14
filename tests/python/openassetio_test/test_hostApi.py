@@ -29,6 +29,7 @@ from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFact
 class Test_createPythonPluginSystemManagerImplementationFactory:
     def test_is_instance_of_plugin_factory(self):
         factory = _openassetio_test.callCreatePythonPluginSystemManagerImplementationFactory(
-            log.ConsoleLogger())
+            log.ConsoleLogger()
+        )
 
         assert isinstance(factory, PythonPluginSystemManagerImplementationFactory)
