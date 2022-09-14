@@ -40,7 +40,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/conan
-        key: ${{ matrix.config.os }}-conan
+        key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
+        restore-keys: ${{ matrix.config.os }}-conan-
 
     - name: Install dependencies (Unix)
       if: runner.os != 'Windows'
