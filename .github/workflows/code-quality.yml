@@ -61,7 +61,7 @@ jobs:
 
       - name: Configure CMake build
         run: >
-          cmake -S . -B build
+          cmake -S . -B build -G Ninja
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset lint
@@ -92,7 +92,7 @@ jobs:
 
       - name: Configure CMake build
         run: >
-          cmake -S . -B build
+          cmake -S . -B build -G Ninja
           --install-prefix $GITHUB_WORKSPACE/dist
           --toolchain $HOME/conan/conan_paths.cmake
           --preset sanitize

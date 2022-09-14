@@ -63,7 +63,7 @@ jobs:
     - name: Configure CMake build (Unix)
       if: runner.os != 'Windows'
       run: >
-        cmake -S . -B build
+        cmake -S . -B build -G Ninja
         --install-prefix $GITHUB_WORKSPACE/dist
         --toolchain $HOME/conan/conan_paths.cmake
         --preset test
