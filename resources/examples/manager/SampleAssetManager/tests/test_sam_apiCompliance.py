@@ -16,6 +16,19 @@
 """
 Test cases for the SampleAssetManager that make use of the OpenAssetIO
 manager test harness.
+
+Note that this file simply wraps the openassetio.test.manager harness in
+a pytest test, so that it can be run as part of the project test suite.
+It also serves as an example of how to programmatically execute the test
+harness, should you wish to extend it with tests for your own business
+logic.
+
+It is not required in order to make use of the test harness. The base
+API compliance tests can simply be run from a command line with
+openassetio available, and the target plugin on
+$OPENASSETIO_PLUGIN_PATH:
+
+  python -m openassetio.test.manager -f path/to/fixtures.py
 """
 
 # pylint: disable=no-self-use
