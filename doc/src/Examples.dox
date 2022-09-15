@@ -39,14 +39,14 @@
  *         return "OpenAssetIO Example Host"
  *
  * # For simplicity, use a filtered console logger, this logs to
- * # std::out/err based on the value of FOUNDRY_ASSET_LOGGING_SEVERITY.
+ * # stderr based on the value of OPENASSETIO_LOGGING_SEVERITY.
  * # Practically you may wish to provide a bridge to your own logging
  * # mechanism if you have one.
  * logger = SeverityFilter(ConsoleLogger())
  *
  * # We need to provide the mechanism by which managers are created, the
  * # built-in plugin system allows these to be loaded from
- * # FOUNDRY_ASSET_PLUGIN_PATH.
+ * # OPENASSETIO_PLUGIN_PATH.
  * factory_impl = PythonPluginSystemManagerImplementationFactory(logger)
  *
  * # We then need our implementation of the HostInterface class
