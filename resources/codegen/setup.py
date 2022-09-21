@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="openassetio-codegen",
-    version="1.0.0-alpha.3",
+    version="1.0.0-alpha.4",
     packages=find_packages(where="python"),
     package_dir={"": "python"},
     include_package_data=True,
