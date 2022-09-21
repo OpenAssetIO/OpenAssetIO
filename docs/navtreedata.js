@@ -71,6 +71,7 @@ var NAVTREE =
       [ "locale", "glossary.html#locale", null ],
       [ "ManagerInterface", "glossary.html#ManagerInterface", null ],
       [ "Manager Plugin", "glossary.html#PythonPluginSystemManagerPlugin", null ],
+      [ "$OPENASSETIO_DEFAULT_CONFIG", "glossary.html#default_config_var", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
@@ -130,7 +131,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be",
-"group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc"
+"group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

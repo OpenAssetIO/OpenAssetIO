@@ -181,6 +181,10 @@ ManagerInterface</h1>
 Manager Plugin</h1>
 <p>The Plug-in mechanism implemented by the <a class="el" href="namespaceopenassetio_1_1plugin_system.html">openassetio.pluginSystem</a> automatically discovers packages that provide an instance of the <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin.html" title="A single-class module, providing the PythonPluginSystemManagerPlugin class. ">openassetio.pluginSystem.PythonPluginSystemManagerPlugin</a> using a search-path based mechanism. This is independent of $PYTHONPATH, and presently searches using the environment variable <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a></p>
 <p>The PythonPluginSystemManagerPlugin instance is then responsible for constructing an instance of the respective <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation of the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>.</p>
+<h1><a class="anchor" id="default_config_var"></a>
+$OPENASSETIO_DEFAULT_CONFIG</h1>
+<p>This is the environment variable used to discover a "default" configuration for an OpenAssetIO session. It defines which manager to use, along with any applicable settings. It should point to a simple TOML config file, see <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76">ManagerFactory</a> for more details of supported options.</p>
+<p>All OpenAssetIO <a class="el" href="glossary.html#host">hosts</a> should support deriving their configuration from this file, to simplify centralized config management.</p>
 <h1><a class="anchor" id="plugin_path_var"></a>
 $OPENASSETIO_PLUGIN_PATH</h1>
 <p>This is the environment variable used to discover <a class="el" href="glossary.html#PythonPluginSystemManagerPlugin">PythonPluginSystemManagerPlugins</a>, it is searched left-to-right, using standard <code>$PATH</code> semantics (delimited by <code>:</code> on POSIX systems and <code>;</code> on Windows). The first package that registers a specific identifier wins.</p>

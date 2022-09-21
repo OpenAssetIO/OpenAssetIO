@@ -4,6 +4,7 @@ var searchData=
   ['kcritical',['kCritical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebug',['kDebug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebugapi',['kDebugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4',1,'openassetio::v1::log::LoggerInterface']]],
+  ['kdefaultmanagerconfigenvvarname',['kDefaultManagerConfigEnvVarName',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#abac2a5ea98411125673e46a31df73693',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['kdocumentaction_5fsave',['kDocumentAction_Save',['../namespaceopenassetio_1_1constants.html#ac53f766f74ca7ae4aa9715b1484e95b5',1,'openassetio::constants']]],
   ['kdocumentaction_5fsaveas',['kDocumentAction_SaveAs',['../namespaceopenassetio_1_1constants.html#a87815a4e1cc6779c048a11e63877f323',1,'openassetio::constants']]],
   ['kdocumentaction_5fsavenewversion',['kDocumentAction_SaveNewVersion',['../namespaceopenassetio_1_1constants.html#ae5a449c90157a7eff1b70e25e9db0746',1,'openassetio::constants']]],

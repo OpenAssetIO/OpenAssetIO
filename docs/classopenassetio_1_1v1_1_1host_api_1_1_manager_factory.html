@@ -114,6 +114,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ManagerFactory Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -157,6 +158,15 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aabfe5946b33e6973e7674307be7b7bcf"><td class="memItemLeft" align="right" valign="top">static ManagerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#aabfe5946b33e6973e7674307be7b7bcf">createManagerForInterface</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da">Identifier</a> &amp;identifier, const HostInterfacePtr &amp;hostInterface, const ManagerImplementationFactoryInterfacePtr &amp;managerImplementationFactory, const log::LoggerInterfacePtr &amp;logger)</td></tr>
 <tr class="memdesc:aabfe5946b33e6973e7674307be7b7bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> instance for the <a class="el" href="glossary.html#manager">manager</a> associated with the given identifier.  <a href="#aabfe5946b33e6973e7674307be7b7bcf">More...</a><br /></td></tr>
 <tr class="separator:aabfe5946b33e6973e7674307be7b7bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6c44543faebcb1b441bbf63c064c76"><td class="memItemLeft" align="right" valign="top">static ManagerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76">defaultManagerForInterface</a> (const HostInterfacePtr &amp;hostInterface, const ManagerImplementationFactoryInterfacePtr &amp;managerImplementationFactory, const log::LoggerInterfacePtr &amp;logger)</td></tr>
+<tr class="memdesc:a8b6c44543faebcb1b441bbf63c064c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the default <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> as defined by the TOML configuration file referenced by the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a>.  <a href="#a8b6c44543faebcb1b441bbf63c064c76">More...</a><br /></td></tr>
+<tr class="separator:a8b6c44543faebcb1b441bbf63c064c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:abac2a5ea98411125673e46a31df73693"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#abac2a5ea98411125673e46a31df73693">kDefaultManagerConfigEnvVarName</a></td></tr>
+<tr class="memdesc:abac2a5ea98411125673e46a31df73693"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the env var used to define the default manager config TOML file.  <a href="#abac2a5ea98411125673e46a31df73693">More...</a><br /></td></tr>
+<tr class="separator:abac2a5ea98411125673e46a31df73693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html" title="The ManagerFactory is the primary mechanism for querying for available managers and constructing a Ma...">ManagerFactory</a> is the primary mechanism for querying for available <a class="el" href="glossary.html#manager">managers</a> and constructing a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a>. </p>
@@ -284,6 +294,59 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8b6c44543faebcb1b441bbf63c064c76"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ManagerPtr defaultManagerForInterface </td>
+          <td>(</td>
+          <td class="paramtype">const HostInterfacePtr &amp;&#160;</td>
+          <td class="paramname"><em>hostInterface</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ManagerImplementationFactoryInterfacePtr &amp;&#160;</td>
+          <td class="paramname"><em>managerImplementationFactory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const log::LoggerInterfacePtr &amp;&#160;</td>
+          <td class="paramname"><em>logger</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the default <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> as defined by the TOML configuration file referenced by the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a>. </p>
+<p>This allows deployments to centralize OpenAssetIO manager settings, and for hosts to instantiate this manager without the need for their own settings and persistence mechanism.</p>
+<dl class="section note"><dt>Note</dt><dd>This mechanism should be the default approach for a host to initialize the API. Extended functionality to override this configuration can optionally be provided, but the ability to use the shared, default configuration is always required.</dd></dl>
+<p>The referenced TOML file should have the following structure.</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;[manager]</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;identifier = &quot;some.identifier&quot;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;[manager.settings]  # Optional</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;some_setting = &quot;value&quot;</div></div><!-- fragment --><dl class="envvar"><dt><b><a class="el" href="envvar.html#_envvar000004">Environment Variables:</a></b></dt><dd><b>OPENASSETIO_DEFAULT_CONFIG</b> <em>str</em> The path to a TOML file containing configuration information for the default manager.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A default-configured manager if <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> is set, otherwise a nullptr if the var was not set.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if there are errors occur whilst loading the TOML file referenced by the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> env var. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a0f1c9241fd0dbb073bcb3c30884e31bb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -350,6 +413,30 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="abac2a5ea98411125673e46a31df73693"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> kDefaultManagerConfigEnvVarName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The name of the env var used to define the default manager config TOML file. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76">defaultManagerForInterface</a>. </dd></dl>
 
 </div>
 </div>
