@@ -36,6 +36,14 @@ v1.0.0-alpha.4
   the supplied traits data.
   [#585](https://github.com/OpenAssetIO/OpenAssetIO/issues/585)
 
+- Added the `$OPENASSETIO_DEFAULT_CONFIG` mechanism, that allows the
+  API to be bootstrapped from a simple TOML file referenced by this
+  env var. Presently, this is exposed via the
+  `ManagerFactory.createDefaultManagerForInterface` method, which reads
+  the manager identifier/settings from this file and returns a suitably
+  configured instance of that manager.
+  [#494](https://github.com/OpenAssetIO/OpenAssetIO/issues/494)
+
 
 ### Improvements
 
