@@ -38,21 +38,15 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         _openassetio.hostApi.ManagerFactory.__init__(
             self, hostInterface, managerImplementationFactory, logger
         )
-        self.__managerImplementationFactory = managerImplementationFactory
-        self.__hostInterface = hostInterface
-        self.__logger = logger
 
     def createManager(self, identifier):
         """
         @see @fqref{hostApi.ManagerFactory.createManager}
         "ManagerFactory.createManager".
         """
-        return Manager(
-            self.__managerImplementationFactory.instantiate(identifier),
-            _openassetio.managerApi.HostSession(
-                _openassetio.managerApi.Host(self.__hostInterface), self.__logger
-            ),
-        )
+        cppManager = super().createManager(identifier)
+        # pylint: disable=protected-access
+        return Manager(cppManager._interface(), cppManager._hostSession())
 
     @staticmethod
     def createManagerForInterface(identifier, hostInterface, managerImplementationFactory, logger):
@@ -60,9 +54,22 @@ class ManagerFactory(_openassetio.hostApi.ManagerFactory):
         @see @fqref{hostApi.ManagerFactory.createManagerForInterface}
         "ManagerFactory.createManagerForInterface".
         """
-        return Manager(
-            managerImplementationFactory.instantiate(identifier),
-            _openassetio.managerApi.HostSession(
-                _openassetio.managerApi.Host(hostInterface), logger
-            ),
+        cppManager = _openassetio.hostApi.ManagerFactory.createManagerForInterface(
+            identifier, hostInterface, managerImplementationFactory, logger
         )
+        # pylint: disable=protected-access
+        return Manager(cppManager._interface(), cppManager._hostSession())
+
+    @staticmethod
+    def defaultManagerForInterface(hostInterface, managerImplementationFactory, logger):
+        """
+        @see @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
+        "ManagerFactory.defaultManagerForInterface".
+        """
+        cppManager = _openassetio.hostApi.ManagerFactory.defaultManagerForInterface(
+            hostInterface, managerImplementationFactory, logger
+        )
+        if cppManager:
+            # pylint: disable=protected-access
+            return Manager(cppManager._interface(), cppManager._hostSession())
+        return None

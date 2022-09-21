@@ -76,8 +76,9 @@
  *   @fqref{hostApi.HostInterface.identifier} "identifier" and
  *   @fqref{hostApi.HostInterface.displayName} "displayName".
  *
- * - Create a @fqref{hostApi.ManagerFactory} to bootstrap the API,
- *   provide the following objects:
+ * - Use @fqref{hostApi.ManagerFactory.defaultManagerForInterface}
+ *   "ManagerFactory.defaultManagerForInterface" to bootstrap the
+ *   API, provide the following objects:
  *    - An instance of the custom class derived from
  *      @fqref{hostApi.HostInterface} "HostInterface".
  *    - A `logger` (derived from
@@ -91,6 +92,11 @@
  *      openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory
  *      "PythonPluginSystemManagerImplementationFactory" will be
  *      sufficient.
+ *
+ *   Note that in some environments, a default manager may not be
+ *   configured. As a host, can error here, or choose to present the
+ *   user with a an additional manual configuration mechanism for your
+ *   specific API session if you so wish.
  *
  * - Create, persist and configure a @ref Context as appropriate for
  *   all calls to the API.

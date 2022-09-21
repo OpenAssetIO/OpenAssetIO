@@ -77,6 +77,12 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   using ManagerDetails = std::unordered_map<Identifier, ManagerDetail>;
 
   /**
+   * The name of the env var used to define the default manager config TOML file.
+    @see @ref defaultManagerForInterface.
+   */
+  static const Str kDefaultManagerConfigEnvVarName;
+
+  /**
    * Construct an instance of this class.
    *
    * @param hostInterface The @ref host "host's" implementation of the
@@ -167,6 +173,47 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    */
   [[nodiscard]] static ManagerPtr createManagerForInterface(
       const Identifier& identifier, const HostInterfacePtr& hostInterface,
+      const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
+      const log::LoggerInterfacePtr& logger);
+
+  /**
+   * Creates the default @fqref{hostApi.Manager} "Manager" as defined by
+   * the TOML configuration file referenced by the
+   * @ref default_config_var.
+   *
+   * This allows deployments to centralize OpenAssetIO manager settings,
+   * and for hosts to instantiate this manager without the need for their
+   * own settings and persistence mechanism.
+   *
+   * @note This mechanism should be the default approach for a host to
+   * initialize the API. Extended functionality to override this configuration
+   * can optionally be provided, but the ability to use the shared, default
+   * configuration is always required.
+   *
+   * The referenced TOML file should have the following structure.
+   *
+   * @code{.toml}
+   * [manager]
+   * identifier = "some.identifier"
+   *
+   * [manager.settings]  # Optional
+   * some_setting = "value"
+   * @endcode
+   *
+   * @envvar **OPENASSETIO_DEFAULT_CONFIG** *str* The path to a
+   * TOML file containing configuration information for the default
+   * manager.
+   *
+   * @returns A default-configured manager if
+   * @ref default_config_var is set, otherwise a nullptr if
+   * the var was not set.
+   *
+   * @throws std::runtime_error if there are errors occur whilst
+   * loading the TOML file referenced by the
+   * @ref default_config_var env var.
+   */
+  [[nodiscard]] static ManagerPtr defaultManagerForInterface(
+      const HostInterfacePtr& hostInterface,
       const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
       const log::LoggerInterfacePtr& logger);
 
