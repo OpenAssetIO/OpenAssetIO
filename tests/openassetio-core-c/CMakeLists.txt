@@ -69,16 +69,15 @@ endif ()
 #-----------------------------------------------------------------------
 # Create CTest target
 
+# Requires: openassetio.internal.install
 add_custom_target(
-    openassetio-core-c-test
+    openassetio.internal.core-c-test
     COMMAND
     ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/$<TARGET_FILE_NAME:openassetio-core-c-test-exe>
 )
-add_dependencies(openassetio-core-c-test openassetio-install)
 
-add_test(
-    NAME openassetio-core-c
-    COMMAND
-    ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target openassetio-core-c-test
+openassetio_add_test_target(openassetio.internal.core-c-test)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.core-c-test
+    openassetio.internal.install
 )
-

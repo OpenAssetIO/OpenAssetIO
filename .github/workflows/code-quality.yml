@@ -151,7 +151,7 @@ jobs:
       - name: Build and test
         run: |
           /usr/bin/ccache -s
-          ctest -VV --test-dir build
+          ctest -VV --test-dir build --parallel 2
           /usr/bin/ccache -s
         env:
           CCACHE_DIR: /tmp/ccache

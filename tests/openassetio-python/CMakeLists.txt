@@ -34,9 +34,6 @@ if (WIN32)
         DESTINATION ${install_subdir})
 endif ()
 
-#-----------------------------------------------------------------------
-# Target dependencies
-
 target_sources(
     openassetio-python-test
     PRIVATE
@@ -60,19 +57,14 @@ target_link_libraries(openassetio-python-test
 
 add_dependencies(openassetio-python-test openassetio-python-module)
 
-#-----------------------------------------------------------------------
 # Override build tree to look like install tree.
-
 set_target_properties(openassetio-python-test
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir}
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir})
 
-
-#-----------------------------------------------------------------------
 # Override RPATH in (usual) case that Python .so and core .so live in
 # different locations.
-
 if (UNIX)
     # Calculate relative path from site-packages to lib directory.
     file(RELATIVE_PATH
@@ -91,142 +83,221 @@ endif ()
 
 
 #-----------------------------------------------------------------------
-# Create test targets
+# Gather ASan-specific environment variables to prepend to the `pytest`
+# invocations.
 
-if (Python_Interpreter_FOUND)
-    # Directory to find/download dependencies. We try to cache downloads
-    # so that people can work offline.
-    set(python_deps_dir "${CMAKE_BINARY_DIR}/dependencies/python")
-
-    # Get path to Python executable in the created venv, and a way to activate
-    # the venv itself.
-    if (WIN32)
-        set(venv_activate "${CMAKE_INSTALL_PREFIX}/Scripts/activate.bat")
-        set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/Scripts/python.exe")
-    else ()
-        set(venv_activate . "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/activate")
-        set(venv_python_exe "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/python")
-    endif ()
-
-    # Download test-specific dependencies so we don't always need an
-    # online connection for running ctest
-    add_custom_target(
-        openassetio-python-test-download-test-deps
-        COMMAND ${CMAKE_COMMAND} -E echo -- Downloading Python test libraries
-        COMMAND
-        ${Python_EXECUTABLE} -m pip download
-        --retries 0 --timeout ${OPENASSETIO_PYTHON_PIP_TIMEOUT}
-        --find-links ${python_deps_dir}
-        --destination-directory ${python_deps_dir}
-        --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
-        --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
+if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS AND IS_GCC_OR_CLANG)
+    # ASan will error out if libasan is not the first library to be
+    # linked (so it can override `malloc`). Since our executable
+    # (`python` in this case) doesn't link libasan we must add it to
+    # `LD_PRELOAD`. But first we have to find libasan on the system:
+    execute_process(
+        # TODO(DF): This is probably wrong for OSX (clang).
+        COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan.so
+        OUTPUT_VARIABLE asan_path
+        OUTPUT_STRIP_TRAILING_WHITESPACE
     )
-
-    # Install test-specific dependencies (e.g. pytest).
-    add_custom_target(
-        openassetio-python-test-install-test-deps
-        COMMAND cmake -E echo -- Installing Python test dependencies
-        COMMAND
-        ${venv_python_exe} -m pip install
-        --no-index --find-links ${python_deps_dir}
-        --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
-        --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
-    )
-    add_dependencies(openassetio-python-test-install-test-deps
-        # Ensure venv pip is available and up-to-date.
-        openassetio-python-venv
-        # Ensure dependencies have been downloaded
-        openassetio-python-test-download-test-deps)
-
-    # Add ASan-specific environment variables to prepend to the `pytest`
-    # invocation.
-    if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS AND IS_GCC_OR_CLANG)
-        # ASan will error out if libasan is not the first library to be
-        # linked (so it can override `malloc`). Since our executable
-        # (`python` in this case) doesn't link libasan we must add it to
-        # `LD_PRELOAD`. But first we have to find libasan on the system:
-        execute_process(
-            # TODO(DF): This is probably wrong for OSX (clang).
-            COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan.so
-            OUTPUT_VARIABLE asan_path
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-        # ASan can hang on exceptions when `dlopen`ed libraries are
-        # involved (i.e. Python extension modules)
-        # See: https://bugs.llvm.org/show_bug.cgi?id=39641
-        # or: https://github.com/llvm/llvm-project/issues/38989
-        # and: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91325#c5
-        # The latter link indicates this bug is fixed in GCC 10.1, but
-        # we're stuck with 9.3 (CY21/22) for now.
-        # To work around this we must LD_PRELOAD our core lib.
-        set(openassetio_path
-            ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/$<TARGET_FILE_NAME:openassetio-core>)
-        # In addition to `LD_PRELOAD`ing we must override Python's
-        # memory allocator to use the C (or rather, ASan's) `malloc`
-        # rather than the optimized `pymalloc`, so that ASan can
-        # properly count memory (de)allocations.
-        set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${openassetio_path})
-    endif ()
-
-    # Target to run pytest in the install directory, ensuring the lib has
-    # been built and installed first. Add `-s` to ensure no output is
-    # captured, which is needed to show sanitizer errors (and is useful
-    # for debugging regardless).
-    add_custom_target(
-        openassetio-python-test-pytest
-        COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
-        tests/python
-        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-        USES_TERMINAL
-    )
-    add_dependencies(openassetio-python-test-pytest
-        openassetio-python-test-install-test-deps openassetio-python-py-install)
-
-    # Target to run tests on examples included in the resources
-    # directory.
-    add_custom_target(
-        openassetio-resources-examples-test-pytest
-        COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
-        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/examples"
-        USES_TERMINAL
-    )
-    add_dependencies(openassetio-resources-examples-test-pytest
-        openassetio-python-test-install-test-deps openassetio-python-py-install)
-
-    # Target to run tests on the openassetio-codegen tool included in
-    # the resources directory.
-    add_custom_target(
-        openassetio-resources-codegen-test-pytest
-        COMMAND cmake -E echo -- Running pytest
-        COMMAND ${venv_activate} && ${pytest_env} ${venv_python_exe} -m pytest -v --capture=tee-sys
-        WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/resources/codegen"
-        USES_TERMINAL
-    )
-    add_dependencies(openassetio-resources-codegen-test-pytest
-        openassetio-python-test-install-test-deps openassetio-python-py-install
-        openassetio-resources-codegen-install)
-
-    # Add CTest targets.
-
-    add_test(
-        NAME openassetio-python
-        COMMAND
-        ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target openassetio-python-test-pytest
-    )
-
-    add_test(
-        NAME openassetio-resources-examples
-        COMMAND
-        ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target
-        openassetio-resources-examples-test-pytest
-    )
-
-    add_test(
-        NAME openassetio-resources-codegen
-        COMMAND
-        ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target
-        openassetio-resources-codegen-test-pytest
-    )
+    # ASan can hang on exceptions when `dlopen`ed libraries are
+    # involved (i.e. Python extension modules)
+    # See: https://bugs.llvm.org/show_bug.cgi?id=39641
+    # or: https://github.com/llvm/llvm-project/issues/38989
+    # and: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91325#c5
+    # The latter link indicates this bug is fixed in GCC 10.1, but
+    # we're stuck with 9.3 (CY21/22) for now.
+    # To work around this we must LD_PRELOAD our core lib.
+    set(openassetio_path
+        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/$<TARGET_FILE_NAME:openassetio-core>)
+    # In addition to `LD_PRELOAD`ing we must override Python's
+    # memory allocator to use the C (or rather, ASan's) `malloc`
+    # rather than the optimized `pymalloc`, so that ASan can
+    # properly count memory (de)allocations.
+    set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${openassetio_path})
 endif ()
+
+
+#-----------------------------------------------------------------------
+# Core Python pytest targets.
+
+# Add target that runs pytest.
+#
+# Add `--capture=tee-sys` to ensure output shows sanitizer errors (and
+# is useful for debugging regardless).
+function(openassetio_add_pytest_target target_name description target_directory working_directory)
+    add_custom_target(
+        ${target_name}
+        COMMAND cmake -E echo -- ${description}
+        COMMAND ${OPENASSETIO_PYTHON_VENV_ACTIVATE} &&
+        ${pytest_env} python -m pytest -v --capture=tee-sys
+        ${target_directory}
+        WORKING_DIRECTORY "${working_directory}"
+        USES_TERMINAL
+    )
+endfunction()
+
+# Download test-specific dependencies so we don't always need an
+# online connection for running ctest
+openassetio_add_pip_download_target(
+    openassetio.internal.python-pytest.download-deps
+    "Downloading Python test libraries"
+    --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+)
+
+# Install test-specific dependencies (e.g. pytest).
+# Requires:
+# - openassetio.internal.python-venv.create
+# - openassetio.internal.python-pytest.download-deps
+openassetio_add_pip_install_target(
+    openassetio.internal.python-pytest.install-deps
+    "Installing Python test dependencies"
+    --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+)
+
+# Requires:
+# - openassetio.internal.install
+# - openassetio.internal.python.install
+# - openassetio.internal.python-pytest.install-deps
+openassetio_add_pytest_target(
+    openassetio.internal.python-pytest
+    "Running pytest for core Python"
+    tests/python
+    "${PROJECT_SOURCE_DIR}"
+)
+
+
+#-----------------------------------------------------------------------
+# Examples pytest target.
+
+# Target to run tests on examples included in the resources
+# directory.
+# Requires:
+# - openassetio.internal.install
+# - openassetio.internal.python.install
+# - openassetio.internal.python-pytest.install-deps
+openassetio_add_pytest_target(
+    openassetio.internal.resources-examples-pytest
+    "Running pytest for examples"
+    .
+    "${PROJECT_SOURCE_DIR}/resources/examples"
+)
+
+
+#-----------------------------------------------------------------------
+# Code generation pytest targets.
+
+openassetio_add_pip_download_target(
+    openassetio.internal.resources-codegen-pytest.download-deps
+    "Downloading codegen test libraries"
+    --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
+)
+
+# Install test-specific dependencies (e.g. pytest).
+# Requires:
+# - openassetio.internal.python-pytest.install-deps
+# - openassetio.internal.resources-codegen-pytest.download-deps
+openassetio_add_pip_install_target(
+    openassetio.internal.resources-codegen-pytest.install-deps
+    "Installing codegen test dependencies"
+    --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
+)
+
+# Target to run tests on the openassetio-codegen tool included in
+# the resources directory.
+# Requires:
+# - openassetio.internal.install
+# - openassetio.internal.python.install
+# - openassetio.internal.resources-codegen.install
+# - openassetio.internal.resources-codegen-pytest.install-deps
+openassetio_add_pytest_target(
+    openassetio.internal.resources-codegen-pytest
+    "Running pytest for codegen"
+    .
+    "${PROJECT_SOURCE_DIR}/resources/codegen"
+)
+
+
+#-----------------------------------------------------------------------
+# CTest setup fixtures
+
+# Fixture: download dependencies for creating Python environment.
+openassetio_add_test_fixture_target(openassetio.internal.python-venv.download-deps)
+
+# Fixture: download test dependencies for core Python.
+openassetio_add_test_fixture_target(openassetio.internal.python-pytest.download-deps)
+
+# Fixture: download library dependencies for codegen.
+openassetio_add_test_fixture_target(openassetio.internal.resources-codegen.download-deps)
+
+# Fixture: download test dependencies for codegen.
+openassetio_add_test_fixture_target(openassetio.internal.resources-codegen-pytest.download-deps)
+
+# Fixture: create Python environment.
+openassetio_add_test_fixture_target(openassetio.internal.python-venv.create)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.python-venv.create
+    openassetio.internal.python-venv.download-deps
+)
+
+# Fixture: install core Python test dependencies.
+openassetio_add_test_fixture_target(openassetio.internal.python-pytest.install-deps)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.python-pytest.install-deps
+    openassetio.internal.python-venv.create openassetio.internal.python-pytest.download-deps
+)
+
+# Fixture: install codegen test dependencies.
+openassetio_add_test_fixture_target(openassetio.internal.resources-codegen-pytest.install-deps)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.resources-codegen-pytest.install-deps
+    # codegen test deps overlap core Python test deps, so install those
+    # first.
+    openassetio.internal.python-pytest.install-deps
+    openassetio.internal.resources-codegen-pytest.download-deps
+)
+
+# Fixture: install core Python component.
+openassetio_add_test_fixture_target(openassetio.internal.python.install)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.python.install
+    openassetio.internal.python-venv.create
+)
+
+# Fixture: install codegen.
+openassetio_add_test_fixture_target(openassetio.internal.resources-codegen.install)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.resources-codegen.install
+    openassetio.internal.python-venv.create
+    openassetio.internal.resources-codegen.download-deps
+)
+
+
+#-----------------------------------------------------------------------
+# CTest test targets
+
+
+# Core Python component tests.
+openassetio_add_test_target(openassetio.internal.python-pytest)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.python-pytest
+    openassetio.internal.install
+    openassetio.internal.python.install
+    openassetio.internal.python-pytest.install-deps
+)
+
+# Examples tests.
+openassetio_add_test_target(openassetio.internal.resources-examples-pytest)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.resources-examples-pytest
+    openassetio.internal.install
+    openassetio.internal.python.install
+    openassetio.internal.python-pytest.install-deps
+)
+
+# Code generation tests.
+openassetio_add_test_target(openassetio.internal.resources-codegen-pytest)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.resources-codegen-pytest
+    openassetio.internal.install
+    openassetio.internal.python.install
+    openassetio.internal.resources-codegen.install
+    openassetio.internal.resources-codegen-pytest.install-deps
+)
