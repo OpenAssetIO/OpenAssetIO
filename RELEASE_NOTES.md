@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Improvements
+
+- Added 'unstable' warning to docs to notify of python api
+  that has not yet been updated for the C++ api,
+  and is thus inherently unstable.
+  [#600](https://github.com/OpenAssetIO/OpenAssetIO/issues/600)
+
+
 v1.0.0-alpha.4
 --------------
 

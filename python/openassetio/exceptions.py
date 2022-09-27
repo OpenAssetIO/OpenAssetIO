@@ -28,6 +28,8 @@ class OpenAssetIOException(RuntimeError):
     Managers and any API-related exceptions raised in a Host. These
     exceptions are guaranteed to properly bridge across the C plugin
     divide...
+
+    @unstable
     """
 
 
@@ -35,6 +37,8 @@ class UserCanceled(OpenAssetIOException):
     """
     Thrown by the progress mechanism to interrupt execution whenever the
     user cancels an action (perhaps using an on-screen button).
+
+    @unstable
     """
 
     def __str__(self):
@@ -50,6 +54,8 @@ class UserCanceled(OpenAssetIOException):
 class ManagerException(OpenAssetIOException):
     """
     A base class for exceptions relating to, or raised by a manager.
+
+    @unstable
     """
 
 
@@ -57,6 +63,8 @@ class StateError(ManagerException):
     """
     Thrown by managers in error situations relating to the
     managerState object.
+
+    @unstable
     """
 
 
@@ -64,6 +72,8 @@ class RetryableError(ManagerException):
     """
     Thrown by managers in error situations that can be safely retried
     with idempotent behavior.
+
+    @unstable
     """
 
 
@@ -81,6 +91,8 @@ class BaseEntityException(ManagerException):
     A base Exception for any @ref entity related errors to ensure
     consistent presentation and encapsulation of the associated @ref
     entity_reference.
+
+    @unstable
     """
 
     def __init__(self, message, entityReference=None):
@@ -106,6 +118,8 @@ class InvalidEntityReference(BaseEntityException):
     """
     Thrown whenever an Entity-based action is performed on an
     unrecognized @ref entity_reference.
+
+    @unstable
     """
 
     def __init__(self, message="Invalid Entity Reference", entityReference=None):
@@ -116,6 +130,8 @@ class MalformedEntityReference(BaseEntityException):
     """
     Thrown whenever an Entity-based action is performed on a
     malformed @ref entity_reference.
+
+    @unstable
     """
 
     def __init__(self, message="Malformed Entity Reference", entityReference=None):
@@ -129,6 +145,8 @@ class EntityResolutionError(BaseEntityException):
     some other reason. It is also used during version finalisation and
     any other entity-based operations on a valid @ref entity_reference
     that fail for some reason.
+
+    @unstable
     """
 
     def __init__(self, message="Error resolving entity", entityReference=None):
@@ -138,6 +156,8 @@ class EntityResolutionError(BaseEntityException):
 class BaseEntityInteractionError(BaseEntityException):
     """
     A base class for errors relating to entity-centric actions.
+
+    @unstable
     """
 
 
@@ -145,6 +165,8 @@ class PreflightError(BaseEntityInteractionError):
     """
     Thrown to represent some error during pre-flight that isn't due to
     any specific of the @ref entity_reference itself.
+
+    @unstable
     """
 
 
@@ -152,6 +174,8 @@ class RegistrationError(BaseEntityInteractionError):
     """
     Thrown to represent some error during registration that isn't due to
     any specific of the @ref entity_reference itself.
+
+    @unstable
     """
 
 
@@ -162,4 +186,6 @@ class PluginError(OpenAssetIOException):
     """
     Thrown by the plugin system in relation to errors encountered
     during the loading/initialization of plugins.
+
+    @unstable
     """
