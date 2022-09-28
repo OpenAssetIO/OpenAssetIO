@@ -187,6 +187,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @see @ref openassetio.constants "constants"
         @see @ref openassetio.hostApi.terminology.defaultTerminology
         "terminology.defaultTerminology"
+
+        @unstable
         """
 
     ## @}
@@ -202,6 +204,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         implementation makes use of any caching, otherwise it is a
         no-op. In caching interfaces, this should cause any retained
         data to be discarded to ensure future queries are fresh.
+
+        @unstable
         """
 
     ## @}
@@ -246,6 +250,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @return `List[bool]` `True` if the corresponding element in
         entityRefs points to an existing entity, `False` if the entity
         is not known or ready yet.
+
+        @unstable
         """
         raise NotImplementedError
 
@@ -299,6 +305,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @return `List[str]` An @ref entity_reference or empty string for
         each given trait set.
+
+        @unstable
         """
         return ["" for _ in traitSets]
 
@@ -338,6 +346,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @return `List[str]` Strings containing any valid characters for
         the manager's implementation.
+
+        @unstable
         """
         raise NotImplementedError
 
@@ -372,6 +382,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         characters for the @ref asset_management_system's
         implementation; or an `InvalidEntityReference` if the supplied
         reference is not recognised by the asset management system.
+
+        @unstable
         """
         raise NotImplementedError
 
@@ -412,6 +424,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref entityVersions
         @see @ref finalizedEntityVersion
+
+        @unstable
         """
         return ["" for _ in entityRefs]
 
@@ -452,6 +466,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref entityVersion
         @see @ref finalizedEntityVersion
+
+        @unstable
         """
         return [{} for _ in entityRefs]
 
@@ -497,6 +513,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref entityVersion
         @see @ref entityVersions
+
+        @unstable
         """
         return entityRefs
 
@@ -617,6 +635,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         function.
 
         @see @ref setRelatedReferences
+
+        @unstable
         """
         raise NotImplementedError
 
@@ -666,6 +686,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @see @ref getRelatedReferences
         @see @ref register
+
+        @unstable
         """
         if not self.entityExists(entityRef, context, hostSession):
             raise exceptions.InvalidEntityReference(entityReference=entityRef)
