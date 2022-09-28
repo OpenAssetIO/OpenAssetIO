@@ -56,10 +56,11 @@ considering.
    build should not be broken and all public interfaces (API or UI)
    should work.
 7. Has the documentation been updated?
-8. Does it follow the design patterns adopted by the project for similar
+8. If it is a public change, is there a `RELEASE_NOTES.md` entry?
+9. Does it follow the design patterns adopted by the project for similar
    functionality?
-9. Does it follow the project coding standards?
-10. Do commit messages follow the template and contain enough rationale?
+10. Does it follow the project coding standards?
+11. Do commit messages follow the template and contain enough rationale?
 
 
 ### Suggested approach
