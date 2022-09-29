@@ -9,6 +9,14 @@ v1.0.0-alpha.x
 - Added `[[nodiscard]]` attribute to various `make` factory functions,
   may generate additional compiler warnings in your project.
 
+
+### New Features
+
+- Added `simpleResolver.py` example host (under `resources/examples`),
+  that provides a basic CLI to resolve Entity References for a supplied
+  Trait Set.
+
+
 ### Improvements
 
 - Added 'unstable' warning to docs to notify of python api

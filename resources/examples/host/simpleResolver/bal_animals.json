@@ -1,0 +1,26 @@
+{
+	"entities": {
+		"cat": {
+			"versions": [
+				{
+					"traits": {
+						"animal": { "species": "🐈", "age": 12 },
+						"named": { "name": "Martin" },
+						"locatableContent": { "url": "https://placekitten.com/g/300/200" }
+					}
+				}
+			]
+		},
+		"dog": {
+			"versions": [
+				{
+					"traits": {
+						"animal": { "species": "🐕", "age": 2 },
+						"named": { "name": "Pauline" },
+						"locatableContent": { "url": "https://placedog.net/300/200" }
+					}
+				}
+			]
+		}
+	}
+}
