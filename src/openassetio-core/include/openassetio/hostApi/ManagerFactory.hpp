@@ -99,7 +99,7 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * messaging from the factory and instantiated @fqref{hostApi.Manager}
    * "Manager" instances.
    */
-  static ManagerFactoryPtr make(
+  [[nodiscard]] static ManagerFactoryPtr make(
       HostInterfacePtr hostInterface,
       ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
       log::LoggerInterfacePtr logger);
