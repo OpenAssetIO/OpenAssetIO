@@ -4,6 +4,11 @@ Release Notes
 v1.0.0-alpha.x
 --------------
 
+### Breaking changes
+
+- Added `[[nodiscard]]` attribute to various `make` factory functions,
+  may generate additional compiler warnings in your project.
+
 ### Improvements
 
 - Added 'unstable' warning to docs to notify of python api

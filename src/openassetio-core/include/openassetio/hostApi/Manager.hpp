@@ -60,8 +60,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * Constructs a new Manager wrapping the supplied manager interface
    * and host session.
    */
-  static ManagerPtr make(managerApi::ManagerInterfacePtr managerInterface,
-                         managerApi::HostSessionPtr hostSession);
+  [[nodiscard]] static ManagerPtr make(managerApi::ManagerInterfacePtr managerInterface,
+                                       managerApi::HostSessionPtr hostSession);
 
   /**
    * @name Asset Management System Information

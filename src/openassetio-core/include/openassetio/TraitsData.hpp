@@ -67,21 +67,21 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   /**
    * Construct an empty instance, with no traits.
    */
-  static TraitsDataPtr make();
+  [[nodiscard]] static TraitsDataPtr make();
 
   /**
    * Construct such that this instance has the given set of traits.
    *
    * @param traitSet The constituent traits IDs.
    */
-  static TraitsDataPtr make(const trait::TraitSet& traitSet);
+  [[nodiscard]] static TraitsDataPtr make(const trait::TraitSet& traitSet);
 
   /**
    * Construct such that this instance is a deep copy of the other.
    *
    * @param other The instance to copy.
    */
-  static TraitsDataPtr make(const TraitsDataConstPtr& other);
+  [[nodiscard]] static TraitsDataPtr make(const TraitsDataConstPtr& other);
 
   /**
    * Defaulted destructor.

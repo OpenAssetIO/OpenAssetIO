@@ -41,7 +41,7 @@ class OPENASSETIO_CORE_EXPORT HostSession final {
   /**
    * Constructs a new HostSession holding the supplied host.
    */
-  static HostSessionPtr make(HostPtr host, log::LoggerInterfacePtr logger);
+  [[nodiscard]] static HostSessionPtr make(HostPtr host, log::LoggerInterfacePtr logger);
 
   /**
    * @return The host that initiated the API session.
