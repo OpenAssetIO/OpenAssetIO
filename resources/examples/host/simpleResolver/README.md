@@ -23,6 +23,11 @@ optional arguments:
 
 ## Example
 
+> Note: This script requires the `openassetio` module to be available to
+> Python. Presently, this requires manual installation, see
+> [BUILDING.md](../../../../BUILDING.md) in the main OpenAssetIO
+> repository for more details.
+
 The included OpenAssetIO config file sets the API up to use the
 [BasicAssetLibrary](../../manager/BasicAssetLibrary) example asset
 manager, with a simple library containing information about some
