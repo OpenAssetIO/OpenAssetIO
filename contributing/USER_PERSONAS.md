@@ -29,12 +29,10 @@ maintaining desktop applications that typically run on desktop operating
 systems. These applications themselves often act as a closed platform
 for end user and plugin developers. Most of these developers work for an
 ISV (Independent Software Vendor) who license their products through a
-perpetual licence
-
--   annual maintenance or subscription model. Releases of their tools are
-    usually a mix of iterative refinement and headline feature development
-    to drive the sales cycle. As such, release windows are subject to
-    influence by many commercial and technical factors.
+perpetual licence, annual maintenance or subscription model. Releases of
+their tools are usually a mix of iterative refinement and headline
+feature development to drive the sales cycle. As such, release windows
+are subject to influence by many commercial and technical factors.
 
 These products are extensively customized in the field when deployed and
 are required to provide robust, stable API surface areas to facilitate
