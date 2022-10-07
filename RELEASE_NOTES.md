@@ -28,6 +28,10 @@ v1.0.0-alpha.x
   and is thus inherently unstable.
   [#600](https://github.com/OpenAssetIO/OpenAssetIO/issues/600)
 
+- Changed CMake configuration so that `openassetio-python-venv` target
+  now automatically installs python dependencies of enabled components.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+
 
 v1.0.0-alpha.4
 --------------

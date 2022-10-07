@@ -135,17 +135,15 @@ function(openassetio_add_pytest_target target_name description target_directory 
 endfunction()
 
 # Install test-specific dependencies (e.g. pytest).
-# Requires: openassetio.internal.python-venv.create
-openassetio_add_pip_install_target(
+openassetio_add_python_environment_dependency(
     openassetio.internal.python-pytest.install-deps
-    "Installing Python test dependencies"
-    --requirement "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
+    "${PROJECT_SOURCE_DIR}/tests/python/requirements.txt"
 )
 
 # Requires:
 # - openassetio.internal.install
 # - openassetio.internal.python.install
-# - openassetio.internal.python-pytest.install-deps
+# - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.python-pytest
     "Running pytest for core Python"
@@ -162,7 +160,7 @@ openassetio_add_pytest_target(
 # Requires:
 # - openassetio.internal.install
 # - openassetio.internal.python.install
-# - openassetio.internal.python-pytest.install-deps
+# - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.resources-examples-pytest
     "Running pytest for examples"
@@ -175,11 +173,9 @@ openassetio_add_pytest_target(
 # Code generation pytest targets.
 
 # Install test-specific dependencies (e.g. pytest).
-# Requires: openassetio.internal.python-pytest.install-deps
-openassetio_add_pip_install_target(
+openassetio_add_python_environment_dependency(
     openassetio.internal.resources-codegen-pytest.install-deps
-    "Installing codegen test dependencies"
-    --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
+    "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
 )
 
 # Target to run tests on the openassetio-codegen tool included in
@@ -188,7 +184,7 @@ openassetio_add_pip_install_target(
 # - openassetio.internal.install
 # - openassetio.internal.python.install
 # - openassetio.internal.resources-codegen.install
-# - openassetio.internal.resources-codegen-pytest.install-deps
+# - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.resources-codegen-pytest
     "Running pytest for codegen"
@@ -201,36 +197,20 @@ openassetio_add_pytest_target(
 # CTest setup fixtures
 
 # Fixture: create Python environment.
-openassetio_add_test_fixture_target(openassetio.internal.python-venv.create)
-
-# Fixture: install core Python test dependencies.
-openassetio_add_test_fixture_target(openassetio.internal.python-pytest.install-deps)
-openassetio_add_test_fixture_dependencies(
-    openassetio.internal.python-pytest.install-deps
-    openassetio.internal.python-venv.create
-)
-
-# Fixture: install codegen test dependencies.
-openassetio_add_test_fixture_target(openassetio.internal.resources-codegen-pytest.install-deps)
-openassetio_add_test_fixture_dependencies(
-    openassetio.internal.resources-codegen-pytest.install-deps
-    # codegen test deps overlap core Python test deps, so install those
-    # first.
-    openassetio.internal.python-pytest.install-deps
-)
+openassetio_add_test_fixture_target(openassetio-python-venv)
 
 # Fixture: install core Python component.
 openassetio_add_test_fixture_target(openassetio.internal.python.install)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.python.install
-    openassetio.internal.python-venv.create
+    openassetio-python-venv
 )
 
 # Fixture: install codegen.
 openassetio_add_test_fixture_target(openassetio.internal.resources-codegen.install)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-codegen.install
-    openassetio.internal.python-venv.create
+    openassetio-python-venv
 )
 
 
@@ -244,7 +224,6 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.python-pytest
     openassetio.internal.install
     openassetio.internal.python.install
-    openassetio.internal.python-pytest.install-deps
 )
 
 # Examples tests.
@@ -253,7 +232,6 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-examples-pytest
     openassetio.internal.install
     openassetio.internal.python.install
-    openassetio.internal.python-pytest.install-deps
 )
 
 # Code generation tests.
@@ -263,5 +241,4 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.install
     openassetio.internal.python.install
     openassetio.internal.resources-codegen.install
-    openassetio.internal.resources-codegen-pytest.install-deps
 )

@@ -133,7 +133,6 @@ build directory (the default)
 ```shell
 source build/dist/bin/activate
 pip install .
-pip install -r tests/python/requirements.txt
 ```
 
 We can now run the Python tests via `pytest`
@@ -164,26 +163,11 @@ vagrant up
 # Wait a while...
 vagrant ssh
 cmake -S openassetio -B build --install-prefix ~/dist \
-  --toolchain ~/conan/conan_paths.cmake -DOPENASSETIO_ENABLE_TESTS=ON
+  --toolchain ~/conan/conan_paths.cmake
 ```
 
-Then we can run the following steps to build, install and run the tests
-
-```shell
-cmake --build build
-cmake --install build
-cmake --build build --target openassetio-python-venv
-source build/dist/bin/activate
-pip install ./openassetio
-pip install -r openassetio/tests/python/requirements.txt
-pytest openassetio/tests/python
-```
-or alternatively, simply
-
-```shell
-cd build
-ctest
-```
+Then we can run the usual steps (see above) to build and install
+OpenAssetIO, and run the tests (if enabled).
 
 ## CMake presets
 

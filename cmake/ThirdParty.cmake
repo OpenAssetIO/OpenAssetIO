@@ -105,13 +105,37 @@ if (OPENASSETIO_ENABLE_PYTHON)
         wheel==0.37.1 setuptools==49.0 pip==22.2.2
     )
 
-    # Combine Python venv download and create steps into a single
-    # convenience target.
-    add_custom_target(
-        openassetio-python-venv
-        COMMAND
-        ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
-        --target
-        openassetio.internal.python-venv.create
-    )
+    # Add a top-level Python environment creation convenience build
+    # target. This target will be augmented via (conditional)
+    # `add_dependencies(...)` calls throughout the project, to build up
+    # a Python environment appropriate for the enabled components. For
+    # example, if tests are enabled then Python test packages will be
+    # installed into this environment.
+    add_custom_target(openassetio-python-venv)
+    add_dependencies(openassetio-python-venv openassetio.internal.python-venv.create)
+
+    # Add Python packages as a dependency of the top-level Python
+    # environment creation convenience target.
+    #
+    # Also adds Python virtualenv as a build dependency of installing
+    # the package(s).
+    function(openassetio_add_python_environment_dependency target_name requirements_file_path)
+        # Install dependencies.
+        openassetio_add_pip_install_target(
+            ${target_name}
+            "Installing Python environment dependencies for ${target_name}"
+            --requirement ${requirements_file_path}
+        )
+        # Python environment must be available to install into.
+        add_dependencies(
+            ${target_name}
+            openassetio.internal.python-venv.create
+        )
+        # Ensure top-level Python environment creation includes installing
+        # these dependencies.
+        add_dependencies(
+            openassetio-python-venv
+            ${target_name}
+        )
+    endfunction()
 endif ()
