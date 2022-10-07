@@ -142,7 +142,6 @@ openassetio_add_python_environment_dependency(
 
 # Requires:
 # - openassetio.internal.install
-# - openassetio.internal.python.install
 # - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.python-pytest
@@ -159,7 +158,6 @@ openassetio_add_pytest_target(
 # directory.
 # Requires:
 # - openassetio.internal.install
-# - openassetio.internal.python.install
 # - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.resources-examples-pytest
@@ -182,7 +180,6 @@ openassetio_add_python_environment_dependency(
 # the resources directory.
 # Requires:
 # - openassetio.internal.install
-# - openassetio.internal.python.install
 # - openassetio.internal.resources-codegen.install
 # - openassetio-python-venv
 openassetio_add_pytest_target(
@@ -198,13 +195,6 @@ openassetio_add_pytest_target(
 
 # Fixture: create Python environment.
 openassetio_add_test_fixture_target(openassetio-python-venv)
-
-# Fixture: install core Python component.
-openassetio_add_test_fixture_target(openassetio.internal.python.install)
-openassetio_add_test_fixture_dependencies(
-    openassetio.internal.python.install
-    openassetio-python-venv
-)
 
 # Fixture: install codegen.
 openassetio_add_test_fixture_target(openassetio.internal.resources-codegen.install)
@@ -223,7 +213,7 @@ openassetio_add_test_target(openassetio.internal.python-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.python-pytest
     openassetio.internal.install
-    openassetio.internal.python.install
+    openassetio-python-venv
 )
 
 # Examples tests.
@@ -231,7 +221,7 @@ openassetio_add_test_target(openassetio.internal.resources-examples-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-examples-pytest
     openassetio.internal.install
-    openassetio.internal.python.install
+    openassetio-python-venv
 )
 
 # Code generation tests.
@@ -239,6 +229,5 @@ openassetio_add_test_target(openassetio.internal.resources-codegen-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-codegen-pytest
     openassetio.internal.install
-    openassetio.internal.python.install
     openassetio.internal.resources-codegen.install
 )

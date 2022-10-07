@@ -58,8 +58,8 @@ If shared library builds are disabled, then the core library will be
 built and installed as a static library, and statically linked into the
 Python module.
 
-In order to build and install the binary artifacts, assuming the current
-working directory is at the repository root, run
+In order to build and install the binary artifacts and Python sources,
+assuming the current working directory is at the repository root, run
 
 ```shell
 cmake -S . -B build
@@ -67,15 +67,12 @@ cmake --build build
 cmake --install build
 ```
 
-The pure Python component can then be installed into a Python
-environment using
+The generated install tree can then be used directly (e.g. by extending
+`PYTHONPATH` and/or `LD_LIBRARY_PATH`), or as the source for a further
+packaging step.
 
-```shell
-pip install .
-```
-
-The pure Python component will not function unless the compiled binary
-artifacts are also made available to the Python environment.
+Note that the `openassetio` Python package will not function unless the
+binary artifacts are also made available to your Python environment.
 
 ## Running tests
 
@@ -98,22 +95,13 @@ from the `build` directory simply run
 ctest
 ```
 
-This will build and install binary artifacts, create a Python
-environment, install the pure Python component and test dependencies,
-then execute the tests.
-
-A disadvantage of this is that the pure Python component is
-reinstalled every time tests are executed, even if no files changed.
+This will build and install binary artifacts and Python sources, create
+a Python environment, install test dependencies, then execute the tests.
 
 ### Step by step
 
-We must first build and install the binary artifacts. Assuming the CMake
-build has been configured as above, then
-
-```shell
-cmake --build build
-cmake --install build
-```
+We must first build and install the binary artifacts and Python sources,
+as above.
 
 Since the discovered Python may be different from the system Python,
 there is a convenience build target to create a Python virtual
@@ -126,13 +114,11 @@ cmake --build build --target openassetio-python-venv
 
 We can then use this environment to execute the tests.
 
-Next we must install the pure Python component and test-specific
-dependencies. Assuming the install directory is `dist` under the
-build directory (the default)
+Next we must install the test-specific dependencies. Assuming the
+install directory is `dist` under the build directory (the default)
 
 ```shell
 source build/dist/bin/activate
-pip install .
 ```
 
 We can now run the Python tests via `pytest`

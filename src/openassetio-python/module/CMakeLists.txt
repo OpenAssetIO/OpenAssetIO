@@ -103,14 +103,6 @@ endif ()
 #-----------------------------------------------------------------------
 # Create deployment targets
 
-# Install OpenAssetIO into the venv.
-# Requires: openassetio.internal.python-venv.create
-openassetio_add_pip_install_target(
-    openassetio.internal.python.install
-    "Installing OpenAssetIO core Python component"
-    ${PROJECT_SOURCE_DIR}
-)
-
 # Install OpenAssetIO Code Generator dependencies into the venv.
 openassetio_add_python_environment_dependency(
     openassetio.internal.resources-codegen.install-deps
@@ -142,6 +134,5 @@ add_custom_target(
     ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
     --target
     openassetio.internal.install
-    openassetio.internal.python.install
     openassetio.internal.resources-codegen.install
 )
