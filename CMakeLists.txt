@@ -118,11 +118,6 @@ if (OPENASSETIO_ENABLE_PYTHON)
         ""
         CACHE STRING
         "Override default Python module install directory, relative to CMAKE_INSTALL_PREFIX")
-
-    # Socket timeout for pip install. Useful to lower if working offline
-    # when all dependencies are already downloaded (pip unfortunately
-    # still attempts to contact pypi).
-    set(OPENASSETIO_PYTHON_PIP_TIMEOUT 15 CACHE STRING "Python pip socket timeout")
 endif ()
 
 # Enable C bindings, built as a separate library that depends on the
@@ -295,7 +290,6 @@ message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
 message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
 if (OPENASSETIO_ENABLE_PYTHON)
     message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
-    message(STATUS "Python pip socket timeout       = ${OPENASSETIO_PYTHON_PIP_TIMEOUT}")
 endif ()
 message(STATUS "Create test targets             = ${OPENASSETIO_ENABLE_TESTS}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")

@@ -111,17 +111,8 @@ openassetio_add_pip_install_target(
     ${PROJECT_SOURCE_DIR}
 )
 
-# Download codegen dependencies.
-openassetio_add_pip_download_target(
-    openassetio.internal.resources-codegen.download-deps
-    "Downloading codegen dependencies"
-    --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/requirements.txt"
-)
-
 # Install OpenAssetIO Code Generator into the venv.
-# Requires:
-# - openassetio.internal.resources-codegen.download-deps
-# - openassetio.internal.python-venv.create
+# Requires: openassetio.internal.python-venv.create
 openassetio_add_pip_install_target(
     openassetio.internal.resources-codegen.install
     "Installing OpenAssetIO Code Generator"
@@ -137,11 +128,6 @@ openassetio_add_pip_install_target(
 #   `add_dependencies`.
 add_custom_target(
     openassetio-python-deploy
-    COMMAND
-    ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
-    --target
-    openassetio.internal.python-venv.download-deps
-    openassetio.internal.resources-codegen.download-deps
     COMMAND
     ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
     --target

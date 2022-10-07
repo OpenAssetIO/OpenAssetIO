@@ -9,7 +9,11 @@ v1.0.0-alpha.x
 - Added `[[nodiscard]]` attribute to various `make` factory functions,
   may generate additional compiler warnings in your project.
 
-
+- Removed predownload of test dependencies, meaning contributors must
+  reuse their python environments in order to run tests offline.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+  
+  
 ### New Features
 
 - Added `simpleResolver.py` example host (under `resources/examples`),
