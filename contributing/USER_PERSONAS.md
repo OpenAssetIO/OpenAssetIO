@@ -3,9 +3,12 @@
 > Note: This page is a WIP, please add/suggest omissions through PR
 
 As a project, the majority of OpenAssetIO users are software developers.
-We count a "user" as someone who interacts with the code base and/or
-distribution, rather than with any higher-order functionality exposed by
-an application integrating the API.
+We use the term "user" for anyone who interacts with release artifacts
+directly (which could include building their own from source).
+
+Developers working on OpenAssetIO itself are known as
+"contributors". Anyone interacting with higher-order functionality
+exposed by an OpenAssetIO integration is an "end user".
 
 -   [Commercial DCC tool author](#commercial-dcc-tool-author)
 -   [Proprietary DCC tool author](#proprietary-dcc-tool-author)
@@ -26,12 +29,10 @@ maintaining desktop applications that typically run on desktop operating
 systems. These applications themselves often act as a closed platform
 for end user and plugin developers. Most of these developers work for an
 ISV (Independent Software Vendor) who license their products through a
-perpetual licence
-
--   annual maintenance or subscription model. Releases of their tools are
-    usually a mix of iterative refinement and headline feature development
-    to drive the sales cycle. As such, release windows are subject to
-    influence by many commercial and technical factors.
+perpetual licence, annual maintenance or subscription model. Releases of
+their tools are usually a mix of iterative refinement and headline
+feature development to drive the sales cycle. As such, release windows
+are subject to influence by many commercial and technical factors.
 
 These products are extensively customized in the field when deployed and
 are required to provide robust, stable API surface areas to facilitate
