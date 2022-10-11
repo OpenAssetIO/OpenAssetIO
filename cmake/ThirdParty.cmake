@@ -78,21 +78,6 @@ if (OPENASSETIO_ENABLE_PYTHON)
 
 
     #-------------------------------------------------------------------
-    # `pip` target creation functions
-
-    # Install Python package from cached package download directory.
-    function(openassetio_add_pip_install_target target_name description)
-        add_custom_target(
-            ${target_name}
-            COMMAND ${CMAKE_COMMAND} -E echo -- ${description}
-            COMMAND
-            ${OPENASSETIO_PYTHON_VENV_EXE} -m pip install
-            ${ARGN}
-        )
-    endfunction()
-
-
-    #-------------------------------------------------------------------
     # Target to create a Python virtual environment in the install tree.
 
     # Target to create a Python environment in the install directory.
@@ -118,17 +103,21 @@ if (OPENASSETIO_ENABLE_PYTHON)
     add_custom_target(openassetio-python-venv)
     add_dependencies(openassetio-python-venv openassetio.internal.python-venv.create)
 
-    # Add Python packages as a dependency of the top-level Python
-    # environment creation convenience target.
+    # Add Python packages to be installed as a dependency of the
+    # top-level Python environment creation convenience target.
     #
     # Also adds Python virtualenv as a build dependency of installing
     # the package(s).
     function(openassetio_add_python_environment_dependency target_name requirements_file_path)
-        # Install dependencies.
-        openassetio_add_pip_install_target(
+        # Add a `pip install` target to install the Python packages
+        # listed in the given requirements.txt into the test venv.
+        add_custom_target(
             ${target_name}
+            COMMAND
+            ${CMAKE_COMMAND} -E echo
             "Installing Python environment dependencies for ${target_name}"
-            --requirement ${requirements_file_path}
+            COMMAND
+            ${OPENASSETIO_PYTHON_VENV_EXE} -m pip install --requirement ${requirements_file_path}
         )
         # Python environment must be available to install into.
         add_dependencies(
