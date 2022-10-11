@@ -46,6 +46,19 @@
       }
     },
     {
+      "name": "test-custom-python-env",
+      "displayName": "Testing w/o Python venv",
+      "description": "Runs all test cases in the external Python environment",
+      "inherits": [
+        "enable-targets-all",
+        "enable-tests",
+        "disable-test-venv"
+      ],
+      "cacheVariables": {
+        "CMAKE_VERBOSE_MAKEFILE": "ON"
+      }
+    },
+    {
       "name": "enable-tests",
       "hidden": true,
       "cacheVariables": {
@@ -77,6 +90,13 @@
         "OPENASSETIO_ENABLE_PYTHON": "ON",
         "OPENASSETIO_ENABLE_C": "ON",
         "OPENASSETIO_BUILD_PERFTEST": "ON"
+      }
+    },
+    {
+      "name": "disable-test-venv",
+      "hidden": true,
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_PYTHON_TEST_VENV": "OFF"
       }
     }
   ]

@@ -56,17 +56,24 @@ if (OPENASSETIO_ENABLE_PYTHON)
 
 
     #-------------------------------------------------------------------
-    # Locate Python environment in build/install tree.
+    # Locate Python environment
 
-    # Get path to Python executable in the created venv, and a way to activate
-    # the venv itself.
+    # Get path to Python executable in the (potentially) created venv.
     if (WIN32)
-        set(OPENASSETIO_PYTHON_VENV_ACTIVATE "${CMAKE_INSTALL_PREFIX}/Scripts/activate.bat")
-        set(OPENASSETIO_PYTHON_VENV_EXE "${CMAKE_INSTALL_PREFIX}/Scripts/python.exe")
+        set(OPENASSETIO_PYTHON_VENV_EXE "${PROJECT_BINARY_DIR}/test-venv/Scripts/python.exe")
     else ()
-        set(OPENASSETIO_PYTHON_VENV_ACTIVATE
-            . "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/activate")
-        set(OPENASSETIO_PYTHON_VENV_EXE "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/python")
+        set(OPENASSETIO_PYTHON_VENV_EXE
+            "${PROJECT_BINARY_DIR}/test-venv/${CMAKE_INSTALL_BINDIR}/python")
+    endif ()
+
+    # Get path to Python executable used for running tests etc.
+    if (OPENASSETIO_ENABLE_PYTHON_TEST_VENV)
+        set(OPENASSETIO_PYTHON_EXE ${OPENASSETIO_PYTHON_VENV_EXE})
+    else ()
+        # Use external environment's Python. E.g. this could be a
+        # manually `activate`d environment, ideally created using the
+        # openassetio-python-venv target.
+        set(OPENASSETIO_PYTHON_EXE python)
     endif ()
 
 
@@ -74,17 +81,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
     # `pip` target creation functions
 
     # Install Python package from cached package download directory.
-    function (openassetio_add_pip_install_target target_name description)
+    function(openassetio_add_pip_install_target target_name description)
         add_custom_target(
             ${target_name}
             COMMAND ${CMAKE_COMMAND} -E echo -- ${description}
             COMMAND
             ${OPENASSETIO_PYTHON_VENV_EXE} -m pip install
-            # For speed, build from the venv rather than copying the
-            # whole project to a temporary environment. Note that this
-            # is a pip feature, setuptools also has its own build cache
-            # (see setup.cfg). This flag roughly halves test runtime.
-            --no-build-isolation
             ${ARGN}
         )
     endfunction()
@@ -97,12 +99,14 @@ if (OPENASSETIO_ENABLE_PYTHON)
     # If the venv already exists then this is a no-op.
     add_custom_target(
         openassetio.internal.python-venv.create
-        COMMAND ${CMAKE_COMMAND} -E echo -- Creating Python environment in ${CMAKE_INSTALL_PREFIX}
-        COMMAND ${Python_EXECUTABLE} -m venv ${CMAKE_INSTALL_PREFIX}
-        # Install `wheel` so that setuptools can build OpenAssetIO.
+        COMMAND ${CMAKE_COMMAND}
+        -E echo -- Creating Python environment in ${PROJECT_BINARY_DIR}/test-venv
+        COMMAND ${Python_EXECUTABLE} -m venv ${PROJECT_BINARY_DIR}/test-venv
         COMMAND
         ${OPENASSETIO_PYTHON_VENV_EXE} -m pip install --upgrade
-        wheel==0.37.1 setuptools==49.0 pip==22.2.2
+        # Pin core packages to give some basic reproducibility across
+        # environments.
+        setuptools==49.0 pip==22.2.2
     )
 
     # Add a top-level Python environment creation convenience build

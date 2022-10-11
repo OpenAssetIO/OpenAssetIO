@@ -43,7 +43,6 @@ function(openassetio_add_generic_test_target target_name)
     )
 endfunction()
 
-
 # Add fixture test to be used as a dependency of other tests.
 openassetio_add_test_fixture_target(openassetio.internal.install)
 

@@ -14,7 +14,13 @@ v1.0.0-alpha.x
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
 - Removed `setup.py` in favour of using `cmake --install` to place the 
-  python sources in the install tree.
+  python sources in the CMake install tree.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+
+- Changed location of python virtual environment created by 
+  `openassetio-python-venv` CMake build target to be outside of the 
+  CMake install tree. This target is executed during test runs if 
+  `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` is enabled.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
   
   
@@ -24,6 +30,10 @@ v1.0.0-alpha.x
   that provides a basic CLI to resolve Entity References for a supplied
   Trait Set.
 
+- Added CMake option `OPENASSETIO_ENABLE_PYTHON_TEST_VENV`, allowing the
+  user to configure whether a python virtual environment is 
+  automatically created during `ctest` execution, along with a new CMake 
+  preset `test-custom-python-env` that disables this option.
 
 ### Improvements
 

@@ -122,12 +122,23 @@ endif ()
 #
 # Add `--capture=tee-sys` to ensure output shows sanitizer errors (and
 # is useful for debugging regardless).
-function(openassetio_add_pytest_target target_name description target_directory working_directory)
+function(openassetio_add_pytest_target
+         target_name description target_directory working_directory)
+
+    # Account for windows not being able to set variables inline
+    if (WIN32)
+        list(JOIN ARGN $<SEMICOLON> pythonpath)
+        set(combined_pytest_env set PYTHONPATH=${pythonpath} ${pytest_env})
+    else()
+        list(JOIN ARGN ":" pythonpath)
+        set(combined_pytest_env export PYTHONPATH=${pythonpath} ${pytest_env})
+    endif()
+
     add_custom_target(
         ${target_name}
         COMMAND cmake -E echo -- ${description}
-        COMMAND ${OPENASSETIO_PYTHON_VENV_ACTIVATE} &&
-        ${pytest_env} python -m pytest -v --capture=tee-sys
+        COMMAND ${combined_pytest_env} &&
+        ${OPENASSETIO_PYTHON_EXE} -m pytest -v --capture=tee-sys
         ${target_directory}
         WORKING_DIRECTORY "${working_directory}"
         USES_TERMINAL
@@ -148,6 +159,7 @@ openassetio_add_pytest_target(
     "Running pytest for core Python"
     tests/python
     "${PROJECT_SOURCE_DIR}"
+    "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
 )
 
 
@@ -164,6 +176,7 @@ openassetio_add_pytest_target(
     "Running pytest for examples"
     .
     "${PROJECT_SOURCE_DIR}/resources/examples"
+    "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
 )
 
 
@@ -180,40 +193,39 @@ openassetio_add_python_environment_dependency(
 # the resources directory.
 # Requires:
 # - openassetio.internal.install
-# - openassetio.internal.resources-codegen.install
 # - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.resources-codegen-pytest
     "Running pytest for codegen"
     .
     "${PROJECT_SOURCE_DIR}/resources/codegen"
+    "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
+    "${PROJECT_SOURCE_DIR}/resources/codegen/python"
 )
 
 
 #-----------------------------------------------------------------------
 # CTest setup fixtures
 
-# Fixture: create Python environment.
-openassetio_add_test_fixture_target(openassetio-python-venv)
-
-# Fixture: install codegen.
-openassetio_add_test_fixture_target(openassetio.internal.resources-codegen.install)
-openassetio_add_test_fixture_dependencies(
-    openassetio.internal.resources-codegen.install
-    openassetio-python-venv
-)
+# Optional fixture dependency to create a Python environment in the
+# install tree.
+set(_venv_if_enabled )
+if (OPENASSETIO_ENABLE_PYTHON_TEST_VENV)
+    # Fixture: create Python environment.
+    openassetio_add_test_fixture_target(openassetio-python-venv)
+    set(_venv_if_enabled openassetio-python-venv)
+endif ()
 
 
 #-----------------------------------------------------------------------
 # CTest test targets
-
 
 # Core Python component tests.
 openassetio_add_test_target(openassetio.internal.python-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.python-pytest
     openassetio.internal.install
-    openassetio-python-venv
+    ${_venv_if_enabled}
 )
 
 # Examples tests.
@@ -221,7 +233,7 @@ openassetio_add_test_target(openassetio.internal.resources-examples-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-examples-pytest
     openassetio.internal.install
-    openassetio-python-venv
+    ${_venv_if_enabled}
 )
 
 # Code generation tests.
@@ -229,5 +241,5 @@ openassetio_add_test_target(openassetio.internal.resources-codegen-pytest)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.resources-codegen-pytest
     openassetio.internal.install
-    openassetio.internal.resources-codegen.install
+    ${_venv_if_enabled}
 )

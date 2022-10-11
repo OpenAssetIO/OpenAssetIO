@@ -77,9 +77,15 @@ binary artifacts are also made available to your Python environment.
 ## Running tests
 
 Testing is disabled by default and must be enabled by setting the
-`OPENASSETIO_ENABLE_TESTS` CMake variable. Assuming that the working
-directory is the repository root, we can configure the CMake build as
-follows
+`OPENASSETIO_ENABLE_TESTS` CMake variable.
+
+In addition, test fixtures are configured such that a Python environment
+is created during the test run. This can be disabled by setting
+`OPENASSETIO_ENABLE_PYTHON_TEST_VENV` to `OFF`. If this is `OFF` then
+you must ensure test dependencies are installed.
+
+Assuming that the working directory is the repository root, we can
+configure the CMake build as follows
 
 ```shell
 cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON
@@ -87,9 +93,9 @@ cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON
 
 ### Using `ctest`
 
-The manual steps detailed below are conveniently wrapped by CTest -
-CMake's built-in test runner. In order to execute the tests,
-from the `build` directory simply run
+The steps required to bootstrap an environment and execute the tests are
+conveniently wrapped by CTest - CMake's built-in test runner. In order
+to execute the tests, from the `build` directory simply run
 
 ```shell
 ctest
@@ -97,35 +103,6 @@ ctest
 
 This will build and install binary artifacts and Python sources, create
 a Python environment, install test dependencies, then execute the tests.
-
-### Step by step
-
-We must first build and install the binary artifacts and Python sources,
-as above.
-
-Since the discovered Python may be different from the system Python,
-there is a convenience build target to create a Python virtual
-environment in the installation directory, which ensures that the same
-Python that was linked against is used to create the environment.
-
-```shell
-cmake --build build --target openassetio-python-venv
-```
-
-We can then use this environment to execute the tests.
-
-Next we must install the test-specific dependencies. Assuming the
-install directory is `dist` under the build directory (the default)
-
-```shell
-source build/dist/bin/activate
-```
-
-We can now run the Python tests via `pytest`
-
-```shell
-pytest tests/python
-```
 
 ## Using Vagrant
 
