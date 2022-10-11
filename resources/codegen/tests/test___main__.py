@@ -21,6 +21,7 @@ import datetime
 import logging
 import os
 import subprocess
+import sys
 
 
 class Test_CLI_exit_code:
@@ -212,7 +213,7 @@ class Test_CLI_default_languages:
 
 
 def execute_cli(*args):
-    all_args = ["openassetio-codegen"]
+    all_args = [sys.executable, "-m", "openassetio_codegen"]
     all_args.extend(args)
     # We explicitly don't want an exception to be raised.
     # pylint: disable=subprocess-run-check
