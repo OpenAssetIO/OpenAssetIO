@@ -100,6 +100,9 @@ endif ()
 #-----------------------------------------------------------------------
 # Options
 
+# Enable cmake_dependent_option support
+include(CMakeDependentOption)
+
 # Surface `BUILD_SHARED_LIBS` as a non-hidden CMake option in CMake
 # GUIs. This controls whether static or shared libs are built.
 # TODO(DF): We may end up needing to support building of both shared
@@ -118,11 +121,6 @@ if (OPENASSETIO_ENABLE_PYTHON)
         ""
         CACHE STRING
         "Override default Python module install directory, relative to CMAKE_INSTALL_PREFIX")
-
-    # Socket timeout for pip install. Useful to lower if working offline
-    # when all dependencies are already downloaded (pip unfortunately
-    # still attempts to contact pypi).
-    set(OPENASSETIO_PYTHON_PIP_TIMEOUT 15 CACHE STRING "Python pip socket timeout")
 endif ()
 
 # Enable C bindings, built as a separate library that depends on the
@@ -179,6 +177,14 @@ endif ()
 
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
+
+cmake_dependent_option(
+    OPENASSETIO_ENABLE_PYTHON_TEST_VENV
+    "Enable CTest fixture to create a Python environment during test runs"
+    ON
+    OPENASSETIO_ENABLE_TESTS
+    OFF
+)
 
 # Enable clang-format formatting check.
 option(OPENASSETIO_ENABLE_CLANG_FORMAT "Enable clang-format check during build" OFF)
@@ -295,9 +301,9 @@ message(STATUS "Build shared libs               = ${BUILD_SHARED_LIBS}")
 message(STATUS "Enable Python module build      = ${OPENASSETIO_ENABLE_PYTHON}")
 if (OPENASSETIO_ENABLE_PYTHON)
     message(STATUS "Python relative install dir     = ${OPENASSETIO_PYTHON_SITEDIR}")
-    message(STATUS "Python pip socket timeout       = ${OPENASSETIO_PYTHON_PIP_TIMEOUT}")
 endif ()
 message(STATUS "Create test targets             = ${OPENASSETIO_ENABLE_TESTS}")
+message(STATUS "Create Python venv during tests = ${OPENASSETIO_ENABLE_PYTHON_TEST_VENV}")
 message(STATUS "Warnings as errors              = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization    = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs      = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")

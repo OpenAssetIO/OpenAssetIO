@@ -103,53 +103,8 @@ endif ()
 #-----------------------------------------------------------------------
 # Create deployment targets
 
-# Install OpenAssetIO into the venv.
-# Requires: openassetio.internal.python-venv.create
-openassetio_add_pip_install_target(
-    openassetio.internal.python.install
-    "Installing OpenAssetIO core Python component"
-    ${PROJECT_SOURCE_DIR}
-)
-
-# Download codegen dependencies.
-openassetio_add_pip_download_target(
-    openassetio.internal.resources-codegen.download-deps
-    "Downloading codegen dependencies"
-    --requirement "${PROJECT_SOURCE_DIR}/resources/codegen/requirements.txt"
-)
-
-# Install OpenAssetIO Code Generator into the venv.
-# Requires:
-# - openassetio.internal.resources-codegen.download-deps
-# - openassetio.internal.python-venv.create
-openassetio_add_pip_install_target(
-    openassetio.internal.resources-codegen.install
-    "Installing OpenAssetIO Code Generator"
-    ${PROJECT_SOURCE_DIR}/resources/codegen
-)
-
-# Convenience deployment target that will ensure a Python
-# environment is created and that both C/C++ component and Python
-# component is installed into it.
-# TODO(DF): This target is due to be removed along with a wider rethink
-#   of the project structure. If a target akin to this is to remain,
-#   then it should be split into sub-targets and wired together with
-#   `add_dependencies`.
-add_custom_target(
-    openassetio-python-deploy
-    COMMAND
-    ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
-    --target
-    openassetio.internal.python-venv.download-deps
-    openassetio.internal.resources-codegen.download-deps
-    COMMAND
-    ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
-    --target
-    openassetio.internal.python-venv.create
-    COMMAND
-    ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}
-    --target
-    openassetio.internal.install
-    openassetio.internal.python.install
-    openassetio.internal.resources-codegen.install
+# Install OpenAssetIO Code Generator dependencies into the venv.
+openassetio_add_python_environment_dependency(
+    openassetio.internal.resources-codegen.install-deps
+    ${PROJECT_SOURCE_DIR}/resources/codegen/requirements.txt
 )

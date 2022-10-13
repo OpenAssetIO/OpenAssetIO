@@ -164,14 +164,14 @@ Platform compatible [Docker](https://www.docker.com/) images [here](https://gith
 The CY22 image contains all dependencies currently required for building
 OpenAssetIO. For example, to build and install the C/C++ component of
 OpenAssetIO (by default  to a `dist` directory under the build
-directory)
-via a container, from the repository root run
+directory) via a container, from the repository root run
 
 ```shell
 docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
   cd /src && \
   cmake -S . -B build && \
-  cmake --build build --target openassetio-python-deploy'
+  cmake --build build && \
+  cmake --install build'
 ```
 
 #### Other build methods

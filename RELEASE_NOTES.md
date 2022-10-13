@@ -9,13 +9,31 @@ v1.0.0-alpha.x
 - Added `[[nodiscard]]` attribute to various `make` factory functions,
   may generate additional compiler warnings in your project.
 
+- Removed predownload of test dependencies, meaning contributors must
+  reuse their python environments in order to run tests offline.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
+- Removed `setup.py` in favour of using `cmake --install` to place the 
+  python sources in the CMake install tree.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+
+- Changed location of python virtual environment created by 
+  `openassetio-python-venv` CMake build target to be outside of the 
+  CMake install tree. This target is executed during test runs if 
+  `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` is enabled.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+  
+  
 ### New Features
 
 - Added `simpleResolver.py` example host (under `resources/examples`),
   that provides a basic CLI to resolve Entity References for a supplied
   Trait Set.
 
+- Added CMake option `OPENASSETIO_ENABLE_PYTHON_TEST_VENV`, allowing the
+  user to configure whether a python virtual environment is 
+  automatically created during `ctest` execution, along with a new CMake 
+  preset `test-custom-python-env` that disables this option.
 
 ### Improvements
 
@@ -23,6 +41,10 @@ v1.0.0-alpha.x
   that has not yet been updated for the C++ api,
   and is thus inherently unstable.
   [#600](https://github.com/OpenAssetIO/OpenAssetIO/issues/600)
+
+- Changed CMake configuration so that `openassetio-python-venv` target
+  now automatically installs python dependencies of enabled components.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
 
 v1.0.0-alpha.4

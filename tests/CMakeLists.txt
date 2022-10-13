@@ -25,7 +25,7 @@ endfunction()
 # Adds the "Test" label to allow filtering. I.e. unit tests have the
 # "Test" label, whereas fixture tests do not. This then allows devs to
 # skip unnecessary fixtures, e.g.
-#   ctest -FA 'venv.create$|download-deps$|install-deps$' -L Test
+#   ctest -FA 'openassetio-python-venv' -L Test
 # will skip creating the Python environment and downloading and
 # installing dependencies.
 function(openassetio_add_test_target target_name)
@@ -42,7 +42,6 @@ function(openassetio_add_generic_test_target target_name)
         COMMAND ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target ${target_name}
     )
 endfunction()
-
 
 # Add fixture test to be used as a dependency of other tests.
 openassetio_add_test_fixture_target(openassetio.internal.install)

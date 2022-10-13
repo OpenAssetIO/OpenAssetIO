@@ -58,8 +58,8 @@ If shared library builds are disabled, then the core library will be
 built and installed as a static library, and statically linked into the
 Python module.
 
-In order to build and install the binary artifacts, assuming the current
-working directory is at the repository root, run
+In order to build and install the binary artifacts and Python sources,
+assuming the current working directory is at the repository root, run
 
 ```shell
 cmake -S . -B build
@@ -67,22 +67,25 @@ cmake --build build
 cmake --install build
 ```
 
-The pure Python component can then be installed into a Python
-environment using
+The generated install tree can then be used directly (e.g. by extending
+`PYTHONPATH` and/or `LD_LIBRARY_PATH`), or as the source for a further
+packaging step.
 
-```shell
-pip install .
-```
-
-The pure Python component will not function unless the compiled binary
-artifacts are also made available to the Python environment.
+Note that the `openassetio` Python package will not function unless the
+binary artifacts are also made available to your Python environment.
 
 ## Running tests
 
 Testing is disabled by default and must be enabled by setting the
-`OPENASSETIO_ENABLE_TESTS` CMake variable. Assuming that the working
-directory is the repository root, we can configure the CMake build as
-follows
+`OPENASSETIO_ENABLE_TESTS` CMake variable.
+
+In addition, test fixtures are configured such that a Python environment
+is created during the test run. This can be disabled by setting
+`OPENASSETIO_ENABLE_PYTHON_TEST_VENV` to `OFF`. If this is `OFF` then
+you must ensure test dependencies are installed.
+
+Assuming that the working directory is the repository root, we can
+configure the CMake build as follows
 
 ```shell
 cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON
@@ -90,57 +93,16 @@ cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON
 
 ### Using `ctest`
 
-The manual steps detailed below are conveniently wrapped by CTest -
-CMake's built-in test runner. In order to execute the tests,
-from the `build` directory simply run
+The steps required to bootstrap an environment and execute the tests are
+conveniently wrapped by CTest - CMake's built-in test runner. In order
+to execute the tests, from the `build` directory simply run
 
 ```shell
 ctest
 ```
 
-This will build and install binary artifacts, create a Python
-environment, install the pure Python component and test dependencies,
-then execute the tests.
-
-A disadvantage of this is that the pure Python component is
-reinstalled every time tests are executed, even if no files changed.
-
-### Step by step
-
-We must first build and install the binary artifacts. Assuming the CMake
-build has been configured as above, then
-
-```shell
-cmake --build build
-cmake --install build
-```
-
-Since the discovered Python may be different from the system Python,
-there is a convenience build target to create a Python virtual
-environment in the installation directory, which ensures that the same
-Python that was linked against is used to create the environment.
-
-```shell
-cmake --build build --target openassetio-python-venv
-```
-
-We can then use this environment to execute the tests.
-
-Next we must install the pure Python component and test-specific
-dependencies. Assuming the install directory is `dist` under the
-build directory (the default)
-
-```shell
-source build/dist/bin/activate
-pip install .
-pip install -r tests/python/requirements.txt
-```
-
-We can now run the Python tests via `pytest`
-
-```shell
-pytest tests/python
-```
+This will build and install binary artifacts and Python sources, create
+a Python environment, install test dependencies, then execute the tests.
 
 ## Using Vagrant
 
@@ -164,26 +126,11 @@ vagrant up
 # Wait a while...
 vagrant ssh
 cmake -S openassetio -B build --install-prefix ~/dist \
-  --toolchain ~/conan/conan_paths.cmake -DOPENASSETIO_ENABLE_TESTS=ON
+  --toolchain ~/conan/conan_paths.cmake
 ```
 
-Then we can run the following steps to build, install and run the tests
-
-```shell
-cmake --build build
-cmake --install build
-cmake --build build --target openassetio-python-venv
-source build/dist/bin/activate
-pip install ./openassetio
-pip install -r openassetio/tests/python/requirements.txt
-pytest openassetio/tests/python
-```
-or alternatively, simply
-
-```shell
-cd build
-ctest
-```
+Then we can run the usual steps (see above) to build and install
+OpenAssetIO, and run the tests (if enabled).
 
 ## CMake presets
 
