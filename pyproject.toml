@@ -1,3 +1,73 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2021-2022 The Foundry Visionmongers Ltd
+
+[build-system]
+requires = [
+    "setuptools>=65.5.0",
+    "cmake>=3.24.1.1",
+    "ninja>=1.10.2.4"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openassetio"
+version = "1.0.0a4"
+requires-python = ">=3.9"
+
+authors = [
+    { name = "Contributors to the OpenAssetIO project", email = "openassetio-discussion@lists.aswf.io" }
+]
+description = """\
+    An open-source interoperability standard for tools and content management systems used in \
+    media production.\
+    """
+keywords = ["asset", "ams", "dam", "mam", "pipeline", "dcc", "media", "resolver"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Object Brokering",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: System :: Filesystems"
+]
+
+[project.urls]
+Source = "https://github.com/OpenAssetIO/OpenAssetIO"
+Documentation = "https://openassetio.github.io/OpenAssetIO"
+Issues = "https://github.com/OpenAssetIO/OpenAssetIO/issues"
+
+[project.readme]
+# Don't link to README.md, since it has local hrefs that won't work on
+# PyPI. Instead, boil down the first couple of sections to give a brief
+# overview.
+text = """
+    In modern creative pipelines, data is often managed by an authoritative system (Asset\
+    Management System, Digital Asset Manager, MAM, et. al).
+
+    It is common for media creation tools to reference this managed data by its present location\
+    in a file system.
+
+    OpenAssetIO enables tools to reference managed data by identity (using an "Entity Reference")\
+    instead of a file system path.
+
+    This is achieved through the definition of a common set of interactions between a host of the\
+    API (eg: a Digital Content Creation tool or pipeline script) and an Asset Management System.
+
+    This common API surface area removes the need for common pipeline business logic to be\
+    re-implemented against the native API of each tool, and allows the tools themselves to design\
+    new workflows that streamline the creation of complex assets.\
+    """
+content-type = "text/markdown"
+
 [tool.pylint.messages_control]
 disable = [
     "too-many-arguments",

@@ -13,17 +13,12 @@ v1.0.0-alpha.x
   reuse their python environments in order to run tests offline.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
-- Removed `setup.py` in favour of using `cmake --install` to place the 
-  python sources in the CMake install tree.
-  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
-
-- Changed location of python virtual environment created by 
-  `openassetio-python-venv` CMake build target to be outside of the 
-  CMake install tree. This target is executed during test runs if 
+- Changed location of python virtual environment created by
+  `openassetio-python-venv` CMake build target to be outside of the
+  CMake install tree. This target is executed during test runs if
   `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` is enabled.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
-  
-  
+
 ### New Features
 
 - Added `simpleResolver.py` example host (under `resources/examples`),
@@ -31,11 +26,22 @@ v1.0.0-alpha.x
   Trait Set.
 
 - Added CMake option `OPENASSETIO_ENABLE_PYTHON_TEST_VENV`, allowing the
-  user to configure whether a python virtual environment is 
-  automatically created during `ctest` execution, along with a new CMake 
+  user to configure whether a python virtual environment is
+  automatically created during `ctest` execution, along with a new CMake
   preset `test-custom-python-env` that disables this option.
 
 ### Improvements
+
+- Added Python sources to the CMake install tree (rather than requiring
+  a separate `pip install` for the pure Python component), effectively
+  creating a complete bundle that can be used directly or packaged.
+  [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
+
+- Updated `setup.py` to build the Python extension module. Assuming
+  CMake's `find_package` can locate dependencies, then `pip install .`
+  is all that is needed to build and install OpenAssetIO into a Python
+  environment.
+  [#630](https://github.com/OpenAssetIO/OpenAssetIO/issues/630)
 
 - Added 'unstable' warning to docs to notify of python api
   that has not yet been updated for the C++ api,

@@ -18,3 +18,13 @@ cmake_paths
 # public ConanCenter packages (e.g. pybind11) since they disallow
 # bundling of `<PackageName>Config.cmake`-like files in the package.
 cmake_find_package
+
+[options]
+# Without the following, cpython doesn't get installed with all
+# artifacts on Windows, e.g. `python -m venv` doesn't work.
+# See: https://github.com/conan-io/conan-center-index/issues/9332
+# TODO(DF): However, with the following, the bundled Python interpreter
+# doesn't work on Linux because it cannot find libpython (RPATH issue),
+# at least when built from source.  We should enable this conditionally
+# when we switch to conanfile.py.
+#cpython:shared=True
