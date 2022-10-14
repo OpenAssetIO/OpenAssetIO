@@ -46,5 +46,12 @@ void registerLoggerInterface(const py::module& mod) {
   loggerInterface.def_readonly_static("kSeverityNames", &LoggerInterface::kSeverityNames);
 
   loggerInterface.def(py::init())
-      .def("log", &LoggerInterface::log, py::arg("severity"), py::arg("message"));
+      .def("log", &LoggerInterface::log, py::arg("severity"), py::arg("message"))
+      .def("debugApi", &LoggerInterface::debugApi, py::arg("message"))
+      .def("debug", &LoggerInterface::debug, py::arg("message"))
+      .def("info", &LoggerInterface::info, py::arg("message"))
+      .def("progress", &LoggerInterface::progress, py::arg("message"))
+      .def("warning", &LoggerInterface::warning, py::arg("message"))
+      .def("error", &LoggerInterface::error, py::arg("message"))
+      .def("critical", &LoggerInterface::critical, py::arg("message"));
 }

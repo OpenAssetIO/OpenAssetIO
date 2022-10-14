@@ -131,6 +131,47 @@ class Test_LoggerInterface:
         for index, severity in enumerate(all_severities):
             assert severity.value == index
 
+    def test_debugApi_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "a debugApi message"
+        mock_logger.debugApi(message)
+        mock_logger.mock.log.assert_called_once_with(
+            lg.LoggerInterface.Severity.kDebugApi, message
+        )
+
+    def test_debug_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "a debug message"
+        mock_logger.debug(message)
+        mock_logger.mock.log.assert_called_once_with(lg.LoggerInterface.Severity.kDebug, message)
+
+    def test_info_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "an info message"
+        mock_logger.info(message)
+        mock_logger.mock.log.assert_called_once_with(lg.LoggerInterface.Severity.kInfo, message)
+
+    def test_progress_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "a progress message"
+        mock_logger.progress(message)
+        mock_logger.mock.log.assert_called_once_with(
+            lg.LoggerInterface.Severity.kProgress, message
+        )
+
+    def test_warning_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "a warning message"
+        mock_logger.warning(message)
+        mock_logger.mock.log.assert_called_once_with(lg.LoggerInterface.Severity.kWarning, message)
+
+    def test_error_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "an error message"
+        mock_logger.error(message)
+        mock_logger.mock.log.assert_called_once_with(lg.LoggerInterface.Severity.kError, message)
+
+    def test_critical_calls_log_with_expected_severity_and_message(self, mock_logger):
+        message = "a critical message"
+        mock_logger.critical(message)
+        mock_logger.mock.log.assert_called_once_with(
+            lg.LoggerInterface.Severity.kCritical, message
+        )
+
 
 class Test_SeverityFilter_inheritance:
     def test_class_is_final(self):

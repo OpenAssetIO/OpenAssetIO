@@ -49,6 +49,26 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * Severity.
    */
   virtual void log(Severity severity, const Str& message) = 0;
+
+  /**
+   * @name Conveniences
+   * @{
+   *
+   * Conveniences, equivalent to calling @ref LoggerInterface.log "log"
+   * with the corresponding @ref Severity.
+   */
+
+  void debugApi(const Str& message);
+  void debug(const Str& message);
+  void info(const Str& message);
+  void progress(const Str& message);
+  void warning(const Str& message);
+  void error(const Str& message);
+  void critical(const Str& message);
+
+  /**
+   * @}
+   */
 };
 }  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
