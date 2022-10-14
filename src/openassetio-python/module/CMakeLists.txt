@@ -11,12 +11,14 @@ install(
     TARGETS openassetio-python-module
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
     DESTINATION ${install_subdir}
+    COMPONENT openassetio-python-module
 )
 
 # Set Python extension module name, and remove any ("lib") prefix.
 set_target_properties(openassetio-python-module
     PROPERTIES
-    OUTPUT_NAME _openassetio
+    # SOABI is good practice, and is required for `--editable` installs.
+    OUTPUT_NAME _openassetio.${Python_SOABI}
     PREFIX ""
     # Python modules on macOS must be .so rather than .dylib. But that
     # means clang will complain:

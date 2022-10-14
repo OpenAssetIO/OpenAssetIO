@@ -59,6 +59,17 @@
       }
     },
     {
+      "name": "pip",
+      "displayName": "Python setup.py",
+      "description": "Python extension module for consumption by setuptools",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_SHARED_LIBS": "OFF",
+        "OPENASSETIO_PYTHON_SITEDIR": ".",
+        "Python_FIND_VIRTUALENV": "STANDARD"
+      }
+    },
+    {
       "name": "enable-tests",
       "hidden": true,
       "cacheVariables": {
