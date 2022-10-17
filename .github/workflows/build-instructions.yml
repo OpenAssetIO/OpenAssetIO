@@ -26,3 +26,41 @@ jobs:
           cmake -S . -B build && \
           cmake --build build && \
           cmake --install build'
+
+  pip_install:
+    name: Pip install on  ${{ matrix.os.id }}
+    runs-on: ${{ matrix.os.id }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - id: windows-2019
+            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
+            shell: cmd
+          - id: ubuntu-20.04
+            preamble: ""
+            shell: bash
+        # Temporarily disabling macOS CI due to pybind issue, see:
+        #   https://github.com/conan-io/conan-center-index/pull/11075
+        # - os: macos-10.15
+    defaults:
+      run:
+        shell: ${{ matrix.os.shell }}
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Bootstrap
+      uses: ./.github/bootstrap_platform
+
+    - name: Install using pip
+      run: |
+        ${{ matrix.os.preamble }}
+        pip install .
+      env:
+        CMAKE_TOOLCHAIN_FILE: ~/conan/conan_paths.cmake
+
+    - name: Install test dependencies
+      run: pip install -r tests/python/requirements.txt
+
+    - name: Run Python tests
+      run: pytest tests/python/openassetio

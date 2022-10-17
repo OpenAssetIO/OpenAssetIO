@@ -1,0 +1,41 @@
+name: Bootstrap
+description: Bootstrap platform
+runs:
+  using: "composite"
+  steps:
+
+  - name: Set up Python
+    uses: actions/setup-python@v2
+    with:
+      # CY2022 (https://vfxplatform.com)
+      python-version: "3.9"
+
+  - name: Cache conan packages
+    id: cache-conan
+    uses: actions/cache@v2
+    with:
+      path: ~/conan
+      key: ${{ matrix.os.id }}-conan-${{ github.run_id }}
+      restore-keys: ${{ matrix.os.id }}-conan-
+
+  - name: Install dependencies (Unix)
+    if: runner.os != 'Windows'
+    # Configure the system and install library dependencies via conan
+    # packages.
+    run: |
+      source resources/build/bootstrap-${{ matrix.os.id }}.sh
+    env:
+      WORKSPACE: .
+    # Annoyingly required for Github composite actions.
+    shell: bash
+
+  - name: Install dependencies (Windows)
+    if: runner.os == 'Windows'
+    # Configure the system and install library dependencies via conan
+    # packages.
+    run: |
+      cmd /C resources\build\bootstrap-${{ matrix.os.id }}.bat
+    env:
+      WORKSPACE: .
+    # Annoyingly required for Github composite actions.
+    shell: cmd

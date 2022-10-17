@@ -5,13 +5,15 @@ jobs:
   pylint:
     runs-on: ubuntu-latest
     name: Pylint
+    strategy:
+      matrix:
+        os:
+          - id: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
 
       - name: Install dependencies
         run: |
@@ -22,6 +24,8 @@ jobs:
       - name: Build
         run: |
           python -m pip install .
+        env:
+          CMAKE_TOOLCHAIN_FILE: ~/conan/conan_paths.cmake
 
       - name: Lint
         uses: TheFoundryVisionmongers/fn-pylint-action@v1.1

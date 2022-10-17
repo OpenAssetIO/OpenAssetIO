@@ -8,20 +8,19 @@ on:
     paths-ignore:
       - 'docs/**'
 
-jobs:
   test:
-    name: ${{ matrix.config.os }}
-    runs-on: ${{ matrix.config.os }}
+    name: Test ${{ matrix.os.id }}
+    runs-on: ${{ matrix.os.id }}
     strategy:
       fail-fast: false
       matrix:
         # We can't properly align to the VFX Reference Platform as this
         # requires glibc 2.17, which is older than any of the available
         # environments.
-        config:
-        - os: windows-2019
+        os:
+        - id: windows-2019
           vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
-        - os: ubuntu-20.04
+        - id: ubuntu-20.04
         # Temporarily disabling macOS CI due to pybind issue, see:
         #   https://github.com/conan-io/conan-center-index/pull/11075
         # - os: macos-10.15
@@ -29,37 +28,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        # CY2022 (https://vfxplatform.com)
-        python-version: 3.9
-
-    - name: Cache conan packages
-      id: cache-conan
-      uses: actions/cache@v2
-      with:
-        path: ~/conan
-        key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
-        restore-keys: ${{ matrix.config.os }}-conan-
-
-    - name: Install dependencies (Unix)
-      if: runner.os != 'Windows'
-      # Configure the system and install library dependencies via conan
-      # packages.
-      run: |
-        source resources/build/bootstrap-${{ matrix.config.os }}.sh
-      env:
-        WORKSPACE: .
-
-    - name: Install dependencies (Windows)
-      if: runner.os == 'Windows'
-      # Configure the system and install library dependencies via conan
-      # packages.
-      run: |
-        cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
-      env:
-        WORKSPACE: .
+    - name: Bootstrap
+      uses: ./.github/bootstrap_platform
 
     - name: Configure CMake build (Unix)
       if: runner.os != 'Windows'
@@ -72,7 +42,7 @@ jobs:
     - name: Configure CMake build (Windows)
       if: runner.os == 'Windows'
       run: >
-        call "${{ matrix.config.vcvars }}"
+        call "${{ matrix.os.vcvars }}"
 
         cmake -G Ninja -S . -B build --install-prefix %GITHUB_WORKSPACE%\dist
         --toolchain %USERPROFILE%\conan\conan_paths.cmake -DCMAKE_VERBOSE_MAKEFILE=ON
@@ -88,7 +58,7 @@ jobs:
     - name: Build, install and test (Windows)
       if: runner.os == 'Windows'
       run: |
-        call "${{ matrix.config.vcvars }}"
+        call "${{ matrix.os.vcvars }}"
         ctest -VV --test-dir build --parallel 2
       shell: cmd
 
