@@ -46,6 +46,10 @@ v1.0.0-alpha.x
   now automatically installs python dependencies of enabled components.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
+- Added convenience methods `debugApi`, `debug`, `info`, `progress`,
+  `warning`, `error`, `critical` to `LoggerInterface` to log messages of
+  the respective severity.
+
 
 v1.0.0-alpha.4
 --------------
