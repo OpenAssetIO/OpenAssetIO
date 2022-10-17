@@ -3,6 +3,8 @@ var searchData=
   ['data',['data',['../structoa___const_string_view.html#ae62ff5b9a94eb24120cdac857594d217',1,'oa_ConstStringView::data()'],['../structoa___string_view.html#ac075fa2232ae3f2d7dc9de4bf5192e97',1,'oa_StringView::data()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a7b5e385125d7f7c51aff4fee5697e2e7',1,'openassetio::v1::trait::TraitBase::data()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a4d70f25d5ed9298c6a11913e27692623',1,'openassetio::v1::trait::TraitBase::data() const ']]],
   ['dataname',['dataName',['../classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html#af5934144fbb5055a5883af563fdb3739',1,'openassetio::_core::objects::UntypedProperty']]],
   ['datavar',['dataVar',['../classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html#aec8bb2949600a452c788c5932f036565',1,'openassetio::_core::objects::UntypedProperty']]],
+  ['debug',['debug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a5e4f3779b06bc0c88d2e755d21086de3',1,'openassetio::v1::log::LoggerInterface']]],
+  ['debugapi',['debugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4f924d8c287456dfbd4a03545a2fc241',1,'openassetio::v1::log::LoggerInterface']]],
   ['debugapicall',['debugApiCall',['../namespaceopenassetio_1_1__core_1_1debug.html#a22d8ba7ba93522e2d71fe34e0ddaac06',1,'openassetio::_core::debug']]],
   ['debugcall',['debugCall',['../namespaceopenassetio_1_1__core_1_1debug.html#ab09aa7d02814e9d915f88bc793962b25',1,'openassetio::_core::debug']]],
   ['debuggable',['Debuggable',['../classopenassetio_1_1__core_1_1debug_1_1_debuggable.html',1,'openassetio::_core::debug']]],

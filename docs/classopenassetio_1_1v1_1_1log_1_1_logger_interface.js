@@ -10,5 +10,12 @@ var classopenassetio_1_1v1_1_1log_1_1_logger_interface =
       [ "kCritical", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b", null ]
     ] ],
     [ "~LoggerInterface", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766", null ],
-    [ "log", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085", null ]
+    [ "critical", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0144f67265558357e7ea17f5da008a50", null ],
+    [ "debug", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a5e4f3779b06bc0c88d2e755d21086de3", null ],
+    [ "debugApi", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4f924d8c287456dfbd4a03545a2fc241", null ],
+    [ "error", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#acd48694a8fe2a806484b94354e9eb33c", null ],
+    [ "info", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4a7fdaff6041f40a42c57f6391726e08", null ],
+    [ "log", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085", null ],
+    [ "progress", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#af0d0e0e4f2328eb0fbe63229d35c7d10", null ],
+    [ "warning", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a75cbc71708c2aa9da382074804ada09c", null ]
 ];

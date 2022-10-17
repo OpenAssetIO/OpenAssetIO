@@ -1,6 +1,8 @@
 var searchData=
 [
   ['data',['data',['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a7b5e385125d7f7c51aff4fee5697e2e7',1,'openassetio::v1::trait::TraitBase::data()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a4d70f25d5ed9298c6a11913e27692623',1,'openassetio::v1::trait::TraitBase::data() const ']]],
+  ['debug',['debug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a5e4f3779b06bc0c88d2e755d21086de3',1,'openassetio::v1::log::LoggerInterface']]],
+  ['debugapi',['debugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4f924d8c287456dfbd4a03545a2fc241',1,'openassetio::v1::log::LoggerInterface']]],
   ['debugapicall',['debugApiCall',['../namespaceopenassetio_1_1__core_1_1debug.html#a22d8ba7ba93522e2d71fe34e0ddaac06',1,'openassetio::_core::debug']]],
   ['debugcall',['debugCall',['../namespaceopenassetio_1_1__core_1_1debug.html#ab09aa7d02814e9d915f88bc793962b25',1,'openassetio::_core::debug']]],
   ['defaultentityreference',['defaultEntityReference',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a490a0ea76fa32a9b46366aa60dea0a13',1,'openassetio.hostApi.Manager.Manager.defaultEntityReference()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.defaultEntityReference()']]],
