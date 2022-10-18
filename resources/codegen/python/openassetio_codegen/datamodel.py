@@ -36,7 +36,7 @@ Note: The `DICT` property type must be held by an
 """
 
 from enum import Enum
-from typing import NamedTuple
+from typing import List, NamedTuple, Tuple
 
 
 #
@@ -86,10 +86,10 @@ class TraitDeclaration(NamedTuple):
     description: str
     # User-facing hints as to the usage of this trait, in relation to
     # the API. This may be empty.
-    usage: list[str]
+    usage: List[str]
     # A list of properties. These are guaranteed to have unique ids.
     # This may be empty.
-    properties: list[PropertyDeclaration]
+    properties: List[PropertyDeclaration]
 
 
 #
@@ -122,7 +122,7 @@ class TraitReference(NamedTuple):
     # Trait instance from a Specification, as it handles the
     # case where a Specification may reference two identically
     # named traits in different packages or namespaces.
-    unique_name_parts: tuple[str]
+    unique_name_parts: Tuple[str]
 
 
 class SpecificationDeclaration(NamedTuple):
@@ -136,9 +136,9 @@ class SpecificationDeclaration(NamedTuple):
     description: str
     # User-facing hints as to the usage of this trait, in relation to
     # the API. This may be empty.
-    usage: list[str]
+    usage: List[str]
     # The set of unique traits composed by the Specification.
-    trait_set: list[TraitReference]
+    trait_set: List[TraitReference]
 
 
 #
@@ -178,6 +178,6 @@ class PackageDeclaration(NamedTuple):
     # A user-facing description of the package and its purpose.
     description: str
     # Trait namespaces. This may be empty.
-    traits: list[NamespaceDeclaration]
+    traits: List[NamespaceDeclaration]
     # Specification namespaces. This may be empty.
-    specifications: list[NamespaceDeclaration]
+    specifications: List[NamespaceDeclaration]

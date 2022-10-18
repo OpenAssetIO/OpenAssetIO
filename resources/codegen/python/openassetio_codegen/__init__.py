@@ -73,6 +73,8 @@ import logging
 from . import parser
 from . import generators
 
+from typing import List
+
 
 #
 # Code Generation
@@ -83,7 +85,7 @@ from . import generators
 def generate(
     description_path: str,
     output_directory: str,
-    languages: list[str],
+    languages: List[str],
     creation_callback,
     logger: logging.Logger,
     dry_run: bool = False,
