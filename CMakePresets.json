@@ -88,8 +88,7 @@
       "hidden": true,
       "cacheVariables": {
         "OPENASSETIO_ENABLE_PYTHON": "ON",
-        "OPENASSETIO_ENABLE_C": "ON",
-        "OPENASSETIO_BUILD_PERFTEST": "ON"
+        "OPENASSETIO_ENABLE_C": "ON"
       }
     },
     {
