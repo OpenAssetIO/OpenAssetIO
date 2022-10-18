@@ -79,7 +79,7 @@ class Test_ConsoleLogger:
             output.err
             == "\n".join(
                 [
-                    f"{lg.LoggerInterface.kSeverityNames[s] : >11}: A message"
+                    f"{lg.LoggerInterface.kSeverityNames[int(s)] : >11}: A message"
                     for s in all_severities
                 ]
             )
@@ -114,17 +114,27 @@ class Test_ConsoleLogger:
 class Test_LoggerInterface:
     def test_severity_names(self):
         assert (
-            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kCritical] == "critical"
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kCritical)]
+            == "critical"
         )
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kError] == "error"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kWarning] == "warning"
         assert (
-            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kProgress] == "progress"
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kError)] == "error"
         )
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kInfo] == "info"
-        assert lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kDebug] == "debug"
         assert (
-            lg.LoggerInterface.kSeverityNames[lg.LoggerInterface.Severity.kDebugApi] == "debugApi"
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kWarning)]
+            == "warning"
+        )
+        assert (
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kProgress)]
+            == "progress"
+        )
+        assert lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kInfo)] == "info"
+        assert (
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kDebug)] == "debug"
+        )
+        assert (
+            lg.LoggerInterface.kSeverityNames[int(lg.LoggerInterface.Severity.kDebugApi)]
+            == "debugApi"
         )
 
     def test_severity_index(self):
