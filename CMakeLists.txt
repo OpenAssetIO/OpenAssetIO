@@ -195,9 +195,6 @@ option(OPENASSETIO_ENABLE_CLANG_TIDY "Enable clang-tidy analysis during build" O
 # Enable cpplint linter.
 option(OPENASSETIO_ENABLE_CPPLINT "Enable cpplint linter during build" OFF)
 
-# Enable performance testing tool.
-option(OPENASSETIO_BUILD_PERFTEST "Build the performance test tool" OFF)
-
 #-----------------------------------------------------------------------
 # Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
 
@@ -328,8 +325,4 @@ add_subdirectory(src)
 
 if (OPENASSETIO_ENABLE_TESTS)
     add_subdirectory(tests)
-endif ()
-
-if (OPENASSETIO_BUILD_PERFTEST)
-    add_subdirectory(resources/perftest)
 endif ()
