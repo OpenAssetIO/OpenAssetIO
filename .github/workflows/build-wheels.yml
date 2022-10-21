@@ -1,0 +1,76 @@
+name: Build Wheels
+
+on: 
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  pull_request:
+    branches-ignore:
+      - docs
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.config.os }} - ${{matrix.python-build}}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config: 
+          - os: ubuntu-20.04
+            shell: bash
+          # - os: macos-10.15
+          #   shell: bash
+          - os: windows-2019
+            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+            shell: cmd
+          # These are the platform build strings provided to
+          # cibuildwheel, with wildcarding. See
+          # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
+        python-build: ['cp39*64', 'cp310*64']
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in the
+        # `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+        env:
+          # As we're building wheels inside a managed environment,
+          # (cibuildwheels) there is no need to install cpython. 
+          OPENASSETIO_CONAN_SKIP_CPYTHON: "True"
+
+      - name: Build wheels
+        run: |
+          ${{ matrix.config.preamble }}
+          pip install cibuildwheel==2.11.1
+          cibuildwheel --output-dir wheelhouse
+        env: 
+          # Windows + Mac runs use this environment variable, as they
+          # execute directly on the runner. Linux runs are somewhat
+          # different, and are containerised fully, therefore they get
+          # their toolchain path from pyproject.toml
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          # We matrix the python build here ourselves, rather than
+          # letting cibuildwheel do its regular python matrix, as we
+          # want to allow a full release pipeline to run "vertically" on
+          # CI, on individual agents, rather than building every python
+          # version sequentially on each platform. This is done less for
+          # performance reasons (although it does help) and more so a
+          # single failing python version won't interrupt every other
+          # deploy on that platform.
+          CIBW_BUILD: ${{ matrix.python-build }}
+          CIBW_SKIP: '*musllinux* *arm64*'
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          PIP_VERBOSE: 1
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: "openassetio-wheels"
+          path: ./wheelhouse/*.whl

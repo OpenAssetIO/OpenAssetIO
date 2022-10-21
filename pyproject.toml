@@ -115,3 +115,13 @@ ignore-imports = true
 [tool.black]
 line-length = 99
 target-version = ["py39"]
+
+[tool.cibuildwheel]
+test-requires = ["pytest"]
+test-command = "pytest {package}/tests/python/openassetio"
+
+[tool.cibuildwheel.linux]
+# Linux runs in a docker container, with the project at top level
+before-build = "resources/build/bootstrap-cibuildwheel-manylinux-2014.sh"
+environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake" }
+environment-pass = ["PIP_VERBOSE"]

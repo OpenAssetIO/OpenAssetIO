@@ -61,6 +61,15 @@ v1.0.0-alpha.x
   `warning`, `error`, `critical` to `LoggerInterface` to log messages of
   the respective severity.
 
+- Added `OPENASSETIO_CONAN_SKIP_CPYTHON` environment variable to prevent
+  conan installing its own python version. This is to support workflows
+  where the user is bringing their own python environment, and does not 
+  want python installations to conflict.
+  [#653](https://github.com/OpenAssetIO/OpenAssetIO/issues/653)]
+
+- Bleeding edge python wheels are now downloadable as artifacts from the
+  `Build wheels` github actions workflow.
+  [[#653](https://github.com/OpenAssetIO/OpenAssetIO/issues/653)]
 
 v1.0.0-alpha.4
 --------------
