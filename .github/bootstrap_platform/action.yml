@@ -32,7 +32,7 @@ runs:
     run: |
       source resources/build/bootstrap-${{ matrix.config.os }}.sh
     env:
-      WORKSPACE: .
+      WORKSPACE: ${{ github.workspace }}
     # Annoyingly required for Github composite actions.
     shell: bash
 
@@ -43,6 +43,6 @@ runs:
     run: |
       cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
     env:
-      WORKSPACE: .
+      WORKSPACE: ${{ github.workspace }}
     # Annoyingly required for Github composite actions.
     shell: cmd

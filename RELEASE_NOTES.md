@@ -19,6 +19,11 @@ v1.0.0-alpha.x
   `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` is enabled.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
+- Changed `--install-folder` location of conan install in bootstrap
+  scripts from `$CONAN_USER_HOME` to `$WORKSPACE/.conan`. Users who
+  have been using the bootstrap scripts directly may need to update
+  their toolchain CMake arguments.
+
 ### New Features
 
 - Added `simpleResolver.py` example host (under `resources/examples`),
