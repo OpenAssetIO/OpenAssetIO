@@ -5,13 +5,15 @@ jobs:
   pylint:
     runs-on: ubuntu-latest
     name: Pylint
+    strategy:
+      matrix:
+        config:
+          - os: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
 
       - name: Install dependencies
         run: |
@@ -22,6 +24,8 @@ jobs:
       - name: Build
         run: |
           python -m pip install .
+        env:
+          CMAKE_TOOLCHAIN_FILE: ~/conan/conan_paths.cmake
 
       - name: Lint
         uses: TheFoundryVisionmongers/fn-pylint-action@v1.1
@@ -63,8 +67,15 @@ jobs:
   cpp-linters:
     name: C++ linters
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        config:
+          - os: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
 
       - name: Cache ccache cache
         uses: actions/cache@v2
@@ -73,25 +84,14 @@ jobs:
           key: ubuntu-20.04-ccache-lint-${{ github.run_id }}
           restore-keys: ubuntu-20.04-ccache-lint-
 
-      - name: Cache conan packages
-        id: cache-conan
-        uses: actions/cache@v2
-        with:
-          path: ~/conan
-          key: ubuntu-20.04-conan-${{ github.run_id }}
-          restore-keys: ubuntu-20.04-conan-
-
       - name: Install dependencies
         # Configure the system and install library dependencies via
         # conan packages.
         run: |
-          source resources/build/bootstrap-ubuntu-20.04.sh
           python -m pip install -r resources/build/linter-requirements.txt
           clang-tidy --version
           clang-format --version
           cpplint --version
-        env:
-          WORKSPACE: .
 
       - name: Configure CMake build
         run: >
@@ -113,8 +113,15 @@ jobs:
   sanitizers:
     name: Sanitizers
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        config:
+          - os: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
 
       - name: Cache ccache cache
         uses: actions/cache@v2
@@ -122,22 +129,6 @@ jobs:
           path: /tmp/ccache
           key: ubuntu-20.04-ccache-sanitize-${{ github.run_id }}
           restore-keys: ubuntu-20.04-ccache-sanitize-
-
-      - name: Cache conan packages
-        id: cache-conan
-        uses: actions/cache@v2
-        with:
-          path: ~/conan
-          key: ubuntu-20.04-conan-${{ github.run_id }}
-          restore-keys: ubuntu-20.04-conan-
-
-      - name: Install dependencies
-        # Configure the system and install library dependencies via
-        # conan packages.
-        run: |
-          source resources/build/bootstrap-ubuntu-20.04.sh
-        env:
-          WORKSPACE: .
 
       - name: Configure CMake build
         run: >

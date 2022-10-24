@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2022 The Foundry Visionmongers Ltd
+
+# Composite action for reuse within other workflows. Bootstraps the
+# Github runner ready for building OpenAssetIO as appropriate based on
+# the job matrix.
+
+name: Bootstrap
+description: Bootstrap platform
+runs:
+  using: "composite"
+  steps:
+
+  - name: Set up Python
+    uses: actions/setup-python@v2
+    with:
+      # CY2022 (https://vfxplatform.com)
+      python-version: "3.9"
+
+  - name: Cache conan packages
+    id: cache-conan
+    uses: actions/cache@v2
+    with:
+      path: ~/conan
+      key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
+      restore-keys: ${{ matrix.config.os }}-conan-
+
+  - name: Install dependencies (Unix)
+    if: runner.os != 'Windows'
+    # Configure the system and install library dependencies via conan
+    # packages.
+    run: |
+      source resources/build/bootstrap-${{ matrix.config.os }}.sh
+    env:
+      WORKSPACE: .
+    # Annoyingly required for Github composite actions.
+    shell: bash
+
+  - name: Install dependencies (Windows)
+    if: runner.os == 'Windows'
+    # Configure the system and install library dependencies via conan
+    # packages.
+    run: |
+      cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
+    env:
+      WORKSPACE: .
+    # Annoyingly required for Github composite actions.
+    shell: cmd

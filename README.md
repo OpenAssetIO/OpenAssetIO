@@ -156,15 +156,53 @@ git clone git@github.com:OpenAssetIO/OpenAssetIO
 Linux is currently the only fully tested platform. Support
 for other platforms is the subject of ongoing work.
 
+#### Quick start: Python only
+
+For use in a Python-only environment, the Python package can be
+installed from the root of the repository using
+
+```shell
+pip install .
+```
+
+This will automatically build and install the Python extension module,
+along with the Python sources.
+
+> **Note**
+>
+> CMake's `find_package` must be able to locate dependencies.
+> Consider using the [`CMAKE_TOOLCHAIN_FILE`](https://cmake.org/cmake/help/v3.24/envvar/CMAKE_TOOLCHAIN_FILE.html)
+> environment variable to augment CMake's package search paths.
+>
+> For example: to use `conan` to resolve dependencies, from the root of
+> the repository run (assuming a Linux host, translate as necessary):
+> ```shell
+> conan install -if .conan resources/build --build=missing
+> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_paths.cmake
+> pip install .
+> ```
+
+This will install a single binary module with the OpenAssetIO core
+library statically linked into it, and so is not suitable for use in a
+C++ application.
+
+For users that wish to modify the Python sources and test their changes
+without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs)
+are also supported
+
+```shell
+pip install --editable .
+```
+
 #### Quick start: Using the ASWF Docker image
 
 The Academy Software Foundation maintains a set of VFX Reference
 Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
 
 The CY22 image contains all dependencies currently required for building
-OpenAssetIO. For example, to build and install the C/C++ component of
-OpenAssetIO (by default  to a `dist` directory under the build
-directory) via a container, from the repository root run
+OpenAssetIO. For example, to build and install OpenAssetIO (by default
+to a `dist` directory under the build directory) via a container, from
+the repository root run
 
 ```shell
 docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
@@ -173,6 +211,13 @@ docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
   cmake --build build && \
   cmake --install build'
 ```
+
+The install tree (`dist`) will contain a complete bundle, including the
+core C++ shared library, Python extension module (which dynamically
+links to the core C++ library) and Python sources.
+
+The created bundle is therefore suitable for use in both C++ and Python
+applications.
 
 #### Other build methods
 

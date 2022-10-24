@@ -29,37 +29,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        # CY2022 (https://vfxplatform.com)
-        python-version: 3.9
-
-    - name: Cache conan packages
-      id: cache-conan
-      uses: actions/cache@v2
-      with:
-        path: ~/conan
-        key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
-        restore-keys: ${{ matrix.config.os }}-conan-
-
-    - name: Install dependencies (Unix)
-      if: runner.os != 'Windows'
-      # Configure the system and install library dependencies via conan
-      # packages.
-      run: |
-        source resources/build/bootstrap-${{ matrix.config.os }}.sh
-      env:
-        WORKSPACE: .
-
-    - name: Install dependencies (Windows)
-      if: runner.os == 'Windows'
-      # Configure the system and install library dependencies via conan
-      # packages.
-      run: |
-        cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
-      env:
-        WORKSPACE: .
+    - name: Bootstrap
+      uses: ./.github/bootstrap_platform
 
     - name: Configure CMake build (Unix)
       if: runner.os != 'Windows'

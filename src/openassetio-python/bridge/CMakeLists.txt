@@ -36,9 +36,13 @@ install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGET
 if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
     install(TARGETS openassetio-python-bridge
         DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
-    install(FILES $<TARGET_PDB_FILE:openassetio-python-bridge>
-        CONFIGURATIONS "Debug" "RelWithDebInfo"
-        DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+    # "TARGET_PDB_FILE is allowed only for targets with linker created
+    # artifacts"
+    if (BUILD_SHARED_LIBS)
+        install(FILES $<TARGET_PDB_FILE:openassetio-python-bridge>
+            CONFIGURATIONS "Debug" "RelWithDebInfo"
+            DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+    endif ()
 endif ()
 
 
