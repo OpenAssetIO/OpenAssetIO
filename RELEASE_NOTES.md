@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Improvements
+
+- Added compatibility with Python 3.7.
+  [#660](https://github.com/OpenAssetIO/OpenAssetIO/issues/660)
+
+
 v1.0.0-alpha.5
 --------------
 

@@ -13,7 +13,7 @@ package that can be used for custom generation.
 
 ## Supported languages
 
-- Python 3.9+
+- Python 3.7+
 
 ## Installation
 
