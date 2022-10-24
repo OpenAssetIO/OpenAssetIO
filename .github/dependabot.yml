@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"  # See docs, they say not to use '.github'
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[CI]"
