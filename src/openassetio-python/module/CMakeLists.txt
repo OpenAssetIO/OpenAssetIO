@@ -107,6 +107,6 @@ endif ()
 
 # Install OpenAssetIO Code Generator dependencies into the venv.
 openassetio_add_python_environment_dependency(
-    openassetio.internal.resources-codegen.install-deps
-    ${PROJECT_SOURCE_DIR}/resources/codegen/requirements.txt
+    openassetio.internal.resources-traitgen.install-deps
+    ${PROJECT_SOURCE_DIR}/resources/openassetio-traitgen/requirements.txt
 )

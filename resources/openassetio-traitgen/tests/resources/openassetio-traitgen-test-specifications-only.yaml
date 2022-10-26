@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../python/openassetio_traitgen/schema.json
+# yamllint disable-line rule:document-start
+package: openassetio-traitgen-test-specifications-only
+
+description: >
+    Test classes to validate the integrity of the openassetio-traitgen
+    tool when only specifications are defined.
+
+specifications:
+    test:
+        description: More test specifications.
+        members:
+            Some:
+                description: Some specification
+                traitSet:
+                    - package: openassetio-traitgen-test-all
+                      namespace: aNamespace
+                      name: AllProperties
+                    - package: openassetio-traitgen-test-traits-only
+                      namespace: test
+                      name: Another

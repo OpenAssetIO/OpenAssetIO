@@ -185,22 +185,22 @@ openassetio_add_pytest_target(
 
 # Install test-specific dependencies (e.g. pytest).
 openassetio_add_python_environment_dependency(
-    openassetio.internal.resources-codegen-pytest.install-deps
-    "${PROJECT_SOURCE_DIR}/resources/codegen/tests/requirements.txt"
+    openassetio.internal.resources-traitgen-pytest.install-deps
+    "${PROJECT_SOURCE_DIR}/resources/openassetio-traitgen/tests/requirements.txt"
 )
 
-# Target to run tests on the openassetio-codegen tool included in
+# Target to run tests on the openassetio-traitgen tool included in
 # the resources directory.
 # Requires:
 # - openassetio.internal.install
 # - openassetio-python-venv
 openassetio_add_pytest_target(
-    openassetio.internal.resources-codegen-pytest
-    "Running pytest for codegen"
+    openassetio.internal.resources-traitgen-pytest
+    "Running pytest for traitgen"
     .
-    "${PROJECT_SOURCE_DIR}/resources/codegen"
+    "${PROJECT_SOURCE_DIR}/resources/openassetio-traitgen"
     "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
-    "${PROJECT_SOURCE_DIR}/resources/codegen/python"
+    "${PROJECT_SOURCE_DIR}/resources/openassetio-traitgen/python"
 )
 
 
@@ -237,9 +237,9 @@ openassetio_add_test_fixture_dependencies(
 )
 
 # Code generation tests.
-openassetio_add_test_target(openassetio.internal.resources-codegen-pytest)
+openassetio_add_test_target(openassetio.internal.resources-traitgen-pytest)
 openassetio_add_test_fixture_dependencies(
-    openassetio.internal.resources-codegen-pytest
+    openassetio.internal.resources-traitgen-pytest
     openassetio.internal.install
     ${_venv_if_enabled}
 )

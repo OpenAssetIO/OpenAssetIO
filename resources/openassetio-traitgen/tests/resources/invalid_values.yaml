@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=../../python/openassetio_traitgen/schema.json
+# yamllint disable-line rule:document-start
+package: p-p
+
+description: p
+
+traits:
+    t!n:
+        description: n
+        members:
+            t&:
+                description: t
+                properties:
+                    p$:
+                        type: boolean
+                        description: p
+
+specifications:
+    s!n:
+        description: n
+        members:
+            s^:
+                description: s
+                traitSet:
+                    - namespace: t!n
+                      name: t&

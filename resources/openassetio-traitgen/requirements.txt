@@ -1,0 +1,6 @@
+# Requirements for openassetio-traitgen de-coupled from setup.py.
+# This allows them to be collected/installed prior to build if
+# required.
+jinja2==3.1.2
+pyyaml==5.4.1
+jsonschema==4.7.2
