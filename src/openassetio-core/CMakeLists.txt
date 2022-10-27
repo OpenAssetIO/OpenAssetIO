@@ -34,6 +34,7 @@ install(
 # BUILD_SHARED_LIBS option.
 # TODO(DF): Allow customising library name (e.g. suffix)? See OCIO.
 add_library(openassetio-core)
+add_library(${PROJECT_NAME}::openassetio-core ALIAS openassetio-core)
 # Set good default target options.
 set_default_target_properties(openassetio-core)
 # Set output artifact base filename.

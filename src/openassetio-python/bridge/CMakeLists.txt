@@ -25,6 +25,7 @@ install(
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
 add_library(openassetio-python-bridge)
+add_library(${PROJECT_NAME}::openassetio-python-bridge ALIAS openassetio-python-bridge)
 # Set good default target options.
 set_default_target_properties(openassetio-python-bridge)
 # Set output artifact base filename.

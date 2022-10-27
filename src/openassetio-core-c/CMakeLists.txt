@@ -23,6 +23,7 @@ install(
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
 add_library(openassetio-core-c)
+add_library(${PROJECT_NAME}::openassetio-core-c ALIAS openassetio-core-c)
 # Set good default target options.
 set_default_target_properties(openassetio-core-c)
 # Set output artifact base filename.

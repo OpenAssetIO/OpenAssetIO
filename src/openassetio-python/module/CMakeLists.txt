@@ -2,6 +2,7 @@
 # Python module target
 
 add_library(openassetio-python-module MODULE)
+add_library(${PROJECT_NAME}::openassetio-python-module ALIAS openassetio-python-module)
 set_default_target_properties(openassetio-python-module)
 
 set(install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
