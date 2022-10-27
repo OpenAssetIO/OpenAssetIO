@@ -22,8 +22,7 @@ sudo apt-get install -y --no-install-recommends libfontenc-dev libice-dev libsm-
 
 # Install additional build tools.
 sudo pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
-# Use explicit predictable conan root path, to be used for both packages
-# and conan CMake toolchain config.
+# Use explicit predictable conan root path, where packages are cached.
 export CONAN_USER_HOME="$HOME/conan"
 # Create default conan profile so we can configure it before install.
 # Use --force so that if it already exists we don't error out.
@@ -39,7 +38,7 @@ conan profile update settings.compiler.libcxx=libstdc++ default
 # system packages are already available. In particular, this affects
 # recent versions of the xorg/system recipe (a dependency of cpython).
 # The problem is reported and fixed in https://github.com/conan-io/conan/pull/11712
-conan install --install-folder "$CONAN_USER_HOME" --build=missing \
+conan install --install-folder "$WORKSPACE/.conan" --build=missing \
     -c tools.system.package_manager:mode=install \
     -c tools.system.package_manager:sudo=True \
     "$WORKSPACE/resources/build"

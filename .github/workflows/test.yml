@@ -20,9 +20,17 @@ jobs:
         # environments.
         config:
         - os: windows-2019
-          vcvars: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
         - os: ubuntu-20.04
+          shell: bash
         - os: macos-10.15
+          shell: bash
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
 
     steps:
     - uses: actions/checkout@v2
@@ -30,36 +38,20 @@ jobs:
     - name: Bootstrap
       uses: ./.github/bootstrap_platform
 
-    - name: Configure CMake build (Unix)
-      if: runner.os != 'Windows'
+    - name: Configure CMake build
       run: >
+        ${{ matrix.config.preamble }}
+
         cmake -S . -B build -G Ninja
-        --install-prefix $GITHUB_WORKSPACE/dist
-        --toolchain $HOME/conan/conan_paths.cmake
+        --install-prefix ${{ github.workspace }}/dist
+        --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
         --preset test
 
-    - name: Configure CMake build (Windows)
-      if: runner.os == 'Windows'
+    - name: Build, install and test
       run: >
-        call "${{ matrix.config.vcvars }}"
-
-        cmake -G Ninja -S . -B build --install-prefix %GITHUB_WORKSPACE%\dist
-        --toolchain %USERPROFILE%\conan\conan_paths.cmake -DCMAKE_VERBOSE_MAKEFILE=ON
-        --preset test
-
-      shell: cmd
-
-    - name: Build, install and test (Unix)
-      if: runner.os != 'Windows'
-      run: |
+        ${{ matrix.config.preamble }}
+        
         ctest -VV --test-dir build --parallel 2
-
-    - name: Build, install and test (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        call "${{ matrix.config.vcvars }}"
-        ctest -VV --test-dir build --parallel 2
-      shell: cmd
 
   docs:
     runs-on: ubuntu-latest

@@ -19,6 +19,11 @@ v1.0.0-alpha.x
   `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` is enabled.
   [#629](https://github.com/OpenAssetIO/OpenAssetIO/issues/629)
 
+- Changed `--install-folder` location of conan install in bootstrap
+  scripts from `$CONAN_USER_HOME` to `$WORKSPACE/.conan`. Users who
+  have been using the bootstrap scripts directly may need to update
+  their toolchain CMake arguments.
+
 ### New Features
 
 - Added `simpleResolver.py` example host (under `resources/examples`),
@@ -56,6 +61,15 @@ v1.0.0-alpha.x
   `warning`, `error`, `critical` to `LoggerInterface` to log messages of
   the respective severity.
 
+- Added `OPENASSETIO_CONAN_SKIP_CPYTHON` environment variable to prevent
+  conan installing its own python version. This is to support workflows
+  where the user is bringing their own python environment, and does not 
+  want python installations to conflict.
+  [#653](https://github.com/OpenAssetIO/OpenAssetIO/issues/653)]
+
+- Bleeding edge python wheels are now downloadable as artifacts from the
+  `Build wheels` github actions workflow.
+  [[#653](https://github.com/OpenAssetIO/OpenAssetIO/issues/653)]
 
 v1.0.0-alpha.4
 --------------

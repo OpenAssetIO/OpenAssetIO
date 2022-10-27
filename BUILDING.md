@@ -126,7 +126,7 @@ vagrant up
 # Wait a while...
 vagrant ssh
 cmake -S openassetio -B build --install-prefix ~/dist \
-  --toolchain ~/conan/conan_paths.cmake
+  --toolchain ~/.conan/conan_paths.cmake
 ```
 
 Then we can run the usual steps (see above) to build and install

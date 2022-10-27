@@ -1,5 +1,4 @@
 # A simple workflow that runs the documented build steps work.
-
 name: Build Instructions
 on:
   pull_request:
@@ -58,7 +57,7 @@ jobs:
         ${{ matrix.config.preamble }}
         pip install .
       env:
-        CMAKE_TOOLCHAIN_FILE: ~/conan/conan_paths.cmake
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
     - name: Install test dependencies
       run: pip install -r tests/python/requirements.txt
