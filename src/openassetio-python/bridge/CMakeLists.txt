@@ -69,8 +69,9 @@ target_include_directories(openassetio-python-bridge
 
 # Library dependencies.
 target_link_libraries(openassetio-python-bridge
-    PRIVATE
+    PUBLIC
     openassetio-core
+    PRIVATE
     # TODO(DF): Pybind docs say the pybind11 target just includes
     #   pybind and Python headers, which is all we should need for this
     #   library. However, a bug in the ConanCenter package means all
