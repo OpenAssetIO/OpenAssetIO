@@ -94,8 +94,10 @@ function(set_default_target_properties target_name)
             ${target_name}
             PROPERTIES
             # Control RPATH in build phase. We assume tests will only be
-            # run against the install tree, so disable for build tree.
-            SKIP_BUILD_RPATH TRUE
+            # run against the install tree for internal development,
+            # but external projects that include OpenAssetIO as a
+            # subproject may wish to run against the build tree.
+            SKIP_BUILD_RPATH FALSE
             BUILD_WITH_INSTALL_RPATH FALSE
             # Whether to add hardcoded directories to final runtime
             # search path.
