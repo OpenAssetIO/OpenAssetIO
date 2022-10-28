@@ -1,0 +1,56 @@
+name: Deploy_PyPI
+
+on: 
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  # testpypi and pypi are done as two seperate jobs due to a potential
+  # fail in the pypi upload, and wanting to be able to rerun just the
+  # mainline pypi upload. This can happen when pypi goes into read 
+  # only mode, which happens sometimes.
+  publish_testpypi:
+    name: Publish distribution 📦 to TestPyPI
+    runs-on: ubuntu-20.04
+    steps:
+      # This action will download the artifact for workflow runs that
+      # happen for this actual commit (the commit that the tag points to).
+      # It also restores the files timestamps.
+      # This does however mean that when making a release, you must be
+      # sure that the build-wheels job on main has completed
+      - name: Download wheels from commit ${{ github.sha }}
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build-wheels.yml
+          workflow_conclusion: success
+          commit: ${{ github.sha }}
+          name: openassetio-wheels
+          path: dist
+
+      - name: Upload to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_ACCESS_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+
+  publish_pypi:
+    name: Publish distribution 📦 to PyPI
+    needs: publish_testpypi
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Download wheels from commit ${{ github.sha }}
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build-wheels.yml
+          workflow_conclusion: success
+          commit: ${{ github.sha }}
+          name: openassetio-wheels
+          path: dist
+
+      - name: Upload to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_ACCESS_TOKEN }}
