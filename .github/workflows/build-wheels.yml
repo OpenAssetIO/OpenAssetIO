@@ -1,6 +1,6 @@
 name: Build Wheels
 
-on: 
+on:
   push:
     branches:
       - main
@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config: 
+        config:
           - os: ubuntu-20.04
             shell: bash
           - os: macos-11
@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/bootstrap_platform
         env:
           # As we're building wheels inside a managed environment,
-          # (cibuildwheels) there is no need to install cpython. 
+          # (cibuildwheels) there is no need to install cpython.
           OPENASSETIO_CONAN_SKIP_CPYTHON: "True"
 
       - name: Build wheels
@@ -51,7 +51,7 @@ jobs:
           ${{ matrix.config.preamble }}
           pip install cibuildwheel==2.11.1
           cibuildwheel --output-dir wheelhouse
-        env: 
+        env:
           # Windows + Mac runs use this environment variable, as they
           # execute directly on the runner. Linux runs are somewhat
           # different, and are containerised fully, therefore they get
