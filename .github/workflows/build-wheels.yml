@@ -69,6 +69,8 @@ jobs:
           CIBW_SKIP: '*musllinux* *arm64*'
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
           PIP_VERBOSE: 1
+          # Required as we make use of c++17 features
+          MACOSX_DEPLOYMENT_TARGET: 10.15
 
       - uses: actions/upload-artifact@v3
         with:
