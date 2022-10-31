@@ -21,9 +21,11 @@ install(
 )
 
 if (WIN32)
-    install(FILES $<TARGET_PDB_FILE:openassetio-python-test>
+    install(
+        FILES $<TARGET_PDB_FILE:openassetio-python-test>
+        TYPE BIN
         CONFIGURATIONS "Debug" "RelWithDebInfo"
-        DESTINATION ${install_subdir})
+    )
 endif ()
 
 target_sources(

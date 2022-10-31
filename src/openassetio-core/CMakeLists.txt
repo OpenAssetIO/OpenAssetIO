@@ -48,9 +48,11 @@ if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)
-        install(FILES $<TARGET_PDB_FILE:openassetio-core>
+        install(
+            FILES $<TARGET_PDB_FILE:openassetio-core>
+            TYPE BIN
             CONFIGURATIONS "Debug" "RelWithDebInfo"
-            DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+        )
     endif ()
 endif ()
 
