@@ -1,6 +1,10 @@
 name: Code quality
 on: pull_request
-  
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pylint:
     runs-on: ubuntu-latest

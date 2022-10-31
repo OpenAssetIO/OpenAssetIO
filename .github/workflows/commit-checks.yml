@@ -1,6 +1,10 @@
 name: Commit policy
 on: [pull_request]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   commits_check_job:
     runs-on: ubuntu-latest
