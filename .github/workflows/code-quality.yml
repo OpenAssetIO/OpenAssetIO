@@ -10,7 +10,7 @@ jobs:
         config:
           - os: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Python formatting
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -72,7 +72,7 @@ jobs:
         config:
           - os: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -118,7 +118,7 @@ jobs:
         config:
           - os: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
