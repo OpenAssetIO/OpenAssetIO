@@ -164,7 +164,7 @@ openassetio_add_pytest_target(
 
 
 #-----------------------------------------------------------------------
-# Examples pytest target.
+# Example managers pytest target.
 
 # Target to run tests on examples included in the resources
 # directory.
@@ -173,11 +173,17 @@ openassetio_add_pytest_target(
 # - openassetio-python-venv
 openassetio_add_pytest_target(
     openassetio.internal.resources-examples-pytest
-    "Running pytest for examples"
+    "Running pytest for Manager examples"
     .
-    "${PROJECT_SOURCE_DIR}/resources/examples"
+    "${PROJECT_SOURCE_DIR}/resources/examples/manager"
     "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
 )
+
+# NB: examples/host coverage comes through the integration CI
+# as they rely on dependent projects.
+# TODO(tc) we need an umbrella repo that we can use for local
+# TDD test loop dev that covers the full range of integration
+# tests.
 
 
 #-----------------------------------------------------------------------
