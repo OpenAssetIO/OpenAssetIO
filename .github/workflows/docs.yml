@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: src
 
@@ -26,7 +26,7 @@ jobs:
       # this path to the deploy stage to use instead of
       # its own temporary checkout.
     - name: Checkout docs branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: target
         ref: docs
@@ -40,5 +40,5 @@ jobs:
         # Global means we don't need hop around the checkouts to set this
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions@github.com"
-        # Pass the path to the actions/checkout@v2 docs branch checkout
+        # Pass the path to the actions/checkout@v3 docs branch checkout
         OPENASSETIO_DOCS_REPO_DIR=`pwd`/target make -C src/doc deploy

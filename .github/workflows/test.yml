@@ -33,7 +33,7 @@ jobs:
         shell: ${{ matrix.config.shell }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Bootstrap
       uses: ./.github/bootstrap_platform
@@ -58,7 +58,7 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Test
       run: |
@@ -85,7 +85,7 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Check business language
       run: |
