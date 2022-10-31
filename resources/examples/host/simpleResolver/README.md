@@ -24,14 +24,13 @@ optional arguments:
 ## Example
 
 > Note: This script requires the `openassetio` module to be available to
-> Python. Presently, this requires manual installation, see
-> [BUILDING.md](../../../../BUILDING.md) in the main OpenAssetIO
-> repository for more details.
+> Python. This can be installed via
+> `python -m pip install -r requirements.txt`.
 
 The included OpenAssetIO config file sets the API up to use the
-[BasicAssetLibrary](../../manager/BasicAssetLibrary) example asset
-manager, with a simple library containing information about some
-random animals.
+[BasicAssetLibrary](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL)
+example asset manager, with a simple library containing information
+about some random animals.
 
 We can then use the CLI resolver to query this information.
 
@@ -49,11 +48,13 @@ mechanism. We need to tell OpenAssetIO which config file to use:
 export OPENASSETIO_DEFAULT_CONFIG=bal_animals_openassetio_config.toml
 ```
 
-This will tell the API to use BAL, we need to configure the environment
-to add it's plugin to the plugin system search paths:
+This will tell the API to use BAL, so we need to get a copy of the
+plugin, and configure the environment to add it to the OpenAssetIO
+plugin system search paths:
 
 ```bash
-export OPENASSETIO_PLUGIN_PATH=../../manager/BasicAssetLibrary/plugin
+git clone https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL.git
+export OPENASSETIO_PLUGIN_PATH=./OpenAssetIO-Manager-BAL/plugin
 ```
 
 At this point, we can now use the CLI to resolve entity data.
