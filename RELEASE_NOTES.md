@@ -10,6 +10,11 @@ v1.0.0-alpha.x
   avoid ambiguity.
   [#646](https://github.com/OpenAssetIO/OpenAssetIO/issues/646)
 
+- The BasicAssetLibrary test-harness manager plugin has been extracted
+  into its [own repository](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL)
+  to simplify its ongoing development and version management.
+  [#672](https://github.com/OpenAssetIO/OpenAssetIO/issues/672)
+
 ### Improvements
 
 - Added compatibility with Python 3.7.
