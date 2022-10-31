@@ -12,7 +12,8 @@ cmake_minimum_required(VERSION 3.21)
 # Additional include directories for CMake utils.
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
-# TODO(DF): Set CMAKE_OSX_DEPLOYMENT_TARGET when it's time to tackle OSX
+# Minimum required for the C++17 features used.
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
 
 # Forbid in-source builds.
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})

@@ -24,7 +24,7 @@ jobs:
           shell: cmd
         - os: ubuntu-20.04
           shell: bash
-        - os: macos-10.15
+        - os: macos-11
           shell: bash
     defaults:
       run:
