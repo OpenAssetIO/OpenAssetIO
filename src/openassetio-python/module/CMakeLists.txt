@@ -1,9 +1,27 @@
 #-----------------------------------------------------------------------
 # Python module target
 
-add_library(openassetio-python-module MODULE)
-add_library(${PROJECT_NAME}::openassetio-python-module ALIAS openassetio-python-module)
+# Use pybind11's utility to ensure proper SOABI, file extension, etc is
+# used. The rules can be quite tricky, e.g. Windows SOABI suffix is
+# quite different for Debug vs. Release builds.
+pybind11_add_module(openassetio-python-module MODULE)
 set_default_target_properties(openassetio-python-module)
+set_target_properties(
+    openassetio-python-module
+    PROPERTIES
+    # Set target file name to `_openassetio`
+    OUTPUT_NAME _openassetio
+    # Python modules on macOS must be .so rather than .dylib. But that
+    # means clang will complain:
+    #   invalid argument '-compatibility_version 1.0.0' only allowed
+    #   with '-dynamiclib'
+    # Similarly for '-current_version'.So unset the version flags. See
+    # also https://cmake.org/cmake/help/latest/prop_tgt/VERSION.html#mach-o-versions)
+    SOVERSION ""
+    VERSION ""
+)
+
+add_library(${PROJECT_NAME}::openassetio-python-module ALIAS openassetio-python-module)
 
 set(install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
 
@@ -15,27 +33,6 @@ install(
     COMPONENT openassetio-python-module
 )
 
-# Set Python extension module name, and remove any ("lib") prefix.
-set_target_properties(openassetio-python-module
-    PROPERTIES
-    # SOABI is good practice, and is required for `--editable` installs.
-    OUTPUT_NAME _openassetio.${Python_SOABI}
-    PREFIX ""
-    # Python modules on macOS must be .so rather than .dylib. But that
-    # means clang will complain:
-    #   invalid argument '-compatibility_version 1.0.0' only allowed
-    #   with '-dynamiclib'
-    # Similarly for '-current_version'.So unset the version flags. See
-    # also https://cmake.org/cmake/help/latest/prop_tgt/VERSION.html#mach-o-versions)
-    SOVERSION ""
-    VERSION "")
-
-if (WIN32)
-    set_target_properties(openassetio-python-module PROPERTIES SUFFIX ".pyd")
-    install(FILES $<TARGET_PDB_FILE:openassetio-python-module>
-        CONFIGURATIONS "Debug" "RelWithDebInfo"
-        DESTINATION ${install_subdir})
-endif ()
 
 #-----------------------------------------------------------------------
 # Target dependencies

@@ -1,8 +1,15 @@
 #-----------------------------------------------------------------------
 # Python test module target for creating test-only bindings.
 
-add_library(openassetio-python-test MODULE)
+pybind11_add_module(openassetio-python-test MODULE)
+# Set target file name to `_openassetio_test`
 set_default_target_properties(openassetio-python-test)
+set_target_properties(
+    openassetio-python-test PROPERTIES
+    OUTPUT_NAME _openassetio_test
+    SOVERSION ""
+    VERSION ""
+)
 
 set(install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
 
@@ -13,22 +20,7 @@ install(
     DESTINATION ${install_subdir}
 )
 
-# Set Python extension module name, and remove any ("lib") prefix.
-set_target_properties(openassetio-python-test
-    PROPERTIES
-    OUTPUT_NAME _openassetio_test
-    PREFIX ""
-    # Python modules on macOS must be .so rather than .dylib. But that
-    # means clang will complain:
-    #   invalid argument '-compatibility_version 1.0.0' only allowed
-    #   with '-dynamiclib'
-    # Similarly for '-current_version'.So unset the version flags. See
-    # also https://cmake.org/cmake/help/latest/prop_tgt/VERSION.html#mach-o-versions)
-    SOVERSION ""
-    VERSION "")
-
 if (WIN32)
-    set_target_properties(openassetio-python-test PROPERTIES SUFFIX ".pyd")
     install(FILES $<TARGET_PDB_FILE:openassetio-python-test>
         CONFIGURATIONS "Debug" "RelWithDebInfo"
         DESTINATION ${install_subdir})
