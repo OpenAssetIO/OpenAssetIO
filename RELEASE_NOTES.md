@@ -95,6 +95,9 @@ v1.0.0-alpha.5
   `Build wheels` github actions workflow.
   [#653](https://github.com/OpenAssetIO/OpenAssetIO/issues/653)
 
+- Updated pybind to `2.10.0` for wheel builds to support Python `3.11`.
+
+
 v1.0.0-alpha.4
 --------------
 
