@@ -23,7 +23,7 @@ Tests for the Python-specific Trait base class.
 
 from unittest import mock
 
-from openassetio import TraitsData, Trait
+from openassetio import TraitsData, TraitBase
 
 
 class Test_Trait_Construction:
@@ -70,5 +70,5 @@ class Test_Trait_imbueTo:
         ACustomTrait.imbueTo(a_data)
 
 
-class ACustomTrait(Trait):
+class ACustomTrait(TraitBase):
     kId = "customTrait"

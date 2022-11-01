@@ -6,6 +6,10 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- Renamed the `Trait` Python class to `TraitBase` for
+  consistency with other classes.
+  [#703](https://github.com/OpenAssetIO/OpenAssetIO/issues/703)
+
 - Renamed the `openassetio-codegen` tool to `openassetio-traitgen` to
   avoid ambiguity.
   [#646](https://github.com/OpenAssetIO/OpenAssetIO/issues/646)

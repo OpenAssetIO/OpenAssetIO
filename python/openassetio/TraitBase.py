@@ -14,11 +14,11 @@
 #   limitations under the License.
 #
 """
-A single-class module that provides the Trait class.
+A single-class module that provides the TraitBase class.
 """
 
 
-class Trait:
+class TraitBase:
     """
     A trait view provides a way to hide the underlying dictionary-like
     data access from hosts and managers. Trait view classes wrap a

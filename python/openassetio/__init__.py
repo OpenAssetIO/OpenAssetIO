@@ -80,4 +80,4 @@ from ._openassetio import (  # pylint: disable=import-error
 
 # pylint: disable=wrong-import-position
 from .SpecificationBase import SpecificationBase
-from .Trait import Trait
+from .TraitBase import TraitBase

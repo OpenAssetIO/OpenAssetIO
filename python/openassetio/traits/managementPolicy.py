@@ -19,10 +19,10 @@ Traits returned by @fqref{hostApi.Manager.managementPolicy}
 """
 from typing import Union
 
-from ..Trait import Trait
+from ..TraitBase import TraitBase
 
 
-class ManagedTrait(Trait):
+class ManagedTrait(TraitBase):
     """
     @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
     trait specifying that a given @ref trait_set can be managed by the
@@ -72,7 +72,7 @@ class ManagedTrait(Trait):
         return value
 
 
-class WillManagePathTrait(Trait):
+class WillManagePathTrait(TraitBase):
     """
     @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
     policy trait for determining whether a @ref manager can determine
