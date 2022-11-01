@@ -152,6 +152,14 @@ Windows, macOS, and Linux are all supported platforms.
 
 ### Package Installation
 
+OpenAssetIO can be installed either as a pure Python package, or as a
+full install, which builds a core C++ component, as well as optional
+C and Python bindings.
+
+> **Note**
+> Currently, to create a non-python host or manager plugins, one must
+> perform a full install via [building from source](BUILDING.md#building).
+
 For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 
 ```bash
@@ -185,7 +193,12 @@ applications.
 
 ### Other build methods
 
-For detailed instructions see [BUILDING](BUILDING.md).
+C++ projects require a from-source build to install.
+A convenient way to achieve this out of the box is to use the
+[ASWF Docker image](BUILDING.md#sandboxed-builds) workflow.
+
+For detailed instructions on this, and other build and dependency
+information, see [BUILDING](BUILDING.md).
 
 ## Getting involved
 
