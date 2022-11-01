@@ -1,5 +1,44 @@
 # Building OpenAssetIO
 
+## Quick start: Python only
+
+For use in a Python-only environment, the Python package can be
+installed from the root of the repository using
+
+```shell
+pip install .
+```
+
+This will automatically build and install the Python extension module,
+along with the Python sources.
+
+> **Note**
+>
+> CMake's `find_package` must be able to locate dependencies.
+> Consider using the [`CMAKE_TOOLCHAIN_FILE`](https://cmake.org/cmake/help/v3.24/envvar/CMAKE_TOOLCHAIN_FILE.html)
+> environment variable to augment CMake's package search paths.
+>
+> For example: to use `conan` to resolve dependencies, from the root of
+> the repository run (assuming a Linux host, translate as necessary):
+>
+> ```shell
+> conan install -if .conan resources/build --build=missing
+> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_paths.cmake
+> pip install .
+> ```
+
+This will install a single binary module with the OpenAssetIO core
+library statically linked into it, and so is not suitable for use in a
+C++ application.
+
+For users that wish to modify the Python sources and test their changes
+without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs)
+are also supported
+
+```shell
+pip install --editable .
+```
+
 ## System requirements
 
 We assume the following system packages are installed
@@ -16,6 +55,7 @@ following packages are installed:
 
 Binary builds additionally require the following packages to be
 available to the CMake build system.
+
 - Python 3.7 (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.6.1+
 
@@ -44,7 +84,7 @@ the presence of CMake build targets as exported by these packages.
 > alternative, we have encountered missing header issues that may
 > require additional work/configuration to resolve.
 
-## Building
+## Building with CMake
 
 We use the CMake build system for compiling the C++ core library and
 its Python bindings.

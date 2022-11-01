@@ -143,61 +143,25 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ## Getting started
 
-### Installation
-
-The OpenAssetIO codebase is available as a git repository on GitHub
-
-```shell
-git clone git@github.com:OpenAssetIO/OpenAssetIO
-```
-
 ### System requirements
 
-Linux is currently the only fully tested platform. Support
-for other platforms is the subject of ongoing work.
+OpenAssetIO aligns itself with [VFX Reference Platform CY2022](https://vfxplatform.com/)
+with additional support for python 3.7.
 
-#### Quick start: Python only
+Windows, macOS, and Linux are all supported platforms.
 
-For use in a Python-only environment, the Python package can be
-installed from the root of the repository using
+### Package Installation
 
-```shell
-pip install .
+For pure Python projects, OpenAssetIO is available on PyPI, simply run:
+
+```bash
+python -m pip install openassetio
 ```
 
-This will automatically build and install the Python extension module,
-along with the Python sources.
+### Build from source (using the ASWF Docker image)
 
-> **Note**
->
-> CMake's `find_package` must be able to locate dependencies.
-> Consider using the [`CMAKE_TOOLCHAIN_FILE`](https://cmake.org/cmake/help/v3.24/envvar/CMAKE_TOOLCHAIN_FILE.html)
-> environment variable to augment CMake's package search paths.
->
-> For example: to use `conan` to resolve dependencies, from the root of
-> the repository run (assuming a Linux host, translate as necessary):
-> ```shell
-> conan install -if .conan resources/build --build=missing
-> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_paths.cmake
-> pip install .
-> ```
-
-This will install a single binary module with the OpenAssetIO core
-library statically linked into it, and so is not suitable for use in a
-C++ application.
-
-For users that wish to modify the Python sources and test their changes
-without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs)
-are also supported
-
-```shell
-pip install --editable .
-```
-
-#### Quick start: Using the ASWF Docker image
-
-The Academy Software Foundation maintains a set of VFX Reference
-Platform compatible [Docker](https://www.docker.com/) images [here](https://github.com/AcademySoftwareFoundation/aswf-docker).
+C++ projects require a from-source build, the most convenient way to
+achieve this is to use the [ASWF Docker image](https://github.com/AcademySoftwareFoundation/aswf-docker).
 
 The CY22 image contains all dependencies currently required for building
 OpenAssetIO. For example, to build and install OpenAssetIO (by default
@@ -219,7 +183,7 @@ links to the core C++ library) and Python sources.
 The created bundle is therefore suitable for use in both C++ and Python
 applications.
 
-#### Other build methods
+### Other build methods
 
 For detailed instructions see [BUILDING](BUILDING.md).
 
