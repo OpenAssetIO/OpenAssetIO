@@ -33,7 +33,10 @@ from openassetio.hostApi import ManagerFactory
 
 
 class Test_simpleResolver_errors:
-    def test_when_config_env_not_set_then_message_printed_and_return_code_is_one(self):
+    def test_when_config_env_not_set_then_message_printed_and_return_code_is_one(
+        self, monkeypatch
+    ):
+        monkeypatch.delenv("OPENASSETIO_DEFAULT_CONFIG", raising=False)
         result = execute_cli()
         expected_message = [
             "ERROR: No default manager configured, "
@@ -43,8 +46,9 @@ class Test_simpleResolver_errors:
         assert result.returncode == 1
 
     def test_when_config_set_and_plugin_path_not_set_then_error_and_return_code_wrapped(
-        self, test_config_env  # pylint: disable=unused-argument
+        self, monkeypatch, test_config_env  # pylint: disable=unused-argument
     ):
+        monkeypatch.delenv("OPENASSETIO_PLUGIN_PATH", raising=False)
         result = execute_cli()
         expected_message = [
             "\x1b[0;33m    warning: OPENASSETIO_PLUGIN_PATH is not set. "
@@ -56,7 +60,7 @@ class Test_simpleResolver_errors:
         assert result.returncode == 1
 
     def test_when_env_set_and_no_args_then_usage_printed_and_return_code_is_one(
-        self, test_config_env, bal_env  # pylint: disable=unused-argument
+        self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli()
         expected_message = [
@@ -67,7 +71,7 @@ class Test_simpleResolver_errors:
         assert result.returncode == 2
 
     def test_when_entity_ref_and_trait_set_valid_then_expected_data_output_and_return_code_zero(
-        self, test_config_env, bal_env  # pylint: disable=unused-argument
+        self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli("animal,named", "bal:///cat")
         data = json.loads(result.stdout)
@@ -79,7 +83,7 @@ class Test_simpleResolver_errors:
         assert result.returncode == 0
 
     def test_when_entity_ref_valid_and_trait_set_invalid_then_data_empty_and_return_code_zero(
-        self, test_config_env, bal_env  # pylint: disable=unused-argument
+        self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli("someMissingTrait", "bal:///cat")
         data = json.loads(result.stdout)
@@ -87,7 +91,7 @@ class Test_simpleResolver_errors:
         assert result.returncode == 0
 
     def test_when_entity_ref_invalid_then_error_and_return_code_wrapped(
-        self, test_config_env, bal_env  # pylint: disable=unused-argument
+        self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli("named", "bal:///doesNotExist")
         expected_message = ["ERROR: Entity 'bal:///doesNotExist' not found"]
@@ -106,18 +110,6 @@ def execute_cli(*args):
     # We explicitly don't want an exception to be raised.
     # pylint: disable=subprocess-run-check
     return subprocess.run(all_args, capture_output=True, encoding="utf-8", cwd=this_file.parent)
-
-
-@pytest.fixture
-def bal_env(monkeypatch):
-    """
-    A fixture that configures the process environment such that the
-    OpenAssetIO library can load the BAL test manager plugin.
-    """
-    this_file = pathlib.Path(__file__)
-    examples_dir = this_file.parents[2]
-    bal_plugin_dir = examples_dir / "manager" / "BasicAssetLibrary" / "plugin"
-    monkeypatch.setenv("OPENASSETIO_PLUGIN_PATH", str(bal_plugin_dir))
 
 
 @pytest.fixture

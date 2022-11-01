@@ -1,0 +1,72 @@
+# Runs assorted integration tests that test the working tree
+# against a variety of external projects.
+#
+# We keep these in one job to avoid an explosion in the number of runners.
+name: Integrations
+on:
+  pull_request:
+    branches-ignore:
+      - docs
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  test:
+    name: ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # We can't properly align to the VFX Reference Platform as this
+        # requires glibc 2.17, which is older than any of the available
+        # environments.
+        config:
+        - os: windows-2019
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
+        - os: ubuntu-20.04
+          shell: bash
+        - os: macos-11
+          shell: bash
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      - name: Build OpenAssetIO (setup.py)
+        run: |
+          ${{ matrix.config.preamble }}
+          python -m pip install .
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      - name: Install test dependencies
+        run: |
+          # We don't use the local requirements.txt for each
+          # integration as they will try to install openassetio
+          # and we want to use the working tree
+          python -m pip install pytest
+
+      - name: Checkout BAL
+        uses: actions/checkout@v3
+        with:
+          repository: OpenAssetIO/OpenAssetIO-Manager-BAL
+          path: external/BAL
+
+      - name: Test Simple Resolver
+        run: |
+          python -m pytest -v resources/examples/host/simpleResolver
+        env:
+          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
+
+      - name: Test BAL
+        run: |
+          python -m pytest -v external/BAL
+
