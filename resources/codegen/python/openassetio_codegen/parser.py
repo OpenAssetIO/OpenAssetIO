@@ -25,6 +25,8 @@ import yaml
 
 import jsonschema
 
+from typing import List, Dict
+
 from . import datamodel
 
 __all__ = ("load_yaml", "validate_package_description", "build_package_declaration")
@@ -73,7 +75,7 @@ def build_package_declaration(description: dict) -> datamodel.PackageDeclaration
 #
 
 
-def _unpack_specifications(model: dict, package_id: str) -> list[datamodel.NamespaceDeclaration]:
+def _unpack_specifications(model: dict, package_id: str) -> List[datamodel.NamespaceDeclaration]:
     """
     Returns a list of NamespaceDeclarations containing
     SpecificationDeclarations from the supplied model.
@@ -104,7 +106,7 @@ def _unpack_specifications(model: dict, package_id: str) -> list[datamodel.Names
     return namespaces
 
 
-def _unpack_trait_set(trait_set: list[dict], package_id: str) -> list[datamodel.TraitReference]:
+def _unpack_trait_set(trait_set: List[dict], package_id: str) -> List[datamodel.TraitReference]:
     """
     Returns a list of TraitReferences for the supplied trait set
     description.
@@ -166,8 +168,8 @@ def _build_trait_id(package: str, namespace: str, name: str) -> str:
 
 
 def _unpack_traits(
-    model: dict[str, dict], package_id: str
-) -> list[datamodel.NamespaceDeclaration]:
+    model: Dict[str, dict], package_id: str
+) -> List[datamodel.NamespaceDeclaration]:
     """
     Returns a list of NamespaceDeclarations containing
     TraitDeclarations from the supplied model.
@@ -199,7 +201,7 @@ def _unpack_traits(
     return namespaces
 
 
-def _unpack_properties(model: dict[str, dict]) -> list[datamodel.PropertyDeclaration]:
+def _unpack_properties(model: Dict[str, dict]) -> List[datamodel.PropertyDeclaration]:
     """
     Returns a list of PropertyDefinitions sorted by id.
 

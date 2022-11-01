@@ -16,7 +16,7 @@ following packages are installed:
 
 Binary builds additionally require the following packages to be
 available to the CMake build system.
-- Python 3.9 (development install)
+- Python 3.7 (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.6.1+
 
 Building and running tests requires the following additional packages:
@@ -34,7 +34,7 @@ package manager, and source the dependencies from the default public
 the presence of CMake build targets as exported by these packages.
 
 > Warning: if attempting to build on CentOS 7 using the ConanCenter
-> Python 3.9 package you will likely hit an [issue installing pkgconf](https://github.com/conan-io/conan-center-index/issues/8541).
+> Python 3.7 package you will likely hit an [issue installing pkgconf](https://github.com/conan-io/conan-center-index/issues/8541).
 
 > Warning: On macOS, by default, CMake prefers Framework installations
 > (see: [$CMAKE_FIND_FRAMEWORK](https://cmake.org/cmake/help/latest/variable/CMAKE_FIND_FRAMEWORK.html)).

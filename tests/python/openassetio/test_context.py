@@ -40,11 +40,11 @@ class Test_Context:
             Context.kRead  # pylint: disable=pointless-statement
 
     def test_access_names_indices_match_constants(self):
-        assert Context.kAccessNames[Context.Access.kRead] == "read"
-        assert Context.kAccessNames[Context.Access.kReadMultiple] == "readMultiple"
-        assert Context.kAccessNames[Context.Access.kWrite] == "write"
-        assert Context.kAccessNames[Context.Access.kWriteMultiple] == "writeMultiple"
-        assert Context.kAccessNames[Context.Access.kUnknown] == "unknown"
+        assert Context.kAccessNames[int(Context.Access.kRead)] == "read"
+        assert Context.kAccessNames[int(Context.Access.kReadMultiple)] == "readMultiple"
+        assert Context.kAccessNames[int(Context.Access.kWrite)] == "write"
+        assert Context.kAccessNames[int(Context.Access.kWriteMultiple)] == "writeMultiple"
+        assert Context.kAccessNames[int(Context.Access.kUnknown)] == "unknown"
 
     def test_retention_constants_are_not_exported(self):
         with pytest.raises(AttributeError):
@@ -60,10 +60,10 @@ class Test_Context:
         assert len(set(consts)) == len(consts)
 
     def test_retention_names_indices_match_constants(self):
-        assert Context.kRetentionNames[Context.Retention.kIgnored] == "ignored"
-        assert Context.kRetentionNames[Context.Retention.kTransient] == "transient"
-        assert Context.kRetentionNames[Context.Retention.kSession] == "session"
-        assert Context.kRetentionNames[Context.Retention.kPermanent] == "permanent"
+        assert Context.kRetentionNames[int(Context.Retention.kIgnored)] == "ignored"
+        assert Context.kRetentionNames[int(Context.Retention.kTransient)] == "transient"
+        assert Context.kRetentionNames[int(Context.Retention.kSession)] == "session"
+        assert Context.kRetentionNames[int(Context.Retention.kPermanent)] == "permanent"
 
 
 class Test_Context_init:

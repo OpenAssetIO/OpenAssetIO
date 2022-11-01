@@ -27,6 +27,7 @@ engineering practice".
 import json
 
 from collections import namedtuple
+from typing import Set
 from urllib.parse import urlparse
 
 EntityInfo = namedtuple("EntityInfo", ("name"), defaults=("",))
@@ -100,7 +101,7 @@ def entity(entity_info: EntityInfo, library: dict) -> Entity:
     return Entity(**entity_dict["versions"][-1])
 
 
-def management_policy(trait_set: set[str], access: str, library: dict) -> dict:
+def management_policy(trait_set: Set[str], access: str, library: dict) -> dict:
     """
     Retrieves the management policy for the supplied trait set. The
     default will be used unless an alternate default or trait set

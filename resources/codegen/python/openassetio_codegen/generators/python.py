@@ -23,7 +23,7 @@ import logging
 import os
 import re
 
-from typing import NamedTuple
+from typing import List, NamedTuple
 
 import jinja2
 
@@ -194,7 +194,7 @@ def _install_custom_filters(environment, logger):
         validate_identifier(class_name, string)
         return class_name
 
-    def to_py_trait_accessor_name(name_parts: list[str]):
+    def to_py_trait_accessor_name(name_parts: List[str]):
         """
         Conforms the supplied trait name to a legal function name
         beginning with a lowercase letter.

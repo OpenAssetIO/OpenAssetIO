@@ -105,11 +105,15 @@ def execute_cli(fixtures_path, *extra_args):
     # of this is that the python on $PATH may not be the one that is
     # correctly configured with the appropriate dependencies, so we
     # attempt to use the same executable as the tests.
+
+    # Str wrapping prevents issues with Path objects in Windows
+    # Python 3.7
     all_args = [sys.executable, "-m", "openassetio.test.manager"]
     if fixtures_path:
-        all_args.extend(["-f", fixtures_path])
+        all_args.extend(["-f", str(fixtures_path)])
     if extra_args:
-        all_args.extend(extra_args)
+        str_extra_args = [str(a) for a in extra_args]
+        all_args.extend(str_extra_args)
     # We explicitly don't want an exception to be raised.
     # pylint: disable=subprocess-run-check
     return subprocess.run(all_args, capture_output=True)
