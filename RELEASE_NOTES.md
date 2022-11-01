@@ -4,6 +4,12 @@ Release Notes
 v1.0.0-alpha.x
 --------------
 
+### Breaking changes
+
+- Renamed the `openassetio-codegen` tool to `openassetio-traitgen` to
+  avoid ambiguity.
+  [#646](https://github.com/OpenAssetIO/OpenAssetIO/issues/646)
+
 ### Improvements
 
 - Added compatibility with Python 3.7.
