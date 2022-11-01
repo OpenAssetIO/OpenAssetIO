@@ -87,7 +87,7 @@ var searchData=
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_api_1_1terminology.html',1,'openassetio::hostApi']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
   ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
-  ['trait',['Trait',['../namespaceopenassetio_1_1_trait.html',1,'openassetio']]],
+  ['traitbase',['TraitBase',['../namespaceopenassetio_1_1_trait_base.html',1,'openassetio']]],
   ['traits',['traits',['../namespaceopenassetio_1_1traits.html',1,'openassetio']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];

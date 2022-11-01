@@ -62,8 +62,8 @@ var hierarchy =
     [ "TestCase", null, [
       [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
     ] ],
-    [ "Trait", "classopenassetio_1_1_trait_1_1_trait.html", null ],
     [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
+    [ "TraitBase", "classopenassetio_1_1_trait_base_1_1_trait_base.html", null ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Debuggable", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
@@ -96,11 +96,11 @@ var hierarchy =
     [ "TestHarnessLocale", null, [
       [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
     ] ],
-    [ "Trait", null, [
+    [ "TraitBase", null, [
       [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
       [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
     ] ],
-    [ "Trait", null, [
+    [ "TraitBase", null, [
       [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
       [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
       [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]

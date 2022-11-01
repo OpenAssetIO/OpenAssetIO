@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html" title="managementPolicy trait specifying that a given Trait Set can be managed by the manager plugin..." alt="" coords="126,5,237,32"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html" title="managementPolicy policy trait for determining whether a manager can determine URLs for a new entity&#39;s..." alt="" coords="104,56,259,83"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html" title="managementPolicy trait specifying that a given Trait Set can be managed by the manager plugin..." alt="" coords="158,5,269,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html" title="managementPolicy policy trait for determining whether a manager can determine URLs for a new entity&#39;s..." alt="" coords="136,56,291,83"/>
 </map>

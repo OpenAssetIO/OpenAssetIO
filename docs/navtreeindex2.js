@@ -54,7 +54,7 @@ var NAVTREEINDEX2 =
 "namespaceopenassetio_1_1__core_1_1debug.html":[13,0,0,0,1],
 "namespaceopenassetio_1_1__core_1_1objects.html":[13,0,0,0,2],
 "namespaceopenassetio_1_1_specification_base.html":[13,0,0,5],
-"namespaceopenassetio_1_1_trait.html":[13,0,0,7],
+"namespaceopenassetio_1_1_trait_base.html":[13,0,0,7],
 "namespaceopenassetio_1_1exceptions.html":[13,0,0,1],
 "namespaceopenassetio_1_1host_api.html":[13,0,0,2],
 "namespaceopenassetio_1_1host_api_1_1_manager.html":[13,0,0,2,0],

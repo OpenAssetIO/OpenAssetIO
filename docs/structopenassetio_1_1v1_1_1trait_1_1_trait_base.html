@@ -160,7 +160,7 @@ Protected Member Functions</h2></td></tr>
 struct openassetio::v1::trait::TraitBase&lt; Derived &gt;</h3>
 
 <p>Abstract CRTP base class for specification traits. </p>
-<p>A trait view provides a way to hide the underlying dictionary-like data access from hosts and managers. <a class="el" href="namespaceopenassetio_1_1_trait.html">Trait</a> view classes wrap a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> and provide member functions that query/mutate properties of the data.</p>
+<p>A trait view provides a way to hide the underlying dictionary-like data access from hosts and managers. Trait view classes wrap a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> and provide member functions that query/mutate properties of the data.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a></dd></dl>
 <p>This non-virtual templated base class provides the common interface for a concrete trait view.</p>
 <p>As an example, assume a trait view called <code>MyTrait</code> and an arbitrary data instance. Before we can extract <code>MyTrait</code> property values from the data we must check that it supports <code>MyTrait</code>. We can then use the trait's concrete accessors to retrieve values from the underlying dictionary-like <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> instance. Usage may thus look something like </p><pre class="fragment">property::Int myValue = 123;  // Default if property not found.
