@@ -9,6 +9,10 @@ on:
       - main
       - feature/**
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cache:
     name: ${{ matrix.config.os }}

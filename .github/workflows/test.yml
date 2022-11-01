@@ -8,6 +8,10 @@ on:
     paths-ignore:
       - 'docs/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: ${{ matrix.config.os }}
@@ -50,7 +54,7 @@ jobs:
     - name: Build, install and test
       run: >
         ${{ matrix.config.preamble }}
-        
+
         ctest -VV --test-dir build --parallel 2
 
   docs:
