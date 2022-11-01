@@ -66,7 +66,7 @@ class Test_package_imports:
         from openassetio import SpecificationBase
 
     def test_importing_Trait_succeeds(self):
-        from openassetio import Trait
+        from openassetio import TraitBase
 
     def test_importing_TraitsData_succeeds(self):
         from openassetio import TraitsData

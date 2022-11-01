@@ -21,13 +21,13 @@ Tests that cover the openassetio.traits.managementPolicy traits.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
-from openassetio import TraitsData, Trait
+from openassetio import TraitsData, TraitBase
 from openassetio.traits.managementPolicy import ManagedTrait, WillManagePathTrait
 
 
 class Test_ManagedTrait:
     def test_subclass(self):
-        assert issubclass(ManagedTrait, Trait)
+        assert issubclass(ManagedTrait, TraitBase)
 
     def test_traitId(self):
         assert ManagedTrait.kId == "openassetio.Managed"
@@ -105,7 +105,7 @@ class Test_ManagedTrait_setExclusive:
 
 class Test_WillManagePathTrait:
     def test_subclass(self):
-        assert issubclass(WillManagePathTrait, Trait)
+        assert issubclass(WillManagePathTrait, TraitBase)
 
     def test_traitId(self):
         assert WillManagePathTrait.kId == "openassetio.WillManagePath"

@@ -30,7 +30,7 @@ import pytest
 
 from typing import Any, NamedTuple
 
-from openassetio import SpecificationBase, Trait, TraitsData
+from openassetio import SpecificationBase, TraitBase, TraitsData
 from openassetio_traitgen import datamodel, generate
 from openassetio_traitgen.generators import python as python_generator
 
@@ -363,7 +363,7 @@ class Test_python_package_specifications_only:
 
 class Test_AllPropertiesTrait:
     def test_subclass_of_openassetio_Trait(self, all_properties_trait):
-        assert issubclass(all_properties_trait, Trait)
+        assert issubclass(all_properties_trait, TraitBase)
 
     def test_traitId_is_composed_of_package_aNamespace_and_name(self, all_properties_trait):
         assert all_properties_trait.kId == "openassetio-traitgen-test-all:aNamespace.AllProperties"

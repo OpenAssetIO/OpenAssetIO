@@ -18,7 +18,7 @@
 Specifications for use within openassetio manager test harnesses.
 """
 
-from openassetio import Trait
+from openassetio import TraitBase
 
 from ..specifications import TestHarnessLocale
 
@@ -26,7 +26,7 @@ from ..specifications import TestHarnessLocale
 # pylint: disable=missing-function-docstring
 
 
-class ManagerTrait(Trait):
+class ManagerTrait(TraitBase):
     """
     A trait that defines a calling context as being associated with
     an OpenAssetIO manager.

@@ -18,13 +18,13 @@
 Specifications for use within openassetio test harnesses.
 """
 
-from openassetio import SpecificationBase, Trait
+from openassetio import SpecificationBase, TraitBase
 
 
 # pylint: disable=missing-function-docstring
 
 
-class TestTrait(Trait):
+class TestTrait(TraitBase):
     """
     A trait that represents a calling context that is some kind of
     test environment.
@@ -48,7 +48,7 @@ class TestTrait(Trait):
         return self._data.getTraitProperty(self.kId, self.__kSuiteName)
 
 
-class HarnessTrait(Trait):
+class HarnessTrait(TraitBase):
     """
     A trait that defines a calling context that is some kind of
     automated scriptable framework that operates on a specific

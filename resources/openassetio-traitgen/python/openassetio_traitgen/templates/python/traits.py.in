@@ -12,10 +12,10 @@ Trait definitions in the '{{ namespace.id }}' namespace.
 
 from typing import Union
 
-from openassetio import Trait
+from openassetio import TraitBase
 
 {% for trait in namespace.members %}
-class {{ trait.name | to_py_class_name }}Trait(Trait):
+class {{ trait.name | to_py_class_name }}Trait(TraitBase):
     """
     {{ trait.description | wordwrap(68) | indent(4) }}
     {% if trait.usage -%}

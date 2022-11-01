@@ -23,7 +23,7 @@ Tests for the Python-specific SpecificationBase base class.
 
 import pytest
 
-from openassetio import SpecificationBase, Trait, TraitsData
+from openassetio import SpecificationBase, TraitBase, TraitsData
 
 
 class Test_SpecificationBase_Construction:
@@ -52,7 +52,7 @@ class Test_SpecificationBase_create:
         assert data.traitSet() == ATestSpecification.kTraitSet
 
 
-class ATrait(Trait):
+class ATrait(TraitBase):
     kId = "a"
 
     def setProperty(self, value):
