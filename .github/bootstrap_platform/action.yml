@@ -12,14 +12,14 @@ runs:
   steps:
 
   - name: Set up Python
-    uses: actions/setup-python@v2
+    uses: actions/setup-python@v4
     with:
       # CY2022 (https://vfxplatform.com)
       python-version: "3.9"
 
   - name: Cache conan packages
     id: cache-conan
-    uses: actions/cache@v2
+    uses: actions/cache@v3
     with:
       path: ~/conan
       key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
