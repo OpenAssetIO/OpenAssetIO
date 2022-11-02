@@ -121,9 +121,6 @@ the Python module.
 In installing the Python module, OpenAssetIO creates a valid Python
 package, placed at
 `build/dist/lib/{python-version}/site-packages/openassetio`.
-This generated python package can then be used directly (e.g. by
-extending `PYTHONPATH` and/or `LD_LIBRARY_PATH`), or as the source for a
-further packaging step.
 
 > **Note**
 >

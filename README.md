@@ -150,46 +150,22 @@ with additional support for python 3.7.
 
 Windows, macOS, and Linux are all supported platforms.
 
-### Package Installation
+### Getting OpenAssetIO
 
-OpenAssetIO can be installed either as a pure Python package, or as a
-full install, which builds a core C++ component, as well as optional
+OpenAssetIO can be used either as a pure Python package, or as a
+hybrid package, which includes a core C++ component, as well as optional
 C and Python bindings.
 
 > **Note**
 > Currently, to create a non-python host or manager plugins, one must
-> perform a full install via [building from source](BUILDING.md#building).
+> use a hybrid package, which is only available via
+> [building from source](BUILDING.md#building).
 
 For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 
 ```bash
 python -m pip install openassetio
 ```
-
-### Build from source (using the ASWF Docker image)
-
-C++ projects require a from-source build, the most convenient way to
-achieve this is to use the [ASWF Docker image](https://github.com/AcademySoftwareFoundation/aswf-docker).
-
-The CY22 image contains all dependencies currently required for building
-OpenAssetIO. For example, to build and install OpenAssetIO (by default
-to a `dist` directory under the build directory) via a container, from
-the repository root run
-
-```shell
-docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
-  cd /src && \
-  cmake -S . -B build && \
-  cmake --build build && \
-  cmake --install build'
-```
-
-The install tree (`dist`) will contain a complete bundle, including the
-core C++ shared library, Python extension module (which dynamically
-links to the core C++ library) and Python sources.
-
-The created bundle is therefore suitable for use in both C++ and Python
-applications.
 
 ### Other build methods
 
@@ -199,6 +175,14 @@ A convenient way to achieve this out of the box is to use the
 
 For detailed instructions on this, and other build and dependency
 information, see [BUILDING](BUILDING.md).
+
+> **Note**
+>
+> Currently, C++ projects require a from-source build.
+> A convenient way to achieve this out of the box is to use a sandboxed
+> build workflow, with the [ASWF Docker image](https://github.com/AcademySoftwareFoundation/aswf-docker).
+>
+> You can find instructions for that build workflow [here](BUILDING.md#sandboxed-builds).
 
 ## Getting involved
 
