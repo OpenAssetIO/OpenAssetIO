@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -64,14 +64,9 @@ class PythonPluginSystem(object):
         @note Precedence order is undefined for plugins sharing the
         same identifier within the same directory.
 
-        Any existing plugins registered with the PythonPluginSystem will be
-        cleared before scanning.
-
         @param paths `str` A list of paths to search, delimited by
         `os.pathsep`.
         """
-        self.reset()
-
         self.__logger.log(
             self.__logger.Severity.kDebug, "PythonPluginSystem: Searching %s" % paths
         )

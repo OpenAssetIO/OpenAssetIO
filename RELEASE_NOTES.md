@@ -6,6 +6,13 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- The `PythonPluginSystem` no longer clears existing plugin
+  registrations when `scan` is called. The
+  `PythonPluginSystemManagerImplementationFactory` has been updated to
+  call `reset` itself, so this change only affects any direct use of the
+  `PythonPluginSystem` by third party code.
+  [#703](https://github.com/OpenAssetIO/OpenAssetIO/issues/703)
+
 - Removed references to `openassetio-traitgen` from codebase, is now in
   [own repository](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
   [#715](https://github.com/OpenAssetIO/OpenAssetIO/issues/715)

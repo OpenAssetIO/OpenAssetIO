@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -70,6 +70,8 @@ class Test_PythonPluginSystem_scan:
         a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
         assert "pathA" in a_plugin_system.plugin(module_plugin_identifier).__file__
 
+        a_plugin_system.reset()
+
         a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
         assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
 
@@ -81,6 +83,20 @@ class Test_PythonPluginSystem_scan:
         module_plugin_identifier,
     ):
         a_plugin_system.scan(a_plugin_path_with_symlinks)
+
+        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        assert set(a_plugin_system.identifiers()) == expected_identifiers
+
+    def test_when_scan_called_multiple_times_then_plugins_combined(
+        self,
+        a_plugin_system,
+        a_package_plugin_path,
+        a_module_plugin_path,
+        package_plugin_identifier,
+        module_plugin_identifier,
+    ):
+        a_plugin_system.scan(paths=a_package_plugin_path)
+        a_plugin_system.scan(paths=a_module_plugin_path)
 
         expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
