@@ -35,6 +35,11 @@ def package_plugin_identifier():
 
 
 @pytest.fixture
+def entry_point_plugin_identifier(package_plugin_identifier):
+    return package_plugin_identifier
+
+
+@pytest.fixture
 def a_plugin_path_with_symlinks(the_resources_directory_path):
     return os.path.join(the_resources_directory_path, "symlinkPath")
 
@@ -47,6 +52,16 @@ def a_module_plugin_path(the_resources_directory_path):
 @pytest.fixture
 def a_package_plugin_path(the_resources_directory_path):
     return os.path.join(the_resources_directory_path, "pathB")
+
+
+@pytest.fixture
+def broken_plugins_path(the_resources_directory_path):
+    return os.path.join(the_resources_directory_path, "broken", "site-packages")
+
+
+@pytest.fixture
+def an_entry_point_package_plugin_root(the_resources_directory_path):
+    return os.path.join(the_resources_directory_path, "entryPoint", "site-packages")
 
 
 @pytest.fixture

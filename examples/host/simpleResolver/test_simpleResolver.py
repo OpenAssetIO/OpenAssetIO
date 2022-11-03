@@ -51,8 +51,6 @@ class Test_simpleResolver_errors:
         monkeypatch.delenv("OPENASSETIO_PLUGIN_PATH", raising=False)
         result = execute_cli()
         expected_message = [
-            "\x1b[0;33m    warning: OPENASSETIO_PLUGIN_PATH is not set. "
-            "It is somewhat unlikely that you will find any plugins...\033[0m",
             "ERROR: PythonPluginSystem: No plug-in registered with the identifier "
             "'org.openassetio.examples.manager.bal'",
         ]

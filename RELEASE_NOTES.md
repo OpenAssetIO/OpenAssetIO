@@ -6,12 +6,25 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- OpenAssetIO now has a soft dependency on the `importlib_metadata`
+  Python package (>=3.6.0). If you have been installing the project
+  manually by extending `PYTHONPATH` (instead of using `pip`) you may
+  also need to additionally satisfy this dependency if you wish to make
+  use of entry point based discovery of Python plugins.
+  [#762](https://github.com/OpenAssetIO/OpenAssetIO/issues/762)
+
 - The `PythonPluginSystem` no longer clears existing plugin
   registrations when `scan` is called. The
   `PythonPluginSystemManagerImplementationFactory` has been updated to
   call `reset` itself, so this change only affects any direct use of the
   `PythonPluginSystem` by third party code.
   [#703](https://github.com/OpenAssetIO/OpenAssetIO/issues/703)
+
+- The `PythonPluginSystemManagerImplementationFactory` now checks
+  fall-back environment variables during construction, rather than the
+  first time plugins are queried. This means changes to the environment
+  made after a factory has been created will not affect that factory.
+  [#762](https://github.com/OpenAssetIO/OpenAssetIO/issues/762)
 
 - Removed references to `openassetio-traitgen` from codebase, is now in
   [own repository](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
@@ -33,6 +46,19 @@ v1.0.0-alpha.x
   `.addTraits` / `.setTraitProperty` / `.getTraitProperty` /
   `.traitPropertyKeys` / copy-constructor.
   [#743](https://github.com/OpenAssetIO/OpenAssetIO/issues/743)
+
+
+### New features
+
+- Added entry point based discovery of Python manager plugins. This
+  allows pure Python manager plugins to be deployed and managed as
+  Python packages, without the need to wrangle
+  `OPENASSETIO_PLUGIN_PATH`. The `openassetio.manager_plugin` entry
+  point should expose a module providing a top-level `plugin` variable,
+  holding a `ManagerPlugin` derived class. This can be disabled by
+  setting the `OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS` env var to any
+  value.
+  [#762](https://github.com/OpenAssetIO/OpenAssetIO/issues/762)
 
 
 ### Improvements

@@ -22,6 +22,7 @@ import os.path
 import importlib.util
 import hashlib
 import sys
+import traceback
 
 from .. import exceptions
 
@@ -31,11 +32,12 @@ __all__ = ["PythonPluginSystem"]
 
 class PythonPluginSystem(object):
     """
-    Loads Python Packages on a custom search path. If they manager a
-    top-level 'plugin' attribute, that holds a class derived from
-    PythonPluginSystemPlugin, it will be registered with its identifier.
-    Once a plug-in has registered an identifier, any subsequent
-    registrations with that id will be skipped.
+    Loads Python Packages, using entry point discovery or from a custom
+    search path. If they manager a top-level 'plugin' attribute, that
+    holds a class derived from PythonPluginSystemPlugin, it will be
+    registered with its identifier. Once a plug-in has registered an
+    identifier, any subsequent registrations with that id will be
+    skipped.
     """
 
     __validModuleExtensions = (".py", ".pyc")
@@ -67,15 +69,12 @@ class PythonPluginSystem(object):
         @param paths `str` A list of paths to search, delimited by
         `os.pathsep`.
         """
-        self.__logger.log(
-            self.__logger.Severity.kDebug, "PythonPluginSystem: Searching %s" % paths
-        )
+        self.__logger.debug(f"PythonPluginSystem: Searching {paths}")
 
         for path in paths.split(os.pathsep):
 
             if not os.path.isdir(path):
-                msg = "PythonPluginSystem: Skipping as it is not a directory %s" % path
-                self.__logger.log(self.__logger.Severity.kDebug, msg)
+                self.__logger.debug(f"PythonPluginSystem: Skipping as not a directory {path}")
 
             for item in os.listdir(path):
 
@@ -87,28 +86,78 @@ class PythonPluginSystem(object):
                     if os.path.exists(initFile):
                         itemPath = initFile
                     else:
-                        msg = (
+                        self.__logger.debug(
                             "PythonPluginSystem: Ignoring as it is not a python package "
-                            "contianing __init__.py %s" % itemPath
+                            f"contianing __init__.py {itemPath}"
                         )
-                        self.__logger.log(self.__logger.Severity.kDebug, msg)
                         continue
                 else:
                     # Its a file, check if it is a .py/.pyc module
                     _, ext = os.path.splitext(itemPath)
                     if ext not in self.__validModuleExtensions:
-                        msg = (
-                            "PythonPluginSystem: Ignoring as its not a python module %s" % itemPath
+                        self.__logger.debug(
+                            f"PythonPluginSystem: Ignoring as its not a python module {itemPath}"
                         )
-                        self.__logger.log(self.__logger.Severity.kDebug, msg)
                         continue
 
-                self.__logger.log(
-                    self.__logger.Severity.kDebug,
-                    "PythonPluginSystem: Attempting to load %s" % itemPath,
-                )
+                self.__logger.debug(f"PythonPluginSystem: Attempting to load {itemPath}")
 
                 self.__load(itemPath)
+
+    def scan_entry_points(self, entryPointName):
+        """
+        Searches packages for entry points that define a
+        PythonPluginSystemPlugin through a top-level `plugin` variable.
+
+        @note The order of discovery is determined by `importlib`, only
+        the first plugin with any given identifier will be registered.
+
+        @param entryPointName `str` The entry point name to search for
+        (see: importlib_metadata.entry_points group).
+
+        @returns True if entry point discovery is possible, False if
+        there was a problem loading importlib_metadata.
+        """
+
+        # We opt to use the backport implementation of modern importlib to avoid
+        # needing to support 3+ code paths to cover Python 3.7 to 3.10. It is
+        # made available for 3.7 onwards (for now, at least).
+        # Pip installs should have this module available, but other methods may not,
+        # so be tolerant of it being missing.
+        try:
+            import importlib_metadata  # pylint: disable=import-outside-toplevel
+        except ImportError:
+            self.__logger.warning(
+                "PythonPluginSystem: Can not load entry point plugins as the importlib_metadata "
+                "package is unavailable."
+            )
+            return False
+
+        self.__logger.debug(
+            f"PythonPluginSystem: Searching packages for '{entryPointName}' entry points."
+        )
+
+        for entryPoint in importlib_metadata.entry_points(group=entryPointName):
+
+            self.__logger.debug(f"PythonPluginSystem: Found entry point in {entryPoint.name}")
+            try:
+                module = entryPoint.load()
+            except Exception:  # pylint: disable=broad-except
+                self.__logger.error(
+                    f"PythonPluginSystem: Caught exception loading {entryPoint.name}:\n"
+                    + traceback.format_exc()
+                )
+                continue
+
+            if not hasattr(module, "plugin"):
+                self.__logger.error(
+                    f"PythonPluginSystem: No top-level 'plugin' variable {module.__file__}"
+                )
+                continue
+
+            self.register(module.plugin, module.__file__)
+
+        return True
 
     def identifiers(self):
         """
@@ -154,15 +203,13 @@ class PythonPluginSystem(object):
         """
         identifier = cls.identifier()
         if identifier in self.__map:
-            msg = (
-                "PythonPluginSystem: Skipping class '%s' defined in '%s'."
-                " Already registered by '%s'" % (cls, path, self.__paths[identifier])
+            self.__logger.debug(
+                f"PythonPluginSystem: Skipping class '{cls}' defined in '{path}'. "
+                f"Already registered by '{self.__paths[identifier]}'"
             )
-            self.__logger.log(self.__logger.Severity.kDebug, msg)
             return
 
-        msg = "PythonPluginSystem: Registered plug-in '%s' from '%s'" % (cls, path)
-        self.__logger.log(self.__logger.Severity.kDebug, msg)
+        self.__logger.debug(f"PythonPluginSystem: Registered plug-in '{cls}' from '{path}'")
 
         self.__map[identifier] = cls
         self.__paths[identifier] = path
@@ -194,14 +241,14 @@ class PythonPluginSystem(object):
 
             spec.loader.exec_module(module)
 
-        except Exception as ex:  # pylint: disable=broad-except
-            msg = "PythonPluginSystem: Caught exception loading plug-in from %s:\n%s" % (path, ex)
-            self.__logger.log(self.__logger.Severity.kWarning, msg)
+        except Exception:  # pylint: disable=broad-except
+            self.__logger.error(
+                f"PythonPluginSystem: Caught exception loading {path}:\n" + traceback.format_exc()
+            )
             return
 
         if not hasattr(module, "plugin"):
-            msg = "PythonPluginSystem: No top-level 'plugin' variable %s" % path
-            self.__logger.log(self.__logger.Severity.kWarning, msg)
+            self.__logger.error(f"PythonPluginSystem: No top-level 'plugin' variable {path}")
             return
 
         # Store where this plugin was loaded from. Not entirely

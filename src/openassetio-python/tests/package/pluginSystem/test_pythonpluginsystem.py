@@ -22,11 +22,18 @@ These tests check the functionality of the PythonPluginSystem class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import os
+import sys
+from typing import List
 
 import pytest
 
 from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import PythonPluginSystem
+
+
+# We use this entry point to allow us to share test resources with
+# the implementation factory tests.
+PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"
 
 
 class Test_PythonPluginSystem_scan:
@@ -101,6 +108,95 @@ class Test_PythonPluginSystem_scan:
         expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
+    def test_when_plugins_broken_then_skipped_with_expected_errors(
+        self, broken_plugins_path, mock_logger
+    ):
+        plugin_system = PythonPluginSystem(mock_logger)
+        plugin_system.scan(broken_plugins_path)
+
+        assert not plugin_system.identifiers()
+        missing_plugin_path = os.path.join(broken_plugins_path, "missing_plugin.py")
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kError,
+            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+        )
+        raises_exception_path = os.path.join(broken_plugins_path, "raises_exception.py")
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kError,
+            StringContaining(
+                [
+                    f"PythonPluginSystem: Caught exception loading {raises_exception_path}:\n",
+                    f'  File "{raises_exception_path}", line 4, in <module>\n',
+                    '    raise RuntimeError("An exception")',
+                ]
+            ),
+        )
+
+
+class Test_PythonPluginSystem_scan_entry_points:
+    def test_when_no_package_with_entry_point_installed_then_nothing_loaded_and_true_returned(
+        self, a_plugin_system
+    ):
+        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
+        assert not a_plugin_system.identifiers()
+
+    def test_when_entry_point_package_installed_then_loaded_and_true_returned(
+        self,
+        a_plugin_system,
+        an_entry_point_package_plugin_root,
+        entry_point_plugin_identifier,
+        monkeypatch,
+    ):
+        path_with_plugin = [an_entry_point_package_plugin_root] + sys.path
+        monkeypatch.setattr(sys, "path", path_with_plugin)
+
+        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
+        assert a_plugin_system.identifiers() == [entry_point_plugin_identifier]
+
+    def test_when_importlib_metadata_missing_then_a_warning_is_loggeed_and_false_returned(
+        self, mock_logger, monkeypatch
+    ):
+        # Remove any previously imported versions
+        sys.modules.pop("importlib_metadata", None)
+        monkeypatch.setattr(sys, "path", [])
+
+        plugin_system = PythonPluginSystem(mock_logger)
+        assert plugin_system.scan_entry_points("some.entrypoint") is False
+
+        mock_logger.mock.log.assert_called_once_with(
+            mock_logger.Severity.kWarning,
+            "PythonPluginSystem: Can not load entry point plugins as the importlib_metadata "
+            "package is unavailable.",
+        )
+
+    def test_when_plugins_broken_then_skipped_with_expected_errors(
+        self, broken_plugins_path, mock_logger, monkeypatch
+    ):
+        path_with_plugin = [broken_plugins_path] + sys.path
+        monkeypatch.setattr(sys, "path", path_with_plugin)
+
+        plugin_system = PythonPluginSystem(mock_logger)
+        plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP)
+
+        assert not plugin_system.identifiers()
+        # mock_logger.mock.log.assert_called_once()
+        missing_plugin_path = os.path.join(broken_plugins_path, "missing_plugin.py")
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kError,
+            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+        )
+        raises_exception_path = os.path.join(broken_plugins_path, "raises_exception.py")
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kError,
+            StringContaining(
+                [
+                    "PythonPluginSystem: Caught exception loading raies_exception:\n",
+                    f'  File "{raises_exception_path}", line 4, in <module>\n',
+                    '    raise RuntimeError("An exception")',
+                ]
+            ),
+        )
+
 
 @pytest.fixture
 def a_plugin_system(a_logger):
@@ -113,3 +209,35 @@ def a_plugin_system(a_logger):
 @pytest.fixture
 def a_logger():
     return ConsoleLogger()
+
+
+class StringContaining:
+    """
+    A helper class that aids testing runtime generated strings that may
+    contain unpredictable content along with known text (e.g stack
+    traces).
+
+    It only compares True to another string that contains all of the
+    supplied substrings.
+    """
+
+    def __init__(self, substrings: List[str]):
+        """
+        @param substrings A list of substrings that must be present
+        when this object is compared to a string.
+        """
+        self.__substrings = substrings
+
+    def __eq__(self, other):
+        if not isinstance(other, str):
+            return False
+        for substring in self.__substrings:
+            if substring not in other:
+                return False
+        return True
+
+    def __neq__(self, other):
+        return not self.__eq__(other)
+
+    def __repr__(self):
+        return f"StringContaining({repr(self.__substrings)})"
