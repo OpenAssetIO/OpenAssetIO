@@ -25,6 +25,7 @@ install(
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
 add_library(openassetio-python-bridge)
+add_library(${PROJECT_NAME}::openassetio-python-bridge ALIAS openassetio-python-bridge)
 # Set good default target options.
 set_default_target_properties(openassetio-python-bridge)
 # Set output artifact base filename.
@@ -39,9 +40,11 @@ if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)
-        install(FILES $<TARGET_PDB_FILE:openassetio-python-bridge>
+        install(
+            FILES $<TARGET_PDB_FILE:openassetio-python-bridge>
+            TYPE BIN
             CONFIGURATIONS "Debug" "RelWithDebInfo"
-            DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+        )
     endif ()
 endif ()
 
@@ -68,13 +71,13 @@ target_include_directories(openassetio-python-bridge
 
 # Library dependencies.
 target_link_libraries(openassetio-python-bridge
-    PRIVATE
+    PUBLIC
     openassetio-core
-    # TODO(DF): Pybind docs say the pybind11 target just includes
-    #   pybind and Python headers, which is all we should need for this
-    #   library. However, a bug in the ConanCenter package means all
-    #   pybind targets include everything. See #528.
-    pybind11::pybind11)
+    PRIVATE
+    # pybind11 is not needed by consumers in order to use this target,
+    # so we don't want it listed as a required dependency in
+    # OpenAssetIOConfig.cmake et al.
+    $<BUILD_INTERFACE:pybind11::module>)
 
 
 #-----------------------------------------------------------------------

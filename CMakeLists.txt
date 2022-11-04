@@ -114,8 +114,6 @@ option(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
 # Enable Python bindings build by default.
 option(OPENASSETIO_ENABLE_PYTHON "Build Python bindings" ON)
 if (OPENASSETIO_ENABLE_PYTHON)
-    # Allow overriding the desired Python version.
-    set(OPENASSETIO_PYTHON_VERSION "3.7" CACHE STRING "Python version")
     # By default we'll compute the correct site-packages directory
     # structure, but allow overriding.
     set(OPENASSETIO_PYTHON_SITEDIR

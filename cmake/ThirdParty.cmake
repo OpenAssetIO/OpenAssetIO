@@ -5,15 +5,8 @@ if (OPENASSETIO_ENABLE_PYTHON)
     #-------------------------------------------------------------------
     # Locate packages
 
-    # Components required for building a Python module.
-    list(APPEND python_components Development.Module)
-    list(APPEND python_components Interpreter)
-
     # Locate the Python package.
-    find_package(
-        Python ${OPENASSETIO_PYTHON_VERSION}
-        REQUIRED
-        COMPONENTS ${python_components})
+    find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 
     # Debug log some outputs expected from the built-in FindPython.
     message(TRACE "Python_EXECUTABLE = ${Python_EXECUTABLE}")

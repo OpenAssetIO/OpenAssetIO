@@ -34,6 +34,7 @@ install(
 # BUILD_SHARED_LIBS option.
 # TODO(DF): Allow customising library name (e.g. suffix)? See OCIO.
 add_library(openassetio-core)
+add_library(${PROJECT_NAME}::openassetio-core ALIAS openassetio-core)
 # Set good default target options.
 set_default_target_properties(openassetio-core)
 # Set output artifact base filename.
@@ -47,9 +48,11 @@ if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)
-        install(FILES $<TARGET_PDB_FILE:openassetio-core>
+        install(
+            FILES $<TARGET_PDB_FILE:openassetio-core>
+            TYPE BIN
             CONFIGURATIONS "Debug" "RelWithDebInfo"
-            DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+        )
     endif ()
 endif ()
 
