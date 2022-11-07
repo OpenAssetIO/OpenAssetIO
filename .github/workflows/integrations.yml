@@ -10,6 +10,10 @@ on:
     paths-ignore:
       - 'docs/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   python-e2e:
     name: Python e2e on ${{ matrix.config.os }}
