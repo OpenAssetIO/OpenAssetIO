@@ -111,8 +111,9 @@ jobs:
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v3
         with:
-          repository: OpenAssetIO/OpenAssetIO-Test-CMake
+          repository: feltech/OpenAssetIO-Test-CMake
           path: external/OpenAssetIO-Test-CMake
+          ref: work/714-ciJobForOpenAssetIO
 
       - name: Test CMake package
         run: |
