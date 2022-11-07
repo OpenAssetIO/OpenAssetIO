@@ -106,7 +106,7 @@ jobs:
       - name: Build/install OpenAssetIO
         run: |
           ${{ matrix.config.preamble }}
-          cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist
+          cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=OFF
           cmake --build build
           cmake --install build
         env:
@@ -123,7 +123,7 @@ jobs:
         run: |
           ${{ matrix.config.preamble }}
           cd external/OpenAssetIO-Test-CMake
-          cmake -S . -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ github.workspace }}/dist
+          cmake -S . -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ github.workspace }}/dist -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=OFF
           cmake --build build
           ctest -VV --test-dir build
         env:
