@@ -60,6 +60,12 @@ jobs:
           repository: OpenAssetIO/OpenAssetIO-Manager-BAL
           path: external/BAL
 
+      - name: Checkout TraitGen
+        uses: actions/checkout@v3
+        with:
+          repository: OpenAssetIO/OpenAssetIO-TraitGen
+          path: external/TraitGen
+
       - name: Test Simple Resolver
         run: |
           python -m pytest -v resources/examples/host/simpleResolver
@@ -69,4 +75,8 @@ jobs:
       - name: Test BAL
         run: |
           python -m pytest -v external/BAL
+
+      - name: Test TraitGen
+        run: |
+          python -m pytest -v external/TraitGen
 
