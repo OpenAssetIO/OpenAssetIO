@@ -7,9 +7,10 @@ class OpenAssetIOConan(ConanFile):
         # which augments package search paths with conan package
         # directories.
         "cmake_paths",
-        # Generate `Find<PackageName>.cmake` finders, required for various
-        # public ConanCenter packages (e.g. pybind11) since they disallow
-        # bundling of `<PackageName>Config.cmake`-like files in the package.
+        # Generate `Find<PackageName>.cmake` finders, required for
+        # various public ConanCenter packages (e.g. pybind11) since they
+        # disallow bundling of `<PackageName>Config.cmake`-like files in
+        # the package.
         "cmake_find_package",
     )
     settings = "os"
