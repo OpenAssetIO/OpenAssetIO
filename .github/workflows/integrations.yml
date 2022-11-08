@@ -1,7 +1,7 @@
 # Runs assorted integration tests that test the working tree
 # against a variety of external projects.
 #
-# We keep these in one job to avoid an explosion in the number of runners.
+# We keep these in few jobs to avoid an explosion in the number of runners.
 name: Integrations
 on:
   pull_request:
@@ -10,9 +10,13 @@ on:
     paths-ignore:
       - 'docs/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: ${{ matrix.config.os }}
+  python-integrations:
+    name: Python e2e on ${{ matrix.config.os }}
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
@@ -70,3 +74,60 @@ jobs:
         run: |
           python -m pytest -v external/BAL
 
+  cmake-integrations:
+    name: CMake package on ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - os: windows-2019
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
+        - os: ubuntu-20.04
+          shell: bash
+        - os: macos-11
+          # MacOS toolchain doesn't search /usr/local by default:
+          # https://gitlab.kitware.com/cmake/cmake/-/issues/19120
+          # The CMake FindPython module's Python::Python target (used in
+          # OpenAssetIO-Test-CMake) transitively adds linker flags to
+          # system libs, which fail due to this issue.
+          preamble: export LDFLAGS="-L/usr/local/lib"
+          shell: bash
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      - name: Build/install OpenAssetIO
+        run: |
+          ${{ matrix.config.preamble }}
+          cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist
+          cmake --build build
+          cmake --install build
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      - name: Checkout OpenAssetIO-Test-CMake
+        uses: actions/checkout@v3
+        with:
+          repository: OpenAssetIO/OpenAssetIO-Test-CMake
+          path: external/OpenAssetIO-Test-CMake
+
+      - name: Test CMake package
+        run: |
+          ${{ matrix.config.preamble }}
+          cd external/OpenAssetIO-Test-CMake
+          cmake -S . -B build -G Ninja
+          cmake --build build
+          ctest -VV --test-dir build
+        env:
+          CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
