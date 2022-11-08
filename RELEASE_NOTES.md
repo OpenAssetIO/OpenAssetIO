@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Breaking changes
+
+- Removed references to `openassetio-traitgen` from codebase, is now in
+  [own repository](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
+  [#715](https://github.com/OpenAssetIO/OpenAssetIO/issues/715)
+
 v1.0.0-alpha.6
 --------------
 
