@@ -64,15 +64,29 @@ jobs:
           repository: OpenAssetIO/OpenAssetIO-Manager-BAL
           path: external/BAL
 
+      - name: Test BAL
+        run: |
+          python -m pytest -v external/BAL
+
       - name: Test Simple Resolver
         run: |
           python -m pytest -v resources/examples/host/simpleResolver
         env:
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
 
-      - name: Test BAL
+      - name: Checkout TraitGen
+        uses: actions/checkout@v3
+        with:
+          repository: OpenAssetIO/OpenAssetIO-TraitGen
+          path: external/TraitGen
+
+      - name: Install TraitGen
+        run : |
+          python -m pip install external/TraitGen
+
+      - name: Test TraitGen
         run: |
-          python -m pytest -v external/BAL
+          python -m pytest -v external/TraitGen
 
   cmake-integrations:
     name: CMake package on ${{ matrix.config.os }}

@@ -98,13 +98,3 @@ if (UNIX)
 
     set_target_properties(openassetio-python-module PROPERTIES INSTALL_RPATH "${rpath}")
 endif ()
-
-
-#-----------------------------------------------------------------------
-# Create deployment targets
-
-# Install OpenAssetIO Code Generator dependencies into the venv.
-openassetio_add_python_environment_dependency(
-    openassetio.internal.resources-traitgen.install-deps
-    ${PROJECT_SOURCE_DIR}/resources/openassetio-traitgen/requirements.txt
-)
