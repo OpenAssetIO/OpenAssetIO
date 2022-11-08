@@ -59,7 +59,46 @@ jobs:
     - name: Install using pip
       run: |
         ${{ matrix.config.preamble }}
-        pip install .
+        python -m pip install .
+      env:
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+    - name: Install test dependencies
+      run: pip install -r tests/python/requirements.txt
+
+    - name: Run Python tests
+      run: pytest tests/python/openassetio
+
+  editable_pip_install:
+    name: Editable pip install on  ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - os: windows-2019
+            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+            shell: cmd
+          - os: ubuntu-20.04
+            shell: bash
+          - os: macos-11
+            shell: bash
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Bootstrap
+      uses: ./.github/bootstrap_platform
+
+    - name: Install using pip
+      run: |
+        ${{ matrix.config.preamble }}
+        python -m pip install --editable .
       env:
         CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
