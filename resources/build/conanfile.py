@@ -31,7 +31,7 @@ class OpenAssetIOConan(ConanFile):
             # Without the following, ConanCenter's `cpython` package
             # doesn't get installed with all artifacts on Windows, e.g.
             # `python -m venv` doesn't work. See:
-            # https://github.com/conan-io/conan-center-index/issues/9332
+            # https://github.com/conan-io/conan-center-index/issues/9333
             # However, with the following, the package's bundled Python
             # interpreter doesn't work on Linux because it cannot find
             # libpython (RPATH issue). So we must make this conditional
