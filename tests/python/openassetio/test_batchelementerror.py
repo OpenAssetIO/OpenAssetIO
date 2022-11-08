@@ -62,11 +62,11 @@ class Test_BatchElementError_init:
     def test_when_code_modified_then_raises_AttributeError(self):
         a_batch_element_error = BatchElementError(BatchElementError.ErrorCode.kUnknown, "whatever")
 
-        with pytest.raises(AttributeError, match="can't set attribute"):
+        with pytest.raises(AttributeError, match="property of 'BatchElementError' object has no setter"):
             a_batch_element_error.code = BatchElementError.ErrorCode.kUnknown
 
     def test_when_message_modified_then_raises_AttributeError(self):
         a_batch_element_error = BatchElementError(BatchElementError.ErrorCode.kUnknown, "whatever")
 
-        with pytest.raises(AttributeError, match="can't set attribute"):
+        with pytest.raises(AttributeError, match="property of 'BatchElementError' object has no setter"):
             a_batch_element_error.message = "whatever"

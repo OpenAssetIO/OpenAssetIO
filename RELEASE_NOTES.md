@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Improvements
+
+- Updated pybind to `2.10.0` for wheel builds to support Python `3.11`.
+
 v1.0.0-alpha.6
 --------------
 
