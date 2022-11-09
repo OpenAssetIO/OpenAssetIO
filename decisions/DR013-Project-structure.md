@@ -3,8 +3,8 @@
 - **Status:** Proposed
 - **Impact:** Low
 - **Driver:** @feltech
-- **Approver:** @tomfoundry
-- **Outcome:**
+- **Approver:** @tomfoundry @elliotcmorris
+- **Outcome:** Restructure to group sources by component.
 
 
 ## Background
@@ -142,6 +142,7 @@ org.
 * Plugins for DCC tools under subdirectories of the repo-root `vendor`
   directory, with additional scripts under subdirectories of the
   repo-root `share` directory.
+
 
 ## Options considered
 
