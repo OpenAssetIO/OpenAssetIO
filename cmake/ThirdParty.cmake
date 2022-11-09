@@ -1,4 +1,9 @@
 #-----------------------------------------------------------------------
+# TOML file parser
+
+find_package(tomlplusplus REQUIRED )
+
+#-----------------------------------------------------------------------
 # Python
 
 if (OPENASSETIO_ENABLE_PYTHON)

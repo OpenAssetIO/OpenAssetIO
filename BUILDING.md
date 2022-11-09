@@ -38,6 +38,7 @@ available.
 
 - [Python 3.7+](https://www.python.org/) (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
+- [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
 
 ### Test dependencies
 
@@ -245,7 +246,7 @@ to a `dist` directory under the build directory) via a container, from
 the repository root run
 
 ```shell
-docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
+docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
   cd /src && \
   cmake -S . -B build && \
   cmake --build build && \
