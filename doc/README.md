@@ -135,7 +135,7 @@ make
 Then publish the container:
 
 ```shell
-GITHUB_PAT=<token> GITHUB_USER=<username> make publish-docker
+GITHUB_PAT=<token> GITHUB_USERNAME=<username> make publish-docker
 ```
 
 This will publish the versioned tag, and update `:latest` to point
