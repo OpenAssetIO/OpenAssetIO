@@ -7,20 +7,23 @@ class OpenAssetIOConan(ConanFile):
         # which augments package search paths with conan package
         # directories.
         "cmake_paths",
-        # Generate `Find<PackageName>.cmake` finders, required for various
-        # public ConanCenter packages (e.g. pybind11) since they disallow
-        # bundling of `<PackageName>Config.cmake`-like files in the package.
+        # Generate `Find<PackageName>.cmake` finders, required for
+        # various public ConanCenter packages (e.g. pybind11) since they
+        # disallow bundling of `<PackageName>Config.cmake`-like files in
+        # the package.
         "cmake_find_package",
     )
     settings = "os"
 
-    def build_requirements(self):
+    def requirements(self):
         # CY2022
         if not tools.get_env("OPENASSETIO_CONAN_SKIP_CPYTHON", False):
-            self.tool_requires("cpython/3.9.7")
+            self.requires("cpython/3.9.7")
         # Same as ASWF CY2022 Docker image:
         # https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/README.md
-        self.tool_requires("pybind11/2.8.1")
+        self.requires("pybind11/2.8.1")
+
+    def build_requirements(self):
         # Test framework
         self.tool_requires("catch2/2.13.8")
         # Mocking library
