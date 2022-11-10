@@ -8,7 +8,7 @@ add_subdirectory(module)
 
 # Install OpenAssetIO pure Python into the venv.
 install(
-    DIRECTORY ${PROJECT_SOURCE_DIR}/python/openassetio
+    DIRECTORY python/openassetio
     DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}"
     FILES_MATCHING PATTERN "*.py"
 )

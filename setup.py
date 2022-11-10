@@ -82,7 +82,7 @@ class build_ext(setuptools.command.build_ext.build_ext):
 
 setup(
     packages=find_packages(where="python"),
-    package_dir={"": "python"},
+    package_dir={"": "src/openassetio-python/python"},
     ext_modules=[Extension("openassetio._openassetio", sources=[])],
     cmdclass={"build_ext": build_ext},
     # See pyproject.toml for other metadata fields.
