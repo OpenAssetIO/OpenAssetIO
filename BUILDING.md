@@ -8,13 +8,11 @@
   - [Test dependencies](#test-dependencies)
 - [Building](#building)
   - [Building via pip](#building-via-pip)
+  - [Sandboxed builds](#sandboxed-builds)
 - [CMake options](#cmake-options)
   - [Presets](#presets)
 - [Running tests](#running-tests)
   - [Using `ctest`](#using-ctest)
-- [Sandboxed builds](#sandboxed-builds)
-  - [Docker](#docker)
-  - [Vagrant](#vagrant)
 
 ## System requirements
 
@@ -168,6 +166,12 @@ are also supported
 python -m pip install --editable .
 ```
 
+### Sandboxed builds
+
+For a more convenient "out of the box" build environments, OpenAssetIO
+also provides several sandboxed build environments, which you can read
+about [here](SANDBOXED_BUILDS.md).
+
 ## CMake options
 
 OpenAssetIO provides several custom CMake options to control the
@@ -232,53 +236,3 @@ ctest --test-dir build
 
 This will build and install binary artifacts and Python sources, create
 a Python environment, install test dependencies, then execute the tests.
-
-## Sandboxed builds
-
-### Docker
-
-A convenient way to perform a from-source build is to use the
-[ASWF Docker image](https://github.com/AcademySoftwareFoundation/aswf-docker).
-
-The CY22 image contains all dependencies currently required for building
-OpenAssetIO. For example, to build and install OpenAssetIO (by default
-to a `dist` directory under the build directory) via a container, from
-the repository root run
-
-```shell
-docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
-  cd /src && \
-  cmake -S . -B build && \
-  cmake --build build && \
-  cmake --install build'
-```
-
-The install tree (`dist`) will contain a complete bundle, including the
-core C++ shared library, Python extension module (which dynamically
-links to the core C++ library) and Python sources.
-
-The created bundle is therefore suitable for use in both C++ and Python
-applications.
-
-### Vagrant
-
-Included for convenience is a [Vagrant](https://www.vagrantup.com/)
-configuration for creating reproducible build environments. This is
-configured to create a virtual machine that matches the Linux Github CI
-environment as close as is feasible.
-
-In order to build and run the tests within a Vagrant VM, assuming
-Vagrant is installed and the current working directory is the root of
-the repository, run the following
-
-```shell
-cd resources/build
-vagrant up
-# Wait a while...
-vagrant ssh
-cmake -S openassetio -B build --install-prefix ~/dist \
-  --toolchain ~/.conan/conan_paths.cmake
-```
-
-Then we can run the usual steps (see above) to build and install
-OpenAssetIO, and run the tests (if enabled).
