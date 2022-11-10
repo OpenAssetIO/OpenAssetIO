@@ -36,7 +36,7 @@ jobs:
         with:
           pylint-disable: fixme  # We track 'todo's through other means
           pylint-rcfile: "./pyproject.toml"
-          pylint-paths: "python/openassetio tests/python"
+          pylint-paths: "src/openassetio-python/python/openassetio tests/python"
           # Presently it's not possible to disable the `duplicate-code`
           # check for specific files, so it thinks that the symlink is
           # duplicated implementation. See:

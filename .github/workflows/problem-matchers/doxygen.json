@@ -1,5 +1,5 @@
 {
-  "example": "/src/python/openassetio/hostAPI/Manager.py:614: warning: argument 'bool' of command @param is not found in the argument list of Manager::setEntityMetadata(self, reference, data, context, merge=True)",
+  "example": "/src/src/openassetio-python/python/openassetio/hostAPI/Manager.py:614: warning: argument 'bool' of command @param is not found in the argument list of Manager::setEntityMetadata(self, reference, data, context, merge=True)",
   "notes": [
     "We don't report line numbers as due to pre-processing, they are usually wrong.",
     "We don't report severity as we want to treat warnings-as-errors."
