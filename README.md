@@ -167,22 +167,9 @@ For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 python -m pip install openassetio
 ```
 
-### Other build methods
-
-C++ projects require a from-source build to install.
-A convenient way to achieve this out of the box is to use the
-[ASWF Docker image](BUILDING.md#sandboxed-builds) workflow.
-
-For detailed instructions on this, and other build and dependency
-information, see [BUILDING](BUILDING.md).
-
-> **Note**
->
-> Currently, C++ projects require a from-source build.
-> A convenient way to achieve this out of the box is to use a sandboxed
-> build workflow, with the [ASWF Docker image](https://github.com/AcademySoftwareFoundation/aswf-docker).
->
-> You can find instructions for that build workflow [here](BUILDING.md#sandboxed-builds).
+You may also build all formulations of OpenAssetIO from source, in
+various combinations and configurations.
+For detailed instructions, see [building](BUILDING.md).
 
 ## Getting involved
 

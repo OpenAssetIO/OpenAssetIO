@@ -1,4 +1,8 @@
 # A simple workflow that runs the documented build steps work.
+
+# Note: Commands in this workflow _must_ be kept in sync with README.md 
+# until we have an established mechanism to test doc-included code.
+
 name: Build Instructions
 on:
   pull_request:
@@ -20,15 +24,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Build, install and test (Docker)
-      # Note: this _must_ be kept in sync with README.md until we
-      # have an established mechanism to test doc-included code.
+    - name: Build and install (Docker)
       run: |
-        docker run -v `pwd`:/src aswf/ci-base:2022.2 bash -c '
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
           cd /src && \
           cmake -S . -B build && \
           cmake --build build && \
           cmake --install build'
+
+    - name: Build, install and test (Docker)
+      run: |
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
+          cd /src && \
+          cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON && \
+          ctest --test-dir build'
 
   pip_install:
     name: Pip install on  ${{ matrix.config.os }}

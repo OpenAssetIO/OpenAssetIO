@@ -41,7 +41,7 @@ CONTAINER_NAME=openassetio-doc-build
 #  GITHUB_USERNAME: The GitHub username whose token is being used.
 #
 # eg:
-#  GITHUB_USER=<username> GITHUB_PAT=<token> make publish-docker
+#  GITHUB_USERNAME=<username> GITHUB_PAT=<token> make publish-docker
 #
 ifndef GITHUB_ORG
 GITHUB_ORG = openassetio

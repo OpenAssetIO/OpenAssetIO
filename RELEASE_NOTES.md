@@ -10,6 +10,17 @@ v1.0.0-alpha.x
   [own repository](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
   [#715](https://github.com/OpenAssetIO/OpenAssetIO/issues/715)
 
+- Removed `toml++` as vendored library. Is now an external dependency
+  similar to other external dependencies.
+
+### Improvements
+
+- Added `openassetio-build` docker image. This is an extension of the
+  already used [ASFW CY22 docker image]((<https://hub.docker.com/r/aswf/ci-base/tags?name=2022>),
+  but with the additional openassetio dependencies installed into it.
+  As we have also installed test dependencies into this image, this
+  unlocks out-of-the-box sandboxed testing workflows via docker.
+
 v1.0.0-alpha.6
 --------------
 

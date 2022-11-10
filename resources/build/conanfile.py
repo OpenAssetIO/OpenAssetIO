@@ -24,6 +24,8 @@ class OpenAssetIOConan(ConanFile):
         self.requires("pybind11/2.8.1")
 
     def build_requirements(self):
+        # TOML library
+        self.tool_requires("tomlplusplus/3.2.0")
         # Test framework
         self.tool_requires("catch2/2.13.8")
         # Mocking library

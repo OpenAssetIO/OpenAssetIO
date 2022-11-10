@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <filesystem>
 
-#include <toml.hpp>
+#include <toml++/toml.h>
 
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
