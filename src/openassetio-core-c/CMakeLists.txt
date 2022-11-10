@@ -40,9 +40,9 @@ install(TARGETS openassetio-core-c EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 target_sources(
     openassetio-core-c
     PRIVATE
-    private/hostApi/Manager.cpp
-    private/managerApi/CManagerInterfaceAdapter.cpp
-    private/InfoDictionary.cpp
+    src/hostApi/Manager.cpp
+    src/managerApi/CManagerInterfaceAdapter.cpp
+    src/InfoDictionary.cpp
 )
 
 # Public header dependency.

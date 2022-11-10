@@ -55,7 +55,7 @@ endif ()
 # Source file dependencies.
 target_sources(openassetio-python-bridge
     PRIVATE
-    python/hostApi.cpp)
+    src/python/hostApi.cpp)
 
 # Public header dependency.
 target_include_directories(openassetio-python-bridge

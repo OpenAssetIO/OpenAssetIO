@@ -17,12 +17,12 @@ install(
 target_sources(openassetio-core-c-test-exe
     PRIVATE
     main.cpp
-    private/handlesTest.cpp
-    private/errorsTest.cpp
-    private/StringViewTest.cpp
-    private/InfoDictionaryTest.cpp
-    private/managerApi/CManagerInterfaceAdapterTest.cpp
-    private/hostApi/ManagerTest.cpp
+    handlesTest.cpp
+    errorsTest.cpp
+    StringViewTest.cpp
+    InfoDictionaryTest.cpp
+    managerApi/CManagerInterfaceAdapterTest.cpp
+    hostApi/ManagerTest.cpp
     )
 
 target_link_libraries(
@@ -42,7 +42,7 @@ target_include_directories(
     # Give access to private headers.
     # TODO(DF): This requires otherwise unnecessary symbol export, is
     #   there a neater way?
-    ${PROJECT_SOURCE_DIR}/src/openassetio-core-c/private
+    ${PROJECT_SOURCE_DIR}/src/openassetio-core-c/src
 )
 
 

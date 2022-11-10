@@ -40,22 +40,22 @@ install(
 target_sources(
     openassetio-python-module
     PRIVATE
-    _openassetio.cpp
-    BatchElementErrorBinding.cpp
-    ContextBinding.cpp
-    EntityReferenceBinding.cpp
-    TraitsDataBinding.cpp
-    hostApi/ManagerBinding.cpp
-    hostApi/HostInterfaceBinding.cpp
-    hostApi/ManagerFactoryBinding.cpp
-    hostApi/ManagerImplementationFactoryInterfaceBinding.cpp
-    log/ConsoleLoggerBinding.cpp
-    log/LoggerInterfaceBinding.cpp
-    log/SeverityFilterBinding.cpp
-    managerApi/HostBinding.cpp
-    managerApi/HostSessionBinding.cpp
-    managerApi/ManagerInterfaceBinding.cpp
-    managerApi/ManagerStateBaseBinding.cpp
+    src/_openassetio.cpp
+    src/BatchElementErrorBinding.cpp
+    src/ContextBinding.cpp
+    src/EntityReferenceBinding.cpp
+    src/TraitsDataBinding.cpp
+    src/hostApi/ManagerBinding.cpp
+    src/hostApi/HostInterfaceBinding.cpp
+    src/hostApi/ManagerFactoryBinding.cpp
+    src/hostApi/ManagerImplementationFactoryInterfaceBinding.cpp
+    src/log/ConsoleLoggerBinding.cpp
+    src/log/LoggerInterfaceBinding.cpp
+    src/log/SeverityFilterBinding.cpp
+    src/managerApi/HostBinding.cpp
+    src/managerApi/HostSessionBinding.cpp
+    src/managerApi/ManagerInterfaceBinding.cpp
+    src/managerApi/ManagerStateBaseBinding.cpp
 )
 
 target_link_libraries(openassetio-python-module

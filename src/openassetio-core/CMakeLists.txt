@@ -64,18 +64,18 @@ endif ()
 target_sources(
     openassetio-core
     PRIVATE
-    Context.cpp
-    TraitsData.cpp
-    hostApi/HostInterface.cpp
-    hostApi/Manager.cpp
-    hostApi/ManagerFactory.cpp
-    hostApi/ManagerImplementationFactoryInterface.cpp
-    log/ConsoleLogger.cpp
-    log/LoggerInterface.cpp
-    log/SeverityFilter.cpp
-    managerApi/Host.cpp
-    managerApi/HostSession.cpp
-    managerApi/ManagerInterface.cpp
+    src/Context.cpp
+    src/TraitsData.cpp
+    src/hostApi/HostInterface.cpp
+    src/hostApi/Manager.cpp
+    src/hostApi/ManagerFactory.cpp
+    src/hostApi/ManagerImplementationFactoryInterface.cpp
+    src/log/ConsoleLogger.cpp
+    src/log/LoggerInterface.cpp
+    src/log/SeverityFilter.cpp
+    src/managerApi/Host.cpp
+    src/managerApi/HostSession.cpp
+    src/managerApi/ManagerInterface.cpp
 )
 
 # Public header dependency.

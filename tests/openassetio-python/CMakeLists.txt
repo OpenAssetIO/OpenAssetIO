@@ -38,7 +38,7 @@ target_sources(
 
 # Give access to private headers.
 target_include_directories(openassetio-python-test
-    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python/module)
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python/module/src)
 
 target_link_libraries(openassetio-python-test
     PRIVATE
