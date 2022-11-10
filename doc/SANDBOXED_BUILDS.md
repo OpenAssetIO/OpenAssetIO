@@ -80,7 +80,7 @@ instructions on how to accomplish this below.
 
 ### Building the image
 
-OpenAssetIO provides a [makefile](resources/build/Makefile)
+OpenAssetIO provides a [makefile](../resources/build/Makefile)
 to build the docker container. From `resources/build`, run
 
 ``` shell

@@ -97,7 +97,7 @@ section for more details.
 
 ### Contribution sign off
 
-OpenAssetIO is licensed under the [Apache 2.0 license](../LICENSE).
+OpenAssetIO is licensed under the [Apache 2.0 license](../../LICENSE).
 All contributions to the project must abide by that license.
 
 Contributions to OpenAssetIO require the use of the [Developer’s Certificate of Origin 1.1 (DCO)](https://developercertificate.org).

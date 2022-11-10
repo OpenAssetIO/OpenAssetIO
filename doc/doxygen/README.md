@@ -61,7 +61,7 @@ index page via `html/index.html`.
 Public facing documentation is served via GitHub Pages from the `docs`
 branch of [OpenAssetIO/OpenAssetIO](https://github.com/OpenAssetIO/OpenAssetIO).
 This is automatically deployed whenever the `main` branch of the repository
-is pushed via GitHub Actions (see [workflows/docs.yml](../.github/workflows/docs.yml)).
+is pushed via GitHub Actions (see [workflows/docs.yml](../../.github/workflows/docs.yml)).
 
 ### Manual deployment
 

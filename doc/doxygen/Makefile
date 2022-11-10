@@ -63,7 +63,7 @@ CONTAINER_TAG = $(CONTAINER_PATH):$(CONTAINER_VERSION)
 #
 
 container-build:
-	docker run --rm -v `pwd`/../:/src $(CONTAINER_TAG) bash -c 'make -C /src/doc html'
+	docker run --rm -v `pwd`/../../:/src $(CONTAINER_TAG) bash -c 'make -C /src/doc/doxygen html'
 
 # Targets for building/tagging/publishing the container
 
