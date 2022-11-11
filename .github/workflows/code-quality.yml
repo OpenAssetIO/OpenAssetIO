@@ -23,7 +23,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r resources/build/linter-requirements.txt
-          python -m pip install -r tests/python/requirements.txt
+          python -m pip install -r src/openassetio-python/tests/requirements.txt
 
       - name: Build
         run: |
@@ -36,12 +36,15 @@ jobs:
         with:
           pylint-disable: fixme  # We track 'todo's through other means
           pylint-rcfile: "./pyproject.toml"
-          pylint-paths: "src/openassetio-python/python/openassetio tests/python"
+          pylint-paths: >
+            src/openassetio-python/package/openassetio
+            src/openassetio-python/tests/package
           # Presently it's not possible to disable the `duplicate-code`
           # check for specific files, so it thinks that the symlink is
           # duplicated implementation. See:
           #     https://github.com/PyCQA/pylint/issues/214
-          pylint-ignore-paths: "tests/python/openassetio/pluginSystem/resources/symlinkPath"
+          pylint-ignore-paths: >
+            src/openassetio-python/tests/package/pluginSystem/resources/symlinkPath
 
   black:
     runs-on: ubuntu-latest

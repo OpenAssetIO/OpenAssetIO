@@ -27,7 +27,7 @@ from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 class StubManager(ManagerInterface):
     """
     A stub manager implementation that provides functionality
-    required for the tests/python/openassetio/test/manager
+    required for the src/openassetio-python/tests/package/test/manager
     test suite to function.
     """
 
