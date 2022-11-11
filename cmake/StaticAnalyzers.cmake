@@ -62,8 +62,6 @@ macro(enable_clang_format)
             CONFIGURE_DEPENDS # Ensure we re-scan if files change.
             ${PROJECT_SOURCE_DIR}/src/*.[ch]pp
             ${PROJECT_SOURCE_DIR}/src/*.[ch]
-            ${PROJECT_SOURCE_DIR}/tests/*.[ch]pp
-            ${PROJECT_SOURCE_DIR}/tests/*.[ch]
         )
 
         # Create a custom target to be added as a dependency to other

@@ -117,3 +117,11 @@ install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/
 )
+
+
+#-----------------------------------------------------------------------
+# Tests
+
+if (OPENASSETIO_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif ()
