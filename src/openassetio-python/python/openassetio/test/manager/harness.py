@@ -111,7 +111,7 @@ def fixturesFromPyFile(path):
     @see executeSuite for details on the structure of the fixtures
     dictionary.
 
-    @see `resources/examples/SampleAssetManager/test/fixures.py` for a
+    @see `examples/SampleAssetManager/test/fixures.py` for a
       reference fixtures file.
     """
     module = moduleFromFile(path)

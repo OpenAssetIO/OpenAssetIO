@@ -169,7 +169,7 @@ openassetio_add_pytest_target(
     openassetio.internal.resources-examples-pytest
     "Running pytest for Manager examples"
     .
-    "${PROJECT_SOURCE_DIR}/resources/examples/manager"
+    "${PROJECT_SOURCE_DIR}/examples/manager"
     "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
 )
 

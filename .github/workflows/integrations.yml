@@ -70,7 +70,7 @@ jobs:
 
       - name: Test Simple Resolver
         run: |
-          python -m pytest -v resources/examples/host/simpleResolver
+          python -m pytest -v examples/host/simpleResolver
         env:
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
 

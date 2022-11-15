@@ -37,7 +37,7 @@ We can then use the CLI resolver to query this information.
 First off, set your working directory to this folder:
 
 ```bash
-cd resources/examples/host/simpeResolver
+cd examples/host/simpeResolver
 ```
 
 The CLI doesn't have any configuration options itself, it makes use of
