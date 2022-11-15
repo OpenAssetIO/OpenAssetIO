@@ -2,7 +2,7 @@
 
 This document covers the specifics of how code should be formatted,
 details on programming conventions can be found in the
-[Coding Conventions](CODING_CONVENTIONS.md) guide.
+[Coding Standards](CODING_STANDARDS.md) guide.
 
 ### Line wrapping
 
