@@ -323,6 +323,7 @@ message(STATUS "Linter: clang-format            = ${OPENASSETIO_ENABLE_CLANG_FOR
 # Recurse to library targets
 
 add_subdirectory(src)
+add_subdirectory(examples)
 
 if (OPENASSETIO_ENABLE_TESTS)
     add_subdirectory(tests)
