@@ -221,6 +221,8 @@ add_custom_target(openassetio.internal.install
 
 if (OPENASSETIO_ENABLE_TESTS)
     enable_testing()
+    # Define test helpers.
+    include(Testing)
 endif ()
 
 
