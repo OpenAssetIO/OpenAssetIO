@@ -16,7 +16,7 @@ v1.0.0-alpha.x
 ### Improvements
 
 - Added `openassetio-build` docker image. This is an extension of the
-  already used [ASFW CY22 docker image]((<https://hub.docker.com/r/aswf/ci-base/tags?name=2022>),
+  already used [ASFW CY22 docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2022),
   but with the additional openassetio dependencies installed into it.
   As we have also installed test dependencies into this image, this
   unlocks out-of-the-box sandboxed testing workflows via docker.
