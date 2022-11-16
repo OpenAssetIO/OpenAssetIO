@@ -40,9 +40,9 @@ install(TARGETS openassetio-core-c EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 target_sources(
     openassetio-core-c
     PRIVATE
-    private/hostApi/Manager.cpp
-    private/managerApi/CManagerInterfaceAdapter.cpp
-    private/InfoDictionary.cpp
+    src/hostApi/Manager.cpp
+    src/managerApi/CManagerInterfaceAdapter.cpp
+    src/InfoDictionary.cpp
 )
 
 # Public header dependency.
@@ -71,3 +71,11 @@ install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/c/export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/c/
 )
+
+
+#-----------------------------------------------------------------------
+# Tests
+
+if (OPENASSETIO_ENABLE_TESTS)
+    add_subdirectory(tests)
+endif ()

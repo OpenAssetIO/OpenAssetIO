@@ -221,6 +221,8 @@ add_custom_target(openassetio.internal.install
 
 if (OPENASSETIO_ENABLE_TESTS)
     enable_testing()
+    # Define test helpers.
+    include(Testing)
 endif ()
 
 
@@ -321,7 +323,4 @@ message(STATUS "Linter: clang-format            = ${OPENASSETIO_ENABLE_CLANG_FOR
 # Recurse to library targets
 
 add_subdirectory(src)
-
-if (OPENASSETIO_ENABLE_TESTS)
-    add_subdirectory(tests)
-endif ()
+add_subdirectory(examples)

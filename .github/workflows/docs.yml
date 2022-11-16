@@ -33,7 +33,7 @@ jobs:
 
     - name: Build
       run: |
-        make -C src/doc
+        make -C src/doc/doxygen
 
     - name: Deploy
       run: |

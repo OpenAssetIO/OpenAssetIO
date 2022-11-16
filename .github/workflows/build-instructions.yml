@@ -1,6 +1,6 @@
 # A simple workflow that runs the documented build steps work.
 
-# Note: Commands in this workflow _must_ be kept in sync with README.md 
+# Note: Commands in this workflow _must_ be kept in sync with README.md
 # until we have an established mechanism to test doc-included code.
 
 name: Build Instructions
@@ -73,10 +73,10 @@ jobs:
         CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
     - name: Install test dependencies
-      run: pip install -r tests/python/requirements.txt
+      run: pip install -r src/openassetio-python/tests/requirements.txt
 
     - name: Run Python tests
-      run: pytest tests/python/openassetio
+      run: pytest src/openassetio-python/tests/package
 
   editable_pip_install:
     name: Editable pip install on  ${{ matrix.config.os }}
@@ -112,7 +112,7 @@ jobs:
         CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
     - name: Install test dependencies
-      run: pip install -r tests/python/requirements.txt
+      run: pip install -r src/openassetio-python/tests/requirements.txt
 
     - name: Run Python tests
-      run: pytest tests/python/openassetio
+      run: pytest src/openassetio-python/tests/package

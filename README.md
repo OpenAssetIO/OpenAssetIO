@@ -159,7 +159,7 @@ C and Python bindings.
 > **Note**
 > Currently, to create a non-python host or manager plugins, one must
 > use a hybrid package, which is only available via
-> [building from source](BUILDING.md#building).
+> [building from source](doc/BUILDING.md#building).
 
 For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 
@@ -169,11 +169,11 @@ python -m pip install openassetio
 
 You may also build all formulations of OpenAssetIO from source, in
 various combinations and configurations.
-For detailed instructions, see [building](BUILDING.md).
+For detailed instructions, see [building](doc/BUILDING.md).
 
 ## Getting involved
 
-- See the [contribution guide](contributing/PROCESS.md)
+- See the [contribution guide](doc/contributing/PROCESS.md)
 - Join our [working group](https://github.com/OpenAssetIO/OpenAssetIO-WG) meetings
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
