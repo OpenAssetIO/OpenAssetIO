@@ -22,23 +22,24 @@ void registerTraitsData(const py::module& mod) {
       .def(py::init(static_cast<TraitsDataPtr (*)()>(&TraitsData::make)))
       .def(py::init(static_cast<TraitsDataPtr (*)(const trait::TraitSet&)>(&TraitsData::make)),
            py::arg("traitSet"))
-      .def(py::init(static_cast<TraitsDataPtr (*)(const TraitsDataConstPtr&)>(&TraitsData::make)))
+      .def(py::init(static_cast<TraitsDataPtr (*)(const TraitsDataConstPtr&)>(&TraitsData::make)),
+           py::arg("other"))
       .def("traitSet", &TraitsData::traitSet)
-      .def("hasTrait", &TraitsData::hasTrait, py::arg("id"))
-      .def("addTrait", &TraitsData::addTrait)
-      .def("addTraits", &TraitsData::addTraits)
-      .def("setTraitProperty", &TraitsData::setTraitProperty, py::arg("id"),
+      .def("hasTrait", &TraitsData::hasTrait, py::arg("traitId"))
+      .def("addTrait", &TraitsData::addTrait, py::arg("traitId"))
+      .def("addTraits", &TraitsData::addTraits, py::arg("traitSet"))
+      .def("setTraitProperty", &TraitsData::setTraitProperty, py::arg("traitId"),
            py::arg("propertyKey"), py::arg("propertyValue").none(false))
       .def(
           "getTraitProperty",
           [](const TraitsData& self, const trait::TraitId& traitId,
-             const property::Key& key) -> MaybeValue {
-            if (property::Value out; self.getTraitProperty(&out, traitId, key)) {
+             const property::Key& propertyKey) -> MaybeValue {
+            if (property::Value out; self.getTraitProperty(&out, traitId, propertyKey)) {
               return out;
             }
             return {};
           },
-          py::arg("id"), py::arg("key"))
-      .def("traitPropertyKeys", &TraitsData::traitPropertyKeys, py::arg("id"))
+          py::arg("traitId"), py::arg("propertyKey"))
+      .def("traitPropertyKeys", &TraitsData::traitPropertyKeys, py::arg("traitId"))
       .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 }

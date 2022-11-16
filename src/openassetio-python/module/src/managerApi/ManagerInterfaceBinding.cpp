@@ -128,7 +128,7 @@ void registerManagerInterface(const py::module& mod) {
       .def("settings", &ManagerInterface::settings, py::arg("hostSession").none(false))
       .def("initialize", &ManagerInterface::initialize, py::arg("managerSettings"),
            py::arg("hostSession").none(false))
-      .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSet"),
+      .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
            py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
       .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),

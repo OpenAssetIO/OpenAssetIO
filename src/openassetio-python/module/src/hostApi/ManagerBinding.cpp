@@ -32,7 +32,7 @@ void registerManager(const py::module& mod) {
       .def("info", &Manager::info)
       .def("settings", &Manager::settings)
       .def("initialize", &Manager::initialize, py::arg("managerSettings"))
-      .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSet"),
+      .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSets"),
            py::arg("context").none(false))
       .def("createContext", &Manager::createContext)
       .def("createChildContext", &Manager::createChildContext,
@@ -52,17 +52,18 @@ void registerManager(const py::module& mod) {
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& traitsDatas, const ContextConstPtr& context,
+             const trait::TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
              const Manager::RegisterSuccessCallback& successCallback,
              const openassetio::BatchElementErrorCallback& errorCallback) {
             // Pybind has no built-in way to assert that a collection
             // does not contain any `None` elements, so we must add our
             // own check here.
-            if (std::any_of(traitsDatas.begin(), traitsDatas.end(),
+            if (std::any_of(entityTraitsDatas.begin(), entityTraitsDatas.end(),
                             std::logical_not<TraitsDataPtr>{})) {
               throw pybind11::type_error{"Traits data cannot be None"};
             }
-            self.register_(entityReferences, traitsDatas, context, successCallback, errorCallback);
+            self.register_(entityReferences, entityTraitsDatas, context, successCallback,
+                           errorCallback);
           },
           py::arg("entityReferences"), py::arg("entityTraitsDatas"),
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))

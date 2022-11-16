@@ -18,6 +18,6 @@ void registerSeverityFilter(const py::module& mod) {
       .def(py::init(RetainCommonPyArgs::forFn<&SeverityFilter::make>()),
            py::arg("upstreamLogger").none(false))
       .def("getSeverity", &SeverityFilter::getSeverity)
-      .def("setSeverity", &SeverityFilter::setSeverity)
+      .def("setSeverity", &SeverityFilter::setSeverity, py::arg("severity"))
       .def("upstreamLogger", &SeverityFilter::upstreamLogger);
 }
