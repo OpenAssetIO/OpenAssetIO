@@ -130,12 +130,12 @@ package, placed at
 
 ### Building via pip
 
-OpenAssetIO can alternately be built and installed via `pip`, which may be
-preferable to the exclusively Python focused developer.
-Check out the repository, and from the root, run :
+OpenAssetIO can alternately be built and installed via `pip`, which may
+be preferable to the exclusively Python focused developer. Check out the
+repository, and from the root, run:
 
 ```shell
-python -m pip install .
+python -m pip install src/openassetio-python/package
 ```
 
 This will automatically build and install the Python extension module
@@ -163,7 +163,7 @@ without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/l
 are also supported
 
 ```shell
-python -m pip install --editable .
+python -m pip install --editable src/openassetio-python/package
 ```
 
 ### Sandboxed builds

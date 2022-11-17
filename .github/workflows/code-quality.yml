@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          python -m pip install .
+          python -m pip install src/openassetio-python/package
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 

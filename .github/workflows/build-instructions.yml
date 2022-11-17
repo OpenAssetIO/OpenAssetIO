@@ -68,7 +68,7 @@ jobs:
     - name: Install using pip
       run: |
         ${{ matrix.config.preamble }}
-        python -m pip install .
+        python -m pip install src/openassetio-python/package
       env:
         CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
@@ -107,7 +107,7 @@ jobs:
     - name: Install using pip
       run: |
         ${{ matrix.config.preamble }}
-        python -m pip install --editable .
+        python -m pip install --editable src/openassetio-python/package
       env:
         CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 

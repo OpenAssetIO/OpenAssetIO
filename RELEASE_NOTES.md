@@ -13,6 +13,11 @@ v1.0.0-alpha.x
 - Removed `toml++` as vendored library. Is now an external dependency
   similar to other external dependencies.
 
+- Moved `setup.py` and `pyproject.toml` under the Python component's
+  directory, i.e. `src/openassetio-python/package`.
+  [#728](https://github.com/OpenAssetIO/OpenAssetIO/issues/728)
+
+
 ### Improvements
 
 - Added `openassetio-build` docker image. This is an extension of the

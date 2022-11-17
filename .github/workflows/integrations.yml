@@ -47,7 +47,7 @@ jobs:
       - name: Build OpenAssetIO (setup.py)
         run: |
           ${{ matrix.config.preamble }}
-          python -m pip install .
+          python -m pip install src/openassetio-python/package
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
