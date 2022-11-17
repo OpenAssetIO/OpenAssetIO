@@ -116,6 +116,64 @@ In addition, contributors are required to complete either the Individual
 or Corporate Contribution License Agreement. Please contact one of the
 trusted committers for more information.
 
+### Release Process
+
+OpenAssetIO releases are managed via git tags, and make use of [SemVer](https://semver.org).
+All components within the same repository share a version, and will be
+released together.
+
+To make a new OpenAssetIO release, follow this procedure.
+
+- Create a work branch in a forked repository.
+- Update [`RELEASE_NOTES.md`](../../RELEASE_NOTES.md) version placeholder
+  to be the concrete release number. (For example, change v1.0.0-alpha.x
+  to v1.0.0-alpha.5).
+- Update version numbers in :
+  - [pyproject.toml](../../pyproject.toml) (Under `[project]` section).
+  - [CMakeLists.txt](../../CMakeLists.txt) (An argument to `project()`,
+      no need to update for an alpha or beta increment).
+- If there is an ABI change (major release), update
+  `set(core_abi_version X)` in
+  [`src/openassetio-core/CMakeLists.txt`](../../src/openassetio-core/CMakeLists.txt)
+  to the new major version - regardless of it's previous value (this may
+  skip values).
+- Commit changes using the title: `[Release] Bump version to <version>`.
+- Have a final scan over the release notes to check for typos. If any
+  are spotted, add a commit *before* the version bump to fix them.
+- Create a PR into the primary repo, review and merge as normal.
+
+> **Warning**
+>
+> Upon merging to main, several actions will kickoff against your merge
+> commit. Notably among these is
+> [Build wheels](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/build-wheels.yml),
+> which makes the python release artifacts available for upload, by the
+> [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
+> action.
+>
+> The [Build wheels](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/build-wheels.yml)
+> action must be successfully run before a release is created. Wait
+> until this action is finished before continuing on.
+
+- Now the codebase is all setup, create a [new Release](https://github.com/OpenAssetIO/OpenAssetIO/releases/new)
+  in GitHub.
+  - Set the tag to be the version number with a `v` prefix, eg
+    `v1.0.0-alpha.5`, you should be creating a new tag.
+  - Set the title to be the same as the tag, eg `v1.0.0-alpha.5`.
+  - Copy the release notes for this release into the description:
+    - Do not include the version title.
+    - Remove line wrapping from the release notes, each note
+      should becomes a single line.
+      (vim users: `set tw=9999`, `gg<S-V><S-G>gq`)
+  - If this is an alpha or beta release, ensure `Set as a pre-release`
+    checkbox is checked.
+  - Click "Publish Release"
+- In response to a release being published, the
+  [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
+  action will be invoked. Monitor this to ensure PyPI wheels are
+  uploaded correctly.
+- You're done! Take a break and relax!
+
 ## Further reading
 
 - [Coding style](CODING_STYLE.md)
