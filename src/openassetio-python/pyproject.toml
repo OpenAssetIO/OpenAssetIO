@@ -119,7 +119,7 @@ target-version = ["py39"]
 
 [tool.cibuildwheel]
 test-requires = ["pytest"]
-test-command = "pytest {package}/src/openassetio-python/tests/package"
+test-command = "pytest {package}/tests/package"
 
 [tool.cibuildwheel.linux]
 # Linux runs in a docker container, with the project at top level

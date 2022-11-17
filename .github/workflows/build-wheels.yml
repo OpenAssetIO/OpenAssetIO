@@ -54,7 +54,7 @@ jobs:
         run: |
           ${{ matrix.config.preamble }}
           pip install cibuildwheel==2.11.1
-          cibuildwheel --output-dir wheelhouse
+          cibuildwheel --output-dir wheelhouse src/openassetio-python
         env:
           # Windows + Mac runs use this environment variable, as they
           # execute directly on the runner. Linux runs are somewhat

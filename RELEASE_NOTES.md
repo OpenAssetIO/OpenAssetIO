@@ -13,6 +13,12 @@ v1.0.0-alpha.x
 - Removed `toml++` as vendored library. Is now an external dependency
   similar to other external dependencies.
 
+- Moved `setup.py` and `pyproject.toml` under the Python component's
+  directory, i.e. `src/openassetio-python`. This means the minimum
+  version of `pip` used to build wheels (or install from source) is now
+  21.3, where in-tree builds are the default.
+  [#728](https://github.com/OpenAssetIO/OpenAssetIO/issues/728)
+
 - Updated various Python method argument names to match their C++
   equivalent. Specifically this affects
   `Manager`/`ManagerInterface.managementPolicy`,
@@ -21,6 +27,7 @@ v1.0.0-alpha.x
   `.traitPropertyKeys` / copy-constructor.
   [#743](https://github.com/OpenAssetIO/OpenAssetIO/issues/743)
 
+
 ### Improvements
 
 - Added `openassetio-build` docker image. This is an extension of the
@@ -28,6 +35,7 @@ v1.0.0-alpha.x
   but with the additional openassetio dependencies installed into it.
   As we have also installed test dependencies into this image, this
   unlocks out-of-the-box sandboxed testing workflows via docker.
+
 
 v1.0.0-alpha.6
 --------------
