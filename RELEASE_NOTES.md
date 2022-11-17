@@ -13,6 +13,14 @@ v1.0.0-alpha.x
 - Removed `toml++` as vendored library. Is now an external dependency
   similar to other external dependencies.
 
+- Updated various Python method argument names to match their C++
+  equivalent. Specifically this affects
+  `Manager`/`ManagerInterface.managementPolicy`,
+  `SeverityFilter.setSeverity`, `TraitsData.hasTrait` / `.addTrait` /
+  `.addTraits` / `.setTraitProperty` / `.getTraitProperty` /
+  `.traitPropertyKeys` / copy-constructor.
+  [#743](https://github.com/OpenAssetIO/OpenAssetIO/issues/743)
+
 ### Improvements
 
 - Added `openassetio-build` docker image. This is an extension of the
