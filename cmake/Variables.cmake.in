@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2013-2022 The Foundry Visionmongers Ltd
+
+@PACKAGE_INIT@
+
+if (WIN32 AND @BUILD_SHARED_LIBS@)
+    # For .dll files.
+    set_and_check (@PROJECT_NAME@_BINARY_DIR "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_BINDIR@")
+endif ()
+set_and_check (@PROJECT_NAME@_LIBRARY_DIR "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@")
+
+if (@OPENASSETIO_ENABLE_PYTHON@)
+    set(@PROJECT_NAME@_Python_VERSION "@Python_VERSION@")
+    set(@PROJECT_NAME@_Python_VERSION_MAJOR "@Python_VERSION_MAJOR@")
+    set(@PROJECT_NAME@_Python_VERSION_MINOR "@Python_VERSION_MINOR@")
+    set(@PROJECT_NAME@_Python_VERSION_PATCH "@Python_VERSION_PATCH@")
+    set_and_check (
+        @PROJECT_NAME@_Python_SITELIB
+        "${PACKAGE_PREFIX_DIR}/@OPENASSETIO_PYTHON_SITEDIR@")
+endif ()
