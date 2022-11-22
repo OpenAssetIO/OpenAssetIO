@@ -1,19 +1,37 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, tools
+from conan.tools.cmake import CMakeDeps, CMakeToolchain
 
 
 class OpenAssetIOConan(ConanFile):
-    generators = (
-        # Generate a CMake toolchain preamble file `conan_paths.cmake`,
-        # which augments package search paths with conan package
-        # directories.
-        "cmake_paths",
-        # Generate `Find<PackageName>.cmake` finders, required for
-        # various public ConanCenter packages (e.g. pybind11) since they
-        # disallow bundling of `<PackageName>Config.cmake`-like files in
-        # the package.
-        "cmake_find_package",
-    )
-    settings = "os"
+    settings = "os", "build_type"
+    # Generate a CMake toolchain preamble file `conan_paths.cmake`,
+    # which augments package search paths with conan package
+    # directories.
+    # TODO(DF): This is deprecated and should be swapped for the
+    # CMakeToolchain generator, but that is not yet compatible with the
+    # cpython recipe (it does not specify `builddirs` so is not added to
+    # the CMAKE_PREFIX_PATH).
+    generators = "cmake_paths"
+
+    def generate(self):
+        """
+        This function is called at the end of a `conan install` and is
+        responsible for generating build toolchain helpers.
+        """
+        # Generate `<PackageName>Config.cmake` files for each
+        # dependency, which CMake's `find_package` will locate and
+        # parse.
+        # Note: we override the configuration and re-run multiple times
+        # to allow us to use a different configuration for dependencies
+        # than we use for the main project. See
+        # https://github.com/conan-io/conan/issues/11607#issuecomment-1188500937
+        deps = CMakeDeps(self)
+        deps.configuration = "Release"
+        deps.generate()
+        deps.configuration = "Debug"
+        deps.generate()
+        deps.configuration = "RelWithDebInfo"
+        deps.generate()
 
     def requirements(self):
         # CY2022
