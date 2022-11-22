@@ -25,7 +25,7 @@ install(
 add_library(openassetio-core-c)
 add_library(${PROJECT_NAME}::openassetio-core-c ALIAS openassetio-core-c)
 # Set good default target options.
-set_default_target_properties(openassetio-core-c)
+openassetio_set_default_target_properties(openassetio-core-c)
 # Set output artifact base filename.
 # TODO(DF): Check other OSS projects how they name C vs C++ libs
 set_target_properties(openassetio-core-c PROPERTIES OUTPUT_NAME openassetio-c)

@@ -3,7 +3,7 @@
 
 pybind11_add_module(openassetio-python-test MODULE)
 # Set target file name to `_openassetio_test`
-set_default_target_properties(openassetio-python-test)
+openassetio_set_default_target_properties(openassetio-python-test)
 set_target_properties(
     openassetio-python-test PROPERTIES
     OUTPUT_NAME _openassetio_test
