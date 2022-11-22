@@ -2,7 +2,7 @@
 # C++ API test target
 
 add_executable(openassetio-core-cpp-test-exe)
-set_default_target_properties(openassetio-core-cpp-test-exe)
+openassetio_set_default_target_properties(openassetio-core-cpp-test-exe)
 
 # Add to the set of installable targets.
 install(

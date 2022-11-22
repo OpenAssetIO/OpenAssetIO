@@ -27,7 +27,7 @@ install(
 add_library(openassetio-python-bridge)
 add_library(${PROJECT_NAME}::openassetio-python-bridge ALIAS openassetio-python-bridge)
 # Set good default target options.
-set_default_target_properties(openassetio-python-bridge)
+openassetio_set_default_target_properties(openassetio-python-bridge)
 # Set output artifact base filename.
 set_target_properties(openassetio-python-bridge PROPERTIES OUTPUT_NAME openassetio-python)
 # Add to the set of installable targets.

@@ -2,7 +2,7 @@
 # C API test target
 
 add_executable(openassetio-core-c-test-exe)
-set_default_target_properties(openassetio-core-c-test-exe)
+openassetio_set_default_target_properties(openassetio-core-c-test-exe)
 
 # Add to the set of installable targets.
 install(

@@ -5,7 +5,7 @@
 # used. The rules can be quite tricky, e.g. Windows SOABI suffix is
 # quite different for Debug vs. Release builds.
 pybind11_add_module(openassetio-python-module MODULE)
-set_default_target_properties(openassetio-python-module)
+openassetio_set_default_target_properties(openassetio-python-module)
 set_target_properties(
     openassetio-python-module
     PROPERTIES
