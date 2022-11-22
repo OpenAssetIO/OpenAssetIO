@@ -130,12 +130,12 @@ package, placed at
 
 ### Building via pip
 
-OpenAssetIO can alternately be built and installed via `pip`, which may be
-preferable to the exclusively Python focused developer.
-Check out the repository, and from the root, run :
+OpenAssetIO can alternately be built and installed via `pip`, which may
+be preferable to the exclusively Python focused developer. Check out the
+repository, and from the root, run:
 
 ```shell
-python -m pip install .
+python -m pip install src/openassetio-python
 ```
 
 This will automatically build and install the Python extension module
@@ -144,9 +144,9 @@ you should be able to simply `import openassetio` from your python shell.
 
 > **Note**
 >
-> `pip install .` is not a substantially different operation to
-> calling CMake directly as described above, (and as such, all the same
-> dependency requirements apply).
+> `pip install src/openassetio-python` is not a substantially different
+> operation to calling CMake directly as described above (and as such,
+> all the same dependency requirements apply).
 >
 > However, be aware that once the C++
 > library is built, it is statically, rather than dynamically, linked
@@ -163,7 +163,7 @@ without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/l
 are also supported
 
 ```shell
-python -m pip install --editable .
+python -m pip install --editable src/openassetio-python
 ```
 
 ### Sandboxed builds

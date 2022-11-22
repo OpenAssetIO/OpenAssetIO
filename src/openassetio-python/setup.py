@@ -14,6 +14,7 @@
 #   limitations under the License.
 #
 import os
+import pathlib
 import subprocess
 import shlex
 import sys
@@ -39,10 +40,22 @@ class build_ext(setuptools.command.build_ext.build_ext):
 
         @param _ext: Extension to build (we only have one, so ignored).
         """
+        cmake_project_path = pathlib.Path("../..")
+
+        if not os.path.isfile(cmake_project_path / "CMakeLists.txt"):
+            # Unfortunately there doesn't seem to be a way to detect the
+            # version of pip that launched this process. So assume if
+            # CMakeLists.txt is missing then its probably because the
+            # wrong version of pip was used.
+            raise FileNotFoundError(
+                "CMakeLists.txt not found. Installing OpenAssetIO from source requires an in-tree"
+                "build. If using pip, ensure pip>=21.3."
+            )
+
         self.__cmake(
             [
                 "-S",
-                ".",
+                str(cmake_project_path),
                 "-B",
                 self.build_temp,
                 "-G",
@@ -81,8 +94,8 @@ class build_ext(setuptools.command.build_ext.build_ext):
 
 
 setup(
-    packages=find_packages(where="src/openassetio-python/package"),
-    package_dir={"": "src/openassetio-python/package"},
+    packages=find_packages(where="package"),
+    package_dir={"": "package"},
     ext_modules=[Extension("openassetio._openassetio", sources=[])],
     cmdclass={"build_ext": build_ext},
     # See pyproject.toml for other metadata fields.

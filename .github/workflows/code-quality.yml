@@ -27,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          python -m pip install .
+          python -m pip install src/openassetio-python
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
@@ -35,7 +35,7 @@ jobs:
         uses: TheFoundryVisionmongers/fn-pylint-action@v1.1
         with:
           pylint-disable: fixme  # We track 'todo's through other means
-          pylint-rcfile: "./pyproject.toml"
+          pylint-rcfile: src/openassetio-python/pyproject.toml
           pylint-paths: >
             src/openassetio-python/package/openassetio
             src/openassetio-python/tests/package
@@ -63,7 +63,7 @@ jobs:
           python -m pip install -r resources/build/linter-requirements.txt
 
       - name: Check Python formatting
-        run: black --check .
+        run: black --config src/openassetio-python/pyproject.toml --check .
 
   # Note: in order to keep an `actions/cache` cache up to date, we must
   # use the approach detailed in
