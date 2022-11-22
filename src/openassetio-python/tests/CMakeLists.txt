@@ -2,6 +2,12 @@
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
 #-----------------------------------------------------------------------
+# Python/C++ bridge tests
+
+add_subdirectory(bridge)
+
+
+#-----------------------------------------------------------------------
 # Python test module target for creating test-only bindings.
 
 add_subdirectory(internal/resources/_openassetio_test)

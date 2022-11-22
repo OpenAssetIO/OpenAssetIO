@@ -33,7 +33,6 @@ target_sources(
     PRIVATE
     _openassetio_test.cpp
     PyRetainingSharedPtrTest.cpp
-    hostApiTest.cpp
 )
 
 # Give access to private headers.
