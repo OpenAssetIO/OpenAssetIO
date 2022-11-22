@@ -84,10 +84,24 @@ function(openassetio_set_default_target_properties target_name)
     # RPATH wrangling.
 
     if (UNIX)
-        if (APPLE)
-            set(rpath "@loader_path")
+        get_target_property(target_type ${target_name} TYPE)
+        if (${target_type} STREQUAL EXECUTABLE)
+            file(RELATIVE_PATH
+                install_dir_rel_to_lib
+                ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
+                ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+
+            if (APPLE)
+                set(rpath "@executable_path/${install_dir_rel_to_lib}")
+            else ()
+                set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
+            endif ()
         else ()
-            set(rpath "$ORIGIN")
+            if (APPLE)
+                set(rpath "@loader_path")
+            else ()
+                set(rpath "$ORIGIN")
+            endif ()
         endif ()
 
         set_target_properties(
