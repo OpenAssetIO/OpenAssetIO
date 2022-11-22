@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-alpha.x
+v1.0.0-alpha.7
 --------------
 
 ### Breaking changes
