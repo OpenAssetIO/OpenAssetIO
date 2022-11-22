@@ -65,9 +65,45 @@ v1.0.0-alpha.x
 
 - Added `openassetio-build` docker image. This is an extension of the
   already used [ASFW CY22 docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2022),
-  but with the additional openassetio dependencies installed into it.
+  but with the additional OpenAssetIO dependencies installed into it.
   As we have also installed test dependencies into this image, this
   unlocks out-of-the-box sandboxed testing workflows via docker.
+  [#716](https://github.com/OpenAssetIO/OpenAssetIO/issues/716)
+
+- Reorganized the directory structure to better reflect the fact that
+  the project is split into distinct components, and that it is
+  primarily a CMake-driven project with optional Python component.
+  [#655](https://github.com/OpenAssetIO/OpenAssetIO/issues/655)
+
+- Improved documentation for users that wish to build/release
+  OpenAssetIO.
+  [#624](https://github.com/OpenAssetIO/OpenAssetIO/issues/624)
+  [#716](https://github.com/OpenAssetIO/OpenAssetIO/issues/716)
+  [#749](https://github.com/OpenAssetIO/OpenAssetIO/pull/749)
+
+- Improved support for consumption of OpenAssetIO by downstream CMake
+  projects. `OpenAssetIOConfig.cmake` provides variables for locating
+  the installation location of binaries and Python sources. When used as
+  a CMake subproject, namespaced `ALIAS` targets match the exported
+  targets, and the build-tree has `RPATH` support.
+  [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
+
+
+### Bug fixes
+
+- Fixed various broken URLs in markdown docs.
+  [#744](https://github.com/OpenAssetIO/OpenAssetIO/pull/744)
+
+- Fixed unnecessary link dependencies on Python and pybind11 when
+  building and linking to the `openassetio-python-bridge` library.
+  [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
+
+- Fixed the file extension for Windows debug builds of the
+  `_openassetio` Python extension module.
+  [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
+
+- Fixed `.pdb` debug symbol files installation location on Windows.
+  [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
 
 
 v1.0.0-alpha.6
