@@ -1,6 +1,9 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
+set(exclude_all_libs_linker_flag "-Wl,--exclude-libs,ALL")
+
+
 function(openassetio_set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # C++ standard
@@ -59,7 +62,7 @@ function(openassetio_set_default_target_properties target_name)
     # Hide all symbols from external statically linked libraries.
     if (IS_GCC_OR_CLANG AND NOT APPLE)
         # TODO(TC): Find a way to hide symbols on macOS
-        target_link_options(${target_name} PRIVATE -Wl,--exclude-libs,ALL)
+        target_link_options(${target_name} PRIVATE ${exclude_all_libs_linker_flag})
     endif ()
 
     # Whether to use the old or new C++ ABI with gcc.
@@ -244,6 +247,31 @@ function(openassetio_set_default_target_properties target_name)
         PROPERTIES
         FOLDER ${PROJECT_NAME}
     )
+endfunction()
 
 
+# Allow a target to re-export symbols from libraries that have been
+# statically linked into it.
+#
+# This is disallowed by default in the above function
+# openassetio_set_default_target_properties.
+function(openassetio_allow_static_lib_symbol_export target_name)
+    # TODO(DF): only works on Linux - see above related TODO(TC).
+    if (IS_GCC_OR_CLANG AND NOT APPLE)
+        get_target_property(_link_options ${target_name} LINK_OPTIONS)
+
+        # Validate that the link option we're about to remove is
+        # actually set.
+        list(FIND _link_options ${exclude_all_libs_linker_flag} _option_idx)
+        if (_option_idx EQUAL -1)
+            message(WARNING
+                "Attempting to allow linked static lib symbol exports in ${target_name} when it's"
+                " already allowed. Current link options: ${_link_options}")
+            return()
+        endif ()
+
+        # Remove link option previously set.
+        list(REMOVE_ITEM _link_options ${exclude_all_libs_linker_flag})
+        set_target_properties(${target_name} PROPERTIES LINK_OPTIONS "${_link_options}")
+    endif ()
 endfunction()

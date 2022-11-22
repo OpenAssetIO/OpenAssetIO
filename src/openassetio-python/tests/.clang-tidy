@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2013-2022 The Foundry Visionmongers Ltd
+
+InheritParentConfig: true
+
+# Disable "cognitive complexity" check: Catch2 test macros trigger this.
+Checks: >
+    -readability-function-cognitive-complexity
