@@ -40,26 +40,6 @@ target_link_libraries(
 
 
 #-----------------------------------------------------------------------
-# Override RPATH to locate libs
-
-if (UNIX)
-    # Calculate relative path from install to lib directory.
-    file(RELATIVE_PATH
-        install_dir_rel_to_lib
-        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
-        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-
-    if (APPLE)
-        set(rpath "@executable_path/${install_dir_rel_to_lib}")
-    else ()
-        set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
-    endif ()
-
-    set_target_properties(openassetio-core-cpp-test-exe PROPERTIES INSTALL_RPATH "${rpath}")
-endif ()
-
-
-#-----------------------------------------------------------------------
 # Create CTest target
 
 # Requires: openassetio.internal.install
