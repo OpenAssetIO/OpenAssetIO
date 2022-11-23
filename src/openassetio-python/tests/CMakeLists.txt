@@ -8,9 +8,9 @@ add_subdirectory(bridge)
 
 
 #-----------------------------------------------------------------------
-# Python test module target for creating test-only bindings.
+# Python bindings-specific tests.
 
-add_subdirectory(module/resources/_openassetio_test)
+add_subdirectory(module)
 
 
 #-----------------------------------------------------------------------
@@ -33,16 +33,6 @@ openassetio_add_pytest_target(
     "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
 )
 
-# Requires:
-# - openassetio.internal.install
-# - openassetio-python-venv
-openassetio_add_pytest_target(
-    openassetio.internal.pytest.module
-    "Running pytest for Python binding helpers"
-    src/openassetio-python/tests/module
-    "${PROJECT_SOURCE_DIR}"
-    "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
-)
 
 #-----------------------------------------------------------------------
 # CTest test targets
@@ -54,11 +44,3 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.install
 )
 openassetio_add_test_venv_fixture_dependency(openassetio.internal.pytest.package)
-
-# Python bindings helpers tests.
-openassetio_add_test_target(openassetio.internal.pytest.module)
-openassetio_add_test_fixture_dependencies(
-    openassetio.internal.pytest.module
-    openassetio.internal.install
-)
-openassetio_add_test_venv_fixture_dependency(openassetio.internal.pytest.module)
