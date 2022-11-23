@@ -113,33 +113,3 @@ def a_plugin_system(a_logger):
 @pytest.fixture
 def a_logger():
     return ConsoleLogger()
-
-
-@pytest.fixture
-def module_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.modulePlugin"
-
-
-@pytest.fixture
-def package_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.packagePlugin"
-
-
-@pytest.fixture
-def a_plugin_path_with_symlinks(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "symlinkPath")
-
-
-@pytest.fixture
-def a_module_plugin_path(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "pathA")
-
-
-@pytest.fixture
-def a_package_plugin_path(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "pathB")
-
-
-@pytest.fixture
-def the_resources_directory_path():
-    return os.path.join(os.path.dirname(__file__), "resources")

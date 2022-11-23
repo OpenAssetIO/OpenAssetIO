@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,58 +23,8 @@ ManagerImplementationFactoryInterface implementation.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import os
-from pathlib import PurePath
-
-import pytest
 
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
-
-
-#
-# Plugin fixtures
-#
-# These provide information about expected plugins within the source
-# tree. We use fixtures for this, over variables to make it easier to
-# hoist to a higher level later, if needed by other tests.
-#
-# {
-
-
-@pytest.fixture
-def plugin_path_var_name():
-    """
-    Provides the name of the environment variable that controls the
-    default search paths in the PythonPluginSystem.
-    """
-    return "OPENASSETIO_PLUGIN_PATH"
-
-
-@pytest.fixture
-def local_plugin_path():
-    """
-    Provides a suitable PythonPluginSystem search path that includes plugins
-    provided by the project.
-    """
-    test_path = PurePath(__file__)
-    root_dir = test_path.parents[5]
-    examples_dir = root_dir / "examples" / "manager"
-    return str(examples_dir / "SampleAssetManager" / "python")
-
-
-@pytest.fixture
-def local_plugin_identifiers():
-    """
-    Provides a list of the expected identifiers of plugins discovered
-    when using those provided by local_plugin_path
-    """
-    return [
-        "org.openassetio.examples.manager.sam",
-    ]
-
-
-#
-# }
-#
 
 
 class Test_PythonPluginSystemManagerImplementationFactory_init:
@@ -125,31 +75,31 @@ class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
         assert isinstance(identifiers, list)
         assert len(identifiers) == 0
 
-    def test_when_env_var_set_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
+    def test_when_env_var_set_to_plugin_path_then_finds_plugins(
+        self, mock_logger, a_package_plugin_path, package_plugin_identifier, monkeypatch
     ):
 
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, local_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_package_plugin_path
         )
 
         factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
-        assert factory.identifiers() == local_plugin_identifiers
+        assert factory.identifiers() == [package_plugin_identifier,]
 
-    def test_when_paths_set_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
+    def test_when_paths_set_to_a_package_plugin_path_then_finds_local_plugins(
+        self, mock_logger, a_package_plugin_path, package_plugin_identifier, monkeypatch
     ):
 
         if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
             monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
 
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path
+            mock_logger, paths=a_package_plugin_path
         )
-        assert factory.identifiers() == local_plugin_identifiers
+        assert factory.identifiers() == [package_plugin_identifier,]
 
-    def test_when_env_var_overridden_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
+    def test_when_env_var_overridden_to_a_package_plugin_path_then_finds_local_plugins(
+        self, mock_logger, a_package_plugin_path, package_plugin_identifier, monkeypatch
     ):
 
         monkeypatch.setenv(
@@ -157,6 +107,6 @@ class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
         )
 
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path
+            mock_logger, paths=a_package_plugin_path
         )
-        assert factory.identifiers() == local_plugin_identifiers
+        assert factory.identifiers() == [package_plugin_identifier,]
