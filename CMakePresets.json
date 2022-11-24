@@ -42,7 +42,8 @@
         "enable-tests"
       ],
       "cacheVariables": {
-        "CMAKE_VERBOSE_MAKEFILE": "ON"
+        "CMAKE_VERBOSE_MAKEFILE": "ON",
+        "CMAKE_MESSAGE_LOG_LEVEL": "TRACE"
       }
     },
     {
