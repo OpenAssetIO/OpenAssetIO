@@ -89,6 +89,7 @@
       "name": "enable-sanitizers",
       "hidden": true,
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "OPENASSETIO_ENABLE_SANITIZER_ADDRESS": "ON",
         "OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR": "ON"
       }
