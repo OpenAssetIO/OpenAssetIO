@@ -12,7 +12,7 @@ if (OPENASSETIO_ENABLE_TESTS)
     # - openassetio.internal.install
     # - openassetio-python-venv
     openassetio_add_pytest_target(
-        openassetio.internal.resources-examples-pytest
+        openassetio.internal.pytest.resources-examples
         "Running pytest for Manager examples"
         .
         # NB: `host` example coverage comes through the integration CI
@@ -25,10 +25,10 @@ if (OPENASSETIO_ENABLE_TESTS)
     )
 
     # CTest test wrapping pytest target.
-    openassetio_add_test_target(openassetio.internal.resources-examples-pytest)
+    openassetio_add_test_target(openassetio.internal.pytest.resources-examples)
     openassetio_add_test_fixture_dependencies(
-        openassetio.internal.resources-examples-pytest
+        openassetio.internal.pytest.resources-examples
         openassetio.internal.install
     )
-    openassetio_add_test_venv_fixture_dependency(openassetio.internal.resources-examples-pytest)
+    openassetio_add_test_venv_fixture_dependency(openassetio.internal.pytest.resources-examples)
 endif ()

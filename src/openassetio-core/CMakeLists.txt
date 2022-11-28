@@ -36,7 +36,7 @@ install(
 add_library(openassetio-core)
 add_library(${PROJECT_NAME}::openassetio-core ALIAS openassetio-core)
 # Set good default target options.
-set_default_target_properties(openassetio-core)
+openassetio_set_default_target_properties(openassetio-core)
 # Set output artifact base filename.
 set_target_properties(openassetio-core PROPERTIES OUTPUT_NAME openassetio)
 # Add to the set of installable targets.

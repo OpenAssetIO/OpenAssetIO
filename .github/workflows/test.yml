@@ -29,6 +29,12 @@ jobs:
         - os: ubuntu-20.04
           shell: bash
         - os: macos-11
+          # MacOS toolchain doesn't search /usr/local by default:
+          # https://gitlab.kitware.com/cmake/cmake/-/issues/19120
+          # The CMake FindPython module's Python::Python target (used
+          # via pybind11::embed in python-bridge-test) transitively adds
+          # linker flags to system libs, which fail due to this issue.
+          preamble: export LDFLAGS="-L/usr/local/lib"
           shell: bash
     defaults:
       run:

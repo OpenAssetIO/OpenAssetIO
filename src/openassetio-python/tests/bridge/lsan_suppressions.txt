@@ -1,0 +1,3 @@
+# pybind11 leak when defining enums
+# https://github.com/pybind/pybind11/issues/3865
+leak:pybind11::enum_<

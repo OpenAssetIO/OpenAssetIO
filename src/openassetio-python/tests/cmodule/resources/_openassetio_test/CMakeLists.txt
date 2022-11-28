@@ -3,7 +3,7 @@
 
 pybind11_add_module(openassetio-python-test MODULE)
 # Set target file name to `_openassetio_test`
-set_default_target_properties(openassetio-python-test)
+openassetio_set_default_target_properties(openassetio-python-test)
 set_target_properties(
     openassetio-python-test PROPERTIES
     OUTPUT_NAME _openassetio_test
@@ -33,12 +33,11 @@ target_sources(
     PRIVATE
     _openassetio_test.cpp
     PyRetainingSharedPtrTest.cpp
-    hostApiTest.cpp
 )
 
 # Give access to private headers.
 target_include_directories(openassetio-python-test
-    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python/module/src)
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/openassetio-python/cmodule/src)
 
 target_link_libraries(openassetio-python-test
     PRIVATE
