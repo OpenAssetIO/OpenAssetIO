@@ -130,8 +130,9 @@ Inheritance diagram for PythonPluginSystemManagerImplementationFactory:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a900fc22db8d86630035bf7bd50b18120"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a900fc22db8d86630035bf7bd50b18120">__init__</a> (self, logger, paths=None)</td></tr>
-<tr class="separator:a900fc22db8d86630035bf7bd50b18120"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9213238c75213f7803c02fc7e245216"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ae9213238c75213f7803c02fc7e245216">__init__</a> (self, logger, paths=None, disableEntryPointsPlugins=None)</td></tr>
+<tr class="memdesc:ae9213238c75213f7803c02fc7e245216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new factory.  <a href="#ae9213238c75213f7803c02fc7e245216">More...</a><br /></td></tr>
+<tr class="separator:ae9213238c75213f7803c02fc7e245216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a497055ee194e573cd76f9957782cb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ac5a497055ee194e573cd76f9957782cb">identifiers</a> (self)</td></tr>
 <tr class="separator:ac5a497055ee194e573cd76f9957782cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89a52717920638af304c1ffb6e3fb660"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a89a52717920638af304c1ffb6e3fb660">instantiate</a> (self, identifier)</td></tr>
@@ -143,13 +144,21 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a5117f2e3c85104ade8c2a57828904e75"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75">kPluginEnvVar</a> = &quot;OPENASSETIO_PLUGIN_PATH&quot;</td></tr>
 <tr class="memdesc:a5117f2e3c85104ade8c2a57828904e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Environment Variable to read the plug-in search path from.  <a href="#a5117f2e3c85104ade8c2a57828904e75">More...</a><br /></td></tr>
 <tr class="separator:a5117f2e3c85104ade8c2a57828904e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d28c523da756adf0527a72b4914aac4"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a4d28c523da756adf0527a72b4914aac4">kDisableEntryPointsEnvVar</a> = &quot;OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS&quot;</td></tr>
+<tr class="memdesc:a4d28c523da756adf0527a72b4914aac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Environment Variable to control the discovery of entry point based plugins.  <a href="#a4d28c523da756adf0527a72b4914aac4">More...</a><br /></td></tr>
+<tr class="separator:a4d28c523da756adf0527a72b4914aac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38fa37bdd34bd29e53cc24a80958a192"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a38fa37bdd34bd29e53cc24a80958a192">kPackageEntryPointGroup</a> = &quot;openassetio.manager_plugin&quot;</td></tr>
+<tr class="memdesc:a38fa37bdd34bd29e53cc24a80958a192"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the ManagerPlugin entry point for entry point discovered plugins.  <a href="#a38fa37bdd34bd29e53cc24a80958a192">More...</a><br /></td></tr>
+<tr class="separator:a38fa37bdd34bd29e53cc24a80958a192"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Factory to manage <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin.html">openassetio.pluginSystem.PythonPluginSystemManagerPlugin</a> derived plugins. </p>
 <p>Not usually used directly by a <a class="el" href="glossary.html#host">host</a>, which instead uses the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a>.</p>
-<dl class="envvar"><dt><b><a class="el" href="envvar.html#_envvar000003">Environment Variables:</a></b></dt><dd><b>OPENASSETIO_PLUGIN_PATH</b> <em>str</em> A PATH-style list of directories to search for <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin.html">openassetio.pluginSystem.PythonPluginSystemManagerPlugin</a> based plugins. It uses the platform-native delimiter. Searched left to right. </dd></dl>
+<p>The factory loads plugins from entry points registered within the <code>openassetio.manager_plugin</code> entry point group, as well as additional plugins found under paths specified in the <code>OPENASSETIO_PLUGIN_PATH</code> env var.</p>
+<dl class="envvar"><dt><b><a class="el" href="envvar.html#_envvar000003">Environment Variables:</a></b></dt><dd><b>OPENASSETIO_PLUGIN_PATH</b> <em>str</em> A PATH-style list of directories to search for <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin.html">openassetio.pluginSystem.PythonPluginSystemManagerPlugin</a> based plugins. It uses the platform-native delimiter. Searched left to right. Plugins found here will take precedence over those discovered through package entry points. Note: this search path is entirely independent of <b>PYTHONPATH</b> and doesn't need to be a subset of those paths. This allows OpenAssetIO plugins to be managed entirely independent of the python runtime if desired, and masked from <code>import</code> statements.</dd></dl>
+<dl class="envvar"><dt><b><a class="el" href="envvar.html#_envvar000004">Environment Variables:</a></b></dt><dd><b>OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS</b> when set, disables entry point based plugin discovery. This can be useful if it is not in use, to avoid unnecessary filesystem access during library initialization. <b>OPENASSETIO_PLUGIN_PATH</b> plugins take precedence over any entry point based ones. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a900fc22db8d86630035bf7bd50b18120"></a>
+<a class="anchor" id="ae9213238c75213f7803c02fc7e245216"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -169,7 +178,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>paths</em> = <code>None</code>&#160;</td>
+          <td class="paramname"><em>paths</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>disableEntryPointsPlugins</em> = <code>None</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -178,6 +193,17 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Creates a new factory. </p>
+<p>The factory scans for plugins lazily on the first invocation of <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ac5a497055ee194e573cd76f9957782cb">identifiers</a> or <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a89a52717920638af304c1ffb6e3fb660">instantiate</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logger</td><td><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> implementation that will be used to output information about plugin loading.</td></tr>
+    <tr><td class="paramname">paths</td><td><code>str</code> Paths to search for plugins. Defaults to the value of the <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75">kPluginEnvVar</a> environment variable.</td></tr>
+    <tr><td class="paramname">disableEntryPointsPlugins</td><td><code>bool</code> Controls whether package entry point based plugin discovery is allowed. Defaults to False unless the <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a4d28c523da756adf0527a72b4914aac4">kDisableEntryPointsEnvVar</a> environment variable is set. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -231,11 +257,62 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerApi.ManagerInterface</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html" title="A single-class module, providing the ManagerInterface class. ">openassetio.managerApi.ManagerInterface</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">PluginError</td><td>if the requested identifier has not been registered.</td></tr>
+    <tr><td class="paramname">RuntimeError</td><td>if the requested plugin is valid but has no <code>interface</code> method. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a4d28c523da756adf0527a72b4914aac4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string kDisableEntryPointsEnvVar = &quot;OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The Environment Variable to control the discovery of entry point based plugins. </p>
+
+</div>
+</div>
+<a class="anchor" id="a38fa37bdd34bd29e53cc24a80958a192"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string kPackageEntryPointGroup = &quot;openassetio.manager_plugin&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The name of the ManagerPlugin entry point for entry point discovered plugins. </p>
+
+</div>
+</div>
 <a class="anchor" id="a5117f2e3c85104ade8c2a57828904e75"></a>
 <div class="memitem">
 <div class="memproto">

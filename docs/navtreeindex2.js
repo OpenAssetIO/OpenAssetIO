@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"group__oa___string_view__aliases.html#ga353932e42c606da973e6eaa6ee11d128":[11,0,6,0,0],
 "group__oa___string_view__aliases.html#gac078c77a1916ff1125b7343be9788d8c":[11,0,6,0,1],
 "group__oa__host_api___manager.html":[11,0,1],
 "group__oa__host_api___manager.html#ga170b445384832a6f49ae60f77b3d1b89":[11,0,1,3],
@@ -12,8 +13,8 @@ var NAVTREEINDEX2 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[11,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[11,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[11,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,2],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[11,0,1,0,3],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[11,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[11,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[11,0,3],

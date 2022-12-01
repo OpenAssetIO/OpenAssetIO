@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822":[13,0,0,9,8,5],
 "classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be":[13,0,0,9,8,1],
 "classopenassetio_1_1v1_1_1_traits_data.html#ab156681737e47cc39be246cd986b7d2e":[13,0,0,9,8,4],
 "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0":[13,0,0,9,8,0],
@@ -133,8 +134,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[13,3,0,4],
 "functions_enum.html":[13,3,4],
 "functions_f.html":[13,3,0,5],
-"functions_func.html":[13,3,1],
 "functions_func.html":[13,3,1,0],
+"functions_func.html":[13,3,1],
 "functions_func_0x7e.html":[13,3,1,18],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_c.html":[13,3,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "group__oa___info_dictionary__aliases.html#gaba92209eca8da7a023eec2cb276fe39d":[11,0,2,0,1],
 "group__oa___info_dictionary__aliases.html#gac1d94f32e0327e4f12f134b90b6e527a":[11,0,2,0,11],
 "group__oa___string_view.html":[11,0,6],
-"group__oa___string_view__aliases.html":[11,0,6,0],
-"group__oa___string_view__aliases.html#ga353932e42c606da973e6eaa6ee11d128":[11,0,6,0,0]
+"group__oa___string_view__aliases.html":[11,0,6,0]
 };

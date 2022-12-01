@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1plugin_system_1_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Loads Python Packages on a custom search path.  
+<p>Loads Python Packages, using entry point discovery or from a custom search path.  
  <a href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for PythonPluginSystem:</div>
@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6423e8313300165e964a9c468adb897e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a6423e8313300165e964a9c468adb897e">scan</a> (self, paths)</td></tr>
 <tr class="memdesc:a6423e8313300165e964a9c468adb897e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a top-level <code>plugin</code> variable.  <a href="#a6423e8313300165e964a9c468adb897e">More...</a><br /></td></tr>
 <tr class="separator:a6423e8313300165e964a9c468adb897e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6f3226f1a8e91837335c951408ebe94"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ae6f3226f1a8e91837335c951408ebe94">scan_entry_points</a> (self, entryPointName)</td></tr>
+<tr class="memdesc:ae6f3226f1a8e91837335c951408ebe94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches packages for entry points that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a top-level <code>plugin</code> variable.  <a href="#ae6f3226f1a8e91837335c951408ebe94">More...</a><br /></td></tr>
+<tr class="separator:ae6f3226f1a8e91837335c951408ebe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a497055ee194e573cd76f9957782cb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ac5a497055ee194e573cd76f9957782cb">identifiers</a> (self)</td></tr>
 <tr class="memdesc:ac5a497055ee194e573cd76f9957782cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the identifiers known to the plugin system.  <a href="#ac5a497055ee194e573cd76f9957782cb">More...</a><br /></td></tr>
 <tr class="separator:ac5a497055ee194e573cd76f9957782cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,7 +151,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8bef8dba8f08056f70b6ec9e4ad9f907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Loads Python Packages on a custom search path. </p>
+<div class="textblock"><p>Loads Python Packages, using entry point discovery or from a custom search path. </p>
 <p>If they manager a top-level 'plugin' attribute, that holds a class derived from <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a>, it will be registered with its identifier. Once a plug-in has registered an identifier, any subsequent registrations with that id will be skipped. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aac3cdede3d1da7dd5e392212b10c4cf5"></a>
@@ -320,13 +323,48 @@ Public Member Functions</h2></td></tr>
 <p>Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a top-level <code>plugin</code> variable. </p>
 <p>Paths are searched right-to-left, but only the first instance of any given plugin identifier will be used, and subsequent registrations ignored. This means entries to the left of the paths list take precedence over ones to the right.</p>
 <dl class="section note"><dt>Note</dt><dd>Precedence order is undefined for plugins sharing the same identifier within the same directory.</dd></dl>
-<p>Any existing plugins registered with the <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html" title="Loads Python Packages on a custom search path. ">PythonPluginSystem</a> will be cleared before scanning.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">paths</td><td><code>str</code> A list of paths to search, delimited by <code>os.pathsep</code>. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ae6f3226f1a8e91837335c951408ebe94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def scan_entry_points </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>entryPointName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Searches packages for entry points that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a top-level <code>plugin</code> variable. </p>
+<dl class="section note"><dt>Note</dt><dd>The order of discovery is determined by <code>importlib</code>, only the first plugin with any given identifier will be registered.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entryPointName</td><td><code>str</code> The entry point name to search for (see: importlib_metadata.entry_points group).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if entry point discovery is possible, False if there was a problem loading importlib_metadata. </dd></dl>
 
 </div>
 </div>

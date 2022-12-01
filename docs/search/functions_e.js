@@ -1,6 +1,7 @@
 var searchData=
 [
   ['scan',['scan',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a6423e8313300165e964a9c468adb897e',1,'openassetio::pluginSystem::PythonPluginSystem::PythonPluginSystem']]],
+  ['scan_5fentry_5fpoints',['scan_entry_points',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ae6f3226f1a8e91837335c951408ebe94',1,'openassetio::pluginSystem::PythonPluginSystem::PythonPluginSystem']]],
   ['setcasename',['setCaseName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a5b29def330b76e51105db67501316363',1,'openassetio::test::specifications::TestTrait']]],
   ['setenabled',['setEnabled',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#adf51df57ed46e90f1ee61081bd8d75d2',1,'openassetio::_core::audit::Auditor']]],
   ['setexclusive',['setExclusive',['../classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html#af8a3eb2b2813049fedf1055c2d08d0b1',1,'openassetio::traits::managementPolicy::ManagedTrait']]],

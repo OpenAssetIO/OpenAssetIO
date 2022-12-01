@@ -107,10 +107,11 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de":[13,0,0,4,0,0,2],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aac3cdede3d1da7dd5e392212b10c4cf5":[13,0,0,4,0,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ac5a497055ee194e573cd76f9957782cb":[13,0,0,4,0,0,1],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ae6f3226f1a8e91837335c951408ebe94":[13,0,0,4,0,0,6],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html":[13,0,0,4,1,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a89a52717920638af304c1ffb6e3fb660":[13,0,0,4,1,0,2],
-"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a900fc22db8d86630035bf7bd50b18120":[13,0,0,4,1,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ac5a497055ee194e573cd76f9957782cb":[13,0,0,4,1,0,1],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ae9213238c75213f7803c02fc7e245216":[13,0,0,4,1,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html":[13,0,0,4,2,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[13,0,0,4,2,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce":[13,0,0,4,2,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1_entity_reference.html#af9d34603c70d1903c55385ba1b6f369b":[13,0,0,9,7,2],
 "classopenassetio_1_1v1_1_1_traits_data.html":[13,0,0,9,8],
 "classopenassetio_1_1v1_1_1_traits_data.html#a08fa5975381df4904c7a5dfad6f13b83":[13,0,0,9,8,3],
-"classopenassetio_1_1v1_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436":[13,0,0,9,8,2],
-"classopenassetio_1_1v1_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822":[13,0,0,9,8,5]
+"classopenassetio_1_1v1_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436":[13,0,0,9,8,2]
 };
