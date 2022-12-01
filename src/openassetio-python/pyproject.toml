@@ -13,6 +13,9 @@ build-backend = "setuptools.build_meta"
 name = "openassetio"
 version = "1.0.0a6"
 requires-python = ">=3.7"
+dependencies = [
+    "importlib_metadata >= 3.6"
+]
 
 authors = [
     { name = "Contributors to the OpenAssetIO project", email = "openassetio-discussion@lists.aswf.io" }

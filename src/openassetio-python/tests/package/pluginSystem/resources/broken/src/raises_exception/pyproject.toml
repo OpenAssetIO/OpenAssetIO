@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2022 The Foundry Visionmongers Ltd
+
+[build-system]
+requires = [
+    "setuptools>=65.5.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "raises-exception"
+version = "0.0.0"
+requires-python = ">=3.7"
+
+description = """\
+    A test OpenAssetIO Manager plugin that raises an exception during inmport.
+    """
+
+# Defines a Python entry point that exposes the plugin's package to
+# allow importlib based discovery.
+[project.entry-points."openassetio.manager_plugin"]
+raies_exception = "raises_exception"

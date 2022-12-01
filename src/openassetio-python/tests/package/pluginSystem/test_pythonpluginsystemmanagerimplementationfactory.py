@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2022 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,145 +18,152 @@ These tests check the functionality of the plugin system based
 ManagerImplementationFactoryInterface implementation.
 """
 
-# pylint: disable=no-self-use
+# pylint: disable=no-self-use, unused-argument
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
-
-import os
-from pathlib import PurePath
+# pylint: disable=use-implicit-booleaness-not-comparison
 
 import pytest
 
+from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
 
-#
-# Plugin fixtures
-#
-# These provide information about expected plugins within the source
-# tree. We use fixtures for this, over variables to make it easier to
-# hoist to a higher level later, if needed by other tests.
-#
-# {
-
-
-@pytest.fixture
-def plugin_path_var_name():
-    """
-    Provides the name of the environment variable that controls the
-    default search paths in the PythonPluginSystem.
-    """
-    return "OPENASSETIO_PLUGIN_PATH"
-
-
-@pytest.fixture
-def local_plugin_path():
-    """
-    Provides a suitable PythonPluginSystem search path that includes plugins
-    provided by the project.
-    """
-    test_path = PurePath(__file__)
-    root_dir = test_path.parents[5]
-    examples_dir = root_dir / "examples" / "manager"
-    return str(examples_dir / "SampleAssetManager" / "python")
-
-
-@pytest.fixture
-def local_plugin_identifiers():
-    """
-    Provides a list of the expected identifiers of plugins discovered
-    when using those provided by local_plugin_path
-    """
-    return [
-        "org.openassetio.examples.manager.sam",
-    ]
-
-
-#
-# }
-#
-
-
-class Test_PythonPluginSystemManagerImplementationFactory_init:
-    def test_plugin_factory_uses_the_expected_env_var(self):
+class Test_PythonPluginSystemManagerImplementationFactory:
+    def test_exposes_plugin_path_var_name_with_expected_value(self):
         assert (
             PythonPluginSystemManagerImplementationFactory.kPluginEnvVar
             == "OPENASSETIO_PLUGIN_PATH"
         )
 
-    def test_when_env_var_not_set_then_logs_warning(self, mock_logger, monkeypatch):
+    def test_exposes_disable_entry_points_var_name_with_expected_value(self):
+        assert (
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar
+            == "OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS"
+        )
+
+    def test_exposes_entry_point_group_with_expected_value(self):
+        assert (
+            PythonPluginSystemManagerImplementationFactory.kPackageEntryPointGroup
+            == "openassetio.manager_plugin"
+        )
+
+
+class Test_PythonPluginSystemManagerImplementationFactory_init:
+    def test_when_no_args_or_env_vars_then_entry_point_plugins_loaded(
+        self,
+        prepended_sys_path_with_entry_point_plugin,
+        entry_point_plugin_identifier,
+    ):
+        factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
+        assert factory.identifiers() == [entry_point_plugin_identifier]
+
+    def test_when_no_paths_and_entry_points_disabled_then_warning_logged(
+        self, mock_logger, monkeypatch
+    ):
         expected_msg = (
-            f"{PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is not set. "
-            "It is somewhat unlikely that you will find any plugins..."
+            "No search paths specified and entry point plugins are disabled, no plugins will "
+            f"load - check ${PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is set."
         )
         expected_severity = mock_logger.Severity.kWarning
 
-        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
+        monkeypatch.delenv(
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False
+        )
 
-        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
+        factory = PythonPluginSystemManagerImplementationFactory(
+            mock_logger, disableEntryPointsPlugins=True
+        )
         # Plugins are scanned lazily when first requested
-        _ = factory.identifiers()
+        assert factory.identifiers() == []
         mock_logger.mock.log.assert_called_once_with(expected_severity, expected_msg)
 
+    def test_when_no_args_and_entry_points_disabled_env_then_entry_point_not_loaded(
+        self, prepended_sys_path_with_entry_point_plugin, monkeypatch
+    ):
+        monkeypatch.setenv(
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar, "1"
+        )
+        monkeypatch.delenv(
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False
+        )
 
-class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
-    def test_when_env_var_not_set_then_returns_empty_list(self, mock_logger, monkeypatch):
+        factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
+        assert factory.identifiers() == []
 
-        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
+    def test_when_no_args_and_path_env_then_path_plugins_loaded(
+        self,
+        a_module_plugin_path,
+        module_plugin_identifier,
+        monkeypatch,
+    ):
+        monkeypatch.setenv(
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+        )
+        factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
+        assert factory.identifiers() == [module_plugin_identifier]
 
-        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
-        identifiers = factory.identifiers()
-        # Check it is an empty list, not None, or any other value
-        # that would satisty == [] as a boolean comparison.
-        assert isinstance(identifiers, list)
-        assert len(identifiers) == 0
+    def test_when_path_arg_set_then_overrides_path_env(
+        self,
+        a_module_plugin_path,
+        a_package_plugin_path,
+        package_plugin_identifier,
+        mock_logger,
+        monkeypatch,
+    ):
+        monkeypatch.setenv(
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+        )
 
-    def test_when_env_var_empty_then_returns_empty_list(self, mock_logger, monkeypatch):
+        factory = PythonPluginSystemManagerImplementationFactory(
+            paths=a_package_plugin_path, logger=mock_logger
+        )
+        assert factory.identifiers() == [
+            package_plugin_identifier,
+        ]
+
+    def test_when_entry_points_disable_arg_set_then_overrides_entry_points_disable_env(
+        self,
+        prepended_sys_path_with_entry_point_plugin,
+        entry_point_plugin_identifier,
+        mock_logger,
+        monkeypatch,
+    ):
+        monkeypatch.setenv(
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar, "1"
+        )
+        factory = PythonPluginSystemManagerImplementationFactory(
+            disableEntryPointsPlugins=False, logger=mock_logger
+        )
+        assert factory.identifiers() == [
+            entry_point_plugin_identifier,
+        ]
+
+    def test_when_paths_empty_then_returns_empty_list(self, mock_logger):
 
         plugin_paths = ""
-        monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, plugin_paths
-        )
-
-        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
-        identifiers = factory.identifiers()
-        assert isinstance(identifiers, list)
-        assert len(identifiers) == 0
-
-    def test_when_env_var_set_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
-    ):
-
-        monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, local_plugin_path
-        )
-
-        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
-        assert factory.identifiers() == local_plugin_identifiers
-
-    def test_when_paths_set_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
-    ):
-
-        if PythonPluginSystemManagerImplementationFactory.kPluginEnvVar in os.environ:
-            monkeypatch.delenv(PythonPluginSystemManagerImplementationFactory.kPluginEnvVar)
-
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path
+            paths=plugin_paths, logger=mock_logger
         )
-        assert factory.identifiers() == local_plugin_identifiers
+        assert factory.identifiers() == []
 
-    def test_when_env_var_overridden_to_local_plugin_path_then_finds_local_plugins(
-        self, mock_logger, local_plugin_path, local_plugin_identifiers, monkeypatch
+    def test_when_duplicate_identifiers_path_selected_over_entry_point(
+        self,
+        prepended_sys_path_with_entry_point_plugin,
+        a_package_plugin_path,
+        package_plugin_identifier,
+        mock_logger,
     ):
-
-        monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, "some invalid value"
-        )
-
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=local_plugin_path
+            mock_logger, paths=a_package_plugin_path, disableEntryPointsPlugins=False
         )
-        assert factory.identifiers() == local_plugin_identifiers
+
+        assert factory.identifiers() == [
+            package_plugin_identifier,
+        ]
+        assert a_package_plugin_path in factory.instantiate(package_plugin_identifier)["file"]
+
+
+@pytest.fixture
+def prepended_sys_path_with_entry_point_plugin(an_entry_point_package_plugin_root, monkeypatch):
+    monkeypatch.syspath_prepend(an_entry_point_package_plugin_root)
