@@ -85,7 +85,7 @@ guidelines on how to format code and documentation written for the
 project. These are outlined in the [coding style](CODING_STYLE.md) and
 [coding standards](CODING_STANDARDS.md) guides.
 
-### Change Log
+### Change log
 
 The Change Log should always be updated during development work, rather
 than at release time. This ensures it is consistent with the code base
@@ -116,7 +116,7 @@ In addition, contributors are required to complete either the Individual
 or Corporate Contribution License Agreement. Please contact one of the
 trusted committers for more information.
 
-### Release Process
+### Release process
 
 OpenAssetIO releases are managed via git tags, and make use of [SemVer](https://semver.org).
 All components within the same repository share a version, and will be
@@ -155,7 +155,7 @@ To make a new OpenAssetIO release, follow this procedure.
 > action must be successfully run before a release is created. Wait
 > until this action is finished before continuing on.
 
-- Now the codebase is all setup, create a [new Release](https://github.com/OpenAssetIO/OpenAssetIO/releases/new)
+- Now the codebase is all set up, create a [new Release](https://github.com/OpenAssetIO/OpenAssetIO/releases/new)
   in GitHub.
   - Set the tag to be the version number with a `v` prefix, eg
     `v1.0.0-alpha.5`, you should be creating a new tag.
@@ -174,6 +174,101 @@ To make a new OpenAssetIO release, follow this procedure.
   uploaded correctly.
 - You're done! Take a break and relax!
 
+## Breaking integrations
+
+OpenAssetIO is pursuing an integration heavy validation strategy, it
+seeks to have a set of robust proof of concept projects, and will use
+these as both design validators and testing coverage providers.
+
+In order to tie this coverage into mainline OpenAssetIO development,
+OpenAssetIO continuous integration checks out several downstream
+projects each time a commit is pushed. These projects are built against
+the bleeding edge version of OpenAssetIO, and their test suites are run.
+This provides valuable end to end testing of each changeset, and is
+invaluable. (See
+[integrations.yml](https://github.com/OpenAssetIO/OpenAssetIO/blob/main/.github/workflows/integrations.yml))
+
+Furthermore, as these downstream repos are projects in their own right,
+they also have their own CI suites to validate any changes made to them,
+using a released OpenAssetIO version, taken from PyPI.
+
+### Breaking change mitigation process
+
+On occasion, it is necessary for OpenAssetIO to change its interfaces in
+such a way that cause the downstream projects to become incompatible
+against the bleeding edge OpenAssetIO. You will know when this happens
+as one of the tests in
+[integrations.yml](../../.github/workflows/integrations.yml) will begin
+to fail.
+
+The downstream projects are pinned to a specific version of OpenAssetIO
+on PyPI for their own test suites, so these will continue to function
+even through a breaking change on OpenAssetIO main. However, the
+OpenAssetIO integrations checks will being to fail, with no clear way to
+remedy the situation before an OpenAssetIO release, as any changes to
+the downstream project to support bleeding edge will likely cause
+incompatibility with the published OpenAssetIO release the project is
+consuming from PyPI.
+
+In order to remedy this, when making a breaking OpenAssetIO change that
+causes a failing integrations check, the following procedure may be
+implemented to avoid long term loss of coverage.
+
+1. Consult on whether the change must necessarily be breaking, if
+   reasonably possible, attempt to formulate another approach.
+
+2. Evaluate the scope of breakage in the dependent project(s), and make
+   an issue in those projects to fix compatibility with your change.
+
+3. Comment out the failing integrations check in
+   [integrations.yml](../../.github/workflows/integrations.yml). Leave a
+   note explaining the context, with links to the issues created in the
+   previous step.
+
+4. Review and merge your change to OpenAssetIO as normal, call out the
+   removed integrations check in the PR.
+
+5. As soon as possible, plan to work on the issues(s) created in step 2
+   to return compatibility to the dependent repos.
+
+6. To accomplish this, branch the dependent repo in question from main,
+   call your new branch `openassetio/X.Y.Z`, where `X.Y.Z` is the *next*
+   release of OpenAssetIO.
+
+   > **Warning**
+   >
+   > The specific branch name formatting is important, as CI is setup to
+   > source wheels built from the tip of `openassetio:main` when run on
+   > these  branches.
+   >
+   > If this is the first time this process is being
+   > actioned on a specific repo, the CI steps to source wheels on
+   > release branches may not have been set up yet, consult with the
+   > team on how to introduce them.
+
+7. Fix the project to function with the new interface. Review and Merge
+   to the `openassetio/X.Y.Z` branch.
+
+8. Re-enable the disabled integration tests in OpenAssetIO by
+   re-targeting the checkout in
+   [integrations.yml](../../.github/workflows/integrations.yml) to point
+   to this new branch. It should now pass.
+
+9. When OpenAssetIO has its next release, fold these branches back into
+   the main branches.
+
+10. Re-target
+    [integrations.yml](../../.github/workflows/integrations.yml) back to
+    normal, checking out the `main` branch of the dependent repos.
+
+11. Delete the `openassetio/X.Y.Z` staging branch.
+
+This process is presented as an alternate to either leaving the broken
+integration removed from the main OpenAssetIO test suite until such a
+time as a release can be made and the changes can be reintegrated, or
+immediately having to fix any breakages in dependent projects as part
+of any breaking change in OpenAssetIO.
+
 ## Further reading
 
 - [Coding style](CODING_STYLE.md)
@@ -183,9 +278,9 @@ To make a new OpenAssetIO release, follow this procedure.
 - [Code Reviews](CODE_REVIEWS.md)
 - [Updating the release notes](CHANGES.md)
 
-
-## Trusted Committers
+## Trusted committers
 
 ### Foundry
+
 - @foundrytom [tom@foundry.com](mailto:tom@foundry.com)
 - @feltech
