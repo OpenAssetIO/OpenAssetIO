@@ -33,7 +33,7 @@ from openassetio.hostApi import ManagerFactory
 
 
 class Test_simpleResolver_errors:
-    def test_when_config_env_not_set_then_message_printed_and_return_code_is_one(
+    def test_when_lib_initialization_fails_then_error_written_to_stderr_and_return_code_non_zero(
         self, monkeypatch
     ):
         monkeypatch.delenv("OPENASSETIO_DEFAULT_CONFIG", raising=False)
@@ -41,18 +41,6 @@ class Test_simpleResolver_errors:
         expected_message = [
             "ERROR: No default manager configured, "
             f"check ${ManagerFactory.kDefaultManagerConfigEnvVarName}"
-        ]
-        assert result.stderr.splitlines() == expected_message
-        assert result.returncode == 1
-
-    def test_when_config_set_and_plugin_path_not_set_then_error_and_return_code_wrapped(
-        self, monkeypatch, test_config_env  # pylint: disable=unused-argument
-    ):
-        monkeypatch.delenv("OPENASSETIO_PLUGIN_PATH", raising=False)
-        result = execute_cli()
-        expected_message = [
-            "ERROR: PythonPluginSystem: No plug-in registered with the identifier "
-            "'org.openassetio.examples.manager.bal'",
         ]
         assert result.stderr.splitlines() == expected_message
         assert result.returncode == 1
