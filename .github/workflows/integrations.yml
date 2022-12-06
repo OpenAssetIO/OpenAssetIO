@@ -66,7 +66,8 @@ jobs:
 
       - name: Test BAL
         run: |
-          python -m pytest -v external/BAL
+          python -m pip install ./external/BAL
+          python -m pytest -v external/BAL/tests
 
       - name: Test Simple Resolver
         run: |
