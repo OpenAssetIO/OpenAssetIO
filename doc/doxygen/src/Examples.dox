@@ -191,8 +191,7 @@
  *
  * @code{.py}
  * from openassetio import constants
- * from openassetio.traits.managementPolicy import ManagedTrait, WillManagePathTrait
- * from openassetio_mediacreation.specification.entity import TextFileSpecification
+ * from openassetio_mediacreation.traits.managementPolicy import ManagedTrait, ResolvesFutureEntitiesTrait
  *
  *
  * # As ever, an appropriately configured context is required
@@ -219,7 +218,7 @@
  * working_ref = manager.preflight([entity_ref], TextFileSpecification.kTraitSet, context)[0]
  *
  * # We then check if the manager can tell us where to save the file.
- * if policy.hasTrait(WillManagePathTrait.kId):
+ * if policy.hasTrait(ResolvesFutureEntitiesTrait.kId):
  *     working_data = manager.resolve([working_ref], TextFileSpecification.kTraitSet, context)[0]
  *     working_spec = TextFileSpecification(working_data)
  *     save_path = working_spec.locatableContentTrait().getUrl()
@@ -273,7 +272,7 @@
  * thumbnail_attr = {"width": 128, "height": 128}
  *
  * # See if the manager can tell us where to put it, and what it should be like
- * if policy.hasTrait(WillManagePathTrait.kId):
+ * if policy.hasTrait(ResolvesFutureEntitiesTrait.kId):
  *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     file_trait = requested_spec.fileTrait()

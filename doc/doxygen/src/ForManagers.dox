@@ -112,7 +112,7 @@
  *   "managementPolicy" to control which Host-side data types you wish
  *   to be involved in managing. Return an empty @fqref{TraitsData}
  *   "TraitsData" for any queries with a context with `kWrite` access
- *   (this disables publishing).
+ *   to request not to be involved in publishing.
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
