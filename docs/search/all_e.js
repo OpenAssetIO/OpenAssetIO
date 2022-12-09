@@ -14,7 +14,6 @@ var searchData=
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1host_api.html',1,'openassetio']]],
   ['log',['log',['../namespaceopenassetio_1_1log.html',1,'openassetio']]],
   ['log',['log',['../namespaceopenassetio_1_1v1_1_1log.html',1,'openassetio::v1']]],
-  ['managementpolicy',['managementPolicy',['../namespaceopenassetio_1_1traits_1_1management_policy.html',1,'openassetio::traits']]],
   ['manager',['manager',['../namespaceopenassetio_1_1test_1_1manager.html',1,'openassetio::test']]],
   ['manager',['Manager',['../namespaceopenassetio_1_1host_api_1_1_manager.html',1,'openassetio::hostApi']]],
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1manager_api.html',1,'openassetio']]],
@@ -82,12 +81,11 @@ var searchData=
   ['pythonpluginsystemmanagerplugin',['PythonPluginSystemManagerPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin.html',1,'openassetio::pluginSystem']]],
   ['pythonpluginsystemplugin',['PythonPluginSystemPlugin',['../namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html',1,'openassetio::pluginSystem']]],
   ['specificationbase',['SpecificationBase',['../namespaceopenassetio_1_1_specification_base.html',1,'openassetio']]],
-  ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1specifications.html',1,'openassetio::test']]],
+  ['specifications',['specifications',['../namespaceopenassetio_1_1test_1_1manager_1_1specifications.html',1,'openassetio::test::manager']]],
   ['terminology',['terminology',['../namespaceopenassetio_1_1host_api_1_1terminology.html',1,'openassetio::hostApi']]],
   ['test',['test',['../namespaceopenassetio_1_1test.html',1,'openassetio']]],
   ['trait',['trait',['../namespaceopenassetio_1_1v1_1_1trait.html',1,'openassetio::v1']]],
   ['traitbase',['TraitBase',['../namespaceopenassetio_1_1_trait_base.html',1,'openassetio']]],
-  ['traits',['traits',['../namespaceopenassetio_1_1traits.html',1,'openassetio']]],
   ['v1',['v1',['../namespaceopenassetio_1_1v1.html',1,'openassetio']]]
 ];

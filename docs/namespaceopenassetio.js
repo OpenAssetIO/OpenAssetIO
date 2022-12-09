@@ -8,6 +8,5 @@ var namespaceopenassetio =
     [ "SpecificationBase", "namespaceopenassetio_1_1_specification_base.html", "namespaceopenassetio_1_1_specification_base" ],
     [ "test", "namespaceopenassetio_1_1test.html", "namespaceopenassetio_1_1test" ],
     [ "TraitBase", "namespaceopenassetio_1_1_trait_base.html", "namespaceopenassetio_1_1_trait_base" ],
-    [ "traits", "namespaceopenassetio_1_1traits.html", "namespaceopenassetio_1_1traits" ],
     [ "v1", "namespaceopenassetio_1_1v1.html", "namespaceopenassetio_1_1v1" ]
 ];

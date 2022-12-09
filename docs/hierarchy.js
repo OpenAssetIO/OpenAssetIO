@@ -97,10 +97,6 @@ var hierarchy =
       [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
     ] ],
     [ "TraitBase", null, [
-      [ "ManagedTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_managed_trait.html", null ],
-      [ "WillManagePathTrait", "classopenassetio_1_1traits_1_1management_policy_1_1_will_manage_path_trait.html", null ]
-    ] ],
-    [ "TraitBase", null, [
       [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
       [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
       [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]
