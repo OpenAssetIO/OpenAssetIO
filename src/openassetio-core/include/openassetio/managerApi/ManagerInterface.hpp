@@ -304,22 +304,31 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @{
    */
   /**
-   * Determines if the asset manager is interested in participating
-   * in interactions with @ref entity "entities" with the specified
-   * sets of @ref trait "traits".
+   * Management Policy queries determine if the manager is interested in
+   * participating in interactions with @ref entity "entities" with a
+   * specified @ref trait_set.
    *
-   * For example, a host may call this in order to see if the manager
-   * would like to manage the path of a scene file whilst choosing a
-   * destination to save to.
+   * This is called by a host to determine whether to enable OpenAssetIO
+   * related functionality when handling of specific kinds of data.
    *
-   * This information is then used to determine which options should
-   * be presented to the user or which workflows may be performed by
-   * the host. For example, if @ref
-   * traits.managementPolicy.ManagedTrait "ManagedTrait" was not
-   * imbued for a query as to the management of scene files, a Host
-   * will hide or disable menu items that relate to publish or
-   * loading of assetized scene files, and not involve the manager in
-   * any actions realting to scene files.
+   * This method returns a @fqref{TraitsData} "TraitsData" for each
+   * requested. The implementation of this method should carefully
+   * consider the @fqref{Context.access} "access" set in the supplied
+   * @ref Context, and imbue suitable traits in the result.
+   *
+   * It is an opt-in mechanism, and returning an empty TraitsData states
+   * that you do not manage data with that specific @ref trait_set, and
+   * hosts should avoid making redundant calls into the API or
+   * presenting asset-centric elements of a workflow to the user.
+   *
+   * @note Because traits are specific to any given application of the
+   * API, please refer to the documentation for any relevant companion
+   * project(s) that provide traits and specifications for your specific
+   * scenario. For example, the
+   * <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation"
+   * target="_blank">OpenAssetIO-MediaCreation</a> project provides
+   * traits for common data types used in computer graphics and media
+   * production.
    *
    * @warning The @fqref{Context.access} "access"
    * specified in the supplied context should be carefully considered.
@@ -327,33 +336,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * write access to determine if resolution and publishing features
    * are applicable to this implementation.
    *
-   * @note One very important trait that may be imbued in the policy
-   * is the @ref traits.managementPolicy.WillManagePathTrait
-   * "WillManagePathTrait". If set, this instructs the host that the
-   * asset management system will manage the path use for the
-   * creation of any new assets. When set, @ref preflight will be
-   * called before any file creation to allow the asset management
-   * system to determine and prepare the work path. If this trait is
-   * not imbued, then only @ref register will ever be called, and the
-   * user will be tasked with determining where new files should be
-   * located. In many cases, this greatly reduces the sophistication
-   * of the integration as registering the asset becomes a partially
-   * manual task, rather than one that can be fully automated for new
-   * assets.
-   *
-   * For read contexts, the @ref traits.managementPolicy.ManagedTrait
-   * "ManagedTrait" should only be imbued in the returned
-   * @fqref{TraitsData} "TraitsData" if the manager can potentially
-   * resolve data for all of the supplied traits. Hosts are required
-   * to deal with the properties for any given trait being unset when
-   * resolved, as they may not be available for existing assets, as
-   * long as the traits are understood.
-   *
-   * For write contexts, the @ref traits.managementPolicy.ManagedTrait
-   * "ManagedTrait" should only be imbued if the manager is capable
-   * of persisting all traits (and any of their property data) when
-   * they are registered for an entity, and returning that data via
-   * resolve.
+   * @note There is no requirement that a host calls this method before
+   * interacting with the API. It serves to facilitate high-level
+   * behavioural switches rather than per-invocation validation. There
+   * are several scenarios where this would result in significant API
+   * overhead. As such, the implementation of other API methods should
+   * suitably safeguard against being called with unsupported trait
+   * sets or access patterns.
    *
    * @param traitSets The entity @ref trait "traits" to query.
    *
@@ -757,12 +746,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * method can pass back the input reference once the target entity
    *   reference has been validated.
    *
-   * Generally, this will be called before register() in any host
-   * that creates media, where the return to
-   * @fqref{managerApi.ManagerInterface.managementPolicy}
-   * "managementPolicy" has the @ref
-   * openassetio.traits.managementPolicy.WillManagePathTrait
-   * "WillManagePathTrait" set.
+   * Generally, this will be called before register() when data is not
+   * already immediately available for registration, to allow
+   * placeholder actions to be performed. Note: depending on the
+   * returned @fqref{managerApi.ManagerInterface.managementPolicy}
+   * "managementPolicy", the host may make additional API queries using
+   * the reference returned here before registration.
    *
    * This call must block until preflight is complete for all
    * supplied references, and callbacks have been called on the same
@@ -823,15 +812,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Publish entities to the @ref asset_management_system.
    *
-   * This instructs the implementation to ensure a valid entity
-   * exists for each given reference and to persist the data provided
-   * in the @fqref{TraitsData}. This will be called either in
-   * isolation or after calling preflight, depending on the nature of
-   * the data being published and the @ref
-   * traits.managementPolicy.WillManagePathTrait
-   * "WillManagePathTrait" of the returned
-   * @fqref{managerApi.ManagerInterface.managementPolicy}
-   * "managementPolicy" for the supplied data's @ref trait_set.
+   * This instructs the implementation to ensure a valid entity exists
+   * for each given reference and to persist the data provided in the
+   * @fqref{TraitsData}. This will be called either in isolation or
+   * after calling preflight, depending on whether work needed to be
+   * done to generate the data. Preflight is omit if the data is already
+   * available at the time of publishing.
    *
    * This call must block until registration is complete for all
    * supplied references, and callbacks have been called on the same

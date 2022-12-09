@@ -1,6 +1,19 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Breaking changes
+
+- The `openassetio.traits` module has been removed. OpenAssetIO
+  itself no longer contains any trait definitions. Integrations of the
+  API should use the established standards particular to the area of
+  use. See [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
+  for traits previously included here.
+  [#717](https://github.com/OpenAssetIO/OpenAssetIO/issues/717)
+
+
 v1.0.0-alpha.7
 --------------
 

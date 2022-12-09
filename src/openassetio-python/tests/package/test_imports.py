@@ -145,8 +145,3 @@ class Test_test_manager_imports:
 
     def test_importing_specifications_succeeds(self):
         from openassetio.test.manager import specifications
-
-
-class Test_traits_imports:
-    def test_importing_managementPolicy_succeeds(self):
-        from openassetio.traits import managementPolicy
