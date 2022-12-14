@@ -5,6 +5,12 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  # Shared with `build-wheels`.
+  group: wheel-${{ github.ref }}
+  # Allow `build-wheels` to finish.
+  cancel-in-progress: false
+
 jobs:
   # testpypi and pypi are done as two seperate jobs due to a potential
   # fail in the pypi upload, and wanting to be able to rerun just the
