@@ -122,10 +122,14 @@ jobs:
         uses: ./.github/bootstrap_platform
 
       - name: Build/install OpenAssetIO
-        run: |
+        run: >
           ${{ matrix.config.preamble }}
+
           cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist
+          -DOPENASSETIO_ENABLE_C=ON
+
           cmake --build build
+
           cmake --install build
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake

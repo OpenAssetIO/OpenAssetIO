@@ -124,7 +124,7 @@ endif ()
 
 # Enable C bindings, built as a separate library that depends on the
 # core C++ library.
-option(OPENASSETIO_ENABLE_C "Build C bindings" ON)
+option(OPENASSETIO_ENABLE_C "Build C bindings" OFF)
 
 # Default treating compiler warnings as errors to OFF, since
 # consumers of this project may use unpredictable toolchains.
