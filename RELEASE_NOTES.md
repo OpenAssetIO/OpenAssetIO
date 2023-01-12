@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-alpha.X
+--------------
+
+### Breaking changes
+
+- Disabled the (nascent) C bindings by default. To enable, the
+  `OPENASSETIO_ENABLE_C` CMake option must be explicitly set to `ON`.
+
+
 v1.0.0-alpha.8
 --------------
 
