@@ -9,6 +9,14 @@ v1.0.0-alpha.X
 - Disabled the (nascent) C bindings by default. To enable, the
   `OPENASSETIO_ENABLE_C` CMake option must be explicitly set to `ON`.
 
+### Bug fixes
+
+- Ensured that the Python GIL is acquired within
+  `createPythonPluginSystemManagerImplementationFactory`, so that it is
+  no longer necessary to acquire externally by the calling (host)
+  thread.
+  [#797](https://github.com/OpenAssetIO/OpenAssetIO/issues/797)
+
 
 v1.0.0-alpha.8
 --------------

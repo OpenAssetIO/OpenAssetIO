@@ -22,6 +22,9 @@ using openassetio::hostApi::ManagerImplementationFactoryInterfacePtr;
 
 ManagerImplementationFactoryInterfacePtr createPythonPluginSystemManagerImplementationFactory(
     log::LoggerInterfacePtr logger) {  // NOLINT(performance-unnecessary-value-param)
+  // Caller might not hold the GIL, which is required for `import`s.
+  py::gil_scoped_acquire gil{};
+
   // Get Python class.
   py::object pyClass =
       py::module_::import(

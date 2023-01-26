@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
 
+#include <pybind11/gil.h>
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
@@ -17,6 +18,9 @@ using trompeloeil::_;
 
 SCENARIO("Accessing the Python plugin system from C++") {
   GIVEN("a logger") {
+    // Release the GIL to ensure GIL-safe handling of Python import.
+    pybind11::gil_scoped_release gil{};
+
     openassetio::log::LoggerInterfacePtr logger = std::make_shared<MockLogger>();
     auto& mockLogger = static_cast<MockLogger&>(*logger);
 
