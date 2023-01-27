@@ -19,9 +19,6 @@ namespace hostApi {
 /**
  * Retrieve an instance of the the Python plugin system implementation.
  *
- * @warning This function requires the Python GIL to be acquired prior
- * to being called.
- *
  * @return Python plugin system.
  */
 OPENASSETIO_PYTHON_BRIDGE_EXPORT openassetio::hostApi::ManagerImplementationFactoryInterfacePtr
