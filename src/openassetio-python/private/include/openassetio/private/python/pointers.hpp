@@ -4,6 +4,7 @@
 #include <memory>
 #include <utility>
 
+#include <Python.h>
 #include <pybind11/pybind11.h>
 
 #include <openassetio/export.h>
@@ -42,17 +43,32 @@ namespace python::pointers {
 template <typename Ptr>
 Ptr createPyRetainingPtr(const py::object& pyInstance,
                          typename Ptr::element_type* cppInstancePtr) {
+  // Custom deleter for shared_ptr below.
+  const auto deleter = [](py::object* pyObjectPtr) {
+    // TODO(DF): Technically we have a race condition here with
+    //  _Py_IsFinalizing if multiple threads are involved, but that is
+    //  a corner case of a corner case, and difficult to solve.
+    if (_Py_IsFinalizing()) {
+      // If the Python interpreter is gone, clear the internal PyObject*
+      // so pybind11 won't attempt to clean it up.
+      pyObjectPtr->release();
+      delete pyObjectPtr;
+    } else {
+      // Acquire the GIL, in case deleter runs in a non-Python thread.
+      // TODO(DF): We may be inside the destructor of some parent
+      //  object, and yet it is possible that pybind11 will throw an
+      //  exception here trying to acquire the GIL (though only in
+      //  catastrophic cases). Tricky to test, though.
+      py::gil_scoped_acquire gil;
+      delete pyObjectPtr;
+    }
+  };
+
   // Use a shared_ptr to bump the PyObject refcount, and decrement
   // again when the shared_ptr chain is cleaned up. This may result in
   // destruction of the PyObject and hence decrementing the refcount
   // of the original shared_ptr holder stored on the PyObject.
-  auto pyInstancePtr =
-      std::shared_ptr<py::object>{new py::object{pyInstance}, [](py::object* pyObjectPtr) {
-                                    // Acquire the GIL, in case deleter
-                                    // runs in a non-Python thread.
-                                    py::gil_scoped_acquire gil;
-                                    delete pyObjectPtr;
-                                  }};
+  auto pyInstancePtr = std::shared_ptr<py::object>{new py::object{pyInstance}, deleter};
 
   // We use the shared_ptr aliasing constructor to track the lifetime of
   // the py::object, but dereference to the C++ instance. When this

@@ -250,6 +250,16 @@ class Test_PyRetainingSharedPtr_cleanup:
         self.death_watcher.assert_called()
 
 
+class Test_PyRetainingSharedPtr_static:
+    def test_when_interpreter_dies_before_object_then_cleanup_happens_gracefully(self):
+        # This will store a bound C++ object in a static (i.e. global)
+        # variable. The assertion for this test is simply the lack of
+        # segfaults/errors/hangs when cleaning up the PyObject during
+        # destruction of the C++ object after the interpreter has shut
+        # down.
+        _openassetio_test.setSimplePyRetainedSingleton(SimpleCppType())
+
+
 class SimpleCppType(_openassetio_test.SimpleBaseCppType):
     def value(self):
         return 2

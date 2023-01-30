@@ -17,6 +17,11 @@ v1.0.0-alpha.X
   thread.
   [#797](https://github.com/OpenAssetIO/OpenAssetIO/issues/797)
 
+- Fixed use-after-free issue in hybrid C++/Python applications, where
+  the Python interpreter is destroyed before OpenAssetIO objects are
+  cleaned up. This could manifest as segfaults or hangs at program exit.
+  [#805](https://github.com/OpenAssetIO/OpenAssetIO/pull/805)
+
 
 v1.0.0-alpha.8
 --------------

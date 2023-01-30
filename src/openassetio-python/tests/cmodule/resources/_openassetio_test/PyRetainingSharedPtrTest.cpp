@@ -211,7 +211,18 @@ struct PyDeathwatchedSimpleCppType : DeathwatchedSimpleCppType {
   }
 };
 
-void registerPyRetainingSharedPtrTestTypes(const py::module_& mod) {
+/**
+ * Store a SimpleBaseCppType shared_ptr in a static variable.
+ *
+ * This allows us to test object lifetimes that outlive the Python
+ * interpreter.
+ */
+void setSimpleSingleton(std::shared_ptr<SimpleBaseCppType> newSingleton) {
+  static std::shared_ptr<SimpleBaseCppType> singleton;
+  singleton = std::move(newSingleton);
+}
+
+void registerPyRetainingSharedPtrTestTypes(py::module_& mod) {
   py::class_<SimpleBaseCppType, std::shared_ptr<SimpleBaseCppType>, PySimpleBaseCppType>(
       mod, "SimpleBaseCppType")
       .def(py::init())
@@ -274,4 +285,9 @@ void registerPyRetainingSharedPtrTestTypes(const py::module_& mod) {
       mod, "DeathwatchedSimpleCppType")
       .def(py::init<py::function>())
       .def("value", &SimpleBaseCppType::value);
+
+  mod.def("setSimplePyRetainedSingleton",
+          [](openassetio::PyRetainingSharedPtr<SimpleBaseCppType> newSingleton) {
+            setSimpleSingleton(std::move(newSingleton));
+          });
 }
