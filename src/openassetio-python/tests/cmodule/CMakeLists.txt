@@ -32,3 +32,5 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.install
 )
 openassetio_add_test_venv_fixture_dependency(openassetio.internal.pytest.cmodule)
+# Use-after-free can result in hangs, so set a timeout.
+set_tests_properties(openassetio.internal.pytest.cmodule PROPERTIES TIMEOUT 30)
