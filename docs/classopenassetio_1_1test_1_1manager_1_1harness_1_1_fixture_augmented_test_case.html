@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1test_1_1manager_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">FixtureAugmentedTestCase Class Reference</div>  </div>
@@ -153,12 +154,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af697b52121107091a90add6e67f7ba36"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36">collectRequiredFixture</a> (self, fixtureName, skipTestIfMissing=False)</td></tr>
 <tr class="memdesc:af697b52121107091a90add6e67f7ba36"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience companion to collectRequiredFixtures, when only a single fixture is needed.  <a href="#af697b52121107091a90add6e67f7ba36">More...</a><br /></td></tr>
 <tr class="separator:af697b52121107091a90add6e67f7ba36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ae1d4e89b8d263bc588522d9fd0d7d2b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ae1d4e89b8d263bc588522d9fd0d7d2b9">shareManager</a> = True</td></tr>
+<tr class="separator:ae1d4e89b8d263bc588522d9fd0d7d2b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base test case class that all test classes must inherit from. </p>
 <p>Expects test harness fixtures and an OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
 <p>Fixtures, manager and a suitable locale are then provided to subclasses via protected members.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> convenience method will create a new context pre-configured with this locale. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> convenience method will create a new context pre-configured with this locale.</dd></dl>
+<p>For performance reasons, by default, all test cases will share a single instance of the manager under test. This reduces setup costs, but precludes any testing of initialization behaviour.</p>
+<p>If the class variable <code>shareManager</code> is set to False for any given suite, the harness will instead create a new, uninitializesd manager for each case. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a8356458d4256547b84035ed90b54e3f9"></a>
 <div class="memitem">
@@ -488,6 +496,27 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[Any]</code> The values corresponding to each requested fixtures </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ae1d4e89b8d263bc588522d9fd0d7d2b9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool shareManager = True</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
