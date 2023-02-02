@@ -162,7 +162,17 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     @warning The supplied locale should always be used for interactions
     with the manager under test, the @ref createTestContext convenience
     method will create a new context pre-configured with this locale.
+
+    For performance reasons, by default, all test cases will share a
+    single instance of the manager under test. This reduces setup costs,
+    but precludes any testing of initialization behaviour.
+
+    If the class variable `shareManager` is set to False for any given
+    suite, the harness will instead create a new, uninitializesd manager
+    for each case.
     """
+
+    shareManager = True
 
     def __init__(self, fixtures, manager, locale, *args, **kwargs):
         """
