@@ -111,6 +111,53 @@ class Test_executeSuite_locale(FixtureAugmentedTestCase):
         )
 
 
+class Test_executeSuite_shareManager_is_true_by_default(FixtureAugmentedTestCase):
+    """
+    A slightly different formulation as we need to assert that different
+    test cases are invoked with the same manager.
+    """
+
+    __managers = {}
+
+    def test_case_a(self):
+        self.__managers["a"] = self._manager
+
+    def test_case_b(self):
+        self.__managers["b"] = self._manager
+
+    @classmethod
+    def tearDownClass(cls):
+        assert len(cls.__managers) == 2
+        assert len(set(cls.__managers.values())) == 1
+
+
+class Test_executeSuite_when_shareManager_is_false_then_managers_unique(FixtureAugmentedTestCase):
+    """
+    A slightly different formulation as we need to assert that different
+    test cases are invoked with unique, uninitialized managers.
+    """
+
+    shareManager = False
+
+    __managers = {}
+
+    def test_case_a(self):
+        self.__managers["a"] = self._manager
+
+    def test_case_b(self):
+        self.__managers["b"] = self._manager
+
+    @classmethod
+    def tearDownClass(cls):
+        assert len(cls.__managers) == 2
+        assert len(set(cls.__managers.values())) == 2
+        # The StubManager used for these tests captures the host
+        # identifier during initialize, so this serves as a handy check
+        # to ensure the manager is uninitialized.
+        for manager in cls.__managers.values():
+            assert "host_identifier" not in manager.info()
+
+
 # Contrived tests that are expected by the actual test suite.
 # They exist so that we can validate they are run and present in
 # the process output.

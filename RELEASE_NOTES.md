@@ -9,6 +9,16 @@ v1.0.0-alpha.X
 - Disabled the (nascent) C bindings by default. To enable, the
   `OPENASSETIO_ENABLE_C` CMake option must be explicitly set to `ON`.
 
+### New features
+
+- The `FixtureAugmentedTestCase` class of the
+  `openassetio.test.manager.harness` can now be configured to create a
+  new, uninitialized manager instance for each test case, by setting the
+  `shareManger` class variable or derived classes to `False`. This
+  facilitates testing of a manager's initialization behavior.
+  [BAL#26](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/26)
+
+
 ### Bug fixes
 
 - Ensured that the Python GIL is acquired within

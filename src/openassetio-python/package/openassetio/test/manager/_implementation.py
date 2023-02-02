@@ -35,17 +35,22 @@ def createHarness(managerIdentifier, settings=None):
     """
     if settings is None:
         settings = {}
+
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
     managerFactoryImplementation = pluginSystem.PythonPluginSystemManagerImplementationFactory(
         logger
     )
-    manager = hostApi.ManagerFactory.createManagerForInterface(
-        managerIdentifier, hostInterface, managerFactoryImplementation, logger
-    )
-    manager.initialize(settings)
 
-    loader = _ValidatorTestLoader(manager)
+    def createManager(initialize=True):
+        manager = hostApi.ManagerFactory.createManagerForInterface(
+            managerIdentifier, hostInterface, managerFactoryImplementation, logger
+        )
+        if initialize:
+            manager.initialize(settings)
+        return manager
+
+    loader = _ValidatorTestLoader(createManager)
     return _ValidatorHarness(unittest.main, loader)
 
 
@@ -111,14 +116,18 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
     @private
     """
 
-    def __init__(self, manager):
+    def __init__(self, managerCreateFn):
         """
         Initializes an instance of this class.
 
-        @param manager @fqref{hostApi.Manager} "Manager" Test harness
-        OpenAssetIO @ref manager.
+        @param managerCreateFn A callable that takes one kwarg
+        'initialize', that returns a new @fqref{hostApi.Manager}
+        "Manager". When initialize is true, then the manager should be
+        initialized with any common settings for the tests, otherwise
+        it should be left un-initialized.
         """
-        self.__manager = manager
+        self.__managerCreateFn = managerCreateFn
+        self.__sharedManager = managerCreateFn(initialize=True)
         self.__fixtures = {}
         super(_ValidatorTestLoader, self).__init__()
 
@@ -150,12 +159,15 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             caseFixtures = sharedFixtures.copy()
             caseFixtures.update(classFixtures.get(testCaseName, {}))
 
+            if testCaseClass.shareManager:
+                manager = self.__sharedManager
+            else:
+                manager = self.__managerCreateFn(initialize=False)
+
             locale = ManagerTestHarnessLocale.create()
             locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
 
-            cases.append(
-                testCaseClass(caseFixtures, self.__manager, locale.traitsData(), testCaseName)
-            )
+            cases.append(testCaseClass(caseFixtures, manager, locale.traitsData(), testCaseName))
 
         return self.suiteClass(cases)
 

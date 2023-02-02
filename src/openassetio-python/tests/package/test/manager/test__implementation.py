@@ -49,7 +49,10 @@ class Test_Loader_loadTestsFromTestCase:
     ):
         # setup
 
-        loader = _ValidatorTestLoader(mock_manager)
+        manager_create_fn = Mock()
+        manager_create_fn.return_value = mock_manager
+
+        loader = _ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -64,7 +67,9 @@ class Test_Loader_loadTestsFromTestCase:
             [
                 call({}, mock_manager, test_case_one_locale, "test_one"),
                 call({}, mock_manager, test_case_two_locale, "test_two"),
-            ]
+            ],
+            # Ignore the checks on the shareManager cls variable
+            any_order=True,
         )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
@@ -80,6 +85,9 @@ class Test_Loader_loadTestsFromTestCase:
     ):
         # setup
 
+        manager_create_fn = Mock()
+        manager_create_fn.return_value = mock_manager
+
         # Include fixtures for both test cases
         case_one_fixtures = {}
         case_two_fixtures = {}
@@ -87,7 +95,7 @@ class Test_Loader_loadTestsFromTestCase:
             "test_one": case_one_fixtures,
             "test_two": case_two_fixtures,
         }
-        loader = _ValidatorTestLoader(mock_manager)
+        loader = _ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -102,7 +110,9 @@ class Test_Loader_loadTestsFromTestCase:
             [
                 call(case_one_fixtures, mock_manager, test_case_one_locale, "test_one"),
                 call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two"),
-            ]
+            ],
+            # Ignore the checks on the shareManager cls variable
+            any_order=True,
         )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
 
@@ -118,10 +128,13 @@ class Test_Loader_loadTestsFromTestCase:
     ):
         # setup
 
+        manager_create_fn = Mock()
+        manager_create_fn.return_value = mock_manager
+
         # Only include fixtures for one test case
         case_two_fixtures = {}
         a_fixture_dict["Test_MockTest"] = {"test_two": case_two_fixtures}
-        loader = _ValidatorTestLoader(mock_manager)
+        loader = _ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -136,9 +149,51 @@ class Test_Loader_loadTestsFromTestCase:
             [
                 call({}, mock_manager, test_case_one_locale, "test_one"),
                 call(case_two_fixtures, mock_manager, test_case_two_locale, "test_two"),
-            ]
+            ],
+            # Ignore the checks on the shareManager cls variable
+            any_order=True,
         )
         assert set(suite._tests) == {mock_test_case_one, mock_test_case_two}
+
+    def test_when_shareManager_false_then_unique_uninitialized_manager_set(
+        self,
+        a_fixture_dict,
+        mock_manager,
+        mock_test_case_class,
+        mock_test_case_one,
+        mock_test_case_two,
+        test_case_one_locale,
+        test_case_two_locale,
+    ):
+        # setup
+
+        def create_manager(initialize=True):
+            return Mock()
+
+        manager_create_fn = Mock(wraps=create_manager)
+
+        loader = _ValidatorTestLoader(manager_create_fn)
+        loader.setFixtures(a_fixture_dict)
+
+        mock_test_case_class.shareManager = False
+
+        # action
+
+        suite = loader.loadTestsFromTestCase(mock_test_case_class)
+
+        # confirm
+
+        # Assert that the managers are unique, the second arg to each call
+        # is the manager for that test case.
+        calls = mock_test_case_class.call_args_list
+        assert calls[0][0][1] != calls[1][0][1]
+
+        manager_create_fn.assert_has_calls(
+            [
+                call(initialize=False),
+                call(initialize=False),
+            ]
+        )
 
 
 class Test_ValidatorHostInterface_identifier:
