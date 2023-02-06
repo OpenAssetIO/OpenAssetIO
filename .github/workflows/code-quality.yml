@@ -34,7 +34,7 @@ jobs:
       - name: Lint
         uses: TheFoundryVisionmongers/fn-pylint-action@v1.1
         with:
-          pylint-disable: fixme  # We track 'todo's through other means
+          pylint-disable: fixme # We track 'todo's through other means
           pylint-rcfile: src/openassetio-python/pyproject.toml
           pylint-paths: >
             src/openassetio-python/package/openassetio
@@ -99,6 +99,15 @@ jobs:
           clang-tidy --version
           clang-format --version
           cpplint --version
+
+      # Run cmake lint on all CMakeLists.txt and .cmake files that arn't
+      # in hidden directories.
+      - name: CMake lint
+        shell: bash
+        run: >
+          python -m pip install cmakelang pyyaml &&
+          find . -not -path '*/.*' -a -name "CMakeLists.txt"
+          -o -not -path '*/.*' -name "*.cmake" | xargs cmake-lint
 
       - name: Configure CMake build
         run: >
