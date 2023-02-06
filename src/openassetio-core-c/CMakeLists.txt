@@ -5,13 +5,13 @@
 #----------------------------------------------------------------------
 # Public headers
 
-set(public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
+set(_public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
 
 # Installation location for install phase.
 # TODO(DF): When CMake 3.23 is released, use FILE_SET.
 install(
     DIRECTORY
-    ${public_header_source_root}/openassetio
+    ${_public_header_source_root}/openassetio
     DESTINATION
     ${CMAKE_INSTALL_INCLUDEDIR}
 )
@@ -49,7 +49,7 @@ target_sources(
 target_include_directories(openassetio-core-c
     PUBLIC
     # Use includes from source tree for building.
-    "$<BUILD_INTERFACE:${public_header_source_root}>")
+    "$<BUILD_INTERFACE:${_public_header_source_root}>")
 
 target_link_libraries(openassetio-core-c
     PUBLIC

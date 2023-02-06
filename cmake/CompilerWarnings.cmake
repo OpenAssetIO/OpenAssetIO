@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
+# Set platform compiler to have relevent warnings and checks enabled.
 function(set_default_compiler_warnings target_name)
 
-    set(CLANG_WARNINGS
+    set(clang_warnings
         -Wall
         # Reasonable and standard.
         -Wextra
@@ -40,12 +41,12 @@ function(set_default_compiler_warnings target_name)
         -Wimplicit-fallthrough)
 
     if (OPENASSETIO_WARNINGS_AS_ERRORS)
-        set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
-        set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
+        set(clang_warnings ${clang_warnings} -Werror)
+        set(vs_msvc_warnings ${vs_msvc_warnings} /WX)
     endif ()
 
-    set(GCC_WARNINGS
-        ${CLANG_WARNINGS}
+    set(gcc_warnings
+        ${clang_warnings}
         # Warn if indentation implies blocks where blocks do not exist.
         -Wmisleading-indentation
         # Warn if if / else chain has duplicated conditions.
@@ -59,17 +60,17 @@ function(set_default_compiler_warnings target_name)
         -Wuseless-cast)
 
     if (MSVC)
-        set(PROJECT_WARNINGS ${MSVC_WARNINGS})
+        set(project_warnings ${vs_msvc_warnings})
         message(AUTHOR_WARNING
             "Compiler warnings need configuring for '${CMAKE_CXX_COMPILER_ID}' compiler.")
     elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set(PROJECT_WARNINGS ${CLANG_WARNINGS})
+        set(project_warnings ${clang_warnings})
     elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        set(PROJECT_WARNINGS ${GCC_WARNINGS})
+        set(project_warnings ${gcc_warnings})
     else ()
         message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
     endif ()
 
-    target_compile_options(${target_name} PRIVATE ${PROJECT_WARNINGS})
+    target_compile_options(${target_name} PRIVATE ${project_warnings})
 
 endfunction()

@@ -96,7 +96,6 @@ separate_arguments(_envvars NATIVE_COMMAND ${_envvars})
 
 #-----------------------------------------------------------------------
 # Create CTest target.
-
 add_custom_target(
     openassetio.internal.python-bridge-test
     COMMAND
@@ -108,7 +107,8 @@ add_custom_target(
     # Note: as above, we must not have trailing whitespace after setting
     # an env var on Windows.
     ${_envvars}&&
-    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/$<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>
+"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
+$<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>"
 )
 
 openassetio_add_test_target(openassetio.internal.python-bridge-test)
