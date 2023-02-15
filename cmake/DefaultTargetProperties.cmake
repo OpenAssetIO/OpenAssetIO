@@ -1,9 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
-set(exclude_all_libs_linker_flag "-Wl,--exclude-libs,ALL")
+# disable checks : too-many-branches, too-many-statements
+# cmake-lint: disable=R0912,R0915
+set(_exclude_all_libs_linker_flag "-Wl,--exclude-libs,ALL")
 
-
+# Top level function to configure all the default target properties.
+# Include things like C++ standard, compiler warnings, IPO, etc.
 function(openassetio_set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # C++ standard
@@ -62,7 +65,7 @@ function(openassetio_set_default_target_properties target_name)
     # Hide all symbols from external statically linked libraries.
     if (IS_GCC_OR_CLANG AND NOT APPLE)
         # TODO(TC): Find a way to hide symbols on macOS
-        target_link_options(${target_name} PRIVATE ${exclude_all_libs_linker_flag})
+        target_link_options(${target_name} PRIVATE ${_exclude_all_libs_linker_flag})
     endif ()
 
     # Whether to use the old or new C++ ABI with gcc.
@@ -262,7 +265,7 @@ function(openassetio_allow_static_lib_symbol_export target_name)
 
         # Validate that the link option we're about to remove is
         # actually set.
-        list(FIND _link_options ${exclude_all_libs_linker_flag} _option_idx)
+        list(FIND _link_options ${_exclude_all_libs_linker_flag} _option_idx)
         if (_option_idx EQUAL -1)
             message(WARNING
                 "Attempting to allow linked static lib symbol exports in ${target_name} when it's"
@@ -271,7 +274,7 @@ function(openassetio_allow_static_lib_symbol_export target_name)
         endif ()
 
         # Remove link option previously set.
-        list(REMOVE_ITEM _link_options ${exclude_all_libs_linker_flag})
+        list(REMOVE_ITEM _link_options ${_exclude_all_libs_linker_flag})
         set_target_properties(${target_name} PROPERTIES LINK_OPTIONS "${_link_options}")
     endif ()
 endfunction()

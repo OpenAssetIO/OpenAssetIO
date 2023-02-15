@@ -11,13 +11,13 @@ set_target_properties(
     VERSION ""
 )
 
-set(install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
+set(_install_subdir "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
 
 # Add to the set of installable targets.
 install(
     TARGETS openassetio-python-test
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${install_subdir}
+    DESTINATION ${_install_subdir}
 )
 
 if (WIN32)
@@ -53,8 +53,8 @@ add_dependencies(openassetio-python-test openassetio-python-module)
 # Override build tree to look like install tree.
 set_target_properties(openassetio-python-test
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir}
-    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${install_subdir})
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${_install_subdir}
+    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${_install_subdir})
 
 # Override RPATH in (usual) case that Python .so and core .so live in
 # different locations.
@@ -62,14 +62,14 @@ if (UNIX)
     # Calculate relative path from site-packages to lib directory.
     file(RELATIVE_PATH
         install_dir_rel_to_lib
-        "${CMAKE_INSTALL_PREFIX}/${install_subdir}"
+        "${CMAKE_INSTALL_PREFIX}/${_install_subdir}"
         "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
 
     if (APPLE)
-        set(rpath "@loader_path/${install_dir_rel_to_lib}")
+        set(_rpath "@loader_path/${install_dir_rel_to_lib}")
     else ()
-        set(rpath "$ORIGIN/${install_dir_rel_to_lib}")
+        set(_rpath "$ORIGIN/${install_dir_rel_to_lib}")
     endif ()
 
-    set_target_properties(openassetio-python-test PROPERTIES INSTALL_RPATH "${rpath}")
+    set_target_properties(openassetio-python-test PROPERTIES INSTALL_RPATH "${_rpath}")
 endif ()

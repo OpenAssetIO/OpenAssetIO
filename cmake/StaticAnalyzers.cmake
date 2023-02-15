@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
 
+#Enable clang-tidy using cmake arguments
 macro(enable_clang_tidy)
     find_program(OPENASSETIO_CLANGTIDY_EXE NAMES clang-tidy clang-tidy-12)
 
@@ -24,6 +25,8 @@ macro(enable_clang_tidy)
     endif ()
 endmacro()
 
+# Create a custom target that executes cpplint
+# This is set as a build dependency of other targets
 macro(enable_cpplint)
     find_program(OPENASSETIO_CPPLINT_EXE cpplint)
     if (OPENASSETIO_CPPLINT_EXE)
@@ -53,7 +56,9 @@ macro(enable_cpplint)
     endif ()
 endmacro()
 
-macro(enable_clang_format)
+# Create a custom target that executes clang-format
+# This is set as a build dependency of other targets
+macro(enable_clang_Format)
     find_program(OPENASSETIO_CLANGFORMAT_EXE NAMES clang-format clang-format-12)
     if (OPENASSETIO_CLANGFORMAT_EXE)
         file(

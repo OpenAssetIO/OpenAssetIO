@@ -23,7 +23,7 @@ target_sources(openassetio-core-c-test-exe
     InfoDictionaryTest.cpp
     managerApi/CManagerInterfaceAdapterTest.cpp
     hostApi/ManagerTest.cpp
-    )
+)
 
 target_link_libraries(
     openassetio-core-c-test-exe

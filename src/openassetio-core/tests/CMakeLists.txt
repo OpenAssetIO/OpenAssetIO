@@ -46,7 +46,8 @@ target_link_libraries(
 add_custom_target(
     openassetio.internal.core-cpp-test
     COMMAND
-    ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/$<TARGET_FILE_NAME:openassetio-core-cpp-test-exe>
+"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
+$<TARGET_FILE_NAME:openassetio-core-cpp-test-exe>"
 )
 
 openassetio_add_test_target(openassetio.internal.core-cpp-test)

@@ -120,13 +120,13 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # The latter link indicates this bug is fixed in GCC 10.1, but
         # we're stuck with 9.3 (CY21/22) for now.
         # To work around this we must LD_PRELOAD our core lib.
-        set(openassetio_path
+        set(_openassetio_path
             ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/$<TARGET_FILE_NAME:openassetio-core>)
         # In addition to `LD_PRELOAD`ing we must override Python's
         # memory allocator to use the C (or rather, ASan's) `malloc`
         # rather than the optimized `pymalloc`, so that ASan can
         # properly count memory (de)allocations.
-        set(pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${openassetio_path})
+        set(_pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${_openassetio_path})
     endif ()
 
 
@@ -141,10 +141,10 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # Account for windows not being able to set variables inline
         if (WIN32)
             list(JOIN ARGN $<SEMICOLON> pythonpath)
-            set(combined_pytest_env set PYTHONPATH=${pythonpath} ${pytest_env})
+            set(combined_pytest_env set PYTHONPATH=${pythonpath} ${_pytest_env})
         else ()
             list(JOIN ARGN ":" pythonpath)
-            set(combined_pytest_env export PYTHONPATH=${pythonpath} ${pytest_env})
+            set(combined_pytest_env export PYTHONPATH=${pythonpath} ${_pytest_env})
         endif ()
 
         add_custom_target(

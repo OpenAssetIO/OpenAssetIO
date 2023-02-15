@@ -7,12 +7,12 @@
 # Library ABI version
 # This should be set to the major component of the last release version
 # where the ABI changed.
-set(core_abi_version 1)
+set(_core_abi_version 1)
 
 #----------------------------------------------------------------------
 # Public headers
 
-set(public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
+set(_public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
 
 # Installation location for install phase.
 # TODO(DF): When CMake 3.23 is released, use FILE_SET, which allows
@@ -21,7 +21,7 @@ set(public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
 #   directory structure when installed.
 install(
     DIRECTORY
-    ${public_header_source_root}/openassetio
+    ${_public_header_source_root}/openassetio
     DESTINATION
     ${CMAKE_INSTALL_INCLUDEDIR}
 )
@@ -84,7 +84,7 @@ target_include_directories(openassetio-core
     # For generated export.h header.
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
     # Use includes from source tree for building.
-    "$<BUILD_INTERFACE:${public_header_source_root}>"
+    "$<BUILD_INTERFACE:${_public_header_source_root}>"
     # Use includes from install tree for installed lib.
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
@@ -100,8 +100,8 @@ target_link_libraries(openassetio-core
 #   other projects have much more elaborate version headers. See OCIO
 #   (bundles version in export header) and OTIO (uses separate header),
 #   both of which include a long list of additional #defines.
-set(define_version
-    "#define OPENASSETIO_CORE_ABI_VERSION v${core_abi_version}")
+set(_define_version
+    "#define OPENASSETIO_CORE_ABI_VERSION v${_core_abi_version}")
 
 # TODO(DF): Allow customising namespace? See OCIO.
 
@@ -110,7 +110,7 @@ include(GenerateExportHeader)
 generate_export_header(
     openassetio-core
     EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/openassetio/export.h
-    CUSTOM_CONTENT_FROM_VARIABLE define_version
+    CUSTOM_CONTENT_FROM_VARIABLE _define_version
 )
 
 install(
