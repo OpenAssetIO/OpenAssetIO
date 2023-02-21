@@ -38,7 +38,7 @@ namespace trait {
  *
  *     MyTrait myTrait{traitsData};
  *
- *     if (myTrait.isValid()) {
+ *     if (myTrait.isImbued()) {
  *
  *       if (myTrait.getMyValue(&myValue) != TraitPropertyStatus::kFound) {
  *
@@ -70,7 +70,7 @@ namespace trait {
  *
  * @note Attempting to access a trait's properties without first
  * ensuring the underlying TraitsData instance has that trait via
- * `isValid`, or otherwise, may trigger a `std::out_of_range` exception
+ * `isImbued`, or otherwise, may trigger a `std::out_of_range` exception
  * if the trait is not set.
  *
  * @tparam Derived Concrete subclass.
@@ -91,7 +91,7 @@ struct TraitBase {
    * @return `true` if the underlying TraitsData instance has this trait
    * set, `false` otherwise.
    **/
-  [[nodiscard]] bool isValid() const { return data_->hasTrait(Derived::kId); }
+  [[nodiscard]] bool isImbued() const { return data_->hasTrait(Derived::kId); }
 
   /**
    * Applies this trait to the wrapped TraitsData instance.

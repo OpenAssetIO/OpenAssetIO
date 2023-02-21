@@ -55,22 +55,25 @@ SCENARIO("Retrieving the undelying data") {
   }
 }
 
-SCENARIO("Checking a trait is valid") {
-  GIVEN("Some known traits data") {
-    TraitsDataPtr data = TraitsData::make();
+SCENARIO("Checking a trait is imbued") {
+  GIVEN("a trait view on an empty TraitsData") {
+    const TraitsDataPtr data = TraitsData::make();
+    const TestTrait trait(data);
 
-    AND_GIVEN("the data has the trait set") {
-      data->addTrait(TestTrait::kId);
+    WHEN("the view is queried for the imbued status") {
+      const bool isImbued = trait.isImbued();
 
-      WHEN("called") {
-        TestTrait trait(data);
-        THEN("isValid returns true") { CHECK(trait.isValid()); }
-      }
+      THEN("the view reports that the trait is not imbued") { CHECK(!isImbued); }
     }
 
-    AND_GIVEN("the data does not have trait") {
-      TestTrait trait(data);
-      THEN("isValid returns false") { CHECK(!trait.isValid()); }
+    AND_GIVEN("the TraitsData is imbued with the view's trait") {
+      data->addTrait(TestTrait::kId);
+
+      WHEN("the view is queried for the imbued status") {
+        const bool isImbued = trait.isImbued();
+
+        THEN("the view reports that the trait is imbued") { CHECK(isImbued); }
+      }
     }
   }
 }

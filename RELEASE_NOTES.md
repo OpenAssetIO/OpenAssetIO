@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+v1.0.0-alpha.X
+--------------
+
+### Breaking changes
+
+- Renamed `TraitBase.isValid` to `isImbued` for symmetry with
+  `imbue`/`imbueTo` methods.
+  [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
+
+
 v1.0.0-alpha.9
 --------------
 

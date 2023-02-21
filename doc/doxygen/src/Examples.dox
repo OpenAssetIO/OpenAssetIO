@@ -223,7 +223,7 @@
  *     working_spec = TextFileSpecification(working_data)
  *     save_path = working_spec.locatableContentTrait().getUrl()
  *     encoding_trait = working_spec.textEncodingTrait()
- *     if encoding_trait.isValid() and (custom_encoding := encoding_trait.getEncoding()):
+ *     if encoding_trait.isImbued() and (custom_encoding := encoding_trait.getEncoding()):
  *         encoding = custom_encoding
  *
  *
@@ -276,10 +276,10 @@
  *     requested = manager.resolve([thumbnail_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     file_trait = requested_spec.fileTrait()
- *     if file_trait.isValid() and (requested_path := file_trait.getPath()):
+ *     if file_trait.isImbued() and (requested_path := file_trait.getPath()):
  *         thumbnail_path = requested_path
  *     raster_trait = requested_spec.rasterTrait()
- *     if raster_trait.isValid():
+ *     if raster_trait.isImbued():
  *         thumbnail_attr["width"] = raster_trait.getWidth() or thumbnail_attr["width"]
  *         thumbnail_attr["height"] = raster_trait.getHeight() or thumbnail_attr["height"]
  *
