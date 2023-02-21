@@ -85,13 +85,24 @@ struct TraitBase {
   explicit TraitBase(TraitsDataPtr data) : data_{std::move(data)} {}
 
   /**
+   * Check whether a TraitsData instance has this trait set.
+   *
+   * @param data Data to check.
+   * @return `true` if the given TraitsData instance has this trait
+   * set, `false` otherwise.
+   */
+  [[nodiscard]] static bool isImbuedTo(const TraitsDataPtr& data) {
+    return data->hasTrait(Derived::kId);
+  }
+
+  /**
    * Check whether the TraitsData instance this trait has been
    * constructed with has this trait set.
    *
    * @return `true` if the underlying TraitsData instance has this trait
    * set, `false` otherwise.
    **/
-  [[nodiscard]] bool isImbued() const { return data_->hasTrait(Derived::kId); }
+  [[nodiscard]] bool isImbued() const { return isImbuedTo(data_); }
 
   /**
    * Applies this trait to the wrapped TraitsData instance.

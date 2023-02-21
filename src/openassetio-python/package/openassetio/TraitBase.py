@@ -60,15 +60,26 @@ class TraitBase:
         """
         self._data = traitsData
 
+    @classmethod
+    def isImbuedTo(cls, traitsData):
+        """
+        Checks whether the given data actually has this trait.
+
+        @param traitsData: Data to check for trait.
+        @return `True` if the underlying data has this trait, `False`
+        otherwise.
+        """
+        return traitsData.hasTrait(cls.kId)  # pylint: disable=no-member
+
     def isImbued(self):
         """
         Checks whether the data this trait has been applied to
         actually has this trait.
 
-        @return `True` if the underlying data has this
-        trait, `False` otherwise.
+        @return `True` if the underlying data has this trait, `False`
+        otherwise.
         """
-        return self._data.hasTrait(self.kId)  # pylint: disable=no-member
+        return self.isImbuedTo(self._data)
 
     def imbue(self):
         """
