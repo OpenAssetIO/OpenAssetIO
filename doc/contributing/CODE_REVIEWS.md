@@ -67,7 +67,11 @@ considering.
 
 1. Grab the branch (or a CI build artifact if available), test
    functionality against the Acceptance Criteria defined for the work.
-2. Check implementation against the above priorities.
+2. Check implementation against the above priorities. Don't forget:
+   - If something was renamed, grep for the old name(s).
+   - If documentation was updated:
+     - Test any instructions from a clean starting point.
+     - Review built Doxygen docs and rendered Markdown, not the source.
 
 
 ## Making comments
