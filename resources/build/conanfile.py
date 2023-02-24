@@ -37,6 +37,8 @@ class OpenAssetIOConan(ConanFile):
         # CY2022
         if not tools.get_env("OPENASSETIO_CONAN_SKIP_CPYTHON", False):
             self.requires("cpython/3.9.7")
+            # Pin recipe as latest not compatible with Conan 1.59
+            self.requires("ncurses/6.2@#54f100a8e4a94700d4123ed31420506c")
         # Same as ASWF CY2022 Docker image:
         # https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/README.md
         self.requires("pybind11/2.8.1")

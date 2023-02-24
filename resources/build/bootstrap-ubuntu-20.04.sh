@@ -31,6 +31,10 @@ conan profile new default --detect --force
 # necessary as this is the default for conan, but we can't be certain
 # it'll remain the default in future.
 conan profile update settings.compiler.libcxx=libstdc++ default
+# If we need to pin a package to a specific Conan recipe revision, then
+# we need to explicitly opt-in to this functionality.
+conan config set general.revisions_enabled=True
+
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
 # TODO(DF): conan<1.51 (not yet released) has a bug that means we have
