@@ -1,4 +1,4 @@
-conan==1.55.0
+conan==1.59.0
 cmake==3.21
 ninja==1.10.2.3
 pip>=21.3

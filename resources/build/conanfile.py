@@ -42,14 +42,12 @@ class OpenAssetIOConan(ConanFile):
         # Same as ASWF CY2022 Docker image:
         # https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/README.md
         self.requires("pybind11/2.8.1")
-
-    def build_requirements(self):
         # TOML library
-        self.tool_requires("tomlplusplus/3.2.0")
+        self.requires("tomlplusplus/3.2.0")
         # Test framework
-        self.tool_requires("catch2/2.13.8")
+        self.requires("catch2/2.13.8")
         # Mocking library
-        self.tool_requires("trompeloeil/42")
+        self.requires("trompeloeil/42")
 
     def configure(self):
         if self.settings.os == "Windows":
