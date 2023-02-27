@@ -46,7 +46,7 @@ class TraitBase:
     "setTraitProperty".
 
     @note Attempting to access a trait's properties without first
-    ensuring the data holds that trait via `isValid`, or
+    ensuring the data holds that trait via `isImbued`, or
     otherwise, may trigger an exception if the trait is not set in
     the data.
     """
@@ -60,15 +60,26 @@ class TraitBase:
         """
         self._data = traitsData
 
-    def isValid(self):
+    @classmethod
+    def isImbuedTo(cls, traitsData):
+        """
+        Checks whether the given data actually has this trait.
+
+        @param traitsData: Data to check for trait.
+        @return `True` if the underlying data has this trait, `False`
+        otherwise.
+        """
+        return traitsData.hasTrait(cls.kId)  # pylint: disable=no-member
+
+    def isImbued(self):
         """
         Checks whether the data this trait has been applied to
         actually has this trait.
 
-        @return `True` if the underlying data has this
-        trait, `False` otherwise.
+        @return `True` if the underlying data has this trait, `False`
+        otherwise.
         """
-        return self._data.hasTrait(self.kId)  # pylint: disable=no-member
+        return self.isImbuedTo(self._data)
 
     def imbue(self):
         """

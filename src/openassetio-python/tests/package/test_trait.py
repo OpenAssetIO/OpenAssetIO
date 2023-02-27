@@ -33,16 +33,18 @@ class Test_Trait_Construction:
         assert trait._data is a_data  # pylint: disable=protected-access
 
 
-class Test_Trait_isValid:
+class Test_Trait_isImbued:
     def test_when_data_has_trait_returns_true(self):
         a_data = TraitsData({ACustomTrait.kId})
+        assert ACustomTrait.isImbuedTo(a_data) is True
         trait = ACustomTrait(a_data)
-        assert trait.isValid() is True
+        assert trait.isImbued() is True
 
     def test_when_data_does_not_have_trait_returns_false(self):
         a_data = TraitsData({"someOtherTrait"})
+        assert ACustomTrait.isImbuedTo(a_data) is False
         trait = ACustomTrait(a_data)
-        assert trait.isValid() is False
+        assert trait.isImbued() is False
 
 
 class Test_Trait_imbue:
@@ -50,7 +52,7 @@ class Test_Trait_imbue:
         a_data = TraitsData()
         trait = ACustomTrait(a_data)
         trait.imbue()
-        assert trait.isValid()
+        assert trait.isImbued()
         assert trait.kId in a_data.traitSet()
 
     def test_when_data_has_trait_then_is_noop(self):

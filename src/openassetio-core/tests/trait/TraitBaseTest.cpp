@@ -55,22 +55,44 @@ SCENARIO("Retrieving the undelying data") {
   }
 }
 
-SCENARIO("Checking a trait is valid") {
-  GIVEN("Some known traits data") {
-    TraitsDataPtr data = TraitsData::make();
+SCENARIO("Checking a trait is imbued") {
+  GIVEN("an empty TraitsData") {
+    const TraitsDataPtr data = TraitsData::make();
 
-    AND_GIVEN("the data has the trait set") {
-      data->addTrait(TestTrait::kId);
+    AND_GIVEN("an instance of a trait view wrapping the TraitsData") {
+      const TestTrait trait(data);
 
-      WHEN("called") {
-        TestTrait trait(data);
-        THEN("isValid returns true") { CHECK(trait.isValid()); }
+      WHEN("the view instance is queried for the imbued status") {
+        const bool isImbued = trait.isImbued();
+
+        THEN("the view reports that the trait is not imbued") { CHECK(!isImbued); }
+      }
+
+      AND_GIVEN("the TraitsData is imbued with the view's trait") {
+        data->addTrait(TestTrait::kId);
+
+        WHEN("the view instance is queried for the imbued status") {
+          const bool isImbued = trait.isImbued();
+
+          THEN("the view reports that the trait is imbued") { CHECK(isImbued); }
+        }
       }
     }
 
-    AND_GIVEN("the data does not have trait") {
-      TestTrait trait(data);
-      THEN("isValid returns false") { CHECK(!trait.isValid()); }
+    WHEN("the TraitsData is queried for imbued status using static trait view function") {
+      const bool isImbued = TestTrait::isImbuedTo(data);
+
+      THEN("the view reports that the trait is not imbued") { CHECK(!isImbued); }
+    }
+
+    AND_GIVEN("the TraitsData is imbued with the view's trait") {
+      data->addTrait(TestTrait::kId);
+
+      WHEN("the TraitsData is queried for imbued status using static trait view function") {
+        const bool isImbued = TestTrait::isImbuedTo(data);
+
+        THEN("the view reports that the trait is imbued") { CHECK(isImbued); }
+      }
     }
   }
 }
