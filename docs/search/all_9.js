@@ -18,6 +18,7 @@ var searchData=
   ['isformultiple',['isForMultiple',['../classopenassetio_1_1v1_1_1_context.html#aaf0c2d6b4ae660792de792464dede5c3',1,'openassetio::v1::Context']]],
   ['isforread',['isForRead',['../classopenassetio_1_1v1_1_1_context.html#a8a43470d68fa651e356e61ff8f89b148',1,'openassetio::v1::Context']]],
   ['isforwrite',['isForWrite',['../classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976',1,'openassetio::v1::Context']]],
-  ['issuccessful',['isSuccessful',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a3d275eae44512b72b40f0f4926ec1f61',1,'openassetio::test::manager::__main__']]],
-  ['isvalid',['isValid',['../classopenassetio_1_1_trait_base_1_1_trait_base.html#aea3954f1cb4285e7d02b8ee6a4994f97',1,'openassetio.TraitBase.TraitBase.isValid()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#aac1b70a2ed67ead038c4d3f5ac4d8a81',1,'openassetio::v1::trait::TraitBase::isValid()']]]
+  ['isimbued',['isImbued',['../classopenassetio_1_1_trait_base_1_1_trait_base.html#af1af52456293343b20541d041f3087c7',1,'openassetio.TraitBase.TraitBase.isImbued()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a98224252df32dc8f49ffa98498b7fe09',1,'openassetio::v1::trait::TraitBase::isImbued()']]],
+  ['isimbuedto',['isImbuedTo',['../classopenassetio_1_1_trait_base_1_1_trait_base.html#ae4bfff5c50c0135a5d80ba996546160f',1,'openassetio.TraitBase.TraitBase.isImbuedTo()'],['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a5f626a9135c111b85ef7ee686cf50619',1,'openassetio::v1::trait::TraitBase::isImbuedTo()']]],
+  ['issuccessful',['isSuccessful',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a3d275eae44512b72b40f0f4926ec1f61',1,'openassetio::test::manager::__main__']]]
 ];

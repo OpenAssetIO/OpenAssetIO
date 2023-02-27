@@ -125,9 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f89344f260026c5cbec1adacb50cd12"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_trait_base_1_1_trait_base.html#a9f89344f260026c5cbec1adacb50cd12">__init__</a> (self, traitsData)</td></tr>
 <tr class="memdesc:a9f89344f260026c5cbec1adacb50cd12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct this trait view, wrapping the given data.  <a href="#a9f89344f260026c5cbec1adacb50cd12">More...</a><br /></td></tr>
 <tr class="separator:a9f89344f260026c5cbec1adacb50cd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea3954f1cb4285e7d02b8ee6a4994f97"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_trait_base_1_1_trait_base.html#aea3954f1cb4285e7d02b8ee6a4994f97">isValid</a> (self)</td></tr>
-<tr class="memdesc:aea3954f1cb4285e7d02b8ee6a4994f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the data this trait has been applied to actually has this trait.  <a href="#aea3954f1cb4285e7d02b8ee6a4994f97">More...</a><br /></td></tr>
-<tr class="separator:aea3954f1cb4285e7d02b8ee6a4994f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4bfff5c50c0135a5d80ba996546160f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_trait_base_1_1_trait_base.html#ae4bfff5c50c0135a5d80ba996546160f">isImbuedTo</a> (cls, traitsData)</td></tr>
+<tr class="memdesc:ae4bfff5c50c0135a5d80ba996546160f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the given data actually has this trait.  <a href="#ae4bfff5c50c0135a5d80ba996546160f">More...</a><br /></td></tr>
+<tr class="separator:ae4bfff5c50c0135a5d80ba996546160f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1af52456293343b20541d041f3087c7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_trait_base_1_1_trait_base.html#af1af52456293343b20541d041f3087c7">isImbued</a> (self)</td></tr>
+<tr class="memdesc:af1af52456293343b20541d041f3087c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the data this trait has been applied to actually has this trait.  <a href="#af1af52456293343b20541d041f3087c7">More...</a><br /></td></tr>
+<tr class="separator:af1af52456293343b20541d041f3087c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45dfe30dc1bf7b3525cc6fd9aabf11cb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1_trait_base_1_1_trait_base.html#a45dfe30dc1bf7b3525cc6fd9aabf11cb">imbue</a> (self)</td></tr>
 <tr class="memdesc:a45dfe30dc1bf7b3525cc6fd9aabf11cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this trait to the held data.  <a href="#a45dfe30dc1bf7b3525cc6fd9aabf11cb">More...</a><br /></td></tr>
 <tr class="separator:a45dfe30dc1bf7b3525cc6fd9aabf11cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <p>A trait class inheriting from this base must have a static kId attribute member giving the unique string ID of that trait.</p>
 <dl class="section see"><dt>See also</dt><dd>kTraitId</dd></dl>
 <p>In addition, the derived class should implement appropriate typed accessor / mutator methods that internally call the wrapped data's <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html#a08fa5975381df4904c7a5dfad6f13b83">getTraitProperty</a> / <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6">setTraitProperty</a>.</p>
-<dl class="section note"><dt>Note</dt><dd>Attempting to access a trait's properties without first ensuring the data holds that trait via <code>isValid</code>, or otherwise, may trigger an exception if the trait is not set in the data. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Attempting to access a trait's properties without first ensuring the data holds that trait via <code>isImbued</code>, or otherwise, may trigger an exception if the trait is not set in the data. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9f89344f260026c5cbec1adacb50cd12"></a>
 <div class="memitem">
@@ -228,12 +231,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aea3954f1cb4285e7d02b8ee6a4994f97"></a>
+<a class="anchor" id="af1af52456293343b20541d041f3087c7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def isValid </td>
+          <td class="memname">def isImbued </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -243,6 +246,41 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks whether the data this trait has been applied to actually has this trait. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> if the underlying data has this trait, <code>False</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae4bfff5c50c0135a5d80ba996546160f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def isImbuedTo </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>traitsData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether the given data actually has this trait. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitsData</td><td>Data to check for trait. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd><code>True</code> if the underlying data has this trait, <code>False</code> otherwise. </dd></dl>
 
 </div>

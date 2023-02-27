@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"group__oa__host_api___manager.html#ga170b445384832a6f49ae60f77b3d1b89":[11,0,1,3],
 "group__oa__host_api___manager.html#ga3c033feffa6c9e06990945d298225230":[11,0,1,1],
 "group__oa__host_api___manager.html#ga639858f5e0e84e8f733ba6a6cb93eb36":[11,0,1,6],
 "group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9":[11,0,1,2],
@@ -118,8 +119,8 @@ var NAVTREEINDEX2 =
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a4d70f25d5ed9298c6a11913e27692623":[13,0,0,8,4,0,2],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a52f6124ca6499e6a10613497a1f00622":[13,0,0,8,4,0,4],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a7b5e385125d7f7c51aff4fee5697e2e7":[13,0,0,8,4,0,1],
+"structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a98224252df32dc8f49ffa98498b7fe09":[13,0,0,8,4,0,5],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a9a9a800f563c61df74469d9c5af6fdf3":[13,0,0,8,4,0,3],
-"structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#aac1b70a2ed67ead038c4d3f5ac4d8a81":[13,0,0,8,4,0,5],
 "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#af19f1e7bc2b162a62af31e2623a93823":[13,0,0,8,4,0,0],
 "testing.html":[7],
 "testing.html#testing_manager_plugins":[7,0],
