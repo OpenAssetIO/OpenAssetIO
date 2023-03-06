@@ -280,8 +280,9 @@
  *         thumbnail_path = requested_path
  *     raster_trait = requested_spec.rasterTrait()
  *     if raster_trait.isImbued():
- *         thumbnail_attr["width"] = raster_trait.getWidth() or thumbnail_attr["width"]
- *         thumbnail_attr["height"] = raster_trait.getHeight() or thumbnail_attr["height"]
+ *         # 'get' calls can take a default value to avoid exceptions if missing.
+ *         thumbnail_attr["width"] = raster_trait.getWidth(thumbnail_attr["width"])
+ *         thumbnail_attr["height"] = raster_trait.getHeight(thumbnail_attr["height"])
  *
  * # Generate a thumbnail using the supplied criteria
  * mk_thumbnail(thumbnail_path, thumbnail_attr["width"], thumbnail_attr["height"])
