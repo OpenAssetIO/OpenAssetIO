@@ -16,6 +16,13 @@ v1.0.0-alpha.X
   mechanism for testing whether a `TraitsData` is imbued with a trait.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+### Bug fixes
+
+- Removed `nodiscard` from `TraitsData::getTraitProperty`, and
+  `TraitBase::getTraitProperty`, to allow "value or default" style use
+  cases.
+  [#825](https://github.com/OpenAssetIO/OpenAssetIO/issues/825)
+
 
 v1.0.0-alpha.9
 --------------

@@ -132,8 +132,8 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    * @exception `std::out_of_range` if this instance does not have
    * this trait.
    */
-  [[nodiscard]] bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
-                                      const trait::property::Key& propertyKey) const;
+  bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
+                        const trait::property::Key& propertyKey) const;
 
   /**
    * Set the value of given trait property.
