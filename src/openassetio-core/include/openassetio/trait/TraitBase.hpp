@@ -146,8 +146,8 @@ struct TraitBase {
    * @return Status of property in the underlying data.
    */
   template <class T>
-  [[nodiscard]] TraitPropertyStatus getTraitProperty(T* out, const TraitId& traitId,
-                                                     const property::Key& propertyKey) const {
+  TraitPropertyStatus getTraitProperty(T* out, const TraitId& traitId,
+                                       const property::Key& propertyKey) const {
     if (property::Value value; data()->getTraitProperty(&value, traitId, propertyKey)) {
       if (T* maybeOut = std::get_if<T>(&value)) {
         *out = *maybeOut;
