@@ -181,7 +181,7 @@ behaviour of the build.
 | ----------- | ----------- | ------- |
 | `BUILD_SHARED_LIBS` | `ON` to build shared libraries. `OFF` to build static libraries. | `ON` |
 | `OPENASSETIO_ENABLE_PYTHON` | Additionally build python bindings | `ON` |
-| `OPENASSETIO_ENABLE_C` | Additionally build C bindings | `ON` |
+| `OPENASSETIO_ENABLE_C` | Additionally build C bindings | `OFF` |
 | `OPENASSETIO_ENABLE_TESTS` | Additionally build tests | `OFF` |
 | `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` | Automatically create environment when running tests | `ON` |
 | `OPENASSETIO_WARNINGS_AS_ERRORS` | Treat compiler warnings as errors | `OFF` |
