@@ -163,6 +163,11 @@ C and Python bindings.
 
 For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 
+> **Warning**
+> PyPI releases are currently `x86_64` binary only (no `sdist`). If you
+> are on an ARM based machine (e.g. Apple Silicon), then you will need
+> to build locally or install an `x86_64` version of Python.
+
 ```bash
 python -m pip install openassetio
 ```
