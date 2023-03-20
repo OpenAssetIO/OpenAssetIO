@@ -62,16 +62,22 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    * example:
    *
    *    "org.openassetio.test.host"
+   *    "io.aswf.openrv"
+   *    "com.foundry.nuke"
    *
    * @return host identifier.
+   *
+   * @see https://en.wikipedia.org/wiki/Reverse_domain_name_notation
    */
   [[nodiscard]] virtual Identifier identifier() const = 0;
 
   /**
    * Returns a human readable name to be used to reference this
-   * specific host in user-facing presentations.
+   * specific host in user-facing presentations, for example:
    *
    *     "OpenAssetIO Test Host"
+   *     "OpenRV"
+   *     "Nuke"
    *
    * @return Host's display name.
    */
