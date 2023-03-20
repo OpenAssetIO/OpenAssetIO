@@ -98,7 +98,7 @@
  * trait, and read the `location` property to locate the data.
  *
  * A tool that displays EXR image sequences may resolve the
- * `locatableContent`, `image` `frameRange`, and `playback` traits. The
+ * `locatableContent`, `image`, `frameRange`, and `playback` traits. The
  * data provided by the manager then being used to control the
  * colorspace and frame range/rate used for playback. This avoids
  * fragile mechanisms such as extension-based mappings and brute-force
@@ -129,7 +129,7 @@
  * `locatableContent` trait.
  *
  * Another valuable use of the API is to allow applications to work at
- * the conceptual level ot 'shots' and 'sequences' (or any other
+ * the conceptual level of 'shots' and 'sequences' (or any other
  * organizational structure that may be desired).
  *
  * Consider an editorial application that wants to update a production
@@ -358,7 +358,7 @@
  *
  * For example, the trait set of the `ImageSequenceSpecification`
  * could be used by a compositor to know to read the data through
- * its native image loading nodes. The trait properties could be mappeed
+ * its native image loading nodes. The trait properties could be mapped
  * to controls on these nodes to determine what colorspace to apply to
  * the image data and what frame range to use.
  *
