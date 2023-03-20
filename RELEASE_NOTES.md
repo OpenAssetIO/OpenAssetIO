@@ -16,6 +16,12 @@ v1.0.0-alpha.X
   mechanism for testing whether a `TraitsData` is imbued with a trait.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+### Improvements
+
+- Improved the documentation for the `simpleResolver` example, to
+  provide more context when using it as a starting point for an
+  OpenAssetIO integration.
+
 ### Bug fixes
 
 - Removed `nodiscard` from `TraitsData::getTraitProperty`, and
