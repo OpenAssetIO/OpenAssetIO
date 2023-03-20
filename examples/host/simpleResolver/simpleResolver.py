@@ -26,7 +26,6 @@ import json
 import sys
 
 
-from openassetio import SpecificationBase
 from openassetio.hostApi import HostInterface, ManagerFactory
 from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
@@ -64,16 +63,6 @@ class TestHost(HostInterface):
         #   "Nuke"
         #   "OpenRV"
         return "Default Manager Demo Host"
-
-
-class CLILocale(SpecificationBase):
-    """
-    A minimal locale that defines a CLI environment.
-    Note: In the future, these common starting points will be moved to a
-    shared repository to avoid inconsistencies/duplication.
-    """
-
-    kTraitSet = {"cli", "demo"}
 
 
 #
@@ -214,7 +203,6 @@ def main():
 
     context = manager.createContext()
     context.access = context.Access.kRead
-    context.locale = CLILocale.create().traitsData()
 
     # Resolve the requested traits for the referenced entity.
 

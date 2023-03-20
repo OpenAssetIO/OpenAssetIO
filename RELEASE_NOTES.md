@@ -10,6 +10,9 @@ v1.0.0-alpha.X
   `imbue`/`imbueTo` methods.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+- Removed the custom locale from the `simpleResolver` example as it did
+  not follow best practice, resolves will no longer have a locale set.
+
 ### New features
 
 - Added `TraitBase.isImbuedTo` static/class method, giving a cheaper
