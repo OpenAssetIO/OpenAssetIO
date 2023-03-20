@@ -39,7 +39,7 @@ from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFact
 #
 
 
-class TestHost(HostInterface):
+class SimpleResolverHostInterface(HostInterface):
     """
     A minimal host interface implementation. This identifiers the
     calling tool or application to the API and downstream Manager.
@@ -54,7 +54,7 @@ class TestHost(HostInterface):
         #   io.aswf.openrv
         #
         # See: https://en.wikipedia.org/wiki/Reverse_domain_name_notation
-        return "default.manager.demo.host"
+        return "org.openassetio.examples.host.simpleResolver"
 
     def displayName(self):
         # This is used my managers so should be the display name of your
@@ -62,7 +62,7 @@ class TestHost(HostInterface):
         #
         #   "Nuke"
         #   "OpenRV"
-        return "Default Manager Demo Host"
+        return "Simple Resolver"
 
 
 #
@@ -160,7 +160,7 @@ def main():
 
     # The HostInterface implementation we supply that identifies
     # ourselves to the manager
-    host_interface = TestHost()
+    host_interface = SimpleResolverHostInterface()
 
     # Initialize the default manager as configured by $OPENASSETIO_DEFAULT_CONFIG
     # See: https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76
