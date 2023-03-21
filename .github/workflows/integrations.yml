@@ -55,7 +55,10 @@ jobs:
         run: |
           # We don't use the local requirements.txt for each
           # integration as they will try to install openassetio
-          # and we want to use the working tree
+          # and we want to use the working tree.
+          # Note: if we do need to install specific test dependencies
+          # for an integration, ensure that it does not override our
+          # `openassetio` package.
           python -m pip install pytest
 
       - name: Checkout BAL
@@ -84,6 +87,16 @@ jobs:
       - name: Install TraitGen
         run : |
           python -m pip install external/TraitGen
+
+      - name: Install TraitGen test dependencies
+        # Ensure test dependencies don't splat the working tree version
+        # of `openassetio` (installed via setup.py, above). Use `awk`
+        # rather than `grep` so that output is not swallowed. The `awk`
+        # script will exit with status 1 if `openassetio` is not left
+        # unmodified, failing the build.
+        run : >
+          python -m pip install -r external/TraitGen/tests/requirements.txt
+          | awk '{print} /Requirement already satisfied: openassetio/{found=1} END{exit !found}'
 
       - name: Test TraitGen
         run: |
