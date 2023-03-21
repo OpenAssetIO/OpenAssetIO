@@ -49,12 +49,10 @@ export OPENASSETIO_DEFAULT_CONFIG=bal_animals_openassetio_config.toml
 ```
 
 This will tell the API to use BAL, so we need to get a copy of the
-plugin, and configure the environment to add it to the OpenAssetIO
-plugin system search paths:
+plugin. This can be installed with pip (or manually if desired[^1]):
 
 ```bash
-git clone https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL.git
-export OPENASSETIO_PLUGIN_PATH=./OpenAssetIO-Manager-BAL/plugin
+python -m pip install openassetio-manager-bal
 ```
 
 At this point, we can now use the CLI to resolve entity data.
@@ -91,3 +89,9 @@ ASCII art for the win!
 ```bash
 python ./simpleResolver.py locatableContent bal:///cat | jq -r '.locatableContent.url' | xargs jp2a
 ```
+
+[^1]: Manually installing BAL:
+   Clone the repo:
+   `git clone https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL.git`
+   Set (or extend) the plugin search path, e.g.:
+   `export OPENASSETIO_PLUGIN_PATH=./OpenAssetIO-Manager-BAL/plugin`

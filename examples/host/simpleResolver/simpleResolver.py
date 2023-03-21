@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#   Copyright 2022 The Foundry Visionmongers Ltd
+#   Copyright 2022-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import json
 import sys
 
 
-from openassetio import SpecificationBase
 from openassetio.hostApi import HostInterface, ManagerFactory
 from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
@@ -40,27 +39,30 @@ from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFact
 #
 
 
-class TestHost(HostInterface):
+class SimpleResolverHostInterface(HostInterface):
     """
     A minimal host interface implementation. This identifiers the
     calling tool or application to the API and downstream Manager.
     """
 
     def identifier(self):
-        return "default.manager.demo.host"
+        # In a real application, this is usually your organisations
+        # reverse domain name plus a product or tool identifier. It
+        # needs to be globally unique. e.g.:
+        #
+        #   com.foundry.nuke
+        #   io.aswf.openrv
+        #
+        # See: https://en.wikipedia.org/wiki/Reverse_domain_name_notation
+        return "org.openassetio.examples.host.simpleResolver"
 
     def displayName(self):
-        return "Default Manager Demo Host"
-
-
-class CLILocale(SpecificationBase):
-    """
-    A minimal locale that defines a CLI environment.
-    Note: In the future, these common starting points will be moved to a
-    shared repository to avoid inconsistencies/duplication.
-    """
-
-    kTraitSet = {"cli", "demo"}
+        # This is used my managers so should be the display name of your
+        # product or tool, e.g.:
+        #
+        #   "Nuke"
+        #   "OpenRV"
+        return "Simple Resolver"
 
 
 #
@@ -80,6 +82,25 @@ def print_traits_data(_, data):
     TraitsData. As we only deal with a single result, we ignore the
     index.
     """
+    # Note that in real tools, you should avoid working directly with
+    # TraitsData. The industry-specific view classes should be used to
+    # avoid fragile string literals, and ensure consistency.
+    #
+    # For example, the OpenAssetIO-MediaCreation project[1] provides
+    # traits and specifications for common entity types found in
+    # computer graphics. A tool wanting to find the URL for an image
+    # would use the following trait that defines where an entity's
+    # content can be found:
+    #
+    #   from openassetio_mediacreation.traits.content import LocatableContentTrait
+    #   url = LocatableContentTrait(data).getLocation()
+    #
+    # The low-level API is only used here as this simple example script
+    # has to work with trait ids supplied by users on the command line.
+    #
+    #
+    # [1] https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation
+
     as_dict = {
         trait_id: {
             property_key: data.getTraitProperty(trait_id, property_key)
@@ -119,6 +140,15 @@ def create_argparser():
 
 def main():
 
+    ###
+    # API Bootstrap
+    #
+    # This section initializes the API. It does a non-trivial amount of
+    # work, so in a typical application this should usually be done at
+    # startup or similar, and the initialized manager re-used in
+    # relevant parts of the code.
+    ###
+
     # Helpers required by the API
 
     # A simple logger that prints messages to the console.
@@ -130,7 +160,7 @@ def main():
 
     # The HostInterface implementation we supply that identifies
     # ourselves to the manager
-    host_interface = TestHost()
+    host_interface = SimpleResolverHostInterface()
 
     # Initialize the default manager as configured by $OPENASSETIO_DEFAULT_CONFIG
     # See: https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76
@@ -143,6 +173,14 @@ def main():
             f"check ${ManagerFactory.kDefaultManagerConfigEnvVarName}"
         )
 
+    ###
+    # Entity resolution
+    #
+    # This section deals with extracting the user-supplied entity
+    # reference and using the manager to resolve this for the requested
+    # traits.
+    ###
+
     # Extract the entity reference and trait set to resolve from
     # the CLI args
 
@@ -153,13 +191,20 @@ def main():
     trait_set = set(args.traitset.split(","))
 
     # Create an OpenAssetIO context that describes the calling
-    # environment
+    # environment. The lifetime of this object is very important in
+    # OpenAssetIO. It is used to tie together related calls into the API
+    # so that the manager can ensure resolve results are stable over
+    # time (if appropriate).
+    #
+    # Broadly speaking, the same context should be re-used for calls
+    # that are part of the same logical action from the user's
+    # perspective. This could be the import of a data set, or the whole
+    # interactive session.
 
     context = manager.createContext()
     context.access = context.Access.kRead
-    context.locale = CLILocale.create().traitsData()
 
-    # Resolve the requested traits for the referenced entity
+    # Resolve the requested traits for the referenced entity.
 
     manager.resolve(
         [entity_reference],  # The API is batch-centric

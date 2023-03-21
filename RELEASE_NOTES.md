@@ -10,11 +10,20 @@ v1.0.0-alpha.X
   `imbue`/`imbueTo` methods.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+- Changed the host identifier, and removed the custom locale from the
+  `simpleResolver` example as they did not follow best practice.
+
 ### New features
 
 - Added `TraitBase.isImbuedTo` static/class method, giving a cheaper
   mechanism for testing whether a `TraitsData` is imbued with a trait.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
+
+### Improvements
+
+- Improved the documentation for the `simpleResolver` example, to
+  provide more context when using it as a starting point for an
+  OpenAssetIO integration.
 
 ### Bug fixes
 
