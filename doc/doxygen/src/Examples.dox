@@ -28,15 +28,15 @@
  * from openassetio.hostApi import HostInterface, Manager, ManagerFactory
  * from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
  *
- * class ExampleHost(HostInterface):
+ * class ExamplesHost(HostInterface):
  *     """
  *     A minimal host implementation.
  *     """
  *     def identifier(self):
- *         return "org.openassetio.example.host"
+ *         return "org.openassetio.examples"
  *
  *     def displayName(self):
- *         return "OpenAssetIO Example Host"
+ *         return "OpenAssetIO Examples"
  *
  * # For simplicity, use a filtered console logger, this logs to
  * # stderr based on the value of OPENASSETIO_LOGGING_SEVERITY.
@@ -50,7 +50,7 @@
  * factory_impl = PythonPluginSystemManagerImplementationFactory(logger)
  *
  * # We then need our implementation of the HostInterface class
- * host_interface = ExampleHost()
+ * host_interface = ExamplesHost()
  *
  * # We can now create an OpenAssetIO ManagerFactory. The ManagerFactory
  * # allows us to query the available managers, and pick one to talk to.

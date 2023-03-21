@@ -188,6 +188,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *     "org.openassetio.test.manager"
    *
    * @return Unique identifier of the manager.
+   *
+   * @see https://en.wikipedia.org/wiki/Reverse_domain_name_notation
    */
   [[nodiscard]] virtual Identifier identifier() const = 0;
 
