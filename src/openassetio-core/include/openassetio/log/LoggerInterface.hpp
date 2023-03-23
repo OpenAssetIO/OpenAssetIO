@@ -22,6 +22,11 @@ OPENASSETIO_DECLARE_PTR(LoggerInterface)
 /**
  * An abstract base class that defines the receiving interface for
  * log messages generated a @ref manager or the API middleware.
+ *
+ * @note OpenAssetIO makes use of shared pointers to facilitate object
+ * lifetime management across multiple languages. Instances passed into
+ * API methods via shared pointer may have their lifetimes extended
+ * beyond that of your code.
  */
 class OPENASSETIO_CORE_EXPORT LoggerInterface {
  public:
