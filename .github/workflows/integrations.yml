@@ -147,17 +147,32 @@ jobs:
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
+      - name: Checkout TraitGen
+        uses: actions/checkout@v3
+        with:
+          repository: OpenAssetIO/OpenAssetIO-TraitGen
+          path: external/TraitGen
+
+      - name: Install TraitGen
+        run : |
+          python -m pip install external/TraitGen
+
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v3
         with:
           repository: OpenAssetIO/OpenAssetIO-Test-CMake
           path: external/OpenAssetIO-Test-CMake
 
+      - name: "Get Submodules"
+        run: |
+          cd external/OpenAssetIO-Test-CMake
+          git submodule update --init --recursive --remote OpenAssetIO-MediaCreation
+
       - name: Test CMake package
         run: |
           ${{ matrix.config.preamble }}
           cd external/OpenAssetIO-Test-CMake
-          cmake -S . -B build -G Ninja
+          cmake -S . -B build -G Ninja -DOPENASSETIOTEST_ENABLE_MEDIACREATION_SUBPROJECT=ON
           cmake --build build
           ctest -VV --test-dir build
         env:
