@@ -25,6 +25,9 @@ v1.0.0-alpha.X
   provide more context when using it as a starting point for an
   OpenAssetIO integration.
 
+- Made `BatchElementError` a copyable type in the C++ API.
+  [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
+
 ### Bug fixes
 
 - Removed `nodiscard` from `TraitsData::getTraitProperty`, and

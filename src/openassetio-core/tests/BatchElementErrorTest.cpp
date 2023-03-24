@@ -17,9 +17,8 @@ SCENARIO("BatchElementError usage") {
     WHEN("a BatchElementError is constructed wrapping the code and message") {
       BatchElementError error{code, message};
 
-      THEN("code and message cannot be modified") {
-        STATIC_REQUIRE(std::is_const_v<decltype(error.code)>);
-        STATIC_REQUIRE(std::is_const_v<decltype(error.message)>);
+      THEN("BatchElementError is copyable") {
+        STATIC_REQUIRE(std::is_copy_assignable_v<decltype(error)>);
       }
 
       THEN("code and message are available for querying") {

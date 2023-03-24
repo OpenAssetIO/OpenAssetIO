@@ -105,9 +105,9 @@ class BatchElementError final {
   };
 
   /// Error code indicating the class of error.
-  const ErrorCode code;
+  ErrorCode code;
   /// Human-readable error message.
-  const Str message;
+  Str message;
 };
 
 /**
