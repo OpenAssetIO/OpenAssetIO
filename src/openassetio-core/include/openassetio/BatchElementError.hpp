@@ -3,6 +3,7 @@
 #pragma once
 
 #include <functional>
+#include <stdexcept>
 #include <string>
 #include <utility>
 
@@ -12,6 +13,11 @@
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+/**
+ * @name Batch element errors
+ *
+ * @{
+ */
 /**
  * Structure representing per-element batch operation errors.
  *
@@ -111,16 +117,71 @@ class BatchElementError final {
 };
 
 /**
- * Callback signature used for an unsuccessful operation on an
- * element in a batch.
+ * Exception base that ties together a @ref BatchElementError and an
+ * index.
  *
- * This should be called for errors that are specific to a particular
- * reference in a batch. Exceptions can be thrown to indicate a
- * whole-batch error.
- *
- * The appropriate error code should be used for these errors. See
- * @fqref{BatchElementError.ErrorCode} "ErrorCode".
+ * When thrown from a function, indicates that a particular
+ * element has caused an error. The specific element that has errored
+ * is indicated by the index attribute, relative to the input container.
  */
-using BatchElementErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
+struct OPENASSETIO_CORE_EXPORT BatchElementException : std::runtime_error {
+  BatchElementException(std::size_t idx, BatchElementError err)
+      : std::runtime_error{err.message}, index{idx}, error{std::move(err)} {}
+
+  /**
+   * Index describing which batch element has caused an error.
+   */
+  std::size_t index;
+
+  /**
+   * Object describing the nature of the specific error.
+   */
+  BatchElementError error;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kUnknown
+ */
+struct OPENASSETIO_CORE_EXPORT UnknownBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kInvalidEntityReference
+ */
+struct OPENASSETIO_CORE_EXPORT InvalidEntityReferenceBatchElementException
+    : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kMalformedEntityReference
+ */
+struct OPENASSETIO_CORE_EXPORT MalformedEntityReferenceBatchElementException
+    : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kEntityAccessError
+ */
+struct OPENASSETIO_CORE_EXPORT EntityAccessErrorBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kEntityResolutionError
+ */
+struct OPENASSETIO_CORE_EXPORT EntityResolutionErrorBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+/**
+ * @}
+ */
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
