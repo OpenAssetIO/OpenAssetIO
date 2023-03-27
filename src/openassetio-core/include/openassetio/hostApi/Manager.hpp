@@ -769,10 +769,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @return None
    *
-   * @exception `std::out_of_range` If `entityReferences` and
+   * @exception std::out_of_range If `entityReferences` and
    * `entityTraitsDatas` are not lists of the same length.
    *
-   * @exception `std::invalid_argument` If all `entityTraitsDatas` do
+   * @exception std::invalid_argument If all `entityTraitsDatas` do
    * not share the same trait set.
    *
    * Other exceptions may be raised for fatal runtime errors, for
