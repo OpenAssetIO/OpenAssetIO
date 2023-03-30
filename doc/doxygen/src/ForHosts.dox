@@ -105,7 +105,8 @@
  *   data by supplying its @ref trait_set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
  *   with a @ref Context with `kRead` access, respecting the returned
- *   traits.
+ *   traits - this may be a subset if the manager is only capable of
+ *   resolving some of an entity's traits.
  *
  * - Always check any suspected entity references with
  *   @fqref{hostApi.Manager.isEntityReferenceString}
@@ -122,7 +123,9 @@
  *   data by supplying its @ref trait_set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
  *   with a @ref Context with `kWrite` access, respecting the returned
- *   traits.
+ *   traits. Note that some managers may not be able to persist data for
+ *   all of an entity's traits, these traits will be ommited from the
+ *   managementPolicy response.
  *
  * - Follow the @fqref{hostApi.Manager.managementPolicy} "policy", @ref
  *   preflight, resolve, write, @ref register process illustrated @ref

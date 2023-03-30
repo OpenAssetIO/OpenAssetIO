@@ -177,12 +177,15 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
   /**
    * Management Policy queries allow a host to ask a Manager how they
-   * would like to handle different kinds of entity. This allows you
-   * to adapt application logic or user-facing behaviour accordingly.
+   * would like to interact with different kinds of entity, and which
+   * traits they are capable of resolving (or persisting). This allows
+   * you to adapt application logic or user-facing behaviour
+   * accordingly.
    *
    * Queries return a @fqref{TraitsData} "TraitsData" for each supplied
    * @ref trait_set, imbued with traits that describe the manager's
-   * policy for entities with those traits.
+   * policy for entities with those traits, and which traits they are
+   * capable of resolving/storing data for.
    *
    * This is an opt-in mechanism, such that if result is empty, then
    * the manager does not handle entities with the supplied traits.
@@ -192,7 +195,29 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * This is particularly relevant for data types that may generate
    * large volumes of API requests, that can be avoided if the data in
-   * question is not managed by the manager.
+   * question is not managed by the manager, or it can't resolve a
+   * required trait.
+   *
+   * When querying this API, each Trait Set should be composed of:
+   *
+   *  - The trait set of the entity type in question. This is usually
+   *    obtained from the relevant @ref Specification.
+   *  - For read contexts, any additional traits with properties that
+   *    you wish to resolve for that type of entity.
+   *  - For write contexts, any additional traits with properties that
+   *    you wish to publish for that type of entity.
+   *
+   * Along with the traits that describe the manager's desired
+   * interaction pattern (ones with the `managementPolicy` usage
+   * metadata), the resulting @fqref{TraitsData} "TraitsData" will be imbued with
+   * (potentially a subset of) the requested traits, which the manager is
+   * capable of resolving/persisting the properties for.
+   *
+   * If a requested trait is not present, then the manager will never
+   * return properties for that trait in @ref resolve, or be able to
+   * persist those properties with @ref register. This allows you to
+   * know in advance if you can expect the configured manager to be able
+   * to provide data you may require.
    *
    * @note Because traits are specific to any given application of the
    * API, please refer to the documentation for any relevant companion
@@ -201,12 +226,16 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation"
    * target="_blank">OpenAssetIO-MediaCreation</a> project provides
    * traits for common data types used in computer graphics and media
-   * production.
+   * production. Use the concrete Trait/Specification classes provided
+   * by these projects to retrieve data from the supplied TraitsData
+   * instead of querying directly using string literals.
    *
    * @warning The @fqref{Context.access} "access" of the supplied
    * context will be considered by the manager. If it is set to read,
-   * then it's response applies to resolution. If write, then it
-   * applies to publishing.
+   * then its response applies to resolution. If write, then it applies
+   * to publishing. Managers may not handle both operations in the same
+   * way. In most situations you will need to make separate queries for
+   * read and write and adapt your business logic accordingly.
    *
    * @note There is no requirement to call this method before any other
    * API interaction, though it is strongly recommended to do so where
@@ -431,23 +460,23 @@ class OPENASSETIO_CORE_EXPORT Manager {
   using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataPtr&)>;
 
   /**
-   * Provides a @fqref{TraitsData} "TraitsData"
-   * populated with the available data for the requested set of
-   * traits for each given @ref entity_reference.
+   * Provides a @fqref{TraitsData} "TraitsData" populated with the
+   * available property data for the requested set of traits for each
+   * given @ref entity_reference.
    *
    * This call will block until all resolutions are complete and
    * callbacks have been called. Callbacks will be called on the
    * same thread that called `resolve`
    *
-   * Any traits that aren't applicable to any particular entity
-   * reference will not be set in the returned data. Consequently, a
-   * trait being set in the result is confirmation that an entity has
-   * that trait.
-   *
-   * There is however, no guarantee that a manager will have data
-   * for all of a traits properties. It is the responsibility of the
-   * caller to handle requested data being missing in a fashion
-   * appropriate to its intended use.
+   * @warning Only traits that are applicable to each entity, and for
+   * which the manager has data, will be imbued in the result. See the
+   * documentation for each respective trait to determine which
+   * properties are considered required. It is the responsibility of the
+   * caller to handle optional property values being missing in a
+   * fashion appropriate to its intended use. The @ref managementPolicy
+   * query can be used ahead of time with a read @ref Context to
+   * determine which specific traits any given manager supports
+   * resolving property data for.
    *
    * @note @fqref{EntityReference} "EntityReference" objects _must_ be
    * constructed using either
@@ -459,9 +488,11 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @fqref{hostApi.Manager.isEntityReferenceString}
    * "isEntityReferenceString" first.
    *
-   * The API defines that all file paths passed though the API that
-   * represent file sequences should retain the frame token, and
-   * use the 'format' syntax, compatible with sprintf (eg.  %04d").
+   *  Note that any properties that are defined as being a URL will be
+   *  URL encoded. If it is expected that trait properties may contain
+   *  substitution tokens or similar, their convention and behaviour
+   *  will be defined in the documentation for the respective trait.
+   *  Consult the originating project of the trait for more information.
    *
    * There may be errors during resolution. These can either be
    * exceptions thrown from `resolve`, or @fqref{BatchElementError}
@@ -607,6 +638,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * the Manager may even use this opportunity to switch to some
    * temporary working path or some such.
    *
+   * @warning If the supplied @ref trait_set is missing traits required
+   * by the manager for any input entity reference, then that element
+   * will error.
+   *
    * @note It's vital that the @ref Context is well configured here,
    * in particular the @fqref{Context.retention}
    * "Context.retention".
@@ -657,7 +692,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
   using RegisterSuccessCallback = std::function<void(std::size_t, EntityReference)>;
 
   /**
-   * Register should be used to register new entities either when
+   * Register should be used to 'publish' new entities either when
    * originating new data within the application process, or
    * referencing some existing file, media or information.
    *
@@ -665,8 +700,15 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * (path managing, or librarian), as long as it includes a suitable
    * trait in the response to @fqref{hostApi.Manager.managementPolicy}
    * "managementPolicy" for the traits of the entities you are intending
-   * to register_. In this case, the Manager is saying it doesn't handle
+   * to register. Otherwise, the Manager is saying it doesn't handle
    * entities with those traits, and it should not be registered.
+   *
+   * @warning The list of supported traits a manager returns in its @ref
+   * managementPolicy response may be a subset of the trait set you
+   * requested. This means that when data is registered, only property
+   * values for those specific traits will be persisted, the rest will
+   * be ignored. The full @ref trait_set will always be stored though,
+   * to facilitate future identification.
    *
    * As each @ref entity_reference has (ultimately) come from the
    * manager (either in response to delegation of UI/etc... or as a
@@ -689,19 +731,23 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * `ShotSpecification` entities to without error. Each resulting
    * entity reference should then reference the newly created Shot.
    *
-   * @warning All supplied TraitsDatas should have the same trait
+   * @note All supplied TraitsDatas should have the same trait
    * sets. If you wish to register different "types" of entity, they
    * need to be registered in separate calls.
    *
-   * @warning When registering files, it should never be assumed
-   * that the resulting @ref entity_reference will resolve to the
-   * same path. Managers may freely relocate, copy, move or rename
-   * files as part of registration.
+   * @warning When registering traits that contain URLs or file paths
+   * (for example the MediaCreation LocatableContent trait), it should
+   * never be assumed that the resulting @ref entity_reference will
+   * resolve to the same path. Managers may freely relocate, copy, move
+   * or rename data as part of registration. Data for other trait
+   * properties may also change if the entity has been otherwise
+   * modified by some other interaction with the manager.
    *
-   * @param entityReferences Entity references to register_ to.
+   * @param entityReferences Entity references to register to.
    *
    * @param entityTraitsDatas The data to register for each entity.
-   * NOTE: All supplied instances should have the same trait set.
+   * NOTE: All supplied instances should have the same trait set,
+   * batching with varying traits is not supported.
    *
    * @param context Context The calling context.
    *
@@ -723,10 +769,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @return None
    *
-   * @exception `std::out_of_range` If `entityReferences` and
+   * @exception std::out_of_range If `entityReferences` and
    * `entityTraitsDatas` are not lists of the same length.
    *
-   * @exception `std::invalid_argument` If all `entityTraitsDatas` do
+   * @exception std::invalid_argument If all `entityTraitsDatas` do
    * not share the same trait set.
    *
    * Other exceptions may be raised for fatal runtime errors, for

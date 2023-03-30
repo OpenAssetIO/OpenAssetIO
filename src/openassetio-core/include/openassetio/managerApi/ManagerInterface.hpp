@@ -308,20 +308,42 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Management Policy queries determine if the manager is interested in
    * participating in interactions with @ref entity "entities" with a
-   * specified @ref trait_set.
+   * specified @ref trait_set, and which traits it is capable of
+   * resolving or persisting data for.
    *
-   * This is called by a host to determine whether to enable OpenAssetIO
-   * related functionality when handling of specific kinds of data.
+   * This method is usually called early on by a host to determine
+   * whether to enable OpenAssetIO related functionality when handling
+   * specific kinds of data. The host will often adapt its subsequent
+   * behaviour to minimise unsupported interactions with the manager. In
+   * high call volume scenarios (such as CG rendering), this can
+   * potentially save hundreds of thousands of redundant calls into the
+   * API for unmanaged entity traits.
    *
-   * This method returns a @fqref{TraitsData} "TraitsData" for each
-   * requested. The implementation of this method should carefully
-   * consider the @fqref{Context.access} "access" set in the supplied
-   * @ref Context, and imbue suitable traits in the result.
+   * As such, the implementation of this method and careful
+   * consideration of the responses it returns is critical.
    *
-   * It is an opt-in mechanism, and returning an empty TraitsData states
-   * that you do not manage data with that specific @ref trait_set, and
-   * hosts should avoid making redundant calls into the API or
-   * presenting asset-centric elements of a workflow to the user.
+   * @note It is not _required_ that a Host calls this method before
+   * invoking other API methods, and so methods such as @ref resolve or
+   * @ref register must be tolerant of being called with unsupported
+   * traits (fear not, there is a simple and established failure mode
+   * for this situation).
+   *
+   * This method must return a @fqref{TraitsData} "TraitsData" for each
+   * requested @ref trait_set. The implementation of this method should
+   * carefully consider the @fqref{Context.access} "access" set in the
+   * supplied @ref Context, and imbue suitable traits in the result to
+   * define:
+   *
+   *   - Whether and how that kind of entity is managed (traits with the
+   *    `managementPolicy` usage metadata)
+   *   - Which of the requested set of traits that have properties that
+   *     can be resolved/persisted by your implementation.
+   *
+   * Entity management is an opt-in mechanism, and returning an empty
+   * TraitsData states that you do not manage data with that specific
+   * @ref trait_set, and hosts should avoid making redundant calls into
+   * the API or presenting asset-centric elements of a workflow to the
+   * user.
    *
    * @note Because traits are specific to any given application of the
    * API, please refer to the documentation for any relevant companion
@@ -330,21 +352,15 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation"
    * target="_blank">OpenAssetIO-MediaCreation</a> project provides
    * traits for common data types used in computer graphics and media
-   * production.
+   * production. Use the concrete Trait/Specification classes provided
+   * by these projects to manipulate the result TraitsData instead of
+   * directly setting traits and properties with string literals.
    *
    * @warning The @fqref{Context.access} "access"
    * specified in the supplied context should be carefully considered.
    * A host will independently query the policy for both read and
    * write access to determine if resolution and publishing features
    * are applicable to this implementation.
-   *
-   * @note There is no requirement that a host calls this method before
-   * interacting with the API. It serves to facilitate high-level
-   * behavioural switches rather than per-invocation validation. There
-   * are several scenarios where this would result in significant API
-   * overhead. As such, the implementation of other API methods should
-   * suitably safeguard against being called with unsupported trait
-   * sets or access patterns.
    *
    * @param traitSets The entity @ref trait "traits" to query.
    *
@@ -574,43 +590,35 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataPtr&)>;
 
   /**
-   * Provides a @fqref{TraitsData} "TraitsData"
-   * populated with the available data for the requested set of
+   * Provides the host with a @fqref{TraitsData} "TraitsData" populated
+   * with the available data for the properties of the requested set of
    * traits for each given @ref entity_reference.
    *
    * This call should block until all resolutions are complete and
    * callbacks have been called. Callbacks must be called on the
    * same thread that called `resolve`.
    *
-   * Any traits that aren't applicable to any particular entity
-   * reference should not be set in the resulting data. This covers
-   * any traits that are understood by the implementation, but not
-   * appliable to the entity in question, or are entirely unknown to
-   * the manager. Setting a trait in the result is an indication to
-   * the caller that that entity conceptually has that trait.
+   * Requested traits that aren't applicable to any particular entity,
+   * have no properties, or are not supported by your implementation,
+   * should be ignored and not imbued to the result. Your
+   * implementation of @ref managementPolicy when called with a read
+   * @ref Context should accurately reflect which traits you understand
+   * and are capable of resolving data for here.
    *
-   * @warning There is no requirement for a manager to populate all
-   * properties of known traits if appropriate data is not available.
-   * It is the responsibility of the caller to handle requested data
-   * being missing in a fashion appropriate to its intended use.
+   * @warning See the documentation for each respective trait as to
+   * which properties are considered required. It is the responsibility
+   * of the caller to handle optional property values being missing in a
+   * fashion appropriate to its intended use.
    *
-   * In summary:
-   *   - Set the trait in the result TraitsData instance for each
-   *     entity if it is known and applicable to that entity, even if
-   *     it has no properties or there is no data available for
-   *     properties it does have.
-   *   - Set the properties of each trait where possible.
+   * @note Some trait properties may support substitution tokens, or
+   * similar. The conventions for these will be defined in the trait's
+   * documentation. See the originating project for more information on
+   * their specifics. Don't forget to add a scheme and URL encode any
+   * paths that are stored in properties defined as holding a URL.
    *
-   * When an @ref entity_reference points to a sequence of files,
-   * the frame, view, etc substitution tokens should be preserved,
-   * and in the sprintf compatible syntax.
-   *
-   * This function should attempt to take into account the current
-   * host/Context to ensure that any other substitution tokens are
-   * presented in a suitable form. The Context should also be
-   * carefully considered to ensure that the access does not violate
-   * any rules of the system - for example, resolving an existing
-   * entity reference for write.
+   * The Context should also be carefully considered to ensure that the
+   * access does not violate any rules of the system - for example,
+   * resolving an existing entity reference for write.
    *
    * The supplied entity references will have already been validated
    * as relevant to this manager (via
@@ -759,6 +767,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * supplied references, and callbacks have been called on the same
    * thread that called `preflight`
    *
+   * @warning If the supplied @ref trait_set is missing required traits
+   * for any of the provided references (maybe they are mismatched with
+   * the target entity, or missing essential data) then error that
+   * element with an appropriate @fqref{BatchElementError.ErrorCode}.
+   *
    * @param entityReferences An @ref entity_reference for each entity
    * that it is desired to publish the forthcoming data to. See the
    * notes in the API documentation for the specifics of this.
@@ -818,7 +831,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * for each given reference and to persist the data provided in the
    * @fqref{TraitsData}. This will be called either in isolation or
    * after calling preflight, depending on whether work needed to be
-   * done to generate the data. Preflight is omit if the data is already
+   * done to generate the data. Preflight is omitted if the data is already
    * available at the time of publishing.
    *
    * This call must block until registration is complete for all
@@ -833,6 +846,17 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * information or schedule additional processes to produce
    * derivative data.
    *
+   * @warning It is a requirement of the API that the @ref trait_set of
+   * the supplied TraitsData for each reference is persisted. This forms
+   * the entity's 'type'. It is also a requirement that the properties
+   * of any traits indicated as supported by your response to a
+   * `managementPolicy` query for write context are persisted.
+   *
+   * If the supplied @ref trait_set is missing required traits for any
+   * of the provided references (maybe they are mismatched with the
+   * target entity, or missing essential data) then error that
+   * element with an appropriate @fqref{BatchElementError.ErrorCode} "ErrorCode".
+   *
    * @param entityReferences  The @ref entity_reference of each entity
    * to register_. It is up to the manager to ensure that this is
    * meaningful, as it is most likely implementation specific. For
@@ -844,19 +868,19 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param entityTraitsDatas The data for each entity (or 'asset') that
    * is being published. The implementation must persist the list of
-   * traits, and any properties set. Such that a subsequent call to @ref
-   * resolve for any of these traits contains the same data. It is
-   * guaranteed that the trait sets of these instances are constant
-   * across the batch.
+   * traits, and any supported traits with properties. Such that a
+   * subsequent call to @ref resolve for any of these traits contains
+   * that data. It is guaranteed that the trait sets of these
+   * instances are constant across the batch.
    *
    * @note Generally speaking, the data within the supplied
    * trait properties should be persisted verbatim. If however, the
    * implementation has any specific understanding of any given
    * trait, it is free to rewrite this data in any meaningful
-   * fashion. The simplest example of this is a `file` trait, where a
-   * path may be updated to the long-term persistent storage location
-   * of the registered data, after it has been re-located by the
-   * manager.
+   * fashion. The simplest example of this is the MediaCreation
+   * `LocatableContent` trait, where the location URL may be updated to
+   * the long-term persistent storage location of the registered data,
+   * after it has been re-located by the manager.
    *
    * @param context The calling context. This is not
    * replaced with an array in order to simplify implementation.

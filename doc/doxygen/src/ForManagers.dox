@@ -44,11 +44,11 @@
  *   opaque handles by the host, even if they look like well-formed
  *   strings.
  *
- * - The manager is expected to store and recall the trait data
- *   @fqref{managerApi.ManagerInterface.register_} "registered" to any
- *   given @ref entity_reference, and return this data from the relevant
- *   query methods when supplied the reference returned from the
- *   registration.
+ * - The manager is expected to store and recall the properties of
+ *   supported traits @fqref{managerApi.ManagerInterface.register_}
+ *   "registered" to any given @ref entity_reference, and return this
+ *   data from the relevant query methods when supplied the reference
+ *   returned from the registration.
  *
  * - A @ref host may query other well-known or host-specific @needsref
  *   traits to provide additional customization of behavior or the
@@ -110,9 +110,10 @@
  *
  * - Implement @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to control which Host-side data types you wish
- *   to be involved in managing. Return an empty @fqref{TraitsData}
- *   "TraitsData" for any queries with a context with `kWrite` access
- *   to request not to be involved in publishing.
+ *   to be involved in managing, and specify which property-holding
+ *   traits you are capable of resolving. To request not to be involved
+ *   in publishing, return an empty @fqref{TraitsData} "TraitsData"
+ *   for any queries with a context with `kWrite` access.
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
@@ -122,6 +123,9 @@
  *   "entityName" and
  *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityDisplayName
  *   "entityDisplayName" to support lookup of assets.
+ *
+ * - Implement @fqref{managerApi.ManagerInterface.resolve} "resolve" and
+ *   populate the requested trait property values.
  *
  * - Implement a @ref PythonPluginSystemManagerPlugin and install this
  *   on @ref plugin_path_var.

@@ -358,8 +358,8 @@
  * declares its behavior to the host via the
  * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" method.
  *
- * If a manager has said it is capable of defining the location for
- * future data ahead of time, the host must call the
+ * If a manager has said it is capable of resolving future entities
+ * ahead of time, the host must call the
  * @fqref{hostApi.Manager.preflight} "preflight" method and resolve the
  * returned @ref entity_reference to determine the manager's chosen
  * location for the data and use this for any write operations.
@@ -379,7 +379,8 @@
  * There are two scenarios where `preflight` will not be called:
  *
  * - When the manager has declared that it is not capable of providing
- *   the location for future data in advance (via managementPolicy).
+ *   trait properties in advance of an entity being created (via
+ *   @fqref{hostApi.Manager.managementPolicy} "managementPolicy").
  * - When the data already exists at some target location, such as when
  *   assetizing an existing file.
  *
@@ -413,7 +414,8 @@
  *
  * - Check whether the @ref manager is interested in that particular
  *   @ref entity "entity's" @ref trait "traits", via the manager's
- *   @fqref{hostApi.Manager.managementPolicy} "managementPolicy".
+ *   @fqref{hostApi.Manager.managementPolicy} "managementPolicy", and
+ *   what traits it is capable of persisting property data for.
  * - Call @ref preflight to allow any prerequisite housekeeping
  *   to be performed, and a working @ref entity_reference returned.
  * - Resolve the working reference to determine the URL for new data to
@@ -422,8 +424,8 @@
  * - Call @ref register to finalize the publish and confirm to the
  *   manager that the data has been written.
  *
- * @note Some managers may not be able to determine the path for data to
- * be written to, and act more as librarians. This is indicated in the
+ * @note Some managers may not be able to determine trait properties in
+ * advance, and act more as librarians. This is indicated in the
  * returned management policy. Hosts must act according to this.
  *
  * When publishing existing data, the preflight step is omitted.
@@ -505,10 +507,11 @@
  *
  * Trait sets are supplied to the @ref manager through the API whenever
  * there is need to describe the type of something in advance. A good
- * example of their useage is in the
+ * example of their usage is in the
  * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" query,
  * where the manager declares its intent towards specific types of
- * entity - described by the supplied trait sets.
+ * entity - described by the supplied trait sets, and which of those
+ * traits it is capable of storing or recalling property data for.
  *
  * @see @ref entities_traits_and_specifications
  */
