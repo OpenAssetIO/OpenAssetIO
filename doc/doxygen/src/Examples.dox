@@ -169,8 +169,8 @@
  * # We can now resolve a token we may have if it is a reference. In
  * # this example, we'll attempt to resolve the LocatableContent trait
  * # for the entity.
- * [resolved_asset] = manager.resolve(
- *         [entity_reference], {locatableContentTrait.kId}, context)
+ * resolved_asset = manager.resolve(
+ *         entity_reference, {locatableContentTrait.kId}, context)
  * url = LocatableContentTrait(resolved_asset).getLocation()  # May be None
  * @endcode
  *
@@ -213,7 +213,7 @@
  * # We then check if the manager can tell us where to save the file.
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
  *     working_data = manager.resolve(
- *             [working_ref], TextFileSpecification.kTraitSet, context)[0]
+ *             working_ref, TextFileSpecification.kTraitSet, context)
  *     working_spec = TextFileSpecification(working_data)
  *     if save_url := working_spec.locatableContentTrait().getLocation():
  *         save_path = pathFromURL(save_url)  # URL decode etc
@@ -270,7 +270,7 @@
  * # See if the manager can tell us where to put it, and what it should be like
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
  *     requested = manager.resolve(
- *             [thumbnail_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
+ *             thumbnail_ref, ThumbnailFileSpecification.kTraitSet, context)
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     if requested_path := requested_spec.locatableContentTrait().getLocation():
  *         thumbnail_path = pathFromURL(requested_path)
