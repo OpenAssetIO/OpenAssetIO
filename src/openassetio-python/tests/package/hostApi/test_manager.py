@@ -24,7 +24,18 @@ from unittest import mock
 
 import pytest
 
-from openassetio import BatchElementError, Context, EntityReference, TraitsData, managerApi
+from openassetio import (
+    UnknownBatchElementException,
+    InvalidEntityReferenceBatchElementException,
+    MalformedEntityReferenceBatchElementException,
+    EntityAccessErrorBatchElementException,
+    EntityResolutionErrorBatchElementException,
+    BatchElementError,
+    Context,
+    EntityReference,
+    TraitsData,
+    managerApi,
+)
 from openassetio.hostApi import Manager
 
 
@@ -47,6 +58,11 @@ def an_empty_traitsdata():
 @pytest.fixture
 def some_entity_traitsdatas():
     return [TraitsData(set()), TraitsData(set())]
+
+
+@pytest.fixture
+def some_populated_traitsdatas():
+    return [TraitsData(set("trait1")), TraitsData(set("trait2"))]
 
 
 @pytest.fixture
@@ -555,7 +571,7 @@ class Test_Manager_BatchElementErrorPolicyTag:
         )
 
 
-class Test_Manager_resolve:
+class Test_Manager_resolve_with_callback_signature:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(Manager.resolve)
         assert method_introspector.is_implemented_once(Manager, "resolve")
@@ -596,6 +612,607 @@ class Test_Manager_resolve:
 
         success_callback.assert_called_once_with(123, a_traitsdata)
         error_callback.assert_called_once_with(456, a_batch_element_error)
+
+
+batch_element_error_codes = [
+    BatchElementError.ErrorCode.kUnknown,
+    BatchElementError.ErrorCode.kInvalidEntityReference,
+    BatchElementError.ErrorCode.kMalformedEntityReference,
+    BatchElementError.ErrorCode.kEntityAccessError,
+    BatchElementError.ErrorCode.kEntityResolutionError,
+]
+
+batch_element_exceptions = [
+    UnknownBatchElementException,
+    InvalidEntityReferenceBatchElementException,
+    MalformedEntityReferenceBatchElementException,
+    EntityAccessErrorBatchElementException,
+    EntityResolutionErrorBatchElementException,
+]
+
+batch_element_error_code_exception_pairs = list(
+    zip(batch_element_error_codes, batch_element_exceptions)
+)
+
+
+class Test_Manager_resolve_with_singular_default_overload:
+    def test_when_success_then_single_TraitsData_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_traitsdata,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdata = manager.resolve(a_ref, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_traitsdata is a_traitsdata
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.resolve(a_ref, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_resolve_with_singular_throwing_overload:
+    def test_when_resolve_success_then_single_TraitsData_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_traitsdata,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdata = manager.resolve(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_traitsdata is a_traitsdata
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.resolve(
+                a_ref,
+                an_entity_trait_set,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
+            )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_resolve_with_singular_variant_overload:
+    def test_when_resolve_success_then_single_TraitsData_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_traitsdata,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdata = manager.resolve(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_traitsdata is a_traitsdata
+
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    def test_when_BatchElementError_then_BatchElementError_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        actual = manager.resolve(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert_BatchElementError_eq(actual, batch_element_error)
+
+
+class Test_Manager_resolve_with_batch_default_overload:
+    def test_when_success_then_multiple_TraitsDatas_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_populated_traitsdatas,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, some_populated_traitsdatas[0])
+
+            callback = method.call_args[0][4]
+            callback(1, some_populated_traitsdatas[1])
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdatas = manager.resolve(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_traitsdatas) == 2
+        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+
+    def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_populated_traitsdatas,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, some_populated_traitsdatas[1])
+
+            callback = method.call_args[0][4]
+            callback(0, some_populated_traitsdatas[0])
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdatas = manager.resolve(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_traitsdatas) == 2
+        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        a_traitsdata,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.resolve
+        expected_index = 123
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+            # Error
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.resolve(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_resolve_with_batch_throwing_overload:
+    def test_when_success_then_multiple_TraitsDatas_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_populated_traitsdatas,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, some_populated_traitsdatas[0])
+
+            callback = method.call_args[0][4]
+            callback(1, some_populated_traitsdatas[1])
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdatas = manager.resolve(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_traitsdatas) == 2
+        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+
+    def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_populated_traitsdatas,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, some_populated_traitsdatas[1])
+
+            callback = method.call_args[0][4]
+            callback(0, some_populated_traitsdatas[0])
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdatas = manager.resolve(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_traitsdatas) == 2
+        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        a_traitsdata,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.resolve
+        expected_index = 123
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+            # Error
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.resolve(
+                some_refs,
+                an_entity_trait_set,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
+            )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_resolve_with_batch_variant_overload:
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    def test_when_mixed_output_then_returned_list_contains_output(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        a_traitsdata,
+        error_code,
+    ):
+        method = mock_manager_interface.mock.resolve
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_traitsdata)
+
+            callback = method.call_args[0][5]
+            callback(1, batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdata_and_error = manager.resolve(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert actual_traitsdata_and_error[0] is a_traitsdata
+        assert_BatchElementError_eq(actual_traitsdata_and_error[1], batch_element_error)
+
+    def test_when_mixed_output_out_of_order_then_output_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        entity_refs = [a_ref] * 4
+
+        batch_element_error0 = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
+        )
+        traitsdata1 = TraitsData({"trait1"})
+        batch_element_error2 = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
+        )
+        traitsdata3 = TraitsData({"trait3"})
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, traitsdata1)
+
+            callback = method.call_args[0][5]
+            callback(0, batch_element_error0)
+
+            callback = method.call_args[0][4]
+            callback(3, traitsdata3)
+
+            callback = method.call_args[0][5]
+            callback(2, batch_element_error2)
+
+        method.side_effect = call_callbacks
+
+        actual_traitsdata_and_error = manager.resolve(
+            entity_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            entity_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert_BatchElementError_eq(actual_traitsdata_and_error[0], batch_element_error0)
+        assert actual_traitsdata_and_error[1] is traitsdata1
+        assert_BatchElementError_eq(actual_traitsdata_and_error[2], batch_element_error2)
+        assert actual_traitsdata_and_error[3] is traitsdata3
 
 
 class Test_Manager_managementPolicy:
@@ -855,3 +1472,9 @@ class Test_Manager_contextFromPersistenceToken:
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
+
+
+def assert_BatchElementError_eq(actual: BatchElementError, expected: BatchElementError):
+    assert isinstance(actual, BatchElementError)
+    assert actual.code == expected.code
+    assert actual.message == expected.message
