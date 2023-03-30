@@ -25,7 +25,24 @@ void registerManager(const py::module& mod) {
   using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterfacePtr;
 
-  py::class_<Manager, ManagerPtr>(mod, "Manager")
+  py::class_<Manager, ManagerPtr> pyManager{mod, "Manager"};
+
+  // BatchElementErrorPolicy tags for tag dispatch overload resolution
+  // idiom.
+  py::class_<Manager::BatchElementErrorPolicyTag> pyBatchElementErrorPolicyTag{
+      pyManager, "BatchElementErrorPolicyTag"};
+  // NOLINTNEXTLINE(bugprone-unused-raii)
+  py::class_<Manager::BatchElementErrorPolicyTag::Exception>{pyBatchElementErrorPolicyTag,
+                                                             "Exception"};
+  // NOLINTNEXTLINE(bugprone-unused-raii)
+  py::class_<Manager::BatchElementErrorPolicyTag::Variant>{pyBatchElementErrorPolicyTag,
+                                                           "Variant"};
+
+  pyBatchElementErrorPolicyTag
+      .def_readonly_static("kException", &Manager::BatchElementErrorPolicyTag::kException)
+      .def_readonly_static("kVariant", &Manager::BatchElementErrorPolicyTag::kVariant);
+
+  pyManager
       .def(py::init(RetainCommonPyArgs::forFn<&Manager::make>()),
            py::arg("managerInterface").none(false), py::arg("hostSession").none(false))
       .def("identifier", &Manager::identifier)

@@ -547,6 +547,14 @@ class Test_Manager_getRelatedReferences:
         )
 
 
+class Test_Manager_BatchElementErrorPolicyTag:
+    def test_unique(self):
+        assert (
+            Manager.BatchElementErrorPolicyTag.kVariant
+            is not Manager.BatchElementErrorPolicyTag.kException
+        )
+
+
 class Test_Manager_resolve:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(Manager.resolve)
