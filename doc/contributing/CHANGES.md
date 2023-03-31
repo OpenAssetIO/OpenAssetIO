@@ -52,11 +52,9 @@ mechanism.
 - Split `Specification` class in to `SpecificationBase` and `TraitsData`
   [#348](https://github.com/OpenAssetIO/OpenAssetIO/issues/348).
 
-
 ### New features
 
 - Added `TraitBase` Python class to be used for all custom traits.
-
 
 ### Improvements
 
@@ -64,12 +62,10 @@ mechanism.
 - `TraitsData` `setTraitProperty` now automatically adds the trait if it
   has mot previously been set.
 
-
 ### Bug fixes
 
 - `Session` no longer keeps `ManagerInterface` instances alive after the
   current manager has changed.
-
 
 v1.2.0
 ------
@@ -86,8 +82,8 @@ v1.2.0
    heading for each release version, using the `-` (hyphen) markup.
 3. For each version, changes should be grouped into the four
    standardized categories noted below, using the `###` markup. With a
-   single blank line below the heading, and two blank lines at the end
-   of each section.
+   single blank line below the heading, and a single blank line at the
+   end of each section.
 4. If required, a high-level summary of the release, or any other
    information or warnings can be added before the first changes
    section.
