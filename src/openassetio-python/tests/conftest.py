@@ -248,16 +248,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, traitSet, context, hostSession, successCallback, errorCallback
         )
 
-    def entityName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertCallingContext(context, hostSession)
-        return self.mock.entityName(entityRefs, context, hostSession)
-
-    def entityDisplayName(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertCallingContext(context, hostSession)
-        return self.mock.entityDisplayName(entityRefs, context, hostSession)
-
     def getRelatedReferences(
         self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None
     ):

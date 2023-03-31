@@ -118,11 +118,7 @@
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
  *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- *   "ManagerInterface", along with
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityName
- *   "entityName" and
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.entityDisplayName
- *   "entityDisplayName" to support lookup of assets.
+ *   "ManagerInterface" to support lookup of assets.
  *
  * - Implement @fqref{managerApi.ManagerInterface.resolve} "resolve" and
  *   populate the requested trait property values.
