@@ -147,6 +147,11 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *
  * @todo Finish/Document settings mechanism.
  * @see @ref initialize
+ *
+ * @note OpenAssetIO makes use of shared pointers to facilitate object
+ * lifetime management across multiple languages. Instances passed into
+ * API methods via shared pointer may have their lifetimes extended
+ * beyond that of your code.
  */
 class OPENASSETIO_CORE_EXPORT ManagerInterface {
  public:
