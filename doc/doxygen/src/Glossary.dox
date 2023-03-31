@@ -37,6 +37,13 @@
  *
  * @see @fqref{Context} "Context"
  *
+ * @section DCC Digital Contentent Creation tool (DCC)
+ *
+ * Within the Media and Entertainment industry (and possibly further
+ * afield), Digital Content Creation tools refer to the applications
+ * used to produce graphics, audio and other artistic works. For
+ * example, Adobe Photoshop, Autodesk Maya, and Foundry's Nuke.
+ *
  *
  * @section entity entity
  *
@@ -275,6 +282,14 @@
  *
  * So to override a plug-in with a dev version, ensure it is to the left
  * of the standard plug-in.
+ *
+ *
+ * @section logging_severity_var $OPENASSETIO_LOGGING_SEVERITY
+ *
+ * This is the environment variable used to control the default logging
+ * severity of the API. Note that many @ref host "hosts" re-direct
+ * logging to their own system. Usually in these cases, logging severity
+ * is then controlled by the host's own configuration mechanism(s).
  *
  *
  * @section manager_state Manager State
