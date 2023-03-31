@@ -11,6 +11,21 @@ var NAVTREE =
       [ "The Basic Design for a Host", "index.html#host_implementation_concept", null ],
       [ "The Asset Manager's Commitment", "index.html#manager_implementation_concept", null ]
     ] ],
+    [ "Configuring OpenAssetIO", "runtime_configuration.html", [
+      [ "Overview", "runtime_configuration.html#runtime_configuration_overview", null ],
+      [ "Installing Manager plugins", "runtime_configuration.html#installing_manager_plugins", [
+        [ "Using pip", "runtime_configuration.html#installing_manager_plugins_pip", null ],
+        [ "Manual installation", "runtime_configuration.html#installing_manager_plugins_manual", null ]
+      ] ],
+      [ "Host configuration", "runtime_configuration.html#host_settings", [
+        [ "The Default Config Mechanism", "runtime_configuration.html#host_default_config", null ]
+      ] ],
+      [ "Troubleshooting", "runtime_configuration.html#configuration_troubleshooting", [
+        [ "Pip installed Python plugins not being found", "runtime_configuration.html#pip_plugins_missing", null ],
+        [ "Manually installed plugins not being found", "runtime_configuration.html#manual_plugins_missing", null ],
+        [ "Default config mechanism not working", "runtime_configuration.html#default_config_not_working", null ]
+      ] ]
+    ] ],
     [ "Entities, Traits and Specifications", "entities_traits_and_specifications.html", [
       [ "Entities", "entities_traits_and_specifications.html#Entities", null ],
       [ "Traits", "entities_traits_and_specifications.html#Traits", null ],
@@ -64,6 +79,7 @@ var NAVTREE =
     [ "Glossary", "glossary.html", [
       [ "Asset Management System", "glossary.html#asset_management_system", null ],
       [ "Context", "glossary.html#Context", null ],
+      [ "Digital Contentent Creation tool (DCC)", "glossary.html#DCC", null ],
       [ "entity", "glossary.html#entity", null ],
       [ "Entity Reference", "glossary.html#entity_reference", null ],
       [ "host", "glossary.html#host", null ],
@@ -73,6 +89,7 @@ var NAVTREE =
       [ "Manager Plugin", "glossary.html#PythonPluginSystemManagerPlugin", null ],
       [ "$OPENASSETIO_DEFAULT_CONFIG", "glossary.html#default_config_var", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
+      [ "$OPENASSETIO_LOGGING_SEVERITY", "glossary.html#logging_severity_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
@@ -131,7 +148,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0",
-"group__oa__host_api___manager.html#ga170b445384832a6f49ae60f77b3d1b89"
+"group__oa___string_view__aliases.html#gac078c77a1916ff1125b7343be9788d8c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

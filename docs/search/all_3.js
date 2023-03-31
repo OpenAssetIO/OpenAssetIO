@@ -23,5 +23,6 @@ var searchData=
   ['createpythonpluginsystemmanagerimplementationfactory',['createPythonPluginSystemManagerImplementationFactory',['../namespaceopenassetio_1_1v1_1_1python_1_1host_api.html#af9fa22c7c15ec353dc53ce7d6ee4be36',1,'openassetio::v1::python::hostApi']]],
   ['createstate',['createState',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62',1,'openassetio::v1::managerApi::ManagerInterface']]],
   ['createtestcontext',['createTestContext',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
-  ['critical',['critical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0144f67265558357e7ea17f5da008a50',1,'openassetio::v1::log::LoggerInterface']]]
+  ['critical',['critical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0144f67265558357e7ea17f5da008a50',1,'openassetio::v1::log::LoggerInterface']]],
+  ['configuring_20openassetio',['Configuring OpenAssetIO',['../runtime_configuration.html',1,'']]]
 ];

@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="textblock"><dl class="section warning"><dt>Warning</dt><dd>The API has a long history. The OpenAssetIO release version is currently in a beta stage and is subject to some refinements over the coming months. See the <a href="https://github.com/orgs/OpenAssetIO/projects/1" target="_blank">project tracker</a> for more details.</dd></dl>
 <p>OpenAssetIO defines a common set of interactions between a <a class="el" href="glossary.html#host">host</a> of the API (eg: a Digital Content Creation tool or pipeline script) and an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.</p>
 <div align="center">
-<img src="inline_umlgraph_3.png" />
+<img src="inline_umlgraph_4.png" />
 </div>
 <p>It aims to reduce the integration effort and maintenance overhead of modern CGI pipelines, and pioneer new, standardized asset-centric workflows in post-production tooling.</p>
 <p>OpenAssetIO enabled tools and asset management systems can freely communicate with each other, without needing to know any specifics of their respective implementations.</p>
@@ -142,7 +142,7 @@ Architecture</h1>
 <dl class="section note"><dt>Note</dt><dd>This API does <em>not</em> define, specify or implement either the asset management system or the host, rather a set of generalized queries and actions and concepts that have been found to be common across the majority of known workflows and back-end implementations.</dd></dl>
 <p>Depending on whether you are reading this as a <a class="el" href="glossary.html#host">host</a> author, or as an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> integrator, it is worth understanding the high-level architecture of the system. After this, the documentation (and code base) is separated depending on your focus. The following (potentially confusing) diagram attempts to show a simplified version of the architecture as a UML Class Diagram:</p>
 <div align="center">
-<img src="inline_umlgraph_4.png" />
+<img src="inline_umlgraph_5.png" />
 </div>
 <p>It attempts to show that the API is organized into two main namespaces - the <a class="el" href="namespaceopenassetio_1_1host_api.html">hostApi</a> and <a class="el" href="namespaceopenassetio_1_1manager_api.html">managerApi</a>. Within each of these, you will find the components you need depending on whether you are adopting the API in a <a class="el" href="glossary.html#host">host</a> or providing support for a <a class="el" href="glossary.html#manager">manager</a> through a plugin.</p>
 <p>The first step in any integration is to write an implementation of one of the two abstract interfaces defined by the API, illustrated in orange above - either the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html">HostInterface</a> or <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>.</p>
@@ -183,7 +183,7 @@ The Asset Manager's Commitment</h1>
   </ul>
 </div>
 <hr class="footer"/>
-<p id="copyright"><small>Copyright 2013-2021 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
+<p id="copyright"><small>Copyright 2013-2023 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
 </div>
 </body>
 </html>

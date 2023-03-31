@@ -114,6 +114,9 @@ Context</h1>
 <p>The information in the context is vital to interpreting the intent of a <a class="el" href="glossary.html#host">hosts</a> actions. For example, if an Image <a class="el" href="glossary.html#Specification">Specification</a> is passed to a browser, a context access of 'kWrite' indicates the host wishes browse for a destination to publish a single image <a class="el" href="glossary.html#entity">entity</a> to, so any viable container should be selectable. If it is 'kRead' then the host is wishing to browse for an entity to read, so only existing entities that match the specification should be presented. If 'kWriteMultiple' is specified, then the applicable selections generally changes again.</p>
 <p>The Context also holds an opaque (to the host) data pointer, created by the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a>, that contains any persistent state its implementation wishes to store.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a></dd></dl>
+<h1><a class="anchor" id="DCC"></a>
+Digital Contentent Creation tool (DCC)</h1>
+<p>Within the Media and Entertainment industry (and possibly further afield), Digital Content Creation tools refer to the applications used to produce graphics, audio and other artistic works. For example, Adobe Photoshop, Autodesk Maya, and Foundry's Nuke.</p>
 <h1><a class="anchor" id="entity"></a>
 entity</h1>
 <p>An 'entity' is the generic name for something that is managed by a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. Entities are identified by an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. We choose the term 'entity' as some systems give a specific meaning to an 'asset', such that all assets are entities, but not all entities are assets.</p>
@@ -189,6 +192,9 @@ $OPENASSETIO_DEFAULT_CONFIG</h1>
 $OPENASSETIO_PLUGIN_PATH</h1>
 <p>This is the environment variable used to discover <a class="el" href="glossary.html#PythonPluginSystemManagerPlugin">PythonPluginSystemManagerPlugins</a>, it is searched left-to-right, using standard <code>$PATH</code> semantics (delimited by <code>:</code> on POSIX systems and <code>;</code> on Windows). The first package that registers a specific identifier wins.</p>
 <p>So to override a plug-in with a dev version, ensure it is to the left of the standard plug-in.</p>
+<h1><a class="anchor" id="logging_severity_var"></a>
+$OPENASSETIO_LOGGING_SEVERITY</h1>
+<p>This is the environment variable used to control the default logging severity of the API. Note that many <a class="el" href="glossary.html#host">hosts</a> re-direct logging to their own system. Usually in these cases, logging severity is then controlled by the host's own configuration mechanism(s).</p>
 <h1><a class="anchor" id="manager_state"></a>
 Manager State</h1>
 <p>The <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> is, by design, a stateless, re-entrant API. Consequently, the result of any call to an instance of this class should solely depend on the methods arguments. In real-world use however, it is often required to understand that a series of discreet calls to the API may be part of the same logical user action.</p>
@@ -280,7 +286,7 @@ Trait Set</h1>
   </ul>
 </div>
 <hr class="footer"/>
-<p id="copyright"><small>Copyright 2013-2021 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
+<p id="copyright"><small>Copyright 2013-2023 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
 </div>
 </body>
 </html>

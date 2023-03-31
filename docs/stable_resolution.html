@@ -117,7 +117,7 @@ Manager State</h1>
 <p>The manager state mechanism allows a <a class="el" href="glossary.html#manager">manager</a> to embed state within the <a class="el" href="glossary.html#host">host</a>, such that it can correlate API calls.</p>
 <p>Whenever a <a class="el" href="glossary.html#Context">Context</a> is created by the host, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">ManagerInterface.createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">ManagerInterface.createChildState</a>) method will be called, and the returned token stored in the Context's <a class="el" href="classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917">managerState</a> property.</p>
 <div align="center">
-<img src="inline_umlgraph_1.png" />
+<img src="inline_umlgraph_2.png" />
 </div>
 <dl class="section warning"><dt>Warning</dt><dd>The host must treat the token as being opaque, and is solely responsible for managing the lifetime of each Context such that it is re-used for logically correlated series of actions. The API middleware takes care of requesting and persisting the state token.</dd></dl>
 <h1><a class="anchor" id="stable_resolution_manager_state_distribution"></a>
@@ -125,7 +125,7 @@ Distributed Processing</h1>
 <p>Distributed processing requires the same context to be shared by multiple discrete working processes.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">Manager.persistenceTokenForContext</a> and <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> methods provide a mechanism by which a <a class="el" href="glossary.html#host">host</a> can obtain a portable version of the manager's state token for a given context for distribution to other processes that are logically connected.</p>
 <div align="center">
-<img src="inline_umlgraph_2.png" />
+<img src="inline_umlgraph_3.png" />
 </div>
 <dl class="section note"><dt>Note</dt><dd>The above diagram omits the interaction between the Manager and ManagerInterface classes for readability. Right-click to open in a larger view.</dd></dl>
 <p>This mechanism allows for distributed API calls to be anchored to specific snapshot of a manager's view of the world. It is not intended to be used to group discrete publishing actions into a batch. This (may be) covered (in the future) by a separate transaction API.</p>
@@ -144,7 +144,7 @@ Implementation Guidelines</h1>
   </ul>
 </div>
 <hr class="footer"/>
-<p id="copyright"><small>Copyright 2013-2021 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
+<p id="copyright"><small>Copyright 2013-2023 The Foundry Visionmongers Ltd. OpenAssetIO is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache 2.0 License</a></small></p>
 </div>
 </body>
 </html>
