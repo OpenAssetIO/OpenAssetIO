@@ -113,6 +113,11 @@
  *   "Manager.isEntityReferenceString" before passing to any other API
  *   calls.
  *
+ * - Provide means for users to 'de-assetize' documents to facilitate
+ *   sharing outside of the assetized environment. This usually consists
+ *   of resolving any appropriate traits and substituting entity
+ *   references or controlled properties with their resolved values.
+ *
  * @see @ref examples_api_initialization
  * @see @ref examples_picking_a_manager
  * @see @ref examples_resolving_a_reference
