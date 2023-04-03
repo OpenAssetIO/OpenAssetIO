@@ -139,6 +139,10 @@ def main():
     # Helpers required by the API
 
     # A simple logger that prints messages to the console.
+    # In most integrations you would derive the LoggerInterface
+    # class and bridge the log method to your own messaging system.
+    # ConsoleLogger/SeverityFilter are simple conveniences that can be
+    # used in standalone situations such as this.
     logger = SeverityFilter(ConsoleLogger())
 
     # The Python plugin system can load manager implementations
