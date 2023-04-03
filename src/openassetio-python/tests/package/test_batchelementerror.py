@@ -23,7 +23,15 @@ Tests for the BatchElementError type.
 
 import pytest
 
-from openassetio import BatchElementError
+from openassetio import (
+    BatchElementError,
+    BatchElementException,
+    UnknownBatchElementException,
+    InvalidEntityReferenceBatchElementException,
+    MalformedEntityReferenceBatchElementException,
+    EntityAccessErrorBatchElementException,
+    EntityResolutionErrorBatchElementException,
+)
 
 
 class Test_BatchElementError_ErrorCode:
@@ -70,3 +78,45 @@ class Test_BatchElementError_init:
 
         with pytest.raises(AttributeError, match="can't set attribute"):
             a_batch_element_error.message = "whatever"
+
+
+@pytest.mark.parametrize(
+    "exception_type",
+    [
+        BatchElementException,
+        UnknownBatchElementException,
+        InvalidEntityReferenceBatchElementException,
+        MalformedEntityReferenceBatchElementException,
+        EntityAccessErrorBatchElementException,
+        EntityResolutionErrorBatchElementException,
+    ],
+)
+# Note: these tests are not sufficient to assert that C++ exceptions
+# are appropriately translated. This will be implicitly tested via e.g.
+# `resolve` tests.
+class Test_BatchElementException:
+    def test_can_catch_as_self_type(self, exception_type):
+        expected_message = "some string"
+        expected_code = BatchElementError.ErrorCode.kUnknown
+
+        a_batch_element_error = BatchElementError(expected_code, expected_message)
+
+        with pytest.raises(exception_type, match=expected_message) as exc:
+            raise exception_type(123, a_batch_element_error)
+
+        assert exc.value.index == 123
+        assert exc.value.error.code == expected_code
+        assert exc.value.error.message == expected_message
+
+    def test_can_catch_as_BatchElementException(self, exception_type):
+        expected_message = "some string"
+        expected_code = BatchElementError.ErrorCode.kUnknown
+
+        a_batch_element_error = BatchElementError(expected_code, expected_message)
+
+        with pytest.raises(BatchElementException, match=expected_message) as exc:
+            raise exception_type(123, a_batch_element_error)
+
+        assert exc.value.index == 123
+        assert exc.value.error.code == expected_code
+        assert exc.value.error.message == expected_message

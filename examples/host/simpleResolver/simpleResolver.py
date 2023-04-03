@@ -25,7 +25,7 @@ import argparse
 import json
 import sys
 
-
+from openassetio import BatchElementException
 from openassetio.hostApi import HostInterface, ManagerFactory
 from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
@@ -76,11 +76,9 @@ class SimpleResolverHostInterface(HostInterface):
 # use cases.
 
 
-def print_traits_data(_, data):
+def print_traits_data(data):
     """
-    A callback function that will print out the supplied entity
-    TraitsData. As we only deal with a single result, we ignore the
-    index.
+    A function that will print out the supplied entity TraitsData.
     """
     # Note that in real tools, you should avoid working directly with
     # TraitsData. The industry-specific view classes should be used to
@@ -111,16 +109,6 @@ def print_traits_data(_, data):
     print(json.dumps(as_dict))
 
 
-def fail_with_message(_, batch_element_error):
-    """
-    A callback function that will exit with an appropriate message and
-    error code As we only deal with a single result, we ignore the
-    index.
-    """
-    sys.stderr.write(f"ERROR: {batch_element_error.message}\n")
-    sys.exit(int(batch_element_error.code))
-
-
 #
 # main
 #
@@ -139,7 +127,6 @@ def create_argparser():
 
 
 def main():
-
     ###
     # API Bootstrap
     #
@@ -205,19 +192,21 @@ def main():
     context.access = context.Access.kRead
 
     # Resolve the requested traits for the referenced entity.
+    # Note that there are multiple overloaded signatures for `resolve`,
+    # to aid in batch and/or exception-less workflows. See API docs for
+    # more. Here we use the default single-ref exception-throwing
+    # signature.
 
-    manager.resolve(
-        [entity_reference],  # The API is batch-centric
-        trait_set,
-        context,
-        print_traits_data,  # success callback
-        fail_with_message,  # error callback
-    )
+    traits_data = manager.resolve(entity_reference, trait_set, context)
+    print_traits_data(traits_data)
 
 
 if __name__ == "__main__":
     try:
         main()
+    except BatchElementException as exc:  # pylint: disable=broad-except
+        sys.stderr.write(f"ERROR: {exc}\n")
+        sys.exit(int(exc.error.code))
     except Exception as exc:  # pylint: disable=broad-except
         sys.stderr.write(f"ERROR: {exc}\n")
         sys.exit(1)

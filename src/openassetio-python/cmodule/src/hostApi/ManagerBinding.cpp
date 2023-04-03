@@ -18,6 +18,7 @@
 void registerManager(const py::module& mod) {
   namespace trait = openassetio::trait;
   using openassetio::ContextConstPtr;
+  using openassetio::EntityReference;
   using openassetio::EntityReferences;
   using openassetio::TraitsDataPtr;
   using openassetio::hostApi::Manager;
@@ -25,7 +26,24 @@ void registerManager(const py::module& mod) {
   using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterfacePtr;
 
-  py::class_<Manager, ManagerPtr>(mod, "Manager")
+  py::class_<Manager, ManagerPtr> pyManager{mod, "Manager"};
+
+  // BatchElementErrorPolicy tags for tag dispatch overload resolution
+  // idiom.
+  py::class_<Manager::BatchElementErrorPolicyTag> pyBatchElementErrorPolicyTag{
+      pyManager, "BatchElementErrorPolicyTag"};
+  // NOLINTNEXTLINE(bugprone-unused-raii)
+  py::class_<Manager::BatchElementErrorPolicyTag::Exception>{pyBatchElementErrorPolicyTag,
+                                                             "Exception"};
+  // NOLINTNEXTLINE(bugprone-unused-raii)
+  py::class_<Manager::BatchElementErrorPolicyTag::Variant>{pyBatchElementErrorPolicyTag,
+                                                           "Variant"};
+
+  pyBatchElementErrorPolicyTag
+      .def_readonly_static("kException", &Manager::BatchElementErrorPolicyTag::kException)
+      .def_readonly_static("kVariant", &Manager::BatchElementErrorPolicyTag::kVariant);
+
+  pyManager
       .def(py::init(RetainCommonPyArgs::forFn<&Manager::make>()),
            py::arg("managerInterface").none(false), py::arg("hostSession").none(false))
       .def("identifier", &Manager::identifier)
@@ -53,6 +71,55 @@ void registerManager(const py::module& mod) {
                &Manager::resolve),
            py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("resolve",
+           static_cast<TraitsDataPtr (Manager::*)(
+               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::resolve),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def("resolve",
+           static_cast<std::variant<TraitsDataPtr, openassetio::BatchElementError> (Manager::*)(
+               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def(
+          "resolve",
+          // TODO(DF): Technically we shouldn't need this overload,
+          // since we can use a similar trick to C++ to default the
+          // appropriate overload's tag parameter, e.g.
+          // `py::arg("errorPolicyTag") = {}`. However, this causes a
+          // memory leak in pybind11.
+          [](Manager& self, const EntityReference& entityReference,
+             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
+            return self.resolve(entityReference, traitSet, context);
+          },
+          py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false))
+      .def("resolve",
+           static_cast<std::vector<TraitsDataPtr> (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::resolve),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def(
+          "resolve",
+          static_cast<std::vector<std::variant<TraitsDataPtr, openassetio::BatchElementError>> (
+              Manager::*)(const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+                          const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
+          py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+          py::arg("errorPolicyTag"))
+      .def(
+          "resolve",
+          // TODO(DF): Technically we shouldn't need this overload,
+          // since we can use a similar trick to C++ to default the
+          // appropriate overload's tag parameter, e.g.
+          // `py::arg("errorPolicyTag") = {}`. However, this causes a
+          // memory leak in pybind11.
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
+            return self.resolve(entityReferences, traitSet, context);
+          },
+          py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
       .def("preflight", &Manager::preflight, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
       .def(
