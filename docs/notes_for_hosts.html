@@ -143,6 +143,7 @@ Required for Simple Resolution</h2>
 <li>Create, persist and configure a <a class="el" href="glossary.html#Context">Context</a> as appropriate for all calls to the API.</li>
 <li>Ask the <a class="el" href="glossary.html#manager">manager</a> if they support resolve for the relevant data by supplying its <a class="el" href="glossary.html#trait_set">Trait Set</a> to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">Manager.managementPolicy</a> with a <a class="el" href="glossary.html#Context">Context</a> with <code>kRead</code> access, respecting the returned traits - this may be a subset if the manager is only capable of resolving some of an entity's traits.</li>
 <li>Always check any suspected entity references with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">Manager.isEntityReferenceString</a> before passing to any other API calls.</li>
+<li>Provide means for users to 'de-assetize' documents to facilitate sharing outside of the assetized environment. This usually consists of resolving any appropriate traits and substituting entity references or controlled properties with their resolved values.</li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="examples.html#examples_api_initialization">Initializing the API in a Host</a> </dd>
 <dd>
