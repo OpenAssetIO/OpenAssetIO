@@ -5,6 +5,7 @@
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
+#include <openassetio/BatchElementError.hpp>
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/Manager.hpp>
@@ -45,8 +46,13 @@ void registerManager(const py::module& mod) {
            py::arg("entityReferenceString"))
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"))
-      .def("resolve", &Manager::resolve, py::arg("entityReferences"), py::arg("traitSet"),
-           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
+      .def("resolve",
+           static_cast<void (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::ResolveSuccessCallback&, const Manager::BatchElementErrorCallback&)>(
+               &Manager::resolve),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def("preflight", &Manager::preflight, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
       .def(
@@ -54,7 +60,7 @@ void registerManager(const py::module& mod) {
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
              const Manager::RegisterSuccessCallback& successCallback,
-             const openassetio::BatchElementErrorCallback& errorCallback) {
+             const Manager::BatchElementErrorCallback& errorCallback) {
             // Pybind has no built-in way to assert that a collection
             // does not contain any `None` elements, so we must add our
             // own check here.

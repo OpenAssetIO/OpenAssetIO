@@ -13,17 +13,30 @@ v1.0.0-alpha.X
 - Changed the host identifier, and removed the custom locale from the
   `simpleResolver` example as they did not follow best practice.
 
+- `BatchElementErrorCallback` moved from the top level `openassetio`
+   namespace to the `openassetio::hostApi::Manager` namespace.
+   [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
+
 ### New features
 
 - Added `TraitBase.isImbuedTo` static/class method, giving a cheaper
   mechanism for testing whether a `TraitsData` is imbued with a trait.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+- Added C++ `resolve` overloads for convenience, providing alternatives
+  to the core callback-based workflow. Includes a more direct method for
+  resolving a single entity reference, and exception vs. result object
+  workflows.
+  [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
+
 ### Improvements
 
 - Improved the documentation for the `simpleResolver` example, to
   provide more context when using it as a starting point for an
   OpenAssetIO integration.
+
+- Made `BatchElementError` a copyable type in the C++ API.
+  [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
 
 ### Bug fixes
 

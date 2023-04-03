@@ -575,6 +575,27 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
+   * @name Batch element error handling
+   *
+   * @{
+   */
+  /**
+   * Callback signature used for an unsuccessful operation on an
+   * element in a batch.
+   *
+   * This should be called for errors that are specific to a particular
+   * reference in a batch. Exceptions can be thrown to indicate a
+   * whole-batch error.
+   *
+   * The appropriate error code should be used for these errors. See
+   * @fqref{BatchElementError.ErrorCode} "ErrorCode".
+   */
+  using BatchElementErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
+  /**
+   * @}
+   */
+
+  /**
    * @name Entity Reference Resolution
    *
    * The concept of resolution is turning an @ref entity_reference into

@@ -11,6 +11,30 @@
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace {
+// Takes a BatchElementError and throws an equivalent exception.
+void throwFromBatchElementError(std::size_t index, const BatchElementError &error) {
+  switch (error.code) {
+    case BatchElementError::ErrorCode::kUnknown:
+      throw UnknownBatchElementException(index, error);
+    case BatchElementError::ErrorCode::kInvalidEntityReference:
+      throw InvalidEntityReferenceBatchElementException(index, error);
+    case BatchElementError::ErrorCode::kMalformedEntityReference:
+      throw MalformedEntityReferenceBatchElementException(index, error);
+    case BatchElementError::ErrorCode::kEntityAccessError:
+      throw EntityAccessErrorBatchElementException(index, error);
+    case BatchElementError::ErrorCode::kEntityResolutionError:
+      throw EntityResolutionErrorBatchElementException(index, error);
+    default:
+      std::string exceptionMessage = "Invalid BatchElementError. Code: ";
+      exceptionMessage += std::to_string(static_cast<int>(error.code));
+      exceptionMessage += " Message: ";
+      exceptionMessage += error.message;
+      throw std::out_of_range{exceptionMessage};
+  }
+}
+
+}  // namespace
 namespace hostApi {
 
 ManagerPtr Manager::make(managerApi::ManagerInterfacePtr managerInterface,
@@ -98,6 +122,82 @@ void Manager::resolve(const EntityReferences &entityReferences, const trait::Tra
                       const BatchElementErrorCallback &errorCallback) {
   managerInterface_->resolve(entityReferences, traitSet, context, hostSession_, successCallback,
                              errorCallback);
+}
+
+// Singular Except
+TraitsDataPtr hostApi::Manager::resolve(
+    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  TraitsDataPtr resolveResult;
+  resolve(
+      {entityReference}, traitSet, context,
+      [&resolveResult]([[maybe_unused]] std::size_t index, const TraitsDataPtr &data) {
+        resolveResult = data;
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        throwFromBatchElementError(index, error);
+      });
+
+  return resolveResult;
+}
+
+// Singular variant
+std::variant<TraitsDataPtr, BatchElementError> hostApi::Manager::resolve(
+    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<TraitsDataPtr, BatchElementError> resolveResult;
+  resolve(
+      {entityReference}, traitSet, context,
+      [&resolveResult]([[maybe_unused]] std::size_t index, const TraitsDataPtr &data) {
+        resolveResult = data;
+      },
+      [&resolveResult]([[maybe_unused]] std::size_t index, const BatchElementError &error) {
+        resolveResult = error;
+      });
+
+  return resolveResult;
+}
+
+// Multi except
+std::vector<TraitsDataPtr> hostApi::Manager::resolve(
+    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<TraitsDataPtr> resolveResult;
+  resolveResult.resize(entityReferences.size());
+
+  resolve(
+      entityReferences, traitSet, context,
+      [&resolveResult](std::size_t index, const TraitsDataPtr &data) {
+        resolveResult[index] = data;
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        // Implemented as if FAILFAST is true.
+        throwFromBatchElementError(index, error);
+      });
+
+  return resolveResult;
+}
+
+// Multi variant
+std::vector<std::variant<TraitsDataPtr, BatchElementError>> hostApi::Manager::resolve(
+    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<TraitsDataPtr, BatchElementError>> resolveResult;
+  resolveResult.resize(entityReferences.size());
+  resolve(
+      entityReferences, traitSet, context,
+      [&resolveResult](std::size_t index, const TraitsDataPtr &data) {
+        resolveResult[index] = data;
+      },
+      [&resolveResult](std::size_t index, const BatchElementError &error) {
+        resolveResult[index] = error;
+      });
+
+  return resolveResult;
 }
 
 void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
