@@ -46,7 +46,6 @@ v1.0.0-alpha.X
   cases.
   [#825](https://github.com/OpenAssetIO/OpenAssetIO/issues/825)
 
-
 v1.0.0-alpha.9
 --------------
 
@@ -64,7 +63,6 @@ v1.0.0-alpha.9
   facilitates testing of a manager's initialization behavior.
   [BAL#26](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/26)
 
-
 ### Bug fixes
 
 - Ensured that the Python GIL is acquired within
@@ -78,7 +76,6 @@ v1.0.0-alpha.9
   cleaned up. This could manifest as segfaults or hangs at program exit.
   [#805](https://github.com/OpenAssetIO/OpenAssetIO/pull/805)
 
-
 v1.0.0-alpha.8
 --------------
 
@@ -90,7 +87,6 @@ v1.0.0-alpha.8
   use. See [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
   for traits previously included here.
   [#717](https://github.com/OpenAssetIO/OpenAssetIO/issues/717)
-
 
 v1.0.0-alpha.7
 --------------
@@ -138,7 +134,6 @@ v1.0.0-alpha.7
   `.traitPropertyKeys` / copy-constructor.
   [#743](https://github.com/OpenAssetIO/OpenAssetIO/issues/743)
 
-
 ### New features
 
 - Added entry point based discovery of Python manager plugins. This
@@ -150,7 +145,6 @@ v1.0.0-alpha.7
   setting the `OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS` env var to any
   value.
   [#762](https://github.com/OpenAssetIO/OpenAssetIO/issues/762)
-
 
 ### Improvements
 
@@ -179,7 +173,6 @@ v1.0.0-alpha.7
   targets, and the build-tree has `RPATH` support.
   [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
 
-
 ### Bug fixes
 
 - Fixed various broken URLs in markdown docs.
@@ -195,7 +188,6 @@ v1.0.0-alpha.7
 
 - Fixed `.pdb` debug symbol files installation location on Windows.
   [#675](https://github.com/OpenAssetIO/OpenAssetIO/pull/675)
-
 
 v1.0.0-alpha.6
 --------------
@@ -219,7 +211,6 @@ v1.0.0-alpha.6
 
 - Added compatibility with Python 3.7.
   [#660](https://github.com/OpenAssetIO/OpenAssetIO/issues/660)
-
 
 v1.0.0-alpha.5
 --------------
@@ -316,7 +307,6 @@ v1.0.0-alpha.4
   more widely in callback based API functions.
   [#588](https://github.com/OpenAssetIO/OpenAssetIO/issues/588)
 
-
 ### New Features
 
 - Added basic publishing support to the `BasicAssetLibrary` (BAL)
@@ -333,7 +323,6 @@ v1.0.0-alpha.4
   the manager identifier/settings from this file and returns a suitably
   configured instance of that manager.
   [#494](https://github.com/OpenAssetIO/OpenAssetIO/issues/494)
-
 
 ### Improvements
 
@@ -377,7 +366,6 @@ v1.0.0-alpha.4
   objects remaining alive.
   [#620](https://github.com/OpenAssetIO/OpenAssetIO/pull/620)
 
-
 v1.0.0-alpha.3
 --------------
 
@@ -385,13 +373,11 @@ v1.0.0-alpha.3
 
 - Added boolean comparison based on content to `EntityReference` types.
 
-
 ### Bug fixes
 
 - Fixed calling `Manager.resolve` from C++, when the manager
   implementation is written in Python.
   [#582](https://github.com/OpenAssetIO/OpenAssetIO/issues/582)
-
 
 v1.0.0-alpha.2
 --------------
@@ -579,13 +565,11 @@ v1.0.0-alpha.2
   methods should be used instead.
   [#481](https://github.com/OpenAssetIO/OpenAssetIO/issues/481)
 
-
 ### Features
 
 - Added `openassetio-codegen` tool to auto-generate `Trait` and
   `Specification` classes from simple YAML descriptions.
   [#415](https://github.com/OpenAssetIO/OpenAssetIO/issues/415)
-
 
 ### Improvements
 
@@ -678,7 +662,6 @@ v1.0.0-alpha.2
     `resources/examples/manager/BasicAssetLibrary/schema.json`
   [#459](https://github.com/OpenAssetIO/OpenAssetIO/issues/459)
 
-
 ### Bug fixes
 
 - Python objects that inherit from a C++ base class, and are held by a
@@ -694,7 +677,6 @@ v1.0.0-alpha.2
 - C headers are now C99 compliant. In particular, they no longer
   `#include` C++-specific headers.
   [#337](https://github.com/OpenAssetIO/OpenAssetIO/issues/337)
-
 
 v1.0.0-alpha.1
 --------------
