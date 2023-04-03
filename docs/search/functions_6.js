@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['getcasename',['getCaseName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#ae60a2f144386bd43dbcec4aff82fba2b',1,'openassetio::test::specifications::TestTrait']]],
-  ['getenabled',['getEnabled',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a88cba8cbcc5c64600f9a0d1e51083d5c',1,'openassetio::_core::audit::Auditor']]],
-  ['getrelatedreferences',['getRelatedReferences',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a',1,'openassetio.hostApi.Manager.Manager.getRelatedReferences()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.getRelatedReferences()']]],
-  ['getseverity',['getSeverity',['../classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#a4146410375979b9798a5b6656989fde0',1,'openassetio::v1::log::SeverityFilter']]],
-  ['getsuitename',['getSuiteName',['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#ac087548a7f8bc38ce2371714d8c92454',1,'openassetio::test::specifications::TestTrait']]],
-  ['gettraitproperty',['getTraitProperty',['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#a9a9a800f563c61df74469d9c5af6fdf3',1,'openassetio::v1::trait::TraitBase::getTraitProperty()'],['../classopenassetio_1_1v1_1_1_traits_data.html#a08fa5975381df4904c7a5dfad6f13b83',1,'openassetio::v1::TraitsData::getTraitProperty()']]],
-  ['groups',['groups',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a2c86b0b1f046cd080cae02ef0b295595',1,'openassetio::_core::audit::Auditor']]]
+  ['finalizedentityversion',['finalizedEntityVersion',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a7d7e21b2b629933fd4175521de8b6c6e',1,'openassetio.hostApi.Manager.Manager.finalizedEntityVersion()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.finalizedEntityVersion()']]],
+  ['fixturesfrompyfile',['fixturesFromPyFile',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html#ac51f257c0e8aa25dca723a8c22e01a14',1,'openassetio::test::manager::harness']]],
+  ['flushcaches',['flushCaches',['../classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#ae5cb722a05be4762724ae302d00291c4',1,'openassetio.hostApi.Manager.Manager.flushCaches()'],['../classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7',1,'openassetio.managerApi.ManagerInterface.ManagerInterface.flushCaches()']]]
 ];

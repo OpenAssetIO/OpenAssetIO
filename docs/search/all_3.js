@@ -4,7 +4,7 @@ var searchData=
   ['c_20api',['C API',['../group___c_a_p_i.html',1,'']]],
   ['captureargs',['captureArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#ade88f01e5e56c7bd9f282c8cd83277ff',1,'openassetio::_core::audit']]],
   ['cmdline',['cmdline',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#af9fc2c1e3bc16deaed748019767bb1cd',1,'openassetio::test::manager::__main__']]],
-  ['code',['code',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a663cd681ccfa529e1c0612cca88b7c49',1,'openassetio::v1::BatchElementError']]],
+  ['code',['code',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a2a8da57251af6baf047d8b57ae811203',1,'openassetio::v1::BatchElementError']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['consolelogger',['ConsoleLogger',['../namespaceopenassetio_1_1log.html#a7250b73e468047882e21e5e92fd6f020',1,'openassetio::log']]],

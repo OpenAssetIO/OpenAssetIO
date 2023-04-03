@@ -1,9 +1,11 @@
 var hierarchy =
 [
     [ "BatchElementError", "classopenassetio_1_1v1_1_1_batch_element_error.html", null ],
+    [ "Manager::BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", null ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "EntityReference", "classopenassetio_1_1v1_1_1_entity_reference.html", null ],
+    [ "Manager::BatchElementErrorPolicyTag::Exception", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
@@ -16,10 +18,10 @@ var hierarchy =
     ] ],
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
+    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerFactory", null, [
       [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
     ] ],
-    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterface", null, [
@@ -39,6 +41,15 @@ var hierarchy =
       ] ],
       [ "PythonPluginSystem", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html", null ],
       [ "PythonPluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html", null ]
+    ] ],
+    [ "runtime_error", null, [
+      [ "BatchElementException", "structopenassetio_1_1v1_1_1_batch_element_exception.html", [
+        [ "EntityAccessErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html", null ],
+        [ "EntityResolutionErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html", null ],
+        [ "InvalidEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html", null ],
+        [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
+        [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
+      ] ]
     ] ],
     [ "RuntimeError", null, [
       [ "OpenAssetIOException", "classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html", [
@@ -65,6 +76,7 @@ var hierarchy =
     [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
     [ "TraitBase", "classopenassetio_1_1_trait_base_1_1_trait_base.html", null ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
+    [ "Manager::BatchElementErrorPolicyTag::Variant", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html", null ],
     [ "Debuggable", null, [
       [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
     ] ],

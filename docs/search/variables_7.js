@@ -6,6 +6,7 @@ var searchData=
   ['kdocumentaction_5fsave',['kDocumentAction_Save',['../namespaceopenassetio_1_1constants.html#ac53f766f74ca7ae4aa9715b1484e95b5',1,'openassetio::constants']]],
   ['kdocumentaction_5fsaveas',['kDocumentAction_SaveAs',['../namespaceopenassetio_1_1constants.html#a87815a4e1cc6779c048a11e63877f323',1,'openassetio::constants']]],
   ['kdocumentaction_5fsavenewversion',['kDocumentAction_SaveNewVersion',['../namespaceopenassetio_1_1constants.html#ae5a449c90157a7eff1b70e25e9db0746',1,'openassetio::constants']]],
+  ['kexception',['kException',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html#a195435d977449c0d53f605b6d76d5d8a',1,'openassetio::v1::hostApi::Manager::BatchElementErrorPolicyTag']]],
   ['kfield_5fdisplayname',['kField_DisplayName',['../namespaceopenassetio_1_1constants.html#a24860557832616158a6274e8a9938c4b',1,'openassetio::constants']]],
   ['kfield_5fdropframe',['kField_DropFrame',['../namespaceopenassetio_1_1constants.html#a2d90c12922e009085461fe30fa08842a',1,'openassetio::constants']]],
   ['kfield_5fentityreferencesmatchprefix',['kField_EntityReferencesMatchPrefix',['../namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098',1,'openassetio::constants']]],
@@ -54,5 +55,6 @@ var searchData=
   ['kterm_5fshot',['kTerm_Shot',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ab39066cfaab5028793d15a13c9632fd2',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshots',['kTerm_Shots',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a7b9c89b2cdc69b6027aceeaf4b0cbcd4',1,'openassetio::hostApi::terminology']]],
   ['ktraitset',['kTraitSet',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#a3573e751580ba06c9da69a853173dd70',1,'openassetio.test.manager.specifications.ManagerTestHarnessLocale.kTraitSet()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a7e57e516ab8013fc97a8638d17fb2d07',1,'openassetio.test.specifications.TestHarnessLocale.kTraitSet()']]],
+  ['kvariant',['kVariant',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html#a3533271cbe4674954ca38bb4ed1eba76',1,'openassetio::v1::hostApi::Manager::BatchElementErrorPolicyTag']]],
   ['kversiondict_5forderkey',['kVersionDict_OrderKey',['../namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3',1,'openassetio::constants']]]
 ];
