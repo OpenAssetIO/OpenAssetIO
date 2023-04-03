@@ -82,7 +82,8 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
   const char* configPath = std::getenv(kDefaultManagerConfigEnvVarName.c_str());
 
   if (!configPath) {
-    Str msg = kDefaultManagerConfigEnvVarName + " not set, unable to instantiate default manager.";
+    const Str msg =
+        kDefaultManagerConfigEnvVarName + " not set, unable to instantiate default manager.";
     // We leave this as a debug message, as it is expected may hosts
     // will call this by default, and handle a null return manager, vs
     // it being a warning/error.
@@ -132,7 +133,7 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
     }
   }
 
-  managerApi::HostSessionPtr hostSession =
+  const managerApi::HostSessionPtr hostSession =
       managerApi::HostSession::make(managerApi::Host::make(hostInterface), logger);
 
   ManagerPtr manager = Manager::make(

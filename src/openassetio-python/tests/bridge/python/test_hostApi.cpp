@@ -19,9 +19,9 @@ using trompeloeil::_;
 SCENARIO("Accessing the Python plugin system from C++") {
   GIVEN("a logger") {
     // Release the GIL to ensure GIL-safe handling of Python import.
-    pybind11::gil_scoped_release gil{};
+    const pybind11::gil_scoped_release gil{};
 
-    openassetio::log::LoggerInterfacePtr logger = std::make_shared<MockLogger>();
+    const openassetio::log::LoggerInterfacePtr logger = std::make_shared<MockLogger>();
     auto& mockLogger = static_cast<MockLogger&>(*logger);
 
     ALLOW_CALL(mockLogger, log(_, _));

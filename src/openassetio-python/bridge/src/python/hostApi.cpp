@@ -23,16 +23,16 @@ using openassetio::hostApi::ManagerImplementationFactoryInterfacePtr;
 ManagerImplementationFactoryInterfacePtr createPythonPluginSystemManagerImplementationFactory(
     log::LoggerInterfacePtr logger) {  // NOLINT(performance-unnecessary-value-param)
   // Caller might not hold the GIL, which is required for `import`s.
-  py::gil_scoped_acquire gil{};
+  const py::gil_scoped_acquire gil{};
 
   // Get Python class.
-  py::object pyClass =
+  const py::object pyClass =
       py::module_::import(
           "openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory")
           .attr("PythonPluginSystemManagerImplementationFactory");
 
   // Instantiate Python object.
-  py::object pyInstance = pyClass(std::move(logger));
+  const py::object pyInstance = pyClass(std::move(logger));
 
   // Extract the underlying C++ base class pointer.
   auto* cppInstancePtr = py::cast<ManagerImplementationFactoryInterface*>(pyInstance);

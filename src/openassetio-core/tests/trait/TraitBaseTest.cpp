@@ -37,7 +37,7 @@ struct TestTrait : trait::TraitBase<TestTrait> {
 
 SCENARIO("Retrieving the undelying data") {
   GIVEN("Some known traits data") {
-    TraitsDataPtr data = TraitsData::make();
+    const TraitsDataPtr data = TraitsData::make();
 
     WHEN("a trait instance is constructed with data") {
       TestTrait trait(data);
@@ -99,8 +99,8 @@ SCENARIO("Checking a trait is imbued") {
 
 SCENARIO("Imbuing a trait to the traits data held by a trait instance") {
   GIVEN("Some known traits data held by a trait") {
-    TraitsDataPtr data = TraitsData::make();
-    TestTrait trait(data);
+    const TraitsDataPtr data = TraitsData::make();
+    const TestTrait trait(data);
 
     AND_GIVEN("the data does not have the trait set") {
       WHEN("the trait is imbued") {
@@ -114,7 +114,7 @@ SCENARIO("Imbuing a trait to the traits data held by a trait instance") {
 
       WHEN("the trait is imbued") {
         THEN("is a noop") {
-          TraitsDataPtr oldData = TraitsData::make(data);
+          const TraitsDataPtr oldData = TraitsData::make(data);
           trait.imbue();
           CHECK(*data == *oldData);
         }
@@ -125,7 +125,7 @@ SCENARIO("Imbuing a trait to the traits data held by a trait instance") {
 
 SCENARIO("Imbuing a trait to an arbitrary traits data instance") {
   GIVEN("Some known traits data") {
-    TraitsDataPtr data = TraitsData::make();
+    const TraitsDataPtr data = TraitsData::make();
 
     AND_GIVEN("the data does not have the trait set") {
       WHEN("the trait is imbued to the data") {
@@ -137,7 +137,7 @@ SCENARIO("Imbuing a trait to an arbitrary traits data instance") {
       data->addTrait(TestTrait::kId);
       WHEN("the trait is imbued to the data") {
         THEN("is a noop") {
-          TraitsDataPtr oldData = TraitsData::make(data);
+          const TraitsDataPtr oldData = TraitsData::make(data);
           TestTrait::imbueTo(data);
           CHECK(*data == *oldData);
         }

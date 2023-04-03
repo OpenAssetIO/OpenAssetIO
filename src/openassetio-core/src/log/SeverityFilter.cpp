@@ -21,8 +21,8 @@ SeverityFilter::SeverityFilter(LoggerInterfacePtr upstreamLogger)
   if (const char* envSeverityStr = std::getenv("OPENASSETIO_LOGGING_SEVERITY")) {
     const int envSeverity = std::atoi(envSeverityStr);
     const bool exactConversion = std::to_string(envSeverity) == envSeverityStr;
-    if (!exactConversion || envSeverity < int(Severity::kDebugApi) ||
-        envSeverity > int(Severity::kCritical)) {
+    if (!exactConversion || envSeverity < static_cast<int>(Severity::kDebugApi) ||
+        envSeverity > static_cast<int>(Severity::kCritical)) {
       Str msg = "SeverityFilter: Invalid OPENASSETIO_LOGGING_SEVERITY value '";
       msg += envSeverityStr;
       msg += "' - ignoring.";

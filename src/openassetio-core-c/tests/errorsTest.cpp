@@ -26,7 +26,7 @@ SCENARIO("throwIfError error code/message handling") {
     const auto code = oa_ErrorCode_kUnknown;
     openassetio::Str message = "some error";
 
-    oa_StringView cmessage{
+    const oa_StringView cmessage{
         message.size(),
         message.data(),
         message.size(),
@@ -79,7 +79,8 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
     auto const callable = [&] { return oa_ErrorCode_kOK; };
 
     WHEN("callable is executed whilst decorated") {
-      oa_ErrorCode actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+      const oa_ErrorCode actualErrorCode =
+          catchUnknownExceptionAsCode(&actualErrorMessage, callable);
 
       THEN("exception is caught and the error code and message is as expected") {
         CHECK(actualErrorCode == oa_ErrorCode_kOK);
@@ -94,7 +95,8 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
     auto const callable = [&]() -> oa_ErrorCode { throw std::length_error{expectedErrorMessage}; };
 
     WHEN("callable is executed whilst decorated") {
-      oa_ErrorCode actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+      const oa_ErrorCode actualErrorCode =
+          catchUnknownExceptionAsCode(&actualErrorMessage, callable);
 
       THEN("exception is caught and the error code and message is as expected") {
         CHECK(actualErrorCode == oa_ErrorCode_kException);
@@ -109,7 +111,8 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
     auto const callable = [&]() -> oa_ErrorCode { throw "some error"; };
 
     WHEN("callable is executed whilst decorated") {
-      oa_ErrorCode actualErrorCode = catchUnknownExceptionAsCode(&actualErrorMessage, callable);
+      const oa_ErrorCode actualErrorCode =
+          catchUnknownExceptionAsCode(&actualErrorMessage, callable);
 
       THEN("exception is caught and the error code and message is as expected") {
         CHECK(actualErrorCode == oa_ErrorCode_kUnknown);

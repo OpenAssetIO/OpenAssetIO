@@ -55,13 +55,13 @@ void extractExceptionMessage(oa_StringView *err, const Exception &exc) {
  *
  * @tparam Fn Type of callable to wrap.
  * @param err Storage for error message, if any.
- * @param fn Callable to wrap.
+ * @param callable Callable to wrap.
  * @return Error code.
  */
 template <typename Fn>
-auto catchUnknownExceptionAsCode(oa_StringView *err, Fn &&fn) {
+auto catchUnknownExceptionAsCode(oa_StringView *err, Fn &&callable) {
   try {
-    return fn();
+    return callable();
   } catch (std::exception &exc) {
     extractExceptionMessage(err, exc);
     return oa_ErrorCode_kException;

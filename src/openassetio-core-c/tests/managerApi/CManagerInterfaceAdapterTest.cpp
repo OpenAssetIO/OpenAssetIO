@@ -33,7 +33,7 @@ SCENARIO("A CManagerInterfaceAdapter is destroyed") {
     THEN("CManagerInterfaceAdapter's destructor calls the suite's dtor") {
       REQUIRE_CALL(mockImpl, dtor(handle));
 
-      openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
+      const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
     }
   }
 }
@@ -51,7 +51,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
     // of cManagerInterface...
     REQUIRE_CALL(mockImpl, dtor(handle));
 
-    openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
+    const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's identifier() call succeeds") {
       const std::string_view expectedIdentifier = "my.id";
@@ -117,7 +117,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
     // goes out of scope.
     REQUIRE_CALL(mockImpl, dtor(handle));
 
-    openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
+    const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's displayName() call succeeds") {
       const std::string_view expectedDisplayName = "My Display Name";
@@ -184,7 +184,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
     // goes out of scope.
     REQUIRE_CALL(mockImpl, dtor(handle));
 
-    openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
+    const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's info() call succeeds") {
       const openassetio::Str expectedInfoKey = "info key";

@@ -46,26 +46,27 @@ using MockCManagerInterfaceHandleConverter =
  * provided `handle` is a `MockCManagerInterfaceImpl` instance.
  */
 inline oa_managerApi_CManagerInterface_s mockManagerInterfaceSuite() {
-  return {// dtor
-          [](oa_managerApi_CManagerInterface_h h) {
-            MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
-            api->dtor(h);
-          },
-          // identifier
-          [](oa_StringView *err, oa_StringView *out, oa_managerApi_CManagerInterface_h h) {
-            MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
-            return api->identifier(err, out, h);
-          },
-          // displayName
-          [](oa_StringView *err, oa_StringView *out, oa_managerApi_CManagerInterface_h h) {
-            MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
-            return api->displayName(err, out, h);
-          },
-          // info
-          [](oa_StringView *err, oa_InfoDictionary_h out, oa_managerApi_CManagerInterface_h h) {
-            MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(h);
-            return api->info(err, out, h);
-          }};
+  return {
+      // dtor
+      [](oa_managerApi_CManagerInterface_h handle) {
+        MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(handle);
+        api->dtor(handle);
+      },
+      // identifier
+      [](oa_StringView *err, oa_StringView *out, oa_managerApi_CManagerInterface_h handle) {
+        MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(handle);
+        return api->identifier(err, out, handle);
+      },
+      // displayName
+      [](oa_StringView *err, oa_StringView *out, oa_managerApi_CManagerInterface_h handle) {
+        MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(handle);
+        return api->displayName(err, out, handle);
+      },
+      // info
+      [](oa_StringView *err, oa_InfoDictionary_h out, oa_managerApi_CManagerInterface_h handle) {
+        MockCManagerInterfaceImpl *api = MockCManagerInterfaceHandleConverter::toInstance(handle);
+        return api->info(err, out, handle);
+      }};
 }
 }  // namespace test
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

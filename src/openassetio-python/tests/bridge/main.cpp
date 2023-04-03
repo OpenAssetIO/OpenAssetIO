@@ -7,6 +7,10 @@
 namespace py = pybind11;
 
 int main(int argc, char* argv[]) {
-  py::scoped_interpreter guard{};
-  return Catch::Session().run(argc, argv);
+  try {
+    const py::scoped_interpreter guard{};
+    return Catch::Session().run(argc, argv);
+  } catch (...) {
+    return 1;
+  }
 }

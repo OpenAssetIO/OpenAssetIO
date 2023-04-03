@@ -89,7 +89,7 @@ SCENARIO("Creating and querying a C API immutable ConstStringView") {
     expectedStr = "some string";
 
     WHEN("a ConstStringView is constructed wrapping the buffer") {
-      oa_ConstStringView actualStringView{expectedStr.data(), expectedStr.size()};
+      const oa_ConstStringView actualStringView{expectedStr.data(), expectedStr.size()};
 
       THEN("ConstStringView can be interrogated to reveal the values at construction") {
         CHECK(actualStringView.size == expectedStr.size());

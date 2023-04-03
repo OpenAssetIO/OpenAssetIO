@@ -28,27 +28,27 @@ SCENARIO("TraitsData copy constructor is private") {
 
 SCENARIO("TraitsData make from other creates a deep copy") {
   GIVEN("an instance with existing data") {
-    TraitsDataPtr data = TraitsData::make();
-    data->setTraitProperty("a", "a", Int(1));
+    const TraitsDataPtr data = TraitsData::make();
+    data->setTraitProperty("a", "a", Int{1});
     WHEN("a copy is made using the make copy constructor") {
-      TraitsDataPtr copy = TraitsData::make(data);
+      const TraitsDataPtr copy = TraitsData::make(data);
       WHEN("existing values are queried") {
         THEN("property data has been copied") {
           Value someValue;
           Int value;
           REQUIRE(copy->getTraitProperty(&someValue, "a", "a"));
           value = *std::get_if<Int>(&someValue);
-          CHECK(value == Int(1));
+          CHECK(value == Int{1});
         }
       }
       AND_WHEN("the data is modified") {
-        data->setTraitProperty("a", "a", Int(3));
+        data->setTraitProperty("a", "a", Int{3});
         THEN("the copy is unchanged") {
           Value someValue;
           Int value;
           REQUIRE(copy->getTraitProperty(&someValue, "a", "a"));
           value = *std::get_if<Int>(&someValue);
-          CHECK(value == Int(1));
+          CHECK(value == Int{1});
         }
       }
     }

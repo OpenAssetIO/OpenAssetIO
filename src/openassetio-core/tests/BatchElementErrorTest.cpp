@@ -10,16 +10,16 @@
 using openassetio::BatchElementError;
 
 SCENARIO("BatchElementError usage") {
+  GIVEN("BatchElementError is copyable") {
+    STATIC_REQUIRE(std::is_copy_assignable_v<BatchElementError>);
+  }
+
   GIVEN("an error code and message") {
     const auto code = BatchElementError::ErrorCode::kUnknown;
     const openassetio::Str message = "some message";
 
     WHEN("a BatchElementError is constructed wrapping the code and message") {
-      BatchElementError error{code, message};
-
-      THEN("BatchElementError is copyable") {
-        STATIC_REQUIRE(std::is_copy_assignable_v<decltype(error)>);
-      }
+      const BatchElementError error{code, message};
 
       THEN("code and message are available for querying") {
         CHECK(error.code == BatchElementError::ErrorCode::kUnknown);
