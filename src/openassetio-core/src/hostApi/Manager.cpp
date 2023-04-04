@@ -143,11 +143,11 @@ TraitsDataPtr hostApi::Manager::resolve(
 }
 
 // Singular variant
-std::variant<TraitsDataPtr, BatchElementError> hostApi::Manager::resolve(
+std::variant<BatchElementError, TraitsDataPtr> hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
-  std::variant<TraitsDataPtr, BatchElementError> resolveResult;
+  std::variant<BatchElementError, TraitsDataPtr> resolveResult;
   resolve(
       {entityReference}, traitSet, context,
       [&resolveResult]([[maybe_unused]] std::size_t index, const TraitsDataPtr &data) {
@@ -182,11 +182,11 @@ std::vector<TraitsDataPtr> hostApi::Manager::resolve(
 }
 
 // Multi variant
-std::vector<std::variant<TraitsDataPtr, BatchElementError>> hostApi::Manager::resolve(
+std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
-  std::vector<std::variant<TraitsDataPtr, BatchElementError>> resolveResult;
+  std::vector<std::variant<BatchElementError, TraitsDataPtr>> resolveResult;
   resolveResult.resize(entityReferences.size());
   resolve(
       entityReferences, traitSet, context,

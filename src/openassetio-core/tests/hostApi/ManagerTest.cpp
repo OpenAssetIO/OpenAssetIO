@@ -114,7 +114,7 @@ SCENARIO("Resolving entities") {
         THEN("returned TraitsData is as expected") { CHECK(expected.get() == actual.get()); }
       }
       WHEN("singular resolve is called with kVariant errorPolicyTag") {
-        std::variant<openassetio::TraitsDataPtr, openassetio::BatchElementError> actual =
+        std::variant<openassetio::BatchElementError, openassetio::TraitsDataPtr> actual =
             manager->resolve(ref, traits, context,
                              hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected TraitsData") {
@@ -154,7 +154,7 @@ SCENARIO("Resolving entities") {
         THEN("returned list of TraitsDatas is as expected") { CHECK(expectedVec == actualVec); }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<std::variant<openassetio::TraitsDataPtr, openassetio::BatchElementError>>
+        std::vector<std::variant<openassetio::BatchElementError, openassetio::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected TraitsDatas") {
@@ -201,7 +201,7 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<std::variant<openassetio::TraitsDataPtr, openassetio::BatchElementError>>
+        std::vector<std::variant<openassetio::BatchElementError, openassetio::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants is ordered in index order") {
@@ -243,7 +243,7 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("singular resolve is called with kVariant errorPolicyTag") {
-        std::variant<openassetio::TraitsDataPtr, openassetio::BatchElementError> actual =
+        std::variant<openassetio::BatchElementError, openassetio::TraitsDataPtr> actual =
             manager->resolve(ref, traits, context,
                              hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected BatchElementError") {
@@ -296,7 +296,7 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<std::variant<openassetio::TraitsDataPtr, openassetio::BatchElementError>>
+        std::vector<std::variant<openassetio::BatchElementError, openassetio::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected objects") {
