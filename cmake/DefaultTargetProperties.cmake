@@ -20,6 +20,11 @@ function(openassetio_set_default_target_properties target_name)
         # Ensure the proposed compiler supports our minimum C++
         # standard.
         CXX_STANDARD_REQUIRED ON
+        # Explicitly set the standard, this ensures CMake always emits
+        # the -std arg. This avoids default version mismatches between
+        # compiler/linter from causing checks to fail when their
+        # respective defaults diverge.
+        CXX_STANDARD 17
         # Disable compiler extensions. E.g. use -std=c++11  instead of
         # -std=gnu++11.  Helps limit cross-platform issues.
         CXX_EXTENSIONS OFF
