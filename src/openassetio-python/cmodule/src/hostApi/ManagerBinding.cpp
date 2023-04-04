@@ -120,8 +120,13 @@ void registerManager(const py::module& mod) {
             return self.resolve(entityReferences, traitSet, context);
           },
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
-      .def("preflight", &Manager::preflight, py::arg("entityReferences"), py::arg("traitSet"),
-           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
+      .def("preflight",
+           static_cast<void (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::PreflightSuccessCallback&,
+               const Manager::BatchElementErrorCallback&)>(&Manager::preflight),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <stdexcept>
+#include <utility>
 
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
@@ -208,6 +209,76 @@ void Manager::preflight(const EntityReferences &entityReferences, const trait::T
                                errorCallback);
 }
 
+EntityReference Manager::preflight(
+    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  EntityReference result{""};
+  preflight(
+      {entityReference}, traitSet, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
+        result = std::move(preflightedRef);
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        throwFromBatchElementError(index, error);
+      });
+
+  return result;
+}
+
+std::variant<BatchElementError, EntityReference> Manager::preflight(
+    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<BatchElementError, EntityReference> result;
+  preflight(
+      {entityReference}, traitSet, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
+        result = std::move(preflightedRef);
+      },
+      [&result]([[maybe_unused]] std::size_t index, const BatchElementError &error) {
+        result = error;
+      });
+
+  return result;
+}
+
+EntityReferences Manager::preflight(
+    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  EntityReferences results;
+  results.resize(entityReferences.size(), EntityReference{""});
+
+  preflight(
+      entityReferences, traitSet, context,
+      [&results](std::size_t index, EntityReference preflightedRef) {
+        results[index] = std::move(preflightedRef);
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        // Implemented as if FAILFAST is true.
+        throwFromBatchElementError(index, error);
+      });
+
+  return results;
+}
+
+std::vector<std::variant<BatchElementError, EntityReference>> Manager::preflight(
+    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<BatchElementError, EntityReference>> results;
+  results.resize(entityReferences.size());
+  preflight(
+      entityReferences, traitSet, context,
+      [&results](std::size_t index, EntityReference entityReference) {
+        results[index] = std::move(entityReference);
+      },
+      [&results](std::size_t index, const BatchElementError &error) { results[index] = error; });
+
+  return results;
+}
+
 void Manager::register_(const EntityReferences &entityReferences,
                         const trait::TraitsDatas &entityTraitsDatas,
                         const ContextConstPtr &context,
@@ -237,6 +308,7 @@ void Manager::register_(const EntityReferences &entityReferences,
 
 managerApi::ManagerInterfacePtr Manager::_interface() const { return managerInterface_; }
 managerApi::HostSessionPtr Manager::_hostSession() const { return hostSession_; }
+
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
