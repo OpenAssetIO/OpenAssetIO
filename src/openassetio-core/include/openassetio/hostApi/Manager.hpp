@@ -869,8 +869,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the
-   * entites that are being published.
+   * @param traitSet The @ref trait_set of the entities that are being
+   * published.
    *
    * @param context The calling context. This is not
    * replaced with an array in order to simplify implementation.
