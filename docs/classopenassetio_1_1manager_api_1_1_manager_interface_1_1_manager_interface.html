@@ -149,16 +149,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7fc6f92f083cef123dc4a266c5515ac2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2">defaultEntityReference</a> (self, traitSets, context, hostSession)</td></tr>
 <tr class="memdesc:a7fc6f92f083cef123dc4a266c5515ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context.  <a href="#a7fc6f92f083cef123dc4a266c5515ac2">More...</a><br /></td></tr>
 <tr class="separator:a7fc6f92f083cef123dc4a266c5515ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Entity information</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>There are several common requests for basic, generic information about an entity that is assumed to be valid for all entity types.</p>
-<p>This suite of methods query information for a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-</div></td></tr>
-<tr class="memitem:aa56b821c07983c243b5455859c3d3fa8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#aa56b821c07983c243b5455859c3d3fa8">entityName</a> (self, entityRefs, context, hostSession)</td></tr>
-<tr class="memdesc:aa56b821c07983c243b5455859c3d3fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of each entity itself, not including any hierarchy or classification.  <a href="#aa56b821c07983c243b5455859c3d3fa8">More...</a><br /></td></tr>
-<tr class="separator:aa56b821c07983c243b5455859c3d3fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf0a35b634c24ef90a37b7caff3b9398"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#abf0a35b634c24ef90a37b7caff3b9398">entityDisplayName</a> (self, entityRefs, context, hostSession)</td></tr>
-<tr class="memdesc:abf0a35b634c24ef90a37b7caff3b9398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an unambiguous, humanised display name for each entity.  <a href="#abf0a35b634c24ef90a37b7caff3b9398">More...</a><br /></td></tr>
-<tr class="separator:abf0a35b634c24ef90a37b7caff3b9398"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Versioning</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Most <a class="el" href="glossary.html#asset_management_system">asset management systems</a> allow multiple revisions of certain entities to be tracked simultaneously.</p>
 <p>This API exposes this as a generalised concept, and its necessary for the caller to make sure only <a class="el" href="glossary.html#entity_reference">references</a> that are meaningfully versioned are queried. </p>
@@ -289,62 +279,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abf0a35b634c24ef90a37b7caff3b9398"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def entityDisplayName </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns an unambiguous, humanised display name for each entity. </p>
-<p>The display name may want to consider the host, and any other relevant Context information to form a display name for an entity that can uniquely identify the entity in that context.</p>
-<p>For example:</p>
-<ul>
-<li><code>"dive / build / cuttlefish / model / v1"</code> - for a version of an asset in an 'open recent' menu. </li>
-<li><code>"Sequence 003 [ Dive / Episode 1 ]"</code> - for a sequence in an hierarchy as a window title.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[Union[str,</code> <a class="el" href="classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html" title="Thrown whenever an Entity-based action is performed on an unrecognized Entity Reference. ">exceptions.InvalidEntityReference</a> <code>]]</code> For each given entity, either a string containing any valid characters for the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>'s implementation; or an <code>InvalidEntityReference</code> if the supplied reference is not recognised by the asset management system.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a21510517947f62a366e873af29218229"></a>
 <div class="memitem">
 <div class="memproto">
@@ -394,61 +328,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the corresponding element in entityRefs points to an existing entity, <code>False</code> if the entity is not known or ready yet.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa56b821c07983c243b5455859c3d3fa8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def entityName </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the name of each entity itself, not including any hierarchy or classification. </p>
-<p>For example:</p>
-<ul>
-<li><code>"Cuttlefish v1"</code> - for a version of an asset </li>
-<li><code>"seq003"</code> - for a sequence in a hierarchy</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> Strings containing any valid characters for the manager's implementation.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>
