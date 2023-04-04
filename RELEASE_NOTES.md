@@ -17,6 +17,11 @@ v1.0.0-alpha.X
    namespace to the `openassetio::hostApi::Manager` namespace.
    [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
 
+- Removed the `entityName` and `entityDisplayName` methods in favour of
+  resolvable traits to minimize API calls and allow industry specific
+  flexibility. See OpenAssetIO-MediaCreation.
+  [#837](https://github.com/OpenAssetIO/OpenAssetIO/issues/837)
+
 ### New features
 
 - Added `TraitBase.isImbuedTo` static/class method, giving a cheaper

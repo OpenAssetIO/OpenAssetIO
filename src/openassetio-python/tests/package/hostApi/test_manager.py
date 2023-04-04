@@ -386,32 +386,6 @@ class Test_Manager_defaultEntityReference:
         method.assert_called_once_with(some_entity_trait_sets, a_context, a_host_session)
 
 
-class Test_Manager_entityName:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.entityName)
-        assert method_introspector.is_implemented_once(Manager, "entityName")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
-    ):
-        method = mock_manager_interface.mock.entityName
-        assert manager.entityName(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, a_host_session)
-
-
-class Test_Manager_entityDisplayName:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.entityDisplayName)
-        assert method_introspector.is_implemented_once(Manager, "entityDisplayName")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
-    ):
-        method = mock_manager_interface.mock.entityDisplayName
-        assert manager.entityDisplayName(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, a_host_session)
-
-
 class Test_Manager_entityVersion:
     def test_method_defined_in_python(self, method_introspector):
         assert method_introspector.is_defined_in_python(Manager.entityVersion)
