@@ -88,7 +88,7 @@
  * worker -> Manager : createContext()
  * Manager --> worker : context
  * worker -> worker : context.access = context.kWrite
- * worker -> Manager : working_reference = preflight(["ref://asset"], context)[0]
+ * worker -> Manager : working_reference = preflight("ref://asset", context)
  * Manager --> worker : "ref://asset=v4&state=inflight"
  * worker -> Manager : persistenceTokenForContext(context)
  * Manager --> worker : token
