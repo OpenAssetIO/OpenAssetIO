@@ -14,4 +14,4 @@ struct TestState : ManagerStateBase {
 
 }  // namespace
 
-SCENARIO("Instantiating a custom state class") { [[maybe_unused]] auto _ = TestState{}; }
+SCENARIO("Instantiating a custom state class") { [[maybe_unused]] auto state = TestState{}; }

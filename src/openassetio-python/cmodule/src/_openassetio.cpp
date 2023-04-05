@@ -12,9 +12,9 @@ PYBIND11_MODULE(_openassetio, mod) {
   // pybind11 will properly report type names in its docstring/error
   // output.
 
-  py::module managerApi = mod.def_submodule("managerApi");
-  py::module hostApi = mod.def_submodule("hostApi");
-  py::module log = mod.def_submodule("log");
+  const py::module managerApi = mod.def_submodule("managerApi");
+  const py::module hostApi = mod.def_submodule("hostApi");
+  const py::module log = mod.def_submodule("log");
 
   registerLoggerInterface(log);
   registerConsoleLogger(log);

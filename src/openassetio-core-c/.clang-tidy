@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2013-2022 The Foundry Visionmongers Ltd
+
+InheritParentConfig: true
+
+# -bugprone-easily-swappable-parameters:
+#   Hard to avoid in a C API.
+Checks: >
+    -bugprone-easily-swappable-parameters

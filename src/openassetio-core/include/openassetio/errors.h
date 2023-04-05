@@ -17,6 +17,7 @@
  * This macro defines the starting error code that should be used for
  * exception-like errors.
  */
+// NOLINTNEXTLINE(modernize-macro-to-enum)
 #define OPENASSETIO_ErrorCode_BEGIN 1
 
 /**

@@ -100,7 +100,7 @@ SCENARIO("A Manager is constructed and destructed") {
         // C handle for Manager
         oa_hostApi_Manager_h managerHandle;
         // Construct Manager through C API.
-        oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
+        const oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
             &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
         CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
@@ -162,7 +162,7 @@ SCENARIO("A Manager is constructed and destructed") {
         // C handle for Manager
         oa_hostApi_Manager_h managerHandle;
         // Construct Manager through C API.
-        oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
+        const oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
             &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
         CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
@@ -183,11 +183,11 @@ SCENARIO("A Manager is constructed and destructed") {
 SCENARIO("A host calls Manager::identifier") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
-    managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
+    const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
-    managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
+    const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),
         std::make_shared<MockLoggerInterface>());
 
@@ -214,7 +214,7 @@ SCENARIO("A host calls Manager::identifier") {
 
       WHEN("the Manager C API is queried for the identifier") {
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_identifier(&actualErrorMsg, &actualIdentifier, managerHandle);
 
         THEN("the returned identifier matches expected identifier") {
@@ -230,7 +230,7 @@ SCENARIO("A host calls Manager::identifier") {
 
       WHEN("the Manager C API is queried for the identifier") {
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_identifier(&actualErrorMsg, &actualIdentifier, managerHandle);
 
         THEN("generic exception error code and message is set and identifier is unmodified") {
@@ -246,11 +246,11 @@ SCENARIO("A host calls Manager::identifier") {
 SCENARIO("A host calls Manager::displayName") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
-    managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
+    const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
-    managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
+    const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),
         std::make_shared<MockLoggerInterface>());
 
@@ -277,7 +277,7 @@ SCENARIO("A host calls Manager::displayName") {
 
       WHEN("the Manager C API is queried for the displayName") {
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_displayName(&actualErrorMsg, &actualDisplayName, managerHandle);
 
         THEN("the returned displayName matches expected displayName") {
@@ -293,7 +293,7 @@ SCENARIO("A host calls Manager::displayName") {
 
       WHEN("the Manager C API is queried for the displayName") {
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_displayName(&actualErrorMsg, &actualDisplayName, managerHandle);
 
         THEN("generic exception error code and message is set and displayName is unmodified") {
@@ -309,11 +309,11 @@ SCENARIO("A host calls Manager::displayName") {
 SCENARIO("A host calls Manager::info") {
   GIVEN("a Manager and its C handle") {
     // Create mock ManagerInterface to inject and assert on.
-    managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
+    const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
     auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
-    managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
+    const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),
         std::make_shared<MockLoggerInterface>());
 
@@ -342,7 +342,7 @@ SCENARIO("A host calls Manager::info") {
         oa_InfoDictionary_h actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_info(&actualErrorMsg, actualInfoHandle, managerHandle);
 
         THEN("the returned info matches expected info") {
@@ -360,7 +360,7 @@ SCENARIO("A host calls Manager::info") {
         oa_InfoDictionary_h actualInfoHandle = handles::InfoDictionary::toHandle(&actualInfo);
 
         // C API call.
-        oa_ErrorCode code =
+        const oa_ErrorCode code =
             oa_hostApi_Manager_info(&actualErrorMsg, actualInfoHandle, managerHandle);
 
         THEN("generic exception error code and message is set and info is unmodified") {

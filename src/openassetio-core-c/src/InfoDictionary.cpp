@@ -27,15 +27,15 @@ template <class... T>
  *
  * @tparam Fn Type of callable to wrap.
  * @param err Storage for error message, if any.
- * @param fn Callable to wrap.
+ * @param callable Callable to wrap.
  * @return Error code.
  */
 template <typename Fn>
-oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, Fn &&fn) {
+oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, Fn &&callable) {
   // TODO(DF): @exception messages.
   return errors::catchUnknownExceptionAsCode(err, [&] {
     try {
-      return fn();
+      return callable();
     } catch (const std::out_of_range &exc) {
       // Default exception message:
       // VS 2019: "invalid unordered_map<K, T> key"

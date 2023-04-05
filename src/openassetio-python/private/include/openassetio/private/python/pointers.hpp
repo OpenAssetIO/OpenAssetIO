@@ -59,7 +59,7 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
       //  object, and yet it is possible that pybind11 will throw an
       //  exception here trying to acquire the GIL (though only in
       //  catastrophic cases). Tricky to test, though.
-      py::gil_scoped_acquire gil;
+      const py::gil_scoped_acquire gil;
       delete pyObjectPtr;
     }
   };

@@ -32,10 +32,10 @@ oa_ErrorCode oa_hostApi_Manager_ctor(oa_StringView* err, oa_hostApi_Manager_h* h
                                      oa_managerApi_SharedManagerInterface_h managerInterfaceHandle,
                                      oa_managerApi_SharedHostSession_h hostSessionHandle) {
   return errors::catchUnknownExceptionAsCode(err, [&] {
-    managerApi::ManagerInterfacePtr& managerInterfacePtr =
+    const managerApi::ManagerInterfacePtr& managerInterfacePtr =
         *handles::managerApi::SharedManagerInterface::toInstance(managerInterfaceHandle);
 
-    managerApi::HostSessionPtr& hostSessionPtr =
+    const managerApi::HostSessionPtr& hostSessionPtr =
         *handles::managerApi::SharedHostSession::toInstance(hostSessionHandle);
 
     auto* manager = new hostApi::ManagerPtr;

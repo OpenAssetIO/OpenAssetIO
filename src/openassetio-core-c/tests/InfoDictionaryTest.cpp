@@ -34,7 +34,8 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
     //  a pain to simulate for testing.
 
     oa_InfoDictionary_h infoDictionaryHandle;
-    oa_ErrorCode actualErrorCode = oa_InfoDictionary_ctor(&actualErrorMsg, &infoDictionaryHandle);
+    const oa_ErrorCode actualErrorCode =
+        oa_InfoDictionary_ctor(&actualErrorMsg, &infoDictionaryHandle);
     CHECK(actualErrorCode == oa_ErrorCode_kOK);
 
     WHEN("handle is converted to a C++ instance") {
@@ -155,10 +156,10 @@ TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("the type of an entry is queried") {
-      oa_ConstStringView key{keyStr.data(), keyStr.size()};
+      const oa_ConstStringView key{keyStr.data(), keyStr.size()};
       oa_InfoDictionary_ValueType actualValueType;
 
-      oa_ErrorCode actualErrorCode =
+      const oa_ErrorCode actualErrorCode =
           oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
 
       THEN("returned type matches expected type") {
@@ -171,13 +172,13 @@ TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
 
 SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry via C API") {
   GIVEN("a populated C++ InfoDictionary and its C handle") {
-    InfoDictionaryFixture fixture{};
+    const InfoDictionaryFixture fixture{};
     const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
 
     WHEN("the type of a non-existent entry is queried") {
       // Key to non-existent entry.
       const auto& nonExistentKey = InfoDictionaryFixture::kNonExistentKeyStr;
-      oa_ConstStringView key{nonExistentKey.data(), nonExistentKey.size()};
+      const oa_ConstStringView key{nonExistentKey.data(), nonExistentKey.size()};
       // Storage for error message.
       openassetio::Str errStorage(kStrStorageCapacity, '\0');
       oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
@@ -186,7 +187,7 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
       // Storage for return value.
       oa_InfoDictionary_ValueType actualValueType = initialValueType;
 
-      oa_ErrorCode actualErrorCode =
+      const oa_ErrorCode actualErrorCode =
           oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
 
       THEN("error code and message is set") {
@@ -309,7 +310,7 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     // Opaque handle to map.
     const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
     // Function for type under test.
-    const auto& fn = Fixture::fn_;
+    const auto& func = Fixture::fn_;
 
     // Storage for return (out-parameter) value.
     auto& actualValue = Fixture::actualValue_;
@@ -334,9 +335,10 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("existing value is retrieved through C API") {
-      oa_ConstStringView key{keyStr.data(), keyStr.size()};
+      const oa_ConstStringView key{keyStr.data(), keyStr.size()};
 
-      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      const oa_ErrorCode actualErrorCode =
+          func(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("value is retrieved successfully") {
         CHECK(actualErrorCode == oa_ErrorCode_kOK);
@@ -345,10 +347,11 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     }
 
     WHEN("value is updated in C++ and retrieved through C API again") {
-      oa_ConstStringView key{keyStr.data(), keyStr.size()};
+      const oa_ConstStringView key{keyStr.data(), keyStr.size()};
       infoDictionary.at(keyStr) = alternativeValue;
 
-      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      const oa_ErrorCode actualErrorCode =
+          func(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("updated value is retrieved successfully") {
         CHECK(actualErrorCode == oa_ErrorCode_kOK);
@@ -357,9 +360,10 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     }
 
     WHEN("attempting to retrieve a non-existent value through C API") {
-      oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+      const oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
-      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      const oa_ErrorCode actualErrorCode =
+          func(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
         CHECK(actualErrorCode == oa_ErrorCode_kOutOfRange);
@@ -369,9 +373,10 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
     }
 
     WHEN("attempting to retrieve an incorrect value type through C API") {
-      oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
+      const oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
-      oa_ErrorCode actualErrorCode = fn(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
+      const oa_ErrorCode actualErrorCode =
+          func(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
       THEN("error code and message is set and out-param is unmodified") {
         CHECK(actualErrorCode == oa_ErrorCode_kBadVariantAccess);
@@ -384,9 +389,9 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
       oa_StringView lowCapacityErr{3, errStorage.data(), 0};
 
       WHEN("attempting to retrieve a non-existent value through C API") {
-        oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
+        const oa_ConstStringView key{nonExistentKeyStr.data(), nonExistentKeyStr.size()};
 
-        fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
+        func(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
         THEN("error message is truncated to fit storage capacity") {
           CHECK(lowCapacityErr == "Inv");
@@ -394,9 +399,9 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
       }
 
       WHEN("attempting to retrieve an incorrect value type through C API") {
-        oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
+        const oa_ConstStringView key{wrongValueTypeKeyStr.data(), wrongValueTypeKeyStr.size()};
 
-        fn(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
+        func(&lowCapacityErr, &actualValue, infoDictionaryHandle, key);
 
         THEN("error message is truncated to fit storage capacity") {
           CHECK(lowCapacityErr == "Inv");
@@ -408,7 +413,7 @@ TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", 
 
 SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
   GIVEN("a populated C++ InfoDictionary and its C handle") {
-    InfoDictionaryFixture fixture{};
+    const InfoDictionaryFixture fixture{};
     // Opaque handle to map.
     const auto& infoDictionaryHandle = fixture.infoDictionaryHandle_;
 
@@ -425,9 +430,9 @@ SCENARIO("InfoDictionary string return with insufficient buffer capacity") {
 
       WHEN("string is retrieved into insufficient-capacity StringView") {
         openassetio::Str keyStr = "aStr";
-        oa_ConstStringView key{keyStr.data(), keyStr.size()};
+        const oa_ConstStringView key{keyStr.data(), keyStr.size()};
 
-        oa_ErrorCode actualErrorCode =
+        const oa_ErrorCode actualErrorCode =
             oa_InfoDictionary_getStr(&actualErrorMsg, &actualValue, infoDictionaryHandle, key);
 
         THEN("truncated string is stored and error code and message is set") {
@@ -496,7 +501,7 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     // Opaque handle to map.
     const auto& infoDictionaryHandle = Fixture::infoDictionaryHandle_;
     // C API function for type under test.
-    const auto& fn = Fixture::fn_;
+    const auto& func = Fixture::fn_;
 
     // Valid value to set in map that is not equal to initial value.
     const auto& expectedValue = Fixture::kExpectedValue;
@@ -516,8 +521,8 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
     WHEN("an existing value of the same type is updated") {
-      const oa_ErrorCode actualErrorCode =
-          fn(&actualErrorMsg, infoDictionaryHandle, {keyStr.data(), keyStr.size()}, expectedValue);
+      const oa_ErrorCode actualErrorCode = func(&actualErrorMsg, infoDictionaryHandle,
+                                                {keyStr.data(), keyStr.size()}, expectedValue);
 
       THEN("value is updated successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(keyStr));
@@ -529,8 +534,8 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
 
     WHEN("an existing value of a different type is updated") {
       const oa_ErrorCode actualErrorCode =
-          fn(&actualErrorMsg, infoDictionaryHandle,
-             {otherValueTypeKeyStr.data(), otherValueTypeKeyStr.size()}, expectedValue);
+          func(&actualErrorMsg, infoDictionaryHandle,
+               {otherValueTypeKeyStr.data(), otherValueTypeKeyStr.size()}, expectedValue);
 
       THEN("value is updated successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(otherValueTypeKeyStr));
@@ -542,8 +547,8 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
 
     WHEN("a non-existent entry is updated") {
       const oa_ErrorCode actualErrorCode =
-          fn(&actualErrorMsg, infoDictionaryHandle,
-             {nonExistentKeyStr.data(), nonExistentKeyStr.size()}, expectedValue);
+          func(&actualErrorMsg, infoDictionaryHandle,
+               {nonExistentKeyStr.data(), nonExistentKeyStr.size()}, expectedValue);
 
       THEN("entry is created and value set successfully") {
         const TestType actualValue = std::get<TestType>(infoDictionary.at(nonExistentKeyStr));

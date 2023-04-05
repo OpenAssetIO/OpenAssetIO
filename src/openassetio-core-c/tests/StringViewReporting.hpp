@@ -35,13 +35,13 @@ inline bool operator==(const oa_ConstStringView& lhs, const Str& rhs) {
 }
 
 /// Support printing StringView in case assertions fail.
-inline std::ostream& operator<<(std::ostream& os, const oa_StringView& rhs) {
-  os << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
-  return os;
+inline std::ostream& operator<<(std::ostream& stream, const oa_StringView& rhs) {
+  stream << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
+  return stream;
 }
 
 /// Support printing ConstStringView in case assertions fail.
-inline std::ostream& operator<<(std::ostream& os, const oa_ConstStringView& rhs) {
-  os << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
-  return os;
+inline std::ostream& operator<<(std::ostream& stream, const oa_ConstStringView& rhs) {
+  stream << "\"" << std::string_view{rhs.data, rhs.size} << "\"";
+  return stream;
 }

@@ -3,6 +3,12 @@
 
 InheritParentConfig: true
 
-# Disable "cognitive complexity" check: Catch2 test macros trigger this.
+# -readability-function-cognitive-complexity
+#   Catch2 test macros trigger this.
+# -bugprone-infinite-loop
+#   clang-tidy v12 flags false positives for Catch2 CHECK macro.
+#   TODO(DF): Remove once clang-tidy version updated.
 Checks: >
-    -readability-function-cognitive-complexity
+    -readability-function-cognitive-complexity,
+     -bugprone-infinite-loop
+

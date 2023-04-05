@@ -44,6 +44,10 @@ v1.0.0-alpha.X
 - Made `BatchElementError` a copyable type in the C++ API.
   [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
 
+- Made the C++ codebase compliant with Clang-Tidy v15. Note that this is
+  not yet enforced on CI.
+  https://github.com/OpenAssetIO/OpenAssetIO/pull/874
+
 ### Bug fixes
 
 - Removed `nodiscard` from `TraitsData::getTraitProperty`, and

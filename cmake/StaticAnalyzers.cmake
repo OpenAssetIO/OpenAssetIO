@@ -11,6 +11,7 @@ macro(enable_clang_tidy)
         # Ignore unknown compiler flag check, otherwise e.g. GCC-only
         # compiler warning flags will cause the build to fail.
         list(APPEND CMAKE_CXX_CLANG_TIDY -extra-arg=-Wno-unknown-warning-option)
+        list(APPEND CMAKE_CXX_CLANG_TIDY -extra-arg=-Wno-ignored-optimization-argument)
 
         # Set standard
         if (NOT "${CMAKE_CXX_STANDARD}" STREQUAL "")
