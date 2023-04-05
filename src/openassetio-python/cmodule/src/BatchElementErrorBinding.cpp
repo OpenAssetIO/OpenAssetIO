@@ -3,6 +3,7 @@
 #include <string_view>
 
 #include <pybind11/eval.h>
+#include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 
 #include <openassetio/BatchElementError.hpp>
@@ -24,6 +25,7 @@ void registerBatchElementError(py::module &mod) {
   batchElementError
       .def(py::init<BatchElementError::ErrorCode, openassetio::Str>(), py::arg("code"),
            py::arg("message"))
+      .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
       .def_readonly("code", &BatchElementError::code)
       .def_readonly("message", &BatchElementError::message);
 

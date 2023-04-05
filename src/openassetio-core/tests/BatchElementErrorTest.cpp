@@ -26,5 +26,27 @@ SCENARIO("BatchElementError usage") {
         CHECK(error.message == "some message");
       }
     }
+
+    WHEN("Two BatchElementErrors are constructed wrapping the same code and message") {
+      const BatchElementError error{code, message};
+      const BatchElementError error2{code, message};
+
+      THEN("The errors instances match") { CHECK(error == error2); }
+    }
+
+    WHEN("Two BatchElementErrors are constructed wrapping different code and the same message") {
+      const BatchElementError error{code, message};
+      const BatchElementError error2{BatchElementError::ErrorCode::kEntityResolutionError,
+                                     message};
+
+      THEN("The errors instances do not match") { CHECK(error != error2); }
+    }
+
+    WHEN("Two BatchElementErrors are constructed wrapping the same code and different message") {
+      const BatchElementError error{code, message};
+      const BatchElementError error2{code, "another message"};
+
+      THEN("The errors instances do not match") { CHECK(error != error2); }
+    }
   }
 }

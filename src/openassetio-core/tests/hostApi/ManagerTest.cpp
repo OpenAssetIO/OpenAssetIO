@@ -18,13 +18,6 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
-// Equality comparison for BatchElementError, useful in tests.
-// TODO(DF): implement in main codebase
-//  https://github.com/OpenAssetIO/OpenAssetIO/issues/862
-bool operator==(const BatchElementError& lhs, const BatchElementError& rhs) {
-  return lhs.code == rhs.code && lhs.message == rhs.message;
-}
-
 namespace {
 /**
  * Mock implementation of a ManagerInterface.
