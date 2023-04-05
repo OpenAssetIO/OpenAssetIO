@@ -306,6 +306,80 @@ void Manager::register_(const EntityReferences &entityReferences,
                                       successCallback, errorCallback);
 }
 
+// Singular Except
+EntityReference hostApi::Manager::register_(
+    const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  EntityReference result("");
+  register_(
+      {entityReference}, {entityTraitsData}, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReference registeredRef) {
+        result = std::move(registeredRef);
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        throwFromBatchElementError(index, error);
+      });
+
+  return result;
+}
+
+// Singular variant
+std::variant<BatchElementError, EntityReference> hostApi::Manager::register_(
+    const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<BatchElementError, EntityReference> result;
+  register_(
+      {entityReference}, {entityTraitsData}, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReference registeredRef) {
+        result = std::move(registeredRef);
+      },
+      [&result]([[maybe_unused]] std::size_t index, const BatchElementError &error) {
+        result = error;
+      });
+
+  return result;
+}
+
+// Multi except
+std::vector<EntityReference> hostApi::Manager::register_(
+    const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<EntityReference> result;
+  result.resize(entityReferences.size(), EntityReference{""});
+
+  register_(
+      entityReferences, entityTraitsDatas, context,
+      [&result](std::size_t index, EntityReference registeredRef) {
+        result[index] = std::move(registeredRef);
+      },
+      [](std::size_t index, const BatchElementError &error) {
+        // Implemented as if FAILFAST is true.
+        throwFromBatchElementError(index, error);
+      });
+
+  return result;
+}
+
+// Multi variant
+std::vector<std::variant<BatchElementError, EntityReference>> hostApi::Manager::register_(
+    const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<BatchElementError, EntityReference>> result;
+  result.resize(entityReferences.size());
+  register_(
+      entityReferences, entityTraitsDatas, context,
+      [&result](std::size_t index, EntityReference registeredRef) {
+        result[index] = std::move(registeredRef);
+      },
+      [&result](std::size_t index, const BatchElementError &error) { result[index] = error; });
+
+  return result;
+}
+
 managerApi::ManagerInterfacePtr Manager::_interface() const { return managerInterface_; }
 managerApi::HostSessionPtr Manager::_hostSession() const { return hostSession_; }
 
