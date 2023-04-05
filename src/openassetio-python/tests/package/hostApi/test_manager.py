@@ -101,8 +101,18 @@ def a_ref(manager):
 
 
 @pytest.fixture
+def a_different_ref(manager):
+    return manager.createEntityReference("asset://b")
+
+
+@pytest.fixture
 def some_refs(manager):
-    return [manager.createEntityReference("asset://a"), manager.createEntityReference("asset://b")]
+    return [manager.createEntityReference("asset://c"), manager.createEntityReference("asset://d")]
+
+
+@pytest.fixture
+def some_different_refs(manager):
+    return [manager.createEntityReference("asset://e"), manager.createEntityReference("asset://f")]
 
 
 # __str__ and __repr__ aren't tested as they're debug tricks that need
@@ -1213,7 +1223,7 @@ class Test_Manager_managementPolicy:
         method.assert_called_once_with(some_entity_trait_sets, a_context, a_host_session)
 
 
-class Test_Manager_preflight:
+class Test_Manager_preflight_callback_signature:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(Manager.preflight)
         assert method_introspector.is_implemented_once(Manager, "preflight")
@@ -1254,6 +1264,588 @@ class Test_Manager_preflight:
 
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
+
+
+class Test_Manager_preflight_with_singular_default_overload:
+    def test_when_success_then_single_EntityReference_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_different_ref,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+        method.side_effect = call_callbacks
+
+        actual_ref = manager.preflight(a_ref, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_ref == a_different_ref
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.preflight(a_ref, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_preflight_with_singular_throwing_overload:
+    def test_when_preflight_success_then_single_EntityReference_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_different_ref,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+        method.side_effect = call_callbacks
+
+        actual_ref = manager.preflight(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_ref == a_different_ref
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.preflight(
+                a_ref,
+                an_entity_trait_set,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
+            )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_preflight_with_singular_variant_overload:
+    def test_when_preflight_success_then_single_EntityReference_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        a_different_ref,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+        method.side_effect = call_callbacks
+
+        actual_ref = manager.preflight(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert actual_ref == a_different_ref
+
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    def test_when_BatchElementError_then_BatchElementError_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        expected_index = 213
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        actual = manager.preflight(
+            a_ref,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        assert_BatchElementError_eq(actual, batch_element_error)
+
+
+class Test_Manager_preflight_with_batch_default_overload:
+    def test_when_success_then_multiple_EntityReferences_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_different_refs,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, some_different_refs[0])
+
+            callback = method.call_args[0][4]
+            callback(1, some_different_refs[1])
+
+        method.side_effect = call_callbacks
+
+        actual_refs = manager.preflight(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_refs) == 2
+        assert actual_refs[0] == some_different_refs[0]
+        assert actual_refs[1] == some_different_refs[1]
+
+    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_different_refs,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, some_different_refs[1])
+
+            callback = method.call_args[0][4]
+            callback(0, some_different_refs[0])
+
+        method.side_effect = call_callbacks
+
+        actual_refs = manager.preflight(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_refs) == 2
+        assert actual_refs[0] == some_different_refs[0]
+        assert actual_refs[1] == some_different_refs[1]
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        a_different_ref,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.preflight
+        expected_index = 123
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+            # Error
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.preflight(some_refs, an_entity_trait_set, a_context)
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_preflight_with_batch_throwing_overload:
+    def test_when_success_then_multiple_EntityReferences_returned(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_different_refs,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, some_different_refs[0])
+
+            callback = method.call_args[0][4]
+            callback(1, some_different_refs[1])
+
+        method.side_effect = call_callbacks
+
+        actual_refs = manager.preflight(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_refs) == 2
+        assert actual_refs[0] == some_different_refs[0]
+        assert actual_refs[1] == some_different_refs[1]
+
+    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        some_different_refs,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, some_different_refs[1])
+
+            callback = method.call_args[0][4]
+            callback(0, some_different_refs[0])
+
+        method.side_effect = call_callbacks
+
+        actual_refs = manager.preflight(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kException,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_refs) == 2
+        assert actual_refs[0] == some_different_refs[0]
+        assert actual_refs[1] == some_different_refs[1]
+
+    @pytest.mark.parametrize(
+        "error_code,expected_exception", batch_element_error_code_exception_pairs
+    )
+    def test_when_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        a_different_ref,
+        expected_exception,
+    ):
+        method = mock_manager_interface.mock.preflight
+        expected_index = 123
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+            # Error
+            callback = method.call_args[0][5]
+            callback(expected_index, batch_element_error)
+
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
+            manager.preflight(
+                some_refs,
+                an_entity_trait_set,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
+            )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+
+
+class Test_Manager_preflight_with_batch_variant_overload:
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    def test_when_mixed_output_then_returned_list_contains_output(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        a_different_ref,
+        error_code,
+    ):
+        method = mock_manager_interface.mock.preflight
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(0, a_different_ref)
+
+            callback = method.call_args[0][5]
+            callback(1, batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        actual_ref_or_error = manager.preflight(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_ref_or_error) == 2
+        assert actual_ref_or_error[0] == a_different_ref
+        assert_BatchElementError_eq(actual_ref_or_error[1], batch_element_error)
+
+    def test_when_mixed_output_out_of_order_then_output_returned_in_order(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_entity_trait_set,
+        a_context,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        entity_refs = [a_ref] * 4
+
+        batch_element_error0 = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
+        )
+        entity_ref1 = EntityReference("ref1")
+        batch_element_error2 = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, "2 some string ✨"
+        )
+        entity_ref3 = EntityReference("ref3")
+
+        def call_callbacks(*_args):
+            # Success
+            callback = method.call_args[0][4]
+            callback(1, entity_ref1)
+
+            callback = method.call_args[0][5]
+            callback(0, batch_element_error0)
+
+            callback = method.call_args[0][4]
+            callback(3, entity_ref3)
+
+            callback = method.call_args[0][5]
+            callback(2, batch_element_error2)
+
+        method.side_effect = call_callbacks
+
+        actual_ref_or_error = manager.preflight(
+            entity_refs,
+            an_entity_trait_set,
+            a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        method.assert_called_once_with(
+            entity_refs,
+            an_entity_trait_set,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_ref_or_error) == 4
+        assert_BatchElementError_eq(actual_ref_or_error[0], batch_element_error0)
+        assert actual_ref_or_error[1] == entity_ref1
+        assert_BatchElementError_eq(actual_ref_or_error[2], batch_element_error2)
+        assert actual_ref_or_error[3] == entity_ref3
 
 
 class Test_Manager_register:
