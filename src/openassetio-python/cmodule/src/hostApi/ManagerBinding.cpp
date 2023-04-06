@@ -78,7 +78,7 @@ void registerManager(const py::module& mod) {
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
       .def("resolve",
-           static_cast<std::variant<TraitsDataPtr, openassetio::BatchElementError> (Manager::*)(
+           static_cast<std::variant<openassetio::BatchElementError, TraitsDataPtr> (Manager::*)(
                const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
                const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
@@ -103,7 +103,7 @@ void registerManager(const py::module& mod) {
            py::arg("errorPolicyTag"))
       .def(
           "resolve",
-          static_cast<std::vector<std::variant<TraitsDataPtr, openassetio::BatchElementError>> (
+          static_cast<std::vector<std::variant<openassetio::BatchElementError, TraitsDataPtr>> (
               Manager::*)(const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
                           const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),

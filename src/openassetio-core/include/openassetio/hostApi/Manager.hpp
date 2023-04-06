@@ -664,7 +664,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @return Object containing either the populated data or an error
    * object.
    */
-  std::variant<TraitsDataPtr, BatchElementError> resolve(
+  std::variant<BatchElementError, TraitsDataPtr> resolve(
       const EntityReference& entityReference, const trait::TraitSet& traitSet,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
@@ -743,7 +743,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @return List of objects, each containing either the populated data
    * or an error.
    */
-  std::vector<std::variant<TraitsDataPtr, BatchElementError>> resolve(
+  std::vector<std::variant<BatchElementError, TraitsDataPtr>> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
