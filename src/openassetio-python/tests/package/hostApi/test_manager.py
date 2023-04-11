@@ -1126,6 +1126,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
             mock.ANY,
         )
 
+        assert len(actual_traitsdata_and_error) == 2
         assert actual_traitsdata_and_error[0] is a_traitsdata
         assert_BatchElementError_eq(actual_traitsdata_and_error[1], batch_element_error)
 
@@ -1183,6 +1184,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
             mock.ANY,
         )
 
+        assert len(actual_traitsdata_and_error) == 4
         assert_BatchElementError_eq(actual_traitsdata_and_error[0], batch_element_error0)
         assert actual_traitsdata_and_error[1] is traitsdata1
         assert_BatchElementError_eq(actual_traitsdata_and_error[2], batch_element_error2)
