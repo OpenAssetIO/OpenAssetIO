@@ -869,8 +869,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the
-   * entites that are being published.
+   * @param traitSet The @ref trait_set of the entities that are being
+   * published.
    *
    * @param context The calling context. This is not
    * replaced with an array in order to simplify implementation.
@@ -898,6 +898,164 @@ class OPENASSETIO_CORE_EXPORT Manager {
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                  const ContextConstPtr& context, const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * This call signals your intent as a host application to do some
+   * work to create data in relation to a supplied @ref
+   * entity_reference.
+   *
+   * See documentation for the <!--
+   * --> @ref preflight(const EntityReferences&, <!--
+   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const PreflightSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on preflight behaviour.
+   *
+   * Any errors that occur during the preflight call will be immediately
+   * thrown as an exception, either from the @ref manager plugin (for
+   * errors not specific to the entity reference) or as a
+   * @fqref{BatchElementException} "BatchElementException"-derived
+   * error.
+   *
+   * @param entityReference The entity reference to preflight prior
+   * to registration.
+   *
+   * @param traitSet The @ref trait_set of the entity that is being
+   * published.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Updated reference to use for future interactions as part of
+   * the publishing operation
+   */
+  EntityReference preflight(const EntityReference& entityReference,
+                            const trait::TraitSet& traitSet, const ContextConstPtr& context,
+                            const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * This call signals your intent as a host application to do some
+   * work to create data in relation to a supplied @ref
+   * entity_reference.
+   *
+   * See documentation for the <!--
+   * --> @ref preflight(const EntityReferences&, <!--
+   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const PreflightSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on preflight behaviour.
+   *
+   * If successful, the result is populated with an updated reference
+   * for use in future interactions in the publishing operation.
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure to preflight this particular entity.
+   *
+   * Errors that are not specific to the entity will be thrown as an
+   * exception.
+   *
+   * @param entityReference The entity reference to preflight prior
+   * to registration.
+   *
+   * @param traitSet The @ref trait_set of the entity that is being
+   * published.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Either an updated reference to use for future
+   * interactions as part of the publishing operation, or an error
+   * object detailing the reason for the failure of this particular
+   * entity.
+   */
+  std::variant<BatchElementError, EntityReference> preflight(
+      const EntityReference& entityReference, const trait::TraitSet& traitSet,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * This call signals your intent as a host application to do some
+   * work to create data in relation to each supplied @ref
+   * entity_reference.
+   *
+   * See documentation for the <!--
+   * --> @ref preflight(const EntityReferences&, <!--
+   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const PreflightSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on preflight behaviour.
+   *
+   * Any errors that occur during the preflight call will be immediately
+   * thrown as an exception, either from the @ref manager plugin (for
+   * errors not specific to an entity reference) or as a
+   * @fqref{BatchElementException} "BatchElementException"-derived
+   * error.
+   *
+   * @param entityReferences The entity references to preflight prior
+   * to registration.
+   *
+   * @param traitSet The @ref trait_set of the entities that are being
+   * published.
+   *
+   * @param context The calling context. The same calling context is
+   * used for each entity reference.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Updated references to use for future interactions as part
+   * of the publishing operation
+   */
+  EntityReferences preflight(const EntityReferences& entityReferences,
+                             const trait::TraitSet& traitSet, const ContextConstPtr& context,
+                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * This call signals your intent as a host application to do some
+   * work to create data in relation to each supplied @ref
+   * entity_reference.
+   *
+   * See documentation for the <!--
+   * --> @ref preflight(const EntityReferences&, <!--
+   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const PreflightSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback variation" for more details on preflight behaviour.
+   *
+   * For successful references, the corresponding element of the result
+   * is populated with an updated reference for use in future
+   * interactions in the publishing operation.
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to
+   * preflight that particular entity.
+   *
+   * Errors that are not specific to an entity will be thrown as an
+   * exception.
+   *
+   * @param entityReferences The entity references to preflight prior
+   * to registration.
+   *
+   * @param traitSet The @ref trait_set of the entity that is being
+   * published.
+   *
+   * @param context The calling context. The same calling context is
+   * used for each entity reference.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return A list where each element is either an updated reference to
+   * use for future interactions as part of the publishing operation, or
+   * an error object detailing the reason for the failure of that
+   * particular entity.
+   */
+  std::vector<std::variant<BatchElementError, EntityReference>> preflight(
+      const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * Callback signature used for a successful register operation on a
