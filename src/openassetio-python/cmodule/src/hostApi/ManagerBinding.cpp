@@ -127,6 +127,45 @@ void registerManager(const py::module& mod) {
                const Manager::BatchElementErrorCallback&)>(&Manager::preflight),
            py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("preflight",
+           static_cast<EntityReference (Manager::*)(
+               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::preflight),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def("preflight",
+           static_cast<std::variant<openassetio::BatchElementError, EntityReference> (Manager::*)(
+               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::preflight),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReference& entityReference,
+             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
+            return self.preflight(entityReference, traitSet, context);
+          },
+          py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false))
+      .def("preflight",
+           static_cast<std::vector<EntityReference> (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::preflight),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def("preflight",
+           static_cast<std::vector<std::variant<openassetio::BatchElementError, EntityReference>> (
+               Manager::*)(const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+                           const Manager::BatchElementErrorPolicyTag::Variant&)>(
+               &Manager::preflight),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
+            return self.preflight(entityReferences, traitSet, context);
+          },
+          py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,

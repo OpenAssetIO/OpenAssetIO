@@ -208,7 +208,7 @@
  * # This allows it to create a placeholder version or similar.
  * # NOTE: It is critical to always use the working_ref from now on.
  * working_ref = manager.preflight(
- *         [entity_ref], TextFileSpecification.kTraitSet, context)[0]
+ *         entity_ref, TextFileSpecification.kTraitSet, context)
  *
  * # We then check if the manager can tell us where to save the file.
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
@@ -262,7 +262,7 @@
  * # reference, this gives us a reference we can now use for all
  * # interactions relating to the thumbnail itself.
  * thumbnail_ref = manager.preflight(
- *         [final_ref], ThumbnailFileSpecification.kTraitSet, context)[0]
+ *         final_ref, ThumbnailFileSpecification.kTraitSet, context)
  *
  * thumbnail_path = os.path.join(os.path.expanduser('~'), 'greeting.preview.png')
  * thumbnail_attr = {"width": 128, "height": 128}
