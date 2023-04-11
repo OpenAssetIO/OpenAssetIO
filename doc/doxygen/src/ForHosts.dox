@@ -5,7 +5,7 @@
  *
  * - In OpenAssetIO, a '@ref host' is an application, tool or script
  *   that makes use of the API to interact with an @ref asset_management_system.
- *   This could be a anything from a simple pipeline script to a
+ *   This could be anything from a simple pipeline script to a
  *   full-blown Digital Content Creation application. We use this term
  *   as the host is the thing responsible for 'hosting' the API, and
  *   instantiating one or more instances of the API classes that
@@ -95,7 +95,7 @@
  *
  *   Note that in some environments, a default manager may not be
  *   configured. As a host, can error here, or choose to present the
- *   user with a an additional manual configuration mechanism for your
+ *   user with an additional manual configuration mechanism for your
  *   specific API session if you so wish.
  *
  * - Create, persist and configure a @ref Context as appropriate for
