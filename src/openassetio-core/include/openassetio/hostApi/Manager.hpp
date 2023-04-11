@@ -1159,6 +1159,162 @@ class OPENASSETIO_CORE_EXPORT Manager {
                  const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
 
+  /**
+   * Register should be used to 'publish' new entities either when
+   * originating new data within the application process, or
+   * referencing some existing file, media or information.
+   *
+   * See documentation for the <!--
+   * --> @ref register_(const EntityReferences&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
+   * --> const RegisterSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on register_ behaviour.
+   *
+   * Any errors that occur during the register_ call will be immediately
+   * thrown as an exception, either from the @ref manager plugin (for
+   * errors not specific to the entity reference) or as a
+   * @fqref{BatchElementException} "BatchElementException"-derived
+   * error.
+   *
+   * @param entityReference Entity reference to register to.
+   *
+   * @param entityTraitsData The data to register for the entity.
+   *
+   * @param context Context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Updated reference to use for future interactions with the
+   * resulting new entity.
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  EntityReference register_(const EntityReference& entityReference,
+                            const TraitsDataPtr& entityTraitsData, const ContextConstPtr& context,
+                            const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Register should be used to 'publish' new entities either when
+   * originating new data within the application process, or
+   * referencing some existing file, media or information.
+   *
+   * See documentation for the <!--
+   * --> @ref register_(const EntityReferences&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
+   * --> const RegisterSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on register_ behaviour.
+   *
+   * If successful, the result is populated with an updated reference
+   * for use in future interactions with the resulting new entity
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure to register this particular entity.
+   *
+   * Errors that are not specific to the entity will be thrown as an
+   * exception.
+   *
+   * @param entityReference Entity reference to register to.
+   *
+   * @param entityTraitsData The data to register for the entity.
+   *
+   * @param context Context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Updated reference to use for future interactions with the
+   * resulting new entity or an error object detailing the reason for
+   * the failure of this particular entity.
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  std::variant<BatchElementError, EntityReference> register_(
+      const EntityReference& entityReference, const TraitsDataPtr& entityTraitsData,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Register should be used to 'publish' new entities either when
+   * originating new data within the application process, or
+   * referencing some existing file, media or information.
+   *
+   * See documentation for the <!--
+   * --> @ref register_(const EntityReferences&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
+   * --> const RegisterSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on register_ behaviour.
+   *
+   * Any errors that occur during the register_ call will be immediately
+   * thrown as an exception, either from the @ref manager plugin (for
+   * errors not specific to the entity reference) or as a
+   * @fqref{BatchElementException} "BatchElementException"-derived
+   * error.
+   *
+   * @param entityReferences Entity references to register to.
+   *
+   * @param entityTraitsDatas The data to register for each entity.
+   * NOTE: All supplied instances should have the same trait set,
+   * batching with varying traits is not supported.
+   *
+   * @param context Context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return Updated references to use for future interactions with the
+   * resulting new entities.
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  std::vector<EntityReference> register_(
+      const EntityReferences& entityReferences, const trait::TraitsDatas& entityTraitsDatas,
+      const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Register should be used to 'publish' new entities either when
+   * originating new data within the application process, or
+   * referencing some existing file, media or information.
+   *
+   * See documentation for the <!--
+   * --> @ref register_(const EntityReferences&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
+   * --> const RegisterSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback variation" for more details on register_ behaviour.
+   *
+   * For successful references, the corresponding element of the result
+   * is populated with an updated reference for use in future
+   * interactions with the resulting new entity.
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to
+   * register that particular entity.
+   *
+   * Errors that are not specific to the entity will be thrown as an
+   * exception.
+   *
+   * @param entityReferences Entity references to register to.
+   *
+   * @param entityTraitsDatas The data to register for each entity.
+   * NOTE: All supplied instances should have the same trait set,
+   * batching with varying traits is not supported.
+   *
+   * @param context Context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref BatchElementErrorPolicyTag.
+   *
+   * @return A list where each element is either an updated reference to
+   * use in future interactions with the resulting new entity, or
+   * an error object detailing the reason for the failure of that
+   * particular entity.
+   */
+  // NOLINTNEXTLINE(readability-identifier-naming)
+  std::vector<std::variant<BatchElementError, EntityReference>> register_(
+      const EntityReferences& entityReferences, const trait::TraitsDatas& entityTraitsDatas,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
   /// @}
 
   /**
