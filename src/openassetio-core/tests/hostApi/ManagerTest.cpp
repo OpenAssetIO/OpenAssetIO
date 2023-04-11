@@ -60,6 +60,30 @@ struct MockHostInterface : trompeloeil::mock_interface<hostApi::HostInterface> {
 struct MockLoggerInterface : trompeloeil::mock_interface<log::LoggerInterface> {
   IMPLEMENT_MOCK2(log);
 };
+
+/**
+ * Fixture providing a Manager instance injected with mock dependencies.
+ */
+struct ManagerFixture {
+  const std::shared_ptr<managerApi::ManagerInterface> managerInterface =
+      std::make_shared<openassetio::MockManagerInterface>();
+
+  // For convenience, to avoid casting all the time in tests.
+  MockManagerInterface& mockManagerInterface =
+      static_cast<openassetio::MockManagerInterface&>(*managerInterface);
+
+  // Create a HostSession with our mock HostInterface
+  const managerApi::HostSessionPtr hostSession = managerApi::HostSession::make(
+      managerApi::Host::make(std::make_shared<openassetio::MockHostInterface>()),
+      std::make_shared<openassetio::MockLoggerInterface>());
+
+  // Create the Manager under test.
+  const hostApi::ManagerPtr manager = hostApi::Manager::make(managerInterface, hostSession);
+
+  // For convenience, since almost every method takes a Context.
+  const openassetio::ContextPtr context{openassetio::Context::make()};
+};
+
 }  // namespace
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
@@ -70,28 +94,16 @@ SCENARIO("Manager constructor is private") {
 }
 
 SCENARIO("Resolving entities") {
-  namespace managerApi = openassetio::managerApi;
   namespace hostApi = openassetio::hostApi;
   using trompeloeil::_;
 
   GIVEN("a configured Manager instance") {
-    const std::shared_ptr<managerApi::ManagerInterface> managerInterface =
-        std::make_shared<openassetio::MockManagerInterface>();
-
-    auto mockManagerInterfacePtr =
-        std::static_pointer_cast<openassetio::MockManagerInterface>(managerInterface);
-
-    // Create a HostSession with our mock HostInterface
-    const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(std::make_shared<openassetio::MockHostInterface>()),
-        std::make_shared<openassetio::MockLoggerInterface>());
-
-    // Create the Manager under test.
-    const hostApi::ManagerPtr manager =
-        hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
-
     const openassetio::trait::TraitSet traits = {"fakeTrait", "secondFakeTrait"};
-    auto context = openassetio::Context::make();
+    const openassetio::ManagerFixture fixture;
+    const auto& manager = fixture.manager;
+    auto& mockManagerInterface = fixture.mockManagerInterface;
+    const auto& context = fixture.context;
+    const auto& hostSession = fixture.hostSession;
 
     GIVEN("manager plugin successfully resolves a single entity reference") {
       const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
@@ -101,7 +113,7 @@ SCENARIO("Resolving entities") {
       expected->addTrait("aTestTrait");
 
       // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(0, expected));
 
       WHEN("singular resolve is called with default errorPolicyTag") {
@@ -138,7 +150,7 @@ SCENARIO("Resolving entities") {
       std::vector<openassetio::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(0, expectedVec[0]))
           .LR_SIDE_EFFECT(_5(1, expectedVec[1]))
           .LR_SIDE_EFFECT(_5(2, expectedVec[2]));
@@ -181,7 +193,7 @@ SCENARIO("Resolving entities") {
       std::vector<openassetio::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect, given out of order.
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(2, expectedVec[2]))
           .LR_SIDE_EFFECT(_5(0, expectedVec[0]))
           .LR_SIDE_EFFECT(_5(1, expectedVec[1]));
@@ -222,8 +234,8 @@ SCENARIO("Resolving entities") {
       openassetio::BatchElementError expected{
           openassetio::BatchElementError::ErrorCode::kMalformedEntityReference, "Error Message"};
 
-      // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      // With error callback side effect
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(0, expected));
 
       WHEN("singular resolve is called with default errorPolicyTag") {
@@ -273,8 +285,8 @@ SCENARIO("Resolving entities") {
           openassetio::BatchElementError::ErrorCode::kEntityAccessError,
           "Entity Access Error Message"};
 
-      // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      // With mixed callback side effect
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(2, expectedValue2))
           .LR_SIDE_EFFECT(_6(0, expectedError0))
           .LR_SIDE_EFFECT(_6(1, expectedError1));
@@ -332,7 +344,6 @@ TEMPLATE_TEST_CASE(
                               ErrorCode::kEntityAccessError>),
     (BatchElementErrorMapping<openassetio::EntityResolutionErrorBatchElementException,
                               ErrorCode::kEntityResolutionError>)) {
-  namespace managerApi = openassetio::managerApi;
   namespace hostApi = openassetio::hostApi;
   using trompeloeil::_;
 
@@ -340,23 +351,12 @@ TEMPLATE_TEST_CASE(
   static constexpr ErrorCode kExpectedErrorCode = TestType::kErrorCode;
 
   GIVEN("a configured Manager instance") {
-    const std::shared_ptr<managerApi::ManagerInterface> managerInterface =
-        std::make_shared<openassetio::MockManagerInterface>();
-
-    auto mockManagerInterfacePtr =
-        std::static_pointer_cast<openassetio::MockManagerInterface>(managerInterface);
-
-    // Create a HostSession with our mock HostInterface
-    const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
-        managerApi::Host::make(std::make_shared<openassetio::MockHostInterface>()),
-        std::make_shared<openassetio::MockLoggerInterface>());
-
-    // Create the Manager under test.
-    const hostApi::ManagerPtr manager =
-        hostApi::Manager::make(mockManagerInterfacePtr, hostSessionPtr);
-
     const openassetio::trait::TraitSet traits = {"fakeTrait", "secondFakeTrait"};
-    auto context = openassetio::Context::make();
+    const openassetio::ManagerFixture fixture;
+    const auto& manager = fixture.manager;
+    auto& mockManagerInterface = fixture.mockManagerInterface;
+    const auto& context = fixture.context;
+    const auto& hostSession = fixture.hostSession;
 
     AND_GIVEN(
         "manager plugin will encounter an entity-specific error when next resolving a reference") {
@@ -365,8 +365,8 @@ TEMPLATE_TEST_CASE(
 
       const openassetio::BatchElementError expectedError{kExpectedErrorCode, "Some error message"};
 
-      // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      // With error callback side effect
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(123, expectedError));
 
       WHEN("resolve is called with kException errorPolicyTag") {
@@ -392,8 +392,8 @@ TEMPLATE_TEST_CASE(
 
       const openassetio::BatchElementError expectedError{kExpectedErrorCode, "Some error"};
 
-      // With success callback side effect
-      REQUIRE_CALL(*mockManagerInterfacePtr, resolve(refs, traits, context, hostSessionPtr, _, _))
+      // With error callback side effect
+      REQUIRE_CALL(mockManagerInterface, resolve(refs, traits, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(123, expectedError))
           .LR_SIDE_EFFECT(FAIL_CHECK("Exception should have short-circuited this"));
 
