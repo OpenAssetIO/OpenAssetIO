@@ -28,8 +28,8 @@ v1.0.0-alpha.X
   mechanism for testing whether a `TraitsData` is imbued with a trait.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
-- Added `resolve`, `preflight` and (C++-only) `register_` overloads
-  for convenience, providing alternatives to the core callback-based
+- Added `resolve`, `preflight` and `register` overloads for
+  convenience, providing alternatives to the core callback-based
   workflow. Includes a more direct method for resolving a single entity
   reference, and exception vs. result object workflows.
   [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
@@ -37,6 +37,7 @@ v1.0.0-alpha.X
   [#851](https://github.com/OpenAssetIO/OpenAssetIO/issues/851)
   [#852](https://github.com/OpenAssetIO/OpenAssetIO/issues/852)
   [#853](https://github.com/OpenAssetIO/OpenAssetIO/issues/853)
+  [#854](https://github.com/OpenAssetIO/OpenAssetIO/issues/854)
 
 ### Improvements
 
