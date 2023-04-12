@@ -15,8 +15,25 @@
 
 #include "../_openassetio.hpp"
 
+namespace {
+using openassetio::EntityReferences;
+using openassetio::TraitsDataPtr;
+using openassetio::hostApi::Manager;
+using openassetio::trait::TraitsDatas;
+
+void validateTraitsDatas(const TraitsDatas& traitsDatas) {
+  // Pybind has no built-in way to assert that a collection
+  // does not contain any `None` elements, so we must add our
+  // own check here.
+  if (std::any_of(traitsDatas.begin(), traitsDatas.end(), std::logical_not<TraitsDataPtr>{})) {
+    throw pybind11::type_error{"Traits data cannot be None"};
+  }
+}
+}  // namespace
+
 void registerManager(const py::module& mod) {
   namespace trait = openassetio::trait;
+  using openassetio::BatchElementError;
   using openassetio::ContextConstPtr;
   using openassetio::EntityReference;
   using openassetio::EntityReferences;
@@ -78,7 +95,7 @@ void registerManager(const py::module& mod) {
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
       .def("resolve",
-           static_cast<std::variant<openassetio::BatchElementError, TraitsDataPtr> (Manager::*)(
+           static_cast<std::variant<BatchElementError, TraitsDataPtr> (Manager::*)(
                const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
                const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
@@ -101,13 +118,12 @@ void registerManager(const py::module& mod) {
                const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::resolve),
            py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
-      .def(
-          "resolve",
-          static_cast<std::vector<std::variant<openassetio::BatchElementError, TraitsDataPtr>> (
-              Manager::*)(const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
-                          const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
-          py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
-          py::arg("errorPolicyTag"))
+      .def("resolve",
+           static_cast<std::vector<std::variant<BatchElementError, TraitsDataPtr>> (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::resolve),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
+           py::arg("errorPolicyTag"))
       .def(
           "resolve",
           // TODO(DF): Technically we shouldn't need this overload,
@@ -134,7 +150,7 @@ void registerManager(const py::module& mod) {
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
       .def("preflight",
-           static_cast<std::variant<openassetio::BatchElementError, EntityReference> (Manager::*)(
+           static_cast<std::variant<BatchElementError, EntityReference> (Manager::*)(
                const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
                const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::preflight),
            py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
@@ -153,10 +169,9 @@ void registerManager(const py::module& mod) {
            py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
       .def("preflight",
-           static_cast<std::vector<std::variant<openassetio::BatchElementError, EntityReference>> (
-               Manager::*)(const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
-                           const Manager::BatchElementErrorPolicyTag::Variant&)>(
-               &Manager::preflight),
+           static_cast<std::vector<std::variant<BatchElementError, EntityReference>> (Manager::*)(
+               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::preflight),
            py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
            py::arg("errorPolicyTag"))
       .def(
@@ -172,18 +187,62 @@ void registerManager(const py::module& mod) {
              const trait::TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
              const Manager::RegisterSuccessCallback& successCallback,
              const Manager::BatchElementErrorCallback& errorCallback) {
-            // Pybind has no built-in way to assert that a collection
-            // does not contain any `None` elements, so we must add our
-            // own check here.
-            if (std::any_of(entityTraitsDatas.begin(), entityTraitsDatas.end(),
-                            std::logical_not<TraitsDataPtr>{})) {
-              throw pybind11::type_error{"Traits data cannot be None"};
-            }
+            validateTraitsDatas(entityTraitsDatas);
             self.register_(entityReferences, entityTraitsDatas, context, successCallback,
                            errorCallback);
           },
           py::arg("entityReferences"), py::arg("entityTraitsDatas"),
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
+
+      .def("register",
+           static_cast<EntityReference (Manager::*)(
+               const EntityReference&, const TraitsDataPtr&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::register_),
+           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def("register",
+           static_cast<std::variant<BatchElementError, EntityReference> (Manager::*)(
+               const EntityReference&, const TraitsDataPtr&, const ContextConstPtr&,
+               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::register_),
+           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def(
+          "register",
+          [](Manager& self, const EntityReference& entityReference,
+             const TraitsDataPtr& entityTraitsData, const ContextConstPtr& context) {
+            return self.register_(entityReference, entityTraitsData, context);
+          },
+          py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+          py::arg("context").none(false))
+      .def(
+          "register",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
+            validateTraitsDatas(entityTraitsDatas);
+            return self.register_(entityReferences, entityTraitsDatas, context, errorPolicyTag);
+          },
+          py::arg("entityReferences"), py::arg("entityTraitsDatas"),
+          py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def(
+          "register",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Variant& errorPolicyTag) {
+            validateTraitsDatas(entityTraitsDatas);
+            return self.register_(entityReferences, entityTraitsDatas, context, errorPolicyTag);
+          },
+          py::arg("entityReferences"), py::arg("entityTraitsDatas"),
+          py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def(
+          "register",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const TraitsDatas& entityTraitsDatas, const ContextConstPtr& context) {
+            validateTraitsDatas(entityTraitsDatas);
+            return self.register_(entityReferences, entityTraitsDatas, context);
+          },
+          py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+          py::arg("context").none(false))
       // @todo Remove one C++ API matches Python, and we remove ManagerFactory.py
       .def("_interface", &Manager::_interface)
       .def("_hostSession", &Manager::_hostSession);

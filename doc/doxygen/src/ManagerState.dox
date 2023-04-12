@@ -126,7 +126,7 @@
  * worker -> worker : working_reference = ref_map["ref://asset"]
  * worker -> Manager : path = resolve(working_reference, FileTrait.id, context)
  * Manager --> worker : "file://out.####.exr"
- * worker -> Manager : final_reference = register([working_reference], [path], context)[0]
+ * worker -> Manager : final_reference = register(working_reference, path, context)
  * Manager --> worker : "ref://asset=v4"
  * worker -> worker : update_state_file({"ref://asset": final_reference})
  * worker --> scheduler

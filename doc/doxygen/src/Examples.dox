@@ -234,7 +234,7 @@
  * # is complete. Update the context retention to denote that we're going
  * # to save a reference to this entity in our user's history.
  * context.retention = context.kPermanent
- * final_ref = manager.register([working_ref], [file_spec.traitsData()], context)[0]
+ * final_ref = manager.register(working_ref, file_spec.traitsData(), context)
  *
  * # We can persist this reference as we used the kPermanent retention
  * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
@@ -293,6 +293,6 @@
  * raster_trait.setHeight(thumbnail_attr["height"])
  *
  * context.retention = context.kTransient
- * manager.register([thumbnail_ref], [thumbnail_spec.traitsData()], context)
+ * manager.register(thumbnail_ref, thumbnail_spec.traitsData(), context)
  * @endcode
  */
