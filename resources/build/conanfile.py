@@ -39,9 +39,7 @@ class OpenAssetIOConan(ConanFile):
             self.requires("cpython/3.9.7")
             # Pin recipe as latest not compatible with Conan 1.59
             self.requires("ncurses/6.2@#54f100a8e4a94700d4123ed31420506c")
-        # Same as ASWF CY2022 Docker image:
-        # https://github.com/AcademySoftwareFoundation/aswf-docker/blob/master/ci-base/README.md
-        self.requires("pybind11/2.8.1")
+        self.requires("pybind11/2.10.1")
         # TOML library
         self.requires("tomlplusplus/3.2.0")
         # Test framework
