@@ -66,6 +66,9 @@ v1.0.0-alpha.10
   not yet enforced on CI.
   https://github.com/OpenAssetIO/OpenAssetIO/pull/874
 
+- Added support for building for Python 3.11
+  [#683](https://github.com/OpenAssetIO/OpenAssetIO/issues/683)
+
 ### Bug fixes
 
 - Removed `nodiscard` from `TraitsData::getTraitProperty`, and
