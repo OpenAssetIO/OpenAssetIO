@@ -80,6 +80,39 @@ class Test_BatchElementError_init:
             a_batch_element_error.message = "whatever"
 
 
+class Test_BatchElementError_equality:
+    def test_when_comparing_with_same_data_then_are_equal(self):
+        expected_code = BatchElementError.ErrorCode.kUnknown
+        expected_message = "message"
+
+        a_batch_element_error = BatchElementError(expected_code, expected_message)
+        b_batch_element_error = BatchElementError(expected_code, expected_message)
+
+        assert a_batch_element_error == b_batch_element_error
+
+    def test_when_comparing_with_different_code_then_are_not_equal(self):
+        expected_code = BatchElementError.ErrorCode.kUnknown
+        expected_message = "message"
+
+        a_batch_element_error = BatchElementError(expected_code, expected_message)
+        b_batch_element_error = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, expected_message
+        )
+
+        assert a_batch_element_error != b_batch_element_error
+
+    def test_when_comparing_with_different_message_then_are_not_equal(
+        self,
+    ):
+        expected_code = BatchElementError.ErrorCode.kUnknown
+        expected_message = "message"
+
+        a_batch_element_error = BatchElementError(expected_code, expected_message)
+        b_batch_element_error = BatchElementError(expected_code, "another message")
+
+        assert a_batch_element_error != b_batch_element_error
+
+
 @pytest.mark.parametrize(
     "exception_type",
     [

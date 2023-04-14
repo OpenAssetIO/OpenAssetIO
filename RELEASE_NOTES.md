@@ -51,6 +51,9 @@ v1.0.0-alpha.X
 - Made `BatchElementError` a copyable type in the C++ API.
   [#849](https://github.com/OpenAssetIO/OpenAssetIO/issues/849)
 
+- Added equality/inequality comparison operators to `BatchElementError`.
+  [#862](https://github.com/OpenAssetIO/OpenAssetIO/issues/862)
+
 - Made the C++ codebase compliant with Clang-Tidy v15. Note that this is
   not yet enforced on CI.
   https://github.com/OpenAssetIO/OpenAssetIO/pull/874

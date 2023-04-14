@@ -110,6 +110,23 @@ class BatchElementError final {
     kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError
   };
 
+  /**
+   * Compares two instances to see if they match.
+   *
+   * @return `true` if the batch elements errors match, otherwise `false`.
+   */
+  constexpr bool operator==(const BatchElementError& other) const {
+    return code == other.code && message == other.message;
+  }
+
+  /**
+   * Compares two instances to see if they do not match.
+   *
+   * @return `true` if the batch elements errors do not match, otherwise
+   * `false`.
+   */
+  constexpr bool operator!=(const BatchElementError& other) const { return !(*this == other); }
+
   /// Error code indicating the class of error.
   ErrorCode code;
   /// Human-readable error message.

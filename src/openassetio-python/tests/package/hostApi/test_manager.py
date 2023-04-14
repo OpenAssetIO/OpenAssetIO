@@ -686,7 +686,7 @@ class Test_Manager_resolve_with_singular_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_singular_throwing_overload:
@@ -762,7 +762,7 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_singular_variant_overload:
@@ -832,7 +832,7 @@ class Test_Manager_resolve_with_singular_variant_overload:
             [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
         )
 
-        assert_BatchElementError_eq(actual, batch_element_error)
+        assert actual == batch_element_error
 
 
 class Test_Manager_resolve_with_batch_default_overload:
@@ -956,7 +956,7 @@ class Test_Manager_resolve_with_batch_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_batch_throwing_overload:
@@ -1095,7 +1095,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_batch_variant_overload:
@@ -1142,7 +1142,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
 
         assert len(actual_traitsdata_and_error) == 2
         assert actual_traitsdata_and_error[0] is a_traitsdata
-        assert_BatchElementError_eq(actual_traitsdata_and_error[1], batch_element_error)
+        assert actual_traitsdata_and_error[1] == batch_element_error
 
     def test_when_mixed_output_out_of_order_then_output_returned_in_order(
         self,
@@ -1199,9 +1199,9 @@ class Test_Manager_resolve_with_batch_variant_overload:
         )
 
         assert len(actual_traitsdata_and_error) == 4
-        assert_BatchElementError_eq(actual_traitsdata_and_error[0], batch_element_error0)
+        assert actual_traitsdata_and_error[0] == batch_element_error0
         assert actual_traitsdata_and_error[1] is traitsdata1
-        assert_BatchElementError_eq(actual_traitsdata_and_error[2], batch_element_error2)
+        assert actual_traitsdata_and_error[2] == batch_element_error2
         assert actual_traitsdata_and_error[3] is traitsdata3
 
 
@@ -1333,7 +1333,7 @@ class Test_Manager_preflight_with_singular_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_singular_throwing_overload:
@@ -1409,7 +1409,7 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_singular_variant_overload:
@@ -1479,7 +1479,7 @@ class Test_Manager_preflight_with_singular_variant_overload:
             [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
         )
 
-        assert_BatchElementError_eq(actual, batch_element_error)
+        assert actual == batch_element_error
 
 
 class Test_Manager_preflight_with_batch_default_overload:
@@ -1603,7 +1603,7 @@ class Test_Manager_preflight_with_batch_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_batch_throwing_overload:
@@ -1742,7 +1742,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_batch_variant_overload:
@@ -1789,7 +1789,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
 
         assert len(actual_ref_or_error) == 2
         assert actual_ref_or_error[0] == a_different_ref
-        assert_BatchElementError_eq(actual_ref_or_error[1], batch_element_error)
+        assert actual_ref_or_error[1] == batch_element_error
 
     def test_when_mixed_output_out_of_order_then_output_returned_in_order(
         self,
@@ -1846,9 +1846,9 @@ class Test_Manager_preflight_with_batch_variant_overload:
         )
 
         assert len(actual_ref_or_error) == 4
-        assert_BatchElementError_eq(actual_ref_or_error[0], batch_element_error0)
+        assert actual_ref_or_error[0] == batch_element_error0
         assert actual_ref_or_error[1] == entity_ref1
-        assert_BatchElementError_eq(actual_ref_or_error[2], batch_element_error2)
+        assert actual_ref_or_error[2] == batch_element_error2
         assert actual_ref_or_error[3] == entity_ref3
 
 
@@ -1991,7 +1991,7 @@ class Test_Manager_register_with_singular_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_singular_throwing_overload:
@@ -2075,7 +2075,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_singular_variant_overload:
@@ -2153,7 +2153,7 @@ class Test_Manager_register_with_singular_variant_overload:
             mock.ANY,
         )
 
-        assert_BatchElementError_eq(actual, batch_element_error)
+        assert actual == batch_element_error
 
 
 class Test_Manager_register_with_batch_default_overload:
@@ -2269,7 +2269,7 @@ class Test_Manager_register_with_batch_default_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_batch_throwing_overload:
@@ -2400,7 +2400,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         )
 
         assert exc.value.index == expected_index
-        assert_BatchElementError_eq(exc.value.error, batch_element_error)
+        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_batch_variant_overload:
@@ -2446,7 +2446,7 @@ class Test_Manager_register_with_batch_variant_overload:
 
         assert len(actual_ref_or_error) == 2
         assert actual_ref_or_error[0] == a_different_ref
-        assert_BatchElementError_eq(actual_ref_or_error[1], batch_element_error)
+        assert actual_ref_or_error[1] == batch_element_error
 
     def test_when_mixed_output_out_of_order_then_output_returned_in_order(
         self,
@@ -2503,9 +2503,9 @@ class Test_Manager_register_with_batch_variant_overload:
         )
 
         assert len(actual_ref_or_error) == 4
-        assert_BatchElementError_eq(actual_ref_or_error[0], batch_element_error0)
+        assert actual_ref_or_error[0] == batch_element_error0
         assert actual_ref_or_error[1] == entity_ref1
-        assert_BatchElementError_eq(actual_ref_or_error[2], batch_element_error2)
+        assert actual_ref_or_error[2] == batch_element_error2
         assert actual_ref_or_error[3] == entity_ref3
 
 
@@ -2633,9 +2633,3 @@ class Test_Manager_contextFromPersistenceToken:
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
-
-
-def assert_BatchElementError_eq(actual: BatchElementError, expected: BatchElementError):
-    assert isinstance(actual, BatchElementError)
-    assert actual.code == expected.code
-    assert actual.message == expected.message
