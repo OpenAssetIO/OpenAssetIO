@@ -33,7 +33,7 @@ jobs:
           # These are the platform build strings provided to
           # cibuildwheel, with wildcarding. See
           # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
-        python-build: ['cp37*64', 'cp39*64', 'cp310*64']
+        python-build: ['cp37*64', 'cp39*64', 'cp310*64', 'cp311*64']
     defaults:
       run:
         # Annoyingly required here since `matrix` isn't available in the
