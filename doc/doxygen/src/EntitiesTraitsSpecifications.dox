@@ -64,7 +64,7 @@
  *  - `image`: That the entity represents two-dimensional visual
  *    data.
  *  - `procedural`: That it is a parameterized representation
- *  - checkerBoard`: A well-known set of properties that parameterize
+ *  - `checkerBoard`: A well-known set of properties that parameterize
  *    the generation of a checker board.
  *
  * A character model in a USD file could use the `locatableContent` and
