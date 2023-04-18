@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Improvements
+
+- Added support for running `ctest` when a python venv is used to
+  determine which Python distribution to build against.
+
 v1.0.0-alpha.10
 --------------
 
