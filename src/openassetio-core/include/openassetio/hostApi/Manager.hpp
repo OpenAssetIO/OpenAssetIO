@@ -278,6 +278,14 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    *  Creates a child Context for use with the manager.
    *
+   *  The new context will have the same configuration as the parent and
+   *  be considered to be part of the same logical group, but may be
+   *  modified independently. Useful when performing multiple operations
+   *  in parallel.
+   *
+   *  @note The locale is deep-copied so that the child's locale can be
+   *  freely modified without affecting the parent.
+   *
    *  @warning Contexts should never be directly constructed, always
    *  use this method or @ref createContext to create a new one.
    *
