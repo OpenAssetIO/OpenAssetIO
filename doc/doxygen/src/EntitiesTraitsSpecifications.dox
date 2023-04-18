@@ -60,7 +60,7 @@
  *  - `raster`: That the data is in the form of pixels.
  *
  * A procedural test chart image may combine `image`, `procedural` and
- * `colorBars` traits, defining:
+ * `checkerBoard` traits, defining:
  *  - `image`: That the entity represents two-dimensional visual
  *    data.
  *  - `procedural`: That it is a parameterized representation
