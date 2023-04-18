@@ -2554,7 +2554,7 @@ class Test_Manager_createChildContext:
         assert context_b.managerState is state_b
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
-        assert context_b.locale == context_b.locale
+        assert context_b.locale == context_a.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
             state_a, a_host_session
         )
