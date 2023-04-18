@@ -178,15 +178,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, context, hostSession, overrideVersionName
         )
 
-    def setRelatedReferences(
-        self, entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True
-    ):
-        assert isinstance(entityRef, EntityReference)
-        self.__assertIsIterableOf(relatedRefs, EntityReference)
-        return self.mock.setRelatedReferences(
-            entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=append
-        )
-
     def preflight(
         self, targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
     ):

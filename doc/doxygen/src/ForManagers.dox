@@ -193,14 +193,6 @@
  * places any constraints on the implementation of any given asset
  * management system.
  *
- * There are however times when a host will explicitly add a
- * relationship to an entity. Generally speaking, this is when an
- * existing entity is known to be relevant to a newly created
- * one. For example, if an image has been rendered from an assetized
- * script. The host may call @ref openassetio.managerApi.ManagerInterface.ManagerInterface.setRelatedReferences
- * "setRelatedReferences", to add the script's reference to the newly
- * registered image, using the SourceDocumentRelationship trait set.
- *
  * In order to support entity relationships:
  *
  * - Implement
@@ -210,18 +202,6 @@
  *   use these relationships to simplify common pipeline integration
  *   tasks. For example, loading multiple AOVs for a render, or
  *   determining data dependencies when transferring assets.
- *
- * - If appropriate, implement
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.setRelatedReferences
- *   "setRelatedReferences" to update any internal relationships that
- *   may be affected by the registered change.
- *
- * @note It is currently in flux as to whether relationship creation
- * should be a hard requirement of the API, or considered hints as set
- * by the host. There is even question as to the validity of the API
- * allowing sets at all, please contribute to the discussion here if you
- * have any opinion on the matter:
- * https://github.com/OpenAssetIO/OpenAssetIO/discussions/18
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *

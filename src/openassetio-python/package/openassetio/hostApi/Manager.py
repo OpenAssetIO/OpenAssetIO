@@ -472,8 +472,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         length, ie: not a 1:1 mapping of entities to relationships.
 
         @unstable
-
-        @todo Implement missing setRelatedReferences()
         """
         if not isinstance(references, (list, tuple)):
             references = [
