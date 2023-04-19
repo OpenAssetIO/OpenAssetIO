@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+--------------
+
+### Improvements
+
+- Added support for running `ctest` when a python venv is used to
+  determine which Python distribution to build against.
+
 v1.0.0-alpha.10
 --------------
 
@@ -56,7 +64,10 @@ v1.0.0-alpha.10
 
 - Made the C++ codebase compliant with Clang-Tidy v15. Note that this is
   not yet enforced on CI.
-  https://github.com/OpenAssetIO/OpenAssetIO/pull/874
+  [#874](https://github.com/OpenAssetIO/OpenAssetIO/pull/874)
+
+- Added support for building for Python 3.11
+  [#683](https://github.com/OpenAssetIO/OpenAssetIO/issues/683)
 
 ### Bug fixes
 

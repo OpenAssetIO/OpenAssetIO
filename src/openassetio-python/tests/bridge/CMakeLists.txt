@@ -58,8 +58,10 @@ add_dependencies(openassetio-python-bridge-test-exe openassetio-python-module)
 # Since we're not a "real" Python distribution, we're missing all the
 # required Python libraries. So to work around this, set PYTHONHOME to
 # point to the Python distribution that we inherited from.
+# base_prefix is used as it always points to the base python install,
+# even if a venv is used to define which python to build against.
 execute_process(
-    COMMAND ${Python_EXECUTABLE} -c "import sys; sys.stdout.write(sys.prefix)"
+    COMMAND ${Python_EXECUTABLE} -c "import sys; sys.stdout.write(sys.base_prefix)"
     OUTPUT_VARIABLE Python_PREFIX
 )
 list(APPEND _envvars PYTHONHOME=${Python_PREFIX})

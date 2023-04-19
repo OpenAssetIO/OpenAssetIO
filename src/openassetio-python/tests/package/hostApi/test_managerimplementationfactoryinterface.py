@@ -33,11 +33,9 @@ class Test_ManagerImplementationFactoryInterface:
         assert a_manager_interface_factory_interface._logger is mock_logger
 
     def test_logger_is_readonly(self, a_manager_interface_factory_interface):
-        with pytest.raises(AttributeError) as err:
+        with pytest.raises(AttributeError):
             # pylint: disable=protected-access
             a_manager_interface_factory_interface._logger = "something"
-
-        assert str(err.value) == "can't set attribute"
 
 
 class Test_ManagerImplementationFactoryInterface_identifiers:
