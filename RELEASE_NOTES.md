@@ -1,8 +1,8 @@
 Release Notes
 =============
 
-v1.0.0-alpha.x
---------------
+v1.0.0-alpha.xx
+---------------
 
 ### Breaking changes
 
@@ -24,7 +24,7 @@ v1.0.0-alpha.x
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
 v1.0.0-alpha.10
---------------
+---------------
 
 ### Breaking changes
 
