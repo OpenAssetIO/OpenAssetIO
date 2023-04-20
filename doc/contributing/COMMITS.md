@@ -258,7 +258,9 @@ These components should be used in commit message titles:
 
 - `Build` For `Makefile`, `CMake`, `setup.py`, etc. use by all builds.
 - `CI` For work solely on GitHub Actions or similar deployments.
-- `Core` For work within the core, non-interactive API.
+- `Core` For work within the core c++, non-interactive API.
+- `Python` For work solely focused on the Python API.
+- `C` For work solely focused on the C API.
 - `Docs` For work in the (distribution) Doxygen documentation or
   in-repository Markdown files.
 - `Examples` For work included under the `examples` directory.
