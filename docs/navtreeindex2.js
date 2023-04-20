@@ -1,6 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"group__oa___info_dictionary__aliases.html#ga6d79aa42a78dbad4380ad3be364ec34c":[12,0,2,0,5],
 "group__oa___info_dictionary__aliases.html#ga708f53e00d1b8e24c431bb0feed39f49":[12,0,2,0,10],
 "group__oa___info_dictionary__aliases.html#ga75ea4ce946818b546217e2a6d3cc2d88":[12,0,2,0,18],
 "group__oa___info_dictionary__aliases.html#ga77523858f1447a84b759d6936aeaa974":[12,0,2,0,9],
@@ -47,8 +46,8 @@ var NAVTREEINDEX2 =
 "group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[12,0,5,0,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[12,0,5,0,1],
 "hierarchy.html":[14,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],

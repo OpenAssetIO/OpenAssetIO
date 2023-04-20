@@ -177,9 +177,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad27922210d9d184adf7f1545267d151a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> (self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None)</td></tr>
 <tr class="memdesc:ad27922210d9d184adf7f1545267d151a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns related entity references, based on a relationship defined by a set of traits and their properties.  <a href="#ad27922210d9d184adf7f1545267d151a">More...</a><br /></td></tr>
 <tr class="separator:ad27922210d9d184adf7f1545267d151a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46a4fb56fe244d6b8cabfa7ed936697c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c">setRelatedReferences</a> (self, entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True)</td></tr>
-<tr class="memdesc:a46a4fb56fe244d6b8cabfa7ed936697c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new relationship between the referenced entities.  <a href="#a46a4fb56fe244d6b8cabfa7ed936697c">More...</a><br /></td></tr>
-<tr class="separator:a46a4fb56fe244d6b8cabfa7ed936697c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -224,7 +221,7 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology()</a> </li>
 <li>settings()</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>initialize </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7fc6f92f083cef123dc4a266c5515ac2"></a>
@@ -632,83 +629,6 @@ c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c">setRelatedReferences</a></dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a46a4fb56fe244d6b8cabfa7ed936697c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def setRelatedReferences </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>relationshipTraitsData</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>relatedRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>append</em> = <code>True</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new relationship between the referenced entities. </p>
-<p>Though getRelatedReferences is an essential call, there is some asymmetry here, as it is not necessarily required to be able to setRelatedReferences directly. For example, in the case of a 'shot' (as illustrated in the docs for getRelatedReferences) - any new shots would be created by registering a new entity with the traits of a ShotSpecification under the parent, rather than using this call. The best way to think of it is that this call is reserved for defining relationships between existing assets (such as connecting the script used to define a render, with the image sequences it creates) and 'register' as being defining the relationship between a new asset and some existing one.</p>
-<p>In systems that don't support post-creation adjustment of relationships, this can simply be a no-op.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRef</td><td><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> The entity to which the relationship should be established.</td></tr>
-    <tr><td class="paramname">relationshipTraitsData</td><td><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a>, The type of relationship to establish.</td></tr>
-    <tr><td class="paramname">relatedRefs</td><td>List[str], The related entities for the given relationship.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">append</td><td>bool, When True (default) new relationships will be added to any existing ones. If False, then any existing relationships with the supplied traits will first be removed.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> </dd>
-<dd>
-<a class="el" href="glossary.html#register">register</a></dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>

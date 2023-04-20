@@ -91,11 +91,10 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a0a6b5bb4c687f561c8ccc88328db5813":[14,0,0,3,0,0,2],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229":[14,0,0,3,0,0,1],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a23498c21ff0f25f453c2af2a6b101938":[14,0,0,3,0,0,4],
-"classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a46a4fb56fe244d6b8cabfa7ed936697c":[14,0,0,3,0,0,7],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7":[14,0,0,3,0,0,5],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a630c9ee5a964b96c25b7bb1ba2c1a9e5":[14,0,0,3,0,0,3],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a7fc6f92f083cef123dc4a266c5515ac2":[14,0,0,3,0,0,0],
-"classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910":[14,0,0,3,0,0,8],
+"classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910":[14,0,0,3,0,0,7],
 "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a":[14,0,0,3,0,0,6],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html":[14,0,0,4,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a51829b63adb24ac48d350dee60181002":[14,0,0,4,0,0,4],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be":[14,0,0,8,13,1],
 "classopenassetio_1_1v1_1_1_traits_data.html#ab156681737e47cc39be246cd986b7d2e":[14,0,0,8,13,4],
 "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0":[14,0,0,8,13,0],
-"classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2":[14,0,0,8,13,7]
+"classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2":[14,0,0,8,13,7],
+"classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6":[14,0,0,8,13,6]
 };
