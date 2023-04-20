@@ -502,7 +502,6 @@ class Test_Manager_getRelatedReferences:
         an_entity_trait_set,
         a_context,
     ):
-
         # pylint: disable=too-many-locals
 
         method = mock_manager_interface.mock.getRelatedReferences
@@ -2554,11 +2553,31 @@ class Test_Manager_createChildContext:
         assert context_b.managerState is state_b
         assert context_b.access == context_a.access
         assert context_b.retention == context_a.retention
-        assert context_b.locale == context_b.locale
+        assert context_b.locale == context_a.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
             state_a, a_host_session
         )
         mock_manager_interface.mock.createState.assert_not_called()
+
+    def test_when_called_with_parent_then_locale_is_deep_copied(
+        self, manager, mock_manager_interface, a_host_session
+    ):
+        original_locale = TraitsData()
+        original_locale.setTraitProperty("a", "v", 1)
+
+        state_a = managerApi.ManagerStateBase()
+        mock_manager_interface.mock.createState.return_value = state_a
+        mock_manager_interface.mock.createChildState.return_value = state_a
+        context_a = manager.createContext()
+        context_a.access = Context.Access.kWrite
+        context_a.retention = Context.Retention.kSession
+        context_a.locale = original_locale
+
+        context_b = manager.createChildContext(context_a)
+
+        assert context_b.locale == context_a.locale
+        original_locale.setTraitProperty("a", "v", 2)
+        assert context_b.locale != context_a.locale
 
     def test_when_called_with_parent_with_no_managerState_then_createChildState_is_not_called(
         self, manager, mock_manager_interface

@@ -1,8 +1,18 @@
 Release Notes
 =============
 
-v1.0.0-alpha.x
---------------
+v1.0.0-alpha.xx
+---------------
+
+### Breaking changes
+
+- `Manager.createChildContext` now deep-copies the parent locale to
+  prevent subsequent modifications of the locale of one context
+  from affecting the other.
+  [#896](https://github.com/OpenAssetIO/OpenAssetIO/issues/896)
+
+- Removed `ManagerInterface.setRelatedReferences` pending re-design.
+  [#16](https://github.com/OpenAssetIO/OpenAssetIO/issues/16)
 
 ### Improvements
 
@@ -13,13 +23,8 @@ v1.0.0-alpha.x
   logger pointer rather than a copy.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
-### Breaking changes
-
-- Removed `ManagerInterface.setRelatedReferences` pending re-design.
-  [#16](https://github.com/OpenAssetIO/OpenAssetIO/issues/16)
-
 v1.0.0-alpha.10
---------------
+---------------
 
 ### Breaking changes
 
