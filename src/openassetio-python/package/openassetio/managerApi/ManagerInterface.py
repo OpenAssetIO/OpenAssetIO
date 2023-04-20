@@ -30,7 +30,6 @@ import abc
 
 # TODO(DF): Remove pylint disable once CI is fixed.
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
-from .. import exceptions
 
 
 __all__ = [
@@ -557,66 +556,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         cursory validation that this is the case before calling this
         function.
 
-        @see @ref setRelatedReferences
-
         @unstable
         """
         raise NotImplementedError
-
-    def setRelatedReferences(
-        self, entityRef, relationshipTraitsData, relatedRefs, context, hostSession, append=True
-    ):
-        """
-        Creates a new relationship between the referenced entities.
-
-        Though getRelatedReferences is an essential call, there is some
-        asymmetry here, as it is not necessarily required to be able to
-        setRelatedReferences directly. For example, in the case of a
-        'shot' (as illustrated in the docs for getRelatedReferences) -
-        any new shots would be created by registering a new entity with
-        the traits of a ShotSpecification under the parent, rather than
-        using this call. The best way to think of it is that this call
-        is reserved for defining relationships between existing assets
-        (such as connecting the script used to define a render, with the
-        image sequences it creates) and 'register' as being defining the
-        relationship between a new asset and some existing one.
-
-        In systems that don't support post-creation adjustment of
-        relationships, this can simply be a no-op.
-
-        @param entityRef @fqref{EntityReference} "EntityReference" The
-        entity to which the relationship should be established.
-
-        @param relationshipTraitsData @fqref{TraitsData} "TraitsData",
-        The type of relationship to establish.
-
-        @param relatedRefs List[str], The related entities for the
-        given relationship.
-
-        @param context Context The calling context.
-
-        @param hostSession openassetio.managerApi.HostSession The host
-        session that maps to the caller, this should be used for all
-        logging and provides access to the openassetio.managerApi.Host
-        object representing the process that initiated the API session.
-
-        @param append bool, When True (default) new relationships will
-        be added to any existing ones. If False, then any existing
-        relationships with the supplied traits will first be
-        removed.
-
-        @return None
-
-        @see @ref getRelatedReferences
-        @see @ref register
-
-        @unstable
-        """
-        if not self.entityExists(entityRef, context, hostSession):
-            raise exceptions.InvalidEntityReference(entityReference=entityRef)
-
-        for ref in relatedRefs:
-            if not self.entityExists(ref, context, hostSession):
-                raise exceptions.InvalidEntityReference(entityReference=ref)
 
     ## @}

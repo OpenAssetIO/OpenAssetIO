@@ -13,6 +13,11 @@ v1.0.0-alpha.x
   logger pointer rather than a copy.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
 
+### Breaking changes
+
+- Removed `ManagerInterface.setRelatedReferences` pending re-design.
+  [#16](https://github.com/OpenAssetIO/OpenAssetIO/issues/16)
+
 v1.0.0-alpha.10
 --------------
 
