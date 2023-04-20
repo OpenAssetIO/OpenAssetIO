@@ -10,14 +10,8 @@ if (OPENASSETIO_ENABLE_PYTHON)
     #-------------------------------------------------------------------
     # Locate packages
 
-    list(APPEND _components Interpreter)
-    list(APPEND _components Development.Module)
-    if (OPENASSETIO_ENABLE_TESTS)
-        list(APPEND _components Development.Embed)
-    endif ()
-
     # Locate the Python package.
-    find_package(Python REQUIRED COMPONENTS ${_components})
+    find_package(Python REQUIRED COMPONENTS Interpreter Development)
 
     # Debug log some outputs expected from the built-in FindPython.
     message(TRACE "Python_EXECUTABLE = ${Python_EXECUTABLE}")
