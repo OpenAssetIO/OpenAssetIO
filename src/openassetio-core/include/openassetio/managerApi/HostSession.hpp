@@ -51,7 +51,7 @@ class OPENASSETIO_CORE_EXPORT HostSession final {
   /**
    * @return The logger associated with this session
    */
-  [[nodiscard]] log::LoggerInterfacePtr logger() const;
+  [[nodiscard]] const log::LoggerInterfacePtr& logger() const;
 
  private:
   explicit HostSession(HostPtr host, log::LoggerInterfacePtr logger);

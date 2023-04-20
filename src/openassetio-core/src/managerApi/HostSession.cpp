@@ -17,7 +17,7 @@ HostSession::HostSession(HostPtr host, log::LoggerInterfacePtr logger)
     : host_{std::move(host)}, logger_{std::move(logger)} {}
 
 HostPtr HostSession::host() const { return host_; }
-log::LoggerInterfacePtr HostSession::logger() const { return logger_; }
+const log::LoggerInterfacePtr& HostSession::logger() const { return logger_; }
 
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
