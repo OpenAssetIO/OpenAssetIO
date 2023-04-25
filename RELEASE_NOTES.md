@@ -14,6 +14,12 @@ v1.0.0-alpha.xx
 - Removed `ManagerInterface.setRelatedReferences` pending re-design.
   [#16](https://github.com/OpenAssetIO/OpenAssetIO/issues/16)
 
+- Simplified the locale `TraitsData` provided to API compliance tests
+  via the `openassetio.test.manager` test harness. The locale now
+  contains only a single `"openassetio:test.locale"` trait with a
+  `"case"` property giving the name of the `unittest` test case.
+  [#835](https://github.com/OpenAssetIO/OpenAssetIO/issues/835)
+
 ### Improvements
 
 - Added support for running `ctest` when a python venv is used to

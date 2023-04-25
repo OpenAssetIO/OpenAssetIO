@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ Private implementation classes for the manager test framework.
 """
 import unittest
 
-from openassetio import hostApi, log, pluginSystem
-
-from .specifications import ManagerTestHarnessLocale
+from openassetio import hostApi, log, pluginSystem, TraitsData
+from .. import kTestHarnessTraitId, kCasePropertyKey
 
 
 __all__ = ["createHarness"]
@@ -164,10 +163,14 @@ class _ValidatorTestLoader(unittest.loader.TestLoader):
             else:
                 manager = self.__managerCreateFn(initialize=False)
 
-            locale = ManagerTestHarnessLocale.create()
-            locale.testTrait().setCaseName(f"{testCaseClass.__name__}.{testCaseName}")
+            locale = TraitsData({kTestHarnessTraitId})
+            locale.setTraitProperty(
+                kTestHarnessTraitId,
+                kCasePropertyKey,
+                f"{testCaseClass.__name__}.{testCaseName}",
+            )
 
-            cases.append(testCaseClass(caseFixtures, manager, locale.traitsData(), testCaseName))
+            cases.append(testCaseClass(caseFixtures, manager, locale, testCaseName))
 
         return self.suiteClass(cases)
 

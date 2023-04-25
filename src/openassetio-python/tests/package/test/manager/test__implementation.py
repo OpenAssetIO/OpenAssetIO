@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -28,8 +28,9 @@ from unittest.mock import Mock, call
 
 import pytest
 
+from openassetio import TraitsData
+from openassetio.test import kTestHarnessTraitId, kCasePropertyKey
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
-from openassetio.test.manager.specifications import ManagerTestHarnessLocale
 from openassetio.test.manager._implementation import (
     _ValidatorHarnessHostInterface,
     _ValidatorTestLoader,
@@ -251,17 +252,13 @@ def mock_test_case_two():
 
 @pytest.fixture
 def test_case_one_locale():
-    ## TODO(TC): We need a convenience constructor for making
-    ## pre-populated specifications
-    locale = ManagerTestHarnessLocale.create()
-    locale.testTrait().setCaseName("Test_MockTest.test_one")
-    return locale.traitsData()
+    traitsData = TraitsData({kTestHarnessTraitId})
+    traitsData.setTraitProperty(kTestHarnessTraitId, kCasePropertyKey, "Test_MockTest.test_one")
+    return traitsData
 
 
 @pytest.fixture
 def test_case_two_locale():
-    ## TODO(TC): We need a convenience constructor for making
-    ## pre-populated specifications
-    locale = ManagerTestHarnessLocale.create()
-    locale.testTrait().setCaseName("Test_MockTest.test_two")
-    return locale.traitsData()
+    traitsData = TraitsData({kTestHarnessTraitId})
+    traitsData.setTraitProperty(kTestHarnessTraitId, kCasePropertyKey, "Test_MockTest.test_two")
+    return traitsData
