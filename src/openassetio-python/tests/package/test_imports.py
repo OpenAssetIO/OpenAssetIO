@@ -62,12 +62,6 @@ class Test_package_imports:
     def test_importing_log_succeeds(self):
         from openassetio import log
 
-    def test_importing_SpecificationBase_succeeds(self):
-        from openassetio import SpecificationBase
-
-    def test_importing_Trait_succeeds(self):
-        from openassetio import TraitBase
-
     def test_importing_TraitsData_succeeds(self):
         from openassetio import TraitsData
 
