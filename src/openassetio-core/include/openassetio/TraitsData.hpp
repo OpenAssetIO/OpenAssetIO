@@ -47,9 +47,9 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  * As generic access to the container's data (based on
  * "well-known-strings") is inherently unstable. Instances of this class
  * should generally be wrapped in one of the specialized @ref
- * openassetio.SpecificationBase "Specification" or @ref
- * openassetio.TraitBase "Trait" derived "views" at runtime by a @ref
- * host or @ref manager to ensure consistent access to the correct keys.
+ * Specification "specification" or @ref trait derived "views" at
+ * runtime by a @ref host or @ref manager to ensure consistent access to
+ * the correct keys.
  *
  * Trait @ref trait::property::Key "property keys" are always strings.
  * Property values are strings, integers, floating point, or booleans.
