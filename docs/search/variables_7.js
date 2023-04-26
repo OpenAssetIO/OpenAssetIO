@@ -1,6 +1,7 @@
 var searchData=
 [
   ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#a188aa4c7eee9d6254a9c65f61e5c67df',1,'openassetio::v1::Context']]],
+  ['kcasepropertykey',['kCasePropertyKey',['../namespaceopenassetio_1_1test.html#a25122707f8e5dfcc6ed297cf17d4a7d9',1,'openassetio::test']]],
   ['kdefaultmanagerconfigenvvarname',['kDefaultManagerConfigEnvVarName',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#abac2a5ea98411125673e46a31df73693',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['kdisableentrypointsenvvar',['kDisableEntryPointsEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a4d28c523da756adf0527a72b4914aac4',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
   ['kdocumentaction_5fsave',['kDocumentAction_Save',['../namespaceopenassetio_1_1constants.html#ac53f766f74ca7ae4aa9715b1484e95b5',1,'openassetio::constants']]],
@@ -36,7 +37,6 @@ var searchData=
   ['kfield_5fpixelwidth',['kField_PixelWidth',['../namespaceopenassetio_1_1constants.html#ac73ebf8b930df72e0f83e1dc81838a65',1,'openassetio::constants']]],
   ['kfield_5fsmallicon',['kField_SmallIcon',['../namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe',1,'openassetio::constants']]],
   ['kfield_5fstatus',['kField_Status',['../namespaceopenassetio_1_1constants.html#ac1973756f9b4f6d92f660e12cd82d25e',1,'openassetio::constants']]],
-  ['kid',['kId',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.manager.specifications.ManagerTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.TestTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.HarnessTrait.kId()']]],
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
   ['kpackageentrypointgroup',['kPackageEntryPointGroup',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a38fa37bdd34bd29e53cc24a80958a192',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
@@ -54,7 +54,7 @@ var searchData=
   ['kterm_5fpublishing',['kTerm_Publishing',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ae2f54e0af0609b25913de47433c64bb4',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshot',['kTerm_Shot',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ab39066cfaab5028793d15a13c9632fd2',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshots',['kTerm_Shots',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a7b9c89b2cdc69b6027aceeaf4b0cbcd4',1,'openassetio::hostApi::terminology']]],
-  ['ktraitset',['kTraitSet',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#a3573e751580ba06c9da69a853173dd70',1,'openassetio.test.manager.specifications.ManagerTestHarnessLocale.kTraitSet()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a7e57e516ab8013fc97a8638d17fb2d07',1,'openassetio.test.specifications.TestHarnessLocale.kTraitSet()']]],
+  ['ktestharnesstraitid',['kTestHarnessTraitId',['../namespaceopenassetio_1_1test.html#a1ebfad0be5370ad33eec68b253bab0d0',1,'openassetio::test']]],
   ['kvariant',['kVariant',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html#a3533271cbe4674954ca38bb4ed1eba76',1,'openassetio::v1::hostApi::Manager::BatchElementErrorPolicyTag']]],
   ['kversiondict_5forderkey',['kVersionDict_OrderKey',['../namespaceopenassetio_1_1constants.html#ab7001c7a7460a4618d7a8cb8516446a3',1,'openassetio::constants']]]
 ];

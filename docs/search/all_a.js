@@ -1,6 +1,7 @@
 var searchData=
 [
   ['kaccessnames',['kAccessNames',['../classopenassetio_1_1v1_1_1_context.html#a188aa4c7eee9d6254a9c65f61e5c67df',1,'openassetio::v1::Context']]],
+  ['kcasepropertykey',['kCasePropertyKey',['../namespaceopenassetio_1_1test.html#a25122707f8e5dfcc6ed297cf17d4a7d9',1,'openassetio::test']]],
   ['kcritical',['kCritical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebug',['kDebug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebugapi',['kDebugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4',1,'openassetio::v1::log::LoggerInterface']]],
@@ -45,7 +46,6 @@ var searchData=
   ['kfield_5fsmallicon',['kField_SmallIcon',['../namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe',1,'openassetio::constants']]],
   ['kfield_5fstatus',['kField_Status',['../namespaceopenassetio_1_1constants.html#ac1973756f9b4f6d92f660e12cd82d25e',1,'openassetio::constants']]],
   ['kfound',['kFound',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9a343ee47b19145191b658cdf60ddd0061',1,'openassetio::v1::trait']]],
-  ['kid',['kId',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.manager.specifications.ManagerTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.TestTrait.kId()'],['../classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html#a6e3a65680e4e6d7e0c76f3c6b73238ba',1,'openassetio.test.specifications.HarnessTrait.kId()']]],
   ['kignored',['kIgnored',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca4ffabe68579c72701be81c9478b4cf04',1,'openassetio::v1::Context']]],
   ['kinfo',['kInfo',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba176a473e63c17ccdac91640c67f149bf',1,'openassetio::v1::log::LoggerInterface']]],
   ['kinvalidentityreference',['kInvalidEntityReference',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3',1,'openassetio::v1::BatchElementError']]],
@@ -74,7 +74,7 @@ var searchData=
   ['kterm_5fpublishing',['kTerm_Publishing',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ae2f54e0af0609b25913de47433c64bb4',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshot',['kTerm_Shot',['../namespaceopenassetio_1_1host_api_1_1terminology.html#ab39066cfaab5028793d15a13c9632fd2',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fshots',['kTerm_Shots',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a7b9c89b2cdc69b6027aceeaf4b0cbcd4',1,'openassetio::hostApi::terminology']]],
-  ['ktraitset',['kTraitSet',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#a3573e751580ba06c9da69a853173dd70',1,'openassetio.test.manager.specifications.ManagerTestHarnessLocale.kTraitSet()'],['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a7e57e516ab8013fc97a8638d17fb2d07',1,'openassetio.test.specifications.TestHarnessLocale.kTraitSet()']]],
+  ['ktestharnesstraitid',['kTestHarnessTraitId',['../namespaceopenassetio_1_1test.html#a1ebfad0be5370ad33eec68b253bab0d0',1,'openassetio::test']]],
   ['ktransient',['kTransient',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca17ac956ba1257a6d5a99867ecd5ddac2',1,'openassetio::v1::Context']]],
   ['kunknown',['kUnknown',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390',1,'openassetio::v1::BatchElementError::kUnknown()'],['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390',1,'openassetio::v1::Context::kUnknown()']]],
   ['kvariant',['kVariant',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html#a3533271cbe4674954ca38bb4ed1eba76',1,'openassetio::v1::hostApi::Manager::BatchElementErrorPolicyTag']]],

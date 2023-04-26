@@ -4,7 +4,7 @@ var namespaceopenassetio_1_1v1 =
     [ "log", "namespaceopenassetio_1_1v1_1_1log.html", "namespaceopenassetio_1_1v1_1_1log" ],
     [ "managerApi", "namespaceopenassetio_1_1v1_1_1manager_api.html", "namespaceopenassetio_1_1v1_1_1manager_api" ],
     [ "python", "namespaceopenassetio_1_1v1_1_1python.html", null ],
-    [ "trait", "namespaceopenassetio_1_1v1_1_1trait.html", "namespaceopenassetio_1_1v1_1_1trait" ],
+    [ "trait", "namespaceopenassetio_1_1v1_1_1trait.html", null ],
     [ "BatchElementError", "classopenassetio_1_1v1_1_1_batch_element_error.html", "classopenassetio_1_1v1_1_1_batch_element_error" ],
     [ "BatchElementException", "structopenassetio_1_1v1_1_1_batch_element_exception.html", "structopenassetio_1_1v1_1_1_batch_element_exception" ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", "classopenassetio_1_1v1_1_1_context" ],

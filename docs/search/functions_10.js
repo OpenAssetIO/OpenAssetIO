@@ -41,10 +41,7 @@ var searchData=
   ['test_5fwhen_5funknown_5ftraits_5fthen_5freturned_5fspecification_5fis_5fempty',['test_when_unknown_traits_then_returned_specification_is_empty',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a8472bd6f567f68ef7452ecf525945120',1,'openassetio::test::manager::apiComplianceSuite::Test_resolve']]],
   ['test_5fwhen_5fvalid_5fand_5funknown_5ftraits_5fthen_5freturned_5fspecification_5fonly_5fhas_5fvalid_5ftraits',['test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a71de542b71fe9800fd7d68905991c98b',1,'openassetio::test::manager::apiComplianceSuite::Test_resolve']]],
   ['test_5fwhen_5fvalid_5ftraits_5fthen_5freturned_5fspecification_5fhas_5fthose_5ftraits',['test_when_valid_traits_then_returned_specification_has_those_traits',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#adf6789ffa8d68c606ec5fdc70bc3e0b4',1,'openassetio::test::manager::apiComplianceSuite::Test_resolve']]],
-  ['testtrait',['testTrait',['../classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html#a3e0655e6f12c848f8627d85757dd5941',1,'openassetio::test::specifications::TestHarnessLocale']]],
   ['tostring',['toString',['../classopenassetio_1_1v1_1_1_entity_reference.html#af9d34603c70d1903c55385ba1b6f369b',1,'openassetio::v1::EntityReference']]],
-  ['traitbase',['TraitBase',['../structopenassetio_1_1v1_1_1trait_1_1_trait_base.html#af19f1e7bc2b162a62af31e2623a93823',1,'openassetio::v1::trait::TraitBase']]],
   ['traitpropertykeys',['traitPropertyKeys',['../classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2',1,'openassetio::v1::TraitsData']]],
-  ['traitsdata',['traitsData',['../classopenassetio_1_1_specification_base_1_1_specification_base.html#af9bdad9903d7b2759f88f9f46f99b12d',1,'openassetio::SpecificationBase::SpecificationBase']]],
   ['traitset',['traitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd',1,'openassetio::v1::TraitsData']]]
 ];

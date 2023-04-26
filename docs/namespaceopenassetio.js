@@ -5,8 +5,6 @@ var namespaceopenassetio =
     [ "hostApi", "namespaceopenassetio_1_1host_api.html", "namespaceopenassetio_1_1host_api" ],
     [ "managerApi", "namespaceopenassetio_1_1manager_api.html", "namespaceopenassetio_1_1manager_api" ],
     [ "pluginSystem", "namespaceopenassetio_1_1plugin_system.html", "namespaceopenassetio_1_1plugin_system" ],
-    [ "SpecificationBase", "namespaceopenassetio_1_1_specification_base.html", "namespaceopenassetio_1_1_specification_base" ],
     [ "test", "namespaceopenassetio_1_1test.html", "namespaceopenassetio_1_1test" ],
-    [ "TraitBase", "namespaceopenassetio_1_1_trait_base.html", "namespaceopenassetio_1_1_trait_base" ],
     [ "v1", "namespaceopenassetio_1_1v1.html", "namespaceopenassetio_1_1v1" ]
 ];

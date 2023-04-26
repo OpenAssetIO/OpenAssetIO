@@ -4,6 +4,5 @@ var searchData=
   ['managementpolicy',['managementPolicy',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354',1,'openassetio::v1::hostApi::Manager::managementPolicy()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd',1,'openassetio::v1::managerApi::ManagerInterface::managementPolicy()']]],
   ['managerimplementationfactoryinterface',['ManagerImplementationFactoryInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a8e7870960546eeee22da01fe2d7ea436',1,'openassetio::v1::hostApi::ManagerImplementationFactoryInterface']]],
   ['managerinterface',['ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e',1,'openassetio::v1::managerApi::ManagerInterface']]],
-  ['managertrait',['managerTrait',['../classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html#ac472688109b4f646392eb4389f9e031f',1,'openassetio::test::manager::specifications::ManagerTestHarnessLocale']]],
   ['modulefromfile',['moduleFromFile',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html#abc70ceeacf5eb42a26901f33943d055b',1,'openassetio::test::manager::harness']]]
 ];

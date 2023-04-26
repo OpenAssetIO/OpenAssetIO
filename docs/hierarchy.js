@@ -18,10 +18,10 @@ var hierarchy =
     ] ],
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
-    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerFactory", null, [
       [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
     ] ],
+    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterface", null, [
@@ -69,12 +69,9 @@ var hierarchy =
         [ "UserCanceled", "classopenassetio_1_1exceptions_1_1_user_canceled.html", null ]
       ] ]
     ] ],
-    [ "SpecificationBase", "classopenassetio_1_1_specification_base_1_1_specification_base.html", null ],
     [ "TestCase", null, [
       [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
     ] ],
-    [ "TraitBase< Derived >", "structopenassetio_1_1v1_1_1trait_1_1_trait_base.html", null ],
-    [ "TraitBase", "classopenassetio_1_1_trait_base_1_1_trait_base.html", null ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Variant", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html", null ],
     [ "Debuggable", null, [
@@ -101,16 +98,5 @@ var hierarchy =
     ] ],
     [ "PythonPluginSystemPlugin", null, [
       [ "PythonPluginSystemManagerPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html", null ]
-    ] ],
-    [ "SpecificationBase", null, [
-      [ "TestHarnessLocale", "classopenassetio_1_1test_1_1specifications_1_1_test_harness_locale.html", null ]
-    ] ],
-    [ "TestHarnessLocale", null, [
-      [ "ManagerTestHarnessLocale", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_test_harness_locale.html", null ]
-    ] ],
-    [ "TraitBase", null, [
-      [ "ManagerTrait", "classopenassetio_1_1test_1_1manager_1_1specifications_1_1_manager_trait.html", null ],
-      [ "HarnessTrait", "classopenassetio_1_1test_1_1specifications_1_1_harness_trait.html", null ],
-      [ "TestTrait", "classopenassetio_1_1test_1_1specifications_1_1_test_trait.html", null ]
     ] ]
 ];
