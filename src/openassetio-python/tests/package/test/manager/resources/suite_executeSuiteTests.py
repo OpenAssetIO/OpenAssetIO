@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ that the harness implementation supplies the correct state to each test.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 from openassetio.hostApi import Manager
-from openassetio.test.manager.specifications import ManagerTestHarnessLocale
+from openassetio.test import kTestHarnessTraitId, kCasePropertyKey
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
 
@@ -97,15 +97,15 @@ class Test_executeSuite_fixtures_with_no_values(FixtureAugmentedTestCase):
 
 class Test_executeSuite_locale(FixtureAugmentedTestCase):
     def test_when_test_function_is_run_then_locale_is_set(self):
-        self.assertSetEqual(self._locale.traitSet(), ManagerTestHarnessLocale.kTraitSet)
+        self.assertSetEqual(self._locale.traitSet(), {kTestHarnessTraitId})
         self.assertEqual(
-            ManagerTestHarnessLocale(self._locale).testTrait().getCaseName(),
+            self._locale.getTraitProperty(kTestHarnessTraitId, kCasePropertyKey),
             "Test_executeSuite_locale" ".test_when_test_function_is_run_then_locale_is_set",
         )
 
     def test_when_test_function_is_run_then_locale_testCase_is_function_specific(self):
         self.assertEqual(
-            ManagerTestHarnessLocale(self._locale).testTrait().getCaseName(),
+            self._locale.getTraitProperty(kTestHarnessTraitId, kCasePropertyKey),
             "Test_executeSuite_locale"
             ".test_when_test_function_is_run_then_locale_testCase_is_function_specific",
         )

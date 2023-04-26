@@ -31,8 +31,8 @@ namespace property {
  *
  * Keys must be UTF-8 compatible strings for required portability.
  *
- * Note that typically @ref TraitBase "trait views" will be used to
- * access properties in a @ref TraitsData instance via concrete member
+ * Note that typically @needsref trait views will be used to access
+ * properties in a @ref TraitsData instance via concrete member
  * functions, so it is highly desirable that keys are ASCII to maximise
  * portability when mapping property keys to member function names.
  */
@@ -56,11 +56,10 @@ using KeySet = std::unordered_set<Key>;
  *
  * IDs must be UTF-8 compatible strings for required portability.
  *
- * Note that typically @ref TraitBase "trait views" will be used to
- * access properties within a @ref TraitsData instance,
- * rather than direct property access using a `TraitId`, so it is
- * desirable that trait IDs are ASCII to maximise portability when
- * mapping IDs to class names.
+ * Note that typically @needsref trait views will be used to access
+ * properties within a @ref TraitsData instance, rather than direct
+ * property access using a `TraitId`, so it is desirable that trait IDs
+ * are ASCII to maximise portability when mapping IDs to class names.
  */
 using TraitId = property::Key;
 

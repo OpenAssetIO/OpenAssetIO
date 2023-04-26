@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -61,12 +61,6 @@ class Test_package_imports:
 
     def test_importing_log_succeeds(self):
         from openassetio import log
-
-    def test_importing_SpecificationBase_succeeds(self):
-        from openassetio import SpecificationBase
-
-    def test_importing_Trait_succeeds(self):
-        from openassetio import TraitBase
 
     def test_importing_TraitsData_succeeds(self):
         from openassetio import TraitsData
@@ -132,9 +126,6 @@ class Test_test_imports:
     def test_importing_manager_succeeds(self):
         from openassetio.test import manager
 
-    def test_importing_specifications_succeeds(self):
-        from openassetio.test import specifications
-
 
 class Test_test_manager_imports:
     def test_importing_apiComplianceSuite_succeeds(self):
@@ -142,6 +133,3 @@ class Test_test_manager_imports:
 
     def test_importing_harness_succeeds(self):
         from openassetio.test.manager import harness
-
-    def test_importing_specifications_succeeds(self):
-        from openassetio.test.manager import specifications

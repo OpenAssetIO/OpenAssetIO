@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,4 +19,8 @@ This module provides utilities to test an OpenAssetIO implementation.
 
 Submodules split these between host and manager-centric tasks.
 """
-pass  # Some statement is required for the above shows up in built docs
+
+# Test harness Context's locale trait.
+kTestHarnessTraitId = "openassetio:test.locale"
+# Key of test case property in test harness locale.
+kCasePropertyKey = "case"
