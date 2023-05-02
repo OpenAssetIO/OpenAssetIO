@@ -1,10 +1,10 @@
 var classopenassetio_1_1v1_1_1host_api_1_1_manager =
 [
     [ "BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag" ],
-    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8008782781e75c369feeed0f8b51ea7f", null ],
+    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
-    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11e2306e97bfeb86df1fd5ab514a9ba8", null ],
+    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac", null ],
     [ "_hostSession", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aca0c3cb654cd758d5a0f3c20ebf8a359", null ],
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],

@@ -1,9 +1,9 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
 [
-    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8008782781e75c369feeed0f8b51ea7f", null ],
+    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
-    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a11e2306e97bfeb86df1fd5ab514a9ba8", null ],
+    [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa0ce52a4388d9ec16c7189f653983dac", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e", null ],
     [ "~ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a23f620c631306fbcb518c3eb1dcba92b", null ],
     [ "createChildState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea", null ],

@@ -147,7 +147,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021",
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac",
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3"
 ];
 
