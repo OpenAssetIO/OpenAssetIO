@@ -255,10 +255,6 @@ SCENARIO("Resolving entities") {
           CHECK(std::holds_alternative<openassetio::BatchElementError>(actual));
           const auto& actualVal = std::get<openassetio::BatchElementError>(actual);
           CHECK(expected == actualVal);
-          // TODO(EM): BatchElementError is currently copied, but we
-          //  may switch this to move semantics.
-          // https://github.com/OpenAssetIO/OpenAssetIO/issues/858
-          CHECK_FALSE(expected.message.data() == actualVal.message.data());
         }
       }
     }
@@ -575,10 +571,6 @@ SCENARIO("Preflighting entities") {
           CHECK(std::holds_alternative<openassetio::BatchElementError>(actual));
           const auto& actualVal = std::get<openassetio::BatchElementError>(actual);
           CHECK(expected == actualVal);
-          // TODO(EM): BatchElementError is currently copied, but we
-          //  may switch this to move semantics.
-          // https://github.com/OpenAssetIO/OpenAssetIO/issues/858
-          CHECK_FALSE(expected.message.data() == actualVal.message.data());
         }
       }
     }
@@ -904,10 +896,6 @@ SCENARIO("Registering entities") {
           CHECK(std::holds_alternative<openassetio::BatchElementError>(actual));
           const auto& actualVal = std::get<openassetio::BatchElementError>(actual);
           CHECK(expected == actualVal);
-          // TODO(EM): BatchElementError is currently copied, but we
-          //  may switch this to move semantics.
-          // https://github.com/OpenAssetIO/OpenAssetIO/issues/858
-          CHECK_FALSE(expected.message.data() == actualVal.message.data());
         }
       }
     }
