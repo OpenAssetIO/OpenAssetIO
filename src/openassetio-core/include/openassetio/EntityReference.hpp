@@ -60,6 +60,9 @@ class EntityReference final {
   Str entityReferenceString_;
 };
 
+static_assert(std::is_move_constructible_v<EntityReference>);
+static_assert(std::is_move_assignable_v<EntityReference>);
+
 /// A list of entity references, used or batch-first functions.
 using EntityReferences = std::vector<EntityReference>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

@@ -590,7 +590,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * The appropriate error code should be used for these errors. See
    * @fqref{BatchElementError.ErrorCode} "ErrorCode".
    */
-  using BatchElementErrorCallback = std::function<void(std::size_t, const BatchElementError&)>;
+  using BatchElementErrorCallback = std::function<void(std::size_t, BatchElementError)>;
   /**
    * @}
    */
@@ -613,7 +613,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Callback signature used for a successful entity resolution.
    */
-  using ResolveSuccessCallback = std::function<void(std::size_t, const TraitsDataPtr&)>;
+  using ResolveSuccessCallback = std::function<void(std::size_t, TraitsDataPtr)>;
 
   /**
    * Provides the host with a @fqref{TraitsData} "TraitsData" populated
