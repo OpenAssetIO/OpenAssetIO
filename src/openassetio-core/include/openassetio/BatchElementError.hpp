@@ -132,6 +132,8 @@ class BatchElementError final {
   /// Human-readable error message.
   Str message;
 };
+static_assert(std::is_move_constructible_v<BatchElementError>);
+static_assert(std::is_move_assignable_v<BatchElementError>);
 
 /**
  * Exception base that ties together a @ref BatchElementError and an
