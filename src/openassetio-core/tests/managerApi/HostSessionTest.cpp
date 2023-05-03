@@ -56,3 +56,19 @@ SCENARIO("HostSession::logger method returns held pointer by reference") {
     }
   }
 }
+
+SCENARIO("HostSession::host method returns held pointer by reference") {
+  GIVEN("a configured HostSession") {
+    const openassetio::managerApi::HostSessionPtr session =
+        openassetio::managerApi::HostSession::make(
+            openassetio::managerApi::Host::make(
+                std::make_shared<openassetio::MockHostInterface>()),
+            std::make_shared<openassetio::MockLoggerInterface>());
+
+    WHEN("host is called multiple times") {
+      THEN("returned values are references to the same object") {
+        CHECK(&session->host() == &session->host());
+      }
+    }
+  }
+}

@@ -34,9 +34,10 @@ v1.0.0-alpha.xx
 - Added support for running `ctest` when a python venv is used to
   determine which Python distribution to build against.
 
-- `HostSession.logger()` now returns a const reference to the held
-  logger pointer rather than a copy.
+- `HostSession` methods `logger` and `host` now return a const
+  reference to the held pointer rather than a copy.
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
+  [#904](https://github.com/OpenAssetIO/OpenAssetIO/issues/904)
 
 v1.0.0-alpha.10
 ---------------
