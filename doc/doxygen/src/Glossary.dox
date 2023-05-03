@@ -154,8 +154,8 @@
  *
  * In such a system, the ManagerInterface may provide access to
  * alternate paths from any one of these path-specific references via
- * the @ref openassetio.managerApi.ManagerInterface.ManagerInterface.getRelatedReferences
- * "getRelatedReferences" method, with a suitable @ref Specification
+ * the @ref openassetio.managerApi.ManagerInterface.ManagerInterface.getWithRelationship
+ * "getWithRelationship" method, with a suitable relationship @ref trait_set.
  *
  * 3. 'Potential' entity representation
  * ------------------------------------

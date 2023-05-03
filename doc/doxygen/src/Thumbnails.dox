@@ -47,8 +47,8 @@
  *
  * @section thumbnails_lookup Looking Up Existing Thumbnails
  *
- * A host can use the standard @ref openassetio.hostApi.Manager.Manager.getRelatedReferences
- * "getRelatedReferences" method of the @ref manager to request the
+ * A host can use the standard @ref openassetio.hostApi.Manager.Manager.getWithRelationship
+ * "getWithRelationship" method of the @ref manager to request the
  * @ref entity_reference "entity references" of any existing thumbnails
  * that depict a particular @ref entity.
  *

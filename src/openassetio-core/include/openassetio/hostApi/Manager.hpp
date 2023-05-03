@@ -543,10 +543,11 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * documentation for each respective trait to determine which
    * properties are considered required. It is the responsibility of the
    * caller to handle optional property values being missing in a
-   * fashion appropriate to its intended use. The @ref managementPolicy
-   * query can be used ahead of time with a read @ref Context to
-   * determine which specific traits any given manager supports
-   * resolving property data for.
+   * fashion appropriate to its intended use. The
+   * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" query
+   * can be used ahead of time with a read @ref Context to determine
+   * which specific traits any given manager supports resolving property
+   * data for.
    *
    * @note @fqref{EntityReference} "EntityReference" objects _must_ be
    * constructed using either

@@ -487,10 +487,10 @@ class Test_Manager_finalizedEntityVersion:
         )
 
 
-class Test_Manager_getRelatedReferences:
+class Test_Manager_getWithRelationship:
     def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.getRelatedReferences)
-        assert method_introspector.is_implemented_once(Manager, "getRelatedReferences")
+        assert method_introspector.is_defined_in_python(Manager.getWithRelationship)
+        assert method_introspector.is_implemented_once(Manager, "getWithRelationship")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
@@ -504,49 +504,73 @@ class Test_Manager_getRelatedReferences:
     ):
         # pylint: disable=too-many-locals
 
-        method = mock_manager_interface.mock.getRelatedReferences
+        method = mock_manager_interface.mock.getWithRelationship
 
-        one_ref = a_ref
-        two_refs = [a_ref, a_ref]
         three_refs = [a_ref, a_ref, a_ref]
-        one_data = an_empty_traitsdata
-        two_datas = [an_empty_traitsdata, an_empty_traitsdata]
-        three_datas = [an_empty_traitsdata, an_empty_traitsdata, an_empty_traitsdata]
 
-        # Check validation that one to many or equal length ref/data args are required
+        assert (
+            manager.getWithRelationship(an_empty_traitsdata, three_refs, a_context)
+            == method.return_value
+        )
+        method.assert_called_once_with(
+            an_empty_traitsdata, three_refs, a_context, a_host_session, resultTraitSet=None
+        )
 
-        for refs_arg, datas_arg in ((two_refs, three_datas), (three_refs, two_datas)):
-            with pytest.raises(ValueError):
-                manager.getRelatedReferences(refs_arg, datas_arg, a_context)
-            method.assert_not_called()
-            method.reset_mock()
-
-        for refs_arg, datas_arg, expected_refs_arg, expected_datas_arg in (
-            (one_ref, three_datas, [one_ref], three_datas),
-            (three_refs, one_data, three_refs, [one_data]),
-            (three_refs, three_datas, three_refs, three_datas),
-        ):
-            assert (
-                manager.getRelatedReferences(refs_arg, datas_arg, a_context) == method.return_value
-            )
-            method.assert_called_once_with(
-                expected_refs_arg,
-                expected_datas_arg,
-                a_context,
-                a_host_session,
-                resultTraitSet=None,
-            )
-            method.reset_mock()
+        mock_manager_interface.mock.reset_mock()
 
         # Check optional resultTraitSet
+
         assert (
-            manager.getRelatedReferences(
-                one_ref, one_data, a_context, resultTraitSet=an_entity_trait_set
+            manager.getWithRelationship(
+                an_empty_traitsdata, three_refs, a_context, resultTraitSet=an_entity_trait_set
             )
             == method.return_value
         )
         method.assert_called_once_with(
-            [one_ref], [one_data], a_context, a_host_session, resultTraitSet=an_entity_trait_set
+            an_empty_traitsdata,
+            three_refs,
+            a_context,
+            a_host_session,
+            resultTraitSet=an_entity_trait_set,
+        )
+
+
+class Test_Manager_getWithRelationships:
+    def test_method_defined_in_python(self, method_introspector):
+        assert method_introspector.is_defined_in_python(Manager.getWithRelationships)
+        assert method_introspector.is_implemented_once(Manager, "getWithRelationships")
+
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_ref,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+    ):
+        method = mock_manager_interface.mock.getWithRelationships
+
+        three_datas = [an_empty_traitsdata, an_empty_traitsdata, an_empty_traitsdata]
+
+        assert manager.getWithRelationships(three_datas, a_ref, a_context) == method.return_value
+        method.assert_called_once_with(
+            three_datas, a_ref, a_context, a_host_session, resultTraitSet=None
+        )
+
+        mock_manager_interface.mock.reset_mock()
+
+        # Check optional resultTraitSet
+
+        assert (
+            manager.getWithRelationships(
+                three_datas, a_ref, a_context, resultTraitSet=an_entity_trait_set
+            )
+            == method.return_value
+        )
+        method.assert_called_once_with(
+            three_datas, a_ref, a_context, a_host_session, resultTraitSet=an_entity_trait_set
         )
 
 

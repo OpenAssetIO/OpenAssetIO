@@ -239,17 +239,30 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, traitSet, context, hostSession, successCallback, errorCallback
         )
 
-    def getRelatedReferences(
-        self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None
+    def getWithRelationship(
+        self, relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet=None
     ):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
+        assert isinstance(relationshipTraitsData, TraitsData)
+        self.__assertIsIterableOf(entityReferences, EntityReference)
         self.__assertCallingContext(context, hostSession)
         if resultTraitSet is not None:
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
-        return self.mock.getRelatedReferences(
-            entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet
+        return self.mock.getWithRelationship(
+            relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet
+        )
+
+    def getWithRelationships(
+        self, relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet=None
+    ):
+        self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
+        assert isinstance(entityReference, EntityReference)
+        self.__assertCallingContext(context, hostSession)
+        if resultTraitSet is not None:
+            assert isinstance(resultTraitSet, set)
+            self.__assertIsIterableOf(resultTraitSet, str)
+        return self.mock.getWithRelationships(
+            relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet
         )
 
     def register(
