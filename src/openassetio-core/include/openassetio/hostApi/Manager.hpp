@@ -266,6 +266,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
   /**
    *  Creates a new Context for use with the manager.
    *
+   *  The @fqref{Context.locale} "locale" will be initialized with an
+   *  empty @fqref{TraitsData} "TraitsData" instance.
+   *
    *  @warning Contexts should never be directly constructed, always
    *  use this method or @ref createChildContext to create a new one.
    *

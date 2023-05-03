@@ -2524,7 +2524,8 @@ class Test_Manager_createContext:
         assert context_a.access == Context.Access.kUnknown
         assert context_a.retention == Context.Retention.kTransient
         assert context_a.managerState is state_a
-        assert context_a.locale is None
+        assert isinstance(context_a.locale, TraitsData)
+        assert context_a.locale.traitSet() == set()
         mock_manager_interface.mock.createState.assert_called_once_with(a_host_session)
 
 

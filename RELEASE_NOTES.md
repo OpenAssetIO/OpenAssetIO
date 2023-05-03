@@ -39,6 +39,11 @@ v1.0.0-alpha.xx
   [#815](https://github.com/OpenAssetIO/OpenAssetIO/issues/815)
   [#904](https://github.com/OpenAssetIO/OpenAssetIO/issues/904)
 
+- Contexts are now created with an empty `TraitsData` in their locale,
+  this makes testing for imbued traits easier as it can be assumed that
+  the pointer is never null.
+  [#903](https://github.com/OpenAssetIO/OpenAssetIO/issues/903)
+
 v1.0.0-alpha.10
 ---------------
 
