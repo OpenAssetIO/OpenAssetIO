@@ -479,7 +479,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     #
     # @{
 
-    @abc.abstractmethod
     def getWithRelationship(
         self, relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet=None
     ):
@@ -496,7 +495,9 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         of matching references is required to be meaningful.
 
         If any relationship definition is unknown, then an empty list
-        must be returned for that entity, and no errors raised.
+        must be returned for that entity, and no errors raised. The
+        default implementation returns an empty list for all
+        relationships.
 
         @param relationshipTraitsData @fqref{TraitsData} "TraitsData"
         The traits of the relationship to query.
@@ -504,6 +505,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @param entityReferences `List[` @fqref{EntityReference} "EntityReference" `]`
         A list of @ref entity_reference "entity references" to query the specified
         relationship for.
+
         @param context Context The calling context.
 
         @param hostSession openassetio.managerApi.HostSession The host
@@ -525,9 +527,8 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         host whether or not you are capable of handling queries for
         those relationships in this method.
         """
-        raise NotImplementedError
+        return [[] for _ in entityReferences]
 
-    @abc.abstractmethod
     def getWithRelationships(
         self, relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet=None
     ):
@@ -544,7 +545,9 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         of matching references is required to be meaningful.
 
         If any relationship definition is unknown, then an empty list
-        must be returned for that relationship, and no errors raised.
+        must be returned for that relationship, and no errors raised. The
+        default implementation returns an empty list for all
+        relationships.
 
         @param relationshipTraitsDatas `List[` @fqref{TraitsData} "TraitsData" `]`
         The traits of the relationships to query.
@@ -574,5 +577,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         host whether or not you are capable of handling queries for
         those relationships in this method.
         """
-        raise NotImplementedError
+        return [[] for _ in relationshipTraitsDatas]
+
     ## @}

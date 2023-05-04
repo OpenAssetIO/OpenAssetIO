@@ -49,6 +49,11 @@ v1.0.0-alpha.xx
   the pointer is never null.
   [#903](https://github.com/OpenAssetIO/OpenAssetIO/issues/903)
 
+- Added default implementations of `getWithRelationship` and
+  `getWithRelationships` that return empty lists, making these methods
+  opt-in for manager implementations.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 v1.0.0-alpha.10
 ---------------
 
