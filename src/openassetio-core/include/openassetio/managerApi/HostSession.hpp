@@ -46,7 +46,7 @@ class OPENASSETIO_CORE_EXPORT HostSession final {
   /**
    * @return The host that initiated the API session.
    */
-  [[nodiscard]] HostPtr host() const;
+  [[nodiscard]] const HostPtr& host() const;
 
   /**
    * @return The logger associated with this session

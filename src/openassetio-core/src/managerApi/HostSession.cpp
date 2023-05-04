@@ -16,7 +16,7 @@ HostSessionPtr HostSession::make(HostPtr host, log::LoggerInterfacePtr logger) {
 HostSession::HostSession(HostPtr host, log::LoggerInterfacePtr logger)
     : host_{std::move(host)}, logger_{std::move(logger)} {}
 
-HostPtr HostSession::host() const { return host_; }
+const HostPtr& HostSession::host() const { return host_; }
 const log::LoggerInterfacePtr& HostSession::logger() const { return logger_; }
 
 }  // namespace managerApi
