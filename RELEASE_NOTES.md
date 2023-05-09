@@ -44,6 +44,10 @@ v1.0.0-alpha.xx
   the pointer is never null.
   [#903](https://github.com/OpenAssetIO/OpenAssetIO/issues/903)
 
+- `EntityReference` objects are now coercible to strings in Python,
+  allowing more intuitive use with `format`, `print`, and others.
+  [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
+
 v1.0.0-alpha.10
 ---------------
 
