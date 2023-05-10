@@ -189,6 +189,33 @@ class Test_ManagerInterface_finalizedEntityVersion:
         assert finalized_refs == refs
 
 
+class Test_ManagerInterface_getWithRelationship:
+    def test_method_defined_in_python(self, method_introspector):
+        assert method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
+        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
+
+    def test_returns_empty_list_for_each_input(self, manager_interface):
+        for refs, expected in (
+            ([], []),
+            ([Mock()], [[]]),
+            ([Mock(), Mock()], [[], []]),
+        ):
+            assert manager_interface.getWithRelationship(Mock(), refs, Mock(), Mock()) == expected
+
+
+class Test_ManagerInterface_getWithRelationships:
+    def test_method_defined_in_python(self, method_introspector):
+        assert method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
+        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
+
+    def test_returns_empty_list_for_each_input(self, manager_interface):
+        for relationships, expected in (([], []), ([Mock()], [[]]), ([Mock(), Mock()], [[], []])):
+            assert (
+                manager_interface.getWithRelationships(relationships, Mock(), Mock(), Mock())
+                == expected
+            )
+
+
 class Test_ManagerInterface__createEntityReference:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(

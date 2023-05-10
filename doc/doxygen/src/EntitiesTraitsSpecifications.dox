@@ -277,9 +277,9 @@
  * @subsection Using Trait Sets as a Filter Predicate
  *
  * When a @ref trait_set is used as a predicate to search for entities.
- * Such as in @ref openassetio.hostApi.Manager.Manager.getRelatedReferences
- * "getRelatedReferences", or when browsing for assets, traits are
- * considered additive, and they must all be satisifed.
+ * Such as in @ref openassetio.hostApi.Manager.Manager.getWithRelationship
+ * "getWithRelationship", or when browsing for assets, traits are
+ * considered additive, and they must all be satisfied.
  *
  * As an example, consider a world-building tool wishing to browse for
  * an arbitrary three-dimensional scene file to incorporate (e.g. USD).

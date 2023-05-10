@@ -468,7 +468,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     # 'shot' exists in a certain part of the asset system. One approach would be
     # to use a 'getChildren' call, on this part of the system. This has the
     # drawback that is assumes that shots are always something that can be
-    # described as 'immediate children' of the location in question. This lay not
+    # described as 'immediate children' of the location in question. This may not
     # always be the case (say, for example there is some kind of 'task' structure
     # in place too). Instead we use a request that asks for any 'shots' that
     # relate to the chosen location. It is then up to the implementation of the
@@ -479,61 +479,32 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     #
     # @{
 
-    @abc.abstractmethod
-    def getRelatedReferences(
-        self, entityRefs, relationshipTraitsDatas, context, hostSession, resultTraitSet=None
+    def getWithRelationship(
+        self, relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet=None
     ):
         """
-        Returns related entity references, based on a relationship
-        defined by a set of traits and their properties.
+        Return entity references that are related to the input
+        references by the relationship defined by a set of traits and
+        their properties.
 
         This is an essential function in this API - as it is widely used
-        to query organisational hierarchy, etc...
+        to query other entities or organisational structure.
 
-        There are three possible conventions for calling this function,
-        to allow for batch optimisations in the implementation and
-        prevent excessive query times with high-latency services.
-
-         - a)  A single entity reference, a list of relationships.
-         - b)  A list of entity references and a single relationship.
-         - c)  Equal length lists of references and relationship.
-
-        In all cases, the return value is a list of lists, for example:
-
-            a)  getRelatedReferences([ r1 ], [ td1, td2, td3 ])
-
-            > [ [ r1td1... ], [ r1td2... ], [ r1td3... ] ]
-
-            b)  getRelatedReferences([ r1, r2, r3 ], [ td1 ])
-
-            > [ [ r1td1... ], [ r2td1... ], [ r3td1... ] ]
-
-            c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
-
-            > [ [ r1td1... ], [ r2td2... ], [ r3td3... ] ]
-
-        @note The order of entities in the inner lists of matching
-        references will not be considered meaningful, but the outer list
-        should match the input order.
-
-        In summary, if only a single entityRef is provided, it should be
-        assumed that all relationship definitions should be considered
-        for that one entity. If only a single relationship definition is
-        provided, then it should be considered for all supplied entity
-        references. If lists of both are supplied, then they must be the
-        same length, and it should be assumed that it is a 1:1 mapping
-        of a relationship definition to an entity. If this is not the
-        case, ValueErrors should be thrown.
+        @note Consult the documentation for the relevant relationship
+        traits to determine if the order of entities in the inner lists
+        of matching references is required to be meaningful.
 
         If any relationship definition is unknown, then an empty list
-        should be returned for that relationship, and no errors should
-        be raised.
+        must be returned for that entity, and no errors raised. The
+        default implementation returns an empty list for all
+        relationships.
 
-        @param entityRefs List[` @fqref{EntityReference}
-        "EntityReference" `]
+        @param relationshipTraitsData @fqref{TraitsData} "TraitsData"
+        The traits of the relationship to query.
 
-        @param relationshipTraitsDatas `List[`
-        @fqref{TraitsData} "TraitsData" `]`
+        @param entityReferences `List[` @fqref{EntityReference} "EntityReference" `]`
+        A list of @ref entity_reference "entity references" to query the specified
+        relationship for.
 
         @param context Context The calling context.
 
@@ -543,21 +514,69 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         object representing the process that initiated the API session.
 
         @param resultTraitSet `Set[str]` or None, a hint as to what
-        traits the caller is expecting the returned entities to have.
+        traits the returned entities should have.
 
-        @return List[List[str]] This MUST be the correct length,
-        returning an empty outer list is NOT valid. (ie: max(len(refs),
-        len(relationships)))
+        @return `List[List[`@fqref{EntityReference} "EntityReference"`]]`
+        A list of references to related entities, for each input
+        reference.
 
-        @exception ValueError If more than one reference and
-        relationship are provided, but they lists are not equal in
-        length, ie: not a 1:1 mapping of entities to relationships. The
-        abstraction of this interface into the Manager class does
-        cursory validation that this is the case before calling this
-        function.
-
-        @unstable
+        @note Ensure that your implementation of
+        @fqref{managerApi.ManagerInterface.managementPolicy}
+        "managementPolicy" responds appropriately when queried with
+        relationship trait sets and a read policy to communicate to the
+        host whether or not you are capable of handling queries for
+        those relationships in this method.
         """
-        raise NotImplementedError
+        return [[] for _ in entityReferences]
+
+    def getWithRelationships(
+        self, relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet=None
+    ):
+        """
+        Returns entity references that are related to the input
+        reference by the relationships defined by a set of traits and
+        their properties.
+
+        This is an essential function in this API - as it is widely used
+        to query other entities or organisational structure.
+
+        @note Consult the documentation for the relevant relationship
+        traits to determine if the order of entities in the inner lists
+        of matching references is required to be meaningful.
+
+        If any relationship definition is unknown, then an empty list
+        must be returned for that relationship, and no errors raised. The
+        default implementation returns an empty list for all
+        relationships.
+
+        @param relationshipTraitsDatas `List[` @fqref{TraitsData} "TraitsData" `]`
+        The traits of the relationships to query.
+
+        @param entityReference @fqref{EntityReference} "EntityReference"
+        The @ref entity_reference to query the specified relationships
+        for.
+
+        @param hostSession openassetio.managerApi.HostSession The host
+        session that maps to the caller, this should be used for all
+        logging and provides access to the openassetio.managerApi.Host
+        object representing the process that initiated the API session.
+
+        @param context Context The calling context.
+
+        @param resultTraitSet `Set[str]` or None, a hint as to what
+        traits the returned entities should have.
+
+        @return `List[List[`@fqref{EntityReference} "EntityReference"`]]`
+        A list of references to related entities, for each input
+        relationship.
+
+        @note Ensure that your implementation of
+        @fqref{managerApi.ManagerInterface.managementPolicy}
+        "managementPolicy" responds appropriately when queried with
+        relationship trait sets and a read policy to communicate to the
+        host whether or not you are capable of handling queries for
+        those relationships in this method.
+        """
+        return [[] for _ in relationshipTraitsDatas]
 
     ## @}
