@@ -36,6 +36,8 @@ OPENASSETIO_DECLARE_PTR(ManagerFactory)
  */
 class OPENASSETIO_CORE_EXPORT ManagerFactory final {
  public:
+  OPENASSETIO_ALIAS_PTR(ManagerFactory)
+
   /**
    * Simple struct containing the default configuration details of a
    * potential @ref manager implementation.

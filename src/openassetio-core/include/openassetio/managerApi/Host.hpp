@@ -36,6 +36,8 @@ OPENASSETIO_DECLARE_PTR(Host)
  */
 class OPENASSETIO_CORE_EXPORT Host final {
  public:
+  OPENASSETIO_ALIAS_PTR(Host)
+
   /**
    * Constructs a new Host wrapping the supplied host interface.
    */

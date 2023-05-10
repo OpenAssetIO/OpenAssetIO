@@ -14,6 +14,8 @@ OPENASSETIO_DECLARE_PTR(ConsoleLogger)
  */
 class OPENASSETIO_CORE_EXPORT ConsoleLogger final : public LoggerInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(ConsoleLogger)
+
   /**
    * Creates a new instance of the ConsoleLogger
    *

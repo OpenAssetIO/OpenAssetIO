@@ -155,6 +155,8 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  */
 class OPENASSETIO_CORE_EXPORT ManagerInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(ManagerInterface)
+
   /**
    * Constructor.
    *

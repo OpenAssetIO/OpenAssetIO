@@ -40,6 +40,8 @@ OPENASSETIO_DECLARE_PTR(ManagerImplementationFactoryInterface)
  */
 class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(ManagerImplementationFactoryInterface)
+
   /**
    * Construct an instance of this class.
    *
