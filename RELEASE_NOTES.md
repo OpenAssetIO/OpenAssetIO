@@ -31,6 +31,11 @@ v1.0.0-alpha.xx
 
 ### Improvements
 
+- Added utility methods `castToPyObject` and `castFromPyObject` to
+  facilitate converting between cpp and python objects for hosts
+  seeking to support mixed language workflows.
+  [#798](https://github.com/OpenAssetIO/OpenAssetIO/issues/798)
+
 - Added support for running `ctest` when a python venv is used to
   determine which Python distribution to build against.
 

@@ -31,6 +31,7 @@ target_sources(
     openassetio-python-bridge-test-exe
     PRIVATE
     main.cpp
+    python/test_converters.cpp
     python/test_hostApi.cpp
 )
 
