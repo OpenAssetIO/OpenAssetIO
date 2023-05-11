@@ -36,6 +36,8 @@ OPENASSETIO_DECLARE_PTR(Context)
  */
 class OPENASSETIO_CORE_EXPORT Context final {
  public:
+  OPENASSETIO_ALIAS_PTR(Context)
+
   /**
    * @name Access Pattern
    */

@@ -41,6 +41,8 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
  */
 class OPENASSETIO_CORE_EXPORT HostInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(HostInterface)
+
   HostInterface() = default;
 
   /**

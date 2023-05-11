@@ -48,6 +48,10 @@ v1.0.0-alpha.xx
   allowing more intuitive use with `format`, `print`, and others.
   [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
 
+- Added `Ptr`/`ConstPtr` alias members to all appropriate C++ classes,
+  aliasing the associated `shared_ptr` of that class.
+  [#918](https://github.com/OpenAssetIO/OpenAssetIO/issues/918)
+
 v1.0.0-alpha.10
 ---------------
 

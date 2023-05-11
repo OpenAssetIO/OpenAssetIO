@@ -88,6 +88,21 @@ using Identifiers = std::vector<Identifier>;
   using Class##ConstPtr = std::shared_ptr<const Class>;
 
 /**
+ * Create unqualified shared_ptr aliases of qualified shared_ptr
+ * aliases.
+ *
+ * Used to define `Ptr`/`ConstPtr` aliases within class definitions,
+ * thus allowing their use in generic programming, e.g. `typename
+ * T::Ptr`.
+ *
+ * @note This requires OPENASSETIO_DECLARE_PTR to have been invoked for
+ * the target class.
+ */
+#define OPENASSETIO_ALIAS_PTR(Class) \
+  using Ptr = Class##Ptr;            \
+  using ConstPtr = Class##ConstPtr;
+
+/**
  * Forward declare a class and its smart pointers.
  *
  * Wraps the declaration in the top-level openassetio and ABI
