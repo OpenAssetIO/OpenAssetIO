@@ -29,6 +29,13 @@ v1.0.0-alpha.xx
   `ResolveSuccessCallback` from reference types to value types.
   [#858](https://github.com/OpenAssetIO/OpenAssetIO/issues/858)
 
+### New Features
+
+- Added utility methods `castToPyObject` and `castFromPyObject` to
+  `openassetio-python-bridge` to facilitate converting between C++ and
+  Python objects for hosts seeking to support mixed language workflows.
+  [#798](https://github.com/OpenAssetIO/OpenAssetIO/issues/798)
+
 ### Improvements
 
 - Added support for running `ctest` when a python venv is used to

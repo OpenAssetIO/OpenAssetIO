@@ -31,6 +31,7 @@ target_sources(
     openassetio-python-bridge-test-exe
     PRIVATE
     main.cpp
+    python/test_converter.cpp
     python/test_hostApi.cpp
 )
 
@@ -97,7 +98,7 @@ separate_arguments(_envvars NATIVE_COMMAND ${_envvars})
 
 
 #-----------------------------------------------------------------------
-# Create CTest target.
+# Create CTest target for tests that may import _openassetio
 add_custom_target(
     openassetio.internal.python-bridge-test
     COMMAND
@@ -116,5 +117,33 @@ $<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>"
 openassetio_add_test_target(openassetio.internal.python-bridge-test)
 openassetio_add_test_fixture_dependencies(
     openassetio.internal.python-bridge-test
+    openassetio.internal.install
+)
+
+#-----------------------------------------------------------------------
+# Create CTest target for tests that intentionally exclude _openassetio
+# This came about from wanting to test the error state of functions
+# that use the python interpreter, specifically the errors that happen
+# when `_openassetio` hadn't been imported into the python environment.
+# We can't just rely on ordering for this, as test execution order
+# is non-consitent across platforms.
+add_custom_target(
+    openassetio.internal.python-bridge-no-openassetio-module-test
+    COMMAND
+    # Note: environment variables set in-line here rather than using
+    # `set_tests_properties`. If that function is used then the calling
+    # environment is affected. In particular, PYTHONHOME can interfere
+    # with CMake itself (if installed as a pip package and so
+    # /usr/local/cmake is actually a Python console_script).
+    # Note: as above, we must not have trailing whitespace after setting
+    # an env var on Windows.
+    ${_envvars}&&
+"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
+$<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>" "[no_openassetio_module]"
+)
+
+openassetio_add_test_target(openassetio.internal.python-bridge-no-openassetio-module-test)
+openassetio_add_test_fixture_dependencies(
+    openassetio.internal.python-bridge-no-openassetio-module-test
     openassetio.internal.install
 )
