@@ -41,84 +41,6 @@ from openassetio.hostApi import Manager
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
 
-
-@pytest.fixture
-def manager(mock_manager_interface, a_host_session):
-    # Default to accepting anything as an entity reference string, to
-    # make constructing EntityReference objects a bit easier.
-    mock_manager_interface.mock.isEntityReferenceString.return_value = True
-    return Manager(mock_manager_interface, a_host_session)
-
-
-@pytest.fixture
-def an_empty_traitsdata():
-    return TraitsData(set())
-
-
-@pytest.fixture
-def some_entity_traitsdatas():
-    first = TraitsData({"a_trait"})
-    second = TraitsData({"a_trait"})
-    first.setTraitProperty("a_trait", "a_prop", 123)
-    second.setTraitProperty("a_trait", "a_prop", 456)
-    return [first, second]
-
-
-@pytest.fixture
-def some_populated_traitsdatas():
-    return [TraitsData(set("trait1")), TraitsData(set("trait2"))]
-
-
-@pytest.fixture
-def a_traitsdata():
-    return TraitsData(set())
-
-
-@pytest.fixture
-def a_batch_element_error():
-    return BatchElementError(BatchElementError.ErrorCode.kUnknown, "some message")
-
-
-@pytest.fixture
-def an_entity_trait_set():
-    return {"blob", "lolcat"}
-
-
-@pytest.fixture
-def some_entity_trait_sets():
-    return [{"blob"}, {"blob", "image"}]
-
-
-@pytest.fixture
-def a_context():
-    return Context()
-
-
-@pytest.fixture
-def a_ref_string():
-    return "asset://a"
-
-
-@pytest.fixture
-def a_ref(manager):
-    return manager.createEntityReference("asset://a")
-
-
-@pytest.fixture
-def a_different_ref(manager):
-    return manager.createEntityReference("asset://b")
-
-
-@pytest.fixture
-def some_refs(manager):
-    return [manager.createEntityReference("asset://c"), manager.createEntityReference("asset://d")]
-
-
-@pytest.fixture
-def some_different_refs(manager):
-    return [manager.createEntityReference("asset://e"), manager.createEntityReference("asset://f")]
-
-
 # __str__ and __repr__ aren't tested as they're debug tricks that need
 # assessing when this is ported to cpp
 
@@ -573,6 +495,8 @@ class Test_Manager_resolve_with_callback_signature:
         a_context,
         a_traitsdata,
         a_batch_element_error,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
     ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
@@ -580,12 +504,8 @@ class Test_Manager_resolve_with_callback_signature:
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(123, a_traitsdata)
-            # Error
-            callback = method.call_args[0][5]
-            callback(456, a_batch_element_error)
+            invoke_resolve_success_cb(123, a_traitsdata)
+            invoke_resolve_error_cb(456, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -632,13 +552,12 @@ class Test_Manager_resolve_with_singular_default_overload:
         an_entity_trait_set,
         a_context,
         a_traitsdata,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
+            invoke_resolve_success_cb(0, a_traitsdata)
 
         method.side_effect = call_callbacks
 
@@ -661,6 +580,7 @@ class Test_Manager_resolve_with_singular_default_overload:
         a_ref,
         an_entity_trait_set,
         a_context,
+        invoke_resolve_error_cb,
         error_code,
         expected_exception,
     ):
@@ -670,9 +590,7 @@ class Test_Manager_resolve_with_singular_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_resolve_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -698,13 +616,12 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         an_entity_trait_set,
         a_context,
         a_traitsdata,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
+            invoke_resolve_success_cb(0, a_traitsdata)
 
         method.side_effect = call_callbacks
 
@@ -734,6 +651,7 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         a_context,
         error_code,
         expected_exception,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
@@ -741,9 +659,7 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_resolve_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -774,13 +690,12 @@ class Test_Manager_resolve_with_singular_variant_overload:
         an_entity_trait_set,
         a_context,
         a_traitsdata,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
+            invoke_resolve_success_cb(0, a_traitsdata)
 
         method.side_effect = call_callbacks
 
@@ -807,6 +722,7 @@ class Test_Manager_resolve_with_singular_variant_overload:
         an_entity_trait_set,
         a_context,
         error_code,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
@@ -814,9 +730,7 @@ class Test_Manager_resolve_with_singular_variant_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_resolve_error_cb(expected_index, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -844,16 +758,13 @@ class Test_Manager_resolve_with_batch_default_overload:
         an_entity_trait_set,
         a_context,
         some_populated_traitsdatas,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, some_populated_traitsdatas[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
 
         method.side_effect = call_callbacks
 
@@ -881,16 +792,13 @@ class Test_Manager_resolve_with_batch_default_overload:
         an_entity_trait_set,
         a_context,
         some_populated_traitsdatas,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(1, some_populated_traitsdatas[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
 
         method.side_effect = call_callbacks
 
@@ -923,6 +831,8 @@ class Test_Manager_resolve_with_batch_default_overload:
         error_code,
         a_traitsdata,
         expected_exception,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
         expected_index = 123
@@ -930,14 +840,8 @@ class Test_Manager_resolve_with_batch_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
-
-            # Error
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
-
+            invoke_resolve_success_cb(0, a_traitsdata)
+            invoke_resolve_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -968,16 +872,13 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         an_entity_trait_set,
         a_context,
         some_populated_traitsdatas,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, some_populated_traitsdatas[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
 
         method.side_effect = call_callbacks
 
@@ -1010,16 +911,14 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         an_entity_trait_set,
         a_context,
         some_populated_traitsdatas,
+        invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
             # Success
-            callback = method.call_args[0][4]
-            callback(1, some_populated_traitsdatas[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
 
         method.side_effect = call_callbacks
 
@@ -1057,6 +956,8 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         error_code,
         a_traitsdata,
         expected_exception,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
         expected_index = 123
@@ -1064,14 +965,8 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
-
-            # Error
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
-
+            invoke_resolve_success_cb(0, a_traitsdata)
+            invoke_resolve_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -1109,17 +1004,15 @@ class Test_Manager_resolve_with_batch_variant_overload:
         a_context,
         a_traitsdata,
         error_code,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_traitsdata)
-
-            callback = method.call_args[0][5]
-            callback(1, batch_element_error)
+            invoke_resolve_success_cb(0, a_traitsdata)
+            invoke_resolve_error_cb(1, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -1151,6 +1044,8 @@ class Test_Manager_resolve_with_batch_variant_overload:
         a_ref,
         an_entity_trait_set,
         a_context,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
@@ -1166,18 +1061,10 @@ class Test_Manager_resolve_with_batch_variant_overload:
         traitsdata3 = TraitsData({"trait3"})
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(1, traitsdata1)
-
-            callback = method.call_args[0][5]
-            callback(0, batch_element_error0)
-
-            callback = method.call_args[0][4]
-            callback(3, traitsdata3)
-
-            callback = method.call_args[0][5]
-            callback(2, batch_element_error2)
+            invoke_resolve_success_cb(1, traitsdata1)
+            invoke_resolve_error_cb(0, batch_element_error0)
+            invoke_resolve_success_cb(3, traitsdata3)
+            invoke_resolve_error_cb(2, batch_element_error2)
 
         method.side_effect = call_callbacks
 
@@ -1240,6 +1127,8 @@ class Test_Manager_preflight_callback_signature:
         an_entity_trait_set,
         a_context,
         a_batch_element_error,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
     ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
@@ -1248,12 +1137,8 @@ class Test_Manager_preflight_callback_signature:
 
         def call_callbacks(*_args):
             input_refs = method.call_args[0][0]
-            # Success
-            callback = method.call_args[0][4]
-            callback(123, input_refs[0])
-            # Error
-            callback = method.call_args[0][5]
-            callback(456, a_batch_element_error)
+            invoke_preflight_success_cb(123, input_refs[0])
+            invoke_preflight_error_cb(456, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -1279,13 +1164,12 @@ class Test_Manager_preflight_with_singular_default_overload:
         an_entity_trait_set,
         a_context,
         a_different_ref,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_preflight_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -1310,6 +1194,7 @@ class Test_Manager_preflight_with_singular_default_overload:
         a_context,
         error_code,
         expected_exception,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
@@ -1317,9 +1202,7 @@ class Test_Manager_preflight_with_singular_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_preflight_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -1345,13 +1228,12 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         an_entity_trait_set,
         a_context,
         a_different_ref,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_preflight_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -1381,6 +1263,7 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         a_context,
         error_code,
         expected_exception,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
@@ -1389,8 +1272,7 @@ class Test_Manager_preflight_with_singular_throwing_overload:
 
         def call_callbacks(*_args):
             # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_preflight_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -1421,13 +1303,12 @@ class Test_Manager_preflight_with_singular_variant_overload:
         an_entity_trait_set,
         a_context,
         a_different_ref,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_preflight_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -1454,6 +1335,7 @@ class Test_Manager_preflight_with_singular_variant_overload:
         an_entity_trait_set,
         a_context,
         error_code,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
@@ -1461,9 +1343,7 @@ class Test_Manager_preflight_with_singular_variant_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_preflight_error_cb(expected_index, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -1491,16 +1371,13 @@ class Test_Manager_preflight_with_batch_default_overload:
         an_entity_trait_set,
         a_context,
         some_different_refs,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
+            invoke_preflight_success_cb(0, some_different_refs[0])
+            invoke_preflight_success_cb(1, some_different_refs[1])
 
         method.side_effect = call_callbacks
 
@@ -1515,9 +1392,7 @@ class Test_Manager_preflight_with_batch_default_overload:
             mock.ANY,
         )
 
-        assert len(actual_refs) == 2
-        assert actual_refs[0] == some_different_refs[0]
-        assert actual_refs[1] == some_different_refs[1]
+        assert actual_refs == some_different_refs
 
     def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
         self,
@@ -1528,16 +1403,13 @@ class Test_Manager_preflight_with_batch_default_overload:
         an_entity_trait_set,
         a_context,
         some_different_refs,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
+            invoke_preflight_success_cb(1, some_different_refs[1])
+            invoke_preflight_success_cb(0, some_different_refs[0])
 
         method.side_effect = call_callbacks
 
@@ -1552,9 +1424,7 @@ class Test_Manager_preflight_with_batch_default_overload:
             mock.ANY,
         )
 
-        assert len(actual_refs) == 2
-        assert actual_refs[0] == some_different_refs[0]
-        assert actual_refs[1] == some_different_refs[1]
+        assert actual_refs == some_different_refs
 
     @pytest.mark.parametrize(
         "error_code,expected_exception", batch_element_error_code_exception_pairs
@@ -1570,6 +1440,8 @@ class Test_Manager_preflight_with_batch_default_overload:
         error_code,
         a_different_ref,
         expected_exception,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
         expected_index = 123
@@ -1577,14 +1449,8 @@ class Test_Manager_preflight_with_batch_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            # Error
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
-
+            invoke_preflight_success_cb(0, a_different_ref)
+            invoke_preflight_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -1615,16 +1481,13 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         an_entity_trait_set,
         a_context,
         some_different_refs,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
+            invoke_preflight_success_cb(0, some_different_refs[0])
+            invoke_preflight_success_cb(1, some_different_refs[1])
 
         method.side_effect = call_callbacks
 
@@ -1644,9 +1507,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
             mock.ANY,
         )
 
-        assert len(actual_refs) == 2
-        assert actual_refs[0] == some_different_refs[0]
-        assert actual_refs[1] == some_different_refs[1]
+        assert actual_refs == some_different_refs
 
     def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
         self,
@@ -1657,16 +1518,13 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         an_entity_trait_set,
         a_context,
         some_different_refs,
+        invoke_preflight_success_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
+            invoke_preflight_success_cb(1, some_different_refs[1])
+            invoke_preflight_success_cb(0, some_different_refs[0])
 
         method.side_effect = call_callbacks
 
@@ -1686,9 +1544,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
             mock.ANY,
         )
 
-        assert len(actual_refs) == 2
-        assert actual_refs[0] == some_different_refs[0]
-        assert actual_refs[1] == some_different_refs[1]
+        assert actual_refs == some_different_refs
 
     @pytest.mark.parametrize(
         "error_code,expected_exception", batch_element_error_code_exception_pairs
@@ -1704,6 +1560,8 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         error_code,
         a_different_ref,
         expected_exception,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
         expected_index = 123
@@ -1711,14 +1569,8 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            # Error
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
-
+            invoke_preflight_success_cb(0, a_different_ref)
+            invoke_preflight_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -1756,17 +1608,15 @@ class Test_Manager_preflight_with_batch_variant_overload:
         a_context,
         a_different_ref,
         error_code,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            callback = method.call_args[0][5]
-            callback(1, batch_element_error)
+            invoke_preflight_success_cb(0, a_different_ref)
+            invoke_preflight_error_cb(1, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -1798,6 +1648,8 @@ class Test_Manager_preflight_with_batch_variant_overload:
         a_ref,
         an_entity_trait_set,
         a_context,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
     ):
         method = mock_manager_interface.mock.preflight
 
@@ -1813,18 +1665,10 @@ class Test_Manager_preflight_with_batch_variant_overload:
         entity_ref3 = EntityReference("ref3")
 
         def call_callbacks(*_args):
-            # Success
-            callback = method.call_args[0][4]
-            callback(1, entity_ref1)
-
-            callback = method.call_args[0][5]
-            callback(0, batch_element_error0)
-
-            callback = method.call_args[0][4]
-            callback(3, entity_ref3)
-
-            callback = method.call_args[0][5]
-            callback(2, batch_element_error2)
+            invoke_preflight_success_cb(1, entity_ref1)
+            invoke_preflight_error_cb(0, batch_element_error0)
+            invoke_preflight_success_cb(3, entity_ref3)
+            invoke_preflight_error_cb(2, batch_element_error2)
 
         method.side_effect = call_callbacks
 
@@ -1865,6 +1709,8 @@ class Test_Manager_register_callback_overload:
         a_context,
         some_entity_traitsdatas,
         a_batch_element_error,
+        invoke_register_success_cb,
+        invoke_register_error_cb,
     ):
         success_callback = mock.Mock()
         error_callback = mock.Mock()
@@ -1873,12 +1719,8 @@ class Test_Manager_register_callback_overload:
 
         def call_callbacks(*_args):
             input_refs = method.call_args[0][0]
-            # Success
-            callback = method.call_args[0][4]
-            callback(123, input_refs[0])
-            # Error
-            callback = method.call_args[0][5]
-            callback(456, a_batch_element_error)
+            invoke_register_success_cb(123, input_refs[0])
+            invoke_register_error_cb(456, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -1929,12 +1771,12 @@ class Test_Manager_register_with_singular_default_overload:
         a_context,
         a_different_ref,
         a_traitsdata,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_register_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -1964,6 +1806,7 @@ class Test_Manager_register_with_singular_default_overload:
         error_code,
         expected_exception,
         a_traitsdata,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
 
@@ -1971,8 +1814,7 @@ class Test_Manager_register_with_singular_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_register_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -2003,12 +1845,12 @@ class Test_Manager_register_with_singular_throwing_overload:
         a_context,
         a_different_ref,
         a_traitsdata,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_register_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -2043,6 +1885,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         error_code,
         expected_exception,
         a_traitsdata,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
 
@@ -2050,8 +1893,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_register_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -2087,12 +1929,12 @@ class Test_Manager_register_with_singular_variant_overload:
         a_context,
         a_different_ref,
         a_traitsdata,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
+            invoke_register_success_cb(0, a_different_ref)
 
         method.side_effect = call_callbacks
 
@@ -2124,6 +1966,7 @@ class Test_Manager_register_with_singular_variant_overload:
         a_context,
         error_code,
         a_traitsdata,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
 
@@ -2131,8 +1974,7 @@ class Test_Manager_register_with_singular_variant_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_register_error_cb(expected_index, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -2165,15 +2007,13 @@ class Test_Manager_register_with_batch_default_overload:
         a_context,
         some_different_refs,
         some_entity_traitsdatas,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
+            invoke_register_success_cb(0, some_different_refs[0])
+            invoke_register_success_cb(1, some_different_refs[1])
 
         method.side_effect = call_callbacks
 
@@ -2199,15 +2039,13 @@ class Test_Manager_register_with_batch_default_overload:
         a_context,
         some_different_refs,
         some_entity_traitsdatas,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
+            invoke_register_success_cb(1, some_different_refs[1])
+            invoke_register_success_cb(0, some_different_refs[0])
 
         method.side_effect = call_callbacks
 
@@ -2238,6 +2076,8 @@ class Test_Manager_register_with_batch_default_overload:
         error_code,
         a_different_ref,
         expected_exception,
+        invoke_register_success_cb,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
         expected_index = 123
@@ -2245,12 +2085,8 @@ class Test_Manager_register_with_batch_default_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
-
+            invoke_register_success_cb(0, a_different_ref)
+            invoke_register_error_cb(expected_index, batch_element_error)
             pytest.fail("Exception should have short-circuited this")
 
         method.side_effect = call_callbacks
@@ -2281,15 +2117,13 @@ class Test_Manager_register_with_batch_throwing_overload:
         some_entity_traitsdatas,
         a_context,
         some_different_refs,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
-
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
+            invoke_register_success_cb(0, some_different_refs[0])
+            invoke_register_success_cb(1, some_different_refs[1])
 
         method.side_effect = call_callbacks
 
@@ -2320,15 +2154,13 @@ class Test_Manager_register_with_batch_throwing_overload:
         some_entity_traitsdatas,
         a_context,
         some_different_refs,
+        invoke_register_success_cb,
     ):
         method = mock_manager_interface.mock.register
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(1, some_different_refs[1])
-
-            callback = method.call_args[0][4]
-            callback(0, some_different_refs[0])
+            invoke_register_success_cb(1, some_different_refs[1])
+            invoke_register_success_cb(0, some_different_refs[0])
 
         method.side_effect = call_callbacks
 
@@ -2364,6 +2196,8 @@ class Test_Manager_register_with_batch_throwing_overload:
         error_code,
         a_different_ref,
         expected_exception,
+        invoke_register_success_cb,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
         expected_index = 123
@@ -2371,11 +2205,8 @@ class Test_Manager_register_with_batch_throwing_overload:
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            callback = method.call_args[0][5]
-            callback(expected_index, batch_element_error)
+            invoke_register_success_cb(0, a_different_ref)
+            invoke_register_error_cb(expected_index, batch_element_error)
 
             pytest.fail("Exception should have short-circuited this")
 
@@ -2414,16 +2245,15 @@ class Test_Manager_register_with_batch_variant_overload:
         a_context,
         a_different_ref,
         error_code,
+        invoke_register_success_cb,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
         batch_element_error = BatchElementError(error_code, "some string ✨")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(0, a_different_ref)
-
-            callback = method.call_args[0][5]
-            callback(1, batch_element_error)
+            invoke_register_success_cb(0, a_different_ref)
+            invoke_register_error_cb(1, batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -2455,6 +2285,8 @@ class Test_Manager_register_with_batch_variant_overload:
         a_ref,
         a_traitsdata,
         a_context,
+        invoke_register_success_cb,
+        invoke_register_error_cb,
     ):
         method = mock_manager_interface.mock.register
 
@@ -2471,17 +2303,10 @@ class Test_Manager_register_with_batch_variant_overload:
         entity_ref3 = EntityReference("ref3")
 
         def call_callbacks(*_args):
-            callback = method.call_args[0][4]
-            callback(1, entity_ref1)
-
-            callback = method.call_args[0][5]
-            callback(0, batch_element_error0)
-
-            callback = method.call_args[0][4]
-            callback(3, entity_ref3)
-
-            callback = method.call_args[0][5]
-            callback(2, batch_element_error2)
+            invoke_register_success_cb(1, entity_ref1)
+            invoke_register_error_cb(0, batch_element_error0)
+            invoke_register_success_cb(3, entity_ref3)
+            invoke_register_error_cb(2, batch_element_error2)
 
         method.side_effect = call_callbacks
 
@@ -2653,3 +2478,134 @@ class Test_Manager_contextFromPersistenceToken:
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
+
+
+@pytest.fixture
+def manager(mock_manager_interface, a_host_session):
+    # Default to accepting anything as an entity reference string, to
+    # make constructing EntityReference objects a bit easier.
+    mock_manager_interface.mock.isEntityReferenceString.return_value = True
+    return Manager(mock_manager_interface, a_host_session)
+
+
+@pytest.fixture
+def an_empty_traitsdata():
+    return TraitsData(set())
+
+
+@pytest.fixture
+def some_entity_traitsdatas():
+    first = TraitsData({"a_trait"})
+    second = TraitsData({"a_trait"})
+    first.setTraitProperty("a_trait", "a_prop", 123)
+    second.setTraitProperty("a_trait", "a_prop", 456)
+    return [first, second]
+
+
+@pytest.fixture
+def some_populated_traitsdatas():
+    return [TraitsData(set("trait1")), TraitsData(set("trait2"))]
+
+
+@pytest.fixture
+def a_traitsdata():
+    return TraitsData(set())
+
+
+@pytest.fixture
+def a_batch_element_error():
+    return BatchElementError(BatchElementError.ErrorCode.kUnknown, "some message")
+
+
+@pytest.fixture
+def an_entity_trait_set():
+    return {"blob", "lolcat"}
+
+
+@pytest.fixture
+def some_entity_trait_sets():
+    return [{"blob"}, {"blob", "image"}]
+
+
+@pytest.fixture
+def a_context():
+    return Context()
+
+
+@pytest.fixture
+def a_ref_string():
+    return "asset://a"
+
+
+@pytest.fixture
+def a_ref(manager):
+    return manager.createEntityReference("asset://a")
+
+
+@pytest.fixture
+def a_different_ref(manager):
+    return manager.createEntityReference("asset://b")
+
+
+@pytest.fixture
+def some_refs(manager):
+    return [manager.createEntityReference("asset://c"), manager.createEntityReference("asset://d")]
+
+
+@pytest.fixture
+def some_different_refs(manager):
+    return [manager.createEntityReference("asset://e"), manager.createEntityReference("asset://f")]
+
+
+@pytest.fixture
+def invoke_resolve_success_cb(mock_manager_interface):
+    def invoke(idx, traits_data):
+        callback = mock_manager_interface.mock.resolve.call_args[0][4]
+        callback(idx, traits_data)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_resolve_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.resolve.call_args[0][5]
+        callback(idx, batch_element_error)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_preflight_success_cb(mock_manager_interface):
+    def invoke(idx, traits_data):
+        callback = mock_manager_interface.mock.preflight.call_args[0][4]
+        callback(idx, traits_data)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_preflight_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.preflight.call_args[0][5]
+        callback(idx, batch_element_error)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_register_success_cb(mock_manager_interface):
+    def invoke(idx, traits_data):
+        callback = mock_manager_interface.mock.register.call_args[0][4]
+        callback(idx, traits_data)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_register_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.register.call_args[0][5]
+        callback(idx, batch_element_error)
+
+    return invoke
