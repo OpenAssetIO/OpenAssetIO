@@ -3,6 +3,8 @@ var searchData=
   ['capacity',['capacity',['../structoa___string_view.html#a90557000426d4245a121ca4f5fd92299',1,'oa_StringView']]],
   ['c_20api',['C API',['../group___c_a_p_i.html',1,'']]],
   ['captureargs',['captureArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#ade88f01e5e56c7bd9f282c8cd83277ff',1,'openassetio::_core::audit']]],
+  ['castfrompyobject',['castFromPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#aabce31410223a8d5941005669434ed0b',1,'openassetio::v1::python::converter']]],
+  ['casttopyobject',['castToPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#acd4057ac2926074a2a4d3c5e91a4e2d8',1,'openassetio::v1::python::converter']]],
   ['cmdline',['cmdline',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#af9fc2c1e3bc16deaed748019767bb1cd',1,'openassetio::test::manager::__main__']]],
   ['code',['code',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a2a8da57251af6baf047d8b57ae811203',1,'openassetio::v1::BatchElementError']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],

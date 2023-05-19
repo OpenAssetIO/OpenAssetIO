@@ -6,6 +6,7 @@ var searchData=
   ['apicompliancesuite',['apiComplianceSuite',['../namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite.html',1,'openassetio::test::manager']]],
   ['audit',['audit',['../namespaceopenassetio_1_1__core_1_1audit.html',1,'openassetio::_core']]],
   ['constants',['constants',['../namespaceopenassetio_1_1constants.html',1,'openassetio']]],
+  ['converter',['converter',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html',1,'openassetio::v1::python']]],
   ['debug',['debug',['../namespaceopenassetio_1_1__core_1_1debug.html',1,'openassetio::_core']]],
   ['exceptions',['exceptions',['../namespaceopenassetio_1_1exceptions.html',1,'openassetio']]],
   ['harness',['harness',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html',1,'openassetio::test::manager']]],
