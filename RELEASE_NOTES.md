@@ -1,6 +1,23 @@
 Release Notes
 =============
 
+feature/getRelatedReferencesRefactor
+------------------------------------
+
+### Breaking changes
+
+- Refactored `getRelatedReferences` into `getWithRelationship` and
+  `getWithRelationships` to better define the two possible batch-axis,
+  and simplify implementation on both sides of the API.
+  [#847](https://github.com/OpenAssetIO/OpenAssetIO/issues/847)
+
+### Improvements
+
+- Added default implementations of `getWithRelationship` and
+  `getWithRelationships` that return empty lists, making these methods
+  opt-in for manager implementations.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 v1.0.0-alpha.xx
 ---------------
 
@@ -13,11 +30,6 @@ v1.0.0-alpha.xx
 
 - Removed `ManagerInterface.setRelatedReferences` pending re-design.
   [#16](https://github.com/OpenAssetIO/OpenAssetIO/issues/16)
-
-- Refactored `getRelatedReferences` into `getWithRelationship` and
-  `getWithRelationships` to better define the two possible batch-axis,
-  and simplify implementation on both sides of the API.
-  [#847](https://github.com/OpenAssetIO/OpenAssetIO/issues/847)
 
 - Simplified the locale `TraitsData` provided to API compliance tests
   via the `openassetio.test.manager` test harness. The locale now
@@ -48,11 +60,6 @@ v1.0.0-alpha.xx
   this makes testing for imbued traits easier as it can be assumed that
   the pointer is never null.
   [#903](https://github.com/OpenAssetIO/OpenAssetIO/issues/903)
-
-- Added default implementations of `getWithRelationship` and
-  `getWithRelationships` that return empty lists, making these methods
-  opt-in for manager implementations.
-  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
 v1.0.0-alpha.10
 ---------------
