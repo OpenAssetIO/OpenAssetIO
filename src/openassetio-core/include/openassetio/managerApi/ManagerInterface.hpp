@@ -673,14 +673,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param hostSession The API session.
    *
    * @param successCallback Callback that must be called for each
-   * successful resolution of an entity reference. It should be
-   * given the corresponding index of the entity reference in
-   * `entityRefs` along with its `TraitsData`. The callback must be
-   * called on the same thread that initiated the call to `resolve`.
+   * successful resolution of an entity reference. It should be given
+   * the corresponding index of the entity reference in
+   * `entityReferences` along with its `TraitsData`. The callback must
+   * be called on the same thread that initiated the call to `resolve`.
    *
    * @param errorCallback Callback that must be called for each
    * failed resolution of an entity reference. It should be given the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in `entityReferences`
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread
@@ -816,7 +816,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param successCallback Callback to be called for each successful
    * preflight of an entity reference. It should be called with the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in `entityReferences`
    * along with the (potentially revised) working reference to be
    * used by the host for the rest of the publishing operation for
    * this specific entity (ie, resolve then register). This is an
@@ -827,11 +827,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param errorCallback Callback to be called for each failed
    * preflight of an entity reference. It should be called with the
-   * corresponding index of the entity reference in `entityRefs` along
-   * with a populated @fqref{BatchElementError} "BatchElementError" (see
-   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
-   * must be called on the same thread that initiated the call to
-   * `preflight`. A @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * corresponding index of the entity reference in `entityReferences`
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback must be called on the same thread that
+   * initiated the call to `preflight`. A
+   * @fqref{BatchElementError.ErrorCode.kEntityAccessError}
    * "kEntityAccessError" should be used for any target references that
    * are conceptually read-only.
    *

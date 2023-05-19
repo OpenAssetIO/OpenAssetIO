@@ -592,12 +592,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param successCallback Callback that will be called for each
    * successful resolution of an entity reference. It will be
    * given the corresponding index of the entity reference in
-   * `entityRefs` along with its `TraitsData`. The callback will be
-   * called on the same thread that initiated the call to `resolve`.
+   * `entityReferences` along with its `TraitsData`. The callback will
+   * be called on the same thread that initiated the call to `resolve`.
    *
    * @param errorCallback Callback that will be called for each
    * failed resolution of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in `entityReferences`
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
@@ -901,7 +901,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @param errorCallback Callback that will be called for each
    * failed preflight of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in `entityReferences`
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
@@ -1147,7 +1147,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @param errorCallback Callback that will be called for each
    * failed registration of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in `entityReferences`
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
