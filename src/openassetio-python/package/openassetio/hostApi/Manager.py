@@ -403,10 +403,16 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     @debugApiCall
     @auditApiCall("Manager methods")
     def getWithRelationship(
-        self, relationshipTraitsData, entityReferences, context, resultTraitSet=None
+        self,
+        relationshipTraitsData,
+        entityReferences,
+        context,
+        successCallback,
+        errorCallback,
+        resultTraitSet=None,
     ):
         """
-        Returns entity references that are related to the input
+        Query entity references that are related to the input
         references by the relationship defined by a set of traits and
         their properties.
 
@@ -430,6 +436,24 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
         @param context Context The calling context.
 
+        @param successCallback Callback that will be called for each
+        successful relationship query. It will be given the
+        corresponding index of the entity reference in
+        `entityReferences` along with a list of entity references for
+        entities that have the relationship specified by
+        `relationshipTraitsData`. If there are no relations, the
+        callback will receive an empty list. The callback will be called
+        on the same thread that initiated the call to
+        `getWithRelationship`.
+
+        @param errorCallback Callback that will be called for each
+        failed relationship query. It will be given the corresponding
+        index of the entity reference in `entityReferences` along with a
+        populated @fqref{BatchElementError} "BatchElementError" (see
+        @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+        will be called on the same thread that initiated the call to
+        `getWithRelationship`.
+
         @param resultTraitSet `Set[str]` or None, a hint as to what
         traits the returned entities should have.
 
@@ -447,13 +471,21 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
             entityReferences,
             context,
             self.__hostSession,
+            successCallback,
+            errorCallback,
             resultTraitSet=resultTraitSet,
         )
 
     @debugApiCall
     @auditApiCall("Manager methods")
     def getWithRelationships(
-        self, relationshipTraitsDatas, entityReference, context, resultTraitSet=None
+        self,
+        relationshipTraitsDatas,
+        entityReference,
+        context,
+        successCallback,
+        errorCallback,
+        resultTraitSet=None,
     ):
         """
         Returns entity references that are related to the input
@@ -480,6 +512,23 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
         @param context Context The calling context.
 
+        @param successCallback Callback that will be called for each
+        successful relationship query. It will be given the
+        corresponding index of the relationship in
+        `relationshipTraitsDatas` along with a list of entity references
+        for entities that have that relationship to the supplied
+        `entityReference`. If there are no relations, the callback will
+        receive an empty list. The callback will be called on the same
+        thread that initiated the call to `getWithRelationships`.
+
+        @param errorCallback Callback that will be called for each
+        failed relationship query. It will be given the corresponding
+        index of the relationship in `relationshipTraitsDatas` along
+        with a populated @fqref{BatchElementError} "BatchElementError"
+        (see @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The
+        callback will be called on the same thread that initiated the
+        call to `getWithRelationships`.
+
         @param resultTraitSet `Set[str]` or None, a hint as to what
         traits the returned entities should have.
 
@@ -497,6 +546,8 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
             entityReference,
             context,
             self.__hostSession,
+            successCallback,
+            errorCallback,
             resultTraitSet=resultTraitSet,
         )
 
