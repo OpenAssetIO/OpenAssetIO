@@ -34,6 +34,10 @@ v1.0.0-alpha.xx
 - Added utility methods `castToPyObject` and `castFromPyObject` to
   `openassetio-python-bridge` to facilitate converting between C++ and
   Python objects for hosts seeking to support mixed language workflows.
+  Note : Some methods on `Manager` and `ManagerInterface` are currently
+  implemented in python, pending imminent port to C++. Due to this,
+  these methods will not yet be available for use on a python object
+  returned from `castToPyObject`.
   [#798](https://github.com/OpenAssetIO/OpenAssetIO/issues/798)
 
 ### Improvements
