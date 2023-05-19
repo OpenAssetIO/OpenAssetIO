@@ -33,6 +33,11 @@ namespace python::converter {
  * @warning A Python environment, with `openassetio` imported, must be
  *          available in order to use this function.
  *
+ * @warning Some methods on @ref manager and @ref ManagerInterface are
+ * currently implemented in python, pending imminent port to C++. Due to
+ * this, these methods will not yet be available for use on a python
+ * object returned from this function.
+ *
  * @throws std::invalid_argument if the input is null.
  * @throws std::runtime_error if the cast fails.
  *
