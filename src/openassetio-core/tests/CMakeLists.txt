@@ -17,6 +17,7 @@ install(
 target_sources(openassetio-core-cpp-test-exe
     PRIVATE
     main.cpp
+    typedefsTest.cpp
     BatchElementErrorTest.cpp
     ContextTest.cpp
     TraitsDataTest.cpp

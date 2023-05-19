@@ -1,3 +1,6 @@
 # pybind11 leak when defining enums
 # https://github.com/pybind/pybind11/issues/3865
 leak:pybind11::enum_<
+# Dynamic static initialization avoiding static deinitialization fiasco
+# https://github.com/pybind/pybind11/pull/4192#discussion_r975991726
+leak:pybind11::detail::get_local_internals()

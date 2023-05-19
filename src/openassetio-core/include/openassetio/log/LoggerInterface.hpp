@@ -30,6 +30,8 @@ OPENASSETIO_DECLARE_PTR(LoggerInterface)
  */
 class OPENASSETIO_CORE_EXPORT LoggerInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(LoggerInterface)
+
   /**
    * @name Log Severity
    * @{
