@@ -46,6 +46,13 @@ v1.0.0-alpha.xx
   `ResolveSuccessCallback` from reference types to value types.
   [#858](https://github.com/OpenAssetIO/OpenAssetIO/issues/858)
 
+### New Features
+
+- Added utility methods `castToPyObject` and `castFromPyObject` to
+  `openassetio-python-bridge` to facilitate converting between C++ and
+  Python objects for hosts seeking to support mixed language workflows.
+  [#798](https://github.com/OpenAssetIO/OpenAssetIO/issues/798)
+
 ### Improvements
 
 - Added support for running `ctest` when a python venv is used to
@@ -60,6 +67,17 @@ v1.0.0-alpha.xx
   this makes testing for imbued traits easier as it can be assumed that
   the pointer is never null.
   [#903](https://github.com/OpenAssetIO/OpenAssetIO/issues/903)
+
+- `EntityReference` objects are now coercible to strings in Python,
+  allowing more intuitive use with `format`, `print`, and others.
+  [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
+
+- Added `Ptr`/`ConstPtr` alias members to all appropriate C++ classes,
+  aliasing the associated `shared_ptr` of that class.
+  [#918](https://github.com/OpenAssetIO/OpenAssetIO/issues/918)
+
+- Added support for building for Python 3.11
+  [#683](https://github.com/OpenAssetIO/OpenAssetIO/issues/683)
 
 v1.0.0-alpha.10
 ---------------
@@ -117,9 +135,6 @@ v1.0.0-alpha.10
 - Made the C++ codebase compliant with Clang-Tidy v15. Note that this is
   not yet enforced on CI.
   [#874](https://github.com/OpenAssetIO/OpenAssetIO/pull/874)
-
-- Added support for building for Python 3.11
-  [#683](https://github.com/OpenAssetIO/OpenAssetIO/issues/683)
 
 ### Bug fixes
 

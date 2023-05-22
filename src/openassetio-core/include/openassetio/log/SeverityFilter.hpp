@@ -18,6 +18,8 @@ OPENASSETIO_DECLARE_PTR(SeverityFilter)
  */
 class OPENASSETIO_CORE_EXPORT SeverityFilter final : public LoggerInterface {
  public:
+  OPENASSETIO_ALIAS_PTR(SeverityFilter)
+
   /**
    * Creates a new instance of the SeverityFilter
    *

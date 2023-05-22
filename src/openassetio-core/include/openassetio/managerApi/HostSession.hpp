@@ -38,6 +38,8 @@ OPENASSETIO_DECLARE_PTR(HostSession)
  */
 class OPENASSETIO_CORE_EXPORT HostSession final {
  public:
+  OPENASSETIO_ALIAS_PTR(HostSession)
+
   /**
    * Constructs a new HostSession holding the supplied host.
    */

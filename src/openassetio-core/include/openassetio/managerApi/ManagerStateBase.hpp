@@ -29,6 +29,8 @@ OPENASSETIO_DECLARE_PTR(ManagerStateBase)
  */
 class ManagerStateBase {
  public:
+  OPENASSETIO_ALIAS_PTR(ManagerStateBase)
+
   virtual ~ManagerStateBase() = default;
 };
 }  // namespace managerApi

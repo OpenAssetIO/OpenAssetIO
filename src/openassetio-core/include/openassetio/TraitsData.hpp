@@ -64,6 +64,8 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  */
 class OPENASSETIO_CORE_EXPORT TraitsData final {
  public:
+  OPENASSETIO_ALIAS_PTR(TraitsData)
+
   /**
    * Construct an empty instance, with no traits.
    */

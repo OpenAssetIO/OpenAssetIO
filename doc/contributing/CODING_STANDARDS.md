@@ -93,8 +93,8 @@ and consistency trade-offs.
 #### Smart pointers
 
 C++ classes that represent system components with reference semantics
-(as opposed to 'value' types) should inherit
-`std::enable_shared_from_this` and define a peer `Ptr` alias using
+(as opposed to 'value' types) should define both a qualified peer
+`ClassNamePtr` alias and an unqualified member `Ptr` alias, using
 `std::shared_ptr`. Their constructors should be private, and a static
 `make` method provided.
 
@@ -105,6 +105,9 @@ There is a convenience macro `OPENASSETIO_DECLARE_PTR` available in
 `typedefs.hpp` that should be used to declare the `shared_ptr`. A macro
 gives us a single point of change should we wish to alter or add more
 declarations.
+
+The `OPENASSETIO_ALIAS_PTR` macro should then be used to declare
+`shared_ptr` alias members.
 
 Usage example:
 
@@ -117,6 +120,8 @@ OPENASSETIO_DECLARE_PTR(Host)
 
 class OPENASSETIO_CORE_EXPORT Host final {
 public:
+    OPENASSETIO_ALIAS_PTR(Host)
+
     static HostPtr make(...);
 
 private:

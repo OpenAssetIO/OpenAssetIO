@@ -57,6 +57,8 @@ OPENASSETIO_DECLARE_PTR(Manager)
  */
 class OPENASSETIO_CORE_EXPORT Manager {
  public:
+  OPENASSETIO_ALIAS_PTR(Manager)
+
   /**
    * Constructs a new Manager wrapping the supplied manager interface
    * and host session.

@@ -47,3 +47,9 @@ class Test_EntityReference_equality:
 
     def test_when_not_same_then_compares_unequal(self):
         assert EntityReference("something") != EntityReference("something else")
+
+
+class Test_EntityReference_string_equivalence:
+    def test_when_used_with_format_then_result_contains_toString_value(self):
+        a_ref = EntityReference("Some 🍟 with that?")
+        assert f"{a_ref}" == a_ref.toString()

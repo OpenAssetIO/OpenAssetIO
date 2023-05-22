@@ -13,5 +13,6 @@ void registerEntityReference(const py::module &mod) {
   py::class_<EntityReference>{mod, "EntityReference", py::is_final()}
       .def(py::init<openassetio::Str>(), py::arg("entityReferenceString"))
       .def("toString", &EntityReference::toString)
+      .def("__str__", &EntityReference::toString)
       .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 }
