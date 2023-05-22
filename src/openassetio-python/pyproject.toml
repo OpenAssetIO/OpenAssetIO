@@ -84,6 +84,18 @@ disable = [
     "super-with-arguments",
     "consider-using-f-string"
 ]
+# Presently it's not possible to disable the `duplicate-code` check for
+# specific files, so it thinks that symlinks are duplicated
+# implementation. We also have issues where multi-line calls are
+# classed as duplicates.
+#
+# See:
+#     https://github.com/PyCQA/pylint/issues/214
+#
+# As we're not going to have a lot of python
+# implementation anyway, use this trick to disable the similarity
+# checker globally.
+min-similarity-lines=10000
 
 # NB: This requires the use of pyproject-flake8
 [tool.flake8]
