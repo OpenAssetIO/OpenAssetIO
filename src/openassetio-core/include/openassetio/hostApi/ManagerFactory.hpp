@@ -3,6 +3,7 @@
 #pragma once
 
 #include <memory>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -183,24 +184,16 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * the TOML configuration file referenced by the
    * @ref default_config_var.
    *
-   * This allows deployments to centralize OpenAssetIO manager settings,
-   * and for hosts to instantiate this manager without the need for their
-   * own settings and persistence mechanism.
-   *
    * @note This mechanism should be the default approach for a host to
-   * initialize the API. Extended functionality to override this configuration
-   * can optionally be provided, but the ability to use the shared, default
-   * configuration is always required.
+   * initialize the API. Extended functionality to override this
+   * configuration can optionally be provided, but the ability to use
+   * the shared, default configuration is always required.
    *
-   * The referenced TOML file should have the following structure.
-   *
-   * @code{.toml}
-   * [manager]
-   * identifier = "some.identifier"
-   *
-   * [manager.settings]  # Optional
-   * some_setting = "value"
-   * @endcode
+   * @see @ref defaultManagerForInterface(std::string_view, <!--
+   * -->const HostInterfacePtr&,<!--
+   * -->const ManagerImplementationFactoryInterfacePtr&,<!--
+   * -->const log::LoggerInterfacePtr&) "Alternative direct signature"
+   * for more details.
    *
    * @envvar **OPENASSETIO_DEFAULT_CONFIG** *str* The path to a
    * TOML file containing configuration information for the default
@@ -216,6 +209,51 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    */
   [[nodiscard]] static ManagerPtr defaultManagerForInterface(
       const HostInterfacePtr& hostInterface,
+      const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
+      const log::LoggerInterfacePtr& logger);
+
+  /**
+   * Creates the default @fqref{hostApi.Manager} "Manager" as defined by
+   * the given TOML configuration file.
+   *
+   * This allows deployments to centralize OpenAssetIO manager settings,
+   * and for hosts to instantiate this manager without the need for
+   * their own settings and persistence mechanism.
+   *
+   * The referenced TOML file should have the following structure.
+   *
+   * @code{.toml}
+   * [manager]
+   * identifier = "some.identifier"
+   *
+   * [manager.settings]  # Optional
+   * some_setting = "value"
+   * @endcode
+   *
+   * @param configPath Path to the TOML config file, compatible with
+   * <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream/open">
+   * `std::ifstream::open`</a>. Relative paths resolve to a
+   * platform/environment-dependent location.
+   *
+   * @param hostInterface The @ref host "host's" implementation of the
+   * `HostInterface` that uniquely identifies the host and provides
+   * common hooks for the @ref manager to query asset-related properties
+   * from the host.
+   *
+   * @param managerImplementationFactory The factory that will be used
+   * to instantiate managers.
+   *
+   * @param logger The logger instance that will be used for all
+   * messaging from the instantiated @fqref{hostApi.Manager} "Manager"
+   * instances.
+   *
+   * @return A default-configured manager.
+   *
+   * @throws std::runtime_error if there are errors occur whilst
+   * loading the TOML file
+   */
+  [[nodiscard]] static ManagerPtr defaultManagerForInterface(
+      std::string_view configPath, const HostInterfacePtr& hostInterface,
       const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
       const log::LoggerInterfacePtr& logger);
 

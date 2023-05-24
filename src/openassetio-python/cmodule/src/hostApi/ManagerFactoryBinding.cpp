@@ -12,8 +12,12 @@
 #include "../_openassetio.hpp"
 
 void registerManagerFactory(const py::module& mod) {
+  using openassetio::hostApi::HostInterfacePtr;
   using openassetio::hostApi::ManagerFactory;
   using openassetio::hostApi::ManagerFactoryPtr;
+  using openassetio::hostApi::ManagerImplementationFactoryInterfacePtr;
+  using openassetio::hostApi::ManagerPtr;
+  using openassetio::log::LoggerInterfacePtr;
 
   // TODO(DF): `py::final()` once ManagerFactory is fully C++.
   py::class_<ManagerFactory, ManagerFactoryPtr> managerFactory(mod, "ManagerFactory");
@@ -41,7 +45,17 @@ void registerManagerFactory(const py::module& mod) {
                   py::arg("managerImplementationFactory").none(false),
                   py::arg("logger").none(false))
       .def_static("defaultManagerForInterface",
-                  RetainCommonPyArgs::forFn<&ManagerFactory::defaultManagerForInterface>(),
+                  RetainCommonPyArgs::forFn<static_cast<ManagerPtr (*)(
+                      std::string_view, const HostInterfacePtr&,
+                      const ManagerImplementationFactoryInterfacePtr&, const LoggerInterfacePtr&)>(
+                      &ManagerFactory::defaultManagerForInterface)>(),
+                  py::arg("configPath"), py::arg("hostInterface").none(false),
+                  py::arg("managerImplementationFactory").none(false),
+                  py::arg("logger").none(false))
+      .def_static("defaultManagerForInterface",
+                  RetainCommonPyArgs::forFn<static_cast<ManagerPtr (*)(
+                      const HostInterfacePtr&, const ManagerImplementationFactoryInterfacePtr&,
+                      const LoggerInterfacePtr&)>(&ManagerFactory::defaultManagerForInterface)>(),
                   py::arg("hostInterface").none(false),
                   py::arg("managerImplementationFactory").none(false),
                   py::arg("logger").none(false));
