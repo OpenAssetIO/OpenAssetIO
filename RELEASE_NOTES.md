@@ -11,6 +11,12 @@ v1.0.0-alpha.xx
   environment variable.
   [#937](https://github.com/OpenAssetIO/OpenAssetIO/issues/937)
 
+- Added support for `${config_dir}` interpolation within manager string
+  settings retrieved from the TOML config file used by
+  `defaultManagerForInterface`. This token expands to the absolute
+  directory of the TOML config file.
+  [#804](https://github.com/OpenAssetIO/OpenAssetIO/issues/804)
+
 v1.0.0-alpha.11
 ---------------
 

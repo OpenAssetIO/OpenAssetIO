@@ -2,6 +2,7 @@
 // Copyright 2022 The Foundry Visionmongers Ltd
 #include <cstdlib>
 #include <filesystem>
+#include <string_view>
 
 #include <toml++/toml.h>
 
@@ -15,6 +16,10 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
 #include "openassetio/InfoDictionary.hpp"
+
+namespace {
+constexpr std::string_view kConfigDirVar = "${config_dir}";
+}  // namespace
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -123,6 +128,20 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
 
   const std::string_view identifier = config["manager"]["identifier"].value_or("");
 
+  // Function to substitute ${config_dir} with the absolute,
+  // canonicalised directory of the TOML config file.
+  const auto substituteConfigDir =
+      [configDir =
+           std::filesystem::canonical(configPath).parent_path().string()](std::string str) {
+        // Adapted from https://en.cppreference.com/w/cpp/string/basic_string/replace
+        for (std::string::size_type pos{};
+             (pos = str.find(kConfigDirVar, pos)) != std::string::npos;
+             pos += configDir.length()) {
+          str.replace(pos, kConfigDirVar.length(), configDir);
+        }
+        return str;
+      };
+
   InfoDictionary settings;
   if (toml::table* settingsTable = config["manager"]["settings"].as_table()) {
     // It'd be nice to use settingsTable::for_each, a lambda and
@@ -135,7 +154,7 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
       } else if (val.is_floating_point()) {
         settings.insert({Str{key}, val.as_floating_point()->get()});
       } else if (val.is_string()) {
-        settings.insert({Str{key}, val.as_string()->get()});
+        settings.insert({Str{key}, substituteConfigDir(val.as_string()->get())});
       } else if (val.is_boolean()) {
         settings.insert({Str{key}, val.as_boolean()->get()});
       } else {
