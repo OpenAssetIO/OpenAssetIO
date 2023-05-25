@@ -345,7 +345,7 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         reference, or `EntityResolutionError`. An
         `EntityResolutionError` will be returned if the entity
         reference is ambiguously versioned or if the supplied
-        `overrideVersionName` does not exist for that entity. For
+        @p overrideVersionName does not exist for that entity. For
         example, if the version is missing from a reference to a
         versioned entity, and that behavior is undefined in the
         manager's model, then an `EntityResolutionError` will be
@@ -439,16 +439,16 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @param successCallback Callback that will be called for each
         successful relationship query. It will be given the
         corresponding index of the entity reference in
-        `entityReferences` along with a list of entity references for
+        @p entityReferences along with a list of entity references for
         entities that have the relationship specified by
-        `relationshipTraitsData`. If there are no relations, the
+        @p relationshipTraitsData. If there are no relations, the
         callback will receive an empty list. The callback will be called
         on the same thread that initiated the call to
         `getWithRelationship`.
 
         @param errorCallback Callback that will be called for each
         failed relationship query. It will be given the corresponding
-        index of the entity reference in `entityReferences` along with a
+        index of the entity reference in @p entityReferences along with a
         populated @fqref{BatchElementError} "BatchElementError" (see
         @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
         will be called on the same thread that initiated the call to
@@ -515,15 +515,15 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
         @param successCallback Callback that will be called for each
         successful relationship query. It will be given the
         corresponding index of the relationship in
-        `relationshipTraitsDatas` along with a list of entity references
+        @p relationshipTraitsDatas along with a list of entity references
         for entities that have that relationship to the supplied
-        `entityReference`. If there are no relations, the callback will
+        @p entityReference. If there are no relations, the callback will
         receive an empty list. The callback will be called on the same
         thread that initiated the call to `getWithRelationships`.
 
         @param errorCallback Callback that will be called for each
         failed relationship query. It will be given the corresponding
-        index of the relationship in `relationshipTraitsDatas` along
+        index of the relationship in @p relationshipTraitsDatas along
         with a populated @fqref{BatchElementError} "BatchElementError"
         (see @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The
         callback will be called on the same thread that initiated the

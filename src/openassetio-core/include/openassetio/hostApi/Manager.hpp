@@ -249,7 +249,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @param context The calling context.
    *
-   * @return a `TraitsData` for each element in `traitSets`.
+   * @return a `TraitsData` for each element in @p traitSets.
    */
   [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
                                                     const ContextConstPtr& context) const;
@@ -592,12 +592,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param successCallback Callback that will be called for each
    * successful resolution of an entity reference. It will be
    * given the corresponding index of the entity reference in
-   * `entityReferences` along with its `TraitsData`. The callback will
+   * @p entityReferences along with its `TraitsData`. The callback will
    * be called on the same thread that initiated the call to `resolve`.
    *
    * @param errorCallback Callback that will be called for each
    * failed resolution of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityReferences`
+   * corresponding index of the entity reference in @p entityReferences
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
@@ -894,14 +894,14 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param successCallback Callback that will be called for each
    * successful preflight of an entity reference. It will be given
    * the corresponding index of the entity reference in
-   * `targetEntityRefs` along with an updated reference to use for
+   * @p entityReferences along with an updated reference to use for
    * future interactions as part of the publishing operation. The
    * callback will be called on the same thread that initiated the
    * call to `preflight`.
    *
    * @param errorCallback Callback that will be called for each
    * failed preflight of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityReferences`
+   * corresponding index of the entity reference in @p entityReferences
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
@@ -1140,14 +1140,14 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param successCallback Callback that will be called for each
    * successful registration of an entity reference. It will be given
    * the corresponding index of the entity reference in
-   * `targetEntityRefs` along with an updated reference to use for
+   * @p entityReferences along with an updated reference to use for
    * future interactions with the resulting new entity. The callback
    * will be called on the same thread that initiated the call to
    * `register`.
    *
    * @param errorCallback Callback that will be called for each
    * failed registration of an entity reference. It will be given the
-   * corresponding index of the entity reference in `entityReferences`
+   * corresponding index of the entity reference in @p entityReferences
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
@@ -1155,10 +1155,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @return None
    *
-   * @exception std::out_of_range If `entityReferences` and
-   * `entityTraitsDatas` are not lists of the same length.
+   * @exception std::out_of_range If @p entityReferences and
+   * @p entityTraitsDatas are not lists of the same length.
    *
-   * @exception std::invalid_argument If all `entityTraitsDatas` do
+   * @exception std::invalid_argument If all @p entityTraitsDatas do
    * not share the same trait set.
    *
    * Other exceptions may be raised for fatal runtime errors, for

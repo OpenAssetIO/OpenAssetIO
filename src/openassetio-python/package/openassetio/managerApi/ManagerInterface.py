@@ -426,7 +426,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         reference, or `EntityResolutionError`. An
         `EntityResolutionError` should be returned if the entity
         reference is ambiguously versioned or if the supplied
-        `overrideVersionName` does not exist for that entity. For
+        @p overrideVersionName does not exist for that entity. For
         example, if the version is missing from a reference to a
         versioned entity, and that behavior is undefined in the
         manager's model, then an `EntityResolutionError` should be
@@ -492,7 +492,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         """
         Queries entity references that are related to the input
         references by the relationship defined by a set of traits and
-        their properties in `relationshipTraitsData`.
+        their properties in @p relationshipTraitsData.
 
         This is an essential function in this API - as it is widely used
         to query other entities or organisational structure.
@@ -523,9 +523,9 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @param successCallback Callback that must be called for each
         successful relationship query for an input entity reference. It
         should be given the corresponding index of the entity reference
-        in `entityReferences` along with a list of entity references for
+        in @p entityReferences along with a list of entity references for
         entities that have the relationship specified by
-        `relationshipTraitsData`. If there are no relations, an empty
+        @p relationshipTraitsData. If there are no relations, an empty
         list should be passed to the callback. The callback must be
         called on the same thread that initiated the call to
         `getWithRelationship`.
@@ -533,7 +533,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @param errorCallback Callback that must be called for each
         failed relationship query for an entity reference. It should be
         given the corresponding index of the entity reference in
-        `entityReferences` along with a populated
+        @p entityReferences along with a populated
         @fqref{BatchElementError} "BatchElementError" (see
         @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
         must be called on the same thread that initiated the call to
@@ -569,7 +569,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         """
         Queries entity references that are related to the input
         reference by the relationships defined by a set of traits and
-        their properties. Each element of `relationshipTraitsDatas`
+        their properties. Each element of @p relationshipTraitsDatas
         defines a specific relationship to query.
 
         This is an essential function in this API - as it is widely used
@@ -601,9 +601,9 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @param successCallback Callback that must be called for each
         successful relationship query for an input relationship. It
         should be given the corresponding index of the relationship
-        definition in in `relationshipTraitsDatas` along with a list of
+        definition in @p relationshipTraitsDatas along with a list of
         entity references for entities that are related to
-        `entityReference` by that relationship. If there are no
+        @p entityReference by that relationship. If there are no
         relations, an empty list should be passed to the callback. The
         callback must be called on the same thread that initiated the
         call to `getWithRelationships`.
@@ -611,7 +611,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         @param errorCallback Callback that must be called for each
         failed query for a relationship. It should be given the
         corresponding index of the relationship in
-        `relationshipTraitsDatas` along with a populated
+        @p relationshipTraitsDatas along with a populated
         @fqref{BatchElementError} "BatchElementError" (see
         @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
         must be called on the same thread that initiated the call to
