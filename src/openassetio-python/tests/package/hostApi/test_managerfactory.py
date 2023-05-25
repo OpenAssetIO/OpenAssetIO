@@ -21,6 +21,7 @@ Tests that cover the openassetio.hostApi.ManagerFactory class.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import os
+import pathlib
 from unittest import mock
 
 import pytest
@@ -199,12 +200,12 @@ class Test_ManagerFactory_defaultManagerForInterface:
         self,
         use_env_var_for_config_file,
         valid_manager_config,  # pylint: disable=unused-argument
+        resources_dir,
         mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
         create_mock_manager_interface,
     ):
-
         expected_host_identifier = "a.host"
         mock_host_interface.mock.identifier.return_value = expected_host_identifier
 
@@ -215,6 +216,7 @@ class Test_ManagerFactory_defaultManagerForInterface:
             "a_float": 3.141579,
             "a_bool": False,
             "a_int": 42,
+            "a_config_path_twice": f"{resources_dir}/my/🐈/{resources_dir}",
         }
 
         mock_manager_interface = create_mock_manager_interface()
@@ -292,6 +294,76 @@ class Test_ManagerFactory_defaultManagerForInterface:
                     f"Loading default manager config at '{valid_manager_config}'",
                 ),
             ]
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_var_set_to_valid_relative_path_then_path_substituted_settings_are_absolute(
+        self,
+        use_env_var_for_config_file,
+        relative_test_manager_config,
+        resources_dir,
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+        create_mock_manager_interface,
+    ):
+        expected_path = f"{resources_dir}/my/🐈/{resources_dir}"
+
+        mock_manager_interface = create_mock_manager_interface()
+
+        def check_initialization(settings, _):
+            assert settings["a_config_path_twice"] == expected_path
+            return mock.DEFAULT
+
+        mock_manager_interface.mock.initialize.side_effect = check_initialization
+
+        mock_manager_implementation_factory.mock.instantiate.return_value = mock_manager_interface
+
+        if use_env_var_for_config_file:
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+        else:
+            ManagerFactory.defaultManagerForInterface(
+                relative_test_manager_config,
+                mock_host_interface,
+                mock_manager_implementation_factory,
+                mock_logger,
+            )
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_var_set_to_non_canonical_path_then_path_substituted_settings_are_canonical(
+        self,
+        use_env_var_for_config_file,
+        non_canonical_test_manager_config,
+        resources_dir,
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+        create_mock_manager_interface,
+    ):
+        expected_path = f"{resources_dir}/my/🐈/{resources_dir}"
+
+        mock_manager_interface = create_mock_manager_interface()
+
+        def check_initialization(settings, _):
+            assert settings["a_config_path_twice"] == expected_path
+            return mock.DEFAULT
+
+        mock_manager_interface.mock.initialize.side_effect = check_initialization
+
+        mock_manager_implementation_factory.mock.instantiate.return_value = mock_manager_interface
+
+        if use_env_var_for_config_file:
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+        else:
+            ManagerFactory.defaultManagerForInterface(
+                non_canonical_test_manager_config,
+                mock_host_interface,
+                mock_manager_implementation_factory,
+                mock_logger,
+            )
 
 
 # TODO(DF) C++ specific tests can be removed once ManagerFactory is
@@ -480,6 +552,31 @@ def resources_dir():
 @pytest.fixture()
 def valid_manager_config(resources_dir, monkeypatch, use_env_var_for_config_file):
     toml_path = os.path.join(resources_dir, "default_manager.toml")
+    if use_env_var_for_config_file:
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
+    return toml_path
+
+
+@pytest.fixture
+def relative_test_manager_config(resources_dir, monkeypatch, use_env_var_for_config_file):
+    toml_path = pathlib.Path(resources_dir, "default_manager.toml")
+
+    # Ensure cwd is on the same drive letter in Windows.
+    cwd = toml_path.parent.parent
+    monkeypatch.chdir(cwd)
+
+    toml_relative_path = os.path.relpath(toml_path, cwd)
+    if use_env_var_for_config_file:
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_relative_path)
+    return toml_relative_path
+
+
+@pytest.fixture
+def non_canonical_test_manager_config(resources_dir, monkeypatch, use_env_var_for_config_file):
+    parts = pathlib.Path(resources_dir).parts
+    # (/, path, to, config.toml) -> (/, path, .., path, to, config.toml)
+    parts = parts[0:2] + ("..",) + parts[1:]
+    toml_path = os.path.join(*parts, "default_manager.toml")
     if use_env_var_for_config_file:
         monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
     return toml_path
