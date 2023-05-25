@@ -90,11 +90,25 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
     logger->log(log::LoggerInterface::Severity::kDebug, msg);
     return nullptr;
   }
-
   {
-    Str msg = "Loading default manager config from '";
+    Str msg = "Retrieved default manager config file path from '";
+    msg += kDefaultManagerConfigEnvVarName;
+    msg += "'";
+    logger->log(log::LoggerInterface::Severity::kDebug, msg);
+  }
+
+  return defaultManagerForInterface(configPath, hostInterface, managerImplementationFactory,
+                                    logger);
+}
+
+ManagerPtr ManagerFactory::defaultManagerForInterface(
+    const std::string_view configPath, const HostInterfacePtr& hostInterface,
+    const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
+    const log::LoggerInterfacePtr& logger) {
+  {
+    Str msg = "Loading default manager config at '";
     msg += configPath;
-    msg += "' [" + kDefaultManagerConfigEnvVarName + "]";
+    msg += "'";
     logger->log(log::LoggerInterface::Severity::kDebug, msg);
   }
 

@@ -27,6 +27,7 @@ import pytest
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from openassetio.hostApi import ManagerFactory, Manager, ManagerImplementationFactoryInterface
+from openassetio.log import LoggerInterface
 
 
 CppManagerFactory = _openassetio.hostApi.ManagerFactory  # pylint: disable=no-member
@@ -144,37 +145,60 @@ class Test_ManagerFactory_defaultManagerForInterface:
             is None
         )
 
-    def test_when_var_set_to_non_existent_path_then_runtime_error_raised(
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_non_existent_path_then_runtime_error_raised(
         self,
-        env_with_non_existent_manager_config,  # pylint: disable=unused-argument
+        use_env_var_for_config_file,
+        non_existent_manager_config,  # pylint: disable=unused-argument
         mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
     ):
         with pytest.raises(RuntimeError) as exc:
-            ManagerFactory.defaultManagerForInterface(
-                mock_host_interface, mock_manager_implementation_factory, mock_logger
-            )
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface, mock_manager_implementation_factory, mock_logger
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    non_existent_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+
         assert (
             str(exc.value)
             == "Could not load default manager config from 'i/do/not/exist', file does not exist."
         )
 
-    def test_when_var_set_to_invalid_content_then_runtime_error_raised(
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_invalid_content_then_runtime_error_raised(
         self,
-        env_with_invalid_manager_config,  # pylint: disable=unused-argument
+        use_env_var_for_config_file,
+        invalid_manager_config,  # pylint: disable=unused-argument
         mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
     ):
         with pytest.raises(RuntimeError):
-            ManagerFactory.defaultManagerForInterface(
-                mock_host_interface, mock_manager_implementation_factory, mock_logger
-            )
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface, mock_manager_implementation_factory, mock_logger
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    invalid_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
 
-    def test_when_var_set_to_valid_path_then_expected_manager_returned_with_expected_settings(
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_valid_path_then_expected_manager_returned_with_expected_settings(
         self,
-        env_with_test_manager_config,  # pylint: disable=unused-argument
+        use_env_var_for_config_file,
+        valid_manager_config,  # pylint: disable=unused-argument
         mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
@@ -207,15 +231,67 @@ class Test_ManagerFactory_defaultManagerForInterface:
 
         mock_manager_implementation_factory.mock.instantiate.return_value = mock_manager_interface
 
-        manager = ManagerFactory.defaultManagerForInterface(
-            mock_host_interface, mock_manager_implementation_factory, mock_logger
-        )
+        if use_env_var_for_config_file:
+            manager = ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+        else:
+            manager = ManagerFactory.defaultManagerForInterface(
+                valid_manager_config,
+                mock_host_interface,
+                mock_manager_implementation_factory,
+                mock_logger,
+            )
 
         assert manager.identifier() == expected_manager_identifier
         mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
             expected_manager_identifier
         )
         mock_manager_interface.mock.initialize.assert_called_once()
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_valid_path_then_expected_log_messages_printed(
+        self,
+        use_env_var_for_config_file,
+        valid_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+        create_mock_manager_interface,
+    ):
+        mock_manager_interface = create_mock_manager_interface()
+        mock_manager_implementation_factory.mock.instantiate.return_value = mock_manager_interface
+
+        if use_env_var_for_config_file:
+            ManagerFactory.defaultManagerForInterface(
+                mock_host_interface, mock_manager_implementation_factory, mock_logger
+            )
+        else:
+            ManagerFactory.defaultManagerForInterface(
+                valid_manager_config,
+                mock_host_interface,
+                mock_manager_implementation_factory,
+                mock_logger,
+            )
+
+        if use_env_var_for_config_file:
+            assert mock_logger.mock.log.call_args_list == [
+                mock.call(
+                    LoggerInterface.Severity.kDebug,
+                    "Retrieved default manager config file path from 'OPENASSETIO_DEFAULT_CONFIG'",
+                ),
+                mock.call(
+                    LoggerInterface.Severity.kDebug,
+                    f"Loading default manager config at '{valid_manager_config}'",
+                ),
+            ]
+        else:
+            assert mock_logger.mock.log.call_args_list == [
+                mock.call(
+                    LoggerInterface.Severity.kDebug,
+                    f"Loading default manager config at '{valid_manager_config}'",
+                ),
+            ]
 
 
 # TODO(DF) C++ specific tests can be removed once ManagerFactory is
@@ -249,7 +325,6 @@ class Test_CppManagerFactory_createManagerForInterface:
     def test_returns_a_cpp_manager(
         self, mock_manager_implementation_factory, mock_host_interface, mock_logger
     ):
-
         manager = CppManagerFactory.createManagerForInterface(
             "a.manager", mock_host_interface, mock_manager_implementation_factory, mock_logger
         )
@@ -322,7 +397,6 @@ class Test_ManagerFactory_createManagerForInterface:
     def test_returns_a_manager(
         self, mock_manager_implementation_factory, mock_host_interface, mock_logger
     ):
-
         manager = ManagerFactory.createManagerForInterface(
             "a.manager", mock_host_interface, mock_manager_implementation_factory, mock_logger
         )
@@ -404,19 +478,27 @@ def resources_dir():
 
 
 @pytest.fixture()
-def env_with_test_manager_config(resources_dir, monkeypatch):
+def valid_manager_config(resources_dir, monkeypatch, use_env_var_for_config_file):
     toml_path = os.path.join(resources_dir, "default_manager.toml")
-    monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
+    if use_env_var_for_config_file:
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
+    return toml_path
 
 
 @pytest.fixture()
-def env_with_non_existent_manager_config(monkeypatch):
-    monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, "i/do/not/exist")
+def non_existent_manager_config(monkeypatch, use_env_var_for_config_file):
+    toml_path = "i/do/not/exist"
+    if use_env_var_for_config_file:
+        monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
+    return toml_path
 
 
 @pytest.fixture()
-def env_with_invalid_manager_config(monkeypatch):
-    monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, __file__)
+def invalid_manager_config(monkeypatch, use_env_var_for_config_file):
+    toml_path = __file__
+    if use_env_var_for_config_file:
+        monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
+    return toml_path
 
 
 class MockManagerImplementationFactory(ManagerImplementationFactoryInterface):

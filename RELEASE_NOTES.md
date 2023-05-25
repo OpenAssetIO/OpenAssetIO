@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+v1.0.0-alpha.xx
+---------------
+
+### New Features
+
+- Added an overload of `ManagerFactory.defaultManagerForInterface` that
+  takes a config file path string argument, rather than using an
+  environment variable.
+  [#937](https://github.com/OpenAssetIO/OpenAssetIO/issues/937)
+
 v1.0.0-alpha.11
 ---------------
 
