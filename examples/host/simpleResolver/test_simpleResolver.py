@@ -23,9 +23,9 @@ import pathlib
 import pytest
 import sys
 
-
 from openassetio import BatchElementError
 from openassetio.hostApi import ManagerFactory
+
 
 # pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
@@ -95,11 +95,11 @@ def execute_cli(*args):
     all_args.extend(args)
     # We explicitly don't want an exception to be raised.
     # pylint: disable=subprocess-run-check
-    return subprocess.run(all_args, capture_output=True, encoding="utf-8", cwd=this_file.parent)
+    return subprocess.run(all_args, capture_output=True, encoding="utf-8")
 
 
 @pytest.fixture
-def test_config_env(monkeypatch):
+def test_config_env(monkeypatch, tmpdir):
     """
     A fixture that configures the process environment such that the
     OpenAssetIO default config points to the example toml file.
@@ -107,3 +107,6 @@ def test_config_env(monkeypatch):
     this_file = pathlib.Path(__file__)
     config_file = this_file.parent / "bal_animals_openassetio_config.toml"
     monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", str(config_file))
+    # Deliberately not same directory as the library JSON file, so
+    # relies on ${config_dir} interpolation.
+    monkeypatch.chdir(tmpdir)

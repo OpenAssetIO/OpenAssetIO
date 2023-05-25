@@ -5,4 +5,4 @@
 identifier = "org.openassetio.examples.manager.bal"
 
 [manager.settings]
-library_path = "bal_animals.json"
+library_path = "${config_dir}/bal_animals.json"
