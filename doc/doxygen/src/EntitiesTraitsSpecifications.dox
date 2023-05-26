@@ -38,7 +38,7 @@
  *
  * @section Traits
  *
- * Within the API, it is often neccesary to classify an entity,
+ * Within the API, it is often necessary to classify an entity,
  * relationship or the nature of the calling environment to ensure
  * data is handled correctly.
  *
@@ -133,7 +133,7 @@
  * organizational structure that may be desired).
  *
  * Consider an editorial application that wants to update a production
- * tracking system based on changes to the suplied edit of a film. A
+ * tracking system based on changes to the supplied edit of a film. A
  * host could use the `shot` and `frameRange` traits and their
  * associated data fields to query and publish shot timing information
  * directly to the management system.
@@ -200,11 +200,11 @@
  * traits. They are used at runtime to ensure consistent handling of
  * traits between different hosts and managers.
  *
- * When a Specification combines triats into a @ref trait_set -
+ * When a Specification combines traits into a @ref trait_set -
  * they are additive. Each additional trait narrows the set's focus.
  * Combining two traits does _not_ mean "either/or".
  *
- * A specifcation based on the earlier examples could be an
+ * A specification based on the earlier examples could be an
  * `ImageSpecification` - composed of the `image`, `raster`
  * and `locatableContent` traits. This specification defines an entity
  * that must be a pixel-based image, with data held in a file.
@@ -279,7 +279,7 @@
  * When a @ref trait_set is used as a predicate to search for entities.
  * Such as in @ref openassetio.hostApi.Manager.Manager.getRelatedReferences
  * "getRelatedReferences", or when browsing for assets, traits are
- * considered additive, and they must all be satisifed.
+ * considered additive, and they must all be satisfied.
  *
  * As an example, consider a world-building tool wishing to browse for
  * an arbitrary three-dimensional scene file to incorporate (e.g. USD).
@@ -305,7 +305,7 @@
  * `camera` trait should be added to indicate that only scenes
  * containing a camera should be presented.
  *
- * Another example would be when querying for an an EDL file in
+ * Another example would be when querying for an EDL file in
  * relation to a sequence entity. The traits used should only include a
  * description of the nature of any of its content if this is
  * specifically required for its use, so typically `locatableContent`,
@@ -334,7 +334,7 @@
  * is capable of consuming the entity's data in a specific way, so
  * including all applicable traits is generally benefical.
  *
- * @note This may need a little time to settle in paractice. There has
+ * @note This may need a little time to settle in practice. There has
  * been discussion around whether there is need to define 'excluded'
  * traits, or how best to handle situations such as the 'USD camera
  * cache' example, where there may also be caches with meshes _and_
@@ -389,7 +389,7 @@
  * namespace so care should be taken when defining new or local traits
  * to avoid the potential of collisions.
  *
- * Any new tool, manager or vendor specific specifcations and traits
+ * Any new tool, manager or vendor specific specifications and traits
  * should be listed in the appropriate technical documentation supplied
  * with the software.
  *
