@@ -240,7 +240,14 @@ class ValidatingMockManagerInterface(ManagerInterface):
         )
 
     def getWithRelationship(
-        self, relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet=None
+        self,
+        relationshipTraitsData,
+        entityReferences,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+        resultTraitSet=None,
     ):
         assert isinstance(relationshipTraitsData, TraitsData)
         self.__assertIsIterableOf(entityReferences, EntityReference)
@@ -248,21 +255,44 @@ class ValidatingMockManagerInterface(ManagerInterface):
         if resultTraitSet is not None:
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
+        assert callable(successCallback)
+        assert callable(errorCallback)
         return self.mock.getWithRelationship(
-            relationshipTraitsData, entityReferences, context, hostSession, resultTraitSet
+            relationshipTraitsData,
+            entityReferences,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
+            resultTraitSet,
         )
 
     def getWithRelationships(
-        self, relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet=None
+        self,
+        relationshipTraitsDatas,
+        entityReference,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+        resultTraitSet=None,
     ):
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         assert isinstance(entityReference, EntityReference)
         self.__assertCallingContext(context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
         if resultTraitSet is not None:
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
         return self.mock.getWithRelationships(
-            relationshipTraitsDatas, entityReference, context, hostSession, resultTraitSet
+            relationshipTraitsDatas,
+            entityReference,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
+            resultTraitSet,
         )
 
     def register(

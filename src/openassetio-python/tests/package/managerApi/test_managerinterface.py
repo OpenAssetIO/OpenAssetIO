@@ -21,7 +21,7 @@ Tests for the default implementations of ManagerInterface methods.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 import pytest
 
@@ -195,12 +195,22 @@ class Test_ManagerInterface_getWithRelationship:
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
 
     def test_returns_empty_list_for_each_input(self, manager_interface):
-        for refs, expected in (
-            ([], []),
-            ([Mock()], [[]]),
-            ([Mock(), Mock()], [[], []]),
+        success_callback = Mock()
+        error_callback = Mock()
+
+        for refs in (
+            [],
+            [Mock()],
+            [Mock(), Mock()],
         ):
-            assert manager_interface.getWithRelationship(Mock(), refs, Mock(), Mock()) == expected
+            manager_interface.getWithRelationship(
+                Mock(), refs, Mock(), Mock(), success_callback, error_callback
+            )
+
+            error_callback.assert_not_called()
+            success_callback.assert_has_calls([call(i, []) for i in range(len(refs))])
+
+            success_callback.reset_mock()
 
 
 class Test_ManagerInterface_getWithRelationships:
@@ -209,11 +219,22 @@ class Test_ManagerInterface_getWithRelationships:
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
 
     def test_returns_empty_list_for_each_input(self, manager_interface):
-        for relationships, expected in (([], []), ([Mock()], [[]]), ([Mock(), Mock()], [[], []])):
-            assert (
-                manager_interface.getWithRelationships(relationships, Mock(), Mock(), Mock())
-                == expected
+        success_callback = Mock()
+        error_callback = Mock()
+
+        for rels in (
+            [],
+            [Mock()],
+            [Mock(), Mock()],
+        ):
+            manager_interface.getWithRelationships(
+                rels, Mock(), Mock(), Mock(), success_callback, error_callback
             )
+
+            error_callback.assert_not_called()
+            success_callback.assert_has_calls([call(i, []) for i in range(len(rels))])
+
+            success_callback.reset_mock()
 
 
 class Test_ManagerInterface__createEntityReference:

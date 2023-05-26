@@ -8,8 +8,11 @@ feature/getRelatedReferencesRefactor
 
 - Refactored `getRelatedReferences` into `getWithRelationship` and
   `getWithRelationships` to better define the two possible batch-axis,
-  and simplify implementation on both sides of the API.
+  and simplify implementation on both sides of the API. This also
+  changes the methods over to callback signatures for consistency with
+  the rest of the API.
   [#847](https://github.com/OpenAssetIO/OpenAssetIO/issues/847)
+  [#919](https://github.com/OpenAssetIO/OpenAssetIO/issues/919)
 
 ### Improvements
 

@@ -39,12 +39,6 @@ jobs:
           pylint-paths: >
             src/openassetio-python/package/openassetio
             src/openassetio-python/tests/package
-          # Presently it's not possible to disable the `duplicate-code`
-          # check for specific files, so it thinks that the symlink is
-          # duplicated implementation. See:
-          #     https://github.com/PyCQA/pylint/issues/214
-          pylint-ignore-paths: >
-            src/openassetio-python/tests/package/pluginSystem/resources/symlinkPath
 
   black:
     runs-on: ubuntu-latest
