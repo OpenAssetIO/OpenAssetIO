@@ -80,8 +80,8 @@ class Test_simpleResolver_errors:
         self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli("named", "bal:///doesNotExist")
-        expected_message = ["ERROR: Entity 'bal:///doesNotExist' not found"]
-        assert result.stderr.splitlines() == expected_message
+        # Don't test the specific message as it couples to BAL specifics
+        assert result.stderr.startswith("ERROR:")
         assert result.returncode == int(BatchElementError.ErrorCode.kEntityResolutionError)
 
 
