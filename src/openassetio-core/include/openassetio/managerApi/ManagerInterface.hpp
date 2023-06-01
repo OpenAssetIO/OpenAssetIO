@@ -375,7 +375,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param hostSession The API session.
    *
-   * @return a `TraitsData` for each element in `traitSets`.
+   * @return a `TraitsData` for each element in @p traitSets.
    */
   [[nodiscard]] virtual trait::TraitsDatas managementPolicy(
       const trait::TraitSets& traitSets, const ContextConstPtr& context,
@@ -658,7 +658,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * it is up to the host to handle the exception. For errors specific
    * to a particular entity, where other entities may still resolve
    * successfully, an appropriate @fqref{BatchElementError}
-   * "BatchElementError" should be given to the `errorCallback`. Using
+   * "BatchElementError" should be given to the @p errorCallback. Using
    * HTTP status codes as an analogy, typically a server error (5xx)
    * would correspond to an exception whereas a client error (4xx) would
    * correspond to a `BatchElementError`.
@@ -673,14 +673,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param hostSession The API session.
    *
    * @param successCallback Callback that must be called for each
-   * successful resolution of an entity reference. It should be
-   * given the corresponding index of the entity reference in
-   * `entityRefs` along with its `TraitsData`. The callback must be
-   * called on the same thread that initiated the call to `resolve`.
+   * successful resolution of an entity reference. It should be given
+   * the corresponding index of the entity reference in
+   * @p entityReferences along with its `TraitsData`. The callback must
+   * be called on the same thread that initiated the call to `resolve`.
    *
    * @param errorCallback Callback that must be called for each
    * failed resolution of an entity reference. It should be given the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in @p entityReferences
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread
@@ -816,7 +816,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param successCallback Callback to be called for each successful
    * preflight of an entity reference. It should be called with the
-   * corresponding index of the entity reference in `entityRefs`
+   * corresponding index of the entity reference in @p entityReferences
    * along with the (potentially revised) working reference to be
    * used by the host for the rest of the publishing operation for
    * this specific entity (ie, resolve then register). This is an
@@ -827,11 +827,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param errorCallback Callback to be called for each failed
    * preflight of an entity reference. It should be called with the
-   * corresponding index of the entity reference in `entityRefs` along
-   * with a populated @fqref{BatchElementError} "BatchElementError" (see
-   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
-   * must be called on the same thread that initiated the call to
-   * `preflight`. A @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * corresponding index of the entity reference in @p entityReferences
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback must be called on the same thread that
+   * initiated the call to `preflight`. A
+   * @fqref{BatchElementError.ErrorCode.kEntityAccessError}
    * "kEntityAccessError" should be used for any target references that
    * are conceptually read-only.
    *
@@ -919,7 +920,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param successCallback Callback to be called for each successful
    * registration. It should be called with the corresponding index
-   * of the entity reference in `entityRefs` along with the
+   * of the entity reference in @p entityReferences along with the
    * (potentially revised) final reference to be used by the host for
    * subsequent interactions with this specific entity. This is an
    * opportunity to update the reference to one specific to the
@@ -929,8 +930,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param errorCallback Callback to be called for each failed
    * registration. It should be called with the corresponding index
-   * of the entity reference in `entityRefs` along with a populated
-   * @fqref{BatchElementError} "BatchElementError" (see
+   * of the entity reference in @p entityReferences along with a
+   * populated @fqref{BatchElementError} "BatchElementError" (see
    * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
    * must be called on the same thread that initiated the call to
    * `register`.

@@ -1,6 +1,26 @@
 Release Notes
 =============
 
+v1.0.0-alpha.xx
+---------------
+
+### Breaking changes
+
+- Refactored `getRelatedReferences` into `getWithRelationship` and
+  `getWithRelationships` to better define the two possible batch-axis,
+  and simplify implementation on both sides of the API. This also
+  changes the methods over to callback signatures for consistency with
+  the rest of the API.
+  [#847](https://github.com/OpenAssetIO/OpenAssetIO/issues/847)
+  [#919](https://github.com/OpenAssetIO/OpenAssetIO/issues/919)
+
+### Improvements
+
+- Added default implementations of `getWithRelationship` and
+  `getWithRelationships` that return empty lists, making these methods
+  opt-in for manager implementations.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 v1.0.0-alpha.12
 ---------------
 

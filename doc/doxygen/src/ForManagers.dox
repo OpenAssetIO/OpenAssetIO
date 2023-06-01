@@ -195,13 +195,15 @@
  *
  * In order to support entity relationships:
  *
- * - Implement
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface.getRelatedReferences
- *   "getRelatedReferences" to return any appropriate @ref entity_reference
- *   "entity references" for the supplied @ref Specification. Hosts may
- *   use these relationships to simplify common pipeline integration
- *   tasks. For example, loading multiple AOVs for a render, or
- *   determining data dependencies when transferring assets.
+ * - Implement the API methods grouped under
+ *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
+ *   "Related Entities" to return any appropriate @ref entity_reference
+ *   "entity references" for the supplied relationship(s).
+ *   Hosts may use these relationships to simplify common pipeline
+ *   integration tasks. For example, loading multiple AOVs for a render,
+ *   or determining data dependencies when transferring assets.
+ * - Update your implementation of @fqref{managerApi.ManagerInterface.managementPolicy}
+ *   "managementPolicy" to cover the relationship trait sets you support.
  *
  * @subsection manager_todo_ui Embedding Custom UI Within the Host
  *
