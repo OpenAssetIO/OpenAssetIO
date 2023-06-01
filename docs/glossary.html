@@ -154,7 +154,7 @@ target="_blank"&gt;RFC_3986.</p>
 <li><code>myasset://TTL/library/prop/cottageTabl?v=1...</code></li>
 </ul>
 <p>The entity reference passed through this API must always uniquely locate the entity via a specific path, such that relationship queries produce the expected results.</p>
-<p>In such a system, the ManagerInterface may provide access to alternate paths from any one of these path-specific references via the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> method, with a suitable <a class="el" href="glossary.html#Specification">Specification</a></p>
+<p>In such a system, the ManagerInterface may provide access to alternate paths from any one of these path-specific references via the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a7074d201ec4e1a6e95abf9067b2eb8a2">getWithRelationship</a> method, with a suitable relationship <a class="el" href="glossary.html#trait_set">Trait Set</a>.</p>
 <h2>3. 'Potential' entity representation </h2>
 <p>It is required within the architecture of this API, to potentially derive an entity reference for new entity <b>before</b> it has been created.</p>
 <p>For example, a 'Save As...' dialog will need to return an entity reference that can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">Manager.register()</a>.</p>

@@ -178,11 +178,14 @@ Public Member Functions</h2></td></tr>
 <li>Parent/child relationships are also (semantically) covered by these relationships.</li>
 </ul>
 <p>In the this API, these relationships are represented by trait data. This may just compose property-less traits as a 'type', or additionally, set trait property values to further define the relationship. For example in the case of AOVs, the type might be 'alternate output' and the attributes may be that the 'channel' is 'diffuse'.</p>
-<p>Related references form a vital part in the abstraction of the internal structure of the asset management system from the host application in its attempts to provide the user with meaningful functionality. A good example of this is in an editorial workflow, where you may need to query whether a 'shot' exists in a certain part of the asset system. One approach would be to use a 'getChildren' call, on this part of the system. This has the drawback that is assumes that shots are always something that can be described as 'immediate children' of the location in question. This lay not always be the case (say, for example there is some kind of 'task' structure in place too). Instead we use a request that asks for any 'shots' that relate to the chosen location. It is then up to the implementation of the manager to determine how that maps to its own data model. Hopefully this allows a host to work with a broader range of asset management systems, without providing any requirements of their structure or data model within the system itself. </p>
+<p>Related references form a vital part in the abstraction of the internal structure of the asset management system from the host application in its attempts to provide the user with meaningful functionality. A good example of this is in an editorial workflow, where you may need to query whether a 'shot' exists in a certain part of the asset system. One approach would be to use a 'getChildren' call, on this part of the system. This has the drawback that is assumes that shots are always something that can be described as 'immediate children' of the location in question. This may not always be the case (say, for example there is some kind of 'task' structure in place too). Instead we use a request that asks for any 'shots' that relate to the chosen location. It is then up to the implementation of the manager to determine how that maps to its own data model. Hopefully this allows a host to work with a broader range of asset management systems, without providing any requirements of their structure or data model within the system itself. </p>
 </div></td></tr>
-<tr class="memitem:a4d3241352a8c58e8cee15f376ac99a9a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a4d3241352a8c58e8cee15f376ac99a9a">getRelatedReferences</a> (self, references, relationshipTraitsDataOrDatas, context, resultTraitSet=None)</td></tr>
-<tr class="memdesc:a4d3241352a8c58e8cee15f376ac99a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns related entity references, based on a relationship defined by a set of traits and their properties.  <a href="#a4d3241352a8c58e8cee15f376ac99a9a">More...</a><br /></td></tr>
-<tr class="separator:a4d3241352a8c58e8cee15f376ac99a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a829d398d77cb4d02b158f033a930750e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a829d398d77cb4d02b158f033a930750e">getWithRelationship</a> (self, relationshipTraitsData, entityReferences, context, successCallback, errorCallback, resultTraitSet=None)</td></tr>
+<tr class="memdesc:a829d398d77cb4d02b158f033a930750e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query entity references that are related to the input references by the relationship defined by a set of traits and their properties.  <a href="#a829d398d77cb4d02b158f033a930750e">More...</a><br /></td></tr>
+<tr class="separator:a829d398d77cb4d02b158f033a930750e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa890236b4f3e76c0decf6817984f4f17"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa890236b4f3e76c0decf6817984f4f17">getWithRelationships</a> (self, relationshipTraitsDatas, entityReference, context, successCallback, errorCallback, resultTraitSet=None)</td></tr>
+<tr class="memdesc:aa890236b4f3e76c0decf6817984f4f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#aa890236b4f3e76c0decf6817984f4f17">More...</a><br /></td></tr>
+<tr class="separator:aa890236b4f3e76c0decf6817984f4f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is the Host facing representation of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
@@ -536,12 +539,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4d3241352a8c58e8cee15f376ac99a9a"></a>
+<a class="anchor" id="a829d398d77cb4d02b158f033a930750e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def getRelatedReferences </td>
+          <td class="memname">def getWithRelationship </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -550,19 +553,31 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>references</em>, </td>
+          <td class="paramname"><em>relationshipTraitsData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>relationshipTraitsDataOrDatas</em>, </td>
+          <td class="paramname"><em>entityReferences</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -578,41 +593,97 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns related entity references, based on a relationship defined by a set of traits and their properties. </p>
-<p>This is an essential function in this API - as it is widely used to query organisational hierarchy, etc...</p>
-<p>There are three possible conventions for calling this function, to allow for batch optimisations in the implementation and prevent excessive query times with high-latency services.</p>
-<p>a) A single entity reference, a list of relationships. b) A list of entity references and a single relationship. c) Equal length lists of references and relationships.</p>
-<p>In all cases, the return value is a list of lists, for example: </p><pre class="fragment">a)  getRelatedReferences([ r1 ], [ td1, td2, td3 ])
-
-&gt; [ [ r1td1... ], [ r1td2... ], [ r1td3... ] ]
-
-b)  getRelatedReferences([ r1, r2, r3 ], [ td1 ])
-
-&gt; [ [ r1td1... ], [ r2td1... ], [ r3td1... ] ]
-
-c)  getRelatedReferences([ r1, r2, r3 ], [ td1, td2, td3 ])
-
-&gt; [ [ r1td1... ], [ r2td2... ], [ r3td3... ] ]
-</pre><dl class="section note"><dt>Note</dt><dd>The order of entities in the inner lists of matching references should not be considered meaningful, but the outer list should match the input order.</dd></dl>
-<p>In summary, if only a single entityRef is provided, it should be assumed that all relationships should be considered for that one entity. If only a single relationship is provided, then it should be considered for all supplied entity references. If lists of both are supplied, then they must be the same length, and it should be assumed that it is a 1:1 mapping of a relationship definition to an entity. If this is not the case, ValueErrors will be thrown.</p>
-<p>If any relationship definition is unknown, then an empty list will be returned for that relationship, and no errors should be raised.</p>
+<p>Query entity references that are related to the input references by the relationship defined by a set of traits and their properties. </p>
+<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
+<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is considered meaningful.</dd></dl>
+<p>If any relationship definition is unknown, then an empty list will be returned for that entity, and no errors will be raised.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">references</td><td>List[str] A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, see the notes on array length above.</td></tr>
-    <tr><td class="paramname">relationshipTraitsDataOrDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code></td></tr>
-    <tr><td class="paramname">resultTraitSet</td><td><code>Set[str]</code> or None, a hint as to what traits the returned entities should have.</td></tr>
+    <tr><td class="paramname">relationshipTraitsData</td><td><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> The traits of the relationship to query.</td></tr>
+    <tr><td class="paramname">entityReferences</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationship for.</td></tr>
     <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful relationship query. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a list of entity references for entities that have the relationship specified by <code>relationshipTraitsData</code>. If there are no relations, the callback will receive an empty list. The callback will be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed relationship query. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td><code>Set[str]</code> or None, a hint as to what traits the returned entities should have.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>list of str lists The return is <em>always</em> a list of lists regardless of which form of invocation is used. The outer list is for each supplied entity or relationship. The inner lists are all the matching entities for that source entity.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">ValueError</td><td>If more than one reference and relationship is provided, but they lists are not equal in length, ie: not a 1:1 mapping of entities to relationships.</td></tr>
+<dl class="section return"><dt>Returns</dt><dd><code>List[List[</code><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a><code>]]</code> A list of references to related entities, for each input reference.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> in order to determine if the manager handles relationships of that type. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa890236b4f3e76c0decf6817984f4f17"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def getWithRelationships </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>relationshipTraitsDatas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>entityReference</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>resultTraitSet</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns entity references that are related to the input reference by the relationships defined by a set of traits and their properties. </p>
+<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
+<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is considered meaningful.</dd></dl>
+<p>If any relationship definition is unknown, then an empty list will be returned for that relationship, and no errors will be raised.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">relationshipTraitsDatas</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> <code>]</code> The traits of the relationships to query.</td></tr>
+    <tr><td class="paramname">entityReference</td><td><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationships for.</td></tr>
+    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful relationship query. It will be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a list of entity references for entities that have that relationship to the supplied <code>entityReference</code>. If there are no relations, the callback will receive an empty list. The callback will be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed relationship query. It will be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td><code>Set[str]</code> or None, a hint as to what traits the returned entities should have.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>List[List[</code><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a><code>]]</code> A list of references to related entities, for each input relationship.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> in order to determine if the manager handles relationships of that type. </dd></dl>
 
 </div>
 </div>

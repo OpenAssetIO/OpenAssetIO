@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021":[14,0,0,6,0,1,7],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c":[14,0,0,6,0,1,17],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac":[14,0,0,6,0,1,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df":[14,0,0,6,0,1,14],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac8008066336690b79f93b6d760aeeb0":[14,0,0,6,0,1,21],
@@ -121,8 +123,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[14,3,0,5],
 "functions_enum.html":[14,3,4],
 "functions_f.html":[14,3,0,6],
-"functions_func.html":[14,3,1,0],
 "functions_func.html":[14,3,1],
+"functions_func.html":[14,3,1,0],
 "functions_func_0x7e.html":[14,3,1,19],
 "functions_func_a.html":[14,3,1,1],
 "functions_func_b.html":[14,3,1,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager.html#ga3c033feffa6c9e06990945d298225230":[12,0,1,1],
 "group__oa__host_api___manager.html#ga639858f5e0e84e8f733ba6a6cb93eb36":[12,0,1,6],
 "group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9":[12,0,1,2],
-"group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5":[12,0,1,4],
-"group__oa__host_api___manager.html#gad0220c0c96b94354c24d10e112586c6b":[12,0,1,5],
-"group__oa__host_api___manager__aliases.html":[12,0,1,0]
+"group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5":[12,0,1,4]
 };

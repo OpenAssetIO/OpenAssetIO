@@ -156,7 +156,8 @@ Supporting Relationships</h2>
 <p>This approach is critical to ensure that OpenAssetIO has no inherent concept of any specific entity hierarchy, which ensures it never places any constraints on the implementation of any given asset management system.</p>
 <p>In order to support entity relationships:</p>
 <ul>
-<li>Implement <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad27922210d9d184adf7f1545267d151a">getRelatedReferences</a> to return any appropriate <a class="el" href="glossary.html#entity_reference">entity references</a> for the supplied <a class="el" href="glossary.html#Specification">Specification</a>. Hosts may use these relationships to simplify common pipeline integration tasks. For example, loading multiple AOVs for a render, or determining data dependencies when transferring assets.</li>
+<li>Implement the API methods grouped under <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">Related Entities</a> to return any appropriate <a class="el" href="glossary.html#entity_reference">entity references</a> for the supplied relationship(s). Hosts may use these relationships to simplify common pipeline integration tasks. For example, loading multiple AOVs for a render, or determining data dependencies when transferring assets.</li>
+<li>Update your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd">managementPolicy</a> to cover the relationship trait sets you support.</li>
 </ul>
 <h2><a class="anchor" id="manager_todo_ui"></a>
 Embedding Custom UI Within the Host</h2>
