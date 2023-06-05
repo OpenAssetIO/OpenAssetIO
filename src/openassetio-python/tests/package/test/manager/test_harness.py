@@ -234,6 +234,17 @@ class Test_FixtureAugmentedTestCase_requireEntityReferenceFixture:
 
         mock_manager.createEntityReference.assert_called_once_with("a")
 
+    def test_when_invalid_reference_then_exception_propagates(self, a_test_case, mock_manager):
+        required = "a_string"
+
+        class StubException(Exception):
+            pass
+
+        mock_manager.createEntityReference.side_effect = StubException()
+
+        with pytest.raises(StubException):
+            assert a_test_case.requireEntityReferenceFixture(required)
+
     def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
         required = "missing_key"
         expected_message = "Required fixtures not found: missing_key"
@@ -267,6 +278,17 @@ class Test_FixtureAugmentedTestCase_requireEntityReferencesFixture:
             pytest.fail("Test should not be skipped")
 
         mock_manager.createEntityReference.assert_has_calls([mock.call("b"), mock.call("c")])
+
+    def test_when_invalid_reference_then_exception_propagates(self, a_test_case, mock_manager):
+        required = "a_list_of_strings"
+
+        class StubException(Exception):
+            pass
+
+        mock_manager.createEntityReference.side_effect = StubException()
+
+        with pytest.raises(StubException):
+            assert a_test_case.requireEntityReferencesFixture(required)
 
     def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
         required = "missing_key"
