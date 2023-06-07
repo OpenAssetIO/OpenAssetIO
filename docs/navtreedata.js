@@ -54,6 +54,7 @@ var NAVTREE =
       [ "Initializing the API in a Host", "examples.html#examples_api_initialization", null ],
       [ "Setting up a Manager", "examples.html#examples_picking_a_manager", null ],
       [ "Resolving a Reference", "examples.html#examples_resolving_a_reference", null ],
+      [ "Discovering capability", "examples.html#example_discovering_capability", null ],
       [ "Publishing a File", "examples.html#example_publishing_a_file", null ],
       [ "Generating a Thumbnail During Publish", "examples.html#example_generating_a_thumbnail", null ]
     ] ],
@@ -148,7 +149,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021",
-"group__oa__host_api___manager.html#gad0220c0c96b94354c24d10e112586c6b"
+"group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -108,8 +108,9 @@ var NAVTREEINDEX1 =
 "entities_traits_and_specifications.html#traits_as_views":[2,2,2],
 "envvar.html":[11],
 "examples.html":[3],
-"examples.html#example_generating_a_thumbnail":[3,4],
-"examples.html#example_publishing_a_file":[3,3],
+"examples.html#example_discovering_capability":[3,3],
+"examples.html#example_generating_a_thumbnail":[3,5],
+"examples.html#example_publishing_a_file":[3,4],
 "examples.html#examples_api_initialization":[3,0],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
@@ -123,8 +124,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[14,3,0,5],
 "functions_enum.html":[14,3,4],
 "functions_f.html":[14,3,0,6],
-"functions_func.html":[14,3,1],
 "functions_func.html":[14,3,1,0],
+"functions_func.html":[14,3,1],
 "functions_func_0x7e.html":[14,3,1,19],
 "functions_func_a.html":[14,3,1,1],
 "functions_func_b.html":[14,3,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "group__oa__host_api___manager.html#ga170b445384832a6f49ae60f77b3d1b89":[12,0,1,3],
 "group__oa__host_api___manager.html#ga3c033feffa6c9e06990945d298225230":[12,0,1,1],
 "group__oa__host_api___manager.html#ga639858f5e0e84e8f733ba6a6cb93eb36":[12,0,1,6],
-"group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9":[12,0,1,2],
-"group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5":[12,0,1,4]
+"group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9":[12,0,1,2]
 };
