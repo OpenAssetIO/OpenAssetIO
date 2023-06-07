@@ -10,9 +10,10 @@ v1.0.0-alpha.xx
   `getWithRelationships` to better define the two possible batch-axis,
   and simplify implementation on both sides of the API. This also
   changes the methods over to callback signatures for consistency with
-  the rest of the API.
+  the rest of the API, and migrates them to C++ with Python bindings.
   [#847](https://github.com/OpenAssetIO/OpenAssetIO/issues/847)
   [#919](https://github.com/OpenAssetIO/OpenAssetIO/issues/919)
+  [#913](https://github.com/OpenAssetIO/OpenAssetIO/issues/913)
 
 ### Improvements
 
@@ -20,6 +21,7 @@ v1.0.0-alpha.xx
   `getWithRelationships` that return empty lists, making these methods
   opt-in for manager implementations.
   [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 
 v1.0.0-alpha.12
 ---------------

@@ -204,6 +204,28 @@ std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::re
   return resolveResult;
 }
 
+void Manager::getWithRelationship(const TraitsDataPtr &relationshipTraitsData,
+                                  const EntityReferences &entityReferences,
+                                  const ContextConstPtr &context,
+                                  const Manager::RelationshipSuccessCallback &successCallback,
+                                  const Manager::BatchElementErrorCallback &errorCallback,
+                                  const trait::TraitSet &resultTraitSet) {
+  managerInterface_->getWithRelationship(relationshipTraitsData, entityReferences, context,
+                                         hostSession_, successCallback, errorCallback,
+                                         resultTraitSet);
+}
+
+void Manager::getWithRelationships(const trait::TraitsDatas &relationshipTraitsDatas,
+                                   const EntityReference &entityReference,
+                                   const ContextConstPtr &context,
+                                   const Manager::RelationshipSuccessCallback &successCallback,
+                                   const Manager::BatchElementErrorCallback &errorCallback,
+                                   const trait::TraitSet &resultTraitSet) {
+  managerInterface_->getWithRelationships(relationshipTraitsDatas, entityReference, context,
+                                          hostSession_, successCallback, errorCallback,
+                                          resultTraitSet);
+}
+
 void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
                         const ContextConstPtr &context,
                         const PreflightSuccessCallback &successCallback,

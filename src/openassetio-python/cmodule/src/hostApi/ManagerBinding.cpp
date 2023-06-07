@@ -136,6 +136,24 @@ void registerManager(const py::module& mod) {
             return self.resolve(entityReferences, traitSet, context);
           },
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
+      .def("getWithRelationship", &Manager::getWithRelationship,
+           py::arg("relationshipTraitsData").none(false), py::arg("entityReferences"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+           py::arg("resultTraitSet") = trait::TraitSet{})
+      .def(
+          "getWithRelationships",
+          [](Manager& self, const trait::TraitsDatas& relationshipTraitsDatas,
+             const EntityReference& entityReference, const ContextConstPtr& context,
+             const Manager::RelationshipSuccessCallback& successCallback,
+             const Manager::BatchElementErrorCallback& errorCallback,
+             const trait::TraitSet& resultTraitSet) {
+            validateTraitsDatas(relationshipTraitsDatas);
+            self.getWithRelationships(relationshipTraitsDatas, entityReference, context,
+                                      successCallback, errorCallback, resultTraitSet);
+          },
+          py::arg("relationshipTraitsDatas"), py::arg("entityReference"),
+          py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+          py::arg("resultTraitSet") = trait::TraitSet{})
       .def("preflight",
            static_cast<void (Manager::*)(
                const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,

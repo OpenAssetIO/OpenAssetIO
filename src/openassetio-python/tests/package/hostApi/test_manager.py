@@ -410,8 +410,8 @@ class Test_Manager_finalizedEntityVersion:
 
 
 class Test_Manager_getWithRelationship:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.getWithRelationship)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.getWithRelationship)
         assert method_introspector.is_implemented_once(Manager, "getWithRelationship")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -455,7 +455,7 @@ class Test_Manager_getWithRelationship:
             a_host_session,
             mock.ANY,
             mock.ANY,
-            resultTraitSet=None,
+            set(),
         )
 
         success_callback.assert_called_once_with(0, two_different_refs)
@@ -471,7 +471,7 @@ class Test_Manager_getWithRelationship:
             a_context,
             success_callback,
             error_callback,
-            resultTraitSet=an_entity_trait_set,
+            an_entity_trait_set,
         )
 
         method.assert_called_once_with(
@@ -479,15 +479,15 @@ class Test_Manager_getWithRelationship:
             two_refs,
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=an_entity_trait_set,
+            mock.ANY,
+            mock.ANY,
+            an_entity_trait_set,
         )
 
 
 class Test_Manager_getWithRelationships:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.getWithRelationships)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.getWithRelationships)
         assert method_introspector.is_implemented_once(Manager, "getWithRelationships")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -525,9 +525,9 @@ class Test_Manager_getWithRelationships:
             a_ref,
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=None,
+            mock.ANY,
+            mock.ANY,
+            set(),
         )
 
         success_callback.assert_called_once_with(0, two_different_refs)
@@ -543,7 +543,7 @@ class Test_Manager_getWithRelationships:
             a_context,
             success_callback,
             error_callback,
-            resultTraitSet=an_entity_trait_set,
+            an_entity_trait_set,
         )
 
         method.assert_called_once_with(
@@ -551,10 +551,20 @@ class Test_Manager_getWithRelationships:
             a_ref,
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=an_entity_trait_set,
+            mock.ANY,
+            mock.ANY,
+            an_entity_trait_set,
         )
+
+    def test_when_relationship_is_None_then_exception_raised(
+        self, manager, mock_manager_interface, a_ref, a_context
+    ):
+        with pytest.raises(TypeError):
+            manager.getWithRelationships(
+                [TraitsData(), None], a_ref, a_context, mock.Mock(), mock.Mock()
+            )
+
+        assert not mock_manager_interface.mock.getWithRelationships.called
 
 
 class Test_Manager_BatchElementErrorPolicyTag:

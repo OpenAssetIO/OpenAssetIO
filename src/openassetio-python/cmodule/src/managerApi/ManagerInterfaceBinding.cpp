@@ -90,6 +90,28 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession, successCallback, errorCallback);
   }
 
+  void getWithRelationship(const TraitsDataPtr& relationshipTraitsData,
+                           const EntityReferences& entityReferences,
+                           const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                           const ManagerInterface::RelationshipSuccessCallback& successCallback,
+                           const ManagerInterface::BatchElementErrorCallback& errorCallback,
+                           const trait::TraitSet& resultTraitSet) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationship, relationshipTraitsData,
+                      entityReferences, context, hostSession, successCallback, errorCallback,
+                      resultTraitSet);
+  }
+
+  void getWithRelationships(const trait::TraitsDatas& relationshipTraitsDatas,
+                            const EntityReference& entityReference, const ContextConstPtr& context,
+                            const HostSessionPtr& hostSession,
+                            const ManagerInterface::RelationshipSuccessCallback& successCallback,
+                            const ManagerInterface::BatchElementErrorCallback& errorCallback,
+                            const trait::TraitSet& resultTraitSet) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationships, relationshipTraitsDatas,
+                      entityReference, context, hostSession, successCallback, errorCallback,
+                      resultTraitSet);
+  }
+
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                  const ContextConstPtr& context, const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
@@ -143,6 +165,14 @@ void registerManagerInterface(const py::module& mod) {
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("getWithRelationship", &ManagerInterface::getWithRelationship,
+           py::arg("relationshipTraitsData").none(false), py::arg("entityReferences"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
+      .def("getWithRelationships", &ManagerInterface::getWithRelationships,
+           py::arg("relationshipTraitsDatas"), py::arg("entityReference"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
            py::arg("traitSet"), py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
