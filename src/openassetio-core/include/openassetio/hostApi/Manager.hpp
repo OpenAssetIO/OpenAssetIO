@@ -761,6 +761,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
+  /// @}
+
   /**
    * @name Publishing
    *
