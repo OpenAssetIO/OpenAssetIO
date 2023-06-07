@@ -174,16 +174,87 @@
  * url = LocatableContentTrait(resolved_asset).getLocation()  # May be None
  * @endcode
  *
+ * @section example_discovering_capability Discovering capability
+ *
+ * In the previous example, we saw how to resolve a specific trait for
+ * an entity. In a real-world scenario, it is important to remember
+ * that:
+ *
+ * - Managers may not handle certain types of entity (determined by
+ *   their @ref trait_set).
+ * - Managers may not be able to provide data for all traits.
+ *
+ * The @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
+ * method allows a host to query a manager's capabilities and its
+ * intentions towards different types of entity.
+ *
+ * This method should be used wherever possible to adapt the host's
+ * behaviour so that:
+ *
+ * - The manager is not invoked in relation to unsupported entity types.
+ * - User workflows are appropriate to the supported capabilities.
+ *
+ * This example demonstrates how to query a manager in relation to a
+ * specific entity type - in this case a simple text file, and
+ * inspect its capabilities.
+ *
+ * @code{.py}
+ *
+ * # Commented imports are illustrative and may not exist yet
+ * from openassetio_mediacreation.traits.managementPolicy import (
+ *     ManagedTrait,
+ * )
+ * from openassetio_mediacreation.traits.content import (
+ *     LocatableContentTrait, # TextEncodingTrait
+ * )
+ * from openassetio_mediacreation.specifications.files import (
+ *     # TextFileSpecification
+ * )
+ *
+ * # Make sure we have the correct context
+ * context.access = context.kRead
+ *
+ * # We use the well-known specification for a text file to determine
+ * # the correct trait set to query. Using the standard definition
+ * # ensures consistent behaviour across managers/hosts.
+ * [policy] = manager.managementPolicy([TextFileSpecification.kTraitSet], context)
+ *
+ * # We can now check which traits were imbued in the policy, the
+ * # absence of a trait means it is unsupported.
+ *
+ * if not ManagedTrait.isImbuedTo(policy):
+ *   # The manager doesn't want to handle text files, we should not
+ *   # attempt to resolve/publish this type of entity.
+ *   return
+ *
+ * # As well as policy-specific traits, the result will be imbued with
+ * # traits from the queried trait set that the manager is capable of
+ * # providing data for. If you have additional host-specific traits,
+ * # you can append these to the ones from the relevant specification.
+ * # Here we check for support for the specific text file traits we are
+ * # interested in using.
+ *
+ * if LocatableContentTrait.isImbuedTo(policy):
+ *   print("The manager can provide the URL for the file")
+ *
+ * if TextEncodingTrait.isImbuedTo(policy):
+ *   print("The manager can provide the text encoding used")
+ *
+ * @endcode
+ *
+ *
  * @section example_publishing_a_file Publishing a File
  *
  * This example demonstrates how an API host should involve the manager in
  * the creation of new data. In this case, a simple text file.
  *
  * @code{.py}
- * from openassetio import constants
+ * # Commented imports are illustrative and may not exist yet
  * from openassetio_mediacreation.traits.managementPolicy import (
  *     ManagedTrait, ResolvesFutureEntitiesTrait
- *     # TextFileSpecification is illustrative and does not exist yet
+ * )
+ * from openassetio_mediacreation.specifications.files import (
+ *     # TextFileSpecification
  * )
  *
  *
