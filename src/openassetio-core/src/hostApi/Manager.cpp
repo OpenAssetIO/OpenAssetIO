@@ -204,26 +204,24 @@ std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::re
   return resolveResult;
 }
 
-void Manager::getWithRelationship(const TraitsDataPtr &relationshipTraitsData,
-                                  const EntityReferences &entityReferences,
+void Manager::getWithRelationship(const EntityReferences &entityReferences,
+                                  const TraitsDataPtr &relationshipTraitsData,
                                   const ContextConstPtr &context,
                                   const Manager::RelationshipSuccessCallback &successCallback,
                                   const Manager::BatchElementErrorCallback &errorCallback,
                                   const trait::TraitSet &resultTraitSet) {
-  managerInterface_->getWithRelationship(relationshipTraitsData, entityReferences, context,
-                                         hostSession_, successCallback, errorCallback,
-                                         resultTraitSet);
+  managerInterface_->getWithRelationship(entityReferences, relationshipTraitsData, resultTraitSet,
+                                         context, hostSession_, successCallback, errorCallback);
 }
 
-void Manager::getWithRelationships(const trait::TraitsDatas &relationshipTraitsDatas,
-                                   const EntityReference &entityReference,
+void Manager::getWithRelationships(const EntityReference &entityReference,
+                                   const trait::TraitsDatas &relationshipTraitsDatas,
                                    const ContextConstPtr &context,
                                    const Manager::RelationshipSuccessCallback &successCallback,
                                    const Manager::BatchElementErrorCallback &errorCallback,
                                    const trait::TraitSet &resultTraitSet) {
-  managerInterface_->getWithRelationships(relationshipTraitsDatas, entityReference, context,
-                                          hostSession_, successCallback, errorCallback,
-                                          resultTraitSet);
+  managerInterface_->getWithRelationships(entityReference, relationshipTraitsDatas, resultTraitSet,
+                                          context, hostSession_, successCallback, errorCallback);
 }
 
 void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,

@@ -826,11 +826,11 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * will be returned for that entity, and no errors will be
    * raised.
    *
-   * @param relationshipTraitsData The traits of the relationship to
-   * query.
-   *
    * @param entityReferences A list of @ref entity_reference to query
    * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
    *
    * @param context The calling context.
    *
@@ -858,8 +858,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    */
-  void getWithRelationship(const TraitsDataPtr& relationshipTraitsData,
-                           const EntityReferences& entityReferences,
+  void getWithRelationship(const EntityReferences& entityReferences,
+                           const TraitsDataPtr& relationshipTraitsData,
                            const ContextConstPtr& context,
                            const RelationshipSuccessCallback& successCallback,
                            const BatchElementErrorCallback& errorCallback,
@@ -880,11 +880,11 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * If any relationship definition is unknown, then an empty list will
    * be returned for that relationship, and no errors will be raised.
    *
-   * @param relationshipTraitsDatas The traits of the relationships to
-   * query.
-   *
    * @param entityReference The @ref entity_reference to query the
    * specified relationships for.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
    *
    * @param context The calling context.
    *
@@ -911,8 +911,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    */
-  void getWithRelationships(const trait::TraitsDatas& relationshipTraitsDatas,
-                            const EntityReference& entityReference, const ContextConstPtr& context,
+  void getWithRelationships(const EntityReference& entityReference,
+                            const trait::TraitsDatas& relationshipTraitsDatas,
+                            const ContextConstPtr& context,
                             const RelationshipSuccessCallback& successCallback,
                             const BatchElementErrorCallback& errorCallback,
                             const trait::TraitSet& resultTraitSet = {});

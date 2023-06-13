@@ -90,26 +90,26 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession, successCallback, errorCallback);
   }
 
-  void getWithRelationship(const TraitsDataPtr& relationshipTraitsData,
-                           const EntityReferences& entityReferences,
-                           const ContextConstPtr& context, const HostSessionPtr& hostSession,
-                           const ManagerInterface::RelationshipSuccessCallback& successCallback,
-                           const ManagerInterface::BatchElementErrorCallback& errorCallback,
-                           const trait::TraitSet& resultTraitSet) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationship, relationshipTraitsData,
-                      entityReferences, context, hostSession, successCallback, errorCallback,
-                      resultTraitSet);
+  void getWithRelationship(
+      const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
+      const trait::TraitSet& resultTraitSet, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession,
+      const ManagerInterface::RelationshipSuccessCallback& successCallback,
+      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationship, entityReferences,
+                      relationshipTraitsData, resultTraitSet, context, hostSession,
+                      successCallback, errorCallback);
   }
 
-  void getWithRelationships(const trait::TraitsDatas& relationshipTraitsDatas,
-                            const EntityReference& entityReference, const ContextConstPtr& context,
-                            const HostSessionPtr& hostSession,
-                            const ManagerInterface::RelationshipSuccessCallback& successCallback,
-                            const ManagerInterface::BatchElementErrorCallback& errorCallback,
-                            const trait::TraitSet& resultTraitSet) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationships, relationshipTraitsDatas,
-                      entityReference, context, hostSession, successCallback, errorCallback,
-                      resultTraitSet);
+  void getWithRelationships(
+      const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
+      const trait::TraitSet& resultTraitSet, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession,
+      const ManagerInterface::RelationshipSuccessCallback& successCallback,
+      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationships, entityReference,
+                      relationshipTraitsDatas, resultTraitSet, context, hostSession,
+                      successCallback, errorCallback);
   }
 
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
@@ -166,11 +166,11 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,
-           py::arg("relationshipTraitsData").none(false), py::arg("entityReferences"),
+           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
       .def("getWithRelationships", &ManagerInterface::getWithRelationships,
-           py::arg("relationshipTraitsDatas"), py::arg("entityReference"),
+           py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),

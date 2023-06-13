@@ -204,13 +204,13 @@ class Test_ManagerInterface_getWithRelationship:
             [EntityReference("second"), EntityReference("third")],
         ):
             manager_interface.getWithRelationship(
-                TraitsData(),
                 refs,
+                TraitsData(),
+                set(),
                 Context(),
                 a_host_session,
                 success_callback,
                 error_callback,
-                set(),
             )
 
             error_callback.assert_not_called()
@@ -234,13 +234,13 @@ class Test_ManagerInterface_getWithRelationships:
             [TraitsData(), TraitsData()],
         ):
             manager_interface.getWithRelationships(
-                rels,
                 EntityReference(""),
+                rels,
+                set(),
                 Context(),
                 a_host_session,
                 success_callback,
                 error_callback,
-                set(),
             )
 
             error_callback.assert_not_called()

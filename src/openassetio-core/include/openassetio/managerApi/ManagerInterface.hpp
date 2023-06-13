@@ -755,11 +755,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * default implementation returns an empty list for all
    * relationships.
    *
+   * @param entityReferences A list of @ref entity_reference
+   * "entity references" to query the specified relationship for.
+   *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
    *
-   * @param entityReferences A list of @ref entity_reference
-   * "entity references" to query the specified relationship for.
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have. May be empty.
    *
    * @param context The calling context.
    *
@@ -786,21 +789,18 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * must be called on the same thread that initiated the call to
    * `getWithRelationship`.
    *
-   * @param resultTraitSet A hint as to what traits the returned
-   * entities should have. May be empty.
-   *
    * @note Ensure that your implementation of @ref managementPolicy
    * responds appropriately when queried with relationship trait sets
    * and a read policy to communicate to the host whether or not you are
    * capable of handling queries for those relationships in this method.
    */
-  virtual void getWithRelationship(const TraitsDataPtr& relationshipTraitsData,
-                                   const EntityReferences& entityReferences,
+  virtual void getWithRelationship(const EntityReferences& entityReferences,
+                                   const TraitsDataPtr& relationshipTraitsData,
+                                   const trait::TraitSet& resultTraitSet,
                                    const ContextConstPtr& context,
                                    const HostSessionPtr& hostSession,
                                    const RelationshipSuccessCallback& successCallback,
-                                   const BatchElementErrorCallback& errorCallback,
-                                   const trait::TraitSet& resultTraitSet);
+                                   const BatchElementErrorCallback& errorCallback);
 
   /**
    * Queries entity references that are related to the input
@@ -820,11 +820,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * default implementation returns an empty list for all
    * relationships.
    *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
    *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have. May be empty.
    *
    * @param hostSession The host session that maps to the caller, this
    * should be used for all logging and provides access to the Host
@@ -848,21 +851,18 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "ErrorCodes"). The callback must be called on the same thread that
    * initiated the call to `getWithRelationships`.
    *
-   * @param resultTraitSet A hint as to what traits the returned
-   * entities should have. May be empty.
-   *
    * @note Ensure that your implementation of @ref managementPolicy
    * responds appropriately when queried with relationship trait sets
    * and a read policy to communicate to the host whether or not you are
    * capable of handling queries for those relationships in this method.
    */
-  virtual void getWithRelationships(const trait::TraitsDatas& relationshipTraitsDatas,
-                                    const EntityReference& entityReference,
+  virtual void getWithRelationships(const EntityReference& entityReference,
+                                    const trait::TraitsDatas& relationshipTraitsDatas,
+                                    const trait::TraitSet& resultTraitSet,
                                     const ContextConstPtr& context,
                                     const HostSessionPtr& hostSession,
                                     const RelationshipSuccessCallback& successCallback,
-                                    const BatchElementErrorCallback& errorCallback,
-                                    const trait::TraitSet& resultTraitSet);
+                                    const BatchElementErrorCallback& errorCallback);
 
   /// @}
   /**

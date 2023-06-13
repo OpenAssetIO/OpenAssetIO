@@ -67,7 +67,7 @@ jobs:
           repository: OpenAssetIO/OpenAssetIO-Manager-BAL
           path: external/BAL
 
-      # Disabled pending https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/34
+      # Disabled pending https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/47
       #
       # - name: Test BAL
       #   run: |
