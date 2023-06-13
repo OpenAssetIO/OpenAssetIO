@@ -6,6 +6,8 @@
 #include <openassetio/Context.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
+#include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
@@ -112,6 +114,34 @@ struct PyManagerInterface : ManagerInterface {
                       successCallback, errorCallback);
   }
 
+  void getWithRelationshipPaged(
+      const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
+      const trait::TraitSet& resultTraitSet, size_t pageSize, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession,
+      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+    OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
+        void, ManagerInterface, getWithRelationshipPaged,
+        (entityReferences, relationshipTraitsData, resultTraitSet, pageSize, context, hostSession,
+         successCallback, errorCallback),
+        entityReferences, relationshipTraitsData, resultTraitSet, pageSize, context, hostSession,
+        RetainCommonPyArgs::forFn(successCallback), errorCallback);
+  }
+
+  void getWithRelationshipsPaged(
+      const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
+      const trait::TraitSet& resultTraitSet, size_t pageSize, const ContextConstPtr& context,
+      const HostSessionPtr& hostSession,
+      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+    OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
+        void, ManagerInterface, getWithRelationshipsPaged,
+        (entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, context, hostSession,
+         successCallback, errorCallback),
+        entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, context, hostSession,
+        RetainCommonPyArgs::forFn(successCallback), errorCallback);
+  }
+
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                  const ContextConstPtr& context, const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
@@ -137,6 +167,11 @@ struct PyManagerInterface : ManagerInterface {
 }  // namespace openassetio
 
 void registerManagerInterface(const py::module& mod) {
+  using openassetio::ContextConstPtr;
+  using openassetio::EntityReference;
+  using openassetio::EntityReferences;
+  using openassetio::TraitsDataPtr;
+  using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterface;
   using openassetio::managerApi::ManagerInterfacePtr;
   using openassetio::managerApi::ManagerStateBasePtr;
@@ -163,6 +198,16 @@ void registerManagerInterface(const py::module& mod) {
       .def("isEntityReferenceString", &ManagerInterface::isEntityReferenceString,
            py::arg("someString"), py::arg("hostSession").none(false))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
+      .def("getWithRelationshipPaged", &ManagerInterface::getWithRelationshipPaged,
+           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
+           py::arg("resultTraitSet"), py::arg("pageSize").none(false),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
+      .def("getWithRelationshipsPaged", &ManagerInterface::getWithRelationshipsPaged,
+           py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
+           py::arg("resultTraitSet"), py::arg("pageSize").none(false),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,

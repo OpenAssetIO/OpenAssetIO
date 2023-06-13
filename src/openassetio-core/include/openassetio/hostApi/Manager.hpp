@@ -12,6 +12,7 @@
 #include <openassetio/BatchElementError.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -835,13 +836,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param context The calling context.
    *
    * @param successCallback Callback that will be called for each
-   * successful relationship query. It will be given the
-   * corresponding index of the entity reference in
-   * @p entityReferences along with a list of entity references for
-   * entities that have the relationship specified by
-   * @p relationshipTraitsData. If there are no relations, the
-   * callback will receive an empty list. The callback will be called
-   * on the same thread that initiated the call to
+   * successful relationship query. It will be given the corresponding
+   * index of the entity reference in @p entityReferences along with a
+   * list of entity references for entities that have the relationship
+   * specified by @p relationshipTraitsData. If there are no relations,
+   * the callback will receive an empty list. The callback will be
+   * called on the same thread that initiated the call to
    * `getWithRelationship`.
    *
    * @param errorCallback Callback that will be called for each failed
@@ -918,6 +918,108 @@ class OPENASSETIO_CORE_EXPORT Manager {
                             const BatchElementErrorCallback& errorCallback,
                             const trait::TraitSet& resultTraitSet = {});
 
+  /**
+   * Callback signature used for a successful paged entity relationship
+   * query.
+   */
+  using PagedRelationshipSuccessCallback =
+      std::function<void(std::size_t, EntityReferencePagerPtr)>;
+
+  /**
+   * Paged version of getWithRelationship. See non-paged
+   * @ref getWithRelationship for further documentation.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param entityReferences A list of @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param context The calling context.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful relationship query. It will be given the corresponding
+   * index of the entity reference in @p entityReferences as well as a
+   * pager capable of returning pages of entities that have the
+   * relationship to the entity at the corresponding index, specified by
+   * @p relationshipTraitsData. If there are no relations, the pager
+   * will have no pages. The callback will be called on the same thread
+   * that initiated the call to `getWithRelationshipPaged`. To access
+   * the data, retrieve the @ref EntityReferencePager from the callback,
+   * and use its interface to traverse pages.
+   *
+   * @param errorCallback Callback that will be called for each failed
+   * relationship query. It will be given the corresponding index of the
+   * entity reference in @p entityReferences along with a populated
+   * BatchElementError (see @ref BatchElementError.ErrorCode
+   * "ErrorCodes"). The callback will be called on the same thread that
+   * initiated the call to `getWithRelationshipPaged`.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @throws std::out_of_range if @p pageSize is zero.
+   */
+  void getWithRelationshipPaged(const EntityReferences& entityReferences,
+                                const TraitsDataPtr& relationshipTraitsData, size_t pageSize,
+                                const ContextConstPtr& context,
+                                const PagedRelationshipSuccessCallback& successCallback,
+                                const BatchElementErrorCallback& errorCallback,
+                                const trait::TraitSet& resultTraitSet = {});
+
+  /**
+   * Paged version of getWithRelationships. See non-paged
+   * @ref getWithRelationships for further documentation.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
+   *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param context The calling context.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful relationship query. It will be given the corresponding
+   * index of the relationship in @p relationshipTraitsDatas as well as
+   * a pager capable of returning pages of entities related to @p
+   * entityReference by the relationship at that corresponding index. If
+   * there are no relations, the pager will have no pages. The callback
+   * will be called on the same thread that initiated the call to
+   * `getWithRelationshipsPaged`. To access the data, retrieve the
+   * @ref EntityReferencePager from the callback, and use its interface
+   * to traverse pages.
+   *
+   * @param errorCallback Callback that will be called for each failed
+   * relationship query. It will be given the corresponding index of the
+   * relationship in @p relationshipTraitsDatas along with a populated
+   * BatchElementError (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback will be called on the same thread that
+   * initiated the call to `getWithRelationshipsPaged`.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @note The @ref trait_set of any queried relationship can be passed
+   * to @ref managementPolicy in order to determine if the manager
+   * handles relationships of that type.
+   *
+   * @throws std::out_of_range if @p pageSize is zero.
+   */
+  void getWithRelationshipsPaged(const EntityReference& entityReference,
+                                 const trait::TraitsDatas& relationshipTraitsDatas,
+                                 size_t pageSize, const ContextConstPtr& context,
+                                 const PagedRelationshipSuccessCallback& successCallback,
+                                 const BatchElementErrorCallback& errorCallback,
+                                 const trait::TraitSet& resultTraitSet = {});
   /// @}
 
   /**

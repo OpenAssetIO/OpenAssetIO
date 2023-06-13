@@ -2,6 +2,9 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #include <stdexcept>
 
+#include <openassetio/TraitsData.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
+#include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 
 namespace openassetio {
@@ -74,6 +77,52 @@ void ManagerInterface::getWithRelationships(
     successCallback(idx, {});
   }
 }
+
+namespace {
+/*
+ * A dummy pager interface that acts as if it has no data. For use in
+ * getWithRelationship[s] default implementation.
+ */
+class EmptyEntityReferencePagerInterface : public managerApi::EntityReferencePagerInterface {
+  bool hasNext([[maybe_unused]] const HostSessionPtr& hsp) override { return false; }
+
+  Page get([[maybe_unused]] const HostSessionPtr& hsp) override { return {}; }
+
+  void next([[maybe_unused]] const HostSessionPtr& hsp) override {}
+};
+
+}  // namespace
+
+void ManagerInterface::getWithRelationshipPaged(
+    const EntityReferences& entityReferences,
+    [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
+    [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    const PagedRelationshipSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
+  const auto size = entityReferences.size();
+
+  for (std::size_t idx = 0; idx < size; ++idx) {
+    successCallback(idx, std::make_shared<EmptyEntityReferencePagerInterface>());
+  }
+}
+
+void ManagerInterface::getWithRelationshipsPaged(
+    [[maybe_unused]] const EntityReference& entityReference,
+    const trait::TraitsDatas& relationshipTraitsDatas,
+    [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    const PagedRelationshipSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
+  const auto size = relationshipTraitsDatas.size();
+
+  for (std::size_t idx = 0; idx < size; ++idx) {
+    successCallback(idx, std::make_shared<EmptyEntityReferencePagerInterface>());
+  }
+}
+
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

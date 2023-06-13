@@ -17,6 +17,15 @@ v1.0.0-alpha.xx
 
 ### Improvements
 
+- Added paged implementations of `getWithRelationship` and
+  `getWithRelationships`, called `getWithRelationshipPaged` and
+  `getWithRelationshipsPaged`
+  These methods are the equivalent of the non-paged versions, but
+  provide an `EntityReferencePager` object, rather than a direct list
+  of results, allowing for correct handling of extremely large/unbounded
+  data sets.
+  [#971](https://github.com/OpenAssetIO/OpenAssetIO/issues/971)
+
 - Added default implementations of `getWithRelationship` and
   `getWithRelationships` that return empty lists, making these methods
   opt-in for manager implementations.

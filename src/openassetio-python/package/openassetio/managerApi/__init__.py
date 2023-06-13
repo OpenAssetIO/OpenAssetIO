@@ -27,3 +27,4 @@ from .ManagerInterface import ManagerInterface
 Host = _openassetio.managerApi.Host
 HostSession = _openassetio.managerApi.HostSession
 ManagerStateBase = _openassetio.managerApi.ManagerStateBase
+EntityReferencePagerInterface = _openassetio.managerApi.EntityReferencePagerInterface

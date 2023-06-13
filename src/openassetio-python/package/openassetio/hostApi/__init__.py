@@ -30,3 +30,4 @@ from .ManagerFactory import ManagerFactory
 
 HostInterface = _openassetio.hostApi.HostInterface
 ManagerImplementationFactoryInterface = _openassetio.hostApi.ManagerImplementationFactoryInterface
+EntityReferencePager = _openassetio.hostApi.EntityReferencePager

@@ -45,6 +45,7 @@ target_sources(
     src/ContextBinding.cpp
     src/EntityReferenceBinding.cpp
     src/TraitsDataBinding.cpp
+    src/hostApi/EntityReferencePagerBinding.cpp
     src/hostApi/ManagerBinding.cpp
     src/hostApi/HostInterfaceBinding.cpp
     src/hostApi/ManagerFactoryBinding.cpp
@@ -54,6 +55,7 @@ target_sources(
     src/log/SeverityFilterBinding.cpp
     src/managerApi/HostBinding.cpp
     src/managerApi/HostSessionBinding.cpp
+    src/managerApi/EntityReferencePagerInterfaceBinding.cpp
     src/managerApi/ManagerInterfaceBinding.cpp
     src/managerApi/ManagerStateBaseBinding.cpp
 )
