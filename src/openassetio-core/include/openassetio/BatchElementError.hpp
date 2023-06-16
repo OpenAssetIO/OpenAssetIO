@@ -86,7 +86,7 @@ class BatchElementError final {
      * example of this would be resolving a read-only entity with a
      * write access Context, or during @ref preflight or @ref register
      * when the target entity s read-only and does not support
-     * versioning.
+     * updating.
      */
     kEntityAccessError = OPENASSETIO_BatchErrorCode_kEntityAccessError,
 
@@ -103,7 +103,7 @@ class BatchElementError final {
      * server connection errors) should be raised as exceptions, rather
      * than per-entity errors.
      *
-     * This code is also used during version finalisation and any other
+     * This code is also used during finalisation and any other
      * entity-based operations on a valid @ref entity_reference that
      * fail for some reason.
      */

@@ -15,6 +15,13 @@ v1.0.0-alpha.xx
   [#919](https://github.com/OpenAssetIO/OpenAssetIO/issues/919)
   [#913](https://github.com/OpenAssetIO/OpenAssetIO/issues/913)
 
+- Removed version query APIs (`entityVersion`, `entityVersions`,
+  `finalizedEntityVersion`) in favour of use of the more general
+  `resolve` and `getWithRelationship` methods. See
+  [DR017](./doc/decisions/DR017-Entity-version-queries.md) for
+  details.
+  [#980](https://github.com/OpenAssetIO/OpenAssetIO/issues/980)
+
 ### Improvements
 
 - Added paged implementations of `getWithRelationship` and

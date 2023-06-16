@@ -330,13 +330,15 @@
  *
  * @section meta_version Meta-version
  *
- * It is common for am @ref asset_management_system to allow an @ref entity
- * version managed. Some systems also allow the concept of what we call a
+ * It is common for an @ref asset_management_system to allow an @ref entity
+ * to be version managed. Some systems also allow the concept of what we call a
  * 'meta-version'. For example "latest" or "latestApprovedForLighting".  These
- * are version strings that need to be further resolved using @ref
- * openassetio.hostApi.Manager.Manager.finalizedEntityVersion
- * "finalizedEntityVersion()" before they can be assumed to be
- * pointing to a specific 'concrete' version of an entity.
+ * are version strings that can't be assumed to be stable. Traits may
+ * exists within domain specific uses of OpenAssetIO (such as in
+ * <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation"
+ * target="_blank">OpenAssetIO-MediaCreation</a>) that allow the
+ * @fqref{hostApi.Manager.getWithRelationship} "relationship query"
+ * methods to be used to retrieve a stable reference.
  *
  * Stable resolution of meta-versions over time, or across a
  * distributed task is achieved via the @ref manager_state mechanism.
