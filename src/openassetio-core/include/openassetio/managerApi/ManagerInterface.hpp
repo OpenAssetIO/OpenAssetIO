@@ -601,13 +601,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @name Entity Reference Resolution
    *
    * The concept of resolution is turning an @ref entity_reference into
-   * a 'finalized' string. This, ultimately, is anything meaningful to
+   * the data for one or more @ref trait "traits" that are meaningful to
    * the situation. It could be a color space, a directory, a script or
-   * image sequence. A rule of thumb is that a resolved @ref
-   * entity_reference should be the string that the application would
-   * have anyway, in a unmanaged environment. For some kind of Entity -
-   * such as a 'Shot', for example, there may not be a meaningful
-   * string, though often some sensible value can be returned.
+   * a frame range for an image sequence.
    *
    * @{
    */
