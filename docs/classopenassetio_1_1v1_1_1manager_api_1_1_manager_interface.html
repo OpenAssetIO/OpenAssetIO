@@ -192,8 +192,8 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Entity Reference Resolution</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp2a468204eaf1f62a5d036c15b5dddfca"></a>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into a 'finalized' string.</p>
-<p>This, ultimately, is anything meaningful to the situation. It could be a color space, a directory, a script or image sequence. A rule of thumb is that a resolved <a class="el" href="glossary.html#entity_reference">Entity Reference</a> should be the string that the application would have anyway, in a unmanaged environment. For some kind of Entity - such as a 'Shot', for example, there may not be a meaningful string, though often some sensible value can be returned. </p>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp2a468204eaf1f62a5d036c15b5dddfca"></a>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into the data for one or more <a class="el" href="glossary.html#trait">traits</a> that are meaningful to the situation.</p>
+<p>It could be a color space, a directory, a script or a frame range for an image sequence. </p>
 </td></tr>
 <tr class="memitem:aa0ce52a4388d9ec16c7189f653983dac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, TraitsDataPtr)&gt;</td></tr>
 <tr class="memdesc:aa0ce52a4388d9ec16c7189f653983dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity resolution.  <a href="#aa0ce52a4388d9ec16c7189f653983dac">More...</a><br /></td></tr>
