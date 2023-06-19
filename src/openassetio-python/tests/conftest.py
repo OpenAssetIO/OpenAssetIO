@@ -241,13 +241,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
 
     def getWithRelationship(
         self,
-        relationshipTraitsData,
         entityReferences,
+        relationshipTraitsData,
+        resultTraitSet,
         context,
         hostSession,
         successCallback,
         errorCallback,
-        resultTraitSet=None,
     ):
         assert isinstance(relationshipTraitsData, TraitsData)
         self.__assertIsIterableOf(entityReferences, EntityReference)
@@ -258,24 +258,24 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.getWithRelationship(
-            relationshipTraitsData,
             entityReferences,
+            relationshipTraitsData,
+            resultTraitSet,
             context,
             hostSession,
             successCallback,
             errorCallback,
-            resultTraitSet,
         )
 
     def getWithRelationships(
         self,
-        relationshipTraitsDatas,
         entityReference,
+        relationshipTraitsDatas,
+        resultTraitSet,
         context,
         hostSession,
         successCallback,
         errorCallback,
-        resultTraitSet=None,
     ):
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         assert isinstance(entityReference, EntityReference)
@@ -286,13 +286,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
             assert isinstance(resultTraitSet, set)
             self.__assertIsIterableOf(resultTraitSet, str)
         return self.mock.getWithRelationships(
-            relationshipTraitsDatas,
             entityReference,
+            relationshipTraitsDatas,
+            resultTraitSet,
             context,
             hostSession,
             successCallback,
             errorCallback,
-            resultTraitSet,
         )
 
     def register(

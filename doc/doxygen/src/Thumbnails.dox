@@ -47,7 +47,7 @@
  *
  * @section thumbnails_lookup Looking Up Existing Thumbnails
  *
- * A host can use the standard @ref openassetio.hostApi.Manager.Manager.getWithRelationship
+ * A host can use the standard @fqref{hostApi.Manager.getWithRelationship}
  * "getWithRelationship" method of the @ref manager to request the
  * @ref entity_reference "entity references" of any existing thumbnails
  * that depict a particular @ref entity.

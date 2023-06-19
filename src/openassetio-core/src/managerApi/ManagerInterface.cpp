@@ -48,6 +48,32 @@ ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
 EntityReference ManagerInterface::createEntityReference(Str entityReferenceString) const {
   return EntityReference(std::move(entityReferenceString));
 }
+
+void ManagerInterface::getWithRelationship(
+    const EntityReferences& entityReferences,
+    [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
+    [[maybe_unused]] const trait::TraitSet& resultTraitSet,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    const ManagerInterface::RelationshipSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  for (EntityReferences::size_type idx = 0, size = entityReferences.size(); idx < size; ++idx) {
+    successCallback(idx, {});
+  }
+}
+void ManagerInterface::getWithRelationships(
+    [[maybe_unused]] const EntityReference& entityReference,
+    const trait::TraitsDatas& relationshipTraitsDatas,
+    [[maybe_unused]] const trait::TraitSet& resultTraitSet,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    const ManagerInterface::RelationshipSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  for (trait::TraitsDatas::size_type idx = 0, size = relationshipTraitsDatas.size(); idx < size;
+       ++idx) {
+    successCallback(idx, {});
+  }
+}
 }  // namespace managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

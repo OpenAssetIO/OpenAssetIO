@@ -410,8 +410,8 @@ class Test_Manager_finalizedEntityVersion:
 
 
 class Test_Manager_getWithRelationship:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.getWithRelationship)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.getWithRelationship)
         assert method_introspector.is_implemented_once(Manager, "getWithRelationship")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -445,17 +445,17 @@ class Test_Manager_getWithRelationship:
         method.side_effect = call_callbacks
 
         manager.getWithRelationship(
-            an_empty_traitsdata, two_refs, a_context, success_callback, error_callback
+            two_refs, an_empty_traitsdata, a_context, success_callback, error_callback
         )
 
         method.assert_called_once_with(
-            an_empty_traitsdata,
             two_refs,
+            an_empty_traitsdata,
+            set(),
             a_context,
             a_host_session,
             mock.ANY,
             mock.ANY,
-            resultTraitSet=None,
         )
 
         success_callback.assert_called_once_with(0, two_different_refs)
@@ -466,28 +466,28 @@ class Test_Manager_getWithRelationship:
         # Check optional resultTraitSet
 
         manager.getWithRelationship(
-            an_empty_traitsdata,
             two_refs,
+            an_empty_traitsdata,
             a_context,
             success_callback,
             error_callback,
-            resultTraitSet=an_entity_trait_set,
+            an_entity_trait_set,
         )
 
         method.assert_called_once_with(
-            an_empty_traitsdata,
             two_refs,
+            an_empty_traitsdata,
+            an_entity_trait_set,
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=an_entity_trait_set,
+            mock.ANY,
+            mock.ANY,
         )
 
 
 class Test_Manager_getWithRelationships:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.getWithRelationships)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.getWithRelationships)
         assert method_introspector.is_implemented_once(Manager, "getWithRelationships")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
@@ -518,16 +518,16 @@ class Test_Manager_getWithRelationships:
 
         method.side_effect = call_callbacks
 
-        manager.getWithRelationships(two_datas, a_ref, a_context, success_callback, error_callback)
+        manager.getWithRelationships(a_ref, two_datas, a_context, success_callback, error_callback)
 
         method.assert_called_once_with(
-            two_datas,
             a_ref,
+            two_datas,
+            set(),
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=None,
+            mock.ANY,
+            mock.ANY,
         )
 
         success_callback.assert_called_once_with(0, two_different_refs)
@@ -538,23 +538,33 @@ class Test_Manager_getWithRelationships:
         # Check optional resultTraitSet
 
         manager.getWithRelationships(
-            two_datas,
             a_ref,
+            two_datas,
             a_context,
             success_callback,
             error_callback,
-            resultTraitSet=an_entity_trait_set,
+            an_entity_trait_set,
         )
 
         method.assert_called_once_with(
-            two_datas,
             a_ref,
+            two_datas,
+            an_entity_trait_set,
             a_context,
             a_host_session,
-            success_callback,
-            error_callback,
-            resultTraitSet=an_entity_trait_set,
+            mock.ANY,
+            mock.ANY,
         )
+
+    def test_when_relationship_is_None_then_exception_raised(
+        self, manager, mock_manager_interface, a_ref, a_context
+    ):
+        with pytest.raises(TypeError):
+            manager.getWithRelationships(
+                [TraitsData(), None], a_ref, a_context, mock.Mock(), mock.Mock()
+            )
+
+        assert not mock_manager_interface.mock.getWithRelationships.called
 
 
 class Test_Manager_BatchElementErrorPolicyTag:
@@ -2645,7 +2655,7 @@ def some_different_refs(manager):
 @pytest.fixture
 def invoke_getWithRelationship_success_cb(mock_manager_interface):
     def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][4]
+        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][5]
         callback(idx, entityReferences)
 
     return invoke
@@ -2654,7 +2664,7 @@ def invoke_getWithRelationship_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationship_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][5]
+        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][6]
         callback(idx, batch_element_error)
 
     return invoke
@@ -2663,7 +2673,7 @@ def invoke_getWithRelationship_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationships_success_cb(mock_manager_interface):
     def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][4]
+        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][5]
         callback(idx, entityReferences)
 
     return invoke
@@ -2672,7 +2682,7 @@ def invoke_getWithRelationships_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationships_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][5]
+        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][6]
         callback(idx, batch_element_error)
 
     return invoke

@@ -694,6 +694,178 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /// @}
 
   /**
+   * @name Related Entities
+   *
+   * A 'related' entity could take many forms. For example:
+   *
+   *  @li In 3D CGI, Multiple AOVs or layers may be related to a
+   *  'beauty' render.
+   *  @li In Compositing, an image sequence may be related to the script
+   *  that created it.
+   *  @li An asset may be related to a task that specifies work to be
+   *  done.
+   *  @li Parent/child relationships are also (semantically) covered by
+   *  these relationships.
+   *
+   * In this API, these relationships are represented by trait data.
+   * This may just compose property-less traits as a 'type', or
+   * additionally, set trait property values to further define the
+   * relationship. For example in the case of AOVs, the type might be
+   * 'alternate output' and the attributes may be that the 'channel' is
+   * 'diffuse'.
+   *
+   * Related references form a vital part in the abstraction of the
+   * internal structure of the asset management system from the Host
+   * application in its attempts to provide the user with meaningful
+   * functionality. A good example of this is in an editorial example,
+   * where it may need to query whether a 'shot' exists in a certain
+   * part of the asset system. One approach would be to use a
+   * 'getChildren' call, on this part of the system. This has the
+   * drawback that is assumes that shots are always something that can
+   * be described as 'immediate children' of the location in question.
+   * This may not always be the case (say, for example there is some
+   * kind of 'task' structure in place too). Instead we use a request
+   * that asks for any 'shots' that relate to the chosen location. It is
+   * then up to the implementation of the ManagerInterface to determine
+   * how that maps to its own data model. Hopefully this allows Hosts of
+   * this API to work with a broader range of asset managements, without
+   * providing any requirements of their structure or data model.
+   * @{
+   */
+
+  /**
+   * Callback signature used for a successful entity relationship query.
+   */
+  using RelationshipSuccessCallback = std::function<void(std::size_t, EntityReferences)>;
+
+  /**
+   * Queries entity references that are related to the input
+   * references by the relationship defined by a set of traits and
+   * their properties in @p relationshipTraitsData.
+   *
+   * This is an essential function in this API - as it is widely used
+   * to query other entities or organisational structure.
+   *
+   * @note Consult the documentation for the relevant relationship
+   * traits to determine if the order of entities in the inner lists
+   * of matching references is required to be meaningful.
+   *
+   * If any relationship definition is unknown, then an empty list
+   * must be returned for that entity, and no errors raised. The
+   * default implementation returns an empty list for all
+   * relationships.
+   *
+   * @param entityReferences A list of @ref entity_reference
+   * "entity references" to query the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have. May be empty.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that must be called for each
+   * successful relationship query for an input entity reference. It
+   * should be given the corresponding index of the entity reference
+   * in @p entityReferences along with a list of entity references for
+   * entities that have the relationship specified by
+   * @p relationshipTraitsData. If there are no relations, an empty
+   * list should be passed to the callback. The callback must be
+   * called on the same thread that initiated the call to
+   * `getWithRelationship`.
+   *
+   * @param errorCallback Callback that must be called for each
+   * failed relationship query for an entity reference. It should be
+   * given the corresponding index of the entity reference in
+   * @p entityReferences along with a populated
+   * @fqref{BatchElementError} "BatchElementError" (see
+   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+   * must be called on the same thread that initiated the call to
+   * `getWithRelationship`.
+   *
+   * @note Ensure that your implementation of @ref managementPolicy
+   * responds appropriately when queried with relationship trait sets
+   * and a read policy to communicate to the host whether or not you are
+   * capable of handling queries for those relationships in this method.
+   */
+  virtual void getWithRelationship(const EntityReferences& entityReferences,
+                                   const TraitsDataPtr& relationshipTraitsData,
+                                   const trait::TraitSet& resultTraitSet,
+                                   const ContextConstPtr& context,
+                                   const HostSessionPtr& hostSession,
+                                   const RelationshipSuccessCallback& successCallback,
+                                   const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Queries entity references that are related to the input
+   * reference by the relationships defined by a set of traits and
+   * their properties. Each element of @p relationshipTraitsDatas
+   * defines a specific relationship to query.
+   *
+   * This is an essential function in this API - as it is widely used
+   * to query other entities or organisational structure.
+   *
+   * @note Consult the documentation for the relevant relationship
+   * traits to determine if the order of entities in the inner lists
+   * of matching references is required to be meaningful.
+   *
+   * If any relationship definition is unknown, then an empty list
+   * must be returned for that relationship, and no errors raised. The
+   * default implementation returns an empty list for all
+   * relationships.
+   *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have. May be empty.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param context Context The calling context.
+   *
+   * @param successCallback Callback that must be called for each
+   * successful relationship query for an input relationship. It should
+   * be given the corresponding index of the relationship definition in
+   * @p relationshipTraitsDatas along with a list of entity references
+   * for entities that are related to @p entityReference by that
+   * relationship. If there are no relations, an empty list should be
+   * passed to the callback. The callback must be called on the same
+   * thread that initiated the call to `getWithRelationships`.
+   *
+   * @param errorCallback Callback that must be called for each failed
+   * query for a relationship. It should be given the corresponding
+   * index of the relationship in @p relationshipTraitsDatas along with
+   * a populated BatchElementError (see BatchElementError.ErrorCode
+   * "ErrorCodes"). The callback must be called on the same thread that
+   * initiated the call to `getWithRelationships`.
+   *
+   * @note Ensure that your implementation of @ref managementPolicy
+   * responds appropriately when queried with relationship trait sets
+   * and a read policy to communicate to the host whether or not you are
+   * capable of handling queries for those relationships in this method.
+   */
+  virtual void getWithRelationships(const EntityReference& entityReference,
+                                    const trait::TraitsDatas& relationshipTraitsDatas,
+                                    const trait::TraitSet& resultTraitSet,
+                                    const ContextConstPtr& context,
+                                    const HostSessionPtr& hostSession,
+                                    const RelationshipSuccessCallback& successCallback,
+                                    const BatchElementErrorCallback& errorCallback);
+
+  /// @}
+  /**
    * @name Publishing
    *
    * The publishing functions allow a host create entities within the

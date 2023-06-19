@@ -25,7 +25,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import EntityReference
+from openassetio import EntityReference, TraitsData, Context
 from openassetio.managerApi import ManagerInterface, ManagerStateBase
 
 
@@ -191,20 +191,26 @@ class Test_ManagerInterface_finalizedEntityVersion:
 
 class Test_ManagerInterface_getWithRelationship:
     def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
+        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
 
-    def test_returns_empty_list_for_each_input(self, manager_interface):
+    def test_returns_empty_list_for_each_input(self, manager_interface, a_host_session):
         success_callback = Mock()
         error_callback = Mock()
 
         for refs in (
             [],
-            [Mock()],
-            [Mock(), Mock()],
+            [EntityReference("first")],
+            [EntityReference("second"), EntityReference("third")],
         ):
             manager_interface.getWithRelationship(
-                Mock(), refs, Mock(), Mock(), success_callback, error_callback
+                refs,
+                TraitsData(),
+                set(),
+                Context(),
+                a_host_session,
+                success_callback,
+                error_callback,
             )
 
             error_callback.assert_not_called()
@@ -215,20 +221,26 @@ class Test_ManagerInterface_getWithRelationship:
 
 class Test_ManagerInterface_getWithRelationships:
     def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
+        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
 
-    def test_returns_empty_list_for_each_input(self, manager_interface):
+    def test_returns_empty_list_for_each_input(self, manager_interface, a_host_session):
         success_callback = Mock()
         error_callback = Mock()
 
         for rels in (
             [],
-            [Mock()],
-            [Mock(), Mock()],
+            [TraitsData()],
+            [TraitsData(), TraitsData()],
         ):
             manager_interface.getWithRelationships(
-                rels, Mock(), Mock(), Mock(), success_callback, error_callback
+                EntityReference(""),
+                rels,
+                set(),
+                Context(),
+                a_host_session,
+                success_callback,
+                error_callback,
             )
 
             error_callback.assert_not_called()
