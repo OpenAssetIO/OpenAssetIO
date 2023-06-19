@@ -1,13 +1,15 @@
 var NAVTREEINDEX2 =
 {
+"group__oa__host_api___manager.html#ga639858f5e0e84e8f733ba6a6cb93eb36":[12,0,1,6],
+"group__oa__host_api___manager.html#ga888dd64451490d2448bdc3dd0fa1edc9":[12,0,1,2],
 "group__oa__host_api___manager.html#ga9a9313139f72a31948bfef5a85ea8ed5":[12,0,1,4],
 "group__oa__host_api___manager.html#gad0220c0c96b94354c24d10e112586c6b":[12,0,1,5],
 "group__oa__host_api___manager__aliases.html":[12,0,1,0],
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[12,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[12,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[12,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,2],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,3],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,2],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[12,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[12,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[12,0,3],

@@ -203,6 +203,29 @@ Entity Reference Resolution</h2></td></tr>
 <tr class="separator:a6235d6c679711ac561ecc50d2c7f1fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Related Entities</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp55c0a64838e880cba10e9e9ed57e6fff"></a>A 'related' entity could take many forms.</p>
+<p>For example:</p>
+<ul>
+<li>In 3D CGI, Multiple AOVs or layers may be related to a 'beauty' render. </li>
+<li>In Compositing, an image sequence may be related to the script that created it. </li>
+<li>An asset may be related to a task that specifies work to be done. </li>
+<li>Parent/child relationships are also (semantically) covered by these relationships.</li>
+</ul>
+<p>In this API, these relationships are represented by trait data. This may just compose property-less traits as a 'type', or additionally, set trait property values to further define the relationship. For example in the case of AOVs, the type might be 'alternate output' and the attributes may be that the 'channel' is 'diffuse'.</p>
+<p>Related references form a vital part in the abstraction of the internal structure of the asset management system from the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> application in its attempts to provide the user with meaningful functionality. A good example of this is in an editorial example, where it may need to query whether a 'shot' exists in a certain part of the asset system. One approach would be to use a 'getChildren' call, on this part of the system. This has the drawback that is assumes that shots are always something that can be described as 'immediate children' of the location in question. This may not always be the case (say, for example there is some kind of 'task' structure in place too). Instead we use a request that asks for any 'shots' that relate to the chosen location. It is then up to the implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> to determine how that maps to its own data model. Hopefully this allows Hosts of this API to work with a broader range of asset managements, without providing any requirements of their structure or data model. </p>
+</td></tr>
+<tr class="memitem:a979fbc668a26e76d957c31361958a005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td></tr>
+<tr class="memdesc:a979fbc668a26e76d957c31361958a005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity relationship query.  <a href="#a979fbc668a26e76d957c31361958a005">More...</a><br /></td></tr>
+<tr class="separator:a979fbc668a26e76d957c31361958a005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31fcbcd75be5c2483c5f03521665c38f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a31fcbcd75be5c2483c5f03521665c38f">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const TraitsDataPtr &amp;relationshipTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, const ContextConstPtr &amp;context, const HostSessionPtr &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a31fcbcd75be5c2483c5f03521665c38f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>.  <a href="#a31fcbcd75be5c2483c5f03521665c38f">More...</a><br /></td></tr>
+<tr class="separator:a31fcbcd75be5c2483c5f03521665c38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8041a7bcf15eb9d77d63a9e0a4a872c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8041a7bcf15eb9d77d63a9e0a4a872c3">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, const ContextConstPtr &amp;context, const HostSessionPtr &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a8041a7bcf15eb9d77d63a9e0a4a872c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#a8041a7bcf15eb9d77d63a9e0a4a872c3">More...</a><br /></td></tr>
+<tr class="separator:a8041a7bcf15eb9d77d63a9e0a4a872c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Publishing</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp9fb1f5afe9ff67d5c606041aca565287"></a>The publishing functions allow a host create entities within the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> represented by this implementation.</p>
 <p>The API is designed to accommodate the broad variety of roles that different asset managers embody. Some are 'librarians' that simply catalog the locations of existing media. Others take an active role in both the temporary and long-term paths to items they manage.</p>
@@ -323,6 +346,20 @@ Publishing</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Callback signature used for a successful register operation on a particular entity. </p>
+
+</div>
+</div>
+<a class="anchor" id="a979fbc668a26e76d957c31361958a005"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature used for a successful entity relationship query. </p>
 
 </div>
 </div>
@@ -548,6 +585,171 @@ Publishing</h2></td></tr>
 <p>Returns a human readable name to be used to reference this specific asset manager in UIs or other user-facing messaging. </p>
 <p>One instance of its use may be in a host's preferences UI or logging. For example: </p><pre class="fragment">"OpenAssetIO Test Asset Manager"
 </pre><dl class="section return"><dt>Returns</dt><dd>Manager's display name. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a31fcbcd75be5c2483c5f03521665c38f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void getWithRelationship </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramname"><em>relationshipTraitsData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>resultTraitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>. </p>
+<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
+<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is required to be meaningful.</dd></dl>
+<p>If any relationship definition is unknown, then an empty list must be returned for that entity, and no errors raised. The default implementation returns an empty list for all relationships.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferences</td><td>A list of <a class="el" href="glossary.html#entity_reference">entity references</a> to query the specified relationship for.</td></tr>
+    <tr><td class="paramname">relationshipTraitsData</td><td>The traits of the relationship to query.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have. May be empty.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that must be called for each successful relationship query for an input entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a list of entity references for entities that have the relationship specified by <code>relationshipTraitsData</code>. If there are no relations, an empty list should be passed to the callback. The callback must be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed relationship query for an entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback must be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Ensure that your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd">managementPolicy</a> responds appropriately when queried with relationship trait sets and a read policy to communicate to the host whether or not you are capable of handling queries for those relationships in this method. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8041a7bcf15eb9d77d63a9e0a4a872c3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void getWithRelationships </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReference</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
+          <td class="paramname"><em>relationshipTraitsDatas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>resultTraitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties. </p>
+<p>Each element of <code>relationshipTraitsDatas</code> defines a specific relationship to query.</p>
+<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
+<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is required to be meaningful.</dd></dl>
+<p>If any relationship definition is unknown, then an empty list must be returned for that relationship, and no errors raised. The default implementation returns an empty list for all relationships.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReference</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationships for.</td></tr>
+    <tr><td class="paramname">relationshipTraitsDatas</td><td>The traits of the relationships to query.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have. May be empty.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">context</td><td><a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that must be called for each successful relationship query for an input relationship. It should be given the corresponding index of the relationship definition in <code>relationshipTraitsDatas</code> along with a list of entity references for entities that are related to <code>entityReference</code> by that relationship. If there are no relations, an empty list should be passed to the callback. The callback must be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed query for a relationship. It should be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f" title="Possible classes of error. ">BatchElementError.ErrorCode</a> "ErrorCodes"). The callback must be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Ensure that your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd">managementPolicy</a> responds appropriately when queried with relationship trait sets and a read policy to communicate to the host whether or not you are capable of handling queries for those relationships in this method. </dd></dl>
 
 </div>
 </div>
