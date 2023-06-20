@@ -330,7 +330,15 @@ body {
 }
 
 #all-content {
-	max-width: 1100px;
+
+	// When the width of the screen is < 1100, allow the frame to shrink,
+	// as much as it can
+	@media screen and (max-width: 1100px) {
+		min-width: auto
+	}
+
+	min-width: 1100px;
+	width: min-content;
 	margin: auto;
 	position: relative;
 	margin-top: 30px;
