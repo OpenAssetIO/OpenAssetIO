@@ -167,12 +167,14 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
+           py::arg("resultTraitSet"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("getWithRelationships", &ManagerInterface::getWithRelationships,
            py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-           py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"), py::arg("resultTraitSet"))
+           py::arg("resultTraitSet"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
            py::arg("traitSet"), py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
