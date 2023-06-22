@@ -249,6 +249,32 @@ class FixtureAugmentedTestCase(unittest.TestCase):
                 continue
             self.assertIsInstance(value, valueType)
 
+    def requireEntityReferencesFixture(self, fixtureName, skipTestIfMissing=False):
+        """
+        A convenience companion to requireFixture, to construct an
+        entity reference object around each raw string in a list
+        fixture.
+        """
+        return [
+            self._manager.createEntityReference(r)
+            for r in self.requireFixture(
+                fixtureName,
+                skipTestIfMissing,
+            )
+        ]
+
+    def requireEntityReferenceFixture(self, fixtureName, skipTestIfMissing=False):
+        """
+        A convenience companion to requireFixture, to construct an
+        entity reference object around a raw string fixture.
+        """
+        return self._manager.createEntityReference(
+            self.requireFixture(
+                fixtureName,
+                skipTestIfMissing,
+            )
+        )
+
     def requireFixtures(self, fixtureNames, skipTestIfMissing=False):
         """
         Ensures that the supplied fixtures names are available for a

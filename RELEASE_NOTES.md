@@ -23,6 +23,16 @@ v1.0.0-alpha.xx
   [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
 
+
+- Added `requireEntityReferenceFixture` and
+  `requireEntityReferencesFixture` utility methods for cases written for
+  the `openassetio.test.manager` (aka `apiComplianceSuite`) test
+  harness. These convert a string fixture into an `EntityReference`
+  object, or a list-of-strings fixture into a list of `EntityReference`
+  objects, respectively.
+  [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
+
+
 v1.0.0-alpha.12
 ---------------
 
