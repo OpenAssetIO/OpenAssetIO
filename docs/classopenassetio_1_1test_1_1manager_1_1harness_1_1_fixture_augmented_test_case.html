@@ -142,6 +142,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ad0acbba99dff86d3e0065cf0e3fa7bc6">assertValuesOfType</a> (self, valueList, valueType, allowNone=False)</td></tr>
 <tr class="memdesc:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset that all values in the supplied list are of the desired type, or optionally None.  <a href="#ad0acbba99dff86d3e0065cf0e3fa7bc6">More...</a><br /></td></tr>
 <tr class="separator:ad0acbba99dff86d3e0065cf0e3fa7bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0e764a190f2df6348213d13e7f1f1a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#abb0e764a190f2df6348213d13e7f1f1a">requireEntityReferencesFixture</a> (self, fixtureName, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:abb0e764a190f2df6348213d13e7f1f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience companion to requireFixture, to construct an entity reference object around each raw string in a list fixture.  <a href="#abb0e764a190f2df6348213d13e7f1f1a">More...</a><br /></td></tr>
+<tr class="separator:abb0e764a190f2df6348213d13e7f1f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaefaa7fc3f37c2690882e45d66ab4cce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aaefaa7fc3f37c2690882e45d66ab4cce">requireEntityReferenceFixture</a> (self, fixtureName, skipTestIfMissing=False)</td></tr>
+<tr class="memdesc:aaefaa7fc3f37c2690882e45d66ab4cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience companion to requireFixture, to construct an entity reference object around a raw string fixture.  <a href="#aaefaa7fc3f37c2690882e45d66ab4cce">More...</a><br /></td></tr>
+<tr class="separator:aaefaa7fc3f37c2690882e45d66ab4cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf65ec8d5696356fa60db65106195778"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#abf65ec8d5696356fa60db65106195778">requireFixtures</a> (self, fixtureNames, skipTestIfMissing=False)</td></tr>
 <tr class="memdesc:abf65ec8d5696356fa60db65106195778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that the supplied fixtures names are available for a test and returns their values.  <a href="#abf65ec8d5696356fa60db65106195778">More...</a><br /></td></tr>
 <tr class="separator:abf65ec8d5696356fa60db65106195778"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -419,6 +425,74 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="aaefaa7fc3f37c2690882e45d66ab4cce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def requireEntityReferenceFixture </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A convenience companion to requireFixture, to construct an entity reference object around a raw string fixture. </p>
+
+</div>
+</div>
+<a class="anchor" id="abb0e764a190f2df6348213d13e7f1f1a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def requireEntityReferencesFixture </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fixtureName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>skipTestIfMissing</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A convenience companion to requireFixture, to construct an entity reference object around each raw string in a list fixture. </p>
 
 </div>
 </div>

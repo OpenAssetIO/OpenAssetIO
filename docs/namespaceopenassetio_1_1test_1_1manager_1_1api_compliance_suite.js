@@ -3,6 +3,8 @@ var namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite =
     [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state" ],
     [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name" ],
     [ "Test_entityExists", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists" ],
+    [ "Test_getWithRelationship", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship" ],
+    [ "Test_getWithRelationships", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships" ],
     [ "Test_identifier", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier" ],
     [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info" ],
     [ "Test_initialize", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize" ],

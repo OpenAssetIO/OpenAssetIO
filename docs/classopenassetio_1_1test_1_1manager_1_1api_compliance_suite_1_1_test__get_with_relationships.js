@@ -1,0 +1,10 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships =
+[
+    [ "test_when_multiple_relationship_types_then_same_number_of_returned_relationships", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#ae3d47041c3d631f1bd5e03c8f1d7735d", null ],
+    [ "test_when_querying_malformed_reference_then_malformed_reference_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#aebc120614dc22bf3b518dc9654454e48", null ],
+    [ "test_when_querying_missing_reference_then_resolution_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#a011904db71fd74cb2df6773995f51170", null ],
+    [ "test_when_relation_unknown_then_empty_list_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#a1969fa0dc7db4f5ff992de43704e22c1", null ],
+    [ "test_when_relationship_trait_set_known_and_props_set_then_filtered_refs_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#a1a65eca4cdba5e0c062809ed1cfaa9f4", null ],
+    [ "test_when_relationship_trait_set_known_then_all_with_trait_set_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#ae1e635863ca8e455165000c0ac0dda40", null ],
+    [ "test_when_result_trait_set_supplied_then_filtered_refs_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html#a600fe69137100a4d935825e591b61565", null ]
+];
