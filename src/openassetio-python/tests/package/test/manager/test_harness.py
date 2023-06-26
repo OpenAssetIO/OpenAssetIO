@@ -27,11 +27,12 @@ import inspect
 import io
 import os
 import sys
+from unittest import mock
 from unittest.case import SkipTest
 import uuid
 import pytest
 
-from openassetio import constants, Context
+from openassetio import constants, Context, EntityReference
 from openassetio.test.manager.harness import (
     executeSuite,
     fixturesFromPyFile,
@@ -220,6 +221,93 @@ class Test_FixtureAugmentedTestCase_assertValuesOfType:
         a_test_case.assertValuesOfType(range(10), int)
 
 
+class Test_FixtureAugmentedTestCase_requireEntityReferenceFixture:
+    def test_when_fixture_present_then_returns_expected_value(self, a_test_case, mock_manager):
+        required = "a_string"
+        expected = EntityReference("mock://a")
+        mock_manager.createEntityReference.return_value = expected
+
+        try:
+            assert a_test_case.requireEntityReferenceFixture(required) == expected
+        except SkipTest:
+            pytest.fail("Test should not be skipped")
+
+        mock_manager.createEntityReference.assert_called_once_with("a")
+
+    def test_when_invalid_reference_then_exception_propagates(self, a_test_case, mock_manager):
+        required = "a_string"
+
+        class StubException(Exception):
+            pass
+
+        mock_manager.createEntityReference.side_effect = StubException()
+
+        with pytest.raises(StubException):
+            assert a_test_case.requireEntityReferenceFixture(required)
+
+    def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
+        required = "missing_key"
+        expected_message = "Required fixtures not found: missing_key"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.requireEntityReferenceFixture(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+
+    def test_when_fixture_missing_and_skip_set_then_skips_test_with_expected_message(
+        self, a_test_case
+    ):
+        required = "missing_key"
+        expected_message = "Required fixtures not found: missing_key"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.requireEntityReferenceFixture(required, skipTestIfMissing=True)
+
+
+class Test_FixtureAugmentedTestCase_requireEntityReferencesFixture:
+    def test_when_fixture_present_then_returns_expected_value(self, a_test_case, mock_manager):
+        required = "a_list_of_strings"
+        expected = [
+            EntityReference("mock://b"),
+            EntityReference("mock://c"),
+        ]
+        mock_manager.createEntityReference.side_effect = expected
+
+        try:
+            assert a_test_case.requireEntityReferencesFixture(required) == expected
+        except SkipTest:
+            pytest.fail("Test should not be skipped")
+
+        mock_manager.createEntityReference.assert_has_calls([mock.call("b"), mock.call("c")])
+
+    def test_when_invalid_reference_then_exception_propagates(self, a_test_case, mock_manager):
+        required = "a_list_of_strings"
+
+        class StubException(Exception):
+            pass
+
+        mock_manager.createEntityReference.side_effect = StubException()
+
+        with pytest.raises(StubException):
+            assert a_test_case.requireEntityReferencesFixture(required)
+
+    def test_when_fixture_missing_then_fails_test_with_expected_message(self, a_test_case):
+        required = "missing_key"
+        expected_message = "Required fixtures not found: missing_key"
+        with pytest.raises(AssertionError, match=expected_message):
+            try:
+                a_test_case.requireEntityReferencesFixture(required)
+            except SkipTest:
+                pytest.fail("Test skipped not failed")
+
+    def test_when_fixture_missing_and_skip_set_then_skips_test_with_expected_message(
+        self, a_test_case
+    ):
+        required = "missing_key"
+        expected_message = "Required fixtures not found: missing_key"
+        with pytest.raises(SkipTest, match=expected_message):
+            a_test_case.requireEntityReferencesFixture(required, skipTestIfMissing=True)
+
+
 class Test_FixtureAugmentedTestCase_requireFixtures:
     def test_when_fixtures_present_then_returns_expected_values(self, a_test_case):
         required = ("key1", "key2")
@@ -379,7 +467,7 @@ def executeSuiteTests_fixtures(resources_dir):
 
 @pytest.fixture
 def some_case_fixtures():
-    return {"key1": 1, "key2": "2"}
+    return {"key1": 1, "key2": "2", "a_string": "a", "a_list_of_strings": ["b", "c"]}
 
 
 @pytest.fixture

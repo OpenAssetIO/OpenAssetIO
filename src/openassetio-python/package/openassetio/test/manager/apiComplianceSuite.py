@@ -513,6 +513,201 @@ class Test_register(FixtureAugmentedTestCase):
         self.assertEqual(actual_error.message, expected_error.message)
 
 
+class Test_getWithRelationship(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerApi.ManagerInterface.Test_getWithRelationship.
+    """
+
+    def test_when_relation_unknown_then_empty_list_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        an_unknown_rel = TraitsData({"🐠🐟🐠🐟"})
+        self.__testGetWithRelationship([a_ref], an_unknown_rel, [[]])
+
+    def test_when_multiple_references_then_same_number_of_returned_relationships(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationship([a_ref] * 5, a_rel, [expected] * 5)
+
+    def test_when_relationship_trait_set_known_then_all_with_trait_set_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationship([a_ref], a_rel, [expected])
+
+    def test_when_relationship_trait_set_known_and_props_set_then_filtered_refs_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = self.requireFixture("a_relationship_traits_data_with_props")
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationship([a_ref], a_rel, [expected])
+
+    def test_when_result_trait_set_supplied_then_filtered_refs_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        result_trait_set = self.requireFixture("an_entity_trait_set_to_filter_by")
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationship([a_ref], a_rel, [expected], result_trait_set)
+
+    def test_when_querying_missing_reference_then_resolution_error_is_returned(self):
+        self.__testGetWithRelationshipError("a_reference_to_a_missing_entity")
+
+    def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
+        self.__testGetWithRelationshipError(
+            "a_malformed_reference",
+            errorCode=BatchElementError.ErrorCode.kMalformedEntityReference,
+        )
+
+    def __testGetWithRelationship(
+        self, references, relationship, expected_relations, resultTraitSet=None
+    ):
+        if resultTraitSet is None:
+            resultTraitSet = set()
+        context = self.createTestContext(access=Context.Access.kRead)
+        results = []
+
+        self._manager.getWithRelationship(
+            references,
+            relationship,
+            context,
+            lambda _idx, traits_data: results.append(traits_data),
+            lambda idx, batch_element_error: self.fail(
+                f"getWithRelationship should not error for: '{references[idx].toString()}': "
+                f"{batch_element_error.message}"
+            ),
+            resultTraitSet,
+        )
+
+        self.assertEqual(results, expected_relations)
+
+    def __testGetWithRelationshipError(
+        self,
+        fixture_name,
+        access=Context.Access.kRead,
+        errorCode=BatchElementError.ErrorCode.kEntityResolutionError,
+    ):
+        reference = self.requireEntityReferenceFixture(fixture_name, skipTestIfMissing=True)
+
+        expected_msg = self.requireFixture("expected_error_message")
+        expected_error = BatchElementError(errorCode, expected_msg)
+
+        context = self.createTestContext()
+        context.access = access
+
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+
+        results = []
+        self._manager.getWithRelationship(
+            [reference],
+            a_rel,
+            context,
+            lambda _idx, _refs: self.fail("Unexpected success callback"),
+            lambda _idx, batch_element_error: results.append(batch_element_error),
+        )
+        [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
+
+        self.assertEqual(actual_error, expected_error)
+
+
+class Test_getWithRelationships(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerApi.ManagerInterface.Test_getWithRelationships.
+    """
+
+    def test_when_relation_unknown_then_empty_list_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        an_unknown_rel = TraitsData({"🐠🐟🐠🐟"})
+        self.__testGetWithRelationships(a_ref, [an_unknown_rel], [[]])
+
+    def test_when_multiple_relationship_types_then_same_number_of_returned_relationships(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationships(a_ref, [a_rel] * 5, [expected] * 5)
+
+    def test_when_relationship_trait_set_known_then_all_with_trait_set_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationships(a_ref, [a_rel], [expected])
+
+    def test_when_relationship_trait_set_known_and_props_set_then_filtered_refs_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = self.requireFixture("a_relationship_traits_data_with_props")
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+        self.__testGetWithRelationships(a_ref, [a_rel], [expected])
+
+    def test_when_result_trait_set_supplied_then_filtered_refs_returned(self):
+        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        result_trait_set = self.requireFixture("an_entity_trait_set_to_filter_by")
+        expected = self.requireEntityReferencesFixture("expected_related_entity_references")
+
+        self.__testGetWithRelationships(a_ref, [a_rel], [expected], result_trait_set)
+
+    def test_when_querying_missing_reference_then_resolution_error_is_returned(self):
+        self.__testGetWithRelationshipsError("a_reference_to_a_missing_entity")
+
+    def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
+        self.__testGetWithRelationshipsError(
+            "a_malformed_reference",
+            errorCode=BatchElementError.ErrorCode.kMalformedEntityReference,
+        )
+
+    def __testGetWithRelationships(
+        self, reference, relationships, expected_relations, resultTraitSet=None
+    ):
+        if resultTraitSet is None:
+            resultTraitSet = set()
+        context = self.createTestContext(access=Context.Access.kRead)
+        results = []
+
+        self._manager.getWithRelationships(
+            reference,
+            relationships,
+            context,
+            lambda _idx, traits_data: results.append(traits_data),
+            lambda idx, batch_element_error: self.fail(
+                f"getWithRelationships should not error for index {idx}: "
+                f"{batch_element_error.message}"
+            ),
+            resultTraitSet,
+        )
+
+        self.assertEqual(results, expected_relations)
+
+    def __testGetWithRelationshipsError(
+        self,
+        fixture_name,
+        access=Context.Access.kRead,
+        errorCode=BatchElementError.ErrorCode.kEntityResolutionError,
+    ):
+        reference = self._manager.createEntityReference(
+            self.requireFixture(fixture_name, skipTestIfMissing=True)
+        )
+
+        expected_msg = self.requireFixture("expected_error_message")
+        expected_error = BatchElementError(errorCode, expected_msg)
+
+        context = self.createTestContext()
+        context.access = access
+
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+
+        results = []
+        self._manager.getWithRelationships(
+            reference,
+            [a_rel],
+            context,
+            lambda _idx, _refs: self.fail("Unexpected success callback"),
+            lambda _idx, batch_element_error: results.append(batch_element_error),
+        )
+        [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
+
+        self.assertEqual(actual_error, expected_error)
+
+
 class Test_createChildState(FixtureAugmentedTestCase):
     """
     Tests that the createChildState method is implemented if createState
