@@ -2,6 +2,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
 [
     [ "BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag" ],
     [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
+    [ "PagedRelationshipSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "RelationshipSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005", null ],
@@ -14,7 +15,9 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "createEntityReferenceIfValid", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e", null ],
     [ "getWithRelationship", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833", null ],
+    [ "getWithRelationshipPaged", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f", null ],
     [ "getWithRelationships", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274", null ],
+    [ "getWithRelationshipsPaged", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf", null ],
     [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39", null ],
     [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df", null ],

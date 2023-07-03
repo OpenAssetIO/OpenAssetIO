@@ -1,5 +1,6 @@
 var namespaceopenassetio_1_1v1_1_1manager_api =
 [
+    [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface" ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", "classopenassetio_1_1v1_1_1manager_api_1_1_host" ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session" ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface" ],

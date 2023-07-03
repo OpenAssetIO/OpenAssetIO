@@ -239,12 +239,21 @@ Related Entities</h2></td></tr>
 <tr class="memitem:a979fbc668a26e76d957c31361958a005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td></tr>
 <tr class="memdesc:a979fbc668a26e76d957c31361958a005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity relationship query.  <a href="#a979fbc668a26e76d957c31361958a005">More...</a><br /></td></tr>
 <tr class="separator:a979fbc668a26e76d957c31361958a005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, EntityReferencePagerPtr)&gt;</td></tr>
+<tr class="memdesc:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful paged entity relationship query.  <a href="#ac0399582dfb38e9ddfcfab4b53eb63dc">More...</a><br /></td></tr>
+<tr class="separator:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a2e53170d27618549fc37692228a833"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const TraitsDataPtr &amp;relationshipTraitsData, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:a5a2e53170d27618549fc37692228a833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query entity references that are related to the input references by the relationship defined by a set of traits and their properties.  <a href="#a5a2e53170d27618549fc37692228a833">More...</a><br /></td></tr>
 <tr class="separator:a5a2e53170d27618549fc37692228a833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe642418e98985e59231b60dd5f32274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:afe642418e98985e59231b60dd5f32274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#afe642418e98985e59231b60dd5f32274">More...</a><br /></td></tr>
 <tr class="separator:afe642418e98985e59231b60dd5f32274"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a909bac8b95ffba9f142d88166e7b020f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f">getWithRelationshipPaged</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const TraitsDataPtr &amp;relationshipTraitsData, size_t pageSize, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memdesc:a909bac8b95ffba9f142d88166e7b020f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationship.  <a href="#a909bac8b95ffba9f142d88166e7b020f">More...</a><br /></td></tr>
+<tr class="separator:a909bac8b95ffba9f142d88166e7b020f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1981bb53386f9854a7ab8aab5c933ddf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf">getWithRelationshipsPaged</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, size_t pageSize, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memdesc:a1981bb53386f9854a7ab8aab5c933ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationships.  <a href="#a1981bb53386f9854a7ab8aab5c933ddf">More...</a><br /></td></tr>
+<tr class="separator:a1981bb53386f9854a7ab8aab5c933ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Publishing</h2></td></tr>
@@ -324,6 +333,20 @@ Publishing</h2></td></tr>
 <p>Callback signature used for an unsuccessful operation on an element in a batch. </p>
 <p>This will be called for errors that are specific to a particular reference in a batch. Exceptions can be thrown to indicate a whole-batch error.</p>
 <p>The appropriate error code should be used for these errors. See <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac0399582dfb38e9ddfcfab4b53eb63dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, EntityReferencePagerPtr)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature used for a successful paged entity relationship query. </p>
 
 </div>
 </div>
@@ -623,6 +646,83 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a909bac8b95ffba9f142d88166e7b020f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getWithRelationshipPaged </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramname"><em>relationshipTraitsData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pageSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>resultTraitSet</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Paged version of getWithRelationship. </p>
+<p>See non-paged <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833">getWithRelationship</a> for further documentation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">relationshipTraitsData</td><td>The traits of the relationship to query.</td></tr>
+    <tr><td class="paramname">entityReferences</td><td>A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationship for.</td></tr>
+    <tr><td class="paramname">pageSize</td><td>The size of each page of data. The page size is fixed for the lifetime of pager object given to the <code>successCallback</code>. Must be greater than zero.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful relationship query. It will be given the corresponding index of the entity reference in <code>entityReferences</code> as well as a pager capable of returning pages of entities that have the relationship to the entity at the corresponding index, specified by <code>relationshipTraitsData</code>. If there are no relations, the pager will have no pages. The callback will be called on the same thread that initiated the call to <code>getWithRelationshipPaged</code>. To access the data, retrieve the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html">EntityReferencePager</a> from the callback, and use its interface to traverse pages.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed relationship query. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>getWithRelationshipPaged</code>.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if <code>pageSize</code> is zero. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="afe642418e98985e59231b60dd5f32274"></a>
 <div class="memitem">
 <div class="memproto">
@@ -687,6 +787,84 @@ Publishing</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> in order to determine if the manager handles relationships of that type. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1981bb53386f9854a7ab8aab5c933ddf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getWithRelationshipsPaged </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReference</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
+          <td class="paramname"><em>relationshipTraitsDatas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pageSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>resultTraitSet</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Paged version of getWithRelationships. </p>
+<p>See non-paged <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274">getWithRelationships</a> for further documentation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">relationshipTraitsDatas</td><td>The traits of the relationships to query.</td></tr>
+    <tr><td class="paramname">entityReference</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationships for.</td></tr>
+    <tr><td class="paramname">pageSize</td><td>The size of each page of data. The page size is fixed for the lifetime of pager object given to the <code>successCallback</code>. Must be greater than zero.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful relationship query. It will be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> as well as a pager capable of returning pages of entities related to <code>entityReference</code> by the relationship at that corresponding index. If there are no relations, the pager will have no pages. The callback will be called on the same thread that initiated the call to <code>getWithRelationshipsPaged</code>. To access the data, retrieve the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html">EntityReferencePager</a> from the callback, and use its interface to traverse pages.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed relationship query. It will be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>getWithRelationshipsPaged</code>.</td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> in order to determine if the manager handles relationships of that type.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if <code>pageSize</code> is zero. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

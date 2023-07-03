@@ -245,9 +245,9 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2":[14,0,0,6,13,7],
 "classopenassetio_1_1v1_1_1_traits_data.html#ae46d963437c495a6ecc9ef063e71fef6":[14,0,0,6,13,6],
 "classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd":[14,0,0,6,13,8],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html":[14,0,0,6,0,0],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260":[14,0,0,6,0,0,4],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5c0c22c1c2681d3a1deae2da9f487870":[14,0,0,6,0,0,3],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#aaf88a5b2775fb4ece49e6797c9aa3b17":[14,0,0,6,0,0,1],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#af807ad34031837034e95bdfd729313c9":[14,0,0,6,0,0,0]
+"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html":[14,0,0,6,0,0],
+"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a041249f802c5bf4c2deae666610e03c4":[14,0,0,6,0,0,6],
+"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a194ae23b559b0a3ff5e3f12b6c73b9bf":[14,0,0,6,0,0,0],
+"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a4ec0f2a995822e560c3f7e6c5d173355":[14,0,0,6,0,0,2],
+"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a634d758e1811c32295f5665e4f8a0178":[14,0,0,6,0,0,5]
 };

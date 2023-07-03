@@ -5,6 +5,8 @@ var hierarchy =
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "EntityReference", "classopenassetio_1_1v1_1_1_entity_reference.html", null ],
+    [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html", null ],
+    [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Exception", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],

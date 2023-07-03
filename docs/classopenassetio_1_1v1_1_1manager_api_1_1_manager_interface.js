@@ -1,6 +1,7 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
 [
     [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
+    [ "PagedRelationshipSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "RelationshipSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005", null ],
@@ -12,7 +13,9 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "createState", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92", null ],
     [ "getWithRelationship", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a31fcbcd75be5c2483c5f03521665c38f", null ],
+    [ "getWithRelationshipPaged", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a83078b995011e5cc1de04721f9afd331", null ],
     [ "getWithRelationships", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8041a7bcf15eb9d77d63a9e0a4a872c3", null ],
+    [ "getWithRelationshipsPaged", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af7d211bb6db83cf06727927426bb1edd", null ],
     [ "identifier", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870", null ],
     [ "info", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f", null ],
