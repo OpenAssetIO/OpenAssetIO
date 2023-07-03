@@ -72,11 +72,14 @@ class Test_fixturesFromPyFile:
             inspect.cleandoc(
                 """
                                 from openassetio import constants
-                                fixtures = {'display_name_field': constants.kField_DisplayName}
+                                fixtures = {
+                                    'reference_prefix_field':
+                                        constants.kField_EntityReferencesMatchPrefix
+                                }
                                 """
             ),
         )
-        expected_dict = {"display_name_field": constants.kField_DisplayName}
+        expected_dict = {"reference_prefix_field": constants.kField_EntityReferencesMatchPrefix}
         assert fixturesFromPyFile(valid) == expected_dict
 
 
@@ -100,13 +103,18 @@ class Test_moduleFromFile:
             inspect.cleandoc(
                 """
                                 from openassetio import constants
-                                some_var = {'display_name_field': constants.kField_DisplayName}
+                                some_var = {
+                                    'reference_prefix_field':
+                                        constants.kField_EntityReferencesMatchPrefix
+                                }
                                 some_class = str
                                 """
             ),
         )
         module = moduleFromFile(valid)
-        assert module.some_var == {"display_name_field": constants.kField_DisplayName}
+        assert module.some_var == {
+            "reference_prefix_field": constants.kField_EntityReferencesMatchPrefix
+        }
         assert module.some_class is str
 
 

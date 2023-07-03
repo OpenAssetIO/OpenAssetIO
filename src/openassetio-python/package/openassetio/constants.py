@@ -21,23 +21,15 @@ Constants used throughout the OpenAssetIO API.
 See @ref openassetio.log.LoggerInterface for example.
 """
 
-kSupportedAttributeTypes = (str, int, float, bool, type(None))
-
-## @name Field Names
-## Field names are to be used whenever data is get or set from a dictionary by
-## key, rather than through an accessor in some wrapper class (eg:
-## Item/Specification etc...). Bare strings should never be used to help
-## protect against inconsistencies and future changes.
+## @name Info dict field Names
 ##
-## These fields should also be used, if necessary, when declaring derived
-## classes of a @ref Specification.
+## Bare strings should never be used to help protect against
+## inconsistencies and future changes.
+##
 ## @{
-
-kField_ItemType = "fnItemType"
 
 # General
 
-kField_DisplayName = "displayName"
 kField_SmallIcon = "smallIcon"
 kField_Icon = "icon"
 
@@ -48,65 +40,5 @@ kField_Icon = "icon"
 ## can be expensive (particularly in the case of python plug-ins
 ## called from multi-threaded C++).
 kField_EntityReferencesMatchPrefix = "entityReferencesMatchPrefix"
-
-# Files
-
-kField_FilePath = "path"
-kField_FileExtensions = "extensions"
-kField_FileIsEnumerated = "enumerated"
-
-# Hints
-
-kField_HintPath = "pathHint"
-kField_HintFilename = "filenameHint"
-kField_HintName = "nameHint"
-
-# Image data
-
-kField_PixelColorspace = "colorspace"
-kField_PixelAspectRatio = "aspectRatio"
-kField_PixelWidth = "width"
-kField_PixelHeight = "height"
-kField_PixelNumChannels = "numChannels"
-kField_PixelEncoding = "encoding"
-kField_PixelCompression = "compression"
-kField_PixelBitDepth = "bitDepth"
-
-# Task/Editorial
-
-kField_Status = "status"
-
-# Sequence
-
-kField_FrameStart = "startFrame"
-kField_FrameEnd = "endFrame"
-kField_FrameIn = "inFrame"
-kField_FrameOut = "outFrame"
-kField_FrameRate = "frameRate"
-kField_DropFrame = "dropFrame"
-kField_FieldDominance = "fieldDominance"
-
-kField_MediaFrameIn = "mediaInFrame"
-kField_MediaFrameOut = "mediaOutFrame"
-
-## @}
-
-
-## @name Setting Key Names
-## Name for keys in the manager settings dict, where applicable.
-## @{
-
-kSetting_ManagerIdentifier = "OpenAssetIO:managerIdentifier"
-kSetting_LoggingSeverity = "OpenAssetIO:loggingSeverity"
-
-## @}
-
-
-## @name Document actions
-## @see @needsref DocumentLocale
-## @{
-
-kDocumentAction_Save = "save"
-kDocumentAction_SaveAs = "saveAs"
 
 ## @}
