@@ -59,7 +59,6 @@ v1.0.0-alpha.xx
   objects, respectively.
   [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
 
-
 v1.0.0-alpha.12
 ---------------
 
