@@ -25,7 +25,12 @@ import pytest
 
 from openassetio import Context, EntityReference, TraitsData
 from openassetio.log import LoggerInterface
-from openassetio.managerApi import ManagerInterface, Host, HostSession
+from openassetio.managerApi import (
+    ManagerInterface,
+    Host,
+    HostSession,
+    EntityReferencePagerInterface,
+)
 from openassetio.hostApi import HostInterface
 
 
@@ -89,6 +94,15 @@ def a_host_session(a_host, mock_logger):
     (via a_host) and a mock_logger.
     """
     return HostSession(a_host, mock_logger)
+
+
+@pytest.fixture
+def mock_entity_reference_pager_interface():
+    """
+    Fixture for an `EntityReferencePagerInterface` that forwards method
+    calls to an internal public `mock.Mock` instance.
+    """
+    return MockEntityReferencePagerInterface()
 
 
 @pytest.fixture
@@ -252,9 +266,8 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert isinstance(relationshipTraitsData, TraitsData)
         self.__assertIsIterableOf(entityReferences, EntityReference)
         self.__assertCallingContext(context, hostSession)
-        if resultTraitSet is not None:
-            assert isinstance(resultTraitSet, set)
-            self.__assertIsIterableOf(resultTraitSet, str)
+        assert isinstance(resultTraitSet, set)
+        self.__assertIsIterableOf(resultTraitSet, str)
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.getWithRelationship(
@@ -282,13 +295,76 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
-        if resultTraitSet is not None:
-            assert isinstance(resultTraitSet, set)
-            self.__assertIsIterableOf(resultTraitSet, str)
+        assert isinstance(resultTraitSet, set)
+        self.__assertIsIterableOf(resultTraitSet, str)
         return self.mock.getWithRelationships(
             entityReference,
             relationshipTraitsDatas,
             resultTraitSet,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
+        )
+
+    # Paged overload
+    def getWithRelationshipPaged(
+        self,
+        entityReferences,
+        relationshipTraitsData,
+        resultTraitSet,
+        pageSize,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+    ):
+        assert isinstance(relationshipTraitsData, TraitsData)
+        self.__assertIsIterableOf(entityReferences, EntityReference)
+        self.__assertCallingContext(context, hostSession)
+        assert isinstance(resultTraitSet, set)
+        self.__assertIsIterableOf(resultTraitSet, str)
+        assert isinstance(pageSize, int)
+        assert pageSize > 0
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.getWithRelationshipPaged(
+            entityReferences,
+            relationshipTraitsData,
+            resultTraitSet,
+            pageSize,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
+        )
+
+    # Paged overload
+    def getWithRelationshipsPaged(
+        self,
+        entityReference,
+        relationshipTraitsDatas,
+        resultTraitSet,
+        pageSize,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+    ):
+        self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
+        assert isinstance(entityReference, EntityReference)
+        self.__assertCallingContext(context, hostSession)
+        assert isinstance(pageSize, int)
+        assert pageSize > 0
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        assert isinstance(resultTraitSet, set)
+        self.__assertIsIterableOf(resultTraitSet, str)
+        return self.mock.getWithRelationshipsPaged(
+            entityReference,
+            relationshipTraitsDatas,
+            resultTraitSet,
+            pageSize,
             context,
             hostSession,
             successCallback,
@@ -369,6 +445,28 @@ class MockLogger(LoggerInterface):
 
     def log(self, severity, message):
         self.mock.log(severity, message)
+
+
+class MockEntityReferencePagerInterface(EntityReferencePagerInterface):
+    """
+    `EntityReferencePagerInterface` implementation that delegates all
+     calls to a public `Mock` instance.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.mock = mock.create_autospec(
+            EntityReferencePagerInterface, spec_set=True, instance=True
+        )
+
+    def hasNext(self, hostSession):
+        return self.mock.hasNext(hostSession)
+
+    def get(self, hostSession):
+        return self.mock.get(hostSession)
+
+    def next(self, hostSession):
+        self.mock.next(hostSession)
 
 
 #

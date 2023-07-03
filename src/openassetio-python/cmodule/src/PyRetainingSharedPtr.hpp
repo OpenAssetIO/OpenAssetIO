@@ -10,6 +10,7 @@
  * The solution was inspired by
  * https://github.com/pybind/pybind11/issues/1546
  */
+#include <functional>
 #include <memory>
 #include <type_traits>
 #include <utility>
@@ -168,6 +169,14 @@ struct RetainPyArgs {
   template <auto Fn>
   static auto forFn() {
     return decorator<Fn>(Fn);
+  }
+
+  template <class Ret, class... Args>
+  static auto forFn(std::function<Ret(Args...)> func) {
+    return py::cpp_function(
+        [func = std::move(func)](ConvertToPyRetainingSharedPtrT<Args>... args) {
+          return func(std::forward<ConvertToPyRetainingSharedPtrT<Args>>(args)...);
+        });
   }
 
  private:

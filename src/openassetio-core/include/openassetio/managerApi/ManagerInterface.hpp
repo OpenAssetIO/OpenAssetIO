@@ -15,6 +15,7 @@
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
+OPENASSETIO_FWD_DECLARE(managerApi, EntityReferencePagerInterface)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 OPENASSETIO_FWD_DECLARE(managerApi, HostSession)
 OPENASSETIO_FWD_DECLARE(Context)
@@ -863,6 +864,127 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                                     const HostSessionPtr& hostSession,
                                     const RelationshipSuccessCallback& successCallback,
                                     const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Callback signature used for a successful paged entity relationship
+   * query.
+   */
+  using PagedRelationshipSuccessCallback =
+      std::function<void(std::size_t, managerApi::EntityReferencePagerInterfacePtr)>;
+
+  /**
+   * Paged version of getWithRelationship. See non-paged
+   * @ref getWithRelationship for further documentation.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param entityReferences A list of @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param pageSize The size of each page of data. The page size must
+   * be fixed for the lifetime of pager object given to the @p
+   * successCallback. Guaranteed to be greater than zero.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that should be called for each
+   * successful relationship query. It should be given the corresponding
+   * index of the entity reference in @p entityReferences as well as a
+   * pager capable of returning pages of entities that have the
+   * relationship to the entity at the corresponding index, specified by
+   * @p relationshipTraitsData.
+   *
+   * The pager should be created by implementing @ref
+   * EntityReferencePagerInterface, and should return results in pages
+   * of size specified by @p pageSize
+   *
+   * If there are no relations, the pager should have no pages. The
+   * callback should be called on the same thread that initiated the
+   * call to `getWithRelationship`. To access the data, retrieve the
+   * @fqref{hostApi.EntityReferencePager} from the callback, and use its
+   * interface to traverse pages.
+   *
+   * @param errorCallback Callback that should be called for each failed
+   * relationship query. It should be given the corresponding index of
+   * the entity reference in @p entityReferences along with a populated
+   * BatchElementError (see @ref BatchElementError.ErrorCode
+   * "ErrorCodes"). The callback should be called on the same thread
+   * that initiated the call to `getWithRelationship`.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   */
+  virtual void getWithRelationshipPaged(const EntityReferences& entityReferences,
+                                        const TraitsDataPtr& relationshipTraitsData,
+                                        const trait::TraitSet& resultTraitSet, size_t pageSize,
+                                        const ContextConstPtr& context,
+                                        const HostSessionPtr& hostSession,
+                                        const PagedRelationshipSuccessCallback& successCallback,
+                                        const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Paged version of getWithRelationships. See non-paged
+   * @ref getWithRelationships for further documentation.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
+   *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Guaranteed to be greater than zero.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that should be called for each
+   * successful relationship query. It should be given the corresponding
+   * index of the relationship in @p relationshipTraitsDatas as well as
+   * a pager capable of returning pages of entities related to @p
+   * entityReference by the relationship at that corresponding index.
+   *
+   * The pager should be created by implementing @ref
+   * EntityReferencePagerInterface, and should return results in pages
+   * of size specified by @p pageSize
+   *
+   * If there are no relations, the pager should have no pages. The
+   * callback should be called on the same thread that initiated the
+   * call to `getWithRelationship`. To access the data, retrieve the
+   * @fqref{hostApi.EntityReferencePager} from the callback, and use its
+   * interface to traverse pages.
+   *
+   * @param errorCallback Callback that should be called for each failed
+   * relationship query. It should be given the corresponding index of
+   * the relationship in @p relationshipTraitsDatas along with a
+   * populated BatchElementError (see
+   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
+   * should be called on the same thread that initiated the call to
+   * `getWithRelationships`.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @note The @ref trait_set of any queried relationship can be passed
+   * to @ref managementPolicy in order to determine if the manager
+   * handles relationships of that type.
+   */
+  virtual void getWithRelationshipsPaged(const EntityReference& entityReference,
+                                         const trait::TraitsDatas& relationshipTraitsDatas,
+                                         const trait::TraitSet& resultTraitSet, size_t pageSize,
+                                         const ContextConstPtr& context,
+                                         const HostSessionPtr& hostSession,
+                                         const PagedRelationshipSuccessCallback& successCallback,
+                                         const BatchElementErrorCallback& errorCallback);
 
   /// @}
   /**

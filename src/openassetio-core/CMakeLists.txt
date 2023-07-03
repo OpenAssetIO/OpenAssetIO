@@ -70,6 +70,7 @@ target_sources(
     src/hostApi/Manager.cpp
     src/hostApi/ManagerFactory.cpp
     src/hostApi/ManagerImplementationFactoryInterface.cpp
+    src/hostApi/EntityReferencePager.cpp
     src/log/ConsoleLogger.cpp
     src/log/LoggerInterface.cpp
     src/log/SeverityFilter.cpp

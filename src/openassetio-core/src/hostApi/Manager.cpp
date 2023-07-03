@@ -5,7 +5,9 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
+#include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
@@ -222,6 +224,60 @@ void Manager::getWithRelationships(const EntityReference &entityReference,
                                    const trait::TraitSet &resultTraitSet) {
   managerInterface_->getWithRelationships(entityReference, relationshipTraitsDatas, resultTraitSet,
                                           context, hostSession_, successCallback, errorCallback);
+}
+
+void Manager::getWithRelationshipPaged(
+    const EntityReferences &entityReferences, const TraitsDataPtr &relationshipTraitsData,
+    size_t pageSize, const ContextConstPtr &context,
+    const Manager::PagedRelationshipSuccessCallback &successCallback,
+    const Manager::BatchElementErrorCallback &errorCallback,
+    const trait::TraitSet &resultTraitSet) {
+  if (pageSize == 0) {
+    throw std::out_of_range{"pageSize must be greater than zero."};
+  }
+
+  /* The ManagerInterface signature provides an `EntityReferencePagerInterfacePtr`
+   * in the callback type, as we don't want to force the manager to
+   * construct a host type (`EntityReferencePager`), as it shouldn't
+   * have any knowledge about that.
+   * This callback does the converting construction and forwards through.
+   */
+  const auto convertingPagerSuccessCallback =
+      [&hostSession = this->hostSession_, &successCallback](
+          std::size_t idx, managerApi::EntityReferencePagerInterfacePtr pagerInterface) {
+        auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
+        successCallback(idx, std::move(pager));
+      };
+  managerInterface_->getWithRelationshipPaged(entityReferences, relationshipTraitsData,
+                                              resultTraitSet, pageSize, context, hostSession_,
+                                              convertingPagerSuccessCallback, errorCallback);
+}
+
+void Manager::getWithRelationshipsPaged(
+    const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
+    size_t pageSize, const ContextConstPtr &context,
+    const Manager::PagedRelationshipSuccessCallback &successCallback,
+    const Manager::BatchElementErrorCallback &errorCallback,
+    const trait::TraitSet &resultTraitSet) {
+  if (pageSize == 0) {
+    throw std::out_of_range{"pageSize must be greater than zero."};
+  }
+
+  /* The ManagerInterface signature provides an `EntityReferencePagerInterfacePtr`
+   * in the callback type, as we don't want to force the manager to
+   * construct a host type (`EntityReferencePager`), as it shouldn't
+   * have any knowledge about that.
+   * This callback does the converting construction and forwards through.
+   */
+  const auto convertingPagerSuccessCallback =
+      [&hostSession = this->hostSession_, &successCallback](
+          std::size_t idx, managerApi::EntityReferencePagerInterfacePtr pagerInterface) {
+        auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
+        successCallback(idx, std::move(pager));
+      };
+  managerInterface_->getWithRelationshipsPaged(entityReference, relationshipTraitsDatas,
+                                               resultTraitSet, pageSize, context, hostSession_,
+                                               convertingPagerSuccessCallback, errorCallback);
 }
 
 void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
