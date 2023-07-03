@@ -1,11 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"group__oa___error_code__aliases.html#gafa91adb36c274fe10b67b6884993ab02":[12,0,0,0,0],
-"group__oa___info_dictionary.html":[12,0,2],
-"group__oa___info_dictionary.html#ga077a8417194551119866c52c0fcc839f":[12,0,2,12],
-"group__oa___info_dictionary.html#ga3f825e01a716d788782ae69bfe0cbb46":[12,0,2,3],
-"group__oa___info_dictionary.html#ga4b5945074e30c5e0a4cd079124a17102":[12,0,2,4],
-"group__oa___info_dictionary.html#ga5a5fa07b1c062a4e56c35243cfdf654b":[12,0,2,8],
 "group__oa___info_dictionary.html#ga65c83911089ba813124002dcb9d298ae":[12,0,2,1],
 "group__oa___info_dictionary.html#ga9836ad632b24c104fff6ba26649b814c":[12,0,2,13],
 "group__oa___info_dictionary.html#ga9b2ece7de7976c20e8c7085628e50f9b":[12,0,2,7],

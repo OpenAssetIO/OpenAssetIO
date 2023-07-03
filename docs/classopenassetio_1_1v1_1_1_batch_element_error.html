@@ -198,12 +198,12 @@ Public Attributes</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485"></a>kEntityAccessError&#160;</td><td class="fielddoc">
 <p>Error code used when the reference is valid, but the supplied <a class="el" href="glossary.html#Context">Context</a> access is invalid for the operation. </p>
-<p>A common example of this would be resolving a read-only entity with a write access <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, or during <a class="el" href="glossary.html#preflight">preflight</a> or <a class="el" href="glossary.html#register">register</a> when the target entity s read-only and does not support versioning. </p>
+<p>A common example of this would be resolving a read-only entity with a write access <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, or during <a class="el" href="glossary.html#preflight">preflight</a> or <a class="el" href="glossary.html#register">register</a> when the target entity s read-only and does not support updating. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5"></a>kEntityResolutionError&#160;</td><td class="fielddoc">
 <p>Error code used during <a class="el" href="glossary.html#resolve">entity resolution</a> when the reference itself is valid, but it is not possible to retrieve data for the referenced <a class="el" href="glossary.html#entity">entity</a>. </p>
 <p>This could be because it does not exist, or some other entity-specific reason that this data cannot be resolved for a specific entity. This code should not be used if an entity does not have a requested trait - simply do not set that trait in the resulting data. Fatal runtime errors during resolution (eg: server connection errors) should be raised as exceptions, rather than per-entity errors.</p>
-<p>This code is also used during version finalisation and any other entity-based operations on a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that fail for some reason. </p>
+<p>This code is also used during finalisation and any other entity-based operations on a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that fail for some reason. </p>
 </td></tr>
 </table>
 

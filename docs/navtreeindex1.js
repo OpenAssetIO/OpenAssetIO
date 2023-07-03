@@ -1,11 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a727fbc99a4a8ec209d5b22296472c533":[14,0,0,6,0,0,1],
-"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a83bd0f7809c0df53007cd426b77c5772":[14,0,0,6,0,0,4],
-"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#ae14b8d6ea5c438579e1852a9d2c108b6":[14,0,0,6,0,0,3],
-"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#ae8559e19647f250df49f9bc80f5b8970":[14,0,0,6,0,0,7],
-"classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#af484f66805605a8a3961fc84adde2936":[14,0,0,6,0,0,8],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html":[14,0,0,6,0,1],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a2a0b607f49506ffe57659036be754260":[14,0,0,6,0,1,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5c0c22c1c2681d3a1deae2da9f487870":[14,0,0,6,0,1,3],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#aaf88a5b2775fb4ece49e6797c9aa3b17":[14,0,0,6,0,1,1],
@@ -161,8 +155,8 @@ var NAVTREEINDEX1 =
 "examples.html#examples_api_initialization":[3,0],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
-"functions.html":[14,3,0,0],
 "functions.html":[14,3,0],
+"functions.html":[14,3,0,0],
 "functions_0x7e.html":[14,3,0,21],
 "functions_a.html":[14,3,0,1],
 "functions_b.html":[14,3,0,2],
@@ -249,5 +243,11 @@ var NAVTREEINDEX1 =
 "group__oa___error_code__aliases.html#ga26e16f97d68bf32338274a047416cfa1":[12,0,0,0,4],
 "group__oa___error_code__aliases.html#ga8ff11b5a10c75cd2279b89ab799fbaf5":[12,0,0,0,3],
 "group__oa___error_code__aliases.html#gaf4b1afd6dbdf87cd856f33b1b933d1c0":[12,0,0,0,2],
-"group__oa___error_code__aliases.html#gaf56a26651b2c7467e7ccb26d07886038":[12,0,0,0,1]
+"group__oa___error_code__aliases.html#gaf56a26651b2c7467e7ccb26d07886038":[12,0,0,0,1],
+"group__oa___error_code__aliases.html#gafa91adb36c274fe10b67b6884993ab02":[12,0,0,0,0],
+"group__oa___info_dictionary.html":[12,0,2],
+"group__oa___info_dictionary.html#ga077a8417194551119866c52c0fcc839f":[12,0,2,12],
+"group__oa___info_dictionary.html#ga3f825e01a716d788782ae69bfe0cbb46":[12,0,2,3],
+"group__oa___info_dictionary.html#ga4b5945074e30c5e0a4cd079124a17102":[12,0,2,4],
+"group__oa___info_dictionary.html#ga5a5fa07b1c062a4e56c35243cfdf654b":[12,0,2,8]
 };
