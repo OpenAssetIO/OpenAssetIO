@@ -165,7 +165,8 @@
  * @subsection manager_todo_related_entities Supporting Relationships
  *
  * Relationship support is not a pre-requisite, but allows for advanced
- * functionality in many hosts.
+ * functionality in many hosts, such as handling concepts like
+ * versioning.
  *
  * Relationships aren't required for publishing itself, as the parent
  * for an new entity is always inferred from the entity addressed by the

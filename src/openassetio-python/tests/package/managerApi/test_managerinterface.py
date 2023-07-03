@@ -146,53 +146,6 @@ class Test_ManagerInterface_defaultEntityReference:
         assert refs == ["", "", ""]
 
 
-class Test_ManagerInterface_entityVersion:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.entityVersion)
-        assert method_introspector.is_implemented_once(ManagerInterface, "entityVersion")
-
-    def test_when_given_single_ref_then_returns_single_empty_name(self, manager_interface):
-        names = manager_interface.entityVersion([Mock()], Mock(), Mock())
-        assert names == [""]
-
-    def test_when_given_multiple_refs_then_returns_corresponding_number_of_empty_names(
-        self, manager_interface
-    ):
-        names = manager_interface.entityVersion([Mock(), Mock(), Mock()], Mock(), Mock())
-        assert names == ["", "", ""]
-
-
-class Test_ManagerInterface_entityVersions:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.entityVersions)
-        assert method_introspector.is_implemented_once(ManagerInterface, "entityVersions")
-
-    def test_when_given_single_ref_then_returns_single_empty_version_dicts(
-        self, manager_interface
-    ):
-        versions = manager_interface.entityVersions([Mock()], Mock(), Mock())
-        assert versions == [{}]
-
-    def test_when_given_multiple_refs_then_returns_corresponding_number_of_empty_version_dicts(
-        self, manager_interface
-    ):
-        versions = manager_interface.entityVersions([Mock(), Mock(), Mock()], Mock(), Mock())
-        assert versions == [{}, {}, {}]
-
-
-class Test_ManagerInterface_finalizedEntityVersion:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.finalizedEntityVersion)
-        assert method_introspector.is_implemented_once(ManagerInterface, "finalizedEntityVersion")
-
-    def test_when_given_refs_then_returns_refs_unaltered(self, manager_interface):
-        refs = Mock()
-
-        finalized_refs = manager_interface.finalizedEntityVersion(refs, Mock(), Mock())
-
-        assert finalized_refs == refs
-
-
 class Test_ManagerInterface_getWithRelationship:
     def test_method_defined_in_python(self, method_introspector):
         assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)

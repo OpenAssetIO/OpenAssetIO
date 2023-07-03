@@ -168,30 +168,6 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         return self.mock.defaultEntityReference(traitSets, context, hostSession)
 
-    def entityVersion(self, entityRefs, context, hostSession):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertCallingContext(context, hostSession)
-        return self.mock.entityVersion(entityRefs, context, hostSession)
-
-    def entityVersions(
-        self, entityRefs, context, hostSession, includeMetaVersions=False, maxNumVersions=-1
-    ):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(includeMetaVersions, bool)
-        assert isinstance(maxNumVersions, int)
-        return self.mock.entityVersions(
-            entityRefs, context, hostSession, includeMetaVersions, maxNumVersions
-        )
-
-    def finalizedEntityVersion(self, entityRefs, context, hostSession, overrideVersionName=None):
-        self.__assertIsIterableOf(entityRefs, EntityReference)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(overrideVersionName, str) or overrideVersionName is None
-        return self.mock.finalizedEntityVersion(
-            entityRefs, context, hostSession, overrideVersionName
-        )
-
     def preflight(
         self, targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
     ):

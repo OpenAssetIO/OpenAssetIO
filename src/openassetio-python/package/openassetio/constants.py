@@ -108,14 +108,5 @@ kSetting_LoggingSeverity = "OpenAssetIO:loggingSeverity"
 
 kDocumentAction_Save = "save"
 kDocumentAction_SaveAs = "saveAs"
-kDocumentAction_SaveNewVersion = "saveNewVersion"
-
-## @}
-
-
-## @name Version dict keys
-## @{
-
-kVersionDict_OrderKey = "__order__"
 
 ## @}
