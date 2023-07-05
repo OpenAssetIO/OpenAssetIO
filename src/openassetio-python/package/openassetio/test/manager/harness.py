@@ -199,7 +199,12 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         self._fixtures = fixtures  # type: dict
         self._manager = manager  # type: hostApi.Manager
         self._locale = locale  # type: openassetio.Specification
+
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
+
+        # Flush caches after every test, even if there was an error
+        # during setUp.
+        self.addCleanup(self._manager.flushCaches)
 
     def createTestContext(self, access=None):
         """
