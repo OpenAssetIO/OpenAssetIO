@@ -71,6 +71,15 @@ class Test_ManagerInterface_info:
         assert info == {}
 
 
+class Test_ManagerInterface_flushCaches:
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(ManagerInterface.flushCaches)
+        assert method_introspector.is_implemented_once(ManagerInterface, "flushCaches")
+
+    def test_default_implementation_exists(self, a_host_session):
+        ManagerInterface().flushCaches(a_host_session)
+
+
 class Test_ManagerInterface_createState:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(ManagerInterface.createState)

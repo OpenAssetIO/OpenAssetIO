@@ -68,6 +68,7 @@ void registerManager(const py::module& mod) {
       .def("info", &Manager::info)
       .def("settings", &Manager::settings)
       .def("initialize", &Manager::initialize, py::arg("managerSettings"))
+      .def("flushCaches", &Manager::flushCaches)
       .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSets"),
            py::arg("context").none(false))
       .def("createContext", &Manager::createContext)

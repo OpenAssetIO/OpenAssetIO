@@ -193,23 +193,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     ## @}
 
     ##
-    # @name Initialization
-    #
-    ## @{
-
-    def flushCaches(self, hostSession):
-        """
-        Clears any internal caches.  Only applicable if the
-        implementation makes use of any caching, otherwise it is a
-        no-op. In caching interfaces, this should cause any retained
-        data to be discarded to ensure future queries are fresh.
-
-        @unstable
-        """
-
-    ## @}
-
-    ##
     # @name Entity Reference inspection
     #
     #

@@ -136,26 +136,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     ## @}
 
     ##
-    # @name Initialization
-    #
-    ## @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def flushCaches(self):
-        """
-        Clears any internal caches.  Only applicable if the manager
-        makes use of any caching, otherwise it is a no-op.  In caching
-        interfaces, this should cause any retained data to be discarded
-        to ensure future queries are fresh.
-
-        @unstable
-        """
-        return self.__impl.flushCaches(self.__hostSession)
-
-    ## @}
-
-    ##
     # @name Entity Reference inspection
     #
     # @{

@@ -68,6 +68,10 @@ v1.0.0-alpha.xx
   objects, respectively.
   [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
 
+- Migrated the `ManagerInterface`/`Manager` `flushCaches` method to C++
+  with Python bindings.
+  [#994](https://github.com/OpenAssetIO/OpenAssetIO/issues/994)
+
 v1.0.0-alpha.12
 ---------------
 
