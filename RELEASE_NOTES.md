@@ -22,6 +22,10 @@ v1.0.0-alpha.xx
   details.
   [#980](https://github.com/OpenAssetIO/OpenAssetIO/issues/980)
 
+- Updated `castToPyObject` to convert a `nullptr` input to a Python
+  `None`, rather than throwing an exception.
+  [#988](https://github.com/OpenAssetIO/OpenAssetIO/issues/988)
+
 ### Improvements
 
 - Added paged implementations of `getWithRelationship` and
@@ -41,7 +45,6 @@ v1.0.0-alpha.xx
 - Added coverage of the `getWithRelationship[s]` methods of the
   `ManagerInterface` to the `openassetio.manager.test` harness.
   [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
-
 
 - Added `requireEntityReferenceFixture` and
   `requireEntityReferencesFixture` utility methods for cases written for
