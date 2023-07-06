@@ -156,7 +156,11 @@ SCENARIO("Casting to a C++ object binds object lifetime") {
   }
 }
 
-SCENARIO("Attempting to cast to an unregistered type") {
+SCENARIO("Attempting to cast from an incorrect Python type") {
+  using openassetio::hostApi::Manager;
+  using openassetio::hostApi::ManagerPtr;
+  namespace converter = openassetio::python::converter;
+
   GIVEN("an invalid for casting Python object") {
     // Use pybind to conveniently create a CPython object with a ref count of 1.
     const py::object pyClass = py::module_::import("decimal").attr("Decimal");
@@ -173,13 +177,17 @@ SCENARIO("Attempting to cast to an unregistered type") {
      * mode for details)"
      */
     WHEN("object is converted to a C++ object") {
-      REQUIRE_THROWS_WITH(
-          openassetio::python::converter::castFromPyObject<openassetio::hostApi::Manager>(
-              pyDecimal),
-          Catch::Matchers::StartsWith("Unable to cast Python instance"));
+      REQUIRE_THROWS_WITH(converter::castFromPyObject<Manager>(pyDecimal),
+                          Catch::Matchers::StartsWith("Unable to cast Python instance"));
     }
 
     Py_DECREF(pyDecimal);
+  }
+
+  WHEN("None is converted to a C++ object") {
+    const ManagerPtr manager = converter::castFromPyObject<Manager>(Py_None);
+
+    THEN("C++ object pointer is null") { CHECK(manager.get() == nullptr); }
   }
 }
 
@@ -271,12 +279,10 @@ TEMPLATE_LIST_TEST_CASE("Appropriate classes have castFromPyObject functions", "
 }
 
 TEMPLATE_LIST_TEST_CASE("Appropriate classes have castToPyObject functions", "", CastableClasses) {
-  // These tests check that the nullptr exception works, but also
+  // These tests check that nullptrs are converted to None, but also
   // serve to verify that the functions exist for all expected types.
   const typename TestType::Ptr empty = nullptr;
-  REQUIRE_THROWS_WITH(openassetio::python::converter::castToPyObject(empty),
-                      std::string("Attempting to cast a nullptr objectPtr in "
-                                  "openassetio::python::converter::castToPyObject"));
+  CHECK(openassetio::python::converter::castToPyObject(empty) == Py_None);
 }
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

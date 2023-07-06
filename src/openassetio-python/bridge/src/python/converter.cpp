@@ -35,12 +35,6 @@ PyObject* castToPyObject(const T& objectPtr) {
   // scope
   const py::error_scope previousErrorState;
 
-  if (objectPtr == nullptr) {
-    throw std::invalid_argument(
-        "Attempting to cast a nullptr objectPtr in "
-        "openassetio::python::converter::castToPyObject");
-  }
-
   py::object pybindObj = py::cast(objectPtr);
 
   // Check to see if the py::cast has spawned a python error
