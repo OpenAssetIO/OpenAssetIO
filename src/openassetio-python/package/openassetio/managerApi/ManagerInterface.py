@@ -171,10 +171,11 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     def updateTerminology(self, stringDict, hostSession):
         """
         This call gives the manager a chance to customize certain
-        strings used in a host's UI/messages. See @ref openassetio.constants
-        "constants"
-        for known keys. The values in stringDict can be freely updated
-        to match the terminology of the asset management system you are
+        strings used in a host's UI/messages.
+
+        See @ref openassetio.hostApi.terminology "terminology" for known
+        keys. The values in stringDict can be freely updated to match
+        the terminology of the asset management system you are
         representing.
 
         For example, you may way a host's "Publish Clip" menu item to
@@ -183,7 +184,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
 
         @return `None`
 
-        @see @ref openassetio.constants "constants"
         @see @ref openassetio.hostApi.terminology.defaultTerminology
         "terminology.defaultTerminology"
 
