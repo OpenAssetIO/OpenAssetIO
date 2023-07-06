@@ -26,6 +26,11 @@ v1.0.0-alpha.xx
   `None`, rather than throwing an exception.
   [#988](https://github.com/OpenAssetIO/OpenAssetIO/issues/988)
 
+- Removed out of date constants from the Python `openassetio.constants`
+  module. These have been replaced by domain-specific traits and
+  specifications defined in their own repositories, such as
+  [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation).
+
 ### Improvements
 
 - Added paged implementations of `getWithRelationship` and
@@ -53,7 +58,6 @@ v1.0.0-alpha.xx
   object, or a list-of-strings fixture into a list of `EntityReference`
   objects, respectively.
   [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
-
 
 v1.0.0-alpha.12
 ---------------
