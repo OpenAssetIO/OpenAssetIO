@@ -224,8 +224,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * There are certain optional keys that may be used by a host or
    * the API:
    *
-   *   @li openassetio.constants.kField_SmallIcon (upto 32x32)
-   *   @li openassetio.constants.kField_Icon (any size)
+   *   @li openassetio.constants.kInfoKey_SmallIcon (upto 32x32)
+   *   @li openassetio.constants.kInfoKey_Icon (any size)
    *
    * Because it can often be expensive to bridge between languages,
    * info can also contain an additional field - a prefix that
@@ -237,7 +237,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * not. Note, not all invocations require this optimization, so
    * @ref isEntityReferenceString should be implemented regardless.
    *
-   *   @li openassetio.constants.kField_EntityReferencesMatchPrefix
+   *   @li openassetio.constants.kInfoKey_EntityReferencesMatchPrefix
    *
    * @return Map of info string key to primitive value.
    */

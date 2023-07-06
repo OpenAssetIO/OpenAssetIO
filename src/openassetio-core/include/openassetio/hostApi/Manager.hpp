@@ -112,7 +112,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * There are certain well-known keys that may be set by the
    * Manager. They include things such as
-   * openassetio.constants.kField_EntityReferencesMatchPrefix.
+   * openassetio.constants.kInfoKey_EntityReferencesMatchPrefix.
    */
   [[nodiscard]] InfoDictionary info() const;
 
@@ -412,7 +412,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @see @ref resolve
    *
    * @todo Make use of
-   * openassetio.constants.kField_EntityReferencesMatchPrefix if
+   * openassetio.constants.kInfoKey_EntityReferencesMatchPrefix if
    * supplied, especially when bridging between C/python.
    */
   [[nodiscard]] bool isEntityReferenceString(const Str& someString) const;

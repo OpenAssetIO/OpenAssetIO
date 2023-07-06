@@ -77,7 +77,7 @@ class Test_info(FixtureAugmentedTestCase):
     """
 
     # TODO(DF): Once `isEntityReferenceString` tests are added, check
-    # that `kField_EntityReferencesMatchPrefix` in info dict is used.
+    # that `kInfoKey_EntityReferencesMatchPrefix` in info dict is used.
     def test_is_correct_type(self):
         self.assertIsStringKeyPrimitiveValueDict(self._manager.info())
 

@@ -74,12 +74,12 @@ class Test_fixturesFromPyFile:
                                 from openassetio import constants
                                 fixtures = {
                                     'reference_prefix_field':
-                                        constants.kField_EntityReferencesMatchPrefix
+                                        constants.kInfoKey_EntityReferencesMatchPrefix
                                 }
                                 """
             ),
         )
-        expected_dict = {"reference_prefix_field": constants.kField_EntityReferencesMatchPrefix}
+        expected_dict = {"reference_prefix_field": constants.kInfoKey_EntityReferencesMatchPrefix}
         assert fixturesFromPyFile(valid) == expected_dict
 
 
@@ -105,7 +105,7 @@ class Test_moduleFromFile:
                                 from openassetio import constants
                                 some_var = {
                                     'reference_prefix_field':
-                                        constants.kField_EntityReferencesMatchPrefix
+                                        constants.kInfoKey_EntityReferencesMatchPrefix
                                 }
                                 some_class = str
                                 """
@@ -113,7 +113,7 @@ class Test_moduleFromFile:
         )
         module = moduleFromFile(valid)
         assert module.some_var == {
-            "reference_prefix_field": constants.kField_EntityReferencesMatchPrefix
+            "reference_prefix_field": constants.kInfoKey_EntityReferencesMatchPrefix
         }
         assert module.some_class is str
 

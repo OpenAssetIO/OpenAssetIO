@@ -30,6 +30,15 @@ v1.0.0-alpha.xx
   module. These have been replaced by domain-specific traits and
   specifications defined in their own repositories, such as
   [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation).
+  Migrated remaining constants to C++ with Python bindings
+  [#998](https://github.com/OpenAssetIO/OpenAssetIO/issues/998)
+
+### Deprecated
+
+- Renamed manager info dictionary key constants, which were prefixed
+  with `kField_`, to use an `InfoKey_` prefix instead. The deprecated
+  constant variables will be removed in a future release.
+  [#998](https://github.com/OpenAssetIO/OpenAssetIO/issues/998)
 
 ### Improvements
 

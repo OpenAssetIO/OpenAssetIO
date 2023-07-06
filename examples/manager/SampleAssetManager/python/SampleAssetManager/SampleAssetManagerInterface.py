@@ -63,7 +63,7 @@ class SampleAssetManagerInterface(ManagerInterface):
         # kind of matching, you should set this key. It allows for
         # multi-threaded reference testing in C++ as it avoids the need
         # to acquire the GIL and enter Python.
-        return {constants.kField_EntityReferencesMatchPrefix: "sam:///"}
+        return {constants.kInfoKey_EntityReferencesMatchPrefix: "sam:///"}
 
     def managementPolicy(self, traitSets, context, hostSession):
         # pylint: disable=unused-argument

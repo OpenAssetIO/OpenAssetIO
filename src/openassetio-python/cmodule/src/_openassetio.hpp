@@ -64,6 +64,9 @@ using RetainCommonPyArgs = openassetio::RetainPyArgs<
 /// Concise pybind alias.
 namespace py = pybind11;
 
+/// Register constants for use as dict keys.
+void registerConstants(const py::module& mod);
+
 /// Register the LoggerInterface class with Python.
 void registerLoggerInterface(const py::module& mod);
 
