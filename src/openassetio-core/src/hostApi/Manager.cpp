@@ -5,8 +5,10 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/constants.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -37,7 +39,34 @@ void throwFromBatchElementError(std::size_t index, BatchElementError error) {
   }
 }
 
+/**
+ * Extract the entity reference prefix from a manager plugin's info
+ * dictionary, if available.
+ */
+std::optional<Str> entityReferencePrefixFromInfo(const log::LoggerInterfacePtr &logger,
+                                                 const InfoDictionary &info) {
+  // Check if the info dict has the prefix key.
+  if (auto iter = info.find(Str{constants::kInfoKey_EntityReferencesMatchPrefix});
+      iter != info.end()) {
+    if (const auto *prefixPtr = std::get_if<openassetio::Str>(&iter->second)) {
+      std::string msg = "Entity reference prefix '";
+      msg += *prefixPtr;
+      msg +=
+          "' provided by manager's info() dict. Subsequent calls to isEntityReferenceString will"
+          " use this prefix rather than call the manager's implementation.";
+      logger->debugApi(msg);
+
+      return *prefixPtr;
+    }
+
+    logger->warning("Entity reference prefix given but is an invalid type: should be a string.");
+  }
+
+  // Prefix string not found, so return unset optional.
+  return {};
+}
 }  // namespace
+
 namespace hostApi {
 
 ManagerPtr Manager::make(managerApi::ManagerInterfacePtr managerInterface,
@@ -60,6 +89,9 @@ InfoDictionary Manager::settings() const { return managerInterface_->settings(ho
 
 void Manager::initialize(InfoDictionary managerSettings) {
   managerInterface_->initialize(std::move(managerSettings), hostSession_);
+
+  entityReferencePrefix_ =
+      entityReferencePrefixFromInfo(hostSession_->logger(), managerInterface_->info());
 }
 
 void Manager::flushCaches() { managerInterface_->flushCaches(hostSession_); }
@@ -104,7 +136,11 @@ ContextPtr Manager::contextFromPersistenceToken(const Str &token) {
 }
 
 bool Manager::isEntityReferenceString(const Str &someString) const {
-  return managerInterface_->isEntityReferenceString(someString, hostSession_);
+  if (!entityReferencePrefix_) {
+    return managerInterface_->isEntityReferenceString(someString, hostSession_);
+  }
+
+  return someString.rfind(*entityReferencePrefix_, 0) != Str::npos;
 }
 
 const Str kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";

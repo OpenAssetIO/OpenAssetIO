@@ -106,12 +106,12 @@ def mock_entity_reference_pager_interface():
 
 
 @pytest.fixture
-def mock_manager_interface():
+def mock_manager_interface(create_mock_manager_interface):
     """
     Fixture for a `ManagerInterface` that asserts parameter types and
     forwards method calls to an internal public `mock.Mock` instance.
     """
-    return ValidatingMockManagerInterface()
+    return create_mock_manager_interface()
 
 
 @pytest.fixture
@@ -125,7 +125,9 @@ def create_mock_manager_interface():
     """
 
     def creator():
-        return ValidatingMockManagerInterface()
+        manager_interface = ValidatingMockManagerInterface()
+        manager_interface.mock.info.return_value = {}
+        return manager_interface
 
     return creator
 

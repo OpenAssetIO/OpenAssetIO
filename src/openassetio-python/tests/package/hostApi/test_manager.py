@@ -35,6 +35,7 @@ from openassetio import (
     EntityReference,
     TraitsData,
     managerApi,
+    constants,
 )
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
@@ -201,6 +202,36 @@ class Test_Manager_initialize:
 
         mock_manager_interface.mock.initialize.assert_called_once_with(a_dict, a_host_session)
 
+    def test_when_entity_ref_prefix_given_then_debug_log_printed(
+        self, manager, mock_manager_interface, mock_logger
+    ):
+        mock_manager_interface.mock.info.return_value = {
+            constants.kInfoKey_EntityReferencesMatchPrefix: "someprefix:"
+        }
+
+        manager.initialize({})
+
+        mock_logger.mock.log.assert_called_once_with(
+            mock_logger.Severity.kDebugApi,
+            "Entity reference prefix 'someprefix:' provided by manager's info() dict."
+            " Subsequent calls to isEntityReferenceString will use this prefix rather"
+            " than call the manager's implementation.",
+        )
+
+    def test_when_entity_ref_prefix_type_invalid_then_debug_log_printed(
+        self, manager, mock_manager_interface, mock_logger
+    ):
+        mock_manager_interface.mock.info.return_value = {
+            constants.kInfoKey_EntityReferencesMatchPrefix: 123
+        }
+
+        manager.initialize({})
+
+        mock_logger.mock.log.assert_called_once_with(
+            mock_logger.Severity.kWarning,
+            "Entity reference prefix given but is an invalid type: should be a string.",
+        )
+
 
 class Test_Manager_flushCaches:
     def test_method_defined_in_cpp(self, method_introspector):
@@ -229,6 +260,31 @@ class Test_Manager_isEntityReferenceString:
 
         assert manager.isEntityReferenceString(a_ref_string) == expected
         method.assert_called_once_with(a_ref_string, a_host_session)
+
+    @pytest.mark.parametrize(
+        "prefix,entity_ref,expected",
+        (
+            ("asset://", "asset://my_asset", True),
+            ("asset://", "/home/user/my_asset", False),
+            ("a", "asset://my_asset", True),
+            ("asset://my_asset", "asset://my_asset", True),
+            ("asset://my_asset/long_prefix/", "asset://my_asset", False),
+            ("my📹manager⚡", "my📹manager⚡my_asset⚡", True),
+            ("my📹manager⚡", "my📹manager☁️my_asset⚡", False),
+        ),
+    )
+    def test_when_prefix_given_in_info_then_prefix_used_and_interface_not_called(
+        self, manager, mock_manager_interface, prefix, entity_ref, expected
+    ):
+        mock_manager_interface.mock.info.return_value = {
+            constants.kInfoKey_EntityReferencesMatchPrefix: prefix
+        }
+        manager.initialize({})
+
+        actual = manager.isEntityReferenceString(entity_ref)
+
+        assert not mock_manager_interface.mock.isEntityReferenceString.called
+        assert actual is expected
 
 
 class Test_Manager_createEntityReference:
