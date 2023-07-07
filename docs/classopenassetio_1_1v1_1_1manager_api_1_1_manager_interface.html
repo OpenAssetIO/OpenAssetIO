@@ -310,7 +310,7 @@ Publishing</h2></td></tr>
 <li>updateTerminology() </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -1017,12 +1017,12 @@ Publishing</h2></td></tr>
 <p>This can contain arbitrary key/value pairs. For example: </p><pre class="fragment">{ 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
 </pre><p>There are certain optional keys that may be used by a host or the API:</p>
 <ul>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">openassetio.constants.kField_SmallIcon</a> (upto 32x32) </li>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">openassetio.constants.kField_Icon</a> (any size)</li>
+<li>openassetio.constants.kInfoKey_SmallIcon (upto 32x32) </li>
+<li>openassetio.constants.kInfoKey_Icon (any size)</li>
 </ul>
 <p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb">isEntityReferenceString</a> should be implemented regardless.</p>
 <ul>
-<li><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a></li>
+<li>openassetio.constants.kInfoKey_EntityReferencesMatchPrefix</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Map of info string key to primitive value. </dd></dl>
 
@@ -1073,7 +1073,7 @@ Publishing</h2></td></tr>
 <li>updateTerminology() </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1503,7 +1503,7 @@ Publishing</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td>The API session.</td></tr>

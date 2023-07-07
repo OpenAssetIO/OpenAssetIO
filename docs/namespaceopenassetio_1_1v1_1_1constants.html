@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>OpenAssetIO [beta]: openassetio.constants Namespace Reference</title>
+<title>OpenAssetIO [beta]: openassetio::v1::constants Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('namespaceopenassetio_1_1constants.html','');});
+$(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1constants.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -107,7 +107,7 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1constants.html
 
 <div class="header">
   <div class="headertitle">
-<div class="title">openassetio.constants Namespace Reference</div>  </div>
+<div class="title">openassetio::v1::constants Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -116,56 +116,79 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1constants.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">Info dict field Names</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Info dictionary field names.</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Bare strings should never be used to help protect against inconsistencies and future changes. </p>
 </div></td></tr>
-<tr class="memitem:a28d52d2087daf3359f67b85733f66abe"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#a28d52d2087daf3359f67b85733f66abe">kField_SmallIcon</a> = &quot;smallIcon&quot;</td></tr>
-<tr class="separator:a28d52d2087daf3359f67b85733f66abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6d4624d3aa8813f8a792a4956f93cc0"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#af6d4624d3aa8813f8a792a4956f93cc0">kField_Icon</a> = &quot;icon&quot;</td></tr>
-<tr class="separator:af6d4624d3aa8813f8a792a4956f93cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6d4e9a8c1300704ba970640534a8098"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098">kField_EntityReferencesMatchPrefix</a> = &quot;entityReferencesMatchPrefix&quot;</td></tr>
-<tr class="memdesc:aa6d4e9a8c1300704ba970640534a8098"><td class="mdescLeft">&#160;</td><td class="mdescRight">This field may be used by the API to optimize queries to isEntityReferenceString in situations where bridging languages, etc.  <a href="#aa6d4e9a8c1300704ba970640534a8098">More...</a><br /></td></tr>
-<tr class="separator:aa6d4e9a8c1300704ba970640534a8098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be6a7dbdf4c0c63e0c6d94afc35ade5"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5">kInfoKey_SmallIcon</a> = &quot;smallIcon&quot;</td></tr>
+<tr class="separator:a9be6a7dbdf4c0c63e0c6d94afc35ade5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a10bd12d0c07579cfbbf75f38c6d51"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#ae3a10bd12d0c07579cfbbf75f38c6d51">kInfoKey_Icon</a> = &quot;icon&quot;</td></tr>
+<tr class="separator:ae3a10bd12d0c07579cfbbf75f38c6d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eccaa3a65a128a5893911056fa45ca3"><td class="memItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3">kInfoKey_EntityReferencesMatchPrefix</a></td></tr>
+<tr class="memdesc:a2eccaa3a65a128a5893911056fa45ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common prefix for all entity references of a particular manager.  <a href="#a2eccaa3a65a128a5893911056fa45ca3">More...</a><br /></td></tr>
+<tr class="separator:a2eccaa3a65a128a5893911056fa45ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Constants used throughout the OpenAssetIO API. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>[tc] Should these live here, or with their owning declarations, See <a class="el" href="namespaceopenassetio_1_1log.html#a235d89f5f7e5415506cc50fa849930ca">openassetio.log.LoggerInterface</a> for example. </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="aa6d4e9a8c1300704ba970640534a8098"></a>
+<a class="anchor" id="a2eccaa3a65a128a5893911056fa45ca3"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string kField_EntityReferencesMatchPrefix = &quot;entityReferencesMatchPrefix&quot;</td>
+          <td class="memname">constexpr std::string_view kInfoKey_EntityReferencesMatchPrefix</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div><div class="line">    <span class="stringliteral">&quot;entityReferencesMatchPrefix&quot;</span></div></div><!-- fragment -->
+<p>Common prefix for all entity references of a particular manager. </p>
+<p>This field may be used by the API to optimize queries to isEntityReferenceString in situations where bridging languages, etc. can be expensive (particularly in the case of python plug-ins called from multi-threaded C++). </p>
+
+</div>
+</div>
+<a class="anchor" id="ae3a10bd12d0c07579cfbbf75f38c6d51"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::string_view kInfoKey_Icon = &quot;icon&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>This field may be used by the API to optimize queries to isEntityReferenceString in situations where bridging languages, etc. </p>
-<p>can be expensive (particularly in the case of python plug-ins called from multi-threaded C++). </p>
-
 </div>
 </div>
-<a class="anchor" id="af6d4624d3aa8813f8a792a4956f93cc0"></a>
+<a class="anchor" id="a9be6a7dbdf4c0c63e0c6d94afc35ade5"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">string kField_Icon = &quot;icon&quot;</td>
+          <td class="memname">constexpr std::string_view kInfoKey_SmallIcon = &quot;smallIcon&quot;</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a28d52d2087daf3359f67b85733f66abe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">string kField_SmallIcon = &quot;smallIcon&quot;</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -176,7 +199,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceopenassetio.html">openassetio</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1constants.html">constants</a></li>
+    <li class="navelem"><a class="el" href="namespaceopenassetio.html">openassetio</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1.html">v1</a></li><li class="navelem"><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html">constants</a></li>
   </ul>
 </div>
 <hr class="footer"/>

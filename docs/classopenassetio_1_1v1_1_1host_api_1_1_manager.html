@@ -447,7 +447,7 @@ Publishing</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a> to generate the token.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The context's access, retention or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
 
 </div>
 </div>
@@ -532,7 +532,7 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
 
 </div>
 </div>
@@ -901,7 +901,7 @@ Publishing</h2></td></tr>
 <p>Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
 <p>This can contain arbitrary key/value pairs.For example: </p><pre class="fragment">{ 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
 </pre><p>There is no requirement to use any of the information in the info dict, but it may be useful for optimisations or display customisation.</p>
-<p>There are certain well-known keys that may be set by the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. They include things such as <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a>. </p>
+<p>There are certain well-known keys that may be set by the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. They include things such as openassetio.constants.kInfoKey_EntityReferencesMatchPrefix. </p>
 
 </div>
 </div>
@@ -967,7 +967,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd>entityExists </dd>
 <dd>
 <a class="el" href="glossary.html#resolve">resolve</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Make use of <a class="el" href="namespaceopenassetio_1_1constants.html#aa6d4e9a8c1300704ba970640534a8098" title="This field may be used by the API to optimize queries to isEntityReferenceString in situations where ...">openassetio.constants.kField_EntityReferencesMatchPrefix</a> if supplied, especially when bridging between C/python. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Make use of openassetio.constants.kInfoKey_EntityReferencesMatchPrefix if supplied, especially when bridging between C/python. </dd></dl>
 
 </div>
 </div>
@@ -1934,7 +1934,7 @@ This method may block for extended periods of time. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has not yet been called).</dd></dl>
 <p>Some managers may not have any settings, so this function will return an empty dictionary. </p>
 
