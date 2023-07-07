@@ -171,6 +171,15 @@ class OPENASSETIO_CORE_EXPORT Manager {
   void initialize(InfoDictionary managerSettings);
 
   /**
+   * Clears any internal caches.
+   *
+   * Only applicable if the manager makes use of any caching, otherwise
+   * it is a no-op.  In caching interfaces, this should cause any
+   * retained data to be discarded to ensure future queries are fresh.
+   */
+  void flushCaches();
+
+  /**
    * @}
    */
 

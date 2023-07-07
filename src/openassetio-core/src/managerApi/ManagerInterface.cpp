@@ -20,6 +20,8 @@ InfoDictionary ManagerInterface::settings(
   return openassetio::InfoDictionary{};
 }
 
+void ManagerInterface::flushCaches([[maybe_unused]] const HostSessionPtr& hostSession) {}
+
 ManagerStateBasePtr ManagerInterface::createState(
     [[maybe_unused]] const HostSessionPtr& hostSession) {
   return nullptr;

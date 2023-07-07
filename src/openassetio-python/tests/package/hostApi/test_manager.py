@@ -203,15 +203,15 @@ class Test_Manager_initialize:
 
 
 class Test_Manager_flushCaches:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.flushCaches)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.flushCaches)
         assert method_introspector.is_implemented_once(Manager, "flushCaches")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
         method = mock_manager_interface.mock.flushCaches
-        assert manager.flushCaches() == method.return_value
+        manager.flushCaches()
         method.assert_called_once_with(a_host_session)
 
 

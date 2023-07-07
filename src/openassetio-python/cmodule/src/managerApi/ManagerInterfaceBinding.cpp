@@ -50,6 +50,10 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession);
   }
 
+  void flushCaches(const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, flushCaches, hostSession);
+  }
+
   [[nodiscard]] trait::TraitsDatas managementPolicy(
       const trait::TraitSets& traitSets, const ContextConstPtr& context,
       const HostSessionPtr& hostSession) const override {
@@ -185,6 +189,7 @@ void registerManagerInterface(const py::module& mod) {
       .def("settings", &ManagerInterface::settings, py::arg("hostSession").none(false))
       .def("initialize", &ManagerInterface::initialize, py::arg("managerSettings"),
            py::arg("hostSession").none(false))
+      .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false))
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
            py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))

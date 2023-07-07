@@ -305,6 +305,17 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   virtual void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) = 0;
 
   /**
+   * Clears any internal caches.
+   *
+   * Only applicable if the implementation makes use of any caching,
+   * otherwise it is a no-op. In caching interfaces, this will cause any
+   * retained data to be discarded to ensure future queries are fresh.
+   *
+   * @param hostSession The API session.
+   */
+  virtual void flushCaches(const HostSessionPtr& hostSession);
+
+  /**
    * @}
    */
 

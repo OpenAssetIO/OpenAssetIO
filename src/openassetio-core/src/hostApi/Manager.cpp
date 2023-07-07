@@ -62,6 +62,8 @@ void Manager::initialize(InfoDictionary managerSettings) {
   managerInterface_->initialize(std::move(managerSettings), hostSession_);
 }
 
+void Manager::flushCaches() { managerInterface_->flushCaches(hostSession_); }
+
 trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
                                              const ContextConstPtr &context) const {
   return managerInterface_->managementPolicy(traitSets, context, hostSession_);
