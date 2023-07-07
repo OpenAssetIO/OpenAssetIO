@@ -134,10 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad23a64984e32921a6eaacc5e1c960910"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology</a> (self, stringDict, hostSession)</td></tr>
 <tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
 <tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
-<tr class="memitem:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a53834a673004e2d1a4ad57a9b126e5d7">flushCaches</a> (self, hostSession)</td></tr>
-<tr class="memdesc:a53834a673004e2d1a4ad57a9b126e5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a53834a673004e2d1a4ad57a9b126e5d7">More...</a><br /></td></tr>
-<tr class="separator:a53834a673004e2d1a4ad57a9b126e5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
 <tr class="memitem:a21510517947f62a366e873af29218229"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> (self, entityRefs, context, hostSession)</td></tr>
 <tr class="memdesc:a21510517947f62a366e873af29218229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a21510517947f62a366e873af29218229">More...</a><br /></td></tr>
@@ -297,36 +293,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the corresponding element in entityRefs points to an existing entity, <code>False</code> if the entity is not known or ready yet.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a53834a673004e2d1a4ad57a9b126e5d7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def flushCaches </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears any internal caches. </p>
-<p>Only applicable if the implementation makes use of any caching, otherwise it is a no-op. In caching interfaces, this should cause any retained data to be discarded to ensure future queries are fresh.</p>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>

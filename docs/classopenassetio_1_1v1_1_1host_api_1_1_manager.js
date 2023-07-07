@@ -14,6 +14,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "createEntityReference", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86", null ],
     [ "createEntityReferenceIfValid", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e", null ],
+    [ "flushCaches", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aad6d423f15196231b80568c62266fefa", null ],
     [ "getWithRelationship", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833", null ],
     [ "getWithRelationshipPaged", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f", null ],
     [ "getWithRelationships", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274", null ],
