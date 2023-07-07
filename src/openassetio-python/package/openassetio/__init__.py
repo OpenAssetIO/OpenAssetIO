@@ -72,6 +72,7 @@ The documentation for OpenAssetIO can be found here:
 """
 # TODO(DF): @pylint
 from ._openassetio import (  # pylint: disable=import-error
+    constants,
     TraitsData,
     Context,
     EntityReference,

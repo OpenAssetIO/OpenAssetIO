@@ -106,11 +106,13 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
     def updateTerminology(self, stringDict):
         """
         This call gives the Manager a chance to customize certain
-        strings that you might want to use in your UI/messages. See
-        @ref openassetio.constants "constants" for well-known keys.
-        These keys are updated in-place to the most appropriate term
-        for the Manager. You should then use these substitutions in any
-        user-facing messages or display text so that they feel at home.
+        strings that you might want to use in your UI/messages.
+
+        See @ref openassetio.hostApi.terminology "terminology" for
+        well-known keys. These keys are updated in-place to the most
+        appropriate term for the Manager. You should then use these
+        substitutions in any user-facing messages or display text so
+        that they feel at home.
 
         It's rare that you need to call this method directly, the @ref
         openassetio.hostApi.terminology API provides more utility for
