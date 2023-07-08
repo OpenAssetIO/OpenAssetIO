@@ -82,7 +82,7 @@ class OPENASSETIO_CORE_EXPORT EntityReferencePager final {
   /**
    *  Destruction of this object is tantamount to closing the query.
    */
-  ~EntityReferencePager() = default;
+  ~EntityReferencePager();
 
   /**
    * Return whether or not there is more data accessible by advancing

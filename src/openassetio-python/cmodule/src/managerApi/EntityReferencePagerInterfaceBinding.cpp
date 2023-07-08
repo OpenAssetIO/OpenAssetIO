@@ -36,6 +36,10 @@ struct PyEntityReferencePagerInterface : EntityReferencePagerInterface {
   void next(const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(void, EntityReferencePagerInterface, next, hostSession);
   }
+
+  void close(const HostSessionPtr& hostSession) override {
+    PYBIND11_OVERRIDE(void, EntityReferencePagerInterface, close, hostSession);
+  }
 };
 
 }  // namespace managerApi
@@ -52,5 +56,6 @@ void registerEntityReferencePagerInterface(const py::module& mod) {
       .def(py::init())
       .def("hasNext", &EntityReferencePagerInterface::hasNext, py::arg("hostSession").none(false))
       .def("get", &EntityReferencePagerInterface::get, py::arg("hostSession").none(false))
-      .def("next", &EntityReferencePagerInterface::next, py::arg("hostSession").none(false));
+      .def("next", &EntityReferencePagerInterface::next, py::arg("hostSession").none(false))
+      .def("close", &EntityReferencePagerInterface::close, py::arg("hostSession").none(false));
 }

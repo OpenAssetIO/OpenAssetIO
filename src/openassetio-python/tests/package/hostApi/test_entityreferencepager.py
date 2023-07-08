@@ -27,6 +27,7 @@ import weakref
 
 from openassetio import EntityReference
 from openassetio.hostApi import Manager, EntityReferencePager
+from openassetio.log import LoggerInterface
 from openassetio.managerApi import EntityReferencePagerInterface
 
 
@@ -136,6 +137,33 @@ class Test_EntityReferencePager_destruction:
         # Once method exits, pager falls out of scope, and interface is
         # destroyed.
         assert weak_interface_ref() is None
+
+    def test_when_EntityReferencePager_destructed_close_is_called(
+        self, a_host_session, mock_entity_reference_pager_interface
+    ):
+        pager = EntityReferencePager(mock_entity_reference_pager_interface, a_host_session)
+        del pager
+        mock_entity_reference_pager_interface.mock.close.assert_called_once_with(a_host_session)
+
+    def test_when_exception_thrown_in_close_exception_is_caught_and_logged(
+        self, a_host_session, mock_entity_reference_pager_interface, mock_logger
+    ):
+        exception_what = "Mocked exception"
+
+        def raise_exception(self):
+            raise Exception(exception_what)
+
+        mock_entity_reference_pager_interface.mock.close.side_effect = raise_exception
+
+        pager = EntityReferencePager(mock_entity_reference_pager_interface, a_host_session)
+        del pager
+        mock_entity_reference_pager_interface.mock.close.assert_called_once_with(a_host_session)
+        args, kwargs = mock_logger.mock.log.call_args
+
+        # The .what() of the exception comes with a lot of additional
+        # text about call location that would be overly verbose to check
+        assert LoggerInterface.Severity.kError == args[0]
+        assert exception_what in args[1]
 
 
 @pytest.fixture

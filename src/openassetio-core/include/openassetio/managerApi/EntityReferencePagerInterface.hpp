@@ -113,6 +113,20 @@ class OPENASSETIO_CORE_EXPORT EntityReferencePagerInterface {
    * return an empty page.
    */
   virtual void next(const HostSessionPtr&) = 0;
+
+  /**
+   * Close the paging query.
+   *
+   * Signals that the host is finished with the paging query,
+   * allowing for any potential cleanup that may need to be performed.
+   * This method is guaranteed to be called only once, and no other
+   * interface methods will be called by the host thereafter.
+   *
+   * This method is called from a destructor. Thrown exceptions will be
+   * caught and logged as errors if possible. Despite that, throwing
+   * from this function is nonetheless discouraged.
+   */
+  virtual void close(const HostSessionPtr& hostSession);
 };
 static_assert(!std::is_copy_constructible_v<EntityReferencePagerInterface>);
 static_assert(!std::is_copy_assignable_v<EntityReferencePagerInterface>);

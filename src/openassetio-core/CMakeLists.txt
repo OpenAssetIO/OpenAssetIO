@@ -77,6 +77,7 @@ target_sources(
     src/managerApi/Host.cpp
     src/managerApi/HostSession.cpp
     src/managerApi/ManagerInterface.cpp
+    src/managerApi/EntityReferencePagerInterface.cpp
 )
 
 # Public header dependency.
