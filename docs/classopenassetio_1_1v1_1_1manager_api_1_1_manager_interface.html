@@ -1053,12 +1053,12 @@ Publishing</h2></td></tr>
 <p>This can contain arbitrary key/value pairs. For example: </p><pre class="fragment">{ 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
 </pre><p>There are certain optional keys that may be used by a host or the API:</p>
 <ul>
-<li>openassetio.constants.kInfoKey_SmallIcon (upto 32x32) </li>
-<li>openassetio.constants.kInfoKey_Icon (any size)</li>
+<li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5">constants::kInfoKey_SmallIcon</a> (upto 32x32) </li>
+<li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#ae3a10bd12d0c07579cfbbf75f38c6d51">constants::kInfoKey_Icon</a> (any size)</li>
 </ul>
 <p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb">isEntityReferenceString</a> should be implemented regardless.</p>
 <ul>
-<li>openassetio.constants.kInfoKey_EntityReferencesMatchPrefix</li>
+<li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3">constants::kInfoKey_EntityReferencesMatchPrefix</a></li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Map of info string key to primitive value. </dd></dl>
 
@@ -1147,6 +1147,7 @@ Publishing</h2></td></tr>
 
 <p>Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system. </p>
 <p>It does not need to verify that it points to a valid entity in the system, simply that the pattern of the string is recognised by this implementation.</p>
+<dl class="section note"><dt>Note</dt><dd>If possible, consider supplying a <a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3">prefix</a> in your <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a2a0b607f49506ffe57659036be754260">info()</a> dictionary, so that calls to this method can be circumvented by performing a (fast) string prefix check instead.</dd></dl>
 <p>Return <code>True</code> if the string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> and should be considered usable with the other methods of this interface.</p>
 <p>Return <code>False</code>, if this should no longer be involved in actions relating to the string as it is not recognised.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The result of this call should not depend on the context Locale, and should be trivial to compute. If for example, a manager makes use of URL-based entity references, then it is sufficient to check that the string's schema is that owned by the manager. This method should not validate the correctness of all supplied host, path or query components. The API middleware may cache or short-circuit calls to this method when bridging between languages.</dd></dl>
