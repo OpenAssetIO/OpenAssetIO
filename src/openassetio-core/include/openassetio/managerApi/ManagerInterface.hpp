@@ -224,8 +224,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * There are certain optional keys that may be used by a host or
    * the API:
    *
-   *   @li openassetio.constants.kInfoKey_SmallIcon (upto 32x32)
-   *   @li openassetio.constants.kInfoKey_Icon (any size)
+   *   @li @ref constants.kInfoKey_SmallIcon (upto 32x32)
+   *   @li @ref constants.kInfoKey_Icon (any size)
    *
    * Because it can often be expensive to bridge between languages,
    * info can also contain an additional field - a prefix that
@@ -237,7 +237,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * not. Note, not all invocations require this optimization, so
    * @ref isEntityReferenceString should be implemented regardless.
    *
-   *   @li openassetio.constants.kInfoKey_EntityReferencesMatchPrefix
+   *   @li @ref constants.kInfoKey_EntityReferencesMatchPrefix
    *
    * @return Map of info string key to primitive value.
    */
@@ -546,10 +546,16 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
   /**
    * Determines if the supplied string (in its entirety) matches the
-   * pattern of a valid @ref entity_reference in your system. It
-   * does not need to verify that it points to a valid entity in the
-   * system, simply that the pattern of the string is recognised by
-   * this implementation.
+   * pattern of a valid @ref entity_reference in your system.
+   *
+   * It does not need to verify that it points to a valid entity in the
+   * system, simply that the pattern of the string is recognised by this
+   * implementation.
+   *
+   * @note If possible, consider supplying a @ref
+   * constants.kInfoKey_EntityReferencesMatchPrefix "prefix" in your
+   * @ref info() dictionary, so that calls to this method can be
+   * circumvented by performing a (fast) string prefix check instead.
    *
    * Return `True` if the string is an @ref entity_reference
    * and should be considered usable with the other methods of this

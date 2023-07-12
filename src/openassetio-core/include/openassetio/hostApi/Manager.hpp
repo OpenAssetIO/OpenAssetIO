@@ -1618,6 +1618,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
 
   managerApi::ManagerInterfacePtr managerInterface_;
   managerApi::HostSessionPtr hostSession_;
+
+  std::optional<openassetio::Str> entityReferencePrefix_;
 };
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

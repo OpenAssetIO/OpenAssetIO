@@ -77,6 +77,16 @@ v1.0.0-alpha.xx
   chance to clean up between tests.
   [#994](https://github.com/OpenAssetIO/OpenAssetIO/issues/994)
 
+### Bug fixes
+
+- Reintroduced the optional optimized entity reference prefix check
+  for `isEntityReferenceString`, allowing the plugin's implementation to
+  be short-circuited. In particular, if the plugin's implementation is
+  written in Python, then a prefix check short-circuits the need for a
+  costly Python function call for this hot code path.
+  [#566](https://github.com/OpenAssetIO/OpenAssetIO/issues/566)
+
+
 v1.0.0-alpha.12
 ---------------
 
