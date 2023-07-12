@@ -93,6 +93,9 @@ The documentation for OpenAssetIO can be found here: [https://openassetio.github
 We are currently working towards a v1.0.0 release. We are in the process
 of porting the core API from Python to C/C++.
 
+The library currently supports C++ and Python hosts talking to a Python
+manager. Completion of this phase will add support for C++ managers.
+
 The code is presented here in its current form to facilitate discussion
 and early-adopter testing. We actively encourage engagement in the
 [discussion](https://github.com/OpenAssetIO/OpenAssetIO/discussions)
@@ -106,14 +109,11 @@ be some rough edges so bear with us whilst we get things ship-shape.
 Please see the [project board](https://github.com/orgs/OpenAssetIO/projects/1)
 for work in progress, as well as up-coming topics.
 
-### TODO list
-
 - Complete core C/C++ API work
 - Define Traits for post-production in the [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
   repository
-- [AR2.0](https://graphics.pixar.com/usd/docs/668045551.html) interop
-  investigations
-- Katana Asset API migration guide/shims
+
+A more detailed roadmap is available [here](ROADMAP.md).
 
 ## Background
 
