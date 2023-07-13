@@ -2,6 +2,7 @@ var searchData=
 [
   ['castfrompyobject',['castFromPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#aabce31410223a8d5941005669434ed0b',1,'openassetio::v1::python::converter']]],
   ['casttopyobject',['castToPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#acd4057ac2926074a2a4d3c5e91a4e2d8',1,'openassetio::v1::python::converter']]],
+  ['close',['close',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd',1,'openassetio::v1::managerApi::EntityReferencePagerInterface']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['contextfrompersistencetoken',['contextFromPersistenceToken',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0',1,'openassetio::v1::hostApi::Manager']]],

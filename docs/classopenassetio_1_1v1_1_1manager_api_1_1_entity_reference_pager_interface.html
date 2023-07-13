@@ -157,6 +157,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a9b7f8399b4fb5f64f3449ad67e7d8dfa">next</a> (const HostSessionPtr &amp;)=0</td></tr>
 <tr class="memdesc:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance the page.  <a href="#a9b7f8399b4fb5f64f3449ad67e7d8dfa">More...</a><br /></td></tr>
 <tr class="separator:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cae593fd944cc2e08f4897c752c65fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd">close</a> (const HostSessionPtr &amp;hostSession)</td></tr>
+<tr class="memdesc:a0cae593fd944cc2e08f4897c752c65fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the paging query.  <a href="#a0cae593fd944cc2e08f4897c752c65fd">More...</a><br /></td></tr>
+<tr class="separator:a0cae593fd944cc2e08f4897c752c65fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Deals with the retrieval of paginated data from the backend at the behest of the host. </p>
@@ -283,6 +286,34 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a0cae593fd944cc2e08f4897c752c65fd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void close </td>
+          <td>(</td>
+          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramname"><em>hostSession</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Close the paging query. </p>
+<p>Signals that the host is finished with the paging query, allowing for any potential cleanup that may need to be performed. This method is guaranteed to be called only once, and no other interface methods will be called by the host thereafter.</p>
+<p>This method is called from a destructor. Thrown exceptions will be caught and logged as errors if possible. Despite that, throwing from this function is nonetheless discouraged. </p>
+
+</div>
+</div>
 <a class="anchor" id="a872b5db37c3c4cc09c8f94b86686ebca"></a>
 <div class="memitem">
 <div class="memproto">

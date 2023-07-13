@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"group__oa___info_dictionary.html#gad07d84a9cc3a064646e7f77706a5db26":[12,0,2,10],
 "group__oa___info_dictionary.html#gad1adc3d20ea65e19169c058c06404dff":[12,0,2,11],
 "group__oa___info_dictionary.html#gad9e78d2988cbd55e74581b323388cbb3":[12,0,2,2],
 "group__oa___info_dictionary.html#gae054c819c1af25a3caf81a683d35ea17":[12,0,2,14],
@@ -44,8 +45,8 @@ var NAVTREEINDEX2 =
 "group__oa__host_api___manager__aliases.html#ga2fb3ec45dc9ac48f9736df3821f8ece3":[12,0,1,0,4],
 "group__oa__host_api___manager__aliases.html#ga7e0fc7bc4c2f4db8d5c65f42dcad9e1c":[12,0,1,0,6],
 "group__oa__host_api___manager__aliases.html#ga8e26e321df7bdbd3941e9c79f34110cc":[12,0,1,0,0],
-"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,2],
 "group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,3],
+"group__oa__host_api___manager__aliases.html#gaae76e98c18d24a4520a9e751ff301adf":[12,0,1,0,2],
 "group__oa__host_api___manager__aliases.html#gae6d2e5842cc962c8ea358aef8cf78235":[12,0,1,0,5],
 "group__oa__host_api___manager__aliases.html#gaffc1f0ee8093466e405a57f8334dae7d":[12,0,1,0,1],
 "group__oa__manager_api___c_manager_interface.html":[12,0,3],
@@ -65,8 +66,8 @@ var NAVTREEINDEX2 =
 "group__oa__manager_api___shared_manager_interface__aliases.html#ga15ab2bc44c08610686747f077056a84c":[12,0,5,0,0],
 "group__oa__manager_api___shared_manager_interface__aliases.html#gab3b5ff4c8660c690985e80faca4f75a5":[12,0,5,0,1],
 "hierarchy.html":[14,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],

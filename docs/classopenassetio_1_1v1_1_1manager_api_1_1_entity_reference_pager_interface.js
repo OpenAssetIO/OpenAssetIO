@@ -5,6 +5,7 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface =
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#ae79bbd5ee58373b36398f8de4513f515", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aef6d2f48e0b899ba55b04ad1100b8d8b", null ],
     [ "~EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#afbafe12ce1b796e05da6763685663310", null ],
+    [ "close", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd", null ],
     [ "get", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a872b5db37c3c4cc09c8f94b86686ebca", null ],
     [ "hasNext", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#af8f3d5a36473d7a59ab76b3f6f2c5f07", null ],
     [ "next", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a9b7f8399b4fb5f64f3449ad67e7d8dfa", null ],

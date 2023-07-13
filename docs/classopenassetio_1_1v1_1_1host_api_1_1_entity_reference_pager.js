@@ -3,7 +3,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager =
     [ "Page", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a194ae23b559b0a3ff5e3f12b6c73b9bf", null ],
     [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a727fbc99a4a8ec209d5b22296472c533", null ],
     [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a4ec0f2a995822e560c3f7e6c5d173355", null ],
-    [ "~EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#ae14b8d6ea5c438579e1852a9d2c108b6", null ],
+    [ "~EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a711e000681ebded2ab56046174f23f6f", null ],
     [ "get", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a83bd0f7809c0df53007cd426b77c5772", null ],
     [ "hasNext", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a634d758e1811c32295f5665e4f8a0178", null ],
     [ "next", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a041249f802c5bf4c2deae666610e03c4", null ],
