@@ -3,7 +3,9 @@
 
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
+#include <openassetio/managerApi/HostSession.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -20,6 +22,17 @@ EntityReferencePager::EntityReferencePager(
     managerApi::EntityReferencePagerInterfacePtr pagerInterface,
     managerApi::HostSessionPtr hostSession)
     : pagerInterface_(std::move(pagerInterface)), hostSession_(std::move(hostSession)) {}
+
+EntityReferencePager::~EntityReferencePager() {
+  try {
+    pagerInterface_->close(hostSession_);
+  } catch (const std::exception& ex) {
+    hostSession_->logger()->error(ex.what());
+  } catch (...) {
+    hostSession_->logger()->error(
+        "Unknown non-exception object caught during destruction of EntityReferencePager");
+  }
+}
 
 bool EntityReferencePager::hasNext() { return pagerInterface_->hasNext(hostSession_); }
 

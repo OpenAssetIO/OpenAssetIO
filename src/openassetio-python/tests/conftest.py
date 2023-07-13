@@ -446,6 +446,9 @@ class MockEntityReferencePagerInterface(EntityReferencePagerInterface):
     def next(self, hostSession):
         self.mock.next(hostSession)
 
+    def close(self, hostSession):
+        self.mock.close(hostSession)
+
 
 #
 # Python to C++ migration helpers
