@@ -59,9 +59,11 @@ v1.0.0-alpha.xx
   opt-in for manager implementations.
   [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
-- Added coverage of the `getWithRelationship[s]` methods of the
-  `ManagerInterface` to the `openassetio.manager.test` harness.
+- Added coverage of the `getWithRelationship[s]` and
+  `getWithRelationship[s]Paged` methods of the `ManagerInterface` to the
+  `openassetio.manager.test` harness.
   [#914](https://github.com/OpenAssetIO/OpenAssetIO/issues/914)
+  [#972](https://github.com/OpenAssetIO/OpenAssetIO/issues/972)
 
 - Added `requireEntityReferenceFixture` and
   `requireEntityReferencesFixture` utility methods for cases written for
