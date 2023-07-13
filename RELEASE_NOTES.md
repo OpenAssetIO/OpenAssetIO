@@ -30,7 +30,10 @@ v1.0.0-alpha.xx
   module. These have been replaced by domain-specific traits and
   specifications defined in their own repositories, such as
   [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation).
-  Migrated remaining constants to C++ with Python bindings
+
+- Migrated remaining constants to C++ with Python bindings. This means
+  that `from openassetio.constants import <name>` no longer works - the
+  `constants` module must be imported wholesale.
   [#998](https://github.com/OpenAssetIO/OpenAssetIO/issues/998)
 
 ### Deprecated
