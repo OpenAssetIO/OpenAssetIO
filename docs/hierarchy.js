@@ -11,6 +11,9 @@ var hierarchy =
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
+    [ "list", null, [
+      [ "Test_getWithRelationship_All.weaklist", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all_1_1weaklist.html", null ]
+    ] ],
     [ "LoggerInterface", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html", [
       [ "ConsoleLogger", "classopenassetio_1_1v1_1_1log_1_1_console_logger.html", null ],
       [ "SeverityFilter", "classopenassetio_1_1v1_1_1log_1_1_severity_filter.html", null ]
@@ -83,8 +86,7 @@ var hierarchy =
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],
       [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],
       [ "Test_entityExists", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html", null ],
-      [ "Test_getWithRelationship", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship.html", null ],
-      [ "Test_getWithRelationships", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationships.html", null ],
+      [ "Test_getWithRelationship_All", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html", null ],
       [ "Test_identifier", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html", null ],
       [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", null ],
       [ "Test_initialize", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html", null ],
