@@ -52,6 +52,8 @@ host.
 
 ## Y24 onwards
 
+- Entity change notification/tracking.
+- Out-the-box caching mechanisms for resolve.
 - C API for FFIs or compiler isolation.
 - Advanced workflow topics:
   - Transactions
