@@ -1,0 +1,5 @@
+[manager]
+identifier = "org.openassetio.examples.manager.bal"
+
+[manager.settings]
+library_path = "${config_dir}/database.json"

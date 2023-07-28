@@ -1,0 +1,28 @@
+{
+  "managementPolicy": {
+    "read": {
+      "default": {
+        "openassetio-mediacreation:managementPolicy.Managed": {},
+        "openassetio-mediacreation:content.LocatableContent": {}
+      }
+    },
+    "write": {
+      "default": {
+        "openassetio-mediacreation:managementPolicy.Managed": {}
+      }
+    }
+  },
+  "entities": {
+    "demo_project/logos/openassetio": {
+      "versions": [
+        {
+          "traits": {
+            "openassetio-mediacreation:content.LocatableContent": {
+              "location": "file://${bal_library_dir}/OpenAssetIO_Logo-1024x212.jpg"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
