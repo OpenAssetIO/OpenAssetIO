@@ -293,6 +293,85 @@ will be converted to `PyRetainingSharedPtr<MyArg1>` or
 `PyRetainingSharedPtr<MyArg2>`, respectively. This is equivalent to
 manually wrapping in a lambda, as shown above.
 
+### Default arguments
+
+pybind11 allows bound methods to have keyword arguments with default
+values, for example
+```c++
+.def("myMethod",
+     &MyClass::myMethod, py::arg("myArg") = myDefaultValue, ...
+```
+
+In general, it is not safe to set the default value to an arbitrary
+user-defined type, since mutations persist to the next invocation.
+
+However, it is safe to set the default value to a primitive type, or
+C++ types that are auto-converted to/from Python native types.
+
+In particular, many STL types are [auto-converted by
+pybind11](https://pybind11.readthedocs.io/en/stable/advanced/cast/stl.html#automatic-conversion)
+to/from Python native types, necessitating a copy, and are therefore
+safe to use as default values.
+
+These types include `std::string`, `std::vector<>`, `std::deque<>`,
+`std::list<>`, `std::array<>`, `std::valarray<>`, `std::set<>`,
+`std::unordered_set<>`, `std::map<>`, and `std::unordered_map<>`.
+
+Note that any values within the container are subject to the same
+conditions.
+
+A more detailed explanation follows.
+
+#### Explanation
+
+We have to be careful with what types we use when setting default
+values. This is analogous to the well-known common pitfall in pure
+Python, where a keyword argument's default value is set to a mutable
+type, for example
+
+```python
+def myMethod(self, myArg=set()):
+  myArg.add("myValue")
+```
+
+Here, subsequent calls to `myMethod` will find that `myArg` is no longer
+empty - the default value has been mutated.
+
+A similar problem exists with pybind11 default argument values, but it
+is subtly different.
+
+When setting a default value for an argument, pybind11 will
+
+1. Convert the default value to a Python object
+2. Store the Python object in the function record.
+
+When a C++ function is called from Python and a defaulted argument not
+provided, then
+
+1. The default value is recalled from the function record and inserted
+   into the input Python arguments.
+2. The standard conversions from Python arguments to C++ arguments then
+   takes place.
+
+When the default value is a generic user-defined type, the stored Python
+object will contain a reference. In this case, the same problem occurs
+with pybind11 as with pure Python - default values can be mutated during
+a C++ function call and those mutations persist to the next invocation.
+
+However, some C++ types are converted to/from native Python types,
+including primitives such as `int` and `float`, but also (by default)
+`std::string` and container types like `std::vector` (converted to
+Python `list`) and `std::unordered_set` (converted to Python `set`).
+
+In these cases, the initial conversion of the C++ default value to a
+Python object (to be stored in the function record) necessitates a copy.
+Similarly, the conversion back to a C++ object when the function is
+called also necessitates a copy.
+
+So for types that are converted to/from native Python types, it is safe
+to assign them as default argument values.  Note that this includes
+e.g. `std::vector` (Python `list`), which is _not_ safe in pure Python.
+
 ## Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.
