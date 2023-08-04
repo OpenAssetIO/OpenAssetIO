@@ -13,12 +13,46 @@
     }
   },
   "entities": {
-    "demo_project/logos/openassetio": {
+    "demo_project/logos/openassetio/v1": {
       "versions": [
         {
           "traits": {
             "openassetio-mediacreation:content.LocatableContent": {
-              "location": "file://${bal_library_dir}/OpenAssetIO_Logo-1024x212.jpg"
+              "location": "file://${bal_library_dir}/logo_v1.jpg"
+            },
+            "openassetio-mediacreation:lifecycle.Version": {
+              "specifiedTag": "v1",
+              "stableTag": "v1"
+            }
+          }
+        }
+      ]
+    },
+    "demo_project/logos/openassetio/v2": {
+      "versions": [
+        {
+          "traits": {
+            "openassetio-mediacreation:content.LocatableContent": {
+              "location": "file://${bal_library_dir}/logo_v2.jpg"
+            },
+            "openassetio-mediacreation:lifecycle.Version": {
+              "specifiedTag": "v2",
+              "stableTag": "v2"
+            }
+          }
+        }
+      ]
+    },
+    "demo_project/logos/openassetio/latest": {
+      "versions": [
+        {
+          "traits": {
+            "openassetio-mediacreation:content.LocatableContent": {
+              "location": "file://${bal_library_dir}/logo_v2.jpg"
+            },
+            "openassetio-mediacreation:lifecycle.Version": {
+              "specifiedTag": "latest",
+              "stableTag": "v2"
             }
           }
         }
