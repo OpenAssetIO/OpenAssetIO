@@ -381,6 +381,38 @@
  * returned @ref entity_reference to determine the manager's chosen
  * location for the data and use this for any write operations.
  *
+ * A host should always @ref publish the full set of @ref trait "traits"
+ * of an appropriate @ref Specification "specification" for the type of
+ * entity being published.
+ *
+ * Some of a specification's traits may hold properties, and some of
+ * those properties may be required by
+ * @fqref{managerApi.ManagerInterface.preflight} "preflight" in order
+ * for subsequent operations in the publishing workflow to succeed.
+ * Other properties may be optional.
+ *
+ * The host should fill in and pass as a "hint" to
+ * @fqref{hostApi.Manager.preflight} "preflight"  any trait properties
+ * that are owned by the host and known at the time `preflight` is
+ * called.
+ *
+ * In this context, a property is "owned" by the host if it will not be
+ * dictated by the manager during the publishing workflow (i.e. by @ref
+ * glossary_resolve "resolving" with a @fqref{Context.Access.kWrite}
+ * "write" access flag). Note that this definition of host ownership
+ * might include properties that have been resolved from the manager at
+ * some point in the past.
+ *
+ * If a property is not already known or understood by the host, and is
+ * optional, then it may be omitted.
+ *
+ * Providing the preflight hint allows the manager to prepare the
+ * backend and provide the most appropriate responses to subsequent @ref
+ * glossary_resolve and @ref glossary_register requests; or
+ * @fqref{BatchElementError.ErrorCode.kInvalidPreflightHint} "error"
+ * early if publishing is likely to fail or insufficient information is
+ * given in the hint.
+ *
  * The `preflight` method is also allowed to change the entity
  * reference as required. This mechanism serves several purposes:
  *

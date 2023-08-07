@@ -41,3 +41,6 @@
 
 /// Entity resolution failure.
 #define OPENASSETIO_BatchErrorCode_kEntityResolutionError (OPENASSETIO_BatchErrorCode_BEGIN + 4)
+
+/// Invalid TraitsData hint given to preflight.
+#define OPENASSETIO_BatchErrorCode_kInvalidPreflightHint (OPENASSETIO_BatchErrorCode_BEGIN + 5)

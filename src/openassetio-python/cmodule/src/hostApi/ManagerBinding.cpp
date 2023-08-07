@@ -180,51 +180,65 @@ void registerManager(const py::module& mod) {
           py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
           py::arg("resultTraitSet") = trait::TraitSet{})
-      .def("preflight",
-           static_cast<void (Manager::*)(
-               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
-               const Manager::PreflightSuccessCallback&,
-               const Manager::BatchElementErrorCallback&)>(&Manager::preflight),
-           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
-      .def("preflight",
-           static_cast<EntityReference (Manager::*)(
-               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
-               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::preflight),
-           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
-           py::arg("errorPolicyTag"))
-      .def("preflight",
-           static_cast<std::variant<BatchElementError, EntityReference> (Manager::*)(
-               const EntityReference&, const trait::TraitSet&, const ContextConstPtr&,
-               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::preflight),
-           py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false),
-           py::arg("errorPolicyTag"))
-      .def(
-          "preflight",
-          [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
-            return self.preflight(entityReference, traitSet, context);
-          },
-          py::arg("entityReference"), py::arg("traitSet"), py::arg("context").none(false))
-      .def("preflight",
-           static_cast<std::vector<EntityReference> (Manager::*)(
-               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
-               const Manager::BatchElementErrorPolicyTag::Exception&)>(&Manager::preflight),
-           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
-           py::arg("errorPolicyTag"))
-      .def("preflight",
-           static_cast<std::vector<std::variant<BatchElementError, EntityReference>> (Manager::*)(
-               const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,
-               const Manager::BatchElementErrorPolicyTag::Variant&)>(&Manager::preflight),
-           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false),
-           py::arg("errorPolicyTag"))
       .def(
           "preflight",
           [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitSet& traitSet, const ContextConstPtr& context) {
-            return self.preflight(entityReferences, traitSet, context);
+             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
+             const Manager::PreflightSuccessCallback& successCallback,
+             const Manager::BatchElementErrorCallback& errorCallback) {
+            validateTraitsDatas(traitsHints);
+            self.preflight(entityReferences, traitsHints, context, successCallback, errorCallback);
           },
-          py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("context").none(false),
+          py::arg("successCallback"), py::arg("errorCallback"))
+      .def("preflight",
+           py::overload_cast<const EntityReference&, const TraitsDataPtr&, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::preflight),
+           py::arg("entityReference"), py::arg("traitsHint").none(false),
+           py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def("preflight",
+           py::overload_cast<const EntityReference&, const TraitsDataPtr&, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::preflight),
+           py::arg("entityReference"), py::arg("traitsHint").none(false),
+           py::arg("context").none(false), py::arg("errorPolicyTag"))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReference& entityReference,
+             const TraitsDataPtr& traitsHint, const ContextConstPtr& context) {
+            return self.preflight(entityReference, traitsHint, context);
+          },
+          py::arg("entityReference"), py::arg("traitsHint").none(false),
+          py::arg("context").none(false))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Exception& tag) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, context, tag);
+          },
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("context").none(false),
+          py::arg("errorPolicyTag"))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Variant& tag) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, context, tag);
+          },
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("context").none(false),
+          py::arg("errorPolicyTag"))
+      .def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, context);
+          },
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("context").none(false))
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,

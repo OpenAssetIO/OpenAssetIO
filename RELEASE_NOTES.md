@@ -6,6 +6,17 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- Changed signature of `preflight` to accept a `TraitsData` per
+  reference, rather than a single trait set. The host is now expected to
+  communicate any relevant information that it owns and is known at
+  `preflight` time.
+  [1028](https://github.com/OpenAssetIO/OpenAssetIO/issues/1028)
+
+- Relaxed the restriction on `register` that all trait sets of the
+  provided `TraitsData` elements must match. This allows batched
+  publishing of heterogeneous entity types.
+  [1029](https://github.com/OpenAssetIO/OpenAssetIO/issues/1029)
+
 - Removed `Context.Access.kWriteMultiple` and
  `Context.Access.kReadMultiple`access patterns, due to not having
  coherent use cases.

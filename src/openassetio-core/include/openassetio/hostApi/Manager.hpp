@@ -1138,9 +1138,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * the Manager may even use this opportunity to switch to some
    * temporary working path or some such.
    *
-   * @warning If the supplied @ref trait_set is missing traits required
-   * by the manager for any input entity reference, then that element
-   * will error.
+   * @warning If the supplied @fqref{TraitsData} "trait data" is missing
+   * traits or properties required by the manager for any input entity
+   * reference, then that element will error. See @ref
+   * glossary_preflight "glossary entry" for details.
    *
    * @note It's vital that the @ref Context is well configured here,
    * in particular the @fqref{Context.retention}
@@ -1155,8 +1156,10 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the entities that are being
-   * published.
+   * @param traitsHints @ref trait_set for each entity, determining the
+   * type of entity to publish, complete with any properties the host
+   * owns and can provide at this time. See @ref glossary_preflight
+   * "glossary entry" for details.
    *
    * @param context The calling context. This is not
    * replaced with an array in order to simplify implementation.
@@ -1181,7 +1184,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @see @ref register_
    */
-  void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+  void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
                  const ContextConstPtr& context, const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
 
@@ -1192,7 +1195,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
    * --> const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
@@ -1206,8 +1209,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReference The entity reference to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the entity that is being
-   * published.
+   * @param traitsHint @ref trait_set for the entity,
+   * determining the type of entity to publish, complete with any
+   * properties that can be provided at this time.
    *
    * @param context The calling context.
    *
@@ -1218,7 +1222,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * the publishing operation
    */
   EntityReference preflight(const EntityReference& entityReference,
-                            const trait::TraitSet& traitSet, const ContextConstPtr& context,
+                            const TraitsDataPtr& traitsHint, const ContextConstPtr& context,
                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1228,7 +1232,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
    * --> const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
@@ -1245,8 +1249,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReference The entity reference to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the entity that is being
-   * published.
+   * @param traitsHint @ref trait_set for the entity,
+   * determining the type of entity to publish, complete with any
+   * properties that can be provided at this time.
    *
    * @param context The calling context.
    *
@@ -1259,7 +1264,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * entity.
    */
   std::variant<BatchElementError, EntityReference> preflight(
-      const EntityReference& entityReference, const trait::TraitSet& traitSet,
+      const EntityReference& entityReference, const TraitsDataPtr& traitsHint,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
@@ -1269,7 +1274,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
    * --> const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
@@ -1283,8 +1288,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the entities that are being
-   * published.
+   * @param traitsHints @ref trait_set for each entity,
+   * determining the type of entity to publish, complete with any
+   * properties that can be provided at this time.
    *
    * @param context The calling context. The same calling context is
    * used for each entity reference.
@@ -1296,7 +1302,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * of the publishing operation
    */
   EntityReferences preflight(const EntityReferences& entityReferences,
-                             const trait::TraitSet& traitSet, const ContextConstPtr& context,
+                             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
                              const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1306,7 +1312,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
+   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
    * --> const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on preflight behaviour.
@@ -1325,8 +1331,9 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @param entityReferences The entity references to preflight prior
    * to registration.
    *
-   * @param traitSet The @ref trait_set of the entity that is being
-   * published.
+   * @param traitsHints @ref trait_set for each entity,
+   * determining the type of entity to publish, complete with any
+   * properties that can be provided at this time.
    *
    * @param context The calling context. The same calling context is
    * used for each entity reference.
@@ -1340,7 +1347,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * particular entity.
    */
   std::vector<std::variant<BatchElementError, EntityReference>> preflight(
-      const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+      const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
@@ -1428,9 +1435,6 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * @exception std::out_of_range If @p entityReferences and
    * @p entityTraitsDatas are not lists of the same length.
-   *
-   * @exception std::invalid_argument If all @p entityTraitsDatas do
-   * not share the same trait set.
    *
    * Other exceptions may be raised for fatal runtime errors, for
    * example server communication failure.

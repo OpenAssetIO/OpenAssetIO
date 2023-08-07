@@ -107,7 +107,18 @@ class BatchElementError final {
      * entity-based operations on a valid @ref entity_reference that
      * fail for some reason.
      */
-    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError
+    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError,
+
+    /**
+     * Error code response from @ref glossary_preflight if the provided
+     * @fqref{TraitsData} "traits data" hint holds insufficient or
+     * invalid information.
+     *
+     * This will occur when the manager requires information that the
+     * host owns to be passed to `preflight`, but the host did not
+     * provide it.
+     */
+    kInvalidPreflightHint = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint
   };
 
   /**
@@ -197,6 +208,14 @@ struct OPENASSETIO_CORE_EXPORT EntityAccessErrorBatchElementException : BatchEle
  * @ref BatchElementError.ErrorCode.kEntityResolutionError
  */
 struct OPENASSETIO_CORE_EXPORT EntityResolutionErrorBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kInvalidPreflightHint
+ */
+struct OPENASSETIO_CORE_EXPORT InvalidPreflightHintBatchElementException : BatchElementException {
   using BatchElementException::BatchElementException;
 };
 /**

@@ -69,7 +69,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Wrap the C suite's `preflight` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
-  void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+  void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
                  const ContextConstPtr& context, const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override;

@@ -30,7 +30,7 @@
  *
  * If supported by the host, it will then:
  * - Call @ref glossary_preflight with the target entity and the traits
- *   from the @needsref ThumbnailSpecification, using the
+ *   data from the @needsref ThumbnailSpecification, using the
  *   @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated"
  *   access mode.
  * - Call @ref glossary_resolve on the returned reference to determine

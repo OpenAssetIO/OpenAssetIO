@@ -171,15 +171,15 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.defaultEntityReference(traitSets, context, hostSession)
 
     def preflight(
-        self, targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
+        self, targetEntityRefs, traitsDatas, context, hostSession, successCallback, errorCallback
     ):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
-        self.__assertIsIterableOf(traitSet, str)
+        self.__assertIsIterableOf(traitsDatas, TraitsData)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.preflight(
-            targetEntityRefs, traitSet, context, hostSession, successCallback, errorCallback
+            targetEntityRefs, traitsDatas, context, hostSession, successCallback, errorCallback
         )
 
     def createState(self, hostSession):
