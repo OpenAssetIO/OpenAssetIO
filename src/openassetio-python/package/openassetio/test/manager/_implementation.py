@@ -102,7 +102,7 @@ class _ValidatorHarness:
         if extraArgs:
             argv.extend(extraArgs)
         runnerInstance = self.__runner(
-            testLoader=self.__loader, argv=argv, module=module, exit=False
+            testLoader=self.__loader, argv=argv, module=module, exit=False, verbosity=2
         )
         return runnerInstance.result.wasSuccessful()
 
