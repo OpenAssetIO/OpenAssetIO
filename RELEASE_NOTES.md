@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+---------------
+
+### Improvements
+
+- Increased verbosity when running the `openassetio.test.manager` API
+  compliance suite test harness. The report includes tests that were
+  skipped, helping to detect accidentally omitted fixtures.
+  [1032](https://github.com/OpenAssetIO/OpenAssetIO/pull/1032)
+
 v1.0.0-alpha.13
 ---------------
 
