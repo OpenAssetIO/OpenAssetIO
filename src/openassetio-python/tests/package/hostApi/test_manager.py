@@ -454,6 +454,36 @@ class Test_Manager_getWithRelationship:
             mock.ANY,
         )
 
+    def test_when_default_resultTraitSet_modified_then_modifications_dont_persist(
+        self,
+        manager,
+        mock_manager_interface,
+        a_ref,
+        an_empty_traitsdata,
+        a_context,
+    ):
+        def mutate_resultTraitSet(_, __, result_trait_set, *_args):
+            result_trait_set.add("this shouldn't persist")
+
+        def assert_resultTraitSet_empty(_, __, result_trait_set, *_args):
+            assert result_trait_set == set()
+
+        # First call mutates the defaulted resultTraitSet parameter.
+        mock_manager_interface.mock.getWithRelationship.side_effect = mutate_resultTraitSet
+        manager.getWithRelationship(
+            [a_ref], an_empty_traitsdata, a_context, mock.Mock(), mock.Mock()
+        )
+
+        # Second call asserts that the mutation of the first call didn't
+        # persist in the default value.
+        mock_manager_interface.mock.getWithRelationship.side_effect = assert_resultTraitSet_empty
+        manager.getWithRelationship(
+            [a_ref], an_empty_traitsdata, a_context, mock.Mock(), mock.Mock()
+        )
+
+        # Confidence check: ensure we actually called the manager plugin.
+        assert mock_manager_interface.mock.getWithRelationship.call_count == 2
+
 
 class Test_Manager_getWithRelationships:
     def test_method_defined_in_cpp(self, method_introspector):
@@ -535,6 +565,36 @@ class Test_Manager_getWithRelationships:
             )
 
         assert not mock_manager_interface.mock.getWithRelationships.called
+
+    def test_when_default_resultTraitSet_modified_then_modifications_dont_persist(
+        self,
+        manager,
+        mock_manager_interface,
+        a_ref,
+        an_empty_traitsdata,
+        a_context,
+    ):
+        def mutate_resultTraitSet(_, __, result_trait_set, *_args):
+            result_trait_set.add("this shouldn't persist")
+
+        def assert_resultTraitSet_empty(_, __, result_trait_set, *_args):
+            assert result_trait_set == set()
+
+        # First call mutates the defaulted resultTraitSet parameter.
+        mock_manager_interface.mock.getWithRelationships.side_effect = mutate_resultTraitSet
+        manager.getWithRelationships(
+            a_ref, [an_empty_traitsdata], a_context, mock.Mock(), mock.Mock()
+        )
+
+        # Second call asserts that the mutation of the first call didn't
+        # persist in the default value.
+        mock_manager_interface.mock.getWithRelationships.side_effect = assert_resultTraitSet_empty
+        manager.getWithRelationships(
+            a_ref, [an_empty_traitsdata], a_context, mock.Mock(), mock.Mock()
+        )
+
+        # Confidence check: ensure we actually called the manager plugin.
+        assert mock_manager_interface.mock.getWithRelationships.call_count == 2
 
 
 class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
