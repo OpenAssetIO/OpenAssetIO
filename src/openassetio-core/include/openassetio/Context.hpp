@@ -41,10 +41,38 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * @name Access Pattern
    */
-  enum class Access { kRead, kReadMultiple, kWrite, kWriteMultiple, kUnknown };
+  enum class Access {
+    /**
+     * Host intends to read data. For example, trait property values
+     * obtained via `resolve` may be used to control the loading of data
+     * from a resource, and its subsequent interpretation.
+     */
+    kRead,
+    /**
+     * Host intends to write data.  For example, trait property values
+     * obtained via `resolve` may be used to control the writing of data
+     * to a resource, and specifics of its format or content. During
+     * publishing this must be used whenever the entity reference
+     * explicitly targets the specific entity whose data is being
+     * written. For example creating or updating a simple, unstructured
+     * asset such as an image or other file-based data.
+     */
+    kWrite,
+    /**
+     * Hosts intends to write data for a new entity in relation to
+     * another. During publishing this must be used whenever the entity
+     * reference points to an existing entity, and the intention is to
+     * create a  new, related entity instead of updating the target. For
+     * example, when programmatically creating new  entities under an
+     * existing parent collection, or the publishing of the components
+     * of a structured asset based on a single root entity reference.
+     */
+    kCreateRelated,
+    /// Unknown Access Pattern
+    kUnknown
+  };
 
-  static constexpr std::array kAccessNames{"read", "readMultiple", "write", "writeMultiple",
-                                           "unknown"};
+  static constexpr std::array kAccessNames{"read", "write", "createRelated", "unknown"};
   /// @}
 
   /**
@@ -67,10 +95,12 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /**
    * Describes what the @ref host is intending to do with the data.
    *
-   * For example, when passed to resolve, it specifies if the @ref
-   * host is about to read or write. When configuring a BrowserWidget,
-   * then it will hint as to whether the Host is wanting to choose a
-   * new file name to save, or open an existing one.
+   * For example, when passed to resolve, it specifies if the @ref host
+   * is about to read or write. When configuring a BrowserWidget, then
+   * it will hint as to whether the Host is wanting to choose a new file
+   * name to save, or open an existing one.
+   *
+   * See also @ref create_related "Create related glossary entry".
    */
   Access access;
 
@@ -133,30 +163,17 @@ class OPENASSETIO_CORE_EXPORT Context final {
                                        TraitsDataPtr locale = nullptr,
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
   /**
-   * @return `true` if the context is any of the 'Read' based access
-   * patterns. If the access is unknown (Access::kUnknown), then `false`
-   * is returned.
+   * @return `true` if the context is a 'Read' based access pattern. If
+   * the access is unknown (Access::kUnknown), then `false` is returned.
    */
-  [[nodiscard]] inline bool isForRead() const {
-    return access == Access::kRead || access == Access::kReadMultiple;
-  }
+  [[nodiscard]] inline bool isForRead() const { return access == Access::kRead; }
 
   /**
-   * @return `true` if the context is any of the 'Write' based access
-   * patterns. If the access is unknown (Access::kUnknown), then `false`
-   * is returned.
+   * @return `true` if the context is a 'Write' based access pattern. If
+   * the access is unknown (Access::kUnknown), then `false` is returned.
    */
   [[nodiscard]] inline bool isForWrite() const {
-    return access == Access::kWrite || access == Access::kWriteMultiple;
-  }
-
-  /**
-   * @return `true` if the context is any of the 'Multiple' based access
-   * patterns. If the access is unknown (Access::kUnknown), then `false`
-   * is returned.
-   */
-  [[nodiscard]] inline bool isForMultiple() const {
-    return access == Access::kReadMultiple || access == Access::kWriteMultiple;
+    return access == Access::kWrite || access == Access::kCreateRelated;
   }
 
  private:

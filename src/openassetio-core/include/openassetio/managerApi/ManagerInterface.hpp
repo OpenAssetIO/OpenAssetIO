@@ -1140,8 +1140,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "ErrorCodes"). The callback must be called on the same thread that
    * initiated the call to `preflight`. A
    * @fqref{BatchElementError.ErrorCode.kEntityAccessError}
-   * "kEntityAccessError" should be used for any target references that
-   * are conceptually read-only.
+   * "kEntityAccessError" should be used if the access pattern cannot be
+   * adhered to, for example when attempting to write any target
+   * references that are conceptually read-only in response to
+   * @fqref{Context.Access.kWrite} "Access.kWrite", or in response to
+   * @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated" if
+   * creating related entities is not supported.
    *
    * @note it is important for the implementation to pay attention to
    * @fqref{Context.retention} "Context.retention", as not all hosts
@@ -1166,9 +1170,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * This instructs the implementation to ensure a valid entity exists
    * for each given reference and to persist the data provided in the
    * @fqref{TraitsData}. This will be called either in isolation or
-   * after calling preflight, depending on whether work needed to be
-   * done to generate the data. Preflight is omitted if the data is already
-   * available at the time of publishing.
+   * after calling preflight, depending on whether there is work needed
+   * to be done to generate the data. Preflight is omitted if the data
+   * is already available at the time of publishing.
    *
    * This call must block until registration is complete for all
    * supplied references, and callbacks have been called on the same

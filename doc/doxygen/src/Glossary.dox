@@ -28,8 +28,7 @@
  * single image @ref entity to, so any viable container should be
  * selectable. If it is 'kRead' then the host is wishing to browse for
  * an entity to read, so only existing entities that match the
- * specification should be presented. If 'kWriteMultiple' is specified,
- * then the applicable selections generally changes again.
+ * specification should be presented.
  *
  * The Context also holds an opaque (to the host) data pointer, created
  * by the @ref ManagerInterface, that contains any persistent state its
@@ -448,7 +447,6 @@
  *
  * When publishing existing data, the preflight step is omitted.
  *
- *
  * @section register register
  *
  * The registration mechanism allows for a @ref host to create or update
@@ -456,16 +454,23 @@
  * mutated within the system.
  *
  * It is up to the @ref manager to decide what the registration of new
- * data to an existing entity should mean. The API has no opinion as to
- * whether it is permitted to update in-place, or to require the
- * creation of a new version. The manager should apply its own rules,
- * and return an @ref entity_reference that points to the result of the
- * registration - whether this be a new version, or the same entity that
- * was subject to the registration.
+ * data to an existing entity should mean. The API generally has no
+ * opinion as to whether it is permitted to update in-place, or to
+ * require the creation of a new version. The manager should apply its
+ * own rules, and return an @ref entity_reference that points to the
+ * result of the registration - whether this be a new version, or the
+ * same entity that was subject to the registration.
  *
  * For compound entities, the registration call signifies the completion
  * of the registration of any child entities.
  *
+ * @subsection create_related Create related
+ * Despite the API having no opinion as to the specific reaction of the
+ * manager to registration, there are some occasions, specifically
+ * around the creation of new related entities, where additional
+ * instruction is required from the host. For this purpose, the use of
+ * @fqref{Context.Access.kCreateRelated} "Context.Access.kCreateRelated"
+ * in the context is used as a flag to indicate this intent.
  *
  * @section resolve resolve
  *

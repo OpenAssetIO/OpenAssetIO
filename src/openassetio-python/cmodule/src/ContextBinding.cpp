@@ -22,9 +22,8 @@ void registerContext(const py::module& mod) {
 
   py::enum_<Context::Access>{context, "Access"}
       .value("kRead", Context::Access::kRead)
-      .value("kReadMultiple", Context::Access::kReadMultiple)
       .value("kWrite", Context::Access::kWrite)
-      .value("kWriteMultiple", Context::Access::kWriteMultiple)
+      .value("kCreateRelated", Context::Access::kCreateRelated)
       .value("kUnknown", Context::Access::kUnknown);
 
   context.def_readonly_static("kAccessNames", &Context::kAccessNames);
@@ -51,6 +50,5 @@ void registerContext(const py::module& mod) {
             self.managerState = std::move(managerState);
           })
       .def("isForRead", &Context::isForRead)
-      .def("isForWrite", &Context::isForWrite)
-      .def("isForMultiple", &Context::isForMultiple);
+      .def("isForWrite", &Context::isForWrite);
 }

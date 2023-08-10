@@ -159,11 +159,14 @@ class Test_FixtureAugmentedTestCase_createTestContext:
         assert context.locale is a_test_case._locale  # pylint: disable=protected-access
 
     def test_when_supplied_with_access_then_the_context_access_is_set(self, a_test_case):
-        context = a_test_case.createTestContext(Context.Access.kWriteMultiple)
-        assert context.access == Context.Access.kWriteMultiple
+        context = a_test_case.createTestContext(Context.Access.kWrite)
+        assert context.access == Context.Access.kWrite
 
-        context = a_test_case.createTestContext(Context.Access.kReadMultiple)
-        assert context.access == Context.Access.kReadMultiple
+        context = a_test_case.createTestContext(Context.Access.kRead)
+        assert context.access == Context.Access.kRead
+
+        context = a_test_case.createTestContext(Context.Access.kCreateRelated)
+        assert context.access == Context.Access.kCreateRelated
 
 
 class Test_FixtureAugmentedTestCase_assertIsStringKeyPrimitiveValueDict:

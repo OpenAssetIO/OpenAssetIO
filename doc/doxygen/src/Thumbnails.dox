@@ -30,7 +30,9 @@
  *
  * If supported by the host, it will then:
  * - Call @ref preflight with the target entity and the traits from the
- *   @needsref ThumbnailSpecification.
+ *   @needsref ThumbnailSpecification, using the
+     @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated"
+     access mode.
  * - Call @needsref resolve on the returned reference to determine the
  *   desired width/height/format for the thumbnail.
  * - Generate a thumbnail and @ref register it to the same reference.

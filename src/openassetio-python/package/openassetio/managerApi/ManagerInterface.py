@@ -263,7 +263,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
         being run in some known environment.
 
         For example, a host may request the default ref for the @ref
-        trait_set of a 'ShotSpecification' with access kWriteMultiple'.
+        trait_set of a 'ShotSpecification' with access 'kWrite'.
         If the Manager has some concept of the 'current sequence' it may
         wish to return this so that a 'Create Shots' action starts
         somewhere meaningful.
