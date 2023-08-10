@@ -46,10 +46,6 @@ jobs:
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
-        env:
-          # As we're building wheels inside a managed environment,
-          # (cibuildwheels) there is no need to install cpython.
-          OPENASSETIO_CONAN_SKIP_CPYTHON: "True"
 
       - name: Build wheels
         run: |

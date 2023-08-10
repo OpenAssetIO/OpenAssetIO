@@ -4,6 +4,13 @@ Release Notes
 v1.0.0-alpha.x
 ---------------
 
+### Breaking changes
+
+- Removed `cpython` dependency from `conanfile.py`. When building
+  OpenAssetIO, it is now expected that a development install of the
+  appropriate Python version is discoverable on the system.
+  [1038](https://github.com/OpenAssetIO/OpenAssetIO/pull/1038)
+
 ### Improvements
 
 - Increased verbosity when running the `openassetio.test.manager` API

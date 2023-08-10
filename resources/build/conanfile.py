@@ -8,9 +8,7 @@ class OpenAssetIOConan(ConanFile):
     # which augments package search paths with conan package
     # directories.
     # TODO(DF): This is deprecated and should be swapped for the
-    # CMakeToolchain generator, but that is not yet compatible with the
-    # cpython recipe (it does not specify `builddirs` so is not added to
-    # the CMAKE_PREFIX_PATH).
+    # CMakeToolchain generator.
     generators = "cmake_paths"
 
     def generate(self):
@@ -35,10 +33,6 @@ class OpenAssetIOConan(ConanFile):
 
     def requirements(self):
         # CY2022
-        if not tools.get_env("OPENASSETIO_CONAN_SKIP_CPYTHON", False):
-            self.requires("cpython/3.9.7")
-            # Pin recipe as latest not compatible with Conan 1.59
-            self.requires("ncurses/6.2@#54f100a8e4a94700d4123ed31420506c")
         self.requires("pybind11/2.10.1")
         # TOML library
         self.requires("tomlplusplus/3.2.0")
@@ -46,15 +40,3 @@ class OpenAssetIOConan(ConanFile):
         self.requires("catch2/2.13.8")
         # Mocking library
         self.requires("trompeloeil/42")
-
-    def configure(self):
-        if self.settings.os == "Windows":
-            # Without the following, ConanCenter's `cpython` package
-            # doesn't get installed with all artifacts on Windows, e.g.
-            # `python -m venv` doesn't work. See:
-            # https://github.com/conan-io/conan-center-index/issues/9333
-            # However, with the following, the package's bundled Python
-            # interpreter doesn't work on Linux because it cannot find
-            # libpython (RPATH issue). So we must make this conditional
-            # on the OS.
-            self.options["cpython"].shared = True
