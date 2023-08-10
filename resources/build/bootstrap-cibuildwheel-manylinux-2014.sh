@@ -26,6 +26,5 @@ conan profile update settings.compiler.libcxx=libstdc++ default
 conan config set general.revisions_enabled=True
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
-export OPENASSETIO_CONAN_SKIP_CPYTHON="True"
 conan install --install-folder ".conan" --build=missing \
     "resources/build"

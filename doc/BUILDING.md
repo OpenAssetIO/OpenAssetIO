@@ -62,11 +62,8 @@ See [Building](#building) for more information.
 >
 > On macOS, by default, CMake prefers Framework installations
 > (see: [$CMAKE_FIND_FRAMEWORK](https://cmake.org/cmake/help/latest/variable/CMAKE_FIND_FRAMEWORK.html)).
-> This means dependencies such as Python may default to the system
-> installation despite alternatives being present. In addition, if you
-> are attempting to use the ConanCenter cpython package as an
-> alternative, we have encountered missing header issues that may
-> require additional work/configuration to resolve.
+> This means dependencies may default to the system installation despite
+> alternatives being present.
 
 ## Building
 
@@ -106,7 +103,9 @@ cmake --install build
 >
 > This installs OpenAssetIO's dependencies as described in
 > `/resources/build/conanfile.py`, and allows CMake to deduce the
-> locations via referencing the generated `conan_paths.cmake`.
+> locations via referencing the generated `conan_paths.cmake`. Note that
+> this does not include a development install of Python, which should
+> be provided by other means.
 
 The artifacts are installed to `/build/dist`. This default location can
 be overridden by setting `CMAKE_INSTALL_PREFIX` prior to build.
