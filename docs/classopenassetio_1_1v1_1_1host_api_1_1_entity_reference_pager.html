@@ -126,6 +126,10 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a1f2fa8cfd346b0e8de17f8c096441a6d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f2fa8cfd346b0e8de17f8c096441a6d">Ptr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#aa41923f3dd2192e8321c3aa194ad27b5">EntityReferencePagerPtr</a></td></tr>
+<tr class="separator:a1f2fa8cfd346b0e8de17f8c096441a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a966bf1e5e1207c0403d82728941875da"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a966bf1e5e1207c0403d82728941875da">ConstPtr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a37426047c2d3e12cc8aa644ada0997d3">EntityReferencePagerConstPtr</a></td></tr>
+<tr class="separator:a966bf1e5e1207c0403d82728941875da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a194ae23b559b0a3ff5e3f12b6c73b9bf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a194ae23b559b0a3ff5e3f12b6c73b9bf">Page</a> = <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a></td></tr>
 <tr class="separator:a194ae23b559b0a3ff5e3f12b6c73b9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -158,7 +162,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1f85e3f1f9726781f9bb13827c01798d"><td class="memItemLeft" align="right" valign="top">static EntityReferencePager::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f85e3f1f9726781f9bb13827c01798d">make</a> (managerApi::EntityReferencePagerInterfacePtr pagerInterface, managerApi::HostSessionPtr hostSession)</td></tr>
+<tr class="memitem:a1f85e3f1f9726781f9bb13827c01798d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f2fa8cfd346b0e8de17f8c096441a6d">EntityReferencePager::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f85e3f1f9726781f9bb13827c01798d">make</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a> pagerInterface, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a> hostSession)</td></tr>
 <tr class="memdesc:a1f85e3f1f9726781f9bb13827c01798d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html" title="The EntityReferencePager allows for the retrieval and traversal of large datasets in a paginated mann...">EntityReferencePager</a> wrapping a <a class="el" href="glossary.html#manager">manager</a> plugin's implementation.  <a href="#a1f85e3f1f9726781f9bb13827c01798d">More...</a><br /></td></tr>
 <tr class="separator:a1f85e3f1f9726781f9bb13827c01798d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -172,12 +176,36 @@ Static Public Member Functions</h2></td></tr>
 <p>Due to the variance of backends, construction, <code>hasNext</code>, <code>get</code> and <code>next</code> may all reasonably need to perform non-trivial, networked operations, and thus performance characteristics should not be assumed.</p>
 <p>Destruction of this object is a signal to the manager that the connection query is finished. For this reason you should avoid keeping hold of this object for longer than necessary. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a966bf1e5e1207c0403d82728941875da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a966bf1e5e1207c0403d82728941875da">ConstPtr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a37426047c2d3e12cc8aa644ada0997d3">EntityReferencePagerConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a194ae23b559b0a3ff5e3f12b6c73b9bf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a194ae23b559b0a3ff5e3f12b6c73b9bf">Page</a> =  <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1f2fa8cfd346b0e8de17f8c096441a6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f2fa8cfd346b0e8de17f8c096441a6d">Ptr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#aa41923f3dd2192e8321c3aa194ad27b5">EntityReferencePagerPtr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -301,15 +329,15 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static EntityReferencePager::Ptr make </td>
+          <td class="memname">static <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a1f2fa8cfd346b0e8de17f8c096441a6d">EntityReferencePager::Ptr</a> make </td>
           <td>(</td>
-          <td class="paramtype">managerApi::EntityReferencePagerInterfacePtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a>&#160;</td>
           <td class="paramname"><em>pagerInterface</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">managerApi::HostSessionPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a>&#160;</td>
           <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>

@@ -1,5 +1,7 @@
 var classopenassetio_1_1v1_1_1log_1_1_logger_interface =
 [
+    [ "ConstPtr", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a171a5dd0602340fa049514b4f38edece", null ],
+    [ "Ptr", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad72568d0403790b179a0b61fa8360437", null ],
     [ "Severity", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b", [
       [ "kDebugApi", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4", null ],
       [ "kDebug", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29", null ],

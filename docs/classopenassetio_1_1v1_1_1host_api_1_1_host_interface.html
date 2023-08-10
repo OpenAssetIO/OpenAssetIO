@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,6 +123,13 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 
 <p><code>#include &lt;HostInterface.hpp&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a59e2db88565c4548001bccab4bff841a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a59e2db88565c4548001bccab4bff841a">Ptr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#af00cc9c4eb923cad81efd770d82db4bd">HostInterfacePtr</a></td></tr>
+<tr class="separator:a59e2db88565c4548001bccab4bff841a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a9c2a0685cdf5b46152bf4f0d02912"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#ab7a9c2a0685cdf5b46152bf4f0d02912">ConstPtr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a110eb2a6c849bf2177dec50833132623">HostInterfaceConstPtr</a></td></tr>
+<tr class="separator:ab7a9c2a0685cdf5b46152bf4f0d02912"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af807ad34031837034e95bdfd729313c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#af807ad34031837034e95bdfd729313c9">HostInterface</a> ()=default</td></tr>
@@ -147,7 +155,32 @@ Public Member Functions</h2></td></tr>
 <p>In order for a host to use the API, it must provide an implementation of the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> to the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a> class upon construction.</p>
 <p>A <a class="el" href="glossary.html#manager">manager</a> does not call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> directly, it is always accessed via the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> wrapper. This allows the API to insert suitable house-keeping and auditing functionality in between.</p>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="ab7a9c2a0685cdf5b46152bf4f0d02912"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#ab7a9c2a0685cdf5b46152bf4f0d02912">ConstPtr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a110eb2a6c849bf2177dec50833132623">HostInterfaceConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a59e2db88565c4548001bccab4bff841a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a59e2db88565c4548001bccab4bff841a">Ptr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#af00cc9c4eb923cad81efd770d82db4bd">HostInterfacePtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af807ad34031837034e95bdfd729313c9"></a>
 <div class="memitem">
 <div class="memproto">

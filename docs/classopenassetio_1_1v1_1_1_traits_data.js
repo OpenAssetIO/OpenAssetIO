@@ -1,5 +1,7 @@
 var classopenassetio_1_1v1_1_1_traits_data =
 [
+    [ "ConstPtr", "classopenassetio_1_1v1_1_1_traits_data.html#a19b498283a285b5d9ab4f34819a70400", null ],
+    [ "Ptr", "classopenassetio_1_1v1_1_1_traits_data.html#ada08e9cca555d58d2c21b88f2c9dd8ba", null ],
     [ "~TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0", null ],
     [ "addTrait", "classopenassetio_1_1v1_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be", null ],
     [ "addTraits", "classopenassetio_1_1v1_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436", null ],

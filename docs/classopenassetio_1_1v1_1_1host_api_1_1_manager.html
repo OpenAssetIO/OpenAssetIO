@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classopenassetio_1_1v1_1_1host_api_1_1_manager-members.html">List of all members</a>  </div>
@@ -132,6 +133,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:aeeeb16da8d1fed4e1cc8854453660992"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeeeb16da8d1fed4e1cc8854453660992">Ptr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a></td></tr>
+<tr class="separator:aeeeb16da8d1fed4e1cc8854453660992"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0626ac24c1ced0ff7bdba5218432739"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0626ac24c1ced0ff7bdba5218432739">ConstPtr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a34a83a31d93d97f9a3b4f98ade215229">ManagerConstPtr</a></td></tr>
+<tr class="separator:aa0626ac24c1ced0ff7bdba5218432739"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Batch element error handling</div></td></tr>
 <tr class="memitem:acb8790aebaf4a9b8ac04fc0e65f069e5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>)&gt;</td></tr>
 <tr class="memdesc:acb8790aebaf4a9b8ac04fc0e65f069e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for an unsuccessful operation on an element in a batch.  <a href="#acb8790aebaf4a9b8ac04fc0e65f069e5">More...</a><br /></td></tr>
@@ -139,7 +144,7 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aca0c3cb654cd758d5a0f3c20ebf8a359"><td class="memItemLeft" align="right" valign="top">managerApi::HostSessionPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aca0c3cb654cd758d5a0f3c20ebf8a359">_hostSession</a> () const </td></tr>
+<tr class="memitem:aca0c3cb654cd758d5a0f3c20ebf8a359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aca0c3cb654cd758d5a0f3c20ebf8a359">_hostSession</a> () const </td></tr>
 <tr class="separator:aca0c3cb654cd758d5a0f3c20ebf8a359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>These functions provide general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.</p>
@@ -155,22 +160,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac82a7565b39bc7092b624bc2c54c864a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#ac82a7565b39bc7092b624bc2c54c864a">More...</a><br /></td></tr>
 <tr class="separator:ac82a7565b39bc7092b624bc2c54c864a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Policy</div></td></tr>
-<tr class="memitem:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, const ContextConstPtr &amp;context) const </td></tr>
+<tr class="memitem:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context) const </td></tr>
 <tr class="memdesc:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity, and which traits they are capable of resolving (or persisting).  <a href="#acdf7d0c3cef98cce7abaf8fb5f004354">More...</a><br /></td></tr>
 <tr class="separator:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Context Management</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 </div></td></tr>
-<tr class="memitem:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="memItemLeft" align="right" valign="top">ContextPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> ()</td></tr>
+<tr class="memitem:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a> ()</td></tr>
 <tr class="memdesc:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager.  <a href="#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">More...</a><br /></td></tr>
 <tr class="separator:a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a951a0ebcb54c4abd6f7a13325e514021"><td class="memItemLeft" align="right" valign="top">ContextPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> (const ContextPtr &amp;parentContext)</td></tr>
+<tr class="memitem:a951a0ebcb54c4abd6f7a13325e514021"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;parentContext)</td></tr>
 <tr class="memdesc:a951a0ebcb54c4abd6f7a13325e514021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a child <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for use with the manager.  <a href="#a951a0ebcb54c4abd6f7a13325e514021">More...</a><br /></td></tr>
 <tr class="separator:a951a0ebcb54c4abd6f7a13325e514021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95b9611b3994ff983f8743d6d781009c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a> (const ContextPtr &amp;context)</td></tr>
+<tr class="memitem:a95b9611b3994ff983f8743d6d781009c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;context)</td></tr>
 <tr class="memdesc:a95b9611b3994ff983f8743d6d781009c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context.  <a href="#a95b9611b3994ff983f8743d6d781009c">More...</a><br /></td></tr>
 <tr class="separator:a95b9611b3994ff983f8743d6d781009c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="memItemLeft" align="right" valign="top">ContextPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;token)</td></tr>
+<tr class="memitem:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;token)</td></tr>
 <tr class="memdesc:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a>.  <a href="#afba52321fc9c4c2c7c2a87f037e8b5a0">More...</a><br /></td></tr>
 <tr class="separator:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
@@ -187,7 +192,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab02f37f04ca3b55732cd98283ed83b74"><td class="memItemLeft" align="right" valign="top">static ManagerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab02f37f04ca3b55732cd98283ed83b74">make</a> (managerApi::ManagerInterfacePtr managerInterface, managerApi::HostSessionPtr hostSession)</td></tr>
+<tr class="memitem:ab02f37f04ca3b55732cd98283ed83b74"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab02f37f04ca3b55732cd98283ed83b74">make</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a7ccaafa95072366990f071e03f7df8b4">managerApi::ManagerInterfacePtr</a> managerInterface, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a> hostSession)</td></tr>
 <tr class="memdesc:ab02f37f04ca3b55732cd98283ed83b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> wrapping the supplied manager interface and host session.  <a href="#ab02f37f04ca3b55732cd98283ed83b74">More...</a><br /></td></tr>
 <tr class="separator:ab02f37f04ca3b55732cd98283ed83b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -207,22 +212,22 @@ Entity Resolution</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp741d94f50e28c89dc0549426792d7518"></a>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into the data for one or more <a class="el" href="glossary.html#trait">traits</a> that are meaningful to the situation.</p>
 <p>It could be a color space, a directory, a script or a frame range for an image sequence. </p>
 </td></tr>
-<tr class="memitem:aa0ce52a4388d9ec16c7189f653983dac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, TraitsDataPtr)&gt;</td></tr>
+<tr class="memitem:aa0ce52a4388d9ec16c7189f653983dac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>)&gt;</td></tr>
 <tr class="memdesc:aa0ce52a4388d9ec16c7189f653983dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity resolution.  <a href="#aa0ce52a4388d9ec16c7189f653983dac">More...</a><br /></td></tr>
 <tr class="separator:aa0ce52a4388d9ec16c7189f653983dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3821fa69b2c22f8a5e057de0e191289e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memitem:a3821fa69b2c22f8a5e057de0e191289e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:a3821fa69b2c22f8a5e057de0e191289e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available property data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a3821fa69b2c22f8a5e057de0e191289e">More...</a><br /></td></tr>
 <tr class="separator:a3821fa69b2c22f8a5e057de0e191289e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a795f35ccefbf23a1c31f3abcaded0a66"><td class="memItemLeft" align="right" valign="top">TraitsDataPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a795f35ccefbf23a1c31f3abcaded0a66">resolve</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:a795f35ccefbf23a1c31f3abcaded0a66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a795f35ccefbf23a1c31f3abcaded0a66">resolve</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:a795f35ccefbf23a1c31f3abcaded0a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for the given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a795f35ccefbf23a1c31f3abcaded0a66">More...</a><br /></td></tr>
 <tr class="separator:a795f35ccefbf23a1c31f3abcaded0a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6af6c80e865054f75ff9a18c4c035f3a"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, TraitsDataPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6af6c80e865054f75ff9a18c4c035f3a">resolve</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:a6af6c80e865054f75ff9a18c4c035f3a"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6af6c80e865054f75ff9a18c4c035f3a">resolve</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:a6af6c80e865054f75ff9a18c4c035f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides either a populated <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> or a <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>.  <a href="#a6af6c80e865054f75ff9a18c4c035f3a">More...</a><br /></td></tr>
 <tr class="separator:a6af6c80e865054f75ff9a18c4c035f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a706c1d1560f6bbd7a87b21132bfcec0b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; TraitsDataPtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a706c1d1560f6bbd7a87b21132bfcec0b">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:a706c1d1560f6bbd7a87b21132bfcec0b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a706c1d1560f6bbd7a87b21132bfcec0b">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:a706c1d1560f6bbd7a87b21132bfcec0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> populated with the available data for the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a706c1d1560f6bbd7a87b21132bfcec0b">More...</a><br /></td></tr>
 <tr class="separator:a706c1d1560f6bbd7a87b21132bfcec0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac627dd1b0db29b80e7939581699f71e2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, TraitsDataPtr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac627dd1b0db29b80e7939581699f71e2">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:ac627dd1b0db29b80e7939581699f71e2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac627dd1b0db29b80e7939581699f71e2">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:ac627dd1b0db29b80e7939581699f71e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides either a populated <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> or a <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ac627dd1b0db29b80e7939581699f71e2">More...</a><br /></td></tr>
 <tr class="separator:ac627dd1b0db29b80e7939581699f71e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -242,19 +247,19 @@ Related Entities</h2></td></tr>
 <tr class="memitem:a979fbc668a26e76d957c31361958a005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td></tr>
 <tr class="memdesc:a979fbc668a26e76d957c31361958a005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity relationship query.  <a href="#a979fbc668a26e76d957c31361958a005">More...</a><br /></td></tr>
 <tr class="separator:a979fbc668a26e76d957c31361958a005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, EntityReferencePagerPtr)&gt;</td></tr>
+<tr class="memitem:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#aa41923f3dd2192e8321c3aa194ad27b5">EntityReferencePagerPtr</a>)&gt;</td></tr>
 <tr class="memdesc:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful paged entity relationship query.  <a href="#ac0399582dfb38e9ddfcfab4b53eb63dc">More...</a><br /></td></tr>
 <tr class="separator:ac0399582dfb38e9ddfcfab4b53eb63dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a2e53170d27618549fc37692228a833"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const TraitsDataPtr &amp;relationshipTraitsData, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memitem:a5a2e53170d27618549fc37692228a833"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5a2e53170d27618549fc37692228a833">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;relationshipTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:a5a2e53170d27618549fc37692228a833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query entity references that are related to the input references by the relationship defined by a set of traits and their properties.  <a href="#a5a2e53170d27618549fc37692228a833">More...</a><br /></td></tr>
 <tr class="separator:a5a2e53170d27618549fc37692228a833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe642418e98985e59231b60dd5f32274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memitem:afe642418e98985e59231b60dd5f32274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe642418e98985e59231b60dd5f32274">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:afe642418e98985e59231b60dd5f32274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#afe642418e98985e59231b60dd5f32274">More...</a><br /></td></tr>
 <tr class="separator:afe642418e98985e59231b60dd5f32274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a909bac8b95ffba9f142d88166e7b020f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f">getWithRelationshipPaged</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const TraitsDataPtr &amp;relationshipTraitsData, size_t pageSize, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memitem:a909bac8b95ffba9f142d88166e7b020f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f">getWithRelationshipPaged</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;relationshipTraitsData, size_t pageSize, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:a909bac8b95ffba9f142d88166e7b020f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationship.  <a href="#a909bac8b95ffba9f142d88166e7b020f">More...</a><br /></td></tr>
 <tr class="separator:a909bac8b95ffba9f142d88166e7b020f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1981bb53386f9854a7ab8aab5c933ddf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf">getWithRelationshipsPaged</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, size_t pageSize, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
+<tr class="memitem:a1981bb53386f9854a7ab8aab5c933ddf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf">getWithRelationshipsPaged</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, size_t pageSize, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet={})</td></tr>
 <tr class="memdesc:a1981bb53386f9854a7ab8aab5c933ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationships.  <a href="#a1981bb53386f9854a7ab8aab5c933ddf">More...</a><br /></td></tr>
 <tr class="separator:a1981bb53386f9854a7ab8aab5c933ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -286,34 +291,34 @@ Publishing</h2></td></tr>
 <tr class="memitem:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>)&gt;</td></tr>
 <tr class="memdesc:af4a59453053da4f3ec0972ffcdc66ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful register operation on a particular entity.  <a href="#af4a59453053da4f3ec0972ffcdc66ed2">More...</a><br /></td></tr>
 <tr class="separator:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memitem:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ac0a2c6c60a15cd2c33a0083a6f717ea5">More...</a><br /></td></tr>
 <tr class="separator:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd901931371579b125a1bcffbfce35e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd901931371579b125a1bcffbfce35e6">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:acd901931371579b125a1bcffbfce35e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd901931371579b125a1bcffbfce35e6">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:acd901931371579b125a1bcffbfce35e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#acd901931371579b125a1bcffbfce35e6">More...</a><br /></td></tr>
 <tr class="separator:acd901931371579b125a1bcffbfce35e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9d89773250708245dc81804f924b947"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae9d89773250708245dc81804f924b947">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:ae9d89773250708245dc81804f924b947"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae9d89773250708245dc81804f924b947">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:ae9d89773250708245dc81804f924b947"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ae9d89773250708245dc81804f924b947">More...</a><br /></td></tr>
 <tr class="separator:ae9d89773250708245dc81804f924b947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac8008066336690b79f93b6d760aeeb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac8008066336690b79f93b6d760aeeb0">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:aac8008066336690b79f93b6d760aeeb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac8008066336690b79f93b6d760aeeb0">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:aac8008066336690b79f93b6d760aeeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#aac8008066336690b79f93b6d760aeeb0">More...</a><br /></td></tr>
 <tr class="separator:aac8008066336690b79f93b6d760aeeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a4bfd606f6299bcaa722a22b33d6eb0c8">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a4bfd606f6299bcaa722a22b33d6eb0c8">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a4bfd606f6299bcaa722a22b33d6eb0c8">More...</a><br /></td></tr>
 <tr class="separator:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac589010ad3f88ff9aff2d646d2538657"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const ContextConstPtr &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memitem:ac589010ad3f88ff9aff2d646d2538657"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:ac589010ad3f88ff9aff2d646d2538657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ac589010ad3f88ff9aff2d646d2538657">More...</a><br /></td></tr>
 <tr class="separator:ac589010ad3f88ff9aff2d646d2538657"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cb0792fd74d6870ea7edac4a24e1ec6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3cb0792fd74d6870ea7edac4a24e1ec6">register_</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const TraitsDataPtr &amp;entityTraitsData, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:a3cb0792fd74d6870ea7edac4a24e1ec6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3cb0792fd74d6870ea7edac4a24e1ec6">register_</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;entityTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:a3cb0792fd74d6870ea7edac4a24e1ec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#a3cb0792fd74d6870ea7edac4a24e1ec6">More...</a><br /></td></tr>
 <tr class="separator:a3cb0792fd74d6870ea7edac4a24e1ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5da797d03f9f843a373ff7d7033b1ef6"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5da797d03f9f843a373ff7d7033b1ef6">register_</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const TraitsDataPtr &amp;entityTraitsData, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:a5da797d03f9f843a373ff7d7033b1ef6"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5da797d03f9f843a373ff7d7033b1ef6">register_</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;entityTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:a5da797d03f9f843a373ff7d7033b1ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#a5da797d03f9f843a373ff7d7033b1ef6">More...</a><br /></td></tr>
 <tr class="separator:a5da797d03f9f843a373ff7d7033b1ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab422c376ce55df928d32fb4b8fd21cf6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab422c376ce55df928d32fb4b8fd21cf6">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memitem:ab422c376ce55df928d32fb4b8fd21cf6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab422c376ce55df928d32fb4b8fd21cf6">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
 <tr class="memdesc:ab422c376ce55df928d32fb4b8fd21cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ab422c376ce55df928d32fb4b8fd21cf6">More...</a><br /></td></tr>
 <tr class="separator:ab422c376ce55df928d32fb4b8fd21cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7348b5bf19d3ba548dbdc4dc97fd372"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad7348b5bf19d3ba548dbdc4dc97fd372">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const ContextConstPtr &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memitem:ad7348b5bf19d3ba548dbdc4dc97fd372"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad7348b5bf19d3ba548dbdc4dc97fd372">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
 <tr class="memdesc:ad7348b5bf19d3ba548dbdc4dc97fd372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ad7348b5bf19d3ba548dbdc4dc97fd372">More...</a><br /></td></tr>
 <tr class="separator:ad7348b5bf19d3ba548dbdc4dc97fd372"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -339,12 +344,24 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa0626ac24c1ced0ff7bdba5218432739"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0626ac24c1ced0ff7bdba5218432739">ConstPtr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a34a83a31d93d97f9a3b4f98ade215229">ManagerConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ac0399582dfb38e9ddfcfab4b53eb63dc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, EntityReferencePagerPtr)&gt;</td>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc">PagedRelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#aa41923f3dd2192e8321c3aa194ad27b5">EntityReferencePagerPtr</a>)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -364,6 +381,18 @@ Publishing</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Callback signature used for a successful preflight operation on a particular entity. </p>
+
+</div>
+</div>
+<a class="anchor" id="aeeeb16da8d1fed4e1cc8854453660992"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeeeb16da8d1fed4e1cc8854453660992">Ptr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -400,7 +429,7 @@ Publishing</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> =  std::function&lt;void(std::size_t, TraitsDataPtr)&gt;</td>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac">ResolveSuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -415,7 +444,7 @@ Publishing</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">managerApi::HostSessionPtr _hostSession </td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a> _hostSession </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -430,7 +459,7 @@ Publishing</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ContextPtr contextFromPersistenceToken </td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> contextFromPersistenceToken </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;&#160;</td>
           <td class="paramname"><em>token</em></td><td>)</td>
@@ -459,9 +488,9 @@ Publishing</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ContextPtr createChildContext </td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> createChildContext </td>
           <td>(</td>
-          <td class="paramtype">const ContextPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>parentContext</em></td><td>)</td>
           <td></td>
         </tr>
@@ -489,7 +518,7 @@ Publishing</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ContextPtr createContext </td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> createContext </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -613,13 +642,13 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>relationshipTraitsData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -680,7 +709,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>relationshipTraitsData</em>, </td>
         </tr>
         <tr>
@@ -692,7 +721,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -763,7 +792,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -836,7 +865,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1000,15 +1029,15 @@ This method may block for extended periods of time. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static ManagerPtr make </td>
+          <td class="memname">static <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a> make </td>
           <td>(</td>
-          <td class="paramtype">managerApi::ManagerInterfacePtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a7ccaafa95072366990f071e03f7df8b4">managerApi::ManagerInterfacePtr</a>&#160;</td>
           <td class="paramname"><em>managerInterface</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">managerApi::HostSessionPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a>&#160;</td>
           <td class="paramname"><em>hostSession</em>&#160;</td>
         </tr>
         <tr>
@@ -1041,7 +1070,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>&#160;</td>
         </tr>
         <tr>
@@ -1086,7 +1115,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> persistenceTokenForContext </td>
           <td>(</td>
-          <td class="paramtype">const ContextPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1126,7 +1155,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1189,7 +1218,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1241,7 +1270,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1295,7 +1324,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1347,7 +1376,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1401,7 +1430,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1470,13 +1499,13 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>entityTraitsData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1522,13 +1551,13 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TraitsDataPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>entityTraitsData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1582,7 +1611,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1634,7 +1663,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1688,7 +1717,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1736,7 +1765,7 @@ This method may block for extended periods of time. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TraitsDataPtr resolve </td>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> resolve </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
           <td class="paramname"><em>entityReference</em>, </td>
@@ -1750,7 +1779,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1788,7 +1817,7 @@ This method may block for extended periods of time. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, TraitsDataPtr&gt; resolve </td>
+          <td class="memname">std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>&gt; resolve </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
           <td class="paramname"><em>entityReference</em>, </td>
@@ -1802,7 +1831,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1842,7 +1871,7 @@ This method may block for extended periods of time. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;TraitsDataPtr&gt; resolve </td>
+          <td class="memname">std::vector&lt;<a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>&gt; resolve </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
           <td class="paramname"><em>entityReferences</em>, </td>
@@ -1856,7 +1885,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
@@ -1894,7 +1923,7 @@ This method may block for extended periods of time. </dd></dl>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, TraitsDataPtr&gt; &gt; resolve </td>
+          <td class="memname">std::vector&lt;std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a>&gt; &gt; resolve </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
           <td class="paramname"><em>entityReferences</em>, </td>
@@ -1908,7 +1937,7 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const ContextConstPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>

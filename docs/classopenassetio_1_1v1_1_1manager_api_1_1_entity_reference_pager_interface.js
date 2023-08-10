@@ -1,6 +1,8 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface =
 [
+    [ "ConstPtr", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a41522a05fead7afbf9b4124f37cbed13", null ],
     [ "Page", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284", null ],
+    [ "Ptr", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a413e38a8c66c7101018f4a57eeeeec23", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#ae1d229b5b16479f0b0c196f520d96e35", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#ae79bbd5ee58373b36398f8de4513f515", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aef6d2f48e0b899ba55b04ad1100b8d8b", null ],

@@ -149,7 +149,7 @@ Functions</h2></td></tr>
 <p>The purpose of this function is to provide a Python/C++ conversion without requiring/exposing a particular CPython binding library implementation.</p>
 <p>The returned <code>shared_ptr</code> owns a hidden reference to the input <code>PyObject</code>, ensuring it is kept alive. The reference will be released when the <code>shared_ptr</code> is destroyed.</p>
 <p>Using this function requires specifying the template argument of the C++ API type equivalent to the type of the object referred to by the <code>pyObject</code> pointer.</p>
-<div class="fragment"><div class="line">ManagerPtr manager = castFromPyObject&lt;Manager&gt;(pyManager);</div></div><!-- fragment --><p>If the types of the template argument and the <code>pyObject</code> are not equivalent, an exception will be thrown due to inability to perform the cast.</p>
+<div class="fragment"><div class="line"><a class="code" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a> manager = castFromPyObject&lt;Manager&gt;(pyManager);</div></div><!-- fragment --><p>If the types of the template argument and the <code>pyObject</code> are not equivalent, an exception will be thrown due to inability to perform the cast.</p>
 <dl class="section note"><dt>Note</dt><dd>This function does not acquire the GIL.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>A Python environment, with <code>openassetio</code> imported, must be available in order to use this function.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>

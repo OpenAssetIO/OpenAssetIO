@@ -125,6 +125,10 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1manager_api_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a413e38a8c66c7101018f4a57eeeeec23"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a413e38a8c66c7101018f4a57eeeeec23">Ptr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">EntityReferencePagerInterfacePtr</a></td></tr>
+<tr class="separator:a413e38a8c66c7101018f4a57eeeeec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41522a05fead7afbf9b4124f37cbed13"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a41522a05fead7afbf9b4124f37cbed13">ConstPtr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#af257334f9748d468fb4d35798c370417">EntityReferencePagerInterfaceConstPtr</a></td></tr>
+<tr class="separator:a41522a05fead7afbf9b4124f37cbed13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4e2c26a42e074f0d99f5dbe059bc284"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284">Page</a> = std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;</td></tr>
 <tr class="separator:aa4e2c26a42e074f0d99f5dbe059bc284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -148,16 +152,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afbafe12ce1b796e05da6763685663310"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#afbafe12ce1b796e05da6763685663310">~EntityReferencePagerInterface</a> ()=default</td></tr>
 <tr class="memdesc:afbafe12ce1b796e05da6763685663310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager should override destructor to be notified when query has finished.  <a href="#afbafe12ce1b796e05da6763685663310">More...</a><br /></td></tr>
 <tr class="separator:afbafe12ce1b796e05da6763685663310"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f3d5a36473d7a59ab76b3f6f2c5f07"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#af8f3d5a36473d7a59ab76b3f6f2c5f07">hasNext</a> (const HostSessionPtr &amp;)=0</td></tr>
+<tr class="memitem:af8f3d5a36473d7a59ab76b3f6f2c5f07"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#af8f3d5a36473d7a59ab76b3f6f2c5f07">hasNext</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;)=0</td></tr>
 <tr class="memdesc:af8f3d5a36473d7a59ab76b3f6f2c5f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not there is more data accessible by advancing the page.  <a href="#af8f3d5a36473d7a59ab76b3f6f2c5f07">More...</a><br /></td></tr>
 <tr class="separator:af8f3d5a36473d7a59ab76b3f6f2c5f07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a872b5db37c3c4cc09c8f94b86686ebca"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284">Page</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a872b5db37c3c4cc09c8f94b86686ebca">get</a> (const HostSessionPtr &amp;)=0</td></tr>
+<tr class="memitem:a872b5db37c3c4cc09c8f94b86686ebca"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284">Page</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a872b5db37c3c4cc09c8f94b86686ebca">get</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;)=0</td></tr>
 <tr class="memdesc:a872b5db37c3c4cc09c8f94b86686ebca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current page of data.  <a href="#a872b5db37c3c4cc09c8f94b86686ebca">More...</a><br /></td></tr>
 <tr class="separator:a872b5db37c3c4cc09c8f94b86686ebca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a9b7f8399b4fb5f64f3449ad67e7d8dfa">next</a> (const HostSessionPtr &amp;)=0</td></tr>
+<tr class="memitem:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a9b7f8399b4fb5f64f3449ad67e7d8dfa">next</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;)=0</td></tr>
 <tr class="memdesc:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance the page.  <a href="#a9b7f8399b4fb5f64f3449ad67e7d8dfa">More...</a><br /></td></tr>
 <tr class="separator:a9b7f8399b4fb5f64f3449ad67e7d8dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cae593fd944cc2e08f4897c752c65fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd">close</a> (const HostSessionPtr &amp;hostSession)</td></tr>
+<tr class="memitem:a0cae593fd944cc2e08f4897c752c65fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd">close</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:a0cae593fd944cc2e08f4897c752c65fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the paging query.  <a href="#a0cae593fd944cc2e08f4897c752c65fd">More...</a><br /></td></tr>
 <tr class="separator:a0cae593fd944cc2e08f4897c752c65fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -168,12 +172,36 @@ Public Member Functions</h2></td></tr>
 <p>This is a non-copyable object that will be held in a <code>shared_ptr</code>, meaning multiple references may be held, but only to a single instance of the ongoing query, whose destructor will be called when all references are released. As such, the destructor of this class is a good place to place any complex cleanup operations (e.g. closing open connections).</p>
 <p>To support as wide array of possible backends as possible, OpenAssetIO places no restraints on the behaviour of this type concerning performance, however, it is considered friendly to document the performance characteristics of your Pager implementation. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a41522a05fead7afbf9b4124f37cbed13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a41522a05fead7afbf9b4124f37cbed13">ConstPtr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#af257334f9748d468fb4d35798c370417">EntityReferencePagerInterfaceConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa4e2c26a42e074f0d99f5dbe059bc284"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284">Page</a> =  std::vector&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a413e38a8c66c7101018f4a57eeeeec23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a413e38a8c66c7101018f4a57eeeeec23">Ptr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">EntityReferencePagerInterfacePtr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -296,7 +324,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void close </td>
           <td>(</td>
-          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>hostSession</em></td><td>)</td>
           <td></td>
         </tr>
@@ -324,7 +352,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284">Page</a> get </td>
           <td>(</td>
-          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -352,7 +380,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual bool hasNext </td>
           <td>(</td>
-          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -380,7 +408,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual void next </td>
           <td>(</td>
-          <td class="paramtype">const HostSessionPtr &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

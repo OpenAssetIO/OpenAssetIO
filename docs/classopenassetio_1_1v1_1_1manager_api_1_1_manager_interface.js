@@ -1,8 +1,10 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
 [
     [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
+    [ "ConstPtr", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adcbd4ae82e38e17e25741582a47e0592", null ],
     [ "PagedRelationshipSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
+    [ "Ptr", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abed526ee08dd5b97a44ef1688c63c04a", null ],
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "RelationshipSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005", null ],
     [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa0ce52a4388d9ec16c7189f653983dac", null ],

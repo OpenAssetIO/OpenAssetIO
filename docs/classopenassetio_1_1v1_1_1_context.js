@@ -1,5 +1,7 @@
 var classopenassetio_1_1v1_1_1_context =
 [
+    [ "ConstPtr", "classopenassetio_1_1v1_1_1_context.html#ab708e24f4e3dadca82625260df32e02a", null ],
+    [ "Ptr", "classopenassetio_1_1v1_1_1_context.html#a4263ba3220237fcc9a9653e856a01042", null ],
     [ "Access", "classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951", [
       [ "kRead", "classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a8604cf55a79d6bfdcb30f77d1622839b", null ],
       [ "kReadMultiple", "classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a9ae7a56b77a43700192d3d26eb85e08e", null ],

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['value',['Value',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d',1,'openassetio::v1::trait::property']]]
+  ['registersuccesscallback',['RegisterSuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2',1,'openassetio::v1::hostApi::Manager::RegisterSuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2',1,'openassetio::v1::managerApi::ManagerInterface::RegisterSuccessCallback()']]],
+  ['relationshipsuccesscallback',['RelationshipSuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005',1,'openassetio::v1::hostApi::Manager::RelationshipSuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005',1,'openassetio::v1::managerApi::ManagerInterface::RelationshipSuccessCallback()']]],
+  ['resolvesuccesscallback',['ResolveSuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac',1,'openassetio::v1::hostApi::Manager::ResolveSuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa0ce52a4388d9ec16c7189f653983dac',1,'openassetio::v1::managerApi::ManagerInterface::ResolveSuccessCallback()']]]
 ];

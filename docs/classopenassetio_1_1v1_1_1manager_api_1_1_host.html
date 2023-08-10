@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1manager_api_
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classopenassetio_1_1v1_1_1manager_api_1_1_host-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,6 +123,13 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1manager_api_
 
 <p><code>#include &lt;Host.hpp&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a53f26a715a894b2eaedac866ade857c5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a53f26a715a894b2eaedac866ade857c5">Ptr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#afc26eb9b59709089c9eb54c76a5249b6">HostPtr</a></td></tr>
+<tr class="separator:a53f26a715a894b2eaedac866ade857c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66efbc9989cb03160a0f07ecf59cca7a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a66efbc9989cb03160a0f07ecf59cca7a">ConstPtr</a> = <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a0a41be39168f54f6138a3441620b851b">HostConstPtr</a></td></tr>
+<tr class="separator:a66efbc9989cb03160a0f07ecf59cca7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Host Information</div></td></tr>
@@ -137,7 +145,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a081cae96d1474a3e07b39e066b24946c"><td class="memItemLeft" align="right" valign="top">static HostPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a081cae96d1474a3e07b39e066b24946c">make</a> (hostApi::HostInterfacePtr hostInterface)</td></tr>
+<tr class="memitem:a081cae96d1474a3e07b39e066b24946c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#afc26eb9b59709089c9eb54c76a5249b6">HostPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a081cae96d1474a3e07b39e066b24946c">make</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#af00cc9c4eb923cad81efd770d82db4bd">hostApi::HostInterfacePtr</a> hostInterface)</td></tr>
 <tr class="memdesc:a081cae96d1474a3e07b39e066b24946c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> wrapping the supplied host interface.  <a href="#a081cae96d1474a3e07b39e066b24946c">More...</a><br /></td></tr>
 <tr class="separator:a081cae96d1474a3e07b39e066b24946c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -146,7 +154,32 @@ Static Public Member Functions</h2></td></tr>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> provides a generalised API to query the identity of the caller of the API. In the future, this interface may be extended to allow retrieval of information about available documents as well as which entities are used within these documents.</p>
 <p>Hosts should never be directly constructed by the Manager's implementation. Instead, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">managerApi::HostSession</a> class provided to all manager API entry points provides access to the current host through the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a8c55c13a314094ade44e2653e26e5908">HostSession.host</a> method</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Add auditing functionality. </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a66efbc9989cb03160a0f07ecf59cca7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a66efbc9989cb03160a0f07ecf59cca7a">ConstPtr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a0a41be39168f54f6138a3441620b851b">HostConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a53f26a715a894b2eaedac866ade857c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html#a53f26a715a894b2eaedac866ade857c5">Ptr</a> =  <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#afc26eb9b59709089c9eb54c76a5249b6">HostPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a23ee7fe8e44aa1895e2bfcf5d6b7804e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -206,9 +239,9 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static HostPtr make </td>
+          <td class="memname">static <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#afc26eb9b59709089c9eb54c76a5249b6">HostPtr</a> make </td>
           <td>(</td>
-          <td class="paramtype">hostApi::HostInterfacePtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#af00cc9c4eb923cad81efd770d82db4bd">hostApi::HostInterfacePtr</a>&#160;</td>
           <td class="paramname"><em>hostInterface</em></td><td>)</td>
           <td></td>
         </tr>

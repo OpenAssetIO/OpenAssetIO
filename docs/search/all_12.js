@@ -73,6 +73,8 @@ var searchData=
   ['traitpropertykeys',['traitPropertyKeys',['../classopenassetio_1_1v1_1_1_traits_data.html#ac9a1defb5bf25ce5b76762bdcbcb0de2',1,'openassetio::v1::TraitsData']]],
   ['traitpropertystatus',['TraitPropertyStatus',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9',1,'openassetio::v1::trait']]],
   ['traitsdata',['TraitsData',['../classopenassetio_1_1v1_1_1_traits_data.html',1,'openassetio::v1']]],
+  ['traitsdataconstptr',['TraitsDataConstPtr',['../namespaceopenassetio_1_1v1.html#af5b1a99c86622b84201d00a935253a99',1,'openassetio::v1']]],
+  ['traitsdataptr',['TraitsDataPtr',['../namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407',1,'openassetio::v1']]],
   ['traitsdatas',['TraitsDatas',['../namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88',1,'openassetio::v1::trait']]],
   ['traitset',['traitSet',['../classopenassetio_1_1v1_1_1_traits_data.html#af104b0765147ba882e1100b1b0e1a2dd',1,'openassetio::v1::TraitsData::traitSet()'],['../namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f',1,'openassetio::v1::trait::TraitSet()']]],
   ['traitsets',['TraitSets',['../namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b',1,'openassetio::v1::trait']]],

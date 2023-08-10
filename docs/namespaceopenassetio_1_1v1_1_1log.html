@@ -107,7 +107,8 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1log.html
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">openassetio::v1::log Namespace Reference</div>  </div>
 </div><!--header-->
@@ -127,11 +128,99 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity...">SeverityFilter</a> is a wrapper for a logger that drops messages below a requested severity.  <a href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4680ee2fc49c972f0b001edeabfc4bcb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a4680ee2fc49c972f0b001edeabfc4bcb">LoggerInterfacePtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> &gt;</td></tr>
+<tr class="separator:a4680ee2fc49c972f0b001edeabfc4bcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b12e4f6902819174d0758598c6aa848"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a7b12e4f6902819174d0758598c6aa848">LoggerInterfaceConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> &gt;</td></tr>
+<tr class="separator:a7b12e4f6902819174d0758598c6aa848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa9cf9379e4b378f6b13201a7612464f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#aaa9cf9379e4b378f6b13201a7612464f">ConsoleLoggerPtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html">ConsoleLogger</a> &gt;</td></tr>
+<tr class="separator:aaa9cf9379e4b378f6b13201a7612464f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a726e7cd1396f021f478228862f5a7362"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a726e7cd1396f021f478228862f5a7362">ConsoleLoggerConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html">ConsoleLogger</a> &gt;</td></tr>
+<tr class="separator:a726e7cd1396f021f478228862f5a7362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe8011941c95c0a4d0e1da37f2b23f4e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#afe8011941c95c0a4d0e1da37f2b23f4e">SeverityFilterPtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a> &gt;</td></tr>
+<tr class="separator:afe8011941c95c0a4d0e1da37f2b23f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af840ffebe5fc45acd969f9e72dac0a38"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#af840ffebe5fc45acd969f9e72dac0a38">SeverityFilterConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a> &gt;</td></tr>
+<tr class="separator:af840ffebe5fc45acd969f9e72dac0a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This namespace contains code relevant to message logging within the API. </p>
 <p><a class="el" href="glossary.html#host">Host</a> authors provide an implementation of <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> to a <a class="el" href="glossary.html#manager">manager</a> to channel its messages. The API middleware also makes use of this logger to provide debugging information about use of the API at runtime. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a726e7cd1396f021f478228862f5a7362"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a726e7cd1396f021f478228862f5a7362">ConsoleLoggerConstPtr</a> =  std::shared_ptr&lt;const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html">ConsoleLogger</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aaa9cf9379e4b378f6b13201a7612464f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#aaa9cf9379e4b378f6b13201a7612464f">ConsoleLoggerPtr</a> =  std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_console_logger.html">ConsoleLogger</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7b12e4f6902819174d0758598c6aa848"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> &gt; <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a7b12e4f6902819174d0758598c6aa848">LoggerInterfaceConstPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4680ee2fc49c972f0b001edeabfc4bcb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a> &gt; <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#a4680ee2fc49c972f0b001edeabfc4bcb">LoggerInterfacePtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af840ffebe5fc45acd969f9e72dac0a38"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#af840ffebe5fc45acd969f9e72dac0a38">SeverityFilterConstPtr</a> =  std::shared_ptr&lt;const <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afe8011941c95c0a4d0e1da37f2b23f4e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html#afe8011941c95c0a4d0e1da37f2b23f4e">SeverityFilterPtr</a> =  std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_severity_filter.html">SeverityFilter</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->
