@@ -18,6 +18,9 @@ v1.0.0-alpha.x
   skipped, helping to detect accidentally omitted fixtures.
   [1032](https://github.com/OpenAssetIO/OpenAssetIO/pull/1032)
 
+- Added some aliases to the Doxygen API documentation. In
+  particular, `Ptr` and `ConstPtr` aliases are now cross-referencable.
+
 v1.0.0-alpha.13
 ---------------
 

@@ -2080,7 +2080,9 @@ SEARCH_INCLUDES        = YES
 # preprocessor.
 # This tag requires that the tag SEARCH_INCLUDES is set to YES.
 
-INCLUDE_PATH           =
+INCLUDE_PATH           = ../../src/openassetio-core/include \
+                         ../../src/openassetio-core-c/include \
+                         ../../src/openassetio-python/bridge/include
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -2109,7 +2111,14 @@ PREDEFINED             = OPENASSETIO_CORE_ABI_VERSION=$(OPENASSETIO_CORE_ABI_VER
 # definition found in the source code.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_AS_DEFINED      = OPENASSETIO_NS
+EXPAND_AS_DEFINED      = OPENASSETIO_NS \
+                         OPENASSETIO_DECLARE_PTR \
+                         OPENASSETIO_ALIAS_PTR \
+                         OPENASSETIO_FWD_DECLARE \
+                         OPENASSETIO_FWD_DECLARE_IN_NS \
+                         OPENASSETIO_FWD_DECLARE_TOP_LEVEL_NS \
+                         OPENASSETIO_FWD_DECLARE_ \
+                         OPENASSETIO_PP_EXPAND
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES then doxygen's preprocessor will
 # remove all references to function-like macros that are alone on a line, have
