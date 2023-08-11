@@ -27,8 +27,8 @@
  *
  * This page covers hows to configure OpenAssetIO so that the hosts you
  * use (e.g. @ref DCC "DCC tools", applications and other scripts) use a
- * specific manager of your choice to @ref resolve and potentially @ref
- * publish data.
+ * specific manager of your choice to @ref glossary_resolve and
+ * potentially @ref publish data.
  *
  * OpenAssetIO itself is usually built into any host that supports it,
  * this means you don't normally need do to anything to ensure the API

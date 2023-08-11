@@ -343,7 +343,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @note It is not _required_ that a Host calls this method before
    * invoking other API methods, and so methods such as @ref resolve or
-   * @ref register must be tolerant of being called with unsupported
+   * @ref register_ must be tolerant of being called with unsupported
    * traits (fear not, there is a simple and established failure mode
    * for this situation).
    *
@@ -1151,7 +1151,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @fqref{Context.retention} "Context.retention", as not all hosts
    * will support the reference changing at this point.
    *
-   * @see @ref register
+   * @see @ref register_
    */
   virtual void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                          const ContextConstPtr& context, const HostSessionPtr& hostSession,

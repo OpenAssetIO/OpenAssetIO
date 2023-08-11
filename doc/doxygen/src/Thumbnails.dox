@@ -29,13 +29,14 @@
  * "managementPolicy" for any given set of entity @ref trait "traits".
  *
  * If supported by the host, it will then:
- * - Call @ref preflight with the target entity and the traits from the
- *   @needsref ThumbnailSpecification, using the
-     @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated"
-     access mode.
- * - Call @needsref resolve on the returned reference to determine the
- *   desired width/height/format for the thumbnail.
- * - Generate a thumbnail and @ref register it to the same reference.
+ * - Call @ref glossary_preflight with the target entity and the traits
+ *   from the @needsref ThumbnailSpecification, using the
+ *   @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated"
+ *   access mode.
+ * - Call @ref glossary_resolve on the returned reference to determine
+ *   the desired width/height/format for the thumbnail.
+ * - Generate a thumbnail and @ref glossary_register it to the same
+ *   reference.
  *
  * @note The thumbnail generation process may be carried out
  * asynchronously by the host and registration may occur at an arbitrary

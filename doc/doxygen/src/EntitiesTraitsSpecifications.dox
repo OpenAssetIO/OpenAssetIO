@@ -213,8 +213,8 @@
  *
  * - The context @ref locale - to describe the specifics of the
  *   host environment calling the API.
- * - During @ref register and @ref resolve - to hold the data for an
- *   @ref entity.
+ * - During @ref glossary_register and @ref glossary_resolve - to hold
+ *   the data for an @ref entity.
  * - Describing Relationships - to define some connection between one or
  *   more entities.
  *
@@ -238,10 +238,10 @@
  *
  * @subsection entity_specifications Entity Specifications
  *
- * Specifictions used with @ref register and returned by @ref resolve to
- * hold @ref entity data are known as "entity specifications". The
- * @ref trait_set they define can also be used as a shorthand for
- * consistency when:
+ * Specifictions used with @ref glossary_register and returned by @ref
+ * glossary_resolve to hold @ref entity data are known as "entity
+ * specifications". The @ref trait_set they define can also be used as a
+ * shorthand for consistency when:
  *
  *  - A host wishes to know if a manager would like to be involved in
  *    reads or writes of a specific kind of data.
@@ -315,7 +315,7 @@
  * @subsection Publishing
  *
  * When populating specifications with traits for publishing (see @ref
- * register). The relevant traits are the ones that cover the
+ * glossary_register). The relevant traits are the ones that cover the
  * data that is registered, so that that data is then available later
  * on for `resolve` or when evaluating filter predicates.
  *

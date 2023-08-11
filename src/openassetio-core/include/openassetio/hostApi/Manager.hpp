@@ -230,7 +230,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    * If a requested trait is not present, then the manager will never
    * return properties for that trait in @ref resolve, or be able to
-   * persist those properties with @ref register. This allows you to
+   * persist those properties with @ref register_. This allows you to
    * know in advance if you can expect the configured manager to be able
    * to provide data you may require.
    *
@@ -1125,7 +1125,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * interaction with the Manager, and it will have returned you
    * something meaningful).
    *
-   * It should be called before register() if you are about to
+   * It should be called before register_() if you are about to
    * create media or write to files. If the file or data already
    * exists, then preflight is not needed. It will return a working
    * @ref entity_reference for each given entity, which can be
@@ -1150,7 +1150,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * method should *always* be used in place of the original
    * reference supplied to `preflight` for resolves prior to
    * registration, and for the final call to @ref
-   * register itself. See @ref example_publishing_a_file.
+   * register_ itself. See @ref example_publishing_a_file.
    *
    * @param entityReferences The entity references to preflight prior
    * to registration.
@@ -1179,7 +1179,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * "ErrorCodes"). The callback will be called on the same thread
    * that initiated the call to `preflight`.
    *
-   * @see @ref register
+   * @see @ref register_
    */
   void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                  const ContextConstPtr& context, const PreflightSuccessCallback& successCallback,

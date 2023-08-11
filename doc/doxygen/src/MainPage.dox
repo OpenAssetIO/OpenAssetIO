@@ -41,8 +41,8 @@
  * @section intro_scope Scope
  *
  * The API covers the following areas:
- * - @ref resolve "Resolution" of asset references (URIs) into a
- *   dictionary of data, grouped into one or more @ref trait "traits"
+ * - @ref glossary_resolve "Resolution" of asset references (URIs) into
+ *   a dictionary of data, grouped into one or more @ref trait "traits"
  *   (providing URLs for access and other asset data).
  * - @ref publish "Publishing" data for file-based and non-file-based
  *   assets.
