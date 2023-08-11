@@ -82,6 +82,8 @@ void registerManager(const py::module& mod) {
            py::arg("entityReferenceString"))
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"))
+      .def("entityExists", &Manager::entityExists, py::arg("entityReferences"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
       .def("resolve",
            static_cast<void (Manager::*)(
                const EntityReferences&, const trait::TraitSet&, const ContextConstPtr&,

@@ -535,6 +535,27 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
+   * @name Batch element error handling
+   *
+   * @{
+   */
+  /**
+   * Callback signature used for an unsuccessful operation on an
+   * element in a batch.
+   *
+   * This should be called for errors that are specific to a particular
+   * reference in a batch. Exceptions can be thrown to indicate a
+   * whole-batch error.
+   *
+   * @see @fqref{BatchElementError.ErrorCode} "ErrorCode" for
+   * appropriate error codes.
+   */
+  using BatchElementErrorCallback = std::function<void(std::size_t, BatchElementError)>;
+  /**
+   * @}
+   */
+
+  /**
    * @name Entity Reference inspection
    *
    * Because of the nature of an @ref entity_reference, it is often
@@ -584,33 +605,67 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * format of the string is recognised as a potential entity reference
    * by the manager.
    *
-   * @see @needsref entityExists
+   * @see @ref entityExists
    * @see @ref resolve
    */
   [[nodiscard]] virtual bool isEntityReferenceString(const Str& someString,
                                                      const HostSessionPtr& hostSession) const = 0;
 
   /**
-   * @}
+   * Callback signature used for a successful entity existence query.
    */
+  using ExistsSuccessCallback = std::function<void(std::size_t, bool)>;
 
   /**
-   * @name Batch element error handling
+   * Called to determine if each @ref entity_reference supplied
+   * points to an entity that exists in the @ref
+   * asset_management_system, and that they can be resolved into
+   * a meaningful string or otherwise queried.
    *
-   * @{
+   * By 'exist' we mean 'is ready to be read'. For example,
+   * entityExists may be called before attempting to read from a
+   * reference that is believed to point to an image sequence, so
+   * that alternatives can be found.
+   *
+   * In the future, this may need to be extended to cover a more
+   * complex definition of 'existence' (for example, known to the
+   * system, but not yet finalized). For now however, it should be
+   * assumed to simply mean, 'ready to be consumed', and if only a
+   * placeholder or un-finalized asset is available, `False` should
+   * be returned.
+   *
+   * The supplied context's locale may contain information pertinent
+   * to disambiguating this subtle definition of 'exists' in some
+   * cases too, as it better explains the use-case of the call.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that must be called for each
+   * successful check of an entity reference. It should be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with a boolean indicating the existence (as defined above) of
+   * the entity. The callback must be called on the same thread that
+   * initiated the call to `entityExists`.
+   *
+   * @param errorCallback Callback that must be called for each
+   * failed check of an entity reference. It should be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback must be called on the same thread
+   * that initiated the call to `entityExists`.
    */
-  /**
-   * Callback signature used for an unsuccessful operation on an
-   * element in a batch.
-   *
-   * This should be called for errors that are specific to a particular
-   * reference in a batch. Exceptions can be thrown to indicate a
-   * whole-batch error.
-   *
-   * The appropriate error code should be used for these errors. See
-   * @fqref{BatchElementError.ErrorCode} "ErrorCode".
-   */
-  using BatchElementErrorCallback = std::function<void(std::size_t, BatchElementError)>;
+  virtual void entityExists(const EntityReferences& entityReferences,
+                            const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                            const ExistsSuccessCallback& successCallback,
+                            const BatchElementErrorCallback& errorCallback) = 0;
+
   /**
    * @}
    */
@@ -700,9 +755,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "ErrorCodes"). The callback must be called on the same thread
    * that initiated the call to `resolve`.
    *
-   * @see @needsref entityExists
-   * @see @fqref{managerApi.ManagerInterface.isEntityReferenceString}
-   * "isEntityReferenceString"
+   * @see @ref entityExists
+   * @see @ref isEntityReferenceString
    * @see @fqref{BatchElementError} "BatchElementError"
    */
   virtual void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,

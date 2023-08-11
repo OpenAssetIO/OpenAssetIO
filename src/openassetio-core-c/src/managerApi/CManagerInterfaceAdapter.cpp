@@ -98,6 +98,15 @@ bool CManagerInterfaceAdapter::isEntityReferenceString(
   throw std::runtime_error{"Not implemented"};
 }
 
+void CManagerInterfaceAdapter::entityExists(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::ExistsSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw std::runtime_error{"Not implemented"};
+}
+
 void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitSet& traitSet,

@@ -18,9 +18,18 @@ v1.0.0-alpha.x
   [1029](https://github.com/OpenAssetIO/OpenAssetIO/issues/1029)
 
 - Removed `Context.Access.kWriteMultiple` and
- `Context.Access.kReadMultiple`access patterns, due to not having
- coherent use cases.
- [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+  `Context.Access.kReadMultiple`access patterns, due to not having
+  coherent use cases.
+  [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+
+- Removed `cpython` dependency from `conanfile.py`. When building
+  OpenAssetIO, it is now expected that a development install of the
+  appropriate Python version is discoverable on the system.
+  [1038](https://github.com/OpenAssetIO/OpenAssetIO/pull/1038)
+
+- Migrated `ManagerInterface`/`Manager` `entityExists` to C++ with
+  Python bindings, and redesigned to use a callback based batch API.
+  [#993](https://github.com/OpenAssetIO/OpenAssetIO/issues/993)
 
 ### New Features
 
@@ -28,13 +37,6 @@ v1.0.0-alpha.x
   when a workflow specifically creates a new entity as a relation to an
   existing one.
   [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
-
-### Breaking changes
-
-- Removed `cpython` dependency from `conanfile.py`. When building
-  OpenAssetIO, it is now expected that a development install of the
-  appropriate Python version is discoverable on the system.
-  [1038](https://github.com/OpenAssetIO/OpenAssetIO/pull/1038)
 
 ### Improvements
 

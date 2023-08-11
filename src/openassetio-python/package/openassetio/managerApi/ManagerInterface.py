@@ -193,53 +193,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     ## @}
 
     ##
-    # @name Entity Reference inspection
-    #
-    #
-    # @{
-
-    @abc.abstractmethod
-    def entityExists(self, entityRefs, context, hostSession):
-        """
-        Called to determine if each @ref entity_reference supplied
-        points to an entity that exists in the @ref
-        asset_management_system, and that they can be resolved into
-        a meaningful string or otherwise queried.
-
-        By 'exist' we mean 'is ready to be read'. For example,
-        entityExists may be called before attempting to read from a
-        reference that is believed to point to an image sequence, so
-        that alternatives can be found.
-
-        In the future, this may need to be extended to cover a more
-        complex definition of 'existence' (for example, known to the
-        system, but not yet finalized). For now however, it should be
-        assumed to simply mean, 'ready to be consumed', and if only a
-        placeholder or un-finalized asset is available, `False` should
-        be returned.
-
-        The supplied context's locale may contain information pertinent
-        to disambiguating this subtle definition of 'exists' in some
-        cases too, as it better explains the use-case of the call.
-
-        @param entityRefs `List[` @fqref{EntityReference}
-        "EntityReference" `]` Entity references to query.
-
-        @param context Context The calling context.
-
-        @param hostSession HostSession The API session.
-
-        @return `List[bool]` `True` if the corresponding element in
-        entityRefs points to an existing entity, `False` if the entity
-        is not known or ready yet.
-
-        @unstable
-        """
-        raise NotImplementedError
-
-    ## @}
-
-    ##
     # @name Entity Reference Resolution
     #
     # The concept of resolution is turning an @ref entity_reference into a

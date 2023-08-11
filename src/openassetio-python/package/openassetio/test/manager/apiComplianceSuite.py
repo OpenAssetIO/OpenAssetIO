@@ -248,30 +248,66 @@ class Test_entityExists(FixtureAugmentedTestCase):
     """
 
     def setUp(self):
-        self.a_reference_to_an_existing_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_an_existing_entity", skipTestIfMissing=True)
-        )
-        self.a_reference_to_a_nonexisting_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_nonexisting_entity")
+        self.a_reference_to_an_existing_entity = self.requireEntityReferenceFixture(
+            "a_reference_to_an_existing_entity", skipTestIfMissing=True
         )
 
-    def test_existing_reference_returns_true(self):
+    def test_when_querying_existing_reference_then_true_is_returned(self):
         context = self.createTestContext()
-        assert self._manager.entityExists([self.a_reference_to_an_existing_entity], context) == [
-            True
-        ]
+        result = [None]
+        self._manager.entityExists(
+            [self.a_reference_to_an_existing_entity],
+            context,
+            lambda idx, value: operator.setitem(result, idx, value),
+            lambda idx, error: self.fail(f"entityExists should not fail: {error.message}"),
+        )
+        self.assertEqual(result, [True])
 
-    def test_non_existant_reference_returns_false(self):
+    def test_when_querying_nonexisting_reference_then_false_is_returned(self):
+        a_reference_to_a_nonexisting_entity = self.requireEntityReferenceFixture(
+            "a_reference_to_a_nonexisting_entity"
+        )
         context = self.createTestContext()
-        assert self._manager.entityExists([self.a_reference_to_a_nonexisting_entity], context) == [
-            False
-        ]
+        result = [None]
+        self._manager.entityExists(
+            [a_reference_to_a_nonexisting_entity],
+            context,
+            lambda idx, value: operator.setitem(result, idx, value),
+            lambda idx, error: self.fail(f"entityExists should not fail: {error.message}"),
+        )
+        self.assertEqual(result, [False])
 
-    def test_mixed_inputs_returns_mixed_output(self):
-        existing = self.a_reference_to_an_existing_entity
-        nonexistant = self.a_reference_to_a_nonexisting_entity
+    def test_when_querying_existing_and_nonexisting_references_then_true_and_false_is_returned(
+        self,
+    ):
+        a_reference_to_a_nonexisting_entity = self.requireEntityReferenceFixture(
+            "a_reference_to_a_nonexisting_entity"
+        )
         context = self.createTestContext()
-        assert self._manager.entityExists([existing, nonexistant], context) == [True, False]
+        result = [None, None]
+        self._manager.entityExists(
+            [self.a_reference_to_an_existing_entity, a_reference_to_a_nonexisting_entity],
+            context,
+            lambda idx, value: operator.setitem(result, idx, value),
+            lambda idx, error: self.fail(f"entityExists should not fail: {error.message}"),
+        )
+        self.assertEqual(result, [True, False])
+
+    def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
+        a_malformed_reference = self.requireEntityReferenceFixture("a_malformed_reference")
+        expected_error_message = self.requireFixture("expected_error_message")
+        context = self.createTestContext()
+        result = [None]
+        self._manager.entityExists(
+            [a_malformed_reference],
+            context,
+            lambda idx, value: self.fail("entityExists should not succeed"),
+            lambda idx, error: operator.setitem(result, idx, error),
+        )
+        [error] = result
+
+        self.assertEqual(error.code, BatchElementError.ErrorCode.kMalformedEntityReference)
+        self.assertEqual(error.message, expected_error_message)
 
 
 class Test_resolve(FixtureAugmentedTestCase):

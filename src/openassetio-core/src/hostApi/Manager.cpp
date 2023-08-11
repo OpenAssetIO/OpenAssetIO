@@ -160,6 +160,14 @@ std::optional<EntityReference> Manager::createEntityReferenceIfValid(
   return EntityReference{std::move(entityReferenceString)};
 }
 
+void Manager::entityExists(const EntityReferences &entityReferences,
+                           const ContextConstPtr &context,
+                           const ExistsSuccessCallback &successCallback,
+                           const BatchElementErrorCallback &errorCallback) {
+  managerInterface_->entityExists(entityReferences, context, hostSession_, successCallback,
+                                  errorCallback);
+}
+
 void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
                       const ContextConstPtr &context,
                       const ResolveSuccessCallback &successCallback,

@@ -88,6 +88,14 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession);
   }
 
+  void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
+                    const HostSessionPtr& hostSession,
+                    const ExistsSuccessCallback& successCallback,
+                    const BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, entityExists, entityReferences, context,
+                           hostSession, successCallback, errorCallback);
+  }
+
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const ContextConstPtr& context, const HostSessionPtr& hostSession,
                const ResolveSuccessCallback& successCallback,
@@ -202,6 +210,9 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("token"), py::arg("hostSession").none(false))
       .def("isEntityReferenceString", &ManagerInterface::isEntityReferenceString,
            py::arg("someString"), py::arg("hostSession").none(false))
+      .def("entityExists", &ManagerInterface::entityExists, py::arg("entityReferences"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
