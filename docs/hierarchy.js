@@ -52,6 +52,7 @@ var hierarchy =
         [ "EntityAccessErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html", null ],
         [ "EntityResolutionErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html", null ],
         [ "InvalidEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html", null ],
+        [ "InvalidPreflightHintBatchElementException", "structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html", null ],
         [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
         [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
       ] ]

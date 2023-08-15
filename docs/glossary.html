@@ -221,10 +221,16 @@ manager</h1>
 <p>Asset managers will generally re-map the well-known OpenAssetIO concepts (eg <a class="el" href="glossary.html#trait">traits</a> and their properties into their own internal structures, and back again when queried.</p>
 <p>Managers are made available via a <a class="el" href="glossary.html#PythonPluginSystemManagerPlugin">Manager Plugin</a>, that ultimately registers classes derived from the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a>.</p>
 <p>A <a class="el" href="glossary.html#host">host</a> never uses the ManagerInterface class directly, but instead uses the <a class="el" href="namespaceopenassetio_1_1host_api_1_1_manager.html">Manager</a> class. This indirection allows sundry house keeping and state management.</p>
-<h1><a class="anchor" id="preflight"></a>
+<h1><a class="anchor" id="glossary_preflight"></a>
 preflight</h1>
 <p><a class="el" href="glossary.html#asset_management_system">Asset management systems</a> are roughly divided into two camps - those that can tell a <a class="el" href="glossary.html#host">host</a> in advance the location at which data should be created, and those that simply track data at its existing location. A <a class="el" href="glossary.html#manager">manager</a> implementation declares its behavior to the host via the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> method.</p>
-<p>If a manager has said it is capable of resolving future entities ahead of time, the host must call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">preflight</a> method and resolve the returned <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to determine the manager's chosen location for the data and use this for any write operations.</p>
+<p>If a manager has said it is capable of resolving future entities ahead of time, the host must call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">preflight</a> method and resolve the returned <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to determine the manager's chosen location for the data and use this for any write operations.</p>
+<p>A host should always <a class="el" href="glossary.html#publish">publish</a> the full set of <a class="el" href="glossary.html#trait">traits</a> of an appropriate <a class="el" href="glossary.html#Specification">specification</a> for the type of entity being published.</p>
+<p>Some of a specification's traits may hold properties, and some of those properties may be required by <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a52ce0d543ca8d263eff51032aad8a1f9">preflight</a> in order for subsequent operations in the publishing workflow to succeed. Other properties may be optional.</p>
+<p>The host should fill in and pass as a "hint" to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">preflight</a> any trait properties that are owned by the host and known at the time <code>preflight</code> is called.</p>
+<p>In this context, a property is "owned" by the host if it will not be dictated by the manager during the publishing workflow (i.e. by <a class="el" href="glossary.html#glossary_resolve">resolving</a> with a <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ad3ac0ba447a9859ad2db8e498056429f">write</a> access flag). Note that this definition of host ownership might include properties that have been resolved from the manager at some point in the past.</p>
+<p>If a property is not already known or understood by the host, and is optional, then it may be omitted.</p>
+<p>Providing the preflight hint allows the manager to prepare the backend and provide the most appropriate responses to subsequent <a class="el" href="glossary.html#glossary_resolve">resolve</a> and <a class="el" href="glossary.html#glossary_register">register</a> requests; or <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458">error</a> early if publishing is likely to fail or insufficient information is given in the hint.</p>
 <p>The <code>preflight</code> method is also allowed to change the entity reference as required. This mechanism serves several purposes:</p>
 <ul>
 <li>It allows the manager to dictate if an existing target entity is mutable. It can return an updated entity reference if the original entity should be left untouched (ie. creating a new version).</li>
@@ -236,7 +242,7 @@ preflight</h1>
 <li>When the manager has declared that it is not capable of providing trait properties in advance of an entity being created (via <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a>).</li>
 <li>When the data already exists at some target location, such as when assetizing an existing file.</li>
 </ul>
-<p>In these situations, only <a class="el" href="glossary.html#register">register</a> will be called by the host. In the first situation, calling <code>preflight</code> would be pointless as the manager has no way to provide a meaningful answer.</p>
+<p>In these situations, only <a class="el" href="glossary.html#glossary_register">register</a> will be called by the host. In the first situation, calling <code>preflight</code> would be pointless as the manager has no way to provide a meaningful answer.</p>
 <p>In the second situation it removes the responsibility for the host to transfer the data from its current location to that specified by <code>preflight</code>. Doing so would force the transfer mechanics into the host. Given the size of data frequently involved, and the myriad of potential transfer technologies, it was deemed leaving this up to the manager was a more flexible solution.</p>
 <p>In summary, for a manager capable of determining the location for data, a host won't call <code>preflight</code> if it can't honor the specified location.</p>
 <h1><a class="anchor" id="publish"></a>
@@ -245,14 +251,14 @@ publish</h1>
 <p>The canonical publishing process for new data from a <a class="el" href="glossary.html#host">host</a> requires it to:</p>
 <ul>
 <li>Check whether the <a class="el" href="glossary.html#manager">manager</a> is interested in that particular <a class="el" href="glossary.html#entity">entity's</a> <a class="el" href="glossary.html#trait">traits</a>, via the manager's <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a>, and what traits it is capable of persisting property data for.</li>
-<li>Call <a class="el" href="glossary.html#preflight">preflight</a> to allow any prerequisite housekeeping to be performed, and a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned.</li>
+<li>Call <a class="el" href="glossary.html#glossary_preflight">preflight</a> to allow any prerequisite housekeeping to be performed, and a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned.</li>
 <li>Resolve the working reference to determine the URL for new data to be written to.</li>
 <li>Write the data accordingly.</li>
-<li>Call <a class="el" href="glossary.html#register">register</a> to finalize the publish and confirm to the manager that the data has been written.</li>
+<li>Call <a class="el" href="glossary.html#glossary_register">register</a> to finalize the publish and confirm to the manager that the data has been written.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Some managers may not be able to determine trait properties in advance, and act more as librarians. This is indicated in the returned management policy. Hosts must act according to this.</dd></dl>
 <p>When publishing existing data, the preflight step is omitted.</p>
-<h1><a class="anchor" id="register"></a>
+<h1><a class="anchor" id="glossary_register"></a>
 register</h1>
 <p>The registration mechanism allows for a <a class="el" href="glossary.html#host">host</a> to create or update an <a class="el" href="glossary.html#entity">entity</a>. This is the sole mechanism by which data can be mutated within the system.</p>
 <p>It is up to the <a class="el" href="glossary.html#manager">manager</a> to decide what the registration of new data to an existing entity should mean. The API generally has no opinion as to whether it is permitted to update in-place, or to require the creation of a new version. The manager should apply its own rules, and return an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that points to the result of the registration - whether this be a new version, or the same entity that was subject to the registration.</p>
@@ -260,7 +266,7 @@ register</h1>
 <h2><a class="anchor" id="create_related"></a>
 Create related</h2>
 <p>Despite the API having no opinion as to the specific reaction of the manager to registration, there are some occasions, specifically around the creation of new related entities, where additional instruction is required from the host. For this purpose, the use of <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951aac7744adf0868e7c882fda6a12cf3f5a">Context.Access.kCreateRelated</a> in the context is used as a flag to indicate this intent.</p>
-<h1><a class="anchor" id="resolve"></a>
+<h1><a class="anchor" id="glossary_resolve"></a>
 resolve</h1>
 <p>'Resolving' an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is the process of turning it back into the data for one or more <a class="el" href="glossary.html#trait">traits</a>. Resolution is usually performed just-in-time. This is the fundamental mechanism that makes documents portable, and where OpenAssetIO (and other resolution systems) bring their value - the <a class="el" href="glossary.html#manager">manager</a> backing the resolution process is free to use any contextual information to vary the result of the resolution such that it is as correct/appropriate as it can be for the current resolution <a class="el" href="glossary.html#Context">Context</a>.</p>
 <h1><a class="anchor" id="Specification"></a>
@@ -273,7 +279,7 @@ Trait</h1>
 <p>Traits define concrete aspects of the nature of something. They are combined in a <a class="el" href="glossary.html#trait_set">Trait Set</a> to form a precise description of something.</p>
 <p>Trait sets are used to categorize <a class="el" href="glossary.html#entity">entities</a>, their relationships or the characteristics of a <a class="el" href="glossary.html#host">host</a> process through the <a class="el" href="glossary.html#Context">context's</a> <a class="el" href="glossary.html#locale">locale</a>.</p>
 <p>A trait may optionally define one or more properties that hold simple-typed values.</p>
-<p>When an entity is <a class="el" href="glossary.html#publish">published</a> or <a class="el" href="glossary.html#resolve">resolved</a> through the API, these trait properties are used to hold the entity's data.</p>
+<p>When an entity is <a class="el" href="glossary.html#publish">published</a> or <a class="el" href="glossary.html#glossary_resolve">resolved</a> through the API, these trait properties are used to hold the entity's data.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a></dd></dl>
 <h1><a class="anchor" id="trait_set"></a>
 Trait Set</h1>

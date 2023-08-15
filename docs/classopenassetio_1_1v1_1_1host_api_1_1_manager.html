@@ -291,21 +291,21 @@ Publishing</h2></td></tr>
 <tr class="memitem:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>)&gt;</td></tr>
 <tr class="memdesc:af4a59453053da4f3ec0972ffcdc66ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful register operation on a particular entity.  <a href="#af4a59453053da4f3ec0972ffcdc66ed2">More...</a><br /></td></tr>
 <tr class="separator:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
-<tr class="memdesc:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ac0a2c6c60a15cd2c33a0083a6f717ea5">More...</a><br /></td></tr>
-<tr class="separator:ac0a2c6c60a15cd2c33a0083a6f717ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd901931371579b125a1bcffbfce35e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd901931371579b125a1bcffbfce35e6">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
-<tr class="memdesc:acd901931371579b125a1bcffbfce35e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#acd901931371579b125a1bcffbfce35e6">More...</a><br /></td></tr>
-<tr class="separator:acd901931371579b125a1bcffbfce35e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9d89773250708245dc81804f924b947"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae9d89773250708245dc81804f924b947">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
-<tr class="memdesc:ae9d89773250708245dc81804f924b947"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#ae9d89773250708245dc81804f924b947">More...</a><br /></td></tr>
-<tr class="separator:ae9d89773250708245dc81804f924b947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac8008066336690b79f93b6d760aeeb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac8008066336690b79f93b6d760aeeb0">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
-<tr class="memdesc:aac8008066336690b79f93b6d760aeeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#aac8008066336690b79f93b6d760aeeb0">More...</a><br /></td></tr>
-<tr class="separator:aac8008066336690b79f93b6d760aeeb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a4bfd606f6299bcaa722a22b33d6eb0c8">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
-<tr class="memdesc:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a4bfd606f6299bcaa722a22b33d6eb0c8">More...</a><br /></td></tr>
-<tr class="separator:a4bfd606f6299bcaa722a22b33d6eb0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5310cd7307fbdf5cb15998129a6f3336"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;traitsHints, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a5310cd7307fbdf5cb15998129a6f3336"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a5310cd7307fbdf5cb15998129a6f3336">More...</a><br /></td></tr>
+<tr class="separator:a5310cd7307fbdf5cb15998129a6f3336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ffa198efd53d234d09b4c771b28085"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a62ffa198efd53d234d09b4c771b28085">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;traitsHint, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:a62ffa198efd53d234d09b4c771b28085"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a62ffa198efd53d234d09b4c771b28085">More...</a><br /></td></tr>
+<tr class="separator:a62ffa198efd53d234d09b4c771b28085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ccfe9b2969ccae2e8e5ee3d6efe4226"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ccfe9b2969ccae2e8e5ee3d6efe4226">preflight</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;traitsHint, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:a6ccfe9b2969ccae2e8e5ee3d6efe4226"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a6ccfe9b2969ccae2e8e5ee3d6efe4226">More...</a><br /></td></tr>
+<tr class="separator:a6ccfe9b2969ccae2e8e5ee3d6efe4226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57c2765d5f53b8a1a3f773ca9bbcbd14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a57c2765d5f53b8a1a3f773ca9bbcbd14">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;traitsHints, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:a57c2765d5f53b8a1a3f773ca9bbcbd14"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a57c2765d5f53b8a1a3f773ca9bbcbd14">More...</a><br /></td></tr>
+<tr class="separator:a57c2765d5f53b8a1a3f773ca9bbcbd14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43a58704eb5ffd4fc30eb5486c7c5eb3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a>, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a43a58704eb5ffd4fc30eb5486c7c5eb3">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;traitsHints, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:a43a58704eb5ffd4fc30eb5486c7c5eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a43a58704eb5ffd4fc30eb5486c7c5eb3">More...</a><br /></td></tr>
+<tr class="separator:a43a58704eb5ffd4fc30eb5486c7c5eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac589010ad3f88ff9aff2d646d2538657"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:ac589010ad3f88ff9aff2d646d2538657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register should be used to 'publish' new entities either when originating new data within the application process, or referencing some existing file, media or information.  <a href="#ac589010ad3f88ff9aff2d646d2538657">More...</a><br /></td></tr>
 <tr class="separator:ac589010ad3f88ff9aff2d646d2538657"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1016,7 +1016,7 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call does not verify an entity exits, just that the format of the string is recognised. The call is notionally trivial and does not involve back-end system queries.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>entityExists </dd>
 <dd>
-<a class="el" href="glossary.html#resolve">resolve</a></dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a></dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Make use of openassetio.constants.kInfoKey_EntityReferencesMatchPrefix if supplied, especially when bridging between C/python. </dd></dl>
 
 </div>
@@ -1093,7 +1093,7 @@ This method may block for extended periods of time. </dd></dl>
 <li>For <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951">write</a> contexts, any additional traits with properties that you wish to publish for that type of entity.</li>
 </ul>
 <p>Along with the traits that describe the manager's desired interaction pattern (ones with the <code>managementPolicy</code> usage metadata), the resulting <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> will be imbued with (potentially a subset of) the requested traits, which the manager is capable of resolving/persisting the properties for.</p>
-<p>If a requested trait is not present, then the manager will never return properties for that trait in <a class="el" href="glossary.html#resolve">resolve</a>, or be able to persist those properties with <a class="el" href="glossary.html#register">register</a>. This allows you to know in advance if you can expect the configured manager to be able to provide data you may require.</p>
+<p>If a requested trait is not present, then the manager will never return properties for that trait in <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a>, or be able to persist those properties with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a>. This allows you to know in advance if you can expect the configured manager to be able to provide data you may require.</p>
 <dl class="section note"><dt>Note</dt><dd>Because traits are specific to any given application of the API, please refer to the documentation for any relevant companion project(s) that provide traits and specifications for your specific scenario. For example, the <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation" target="_blank">OpenAssetIO-MediaCreation</a> project provides traits for common data types used in computer graphics and media production. Use the concrete Trait/Specification classes provided by these projects to retrieve data from the supplied <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a> instead of querying directly using string literals.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The <a class="el" href="classopenassetio_1_1v1_1_1_context.html#afa638703bb82b42a1ea42c3b134ec0cd">access</a> of the supplied context will be considered by the manager. If it is set to read, then its response applies to resolution. If write, then it applies to publishing. Managers may not handle both operations in the same way. In most situations you will need to make separate queries for read and write and adapt your business logic accordingly.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>There is no requirement to call this method before any other API interaction, though it is strongly recommended to do so where such information enables high-level behavioural changes or optimisations that improve user experience.</dd></dl>
@@ -1136,7 +1136,7 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ac0a2c6c60a15cd2c33a0083a6f717ea5"></a>
+<a class="anchor" id="a5310cd7307fbdf5cb15998129a6f3336"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1149,8 +1149,8 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitsHints</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1180,26 +1180,26 @@ This method may block for extended periods of time. </dd></dl>
 
 <p>This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <p>The entity does not need to exist yet (see <a class="el" href="glossary.html#entity_reference">Entity Reference</a>) or it may be a parent entity that you are about to create a child of or some other similar relationship (it actually doesn't matter really, as this <a class="el" href="glossary.html#entity_reference">Entity Reference</a> will ultimately have been determined by interaction with the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>, and it will have returned you something meaningful).</p>
-<p>It should be called before register() if you are about to create media or write to files. If the file or data already exists, then preflight is not needed. It will return a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each given entity, which can be resolved in order to determine a working path that the files should be written to.</p>
+<p>It should be called before <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657" title="Register should be used to &#39;publish&#39; new entities either when originating new data within the applica...">register_()</a> if you are about to create media or write to files. If the file or data already exists, then preflight is not needed. It will return a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each given entity, which can be resolved in order to determine a working path that the files should be written to.</p>
 <p>This call is designed to allow sanity checking, placeholder creation or any other sundry preparatory actions to be carried out by the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. In the case of file-based entities, the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> may even use this opportunity to switch to some temporary working path or some such.</p>
-<dl class="section warning"><dt>Warning</dt><dd>If the supplied <a class="el" href="glossary.html#trait_set">Trait Set</a> is missing traits required by the manager for any input entity reference, then that element will error.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>If the supplied <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">trait data</a> is missing traits or properties required by the manager for any input entity reference, then that element will error. See <a class="el" href="glossary.html#glossary_preflight">glossary entry</a> for details.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>It's vital that the <a class="el" href="glossary.html#Context">Context</a> is well configured here, in particular the <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820">Context.retention</a>.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>The working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned by this method should <em>always</em> be used in place of the original reference supplied to <code>preflight</code> for resolves prior to registration, and for the final call to <a class="el" href="glossary.html#register">register</a> itself. See <a class="el" href="examples.html#example_publishing_a_file">Publishing a File</a>.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned by this method should <em>always</em> be used in place of the original reference supplied to <code>preflight</code> for resolves prior to registration, and for the final call to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a> itself. See <a class="el" href="examples.html#example_publishing_a_file">Publishing a File</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReferences</td><td>The entity references to preflight prior to registration.</td></tr>
-    <tr><td class="paramname">traitSet</td><td>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entities that are being published.</td></tr>
+    <tr><td class="paramname">traitsHints</td><td><a class="el" href="glossary.html#trait_set">Trait Set</a> for each entity, determining the type of entity to publish, complete with any properties the host owns and can provide at this time. See <a class="el" href="glossary.html#glossary_preflight">glossary entry</a> for details.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context. This is not replaced with an array in order to simplify implementation. Otherwise, transactional handling has the potential to be extremely complex if different contexts are allowed.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful preflight of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with an updated reference to use for future interactions as part of the publishing operation. The callback will be called on the same thread that initiated the call to <code>preflight</code>.</td></tr>
     <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed preflight of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>preflight</code>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="glossary.html#register">register</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac589010ad3f88ff9aff2d646d2538657">register_</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="acd901931371579b125a1bcffbfce35e6"></a>
+<a class="anchor" id="a62ffa198efd53d234d09b4c771b28085"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1212,8 +1212,8 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitsHint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1236,12 +1236,12 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">callback variation</a> for more details on preflight behaviour.</p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">callback variation</a> for more details on preflight behaviour.</p>
 <p>Any errors that occur during the preflight call will be immediately thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to the entity reference) or as a <a class="el" href="structopenassetio_1_1v1_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReference</td><td>The entity reference to preflight prior to registration.</td></tr>
-    <tr><td class="paramname">traitSet</td><td>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entity that is being published.</td></tr>
+    <tr><td class="paramname">traitsHint</td><td><a class="el" href="glossary.html#trait_set">Trait Set</a> for the entity, determining the type of entity to publish, complete with any properties that can be provided at this time.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tag dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html">BatchElementErrorPolicyTag</a>.</td></tr>
   </table>
@@ -1251,7 +1251,7 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ae9d89773250708245dc81804f924b947"></a>
+<a class="anchor" id="a6ccfe9b2969ccae2e8e5ee3d6efe4226"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1264,8 +1264,8 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407">TraitsDataPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitsHint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1288,14 +1288,14 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call signals your intent as a host application to do some work to create data in relation to a supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">callback variation</a> for more details on preflight behaviour.</p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">callback variation</a> for more details on preflight behaviour.</p>
 <p>If successful, the result is populated with an updated reference for use in future interactions in the publishing operation.</p>
 <p>Otherwise, the result is populated with an error object detailing the reason for the failure to preflight this particular entity.</p>
 <p>Errors that are not specific to the entity will be thrown as an exception.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReference</td><td>The entity reference to preflight prior to registration.</td></tr>
-    <tr><td class="paramname">traitSet</td><td>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entity that is being published.</td></tr>
+    <tr><td class="paramname">traitsHint</td><td><a class="el" href="glossary.html#trait_set">Trait Set</a> for the entity, determining the type of entity to publish, complete with any properties that can be provided at this time.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tag dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html">BatchElementErrorPolicyTag</a>.</td></tr>
   </table>
@@ -1305,7 +1305,7 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aac8008066336690b79f93b6d760aeeb0"></a>
+<a class="anchor" id="a57c2765d5f53b8a1a3f773ca9bbcbd14"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1318,8 +1318,8 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitsHints</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1342,12 +1342,12 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">callback variation</a> for more details on preflight behaviour.</p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">callback variation</a> for more details on preflight behaviour.</p>
 <p>Any errors that occur during the preflight call will be immediately thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to an entity reference) or as a <a class="el" href="structopenassetio_1_1v1_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReferences</td><td>The entity references to preflight prior to registration.</td></tr>
-    <tr><td class="paramname">traitSet</td><td>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entities that are being published.</td></tr>
+    <tr><td class="paramname">traitsHints</td><td><a class="el" href="glossary.html#trait_set">Trait Set</a> for each entity, determining the type of entity to publish, complete with any properties that can be provided at this time.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context. The same calling context is used for each entity reference.</td></tr>
     <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tag dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html">BatchElementErrorPolicyTag</a>.</td></tr>
   </table>
@@ -1357,7 +1357,7 @@ This method may block for extended periods of time. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4bfd606f6299bcaa722a22b33d6eb0c8"></a>
+<a class="anchor" id="a43a58704eb5ffd4fc30eb5486c7c5eb3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1370,8 +1370,8 @@ This method may block for extended periods of time. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>traitSet</em>, </td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitsHints</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1394,14 +1394,14 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call signals your intent as a host application to do some work to create data in relation to each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
-<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0a2c6c60a15cd2c33a0083a6f717ea5">callback variation</a> for more details on preflight behaviour.</p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">callback variation</a> for more details on preflight behaviour.</p>
 <p>For successful references, the corresponding element of the result is populated with an updated reference for use in future interactions in the publishing operation.</p>
 <p>Otherwise, the corresponding element of the result is populated with an error object detailing the reason for the failure to preflight that particular entity.</p>
 <p>Errors that are not specific to an entity will be thrown as an exception.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReferences</td><td>The entity references to preflight prior to registration.</td></tr>
-    <tr><td class="paramname">traitSet</td><td>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of the entity that is being published.</td></tr>
+    <tr><td class="paramname">traitsHints</td><td><a class="el" href="glossary.html#trait_set">Trait Set</a> for each entity, determining the type of entity to publish, complete with any properties that can be provided at this time.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context. The same calling context is used for each entity reference.</td></tr>
     <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tag dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html">BatchElementErrorPolicyTag</a>.</td></tr>
   </table>
@@ -1475,14 +1475,13 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::out_of_range</td><td>If <code>entityReferences</code> and <code>entityTraitsDatas</code> are not lists of the same length.</td></tr>
-    <tr><td class="paramname">std::invalid_argument</td><td>If all <code>entityTraitsDatas</code> do not share the same trait set.</td></tr>
   </table>
   </dd>
 </dl>
 <p>Other exceptions may be raised for fatal runtime errors, for example server communication failure.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> </dd>
 <dd>
-<a class="el" href="glossary.html#preflight">preflight</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5310cd7307fbdf5cb15998129a6f3336">preflight</a> </dd></dl>
 
 </div>
 </div>

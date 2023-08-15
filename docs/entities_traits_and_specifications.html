@@ -175,7 +175,7 @@ Specifications</h1>
 <p>There are three notable uses of specifications within OpenAssetIO:</p>
 <ul>
 <li>The context <a class="el" href="glossary.html#locale">locale</a> - to describe the specifics of the host environment calling the API.</li>
-<li>During <a class="el" href="glossary.html#register">register</a> and <a class="el" href="glossary.html#resolve">resolve</a> - to hold the data for an <a class="el" href="glossary.html#entity">entity</a>.</li>
+<li>During <a class="el" href="glossary.html#glossary_register">register</a> and <a class="el" href="glossary.html#glossary_resolve">resolve</a> - to hold the data for an <a class="el" href="glossary.html#entity">entity</a>.</li>
 <li>Describing Relationships - to define some connection between one or more entities.</li>
 </ul>
 <h2><a class="anchor" id="locale_specifications"></a>
@@ -185,7 +185,8 @@ Locale Specifications</h2>
 <p>When used here, the specification's trait properties are used to convey not entity data, but information about the process environment. For example, the <code>usesUrls</code> trait defines that the host requires URLs instead of paths when addressing entity data not passed through the API.</p>
 <h2><a class="anchor" id="entity_specifications"></a>
 Entity Specifications</h2>
-<p>Specifictions used with <a class="el" href="glossary.html#register">register</a> and returned by <a class="el" href="glossary.html#resolve">resolve</a> to hold <a class="el" href="glossary.html#entity">entity</a> data are known as "entity specifications". The <a class="el" href="glossary.html#trait_set">Trait Set</a> they define can also be used as a shorthand for consistency when:</p>
+<p>Specifictions used with <a class="el" href="glossary.html#glossary_register">register</a> and returned by <a class="el" href="glossary.html#glossary_resolve">resolve</a> to hold <a class="el" href="glossary.html#entity">entity</a> data are known as "entity
+specifications". The <a class="el" href="glossary.html#trait_set">Trait Set</a> they define can also be used as a shorthand for consistency when:</p>
 <ul>
 <li>A host wishes to know if a manager would like to be involved in reads or writes of a specific kind of data.</li>
 <li>A host wishes to define which data to resolve for an entity.</li>
@@ -210,7 +211,7 @@ Trait Sets as a Filter Predicate</h2>
 <p>Another example would be when querying for an EDL file in relation to a sequence entity. The traits used should only include a description of the nature of any of its content if this is specifically required for its use, so typically <code>locatableContent</code>, <code>timeline</code> is all that would be needed unless the host wished to specifically constrain the type of data referenced in the edit.</p>
 <h2><a class="anchor" id="Publishing"></a>
 Publishing</h2>
-<p>When populating specifications with traits for publishing (see <a class="el" href="glossary.html#register">register</a>). The relevant traits are the ones that cover the data that is registered, so that that data is then available later on for <code>resolve</code> or when evaluating filter predicates.</p>
+<p>When populating specifications with traits for publishing (see <a class="el" href="glossary.html#glossary_register">register</a>). The relevant traits are the ones that cover the data that is registered, so that that data is then available later on for <code>resolve</code> or when evaluating filter predicates.</p>
 <h2><a class="anchor" id="Descriptions"></a>
 Descriptions</h2>
 <p>When a manager populates data in <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6235d6c679711ac561ecc50d2c7f1fa3">resolve</a>, then it should set all of the requested traits that are applicable to the entity, and only those that have data in the case of traits with properties. Traits that are not relevant, missing all data, or not known to the manager should be omitted.</p>

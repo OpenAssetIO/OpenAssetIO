@@ -94,12 +94,12 @@ var NAVTREE =
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
-      [ "preflight", "glossary.html#preflight", null ],
+      [ "preflight", "glossary.html#glossary_preflight", null ],
       [ "publish", "glossary.html#publish", null ],
-      [ "register", "glossary.html#register", [
+      [ "register", "glossary.html#glossary_register", [
         [ "Create related", "glossary.html#create_related", null ]
       ] ],
-      [ "resolve", "glossary.html#resolve", null ],
+      [ "resolve", "glossary.html#glossary_resolve", null ],
       [ "Specification", "glossary.html#Specification", null ],
       [ "Trait", "glossary.html#trait", null ],
       [ "Trait Set", "glossary.html#trait_set", null ]
