@@ -408,7 +408,16 @@ SCENARIO("Preflighting entities") {
   using trompeloeil::_;
 
   GIVEN("a configured Manager instance") {
-    const openassetio::trait::TraitSet traits = {"fakeTrait", "secondFakeTrait"};
+    const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
+    const openassetio::EntityReferences threeRefs = {
+        openassetio::EntityReference{"testReference1"},
+        openassetio::EntityReference{"testReference2"},
+        openassetio::EntityReference{"testReference3"}};
+
+    const openassetio::TraitsDataPtr traitsData =
+        openassetio::TraitsData::make({"fakeTrait", "secondFakeTrait"});
+    const openassetio::trait::TraitsDatas threeTraitsDatas{traitsData, traitsData, traitsData};
+
     const openassetio::ManagerFixture fixture;
     const auto& manager = fixture.manager;
     auto& mockManagerInterface = fixture.mockManagerInterface;
@@ -416,27 +425,26 @@ SCENARIO("Preflighting entities") {
     const auto& hostSession = fixture.hostSession;
 
     GIVEN("manager plugin successfully preflights a single entity reference") {
-      const openassetio::EntityReference ref{"testReference"};
-      const openassetio::EntityReferences refs = {ref};
-
       const openassetio::EntityReference expected{"preflightedRef"};
 
       // With success callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface, preflight(openassetio::EntityReferences{ref},
+                                                   openassetio::trait::TraitsDatas{traitsData},
+                                                   context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(0, expected));
 
       WHEN("singular preflight is called with default errorPolicyTag") {
-        const openassetio::EntityReference actual = manager->preflight(ref, traits, context);
+        const openassetio::EntityReference actual = manager->preflight(ref, traitsData, context);
         THEN("returned entity reference is as expected") { CHECK(expected == actual); }
       }
       WHEN("singular preflight is called with kException errorPolicyTag") {
         const openassetio::EntityReference actual = manager->preflight(
-            ref, traits, context, hostApi::Manager::BatchElementErrorPolicyTag::kException);
+            ref, traitsData, context, hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned entity reference is as expected") { CHECK(expected == actual); }
       }
       WHEN("singular preflight is called with kVariant errorPolicyTag") {
         std::variant<openassetio::BatchElementError, openassetio::EntityReference> actual =
-            manager->preflight(ref, traits, context,
+            manager->preflight(ref, traitsData, context,
                                hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected entity reference") {
           CHECK(std::holds_alternative<openassetio::EntityReference>(actual));
@@ -446,38 +454,36 @@ SCENARIO("Preflighting entities") {
       }
     }
     GIVEN("manager plugin successfully preflights multiple entity references") {
-      const openassetio::EntityReferences refs = {openassetio::EntityReference{"testReference1"},
-                                                  openassetio::EntityReference{"testReference2"},
-                                                  openassetio::EntityReference{"testReference3"}};
-
       const openassetio::EntityReference expected1{"ref1"};
       const openassetio::EntityReference expected2{"ref2"};
       const openassetio::EntityReference expected3{"ref3"};
       std::vector<openassetio::EntityReference> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface,
+                   preflight(threeRefs, threeTraitsDatas, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(0, expectedVec[0]))
           .LR_SIDE_EFFECT(_5(1, expectedVec[1]))
           .LR_SIDE_EFFECT(_5(2, expectedVec[2]));
 
       WHEN("batch preflight is called with default errorPolicyTag") {
         const std::vector<openassetio::EntityReference> actualVec =
-            manager->preflight(refs, traits, context);
+            manager->preflight(threeRefs, threeTraitsDatas, context);
         THEN("returned list of entity references is as expected") {
           CHECK(expectedVec == actualVec);
         }
       }
       WHEN("batch preflight is called with kException errorPolicyTag") {
-        const std::vector<openassetio::EntityReference> actualVec = manager->preflight(
-            refs, traits, context, hostApi::Manager::BatchElementErrorPolicyTag::kException);
+        const std::vector<openassetio::EntityReference> actualVec =
+            manager->preflight(threeRefs, threeTraitsDatas, context,
+                               hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned list of entity references is as expected") {
           CHECK(expectedVec == actualVec);
         }
       }
       WHEN("batch preflight is called with kVariant errorPolicyTag") {
         std::vector<std::variant<openassetio::BatchElementError, openassetio::EntityReference>>
-            actualVec = manager->preflight(refs, traits, context,
+            actualVec = manager->preflight(threeRefs, threeTraitsDatas, context,
                                            hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected entity references") {
           CHECK(expectedVec.size() == actualVec.size());
@@ -491,38 +497,36 @@ SCENARIO("Preflighting entities") {
     }
     GIVEN(
         "manager plugin successfully preflights multiple entity references in a non-index order") {
-      const openassetio::EntityReferences refs = {openassetio::EntityReference{"testReference1"},
-                                                  openassetio::EntityReference{"testReference2"},
-                                                  openassetio::EntityReference{"testReference3"}};
-
       const openassetio::EntityReference expected1{"ref1"};
       const openassetio::EntityReference expected2{"ref2"};
       const openassetio::EntityReference expected3{"ref3"};
       std::vector<openassetio::EntityReference> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect, given out of order.
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface,
+                   preflight(threeRefs, threeTraitsDatas, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(2, expectedVec[2]))
           .LR_SIDE_EFFECT(_5(0, expectedVec[0]))
           .LR_SIDE_EFFECT(_5(1, expectedVec[1]));
 
       WHEN("batch preflight is called with default errorPolicyTag") {
         const std::vector<openassetio::EntityReference> actualVec =
-            manager->preflight(refs, traits, context);
+            manager->preflight(threeRefs, threeTraitsDatas, context);
         THEN("returned list of entity references is ordered in index order") {
           CHECK(expectedVec == actualVec);
         }
       }
       WHEN("batch preflight is called with kException errorPolicyTag") {
-        const std::vector<openassetio::EntityReference> actualVec = manager->preflight(
-            refs, traits, context, hostApi::Manager::BatchElementErrorPolicyTag::kException);
+        const std::vector<openassetio::EntityReference> actualVec =
+            manager->preflight(threeRefs, threeTraitsDatas, context,
+                               hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned list of entity references is ordered in index order") {
           CHECK(expectedVec == actualVec);
         }
       }
       WHEN("batch preflight is called with kVariant errorPolicyTag") {
         std::vector<std::variant<openassetio::BatchElementError, openassetio::EntityReference>>
-            actualVec = manager->preflight(refs, traits, context,
+            actualVec = manager->preflight(threeRefs, threeTraitsDatas, context,
                                            hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants is ordered in index order") {
           CHECK(expectedVec.size() == actualVec.size());
@@ -537,19 +541,18 @@ SCENARIO("Preflighting entities") {
     GIVEN(
         "manager plugin will encounter an entity-specific error when next preflighting a "
         "reference") {
-      const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
-      const openassetio::EntityReferences refs = {ref};
-
-      openassetio::BatchElementError expected{
+      const openassetio::BatchElementError expected{
           openassetio::BatchElementError::ErrorCode::kMalformedEntityReference, "Error Message"};
 
       // With error callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface, preflight(openassetio::EntityReferences{ref},
+                                                   openassetio::trait::TraitsDatas{traitsData},
+                                                   context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(0, expected));
 
       WHEN("singular preflight is called with default errorPolicyTag") {
         THEN("an exception is thrown") {
-          CHECK_THROWS_MATCHES(manager->preflight(ref, traits, context),
+          CHECK_THROWS_MATCHES(manager->preflight(ref, traitsData, context),
                                openassetio::MalformedEntityReferenceBatchElementException,
                                Catch::Message("Error Message"));
         }
@@ -557,7 +560,7 @@ SCENARIO("Preflighting entities") {
       WHEN("singular preflight is called with kException errorPolicyTag") {
         THEN("an exception is thrown") {
           CHECK_THROWS_MATCHES(
-              manager->preflight(ref, traits, context,
+              manager->preflight(ref, traitsData, context,
                                  hostApi::Manager::BatchElementErrorPolicyTag::kException),
               openassetio::MalformedEntityReferenceBatchElementException,
               Catch::Message("Error Message"));
@@ -565,7 +568,7 @@ SCENARIO("Preflighting entities") {
       }
       WHEN("singular preflight is called with kVariant errorPolicyTag") {
         std::variant<openassetio::BatchElementError, openassetio::EntityReference> actual =
-            manager->preflight(ref, traits, context,
+            manager->preflight(ref, traitsData, context,
                                hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected BatchElementError") {
           CHECK(std::holds_alternative<openassetio::BatchElementError>(actual));
@@ -577,10 +580,6 @@ SCENARIO("Preflighting entities") {
     GIVEN(
         "manager plugin will encounter entity-specific errors when next preflighting multiple "
         "references") {
-      const openassetio::EntityReferences refs = {openassetio::EntityReference{"testReference1"},
-                                                  openassetio::EntityReference{"testReference2"},
-                                                  openassetio::EntityReference{"testReference3"}};
-
       const openassetio::EntityReference expectedValue2{"ref2"};
       const openassetio::BatchElementError expectedError0{
           openassetio::BatchElementError::ErrorCode::kMalformedEntityReference,
@@ -590,14 +589,15 @@ SCENARIO("Preflighting entities") {
           "Entity Access Error Message"};
 
       // With mixed callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface,
+                   preflight(threeRefs, threeTraitsDatas, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_5(2, expectedValue2))
           .LR_SIDE_EFFECT(_6(0, expectedError0))
           .LR_SIDE_EFFECT(_6(1, expectedError1));
 
       WHEN("batch preflight is called with default errorPolicyTag") {
         THEN("an exception is thrown") {
-          CHECK_THROWS_MATCHES(manager->preflight(refs, traits, context),
+          CHECK_THROWS_MATCHES(manager->preflight(threeRefs, threeTraitsDatas, context),
                                openassetio::MalformedEntityReferenceBatchElementException,
                                Catch::Message("Malformed Mock Error🤖"));
         }
@@ -605,7 +605,7 @@ SCENARIO("Preflighting entities") {
       WHEN("batch preflight is called with kException errorPolicyTag") {
         THEN("an exception is thrown") {
           CHECK_THROWS_MATCHES(
-              manager->preflight(refs, traits, context,
+              manager->preflight(threeRefs, threeTraitsDatas, context,
                                  hostApi::Manager::BatchElementErrorPolicyTag::kException),
               openassetio::MalformedEntityReferenceBatchElementException,
               Catch::Message("Malformed Mock Error🤖"));
@@ -613,7 +613,7 @@ SCENARIO("Preflighting entities") {
       }
       WHEN("batch preflight is called with kVariant errorPolicyTag") {
         std::vector<std::variant<openassetio::BatchElementError, openassetio::EntityReference>>
-            actualVec = manager->preflight(refs, traits, context,
+            actualVec = manager->preflight(threeRefs, threeTraitsDatas, context,
                                            hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected objects") {
           auto error0 = std::get<openassetio::BatchElementError>(actualVec[0]);
@@ -647,7 +647,16 @@ TEMPLATE_TEST_CASE(
   static constexpr ErrorCode kExpectedErrorCode = TestType::kErrorCode;
 
   GIVEN("a configured Manager instance") {
-    const openassetio::trait::TraitSet traits = {"fakeTrait", "secondFakeTrait"};
+    const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
+    const openassetio::EntityReferences threeRefs = {
+        openassetio::EntityReference{"testReference1"},
+        openassetio::EntityReference{"testReference2"},
+        openassetio::EntityReference{"testReference3"}};
+
+    const openassetio::TraitsDataPtr traitsData =
+        openassetio::TraitsData::make({"fakeTrait", "secondFakeTrait"});
+    const openassetio::trait::TraitsDatas threeTraitsDatas{traitsData, traitsData, traitsData};
+
     const openassetio::ManagerFixture fixture;
     const auto& manager = fixture.manager;
     auto& mockManagerInterface = fixture.mockManagerInterface;
@@ -657,19 +666,18 @@ TEMPLATE_TEST_CASE(
     AND_GIVEN(
         "manager plugin will encounter an entity-specific error when next preflighting a "
         "reference") {
-      const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
-      const openassetio::EntityReferences refs = {ref};
-
       const openassetio::BatchElementError expectedError{kExpectedErrorCode, "Some error message"};
 
       // With error callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface, preflight(openassetio::EntityReferences{ref},
+                                                   openassetio::trait::TraitsDatas{traitsData},
+                                                   context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(123, expectedError));
 
       WHEN("preflight is called with kException errorPolicyTag") {
         THEN("an exception is thrown") {
           try {
-            manager->preflight(ref, traits, context,
+            manager->preflight(ref, traitsData, context,
                                hostApi::Manager::BatchElementErrorPolicyTag::kException);
             FAIL_CHECK("Exception not thrown");
           } catch (const ExpectedExceptionType& exc) {
@@ -684,20 +692,18 @@ TEMPLATE_TEST_CASE(
     AND_GIVEN(
         "manager plugin will encounter entity-specific errors when next preflighting multiple "
         "references") {
-      const openassetio::EntityReferences refs = {openassetio::EntityReference{"testReference1"},
-                                                  openassetio::EntityReference{"testReference2"}};
-
       const openassetio::BatchElementError expectedError{kExpectedErrorCode, "Some error"};
 
       // With error callback side effect
-      REQUIRE_CALL(mockManagerInterface, preflight(refs, traits, context, hostSession, _, _))
+      REQUIRE_CALL(mockManagerInterface,
+                   preflight(threeRefs, threeTraitsDatas, context, hostSession, _, _))
           .LR_SIDE_EFFECT(_6(123, expectedError))
           .LR_SIDE_EFFECT(FAIL_CHECK("Exception should have short-circuited this"));
 
       WHEN("preflight is called with kException errorPolicyTag") {
         THEN("an exception is thrown") {
           try {
-            manager->preflight(refs, traits, context,
+            manager->preflight(threeRefs, threeTraitsDatas, context,
                                hostApi::Manager::BatchElementErrorPolicyTag::kException);
             FAIL_CHECK("Exception not thrown");
           } catch (const ExpectedExceptionType& exc) {
@@ -864,7 +870,7 @@ SCENARIO("Registering entities") {
       const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
       const openassetio::EntityReferences refs = {ref};
 
-      openassetio::BatchElementError expected{
+      const openassetio::BatchElementError expected{
           openassetio::BatchElementError::ErrorCode::kMalformedEntityReference, "Error Message"};
 
       // With error callback side effect

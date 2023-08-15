@@ -84,16 +84,16 @@ class BatchElementError final {
      * Error code used when the reference is valid, but the supplied
      * @ref Context access is invalid for the operation. A common
      * example of this would be resolving a read-only entity with a
-     * write access Context, or during @ref preflight or @ref register
-     * when the target entity s read-only and does not support
-     * updating.
+     * write access Context, or during @ref glossary_preflight or @ref
+     * glossary_register when the target entity s read-only and does not
+     * support updating.
      */
     kEntityAccessError = OPENASSETIO_BatchErrorCode_kEntityAccessError,
 
     /**
-     * Error code used during @ref resolve "entity resolution" when the
-     * reference itself is valid, but it is not possible to retrieve
-     * data for the referenced @ref entity.
+     * Error code used during @ref glossary_resolve "entity resolution"
+     * when the reference itself is valid, but it is not possible to
+     * retrieve data for the referenced @ref entity.
      *
      * This could be because it does not exist, or some other
      * entity-specific reason that this data cannot be resolved for a
@@ -107,7 +107,18 @@ class BatchElementError final {
      * entity-based operations on a valid @ref entity_reference that
      * fail for some reason.
      */
-    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError
+    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError,
+
+    /**
+     * Error code response from @ref glossary_preflight if the provided
+     * @fqref{TraitsData} "traits data" hint holds insufficient or
+     * invalid information.
+     *
+     * This will occur when the manager requires information that the
+     * host owns to be passed to `preflight`, but the host did not
+     * provide it.
+     */
+    kInvalidPreflightHint = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint
   };
 
   /**
@@ -197,6 +208,14 @@ struct OPENASSETIO_CORE_EXPORT EntityAccessErrorBatchElementException : BatchEle
  * @ref BatchElementError.ErrorCode.kEntityResolutionError
  */
 struct OPENASSETIO_CORE_EXPORT EntityResolutionErrorBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kInvalidPreflightHint
+ */
+struct OPENASSETIO_CORE_EXPORT InvalidPreflightHintBatchElementException : BatchElementException {
   using BatchElementException::BatchElementException;
 };
 /**

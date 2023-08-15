@@ -1204,14 +1204,14 @@ class Test_Manager_resolve_with_batch_default_overload:
         some_refs,
         an_entity_trait_set,
         a_context,
-        some_populated_traitsdatas,
+        some_entity_traitsdatas,
         invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
-            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
 
         method.side_effect = call_callbacks
 
@@ -1227,8 +1227,8 @@ class Test_Manager_resolve_with_batch_default_overload:
         )
 
         assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
 
     def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
         self,
@@ -1238,14 +1238,14 @@ class Test_Manager_resolve_with_batch_default_overload:
         some_refs,
         an_entity_trait_set,
         a_context,
-        some_populated_traitsdatas,
+        some_entity_traitsdatas,
         invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
-            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
 
         method.side_effect = call_callbacks
 
@@ -1261,8 +1261,8 @@ class Test_Manager_resolve_with_batch_default_overload:
         )
 
         assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
 
     @pytest.mark.parametrize(
         "error_code,expected_exception", batch_element_error_code_exception_pairs
@@ -1318,14 +1318,14 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         some_refs,
         an_entity_trait_set,
         a_context,
-        some_populated_traitsdatas,
+        some_entity_traitsdatas,
         invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
-            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
 
         method.side_effect = call_callbacks
 
@@ -1346,8 +1346,8 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         )
 
         assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
 
     def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
         self,
@@ -1357,15 +1357,15 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         some_refs,
         an_entity_trait_set,
         a_context,
-        some_populated_traitsdatas,
+        some_entity_traitsdatas,
         invoke_resolve_success_cb,
     ):
         method = mock_manager_interface.mock.resolve
 
         def call_callbacks(*_args):
             # Success
-            invoke_resolve_success_cb(1, some_populated_traitsdatas[1])
-            invoke_resolve_success_cb(0, some_populated_traitsdatas[0])
+            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
+            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
 
         method.side_effect = call_callbacks
 
@@ -1386,8 +1386,8 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         )
 
         assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_populated_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_populated_traitsdatas[1]
+        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
+        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
 
     @pytest.mark.parametrize(
         "error_code,expected_exception", batch_element_error_code_exception_pairs
@@ -1571,7 +1571,7 @@ class Test_Manager_preflight_callback_signature:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         a_batch_element_error,
         invoke_preflight_success_cb,
@@ -1590,25 +1590,59 @@ class Test_Manager_preflight_callback_signature:
         method.side_effect = call_callbacks
 
         manager.preflight(
-            some_refs, an_entity_trait_set, a_context, success_callback, error_callback
+            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback
         )
 
         method.assert_called_once_with(
-            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
 
+    def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
+        self, manager, some_refs, some_entity_traitsdatas, a_context
+    ):
+        expected_message = (
+            "Parameter lists must be of the same length: {} entity references vs. {} traits hints."
+        )
+        with pytest.raises(
+            IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
+        ):
+            manager.preflight(
+                some_refs[1:], some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+            )
+
+        with pytest.raises(
+            IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
+        ):
+            manager.preflight(
+                some_refs, some_entity_traitsdatas[1:], a_context, mock.Mock(), mock.Mock()
+            )
+
+    def test_when_traits_data_is_None_then_TypeError_is_raised(
+        self, manager, some_refs, some_entity_traitsdatas, a_context
+    ):
+        some_entity_traitsdatas[-1] = None
+
+        with pytest.raises(TypeError):
+            manager.preflight(
+                some_refs, some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+            )
+
 
 class Test_Manager_preflight_with_singular_default_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
+        with pytest.raises(TypeError):
+            manager.preflight(a_ref, None, a_context)
+
     def test_when_success_then_single_EntityReference_returned(
         self,
         manager,
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         a_different_ref,
         invoke_preflight_success_cb,
@@ -1620,10 +1654,10 @@ class Test_Manager_preflight_with_singular_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_ref = manager.preflight(a_ref, an_entity_trait_set, a_context)
+        actual_ref = manager.preflight(a_ref, a_traitsdata, a_context)
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert actual_ref == a_different_ref
@@ -1637,7 +1671,7 @@ class Test_Manager_preflight_with_singular_default_overload:
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         error_code,
         expected_exception,
@@ -1655,10 +1689,10 @@ class Test_Manager_preflight_with_singular_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(a_ref, an_entity_trait_set, a_context)
+            manager.preflight(a_ref, a_traitsdata, a_context)
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert exc.value.index == expected_index
@@ -1666,13 +1700,19 @@ class Test_Manager_preflight_with_singular_default_overload:
 
 
 class Test_Manager_preflight_with_singular_throwing_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
+        with pytest.raises(TypeError):
+            manager.preflight(
+                a_ref, None, a_context, Manager.BatchElementErrorPolicyTag.kException
+            )
+
     def test_when_preflight_success_then_single_EntityReference_returned(
         self,
         manager,
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         a_different_ref,
         invoke_preflight_success_cb,
@@ -1686,13 +1726,13 @@ class Test_Manager_preflight_with_singular_throwing_overload:
 
         actual_ref = manager.preflight(
             a_ref,
-            an_entity_trait_set,
+            a_traitsdata,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert actual_ref == a_different_ref
@@ -1706,7 +1746,7 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         error_code,
         expected_exception,
@@ -1727,13 +1767,13 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
             manager.preflight(
                 a_ref,
-                an_entity_trait_set,
+                a_traitsdata,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert exc.value.index == expected_index
@@ -1741,13 +1781,17 @@ class Test_Manager_preflight_with_singular_throwing_overload:
 
 
 class Test_Manager_preflight_with_singular_variant_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
+        with pytest.raises(TypeError):
+            manager.preflight(a_ref, None, a_context, Manager.BatchElementErrorPolicyTag.kVariant)
+
     def test_when_preflight_success_then_single_EntityReference_returned(
         self,
         manager,
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         a_different_ref,
         invoke_preflight_success_cb,
@@ -1761,13 +1805,13 @@ class Test_Manager_preflight_with_singular_variant_overload:
 
         actual_ref = manager.preflight(
             a_ref,
-            an_entity_trait_set,
+            a_traitsdata,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert actual_ref == a_different_ref
@@ -1779,7 +1823,7 @@ class Test_Manager_preflight_with_singular_variant_overload:
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         error_code,
         invoke_preflight_error_cb,
@@ -1796,26 +1840,33 @@ class Test_Manager_preflight_with_singular_variant_overload:
 
         actual = manager.preflight(
             a_ref,
-            an_entity_trait_set,
+            a_traitsdata,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
         )
 
         assert actual == batch_element_error
 
 
 class Test_Manager_preflight_with_batch_default_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(
+        self, manager, some_refs, some_entity_traitsdatas, a_context
+    ):
+        some_entity_traitsdatas[-1] = None
+        with pytest.raises(TypeError):
+            manager.preflight(some_refs, some_entity_traitsdatas, a_context)
+
     def test_when_success_then_multiple_EntityReferences_returned(
         self,
         manager,
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         some_different_refs,
         invoke_preflight_success_cb,
@@ -1828,11 +1879,11 @@ class Test_Manager_preflight_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.preflight(some_refs, an_entity_trait_set, a_context)
+        actual_refs = manager.preflight(some_refs, some_entity_traitsdatas, a_context)
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1847,7 +1898,7 @@ class Test_Manager_preflight_with_batch_default_overload:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         some_different_refs,
         invoke_preflight_success_cb,
@@ -1860,11 +1911,11 @@ class Test_Manager_preflight_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.preflight(some_refs, an_entity_trait_set, a_context)
+        actual_refs = manager.preflight(some_refs, some_entity_traitsdatas, a_context)
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1882,7 +1933,7 @@ class Test_Manager_preflight_with_batch_default_overload:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         error_code,
         a_different_ref,
@@ -1903,11 +1954,11 @@ class Test_Manager_preflight_with_batch_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(some_refs, an_entity_trait_set, a_context)
+            manager.preflight(some_refs, some_entity_traitsdatas, a_context)
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1919,13 +1970,25 @@ class Test_Manager_preflight_with_batch_default_overload:
 
 
 class Test_Manager_preflight_with_batch_throwing_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(
+        self, manager, some_refs, some_entity_traitsdatas, a_context
+    ):
+        some_entity_traitsdatas[-1] = None
+        with pytest.raises(TypeError):
+            manager.preflight(
+                some_refs,
+                some_entity_traitsdatas,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
+            )
+
     def test_when_success_then_multiple_EntityReferences_returned(
         self,
         manager,
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         some_different_refs,
         invoke_preflight_success_cb,
@@ -1940,14 +2003,14 @@ class Test_Manager_preflight_with_batch_throwing_overload:
 
         actual_refs = manager.preflight(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1962,7 +2025,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         some_different_refs,
         invoke_preflight_success_cb,
@@ -1977,14 +2040,14 @@ class Test_Manager_preflight_with_batch_throwing_overload:
 
         actual_refs = manager.preflight(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2002,7 +2065,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         error_code,
         a_different_ref,
@@ -2025,14 +2088,14 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
             manager.preflight(
                 some_refs,
-                an_entity_trait_set,
+                some_entity_traitsdatas,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2044,6 +2107,18 @@ class Test_Manager_preflight_with_batch_throwing_overload:
 
 
 class Test_Manager_preflight_with_batch_variant_overload:
+    def test_when_traits_data_is_None_then_TypeError_is_raised(
+        self, manager, some_refs, some_entity_traitsdatas, a_context
+    ):
+        some_entity_traitsdatas[-1] = None
+        with pytest.raises(TypeError):
+            manager.preflight(
+                some_refs,
+                some_entity_traitsdatas,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kVariant,
+            )
+
     @pytest.mark.parametrize("error_code", batch_element_error_codes)
     def test_when_mixed_output_then_returned_list_contains_output(
         self,
@@ -2051,7 +2126,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         mock_manager_interface,
         a_host_session,
         some_refs,
-        an_entity_trait_set,
+        some_entity_traitsdatas,
         a_context,
         a_different_ref,
         error_code,
@@ -2069,14 +2144,14 @@ class Test_Manager_preflight_with_batch_variant_overload:
 
         actual_ref_or_error = manager.preflight(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
             some_refs,
-            an_entity_trait_set,
+            some_entity_traitsdatas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2093,7 +2168,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         mock_manager_interface,
         a_host_session,
         a_ref,
-        an_entity_trait_set,
+        a_traitsdata,
         a_context,
         invoke_preflight_success_cb,
         invoke_preflight_error_cb,
@@ -2101,6 +2176,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         method = mock_manager_interface.mock.preflight
 
         entity_refs = [a_ref] * 4
+        traits_datas = [a_traitsdata] * len(entity_refs)
 
         batch_element_error0 = BatchElementError(
             BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
@@ -2121,14 +2197,14 @@ class Test_Manager_preflight_with_batch_variant_overload:
 
         actual_ref_or_error = manager.preflight(
             entity_refs,
-            an_entity_trait_set,
+            traits_datas,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
             entity_refs,
-            an_entity_trait_set,
+            traits_datas,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2183,23 +2259,24 @@ class Test_Manager_register_callback_overload:
         error_callback.assert_called_once_with(456, a_batch_element_error)
 
     def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
-        self, manager, some_refs, a_traitsdata, a_context
+        self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
-        datas = [a_traitsdata for _ in some_refs]
+        expected_message = (
+            "Parameter lists must be of the same length: {} entity references vs. {} traits datas."
+        )
+        with pytest.raises(
+            IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
+        ):
+            manager.register(
+                some_refs[1:], some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+            )
 
-        with pytest.raises(IndexError):
-            manager.register(some_refs[1:], datas, a_context, mock.Mock(), mock.Mock())
-
-        with pytest.raises(IndexError):
-            manager.register(some_refs, datas[1:], a_context, mock.Mock(), mock.Mock())
-
-    def test_when_called_with_varying_trait_sets_then_ValueError_is_raised(
-        self, manager, some_refs, a_context
-    ):
-        datas = [TraitsData({f"trait{i}", "🦀"}) for i in range(len(some_refs))]
-
-        with pytest.raises(ValueError):
-            manager.register(some_refs, datas, a_context, mock.Mock(), mock.Mock())
+        with pytest.raises(
+            IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
+        ):
+            manager.register(
+                some_refs, some_entity_traitsdatas[1:], a_context, mock.Mock(), mock.Mock()
+            )
 
     def test_when_called_with_None_data_then_TypeError_is_raised(
         self, manager, some_refs, a_context, a_traitsdata
@@ -2948,15 +3025,10 @@ def an_empty_traitsdata():
 @pytest.fixture
 def some_entity_traitsdatas():
     first = TraitsData({"a_trait"})
-    second = TraitsData({"a_trait"})
+    second = TraitsData({"a_trait", "a_different_trait"})
     first.setTraitProperty("a_trait", "a_prop", 123)
     second.setTraitProperty("a_trait", "a_prop", 456)
     return [first, second]
-
-
-@pytest.fixture
-def some_populated_traitsdatas():
-    return [TraitsData(set("trait1")), TraitsData(set("trait2"))]
 
 
 @pytest.fixture

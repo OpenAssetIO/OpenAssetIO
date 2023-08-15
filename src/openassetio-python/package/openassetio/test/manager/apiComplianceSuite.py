@@ -389,19 +389,14 @@ class Test_preflight(FixtureAugmentedTestCase):
     managerApi.ManagerInterface.preflight.
     """
 
-    def setUp(self):
-        self.a_reference_to_a_writable_entity = self._manager.createEntityReference(
-            self.requireFixture("a_reference_to_a_writable_entity", skipTestIfMissing=True)
-        )
-        self.collectRequiredFixture("a_set_of_valid_traits")
-
     def test_when_multiple_references_then_same_number_of_returned_references(self):
-        ref = self.a_reference_to_a_writable_entity
+        traits_data = self.requireFixture("a_traits_data_for_preflight", skipTestIfMissing=True)
+        entity_reference = self.requireEntityReferenceFixture("a_reference_for_preflight")
 
         results = []
         self._manager.preflight(
-            [ref, ref],
-            self.a_set_of_valid_traits,
+            [entity_reference, entity_reference],
+            [traits_data, traits_data],
             self.createTestContext(),
             lambda _, ref: results.append(ref),
             lambda _, err: self.fail(err.message),
@@ -412,30 +407,52 @@ class Test_preflight(FixtureAugmentedTestCase):
             self.assertIsInstance(result, EntityReference)
 
     def test_when_reference_is_read_only_then_access_error_is_returned(self):
+        traits_data = self.requireFixture("a_traits_data_for_preflight", skipTestIfMissing=True)
+        entity_reference = self.requireEntityReferenceFixture("a_reference_to_a_readonly_entity")
+        expected_error_message = self.requireFixture("expected_error_message")
         self.__testPreflightError(
-            "a_reference_to_a_readonly_entity", BatchElementError.ErrorCode.kEntityAccessError
+            entity_reference,
+            traits_data,
+            expected_error_message,
+            BatchElementError.ErrorCode.kEntityAccessError,
         )
 
     def test_when_reference_malformed_then_malformed_entity_reference_error_returned(self):
+        traits_data = self.requireFixture("a_traits_data_for_preflight", skipTestIfMissing=True)
+        entity_reference = self.requireEntityReferenceFixture("a_malformed_reference")
+        expected_error_message = self.requireFixture("expected_error_message")
         self.__testPreflightError(
-            "a_malformed_reference", BatchElementError.ErrorCode.kMalformedEntityReference
+            entity_reference,
+            traits_data,
+            expected_error_message,
+            BatchElementError.ErrorCode.kMalformedEntityReference,
         )
 
-    def __testPreflightError(self, fixture_name, errorCode):
-        reference = self._manager.createEntityReference(
-            self.requireFixture(fixture_name, skipTestIfMissing=True)
+    def test_when_preflight_hint_invalid_then_invalid_preflight_hint_error_returned(self):
+        traits_data = self.requireFixture(
+            "an_invalid_traits_data_for_preflight", skipTestIfMissing=True
+        )
+        entity_reference = self.requireEntityReferenceFixture("a_reference_for_preflight")
+        expected_error_message = self.requireFixture("expected_error_message")
+        self.__testPreflightError(
+            entity_reference,
+            traits_data,
+            expected_error_message,
+            BatchElementError.ErrorCode.kInvalidPreflightHint,
         )
 
-        expected_msg = self.requireFixture(f"the_error_string_for_{fixture_name}")
-        expected_error = BatchElementError(errorCode, expected_msg)
+    def __testPreflightError(
+        self, entity_reference, traits_data, expected_error_message, expected_error_code
+    ):
+        expected_error = BatchElementError(expected_error_code, expected_error_message)
 
         context = self.createTestContext()
         context.access = Context.Access.kWrite
 
         errors = []
         self._manager.preflight(
-            [reference],
-            self.a_set_of_valid_traits,
+            [entity_reference],
+            [traits_data],
             context,
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
             lambda _idx, error: errors.append(error),

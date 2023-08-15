@@ -146,12 +146,12 @@ struct PyManagerInterface : ManagerInterface {
         RetainCommonPyArgs::forFn(successCallback), errorCallback);
   }
 
-  void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
+  void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
                  const ContextConstPtr& context, const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, preflight, entityReferences, traitSet, context,
-                           hostSession, successCallback, errorCallback);
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, preflight, entityReferences, traitsHints,
+                           context, hostSession, successCallback, errorCallback);
   }
 
   void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
@@ -226,8 +226,9 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
-           py::arg("traitSet"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
+           py::arg("traitsHints"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("register", &ManagerInterface::register_, py::arg("entityReferences"),
            py::arg("entityTraitsDatas"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),

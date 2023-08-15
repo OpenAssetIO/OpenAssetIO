@@ -60,7 +60,7 @@
  *   intentions and/or requirements of the caller, as well as to
  *   determine which part of an application is involved in the call.
  *   This can be used to help determine the correct values for @ref
- *   trait properties during @ref resolve.
+ *   trait properties during @ref glossary_resolve.
  *
  * - Many API calls are passed a @ref trait_set. They form a strong type
  *   mechanism, and must be respected as a filter predicate for

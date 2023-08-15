@@ -277,9 +277,13 @@
  *
  * # Whenever we make new data, we always tell the manager first,
  * # This allows it to create a placeholder version or similar.
+ * # We must provide the manager with any relevant information that the
+ * # host owns (i.e. won't be queried from the manager during
+ * # publishing) and can be provided up-front.
+ * file_spec = TextFileSpecification.create()
+ * file_spec.markupTrait().setMarkupType("plain")
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight(
- *         entity_ref, TextFileSpecification.kTraitSet, context)
+ * working_ref = manager.preflight(entity_ref, file_spec, context)
  *
  * # We then check if the manager can tell us where to save the file.
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
@@ -297,7 +301,6 @@
  *
  * # Prepare the entity specification to register, with the data about
  * # where we actually wrote the data to, and with what encoding.
- * file_spec = TextFileSpecification.create()
  * file_spec.locatableContentTrait().setLocation(pathToURL(save_path))
  * file_spec.textEncodingTrait().setEncoding(encoding)
  *

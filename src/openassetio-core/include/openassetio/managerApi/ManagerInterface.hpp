@@ -343,7 +343,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @note It is not _required_ that a Host calls this method before
    * invoking other API methods, and so methods such as @ref resolve or
-   * @ref register must be tolerant of being called with unsupported
+   * @ref register_ must be tolerant of being called with unsupported
    * traits (fear not, there is a simple and established failure mode
    * for this situation).
    *
@@ -1089,7 +1089,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * If this does not apply to the manager's workflow, then the
    * method can pass back the input reference once the target entity
-   *   reference has been validated.
+   * reference has been validated.
    *
    * Generally, this will be called before register() when data is not
    * already immediately available for registration, to allow
@@ -1102,17 +1102,22 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * supplied references, and callbacks have been called on the same
    * thread that called `preflight`
    *
-   * @warning If the supplied @ref trait_set is missing required traits
-   * for any of the provided references (maybe they are mismatched with
-   * the target entity, or missing essential data) then error that
-   * element with an appropriate @fqref{BatchElementError.ErrorCode}.
+   * @warning If the supplied @fqref{TraitsData} "trait data" is missing
+   * required traits for any of the provided references (maybe they are
+   * mismatched with the target entity), or the populated properties are
+   * insufficient or invalid for upcoming @ref resolve for
+   * @fqref{Context.Access.kWrite} "write" requests or the eventual
+   * @ref register_, then error that element with an appropriate
+   * @fqref{BatchElementError.ErrorCode}.
    *
    * @param entityReferences An @ref entity_reference for each entity
    * that it is desired to publish the forthcoming data to. See the
    * notes in the API documentation for the specifics of this.
    *
-   * @param traitSet The @ref trait_set of the entities that are being
-   * published.
+   * @param traitsHints @ref trait_set for each entity,
+   * determining the type of entity to publish, complete with any
+   * properties the host owns and can provide at this time. See @ref
+   * glossary_preflight "glossary entry" for more information.
    *
    * @param context The calling context. This is not replaced with an
    * array in order to simplify implementation. Otherwise, transactional
@@ -1145,16 +1150,21 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * references that are conceptually read-only in response to
    * @fqref{Context.Access.kWrite} "Access.kWrite", or in response to
    * @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated" if
-   * creating related entities is not supported.
+   * creating related entities is not supported. A
+   * @fqref{BatchElementError.ErrorCode.kInvalidPreflightHint}
+   * "kInvalidPreflightHint" should be used for any target references
+   * who's corresponding @p traitsHints entry holds insufficient or
+   * invalid information.
    *
    * @note it is important for the implementation to pay attention to
    * @fqref{Context.retention} "Context.retention", as not all hosts
    * will support the reference changing at this point.
    *
-   * @see @ref register
+   * @see @ref register_
    */
-  virtual void preflight(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-                         const ContextConstPtr& context, const HostSessionPtr& hostSession,
+  virtual void preflight(const EntityReferences& entityReferences,
+                         const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
+                         const HostSessionPtr& hostSession,
                          const PreflightSuccessCallback& successCallback,
                          const BatchElementErrorCallback& errorCallback) = 0;
 

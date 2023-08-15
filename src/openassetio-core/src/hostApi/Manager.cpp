@@ -318,21 +318,29 @@ void Manager::getWithRelationshipsPaged(
                                                convertingPagerSuccessCallback, errorCallback);
 }
 
-void Manager::preflight(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
-                        const ContextConstPtr &context,
+void Manager::preflight(const EntityReferences &entityReferences,
+                        const trait::TraitsDatas &traitsHints, const ContextConstPtr &context,
                         const PreflightSuccessCallback &successCallback,
                         const BatchElementErrorCallback &errorCallback) {
-  managerInterface_->preflight(entityReferences, traitSet, context, hostSession_, successCallback,
-                               errorCallback);
+  if (entityReferences.size() != traitsHints.size()) {
+    std::string message = "Parameter lists must be of the same length: ";
+    message += std::to_string(entityReferences.size());
+    message += " entity references vs. ";
+    message += std::to_string(traitsHints.size());
+    message += " traits hints.";
+    throw std::out_of_range{message};
+  }
+  managerInterface_->preflight(entityReferences, traitsHints, context, hostSession_,
+                               successCallback, errorCallback);
 }
 
 EntityReference Manager::preflight(
-    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
     const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReference result{""};
   preflight(
-      {entityReference}, traitSet, context,
+      {entityReference}, {traitsHint}, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
         result = std::move(preflightedRef);
       },
@@ -344,12 +352,12 @@ EntityReference Manager::preflight(
 }
 
 std::variant<BatchElementError, EntityReference> Manager::preflight(
-    const EntityReference &entityReference, const trait::TraitSet &traitSet,
+    const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
     const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<BatchElementError, EntityReference> result;
   preflight(
-      {entityReference}, traitSet, context,
+      {entityReference}, {traitsHint}, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
         result = std::move(preflightedRef);
       },
@@ -361,14 +369,14 @@ std::variant<BatchElementError, EntityReference> Manager::preflight(
 }
 
 EntityReferences Manager::preflight(
-    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const EntityReferences &entityReferences, const trait::TraitsDatas &traitsHints,
     const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReferences results;
   results.resize(entityReferences.size(), EntityReference{""});
 
   preflight(
-      entityReferences, traitSet, context,
+      entityReferences, traitsHints, context,
       [&results](std::size_t index, EntityReference preflightedRef) {
         results[index] = std::move(preflightedRef);
       },
@@ -381,13 +389,13 @@ EntityReferences Manager::preflight(
 }
 
 std::vector<std::variant<BatchElementError, EntityReference>> Manager::preflight(
-    const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
+    const EntityReferences &entityReferences, const trait::TraitsDatas &traitsHints,
     const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::vector<std::variant<BatchElementError, EntityReference>> results;
   results.resize(entityReferences.size());
   preflight(
-      entityReferences, traitSet, context,
+      entityReferences, traitsHints, context,
       [&results](std::size_t index, EntityReference entityReference) {
         results[index] = std::move(entityReference);
       },
@@ -404,23 +412,13 @@ void Manager::register_(const EntityReferences &entityReferences,
                         const RegisterSuccessCallback &successCallback,
                         const BatchElementErrorCallback &errorCallback) {
   if (entityReferences.size() != entityTraitsDatas.size()) {
-    throw std::out_of_range{"Parameter lists must be of the same length"};
+    std::string message = "Parameter lists must be of the same length: ";
+    message += std::to_string(entityReferences.size());
+    message += " entity references vs. ";
+    message += std::to_string(entityTraitsDatas.size());
+    message += " traits datas.";
+    throw std::out_of_range{message};
   }
-
-  if (!entityTraitsDatas.empty()) {
-    const trait::TraitSet firstTraitSet = entityTraitsDatas[0]->traitSet();
-    for (std::size_t idx = 1; idx < entityTraitsDatas.size(); ++idx) {
-      const trait::TraitSet currentTraitSet = entityTraitsDatas[idx]->traitSet();
-      if (currentTraitSet != firstTraitSet) {
-        Str msg = "Mismatched traits at index ";
-        msg += std::to_string(idx);
-        // TODO(DF): expand on error message to include actual trait
-        //  set.
-        throw std::invalid_argument{msg};
-      }
-    }
-  }
-
   return managerInterface_->register_(entityReferences, entityTraitsDatas, context, hostSession_,
                                       successCallback, errorCallback);
 }

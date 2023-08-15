@@ -110,7 +110,7 @@ void CManagerInterfaceAdapter::resolve(
 
 void CManagerInterfaceAdapter::preflight(
     [[maybe_unused]] const EntityReferences& entityReferences,
-    [[maybe_unused]] const trait::TraitSet& traitSet,
+    [[maybe_unused]] const trait::TraitsDatas& traitsDatas,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const PreflightSuccessCallback& successCallback,

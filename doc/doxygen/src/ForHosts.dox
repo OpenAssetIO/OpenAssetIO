@@ -42,7 +42,7 @@
  *   "Manager" require an appropriately configured @ref Context. This
  *   tells the @ref asset_management_system about the intended actions
  *   of the host. For example, whether an @ref entity_reference is being
- *   @ref resolve "resolved" for read or for write.
+ *   @ref glossary_resolve "resolved" for read or for write.
  *
  * - The lifetime of the Context can be carefully managed by the host
  *   to allow the manager to correlate and time-lock disparate API calls.
@@ -133,7 +133,8 @@
  *   managementPolicy response.
  *
  * - Follow the @fqref{hostApi.Manager.managementPolicy} "policy", @ref
- *   preflight, resolve, write, @ref register process illustrated @ref
+ *   glossary_preflight, @ref glossary_resolve, write, @ref
+ *   glossary_register process illustrated @ref
  *   example_publishing_a_file "here" whenever generating new data.
  *
  * - Include in your documentation, any scenarios in which entities are
