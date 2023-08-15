@@ -1,8 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a59e2db88565c4548001bccab4bff841a":[14,0,0,6,0,1,1],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#a5c0c22c1c2681d3a1deae2da9f487870":[14,0,0,6,0,1,5],
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#aaf88a5b2775fb4ece49e6797c9aa3b17":[14,0,0,6,0,1,3],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#ab7a9c2a0685cdf5b46152bf4f0d02912":[14,0,0,6,0,1,0],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#af807ad34031837034e95bdfd729313c9":[14,0,0,6,0,1,2],
 "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92":[14,0,0,6,0,1,4],
@@ -181,8 +178,8 @@ var NAVTREEINDEX1 =
 "examples.html#examples_api_initialization":[3,0],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
-"functions.html":[14,3,0],
 "functions.html":[14,3,0,0],
+"functions.html":[14,3,0],
 "functions_0x7e.html":[14,3,0,21],
 "functions_a.html":[14,3,0,1],
 "functions_b.html":[14,3,0,2],
@@ -237,6 +234,7 @@ var NAVTREEINDEX1 =
 "glossary.html#PythonPluginSystemManagerPlugin":[6,9],
 "glossary.html#Specification":[6,20],
 "glossary.html#asset_management_system":[6,0],
+"glossary.html#create_related":[6,18,0],
 "glossary.html#default_config_var":[6,10],
 "glossary.html#entity":[6,3],
 "glossary.html#entity_reference":[6,4],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "glossary.html#plugin_path_var":[6,11],
 "glossary.html#preflight":[6,16],
 "glossary.html#publish":[6,17],
-"glossary.html#register":[6,18]
+"glossary.html#register":[6,18],
+"glossary.html#resolve":[6,19],
+"glossary.html#trait":[6,21]
 };

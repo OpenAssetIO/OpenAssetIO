@@ -138,8 +138,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8a43470d68fa651e356e61ff8f89b148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d546eb9e19a357f6dc1eb34f6f5976"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976">isForWrite</a> () const </td></tr>
 <tr class="separator:af6d546eb9e19a357f6dc1eb34f6f5976"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf0c2d6b4ae660792de792464dede5c3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#aaf0c2d6b4ae660792de792464dede5c3">isForMultiple</a> () const </td></tr>
-<tr class="separator:aaf0c2d6b4ae660792de792464dede5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -164,17 +162,13 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Access Pattern</h2></td></tr>
-<tr class="memitem:a7da68dc8ab4fb9bae588bdd1f6afc951"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951">Access</a> { <br />
-&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a8604cf55a79d6bfdcb30f77d1622839b">kRead</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a9ae7a56b77a43700192d3d26eb85e08e">kReadMultiple</a>, 
+<tr class="memitem:a7da68dc8ab4fb9bae588bdd1f6afc951"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951">Access</a> { <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a8604cf55a79d6bfdcb30f77d1622839b">kRead</a>, 
 <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ad3ac0ba447a9859ad2db8e498056429f">kWrite</a>, 
-<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ae8f832d5f99bde433e76cd83ab663e6f">kWriteMultiple</a>, 
-<br />
-&#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390">kUnknown</a>
-<br />
+<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951aac7744adf0868e7c882fda6a12cf3f5a">kCreateRelated</a>, 
+<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390">kUnknown</a>
  }</td></tr>
 <tr class="separator:a7da68dc8ab4fb9bae588bdd1f6afc951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#a188aa4c7eee9d6254a9c65f61e5c67df">kAccessNames</a></td></tr>
+<tr class="memitem:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1_context.html#a188aa4c7eee9d6254a9c65f61e5c67df">kAccessNames</a> {&quot;read&quot;, &quot;write&quot;, &quot;createRelated&quot;, &quot;unknown&quot;}</td></tr>
 <tr class="separator:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -239,14 +233,19 @@ Data Retention</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951a8604cf55a79d6bfdcb30f77d1622839b"></a>kRead&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951a9ae7a56b77a43700192d3d26eb85e08e"></a>kReadMultiple&#160;</td><td class="fielddoc">
+<p>Host intends to read data. </p>
+<p>For example, trait property values obtained via <code>resolve</code> may be used to control the loading of data from a resource, and its subsequent interpretation. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951ad3ac0ba447a9859ad2db8e498056429f"></a>kWrite&#160;</td><td class="fielddoc">
+<p>Host intends to write data. </p>
+<p>For example, trait property values obtained via <code>resolve</code> may be used to control the writing of data to a resource, and specifics of its format or content. During publishing this must be used whenever the entity reference explicitly targets the specific entity whose data is being written. For example creating or updating a simple, unstructured asset such as an image or other file-based data. </p>
 </td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951ae8f832d5f99bde433e76cd83ab663e6f"></a>kWriteMultiple&#160;</td><td class="fielddoc">
+<tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951aac7744adf0868e7c882fda6a12cf3f5a"></a>kCreateRelated&#160;</td><td class="fielddoc">
+<p>Hosts intends to write data for a new entity in relation to another. </p>
+<p>During publishing this must be used whenever the entity reference points to an existing entity, and the intention is to create a new, related entity instead of updating the target. For example, when programmatically creating new entities under an existing parent collection, or the publishing of the components of a structured asset based on a single root entity reference. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390"></a>kUnknown&#160;</td><td class="fielddoc">
+<p>Unknown Access Pattern. </p>
 </td></tr>
 </table>
 
@@ -287,30 +286,6 @@ Data Retention</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aaf0c2d6b4ae660792de792464dede5c3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool isForMultiple </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the context is any of the 'Multiple' based access patterns. If the access is unknown (<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390">Access::kUnknown</a>), then <code>false</code> is returned. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a8a43470d68fa651e356e61ff8f89b148"></a>
 <div class="memitem">
 <div class="memproto">
@@ -331,7 +306,7 @@ Data Retention</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the context is any of the 'Read' based access patterns. If the access is unknown (<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390">Access::kUnknown</a>), then <code>false</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the context is a 'Read' based access pattern. If the access is unknown (<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390" title="Unknown Access Pattern. ">Access::kUnknown</a>), then <code>false</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -355,7 +330,7 @@ Data Retention</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the context is any of the 'Write' based access patterns. If the access is unknown (<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390">Access::kUnknown</a>), then <code>false</code> is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the context is a 'Write' based access pattern. If the access is unknown (<a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390" title="Unknown Access Pattern. ">Access::kUnknown</a>), then <code>false</code> is returned. </dd></dl>
 
 </div>
 </div>
@@ -420,7 +395,8 @@ Data Retention</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Describes what the <a class="el" href="glossary.html#host">host</a> is intending to do with the data. </p>
-<p>For example, when passed to resolve, it specifies if the <a class="el" href="glossary.html#host">host</a> is about to read or write. When configuring a BrowserWidget, then it will hint as to whether the Host is wanting to choose a new file name to save, or open an existing one. </p>
+<p>For example, when passed to resolve, it specifies if the <a class="el" href="glossary.html#host">host</a> is about to read or write. When configuring a BrowserWidget, then it will hint as to whether the Host is wanting to choose a new file name to save, or open an existing one.</p>
+<p>See also <a class="el" href="glossary.html#create_related">Create related glossary entry</a>. </p>
 
 </div>
 </div>
@@ -432,7 +408,7 @@ Data Retention</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::array kAccessNames</td>
+          <td class="memname">constexpr std::array kAccessNames {&quot;read&quot;, &quot;write&quot;, &quot;createRelated&quot;, &quot;unknown&quot;}</td>
         </tr>
       </table>
   </td>
@@ -441,7 +417,7 @@ Data Retention</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{<span class="stringliteral">&quot;read&quot;</span>, <span class="stringliteral">&quot;readMultiple&quot;</span>, <span class="stringliteral">&quot;write&quot;</span>, <span class="stringliteral">&quot;writeMultiple&quot;</span>,</div><div class="line">                                           <span class="stringliteral">&quot;unknown&quot;</span>}</div></div><!-- fragment -->
+
 </div>
 </div>
 <a class="anchor" id="a05e41dada6e859a26599bacb341eb2e4"></a>

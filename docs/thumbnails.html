@@ -116,7 +116,7 @@ Requesting Thumbnail Creation</h1>
 <p>It seems fair then, to ask the <a class="el" href="glossary.html#host">host</a> to provide a thumbnail with the entity when it is <a class="el" href="glossary.html#publish">published</a>. More often than not, the host not only understands how this might be done, but has the relevant data to hand to do it.</p>
 <p>To this end, a <a class="el" href="glossary.html#manager">manager</a> can set the WantsThumbnail trait in it's response to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a7cfabfdd697739e7480d8df603b758dd">managementPolicy</a> for any given set of entity <a class="el" href="glossary.html#trait">traits</a>.</p>
 <p>If supported by the host, it will then:</p><ul>
-<li>Call <a class="el" href="glossary.html#preflight">preflight</a> with the target entity and the traits from the ThumbnailSpecification.</li>
+<li>Call <a class="el" href="glossary.html#preflight">preflight</a> with the target entity and the traits from the ThumbnailSpecification, using the <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951aac7744adf0868e7c882fda6a12cf3f5a">Access.kCreateRelated</a> access mode.</li>
 <li>Call resolve on the returned reference to determine the desired width/height/format for the thumbnail.</li>
 <li>Generate a thumbnail and <a class="el" href="glossary.html#register">register</a> it to the same reference.</li>
 </ul>

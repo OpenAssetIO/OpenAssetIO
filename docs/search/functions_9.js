@@ -8,7 +8,6 @@ var searchData=
   ['interface',['interface',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac',1,'openassetio::pluginSystem::PythonPluginSystemManagerPlugin::PythonPluginSystemManagerPlugin']]],
   ['interval',['interval',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#ac0e8b5630adc65e2991ffcbe9897819f',1,'openassetio::_core::debug::_Timer']]],
   ['isentityreferencestring',['isEntityReferenceString',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d',1,'openassetio::v1::hostApi::Manager::isEntityReferenceString()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb',1,'openassetio::v1::managerApi::ManagerInterface::isEntityReferenceString()']]],
-  ['isformultiple',['isForMultiple',['../classopenassetio_1_1v1_1_1_context.html#aaf0c2d6b4ae660792de792464dede5c3',1,'openassetio::v1::Context']]],
   ['isforread',['isForRead',['../classopenassetio_1_1v1_1_1_context.html#a8a43470d68fa651e356e61ff8f89b148',1,'openassetio::v1::Context']]],
   ['isforwrite',['isForWrite',['../classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976',1,'openassetio::v1::Context']]]
 ];

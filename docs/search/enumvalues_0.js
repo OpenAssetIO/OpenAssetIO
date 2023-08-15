@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['kcreaterelated',['kCreateRelated',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951aac7744adf0868e7c882fda6a12cf3f5a',1,'openassetio::v1::Context']]],
   ['kcritical',['kCritical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebug',['kDebug',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29',1,'openassetio::v1::log::LoggerInterface']]],
   ['kdebugapi',['kDebugApi',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4',1,'openassetio::v1::log::LoggerInterface']]],
@@ -16,11 +17,9 @@ var searchData=
   ['kpermanent',['kPermanent',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca7856d2103ed1847108138f139e32b956',1,'openassetio::v1::Context']]],
   ['kprogress',['kProgress',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82bafc76ff68d1533d9f5db5baac3f334a9e',1,'openassetio::v1::log::LoggerInterface']]],
   ['kread',['kRead',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a8604cf55a79d6bfdcb30f77d1622839b',1,'openassetio::v1::Context']]],
-  ['kreadmultiple',['kReadMultiple',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a9ae7a56b77a43700192d3d26eb85e08e',1,'openassetio::v1::Context']]],
   ['ksession',['kSession',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca4251356d1df48dd7dc18e0c330356b44',1,'openassetio::v1::Context']]],
   ['ktransient',['kTransient',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2ca17ac956ba1257a6d5a99867ecd5ddac2',1,'openassetio::v1::Context']]],
   ['kunknown',['kUnknown',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa25c2dc47991b3df171ed5192bcf70390',1,'openassetio::v1::BatchElementError::kUnknown()'],['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951a25c2dc47991b3df171ed5192bcf70390',1,'openassetio::v1::Context::kUnknown()']]],
   ['kwarning',['kWarning',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82baec0da41f4e48b52c362303eb27ed5dee',1,'openassetio::v1::log::LoggerInterface']]],
-  ['kwrite',['kWrite',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ad3ac0ba447a9859ad2db8e498056429f',1,'openassetio::v1::Context']]],
-  ['kwritemultiple',['kWriteMultiple',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ae8f832d5f99bde433e76cd83ab663e6f',1,'openassetio::v1::Context']]]
+  ['kwrite',['kWrite',['../classopenassetio_1_1v1_1_1_context.html#a7da68dc8ab4fb9bae588bdd1f6afc951ad3ac0ba447a9859ad2db8e498056429f',1,'openassetio::v1::Context']]]
 ];

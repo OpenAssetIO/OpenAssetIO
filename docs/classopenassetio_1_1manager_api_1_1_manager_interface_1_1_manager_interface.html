@@ -230,7 +230,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context. </p>
 <p>This is often used in a host to ensure dialogs, prompts or publish locations default to some sensible value, avoiding the need for a user to re-enter such information when a Host is being run in some known environment.</p>
-<p>For example, a host may request the default ref for the <a class="el" href="glossary.html#trait_set">Trait Set</a> of a 'ShotSpecification' with access kWriteMultiple'. If the Manager has some concept of the 'current sequence' it may wish to return this so that a 'Create Shots' action starts somewhere meaningful.</p>
+<p>For example, a host may request the default ref for the <a class="el" href="glossary.html#trait_set">Trait Set</a> of a 'ShotSpecification' with access 'kWrite'. If the Manager has some concept of the 'current sequence' it may wish to return this so that a 'Create Shots' action starts somewhere meaningful.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">traitSets</td><td><code>List[Set[str]]</code> The relevant trait sets for the type of entities a host is about to work with. These should be interpreted in conjunction with the context to determine the most sensible default.</td></tr>
