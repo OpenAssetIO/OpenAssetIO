@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -151,7 +151,7 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
        @li @needsref identifier()
        @li @needsref displayName()
        @li @needsref info()
-       @li @ref updateTerminology()
+       @li @needsref updateTerminology()
        @li @needsref settings()
 
     @todo Finish/Document settings mechanism.
@@ -159,38 +159,6 @@ class ManagerInterface(_openassetio.managerApi.ManagerInterface):
     """
 
     __metaclass__ = abc.ABCMeta
-
-    ##
-    # @name Asset Management System Information
-    #
-    # These functions provide hosts with general information about the @ref
-    # asset_management_system itself.
-    #
-    # @{
-
-    def updateTerminology(self, stringDict, hostSession):
-        """
-        This call gives the manager a chance to customize certain
-        strings used in a host's UI/messages.
-
-        See @ref openassetio.hostApi.terminology "terminology" for known
-        keys. The values in stringDict can be freely updated to match
-        the terminology of the asset management system you are
-        representing.
-
-        For example, you may way a host's "Publish Clip" menu item to
-        read "Release Clip", so you would set the @ref openassetio.hostApi.terminology.kTerm_Publish
-        value to "Release".
-
-        @return `None`
-
-        @see @ref openassetio.hostApi.terminology.defaultTerminology
-        "terminology.defaultTerminology"
-
-        @unstable
-        """
-
-    ## @}
 
     ##
     # @name Entity Reference Resolution

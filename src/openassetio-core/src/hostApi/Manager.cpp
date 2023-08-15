@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 #include <stdexcept>
 #include <utility>
 
@@ -84,6 +84,10 @@ Identifier Manager::identifier() const { return managerInterface_->identifier();
 Str Manager::displayName() const { return managerInterface_->displayName(); }
 
 InfoDictionary Manager::info() const { return managerInterface_->info(); }
+
+StrMap Manager::updateTerminology(StrMap terms) const {
+  return managerInterface_->updateTerminology(std::move(terms), hostSession_);
+}
 
 InfoDictionary Manager::settings() const { return managerInterface_->settings(hostSession_); }
 

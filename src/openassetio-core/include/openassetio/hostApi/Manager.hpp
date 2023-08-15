@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <functional>
@@ -115,6 +115,32 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * openassetio.constants.kInfoKey_EntityReferencesMatchPrefix.
    */
   [[nodiscard]] InfoDictionary info() const;
+
+  /**
+   * This call gives the Manager a chance to customize certain strings
+   * that you might want to use in your UI/messages.
+   *
+   * See @ref openassetio.hostApi.terminology "terminology" for
+   * well-known keys. These keys are updated in-place to the most
+   * appropriate term for the Manager. You should then use these
+   * substitutions in any user-facing messages or display text so that
+   * they feel at home.
+   *
+   * It's rare that you need to call this method directly, the @ref
+   * openassetio.hostApi.terminology API provides more utility for far
+   * less effort.
+   *
+   * @see @ref openassetio.hostApi.terminology "terminology"
+   * @see @ref openassetio.hostApi.terminology.Mapper.replaceTerms
+   * "Mapper.replaceTerms"
+   * @see @ref openassetio.hostApi.terminology.defaultTerminology
+   * "terminology.defaultTerminology"
+   *
+   * @param terms Map of terms to be substituted by the manager.
+   *
+   * @return Substituted map of terms.
+   */
+  StrMap updateTerminology(StrMap terms) const;
 
   /**
    * @}
@@ -1141,7 +1167,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @note The term '@ref publish' is somewhat loaded. It generally
    * means something different depending on who you are talking to. See
    * the @ref publish "Glossary entry" for more on this, but to help
-   * avoid confusion, this API provides the @needsref updateTerminology
+   * avoid confusion, this API provides the @ref updateTerminology
    * call, in order to allow the Manager to standardize some of the
    * language and terminology used in your presentation of the asset
    * management system with other integrations of the system.

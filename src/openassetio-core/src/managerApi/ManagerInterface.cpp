@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 #include <stdexcept>
 
 #include <openassetio/TraitsData.hpp>
@@ -14,6 +14,11 @@ namespace managerApi {
 ManagerInterface::ManagerInterface() = default;
 
 InfoDictionary ManagerInterface::info() const { return {}; }
+
+StrMap ManagerInterface::updateTerminology(
+    StrMap terms, [[maybe_unused]] const HostSessionPtr& hostSession) const {
+  return terms;
+}
 
 InfoDictionary ManagerInterface::settings(
     [[maybe_unused]] const HostSessionPtr& hostSession) const {

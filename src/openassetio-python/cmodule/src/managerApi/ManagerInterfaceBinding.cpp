@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
@@ -94,6 +94,11 @@ struct PyManagerInterface : ManagerInterface {
                     const BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, entityExists, entityReferences, context,
                            hostSession, successCallback, errorCallback);
+  }
+
+  [[nodiscard]] StrMap updateTerminology(StrMap terms,
+                                         const HostSessionPtr& hostSession) const override {
+    PYBIND11_OVERRIDE(StrMap, ManagerInterface, updateTerminology, std::move(terms), hostSession);
   }
 
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
@@ -213,6 +218,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("entityExists", &ManagerInterface::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
+           py::arg("hostSession").none(false))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
