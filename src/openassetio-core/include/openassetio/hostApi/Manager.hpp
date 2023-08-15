@@ -215,10 +215,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *
    *  - The trait set of the entity type in question. This is usually
    *    obtained from the relevant @ref Specification.
-   *  - For read contexts, any additional traits with properties that
-   *    you wish to resolve for that type of entity.
-   *  - For write contexts, any additional traits with properties that
-   *    you wish to publish for that type of entity.
+   *  - For @fqref{Context.Access} "read" contexts, any additional
+   *    traits with properties that you wish to resolve for that type of
+   *    entity.
+   *  - For @fqref{Context.Access} "write" contexts, any additional
+   *    traits with properties that you wish to publish for that type of
+   *    entity.
    *
    * Along with the traits that describe the manager's desired
    * interaction pattern (ones with the `managementPolicy` usage
@@ -1379,13 +1381,12 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * that represents the result of this."
    *
    * It is up to the manager to understand the correct result for the
-   * particular trait set in relation to this reference. For example,
-   * if you received this reference in response to browsing for a
-   * target to `kWriteMultiple` and the traits of a
-   * `ShotSpecification`s, then the Manager should have returned you
-   * a reference that you can then register multiple
-   * `ShotSpecification` entities to without error. Each resulting
-   * entity reference should then reference the newly created Shot.
+   * particular trait set in relation to this reference. For example, if
+   * you received this reference in response to browsing for a target to
+   * `kWrite` and the traits of a `ShotSpecification`, then the Manager
+   * should have returned you a reference that you can then register a
+   * `ShotSpecification` entity to without error. The resulting entity
+   * reference should then reference the newly created Shot.
    *
    * @note All supplied TraitsDatas should have the same trait
    * sets. If you wish to register different "types" of entity, they

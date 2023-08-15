@@ -183,14 +183,9 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context.access = context.Access.kWrite
         self.__assertPolicyResults(1, context)
 
-    def test_calling_with_read_multiple_context(self):
+    def test_calling_with_createRelated_context(self):
         context = self.createTestContext()
-        context.access = context.Access.kReadMultiple
-        self.__assertPolicyResults(1, context)
-
-    def test_calling_with_write_multiple_context(self):
-        context = self.createTestContext()
-        context.access = context.Access.kWriteMultiple
+        context.access = context.Access.kCreateRelated
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_empty_trait_set_does_not_error(self):

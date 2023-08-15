@@ -6,6 +6,20 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+- Removed `Context.Access.kWriteMultiple` and
+ `Context.Access.kReadMultiple`access patterns, due to not having
+ coherent use cases.
+ [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+
+### New Features
+
+- Added `Context.Access.kCreateRelated` access pattern, to  indicate
+  when a workflow specifically creates a new entity as a relation to an
+  existing one.
+  [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+
+### Breaking changes
+
 - Removed `cpython` dependency from `conanfile.py`. When building
   OpenAssetIO, it is now expected that a development install of the
   appropriate Python version is discoverable on the system.

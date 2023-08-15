@@ -28,9 +28,8 @@ class Test_Context:
     def test_access_constants_are_unique(self):
         consts = (
             Context.Access.kRead,
-            Context.Access.kReadMultiple,
             Context.Access.kWrite,
-            Context.Access.kWriteMultiple,
+            Context.Access.kCreateRelated,
             Context.Access.kUnknown,
         )
         assert len(set(consts)) == len(consts)
@@ -41,9 +40,8 @@ class Test_Context:
 
     def test_access_names_indices_match_constants(self):
         assert Context.kAccessNames[int(Context.Access.kRead)] == "read"
-        assert Context.kAccessNames[int(Context.Access.kReadMultiple)] == "readMultiple"
         assert Context.kAccessNames[int(Context.Access.kWrite)] == "write"
-        assert Context.kAccessNames[int(Context.Access.kWriteMultiple)] == "writeMultiple"
+        assert Context.kAccessNames[int(Context.Access.kCreateRelated)] == "createRelated"
         assert Context.kAccessNames[int(Context.Access.kUnknown)] == "unknown"
 
     def test_retention_constants_are_not_exported(self):
@@ -78,7 +76,7 @@ class Test_Context_init:
         class TestState(managerApi.ManagerStateBase):
             pass
 
-        expected_access = Context.Access.kReadMultiple
+        expected_access = Context.Access.kRead
         expected_retention = Context.Retention.kSession
         expected_locale = TraitsData()
         expected_state = TestState()
@@ -105,9 +103,8 @@ class Test_Context_access:
     def test_when_set_to_known_value_then_stores_that_value(self, a_context):
         for expected_access in (
             Context.Access.kRead,
-            Context.Access.kReadMultiple,
             Context.Access.kWrite,
-            Context.Access.kWriteMultiple,
+            Context.Access.kCreateRelated,
         ):
             a_context.access = expected_access
             assert a_context.access == expected_access
@@ -185,14 +182,11 @@ class Test_Context_isForRead:
     def test_when_called_with_read_context_then_returns_true(self):
         assert Context(access=Context.Access.kRead).isForRead() is True
 
-    def test_when_called_with_readMultiple_context_then_returns_true(self):
-        assert Context(access=Context.Access.kReadMultiple).isForRead() is True
-
     def test_when_called_with_write_context_then_returns_false(self):
         assert Context(access=Context.Access.kWrite).isForRead() is False
 
-    def test_when_called_with_writeMultiple_context_then_returns_false(self):
-        assert Context(access=Context.Access.kWriteMultiple).isForRead() is False
+    def test_when_called_with_createRelated_context_then_returns_false(self):
+        assert Context(access=Context.Access.kCreateRelated).isForRead() is False
 
     def test_when_called_with_unknown_access_context_then_returns_false(self):
         assert Context(access=Context.Access.kUnknown).isForRead() is False
@@ -202,34 +196,14 @@ class Test_Context_isForWrite:
     def test_when_called_with_write_context_then_returns_true(self):
         assert Context(access=Context.Access.kWrite).isForWrite() is True
 
-    def test_when_called_with_writeMultiple_context_then_returns_true(self):
-        assert Context(access=Context.Access.kWriteMultiple).isForWrite() is True
+    def test_when_called_with_createRelated_context_then_returns_true(self):
+        assert Context(access=Context.Access.kCreateRelated).isForWrite() is True
 
     def test_when_called_with_read_context_then_returns_false(self):
         assert Context(access=Context.Access.kRead).isForWrite() is False
 
-    def test_when_called_with_readMultiple_context_then_returns_false(self):
-        assert Context(access=Context.Access.kReadMultiple).isForWrite() is False
-
     def test_when_called_with_unknown_access_context_then_returns_false(self):
         assert Context(access=Context.Access.kUnknown).isForWrite() is False
-
-
-class Test_Context_isForMultiple:
-    def test_when_called_with_read_context_then_returns_false(self):
-        assert Context(access=Context.Access.kRead).isForMultiple() is False
-
-    def test_when_called_with_readMultiple_context_then_returns_true(self):
-        assert Context(access=Context.Access.kReadMultiple).isForMultiple() is True
-
-    def test_when_called_with_write_context_then_returns_false(self):
-        assert Context(access=Context.Access.kWrite).isForMultiple() is False
-
-    def test_when_called_with_writeMultiple_context_then_returns_true(self):
-        assert Context(access=Context.Access.kWriteMultiple).isForMultiple() is True
-
-    def test_when_called_with_unknown_access_context_then_returns_false(self):
-        assert Context(access=Context.Access.kUnknown).isForMultiple() is False
 
 
 @pytest.fixture
