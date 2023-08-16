@@ -374,103 +374,6 @@ class OPENASSETIO_CORE_EXPORT Manager {
    */
 
   /**
-   * @name Entity Reference inspection
-   *
-   * Because of the nature of an @ref entity_reference, it is often
-   * necessary to determine if some working string is actually an @ref
-   * entity_reference or not, to ensure it is handled correctly.
-   *
-   * @{
-   */
-
-  /**
-   * @warning It is essential, as a host, that only valid references are
-   * supplied to Manager API calls. Before any reference is passed to
-   * any other methods of this class, they must first be validated
-   * through this method.
-   *
-   * Determines if the supplied string (in its entirety) matches the
-   * pattern of an @ref entity_reference.  It does not verify that it
-   * points to a valid entity in the system, simply that the pattern of
-   * the string is recognised by the manager.
-   *
-   * If it returns `true`, the string is an @ref entity_reference and
-   * should be considered as a managed entity (or a future one).
-   * Consequently, it should be resolved before use. It also confirms
-   * that it can be passed to any other method that requires an @ref
-   * entity_reference.
-   *
-   * If `false`, this manager should no longer be involved in actions
-   * relating to the string.
-   *
-   * This function is useful for control flow where constructing an
-   * @fqref{EntityReference} "EntityReference" object is not (yet)
-   * needed. For other situations, consider using @ref
-   * createEntityReferenceIfValid instead, to validate and (potentially)
-   * return an `EntityReference` in a single call.
-   *
-   * @param someString `str` The string to be inspected.
-   *
-   * @return `bool` `True` if the supplied token should be
-   * considered as an @ref entity_reference, `False` if the pattern
-   * is not recognised.
-   *
-   * @note This call does not verify an entity exits, just that the
-   * format of the string is recognised. The call is notionally trivial
-   * and does not involve back-end system queries.
-   *
-   * @see @needsref entityExists
-   * @see @ref resolve
-   *
-   * @todo Make use of
-   * openassetio.constants.kInfoKey_EntityReferencesMatchPrefix if
-   * supplied, especially when bridging between C/python.
-   */
-  [[nodiscard]] bool isEntityReferenceString(const Str& someString) const;
-
-  /**
-   * Create an @ref EntityReference object wrapping a given
-   * @ref entity_reference string.
-   *
-   * First validates that the given entity reference string is
-   * meaningful for this manager via @ref isEntityReferenceString,
-   * throwing a `std::domain_error` if not.
-   *
-   * @param entityReferenceString Raw string representation of the
-   * entity reference. Taken by value to enable move semantics, on the
-   * assumption that an invalid entity reference is a rare case.
-   *
-   * @return Validated entity reference object.
-   *
-   * @throw std::domain_error If the given string is not recognized as
-   * an entity reference by this manager.
-   *
-   * @todo Use a custom exception type rather than std::domain_error.
-   */
-  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
-
-  /**
-   * Create an @ref EntityReference object wrapping a given
-   * @ref entity_reference string, if it is valid according to
-   * @ref isEntityReferenceString.
-   *
-   * @see @ref createEntityReference
-   *
-   * @param entityReferenceString Raw string representation of the
-   * entity reference. Taken by value to enable move semantics, on the
-   * assumption that an invalid entity reference is a rare case.
-   *
-   * @return `std::optional` containing an `EntityReference` value if
-   * valid, not containing a value otherwise.
-   */
-  [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
-      Str entityReferenceString) const;
-
-  /**
-   * @}
-   */
-
-  /**
    * @name Batch element error handling
    *
    * @{
@@ -524,6 +427,149 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * @fqref{BatchElementError.ErrorCode} "ErrorCode".
    */
   using BatchElementErrorCallback = std::function<void(std::size_t, BatchElementError)>;
+  /**
+   * @}
+   */
+
+  /**
+   * @name Entity Reference inspection
+   *
+   * Because of the nature of an @ref entity_reference, it is often
+   * necessary to determine if some working string is actually an @ref
+   * entity_reference or not, to ensure it is handled correctly.
+   *
+   * @{
+   */
+
+  /**
+   * @warning It is essential, as a host, that only valid references are
+   * supplied to Manager API calls. Before any reference is passed to
+   * any other methods of this class, they must first be validated
+   * through this method.
+   *
+   * Determines if the supplied string (in its entirety) matches the
+   * pattern of an @ref entity_reference.  It does not verify that it
+   * points to a valid entity in the system, simply that the pattern of
+   * the string is recognised by the manager.
+   *
+   * If it returns `true`, the string is an @ref entity_reference and
+   * should be considered as a managed entity (or a future one).
+   * Consequently, it should be resolved before use. It also confirms
+   * that it can be passed to any other method that requires an @ref
+   * entity_reference.
+   *
+   * If `false`, this manager should no longer be involved in actions
+   * relating to the string.
+   *
+   * This function is useful for control flow where constructing an
+   * @fqref{EntityReference} "EntityReference" object is not (yet)
+   * needed. For other situations, consider using @ref
+   * createEntityReferenceIfValid instead, to validate and (potentially)
+   * return an `EntityReference` in a single call.
+   *
+   * @param someString `str` The string to be inspected.
+   *
+   * @return `bool` `True` if the supplied token should be
+   * considered as an @ref entity_reference, `False` if the pattern
+   * is not recognised.
+   *
+   * @note This call does not verify an entity exits, just that the
+   * format of the string is recognised. The call is notionally trivial
+   * and does not involve back-end system queries.
+   *
+   * @see @ref entityExists
+   * @see @ref resolve
+   */
+  [[nodiscard]] bool isEntityReferenceString(const Str& someString) const;
+
+  /**
+   * Create an @ref EntityReference object wrapping a given
+   * @ref entity_reference string.
+   *
+   * First validates that the given entity reference string is
+   * meaningful for this manager via @ref isEntityReferenceString,
+   * throwing a `std::domain_error` if not.
+   *
+   * @param entityReferenceString Raw string representation of the
+   * entity reference. Taken by value to enable move semantics, on the
+   * assumption that an invalid entity reference is a rare case.
+   *
+   * @return Validated entity reference object.
+   *
+   * @throw std::domain_error If the given string is not recognized as
+   * an entity reference by this manager.
+   *
+   * @todo Use a custom exception type rather than std::domain_error.
+   */
+  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
+
+  /**
+   * Create an @ref EntityReference object wrapping a given
+   * @ref entity_reference string, if it is valid according to
+   * @ref isEntityReferenceString.
+   *
+   * @see @ref createEntityReference
+   *
+   * @param entityReferenceString Raw string representation of the
+   * entity reference. Taken by value to enable move semantics, on the
+   * assumption that an invalid entity reference is a rare case.
+   *
+   * @return `std::optional` containing an `EntityReference` value if
+   * valid, not containing a value otherwise.
+   */
+  [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
+      Str entityReferenceString) const;
+
+  /**
+   * Callback signature used for a successful entity existence query.
+   */
+  using ExistsSuccessCallback = std::function<void(std::size_t, bool)>;
+
+  /**
+   * Called to determine if each @ref entity_reference supplied
+   * points to an entity that exists in the @ref
+   * asset_management_system, and that they can be resolved into
+   * a meaningful string or otherwise queried.
+   *
+   * By 'exist' we mean 'is ready to be read'. For example,
+   * entityExists may be called before attempting to read from a
+   * reference that is believed to point to an image sequence, so
+   * that alternatives can be found.
+   *
+   * In the future, this may need to be extended to cover a more
+   * complex definition of 'existence' (for example, known to the
+   * system, but not yet finalized). For now however, it should be
+   * assumed to simply mean, 'ready to be consumed', and if only a
+   * placeholder or un-finalized asset is available, `False` should
+   * be returned.
+   *
+   * The supplied context's locale should be well-configured as it
+   * may contain information pertinent to disambiguating this subtle
+   * definition of 'exists' in some cases too, as it better explains
+   * the use-case of the call.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param context The calling context.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful check of an entity reference. It will be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with a boolean indicating existence, as defined above. The
+   * callback will be called on the same thread that initiated the call
+   * to `resolve`.
+   *
+   * @param errorCallback Callback that will be called for each
+   * failed check of an entity reference. It will be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback will be called on the same thread
+   * that initiated the call to `resolve`.
+   */
+  void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
+                    const ExistsSuccessCallback& successCallback,
+                    const BatchElementErrorCallback& errorCallback);
   /**
    * @}
    */

@@ -216,10 +216,14 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert isinstance(hostSession, HostSession)
         return self.mock.isEntityReferenceString(someString, hostSession)
 
-    def entityExists(self, entityRefs, context, hostSession):
+    def entityExists(self, entityRefs, context, hostSession, successCallback, errorCallback):
         self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertCallingContext(context, hostSession)
-        return self.mock.entityExists(entityRefs, context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.entityExists(
+            entityRefs, context, hostSession, successCallback, errorCallback
+        )
 
     def resolve(self, entityRefs, traitSet, context, hostSession, successCallback, errorCallback):
         self.__assertIsIterableOf(entityRefs, EntityReference)

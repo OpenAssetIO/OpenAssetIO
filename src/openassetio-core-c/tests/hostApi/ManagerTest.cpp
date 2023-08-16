@@ -46,6 +46,7 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerApi::ManagerInt
   IMPLEMENT_MOCK2(initialize);
   IMPLEMENT_CONST_MOCK3(managementPolicy);
   IMPLEMENT_CONST_MOCK2(isEntityReferenceString);
+  IMPLEMENT_MOCK5(entityExists);
   IMPLEMENT_MOCK6(resolve);
   IMPLEMENT_MOCK6(preflight);
   IMPLEMENT_MOCK6(register_);  // NOLINT(readability-identifier-naming)

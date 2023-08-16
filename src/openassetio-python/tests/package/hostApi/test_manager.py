@@ -17,8 +17,8 @@
 Tests that cover the openassetio.hostApi.Manager wrapper class.
 """
 
-# pylint: disable=no-self-use
-# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=invalid-name,redefined-outer-name,unused-argument
+# pylint: disable=too-many-lines,too-many-locals
 # pylint: disable=missing-class-docstring,missing-function-docstring
 from unittest import mock
 
@@ -351,16 +351,38 @@ class Test_Manager_createEntityReferenceIfValid:
 
 
 class Test_Manager_entityExists:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.entityExists)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.entityExists)
         assert method_introspector.is_implemented_once(Manager, "entityExists")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-        self, manager, mock_manager_interface, a_host_session, some_refs, a_context
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        a_context,
+        a_batch_element_error,
+        invoke_entityExists_success_cb,
+        invoke_entityExists_error_cb,
     ):
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
+
         method = mock_manager_interface.mock.entityExists
-        assert manager.entityExists(some_refs, a_context) == method.return_value
-        method.assert_called_once_with(some_refs, a_context, a_host_session)
+
+        def call_callbacks(*_args):
+            invoke_entityExists_success_cb(123, False)
+            invoke_entityExists_error_cb(456, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        manager.entityExists(some_refs, a_context, success_callback, error_callback)
+
+        method.assert_called_once_with(some_refs, a_context, a_host_session, mock.ANY, mock.ANY)
+
+        success_callback.assert_called_once_with(123, False)
+        error_callback.assert_called_once_with(456, a_batch_element_error)
 
 
 class Test_Manager_defaultEntityReference:
@@ -3079,6 +3101,24 @@ def some_refs(manager):
 @pytest.fixture
 def some_different_refs(manager):
     return [manager.createEntityReference("asset://e"), manager.createEntityReference("asset://f")]
+
+
+@pytest.fixture
+def invoke_entityExists_success_cb(mock_manager_interface):
+    def invoke(idx, exists):
+        callback = mock_manager_interface.mock.entityExists.call_args[0][3]
+        callback(idx, exists)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_entityExists_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.entityExists.call_args[0][4]
+        callback(idx, batch_element_error)
+
+    return invoke
 
 
 @pytest.fixture

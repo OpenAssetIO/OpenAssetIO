@@ -60,6 +60,13 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   [[nodiscard]] bool isEntityReferenceString(const Str& someString,
                                              const HostSessionPtr& hostSession) const override;
 
+  /// Wrap the C suite's `entityExists` function.
+  /// @todo Implement C API. Currently throws `runtime_error`.
+  void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
+                    const HostSessionPtr& hostSession,
+                    const ExistsSuccessCallback& successCallback,
+                    const BatchElementErrorCallback& errorCallback) override;
+
   /// Wrap the C suite's `resolve` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
