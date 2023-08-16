@@ -134,10 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad23a64984e32921a6eaacc5e1c960910"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#ad23a64984e32921a6eaacc5e1c960910">updateTerminology</a> (self, stringDict, hostSession)</td></tr>
 <tr class="memdesc:ad23a64984e32921a6eaacc5e1c960910"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the manager a chance to customize certain strings used in a host's UI/messages.  <a href="#ad23a64984e32921a6eaacc5e1c960910">More...</a><br /></td></tr>
 <tr class="separator:ad23a64984e32921a6eaacc5e1c960910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
-<tr class="memitem:a21510517947f62a366e873af29218229"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html#a21510517947f62a366e873af29218229">entityExists</a> (self, entityRefs, context, hostSession)</td></tr>
-<tr class="memdesc:a21510517947f62a366e873af29218229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a21510517947f62a366e873af29218229">More...</a><br /></td></tr>
-<tr class="separator:a21510517947f62a366e873af29218229"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Reference Resolution</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>The concept of resolution is turning an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into a 'finalized' string.</p>
 <p>This, ultimately, is anything meaningful to the situation. It could be a color space, a directory, a script or image sequence. A rule of thumb is that a resolved <a class="el" href="glossary.html#entity_reference">Entity Reference</a> should be the string that the application would have anyway, in a unmanaged environment. For some kind of Entity - such as a 'Shot', for example, there may not be a meaningful string, though often some sensible value can be returned. </p>
@@ -240,59 +236,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or empty string for each given trait set.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a21510517947f62a366e873af29218229"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def entityExists </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>hostSession</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried. </p>
-<p>By 'exist' we mean 'is ready to be read'. For example, entityExists may be called before attempting to read from a reference that is believed to point to an image sequence, so that alternatives can be found.</p>
-<p>In the future, this may need to be extended to cover a more complex definition of 'existence' (for example, known to the system, but not yet finalized). For now however, it should be assumed to simply mean, 'ready to be consumed', and if only a placeholder or un-finalized asset is available, <code>False</code> should be returned.</p>
-<p>The supplied context's locale may contain information pertinent to disambiguating this subtle definition of 'exists' in some cases too, as it better explains the use-case of the call.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>HostSession The API session.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the corresponding element in entityRefs points to an existing entity, <code>False</code> if the entity is not known or ready yet.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>

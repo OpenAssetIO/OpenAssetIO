@@ -143,10 +143,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a021e2cb20906f304cb8bd6dd288782b8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8">updateTerminology</a> (self, stringDict)</td></tr>
 <tr class="memdesc:a021e2cb20906f304cb8bd6dd288782b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a021e2cb20906f304cb8bd6dd288782b8">More...</a><br /></td></tr>
 <tr class="separator:a021e2cb20906f304cb8bd6dd288782b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
-<tr class="memitem:aa4931c7349835e00d2fd25f15e189052"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#aa4931c7349835e00d2fd25f15e189052">entityExists</a> (self, entityRefs, context)</td></tr>
-<tr class="memdesc:aa4931c7349835e00d2fd25f15e189052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#aa4931c7349835e00d2fd25f15e189052">More...</a><br /></td></tr>
-<tr class="separator:aa4931c7349835e00d2fd25f15e189052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Retrieval</div></td></tr>
 <tr class="memitem:a490a0ea76fa32a9b46366aa60dea0a13"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a490a0ea76fa32a9b46366aa60dea0a13">defaultEntityReference</a> (self, traitSets, context)</td></tr>
 <tr class="memdesc:a490a0ea76fa32a9b46366aa60dea0a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context.  <a href="#a490a0ea76fa32a9b46366aa60dea0a13">More...</a><br /></td></tr>
@@ -272,52 +268,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or empty string for each given trait set.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa4931c7349835e00d2fd25f15e189052"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def entityExists </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>entityRefs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>context</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried. </p>
-<p>By 'exist' we mean 'is ready to be read'. For example, entityExists may be called before attempting to read from a reference that is believed to point to an image sequence, so that alternatives can be found.</p>
-<p>In the future, this may need to be extended to cover a more complex definition of 'existence' (for example, known to the system, but not yet finalized). For now however, it should be assumed to simply mean, 'ready to be consumed', and if only a placeholder or un-finalized asset is available, <code>False</code> should be returned.</p>
-<p>The supplied context's locale should be well-configured as it may contain information pertinent to disambiguating this subtle definition of 'exists' in some cases too, as it better explains the use-case of the call.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityRefs</td><td><code>List[</code> <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> <code>]</code> Entity references to query.</td></tr>
-    <tr><td class="paramname">context</td><td>Context The calling context.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>List[bool]</code> <code>True</code> if the corresponding element in entityRefs points to an existing entity, <code>False</code> if the entity is not known or ready yet.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>

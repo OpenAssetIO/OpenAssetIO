@@ -178,17 +178,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;token)</td></tr>
 <tr class="memdesc:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a <a class="el" href="glossary.html#Context">Context</a> linked to a previous manager state, based on the supplied persistence token derived from <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a>.  <a href="#afba52321fc9c4c2c7c2a87f037e8b5a0">More...</a><br /></td></tr>
 <tr class="separator:afba52321fc9c4c2c7c2a87f037e8b5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Entity Reference inspection</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
-</div></td></tr>
-<tr class="memitem:a244002b65caed0a84ff6373af23d179d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">isEntityReferenceString</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;someString) const </td></tr>
-<tr class="separator:a244002b65caed0a84ff6373af23d179d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a60af0503cefffe5543360ccbcb2d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86">createEntityReference</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
-<tr class="memdesc:a8a60af0503cefffe5543360ccbcb2d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string.  <a href="#a8a60af0503cefffe5543360ccbcb2d86">More...</a><br /></td></tr>
-<tr class="separator:a8a60af0503cefffe5543360ccbcb2d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250">createEntityReferenceIfValid</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
-<tr class="memdesc:ad5b1862cc47ab4bcb4919def42d4c250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string, if it is valid according to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">isEntityReferenceString</a>.  <a href="#ad5b1862cc47ab4bcb4919def42d4c250">More...</a><br /></td></tr>
-<tr class="separator:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -206,6 +195,25 @@ Initialization</h2></td></tr>
 <tr class="memitem:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings)</td></tr>
 <tr class="memdesc:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host.  <a href="#aa52c7436ff63ae96e33d7db8d6fd38df">More...</a><br /></td></tr>
 <tr class="separator:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Entity Reference inspection</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp15836366256e8113887d22dd48cc3561"></a>Because of the nature of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, it is often necessary to determine if some working string is actually an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not, to ensure it is handled correctly. </p>
+</td></tr>
+<tr class="memitem:acd342c0ca286f8958af28d1ef4d794e1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> = std::function&lt; void(std::size_t, bool)&gt;</td></tr>
+<tr class="memdesc:acd342c0ca286f8958af28d1ef4d794e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity existence query.  <a href="#acd342c0ca286f8958af28d1ef4d794e1">More...</a><br /></td></tr>
+<tr class="separator:acd342c0ca286f8958af28d1ef4d794e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a244002b65caed0a84ff6373af23d179d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">isEntityReferenceString</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;someString) const </td></tr>
+<tr class="separator:a244002b65caed0a84ff6373af23d179d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a60af0503cefffe5543360ccbcb2d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86">createEntityReference</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
+<tr class="memdesc:a8a60af0503cefffe5543360ccbcb2d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string.  <a href="#a8a60af0503cefffe5543360ccbcb2d86">More...</a><br /></td></tr>
+<tr class="separator:a8a60af0503cefffe5543360ccbcb2d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250">createEntityReferenceIfValid</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> entityReferenceString) const </td></tr>
+<tr class="memdesc:ad5b1862cc47ab4bcb4919def42d4c250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object wrapping a given <a class="el" href="glossary.html#entity_reference">Entity Reference</a> string, if it is valid according to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d">isEntityReferenceString</a>.  <a href="#ad5b1862cc47ab4bcb4919def42d4c250">More...</a><br /></td></tr>
+<tr class="separator:ad5b1862cc47ab4bcb4919def42d4c250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d52a9d856e70e6be410849772461a04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a3d52a9d856e70e6be410849772461a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a3d52a9d856e70e6be410849772461a04">More...</a><br /></td></tr>
+<tr class="separator:a3d52a9d856e70e6be410849772461a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Entity Resolution</h2></td></tr>
@@ -353,6 +361,20 @@ Publishing</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acd342c0ca286f8958af28d1ef4d794e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> =  std::function&lt;void(std::size_t, bool)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature used for a successful entity existence query. </p>
 
 </div>
 </div>
@@ -564,7 +586,7 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
 
 </div>
 </div>
@@ -609,6 +631,58 @@ Publishing</h2></td></tr>
 
 <p>Returns a human readable name to be used to reference this specific asset manager in user-facing displays. </p>
 <p>For example: </p><pre class="fragment">"OpenAssetIO Test Manager"</pre> 
+</div>
+</div>
+<a class="anchor" id="a3d52a9d856e70e6be410849772461a04"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void entityExists </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>successCallback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5">BatchElementErrorCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried. </p>
+<p>By 'exist' we mean 'is ready to be read'. For example, entityExists may be called before attempting to read from a reference that is believed to point to an image sequence, so that alternatives can be found.</p>
+<p>In the future, this may need to be extended to cover a more complex definition of 'existence' (for example, known to the system, but not yet finalized). For now however, it should be assumed to simply mean, 'ready to be consumed', and if only a placeholder or un-finalized asset is available, <code>False</code> should be returned.</p>
+<p>The supplied context's locale should be well-configured as it may contain information pertinent to disambiguating this subtle definition of 'exists' in some cases too, as it better explains the use-case of the call.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferences</td><td>Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful check of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a boolean indicating existence, as defined above. The callback will be called on the same thread that initiated the call to <code>resolve</code>.</td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed check of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>resolve</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="aad6d423f15196231b80568c62266fefa"></a>
@@ -1014,10 +1088,9 @@ This method may block for extended periods of time. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied token should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call does not verify an entity exits, just that the format of the string is recognised. The call is notionally trivial and does not involve back-end system queries.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>entityExists </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">entityExists</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Make use of openassetio.constants.kInfoKey_EntityReferencesMatchPrefix if supplied, especially when bridging between C/python. </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e">resolve</a> </dd></dl>
 
 </div>
 </div>
