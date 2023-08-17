@@ -23,10 +23,10 @@ var hierarchy =
     ] ],
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
+    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerFactory", null, [
       [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
     ] ],
-    [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerInterface", null, [
@@ -98,7 +98,8 @@ var hierarchy =
       [ "Test_register", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__register.html", null ],
       [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", null ],
       [ "Test_settings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html", null ],
-      [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", null ]
+      [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", null ],
+      [ "Test_updateTerminology", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__update_terminology.html", null ]
     ] ],
     [ "ManagerImplementationFactoryInterface", null, [
       [ "PythonPluginSystemManagerImplementationFactory", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html", null ]

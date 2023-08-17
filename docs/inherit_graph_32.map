@@ -14,4 +14,5 @@
 <area shape="rect" id="node14" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html" title="Check plugin&#39;s implementation of managerApi.ManagerInterface.resolve. " alt="" coords="307,629,410,656"/>
 <area shape="rect" id="node15" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html" title="Check plugin&#39;s implementation of managerApi.ManagerInterface.settings. " alt="" coords="305,680,412,707"/>
 <area shape="rect" id="node16" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html" title="Tests that the persistenceTokenForState method is implemented if createState has been implemented to ..." alt="" coords="261,731,457,773"/>
+<area shape="rect" id="node17" href="$classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__update_terminology.html" title="Check plugin&#39;s implementation of managerApi.ManagerInterface.updateTerminology. " alt="" coords="269,797,449,824"/>
 </map>

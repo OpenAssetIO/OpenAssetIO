@@ -44,5 +44,6 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6af6c80e865054f75ff9a18c4c035f3a", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a706c1d1560f6bbd7a87b21132bfcec0b", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac627dd1b0db29b80e7939581699f71e2", null ],
-    [ "settings", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95", null ]
+    [ "settings", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95", null ],
+    [ "updateTerminology", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5", null ]
 ];

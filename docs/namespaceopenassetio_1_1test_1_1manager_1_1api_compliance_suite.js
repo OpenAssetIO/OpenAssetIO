@@ -14,5 +14,6 @@ var namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite =
     [ "Test_register", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__register.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__register" ],
     [ "Test_resolve", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve" ],
     [ "Test_settings", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings" ],
-    [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token" ]
+    [ "Test_stateFromPersistenceToken", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token" ],
+    [ "Test_updateTerminology", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__update_terminology.html", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__update_terminology" ]
 ];

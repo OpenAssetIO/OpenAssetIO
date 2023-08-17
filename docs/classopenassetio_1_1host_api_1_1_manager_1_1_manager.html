@@ -136,13 +136,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a23e8041ce1015febe4fdace3225714f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a47563093dfc5ba12274b66e368920c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a9a47563093dfc5ba12274b66e368920c">__repr__</a> (self)</td></tr>
 <tr class="separator:a9a47563093dfc5ba12274b66e368920c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These functions provide general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.</p>
-<p>These can all be called before initialize has been called. </p>
-</div></td></tr>
-<tr class="memitem:a021e2cb20906f304cb8bd6dd288782b8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a021e2cb20906f304cb8bd6dd288782b8">updateTerminology</a> (self, stringDict)</td></tr>
-<tr class="memdesc:a021e2cb20906f304cb8bd6dd288782b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a021e2cb20906f304cb8bd6dd288782b8">More...</a><br /></td></tr>
-<tr class="separator:a021e2cb20906f304cb8bd6dd288782b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Entity Retrieval</div></td></tr>
 <tr class="memitem:a490a0ea76fa32a9b46366aa60dea0a13"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html#a490a0ea76fa32a9b46366aa60dea0a13">defaultEntityReference</a> (self, traitSets, context)</td></tr>
 <tr class="memdesc:a490a0ea76fa32a9b46366aa60dea0a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait">traits</a> and Context.  <a href="#a490a0ea76fa32a9b46366aa60dea0a13">More...</a><br /></td></tr>
@@ -268,48 +261,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>List[str]</code> An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or empty string for each given trait set.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a021e2cb20906f304cb8bd6dd288782b8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def updateTerminology </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>stringDict</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This call gives the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages. </p>
-<p>See <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> for well-known keys. These keys are updated in-place to the most appropriate term for the <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. You should then use these substitutions in any user-facing messages or display text so that they feel at home.</p>
-<p>It's rare that you need to call this method directly, the <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">openassetio.hostApi.terminology</a> API provides more utility for far less effort.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> </dd>
-<dd>
-<a class="el" href="classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html#af9b416a985bdbd90ceb122e09cfc647f">Mapper.replaceTerms</a> </dd>
-<dd>
-<a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html#a3ca0224c160b353a1d4eb93be8f98a34">terminology.defaultTerminology</a></dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">stringDict</td><td><code>Dict[str, str]</code> Dictionary that is modified in-place by the manager if it has any alternate terminology.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="section warning"><dt>Warning</dt><dd>This method or class has not been updated for the new C++ API and may be subject to a changes in signature in subsequent releases. </dd></dl>
 
 </div>

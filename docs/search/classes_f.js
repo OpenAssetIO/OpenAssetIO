@@ -15,6 +15,7 @@ var searchData=
   ['test_5fresolve',['Test_resolve',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html',1,'openassetio::test::manager::apiComplianceSuite']]],
   ['test_5fsettings',['Test_settings',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__settings.html',1,'openassetio::test::manager::apiComplianceSuite']]],
   ['test_5fstatefrompersistencetoken',['Test_stateFromPersistenceToken',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__state_from_persistence_token.html',1,'openassetio::test::manager::apiComplianceSuite']]],
+  ['test_5fupdateterminology',['Test_updateTerminology',['../classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__update_terminology.html',1,'openassetio::test::manager::apiComplianceSuite']]],
   ['traitsdata',['TraitsData',['../classopenassetio_1_1v1_1_1_traits_data.html',1,'openassetio::v1']]],
   ['typedproperty',['TypedProperty',['../classopenassetio_1_1__core_1_1objects_1_1_typed_property.html',1,'openassetio::_core::objects']]]
 ];

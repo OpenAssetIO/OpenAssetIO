@@ -5,6 +5,7 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf":[14,0,0,6,0,2,22],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[14,0,0,6,0,2,16],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d":[14,0,0,6,0,2,26],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5":[14,0,0,6,0,2,45],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e":[14,0,0,6,0,2,39],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407":[14,0,0,6,0,2,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3cb0792fd74d6870ea7edac4a24e1ec6":[14,0,0,6,0,2,35],
@@ -128,6 +129,7 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb":[14,0,0,6,2,3,24],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea":[14,0,0,6,2,3,11],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a52ce0d543ca8d263eff51032aad8a1f9":[14,0,0,6,2,3,27],
+"classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a52ee2fb9e7a663b4ebbf869c8ec1d3dd":[14,0,0,6,2,3,32],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870":[14,0,0,6,2,3,21],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6235d6c679711ac561ecc50d2c7f1fa3":[14,0,0,6,2,3,29],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b":[14,0,0,6,2,3,31],
@@ -190,8 +192,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[14,3,0,5],
 "functions_enum.html":[14,3,4],
 "functions_f.html":[14,3,0,6],
-"functions_func.html":[14,3,1],
 "functions_func.html":[14,3,1,0],
+"functions_func.html":[14,3,1],
 "functions_func_0x7e.html":[14,3,1,20],
 "functions_func_a.html":[14,3,1,1],
 "functions_func_b.html":[14,3,1,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "glossary.html#locale":[6,7],
 "glossary.html#logging_severity_var":[6,12],
 "glossary.html#manager":[6,15],
-"glossary.html#manager_state":[6,13],
-"glossary.html#meta_version":[6,14],
-"glossary.html#plugin_path_var":[6,11]
+"glossary.html#manager_state":[6,13]
 };

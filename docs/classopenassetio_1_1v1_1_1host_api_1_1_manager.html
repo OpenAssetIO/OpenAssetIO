@@ -159,6 +159,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac82a7565b39bc7092b624bc2c54c864a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a">info</a> () const </td></tr>
 <tr class="memdesc:ac82a7565b39bc7092b624bc2c54c864a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns other information that may be useful about this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#ac82a7565b39bc7092b624bc2c54c864a">More...</a><br /></td></tr>
 <tr class="separator:ac82a7565b39bc7092b624bc2c54c864a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367c6274fb3f556ffc564ec1a114fca5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5">updateTerminology</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a> terms) const </td></tr>
+<tr class="memdesc:a367c6274fb3f556ffc564ec1a114fca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a367c6274fb3f556ffc564ec1a114fca5">More...</a><br /></td></tr>
+<tr class="separator:a367c6274fb3f556ffc564ec1a114fca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Policy</div></td></tr>
 <tr class="memitem:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acdf7d0c3cef98cce7abaf8fb5f004354">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context) const </td></tr>
 <tr class="memdesc:acdf7d0c3cef98cce7abaf8fb5f004354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity, and which traits they are capable of resolving (or persisting).  <a href="#acdf7d0c3cef98cce7abaf8fb5f004354">More...</a><br /></td></tr>
@@ -289,7 +292,7 @@ Publishing</h2></td></tr>
 <li><b>Registration</b> When you wish to publish media that exists.</li>
 </ul>
 <p>For examples of how to correctly call these parts of the API, see the <a class="el" href="examples.html">Examples</a> page.</p>
-<dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the updateTerminology call, in order to allow the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to standardize some of the language and terminology used in your presentation of the asset management system with other integrations of the system.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5">updateTerminology</a> call, in order to allow the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to standardize some of the language and terminology used in your presentation of the asset management system with other integrations of the system.</dd></dl>
 <p><em>3 - Thumbnails</em></p>
 <p>The API provides a mechanism for a manager to request a thumbnail for an entity as it is being published, see: <a class="el" href="thumbnails.html">Thumbnails</a>. </p>
 </td></tr>
@@ -2059,6 +2062,38 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has not yet been called).</dd></dl>
 <p>Some managers may not have any settings, so this function will return an empty dictionary. </p>
+
+</div>
+</div>
+<a class="anchor" id="a367c6274fb3f556ffc564ec1a114fca5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a> updateTerminology </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a>&#160;</td>
+          <td class="paramname"><em>terms</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This call gives the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages. </p>
+<p>See <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> for well-known keys. These keys are updated in-place to the most appropriate term for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. You should then use these substitutions in any user-facing messages or display text so that they feel at home.</p>
+<p>It's rare that you need to call this method directly, the <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">openassetio.hostApi.terminology</a> API provides more utility for far less effort.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html#af9b416a985bdbd90ceb122e09cfc647f">Mapper.replaceTerms</a> </dd>
+<dd>
+<a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html#a3ca0224c160b353a1d4eb93be8f98a34">terminology.defaultTerminology</a></dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">terms</td><td>Map of terms to be substituted by the manager.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Substituted map of terms. </dd></dl>
 
 </div>
 </div>

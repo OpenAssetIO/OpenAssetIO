@@ -31,5 +31,6 @@ var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
     [ "register_", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a29497db96d9994b4c6fa6df154ad5ee4", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a6235d6c679711ac561ecc50d2c7f1fa3", null ],
     [ "settings", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a33a3490cda9028f93a0cd206e9939583", null ],
-    [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b", null ]
+    [ "stateFromPersistenceToken", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b", null ],
+    [ "updateTerminology", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a52ee2fb9e7a663b4ebbf869c8ec1d3dd", null ]
 ];
