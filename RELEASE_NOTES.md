@@ -53,6 +53,10 @@ v1.0.0-alpha.x
 - Added some aliases to the Doxygen API documentation. In
   particular, `Ptr` and `ConstPtr` aliases are now cross-referencable.
 
+- Altered the fixture that causes a skip in relationship based API
+  compliance tests, to be the more specific relationship traitset.
+  [#1022](https://github.com/OpenAssetIO/OpenAssetIO/issues/1022)
+
 v1.0.0-alpha.13
 ---------------
 
