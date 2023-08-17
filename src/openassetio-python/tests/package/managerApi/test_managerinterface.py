@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -69,6 +69,18 @@ class Test_ManagerInterface_info:
 
         assert isinstance(info, dict)
         assert info == {}
+
+
+class Test_ManagerInterface_updateTerminology:
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(ManagerInterface.updateTerminology)
+        assert method_introspector.is_implemented_once(ManagerInterface, "updateTerminology")
+
+    def test_when_given_dict_then_returns_same_dict(self, a_host_session):
+        terms = {"aTermKey🔥 ": "aTermValue🎖️", "aSecondTermKey": "aSecondTermValue"}
+        return_terms = ManagerInterface().updateTerminology(terms, a_host_session)
+        assert terms == return_terms
+        assert terms is not return_terms
 
 
 class Test_ManagerInterface_flushCaches:

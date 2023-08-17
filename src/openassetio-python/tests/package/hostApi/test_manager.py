@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -157,17 +157,29 @@ class Test_Manager_info:
 
 
 class Test_Manager_updateTerminology:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.updateTerminology)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.updateTerminology)
         assert method_introspector.is_implemented_once(Manager, "updateTerminology")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
+        a_dict = {"k": "v"}
         method = mock_manager_interface.mock.updateTerminology
-        a_dict = {"k", "v"}
-        assert manager.updateTerminology(a_dict) is a_dict
+        method.return_value = a_dict
+
+        ret = manager.updateTerminology(a_dict)
+        assert ret == a_dict
+        assert ret is not a_dict
         method.assert_called_once_with(a_dict, a_host_session)
+
+    def test_input_not_modified(self, manager, mock_manager_interface, a_host_session):
+        input_dict = {"k": "v"}
+        method = mock_manager_interface.mock.updateTerminology
+        method.return_value = {"k": "v", "l": "b"}
+
+        ret = manager.updateTerminology(input_dict)
+        assert input_dict == {"k": "v"}
 
 
 class Test_Manager_settings:

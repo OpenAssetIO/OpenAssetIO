@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -91,49 +91,6 @@ class Manager(_openassetio.hostApi.Manager, Debuggable):
 
     def _interface(self):
         return self.__impl
-
-    ##
-    # @name Asset Management System Information
-    #
-    # These functions provide general information about the @ref
-    # asset_management_system itself. These can all be called before
-    # @needsref initialize has been called.
-    #
-    # @{
-
-    @debugApiCall
-    @auditApiCall("Manager methods")
-    def updateTerminology(self, stringDict):
-        """
-        This call gives the Manager a chance to customize certain
-        strings that you might want to use in your UI/messages.
-
-        See @ref openassetio.hostApi.terminology "terminology" for
-        well-known keys. These keys are updated in-place to the most
-        appropriate term for the Manager. You should then use these
-        substitutions in any user-facing messages or display text so
-        that they feel at home.
-
-        It's rare that you need to call this method directly, the @ref
-        openassetio.hostApi.terminology API provides more utility for
-        far less effort.
-
-        @see @ref openassetio.hostApi.terminology "terminology"
-        @see @ref openassetio.hostApi.terminology.Mapper.replaceTerms "Mapper.replaceTerms"
-        @see @ref openassetio.hostApi.terminology.defaultTerminology "terminology.defaultTerminology"
-
-        @param[out] stringDict `Dict[str, str]` Dictionary that is
-        modified in-place by the manager if it has any alternate
-        terminology.
-
-        @unstable
-        """
-        self.__impl.updateTerminology(stringDict, self.__hostSession)
-        # This is purely so we can see it in the debug log, the
-        # return value of this function should be discarded.
-        return stringDict
-
-    ## @}
 
     ##
     # @name Entity Retrieval

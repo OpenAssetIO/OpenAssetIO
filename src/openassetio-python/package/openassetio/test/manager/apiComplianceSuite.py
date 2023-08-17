@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2023 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -87,6 +87,17 @@ class Test_info(FixtureAugmentedTestCase):
 
     def test_matches_fixture(self):
         self.assertEqual(self._fixtures["info"], self._manager.info())
+
+
+class Test_updateTerminology(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of managerApi.ManagerInterface.updateTerminology.
+    """
+
+    def test_output_contains_input_terms(self):
+        terms = {"aTermKey🔥 ": "aTermValue🎖️", "aSecondTermKey": "aSecondTermValue"}
+        return_terms = self._manager.updateTerminology(terms)
+        self.assertEqual(sorted(terms.keys()), sorted(return_terms.keys()))
 
 
 class Test_settings(FixtureAugmentedTestCase):

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -47,6 +48,11 @@ using Float = double;
  * This type is guaranteed to be API compatible with `std::string`.
  */
 using Str = std::string;
+
+/**
+ * Map/Dict of string to string.
+ */
+using StrMap = std::unordered_map<Str, Str>;
 
 /**
  * @}

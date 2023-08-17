@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 
 #pragma once
 
@@ -143,7 +143,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *    @li @ref identifier()
  *    @li @ref displayName()
  *    @li @ref info()
- *    @li @needsref updateTerminology()
+ *    @li @ref updateTerminology()
  *    @li @ref settings()
  *
  * @todo Finish/Document settings mechanism.
@@ -244,6 +244,33 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   [[nodiscard]] virtual InfoDictionary info() const;
 
   /**
+   * This call gives the manager a chance to customize certain strings
+   * used in a host's UI/messages.
+   *
+   * See @ref openassetio.hostApi.terminology "terminology" for known
+   * keys. The values in stringDict can be freely updated to match the
+   * terminology of the asset management system you are representing.
+   *
+   * For example, you may way a host's "Publish Clip" menu item to read
+   * "Release Clip", so you would set the @ref
+   * openassetio.hostApi.terminology.kTerm_Publish value to "Release".
+   *
+   * @see @ref openassetio.hostApi.terminology.defaultTerminology
+   * "terminology.defaultTerminology"
+   *
+   * @param terms Map of terms to be substituted by the manager.
+   *
+   * @param hostSession The host session that maps to the caller. This
+   * should be used for all logging and provides access to the
+   * openassetio.managerApi.Host object representing the process that
+   * initiated the API session.
+   *
+   * @return Substituted map of terms.
+   */
+  [[nodiscard]] virtual StrMap updateTerminology(StrMap terms,
+                                                 const HostSessionPtr& hostSession) const;
+
+  /**
    * @}
    */
 
@@ -295,7 +322,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *  @li @ref identifier()
    *  @li @ref displayName()
    *  @li @ref info()
-   *  @li @needsref updateTerminology()
+   *  @li @ref updateTerminology()
    *  @li @ref settings()
    *
    * @todo We need a 'teardown' method to, before a manager is
@@ -1120,7 +1147,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @note The term '@ref publish' is somewhat loaded. It generally
    * means something different depending on who you are talking to. See
    * the @ref publish "Glossary entry" for more on this, but to help
-   * avoid confusion, this API provides the @needsref updateTerminology
+   * avoid confusion, this API provides the @ref updateTerminology
    * call, in order to allow the implementation to standardize some of
    * the language and terminology used in a Hosts presentation of the
    * asset management system with other integrations of the system.

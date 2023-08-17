@@ -31,6 +31,11 @@ v1.0.0-alpha.x
   Python bindings, and redesigned to use a callback based batch API.
   [#993](https://github.com/OpenAssetIO/OpenAssetIO/issues/993)
 
+- Migrated `ManagerInterface`/`Manager` `updateTerminology` to C++ with
+  Python bindings. Tweaked interface to be returned based rather than
+  out-param based.
+  [#996](https://github.com/OpenAssetIO/OpenAssetIO/issues/996)
+
 ### New Features
 
 - Added `Context.Access.kCreateRelated` access pattern, to  indicate
