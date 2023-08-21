@@ -603,8 +603,8 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.__assert_pager_is_at_end(pager)
 
     def test_when_batched_then_same_number_of_returned_relationships(self):
-        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True))
+        a_ref = self.requireEntityReferenceFixture("a_reference")
 
         with self.subTest("getWithRelationship"):
             results = self.__test_getWithRelationship_success([a_ref] * 5, a_rel)
@@ -623,8 +623,8 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.assertEqual(len(pagers), 5)
 
     def test_when_relationship_trait_set_known_then_all_with_trait_set_returned(self):
-        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True))
+        a_ref = self.requireEntityReferenceFixture("a_reference")
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
         with self.subTest("getWithRelationship"):
@@ -646,8 +646,10 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.assertListEqual(actual, expected)
 
     def test_when_relationship_trait_set_known_and_props_set_then_filtered_refs_returned(self):
-        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-        a_rel = self.requireFixture("a_relationship_traits_data_with_props")
+        a_rel = self.requireFixture(
+            "a_relationship_traits_data_with_props", skipTestIfMissing=True
+        )
+        a_ref = self.requireEntityReferenceFixture("a_reference")
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
         with self.subTest("getWithRelationship"):
@@ -669,8 +671,8 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.assertListEqual(actual, expected)
 
     def test_when_result_trait_set_supplied_then_filtered_refs_returned(self):
-        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True))
+        a_ref = self.requireEntityReferenceFixture("a_reference")
         result_trait_set = self.requireFixture("an_entity_trait_set_to_filter_by")
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
@@ -701,10 +703,10 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.assertListEqual(actual, expected)
 
     def test_when_querying_missing_reference_then_resolution_error_is_returned(self):
-        entity_reference = self.requireEntityReferenceFixture(
-            "a_reference_to_a_missing_entity", skipTestIfMissing=True
+        relationship_trait_set = self.requireFixture(
+            "a_relationship_trait_set", skipTestIfMissing=True
         )
-        relationship_trait_set = self.requireFixture("a_relationship_trait_set")
+        entity_reference = self.requireEntityReferenceFixture("a_reference_to_a_missing_entity")
         expected_error_code = BatchElementError.ErrorCode.kEntityResolutionError
         expected_error_message = self.requireFixture("expected_error_message")
 
@@ -741,10 +743,10 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             )
 
     def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
-        entity_reference = self.requireEntityReferenceFixture(
-            "a_malformed_reference", skipTestIfMissing=True
+        relationship_trait_set = self.requireFixture(
+            "a_relationship_trait_set", skipTestIfMissing=True
         )
-        relationship_trait_set = self.requireFixture("a_relationship_trait_set")
+        entity_reference = self.requireEntityReferenceFixture("a_malformed_reference")
         expected_error_code = BatchElementError.ErrorCode.kMalformedEntityReference
         expected_error_message = self.requireFixture("expected_error_message")
 
@@ -781,8 +783,8 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             )
 
     def test_when_related_entities_span_multiple_pages_then_pager_has_multiple_pages(self):
-        a_ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set"))
+        a_rel = TraitsData(self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True))
+        a_ref = self.requireEntityReferenceFixture("a_reference")
         expected_related_refs = self.requireEntityReferencesFixture(
             "expected_related_entity_references"
         )
@@ -852,10 +854,12 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         # Wrap pager construction in a function, so that input args can
         # fall out of scope.
         def get_pager_and_weakref_args(get_pagers):
-            ref = self.requireEntityReferenceFixture("a_reference", skipTestIfMissing=True)
-            refs = self.weaklist([ref])
-            relationship = TraitsData(self.requireFixture("a_relationship_trait_set"))
+            relationship = TraitsData(
+                self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True)
+            )
             relationships = self.weaklist([relationship])
+            ref = self.requireEntityReferenceFixture("a_reference")
+            refs = self.weaklist([ref])
             context = self.createTestContext(access=Context.Access.kRead)
             context.locale = TraitsData(context.locale)  # Force a copy.
             result_trait_set = copy.copy(self.requireFixture("an_entity_trait_set_to_filter_by"))
