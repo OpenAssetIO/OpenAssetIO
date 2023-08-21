@@ -57,7 +57,7 @@ pip install openassetio-traitgen --no-deps
 # Build and install OpenAssetIO to the Conda environment.
 
 cd ${OPENASSETIO_REPO_DIR}
-OPENASSETIO_CONAN_SKIP_CPYTHON=1 conan install -if conan-jupyter resources/build
+conan install -if conan-jupyter resources/build
 CMAKE_PREFIX_PATH=conan-jupyter cmake -S . -B build-jupyter -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=ON
 cmake --build build-jupyter --parallel
 cmake --install build-jupyter --prefix ${CONDA_PREFIX}

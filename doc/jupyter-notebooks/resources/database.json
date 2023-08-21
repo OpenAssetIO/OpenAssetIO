@@ -57,6 +57,17 @@
           }
         }
       ]
+    },
+    "demo_project/user/profile/picture": {
+      "versions": [
+        {
+          "traits": {
+            "openassetio-mediacreation:content.LocatableContent": {
+              "location": "file:///mnt/pictures/people/David%20Feltell.png"
+            }
+          }
+        }
+      ]
     }
   }
 }
