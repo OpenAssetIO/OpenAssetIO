@@ -57,6 +57,9 @@ v1.0.0-alpha.x
   compliance tests, to be the more specific relationship traitset.
   [#1022](https://github.com/OpenAssetIO/OpenAssetIO/issues/1022)
 
+- Set the correct context for various tests in the API Compliance
+  `openassetio.manager.test` test harness.
+
 v1.0.0-alpha.13
 ---------------
 
