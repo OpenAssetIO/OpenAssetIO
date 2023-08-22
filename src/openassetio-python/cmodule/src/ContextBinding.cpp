@@ -28,21 +28,11 @@ void registerContext(const py::module& mod) {
 
   context.def_readonly_static("kAccessNames", &Context::kAccessNames);
 
-  py::enum_<Context::Retention>{context, "Retention"}
-      .value("kIgnored", Context::Retention::kIgnored)
-      .value("kTransient", Context::Retention::kTransient)
-      .value("kSession", Context::Retention::kSession)
-      .value("kPermanent", Context::Retention::kPermanent);
-
-  context.def_readonly_static("kRetentionNames", &Context::kRetentionNames);
-
   context
       .def(py::init(RetainCommonPyArgs::forFn<&Context::make>()),
-           py::arg_v("access", Context::Access::kUnknown),
-           py::arg_v("retention", Context::Retention::kTransient),
-           py::arg_v("locale", TraitsDataPtr{}), py::arg_v("managerState", ManagerStateBasePtr{}))
+           py::arg_v("access", Context::Access::kUnknown), py::arg_v("locale", TraitsDataPtr{}),
+           py::arg_v("managerState", ManagerStateBasePtr{}))
       .def_readwrite("access", &Context::access)
-      .def_readwrite("retention", &Context::retention)
       .def_readwrite("locale", &Context::locale)
       .def_property(
           "managerState", [](const Context& self) { return self.managerState; },

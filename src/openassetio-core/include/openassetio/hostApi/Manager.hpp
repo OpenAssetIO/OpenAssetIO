@@ -337,7 +337,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *  meaningful state etc... This can be useful when certain UI
    *  elements need to 'take a copy' of a context in its current state
    *  in order to parallelise actions that are part of the same logical
-   *  group, but have different locales, access or retention.
+   *  group, but have different locales or access.
    *
    *  @see @ref createContext
    *  @see @fqref{Context} "Context"
@@ -364,8 +364,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    *  @warning This only encapsulates the logical identity of the
    *  Context, such that when restored, any API calls made using the
    *  resulting Context will be logically associated with the one
-   *  supplied here. It does not encode the current access, retention
-   *  or locale.
+   *  supplied here. It does not encode the current access or locale.
    *
    *  @see @ref stable_resolution
    */
@@ -385,7 +384,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * group of actions as the context supplied to @ref
    * persistenceTokenForContext to generate the token.
    *
-   * @warning The context's access, retention or locale is not
+   * @warning The context's access or locale is not
    * restored by this action.
    *
    * @see @ref stable_resolution
@@ -1216,8 +1215,8 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * glossary_preflight "glossary entry" for details.
    *
    * @note It's vital that the @ref Context is well configured here,
-   * in particular the @fqref{Context.retention}
-   * "Context.retention".
+   * in particular the @fqref{Context.access}
+   * "Context.access".
    *
    * @warning The working @ref entity_reference returned by this
    * method should *always* be used in place of the original

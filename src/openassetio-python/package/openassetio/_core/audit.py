@@ -124,7 +124,6 @@ def auditApiCall(group=None, static=False):
     """
 
     def _wrapAuditApiCall(function):
-
         # We deliberately don't wrap the function if its disabled as it
         # a) obfuscates docstrings
         # b) adds unnecessarily to the call stack
@@ -133,7 +132,6 @@ def auditApiCall(group=None, static=False):
 
         @functools.wraps(function)
         def _auditApiCall(*args, **kwargs):
-
             if auditCalls:
                 sharedAuditor = auditor()
 
@@ -189,7 +187,6 @@ def __auditObj(aud, obj):
         # If its a Context, add the context, and its options
         aud.addClass(obj)
         aud.addObj("Context.%s" % obj.access, group="Context Access")
-        aud.addObj("Context.%s" % obj.kRetentionNames[obj.retention], group="Context Retention")
         if obj.locale:
             aud.addClass(obj.locale, group="Locales")
 
@@ -439,7 +436,6 @@ class Auditor(object):
 
     @staticmethod
     def __classFromObj(obj):
-
         # If its an instance method then get self, which will be an instance, or a
         # class in the case of @classmethods
         if hasattr(obj, "im_self"):

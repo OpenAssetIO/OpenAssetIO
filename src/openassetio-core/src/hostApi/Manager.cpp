@@ -115,8 +115,8 @@ ContextPtr Manager::createContext() {
 ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
   // Copy-construct the locale so changes made to the child context don't
   // affect the parent (and visa versa).
-  ContextPtr context = Context::make(parentContext->access, parentContext->retention,
-                                     TraitsData::make(parentContext->locale));
+  ContextPtr context =
+      Context::make(parentContext->access, TraitsData::make(parentContext->locale));
   if (parentContext->managerState) {
     context->managerState =
         managerInterface_->createChildState(parentContext->managerState, hostSession_);

@@ -44,31 +44,11 @@ class Test_Context:
         assert Context.kAccessNames[int(Context.Access.kCreateRelated)] == "createRelated"
         assert Context.kAccessNames[int(Context.Access.kUnknown)] == "unknown"
 
-    def test_retention_constants_are_not_exported(self):
-        with pytest.raises(AttributeError):
-            Context.kIgnored  # pylint: disable=pointless-statement
-
-    def test_retention_constants_are_unique(self):
-        consts = (
-            Context.Retention.kIgnored,
-            Context.Retention.kTransient,
-            Context.Retention.kSession,
-            Context.Retention.kPermanent,
-        )
-        assert len(set(consts)) == len(consts)
-
-    def test_retention_names_indices_match_constants(self):
-        assert Context.kRetentionNames[int(Context.Retention.kIgnored)] == "ignored"
-        assert Context.kRetentionNames[int(Context.Retention.kTransient)] == "transient"
-        assert Context.kRetentionNames[int(Context.Retention.kSession)] == "session"
-        assert Context.kRetentionNames[int(Context.Retention.kPermanent)] == "permanent"
-
 
 class Test_Context_init:
     def test_when_constructed_with_no_args_then_has_default_configuration(self):
         context = Context()
         assert context.access == Context.Access.kUnknown
-        assert context.retention == Context.Retention.kTransient
         assert context.locale is None
         assert context.managerState is None
 
@@ -77,14 +57,12 @@ class Test_Context_init:
             pass
 
         expected_access = Context.Access.kRead
-        expected_retention = Context.Retention.kSession
         expected_locale = TraitsData()
         expected_state = TestState()
 
-        a_context = Context(expected_access, expected_retention, expected_locale, expected_state)
+        a_context = Context(expected_access, expected_locale, expected_state)
 
         assert a_context.access == expected_access
-        assert a_context.retention == expected_retention
         assert a_context.locale is expected_locale
         assert a_context.managerState is expected_state
         assert isinstance(a_context.managerState, TestState)
@@ -108,27 +86,6 @@ class Test_Context_access:
         ):
             a_context.access = expected_access
             assert a_context.access == expected_access
-
-
-class Test_Context_retention:
-    def test_when_set_to_unknown_type_then_raises_ValueError(self, a_context):
-        expected_msg = (
-            r"incompatible function arguments.*\n"
-            r".*arg0: openassetio._openassetio.Context.Retention"
-        )
-
-        with pytest.raises(TypeError, match=expected_msg):
-            a_context.retention = 0
-
-    def test_when_set_to_known_value_then_stores_that_value(self, a_context):
-        for expected_retention in (
-            Context.Retention.kIgnored,
-            Context.Retention.kTransient,
-            Context.Retention.kSession,
-            Context.Retention.kPermanent,
-        ):
-            a_context.retention = expected_retention
-            assert a_context.retention == expected_retention
 
 
 class Test_Context_locale:

@@ -2905,7 +2905,6 @@ class Test_Manager_createContext:
         context_a = manager.createContext()
 
         assert context_a.access == Context.Access.kUnknown
-        assert context_a.retention == Context.Retention.kTransient
         assert context_a.managerState is state_a
         assert isinstance(context_a.locale, TraitsData)
         assert context_a.locale.traitSet() == set()
@@ -2924,7 +2923,6 @@ class Test_Manager_createChildContext:
         mock_manager_interface.mock.createState.return_value = state_a
         context_a = manager.createContext()
         context_a.access = Context.Access.kWrite
-        context_a.retention = Context.Retention.kSession
         context_a.locale = TraitsData()
         mock_manager_interface.mock.reset_mock()
 
@@ -2936,7 +2934,6 @@ class Test_Manager_createChildContext:
         assert context_b is not context_a
         assert context_b.managerState is state_b
         assert context_b.access == context_a.access
-        assert context_b.retention == context_a.retention
         assert context_b.locale == context_a.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
             state_a, a_host_session
@@ -2954,7 +2951,6 @@ class Test_Manager_createChildContext:
         mock_manager_interface.mock.createChildState.return_value = state_a
         context_a = manager.createContext()
         context_a.access = Context.Access.kWrite
-        context_a.retention = Context.Retention.kSession
         context_a.locale = original_locale
 
         context_b = manager.createChildContext(context_a)
@@ -2968,12 +2964,10 @@ class Test_Manager_createChildContext:
     ):
         context_a = Context()
         context_a.access = Context.Access.kWrite
-        context_a.retention = Context.Retention.kSession
         context_a.locale = TraitsData()
         context_b = manager.createChildContext(context_a)
 
         assert context_b.access == context_a.access
-        assert context_b.retention == context_a.retention
         assert context_b.locale == context_b.locale
         mock_manager_interface.mock.createChildState.assert_not_called()
 

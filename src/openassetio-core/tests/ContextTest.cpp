@@ -12,7 +12,7 @@ OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 using openassetio::Context;
 
 SCENARIO("Context constructor is private") {
-  STATIC_REQUIRE_FALSE(std::is_constructible_v<Context, Context::Access, Context::Retention,
-                                               openassetio::TraitsDataPtr,
-                                               openassetio::managerApi::ManagerStateBasePtr>);
+  STATIC_REQUIRE_FALSE(
+      std::is_constructible_v<Context, Context::Access, openassetio::TraitsDataPtr,
+                              openassetio::managerApi::ManagerStateBasePtr>);
 }
