@@ -67,12 +67,10 @@ jobs:
           repository: OpenAssetIO/OpenAssetIO-Manager-BAL
           path: external/BAL
 
-      # Disabled pending https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/47
-      #
-      # - name: Test BAL
-      #   run: |
-      #     python -m pip install ./external/BAL
-      #     python -m pytest -v external/BAL/tests
+      - name: Test BAL
+        run: |
+          python -m pip install ./external/BAL
+          python -m pytest -v external/BAL/tests
 
       - name: Test Simple Resolver
         run: |
