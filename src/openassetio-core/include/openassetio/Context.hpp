@@ -76,23 +76,6 @@ class OPENASSETIO_CORE_EXPORT Context final {
   /// @}
 
   /**
-   * @name Data Retention
-   */
-  enum class Retention {
-    /// Data will not be used
-    kIgnored,
-    /// Data will be re-used during a particular action
-    kTransient,
-    /// Data will be stored and re-used for the session
-    kSession,
-    /// Data will be permanently stored in the document
-    kPermanent
-  };
-
-  static constexpr std::array kRetentionNames{"ignored", "transient", "session", "permanent"};
-  /// @}
-
-  /**
    * Describes what the @ref host is intending to do with the data.
    *
    * For example, when passed to resolve, it specifies if the @ref host
@@ -103,28 +86,6 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * See also @ref create_related "Create related glossary entry".
    */
   Access access;
-
-  /**
-   * A concession to the fact that it's not always possible to fully
-   * implement the spec of this API within a @ref host.
-   *
-   * For example, @fqref{managerApi.ManagerInterface.register_}
-   * "Manager.register()" can return an @ref entity_reference that
-   * points to the newly published @ref entity. This is often not the
-   * same as the reference that was passed to the call. The Host is
-   * expected to store this new reference for future use. For example
-   * in the case of a Scene File added to an 'open recent' menu. A
-   * Manager may rely on this to ensure a reference that points to a
-   * specific version is used in the future.
-   *
-   * In some cases - such as batch rendering of an image sequence,
-   * it may not be possible to store this final reference, due to
-   * constraints of the distributed natured of such a render.
-   * Often, it is not actually of consequence. To allow the @ref manager
-   * to handle these situations correctly, Hosts are required to set
-   * this property to reflect their ability to persist this information.
-   */
-  Retention retention;
 
   /**
    * In many situations, the @ref trait_set of the desired @ref entity
@@ -159,7 +120,6 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * should always be used instead.
    */
   [[nodiscard]] static ContextPtr make(Access access = Access::kUnknown,
-                                       Retention retention = Retention::kTransient,
                                        TraitsDataPtr locale = nullptr,
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
   /**
@@ -177,8 +137,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
   }
 
  private:
-  Context(Access access, Retention retention, TraitsDataPtr locale,
-          managerApi::ManagerStateBasePtr managerState);
+  Context(Access access, TraitsDataPtr locale, managerApi::ManagerStateBasePtr managerState);
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

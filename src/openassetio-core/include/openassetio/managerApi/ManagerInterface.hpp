@@ -506,7 +506,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param parentState obj, The new state is to be considered a
    * 'child' of the supplied state. This may be used when creating a
    * child Context for persistence somewhere in a UI, etc... when
-   * further processing may change the access/retention of the
+   * further processing may change the access of the
    * Context. It is expected that the manager will migrate any
    * applicable state components to this child context, for example -
    * a timestamp used for 'vlatest'.
@@ -1237,10 +1237,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * who's corresponding @p traitsHints entry holds insufficient or
    * invalid information.
    *
-   * @note it is important for the implementation to pay attention to
-   * @fqref{Context.retention} "Context.retention", as not all hosts
-   * will support the reference changing at this point.
-   *
    * @see @ref register_
    */
   virtual void preflight(const EntityReferences& entityReferences,
@@ -1337,10 +1333,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
    * must be called on the same thread that initiated the call to
    * `register`.
-   *
-   * @note it is important for the implementation to pay attention to
-   * @fqref{Context.retention} "retention", as not all Hosts will
-   * support the reference changing at this point.
    *
    * @see @fqref{TraitsData} "TraitsData"
    * @see @ref preflight

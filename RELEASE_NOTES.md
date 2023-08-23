@@ -36,6 +36,9 @@ v1.0.0-alpha.x
   out-param based.
   [#996](https://github.com/OpenAssetIO/OpenAssetIO/issues/996)
 
+- Removed `Context.Retention`.
+  [#1048](https://github.com/OpenAssetIO/OpenAssetIO/issues/1048)
+
 ### New Features
 
 - Added `Context.Access.kCreateRelated` access pattern, to  indicate
