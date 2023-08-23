@@ -1,11 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92":[14,0,0,6,0,1,4],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html":[14,0,0,6,0,2],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf":[14,0,0,6,0,2,22],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e":[14,0,0,6,0,2,16],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d":[14,0,0,6,0,2,26],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5":[14,0,0,6,0,2,45],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3821fa69b2c22f8a5e057de0e191289e":[14,0,0,6,0,2,39],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407":[14,0,0,6,0,2,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3cb0792fd74d6870ea7edac4a24e1ec6":[14,0,0,6,0,2,35],
@@ -249,5 +243,11 @@ var NAVTREEINDEX1 =
 "glossary.html#locale":[6,7],
 "glossary.html#logging_severity_var":[6,12],
 "glossary.html#manager":[6,15],
-"glossary.html#manager_state":[6,13]
+"glossary.html#manager_state":[6,13],
+"glossary.html#meta_version":[6,14],
+"glossary.html#plugin_path_var":[6,11],
+"glossary.html#publish":[6,17],
+"glossary.html#trait":[6,21],
+"glossary.html#trait_set":[6,22],
+"group___c_a_p_i.html":[12,0]
 };

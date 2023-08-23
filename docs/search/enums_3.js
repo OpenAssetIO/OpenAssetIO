@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['retention',['Retention',['../classopenassetio_1_1v1_1_1_context.html#abdb640feb9ec41cc13f8b8dd31bc9c2c',1,'openassetio::v1::Context']]]
+  ['severity',['Severity',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b',1,'openassetio::v1::log::LoggerInterface']]]
 ];

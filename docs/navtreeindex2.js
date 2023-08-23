@@ -1,11 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"glossary.html#meta_version":[6,14],
-"glossary.html#plugin_path_var":[6,11],
-"glossary.html#publish":[6,17],
-"glossary.html#trait":[6,21],
-"glossary.html#trait_set":[6,22],
-"group___c_a_p_i.html":[12,0],
 "group___c_a_p_i.html#gae26986f688be563d521a1a9260430333":[12,0,7],
 "group__oa___error_code.html":[12,0,0],
 "group__oa___error_code.html#ga58ccb041c66e26f6c9637909914209fb":[12,0,0,1],

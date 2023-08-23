@@ -540,7 +540,7 @@ Publishing</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">parentState</td><td>obj, The new state is to be considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access/retention of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
+    <tr><td class="paramname">parentState</td><td>obj, The new state is to be considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1466,7 +1466,6 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820">Context.retention</a>, as not all hosts will support the reference changing at this point.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a29497db96d9994b4c6fa6df154ad5ee4">register_</a> </dd></dl>
 
 </div>
@@ -1550,7 +1549,6 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>it is important for the implementation to pay attention to <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a34b480a2451ed6f4d24f10e291826820">retention</a>, as not all Hosts will support the reference changing at this point.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a52ce0d543ca8d263eff51032aad8a1f9">preflight</a> </dd></dl>

@@ -12,7 +12,6 @@ var searchData=
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
   ['kpackageentrypointgroup',['kPackageEntryPointGroup',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a38fa37bdd34bd29e53cc24a80958a192',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
-  ['kretentionnames',['kRetentionNames',['../classopenassetio_1_1v1_1_1_context.html#a05e41dada6e859a26599bacb341eb2e4',1,'openassetio::v1::Context']]],
   ['kseveritynames',['kSeverityNames',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#aa3cb2b138133655f027cd3759d797601',1,'openassetio::v1::log::LoggerInterface']]],
   ['kterm_5fasset',['kTerm_Asset',['../namespaceopenassetio_1_1host_api_1_1terminology.html#aaa23b6cc3765db08611cdd681ddf3c18',1,'openassetio::hostApi::terminology']]],
   ['kterm_5fassets',['kTerm_Assets',['../namespaceopenassetio_1_1host_api_1_1terminology.html#a6fd9e47e6ef3538ec93821e20fb9bc84',1,'openassetio::hostApi::terminology']]],
