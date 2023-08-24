@@ -60,7 +60,9 @@ EntityReference ManagerInterface::createEntityReference(Str entityReferenceStrin
 }
 
 void ManagerInterface::defaultEntityReference(
-    const trait::TraitSets& traitSets, [[maybe_unused]] const ContextConstPtr& context,
+    const trait::TraitSets& traitSets,
+    [[maybe_unused]] const access::DefaultEntityAccess defaultEntityAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const DefaultEntityReferenceSuccessCallback& successCallback,
     const BatchElementErrorCallback& errorCallback) {
@@ -76,6 +78,7 @@ void ManagerInterface::getWithRelationship(
     const EntityReferences& entityReferences,
     [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet,
+    [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     const ManagerInterface::RelationshipSuccessCallback& successCallback,
@@ -88,6 +91,7 @@ void ManagerInterface::getWithRelationships(
     [[maybe_unused]] const EntityReference& entityReference,
     const trait::TraitsDatas& relationshipTraitsDatas,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet,
+    [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     const ManagerInterface::RelationshipSuccessCallback& successCallback,
@@ -117,6 +121,7 @@ void ManagerInterface::getWithRelationshipPaged(
     const EntityReferences& entityReferences,
     [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
+    [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     const PagedRelationshipSuccessCallback& successCallback,
@@ -132,6 +137,7 @@ void ManagerInterface::getWithRelationshipsPaged(
     [[maybe_unused]] const EntityReference& entityReference,
     const trait::TraitsDatas& relationshipTraitsDatas,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
+    [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     const PagedRelationshipSuccessCallback& successCallback,

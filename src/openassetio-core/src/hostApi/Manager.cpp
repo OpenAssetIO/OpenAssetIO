@@ -105,8 +105,9 @@ void Manager::initialize(InfoDictionary managerSettings) {
 void Manager::flushCaches() { managerInterface_->flushCaches(hostSession_); }
 
 trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
+                                             const access::PolicyAccess policyAccess,
                                              const ContextConstPtr &context) const {
-  return managerInterface_->managementPolicy(traitSets, context, hostSession_);
+  return managerInterface_->managementPolicy(traitSets, policyAccess, context, hostSession_);
 }
 
 ContextPtr Manager::createContext() {
@@ -117,10 +118,9 @@ ContextPtr Manager::createContext() {
 }
 
 ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
-  // Copy-construct the locale so changes made to the child context don't
-  // affect the parent (and visa versa).
-  ContextPtr context =
-      Context::make(parentContext->access, TraitsData::make(parentContext->locale));
+  // Copy-construct the locale so changes made to the child context
+  // don't affect the parent (and vice versa).
+  ContextPtr context = Context::make(TraitsData::make(parentContext->locale));
   if (parentContext->managerState) {
     context->managerState =
         managerInterface_->createChildState(parentContext->managerState, hostSession_);
@@ -177,21 +177,21 @@ void Manager::entityExists(const EntityReferences &entityReferences,
 }
 
 void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
-                      const ContextConstPtr &context,
+                      const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
                       const ResolveSuccessCallback &successCallback,
                       const BatchElementErrorCallback &errorCallback) {
-  managerInterface_->resolve(entityReferences, traitSet, context, hostSession_, successCallback,
-                             errorCallback);
+  managerInterface_->resolve(entityReferences, traitSet, resolveAccess, context, hostSession_,
+                             successCallback, errorCallback);
 }
 
 // Singular Except
 TraitsDataPtr hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
-    const ContextConstPtr &context,
+    const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   TraitsDataPtr resolveResult;
   resolve(
-      {entityReference}, traitSet, context,
+      {entityReference}, traitSet, resolveAccess, context,
       [&resolveResult]([[maybe_unused]] std::size_t index, TraitsDataPtr data) {
         resolveResult = std::move(data);
       },
@@ -205,11 +205,11 @@ TraitsDataPtr hostApi::Manager::resolve(
 // Singular variant
 std::variant<BatchElementError, TraitsDataPtr> hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
-    const ContextConstPtr &context,
+    const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<BatchElementError, TraitsDataPtr> resolveResult;
   resolve(
-      {entityReference}, traitSet, context,
+      {entityReference}, traitSet, resolveAccess, context,
       [&resolveResult]([[maybe_unused]] std::size_t index, TraitsDataPtr data) {
         resolveResult = std::move(data);
       },
@@ -223,13 +223,13 @@ std::variant<BatchElementError, TraitsDataPtr> hostApi::Manager::resolve(
 // Multi except
 std::vector<TraitsDataPtr> hostApi::Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
-    const ContextConstPtr &context,
+    const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   std::vector<TraitsDataPtr> resolveResult;
   resolveResult.resize(entityReferences.size());
 
   resolve(
-      entityReferences, traitSet, context,
+      entityReferences, traitSet, resolveAccess, context,
       [&resolveResult](std::size_t index, TraitsDataPtr data) {
         resolveResult[index] = std::move(data);
       },
@@ -244,12 +244,12 @@ std::vector<TraitsDataPtr> hostApi::Manager::resolve(
 // Multi variant
 std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
-    const ContextConstPtr &context,
+    const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::vector<std::variant<BatchElementError, TraitsDataPtr>> resolveResult;
   resolveResult.resize(entityReferences.size());
   resolve(
-      entityReferences, traitSet, context,
+      entityReferences, traitSet, resolveAccess, context,
       [&resolveResult](std::size_t index, TraitsDataPtr data) {
         resolveResult[index] = std::move(data);
       },
@@ -261,36 +261,41 @@ std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::re
 }
 
 void Manager::defaultEntityReference(const trait::TraitSets &traitSets,
+                                     const access::DefaultEntityAccess defaultEntityAccess,
                                      const ContextConstPtr &context,
                                      const DefaultEntityReferenceSuccessCallback &successCallback,
                                      const BatchElementErrorCallback &errorCallback) {
-  managerInterface_->defaultEntityReference(traitSets, context, hostSession_, successCallback,
-                                            errorCallback);
+  managerInterface_->defaultEntityReference(traitSets, defaultEntityAccess, context, hostSession_,
+                                            successCallback, errorCallback);
 }
 
 void Manager::getWithRelationship(const EntityReferences &entityReferences,
                                   const TraitsDataPtr &relationshipTraitsData,
+                                  const access::RelationsAccess relationsAccess,
                                   const ContextConstPtr &context,
                                   const Manager::RelationshipSuccessCallback &successCallback,
                                   const Manager::BatchElementErrorCallback &errorCallback,
                                   const trait::TraitSet &resultTraitSet) {
   managerInterface_->getWithRelationship(entityReferences, relationshipTraitsData, resultTraitSet,
-                                         context, hostSession_, successCallback, errorCallback);
+                                         relationsAccess, context, hostSession_, successCallback,
+                                         errorCallback);
 }
 
 void Manager::getWithRelationships(const EntityReference &entityReference,
                                    const trait::TraitsDatas &relationshipTraitsDatas,
+                                   const access::RelationsAccess relationsAccess,
                                    const ContextConstPtr &context,
                                    const Manager::RelationshipSuccessCallback &successCallback,
                                    const Manager::BatchElementErrorCallback &errorCallback,
                                    const trait::TraitSet &resultTraitSet) {
   managerInterface_->getWithRelationships(entityReference, relationshipTraitsDatas, resultTraitSet,
-                                          context, hostSession_, successCallback, errorCallback);
+                                          relationsAccess, context, hostSession_, successCallback,
+                                          errorCallback);
 }
 
 void Manager::getWithRelationshipPaged(
     const EntityReferences &entityReferences, const TraitsDataPtr &relationshipTraitsData,
-    size_t pageSize, const ContextConstPtr &context,
+    size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
     const Manager::PagedRelationshipSuccessCallback &successCallback,
     const Manager::BatchElementErrorCallback &errorCallback,
     const trait::TraitSet &resultTraitSet) {
@@ -310,14 +315,14 @@ void Manager::getWithRelationshipPaged(
         auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
         successCallback(idx, std::move(pager));
       };
-  managerInterface_->getWithRelationshipPaged(entityReferences, relationshipTraitsData,
-                                              resultTraitSet, pageSize, context, hostSession_,
-                                              convertingPagerSuccessCallback, errorCallback);
+  managerInterface_->getWithRelationshipPaged(
+      entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess, context,
+      hostSession_, convertingPagerSuccessCallback, errorCallback);
 }
 
 void Manager::getWithRelationshipsPaged(
     const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
-    size_t pageSize, const ContextConstPtr &context,
+    size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
     const Manager::PagedRelationshipSuccessCallback &successCallback,
     const Manager::BatchElementErrorCallback &errorCallback,
     const trait::TraitSet &resultTraitSet) {
@@ -337,13 +342,15 @@ void Manager::getWithRelationshipsPaged(
         auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
         successCallback(idx, std::move(pager));
       };
-  managerInterface_->getWithRelationshipsPaged(entityReference, relationshipTraitsDatas,
-                                               resultTraitSet, pageSize, context, hostSession_,
-                                               convertingPagerSuccessCallback, errorCallback);
+  managerInterface_->getWithRelationshipsPaged(
+      entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess, context,
+      hostSession_, convertingPagerSuccessCallback, errorCallback);
 }
 
 void Manager::preflight(const EntityReferences &entityReferences,
-                        const trait::TraitsDatas &traitsHints, const ContextConstPtr &context,
+                        const trait::TraitsDatas &traitsHints,
+                        const access::PublishingAccess publishingAccess,
+                        const ContextConstPtr &context,
                         const PreflightSuccessCallback &successCallback,
                         const BatchElementErrorCallback &errorCallback) {
   if (entityReferences.size() != traitsHints.size()) {
@@ -354,17 +361,17 @@ void Manager::preflight(const EntityReferences &entityReferences,
     message += " traits hints.";
     throw std::out_of_range{message};
   }
-  managerInterface_->preflight(entityReferences, traitsHints, context, hostSession_,
-                               successCallback, errorCallback);
+  managerInterface_->preflight(entityReferences, traitsHints, publishingAccess, context,
+                               hostSession_, successCallback, errorCallback);
 }
 
 EntityReference Manager::preflight(
     const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReference result{""};
   preflight(
-      {entityReference}, {traitsHint}, context,
+      {entityReference}, {traitsHint}, publishingAccess, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
         result = std::move(preflightedRef);
       },
@@ -377,11 +384,11 @@ EntityReference Manager::preflight(
 
 std::variant<BatchElementError, EntityReference> Manager::preflight(
     const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<BatchElementError, EntityReference> result;
   preflight(
-      {entityReference}, {traitsHint}, context,
+      {entityReference}, {traitsHint}, publishingAccess, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference preflightedRef) {
         result = std::move(preflightedRef);
       },
@@ -394,13 +401,13 @@ std::variant<BatchElementError, EntityReference> Manager::preflight(
 
 EntityReferences Manager::preflight(
     const EntityReferences &entityReferences, const trait::TraitsDatas &traitsHints,
-    const ContextConstPtr &context,
+    access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReferences results;
   results.resize(entityReferences.size(), EntityReference{""});
 
   preflight(
-      entityReferences, traitsHints, context,
+      entityReferences, traitsHints, publishingAccess, context,
       [&results](std::size_t index, EntityReference preflightedRef) {
         results[index] = std::move(preflightedRef);
       },
@@ -414,12 +421,12 @@ EntityReferences Manager::preflight(
 
 std::vector<std::variant<BatchElementError, EntityReference>> Manager::preflight(
     const EntityReferences &entityReferences, const trait::TraitsDatas &traitsHints,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::vector<std::variant<BatchElementError, EntityReference>> results;
   results.resize(entityReferences.size());
   preflight(
-      entityReferences, traitsHints, context,
+      entityReferences, traitsHints, publishingAccess, context,
       [&results](std::size_t index, EntityReference entityReference) {
         results[index] = std::move(entityReference);
       },
@@ -432,6 +439,7 @@ std::vector<std::variant<BatchElementError, EntityReference>> Manager::preflight
 
 void Manager::register_(const EntityReferences &entityReferences,
                         const trait::TraitsDatas &entityTraitsDatas,
+                        const access::PublishingAccess publishingAccess,
                         const ContextConstPtr &context,
                         const RegisterSuccessCallback &successCallback,
                         const BatchElementErrorCallback &errorCallback) {
@@ -443,18 +451,18 @@ void Manager::register_(const EntityReferences &entityReferences,
     message += " traits datas.";
     throw std::out_of_range{message};
   }
-  return managerInterface_->register_(entityReferences, entityTraitsDatas, context, hostSession_,
-                                      successCallback, errorCallback);
+  return managerInterface_->register_(entityReferences, entityTraitsDatas, publishingAccess,
+                                      context, hostSession_, successCallback, errorCallback);
 }
 
 // Singular Except
 EntityReference hostApi::Manager::register_(
     const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReference result("");
   register_(
-      {entityReference}, {entityTraitsData}, context,
+      {entityReference}, {entityTraitsData}, publishingAccess, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference registeredRef) {
         result = std::move(registeredRef);
       },
@@ -468,11 +476,11 @@ EntityReference hostApi::Manager::register_(
 // Singular variant
 std::variant<BatchElementError, EntityReference> hostApi::Manager::register_(
     const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<BatchElementError, EntityReference> result;
   register_(
-      {entityReference}, {entityTraitsData}, context,
+      {entityReference}, {entityTraitsData}, publishingAccess, context,
       [&result]([[maybe_unused]] std::size_t index, EntityReference registeredRef) {
         result = std::move(registeredRef);
       },
@@ -486,13 +494,13 @@ std::variant<BatchElementError, EntityReference> hostApi::Manager::register_(
 // Multi except
 std::vector<EntityReference> hostApi::Manager::register_(
     const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   std::vector<EntityReference> result;
   result.resize(entityReferences.size(), EntityReference{""});
 
   register_(
-      entityReferences, entityTraitsDatas, context,
+      entityReferences, entityTraitsDatas, publishingAccess, context,
       [&result](std::size_t index, EntityReference registeredRef) {
         result[index] = std::move(registeredRef);
       },
@@ -507,12 +515,12 @@ std::vector<EntityReference> hostApi::Manager::register_(
 // Multi variant
 std::vector<std::variant<BatchElementError, EntityReference>> hostApi::Manager::register_(
     const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
-    const ContextConstPtr &context,
+    const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::vector<std::variant<BatchElementError, EntityReference>> result;
   result.resize(entityReferences.size());
   register_(
-      entityReferences, entityTraitsDatas, context,
+      entityReferences, entityTraitsDatas, publishingAccess, context,
       [&result](std::size_t index, EntityReference registeredRef) {
         result[index] = std::move(registeredRef);
       },

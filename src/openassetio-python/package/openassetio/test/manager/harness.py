@@ -206,18 +206,13 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         # during setUp.
         self.addCleanup(self._manager.flushCaches)
 
-    def createTestContext(self, access=None):
+    def createTestContext(self):
         """
         A convenience method to create a context with the
         test locale, as provided by the test harness mechanism.
-
-        @param access `int` One of the context access policies (or None),
-        if provided, the context's access will be set to this.
         """
         context = self._manager.createContext()
         context.locale = self._locale
-        if access is not None:
-            context.access = access
         return context
 
     def assertIsStringKeyPrimitiveValueDict(self, dictionary):

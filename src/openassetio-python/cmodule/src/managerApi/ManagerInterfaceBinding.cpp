@@ -55,10 +55,10 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   [[nodiscard]] trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession) const override {
+      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
+      const ContextConstPtr& context, const HostSessionPtr& hostSession) const override {
     PYBIND11_OVERRIDE_PURE(trait::TraitsDatas, ManagerInterface, managementPolicy, traitSets,
-                           context, hostSession);
+                           policyAccess, context, hostSession);
   }
 
   ManagerStateBasePtr createState(const HostSessionPtr& hostSession) override {
@@ -102,85 +102,89 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-               const ContextConstPtr& context, const HostSessionPtr& hostSession,
-               const ResolveSuccessCallback& successCallback,
+               const access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+               const HostSessionPtr& hostSession, const ResolveSuccessCallback& successCallback,
                const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet, context,
-                           hostSession, successCallback, errorCallback);
+    PYBIND11_OVERRIDE_PURE(void, ManagerInterface, resolve, entityReferences, traitSet,
+                           resolveAccess, context, hostSession, successCallback, errorCallback);
   }
 
-  void defaultEntityReference(const trait::TraitSets& traitSets, const ContextConstPtr& context,
-                              const HostSessionPtr& hostSession,
+  void defaultEntityReference(const trait::TraitSets& traitSets,
+                              const access::DefaultEntityAccess defaultEntityAccess,
+                              const ContextConstPtr& context, const HostSessionPtr& hostSession,
                               const DefaultEntityReferenceSuccessCallback& successCallback,
                               const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, defaultEntityReference, traitSets, context,
-                      hostSession, successCallback, errorCallback);
+    PYBIND11_OVERRIDE(void, ManagerInterface, defaultEntityReference, traitSets,
+                      defaultEntityAccess, context, hostSession, successCallback, errorCallback);
   }
 
   void getWithRelationship(
       const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
-      const trait::TraitSet& resultTraitSet, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession,
+      const trait::TraitSet& resultTraitSet, const access::RelationsAccess relationsAccess,
+      const ContextConstPtr& context, const HostSessionPtr& hostSession,
       const ManagerInterface::RelationshipSuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationship, entityReferences,
-                      relationshipTraitsData, resultTraitSet, context, hostSession,
-                      successCallback, errorCallback);
+                      relationshipTraitsData, resultTraitSet, relationsAccess, context,
+                      hostSession, successCallback, errorCallback);
   }
 
   void getWithRelationships(
       const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
-      const trait::TraitSet& resultTraitSet, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession,
+      const trait::TraitSet& resultTraitSet, const access::RelationsAccess relationsAccess,
+      const ContextConstPtr& context, const HostSessionPtr& hostSession,
       const ManagerInterface::RelationshipSuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationships, entityReference,
-                      relationshipTraitsDatas, resultTraitSet, context, hostSession,
-                      successCallback, errorCallback);
+                      relationshipTraitsDatas, resultTraitSet, relationsAccess, context,
+                      hostSession, successCallback, errorCallback);
   }
 
   void getWithRelationshipPaged(
       const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
-      const trait::TraitSet& resultTraitSet, size_t pageSize, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet, size_t pageSize,
+      const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
       const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationshipPaged,
-        (entityReferences, relationshipTraitsData, resultTraitSet, pageSize, context, hostSession,
-         successCallback, errorCallback),
-        entityReferences, relationshipTraitsData, resultTraitSet, pageSize, context, hostSession,
-        RetainCommonPyArgs::forFn(successCallback), errorCallback);
+        (entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess,
+         context, hostSession, successCallback, errorCallback),
+        entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess,
+        context, hostSession, RetainCommonPyArgs::forFn(successCallback), errorCallback);
   }
 
   void getWithRelationshipsPaged(
       const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
-      const trait::TraitSet& resultTraitSet, size_t pageSize, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet, size_t pageSize,
+      const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
       const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationshipsPaged,
-        (entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, context, hostSession,
-         successCallback, errorCallback),
-        entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, context, hostSession,
-        RetainCommonPyArgs::forFn(successCallback), errorCallback);
+        (entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess,
+         context, hostSession, successCallback, errorCallback),
+        entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess,
+        context, hostSession, RetainCommonPyArgs::forFn(successCallback), errorCallback);
   }
 
   void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
-                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, preflight, entityReferences, traitsHints,
-                           context, hostSession, successCallback, errorCallback);
+                           publishingAccess, context, hostSession, successCallback, errorCallback);
   }
 
   void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
-                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
-                 const RegisterSuccessCallback& successCallback,
+                 const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const HostSessionPtr& hostSession, const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
     PYBIND11_OVERRIDE_PURE(void, ManagerInterface, register, entityReferences, traitsDatas,
-                           context, hostSession, successCallback, errorCallback);
+                           publishingAccess, context, hostSession, successCallback, errorCallback);
   }
 
   // Hoist protected members
@@ -212,7 +216,7 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("hostSession").none(false))
       .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false))
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
-           py::arg("context").none(false), py::arg("hostSession").none(false))
+           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false))
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
       .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),
            py::arg("parentState").none(false), py::arg("hostSession").none(false))
@@ -229,40 +233,40 @@ void registerManagerInterface(const py::module& mod) {
       .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
            py::arg("hostSession").none(false))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
-           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("defaultEntityReference", &ManagerInterface::defaultEntityReference,
-           py::arg("traitSets"), py::arg("context").none(false),
+           py::arg("traitSets"), py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
       .def("getWithRelationshipPaged", &ManagerInterface::getWithRelationshipPaged,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("resultTraitSet"), py::arg("pageSize").none(false),
+           py::arg("resultTraitSet"), py::arg("pageSize").none(false), py::arg("relationsAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationshipsPaged", &ManagerInterface::getWithRelationshipsPaged,
            py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-           py::arg("resultTraitSet"), py::arg("pageSize").none(false),
+           py::arg("resultTraitSet"), py::arg("pageSize").none(false), py::arg("relationsAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("resultTraitSet"), py::arg("context").none(false),
+           py::arg("resultTraitSet"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
       .def("getWithRelationships", &ManagerInterface::getWithRelationships,
            py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-           py::arg("resultTraitSet"), py::arg("context").none(false),
+           py::arg("resultTraitSet"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
-           py::arg("traitsHints"), py::arg("context").none(false),
+           py::arg("traitsHints"), py::arg("publishingAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
       .def("register", &ManagerInterface::register_, py::arg("entityReferences"),
-           py::arg("entityTraitsDatas"), py::arg("context").none(false),
-           py::arg("hostSession").none(false), py::arg("successCallback"),
-           py::arg("errorCallback"))
+           py::arg("entityTraitsDatas"), py::arg("publishingAccess"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def("_createEntityReference", &PyManagerInterface::createEntityReference,
            py::arg("entityReferenceString"));
 }

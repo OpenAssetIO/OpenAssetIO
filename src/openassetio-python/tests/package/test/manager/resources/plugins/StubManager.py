@@ -58,7 +58,7 @@ class StubManager(ManagerInterface):
         self.__settings = managerSettings
         self.__info["host_identifier"] = hostSession.host().identifier()
 
-    def managementPolicy(self, traitSets, context, hostSession):
+    def managementPolicy(self, traitSets, access, context, hostSession):
         # pylint: disable=unused-argument
         return [TraitsData() for _ in traitSets]
 

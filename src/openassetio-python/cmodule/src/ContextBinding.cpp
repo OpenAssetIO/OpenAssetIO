@@ -20,25 +20,13 @@ void registerContext(const py::module& mod) {
 
   py::class_<Context, ContextPtr> context{mod, "Context", py::is_final()};
 
-  py::enum_<Context::Access>{context, "Access"}
-      .value("kRead", Context::Access::kRead)
-      .value("kWrite", Context::Access::kWrite)
-      .value("kCreateRelated", Context::Access::kCreateRelated)
-      .value("kUnknown", Context::Access::kUnknown);
-
-  context.def_readonly_static("kAccessNames", &Context::kAccessNames);
-
   context
       .def(py::init(RetainCommonPyArgs::forFn<&Context::make>()),
-           py::arg_v("access", Context::Access::kUnknown), py::arg_v("locale", TraitsDataPtr{}),
-           py::arg_v("managerState", ManagerStateBasePtr{}))
-      .def_readwrite("access", &Context::access)
+           py::arg_v("locale", TraitsDataPtr{}), py::arg_v("managerState", ManagerStateBasePtr{}))
       .def_readwrite("locale", &Context::locale)
       .def_property(
           "managerState", [](const Context& self) { return self.managerState; },
           [](Context& self, PyRetainingManagerStateBasePtr managerState) {
             self.managerState = std::move(managerState);
-          })
-      .def("isForRead", &Context::isForRead)
-      .def("isForWrite", &Context::isForWrite);
+          });
 }

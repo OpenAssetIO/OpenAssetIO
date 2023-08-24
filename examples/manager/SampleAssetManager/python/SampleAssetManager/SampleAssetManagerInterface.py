@@ -65,6 +65,6 @@ class SampleAssetManagerInterface(ManagerInterface):
         # to acquire the GIL and enter Python.
         return {constants.kInfoKey_EntityReferencesMatchPrefix: "sam:///"}
 
-    def managementPolicy(self, traitSets, context, hostSession):
+    def managementPolicy(self, traitSets, policyAccess, context, hostSession):
         # pylint: disable=unused-argument
         return [TraitsData() for _ in traitSets]

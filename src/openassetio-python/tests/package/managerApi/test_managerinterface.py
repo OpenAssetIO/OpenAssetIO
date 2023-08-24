@@ -31,6 +31,7 @@ from openassetio.managerApi import (
     ManagerStateBase,
     EntityReferencePagerInterface,
 )
+from openassetio.access import RelationsAccess, DefaultEntityAccess
 
 
 class Test_ManagerInterface_identifier:
@@ -167,7 +168,12 @@ class Test_ManagerInterface_defaultEntityReference:
         traitsSets = [set()]
 
         refs = manager_interface.defaultEntityReference(
-            traitsSets, Context(), a_host_session, success_callback, error_callback
+            traitsSets,
+            DefaultEntityAccess.kRead,
+            Context(),
+            a_host_session,
+            success_callback,
+            error_callback,
         )
 
         success_callback.assert_not_called()
@@ -187,7 +193,12 @@ class Test_ManagerInterface_defaultEntityReference:
         traitsSets = [set(), set(), set()]
 
         refs = manager_interface.defaultEntityReference(
-            traitsSets, Context(), a_host_session, success_callback, error_callback
+            traitsSets,
+            DefaultEntityAccess.kRead,
+            Context(),
+            a_host_session,
+            success_callback,
+            error_callback,
         )
 
         success_callback.assert_not_called()
@@ -217,6 +228,7 @@ class Test_ManagerInterface_getWithRelationship:
                 refs,
                 TraitsData(),
                 set(),
+                RelationsAccess.kRead,
                 Context(),
                 a_host_session,
                 success_callback,
@@ -247,6 +259,7 @@ class Test_ManagerInterface_getWithRelationships:
                 EntityReference(""),
                 rels,
                 set(),
+                RelationsAccess.kRead,
                 Context(),
                 a_host_session,
                 success_callback,
@@ -282,6 +295,7 @@ class Test_ManagerInterface_getWithRelationshipPaged:
                 TraitsData(),
                 set(),
                 1,
+                RelationsAccess.kRead,
                 Context(),
                 a_host_session,
                 success_callback,
@@ -322,6 +336,7 @@ class Test_ManagerInterface_getWithRelationshipsPaged:
                 rels,
                 set(),
                 1,
+                RelationsAccess.kRead,
                 Context(),
                 a_host_session,
                 success_callback,

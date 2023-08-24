@@ -52,8 +52,8 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   /// Wrap the C suite's `managementPolicy` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   [[nodiscard]] trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession) const override;
+      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
+      const ContextConstPtr& context, const HostSessionPtr& hostSession) const override;
 
   /// Wrap the C suite's `isEntityReferenceString` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
@@ -70,22 +70,23 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   /// Wrap the C suite's `resolve` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-               const ContextConstPtr& context, const HostSessionPtr& hostSession,
-               const ResolveSuccessCallback& successCallback,
+               access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+               const HostSessionPtr& hostSession, const ResolveSuccessCallback& successCallback,
                const BatchElementErrorCallback& errorCallback) override;
 
   /// Wrap the C suite's `preflight` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
-                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override;
 
   /// Wrap the C suite's `register` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
-                 const ContextConstPtr& context, const HostSessionPtr& hostSession,
-                 const RegisterSuccessCallback& successCallback,
+                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const HostSessionPtr& hostSession, const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override;
 
  private:

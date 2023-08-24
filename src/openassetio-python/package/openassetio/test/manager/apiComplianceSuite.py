@@ -37,7 +37,8 @@ import weakref
 # pylint: disable=too-many-lines,unbalanced-tuple-unpacking
 
 from .harness import FixtureAugmentedTestCase
-from ... import BatchElementError, Context, EntityReference, TraitsData
+from ... import BatchElementError, EntityReference, TraitsData
+from ...access import PolicyAccess, ResolveAccess, RelationsAccess, PublishingAccess
 
 
 __all__ = []
@@ -178,41 +179,36 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
 
     def test_when_called_with_single_trait_set_returns_single_result(self):
         context = self.createTestContext()
-        context.access = context.Access.kRead
         self.__assertPolicyResults(1, context)
 
     def test_when_called_with_ten_trait_sets_returns_ten_results(self):
         context = self.createTestContext()
-        context.access = context.Access.kRead
         self.__assertPolicyResults(10, context)
 
     def test_calling_with_read_context(self):
         context = self.createTestContext()
-        context.access = context.Access.kRead
         self.__assertPolicyResults(1, context)
 
     def test_calling_with_write_context(self):
         context = self.createTestContext()
-        context.access = context.Access.kWrite
-        self.__assertPolicyResults(1, context)
+        self.__assertPolicyResults(1, context, policyAccess=PolicyAccess.kWrite)
 
     def test_calling_with_createRelated_context(self):
         context = self.createTestContext()
-        context.access = context.Access.kCreateRelated
-        self.__assertPolicyResults(1, context)
+        self.__assertPolicyResults(1, context, policyAccess=PolicyAccess.kCreateRelated)
 
     def test_calling_with_empty_trait_set_does_not_error(self):
         context = self.createTestContext()
-        context.access = context.Access.kRead
         self.__assertPolicyResults(1, context, traitSet=set())
 
     def test_calling_with_unknown_complex_trait_set_does_not_error(self):
         context = self.createTestContext()
-        context.access = context.Access.kRead
         traits = {"🐟🐠🐟🐠", "asdfsdfasdf", "⿂"}
         self.__assertPolicyResults(1, context, traitSet=traits)
 
-    def __assertPolicyResults(self, numTraitSets, context, traitSet={"entity"}):
+    def __assertPolicyResults(
+        self, numTraitSets, context, policyAccess=PolicyAccess.kRead, traitSet={"entity"}
+    ):
         """
         Tests the validity and coherency of the results of a call to
         `managementPolicy` for a given number of trait sets and
@@ -225,7 +221,7 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         # pylint: disable=dangerous-default-value
         traitSets = [traitSet for _ in range(numTraitSets)]
 
-        policies = self._manager.managementPolicy(traitSets, context)
+        policies = self._manager.managementPolicy(traitSets, policyAccess, context)
 
         self.assertValuesOfType(policies, TraitsData)
         self.assertEqual(len(policies), numTraitSets)
@@ -268,7 +264,7 @@ class Test_entityExists(FixtureAugmentedTestCase):
         )
 
     def test_when_querying_existing_reference_then_true_is_returned(self):
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
         result = [None]
         self._manager.entityExists(
             [self.a_reference_to_an_existing_entity],
@@ -282,7 +278,7 @@ class Test_entityExists(FixtureAugmentedTestCase):
         a_reference_to_a_nonexisting_entity = self.requireEntityReferenceFixture(
             "a_reference_to_a_nonexisting_entity"
         )
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
         result = [None]
         self._manager.entityExists(
             [a_reference_to_a_nonexisting_entity],
@@ -298,7 +294,7 @@ class Test_entityExists(FixtureAugmentedTestCase):
         a_reference_to_a_nonexisting_entity = self.requireEntityReferenceFixture(
             "a_reference_to_a_nonexisting_entity"
         )
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
         result = [None, None]
         self._manager.entityExists(
             [self.a_reference_to_an_existing_entity, a_reference_to_a_nonexisting_entity],
@@ -311,7 +307,7 @@ class Test_entityExists(FixtureAugmentedTestCase):
     def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
         a_malformed_reference = self.requireEntityReferenceFixture("a_malformed_reference")
         expected_error_message = self.requireFixture("expected_error_message")
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
         result = [None]
         self._manager.entityExists(
             [a_malformed_reference],
@@ -339,39 +335,39 @@ class Test_resolve(FixtureAugmentedTestCase):
 
     def test_when_no_traits_then_returned_specification_is_empty(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref], set(), Context.Access.kRead, set())
+        self.__testResolution([ref], set(), ResolveAccess.kRead, set())
 
     def test_when_multiple_references_then_same_number_of_returned_specifications(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref, ref, ref, ref, ref], set(), Context.Access.kRead, set())
+        self.__testResolution([ref, ref, ref, ref, ref], set(), ResolveAccess.kRead, set())
 
     def test_when_unknown_traits_then_returned_specification_is_empty(self):
         ref = self.a_reference_to_a_readable_entity
-        self.__testResolution([ref], {"₲₪₡🤯"}, Context.Access.kRead, set())
+        self.__testResolution([ref], {"₲₪₡🤯"}, ResolveAccess.kRead, set())
 
     def test_when_valid_traits_then_returned_specification_has_those_traits(self):
         ref = self.a_reference_to_a_readable_entity
         traits = self.a_set_of_valid_traits
-        self.__testResolution([ref], traits, Context.Access.kRead, traits)
+        self.__testResolution([ref], traits, ResolveAccess.kRead, traits)
 
     def test_when_valid_and_unknown_traits_then_returned_specification_only_has_valid_traits(self):
         ref = self.a_reference_to_a_readable_entity
         traits = self.a_set_of_valid_traits
         mixed_traits = set(traits)
         mixed_traits.add("₲₪₡🤯")
-        self.__testResolution([ref], mixed_traits, Context.Access.kRead, traits)
+        self.__testResolution([ref], mixed_traits, ResolveAccess.kRead, traits)
 
     def test_when_resolving_read_only_reference_for_write_then_access_error_is_returned(self):
         self.__testResolutionError(
             "a_reference_to_a_readonly_entity",
-            access=Context.Access.kWrite,
+            resolve_access=ResolveAccess.kWrite,
             errorCode=BatchElementError.ErrorCode.kEntityAccessError,
         )
 
     def test_when_resolving_write_only_reference_for_read_then_access_error_is_returned(self):
         self.__testResolutionError(
             "a_reference_to_a_writeonly_entity",
-            access=Context.Access.kRead,
+            resolve_access=ResolveAccess.kRead,
             errorCode=BatchElementError.ErrorCode.kEntityAccessError,
         )
 
@@ -384,14 +380,14 @@ class Test_resolve(FixtureAugmentedTestCase):
             errorCode=BatchElementError.ErrorCode.kMalformedEntityReference,
         )
 
-    def __testResolution(self, references, traits, access, expected_traits):
+    def __testResolution(self, references, traits, resolve_access, expected_traits):
         context = self.createTestContext()
-        context.access = access
         results = []
 
         self._manager.resolve(
             references,
             traits,
+            resolve_access,
             context,
             lambda _idx, traits_data: results.append(traits_data),
             lambda idx, batch_element_error: self.fail(
@@ -406,7 +402,7 @@ class Test_resolve(FixtureAugmentedTestCase):
     def __testResolutionError(
         self,
         fixture_name,
-        access=Context.Access.kRead,
+        resolve_access=ResolveAccess.kRead,
         errorCode=BatchElementError.ErrorCode.kEntityResolutionError,
     ):
         reference = self._manager.createEntityReference(
@@ -417,12 +413,12 @@ class Test_resolve(FixtureAugmentedTestCase):
         expected_error = BatchElementError(errorCode, expected_msg)
 
         context = self.createTestContext()
-        context.access = access
 
         results = []
         self._manager.resolve(
             [reference],
             self.a_set_of_valid_traits,
+            resolve_access,
             context,
             lambda _idx, _traits_data: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),
@@ -448,7 +444,8 @@ class Test_preflight(FixtureAugmentedTestCase):
         self._manager.preflight(
             [entity_reference, entity_reference],
             [traits_data, traits_data],
-            self.createTestContext(Context.Access.kWrite),
+            PublishingAccess.kWrite,
+            self.createTestContext(),
             lambda _, ref: results.append(ref),
             lambda _, err: self.fail(err.message),
         )
@@ -498,12 +495,12 @@ class Test_preflight(FixtureAugmentedTestCase):
         expected_error = BatchElementError(expected_error_code, expected_error_message)
 
         context = self.createTestContext()
-        context.access = Context.Access.kWrite
 
         errors = []
         self._manager.preflight(
             [entity_reference],
             [traits_data],
+            PublishingAccess.kWrite,
             context,
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
             lambda _idx, error: errors.append(error),
@@ -535,7 +532,8 @@ class Test_register(FixtureAugmentedTestCase):
         self._manager.register(
             [ref, ref],
             [data, data],
-            self.createTestContext(Context.Access.kWrite),
+            PublishingAccess.kWrite,
+            self.createTestContext(),
             lambda _, ref: results.append(ref),
             lambda _, err: self.fail(err.message),
         )
@@ -566,7 +564,8 @@ class Test_register(FixtureAugmentedTestCase):
         self._manager.register(
             [reference],
             [self.a_traitsdata_for_a_reference_to_a_writable_entity],
-            self.createTestContext(Context.Access.kWrite),
+            PublishingAccess.kWrite,
+            self.createTestContext(),
             lambda _idx, _ref: self.fail("Preflight should not succeed"),
             lambda _idx, error: errors.append(error),
         )
@@ -861,7 +860,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             relationships = self.weaklist([relationship])
             ref = self.requireEntityReferenceFixture("a_reference")
             refs = self.weaklist([ref])
-            context = self.createTestContext(access=Context.Access.kRead)
+            context = self.createTestContext()
             context.locale = TraitsData(context.locale)  # Force a copy.
             result_trait_set = copy.copy(self.requireFixture("an_entity_trait_set_to_filter_by"))
 
@@ -907,12 +906,13 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     def __test_getWithRelationship_success(self, references, relationship, resultTraitSet=None):
         if resultTraitSet is None:
             resultTraitSet = set()
-        context = self.createTestContext(access=Context.Access.kRead)
+        context = self.createTestContext()
         results = []
 
         self._manager.getWithRelationship(
             references,
             relationship,
+            RelationsAccess.kRead,
             context,
             lambda _idx, traits_data: results.append(traits_data),
             lambda idx, batch_element_error: self.fail(
@@ -926,12 +926,13 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     def __test_getWithRelationships_success(self, reference, relationships, resultTraitSet=None):
         if resultTraitSet is None:
             resultTraitSet = set()
-        context = self.createTestContext(access=Context.Access.kRead)
+        context = self.createTestContext()
         results = []
 
         self._manager.getWithRelationships(
             reference,
             relationships,
+            RelationsAccess.kRead,
             context,
             lambda _idx, traits_data: results.append(traits_data),
             lambda idx, batch_element_error: self.fail(
@@ -947,7 +948,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         self, references, relationship, pageSize=10, context=None, resultTraitSet=None
     ):
         if context is None:
-            context = self.createTestContext(access=Context.Access.kRead)
+            context = self.createTestContext()
 
         if resultTraitSet is None:
             resultTraitSet = set()
@@ -958,6 +959,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             references,
             relationship,
             pageSize,
+            RelationsAccess.kRead,
             context,
             lambda idx, pager: operator.setitem(pagers, idx, pager),
             lambda idx, batch_element_error: self.fail(
@@ -974,7 +976,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         self, reference, relationships, pageSize=10, context=None, resultTraitSet=None
     ):
         if context is None:
-            context = self.createTestContext(access=Context.Access.kRead)
+            context = self.createTestContext()
 
         if resultTraitSet is None:
             resultTraitSet = set()
@@ -985,6 +987,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             reference,
             relationships,
             pageSize,
+            RelationsAccess.kRead,
             context,
             lambda idx, pager: operator.setitem(pagers, idx, pager),
             lambda idx, batch_element_error: self.fail(
@@ -1006,7 +1009,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     ):
         expected_error = BatchElementError(expected_error_code, expected_error_message)
 
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
 
         relationship = TraitsData(relationship_trait_set)
 
@@ -1014,6 +1017,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         self._manager.getWithRelationship(
             [entity_reference],
             relationship,
+            RelationsAccess.kRead,
             context,
             lambda _idx, _refs: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),
@@ -1031,7 +1035,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     ):
         expected_error = BatchElementError(expected_error_code, expected_error_message)
 
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
 
         relationship = TraitsData(relationship_trait_set)
 
@@ -1039,6 +1043,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         self._manager.getWithRelationships(
             entity_reference,
             [relationship],
+            RelationsAccess.kRead,
             context,
             lambda _idx, _refs: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),
@@ -1056,7 +1061,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     ):
         expected_error = BatchElementError(expected_error_code, expected_error_message)
 
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
 
         relationship = TraitsData(relationship_trait_set)
 
@@ -1066,6 +1071,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             [entity_reference],
             relationship,
             1,
+            RelationsAccess.kRead,
             context,
             lambda _idx, _pager: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),
@@ -1083,7 +1089,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     ):
         expected_error = BatchElementError(expected_error_code, expected_error_message)
 
-        context = self.createTestContext(Context.Access.kRead)
+        context = self.createTestContext()
 
         relationship = TraitsData(relationship_trait_set)
 
@@ -1093,6 +1099,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             entity_reference,
             [relationship],
             1,
+            RelationsAccess.kRead,
             context,
             lambda _idx, _pager: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),

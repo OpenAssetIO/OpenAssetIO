@@ -110,7 +110,7 @@ add_custom_target(
     # Note: as above, we must not have trailing whitespace after setting
     # an env var on Windows.
     ${_envvars}&&
-"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
 $<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>"
 )
 
@@ -138,7 +138,7 @@ add_custom_target(
     # Note: as above, we must not have trailing whitespace after setting
     # an env var on Windows.
     ${_envvars}&&
-"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
+    "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/\
 $<TARGET_FILE_NAME:openassetio-python-bridge-test-exe>" "[no_openassetio_module]"
 )
 
