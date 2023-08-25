@@ -30,6 +30,7 @@ from openassetio import (
     MalformedEntityReferenceBatchElementException,
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
+    InvalidPreflightHintBatchElementException,
     BatchElementError,
     Context,
     EntityReference,
@@ -1008,6 +1009,7 @@ batch_element_error_codes = [
     BatchElementError.ErrorCode.kMalformedEntityReference,
     BatchElementError.ErrorCode.kEntityAccessError,
     BatchElementError.ErrorCode.kEntityResolutionError,
+    BatchElementError.ErrorCode.kInvalidPreflightHint,
 ]
 
 batch_element_exceptions = [
@@ -1016,6 +1018,7 @@ batch_element_exceptions = [
     MalformedEntityReferenceBatchElementException,
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
+    InvalidPreflightHintBatchElementException,
 ]
 
 batch_element_error_code_exception_pairs = list(

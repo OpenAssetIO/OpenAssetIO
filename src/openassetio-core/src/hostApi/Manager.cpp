@@ -30,6 +30,8 @@ void throwFromBatchElementError(std::size_t index, BatchElementError error) {
       throw EntityAccessErrorBatchElementException(index, std::move(error));
     case BatchElementError::ErrorCode::kEntityResolutionError:
       throw EntityResolutionErrorBatchElementException(index, std::move(error));
+    case BatchElementError::ErrorCode::kInvalidPreflightHint:
+      throw InvalidPreflightHintBatchElementException(index, std::move(error));
     default:
       std::string exceptionMessage = "Invalid BatchElementError. Code: ";
       exceptionMessage += std::to_string(static_cast<int>(error.code));
