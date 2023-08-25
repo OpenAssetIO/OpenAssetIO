@@ -56,7 +56,7 @@ OPENASSETIO_DECLARE_PTR(Manager)
  * The Manager API is threadsafe and can be called from multiple
  * threads concurrently.
  */
-class OPENASSETIO_CORE_EXPORT Manager {
+class OPENASSETIO_CORE_EXPORT Manager final {
  public:
   OPENASSETIO_ALIAS_PTR(Manager)
 
