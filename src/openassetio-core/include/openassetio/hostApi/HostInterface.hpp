@@ -59,9 +59,9 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
   /**
    * Returns an identifier that uniquely identifies the Host.
    *
-   * This may be used by a Manager's @ref
-   * openassetio.managerApi.ManagerInterface "ManagerInterface" to
-   * adjust its behavior accordingly. The identifier should be
+   * This may be used by a Manager's
+   * @fqref{managerApi.ManagerInterface} "ManagerInterface"
+   * to adjust its behavior accordingly. The identifier should be
    * unique for any application, but common to all versions.
    *
    * The identifier should use only alpha-numeric characters and '.',

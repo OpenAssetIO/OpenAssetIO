@@ -26,7 +26,7 @@
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
  *   through its @ref PythonPluginSystemManagerPlugin is wrapped in the
- *   @ref openassetio.hostApi.Manager.Manager "Manager" class before
+ *   @fqref{hostApi.Manager} "Manager" class before
  *   being made available to the @ref host. This is to allow for host
  *   session state management and other auditing/logging functionality.
  *   It also provides a degree of isolation against future API changes.
@@ -103,7 +103,7 @@
  *
  * @subsection manager_todo_basic_resolution Required for Resolution Only
  *
- * - Implement the @ref openassetio.managerApi.ManagerInterface
+ * - Implement the @fqref{managerApi.ManagerInterface}
  *   "ManagerInterface" class methods
  *   @fqref{managerApi.ManagerInterface.identifier} "identifier" an
  *   @fqref{managerApi.ManagerInterface.displayName} "displayName".
@@ -117,8 +117,8 @@
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- *   "ManagerInterface" to support lookup of assets.
+ *   @fqref{managerApi.ManagerInterface} "ManagerInterface" to support
+ *   lookup of assets.
  *
  * - Implement @fqref{managerApi.ManagerInterface.resolve} "resolve" and
  *   populate the requested trait property values.
@@ -135,8 +135,8 @@
  *
  * - Implement the methods grouped under the "Publishing" section, and
  *   the remaining methods in the "Entity Information" section of
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- *   "ManagerInterface", to support the registration of new assets.
+ *   @fqref{managerApi.ManagerInterface} "ManagerInterface", to support
+ *   the registration of new assets.
  *
  * - Map supported OpenAssetIO @ref trait "traits" to internal asset
  *   types where possible.
@@ -197,12 +197,12 @@
  * In order to support entity relationships:
  *
  * - Implement the API methods grouped under
- *   @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- *   "Related Entities" to return any appropriate @ref entity_reference
- *   "entity references" for the supplied relationship(s).
- *   Hosts may use these relationships to simplify common pipeline
- *   integration tasks. For example, loading multiple AOVs for a render,
- *   or determining data dependencies when transferring assets.
+ *   @fqref{managerApi.ManagerInterface} "Related Entities" to return
+ *   any appropriate @ref entity_reference "entity references" for the
+ *   supplied relationship(s). Hosts may use these relationships to
+ *   simplify common pipeline integration tasks. For example, loading
+ *   multiple AOVs for a render, or determining data dependencies when
+ *   transferring assets.
  * - Update your implementation of @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to cover the relationship trait sets you support.
  *
@@ -216,7 +216,7 @@
  * @section manager_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
- * @see @ref openassetio.managerApi.ManagerInterface "ManagerInterface"
+ * @see @fqref{managerApi.ManagerInterface} "ManagerInterface"
  * @see @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
  * "PythonPluginSystemManagerPlugin"
  * @see @fqref{Context} "Context"

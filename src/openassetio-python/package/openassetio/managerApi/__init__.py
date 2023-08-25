@@ -21,9 +21,8 @@ for an asset management system.
 If you are a tool or application developer, see @ref openassetio.hostApi
 """
 from .. import _openassetio  # pylint: disable=no-name-in-module
-from .ManagerInterface import ManagerInterface
 
-
+ManagerInterface = _openassetio.managerApi.ManagerInterface
 Host = _openassetio.managerApi.Host
 HostSession = _openassetio.managerApi.HostSession
 ManagerStateBase = _openassetio.managerApi.ManagerStateBase

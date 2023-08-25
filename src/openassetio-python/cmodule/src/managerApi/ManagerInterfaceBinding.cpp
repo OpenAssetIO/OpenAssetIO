@@ -109,6 +109,14 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession, successCallback, errorCallback);
   }
 
+  void defaultEntityReference(const trait::TraitSets& traitSets, const ContextConstPtr& context,
+                              const HostSessionPtr& hostSession,
+                              const DefaultEntityReferenceSuccessCallback& successCallback,
+                              const BatchElementErrorCallback& errorCallback) override {
+    PYBIND11_OVERRIDE(void, ManagerInterface, defaultEntityReference, traitSets, context,
+                      hostSession, successCallback, errorCallback);
+  }
+
   void getWithRelationship(
       const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
       const trait::TraitSet& resultTraitSet, const ContextConstPtr& context,
@@ -223,6 +231,10 @@ void registerManagerInterface(const py::module& mod) {
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("defaultEntityReference", &ManagerInterface::defaultEntityReference,
+           py::arg("traitSets"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"))
       .def("getWithRelationshipPaged", &ManagerInterface::getWithRelationshipPaged,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
            py::arg("resultTraitSet"), py::arg("pageSize").none(false),

@@ -21,7 +21,8 @@ void registerBatchElementError(py::module &mod) {
       .value("kMalformedEntityReference", BatchElementError::ErrorCode::kMalformedEntityReference)
       .value("kEntityAccessError", BatchElementError::ErrorCode::kEntityAccessError)
       .value("kEntityResolutionError", BatchElementError::ErrorCode::kEntityResolutionError)
-      .value("kInvalidPreflightHint", BatchElementError::ErrorCode::kInvalidPreflightHint);
+      .value("kInvalidPreflightHint", BatchElementError::ErrorCode::kInvalidPreflightHint)
+      .value("kInvalidTraitSet", BatchElementError::ErrorCode::kInvalidTraitSet);
 
   batchElementError
       .def(py::init<BatchElementError::ErrorCode, openassetio::Str>(), py::arg("code"),
@@ -65,6 +66,7 @@ class BatchElementException(RuntimeError):
   using openassetio::EntityResolutionErrorBatchElementException;
   using openassetio::InvalidEntityReferenceBatchElementException;
   using openassetio::InvalidPreflightHintBatchElementException;
+  using openassetio::InvalidTraitSetBatchElementException;
   using openassetio::MalformedEntityReferenceBatchElementException;
   using openassetio::UnknownBatchElementException;
 
@@ -83,6 +85,7 @@ class BatchElementException(RuntimeError):
   registerPyException("EntityAccessErrorBatchElementException");
   registerPyException("EntityResolutionErrorBatchElementException");
   registerPyException("InvalidPreflightHintBatchElementException");
+  registerPyException("InvalidTraitSetBatchElementException");
 
   // Register a function that will translate our C++ exceptions to the
   // appropriate Python exception type.
@@ -120,6 +123,8 @@ class BatchElementException(RuntimeError):
       setPyException("EntityResolutionErrorBatchElementException", exc);
     } catch (const InvalidPreflightHintBatchElementException &exc) {
       setPyException("InvalidPreflightHintBatchElementException", exc);
+    } catch (const InvalidTraitSetBatchElementException &exc) {
+      setPyException("InvalidTraitSetBatchElementException", exc);
     } catch (const BatchElementException &exc) {
       setPyException("BatchElementException", exc);
     }

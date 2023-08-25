@@ -44,3 +44,6 @@
 
 /// Invalid TraitsData hint given to preflight.
 #define OPENASSETIO_BatchErrorCode_kInvalidPreflightHint (OPENASSETIO_BatchErrorCode_BEGIN + 5)
+
+/// Failure due to a TraitSet being unknown to the manager
+#define OPENASSETIO_BatchErrorCode_kInvalidTraitSet (OPENASSETIO_BatchErrorCode_BEGIN + 6)

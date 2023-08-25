@@ -582,7 +582,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * corresponding index of the entity reference in @p entityReferences
    * along with a boolean indicating existence, as defined above. The
    * callback will be called on the same thread that initiated the call
-   * to `resolve`.
+   * to `entityExists`.
    *
    * @param errorCallback Callback that will be called for each
    * failed check of an entity reference. It will be given the
@@ -590,7 +590,7 @@ class OPENASSETIO_CORE_EXPORT Manager {
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
-   * that initiated the call to `resolve`.
+   * that initiated the call to `entityExists`.
    */
   void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
                     const ExistsSuccessCallback& successCallback,
@@ -843,6 +843,51 @@ class OPENASSETIO_CORE_EXPORT Manager {
   std::vector<std::variant<BatchElementError, TraitsDataPtr>> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Callback signature used for a successful default entity reference query.
+   */
+  using DefaultEntityReferenceSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for each of the given entity @ref trait_set
+   * "trait sets" and context.
+   *
+   * This can be used to ensure dialogs, prompts or publish locations
+   * default to some sensible value, avoiding the need for a user to
+   * re-enter such information. There may be situations where there is
+   * no meaningful default, so the caller should be robust to this
+   * situation.
+   *
+   * @param traitSets  The relevant trait sets for the type of entities
+   * required, these will be interpreted in conjunction with the context
+   * to determine the most sensible default.
+   *
+   * @param context The calling context.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful default retrieved for each of the given sets in @p
+   * traitSets. It will be given the corresponding index of the traitSet
+   * in @p traitSets along with the default entity reference. The
+   * callback will be called on the same thread that initiated the call
+   * to `defaultEntityReference`.
+   *
+   * @param errorCallback Callback that will be called for each failure
+   * to retrieve a sensible default entity reference. It will be given
+   * the corresponding index for each of the given sets in @p traitSets
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * "kEntityAccessError" error will be used if no suitable default
+   * reference exists, and the @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
+   * "kInvalidTraitSet" error used if the requested trait set is
+   * not recognised by the manager. The callback will be called on the
+   * same thread that initiated the call to `defaultEntityReference`.
+   */
+  void defaultEntityReference(const trait::TraitSets& traitSets, const ContextConstPtr& context,
+                              const DefaultEntityReferenceSuccessCallback& successCallback,
+                              const BatchElementErrorCallback& errorCallback);
 
   /// @}
 
