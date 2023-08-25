@@ -299,10 +299,10 @@ class Test_ManagerInterface_getWithRelationshipPaged:
             success_callback.reset_mock()
 
 
-class Test_ManagerInterface_getWithRelationships:
+class Test_ManagerInterface_getWithRelationshipsPaged:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(
-            ManagerInterface.getWithRelationshipPaged
+            ManagerInterface.getWithRelationshipsPaged
         )
         assert method_introspector.is_implemented_once(
             ManagerInterface, "getWithRelationshipsPaged"
