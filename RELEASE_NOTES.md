@@ -39,12 +39,20 @@ v1.0.0-alpha.x
 - Removed `Context.Retention`.
   [#1048](https://github.com/OpenAssetIO/OpenAssetIO/issues/1048)
 
+- Migrated `ManagerInterface`/`Manager` `defaultEntityReference` to C++
+  with Python bindings, and redesigned to use a callback based batch
+  API. [#992](https://github.com/OpenAssetIO/OpenAssetIO/issues/992)
+
 ### New Features
 
 - Added `Context.Access.kCreateRelated` access pattern, to  indicate
   when a workflow specifically creates a new entity as a relation to an
   existing one.
   [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+
+- Added `BatchElementError.ErrorCode.InvalidTraitSet` and
+  `InvalidTraitSetBatchElementException`
+  [#992](https://github.com/OpenAssetIO/OpenAssetIO/issues/992)
 
 ### Improvements
 

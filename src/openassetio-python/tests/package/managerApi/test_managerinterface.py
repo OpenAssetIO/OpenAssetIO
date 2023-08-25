@@ -25,7 +25,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import EntityReference, TraitsData, Context
+from openassetio import EntityReference, TraitsData, Context, BatchElementError
 from openassetio.managerApi import (
     ManagerInterface,
     ManagerStateBase,
@@ -152,19 +152,51 @@ class Test_ManagerInterface_stateFromPersistenceToken:
 
 
 class Test_ManagerInterface_defaultEntityReference:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(ManagerInterface.defaultEntityReference)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(
+            ManagerInterface.defaultEntityReference
+        )
         assert method_introspector.is_implemented_once(ManagerInterface, "defaultEntityReference")
 
-    def test_when_given_single_trait_set_then_returns_single_empty_ref(self, manager_interface):
-        refs = manager_interface.defaultEntityReference([()], Mock(), Mock())
-        assert refs == [""]
-
-    def test_when_given_multiple_trait_set_then_returns_corresponding_number_of_empty_refs(
-        self, manager_interface
+    def test_when_given_single_trait_set_then_calls_error_once_for_each_trait_set(
+        self, manager_interface, a_host_session
     ):
-        refs = manager_interface.defaultEntityReference([(), (), ()], Mock(), Mock())
-        assert refs == ["", "", ""]
+        success_callback = Mock()
+        error_callback = Mock()
+
+        traitsSets = [set()]
+
+        refs = manager_interface.defaultEntityReference(
+            traitsSets, Context(), a_host_session, success_callback, error_callback
+        )
+
+        success_callback.assert_not_called()
+
+        expected_code = BatchElementError.ErrorCode.kEntityAccessError
+        expected_err = BatchElementError(
+            expected_code, "Manager does not implement defaultEntityReference"
+        )
+        error_callback.assert_has_calls([call(i, expected_err) for i in range(len(traitsSets))])
+
+    def test_when_given_multiple_trait_set_then_calls_error_once_for_each_trait_set(
+        self, manager_interface, a_host_session
+    ):
+        success_callback = Mock()
+        error_callback = Mock()
+
+        traitsSets = [set(), set(), set()]
+
+        refs = manager_interface.defaultEntityReference(
+            traitsSets, Context(), a_host_session, success_callback, error_callback
+        )
+
+        success_callback.assert_not_called()
+
+        expected_code = BatchElementError.ErrorCode.kEntityAccessError
+        expected_err = BatchElementError(
+            expected_code, "Manager does not implement defaultEntityReference"
+        )
+        error_callback.assert_has_calls([call(i, expected_err) for i in range(len(traitsSets))])
 
 
 class Test_ManagerInterface_getWithRelationship:

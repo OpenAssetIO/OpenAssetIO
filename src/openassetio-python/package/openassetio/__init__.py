@@ -84,6 +84,7 @@ from ._openassetio import (  # pylint: disable=import-error
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
     InvalidPreflightHintBatchElementException,
+    InvalidTraitSetBatchElementException,
 )
 
 # pylint: disable=wrong-import-position

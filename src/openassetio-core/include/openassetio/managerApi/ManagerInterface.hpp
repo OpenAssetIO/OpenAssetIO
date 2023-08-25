@@ -790,6 +790,59 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                        const ContextConstPtr& context, const HostSessionPtr& hostSession,
                        const ResolveSuccessCallback& successCallback,
                        const BatchElementErrorCallback& errorCallback) = 0;
+
+  /**
+   * Callback signature used for a successful default entity reference
+   * query.
+   */
+  using DefaultEntityReferenceSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for each of the given entity @ref trait "traits"
+   * and context. This can be used to ensure dialogs, prompts or publish
+   * locations default to some sensible value, avoiding the need for a
+   * user to re-enter such information. There may be situations where
+   * there is no meaningful default, so the caller should be robust to
+   * this situation.
+   *
+   * For example, a host may request the default ref for the @ref
+   * trait_set of a 'ShotSpecification' with access 'kWrite'.
+   * If the Manager has some concept of the 'current sequence' it may
+   * wish to return this so that a 'Create Shots' action starts
+   * somewhere meaningful.
+   *
+   * @param traitSets  The relevant trait sets for the type of entities
+   * required, these will be interpreted in conjunction with the context
+   * to determine the most sensible default.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that will be called for each
+   * successful default retrieved for each of the given sets in @p
+   * traitSets. It will be given the corresponding index of the traitSet
+   * in @p traitSets along with the default entity reference. The
+   * callback will be called on the same thread that initiated the call
+   * to `defaultEntityReference`.
+   *
+   * @param errorCallback Callback that will be called for each failure
+   * to retrieve a sensible default entity reference. It will be given
+   * the corresponding index for each of the given sets in @p traitSets
+   * along with a populated @fqref{BatchElementError}
+   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * "ErrorCodes"). The callback will be called on the same thread that
+   * initiated the call to `defaultEntityReference`.
+   */
+  virtual void defaultEntityReference(const trait::TraitSets& traitSets,
+                                      const ContextConstPtr& context,
+                                      const HostSessionPtr& hostSession,
+                                      const DefaultEntityReferenceSuccessCallback& successCallback,
+                                      const BatchElementErrorCallback& errorCallback);
+
   /// @}
 
   /**

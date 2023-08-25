@@ -118,7 +118,13 @@ class BatchElementError final {
      * host owns to be passed to `preflight`, but the host did not
      * provide it.
      */
-    kInvalidPreflightHint = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint
+    kInvalidPreflightHint = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint,
+
+    /**
+     * Error code used whenever a trait set is not one that is known to
+     * the manager.
+     */
+    kInvalidTraitSet = OPENASSETIO_BatchErrorCode_kInvalidTraitSet,
   };
 
   /**
@@ -216,6 +222,14 @@ struct OPENASSETIO_CORE_EXPORT EntityResolutionErrorBatchElementException : Batc
  * @ref BatchElementError.ErrorCode.kInvalidPreflightHint
  */
 struct OPENASSETIO_CORE_EXPORT InvalidPreflightHintBatchElementException : BatchElementException {
+  using BatchElementException::BatchElementException;
+};
+
+/**
+ * Exception equivalent of
+ * @ref BatchElementError.ErrorCode.kInvalidTraitSet
+ */
+struct OPENASSETIO_CORE_EXPORT InvalidTraitSetBatchElementException : BatchElementException {
   using BatchElementException::BatchElementException;
 };
 /**
