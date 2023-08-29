@@ -180,14 +180,16 @@
  * user-facing Digital Content Creation application or a pipeline
  * tool or script.
  *
- * The purpose of OpenAssetIO is to standardize the interaction between a host
- * and an @ref asset_management_system in order to persis or query data.
- * A host communicates with a @ref manager via the @ref openassetio.hostApi.Manager.Manager class.
+ * The purpose of OpenAssetIO is to standardize the interaction between
+ * a host and an @ref asset_management_system in order to persist or
+ * query data. A host communicates with a @ref manager via the
+ * @fqref{hostApi.Manager} "Manager" class.
  *
  * > Note: The Manager class is an abstraction, that takes care of
  * > sundry housekeeping and helps manage session state. Internally it
- * > holds an instance of the @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- * > "ManagerInterface" implementation supplied by the @ref
+ * > holds an instance of the
+ * > @fqref{managerApi.ManagerInterface} "ManagerInterface"
+ * > implementation supplied by the @ref
  * > asset_management_system.
  *
  * The host itself is made available to a @ref manager "manager's" @ref
@@ -232,11 +234,11 @@
  *
  * @section ManagerInterface
  *
- * The @ref openassetio.managerApi.ManagerInterface.ManagerInterface
- * "ManagerInterface" class is the abstract interface that any @ref
- * asset_management_system must implement in order to be used by the
- * API. It will usually contain appropriate logic to map native features
- * of the asset manager into the well-known terms defined by this API.
+ * The @fqref{managerApi.ManagerInterface} "ManagerInterface" class is
+ * the abstract interface that any @ref asset_management_system must
+ * implement in order to be used by the API. It will usually contain
+ * appropriate logic to map native features of the asset manager into
+ * the well-known terms defined by this API.
  *
  * The ManagerInterface is never used directly by a @ref host, and is
  * instead accessed through the @ref openassetio.hostApi.Manager
@@ -255,8 +257,8 @@
  *
  * The PythonPluginSystemManagerPlugin instance is then responsible for
  * constructing an instance of the respective @ref
- * asset_management_system's implementation of the @ref
- * openassetio.managerApi.ManagerInterface "ManagerInterface".
+ * asset_management_system's implementation of the
+ * @fqref{managerApi.ManagerInterface} "ManagerInterface".
  *
  *
  * @section default_config_var $OPENASSETIO_DEFAULT_CONFIG

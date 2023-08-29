@@ -64,7 +64,7 @@
  *
  * @see @ref entities_traits_and_specifications
  * @see @fqref{hostApi.ManagerFactory} "ManagerFactory"
- * @see @ref openassetio.hostApi.Manager.Manager "Manager"
+ * @see @fqref{hostApi.Manager} "Manager"
  * @see @fqref{Context} "Context"
  *
  * @section host_todo Implementation Check List

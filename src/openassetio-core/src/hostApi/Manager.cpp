@@ -30,6 +30,10 @@ void throwFromBatchElementError(std::size_t index, BatchElementError error) {
       throw EntityAccessErrorBatchElementException(index, std::move(error));
     case BatchElementError::ErrorCode::kEntityResolutionError:
       throw EntityResolutionErrorBatchElementException(index, std::move(error));
+    case BatchElementError::ErrorCode::kInvalidPreflightHint:
+      throw InvalidPreflightHintBatchElementException(index, std::move(error));
+    case BatchElementError::ErrorCode::kInvalidTraitSet:
+      throw InvalidTraitSetBatchElementException(index, std::move(error));
     default:
       std::string exceptionMessage = "Invalid BatchElementError. Code: ";
       exceptionMessage += std::to_string(static_cast<int>(error.code));
@@ -254,6 +258,14 @@ std::vector<std::variant<BatchElementError, TraitsDataPtr>> hostApi::Manager::re
       });
 
   return resolveResult;
+}
+
+void Manager::defaultEntityReference(const trait::TraitSets &traitSets,
+                                     const ContextConstPtr &context,
+                                     const DefaultEntityReferenceSuccessCallback &successCallback,
+                                     const BatchElementErrorCallback &errorCallback) {
+  managerInterface_->defaultEntityReference(traitSets, context, hostSession_, successCallback,
+                                            errorCallback);
 }
 
 void Manager::getWithRelationship(const EntityReferences &entityReferences,

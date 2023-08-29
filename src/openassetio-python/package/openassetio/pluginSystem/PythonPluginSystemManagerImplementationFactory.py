@@ -139,9 +139,9 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
 
     def instantiate(self, identifier):
         """
-        Creates an instance of the @ref
-        openassetio.managerApi.ManagerInterface "ManagerInterface" with
-        the specified identifier.
+        Creates an instance of the
+        @fqref{managerApi.ManagerInterface}"ManagerInterface"
+        with the specified identifier.
 
         @param identifier `str` The identifier of the ManagerInterface
         to instantiate.

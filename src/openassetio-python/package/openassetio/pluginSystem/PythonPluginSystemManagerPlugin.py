@@ -64,16 +64,15 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
 
         @return str
 
-        @see @ref openassetio.managerApi.ManagerInterface
-        "ManagerInterface"
+        @see @fqref{managerApi.ManagerInterface} "ManagerInterface"
         """
         raise NotImplementedError
 
     @classmethod
     def interface(cls):
         """
-        Constructs an instance of the @ref
-        openassetio.managerApi.ManagerInterface.
+        Constructs an instance of the
+        @fqref{managerApi.ManagerInterface} "ManagerInterface".
 
         This is an instance of some class derived from ManagerInterface
         to be bound to the Host-facing @ref openassetio.hostApi.Manager.

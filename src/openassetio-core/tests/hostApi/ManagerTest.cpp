@@ -333,7 +333,11 @@ TEMPLATE_TEST_CASE(
     (BatchElementErrorMapping<openassetio::EntityAccessErrorBatchElementException,
                               ErrorCode::kEntityAccessError>),
     (BatchElementErrorMapping<openassetio::EntityResolutionErrorBatchElementException,
-                              ErrorCode::kEntityResolutionError>)) {
+                              ErrorCode::kEntityResolutionError>),
+    (BatchElementErrorMapping<openassetio::InvalidPreflightHintBatchElementException,
+                              ErrorCode::kInvalidPreflightHint>),
+    (BatchElementErrorMapping<openassetio::InvalidTraitSetBatchElementException,
+                              ErrorCode::kInvalidTraitSet>)) {
   namespace hostApi = openassetio::hostApi;
   using trompeloeil::_;
 
@@ -640,7 +644,11 @@ TEMPLATE_TEST_CASE(
     (BatchElementErrorMapping<openassetio::EntityAccessErrorBatchElementException,
                               ErrorCode::kEntityAccessError>),
     (BatchElementErrorMapping<openassetio::EntityResolutionErrorBatchElementException,
-                              ErrorCode::kEntityResolutionError>)) {
+                              ErrorCode::kEntityResolutionError>),
+    (BatchElementErrorMapping<openassetio::InvalidPreflightHintBatchElementException,
+                              ErrorCode::kInvalidPreflightHint>),
+    (BatchElementErrorMapping<openassetio::InvalidTraitSetBatchElementException,
+                              ErrorCode::kInvalidTraitSet>)) {
   namespace hostApi = openassetio::hostApi;
   using trompeloeil::_;
 
@@ -972,7 +980,11 @@ TEMPLATE_TEST_CASE(
     (BatchElementErrorMapping<openassetio::EntityAccessErrorBatchElementException,
                               ErrorCode::kEntityAccessError>),
     (BatchElementErrorMapping<openassetio::EntityResolutionErrorBatchElementException,
-                              ErrorCode::kEntityResolutionError>)) {
+                              ErrorCode::kEntityResolutionError>),
+    (BatchElementErrorMapping<openassetio::InvalidPreflightHintBatchElementException,
+                              ErrorCode::kInvalidPreflightHint>),
+    (BatchElementErrorMapping<openassetio::InvalidTraitSetBatchElementException,
+                              ErrorCode::kInvalidTraitSet>)) {
   namespace hostApi = openassetio::hostApi;
   using trompeloeil::_;
 

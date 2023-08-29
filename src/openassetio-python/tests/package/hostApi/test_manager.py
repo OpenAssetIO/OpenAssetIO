@@ -30,6 +30,8 @@ from openassetio import (
     MalformedEntityReferenceBatchElementException,
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
+    InvalidPreflightHintBatchElementException,
+    InvalidTraitSetBatchElementException,
     BatchElementError,
     Context,
     EntityReference,
@@ -398,19 +400,42 @@ class Test_Manager_entityExists:
 
 
 class Test_Manager_defaultEntityReference:
-    def test_method_defined_in_python(self, method_introspector):
-        assert method_introspector.is_defined_in_python(Manager.defaultEntityReference)
+    def test_method_defined_in_cpp(self, method_introspector):
+        assert not method_introspector.is_defined_in_python(Manager.defaultEntityReference)
         assert method_introspector.is_implemented_once(Manager, "defaultEntityReference")
 
     def test_wraps_the_corresponding_method_of_the_held_interface(
-        self, manager, mock_manager_interface, a_host_session, a_context, some_entity_trait_sets
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        a_context,
+        some_entity_trait_sets,
+        a_ref,
+        a_batch_element_error,
+        invoke_defaultEntityReference_success_cb,
+        invoke_defaultEntityReference_error_cb,
     ):
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
+
         method = mock_manager_interface.mock.defaultEntityReference
-        assert (
-            manager.defaultEntityReference(some_entity_trait_sets, a_context)
-            == method.return_value
+
+        def call_callbacks(*_args):
+            invoke_defaultEntityReference_success_cb(0, a_ref)
+            invoke_defaultEntityReference_error_cb(1, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        manager.defaultEntityReference(
+            some_entity_trait_sets, a_context, success_callback, error_callback
         )
-        method.assert_called_once_with(some_entity_trait_sets, a_context, a_host_session)
+        method.assert_called_once_with(
+            some_entity_trait_sets, a_context, a_host_session, mock.ANY, mock.ANY
+        )
+
+        success_callback.assert_called_once_with(0, a_ref)
+        error_callback.assert_called_once_with(1, a_batch_element_error)
 
 
 class Test_Manager_getWithRelationship:
@@ -1008,6 +1033,8 @@ batch_element_error_codes = [
     BatchElementError.ErrorCode.kMalformedEntityReference,
     BatchElementError.ErrorCode.kEntityAccessError,
     BatchElementError.ErrorCode.kEntityResolutionError,
+    BatchElementError.ErrorCode.kInvalidPreflightHint,
+    BatchElementError.ErrorCode.kInvalidTraitSet,
 ]
 
 batch_element_exceptions = [
@@ -1016,6 +1043,8 @@ batch_element_exceptions = [
     MalformedEntityReferenceBatchElementException,
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
+    InvalidPreflightHintBatchElementException,
+    InvalidTraitSetBatchElementException,
 ]
 
 batch_element_error_code_exception_pairs = list(
@@ -3122,6 +3151,24 @@ def invoke_entityExists_success_cb(mock_manager_interface):
 def invoke_entityExists_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
         callback = mock_manager_interface.mock.entityExists.call_args[0][4]
+        callback(idx, batch_element_error)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_defaultEntityReference_success_cb(mock_manager_interface):
+    def invoke(idx, entity_ref):
+        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][3]
+        callback(idx, entity_ref)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_defaultEntityReference_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][4]
         callback(idx, batch_element_error)
 
     return invoke

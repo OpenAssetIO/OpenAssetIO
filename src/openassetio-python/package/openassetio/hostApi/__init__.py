@@ -24,10 +24,9 @@ see @ref openassetio.managerApi.
 """
 
 from .. import _openassetio  # pylint: disable=no-name-in-module
-from .Manager import Manager
-from .ManagerFactory import ManagerFactory
 
-
+Manager = _openassetio.hostApi.Manager
+ManagerFactory = _openassetio.hostApi.ManagerFactory
 HostInterface = _openassetio.hostApi.HostInterface
 ManagerImplementationFactoryInterface = _openassetio.hostApi.ManagerImplementationFactoryInterface
 EntityReferencePager = _openassetio.hostApi.EntityReferencePager

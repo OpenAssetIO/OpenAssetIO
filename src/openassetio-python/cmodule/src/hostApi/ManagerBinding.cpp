@@ -140,6 +140,8 @@ void registerManager(const py::module& mod) {
             return self.resolve(entityReferences, traitSet, context);
           },
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("context").none(false))
+      .def("defaultEntityReference", &Manager::defaultEntityReference, py::arg("traitSets"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &Manager::getWithRelationship, py::arg("entityReferences"),
            py::arg("relationshipTraitsData").none(false), py::arg("context").none(false),
            py::arg("successCallback"), py::arg("errorCallback"),

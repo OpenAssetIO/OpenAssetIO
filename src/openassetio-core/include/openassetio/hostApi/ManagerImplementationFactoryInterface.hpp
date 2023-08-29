@@ -19,7 +19,7 @@ OPENASSETIO_DECLARE_PTR(ManagerImplementationFactoryInterface)
 
 /**
  * Manager Factories are responsible for instantiating classes that
- * derive from @ref openassetio.managerApi.ManagerInterface or @needsref
+ * derive from @fqref{managerApi.ManagerInterface} or @needsref
  * openassetio-ui.implementation.ManagerUIDelegate for use within an
  * host.
  *

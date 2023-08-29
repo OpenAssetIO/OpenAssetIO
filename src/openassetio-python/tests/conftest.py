@@ -163,12 +163,18 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def flushCaches(self, hostSession):
         return self.mock.flushCaches(hostSession)
 
-    def defaultEntityReference(self, traitSets, context, hostSession):
+    def defaultEntityReference(
+        self, traitSets, context, hostSession, successCallback, errorCallback
+    ):
         self.__assertIsIterableOf(traitSets, set)
         for traitSet in traitSets:
             self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
-        return self.mock.defaultEntityReference(traitSets, context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.defaultEntityReference(
+            traitSets, context, hostSession, successCallback, errorCallback
+        )
 
     def preflight(
         self, targetEntityRefs, traitsDatas, context, hostSession, successCallback, errorCallback

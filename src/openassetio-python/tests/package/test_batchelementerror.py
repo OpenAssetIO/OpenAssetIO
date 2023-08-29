@@ -31,6 +31,8 @@ from openassetio import (
     MalformedEntityReferenceBatchElementException,
     EntityAccessErrorBatchElementException,
     EntityResolutionErrorBatchElementException,
+    InvalidPreflightHintBatchElementException,
+    InvalidTraitSetBatchElementException,
 )
 
 
@@ -41,6 +43,8 @@ class Test_BatchElementError_ErrorCode:
         assert int(BatchElementError.ErrorCode.kMalformedEntityReference) == 130
         assert int(BatchElementError.ErrorCode.kEntityAccessError) == 131
         assert int(BatchElementError.ErrorCode.kEntityResolutionError) == 132
+        assert int(BatchElementError.ErrorCode.kInvalidPreflightHint) == 133
+        assert int(BatchElementError.ErrorCode.kInvalidTraitSet) == 134
 
 
 class Test_BatchElementError_inheritance:
@@ -122,6 +126,8 @@ class Test_BatchElementError_equality:
         MalformedEntityReferenceBatchElementException,
         EntityAccessErrorBatchElementException,
         EntityResolutionErrorBatchElementException,
+        InvalidPreflightHintBatchElementException,
+        InvalidTraitSetBatchElementException,
     ],
 )
 # Note: these tests are not sufficient to assert that C++ exceptions
