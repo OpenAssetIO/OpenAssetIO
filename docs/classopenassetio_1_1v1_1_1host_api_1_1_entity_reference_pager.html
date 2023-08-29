@@ -169,9 +169,9 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html" title="The EntityReferencePager allows for the retrieval and traversal of large datasets in a paginated mann...">EntityReferencePager</a> allows for the retrieval and traversal of large datasets in a paginated manner. </p>
 <dl class="section note"><dt>Note</dt><dd>Instances of this class should not be constructed directly by the host.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a909bac8b95ffba9f142d88166e7b020f">Manager::getWithRelationshipPaged</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a78144029d2cac39c0646aebc71ef79ce">Manager::getWithRelationshipPaged</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a1981bb53386f9854a7ab8aab5c933ddf">Manager::getWithRelationshipsPaged</a></dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a4d1ac28edb778ba2adc14e30731aacc7">Manager::getWithRelationshipsPaged</a></dd></dl>
 <p>None of the functions of this class should be considered thread-safe. Hosts should add their own synchronization around concurrent usage.</p>
 <p>Due to the variance of backends, construction, <code>hasNext</code>, <code>get</code> and <code>next</code> may all reasonably need to perform non-trivial, networked operations, and thus performance characteristics should not be assumed.</p>
 <p>Destruction of this object is a signal to the manager that the connection query is finished. For this reason you should avoid keeping hold of this object for longer than necessary. </p>

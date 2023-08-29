@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['severityfilter',['SeverityFilter',['../namespaceopenassetio_1_1log.html#a59f29ff016eb0d27bda71b1486698fe0',1,'openassetio::log']]],
-  ['sharemanager',['shareManager',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ae1d4e89b8d263bc588522d9fd0d7d2b9',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
-  ['size',['size',['../structoa___const_string_view.html#a685609860d73ccd0d45ada287ab9ab5f',1,'oa_ConstStringView::size()'],['../structoa___string_view.html#a854352f53b148adc24983a58a1866d66',1,'oa_StringView::size()']]],
-  ['start',['start',['../classopenassetio_1_1__core_1_1debug_1_1___timer.html#a550769bbd4e7537ff90a656f5b0c23b2',1,'openassetio::_core::debug::_Timer']]]
+  ['ref',['ref',['../classopenassetio_1_1exceptions_1_1_base_entity_exception.html#a6752968761dc456fe241271e0b76440b',1,'openassetio::exceptions::BaseEntityException']]],
+  ['relationsaccess',['RelationsAccess',['../namespaceopenassetio_1_1access.html#a7c04962aad545597e4360208b4260390',1,'openassetio::access']]],
+  ['reprargs',['reprArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#afb1954ccc782d423973d59123b58f261',1,'openassetio::_core::audit']]],
+  ['required',['required',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#ae81948490ddf54e80a22593640178350',1,'openassetio::test::manager::__main__']]],
+  ['resolveaccess',['ResolveAccess',['../namespaceopenassetio_1_1access.html#a88dc7ee88f6f8b4e2df8a164e634798f',1,'openassetio::access']]]
 ];

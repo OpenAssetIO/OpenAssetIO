@@ -5,7 +5,7 @@ var classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_ca
     [ "assertValuesOfType", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ad0acbba99dff86d3e0065cf0e3fa7bc6", null ],
     [ "collectRequiredFixture", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36", null ],
     [ "collectRequiredFixtures", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682", null ],
-    [ "createTestContext", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54", null ],
+    [ "createTestContext", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af15c8b879bc6def878c27be9f1a567b6", null ],
     [ "requireEntityReferenceFixture", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aaefaa7fc3f37c2690882e45d66ab4cce", null ],
     [ "requireEntityReferencesFixture", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#abb0e764a190f2df6348213d13e7f1f1a", null ],
     [ "requireFixture", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af51139356bef5d0cd4367ce3af7e4960", null ],

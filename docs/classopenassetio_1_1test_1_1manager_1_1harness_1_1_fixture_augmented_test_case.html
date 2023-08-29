@@ -133,9 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8356458d4256547b84035ed90b54e3f9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a8356458d4256547b84035ed90b54e3f9">__init__</a> (self, fixtures, manager, locale, args, kwargs)</td></tr>
 <tr class="memdesc:a8356458d4256547b84035ed90b54e3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an instance of this class.  <a href="#a8356458d4256547b84035ed90b54e3f9">More...</a><br /></td></tr>
 <tr class="separator:a8356458d4256547b84035ed90b54e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ed73cb742bb437b27fe15e1fdebad54"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> (self, access=None)</td></tr>
-<tr class="memdesc:a2ed73cb742bb437b27fe15e1fdebad54"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience method to create a context with the test locale, as provided by the test harness mechanism.  <a href="#a2ed73cb742bb437b27fe15e1fdebad54">More...</a><br /></td></tr>
-<tr class="separator:a2ed73cb742bb437b27fe15e1fdebad54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af15c8b879bc6def878c27be9f1a567b6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af15c8b879bc6def878c27be9f1a567b6">createTestContext</a> (self)</td></tr>
+<tr class="memdesc:af15c8b879bc6def878c27be9f1a567b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A convenience method to create a context with the test locale, as provided by the test harness mechanism.  <a href="#af15c8b879bc6def878c27be9f1a567b6">More...</a><br /></td></tr>
+<tr class="separator:af15c8b879bc6def878c27be9f1a567b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2aab2dabbe6b11a6246f95374f2a399"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ab2aab2dabbe6b11a6246f95374f2a399">assertIsStringKeyPrimitiveValueDict</a> (self, dictionary)</td></tr>
 <tr class="memdesc:ab2aab2dabbe6b11a6246f95374f2a399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assert that given <code>dictionary</code> is <code>str</code>-keyed with all primitive values.  <a href="#ab2aab2dabbe6b11a6246f95374f2a399">More...</a><br /></td></tr>
 <tr class="separator:ab2aab2dabbe6b11a6246f95374f2a399"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,7 +170,7 @@ Static Public Attributes</h2></td></tr>
 <div class="textblock"><p>Base test case class that all test classes must inherit from. </p>
 <p>Expects test harness fixtures and an OpenAssetIO <a class="el" href="glossary.html#manager">manager</a> to be provided, hence requires that <code>unittest</code> is provided with the custom ValidatorTestLoader test case loader.</p>
 <p>Fixtures, manager and a suitable locale are then provided to subclasses via protected members.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#a2ed73cb742bb437b27fe15e1fdebad54">createTestContext</a> convenience method will create a new context pre-configured with this locale.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The supplied locale should always be used for interactions with the manager under test, the <a class="el" href="classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af15c8b879bc6def878c27be9f1a567b6">createTestContext</a> convenience method will create a new context pre-configured with this locale.</dd></dl>
 <p>For performance reasons, by default, all test cases will share a single instance of the manager under test. This reduces setup costs, but precludes any testing of initialization behaviour.</p>
 <p>If the class variable <code>shareManager</code> is set to False for any given suite, the harness will instead create a new, uninitializesd manager for each case. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -394,7 +394,7 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2ed73cb742bb437b27fe15e1fdebad54"></a>
+<a class="anchor" id="af15c8b879bc6def878c27be9f1a567b6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -402,29 +402,13 @@ Static Public Attributes</h2></td></tr>
           <td class="memname">def createTestContext </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>access</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>A convenience method to create a context with the test locale, as provided by the test harness mechanism. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">access</td><td><code>int</code> One of the context access policies (or None), if provided, the context's access will be set to this. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
