@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-alpha.x
+v1.0.0-alpha.14
 ---------------
 
 ### Breaking changes
@@ -13,30 +13,27 @@ v1.0.0-alpha.x
 >  required arguments to various API functions, replacing the usage of
 >  `Context.Access`.
 >  [#1054](https://github.com/OpenAssetIO/OpenAssetIO/issues/1054)
-
-- Changed signature of `preflight` to accept a `TraitsData` per
-  reference, rather than a single trait set. The host is now expected to
-  communicate any relevant information that it owns and is known at
-  `preflight` time.
-  [1028](https://github.com/OpenAssetIO/OpenAssetIO/issues/1028)
+>
+> - Changed signature of `preflight` to accept a `TraitsData` per
+>   reference, rather than a single trait set. The host is now expected to
+>   communicate any relevant information that it owns and is known at
+>   `preflight` time.
+>   [#1028](https://github.com/OpenAssetIO/OpenAssetIO/issues/1028)
 
 - Relaxed the restriction on `register` that all trait sets of the
   provided `TraitsData` elements must match. This allows batched
   publishing of heterogeneous entity types.
-  [1029](https://github.com/OpenAssetIO/OpenAssetIO/issues/1029)
-
-- Removed `Context.Access.kWriteMultiple` and
-  `Context.Access.kReadMultiple`access patterns, due to not having
-  coherent use cases.
-  [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+  [#1029](https://github.com/OpenAssetIO/OpenAssetIO/issues/1029)
 
 - Removed `cpython` dependency from `conanfile.py`. When building
   OpenAssetIO, it is now expected that a development install of the
   appropriate Python version is discoverable on the system.
-  [1038](https://github.com/OpenAssetIO/OpenAssetIO/pull/1038)
+  [#1038](https://github.com/OpenAssetIO/OpenAssetIO/pull/1038)
 
-- Migrated `ManagerInterface`/`Manager` `entityExists` to C++ with
-  Python bindings, and redesigned to use a callback based batch API.
+- Migrated manager methods `entityExists` and `defaultEntityReference`
+  to C++ with Python bindings, and redesigned to use a callback based
+  batch API.
+  [#992](https://github.com/OpenAssetIO/OpenAssetIO/issues/992)
   [#993](https://github.com/OpenAssetIO/OpenAssetIO/issues/993)
 
 - Migrated `ManagerInterface`/`Manager` `updateTerminology` to C++ with
@@ -44,22 +41,21 @@ v1.0.0-alpha.x
   out-param based.
   [#996](https://github.com/OpenAssetIO/OpenAssetIO/issues/996)
 
-- Removed `Context.Retention`.
-  [#1048](https://github.com/OpenAssetIO/OpenAssetIO/issues/1048)
+- Removed `kWriteMultiple` and `kReadMultiple` access patterns, due to
+  not having coherent use cases.
+  [#1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
 
-- Migrated `ManagerInterface`/`Manager` `defaultEntityReference` to C++
-  with Python bindings, and redesigned to use a callback based batch
-  API. [#992](https://github.com/OpenAssetIO/OpenAssetIO/issues/992)
+- Removed `Context.Retention` due to not having coherent use cases.
+  [#1048](https://github.com/OpenAssetIO/OpenAssetIO/issues/1048)
 
 ### New Features
 
-- Added `Context.Access.kCreateRelated` access pattern, to  indicate
-  when a workflow specifically creates a new entity as a relation to an
-  existing one.
-  [1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
+- Added `kCreateRelated` access pattern, to indicate when a workflow
+  specifically creates a new entity as a relation to an existing one.
+  [#1016](https://github.com/OpenAssetIO/OpenAssetIO/issues/1016)
 
 - Added `BatchElementError.ErrorCode.kInvalidTraitSet` and
-  `InvalidTraitSetBatchElementException`
+  `InvalidTraitSetBatchElementException`.
   [#992](https://github.com/OpenAssetIO/OpenAssetIO/issues/992)
 
 ### Improvements
@@ -167,7 +163,6 @@ v1.0.0-alpha.13
   written in Python, then a prefix check short-circuits the need for a
   costly Python function call for this hot code path.
   [#566](https://github.com/OpenAssetIO/OpenAssetIO/issues/566)
-
 
 v1.0.0-alpha.12
 ---------------
