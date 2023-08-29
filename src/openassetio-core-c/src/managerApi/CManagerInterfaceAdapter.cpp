@@ -87,6 +87,7 @@ void CManagerInterfaceAdapter::initialize([[maybe_unused]] InfoDictionary manage
 
 trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
     [[maybe_unused]] const trait::TraitSets& traitSets,
+    [[maybe_unused]] const access::PolicyAccess policyAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession) const {
   throw std::runtime_error{"Not implemented"};
@@ -110,6 +111,7 @@ void CManagerInterfaceAdapter::entityExists(
 void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitSet& traitSet,
+    [[maybe_unused]] const access::ResolveAccess resolveAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
@@ -120,6 +122,7 @@ void CManagerInterfaceAdapter::resolve(
 void CManagerInterfaceAdapter::preflight(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitsDatas& traitsDatas,
+    [[maybe_unused]] const access::PublishingAccess publishingAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const PreflightSuccessCallback& successCallback,
@@ -130,6 +133,7 @@ void CManagerInterfaceAdapter::preflight(
 void CManagerInterfaceAdapter::register_(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitsDatas& traitsDatas,
+    [[maybe_unused]] const access::PublishingAccess publishingAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const RegisterSuccessCallback& successCallback,

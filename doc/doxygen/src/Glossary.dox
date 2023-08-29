@@ -400,10 +400,10 @@
  *
  * In this context, a property is "owned" by the host if it will not be
  * dictated by the manager during the publishing workflow (i.e. by @ref
- * glossary_resolve "resolving" with a @fqref{Context.Access.kWrite}
- * "write" access flag). Note that this definition of host ownership
- * might include properties that have been resolved from the manager at
- * some point in the past.
+ * glossary_resolve "resolving" with a
+ * @fqref{access.ResolveAccess.kWrite} "write" access flag). Note that
+ * this definition of host ownership might include properties that have
+ * been resolved from the manager at some point in the past.
  *
  * If a property is not already known or understood by the host, and is
  * optional, then it may be omitted.
@@ -502,9 +502,9 @@
  * Despite the API having no opinion as to the specific reaction of the
  * manager to registration, there are some occasions, specifically
  * around the creation of new related entities, where additional
- * instruction is required from the host. For this purpose, the use of
- * @fqref{Context.Access.kCreateRelated} "Context.Access.kCreateRelated"
- * in the context is used as a flag to indicate this intent.
+ * instruction is required from the host. For this purpose, use
+ * @fqref{access.PublishAccess.kCreateRelated} "kCreateRelated" as the
+ * access flag.
  *
  * @section glossary_resolve resolve
  *

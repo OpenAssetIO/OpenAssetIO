@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 /**
  * Python binding bootstrap functions and typedefs.
  */
@@ -63,6 +63,9 @@ using RetainCommonPyArgs = openassetio::RetainPyArgs<
 
 /// Concise pybind alias.
 namespace py = pybind11;
+
+/// Register constants for use as dict keys.
+void registerAccess(const py::module& mod);
 
 /// Register constants for use as dict keys.
 void registerConstants(const py::module& mod);

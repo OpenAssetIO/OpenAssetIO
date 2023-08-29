@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2023 The Foundry Visionmongers Ltd
 
 #include "_openassetio.hpp"
 
@@ -12,11 +12,13 @@ PYBIND11_MODULE(_openassetio, mod) {
   // pybind11 will properly report type names in its docstring/error
   // output.
 
+  const py::module access = mod.def_submodule("access");
   const py::module managerApi = mod.def_submodule("managerApi");
   const py::module hostApi = mod.def_submodule("hostApi");
   const py::module log = mod.def_submodule("log");
   const py::module constants = mod.def_submodule("constants");
 
+  registerAccess(access);
   registerConstants(constants);
   registerLoggerInterface(log);
   registerConsoleLogger(log);

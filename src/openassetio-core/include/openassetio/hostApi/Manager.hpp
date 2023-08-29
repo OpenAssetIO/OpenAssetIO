@@ -12,6 +12,7 @@
 #include <openassetio/BatchElementError.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
@@ -241,18 +242,18 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    *  - The trait set of the entity type in question. This is usually
    *    obtained from the relevant @ref Specification.
-   *  - For @fqref{Context.Access} "read" contexts, any additional
-   *    traits with properties that you wish to resolve for that type of
-   *    entity.
-   *  - For @fqref{Context.Access} "write" contexts, any additional
-   *    traits with properties that you wish to publish for that type of
-   *    entity.
+   *  - For @fqref{access.PolicyAccess.kRead} "read" usage, any
+   *    additional traits with properties that you wish to resolve for
+   *    that type of entity.
+   *  - For @fqref{access.PolicyAccess.kWrite} "write" usage, any
+   *    additional traits with properties that you wish to publish for
+   *    that type of entity.
    *
    * Along with the traits that describe the manager's desired
    * interaction pattern (ones with the `managementPolicy` usage
-   * metadata), the resulting @fqref{TraitsData} "TraitsData" will be imbued with
-   * (potentially a subset of) the requested traits, which the manager is
-   * capable of resolving/persisting the properties for.
+   * metadata), the resulting @fqref{TraitsData} "TraitsData" will be
+   * imbued with (potentially a subset of) the requested traits, which
+   * the manager is capable of resolving/persisting the properties for.
    *
    * If a requested trait is not present, then the manager will never
    * return properties for that trait in @ref resolve, or be able to
@@ -271,12 +272,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * by these projects to retrieve data from the supplied TraitsData
    * instead of querying directly using string literals.
    *
-   * @warning The @fqref{Context.access} "access" of the supplied
-   * context will be considered by the manager. If it is set to read,
-   * then its response applies to resolution. If write, then it applies
-   * to publishing. Managers may not handle both operations in the same
-   * way. In most situations you will need to make separate queries for
-   * read and write and adapt your business logic accordingly.
+   * @warning The @p policyAccess that is supplied will be considered by
+   * the manager. If it is set to read, then its response applies to
+   * resolution. If write, then it applies to publishing. Managers may
+   * not handle both operations in the same way. In most situations you
+   * will need to make separate queries for read and write and adapt
+   * your business logic accordingly.
    *
    * @note There is no requirement to call this method before any other
    * API interaction, though it is strongly recommended to do so where
@@ -285,11 +286,14 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param traitSets The entity @ref trait "traits" to query.
    *
+   * @param policyAccess Intended operation type to perform on entities.
+   *
    * @param context The calling context.
    *
    * @return a `TraitsData` for each element in @p traitSets.
    */
   [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
+                                                    access::PolicyAccess policyAccess,
                                                     const ContextConstPtr& context) const;
 
   /**
@@ -666,11 +670,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param entityReferences Entity references to query.
    *
-   * @param context The calling context.
-   *
    * @param traitSet The trait IDs to resolve for the supplied list of
    * entity references. Only traits applicable to the supplied entity
    * references will be set in the resulting data.
+   *
+   * @param resolveAccess The intended usage of the data.
+   *
+   * @param context The calling context.
    *
    * @param successCallback Callback that will be called for each
    * successful resolution of an entity reference. It will be
@@ -687,7 +693,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * that initiated the call to `resolve`.
    */
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-               const ContextConstPtr& context, const ResolveSuccessCallback& successCallback,
+               access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+               const ResolveSuccessCallback& successCallback,
                const BatchElementErrorCallback& errorCallback);
 
   /**
@@ -697,8 +704,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
-   * --> const ResolveSuccessCallback&, <!--
+   * --> const trait::TraitSet&, access::ResolveAccess, <!--
+   * --> const ContextConstPtr&, const ResolveSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on resolution behaviour.
    *
@@ -713,6 +720,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * reference. Only traits applicable to the supplied entity reference
    * will be set in the resulting data.
    *
+   * @param resolveAccess The intended usage of the data.
+   *
    * @param context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -722,7 +731,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Populated data.
    */
   TraitsDataPtr resolve(const EntityReference& entityReference, const trait::TraitSet& traitSet,
-                        const ContextConstPtr& context,
+                        access::ResolveAccess resolveAccess, const ContextConstPtr& context,
                         const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -741,8 +750,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
-   * --> const ResolveSuccessCallback&, <!--
+   * --> const trait::TraitSet&, access::ResolveAccess, <!--
+   * --> const ContextConstPtr&, const ResolveSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on resolution behaviour.
    *
@@ -751,6 +760,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param traitSet The trait IDs to resolve for the supplied entity
    * reference. Only traits applicable to the supplied entity reference
    * will be set in the resulting data.
+   *
+   * @param resolveAccess The intended usage of the data.
    *
    * @param context The calling context.
    *
@@ -763,7 +774,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   std::variant<BatchElementError, TraitsDataPtr> resolve(
       const EntityReference& entityReference, const trait::TraitSet& traitSet,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * Provides a @fqref{TraitsData} "TraitsData" populated with the
@@ -772,8 +784,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
-   * --> const ResolveSuccessCallback&, <!--
+   * --> const trait::TraitSet&, access::ResolveAccess, <!--
+   * --> const ContextConstPtr&, const ResolveSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on resolution behaviour.
    *
@@ -789,6 +801,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * entity references. Only traits applicable to the supplied entity
    * references will be set in the resulting data.
    *
+   * @param resolveAccess The intended usage of the data.
+   *
    * @param context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -799,7 +813,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   std::vector<TraitsDataPtr> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-      const ContextConstPtr& context,
+      access::ResolveAccess resolveAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -820,8 +834,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
-   * --> const trait::TraitSet&, const ContextConstPtr&, <!--
-   * --> const ResolveSuccessCallback&, <!--
+   * --> const trait::TraitSet&, access::ResolveAccess, <!--
+   * --> const ContextConstPtr&, const ResolveSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on resolution behaviour.
    *
@@ -830,6 +844,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param traitSet The trait IDs to resolve for the supplied list of
    * entity references. Only traits applicable to the supplied entity
    * references will be set in the resulting data.
+   *
+   * @param resolveAccess The intended usage of the data.
    *
    * @param context The calling context.
    *
@@ -842,7 +858,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   std::vector<std::variant<BatchElementError, TraitsDataPtr>> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * Callback signature used for a successful default entity reference query.
@@ -863,6 +880,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param traitSets  The relevant trait sets for the type of entities
    * required, these will be interpreted in conjunction with the context
    * to determine the most sensible default.
+   *
+   * @param defaultEntityAccess Intended usage of the returned entity
+   * reference(s).
    *
    * @param context The calling context.
    *
@@ -885,7 +905,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * not recognised by the manager. The callback will be called on the
    * same thread that initiated the call to `defaultEntityReference`.
    */
-  void defaultEntityReference(const trait::TraitSets& traitSets, const ContextConstPtr& context,
+  void defaultEntityReference(const trait::TraitSets& traitSets,
+                              access::DefaultEntityAccess defaultEntityAccess,
+                              const ContextConstPtr& context,
                               const DefaultEntityReferenceSuccessCallback& successCallback,
                               const BatchElementErrorCallback& errorCallback);
 
@@ -960,6 +982,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param relationshipTraitsData The traits of the relationship to
    * query.
    *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
    * @param context The calling context.
    *
    * @param successCallback Callback that will be called for each
@@ -987,7 +1012,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   void getWithRelationship(const EntityReferences& entityReferences,
                            const TraitsDataPtr& relationshipTraitsData,
-                           const ContextConstPtr& context,
+                           access::RelationsAccess relationsAccess, const ContextConstPtr& context,
                            const RelationshipSuccessCallback& successCallback,
                            const BatchElementErrorCallback& errorCallback,
                            const trait::TraitSet& resultTraitSet = {});
@@ -1012,6 +1037,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
    *
    * @param context The calling context.
    *
@@ -1040,6 +1068,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   void getWithRelationships(const EntityReference& entityReference,
                             const trait::TraitsDatas& relationshipTraitsDatas,
+                            access::RelationsAccess relationsAccess,
                             const ContextConstPtr& context,
                             const RelationshipSuccessCallback& successCallback,
                             const BatchElementErrorCallback& errorCallback,
@@ -1065,6 +1094,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param pageSize The size of each page of data. The page size is
    * fixed for the lifetime of pager object given to the @p
    * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
    *
    * @param context The calling context.
    *
@@ -1093,6 +1125,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   void getWithRelationshipPaged(const EntityReferences& entityReferences,
                                 const TraitsDataPtr& relationshipTraitsData, size_t pageSize,
+                                access::RelationsAccess relationsAccess,
                                 const ContextConstPtr& context,
                                 const PagedRelationshipSuccessCallback& successCallback,
                                 const BatchElementErrorCallback& errorCallback,
@@ -1111,6 +1144,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param pageSize The size of each page of data. The page size is
    * fixed for the lifetime of pager object given to the @p
    * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
    *
    * @param context The calling context.
    *
@@ -1143,7 +1179,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   void getWithRelationshipsPaged(const EntityReference& entityReference,
                                  const trait::TraitsDatas& relationshipTraitsDatas,
-                                 size_t pageSize, const ContextConstPtr& context,
+                                 size_t pageSize, access::RelationsAccess relationsAccess,
+                                 const ContextConstPtr& context,
                                  const PagedRelationshipSuccessCallback& successCallback,
                                  const BatchElementErrorCallback& errorCallback,
                                  const trait::TraitSet& resultTraitSet = {});
@@ -1254,14 +1291,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * the Manager may even use this opportunity to switch to some
    * temporary working path or some such.
    *
-   * @warning If the supplied @fqref{TraitsData} "trait data" is missing
+   * @note If the supplied @fqref{TraitsData} "trait data" is missing
    * traits or properties required by the manager for any input entity
    * reference, then that element will error. See @ref
    * glossary_preflight "glossary entry" for details.
-   *
-   * @note It's vital that the @ref Context is well configured here,
-   * in particular the @fqref{Context.access}
-   * "Context.access".
    *
    * @warning The working @ref entity_reference returned by this
    * method should *always* be used in place of the original
@@ -1277,10 +1310,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * owns and can provide at this time. See @ref glossary_preflight
    * "glossary entry" for details.
    *
-   * @param context The calling context. This is not
-   * replaced with an array in order to simplify implementation.
-   * Otherwise, transactional handling has the potential to be
-   * extremely complex if different contexts are allowed.
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity.
+   *
+   * @param context The calling context.
    *
    * @param successCallback Callback that will be called for each
    * successful preflight of an entity reference. It will be given
@@ -1301,7 +1336,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @see @ref register_
    */
   void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
-                 const ContextConstPtr& context, const PreflightSuccessCallback& successCallback,
+                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
 
   /**
@@ -1311,8 +1347,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const PreflightSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
    *
@@ -1329,6 +1365,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity.
+   *
    * @param context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1338,7 +1379,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * the publishing operation
    */
   EntityReference preflight(const EntityReference& entityReference,
-                            const TraitsDataPtr& traitsHint, const ContextConstPtr& context,
+                            const TraitsDataPtr& traitsHint,
+                            access::PublishingAccess publishingAccess,
+                            const ContextConstPtr& context,
                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1348,8 +1391,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const PreflightSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
    *
@@ -1369,6 +1412,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity.
+   *
    * @param context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1381,7 +1429,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   std::variant<BatchElementError, EntityReference> preflight(
       const EntityReference& entityReference, const TraitsDataPtr& traitsHint,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * This call signals your intent as a host application to do some
@@ -1390,8 +1439,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const PreflightSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on preflight behaviour.
    *
@@ -1408,6 +1457,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity.
+   *
    * @param context The calling context. The same calling context is
    * used for each entity reference.
    *
@@ -1418,7 +1472,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * of the publishing operation
    */
   EntityReferences preflight(const EntityReferences& entityReferences,
-                             const trait::TraitsDatas& traitsHints, const ContextConstPtr& context,
+                             const trait::TraitsDatas& traitsHints,
+                             access::PublishingAccess publishingAccess,
+                             const ContextConstPtr& context,
                              const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1428,8 +1484,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const PreflightSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const PreflightSuccessCallback&, <!--
    * --> const BatchElementErrorCallback& errorCallback)
    * "callback variation" for more details on preflight behaviour.
    *
@@ -1451,6 +1507,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * determining the type of entity to publish, complete with any
    * properties that can be provided at this time.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity.
+   *
    * @param context The calling context. The same calling context is
    * used for each entity reference.
    *
@@ -1464,7 +1525,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   std::vector<std::variant<BatchElementError, EntityReference>> preflight(
       const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * Callback signature used for a successful register operation on a
@@ -1529,6 +1591,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * NOTE: All supplied instances should have the same trait set,
    * batching with varying traits is not supported.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity. Note that if the @p entityReference came from a
+   * @ref preflight call, then @fqref{access.PublishAccess.kWrite}
+   * "kWrite" is the only valid value here.
+   *
    * @param context Context The calling context.
    *
    * @param successCallback Callback that will be called for each
@@ -1560,7 +1629,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   void register_(const EntityReferences& entityReferences,
-                 const trait::TraitsDatas& entityTraitsDatas, const ContextConstPtr& context,
+                 const trait::TraitsDatas& entityTraitsDatas,
+                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                  const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback);
 
@@ -1571,8 +1641,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref register_(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const RegisterSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const RegisterSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on register_ behaviour.
    *
@@ -1586,6 +1656,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param entityTraitsData The data to register for the entity.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity. Note that if the @p entityReference came from a
+   * @ref preflight call, then @fqref{access.PublishAccess.kWrite}
+   * "kWrite" is the only valid value here.
+   *
    * @param context Context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1596,7 +1673,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   EntityReference register_(const EntityReference& entityReference,
-                            const TraitsDataPtr& entityTraitsData, const ContextConstPtr& context,
+                            const TraitsDataPtr& entityTraitsData,
+                            access::PublishingAccess publishingAccess,
+                            const ContextConstPtr& context,
                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1606,8 +1685,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref register_(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const RegisterSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const RegisterSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on register_ behaviour.
    *
@@ -1624,6 +1703,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param entityTraitsData The data to register for the entity.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity. Note that if the @p entityReference came from a
+   * @ref preflight call, then @fqref{access.PublishAccess.kWrite}
+   * "kWrite" is the only valid value here.
+   *
    * @param context Context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1636,7 +1722,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::variant<BatchElementError, EntityReference> register_(
       const EntityReference& entityReference, const TraitsDataPtr& entityTraitsData,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
    * Register should be used to 'publish' new entities either when
@@ -1645,8 +1732,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref register_(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const RegisterSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const RegisterSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on register_ behaviour.
    *
@@ -1662,6 +1749,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * NOTE: All supplied instances should have the same trait set,
    * batching with varying traits is not supported.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity. Note that if the @p entityReference came from a
+   * @ref preflight call, then @fqref{access.PublishAccess.kWrite}
+   * "kWrite" is the only valid value here.
+   *
    * @param context Context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1673,7 +1767,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::vector<EntityReference> register_(
       const EntityReferences& entityReferences, const trait::TraitsDatas& entityTraitsDatas,
-      const ContextConstPtr& context,
+      access::PublishingAccess publishingAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
@@ -1683,8 +1777,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * See documentation for the <!--
    * --> @ref register_(const EntityReferences&, <!--
-   * --> const trait::TraitsDatas&, const ContextConstPtr&, <!--
-   * --> const RegisterSuccessCallback&, <!--
+   * --> const trait::TraitsDatas&, access::PublishingAccess, <!--
+   * --> const ContextConstPtr&, const RegisterSuccessCallback&, <!--
    * --> const BatchElementErrorCallback&)
    * "callback variation" for more details on register_ behaviour.
    *
@@ -1705,6 +1799,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * NOTE: All supplied instances should have the same trait set,
    * batching with varying traits is not supported.
    *
+   * @param publishingAccess Whether to perform a generic
+   * @fqref{access.PublishAccess.kWrite} "write" to an entity or to
+   * (explicitly) @fqref{access.PublishAccess.kCreateRelated} "create a
+   * related" entity. Note that if the @p entityReference came from a
+   * @ref preflight call, then @fqref{access.PublishAccess.kWrite}
+   * "kWrite" is the only valid value here.
+   *
    * @param context Context The calling context.
    *
    * @param errorPolicyTag  Parameter for selecting the appropriate
@@ -1718,7 +1819,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::vector<std::variant<BatchElementError, EntityReference>> register_(
       const EntityReferences& entityReferences, const trait::TraitsDatas& entityTraitsDatas,
-      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+      access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /// @}
 

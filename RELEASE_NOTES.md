@@ -6,6 +6,14 @@ v1.0.0-alpha.x
 
 ### Breaking changes
 
+> **Warning**
+>
+> - Removed `Context.Access` and instead added per-workflow access mode
+>  enumerations under an `access` namespace. Added these enums as
+>  required arguments to various API functions, replacing the usage of
+>  `Context.Access`.
+>  [#1054](https://github.com/OpenAssetIO/OpenAssetIO/issues/1054)
+
 - Changed signature of `preflight` to accept a `TraitsData` per
   reference, rather than a single trait set. The host is now expected to
   communicate any relevant information that it owns and is known at

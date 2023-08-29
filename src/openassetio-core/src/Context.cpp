@@ -4,13 +4,11 @@
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
-ContextPtr Context::make(Access access, TraitsDataPtr locale,
-                         managerApi::ManagerStateBasePtr managerState) {
-  return std::shared_ptr<Context>(new Context(access, std::move(locale), std::move(managerState)));
+ContextPtr Context::make(TraitsDataPtr locale, managerApi::ManagerStateBasePtr managerState) {
+  return std::shared_ptr<Context>(new Context(std::move(locale), std::move(managerState)));
 }
 
-Context::Context(Access access_, TraitsDataPtr locale_,
-                 managerApi::ManagerStateBasePtr managerState_)
-    : access{access_}, locale{std::move(locale_)}, managerState{std::move(managerState_)} {}
+Context::Context(TraitsDataPtr locale_, managerApi::ManagerStateBasePtr managerState_)
+    : locale{std::move(locale_)}, managerState{std::move(managerState_)} {}
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

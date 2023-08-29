@@ -38,6 +38,7 @@ from openassetio import (
     TraitsData,
     managerApi,
     constants,
+    access,
 )
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
@@ -428,10 +429,19 @@ class Test_Manager_defaultEntityReference:
         method.side_effect = call_callbacks
 
         manager.defaultEntityReference(
-            some_entity_trait_sets, a_context, success_callback, error_callback
+            some_entity_trait_sets,
+            access.DefaultEntityAccess.kCreateRelated,
+            a_context,
+            success_callback,
+            error_callback,
         )
         method.assert_called_once_with(
-            some_entity_trait_sets, a_context, a_host_session, mock.ANY, mock.ANY
+            some_entity_trait_sets,
+            access.DefaultEntityAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         success_callback.assert_called_once_with(0, a_ref)
@@ -474,13 +484,19 @@ class Test_Manager_getWithRelationship:
         method.side_effect = call_callbacks
 
         manager.getWithRelationship(
-            two_refs, an_empty_traitsdata, a_context, success_callback, error_callback
+            two_refs,
+            an_empty_traitsdata,
+            access.RelationsAccess.kWrite,
+            a_context,
+            success_callback,
+            error_callback,
         )
 
         method.assert_called_once_with(
             two_refs,
             an_empty_traitsdata,
             set(),
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,
@@ -497,6 +513,7 @@ class Test_Manager_getWithRelationship:
         manager.getWithRelationship(
             two_refs,
             an_empty_traitsdata,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -507,6 +524,7 @@ class Test_Manager_getWithRelationship:
             two_refs,
             an_empty_traitsdata,
             an_entity_trait_set,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,
@@ -530,14 +548,24 @@ class Test_Manager_getWithRelationship:
         # First call mutates the defaulted resultTraitSet parameter.
         mock_manager_interface.mock.getWithRelationship.side_effect = mutate_resultTraitSet
         manager.getWithRelationship(
-            [a_ref], an_empty_traitsdata, a_context, mock.Mock(), mock.Mock()
+            [a_ref],
+            an_empty_traitsdata,
+            access.RelationsAccess.kWrite,
+            a_context,
+            mock.Mock(),
+            mock.Mock(),
         )
 
         # Second call asserts that the mutation of the first call didn't
         # persist in the default value.
         mock_manager_interface.mock.getWithRelationship.side_effect = assert_resultTraitSet_empty
         manager.getWithRelationship(
-            [a_ref], an_empty_traitsdata, a_context, mock.Mock(), mock.Mock()
+            [a_ref],
+            an_empty_traitsdata,
+            access.RelationsAccess.kWrite,
+            a_context,
+            mock.Mock(),
+            mock.Mock(),
         )
 
         # Confidence check: ensure we actually called the manager plugin.
@@ -577,12 +605,20 @@ class Test_Manager_getWithRelationships:
 
         method.side_effect = call_callbacks
 
-        manager.getWithRelationships(a_ref, two_datas, a_context, success_callback, error_callback)
+        manager.getWithRelationships(
+            a_ref,
+            two_datas,
+            access.RelationsAccess.kWrite,
+            a_context,
+            success_callback,
+            error_callback,
+        )
 
         method.assert_called_once_with(
             a_ref,
             two_datas,
             set(),
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,
@@ -599,6 +635,7 @@ class Test_Manager_getWithRelationships:
         manager.getWithRelationships(
             a_ref,
             two_datas,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -609,6 +646,7 @@ class Test_Manager_getWithRelationships:
             a_ref,
             two_datas,
             an_entity_trait_set,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,
@@ -620,7 +658,12 @@ class Test_Manager_getWithRelationships:
     ):
         with pytest.raises(TypeError):
             manager.getWithRelationships(
-                [TraitsData(), None], a_ref, a_context, mock.Mock(), mock.Mock()
+                [TraitsData(), None],
+                a_ref,
+                access.RelationsAccess.kWrite,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
         assert not mock_manager_interface.mock.getWithRelationships.called
@@ -642,14 +685,24 @@ class Test_Manager_getWithRelationships:
         # First call mutates the defaulted resultTraitSet parameter.
         mock_manager_interface.mock.getWithRelationships.side_effect = mutate_resultTraitSet
         manager.getWithRelationships(
-            a_ref, [an_empty_traitsdata], a_context, mock.Mock(), mock.Mock()
+            a_ref,
+            [an_empty_traitsdata],
+            access.RelationsAccess.kWrite,
+            a_context,
+            mock.Mock(),
+            mock.Mock(),
         )
 
         # Second call asserts that the mutation of the first call didn't
         # persist in the default value.
         mock_manager_interface.mock.getWithRelationships.side_effect = assert_resultTraitSet_empty
         manager.getWithRelationships(
-            a_ref, [an_empty_traitsdata], a_context, mock.Mock(), mock.Mock()
+            a_ref,
+            [an_empty_traitsdata],
+            access.RelationsAccess.kWrite,
+            a_context,
+            mock.Mock(),
+            mock.Mock(),
         )
 
         # Confidence check: ensure we actually called the manager plugin.
@@ -713,6 +766,7 @@ class Test_Manager_getWithRelationshipPaged:
             two_refs,
             an_empty_traitsdata,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -724,6 +778,7 @@ class Test_Manager_getWithRelationshipPaged:
             an_empty_traitsdata,
             an_entity_trait_set,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,
@@ -748,6 +803,7 @@ class Test_Manager_getWithRelationshipPaged:
             two_refs,
             an_empty_traitsdata,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -759,6 +815,7 @@ class Test_Manager_getWithRelationshipPaged:
             an_empty_traitsdata,
             an_entity_trait_set,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,  # success
@@ -798,6 +855,7 @@ class Test_Manager_getWithRelationshipPaged:
             two_refs,
             an_empty_traitsdata,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             lambda _idx, pager: pagers.append(pager),
             error_callback,
@@ -823,6 +881,7 @@ class Test_Manager_getWithRelationshipPaged:
                 two_refs,
                 an_empty_traitsdata,
                 page_size,
+                access.RelationsAccess.kWrite,
                 a_context,
                 success_callback,
                 error_callback,
@@ -864,6 +923,7 @@ class Test_Manager_getWithRelationshipsPaged:
             a_ref,
             two_datas,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -875,6 +935,7 @@ class Test_Manager_getWithRelationshipsPaged:
             two_datas,
             an_entity_trait_set,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,  # success
@@ -899,6 +960,7 @@ class Test_Manager_getWithRelationshipsPaged:
             a_ref,
             two_datas,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             success_callback,
             error_callback,
@@ -910,6 +972,7 @@ class Test_Manager_getWithRelationshipsPaged:
             two_datas,
             an_entity_trait_set,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             a_host_session,
             mock.ANY,  # success
@@ -946,6 +1009,7 @@ class Test_Manager_getWithRelationshipsPaged:
             a_ref,
             two_datas,
             page_size,
+            access.RelationsAccess.kWrite,
             a_context,
             lambda _idx, pager: pagers.append(pager),
             error_callback,
@@ -971,6 +1035,7 @@ class Test_Manager_getWithRelationshipsPaged:
                 a_ref,
                 two_datas,
                 page_size,
+                access.RelationsAccess.kWrite,
                 a_context,
                 success_callback,
                 error_callback,
@@ -1016,11 +1081,22 @@ class Test_Manager_resolve_with_callback_signature:
         method.side_effect = call_callbacks
 
         manager.resolve(
-            some_refs, an_entity_trait_set, a_context, success_callback, error_callback
+            some_refs,
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            success_callback,
+            error_callback,
         )
 
         method.assert_called_once_with(
-            some_refs, an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            some_refs,
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         success_callback.assert_called_once_with(123, a_traitsdata)
@@ -1071,10 +1147,18 @@ class Test_Manager_resolve_with_singular_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_traitsdata = manager.resolve(a_ref, an_entity_trait_set, a_context)
+        actual_traitsdata = manager.resolve(
+            a_ref, an_entity_trait_set, access.ResolveAccess.kRead, a_context
+        )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_traitsdata is a_traitsdata
@@ -1106,10 +1190,16 @@ class Test_Manager_resolve_with_singular_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(a_ref, an_entity_trait_set, a_context)
+            manager.resolve(a_ref, an_entity_trait_set, access.ResolveAccess.kRead, a_context)
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert exc.value.index == expected_index
@@ -1138,12 +1228,19 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         actual_traitsdata = manager.resolve(
             a_ref,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_traitsdata is a_traitsdata
@@ -1178,12 +1275,19 @@ class Test_Manager_resolve_with_singular_throwing_overload:
             manager.resolve(
                 a_ref,
                 an_entity_trait_set,
+                access.ResolveAccess.kRead,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert exc.value.index == expected_index
@@ -1212,12 +1316,19 @@ class Test_Manager_resolve_with_singular_variant_overload:
         actual_traitsdata = manager.resolve(
             a_ref,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_traitsdata is a_traitsdata
@@ -1247,12 +1358,19 @@ class Test_Manager_resolve_with_singular_variant_overload:
         actual = manager.resolve(
             a_ref,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], an_entity_trait_set, a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            an_entity_trait_set,
+            access.ResolveAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual == batch_element_error
@@ -1278,11 +1396,14 @@ class Test_Manager_resolve_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_traitsdatas = manager.resolve(some_refs, an_entity_trait_set, a_context)
+        actual_traitsdatas = manager.resolve(
+            some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1312,11 +1433,14 @@ class Test_Manager_resolve_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_traitsdatas = manager.resolve(some_refs, an_entity_trait_set, a_context)
+        actual_traitsdatas = manager.resolve(
+            some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1357,11 +1481,12 @@ class Test_Manager_resolve_with_batch_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(some_refs, an_entity_trait_set, a_context)
+            manager.resolve(some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context)
 
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1395,6 +1520,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         actual_traitsdatas = manager.resolve(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -1402,6 +1528,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1435,6 +1562,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         actual_traitsdatas = manager.resolve(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -1442,6 +1570,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1485,6 +1614,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
             manager.resolve(
                 some_refs,
                 an_entity_trait_set,
+                access.ResolveAccess.kRead,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
@@ -1492,6 +1622,7 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1529,6 +1660,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
         actual_traitsdata_and_error = manager.resolve(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -1536,6 +1668,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
         method.assert_called_once_with(
             some_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1581,6 +1714,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
         actual_traitsdata_and_error = manager.resolve(
             entity_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -1588,6 +1722,7 @@ class Test_Manager_resolve_with_batch_variant_overload:
         method.assert_called_once_with(
             entity_refs,
             an_entity_trait_set,
+            access.ResolveAccess.kRead,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1617,10 +1752,14 @@ class Test_Manager_managementPolicy:
         method = mock_manager_interface.mock.managementPolicy
         method.return_value = expected
 
-        actual = manager.managementPolicy(some_entity_trait_sets, a_context)
+        actual = manager.managementPolicy(
+            some_entity_trait_sets, access.PolicyAccess.kWrite, a_context
+        )
 
         assert actual == expected
-        method.assert_called_once_with(some_entity_trait_sets, a_context, a_host_session)
+        method.assert_called_once_with(
+            some_entity_trait_sets, access.PolicyAccess.kWrite, a_context, a_host_session
+        )
 
 
 class Test_Manager_preflight_callback_signature:
@@ -1653,11 +1792,22 @@ class Test_Manager_preflight_callback_signature:
         method.side_effect = call_callbacks
 
         manager.preflight(
-            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback
+            some_refs,
+            some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            success_callback,
+            error_callback,
         )
 
         method.assert_called_once_with(
-            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY
+            some_refs,
+            some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         success_callback.assert_called_once_with(123, some_refs[0])
@@ -1673,14 +1823,24 @@ class Test_Manager_preflight_callback_signature:
             IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
         ):
             manager.preflight(
-                some_refs[1:], some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+                some_refs[1:],
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
         with pytest.raises(
             IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
         ):
             manager.preflight(
-                some_refs, some_entity_traitsdatas[1:], a_context, mock.Mock(), mock.Mock()
+                some_refs,
+                some_entity_traitsdatas[1:],
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
     def test_when_traits_data_is_None_then_TypeError_is_raised(
@@ -1690,14 +1850,19 @@ class Test_Manager_preflight_callback_signature:
 
         with pytest.raises(TypeError):
             manager.preflight(
-                some_refs, some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+                some_refs,
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
 
 class Test_Manager_preflight_with_singular_default_overload:
     def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
         with pytest.raises(TypeError):
-            manager.preflight(a_ref, None, a_context)
+            manager.preflight(a_ref, None, access.PublishingAccess.kCreateRelated, a_context)
 
     def test_when_success_then_single_EntityReference_returned(
         self,
@@ -1717,10 +1882,18 @@ class Test_Manager_preflight_with_singular_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_ref = manager.preflight(a_ref, a_traitsdata, a_context)
+        actual_ref = manager.preflight(
+            a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_ref == a_different_ref
@@ -1752,10 +1925,18 @@ class Test_Manager_preflight_with_singular_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(a_ref, a_traitsdata, a_context)
+            manager.preflight(
+                a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
+            )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert exc.value.index == expected_index
@@ -1766,7 +1947,11 @@ class Test_Manager_preflight_with_singular_throwing_overload:
     def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
         with pytest.raises(TypeError):
             manager.preflight(
-                a_ref, None, a_context, Manager.BatchElementErrorPolicyTag.kException
+                a_ref,
+                None,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kException,
             )
 
     def test_when_preflight_success_then_single_EntityReference_returned(
@@ -1790,12 +1975,19 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         actual_ref = manager.preflight(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_ref == a_different_ref
@@ -1831,12 +2023,19 @@ class Test_Manager_preflight_with_singular_throwing_overload:
             manager.preflight(
                 a_ref,
                 a_traitsdata,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert exc.value.index == expected_index
@@ -1846,7 +2045,14 @@ class Test_Manager_preflight_with_singular_throwing_overload:
 class Test_Manager_preflight_with_singular_variant_overload:
     def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
         with pytest.raises(TypeError):
-            manager.preflight(a_ref, None, a_context, Manager.BatchElementErrorPolicyTag.kVariant)
+            manager.preflight(
+                a_ref,
+                None,
+                access.PublishingAccess.kCreateRelated,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                Manager.BatchElementErrorPolicyTag.kVariant,
+            )
 
     def test_when_preflight_success_then_single_EntityReference_returned(
         self,
@@ -1869,12 +2075,19 @@ class Test_Manager_preflight_with_singular_variant_overload:
         actual_ref = manager.preflight(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual_ref == a_different_ref
@@ -1904,12 +2117,19 @@ class Test_Manager_preflight_with_singular_variant_overload:
         actual = manager.preflight(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
 
         method.assert_called_once_with(
-            [a_ref], [a_traitsdata], a_context, a_host_session, mock.ANY, mock.ANY
+            [a_ref],
+            [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         assert actual == batch_element_error
@@ -1921,7 +2141,12 @@ class Test_Manager_preflight_with_batch_default_overload:
     ):
         some_entity_traitsdatas[-1] = None
         with pytest.raises(TypeError):
-            manager.preflight(some_refs, some_entity_traitsdatas, a_context)
+            manager.preflight(
+                some_refs,
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+            )
 
     def test_when_success_then_multiple_EntityReferences_returned(
         self,
@@ -1942,11 +2167,14 @@ class Test_Manager_preflight_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.preflight(some_refs, some_entity_traitsdatas, a_context)
+        actual_refs = manager.preflight(
+            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -1974,11 +2202,14 @@ class Test_Manager_preflight_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.preflight(some_refs, some_entity_traitsdatas, a_context)
+        actual_refs = manager.preflight(
+            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2017,11 +2248,17 @@ class Test_Manager_preflight_with_batch_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(some_refs, some_entity_traitsdatas, a_context)
+            manager.preflight(
+                some_refs,
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+            )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2041,6 +2278,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
@@ -2067,6 +2305,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         actual_refs = manager.preflight(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -2074,6 +2313,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2104,6 +2344,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         actual_refs = manager.preflight(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -2111,6 +2352,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2152,6 +2394,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
@@ -2159,6 +2402,7 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2178,6 +2422,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kVariant,
             )
@@ -2208,6 +2453,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         actual_ref_or_error = manager.preflight(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2215,6 +2461,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2261,6 +2508,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         actual_ref_or_error = manager.preflight(
             entity_refs,
             traits_datas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2268,6 +2516,7 @@ class Test_Manager_preflight_with_batch_variant_overload:
         method.assert_called_once_with(
             entity_refs,
             traits_datas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2311,11 +2560,22 @@ class Test_Manager_register_callback_overload:
         method.side_effect = call_callbacks
 
         manager.register(
-            some_refs, some_entity_traitsdatas, a_context, success_callback, error_callback
+            some_refs,
+            some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            success_callback,
+            error_callback,
         )
 
         method.assert_called_once_with(
-            some_refs, some_entity_traitsdatas, a_context, a_host_session, mock.ANY, mock.ANY
+            some_refs,
+            some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
         )
 
         success_callback.assert_called_once_with(123, some_refs[0])
@@ -2331,21 +2591,38 @@ class Test_Manager_register_callback_overload:
             IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
         ):
             manager.register(
-                some_refs[1:], some_entity_traitsdatas, a_context, mock.Mock(), mock.Mock()
+                some_refs[1:],
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
         with pytest.raises(
             IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
         ):
             manager.register(
-                some_refs, some_entity_traitsdatas[1:], a_context, mock.Mock(), mock.Mock()
+                some_refs,
+                some_entity_traitsdatas[1:],
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
             )
 
     def test_when_called_with_None_data_then_TypeError_is_raised(
         self, manager, some_refs, a_context, a_traitsdata
     ):
         with pytest.raises(TypeError):
-            manager.register(some_refs, [a_traitsdata, None], a_context, mock.Mock(), mock.Mock())
+            manager.register(
+                some_refs,
+                [a_traitsdata, None],
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+                mock.Mock(),
+                mock.Mock(),
+            )
 
 
 class Test_Manager_register_with_singular_default_overload:
@@ -2367,11 +2644,14 @@ class Test_Manager_register_with_singular_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_ref = manager.register(a_ref, a_traitsdata, a_context)
+        actual_ref = manager.register(
+            a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2407,11 +2687,14 @@ class Test_Manager_register_with_singular_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(a_ref, a_traitsdata, a_context)
+            manager.register(
+                a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
+            )
 
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2444,6 +2727,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         actual_ref = manager.register(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -2451,6 +2735,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2489,6 +2774,7 @@ class Test_Manager_register_with_singular_throwing_overload:
             manager.register(
                 a_ref,
                 a_traitsdata,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
@@ -2496,6 +2782,7 @@ class Test_Manager_register_with_singular_throwing_overload:
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2528,6 +2815,7 @@ class Test_Manager_register_with_singular_variant_overload:
         actual_ref = manager.register(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2535,6 +2823,7 @@ class Test_Manager_register_with_singular_variant_overload:
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2568,6 +2857,7 @@ class Test_Manager_register_with_singular_variant_overload:
         actual = manager.register(
             a_ref,
             a_traitsdata,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2575,6 +2865,7 @@ class Test_Manager_register_with_singular_variant_overload:
         method.assert_called_once_with(
             [a_ref],
             [a_traitsdata],
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2604,11 +2895,14 @@ class Test_Manager_register_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.register(some_refs, some_entity_traitsdatas, a_context)
+        actual_refs = manager.register(
+            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2636,11 +2930,14 @@ class Test_Manager_register_with_batch_default_overload:
 
         method.side_effect = call_callbacks
 
-        actual_refs = manager.register(some_refs, some_entity_traitsdatas, a_context)
+        actual_refs = manager.register(
+            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
+        )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2679,11 +2976,17 @@ class Test_Manager_register_with_batch_default_overload:
         method.side_effect = call_callbacks
 
         with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(some_refs, some_entity_traitsdatas, a_context)
+            manager.register(
+                some_refs,
+                some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
+                a_context,
+            )
 
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2717,6 +3020,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         actual_refs = manager.register(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -2724,6 +3028,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2754,6 +3059,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         actual_refs = manager.register(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kException,
         )
@@ -2761,6 +3067,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2803,6 +3110,7 @@ class Test_Manager_register_with_batch_throwing_overload:
             manager.register(
                 some_refs,
                 some_entity_traitsdatas,
+                access.PublishingAccess.kCreateRelated,
                 a_context,
                 Manager.BatchElementErrorPolicyTag.kException,
             )
@@ -2810,6 +3118,7 @@ class Test_Manager_register_with_batch_throwing_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2847,6 +3156,7 @@ class Test_Manager_register_with_batch_variant_overload:
         actual_ref_or_error = manager.register(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2854,6 +3164,7 @@ class Test_Manager_register_with_batch_variant_overload:
         method.assert_called_once_with(
             some_refs,
             some_entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2900,6 +3211,7 @@ class Test_Manager_register_with_batch_variant_overload:
         actual_ref_or_error = manager.register(
             entity_refs,
             entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             Manager.BatchElementErrorPolicyTag.kVariant,
         )
@@ -2907,6 +3219,7 @@ class Test_Manager_register_with_batch_variant_overload:
         method.assert_called_once_with(
             entity_refs,
             entity_traitsdatas,
+            access.PublishingAccess.kCreateRelated,
             a_context,
             a_host_session,
             mock.ANY,
@@ -2933,7 +3246,6 @@ class Test_Manager_createContext:
 
         context_a = manager.createContext()
 
-        assert context_a.access == Context.Access.kUnknown
         assert context_a.managerState is state_a
         assert isinstance(context_a.locale, TraitsData)
         assert context_a.locale.traitSet() == set()
@@ -2951,7 +3263,6 @@ class Test_Manager_createChildContext:
         state_a = managerApi.ManagerStateBase()
         mock_manager_interface.mock.createState.return_value = state_a
         context_a = manager.createContext()
-        context_a.access = Context.Access.kWrite
         context_a.locale = TraitsData()
         mock_manager_interface.mock.reset_mock()
 
@@ -2962,7 +3273,6 @@ class Test_Manager_createChildContext:
 
         assert context_b is not context_a
         assert context_b.managerState is state_b
-        assert context_b.access == context_a.access
         assert context_b.locale == context_a.locale
         mock_manager_interface.mock.createChildState.assert_called_once_with(
             state_a, a_host_session
@@ -2979,7 +3289,6 @@ class Test_Manager_createChildContext:
         mock_manager_interface.mock.createState.return_value = state_a
         mock_manager_interface.mock.createChildState.return_value = state_a
         context_a = manager.createContext()
-        context_a.access = Context.Access.kWrite
         context_a.locale = original_locale
 
         context_b = manager.createChildContext(context_a)
@@ -2992,11 +3301,9 @@ class Test_Manager_createChildContext:
         self, manager, mock_manager_interface
     ):
         context_a = Context()
-        context_a.access = Context.Access.kWrite
         context_a.locale = TraitsData()
         context_b = manager.createChildContext(context_a)
 
-        assert context_b.access == context_a.access
         assert context_b.locale == context_b.locale
         mock_manager_interface.mock.createChildState.assert_not_called()
 
@@ -3159,7 +3466,7 @@ def invoke_entityExists_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_defaultEntityReference_success_cb(mock_manager_interface):
     def invoke(idx, entity_ref):
-        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][3]
+        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][4]
         callback(idx, entity_ref)
 
     return invoke
@@ -3168,7 +3475,7 @@ def invoke_defaultEntityReference_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_defaultEntityReference_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][4]
+        callback = mock_manager_interface.mock.defaultEntityReference.call_args[0][5]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3177,7 +3484,7 @@ def invoke_defaultEntityReference_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationshipPaged_success_cb(mock_manager_interface):
     def invoke(idx, entityReferencesPagerInterface):
-        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][6]
+        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][7]
         callback(idx, entityReferencesPagerInterface)
 
     return invoke
@@ -3186,7 +3493,7 @@ def invoke_getWithRelationshipPaged_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationshipsPaged_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][7]
+        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][8]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3195,7 +3502,7 @@ def invoke_getWithRelationshipsPaged_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationshipsPaged_success_cb(mock_manager_interface):
     def invoke(idx, entityReferencesPagerInterface):
-        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][6]
+        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][7]
         callback(idx, entityReferencesPagerInterface)
 
     return invoke
@@ -3204,7 +3511,7 @@ def invoke_getWithRelationshipsPaged_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationshipPaged_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][7]
+        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][8]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3213,7 +3520,7 @@ def invoke_getWithRelationshipPaged_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationship_success_cb(mock_manager_interface):
     def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][5]
+        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][6]
         callback(idx, entityReferences)
 
     return invoke
@@ -3222,7 +3529,7 @@ def invoke_getWithRelationship_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationship_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][6]
+        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][7]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3231,7 +3538,7 @@ def invoke_getWithRelationship_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationships_success_cb(mock_manager_interface):
     def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][5]
+        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][6]
         callback(idx, entityReferences)
 
     return invoke
@@ -3240,7 +3547,7 @@ def invoke_getWithRelationships_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationships_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][6]
+        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][7]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3249,7 +3556,7 @@ def invoke_getWithRelationships_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_resolve_success_cb(mock_manager_interface):
     def invoke(idx, traits_data):
-        callback = mock_manager_interface.mock.resolve.call_args[0][4]
+        callback = mock_manager_interface.mock.resolve.call_args[0][5]
         callback(idx, traits_data)
 
     return invoke
@@ -3258,7 +3565,7 @@ def invoke_resolve_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_resolve_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.resolve.call_args[0][5]
+        callback = mock_manager_interface.mock.resolve.call_args[0][6]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3267,7 +3574,7 @@ def invoke_resolve_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_preflight_success_cb(mock_manager_interface):
     def invoke(idx, traits_data):
-        callback = mock_manager_interface.mock.preflight.call_args[0][4]
+        callback = mock_manager_interface.mock.preflight.call_args[0][5]
         callback(idx, traits_data)
 
     return invoke
@@ -3276,7 +3583,7 @@ def invoke_preflight_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_preflight_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.preflight.call_args[0][5]
+        callback = mock_manager_interface.mock.preflight.call_args[0][6]
         callback(idx, batch_element_error)
 
     return invoke
@@ -3285,7 +3592,7 @@ def invoke_preflight_error_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_register_success_cb(mock_manager_interface):
     def invoke(idx, traits_data):
-        callback = mock_manager_interface.mock.register.call_args[0][4]
+        callback = mock_manager_interface.mock.register.call_args[0][5]
         callback(idx, traits_data)
 
     return invoke
@@ -3294,7 +3601,7 @@ def invoke_register_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_register_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.register.call_args[0][5]
+        callback = mock_manager_interface.mock.register.call_args[0][6]
         callback(idx, batch_element_error)
 
     return invoke

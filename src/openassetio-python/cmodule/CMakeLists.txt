@@ -41,6 +41,7 @@ target_sources(
     openassetio-python-module
     PRIVATE
     src/_openassetio.cpp
+    src/accessBinding.cpp
     src/constantsBinding.cpp
     src/BatchElementErrorBinding.cpp
     src/ContextBinding.cpp

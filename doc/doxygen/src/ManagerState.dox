@@ -87,7 +87,6 @@
  * activate Manager
  * worker -> Manager : createContext()
  * Manager --> worker : context
- * worker -> worker : context.access = context.kWrite
  * worker -> Manager : working_reference = preflight("ref://asset", context)
  * Manager --> worker : "ref://asset=v4&state=inflight"
  * worker -> Manager : persistenceTokenForContext(context)
@@ -105,7 +104,6 @@
  *     worker -> worker : token, ref_map = read_state_file("openassetio.json")
  *     worker -> Manager : contextFromPersistenceToken(token)
  *     Manager --> worker : context
- *     worker -> worker : context.access = context.kWrite
  *     worker -> worker : working_reference = ref_map["ref://asset"]
  *     worker -> Manager : spec = resolve(working_reference, {FileTrait.id}, context)
  *     Manager --> worker : Specification({"file": {"url": "file:///out.####.exr"}})
@@ -122,7 +120,6 @@
  * worker -> worker : token, ref_map = read_state_file("openassetio.json")
  * worker -> Manager : contextFromPersistenceToken(token)
  * Manager --> worker : context
- * worker -> worker : context.access = context.kWrite
  * worker -> worker : working_reference = ref_map["ref://asset"]
  * worker -> Manager : path = resolve(working_reference, FileTrait.id, context)
  * Manager --> worker : "file://out.####.exr"

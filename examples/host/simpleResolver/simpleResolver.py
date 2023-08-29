@@ -26,6 +26,7 @@ import json
 import sys
 
 from openassetio import BatchElementException
+from openassetio.access import ResolveAccess
 from openassetio.hostApi import HostInterface, ManagerFactory
 from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
@@ -193,15 +194,13 @@ def main():
     # interactive session.
 
     context = manager.createContext()
-    context.access = context.Access.kRead
 
     # Resolve the requested traits for the referenced entity.
     # Note that there are multiple overloaded signatures for `resolve`,
     # to aid in batch and/or exception-less workflows. See API docs for
     # more. Here we use the default single-ref exception-throwing
     # signature.
-
-    traits_data = manager.resolve(entity_reference, trait_set, context)
+    traits_data = manager.resolve(entity_reference, trait_set, ResolveAccess.kRead, context)
     print_traits_data(traits_data)
 
 

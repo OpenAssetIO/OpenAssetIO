@@ -31,8 +31,8 @@
  * If supported by the host, it will then:
  * - Call @ref glossary_preflight with the target entity and the traits
  *   data from the @needsref ThumbnailSpecification, using the
- *   @fqref{Context.Access.kCreateRelated} "Access.kCreateRelated"
- *   access mode.
+ *   @fqref{access.PublishAccess.kCreateRelated} "kCreateRelated" access
+ *   mode.
  * - Call @ref glossary_resolve on the returned reference to determine
  *   the desired width/height/format for the thumbnail.
  * - Generate a thumbnail and @ref glossary_register it to the same

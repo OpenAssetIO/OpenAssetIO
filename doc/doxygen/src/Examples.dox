@@ -144,7 +144,7 @@
  * `kInfoKey_EntityReferencesMatchPrefix` key.
  *
  * @code{.py}
- * from openassetio import Context
+ * from openassetio.access import ResolveAccess
  * from openassetio_mediacreation.traits.content import LocatableContentTrait
  *
  * # Note: this will raise an exception if given a string that is not
@@ -154,19 +154,18 @@
  * entity_reference = manager.createEntityReference(some_string)
  *
  * # All calls to the manager must have a Context, these should always
- * # be created by the target manager. The Context expresses the host's
- * # intent, and ensure that any manager state is properly managed
- * # between API calls.
+ * # be created by the target manager. The Context ensures that any
+ * # manager state is properly managed between API calls.
  * context = manager.createContext()
- *
- * # We describe what we want to do with the asset
- * context.access = context.access.kRead
  *
  * # We can now resolve a token we may have if it is a reference. In
  * # this example, we'll attempt to resolve the LocatableContent trait
- * # for the entity.
+ * # for the entity. We inform the manager that we just want to read the
+ * # current data for the entity (kRead). See the publishing examples
+ * # for use of the alternative `kWrite` access mode.
  * resolved_asset = manager.resolve(
- *         entity_reference, {LocatableContentTrait.kId}, context)
+ *         entity_reference, {LocatableContentTrait.kId},
+ *         ResolveAccess.kRead, context)
  * url = LocatableContentTrait(resolved_asset).getLocation()  # May be None
  * @endcode
  *
@@ -196,6 +195,8 @@
  *
  * @code{.py}
  *
+ * from openassetio.access import PolicyAccess
+ *
  * # Commented imports are illustrative and may not exist yet
  * from openassetio_mediacreation.traits.managementPolicy import (
  *     ManagedTrait,
@@ -207,13 +208,12 @@
  *     # TextFileSpecification
  * )
  *
- * # Make sure we have the correct context
- * context.access = context.kRead
- *
  * # We use the well-known specification for a text file to determine
  * # the correct trait set to query. Using the standard definition
- * # ensures consistent behaviour across managers/hosts.
- * [policy] = manager.managementPolicy([TextFileSpecification.kTraitSet], context)
+ * # ensures consistent behaviour across managers/hosts. We request
+ * # the manager's policy for read access to this entity type.
+ * [policy] = manager.managementPolicy(
+ *  [TextFileSpecification.kTraitSet], PolicyAccess.kRead, context)
  *
  * # We can now check which traits were imbued in the policy, the
  * # absence of a trait means it is unsupported.
@@ -245,6 +245,8 @@
  * the creation of new data. In this case, a simple text file.
  *
  * @code{.py}
+ * from openassetio.access import (
+ *     PolicyAccess, ResolveAccess, PublishingAccess)
  * # Commented imports are illustrative and may not exist yet
  * from openassetio_mediacreation.traits.managementPolicy import (
  *     ManagedTrait, ResolvesFutureEntitiesTrait
@@ -256,10 +258,12 @@
  *
  * # As ever, an appropriately configured context is required
  * context = manager.createContext()
- * context.access = context.kWrite
  *
- * # The first step is to see if the manager wants to manage text files
- * policy = manager.managementPolicy([TextFileSpecification.kTraitSet], context)[0]
+ * # The first step is to see if the manager wants to manage text files.
+ * # Note that this time we request the manager's policy for write
+ * # access.
+ * policy = manager.managementPolicy(
+ *     [TextFileSpecification.kTraitSet], PolicyAccess.kWrite, context)[0]
  *
  * if not ManagedTrait.isImbuedTo(policy):
  *   # The manager doesn't care about this type of asset
@@ -278,13 +282,18 @@
  * # publishing) and can be provided up-front.
  * file_spec = TextFileSpecification.create()
  * file_spec.markupTrait().setMarkupType("plain")
+ *
+ * # Our intent is to write data to this entity, not to create a new
+ * # related entity (kCreateRelated), so we use the kWrite access mode.
  * # NOTE: It is critical to always use the working_ref from now on.
- * working_ref = manager.preflight(entity_ref, file_spec, context)
+ * working_ref = manager.preflight(
+ *    entity_ref, file_spec, PublishingAccess.kWrite, context)
  *
  * # We then check if the manager can tell us where to save the file.
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
  *     working_data = manager.resolve(
- *             working_ref, TextFileSpecification.kTraitSet, context)
+ *             working_ref, TextFileSpecification.kTraitSet,
+ *             ResolveAccess.kWrite, context)
  *     working_spec = TextFileSpecification(working_data)
  *     if save_url := working_spec.locatableContentTrait().getLocation():
  *         save_path = pathFromURL(save_url)  # URL decode etc
@@ -302,7 +311,8 @@
  *
  * # Now the data has been written, we register the file and the publish
  * # is complete.
- * final_ref = manager.register(working_ref, file_spec.traitsData(), context)
+ * final_ref = manager.register(working_ref, file_spec.traitsData(),
+ *     PublishAccess.kWrite, context)
  *
  * # Keep this around for later, in case it is useful
  * with open(os.path.join(os.path.expanduser('~'), 'history', 'a') as f:
@@ -330,7 +340,8 @@
  * # reference, this gives us a reference we can now use for all
  * # interactions relating to the thumbnail itself.
  * thumbnail_ref = manager.preflight(
- *         final_ref, ThumbnailFileSpecification.kTraitSet, context)
+ *         final_ref, ThumbnailFileSpecification.kTraitSet,
+ *         PublishAccess.kCreateRelated, context)
  *
  * thumbnail_path = os.path.join(os.path.expanduser('~'), 'greeting.preview.png')
  * thumbnail_attr = {"width": 128, "height": 128}
@@ -338,7 +349,8 @@
  * # See if the manager can tell us where to put it, and what it should be like
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
  *     requested = manager.resolve(
- *             thumbnail_ref, ThumbnailFileSpecification.kTraitSet, context)
+ *             thumbnail_ref, ThumbnailFileSpecification.kTraitSet,
+ *             ResolveAccess.kWrite, context)
  *     requested_spec = ThumbnailFileSpecification(requested)
  *     if requested_path := requested_spec.locatableContentTrait().getLocation():
  *         thumbnail_path = pathFromURL(requested_path)
@@ -360,6 +372,8 @@
  * raster_trait.setWidth(thumbnail_attr["width"])
  * raster_trait.setHeight(thumbnail_attr["height"])
  *
- * manager.register(thumbnail_ref, thumbnail_spec.traitsData(), context)
+ * manager.register(
+ *     thumbnail_ref, thumbnail_spec.traitsData(),
+ *     PublishAccess.kWrite, context)
  * @endcode
  */

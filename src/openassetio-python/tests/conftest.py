@@ -24,6 +24,13 @@ import sys
 import pytest
 
 from openassetio import Context, EntityReference, TraitsData
+from openassetio.access import (
+    PolicyAccess,
+    ResolveAccess,
+    RelationsAccess,
+    PublishingAccess,
+    DefaultEntityAccess,
+)
 from openassetio.log import LoggerInterface
 from openassetio.managerApi import (
     ManagerInterface,
@@ -164,28 +171,43 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.flushCaches(hostSession)
 
     def defaultEntityReference(
-        self, traitSets, context, hostSession, successCallback, errorCallback
+        self, traitSets, defaultEntityAccess, context, hostSession, successCallback, errorCallback
     ):
         self.__assertIsIterableOf(traitSets, set)
         for traitSet in traitSets:
             self.__assertIsIterableOf(traitSet, str)
+        assert isinstance(defaultEntityAccess, DefaultEntityAccess)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.defaultEntityReference(
-            traitSets, context, hostSession, successCallback, errorCallback
+            traitSets, defaultEntityAccess, context, hostSession, successCallback, errorCallback
         )
 
     def preflight(
-        self, targetEntityRefs, traitsDatas, context, hostSession, successCallback, errorCallback
+        self,
+        targetEntityRefs,
+        traitsDatas,
+        publishingAccess,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
     ):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(traitsDatas, TraitsData)
+        assert isinstance(publishingAccess, PublishingAccess)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.preflight(
-            targetEntityRefs, traitsDatas, context, hostSession, successCallback, errorCallback
+            targetEntityRefs,
+            traitsDatas,
+            publishingAccess,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
         )
 
     def createState(self, hostSession):
@@ -209,13 +231,14 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def initialize(self, managerSettings, hostSession):
         return self.mock.initialize(managerSettings, hostSession)
 
-    def managementPolicy(self, traitSets, context, hostSession):
+    def managementPolicy(self, traitSets, policyAccess, context, hostSession):
         self.__assertIsIterableOf(traitSets, set)
+        assert isinstance(policyAccess, PolicyAccess)
         for traitSet in traitSets:
             self.__assertIsIterableOf(traitSet, str)
         self.__assertCallingContext(context, hostSession)
 
-        return self.mock.managementPolicy(traitSets, context, hostSession)
+        return self.mock.managementPolicy(traitSets, policyAccess, context, hostSession)
 
     def isEntityReferenceString(self, someString, hostSession):
         assert isinstance(someString, str)
@@ -231,14 +254,30 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityRefs, context, hostSession, successCallback, errorCallback
         )
 
-    def resolve(self, entityRefs, traitSet, context, hostSession, successCallback, errorCallback):
+    def resolve(
+        self,
+        entityRefs,
+        traitSet,
+        resolveAccess,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+    ):
         self.__assertIsIterableOf(entityRefs, EntityReference)
         self.__assertIsIterableOf(traitSet, str)
+        assert isinstance(resolveAccess, ResolveAccess)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.resolve(
-            entityRefs, traitSet, context, hostSession, successCallback, errorCallback
+            entityRefs,
+            traitSet,
+            resolveAccess,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
         )
 
     def getWithRelationship(
@@ -246,6 +285,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         entityReferences,
         relationshipTraitsData,
         resultTraitSet,
+        relationsAccess,
         context,
         hostSession,
         successCallback,
@@ -253,6 +293,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     ):
         assert isinstance(relationshipTraitsData, TraitsData)
         self.__assertIsIterableOf(entityReferences, EntityReference)
+        assert isinstance(relationsAccess, RelationsAccess)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(resultTraitSet, set)
         self.__assertIsIterableOf(resultTraitSet, str)
@@ -262,6 +303,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityReferences,
             relationshipTraitsData,
             resultTraitSet,
+            relationsAccess,
             context,
             hostSession,
             successCallback,
@@ -273,6 +315,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         entityReference,
         relationshipTraitsDatas,
         resultTraitSet,
+        relationsAccess,
         context,
         hostSession,
         successCallback,
@@ -280,6 +323,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     ):
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         assert isinstance(entityReference, EntityReference)
+        assert isinstance(relationsAccess, RelationsAccess)
         self.__assertCallingContext(context, hostSession)
         assert callable(successCallback)
         assert callable(errorCallback)
@@ -289,6 +333,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             entityReference,
             relationshipTraitsDatas,
             resultTraitSet,
+            relationsAccess,
             context,
             hostSession,
             successCallback,
@@ -302,6 +347,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         relationshipTraitsData,
         resultTraitSet,
         pageSize,
+        relationsAccess,
         context,
         hostSession,
         successCallback,
@@ -309,6 +355,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     ):
         assert isinstance(relationshipTraitsData, TraitsData)
         self.__assertIsIterableOf(entityReferences, EntityReference)
+        assert isinstance(relationsAccess, RelationsAccess)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(resultTraitSet, set)
         self.__assertIsIterableOf(resultTraitSet, str)
@@ -321,6 +368,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             relationshipTraitsData,
             resultTraitSet,
             pageSize,
+            relationsAccess,
             context,
             hostSession,
             successCallback,
@@ -334,6 +382,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         relationshipTraitsDatas,
         resultTraitSet,
         pageSize,
+        relationsAccess,
         context,
         hostSession,
         successCallback,
@@ -341,6 +390,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     ):
         self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
         assert isinstance(entityReference, EntityReference)
+        assert isinstance(relationsAccess, RelationsAccess)
         self.__assertCallingContext(context, hostSession)
         assert isinstance(pageSize, int)
         assert pageSize > 0
@@ -353,6 +403,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
             relationshipTraitsDatas,
             resultTraitSet,
             pageSize,
+            relationsAccess,
             context,
             hostSession,
             successCallback,
@@ -363,6 +414,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self,
         targetEntityRefs,
         entityTraitsDatas,
+        publishingAccess,
         context,
         hostSession,
         successCallback,
@@ -370,6 +422,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
     ):
         self.__assertIsIterableOf(targetEntityRefs, EntityReference)
         self.__assertIsIterableOf(entityTraitsDatas, TraitsData)
+        assert isinstance(publishingAccess, PublishingAccess)
         self.__assertCallingContext(context, hostSession)
         assert len(targetEntityRefs) == len(entityTraitsDatas)
         assert callable(successCallback)
@@ -377,6 +430,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         return self.mock.register(
             targetEntityRefs,
             entityTraitsDatas,
+            publishingAccess,
             context,
             hostSession,
             successCallback,
