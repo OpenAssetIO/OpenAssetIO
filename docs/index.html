@@ -145,12 +145,12 @@ Architecture</h1>
 <img src="inline_umlgraph_5.png" />
 </div>
 <p>It attempts to show that the API is organized into two main namespaces - the <a class="el" href="namespaceopenassetio_1_1host_api.html">hostApi</a> and <a class="el" href="namespaceopenassetio_1_1manager_api.html">managerApi</a>. Within each of these, you will find the components you need depending on whether you are adopting the API in a <a class="el" href="glossary.html#host">host</a> or providing support for a <a class="el" href="glossary.html#manager">manager</a> through a plugin.</p>
-<p>The first step in any integration is to write an implementation of one of the two abstract interfaces defined by the API, illustrated in orange above - either the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html">HostInterface</a> or <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>.</p>
+<p>The first step in any integration is to write an implementation of one of the two abstract interfaces defined by the API, illustrated in orange above - either the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html">HostInterface</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>.</p>
 <ul>
-<li>The asset management system implements the <a class="el" href="classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html">ManagerInterface</a>. This is a stateless, re-entrant interface that is the sole entry point for all interactions with the host.</li>
+<li>The asset management system implements the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>. This is a stateless, re-entrant interface that is the sole entry point for all interactions with the host.</li>
 <li>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html">HostInterface</a> represents the caller of the API. It allows the asset management system to customize the <a class="el" href="glossary.html#publish">publishing</a> process if desired and/or query additional information about the host.</li>
 </ul>
-<p>The interface implementations are "wrapped" in the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> or <a class="el" href="classopenassetio_1_1host_api_1_1_manager_1_1_manager.html">Manager</a> classes by the API before being passed to the other side, to provide state management and audit functionality.</p>
+<p>The interface implementations are "wrapped" in the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> or <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a> classes by the API before being passed to the other side, to provide state management and audit functionality.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="notes_for_hosts.html">Notes for API Host Developers</a> </dd>
 <dd>
 <a class="el" href="notes_for_managers.html">Notes for Asset System Integrators</a></dd></dl>

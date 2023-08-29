@@ -18,20 +18,11 @@ var hierarchy =
       [ "ConsoleLogger", "classopenassetio_1_1v1_1_1log_1_1_console_logger.html", null ],
       [ "SeverityFilter", "classopenassetio_1_1v1_1_1log_1_1_severity_filter.html", null ]
     ] ],
-    [ "Manager", null, [
-      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
-    ] ],
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
     [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
-    [ "ManagerFactory", null, [
-      [ "ManagerFactory", "classopenassetio_1_1host_api_1_1_manager_factory_1_1_manager_factory.html", null ]
-    ] ],
     [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", null ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
-    [ "ManagerInterface", null, [
-      [ "ManagerInterface", "classopenassetio_1_1manager_api_1_1_manager_interface_1_1_manager_interface.html", null ]
-    ] ],
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
@@ -53,6 +44,7 @@ var hierarchy =
         [ "EntityResolutionErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html", null ],
         [ "InvalidEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html", null ],
         [ "InvalidPreflightHintBatchElementException", "structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html", null ],
+        [ "InvalidTraitSetBatchElementException", "structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html", null ],
         [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
         [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
       ] ]
@@ -80,9 +72,6 @@ var hierarchy =
     ] ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Variant", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html", null ],
-    [ "Debuggable", null, [
-      [ "Manager", "classopenassetio_1_1host_api_1_1_manager_1_1_manager.html", null ]
-    ] ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],
       [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],

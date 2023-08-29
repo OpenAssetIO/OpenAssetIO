@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['traitid',['TraitId',['../namespaceopenassetio_1_1v1_1_1trait.html#a0f56f286cd392503ebbf20c97932cf48',1,'openassetio::v1::trait']]],
-  ['traitsdataconstptr',['TraitsDataConstPtr',['../namespaceopenassetio_1_1v1.html#af5b1a99c86622b84201d00a935253a99',1,'openassetio::v1']]],
-  ['traitsdataptr',['TraitsDataPtr',['../namespaceopenassetio_1_1v1.html#a669411d68046a0cc90555897b03d8407',1,'openassetio::v1']]],
-  ['traitsdatas',['TraitsDatas',['../namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88',1,'openassetio::v1::trait']]],
-  ['traitset',['TraitSet',['../namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f',1,'openassetio::v1::trait']]],
-  ['traitsets',['TraitSets',['../namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b',1,'openassetio::v1::trait']]]
+  ['severityfilterconstptr',['SeverityFilterConstPtr',['../namespaceopenassetio_1_1v1_1_1log.html#af840ffebe5fc45acd969f9e72dac0a38',1,'openassetio::v1::log']]],
+  ['severityfilterptr',['SeverityFilterPtr',['../namespaceopenassetio_1_1v1_1_1log.html#afe8011941c95c0a4d0e1da37f2b23f4e',1,'openassetio::v1::log']]],
+  ['str',['Str',['../namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6',1,'openassetio::v1']]],
+  ['strmap',['StrMap',['../namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799',1,'openassetio::v1']]]
 ];

@@ -11,6 +11,7 @@ var searchData=
   ['kinfo',['kInfo',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba176a473e63c17ccdac91640c67f149bf',1,'openassetio::v1::log::LoggerInterface']]],
   ['kinvalidentityreference',['kInvalidEntityReference',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3',1,'openassetio::v1::BatchElementError']]],
   ['kinvalidpreflighthint',['kInvalidPreflightHint',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458',1,'openassetio::v1::BatchElementError']]],
+  ['kinvalidtraitset',['kInvalidTraitSet',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526',1,'openassetio::v1::BatchElementError']]],
   ['kinvalidvalue',['kInvalidValue',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9a1b9f00267ee740a8664032f6d9c943ff',1,'openassetio::v1::trait']]],
   ['kmalformedentityreference',['kMalformedEntityReference',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc',1,'openassetio::v1::BatchElementError']]],
   ['kmissing',['kMissing',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9acf5654d391f51afbdc947d31387dd666',1,'openassetio::v1::trait']]],

@@ -21,6 +21,7 @@ var searchData=
   ['kinfokey_5fsmallicon',['kInfoKey_SmallIcon',['../namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5',1,'openassetio::v1::constants']]],
   ['kinvalidentityreference',['kInvalidEntityReference',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3',1,'openassetio::v1::BatchElementError']]],
   ['kinvalidpreflighthint',['kInvalidPreflightHint',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458',1,'openassetio::v1::BatchElementError']]],
+  ['kinvalidtraitset',['kInvalidTraitSet',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526',1,'openassetio::v1::BatchElementError']]],
   ['kinvalidvalue',['kInvalidValue',['../namespaceopenassetio_1_1v1_1_1trait.html#af12a207668e0073a028d50ae4d8609b9a1b9f00267ee740a8664032f6d9c943ff',1,'openassetio::v1::trait']]],
   ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
   ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],

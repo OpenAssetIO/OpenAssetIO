@@ -15,6 +15,7 @@ var searchData=
   ['invalidentityreference',['InvalidEntityReference',['../classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html',1,'openassetio::exceptions']]],
   ['invalidentityreferencebatchelementexception',['InvalidEntityReferenceBatchElementException',['../structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html',1,'openassetio::v1']]],
   ['invalidpreflighthintbatchelementexception',['InvalidPreflightHintBatchElementException',['../structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html',1,'openassetio::v1']]],
+  ['invalidtraitsetbatchelementexception',['InvalidTraitSetBatchElementException',['../structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html',1,'openassetio::v1']]],
   ['isentityreferencestring',['isEntityReferenceString',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d',1,'openassetio::v1::hostApi::Manager::isEntityReferenceString()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4c1005609599f0fa6c5d632bebfd90fb',1,'openassetio::v1::managerApi::ManagerInterface::isEntityReferenceString()']]],
   ['isforread',['isForRead',['../classopenassetio_1_1v1_1_1_context.html#a8a43470d68fa651e356e61ff8f89b148',1,'openassetio::v1::Context']]],
   ['isforwrite',['isForWrite',['../classopenassetio_1_1v1_1_1_context.html#af6d546eb9e19a357f6dc1eb34f6f5976',1,'openassetio::v1::Context']]],

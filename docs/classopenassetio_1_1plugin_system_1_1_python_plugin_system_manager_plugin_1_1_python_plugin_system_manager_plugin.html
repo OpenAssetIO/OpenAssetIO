@@ -131,7 +131,7 @@ Inheritance diagram for PythonPluginSystemManagerPlugin:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aafd0b3ea85ff007407525aa377d03bac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac">interface</a> (cls)</td></tr>
-<tr class="memdesc:aafd0b3ea85ff007407525aa377d03bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">openassetio.managerApi.ManagerInterface</a>.  <a href="#aafd0b3ea85ff007407525aa377d03bac">More...</a><br /></td></tr>
+<tr class="memdesc:aafd0b3ea85ff007407525aa377d03bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>.  <a href="#aafd0b3ea85ff007407525aa377d03bac">More...</a><br /></td></tr>
 <tr class="separator:aafd0b3ea85ff007407525aa377d03bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab276e2a61b4452ffe6e9a54cac10f1ce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce">uiDelegate</a> (cls, interfaceInstance)</td></tr>
 <tr class="memdesc:ab276e2a61b4452ffe6e9a54cac10f1ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of the openassetio-ui.implementation.ManagerUIDelegate.  <a href="#ab276e2a61b4452ffe6e9a54cac10f1ce">More...</a><br /></td></tr>
@@ -174,7 +174,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Returns an identifier to uniquely identify the plug-in. </p>
 <p>Generally, this should be the identifier used by the manager. The identifier should use only alpha-numeric characters and '.', '_' or '-'. For example: </p><pre class="fragment">"org.openassetio.test.manager"
 </pre><dl class="section return"><dt>Returns</dt><dd>str</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> </dd></dl>
 
 </div>
 </div>
@@ -192,8 +192,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructs an instance of the <a class="el" href="namespaceopenassetio_1_1manager_api_1_1_manager_interface.html">openassetio.managerApi.ManagerInterface</a>. </p>
-<p>This is an instance of some class derived from ManagerInterface to be bound to the Host-facing <a class="el" href="namespaceopenassetio_1_1host_api_1_1_manager.html">openassetio.hostApi.Manager</a>.</p>
+<p>Constructs an instance of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>. </p>
+<p>This is an instance of some class derived from ManagerInterface to be bound to the Host-facing <a class="el" href="namespaceopenassetio_1_1host_api.html#a07400da5bccf76245cdfd052bc42b7db">openassetio.hostApi.Manager</a>.</p>
 <p>Generally this is only directly called by the <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory.html">openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory</a>. It may be called multiple times in a session, but there as the ManagerInterface API itself is specified as being stateless (aside from any internal caching/etc...) then there is no pre-requisite to always return a new instance.</p>
 <dl class="section return"><dt>Returns</dt><dd>ManagerInterface instance </dd></dl>
 

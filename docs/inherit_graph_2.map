@@ -1,9 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$structopenassetio_1_1v1_1_1_batch_element_exception.html" title="Exception base that ties together a BatchElementError and an index. " alt="" coords="164,177,341,203"/>
+<area shape="rect" id="node2" href="$structopenassetio_1_1v1_1_1_batch_element_exception.html" title="Exception base that ties together a BatchElementError and an index. " alt="" coords="164,209,341,235"/>
 <area shape="rect" id="node3" href="$structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kEntityAccessError. " alt="" coords="395,5,622,47"/>
 <area shape="rect" id="node4" href="$structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kEntityResolutionError. " alt="" coords="410,71,607,112"/>
 <area shape="rect" id="node5" href="$structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kInvalidEntityReference. " alt="" coords="405,136,612,177"/>
 <area shape="rect" id="node6" href="$structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kInvalidPreflightHint. " alt="" coords="417,201,601,243"/>
-<area shape="rect" id="node7" href="$structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kMalformedEntityReference. " alt="" coords="410,267,607,308"/>
-<area shape="rect" id="node8" href="$structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kUnknown. " alt="" coords="389,333,628,359"/>
+<area shape="rect" id="node7" href="$structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kInvalidTraitSet. " alt="" coords="405,267,612,308"/>
+<area shape="rect" id="node8" href="$structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kMalformedEntityReference. " alt="" coords="410,332,607,373"/>
+<area shape="rect" id="node9" href="$structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html" title="Exception equivalent of BatchElementError::ErrorCode::kUnknown. " alt="" coords="389,398,628,425"/>
 </map>

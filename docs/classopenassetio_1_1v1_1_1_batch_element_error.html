@@ -133,7 +133,8 @@ Public Types</h2></td></tr>
 <a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> = OPENASSETIO_BatchErrorCode_kEntityAccessError, 
 <br />
 &#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5">kEntityResolutionError</a> = OPENASSETIO_BatchErrorCode_kEntityResolutionError, 
-<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458">kInvalidPreflightHint</a> = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint
+<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458">kInvalidPreflightHint</a> = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint, 
+<a class="el" href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> = OPENASSETIO_BatchErrorCode_kInvalidTraitSet
 <br />
  }<tr class="memdesc:a59e56af19e754a6aa26a612ebf91d05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible classes of error.  <a href="classopenassetio_1_1v1_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">More...</a><br /></td></tr>
 </td></tr>
@@ -209,6 +210,9 @@ Public Attributes</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458"></a>kInvalidPreflightHint&#160;</td><td class="fielddoc">
 <p>Error code response from <a class="el" href="glossary.html#glossary_preflight">preflight</a> if the provided <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">traits data</a> hint holds insufficient or invalid information. </p>
 <p>This will occur when the manager requires information that the host owns to be passed to <code>preflight</code>, but the host did not provide it. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526"></a>kInvalidTraitSet&#160;</td><td class="fielddoc">
+<p>Error code used whenever a trait set is not one that is known to the manager. </p>
 </td></tr>
 </table>
 
