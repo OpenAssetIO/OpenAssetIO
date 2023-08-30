@@ -80,8 +80,9 @@ data = manager.resolve(..., write_context)
 
 In practical use, this approach has proven to be hard to understand and
 easy to get wrong. We frequently find ourselves writing "don't forget to
-consider the context" in method documentation. As we well know, no one
-reads documentation.
+consider the context" in method documentation. An API of any quality
+should be intuitive to use wherever possible, and avoid reliance on
+detailed examination of the docs.
 
 The result is that a core API mechanism is largely misunderstood, and
 easily overlooked.
@@ -168,9 +169,9 @@ data = manager.resolve(kWrite, ..., context)
 - The necessity (and ambiguity) of `createChildContext` is removed from
   the majority of host call sites. This also reduces runtime overhead
   significantly.
-- RTFM becomes less critical as the access concept is surfaced directly
-  in the API signature. Documentation can also be more directly
-  specific.
+- Detailed memorization of the docs becomes less critical as the access
+  concept is surfaced directly in the API signature. The documentation
+  itself can also be more specific.
 - High-churn `access` mutations are decoupled from the relatively stable
   and coherent lifetimes of the other `Context` properties.
 - Removes some debate around attempting to make Context use value
