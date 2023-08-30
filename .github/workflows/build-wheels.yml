@@ -67,7 +67,7 @@ jobs:
           # single failing python version won't interrupt every other
           # deploy on that platform.
           CIBW_BUILD: ${{ matrix.python-build }}
-          CIBW_SKIP: '*musllinux* *arm64*'
+          CIBW_SKIP: '*musllinux*'
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
           PIP_VERBOSE: 1
           # Required as we make use of c++17 features
