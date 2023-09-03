@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-alpha.x
+---------------
+
+### New Features
+
+- Added ARM architecture python wheels on the macOS platform to support
+apple silicon.
+[#718](https://github.com/OpenAssetIO/OpenAssetIO/issues/718)
+
 v1.0.0-alpha.14
 ---------------
 
