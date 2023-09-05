@@ -799,7 +799,6 @@ WARN_LOGFILE           =
 INPUT                  = ../../src/openassetio-python/package \
                          ./src \
                          ../../src/openassetio-core/include \
-                         ../../src/openassetio-core-c/include \
                          ../../src/openassetio-python/bridge/include
 
 # This tag can be used to specify the character encoding of the source files
