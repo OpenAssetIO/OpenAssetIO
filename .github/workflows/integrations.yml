@@ -39,7 +39,7 @@ jobs:
         shell: ${{ matrix.config.shell }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -62,7 +62,7 @@ jobs:
           python -m pip install pytest
 
       - name: Checkout BAL
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: OpenAssetIO/OpenAssetIO-Manager-BAL
           path: external/BAL
@@ -84,7 +84,7 @@ jobs:
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
 
       - name: Checkout TraitGen
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: OpenAssetIO/OpenAssetIO-TraitGen
           path: external/TraitGen
@@ -134,7 +134,7 @@ jobs:
         shell: ${{ matrix.config.shell }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -153,7 +153,7 @@ jobs:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
       - name: Checkout TraitGen
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: OpenAssetIO/OpenAssetIO-TraitGen
           path: external/TraitGen
@@ -163,7 +163,7 @@ jobs:
           python -m pip install external/TraitGen
 
       - name: Checkout OpenAssetIO-Test-CMake
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: OpenAssetIO/OpenAssetIO-Test-CMake
           path: external/OpenAssetIO-Test-CMake
