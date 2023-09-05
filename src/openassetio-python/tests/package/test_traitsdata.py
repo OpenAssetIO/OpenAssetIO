@@ -123,9 +123,8 @@ class Test_TraitsData_getsetTraitProperty:
         assert new_trait_id in a_traitsdata.traitSet()
         assert a_traitsdata.getTraitProperty(new_trait_id, a_property) == a_value
 
-    def test_when_trait_is_not_found_then_get_raises_IndexError(self, a_traitsdata):
-        with pytest.raises(IndexError):
-            _ = a_traitsdata.getTraitProperty("unknown_trait", "a string")
+    def test_when_trait_is_not_found_then_get_returns_None(self, a_traitsdata):
+        assert a_traitsdata.getTraitProperty("unknown_trait", "a string") is None
 
     def test_when_value_is_not_supported_then_set_raises_TypeError(self, a_traitsdata):
         with pytest.raises(TypeError):

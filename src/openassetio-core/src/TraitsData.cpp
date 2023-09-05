@@ -41,14 +41,16 @@ class TraitsData::Impl {
   // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
   bool getTraitProperty(trait::property::Value* out, const trait::TraitId& traitId,
                         const trait::property::Key& propertyKey) const {
-    // Use `at` deliberately to trigger exception if trait doesn't exist
-    const auto& traitDict = data_.at(traitId);
-
-    const auto& iter = traitDict.find(propertyKey);
-    if (iter == traitDict.end()) {
+    const auto& traitIter = data_.find(traitId);
+    if (traitIter == data_.end()) {
       return false;
     }
-    *out = iter->second;
+    const auto& traitDict = traitIter->second;
+    const auto& propertyIter = traitDict.find(propertyKey);
+    if (propertyIter == traitDict.end()) {
+      return false;
+    }
+    *out = propertyIter->second;
     return true;
   }
 
