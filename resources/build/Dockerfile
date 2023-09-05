@@ -16,6 +16,11 @@ RUN cd tomlplusplus && cmake -S . -B build && cmake --build build && cmake --ins
 RUN git clone --branch v42 https://github.com/rollbear/trompeloeil
 RUN cd trompeloeil && cmake -S . -B build && cmake --build build && cmake --install build
 
+# Pull and install fmt
+RUN git clone --branch 9.1.0 https://github.com/fmtlib/fmt
+RUN cd fmt && cmake -S . -B build -DFMT_MASTER_PROJECT=OFF -DFMT_INSTALL=ON && \
+     cmake --build build --parallel && cmake --install build
+
 # Test dependencies
 # Pull and install catch2
 RUN git clone --branch v2.13.10 https://github.com/catchorg/Catch2
@@ -31,6 +36,11 @@ COPY --from=openassetio-dependencies /usr/local/lib64/cmake/tomlplusplus /usr/lo
 COPY --from=openassetio-dependencies /usr/local/include/catch2 /usr/local/include/catch2
 COPY --from=openassetio-dependencies /usr/local/share/Catch2 /usr/local/share/Catch2
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/Catch2 /usr/local/lib64/cmake/Catch2
+
+# Copy fmt
+COPY --from=openassetio-dependencies /usr/local/include/fmt /usr/local/include/fmt
+COPY --from=openassetio-dependencies /usr/local/lib64/libfmt.a /usr/local/lib64/libfmt.a
+COPY --from=openassetio-dependencies /usr/local/lib64/cmake/fmt /usr/local/lib64/cmake/fmt
 
 # Copy trompeloeil
 # Trompeloeil installs itself into relevent test framework folders, so
