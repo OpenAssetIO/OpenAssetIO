@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+v1.0.0-alpha.xx
+---------------
+
+### Breaking changes
+
+- Attempting to retrieve a trait property with
+  `TraitsData.getTraitProperty` or using trait view classes no longer
+  raises an exception if the trait itself is missing. This simplifies
+  many common access patterns, and can remove the need for
+  `hasTrait`/`isImbuedTo` checks.
+  [#970](https://github.com/OpenAssetIO/OpenAssetIO/issues/970)
+
 v1.0.0-alpha.14
 ---------------
 
