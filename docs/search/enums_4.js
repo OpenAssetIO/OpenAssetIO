@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['policyaccess',['PolicyAccess',['../namespaceopenassetio_1_1v1_1_1access.html#a30a9c0800023951ccb5216dab7f4c230',1,'openassetio::v1::access']]],
-  ['publishingaccess',['PublishingAccess',['../namespaceopenassetio_1_1v1_1_1access.html#a7480356b9f64fbfbdf9b94dd8fcab3f2',1,'openassetio::v1::access']]]
+  ['relationsaccess',['RelationsAccess',['../namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60',1,'openassetio::v1::access']]],
+  ['resolveaccess',['ResolveAccess',['../namespaceopenassetio_1_1v1_1_1access.html#a342ae20e76f85178da495d0499d5b474',1,'openassetio::v1::access']]]
 ];

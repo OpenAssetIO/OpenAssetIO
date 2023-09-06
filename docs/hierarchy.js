@@ -25,9 +25,6 @@ var hierarchy =
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
-    [ "oa_ConstStringView", "structoa___const_string_view.html", null ],
-    [ "oa_managerApi_CManagerInterface_s", "structoa__manager_api___c_manager_interface__s.html", null ],
-    [ "oa_StringView", "structoa___string_view.html", null ],
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
       [ "_Timer", "classopenassetio_1_1__core_1_1debug_1_1___timer.html", null ],

@@ -16,15 +16,8 @@ var searchData=
   ['auditapicall',['auditApiCall',['../namespaceopenassetio_1_1__core_1_1audit.html#a648e4fb72c4ab553bc260e7445d33d8c',1,'openassetio::_core::audit']]],
   ['auditcall',['auditCall',['../namespaceopenassetio_1_1__core_1_1audit.html#a2d987a0d26439451e9e68aa5e12a2c51',1,'openassetio::_core::audit']]],
   ['auditcalls',['auditCalls',['../namespaceopenassetio_1_1__core_1_1audit.html#ab424af143cb41609d3dc55e283372b39',1,'openassetio::_core::audit']]],
-  ['auditor',['Auditor',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html',1,'openassetio::_core::audit']]],
   ['auditor',['auditor',['../namespaceopenassetio_1_1__core_1_1audit.html#aee59d3992d0ad53ce790ad31e30db919',1,'openassetio::_core::audit']]],
+  ['auditor',['Auditor',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html',1,'openassetio::_core::audit']]],
   ['availablemanagers',['availableManagers',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a1ca7b7135362b663eb8212e7ade3ba8f',1,'openassetio::v1::hostApi::ManagerFactory']]],
-  ['an_20introduction',['An Introduction',['../index.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa___error_code__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa__host_api___manager__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa___info_dictionary__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa__manager_api___c_manager_interface__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa__manager_api___shared_host_session__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa__manager_api___shared_manager_interface__aliases.html',1,'']]],
-  ['aliases',['Aliases',['../group__oa___string_view__aliases.html',1,'']]]
+  ['an_20introduction',['An Introduction',['../index.html',1,'']]]
 ];

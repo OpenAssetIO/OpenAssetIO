@@ -124,7 +124,6 @@ var NAVTREE =
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Environment Variable List", "envvar.html", null ],
-    [ "Modules", "modules.html", "modules" ],
     [ "Namespace Members", "namespacemembers.html", [
       [ "All", "namespacemembers.html", null ],
       [ "Functions", "namespacemembers_func.html", null ],
@@ -152,7 +151,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8413198c7b06665ba7e4704d5802b2ef",
-"group__oa___error_code__aliases.html#ga8ff11b5a10c75cd2279b89ab799fbaf5"
+"namespacemembers_type.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

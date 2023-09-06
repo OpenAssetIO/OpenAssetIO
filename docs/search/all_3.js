@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['capacity',['capacity',['../structoa___string_view.html#a90557000426d4245a121ca4f5fd92299',1,'oa_StringView']]],
-  ['c_20api',['C API',['../group___c_a_p_i.html',1,'']]],
   ['captureargs',['captureArgs',['../namespaceopenassetio_1_1__core_1_1audit.html#ade88f01e5e56c7bd9f282c8cd83277ff',1,'openassetio::_core::audit']]],
   ['castfrompyobject',['castFromPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#aabce31410223a8d5941005669434ed0b',1,'openassetio::v1::python::converter']]],
   ['casttopyobject',['castToPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#acd4057ac2926074a2a4d3c5e91a4e2d8',1,'openassetio::v1::python::converter']]],
