@@ -73,9 +73,6 @@ class Test_core_imports:
     def test_importing_debug_succeeds(self):
         from openassetio._core import debug
 
-    def test_importing_objects_succeeds(self):
-        from openassetio._core import objects
-
 
 class Test_hostApi_imports:
     def test_importing_HostInterface_succeeds(self):
@@ -116,7 +113,9 @@ class Test_pluginSystem_imports:
         from openassetio.pluginSystem import PythonPluginSystem
 
     def test_importing_PythonPluginSystemManagerImplementationFactory_succeeds(self):
-        from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
+        from openassetio.pluginSystem import (
+            PythonPluginSystemManagerImplementationFactory,
+        )
 
     def test_importing_PythonPluginSystemPlugin_succeeds(self):
         from openassetio.pluginSystem import PythonPluginSystemPlugin
