@@ -116,7 +116,9 @@ class Test_pluginSystem_imports:
         from openassetio.pluginSystem import PythonPluginSystem
 
     def test_importing_PythonPluginSystemManagerImplementationFactory_succeeds(self):
-        from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
+        from openassetio.pluginSystem import (
+            PythonPluginSystemManagerImplementationFactory,
+        )
 
     def test_importing_PythonPluginSystemPlugin_succeeds(self):
         from openassetio.pluginSystem import PythonPluginSystemPlugin
