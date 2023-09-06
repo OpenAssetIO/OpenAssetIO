@@ -73,9 +73,6 @@ class Test_core_imports:
     def test_importing_debug_succeeds(self):
         from openassetio._core import debug
 
-    def test_importing_objects_succeeds(self):
-        from openassetio._core import objects
-
 
 class Test_hostApi_imports:
     def test_importing_HostInterface_succeeds(self):
