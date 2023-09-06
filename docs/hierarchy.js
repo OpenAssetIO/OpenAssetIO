@@ -28,10 +28,6 @@ var hierarchy =
     [ "object", null, [
       [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
       [ "_Timer", "classopenassetio_1_1__core_1_1debug_1_1___timer.html", null ],
-      [ "FixedInterfaceObject", "classopenassetio_1_1__core_1_1objects_1_1_fixed_interface_object.html", null ],
-      [ "UntypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_untyped_property.html", [
-        [ "TypedProperty", "classopenassetio_1_1__core_1_1objects_1_1_typed_property.html", null ]
-      ] ],
       [ "PythonPluginSystem", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html", null ],
       [ "PythonPluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html", null ]
     ] ],
