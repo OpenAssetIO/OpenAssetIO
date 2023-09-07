@@ -37,6 +37,7 @@ available.
 - [Python 3.7+](https://www.python.org/) (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
 - [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
+- [fmt](https://github.com/fmtlib/fmt) 9.1.0
 
 ### Test dependencies
 

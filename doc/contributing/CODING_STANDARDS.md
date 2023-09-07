@@ -176,6 +176,19 @@ when binding a C++ `enum class` using pybind, use
 namespaced in the same way as in C++, i.e. not polluting the parent
 namespace.
 
+## String formatting
+
+The project has a (private, header-only) dependency on the
+[fmt](https://fmt.dev/9.1.0) library for efficient string formatting,
+and this should be used by preference over alternative legacy options
+such as `std::stringstream`.
+
+> **Note**
+>
+> Due to a [symbol leakage issue](https://github.com/fmtlib/fmt/issues/3626)
+> in the current latest fmt version v10.1, we recommend (and build/test
+> with) fmt v9.1.
+
 ## C
 
 ### Handles

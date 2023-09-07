@@ -13,6 +13,10 @@ v1.0.0-alpha.xx
   `hasTrait`/`isImbuedTo` checks.
   [#970](https://github.com/OpenAssetIO/OpenAssetIO/issues/970)
 
+- :hammer: Added [fmt](https://fmt.dev/9.1.0) as a new header-only
+  private dependency.
+  [#1070](https://github.com/OpenAssetIO/OpenAssetIO/issues/1070)
+
 v1.0.0-alpha.14
 ---------------
 

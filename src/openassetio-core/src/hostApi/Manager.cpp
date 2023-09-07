@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <utility>
 
+#include <fmt/format.h>
+
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
 #include <openassetio/constants.hpp>
@@ -53,12 +55,11 @@ std::optional<Str> entityReferencePrefixFromInfo(const log::LoggerInterfacePtr &
   if (auto iter = info.find(Str{constants::kInfoKey_EntityReferencesMatchPrefix});
       iter != info.end()) {
     if (const auto *prefixPtr = std::get_if<openassetio::Str>(&iter->second)) {
-      std::string msg = "Entity reference prefix '";
-      msg += *prefixPtr;
-      msg +=
-          "' provided by manager's info() dict. Subsequent calls to isEntityReferenceString will"
-          " use this prefix rather than call the manager's implementation.";
-      logger->debugApi(msg);
+      logger->debugApi(
+          fmt::format("Entity reference prefix '{}' provided by manager's info() dict. Subsequent"
+                      " calls to isEntityReferenceString will use this prefix rather than call the"
+                      " manager's implementation.",
+                      *prefixPtr));
 
       return *prefixPtr;
     }

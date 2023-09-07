@@ -90,9 +90,13 @@ target_include_directories(openassetio-core
     # Use includes from install tree for installed lib.
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(openassetio-core
+target_link_libraries(
+    openassetio-core
     PRIVATE
-    $<BUILD_INTERFACE:tomlplusplus::tomlplusplus>)
+    # Header-only private dependencies:
+    $<BUILD_INTERFACE:tomlplusplus::tomlplusplus>
+    $<BUILD_INTERFACE:fmt::fmt-header-only>
+)
 
 #-----------------------------------------------------------------------
 # API export header

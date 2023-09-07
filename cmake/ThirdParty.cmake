@@ -3,6 +3,13 @@
 
 find_package(tomlplusplus REQUIRED)
 
+
+#-----------------------------------------------------------------------
+# String formatting
+
+find_package(fmt REQUIRED)
+
+
 #-----------------------------------------------------------------------
 # Python
 
