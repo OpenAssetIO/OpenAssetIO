@@ -242,7 +242,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @return Map of info string key to primitive value.
    */
-  [[nodiscard]] virtual InfoDictionary info() const;
+  [[nodiscard]] virtual InfoDictionary info();
 
   /**
    * This call gives the manager a chance to customize certain strings
@@ -268,8 +268,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @return Substituted map of terms.
    */
-  [[nodiscard]] virtual StrMap updateTerminology(StrMap terms,
-                                                 const HostSessionPtr& hostSession) const;
+  [[nodiscard]] virtual StrMap updateTerminology(StrMap terms, const HostSessionPtr& hostSession);
 
   /**
    * @}
@@ -292,7 +291,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * The default implementation returns an empty dictionary.
    */
-  [[nodiscard]] virtual InfoDictionary settings(const HostSessionPtr& hostSession) const;
+  [[nodiscard]] virtual InfoDictionary settings(const HostSessionPtr& hostSession);
 
   /**
    * Prepares for interaction with a host.
@@ -418,9 +417,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @return a `TraitsData` for each element in @p traitSets.
    */
-  [[nodiscard]] virtual trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
-      const ContextConstPtr& context, const HostSessionPtr& hostSession) const = 0;
+  [[nodiscard]] virtual trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
+                                                            access::PolicyAccess policyAccess,
+                                                            const ContextConstPtr& context,
+                                                            const HostSessionPtr& hostSession) = 0;
 
   /**
    * @}
@@ -638,7 +638,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @see @ref resolve
    */
   [[nodiscard]] virtual bool isEntityReferenceString(const Str& someString,
-                                                     const HostSessionPtr& hostSession) const = 0;
+                                                     const HostSessionPtr& hostSession) = 0;
 
   /**
    * Callback signature used for a successful entity existence query.

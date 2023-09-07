@@ -115,7 +115,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Manager. They include things such as
    * openassetio.constants.kInfoKey_EntityReferencesMatchPrefix.
    */
-  [[nodiscard]] InfoDictionary info() const;
+  [[nodiscard]] InfoDictionary info();
 
   /**
    * This call gives the Manager a chance to customize certain strings
@@ -141,7 +141,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Substituted map of terms.
    */
-  StrMap updateTerminology(StrMap terms) const;
+  StrMap updateTerminology(StrMap terms);
 
   /**
    * @}
@@ -163,7 +163,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Some managers may not have any settings, so this function will
    * return an empty dictionary.
    */
-  [[nodiscard]] InfoDictionary settings() const;
+  [[nodiscard]] InfoDictionary settings();
 
   /**
    * Prepares the Manager for interaction with a host. In order to
@@ -293,7 +293,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
                                                     access::PolicyAccess policyAccess,
-                                                    const ContextConstPtr& context) const;
+                                                    const ContextConstPtr& context);
 
   /**
    * @}
@@ -508,7 +508,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @see @ref entityExists
    * @see @ref resolve
    */
-  [[nodiscard]] bool isEntityReferenceString(const Str& someString) const;
+  [[nodiscard]] bool isEntityReferenceString(const Str& someString);
 
   /**
    * Create an @ref EntityReference object wrapping a given
@@ -529,7 +529,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @todo Use a custom exception type rather than std::domain_error.
    */
-  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString) const;
+  [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString);
 
   /**
    * Create an @ref EntityReference object wrapping a given
@@ -546,7 +546,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * valid, not containing a value otherwise.
    */
   [[nodiscard]] std::optional<EntityReference> createEntityReferenceIfValid(
-      Str entityReferenceString) const;
+      Str entityReferenceString);
 
   /**
    * Callback signature used for a successful entity existence query.

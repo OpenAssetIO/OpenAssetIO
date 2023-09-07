@@ -88,13 +88,13 @@ Identifier Manager::identifier() const { return managerInterface_->identifier();
 
 Str Manager::displayName() const { return managerInterface_->displayName(); }
 
-InfoDictionary Manager::info() const { return managerInterface_->info(); }
+InfoDictionary Manager::info() { return managerInterface_->info(); }
 
-StrMap Manager::updateTerminology(StrMap terms) const {
+StrMap Manager::updateTerminology(StrMap terms) {
   return managerInterface_->updateTerminology(std::move(terms), hostSession_);
 }
 
-InfoDictionary Manager::settings() const { return managerInterface_->settings(hostSession_); }
+InfoDictionary Manager::settings() { return managerInterface_->settings(hostSession_); }
 
 void Manager::initialize(InfoDictionary managerSettings) {
   managerInterface_->initialize(std::move(managerSettings), hostSession_);
@@ -107,7 +107,7 @@ void Manager::flushCaches() { managerInterface_->flushCaches(hostSession_); }
 
 trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
                                              const access::PolicyAccess policyAccess,
-                                             const ContextConstPtr &context) const {
+                                             const ContextConstPtr &context) {
   return managerInterface_->managementPolicy(traitSets, policyAccess, context, hostSession_);
 }
 
@@ -144,7 +144,7 @@ ContextPtr Manager::contextFromPersistenceToken(const Str &token) {
   return context;
 }
 
-bool Manager::isEntityReferenceString(const Str &someString) const {
+bool Manager::isEntityReferenceString(const Str &someString) {
   if (!entityReferencePrefix_) {
     return managerInterface_->isEntityReferenceString(someString, hostSession_);
   }
@@ -154,15 +154,14 @@ bool Manager::isEntityReferenceString(const Str &someString) const {
 
 const Str kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";
 
-EntityReference Manager::createEntityReference(Str entityReferenceString) const {
+EntityReference Manager::createEntityReference(Str entityReferenceString) {
   if (!isEntityReferenceString(entityReferenceString)) {
     throw std::domain_error{kCreateEntityReferenceErrorMessage + entityReferenceString};
   }
   return EntityReference{std::move(entityReferenceString)};
 }
 
-std::optional<EntityReference> Manager::createEntityReferenceIfValid(
-    Str entityReferenceString) const {
+std::optional<EntityReference> Manager::createEntityReferenceIfValid(Str entityReferenceString) {
   if (!isEntityReferenceString(entityReferenceString)) {
     return {};
   }

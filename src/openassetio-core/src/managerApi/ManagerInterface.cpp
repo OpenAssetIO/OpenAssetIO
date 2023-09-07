@@ -13,15 +13,14 @@ namespace managerApi {
 
 ManagerInterface::ManagerInterface() = default;
 
-InfoDictionary ManagerInterface::info() const { return {}; }
+InfoDictionary ManagerInterface::info() { return {}; }
 
-StrMap ManagerInterface::updateTerminology(
-    StrMap terms, [[maybe_unused]] const HostSessionPtr& hostSession) const {
+StrMap ManagerInterface::updateTerminology(StrMap terms,
+                                           [[maybe_unused]] const HostSessionPtr& hostSession) {
   return terms;
 }
 
-InfoDictionary ManagerInterface::settings(
-    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+InfoDictionary ManagerInterface::settings([[maybe_unused]] const HostSessionPtr& hostSession) {
   return openassetio::InfoDictionary{};
 }
 

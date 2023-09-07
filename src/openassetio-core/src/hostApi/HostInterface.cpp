@@ -6,7 +6,7 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
-InfoDictionary HostInterface::info() const { return {}; }
+InfoDictionary HostInterface::info() { return {}; }
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -17,6 +17,10 @@ v1.0.0-alpha.xx
   private dependency.
   [#1070](https://github.com/OpenAssetIO/OpenAssetIO/issues/1070)
 
+- Removed `const` from the majority of interface methods to allow
+  implementations to make use of private state for efficiency reasons.
+  [#518](https://github.com/OpenAssetIO/OpenAssetIO/issues/518)
+
 v1.0.0-alpha.14
 ---------------
 

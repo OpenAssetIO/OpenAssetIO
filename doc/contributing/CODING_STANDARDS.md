@@ -176,6 +176,16 @@ when binding a C++ `enum class` using pybind, use
 namespaced in the same way as in C++, i.e. not polluting the parent
 namespace.
 
+### Const
+
+Methods of interface classes that are conceptually stateless, and their
+corresponding wrapper class methods should not be marked `const`. For
+example, `ManagerInterface` + `Manager`, `HostInterface` and `Host`.
+This may seem to contradict the "stateless" definition, but it allows
+the implementation to maintain private state to service the API requests
+efficiently, such as server connections or caches. Exceptions to this
+are the identification methods that should be constants.
+
 ## String formatting
 
 The project has a (private, header-only) dependency on the

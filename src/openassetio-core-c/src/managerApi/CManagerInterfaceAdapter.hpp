@@ -43,7 +43,7 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   [[nodiscard]] Str displayName() const override;
 
   /// Wrap the C suite's `info` function.
-  [[nodiscard]] InfoDictionary info() const override;
+  [[nodiscard]] InfoDictionary info() override;
 
   /// Wrap the C suite's `initialize` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
@@ -51,14 +51,15 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Wrap the C suite's `managementPolicy` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
-  [[nodiscard]] trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
-      const ContextConstPtr& context, const HostSessionPtr& hostSession) const override;
+  [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
+                                                    access::PolicyAccess policyAccess,
+                                                    const ContextConstPtr& context,
+                                                    const HostSessionPtr& hostSession) override;
 
   /// Wrap the C suite's `isEntityReferenceString` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   [[nodiscard]] bool isEntityReferenceString(const Str& someString,
-                                             const HostSessionPtr& hostSession) const override;
+                                             const HostSessionPtr& hostSession) override;
 
   /// Wrap the C suite's `entityExists` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
