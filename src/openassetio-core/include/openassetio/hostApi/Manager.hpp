@@ -1823,17 +1823,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /// @}
 
-  /**
-   * @private
-   * Nothing to see here, this is working around an entertaining
-   * situation in our Python -> C++ migration, whereby can't
-   * expose the full Python Manager API if we make it in C++.
-   */
-  // NOLINTNEXTLINE(readability-identifier-naming)
-  [[nodiscard]] managerApi::ManagerInterfacePtr _interface() const;
-  // NOLINTNEXTLINE(readability-identifier-naming)
-  [[nodiscard]] managerApi::HostSessionPtr _hostSession() const;
-
  private:
   explicit Manager(managerApi::ManagerInterfacePtr managerInterface,
                    managerApi::HostSessionPtr hostSession);

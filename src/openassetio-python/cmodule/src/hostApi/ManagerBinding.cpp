@@ -331,8 +331,5 @@ void registerManager(const py::module& mod) {
             return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context);
           },
           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
-          py::arg("publishAccess"), py::arg("context").none(false))
-      // @todo Remove one C++ API matches Python, and we remove ManagerFactory.py
-      .def("_interface", &Manager::_interface)
-      .def("_hostSession", &Manager::_hostSession);
+          py::arg("publishAccess"), py::arg("context").none(false));
 }
