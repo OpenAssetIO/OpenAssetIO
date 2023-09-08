@@ -1,14 +1,13 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1":[13,0,0,5,0,2,4],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39":[13,0,0,5,0,2,25],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250":[13,0,0,5,0,2,16],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95":[13,0,0,5,0,2,46],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae65795fc21974279a6ba424b22c93581":[13,0,0,5,0,2,23],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39":[13,0,0,5,0,2,24],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250":[13,0,0,5,0,2,15],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95":[13,0,0,5,0,2,45],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae65795fc21974279a6ba424b22c93581":[13,0,0,5,0,2,22],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeeeb16da8d1fed4e1cc8854453660992":[13,0,0,5,0,2,7],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2":[13,0,0,5,0,2,8],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af98e875bbb50d30888d9cbfddc02dde4":[13,0,0,5,0,2,29],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0":[13,0,0,5,0,2,12],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af98e875bbb50d30888d9cbfddc02dde4":[13,0,0,5,0,2,28],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0":[13,0,0,5,0,2,11],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html":[13,0,0,5,0,3],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a01bd0dda4387ae9989db6d8759dc1d71":[13,0,0,5,0,3,2],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a0f1c9241fd0dbb073bcb3c30884e31bb":[13,0,0,5,0,3,6],
@@ -156,8 +155,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[13,3,0,5],
 "functions_enum.html":[13,3,4],
 "functions_f.html":[13,3,0,6],
-"functions_func.html":[13,3,1],
 "functions_func.html":[13,3,1,0],
+"functions_func.html":[13,3,1],
 "functions_func_0x7e.html":[13,3,1,20],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_b.html":[13,3,1,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX1 =
 "namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html":[13,0,0,3,3],
 "namespaceopenassetio_1_1test.html":[13,0,0,4],
 "namespaceopenassetio_1_1test_1_1manager.html":[13,0,0,4,0],
-"namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite.html":[13,0,0,4,0,0]
+"namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite.html":[13,0,0,4,0,0],
+"namespaceopenassetio_1_1test_1_1manager_1_1harness.html":[13,0,0,4,0,1]
 };

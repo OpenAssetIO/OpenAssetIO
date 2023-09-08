@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1host_api_1_1
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classopenassetio_1_1v1_1_1host_api_1_1_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -143,8 +142,6 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aca0c3cb654cd758d5a0f3c20ebf8a359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aca0c3cb654cd758d5a0f3c20ebf8a359">_hostSession</a> () const </td></tr>
-<tr class="separator:aca0c3cb654cd758d5a0f3c20ebf8a359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Asset Management System Information</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>These functions provide general information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.</p>
 <p>These can all be called before <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has been called. </p>
@@ -161,6 +158,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a367c6274fb3f556ffc564ec1a114fca5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5">updateTerminology</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799">StrMap</a> terms) const </td></tr>
 <tr class="memdesc:a367c6274fb3f556ffc564ec1a114fca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This call gives the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages.  <a href="#a367c6274fb3f556ffc564ec1a114fca5">More...</a><br /></td></tr>
 <tr class="separator:a367c6274fb3f556ffc564ec1a114fca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
+<tr class="memitem:ad5c992d40b519fc33f129dc92a67fb95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95">settings</a> () const </td></tr>
+<tr class="separator:ad5c992d40b519fc33f129dc92a67fb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings)</td></tr>
+<tr class="memdesc:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host.  <a href="#aa52c7436ff63ae96e33d7db8d6fd38df">More...</a><br /></td></tr>
+<tr class="separator:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad6d423f15196231b80568c62266fefa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aad6d423f15196231b80568c62266fefa">flushCaches</a> ()</td></tr>
+<tr class="memdesc:aad6d423f15196231b80568c62266fefa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#aad6d423f15196231b80568c62266fefa">More...</a><br /></td></tr>
+<tr class="separator:aad6d423f15196231b80568c62266fefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Policy</div></td></tr>
 <tr class="memitem:af98e875bbb50d30888d9cbfddc02dde4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af98e875bbb50d30888d9cbfddc02dde4">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30a9c0800023951ccb5216dab7f4c230">access::PolicyAccess</a> policyAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context) const </td></tr>
 <tr class="memdesc:af98e875bbb50d30888d9cbfddc02dde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity, and which traits they are capable of resolving (or persisting).  <a href="#af98e875bbb50d30888d9cbfddc02dde4">More...</a><br /></td></tr>
@@ -186,17 +192,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ab02f37f04ca3b55732cd98283ed83b74"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab02f37f04ca3b55732cd98283ed83b74">make</a> (<a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a7ccaafa95072366990f071e03f7df8b4">managerApi::ManagerInterfacePtr</a> managerInterface, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a> hostSession)</td></tr>
 <tr class="memdesc:ab02f37f04ca3b55732cd98283ed83b74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> wrapping the supplied manager interface and host session.  <a href="#ab02f37f04ca3b55732cd98283ed83b74">More...</a><br /></td></tr>
 <tr class="separator:ab02f37f04ca3b55732cd98283ed83b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
-Initialization</h2></td></tr>
-<tr class="memitem:ad5c992d40b519fc33f129dc92a67fb95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95">settings</a> () const </td></tr>
-<tr class="separator:ad5c992d40b519fc33f129dc92a67fb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad6d423f15196231b80568c62266fefa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aad6d423f15196231b80568c62266fefa">flushCaches</a> ()</td></tr>
-<tr class="memdesc:aad6d423f15196231b80568c62266fefa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#aad6d423f15196231b80568c62266fefa">More...</a><br /></td></tr>
-<tr class="separator:aad6d423f15196231b80568c62266fefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings)</td></tr>
-<tr class="memdesc:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host.  <a href="#aa52c7436ff63ae96e33d7db8d6fd38df">More...</a><br /></td></tr>
-<tr class="separator:aa52c7436ff63ae96e33d7db8d6fd38df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Entity Reference inspection</h2></td></tr>
@@ -483,21 +478,6 @@ Publishing</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aca0c3cb654cd758d5a0f3c20ebf8a359"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">managerApi::HostSessionPtr</a> _hostSession </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="afba52321fc9c4c2c7c2a87f037e8b5a0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1139,9 +1119,6 @@ Publishing</h2></td></tr>
 <a class="anchor" id="aa52c7436ff63ae96e33d7db8d6fd38df"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void initialize </td>
@@ -1151,18 +1128,13 @@ Publishing</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Prepares the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> for interaction with a host. </p>
 <p>In order to provide light weight inspection of available Managers, initial construction must be cheap. However most system require some kind of handshake or back-end setup in order to make entity-related queries. As such, the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> method is the instruction to the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to prepare itself for full interaction.</p>
 <p>If an exception is raised by this call, its is safe to assume that a fatal error occurred, and this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is not available, and should be retried later.</p>
 <p>If no exception is raised, it can be assumed that the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is ready. It is the implementations responsibility to deal with transient connection errors (if applicable) once initialized.</p>
-<p>The behavior of calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df" title="Prepares the Manager for interaction with a host. ">initialize()</a> on an already initialized <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> should be a no-op, but if an error was raised previously, then initialization will be re-attempted.</p>
+<p>The behavior of calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df" title="Prepares the Manager for interaction with a host. ">initialize()</a> on an already initialized <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> is to re-initialize the manager with any updated settings that are provided. If an error was raised previously, then initialization will be re-attempted.</p>
 <dl class="section note"><dt>Note</dt><dd>This must be called prior to any entity-related calls or an Exception will be raised.</dd>
 <dd>
 This method may block for extended periods of time. </dd></dl>

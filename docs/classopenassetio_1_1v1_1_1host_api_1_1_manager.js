@@ -11,7 +11,6 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "RelationshipSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a979fbc668a26e76d957c31361958a005", null ],
     [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0ce52a4388d9ec16c7189f653983dac", null ],
-    [ "_hostSession", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aca0c3cb654cd758d5a0f3c20ebf8a359", null ],
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],
