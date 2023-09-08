@@ -310,8 +310,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * responsibility to deal with transient connection errors (if
    * applicable) once initialized.
    *
-   * The behavior of calling initialize() on an already initialized
-   * instance should be a no-op, but if an error was raised
+   * If called on an already initialized instance, re-initialize with
+   * any updated settings that are provided. If an error was raised
    * previously, then initialization should be re-attempted.
    *
    * @note This will always be called prior to any Entity-related
