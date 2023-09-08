@@ -57,7 +57,7 @@ jobs:
           python -m pip install -r resources/build/linter-requirements.txt
 
       - name: Check Python formatting
-        run: black --config src/openassetio-python/pyproject.toml --check .
+        run: black --config src/openassetio-python/pyproject.toml --check --diff .
 
   # Note: in order to keep an `actions/cache` cache up to date, we must
   # use the approach detailed in

@@ -51,13 +51,6 @@ from openassetio.managerApi import EntityReferencePagerInterface
 
 
 class Test_Manager_init:
-    def test_interface_returns_the_constructor_supplied_object(
-        self, mock_manager_interface, a_host_session
-    ):
-        # pylint: disable=protected-access
-        a_manager = Manager(mock_manager_interface, a_host_session)
-        assert a_manager._interface() is mock_manager_interface
-
     def test_when_constructed_with_ManagerInterface_as_None_then_raises_TypeError(
         self, a_host_session
     ):

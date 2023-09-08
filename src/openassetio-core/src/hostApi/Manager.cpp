@@ -530,9 +530,6 @@ std::vector<std::variant<BatchElementError, EntityReference>> hostApi::Manager::
   return result;
 }
 
-managerApi::ManagerInterfacePtr Manager::_interface() const { return managerInterface_; }
-managerApi::HostSessionPtr Manager::_hostSession() const { return hostSession_; }
-
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

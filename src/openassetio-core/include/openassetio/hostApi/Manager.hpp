@@ -185,15 +185,14 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * applicable) once initialized.
    *
    * The behavior of calling initialize() on an already initialized
-   * Manager should be a no-op, but if an error was raised
-   * previously, then initialization will be re-attempted.
+   * Manager is to re-initialize the manager with any updated settings
+   * that are provided. If an error was raised previously, then
+   * initialization will be re-attempted.
    *
    * @note This must be called prior to any entity-related calls or
    * an Exception will be raised.
    *
    * @note This method may block for extended periods of time.
-   *
-   * @protected
    */
   void initialize(InfoDictionary managerSettings);
 
@@ -1823,17 +1822,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /// @}
-
-  /**
-   * @private
-   * Nothing to see here, this is working around an entertaining
-   * situation in our Python -> C++ migration, whereby can't
-   * expose the full Python Manager API if we make it in C++.
-   */
-  // NOLINTNEXTLINE(readability-identifier-naming)
-  [[nodiscard]] managerApi::ManagerInterfacePtr _interface() const;
-  // NOLINTNEXTLINE(readability-identifier-naming)
-  [[nodiscard]] managerApi::HostSessionPtr _hostSession() const;
 
  private:
   explicit Manager(managerApi::ManagerInterfacePtr managerInterface,
