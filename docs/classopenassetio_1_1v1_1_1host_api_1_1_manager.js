@@ -14,8 +14,8 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],
-    [ "createEntityReference", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8a60af0503cefffe5543360ccbcb2d86", null ],
-    [ "createEntityReferenceIfValid", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5b1862cc47ab4bcb4919def42d4c250", null ],
+    [ "createEntityReference", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb94be5902be798d51732b0a603d1a04", null ],
+    [ "createEntityReferenceIfValid", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2102d4965450d9bbb265f79db55e20c8", null ],
     [ "defaultEntityReference", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e", null ],
     [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04", null ],
@@ -25,10 +25,10 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "getWithRelationships", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ae65795fc21974279a6ba424b22c93581", null ],
     [ "getWithRelationshipsPaged", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a4d1ac28edb778ba2adc14e30731aacc7", null ],
     [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39", null ],
-    [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac82a7565b39bc7092b624bc2c54c864a", null ],
+    [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a77822ddc3c077028f2b0853dc89a07f7", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df", null ],
-    [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a244002b65caed0a84ff6373af23d179d", null ],
-    [ "managementPolicy", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af98e875bbb50d30888d9cbfddc02dde4", null ],
+    [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a72203b43e0f56f2d5bf6268c6e3b5033", null ],
+    [ "managementPolicy", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76", null ],
     [ "persistenceTokenForContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c", null ],
     [ "preflight", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2d6b01cea99fb85c0270624b647af621", null ],
     [ "preflight", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a333250ea2e80546c1012fb6f306fd563", null ],
@@ -45,6 +45,6 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aab6d394fc85ec8a5d20db2b2bbc886a7", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8413198c7b06665ba7e4704d5802b2ef", null ],
     [ "resolve", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a813f66a98ec8f9616e1511fb5b2a4535", null ],
-    [ "settings", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ad5c992d40b519fc33f129dc92a67fb95", null ],
-    [ "updateTerminology", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a367c6274fb3f556ffc564ec1a114fca5", null ]
+    [ "settings", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a0a9d76d1103c52d52be1bbcd67ed7f3b", null ],
+    [ "updateTerminology", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a58b71ad2be219244ad9817355c51771d", null ]
 ];

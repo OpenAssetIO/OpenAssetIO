@@ -130,7 +130,7 @@ Implementation Check List</h1>
 Required for Resolution Only</h2>
 <ul>
 <li>Implement the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> class methods <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870">identifier</a> an <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92">displayName</a>.</li>
-<li>Implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab86b5623a355d04086bae76875ebee17">managementPolicy</a> to control which Host-side data types you wish to be involved in managing, and specify which property-holding traits you are capable of resolving. To request not to be involved in publishing, return an empty <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> for any queries with a context with <code>kWrite</code> access.</li>
+<li>Implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> to control which Host-side data types you wish to be involved in managing, and specify which property-holding traits you are capable of resolving. To request not to be involved in publishing, return an empty <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> for any queries with a context with <code>kWrite</code> access.</li>
 <li>Implement the methods grouped under the "Entity Reference Inspection" and "Entity Reference Resolution" sections of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a> to support lookup of assets.</li>
 <li>Implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> and populate the requested trait property values.</li>
 <li>Implement a <a class="el" href="glossary.html#PythonPluginSystemManagerPlugin">Manager Plugin</a> and install this on <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a>.</li>
@@ -138,7 +138,7 @@ Required for Resolution Only</h2>
 <h2><a class="anchor" id="manager_todo_publishing"></a>
 Required for Publishing</h2>
 <ul>
-<li>Update the implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab86b5623a355d04086bae76875ebee17">managementPolicy</a> to return suitable traits for contexts with a <code>kWrite</code> access.</li>
+<li>Update the implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> to return suitable traits for contexts with a <code>kWrite</code> access.</li>
 <li>Implement the methods grouped under the "Publishing" section, and the remaining methods in the "Entity Information" section of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>, to support the registration of new assets.</li>
 <li>Map supported OpenAssetIO <a class="el" href="glossary.html#trait">traits</a> to internal asset types where possible.</li>
 <li>Persist the full <a class="el" href="glossary.html#trait_set">Trait Set</a> of the specification supplied to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register</a>. This allows new asset types to be registered and filtered, even if they don't have a unique type within the manager's native data model.</li>
@@ -156,7 +156,7 @@ Supporting Relationships</h2>
 <p>In order to support entity relationships:</p>
 <ul>
 <li>Implement the API methods grouped under <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">Related Entities</a> to return any appropriate <a class="el" href="glossary.html#entity_reference">entity references</a> for the supplied relationship(s). Hosts may use these relationships to simplify common pipeline integration tasks. For example, loading multiple AOVs for a render, or determining data dependencies when transferring assets.</li>
-<li>Update your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab86b5623a355d04086bae76875ebee17">managementPolicy</a> to cover the relationship trait sets you support.</li>
+<li>Update your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> to cover the relationship trait sets you support.</li>
 </ul>
 <h2><a class="anchor" id="manager_todo_ui"></a>
 Embedding Custom UI Within the Host</h2>
