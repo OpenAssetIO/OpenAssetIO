@@ -1342,7 +1342,7 @@ Publishing</h2></td></tr>
 <p>This is a good opportunity to initialize any persistent connections to a back end implementation. It is fine for this call to block for a period of time.</p>
 <p>If an exception is raised by this call, it signifies to the host that a fatal error occurred, and this <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is not available with the current settings.</p>
 <p>If no exception is raised, it can be assumed that the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> is ready. It is the implementations responsibility to deal with transient connection errors (if applicable) once initialized.</p>
-<p>The behavior of calling <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f" title="Prepares for interaction with a host. ">initialize()</a> on an already initialized instance should be a no-op, but if an error was raised previously, then initialization should be re-attempted.</p>
+<p>If called on an already initialized instance, re-initialize with any updated settings that are provided. If an error was raised previously, then initialization should be re-attempted.</p>
 <dl class="section note"><dt>Note</dt><dd>This will always be called prior to any Entity-related calls. An exception should be raised if this is not the case. It is however, the following functions may be called prior to initialization:</dd></dl>
 <ul>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870">identifier()</a> </li>
