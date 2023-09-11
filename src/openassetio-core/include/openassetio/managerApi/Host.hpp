@@ -79,7 +79,7 @@ class OPENASSETIO_CORE_EXPORT Host final {
    *
    *     { 'version' : '1.1v3' }
    */
-  [[nodiscard]] InfoDictionary info() const;
+  [[nodiscard]] InfoDictionary info();
 
   /**
    * @}

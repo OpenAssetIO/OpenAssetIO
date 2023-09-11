@@ -184,7 +184,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
     // goes out of scope.
     REQUIRE_CALL(mockImpl, dtor(handle));
 
-    const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
+    openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's info() call succeeds") {
       const openassetio::Str expectedInfoKey = "info key";

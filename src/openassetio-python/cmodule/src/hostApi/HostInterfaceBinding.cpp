@@ -27,7 +27,7 @@ struct PyHostInterface : HostInterface {
     PYBIND11_OVERRIDE_PURE(Str, HostInterface, displayName, /* no args */);
   }
 
-  [[nodiscard]] InfoDictionary info() const override {
+  [[nodiscard]] InfoDictionary info() override {
     PYBIND11_OVERRIDE(InfoDictionary, HostInterface, info, /* no args */);
   }
 };

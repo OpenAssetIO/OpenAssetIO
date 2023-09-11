@@ -37,11 +37,11 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, displayName, /* no args */);
   }
 
-  [[nodiscard]] InfoDictionary info() const override {
+  [[nodiscard]] InfoDictionary info() override {
     PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
   }
 
-  [[nodiscard]] InfoDictionary settings(const HostSessionPtr& hostSession) const override {
+  [[nodiscard]] InfoDictionary settings(const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, settings, hostSession);
   }
 
@@ -54,9 +54,10 @@ struct PyManagerInterface : ManagerInterface {
     PYBIND11_OVERRIDE(void, ManagerInterface, flushCaches, hostSession);
   }
 
-  [[nodiscard]] trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
-      const ContextConstPtr& context, const HostSessionPtr& hostSession) const override {
+  [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
+                                                    access::PolicyAccess policyAccess,
+                                                    const ContextConstPtr& context,
+                                                    const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(trait::TraitsDatas, ManagerInterface, managementPolicy, traitSets,
                            policyAccess, context, hostSession);
   }
@@ -83,7 +84,7 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   [[nodiscard]] bool isEntityReferenceString(const Str& someString,
-                                             const HostSessionPtr& hostSession) const override {
+                                             const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, isEntityReferenceString, someString,
                            hostSession);
   }
@@ -97,7 +98,7 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   [[nodiscard]] StrMap updateTerminology(StrMap terms,
-                                         const HostSessionPtr& hostSession) const override {
+                                         const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE(StrMap, ManagerInterface, updateTerminology, std::move(terms), hostSession);
   }
 

@@ -61,7 +61,7 @@ Str CManagerInterfaceAdapter::displayName() const {
   return {out.data, out.size};
 }
 
-InfoDictionary CManagerInterfaceAdapter::info() const {
+InfoDictionary CManagerInterfaceAdapter::info() {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
@@ -89,13 +89,12 @@ trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
     [[maybe_unused]] const trait::TraitSets& traitSets,
     [[maybe_unused]] const access::PolicyAccess policyAccess,
     [[maybe_unused]] const ContextConstPtr& context,
-    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw std::runtime_error{"Not implemented"};
 }
 
 bool CManagerInterfaceAdapter::isEntityReferenceString(
-    [[maybe_unused]] const Str& someString,
-    [[maybe_unused]] const HostSessionPtr& hostSession) const {
+    [[maybe_unused]] const Str& someString, [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw std::runtime_error{"Not implemented"};
 }
 

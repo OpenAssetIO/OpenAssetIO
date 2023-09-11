@@ -103,7 +103,7 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    *
    * @todo Definitions for well-known keys such as 'version' etc.
    */
-  [[nodiscard]] virtual InfoDictionary info() const;
+  [[nodiscard]] virtual InfoDictionary info();
   /// @}
 };
 }  // namespace hostApi

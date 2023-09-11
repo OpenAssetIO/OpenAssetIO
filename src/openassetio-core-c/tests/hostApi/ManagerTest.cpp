@@ -42,10 +42,10 @@ constexpr size_t kStringBufferSize = 500;
 struct MockManagerInterface : trompeloeil::mock_interface<managerApi::ManagerInterface> {
   IMPLEMENT_CONST_MOCK0(identifier);
   IMPLEMENT_CONST_MOCK0(displayName);
-  IMPLEMENT_CONST_MOCK0(info);
+  IMPLEMENT_MOCK0(info);
   IMPLEMENT_MOCK2(initialize);
-  IMPLEMENT_CONST_MOCK4(managementPolicy);
-  IMPLEMENT_CONST_MOCK2(isEntityReferenceString);
+  IMPLEMENT_MOCK4(managementPolicy);
+  IMPLEMENT_MOCK2(isEntityReferenceString);
   IMPLEMENT_MOCK5(entityExists);
   IMPLEMENT_MOCK7(resolve);
   IMPLEMENT_MOCK7(preflight);
@@ -59,7 +59,7 @@ struct MockManagerInterface : trompeloeil::mock_interface<managerApi::ManagerInt
 struct MockHostInterface : trompeloeil::mock_interface<hostApi::HostInterface> {
   IMPLEMENT_CONST_MOCK0(identifier);
   IMPLEMENT_CONST_MOCK0(displayName);
-  IMPLEMENT_CONST_MOCK0(info);
+  IMPLEMENT_MOCK0(info);
 };
 /**
  * Mock implementation of a LoggerInterface
