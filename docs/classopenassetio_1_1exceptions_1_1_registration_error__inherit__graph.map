@@ -1,6 +1,0 @@
-<map id="RegistrationError" name="RegistrationError">
-<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html" title="A base class for errors relating to entity&#45;centric actions. " alt="" coords="5,304,199,331"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="24,229,180,256"/>
-<area shape="rect" id="node4" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="31,155,173,181"/>
-<area shape="rect" id="node5" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="17,80,187,107"/>
-</map>

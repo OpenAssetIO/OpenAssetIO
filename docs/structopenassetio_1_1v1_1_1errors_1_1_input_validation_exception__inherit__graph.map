@@ -1,0 +1,4 @@
+<map id="InputValidationException" name="InputValidationException">
+<area shape="rect" id="node4" href="$structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html" title="A special case of InputValidationException for cases where the input comes from external config..." alt="" coords="11,229,184,256"/>
+<area shape="rect" id="node2" href="$structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html" title="Exception base for all OpenAssetIO exceptions. " alt="" coords="12,80,183,107"/>
+</map>

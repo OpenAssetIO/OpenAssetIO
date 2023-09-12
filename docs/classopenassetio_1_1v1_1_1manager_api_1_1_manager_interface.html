@@ -316,8 +316,8 @@ Publishing</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a75be492c7f5ebe638b5e204cfc6010dc">HostSession.logger</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a></dd></dl>
-<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of <a class="el" href="classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API-relate...">exceptions.OpenAssetIOException</a>, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1exceptions.html">exceptions</a></dd></dl>
+<p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of exceptions.OpenAssetIOException, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1errors.html">errors</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a>, this will never be called concurrently.</p>
 <p>When a <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> for <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
@@ -334,7 +334,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ad9dc6699259a14f4b8e72c3d7c389aee">updateTerminology()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -566,7 +566,7 @@ Publishing</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If for some reason creation fails. </td></tr>
+    <tr><td class="paramname">exceptions.StateError</td><td>If for some reason creation fails. </td></tr>
     <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
   </table>
   </dd>
@@ -648,7 +648,7 @@ Publishing</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Some object that represents self-contained state of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. This will be passed to future calls.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If for some reason creation fails.</td></tr>
+    <tr><td class="paramname">exceptions.StateError</td><td>If for some reason creation fails.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1351,7 +1351,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ad9dc6699259a14f4b8e72c3d7c389aee">updateTerminology()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1808,7 +1808,7 @@ Publishing</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td>The API session.</td></tr>
@@ -1856,7 +1856,7 @@ Publishing</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A state object, as per <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62" title="Create a new object to represent the state of the interface and return it (or some handle that can be...">createState()</a>, except restored to the previous state encapsulated in the token, which is the same string as returned by persistenceTokenForState.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="classopenassetio_1_1exceptions_1_1_state_error.html" title="Thrown by managers in error situations relating to the managerState object. ">exceptions.StateError</a></td><td>If the supplied token is not meaningful, or that a state has already been restored. </td></tr>
+    <tr><td class="paramname">exceptions.StateError</td><td>If the supplied token is not meaningful, or that a state has already been restored. </td></tr>
     <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management. </td></tr>
   </table>
   </dd>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['openassetioexception',['OpenAssetIOException',['../classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html',1,'openassetio::exceptions']]]
+  ['notimplementedexception',['NotImplementedException',['../structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html',1,'openassetio::v1::errors']]]
 ];

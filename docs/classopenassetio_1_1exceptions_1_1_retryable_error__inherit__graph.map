@@ -1,4 +1,0 @@
-<map id="RetryableError" name="RetryableError">
-<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="19,155,162,181"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="5,80,176,107"/>
-</map>

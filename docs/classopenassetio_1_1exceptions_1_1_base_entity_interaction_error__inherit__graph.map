@@ -1,7 +1,0 @@
-<map id="BaseEntityInteractionError" name="BaseEntityInteractionError">
-<area shape="rect" id="node6" href="$classopenassetio_1_1exceptions_1_1_preflight_error.html" title="Thrown to represent some error during pre&#45;flight that isn&#39;t due to any specific of the Entity Referen..." alt="" coords="5,379,112,405"/>
-<area shape="rect" id="node7" href="$classopenassetio_1_1exceptions_1_1_registration_error.html" title="Thrown to represent some error during registration that isn&#39;t due to any specific of the Entity Refer..." alt="" coords="137,379,269,405"/>
-<area shape="rect" id="node2" href="$classopenassetio_1_1exceptions_1_1_base_entity_exception.html" title="A base Exception for any entity related errors to ensure consistent presentation and encapsulation of..." alt="" coords="53,229,209,256"/>
-<area shape="rect" id="node3" href="$classopenassetio_1_1exceptions_1_1_manager_exception.html" title="A base class for exceptions relating to, or raised by a manager. " alt="" coords="59,155,202,181"/>
-<area shape="rect" id="node4" href="$classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html" title="The OpenAssetIOException class should be used for all exceptions raise by Managers and any API&#45;relate..." alt="" coords="45,80,216,107"/>
-</map>

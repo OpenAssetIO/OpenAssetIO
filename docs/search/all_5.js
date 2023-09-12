@@ -16,7 +16,6 @@ var searchData=
   ['entityreferencepagerinterfaceptr',['EntityReferencePagerInterfacePtr',['../namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659',1,'openassetio::v1::managerApi']]],
   ['entityreferencepagerptr',['EntityReferencePagerPtr',['../namespaceopenassetio_1_1v1_1_1host_api.html#aa41923f3dd2192e8321c3aa194ad27b5',1,'openassetio::v1::hostApi']]],
   ['entityreferences',['EntityReferences',['../namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38',1,'openassetio::v1']]],
-  ['entityresolutionerror',['EntityResolutionError',['../classopenassetio_1_1exceptions_1_1_entity_resolution_error.html',1,'openassetio::exceptions']]],
   ['entityresolutionerrorbatchelementexception',['EntityResolutionErrorBatchElementException',['../structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html',1,'openassetio::v1']]],
   ['environment_20variable_20list',['Environment Variable List',['../envvar.html',1,'']]],
   ['error',['error',['../structopenassetio_1_1v1_1_1_batch_element_exception.html#a9cf197ce3791c3f2d6403f705307f09b',1,'openassetio::v1::BatchElementException::error()'],['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#acd48694a8fe2a806484b94354e9eb33c',1,'openassetio::v1::log::LoggerInterface::error()']]],

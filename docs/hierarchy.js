@@ -40,24 +40,13 @@ var hierarchy =
         [ "InvalidTraitSetBatchElementException", "structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html", null ],
         [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
         [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
-      ] ]
-    ] ],
-    [ "RuntimeError", null, [
-      [ "OpenAssetIOException", "classopenassetio_1_1exceptions_1_1_open_asset_i_o_exception.html", [
-        [ "ManagerException", "classopenassetio_1_1exceptions_1_1_manager_exception.html", [
-          [ "BaseEntityException", "classopenassetio_1_1exceptions_1_1_base_entity_exception.html", [
-            [ "BaseEntityInteractionError", "classopenassetio_1_1exceptions_1_1_base_entity_interaction_error.html", [
-              [ "PreflightError", "classopenassetio_1_1exceptions_1_1_preflight_error.html", null ],
-              [ "RegistrationError", "classopenassetio_1_1exceptions_1_1_registration_error.html", null ]
-            ] ],
-            [ "EntityResolutionError", "classopenassetio_1_1exceptions_1_1_entity_resolution_error.html", null ],
-            [ "InvalidEntityReference", "classopenassetio_1_1exceptions_1_1_invalid_entity_reference.html", null ],
-            [ "MalformedEntityReference", "classopenassetio_1_1exceptions_1_1_malformed_entity_reference.html", null ]
-          ] ],
-          [ "RetryableError", "classopenassetio_1_1exceptions_1_1_retryable_error.html", null ],
-          [ "StateError", "classopenassetio_1_1exceptions_1_1_state_error.html", null ]
+      ] ],
+      [ "OpenAssetIOException", "structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html", [
+        [ "InputValidationException", "structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html", [
+          [ "ConfigurationException", "structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html", null ]
         ] ],
-        [ "UserCanceled", "classopenassetio_1_1exceptions_1_1_user_canceled.html", null ]
+        [ "NotImplementedException", "structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html", null ],
+        [ "UnhandledException", "structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html", null ]
       ] ]
     ] ],
     [ "TestCase", null, [

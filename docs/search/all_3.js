@@ -8,6 +8,8 @@ var searchData=
   ['code',['code',['../classopenassetio_1_1v1_1_1_batch_element_error.html#a2a8da57251af6baf047d8b57ae811203',1,'openassetio::v1::BatchElementError']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
+  ['configurationexception',['ConfigurationException',['../structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html',1,'openassetio::v1::errors']]],
+  ['configurationexception',['ConfigurationException',['../namespaceopenassetio_1_1errors.html#a1adfbcd3f5b60c10c115a6cf0e74e687',1,'openassetio::errors']]],
   ['consolelogger',['ConsoleLogger',['../classopenassetio_1_1v1_1_1log_1_1_console_logger.html',1,'openassetio::v1::log']]],
   ['consolelogger',['ConsoleLogger',['../namespaceopenassetio_1_1log.html#a7250b73e468047882e21e5e92fd6f020',1,'openassetio::log']]],
   ['consoleloggerconstptr',['ConsoleLoggerConstPtr',['../namespaceopenassetio_1_1v1_1_1log.html#a726e7cd1396f021f478228862f5a7362',1,'openassetio::v1::log']]],
