@@ -28,6 +28,7 @@ import sys
 from openassetio import BatchElementException
 from openassetio.access import ResolveAccess
 from openassetio.hostApi import HostInterface, ManagerFactory
+from openassetio.errors import ConfigurationException
 from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
 
@@ -160,7 +161,7 @@ def main():
     manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
 
     if not manager:
-        raise RuntimeError(
+        raise ConfigurationException(
             "No default manager configured, "
             f"check ${ManagerFactory.kDefaultManagerConfigEnvVarName}"
         )

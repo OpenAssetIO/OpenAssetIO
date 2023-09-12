@@ -42,6 +42,7 @@ from openassetio import (
 )
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
+from openassetio.errors import InputValidationException
 
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
@@ -300,12 +301,12 @@ class Test_Manager_createEntityReference:
         assert not method_introspector.is_defined_in_python(Manager.createEntityReference)
         assert method_introspector.is_implemented_once(Manager, "createEntityReference")
 
-    def test_when_invalid_then_raises_ValueError(
+    def test_when_invalid_then_raises_InputValidationException(
         self, manager, mock_manager_interface, a_ref_string, a_host_session
     ):
         mock_manager_interface.mock.isEntityReferenceString.return_value = False
 
-        with pytest.raises(ValueError) as err:
+        with pytest.raises(InputValidationException) as err:
             manager.createEntityReference(a_ref_string)
 
         mock_manager_interface.mock.isEntityReferenceString.assert_called_once_with(
@@ -860,7 +861,7 @@ class Test_Manager_getWithRelationshipPaged:
         # > "EntityReferencePagerInterface::get"
         pagers[0].get()
 
-    def test_when_zero_pageSize_then_indexError_is_raised(
+    def test_when_zero_pageSize_then_InputValidationException_is_raised(
         self, manager, a_ref, an_empty_traitsdata, an_entity_trait_set, a_context
     ):
         two_refs = [a_ref, a_ref]
@@ -869,7 +870,7 @@ class Test_Manager_getWithRelationshipPaged:
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
-        with pytest.raises(IndexError):
+        with pytest.raises(InputValidationException):
             manager.getWithRelationshipPaged(
                 two_refs,
                 an_empty_traitsdata,
@@ -1014,7 +1015,7 @@ class Test_Manager_getWithRelationshipsPaged:
         # > "EntityReferencePagerInterface::get"
         pagers[0].get()
 
-    def test_when_zero_pageSize_then_indexError_is_raised(
+    def test_when_zero_pageSize_then_InputValidationException_is_raised(
         self, manager, a_ref, an_empty_traitsdata, an_entity_trait_set, a_context
     ):
         two_datas = [an_empty_traitsdata, an_empty_traitsdata]
@@ -1023,7 +1024,7 @@ class Test_Manager_getWithRelationshipsPaged:
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
-        with pytest.raises(IndexError):
+        with pytest.raises(InputValidationException):
             manager.getWithRelationshipsPaged(
                 a_ref,
                 two_datas,
@@ -1806,14 +1807,15 @@ class Test_Manager_preflight_callback_signature:
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
 
-    def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
+    def test_when_called_with_mixed_array_lengths_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         expected_message = (
             "Parameter lists must be of the same length: {} entity references vs. {} traits hints."
         )
         with pytest.raises(
-            IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
+            InputValidationException,
+            match=expected_message.format(len(some_refs) - 1, len(some_refs)),
         ):
             manager.preflight(
                 some_refs[1:],
@@ -1825,7 +1827,8 @@ class Test_Manager_preflight_callback_signature:
             )
 
         with pytest.raises(
-            IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
+            InputValidationException,
+            match=expected_message.format(len(some_refs), len(some_refs) - 1),
         ):
             manager.preflight(
                 some_refs,
@@ -1836,12 +1839,12 @@ class Test_Manager_preflight_callback_signature:
                 mock.Mock(),
             )
 
-    def test_when_traits_data_is_None_then_TypeError_is_raised(
+    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         some_entity_traitsdatas[-1] = None
 
-        with pytest.raises(TypeError):
+        with pytest.raises(InputValidationException):
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
@@ -2129,11 +2132,11 @@ class Test_Manager_preflight_with_singular_variant_overload:
 
 
 class Test_Manager_preflight_with_batch_default_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(
+    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         some_entity_traitsdatas[-1] = None
-        with pytest.raises(TypeError):
+        with pytest.raises(InputValidationException):
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
@@ -2263,11 +2266,11 @@ class Test_Manager_preflight_with_batch_default_overload:
 
 
 class Test_Manager_preflight_with_batch_throwing_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(
+    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         some_entity_traitsdatas[-1] = None
-        with pytest.raises(TypeError):
+        with pytest.raises(InputValidationException):
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
@@ -2407,11 +2410,11 @@ class Test_Manager_preflight_with_batch_throwing_overload:
 
 
 class Test_Manager_preflight_with_batch_variant_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(
+    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         some_entity_traitsdatas[-1] = None
-        with pytest.raises(TypeError):
+        with pytest.raises(InputValidationException):
             manager.preflight(
                 some_refs,
                 some_entity_traitsdatas,
@@ -2574,14 +2577,15 @@ class Test_Manager_register_callback_overload:
         success_callback.assert_called_once_with(123, some_refs[0])
         error_callback.assert_called_once_with(456, a_batch_element_error)
 
-    def test_when_called_with_mixed_array_lengths_then_IndexError_is_raised(
+    def test_when_called_with_mixed_array_lengths_then_InputValidationException_is_raised(
         self, manager, some_refs, some_entity_traitsdatas, a_context
     ):
         expected_message = (
             "Parameter lists must be of the same length: {} entity references vs. {} traits datas."
         )
         with pytest.raises(
-            IndexError, match=expected_message.format(len(some_refs) - 1, len(some_refs))
+            InputValidationException,
+            match=expected_message.format(len(some_refs) - 1, len(some_refs)),
         ):
             manager.register(
                 some_refs[1:],
@@ -2593,7 +2597,8 @@ class Test_Manager_register_callback_overload:
             )
 
         with pytest.raises(
-            IndexError, match=expected_message.format(len(some_refs), len(some_refs) - 1)
+            InputValidationException,
+            match=expected_message.format(len(some_refs), len(some_refs) - 1),
         ):
             manager.register(
                 some_refs,
@@ -2604,10 +2609,10 @@ class Test_Manager_register_callback_overload:
                 mock.Mock(),
             )
 
-    def test_when_called_with_None_data_then_TypeError_is_raised(
+    def test_when_called_with_None_data_then_InputValidationException_is_raised(
         self, manager, some_refs, a_context, a_traitsdata
     ):
-        with pytest.raises(TypeError):
+        with pytest.raises(InputValidationException):
             manager.register(
                 some_refs,
                 [a_traitsdata, None],

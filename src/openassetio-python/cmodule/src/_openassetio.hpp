@@ -115,6 +115,9 @@ void registerEntityReference(const py::module& mod);
 /// Register the BatchElementError type with Python.
 void registerBatchElementError(py::module& mod);
 
+// Register errors, linking exceptions to/from Python.
+void registerErrors(const py::module& mod);
+
 /// Register the EntityReferencePager class with Python.
 void registerEntityReferencePager(const py::module& mod);
 

@@ -26,7 +26,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import _openassetio  # pylint: disable=no-name-in-module
+from openassetio import _openassetio, errors  # pylint: disable=no-name-in-module
 from openassetio.hostApi import ManagerFactory, Manager, ManagerImplementationFactoryInterface
 from openassetio.log import LoggerInterface
 
@@ -147,7 +147,7 @@ class Test_ManagerFactory_defaultManagerForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
-    def test_when_non_existent_path_then_runtime_error_raised(
+    def test_when_non_existent_path_then_InputValidationException_raised(
         self,
         use_env_var_for_config_file,
         non_existent_manager_config,  # pylint: disable=unused-argument
@@ -155,7 +155,7 @@ class Test_ManagerFactory_defaultManagerForInterface:
         mock_host_interface,
         mock_logger,
     ):
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.InputValidationException) as exc:
             if use_env_var_for_config_file:
                 ManagerFactory.defaultManagerForInterface(
                     mock_host_interface, mock_manager_implementation_factory, mock_logger
@@ -174,15 +174,21 @@ class Test_ManagerFactory_defaultManagerForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
-    def test_when_invalid_content_then_runtime_error_raised(
+    def test_when_invalid_format_then_RuntimeError_raised(
         self,
         use_env_var_for_config_file,
-        invalid_manager_config,  # pylint: disable=unused-argument
+        invalid_manager_config,
         mock_manager_implementation_factory,
         mock_host_interface,
         mock_logger,
     ):
-        with pytest.raises(RuntimeError):
+        with pytest.raises(
+            errors.ConfigurationException,
+            match=(
+                "Error parsing config file. Error while parsing key: multi-line strings are"
+                " prohibited in keys"
+            ),
+        ):
             if use_env_var_for_config_file:
                 ManagerFactory.defaultManagerForInterface(
                     mock_host_interface, mock_manager_implementation_factory, mock_logger
@@ -190,6 +196,30 @@ class Test_ManagerFactory_defaultManagerForInterface:
             else:
                 ManagerFactory.defaultManagerForInterface(
                     invalid_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_invalid_property_type_then_ConfigurationException_raised(
+        self,
+        use_env_var_for_config_file,
+        config_with_invalid_property,
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(
+            errors.ConfigurationException, match="Unsupported value type for 'a_dict'."
+        ):
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface, mock_manager_implementation_factory, mock_logger
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    config_with_invalid_property,
                     mock_host_interface,
                     mock_manager_implementation_factory,
                     mock_logger,
@@ -595,6 +625,14 @@ def invalid_manager_config(monkeypatch, use_env_var_for_config_file):
     toml_path = __file__
     if use_env_var_for_config_file:
         monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
+    return toml_path
+
+
+@pytest.fixture
+def config_with_invalid_property(resources_dir, monkeypatch, use_env_var_for_config_file):
+    toml_path = os.path.join(resources_dir, "unsupported_value_type.toml")
+    if use_env_var_for_config_file:
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
     return toml_path
 
 

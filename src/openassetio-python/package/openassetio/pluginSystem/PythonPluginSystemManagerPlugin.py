@@ -20,6 +20,7 @@ class.
 """
 
 from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
+from ..errors import NotImplementedException
 
 
 # As this is an abstract interface, these are expected
@@ -66,7 +67,7 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
 
         @see @fqref{managerApi.ManagerInterface} "ManagerInterface"
         """
-        raise NotImplementedError
+        raise NotImplementedException("identifier not implemented")
 
     @classmethod
     def interface(cls):
@@ -86,7 +87,7 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
 
         @return ManagerInterface instance
         """
-        raise NotImplementedError
+        raise NotImplementedException("interface not implemented")
 
     @classmethod
     def uiDelegate(cls, interfaceInstance):

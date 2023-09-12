@@ -121,6 +121,23 @@ class Test_pluginSystem_imports:
         from openassetio.pluginSystem import PythonPluginSystemPlugin
 
 
+class Test_errors_imports:
+    def test_importing_OpenAssetIOException_succeeds(self):
+        from openassetio.errors import OpenAssetIOException
+
+    def test_importing_ConfigurationException_succeeds(self):
+        from openassetio.errors import ConfigurationException
+
+    def test_importing_InputValidationException_succeeds(self):
+        from openassetio.errors import InputValidationException
+
+    def test_importing_NotImplementedException_succeeds(self):
+        from openassetio.errors import NotImplementedException
+
+    def test_importing_UnhandledException_succeeds(self):
+        from openassetio.errors import UnhandledException
+
+
 class Test_test_imports:
     def test_importing_manager_succeeds(self):
         from openassetio.test import manager

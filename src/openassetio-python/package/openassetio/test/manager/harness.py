@@ -31,6 +31,7 @@ import sys
 import unittest
 
 from . import _implementation
+from ...errors import ConfigurationException, InputValidationException
 
 
 __all__ = ["executeSuite", "fixturesFromPyFile", "moduleFromFile", "FixtureAugmentedTestCase"]
@@ -116,7 +117,7 @@ def fixturesFromPyFile(path):
     """
     module = moduleFromFile(path)
     if not hasattr(module, "fixtures"):
-        raise RuntimeError(f"Missing top-level 'fixtures' variable in '{path}'")
+        raise ConfigurationException(f"Missing top-level 'fixtures' variable in '{path}'")
 
     return module.fixtures
 
@@ -138,7 +139,7 @@ def moduleFromFile(path):
     if not spec:
         # Standard stack-trace is unhelpful as it just says:
         #    'NoneType' has no attribute 'loader'
-        raise RuntimeError(f"Unable to parse '{path}'")
+        raise InputValidationException(f"Unable to parse '{path}'")
 
     module = importlib.util.module_from_spec(spec)
     # Without this, for package imports we get:
@@ -316,7 +317,7 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         to skip/fail a whole bunch of tests when fixtures are missing.
         """
         values = self.requireFixtures(fixtureNames, skipTestIfMissing)
-        for (name, value) in zip(fixtureNames, values):
+        for name, value in zip(fixtureNames, values):
             setattr(self, name, value)
 
     def requireFixture(self, fixtureName, skipTestIfMissing=False):

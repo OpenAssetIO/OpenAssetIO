@@ -43,6 +43,7 @@ target_sources(
     src/_openassetio.cpp
     src/accessBinding.cpp
     src/constantsBinding.cpp
+    src/errorsBinding.cpp
     src/BatchElementErrorBinding.cpp
     src/ContextBinding.cpp
     src/EntityReferenceBinding.cpp

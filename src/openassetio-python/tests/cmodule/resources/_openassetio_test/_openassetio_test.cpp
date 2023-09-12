@@ -5,5 +5,9 @@
 namespace py = pybind11;
 
 void registerPyRetainingSharedPtrTestTypes(py::module_&);
+void registerExceptionThrower(py::module_& mod);
 
-PYBIND11_MODULE(_openassetio_test, mod) { registerPyRetainingSharedPtrTestTypes(mod); }
+PYBIND11_MODULE(_openassetio_test, mod) {
+  registerPyRetainingSharedPtrTestTypes(mod);
+  registerExceptionThrower(mod);
+}

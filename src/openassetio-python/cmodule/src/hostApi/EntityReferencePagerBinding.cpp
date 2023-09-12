@@ -5,9 +5,9 @@
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/BatchElementError.hpp>
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>

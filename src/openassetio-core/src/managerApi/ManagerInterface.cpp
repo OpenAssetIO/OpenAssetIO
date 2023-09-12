@@ -3,10 +3,10 @@
 #include <stdexcept>
 
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
-
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
@@ -34,20 +34,20 @@ ManagerStateBasePtr ManagerInterface::createState(
 ManagerStateBasePtr ManagerInterface::createChildState(
     [[maybe_unused]] const ManagerStateBasePtr& parentState,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error(
+  throw errors::NotImplementedException(
       "createChildState called on a manager that does not implement a custom state.");
 }
 
 Str ManagerInterface::persistenceTokenForState(
     [[maybe_unused]] const ManagerStateBasePtr& state,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error(
+  throw errors::NotImplementedException(
       "persistenceTokenForState called on a manager that does not implement a custom state.");
 }
 
 ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
     [[maybe_unused]] const Str& token, [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error(
+  throw errors::NotImplementedException(
       "stateFromPersistenceToken called on a manager that does not implement a custom state.");
 }
 
