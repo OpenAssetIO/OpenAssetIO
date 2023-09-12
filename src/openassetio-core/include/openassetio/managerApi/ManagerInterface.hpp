@@ -92,7 +92,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * kind will be correctly passed across the plug-in C boundary,
  * and re-thrown. Other exceptions should not be used.
  *
- *  @see @ref openassetio.exceptions "exceptions"
+ *  @see @ref openassetio.errors "errors"
  *
  * Threading
  * ---------

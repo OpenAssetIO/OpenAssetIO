@@ -56,9 +56,6 @@ class Test_package_imports:
     def test_importing_EntityReference_succeeds(self):
         from openassetio import EntityReference
 
-    def test_importing_exceptions_succeeds(self):
-        from openassetio import exceptions
-
     def test_importing_log_succeeds(self):
         from openassetio import log
 

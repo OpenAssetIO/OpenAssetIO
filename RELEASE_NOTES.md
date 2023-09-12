@@ -30,6 +30,9 @@ v1.0.0-alpha.xx
 - Moved `BatchElementError.hpp` into `errors` directory.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+- Removed python `exceptions` module in favour of new `errors` module.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
 v1.0.0-alpha.14
 ---------------
 
