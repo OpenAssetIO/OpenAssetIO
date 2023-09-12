@@ -4,6 +4,12 @@ Release Notes
 v1.0.0-alpha.xx
 ---------------
 
+### New Features
+
+- Added new exception types, allowing all OpenAssetIO exceptions to
+  share a common base.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
 ### Breaking changes
 
 - Attempting to retrieve a trait property with
@@ -20,6 +26,12 @@ v1.0.0-alpha.xx
 - Removed `const` from the majority of interface methods to allow
   implementations to make use of private state for efficiency reasons.
   [#518](https://github.com/OpenAssetIO/OpenAssetIO/issues/518)
+
+- Moved `BatchElementError.hpp` into `errors` directory.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+- Removed python `exceptions` module in favour of new `errors` module.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
 v1.0.0-alpha.14
 ---------------

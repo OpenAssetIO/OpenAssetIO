@@ -25,7 +25,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import EntityReference, TraitsData, Context, BatchElementError
+from openassetio import EntityReference, TraitsData, Context, BatchElementError, errors
 from openassetio.managerApi import (
     ManagerInterface,
     ManagerStateBase,
@@ -107,8 +107,8 @@ class Test_ManagerInterface_createChildState:
         assert not method_introspector.is_defined_in_python(ManagerInterface.createChildState)
         assert method_introspector.is_implemented_once(ManagerInterface, "createChildState")
 
-    def test_default_implementation_raises_RuntimeError(self, a_host_session):
-        with pytest.raises(RuntimeError):
+    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
+        with pytest.raises(errors.NotImplementedException):
             ManagerInterface().createChildState(ManagerStateBase(), a_host_session)
 
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
@@ -129,8 +129,8 @@ class Test_ManagerInterface_persistenceTokenForState:
         with pytest.raises(TypeError):
             ManagerInterface().persistenceTokenForState(None, a_host_session)
 
-    def test_default_implementation_raises_RuntimeError(self, a_host_session):
-        with pytest.raises(RuntimeError):
+    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
+        with pytest.raises(errors.NotImplementedException):
             ManagerInterface().persistenceTokenForState(ManagerStateBase(), a_host_session)
 
 
@@ -148,7 +148,7 @@ class Test_ManagerInterface_stateFromPersistenceToken:
             ManagerInterface().createChildState(None, a_host_session)
 
     def test_default_implementation_raises_RuntimeError(self, a_host_session):
-        with pytest.raises(RuntimeError):
+        with pytest.raises(errors.NotImplementedException):
             ManagerInterface().stateFromPersistenceToken("", a_host_session)
 
 

@@ -6,6 +6,7 @@
 
 #include <toml++/toml.h>
 
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -121,11 +122,17 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
     Str msg = "Could not load default manager config from '";
     msg += configPath;
     msg += "', file does not exist.";
-    throw std::runtime_error(msg);
+    throw errors::InputValidationException(msg);
   }
 
-  auto config = toml::parse_file(configPath);
-
+  toml::parse_result config;
+  try {
+    config = toml::parse_file(configPath);
+  } catch (const std::exception& exc) {
+    std::string msg = "Error parsing config file. ";
+    msg += exc.what();
+    throw errors::ConfigurationException{msg};
+  }
   const std::string_view identifier = config["manager"]["identifier"].value_or("");
 
   // Function to substitute ${config_dir} with the absolute,
@@ -161,7 +168,7 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
         Str msg = "Unsupported value type for '";
         msg += key.str();
         msg += "'.";
-        throw std::runtime_error(msg);
+        throw errors::ConfigurationException(msg);
       }
     }
   }

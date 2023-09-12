@@ -9,10 +9,11 @@
 #include <vector>
 
 #include <openassetio/export.h>
-#include <openassetio/BatchElementError.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/access.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
@@ -524,8 +525,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Validated entity reference object.
    *
-   * @throw std::domain_error If the given string is not recognized as
-   * an entity reference by this manager.
+   * @throw errors::InputValidationException If the given string is not
+   * recognized as an entity reference by this manager.
    *
    * @todo Use a custom exception type rather than std::domain_error.
    */

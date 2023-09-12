@@ -5,9 +5,10 @@
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/BatchElementError.hpp>
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -26,7 +27,7 @@ void validateTraitsDatas(const TraitsDatas& traitsDatas) {
   // does not contain any `None` elements, so we must add our
   // own check here.
   if (std::any_of(traitsDatas.begin(), traitsDatas.end(), std::logical_not<TraitsDataPtr>{})) {
-    throw pybind11::type_error{"Traits data cannot be None"};
+    throw openassetio::errors::InputValidationException{"Traits data cannot be None"};
   }
 }
 }  // namespace

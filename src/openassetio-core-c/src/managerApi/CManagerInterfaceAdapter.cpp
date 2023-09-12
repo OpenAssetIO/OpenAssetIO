@@ -6,6 +6,7 @@
 
 #include "CManagerInterfaceAdapter.hpp"
 
+#include <openassetio/errors/exceptions.hpp>
 #include "../errors.hpp"
 #include "../handles/InfoDictionary.hpp"
 
@@ -82,7 +83,7 @@ InfoDictionary CManagerInterfaceAdapter::info() {
 
 void CManagerInterfaceAdapter::initialize([[maybe_unused]] InfoDictionary managerSettings,
                                           [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
@@ -90,12 +91,12 @@ trait::TraitsDatas CManagerInterfaceAdapter::managementPolicy(
     [[maybe_unused]] const access::PolicyAccess policyAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 bool CManagerInterfaceAdapter::isEntityReferenceString(
     [[maybe_unused]] const Str& someString, [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 void CManagerInterfaceAdapter::entityExists(
@@ -104,7 +105,7 @@ void CManagerInterfaceAdapter::entityExists(
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const ManagerInterface::ExistsSuccessCallback& successCallback,
     [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 void CManagerInterfaceAdapter::resolve(
@@ -115,7 +116,7 @@ void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 void CManagerInterfaceAdapter::preflight(
@@ -126,7 +127,7 @@ void CManagerInterfaceAdapter::preflight(
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const PreflightSuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 void CManagerInterfaceAdapter::register_(
@@ -137,7 +138,7 @@ void CManagerInterfaceAdapter::register_(
     [[maybe_unused]] const HostSessionPtr& hostSession,
     [[maybe_unused]] const RegisterSuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  throw std::runtime_error{"Not implemented"};
+  throw errors::NotImplementedException{"Not implemented"};
 }
 
 }  // namespace managerApi

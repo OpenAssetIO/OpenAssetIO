@@ -6,7 +6,7 @@
 #include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 
-#include <openassetio/BatchElementError.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 
 #include "_openassetio.hpp"
 

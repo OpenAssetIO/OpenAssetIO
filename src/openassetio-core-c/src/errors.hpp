@@ -5,6 +5,7 @@
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/namespace.h>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "StringView.hpp"
@@ -16,7 +17,7 @@ namespace errors {
  * Throw the appropriate exception for given error code, if any.
  *
  * @todo Establish a mapping of code to exception type - currently
- *  everything is a `runtime_error`.
+ *  everything is the OpenAssetIO base exception.
  *
  * @param code Error code.
  * @param msg Error message to bundle in exception.
@@ -26,7 +27,7 @@ inline void throwIfError(const oa_ErrorCode code, [[maybe_unused]] const oa_Stri
     Str errorMessageWithCode = std::to_string(code);
     errorMessageWithCode += ": ";
     errorMessageWithCode += std::string_view{msg.data, msg.size};
-    throw std::runtime_error(errorMessageWithCode);
+    throw errors::OpenAssetIOException(errorMessageWithCode);
   }
 }
 

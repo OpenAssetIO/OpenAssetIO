@@ -18,6 +18,8 @@
 A single-class module, providing the PythonPluginSystemPlugin class.
 """
 
+from ..errors import NotImplementedException
+
 
 class PythonPluginSystemPlugin(object):
     """
@@ -36,4 +38,4 @@ class PythonPluginSystemPlugin(object):
         same identifier, the first one encountered will be used, and all
         others will be ignored.
         """
-        raise NotImplementedError
+        raise NotImplementedException("identifier not implemented")

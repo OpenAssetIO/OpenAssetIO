@@ -6,6 +6,7 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/TraitsData.hpp>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -44,7 +45,7 @@ PyObject* castToPyObject(const T& objectPtr) {
   const py::error_scope castErrorState;
 
   if (castErrorState.value != nullptr) {
-    throw std::runtime_error(py::str(castErrorState.value));
+    throw errors::InputValidationException(py::str(castErrorState.value));
   }
 
   // `release()` to avoid decrementing the PyObject refcount on leaving
@@ -55,7 +56,7 @@ PyObject* castToPyObject(const T& objectPtr) {
 template <typename T>
 typename T::Ptr castFromPyObject(PyObject* pyObject) {
   if (pyObject == nullptr) {
-    throw std::invalid_argument(
+    throw errors::InputValidationException(
         "Attempting to cast a nullptr PyObject in "
         "openassetio::python::converter::castFromPyObject");
   }
@@ -72,7 +73,7 @@ typename T::Ptr castFromPyObject(PyObject* pyObject) {
     return pointers::createPyRetainingPtr<typename T::Ptr>(pyInstance, cppInstancePtr);
   } catch (const py::cast_error& castError) {
     // Rethrow here to avoid bleeding pybind exception dependencies.
-    throw std::invalid_argument(castError.what());
+    throw errors::InputValidationException(castError.what());
   }
 }
 

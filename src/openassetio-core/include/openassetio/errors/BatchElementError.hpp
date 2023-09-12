@@ -7,7 +7,7 @@
 #include <string>
 #include <utility>
 
-#include <openassetio/errors.h>
+#include <openassetio/errors/errors.h>
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 

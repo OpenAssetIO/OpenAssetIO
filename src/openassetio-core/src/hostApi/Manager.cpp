@@ -41,7 +41,8 @@ void throwFromBatchElementError(std::size_t index, BatchElementError error) {
       exceptionMessage += std::to_string(static_cast<int>(error.code));
       exceptionMessage += " Message: ";
       exceptionMessage += error.message;
-      throw std::out_of_range{exceptionMessage};
+      error.message = std::move(exceptionMessage);
+      throw UnknownBatchElementException{index, std::move(error)};
   }
 }
 
@@ -156,7 +157,8 @@ const Str kCreateEntityReferenceErrorMessage = "Invalid entity reference: ";
 
 EntityReference Manager::createEntityReference(Str entityReferenceString) {
   if (!isEntityReferenceString(entityReferenceString)) {
-    throw std::domain_error{kCreateEntityReferenceErrorMessage + entityReferenceString};
+    throw errors::InputValidationException{kCreateEntityReferenceErrorMessage +
+                                           entityReferenceString};
   }
   return EntityReference{std::move(entityReferenceString)};
 }
@@ -300,7 +302,7 @@ void Manager::getWithRelationshipPaged(
     const Manager::BatchElementErrorCallback &errorCallback,
     const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {
-    throw std::out_of_range{"pageSize must be greater than zero."};
+    throw errors::InputValidationException{"pageSize must be greater than zero."};
   }
 
   /* The ManagerInterface signature provides an `EntityReferencePagerInterfacePtr`
@@ -327,7 +329,7 @@ void Manager::getWithRelationshipsPaged(
     const Manager::BatchElementErrorCallback &errorCallback,
     const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {
-    throw std::out_of_range{"pageSize must be greater than zero."};
+    throw errors::InputValidationException{"pageSize must be greater than zero."};
   }
 
   /* The ManagerInterface signature provides an `EntityReferencePagerInterfacePtr`
@@ -359,7 +361,7 @@ void Manager::preflight(const EntityReferences &entityReferences,
     message += " entity references vs. ";
     message += std::to_string(traitsHints.size());
     message += " traits hints.";
-    throw std::out_of_range{message};
+    throw errors::InputValidationException{message};
   }
   managerInterface_->preflight(entityReferences, traitsHints, publishingAccess, context,
                                hostSession_, successCallback, errorCallback);
@@ -449,7 +451,7 @@ void Manager::register_(const EntityReferences &entityReferences,
     message += " entity references vs. ";
     message += std::to_string(entityTraitsDatas.size());
     message += " traits datas.";
-    throw std::out_of_range{message};
+    throw errors::InputValidationException{message};
   }
   return managerInterface_->register_(entityReferences, entityTraitsDatas, publishingAccess,
                                       context, hostSession_, successCallback, errorCallback);

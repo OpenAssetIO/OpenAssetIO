@@ -5,7 +5,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <openassetio/BatchElementError.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 
 using openassetio::BatchElementError;
 

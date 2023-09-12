@@ -9,10 +9,10 @@
 #include <vector>
 
 #include <openassetio/export.h>
-#include <openassetio/BatchElementError.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/access.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -92,7 +92,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * kind will be correctly passed across the plug-in C boundary,
  * and re-thrown. Other exceptions should not be used.
  *
- *  @see @ref openassetio.exceptions "exceptions"
+ *  @see @ref openassetio.errors "errors"
  *
  * Threading
  * ---------

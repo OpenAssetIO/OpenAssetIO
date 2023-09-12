@@ -2,7 +2,7 @@
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <openassetio/errors.h>
+#include <openassetio/errors/errors.h>
 
 #include "./namespace.h"
 

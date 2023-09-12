@@ -27,6 +27,7 @@ from typing import List
 
 import pytest
 
+from openassetio import errors
 from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import PythonPluginSystem
 
@@ -196,6 +197,15 @@ class Test_PythonPluginSystem_scan_entry_points:
                 ]
             ),
         )
+
+
+class Test_PythonPluginSystem_plugin:
+    def test_when_plugin_not_found_then_raises_ConfigurationException(self, a_plugin_system):
+        with pytest.raises(
+            errors.InputValidationException,
+            match="PythonPluginSystem: No plug-in registered with the identifier 'nonexistent'",
+        ):
+            a_plugin_system.plugin("nonexistent")
 
 
 @pytest.fixture

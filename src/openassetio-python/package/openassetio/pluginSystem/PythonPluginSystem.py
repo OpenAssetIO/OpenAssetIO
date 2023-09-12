@@ -24,7 +24,7 @@ import hashlib
 import sys
 import traceback
 
-from .. import exceptions
+from ..errors import InputValidationException
 
 
 __all__ = ["PythonPluginSystem"]
@@ -72,12 +72,10 @@ class PythonPluginSystem(object):
         self.__logger.debug(f"PythonPluginSystem: Searching {paths}")
 
         for path in paths.split(os.pathsep):
-
             if not os.path.isdir(path):
                 self.__logger.debug(f"PythonPluginSystem: Skipping as not a directory {path}")
 
             for item in os.listdir(path):
-
                 itemPath = os.path.join(path, item)
 
                 if os.path.isdir(itemPath):
@@ -138,7 +136,6 @@ class PythonPluginSystem(object):
         )
 
         for entryPoint in importlib_metadata.entry_points(group=entryPointName):
-
             self.__logger.debug(f"PythonPluginSystem: Found entry point in {entryPoint.name}")
             try:
                 module = entryPoint.load()
@@ -176,13 +173,13 @@ class PythonPluginSystem(object):
         @return @ref openassetio.pluginSystem.PythonPluginSystemPlugin
         "PythonPluginSystemPlugin"
 
-        @exception openassetio.exceptions.PluginError Raised if no
-        plugin provides the specified identifier.
+        @exception openassetio.errors.ConfigurationException Raised if
+        no plugin provides the specified identifier.
         """
 
         if identifier not in self.__map:
             msg = "PythonPluginSystem: No plug-in registered with the identifier '%s'" % identifier
-            raise exceptions.PluginError(msg)
+            raise InputValidationException(msg)
 
         return self.__map[identifier]
 
@@ -228,7 +225,6 @@ class PythonPluginSystem(object):
         moduleName = hashlib.md5(path.encode("utf-8")).hexdigest()
 
         try:
-
             spec = importlib.util.spec_from_file_location(moduleName, path)
             if spec is None:
                 raise RuntimeError("Unable to determine module spec")

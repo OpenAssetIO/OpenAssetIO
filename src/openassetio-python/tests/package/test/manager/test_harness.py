@@ -32,7 +32,7 @@ from unittest.case import SkipTest
 import uuid
 import pytest
 
-from openassetio import constants, Context, EntityReference
+from openassetio import constants, Context, EntityReference, errors
 from openassetio.test.manager.harness import (
     executeSuite,
     fixturesFromPyFile,
@@ -49,19 +49,19 @@ from openassetio.test.manager.harness import (
 class Test_fixturesFromPyFile:
     def test_when_called_with_missing_path_then_raises_Exception(self):
         invalid_path = "/i/do/not/exist"
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.InputValidationException) as exc:
             fixturesFromPyFile(invalid_path)
         assert str(exc.value) == f"Unable to parse '{invalid_path}'"
 
     def test_when_called_with_non_python_file_then_raises_exception(self, tmpdir):
         text_file = tempfile_with_contents(tmpdir, ".txt", "Hello!")
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.InputValidationException) as exc:
             fixturesFromPyFile(text_file)
         assert str(exc.value) == f"Unable to parse '{text_file}'"
 
     def test_when_called_with_python_file_missing_fixtures_var_then_raises_exception(self, tmpdir):
         malformed = tempfile_with_contents(tmpdir, ".py", "cabbages = {}")
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.ConfigurationException) as exc:
             fixturesFromPyFile(malformed)
         assert str(exc.value) == f"Missing top-level 'fixtures' variable in '{malformed}'"
 
@@ -86,13 +86,13 @@ class Test_fixturesFromPyFile:
 class Test_moduleFromFile:
     def test_when_called_with_missing_path_then_raises_Exception(self):
         invalid_path = "/i/do/not/exist"
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.InputValidationException) as exc:
             moduleFromFile(invalid_path)
         assert str(exc.value) == f"Unable to parse '{invalid_path}'"
 
     def test_when_called_with_non_python_file_then_raises_exception(self, tmpdir):
         text_file = tempfile_with_contents(tmpdir, ".txt", "Hello!")
-        with pytest.raises(RuntimeError) as exc:
+        with pytest.raises(errors.InputValidationException) as exc:
             moduleFromFile(text_file)
         assert str(exc.value) == f"Unable to parse '{text_file}'"
 

@@ -56,9 +56,6 @@ class Test_package_imports:
     def test_importing_EntityReference_succeeds(self):
         from openassetio import EntityReference
 
-    def test_importing_exceptions_succeeds(self):
-        from openassetio import exceptions
-
     def test_importing_log_succeeds(self):
         from openassetio import log
 
@@ -119,6 +116,23 @@ class Test_pluginSystem_imports:
 
     def test_importing_PythonPluginSystemPlugin_succeeds(self):
         from openassetio.pluginSystem import PythonPluginSystemPlugin
+
+
+class Test_errors_imports:
+    def test_importing_OpenAssetIOException_succeeds(self):
+        from openassetio.errors import OpenAssetIOException
+
+    def test_importing_ConfigurationException_succeeds(self):
+        from openassetio.errors import ConfigurationException
+
+    def test_importing_InputValidationException_succeeds(self):
+        from openassetio.errors import InputValidationException
+
+    def test_importing_NotImplementedException_succeeds(self):
+        from openassetio.errors import NotImplementedException
+
+    def test_importing_UnhandledException_succeeds(self):
+        from openassetio.errors import UnhandledException
 
 
 class Test_test_imports:
