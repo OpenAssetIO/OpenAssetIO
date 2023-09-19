@@ -116,3 +116,40 @@ jobs:
 
     - name: Run Python tests
       run: pytest src/openassetio-python/tests/package
+
+  disallowed_pip_install:
+    name: Disallowed pip install on  ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - os: windows-2019
+          - os: ubuntu-20.04
+          - os: macos-11
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      - name: Build and install via CMake
+        run: >
+          cmake -S . -B build
+          --install-prefix '${{ env.Python_ROOT_DIR }}'
+          --toolchain '${{ github.workspace }}/.conan/conan_paths.cmake'
+
+          cmake --build build --parallel --config Release
+
+          cmake --install build --config Release
+
+      - name: Attempt to install using pip
+        # GitHub sets `pipefail`, so if either the pip install succeeds
+        # (inverted via `!`) or the grep fails, then the step will fail.
+        run: >
+          ! python -m pip install --upgrade --force-reinstall openassetio 2>&1
+          | grep "The package was installed by cmake"
