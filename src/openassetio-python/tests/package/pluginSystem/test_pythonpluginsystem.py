@@ -200,7 +200,7 @@ class Test_PythonPluginSystem_scan_entry_points:
 
 
 class Test_PythonPluginSystem_plugin:
-    def test_when_plugin_not_found_then_raises_ConfigurationException(self, a_plugin_system):
+    def test_when_plugin_not_found_then_raises_InputValidationException(self, a_plugin_system):
         with pytest.raises(
             errors.InputValidationException,
             match="PythonPluginSystem: No plug-in registered with the identifier 'nonexistent'",
