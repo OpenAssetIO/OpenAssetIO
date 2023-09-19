@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -800,7 +801,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Callback signature used for a successful default entity reference
    * query.
    */
-  using DefaultEntityReferenceSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+  using DefaultEntityReferenceSuccessCallback =
+      std::function<void(std::size_t, std::optional<EntityReference>)>;
 
   /**
    * Called to determine an @ref EntityReference considered to be a
@@ -837,22 +839,22 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param successCallback Callback that will be called for each
    * successful default retrieved for each of the given sets in @p
-   * traitSets. It will be given the corresponding index of the traitSet
-   * in @p traitSets along with the default entity reference. The
-   * callback must called on the same thread that initiated the call
-   * to `defaultEntityReference`.
+   * traitSets. It should be given the corresponding index of the
+   * trait set in @p traitSets along with the default entity reference.
+   * If the query is well-formed, but there is no default entity
+   * reference, then provide an `optional` without a value. The callback
+   * must called on the same thread that initiated the call to
+   * `defaultEntityReference`.
    *
    * @param errorCallback Callback that must be called for each failure
    * to retrieve a sensible default entity reference. It should be given
    * the corresponding index for each of the given sets in @p traitSets
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
-   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kEntityAccessError}
-   * "kEntityAccessError" error must be used if no suitable default
-   * reference exists, and the @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
-   * "kInvalidTraitSet" error used if the requested trait set is
-   * unrecognised. The callback must be called on the same thread that
-   * initiated the call to `defaultEntityReference`.
+   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
+   * "kInvalidTraitSet" error should be used if the requested trait set
+   * is unrecognised. The callback must be called on the same thread
+   * that initiated the call to `defaultEntityReference`.
    */
   virtual void defaultEntityReference(const trait::TraitSets& traitSets,
                                       access::DefaultEntityAccess defaultEntityAccess,

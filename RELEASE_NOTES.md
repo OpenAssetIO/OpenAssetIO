@@ -33,6 +33,13 @@ v1.0.0-alpha.xx
 - Removed python `exceptions` module in favour of new `errors` module.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+- Changed success/return type of `defaultEntityReference` to wrap in
+  `std::optional`. Updated expected manager response such that an
+  optional without a value signals that no default is available for an
+  otherwise valid query. Changed default implementation to respond with
+  an empty optional in the success callback, rather than error.
+  [#1100](https://github.com/OpenAssetIO/OpenAssetIO/issues/1100)
+
 ### Improvements
 
 - Improved error messaging when `defaultManagerForInterface` points to a

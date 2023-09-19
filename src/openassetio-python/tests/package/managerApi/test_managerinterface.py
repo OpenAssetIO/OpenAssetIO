@@ -159,15 +159,13 @@ class Test_ManagerInterface_defaultEntityReference:
         )
         assert method_introspector.is_implemented_once(ManagerInterface, "defaultEntityReference")
 
-    def test_when_given_single_trait_set_then_calls_error_once(
-        self, manager_interface, a_host_session
-    ):
+    def test_gives_empty_value_for_all_trait_sets(self, manager_interface, a_host_session):
         success_callback = Mock()
         error_callback = Mock()
 
-        traitsSets = [set()]
+        traitsSets = [set(), set()]
 
-        refs = manager_interface.defaultEntityReference(
+        manager_interface.defaultEntityReference(
             traitsSets,
             DefaultEntityAccess.kRead,
             Context(),
@@ -176,38 +174,9 @@ class Test_ManagerInterface_defaultEntityReference:
             error_callback,
         )
 
-        success_callback.assert_not_called()
+        success_callback.assert_has_calls([call(0, None), call(1, None)])
 
-        expected_code = BatchElementError.ErrorCode.kEntityAccessError
-        expected_err = BatchElementError(
-            expected_code, "Manager does not implement defaultEntityReference"
-        )
-        error_callback.assert_has_calls([call(i, expected_err) for i in range(len(traitsSets))])
-
-    def test_when_given_multiple_trait_set_then_calls_error_once_for_each_trait_set(
-        self, manager_interface, a_host_session
-    ):
-        success_callback = Mock()
-        error_callback = Mock()
-
-        traitsSets = [set(), set(), set()]
-
-        refs = manager_interface.defaultEntityReference(
-            traitsSets,
-            DefaultEntityAccess.kRead,
-            Context(),
-            a_host_session,
-            success_callback,
-            error_callback,
-        )
-
-        success_callback.assert_not_called()
-
-        expected_code = BatchElementError.ErrorCode.kEntityAccessError
-        expected_err = BatchElementError(
-            expected_code, "Manager does not implement defaultEntityReference"
-        )
-        error_callback.assert_has_calls([call(i, expected_err) for i in range(len(traitsSets))])
+        error_callback.assert_not_called()
 
 
 class Test_ManagerInterface_getWithRelationship:
