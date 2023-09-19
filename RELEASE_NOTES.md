@@ -60,6 +60,14 @@ v1.0.0-alpha.xx
 - Improved error messaging when `defaultManagerForInterface` points to a
   directory not a file.
 
+- Added some protection for accidental overwrites of a CMake installed
+  `openassetio` Python package, by installing a `.dist-info` metadata
+  directory alongside the package. `pip install` will then fail/warn
+  against accidental overwrites/overrides. Added a CMake
+  variable `OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO` to disable this
+  feature.
+  [#1088](https://github.com/OpenAssetIO/OpenAssetIO/issues/1088)
+
 v1.0.0-alpha.14
 ---------------
 
