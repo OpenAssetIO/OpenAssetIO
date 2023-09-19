@@ -262,13 +262,13 @@ write_basic_package_version_file(
 )
 
 configure_package_config_file(
-    cmake/Variables.cmake.in
+    cmake/packaging/Variables.cmake.in
     ${_variables_config_file}
     INSTALL_DESTINATION ${_config_install_dir}
 )
 
 configure_package_config_file(
-    cmake/Config.cmake.in
+    cmake/packaging/Config.cmake.in
     ${_project_config_file}
     INSTALL_DESTINATION ${_config_install_dir}
     # TODO(DF): PATH_VARS?
