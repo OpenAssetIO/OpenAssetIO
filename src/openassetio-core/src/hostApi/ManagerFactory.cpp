@@ -125,6 +125,13 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
     throw errors::InputValidationException(msg);
   }
 
+  if (std::filesystem::is_directory(configPath)) {
+    Str msg = "Could not load default manager config from '";
+    msg += configPath;
+    msg += "', must be a TOML file not a directory.";
+    throw errors::InputValidationException(msg);
+  }
+
   toml::parse_result config;
   try {
     config = toml::parse_file(configPath);

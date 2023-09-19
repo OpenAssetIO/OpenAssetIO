@@ -174,6 +174,36 @@ class Test_ManagerFactory_defaultManagerForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_directory_then_InputValidationException_raised(
+        self,
+        use_env_var_for_config_file,
+        directory_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(errors.InputValidationException) as exc:
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    directory_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+
+        assert (
+            str(exc.value)
+            == f"Could not load default manager config from '{directory_manager_config}', "
+            "must be a TOML file not a directory."
+        )
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
     def test_when_invalid_format_then_ConfigurationException_raised(
         self,
         use_env_var_for_config_file,
@@ -615,6 +645,14 @@ def non_canonical_test_manager_config(resources_dir, monkeypatch, use_env_var_fo
 @pytest.fixture()
 def non_existent_manager_config(monkeypatch, use_env_var_for_config_file):
     toml_path = "i/do/not/exist"
+    if use_env_var_for_config_file:
+        monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
+    return toml_path
+
+
+@pytest.fixture()
+def directory_manager_config(monkeypatch, use_env_var_for_config_file, valid_manager_config):
+    toml_path = os.path.dirname(valid_manager_config)
     if use_env_var_for_config_file:
         monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
     return toml_path
