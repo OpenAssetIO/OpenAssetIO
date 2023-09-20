@@ -195,10 +195,6 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * -->const log::LoggerInterfacePtr&) "Alternative direct signature"
    * for more details.
    *
-   * Any occurrences of `${config_dir}` within TOML string values will
-   * be substituted with the absolute path to the directory containing
-   * the TOML file, before being passed on to the manager settings.
-   *
    * @envvar **OPENASSETIO_DEFAULT_CONFIG** *str* The path to a
    * TOML file containing configuration information for the default
    * manager.
@@ -237,6 +233,10 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * [manager.settings]  # Optional
    * some_setting = "value"
    * @endcode
+   *
+   * Any occurrences of `${config_dir}` within TOML string values will
+   * be substituted with the absolute path to the directory containing
+   * the TOML file, before being passed on to the manager settings.
    *
    * @param configPath Path to the TOML config file, compatible with
    * <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream/open">
