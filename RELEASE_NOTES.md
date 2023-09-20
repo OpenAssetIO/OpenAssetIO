@@ -33,6 +33,11 @@ v1.0.0-alpha.xx
 - Removed python `exceptions` module in favour of new `errors` module.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+### Improvements
+
+- Improved error messaging when `defaultManagerForInterface` points to a
+  directory not a file.
+
 v1.0.0-alpha.14
 ---------------
 

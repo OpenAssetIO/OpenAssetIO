@@ -174,6 +174,36 @@ class Test_ManagerFactory_defaultManagerForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_directory_then_InputValidationException_raised(
+        self,
+        use_env_var_for_config_file,
+        directory_manager_config,  # pylint: disable=unused-argument
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(errors.InputValidationException) as exc:
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    directory_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+
+        assert (
+            str(exc.value)
+            == f"Could not load default manager config from '{directory_manager_config}', "
+            "must be a TOML file not a directory."
+        )
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
     def test_when_invalid_format_then_ConfigurationException_raised(
         self,
         use_env_var_for_config_file,
@@ -396,80 +426,6 @@ class Test_ManagerFactory_defaultManagerForInterface:
             )
 
 
-# TODO(DF) C++ specific tests can be removed once ManagerFactory is
-#  fully migrated to C++ (i.e. once Manager and possibly HostSession is
-#  fully migrated to C++).
-class Test_CppManagerFactory_createManager:
-    def test_returns_a_cpp_manager(self, a_cpp_manager_factory):
-        manager = a_cpp_manager_factory.createManager("a.manager")
-        assert isinstance(manager, _openassetio.hostApi.Manager)
-
-    def test_manager_is_properly_configured(
-        self, assert_expected_manager, a_cpp_manager_factory, mock_manager_implementation_factory
-    ):
-        # setup
-
-        expected_identifier = "a.manager"
-
-        # action
-
-        manager = a_cpp_manager_factory.createManager(expected_identifier)
-
-        # confirm
-
-        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier
-        )
-        assert_expected_manager(manager)
-
-
-class Test_CppManagerFactory_createManagerForInterface:
-    def test_returns_a_cpp_manager(
-        self, mock_manager_implementation_factory, mock_host_interface, mock_logger
-    ):
-        manager = CppManagerFactory.createManagerForInterface(
-            "a.manager", mock_host_interface, mock_manager_implementation_factory, mock_logger
-        )
-
-        assert isinstance(manager, _openassetio.hostApi.Manager)
-
-    def test_manager_is_properly_configured(
-        self,
-        assert_expected_manager,
-        mock_manager_implementation_factory,
-        mock_host_interface,
-        mock_logger,
-    ):
-        # setup
-
-        expected_identifier = "a.manager"
-
-        # action
-
-        manager = CppManagerFactory.createManagerForInterface(
-            expected_identifier,
-            mock_host_interface,
-            mock_manager_implementation_factory,
-            mock_logger,
-        )
-
-        # confirm
-
-        mock_manager_implementation_factory.mock.instantiate.assert_called_once_with(
-            expected_identifier
-        )
-        assert_expected_manager(manager)
-
-
-class Test_ManagerFactory:
-    def test_inherits_from_cpp(self):
-        # We assume if the Python implementation is a subclass of the
-        # C++ implementation then the tests for methods `identifiers`
-        # and `availableManagers` (which are not overridden) are valid
-        # for both C++ and Python and so don't need to be duplicated.
-        assert issubclass(ManagerFactory, _openassetio.hostApi.ManagerFactory)
-
-
 class Test_ManagerFactory_createManager:
     def test_returns_a_manager(self, a_manager_factory):
         manager = a_manager_factory.createManager("a.manager")
@@ -615,6 +571,14 @@ def non_canonical_test_manager_config(resources_dir, monkeypatch, use_env_var_fo
 @pytest.fixture()
 def non_existent_manager_config(monkeypatch, use_env_var_for_config_file):
     toml_path = "i/do/not/exist"
+    if use_env_var_for_config_file:
+        monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
+    return toml_path
+
+
+@pytest.fixture()
+def directory_manager_config(monkeypatch, use_env_var_for_config_file, valid_manager_config):
+    toml_path = os.path.dirname(valid_manager_config)
     if use_env_var_for_config_file:
         monkeypatch.setenv(ManagerFactory.kDefaultManagerConfigEnvVarName, toml_path)
     return toml_path
