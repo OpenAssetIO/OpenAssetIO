@@ -370,7 +370,8 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A default-configured manager if <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> is set, otherwise a nullptr if the var was not set.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if there are errors occur whilst loading the TOML file referenced by the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> env var. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if there are errors if the config file does not exist at the path provided in the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> env var.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html" title="A special case of InputValidationException for cases where the input comes from external config...">errors.ConfigurationException</a></td><td>if there are errors occur whilst loading the TOML file referenced by the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> env var. </td></tr>
   </table>
   </dd>
 </dl>
@@ -436,7 +437,8 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A default-configured manager.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if there are errors occur whilst loading the TOML file </td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if there are errors if the config file does not exist at the path provided in <code>configPath</code>.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html" title="A special case of InputValidationException for cases where the input comes from external config...">errors.ConfigurationException</a></td><td>if there are errors occur whilst loading the TOML file. </td></tr>
   </table>
   </dd>
 </dl>

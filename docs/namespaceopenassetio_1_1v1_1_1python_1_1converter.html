@@ -151,19 +151,19 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><a class="code" href="namespaceopenassetio_1_1v1_1_1host_api.html#a88098b42b895e2b0a88b5916b498fac2">ManagerPtr</a> manager = castFromPyObject&lt;Manager&gt;(pyManager);</div></div><!-- fragment --><p>If the types of the template argument and the <code>pyObject</code> are not equivalent, an exception will be thrown due to inability to perform the cast.</p>
 <dl class="section note"><dt>Note</dt><dd>This function does not acquire the GIL.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>A Python environment, with <code>openassetio</code> imported, must be available in order to use this function.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>if the function fails due to inability to cast between types, or if the input is null.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pyObject</td><td>A <code>PyObject</code> pointer to a Python object that must be of equivalent type to the template argument.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An OpenAssetIO pointer to a C++ API object cast from the provided <code>pyObject</code>. The lifetime of the PyObject will be extended to at least the lifetime of the returned <code>shared_ptr</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An OpenAssetIO pointer to a C++ API object cast from the provided <code>pyObject</code>. The lifetime of the PyObject will be extended to at least the lifetime of the returned <code>shared_ptr</code>.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if the function fails due to inability to cast between types, or if the input is null. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -189,20 +189,19 @@ Functions</h2></td></tr>
 <dl class="section warning"><dt>Warning</dt><dd>A Python environment, with <code>openassetio</code> imported, must be available in order to use this function.</dd>
 <dd>
 Some methods on <a class="el" href="glossary.html#manager">manager</a> and <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> are currently implemented in python, pending imminent port to C++. Due to this, these methods will not yet be available for use on a python object returned from this function.</dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>if the input is null. </td></tr>
-    <tr><td class="paramname">std::runtime_error</td><td>if the cast fails.</td></tr>
-  </table>
-  </dd>
-</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">objectPtr</td><td>A non-const OpenAssetIO pointer type, (eg, ManagerPtr). The returned <code>PyObject</code> takes shared ownership of this input <code>objectPtr</code>, and will keep the C++ instance alive until the <code>PyObject</code> is destroyed. This parameter must be the non-const OpenAssetIO pointer type as casting to python erases constness.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <code>PyObject</code> pointer to an object of the Python API type associated with the C++ API object provided. The reference count of the <code>PyObject</code> will be incremented, and must be decremented by the caller when done. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>PyObject</code> pointer to an object of the Python API type associated with the C++ API object provided. The reference count of the <code>PyObject</code> will be incremented, and must be decremented by the caller when done.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if the cast fails. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
