@@ -1121,7 +1121,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
    *
-   * @throws std::out_of_range if @p pageSize is zero.
+   * @throws errors.InputValidationException if @p pageSize is zero.
    */
   void getWithRelationshipPaged(const EntityReferences& entityReferences,
                                 const TraitsDataPtr& relationshipTraitsData, size_t pageSize,
@@ -1175,7 +1175,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    *
-   * @throws std::out_of_range if @p pageSize is zero.
+   * @throws errors.InputValidationException if @p pageSize is zero.
    */
   void getWithRelationshipsPaged(const EntityReference& entityReference,
                                  const trait::TraitsDatas& relationshipTraitsDatas,

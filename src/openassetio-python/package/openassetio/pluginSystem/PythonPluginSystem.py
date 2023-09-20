@@ -173,8 +173,8 @@ class PythonPluginSystem(object):
         @return @ref openassetio.pluginSystem.PythonPluginSystemPlugin
         "PythonPluginSystemPlugin"
 
-        @exception openassetio.errors.ConfigurationException Raised if
-        no plugin provides the specified identifier.
+        @exception errors.InputValidationException Raised if no plugin
+        provides the specified identifier.
         """
 
         if identifier not in self.__map:

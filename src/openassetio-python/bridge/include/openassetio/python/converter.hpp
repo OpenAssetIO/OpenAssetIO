@@ -38,9 +38,6 @@ namespace python::converter {
  * this, these methods will not yet be available for use on a python
  * object returned from this function.
  *
- * @throws std::invalid_argument if the input is null.
- * @throws std::runtime_error if the cast fails.
- *
  * @param objectPtr A non-const OpenAssetIO pointer type, (eg, @needsref
  * ManagerPtr). The returned `PyObject` takes shared ownership of this
  * input \p objectPtr, and will keep the C++ instance alive until the
@@ -52,6 +49,8 @@ namespace python::converter {
  * associated with the C++ API object provided. The reference count of
  * the `PyObject` will be incremented, and must be decremented by the
  * caller when done.
+ *
+ * @throws errors.InputValidationException if the cast fails.
  */
 template <typename T>
 OPENASSETIO_PYTHON_BRIDGE_EXPORT PyObject* castToPyObject(const T& objectPtr);
@@ -88,15 +87,15 @@ OPENASSETIO_PYTHON_BRIDGE_EXPORT PyObject* castToPyObject(const T& objectPtr);
  * @warning A Python environment, with `openassetio` imported, must be
  *          available in order to use this function.
  *
- * @throws std::invalid_argument if the function fails due to inability
- * to cast between types, or if the input is null.
- *
  * @param pyObject A `PyObject` pointer to a Python object that must be
  * of equivalent type to the template argument.
  *
  * @return An OpenAssetIO pointer to a C++ API object cast from the
  * provided \p pyObject. The lifetime of the PyObject will be extended
  * to at least the lifetime of the returned `shared_ptr`.
+ *
+ * @throws errors.InputValidationException if the function fails due to
+ * inability to cast between types, or if the input is null.
  */
 template <typename T>
 OPENASSETIO_PYTHON_BRIDGE_EXPORT typename T::Ptr castFromPyObject(PyObject* pyObject);

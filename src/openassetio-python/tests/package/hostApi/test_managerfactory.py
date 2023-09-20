@@ -174,7 +174,7 @@ class Test_ManagerFactory_defaultManagerForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
-    def test_when_invalid_format_then_RuntimeError_raised(
+    def test_when_invalid_format_then_ConfigurationException_raised(
         self,
         use_env_var_for_config_file,
         invalid_manager_config,

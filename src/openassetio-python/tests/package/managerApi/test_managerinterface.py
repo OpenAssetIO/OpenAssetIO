@@ -147,7 +147,7 @@ class Test_ManagerInterface_stateFromPersistenceToken:
         with pytest.raises(TypeError):
             ManagerInterface().createChildState(None, a_host_session)
 
-    def test_default_implementation_raises_RuntimeError(self, a_host_session):
+    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
         with pytest.raises(errors.NotImplementedException):
             ManagerInterface().stateFromPersistenceToken("", a_host_session)
 

@@ -207,9 +207,13 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * @ref default_config_var is set, otherwise a nullptr if
    * the var was not set.
    *
-   * @throws std::runtime_error if there are errors occur whilst
-   * loading the TOML file referenced by the
-   * @ref default_config_var env var.
+   * @throws errors.InputValidationException if there are errors if the
+   * config file does not exist at the path provided in the @ref
+   * default_config_var env var.
+   *
+   * @throws errors.ConfigurationException if there are errors occur
+   * whilst loading the TOML file referenced by the @ref
+   * default_config_var env var.
    */
   [[nodiscard]] static ManagerPtr defaultManagerForInterface(
       const HostInterfacePtr& hostInterface,
@@ -253,8 +257,11 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @return A default-configured manager.
    *
-   * @throws std::runtime_error if there are errors occur whilst
-   * loading the TOML file
+   * @throws errors.InputValidationException if there are errors if the
+   * config file does not exist at the path provided in @p configPath.
+   *
+   * @throws errors.ConfigurationException if there are errors occur
+   * whilst loading the TOML file.
    */
   [[nodiscard]] static ManagerPtr defaultManagerForInterface(
       std::string_view configPath, const HostInterfacePtr& hostInterface,
