@@ -796,10 +796,15 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../../src/openassetio-python/package \
-                         ./src \
+ # In the Python world, only include the specific paths to pure-python
+ # implementations. This avoids unhelpful double-listings of the C++
+ # hoists in the class index.
+INPUT                  = ./src \
                          ../../src/openassetio-core/include \
-                         ../../src/openassetio-python/bridge/include
+                         ../../src/openassetio-python/bridge/include \
+                         ../../src/openassetio-python/package/openassetio/hostApi/terminology.py \
+                         ../../src/openassetio-python/package/openassetio/pluginSystem \
+                         ../../src/openassetio-python/package/openassetio/test \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
