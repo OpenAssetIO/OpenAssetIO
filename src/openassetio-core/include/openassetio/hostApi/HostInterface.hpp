@@ -30,7 +30,7 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
  * "ManagerFactory" class upon construction.
  *
  * A @ref manager does not call the HostInterface directly, it is
- * always accessed via the @ref openassetio.managerApi.Host wrapper.
+ * always accessed via the @fqref{managerApi.Host} "Host" wrapper.
  * This allows the API to insert suitable house-keeping and auditing
  * functionality in between.
  *

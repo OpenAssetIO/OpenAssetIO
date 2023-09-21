@@ -193,11 +193,10 @@
  * > asset_management_system.
  *
  * The host itself is made available to a @ref manager "manager's" @ref
- * ManagerInterface via the @ref
- * openassetio.managerApi.HostSession "HostSession" supplied to each API
- * call. This allows the manager to adapt its behavior accordingly (if
- * required), and perform any additional actions it may wish to as part
- * of @ref publish "publishing".
+ * ManagerInterface via the @fqref{managerApi.HostSession} "HostSession"
+ * supplied to each API call. This allows the manager to adapt its
+ * behavior accordingly (if required), and perform any additional
+ * actions it may wish to as part of @ref publish "publishing".
  *
  *
  * @section HostInterface
@@ -208,8 +207,8 @@
  * features of the host into the well-known terms defined by this API.
  *
  * The HostInterface is never used directly by a @ref manager, and is
- * instead accessed through the @ref openassetio.managerApi.Host
- * abstraction, provided by the @ref openassetio.managerApi.HostSession
+ * instead accessed through the @fqref{managerApi.Host} "Host"
+ * abstraction, provided by the @fqref{managerApi.HostSession} "HostSession"
  * passed to the manager's implementation. This allows assorted
  * house-keeping and auditing to be performed by the API middleware.
  *
@@ -241,7 +240,7 @@
  * the well-known terms defined by this API.
  *
  * The ManagerInterface is never used directly by a @ref host, and is
- * instead accessed through the @ref openassetio.hostApi.Manager
+ * instead accessed through the @fqref{hostApi.Manager} "Manager"
  * abstraction. This allows assorted house-keeping and state management
  * to be performed by the API middleware.
  *
@@ -364,7 +363,7 @@
  * derived from the @ref ManagerInterface.
  *
  * A @ref host never uses the ManagerInterface class directly, but instead
- * uses the @ref openassetio.hostApi.Manager "Manager" class. This
+ * uses the @fqref{hostApi.Manager} "Manager" class. This
  * indirection allows sundry house keeping and state management.
  *
  *

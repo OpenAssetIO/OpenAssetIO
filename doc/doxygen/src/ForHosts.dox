@@ -12,7 +12,7 @@
  *   represent an asset management system.
  *
  * - Hosts interact with an @ref asset_management_system through an
- *   instance of the @ref openassetio.hostApi.Manager "Manager" class.
+ *   instance of the @fqref{hostApi.Manager} "Manager" class.
  *   The @fqref{hostApi.ManagerFactory} "ManagerFactory" class is used
  *   to instantiate this instance for any given manager. The Manager
  *   class wraps the implementation of the API by a specific asset
@@ -38,11 +38,11 @@
  *   considered to be opaque handles by the host, even if they look like
  *   well-formed strings.
  *
- * - Nearly all interactions with a @ref openassetio.hostApi.Manager
- *   "Manager" require an appropriately configured @ref Context. This
- *   tells the @ref asset_management_system about the intended actions
- *   of the host. For example, whether an @ref entity_reference is being
- *   @ref glossary_resolve "resolved" for read or for write.
+ * - Nearly all interactions with a @fqref{hostApi.Manager} "Manager"
+ *   require an appropriately configured @ref Context. This tells the
+ *   @ref asset_management_system about the intended actions of the
+ *   host. For example, whether an @ref entity_reference is being @ref
+ *   glossary_resolve "resolved" for read or for write.
  *
  * - The lifetime of the Context can be carefully managed by the host
  *   to allow the manager to correlate and time-lock disparate API calls.
@@ -82,10 +82,10 @@
  *    - An instance of the custom class derived from
  *      @fqref{hostApi.HostInterface} "HostInterface".
  *    - A `logger` (derived from
- *      @ref openassetio.log.LoggerInterface "LoggerInterface"), for
+ *      @fqref{log.LoggerInterface} "LoggerInterface"), for
  *      simple console logging you can use a
- *      @ref openassetio.log.ConsoleLogger "ConsoleLogger" wrapped
- *      in a @ref openassetio.log.SeverityFilter "SeverityFilter".
+ *      @fqref{log.ConsoleLogger} "ConsoleLogger" wrapped
+ *      in a @fqref{log.SeverityFilter} "SeverityFilter".
  *    - A @fqref{hostApi.ManagerImplementationFactoryInterface}
  *      "ManagerImplementationFactoryInterface" capable of instantiating
  *      managers. In the majority of cases a default-configured @ref

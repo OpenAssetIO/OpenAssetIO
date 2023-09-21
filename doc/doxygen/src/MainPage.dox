@@ -161,8 +161,8 @@
  * @enduml
  *
  * It attempts to show that the API is organized into two main
- * namespaces - the @ref openassetio.hostApi "hostApi" and @ref
- * openassetio.managerApi "managerApi". Within each of these, you will
+ * namespaces - the @fqref{hostApi} "hostApi" and
+ * @fqref{managerApi} "managerApi". Within each of these, you will
  * find the components you need depending on whether you are adopting
  * the API in a @ref host or providing support for a @ref manager
  * through a plugin.

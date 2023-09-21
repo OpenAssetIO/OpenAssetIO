@@ -38,7 +38,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * This Interface binds a @ref asset_management_system into
  * OpenAssetIO. It is not called directly by a @ref host, but by the
  * middleware that presents a more object-oriented model of this to
- * the @ref host - namely, the @ref openassetio.hostApi.Manager.
+ * the @ref host - namely, the @fqref{hostApi.Manager} "Manager".
  *
  * It is structured around the following principles:
  *
@@ -93,7 +93,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * kind will be correctly passed across the plug-in C boundary,
  * and re-thrown. Other exceptions should not be used.
  *
- *  @see @ref openassetio.errors "errors"
+ *  @see @fqref{errors} "errors"
  *
  * Threading
  * ---------
@@ -120,14 +120,14 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  * -----
  *
  * Sometimes you may need to know more information about the API host.
- * A @ref openassetio.managerApi.Host object is available through the
- * @ref openassetio.managerApi.HostSession object passed to each method
- * of this class. This provides a standardised interface that all API
- * hosts guarantee to implement. This can be used to identify exactly
- * which host you are being called for, and query various entity
+ * A @fqref{managerApi.Host} "Host" object is available through the
+ * @fqref{managerApi.HostSession} "HostSession" object passed to each
+ * method of this class. This provides a standardised interface that all
+ * API hosts guarantee to implement. This can be used to identify
+ * exactly which host you are being called for, and query various entity
  * related specifics of the hosts data model.
  *
- * @see @ref openassetio.managerApi.Host "Host"
+ * @see @fqref{managerApi.Host} "Host"
  *
  * Initialization
  * --------------
@@ -264,7 +264,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param hostSession The host session that maps to the caller. This
    * should be used for all logging and provides access to the
-   * openassetio.managerApi.Host object representing the process that
+   * @fqref{managerApi.Host} "Host" object representing the process that
    * initiated the API session.
    *
    * @return Substituted map of terms.
