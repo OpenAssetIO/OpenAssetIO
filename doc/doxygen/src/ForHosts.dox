@@ -98,8 +98,14 @@
  *   user with an additional manual configuration mechanism for your
  *   specific API session if you so wish.
  *
- * - Create, persist and configure a @ref Context as appropriate for
- *   all calls to the API.
+ * - Create (and configure) a @ref Context as appropriate for
+ *   all calls to the API. The Context instance should be kept alive
+ *   and re-used for API calls that are related to the same user
+ *   session, or logical set of interactions. For example, one per
+ *   document. Use @fqref{hostApi.Manager.createChildContext}
+ *   "createChildContext" to split off a new Context should you need to
+ *   re-configure it for any specific series of actions, whilst
+ *   maintaining the association.
  *
  * - Ask the @ref manager if they support resolve for the relevant
  *   data by supplying its @ref trait_set to
@@ -112,6 +118,10 @@
  *   @fqref{hostApi.Manager.isEntityReferenceString}
  *   "Manager.isEntityReferenceString" before passing to any other API
  *   calls.
+ *
+ * - If you support distributed processing provide a mechanism to
+ *   @fqref{hostApi.Manager.persistenceTokenForContext} "persist" a @ref
+ *   Context across processes.
  *
  * - Provide means for users to 'de-assetize' documents to facilitate
  *   sharing outside of the assetized environment. This usually consists

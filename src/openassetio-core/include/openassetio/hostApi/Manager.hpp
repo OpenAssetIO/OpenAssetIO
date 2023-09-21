@@ -354,6 +354,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  distributed between processes to associate subsequent API usage
    *  with the supplied context.
    *
+   *  @note This should not be used within the same process to store
+   *  a context for use between subsequent API calls or threads. Retain
+   *  the Context object directly in this situation.
+   *
    *  The returned token can be passed to @ref
    *  contextFromPersistenceToken for future API use in another session
    *  with the same manager.
