@@ -37,7 +37,7 @@ jobs:
         docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
           cd /src && \
           cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON && \
-          ctest --test-dir build'
+          ctest --test-dir build --output-on-failure'
 
   pip_install:
     name: Pip install on  ${{ matrix.config.os }}
