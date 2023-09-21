@@ -63,13 +63,11 @@ void ManagerInterface::defaultEntityReference(
     [[maybe_unused]] const access::DefaultEntityAccess defaultEntityAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const DefaultEntityReferenceSuccessCallback& successCallback,
-    const BatchElementErrorCallback& errorCallback) {
+    const DefaultEntityReferenceSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   const auto size = traitSets.size();
   for (size_t i = 0; i < size; ++i) {
-    BatchElementError err{BatchElementError::ErrorCode::kEntityAccessError,
-                          "Manager does not implement defaultEntityReference"};
-    errorCallback(i, std::move(err));
+    successCallback(i, {});
   }
 }
 

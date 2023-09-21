@@ -864,7 +864,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Callback signature used for a successful default entity reference query.
    */
-  using DefaultEntityReferenceSuccessCallback = std::function<void(std::size_t, EntityReference)>;
+  using DefaultEntityReferenceSuccessCallback =
+      std::function<void(std::size_t, std::optional<EntityReference>)>;
 
   /**
    * Called to determine an @ref EntityReference considered to be a
@@ -888,20 +889,20 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @param successCallback Callback that will be called for each
    * successful default retrieved for each of the given sets in @p
-   * traitSets. It will be given the corresponding index of the traitSet
-   * in @p traitSets along with the default entity reference. The
-   * callback will be called on the same thread that initiated the call
-   * to `defaultEntityReference`.
+   * traitSets. It will be given the corresponding index of the trait
+   * set in @p traitSets along with the default entity reference. If the
+   * query is well-formed, but there is no available default entity
+   * reference, then the `optional` entity reference will not contain a
+   * value. The callback will be called on the same thread that
+   * initiated the call to `defaultEntityReference`.
    *
    * @param errorCallback Callback that will be called for each failure
    * to retrieve a sensible default entity reference. It will be given
    * the corresponding index for each of the given sets in @p traitSets
    * along with a populated @fqref{BatchElementError}
    * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
-   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kEntityAccessError}
-   * "kEntityAccessError" error will be used if no suitable default
-   * reference exists, and the @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
-   * "kInvalidTraitSet" error used if the requested trait set is
+   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
+   * "kInvalidTraitSet" error will be used if the requested trait set is
    * not recognised by the manager. The callback will be called on the
    * same thread that initiated the call to `defaultEntityReference`.
    */

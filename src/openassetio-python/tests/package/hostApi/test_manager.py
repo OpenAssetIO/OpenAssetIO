@@ -417,8 +417,9 @@ class Test_Manager_defaultEntityReference:
         method = mock_manager_interface.mock.defaultEntityReference
 
         def call_callbacks(*_args):
+            invoke_defaultEntityReference_success_cb(1, None)
             invoke_defaultEntityReference_success_cb(0, a_ref)
-            invoke_defaultEntityReference_error_cb(1, a_batch_element_error)
+            invoke_defaultEntityReference_error_cb(2, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
@@ -438,8 +439,8 @@ class Test_Manager_defaultEntityReference:
             mock.ANY,
         )
 
-        success_callback.assert_called_once_with(0, a_ref)
-        error_callback.assert_called_once_with(1, a_batch_element_error)
+        success_callback.assert_has_calls([mock.call(1, None), mock.call(0, a_ref)])
+        error_callback.assert_called_once_with(2, a_batch_element_error)
 
 
 class Test_Manager_getWithRelationship:
