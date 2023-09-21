@@ -98,21 +98,18 @@
  *   user with an additional manual configuration mechanism for your
  *   specific API session if you so wish.
  *
- * - Create (and configure) a @ref Context as appropriate for
- *   all calls to the API. The Context instance should be kept alive
- *   and re-used for API calls that are related to the same user
- *   session, or logical set of interactions. For example, one per
- *   document. Use @fqref{hostApi.Manager.createChildContext}
- *   "createChildContext" to split off a new Context should you need to
- *   re-configure it for any specific series of actions, whilst
- *   maintaining the association.
+ * - Create (and configure) a @ref Context as appropriate for calls to
+ *   the API. Re-use context objects for all API calls that are related
+ *   to the same user session or logical set of interactions. For
+ *   example, one per document or working environment.
  *
  * - Ask the @ref manager if they support resolve for the relevant
  *   data by supplying its @ref trait_set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
  *   with a @ref Context with `kRead` access, respecting the returned
  *   traits - this may be a subset if the manager is only capable of
- *   resolving some of an entity's traits.
+ *   resolving some of an entity's traits. Note that management policy
+ *   is runtime invariant for any given context/access/trait set.
  *
  * - Always check any suspected entity references with
  *   @fqref{hostApi.Manager.isEntityReferenceString}

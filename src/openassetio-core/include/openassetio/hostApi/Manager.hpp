@@ -236,7 +236,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * This is particularly relevant for data types that may generate
    * large volumes of API requests, that can be avoided if the data in
    * question is not managed by the manager, or it can't resolve a
-   * required trait.
+   * required trait. Policy is runtime invariant and so only needs to be
+   * checked once for any given set of inputs (which includes the
+   * Context and its @ref locale).
    *
    * When querying this API, each Trait Set should be composed of:
    *
@@ -354,9 +356,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  distributed between processes to associate subsequent API usage
    *  with the supplied context.
    *
-   *  @note This should not be used within the same process to store
-   *  a context for use between subsequent API calls or threads. Retain
-   *  the Context object directly in this situation.
+   *  @note Using this within the same process to store a context for
+   *  use with subsequent API calls or other threads is redundant.
+   *  Retain the Context object directly in this situation.
    *
    *  The returned token can be passed to @ref
    *  contextFromPersistenceToken for future API use in another session
