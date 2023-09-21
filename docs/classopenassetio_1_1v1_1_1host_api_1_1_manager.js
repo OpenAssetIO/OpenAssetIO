@@ -3,7 +3,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag" ],
     [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
     [ "ConstPtr", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0626ac24c1ced0ff7bdba5218432739", null ],
-    [ "DefaultEntityReferenceSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a66ecd3c9a54d291ae1566e50a6e19d38", null ],
+    [ "DefaultEntityReferenceSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac778e9fcd0be1551b55a8fafbd5c3d2", null ],
     [ "ExistsSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1", null ],
     [ "PagedRelationshipSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ac0399582dfb38e9ddfcfab4b53eb63dc", null ],
     [ "PreflightSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407", null ],
