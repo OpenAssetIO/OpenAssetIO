@@ -111,9 +111,18 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1errors.h
 <div class="title">openassetio::v1::errors Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This namespace contains types related to error handling.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing per-element batch operation errors.  <a href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown when a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> is converted.  <a href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html">ConfigurationException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A special case of <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">InputValidationException</a> for cases where the input comes from external config, rather than function arguments.  <a href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,7 +139,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exceptions emitted from manager plugins that are not handled will be converted to this type and re-thrown when the exception passes through the OpenAssetIO middleware.  <a href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This namespace contains types related to error handling. </p>
+<p>Generally there are two types of error handling, "standard" non-batch error handling, which is exception based, and batch errors, which are based upon the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> type.</p>
+<p>All exceptions in OpenAssetIO are derived from the <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html">OpenAssetIOException</a> type, the idea being a host can use this as a catch-all exception type when attempting mitigative exception handling.</p>
+<p>Batch error handling with <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> is not exceptional, However, OpenAssetIO provides convenience wrappers around some batch functions that makes them exceptional, therefore <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> is converted to its twin, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>, also found in this namespace. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->

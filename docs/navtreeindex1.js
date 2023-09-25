@@ -60,11 +60,11 @@ var NAVTREEINDEX1 =
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9f4241d905d39850cad780d4a5f91aec":[13,0,0,3,3,3,24],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa04a409e53c1238eb9889c6f62bbae2e":[13,0,0,3,3,3,10],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa0ce52a4388d9ec16c7189f653983dac":[13,0,0,3,3,3,9],
+"classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8":[13,0,0,3,3,3,0],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8":[13,0,0,3,3,3,4],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aac778e9fcd0be1551b55a8fafbd5c3d2":[13,0,0,3,3,3,2],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288":[13,0,0,3,3,3,31],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abed526ee08dd5b97a44ef1688c63c04a":[13,0,0,3,3,3,6],
-"classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5":[13,0,0,3,3,3,0],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acd342c0ca286f8958af28d1ef4d794e1":[13,0,0,3,3,3,3],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acfe622b271979e27085082cd9bdb85d1":[13,0,0,3,3,3,15],
 "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ad9dc6699259a14f4b8e72c3d7c389aee":[13,0,0,3,3,3,34],
@@ -246,8 +246,8 @@ var NAVTREEINDEX1 =
 "stable_resolution.html#stable_resolution_manager_state_distribution":[7,2],
 "stable_resolution.html#stable_resolution_manager_state_guidelines":[7,3],
 "stable_resolution.html#stable_resolution_overview":[7,0],
-"structopenassetio_1_1v1_1_1_batch_element_exception.html":[13,0,0,3,7],
-"structopenassetio_1_1v1_1_1_batch_element_exception.html#a0c0220071051d4899c3a63dd1ad90cf9":[13,0,0,3,7,0],
-"structopenassetio_1_1v1_1_1_batch_element_exception.html#a9cf197ce3791c3f2d6403f705307f09b":[13,0,0,3,7,1],
-"structopenassetio_1_1v1_1_1_batch_element_exception.html#ac28efa16fb8062e271f8b7a373cc1734":[13,0,0,3,7,2]
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html":[13,0,0,3,0,1],
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a5f81c5903a0f3e8115e7a8cea86a035b":[13,0,0,3,0,1,0],
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a9cf197ce3791c3f2d6403f705307f09b":[13,0,0,3,0,1,1],
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#ac28efa16fb8062e271f8b7a373cc1734":[13,0,0,3,0,1,2]
 };

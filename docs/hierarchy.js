@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "BatchElementError", "classopenassetio_1_1v1_1_1_batch_element_error.html", null ],
+    [ "BatchElementError", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html", null ],
     [ "Manager::BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", null ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "EntityReference", "classopenassetio_1_1v1_1_1_entity_reference.html", null ],
@@ -29,16 +29,8 @@ var hierarchy =
       [ "PythonPluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html", null ]
     ] ],
     [ "runtime_error", null, [
-      [ "BatchElementException", "structopenassetio_1_1v1_1_1_batch_element_exception.html", [
-        [ "EntityAccessErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html", null ],
-        [ "EntityResolutionErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html", null ],
-        [ "InvalidEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html", null ],
-        [ "InvalidPreflightHintBatchElementException", "structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html", null ],
-        [ "InvalidTraitSetBatchElementException", "structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html", null ],
-        [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
-        [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
-      ] ],
       [ "OpenAssetIOException", "structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html", [
+        [ "BatchElementException", "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html", null ],
         [ "InputValidationException", "structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html", [
           [ "ConfigurationException", "structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html", null ]
         ] ],

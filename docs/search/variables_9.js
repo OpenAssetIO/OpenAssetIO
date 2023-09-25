@@ -1,6 +1,6 @@
 var searchData=
 [
   ['managerstate',['managerState',['../classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917',1,'openassetio::v1::Context']]],
-  ['message',['message',['../classopenassetio_1_1v1_1_1_batch_element_error.html#aa372e0c76bdb4918ccbfe06f1c882bdb',1,'openassetio::v1::BatchElementError']]],
+  ['message',['message',['../classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#aa372e0c76bdb4918ccbfe06f1c882bdb',1,'openassetio::v1::errors::BatchElementError']]],
   ['metavar',['metavar',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a6d8a64ff78fc562acbd80da81ed531b2',1,'openassetio::test::manager::__main__']]]
 ];

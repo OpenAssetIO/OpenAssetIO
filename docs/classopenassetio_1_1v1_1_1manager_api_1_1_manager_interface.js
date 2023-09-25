@@ -1,6 +1,6 @@
 var classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface =
 [
-    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acb8790aebaf4a9b8ac04fc0e65f069e5", null ],
+    [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8", null ],
     [ "ConstPtr", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adcbd4ae82e38e17e25741582a47e0592", null ],
     [ "DefaultEntityReferenceSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aac778e9fcd0be1551b55a8fafbd5c3d2", null ],
     [ "ExistsSuccessCallback", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acd342c0ca286f8958af28d1ef4d794e1", null ],

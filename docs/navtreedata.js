@@ -151,7 +151,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4f924d8c287456dfbd4a03545a2fc241",
-"structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html"
+"structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
