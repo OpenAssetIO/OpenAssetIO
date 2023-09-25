@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kaccessnames',['kAccessNames',['../namespaceopenassetio_1_1access.html#a6e6b928a2b22ccd96fcf9c6295ec9a56',1,'openassetio.access.kAccessNames()'],['../namespaceopenassetio_1_1v1_1_1access.html#a188aa4c7eee9d6254a9c65f61e5c67df',1,'openassetio::v1::access::kAccessNames()']]],
+  ['kaccessnames',['kAccessNames',['../namespaceopenassetio_1_1v1_1_1access.html#a188aa4c7eee9d6254a9c65f61e5c67df',1,'openassetio::v1::access']]],
   ['kcasepropertykey',['kCasePropertyKey',['../namespaceopenassetio_1_1test.html#a25122707f8e5dfcc6ed297cf17d4a7d9',1,'openassetio::test']]],
   ['kdefaultmanagerconfigenvvarname',['kDefaultManagerConfigEnvVarName',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#abac2a5ea98411125673e46a31df73693',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['kdisableentrypointsenvvar',['kDisableEntryPointsEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a4d28c523da756adf0527a72b4914aac4',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
@@ -8,8 +8,6 @@ var searchData=
   ['kinfokey_5fentityreferencesmatchprefix',['kInfoKey_EntityReferencesMatchPrefix',['../namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3',1,'openassetio::v1::constants']]],
   ['kinfokey_5ficon',['kInfoKey_Icon',['../namespaceopenassetio_1_1v1_1_1constants.html#ae3a10bd12d0c07579cfbbf75f38c6d51',1,'openassetio::v1::constants']]],
   ['kinfokey_5fsmallicon',['kInfoKey_SmallIcon',['../namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5',1,'openassetio::v1::constants']]],
-  ['kkey_5fargs',['kKey_Args',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#ae25498647f631b6d5e676ba567bb76d2',1,'openassetio::_core::audit::Auditor']]],
-  ['kkey_5fcount',['kKey_Count',['../classopenassetio_1_1__core_1_1audit_1_1_auditor.html#a3cb086c6ccd3a57bd2dbbfb351cadb36',1,'openassetio::_core::audit::Auditor']]],
   ['kpackageentrypointgroup',['kPackageEntryPointGroup',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a38fa37bdd34bd29e53cc24a80958a192',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
   ['kpluginenvvar',['kPluginEnvVar',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a5117f2e3c85104ade8c2a57828904e75',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory::PythonPluginSystemManagerImplementationFactory']]],
   ['kseveritynames',['kSeverityNames',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#aa3cb2b138133655f027cd3759d797601',1,'openassetio::v1::log::LoggerInterface']]],

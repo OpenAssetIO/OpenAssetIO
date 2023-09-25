@@ -293,7 +293,7 @@ Publishing</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
-<p>It is not called directly by a <a class="el" href="glossary.html#host">host</a>, but by the middleware that presents a more object-oriented model of this to the <a class="el" href="glossary.html#host">host</a> - namely, the <a class="el" href="namespaceopenassetio_1_1host_api.html#a07400da5bccf76245cdfd052bc42b7db">openassetio.hostApi.Manager</a>.</p>
+<p>It is not called directly by a <a class="el" href="glossary.html#host">host</a>, but by the middleware that presents a more object-oriented model of this to the <a class="el" href="glossary.html#host">host</a> - namely, the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a>.</p>
 <p>It is structured around the following principles:</p>
 <ul>
 <li>The currency of the API is either data, or an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. objects should not be used to represent an <a class="el" href="glossary.html#entity">entity</a> or its properties.</li>
@@ -317,14 +317,14 @@ Publishing</h2></td></tr>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html">LoggerInterface</a></dd></dl>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of exceptions.OpenAssetIOException, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1errors.html">errors</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html">errors</a></dd></dl>
 <h2>Threading </h2>
 <p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a>, this will never be called concurrently.</p>
 <p>When a <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> for <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
-<p>Sometimes you may need to know more information about the API host. A <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object is available through the <a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">Host</a></dd></dl>
+<p>Sometimes you may need to know more information about the API host. A <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> object is available through the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a></dd></dl>
 <h2>Initialization </h2>
 <p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
 <ul>
@@ -334,7 +334,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ad9dc6699259a14f4b8e72c3d7c389aee">updateTerminology()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -558,7 +558,7 @@ Publishing</h2></td></tr>
 <p>The default implementation will raise if called. This method must be implemented by any manager implementing <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>openassetio.managerApi.HostSession, The host session that maps to the caller. This should be used for all logging and provides access to the openassetio.managerApi.Host object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">parentState</td><td>obj, The new state is to be considered a 'child' of the supplied state. This may be used when creating a child <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> for persistence somewhere in a UI, etc... when further processing may change the access of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>. It is expected that the manager will migrate any applicable state components to this child context, for example - a timestamp used for 'vlatest'.</td></tr>
   </table>
   </dd>
@@ -641,7 +641,7 @@ Publishing</h2></td></tr>
 <p>The default implementation of this method returns a nullptr, indicating that the manager does not perform custom state management. Manager's implementing this method must also implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a>, <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> and <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hostSession</td><td><a class="el" href="namespaceopenassetio_1_1manager_api.html#af0b6b36dc4c17e5602af317b9c0dc056">openassetio.managerApi.HostSession</a>, The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>openassetio.managerApi.HostSession, The host session that maps to the caller. This should be used for all logging and provides access to the openassetio.managerApi.Host object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1351,7 +1351,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ad9dc6699259a14f4b8e72c3d7c389aee">updateTerminology()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings()</a></li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>We need a 'teardown' method to, before a manager is de-activated in a host, to allow any event registrations etc... to be removed. </dd></dl>
 
 </div>
 </div>
@@ -1808,7 +1808,7 @@ Publishing</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hostSession</td><td>The API session.</td></tr>
@@ -1903,7 +1903,7 @@ Publishing</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">terms</td><td>Map of terms to be substituted by the manager.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> object representing the process that initiated the API session.</td></tr>
+    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller. This should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> object representing the process that initiated the API session.</td></tr>
   </table>
   </dd>
 </dl>

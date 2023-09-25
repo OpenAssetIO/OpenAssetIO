@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['malformedentityreferencebatchelementexception',['MalformedEntityReferenceBatchElementException',['../structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html',1,'openassetio::v1']]],
-  ['manager',['Manager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html',1,'openassetio::v1::hostApi']]],
-  ['managerdetail',['ManagerDetail',['../structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html',1,'openassetio::v1::hostApi::ManagerFactory']]],
-  ['managerfactory',['ManagerFactory',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html',1,'openassetio::v1::hostApi']]],
-  ['managerimplementationfactoryinterface',['ManagerImplementationFactoryInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html',1,'openassetio::v1::hostApi']]],
-  ['managerinterface',['ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html',1,'openassetio::v1::managerApi']]],
-  ['managerstatebase',['ManagerStateBase',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html',1,'openassetio::v1::managerApi']]],
-  ['mapper',['Mapper',['../classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html',1,'openassetio::hostApi::terminology']]]
+  ['pythonpluginsystem',['PythonPluginSystem',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html',1,'openassetio::pluginSystem::PythonPluginSystem']]],
+  ['pythonpluginsystemmanagerimplementationfactory',['PythonPluginSystemManagerImplementationFactory',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html',1,'openassetio::pluginSystem::PythonPluginSystemManagerImplementationFactory']]],
+  ['pythonpluginsystemmanagerplugin',['PythonPluginSystemManagerPlugin',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html',1,'openassetio::pluginSystem::PythonPluginSystemManagerPlugin']]],
+  ['pythonpluginsystemplugin',['PythonPluginSystemPlugin',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html',1,'openassetio::pluginSystem::PythonPluginSystemPlugin']]]
 ];

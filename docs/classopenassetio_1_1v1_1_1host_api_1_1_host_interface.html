@@ -152,7 +152,7 @@ Public Member Functions</h2></td></tr>
 <p>Colloquially, we refer to this as the '<a class="el" href="glossary.html#host">host</a>'. This may be a simple pipeline tool, or a full content creation application.</p>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> provides a generic mechanism for a <a class="el" href="glossary.html#manager">manager</a> to query information about the identity of the host. In future, this interface may be extended to include the ability to retrieve information about available documents and their known entity references.</p>
 <p>In order for a host to use the API, it must provide an implementation of the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> to the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html">ManagerFactory</a> class upon construction.</p>
-<p>A <a class="el" href="glossary.html#manager">manager</a> does not call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> directly, it is always accessed via the <a class="el" href="namespaceopenassetio_1_1manager_api.html#a3fe707247b4d312c7f2782097ce8fb4d">openassetio.managerApi.Host</a> wrapper. This allows the API to insert suitable house-keeping and auditing functionality in between.</p>
+<p>A <a class="el" href="glossary.html#manager">manager</a> does not call the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html" title="The HostInterface provides an abstraction of the &#39;caller of the API&#39;. ">HostInterface</a> directly, it is always accessed via the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> wrapper. This allows the API to insert suitable house-keeping and auditing functionality in between.</p>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="ab7a9c2a0685cdf5b46152bf4f0d02912"></a>
@@ -311,7 +311,7 @@ Public Member Functions</h2></td></tr>
 <p>This can contain arbitrary key/value pairs. Managers never rely directly on any particular keys being set here, but the information may be useful for diagnostic or debugging purposes. For example:</p>
 <p>{ 'version' : '1.1v3' }</p>
 <dl class="section return"><dt>Returns</dt><dd>Arbitrary manager-specific info dictionary.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Definitions for well-known keys such as 'version' etc. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Definitions for well-known keys such as 'version' etc. </dd></dl>
 
 </div>
 </div>

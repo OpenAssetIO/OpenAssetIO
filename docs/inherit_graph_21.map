@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html" title="An abstract base for all Manager State objects. " alt="" coords="5,5,151,32"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html" title="Loads Python Packages, using entry point discovery or from a custom search path. " alt="" coords="136,5,292,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html" title="The base class that defines a plugin of the plugin system. " alt="" coords="116,56,312,83"/>
 </map>

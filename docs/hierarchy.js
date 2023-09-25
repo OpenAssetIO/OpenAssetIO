@@ -3,7 +3,6 @@ var hierarchy =
     [ "BatchElementError", "classopenassetio_1_1v1_1_1_batch_element_error.html", null ],
     [ "Manager::BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", null ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
-    [ "Debuggable", "classopenassetio_1_1__core_1_1debug_1_1_debuggable.html", null ],
     [ "EntityReference", "classopenassetio_1_1v1_1_1_entity_reference.html", null ],
     [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html", null ],
@@ -26,8 +25,6 @@ var hierarchy =
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],
     [ "object", null, [
-      [ "Auditor", "classopenassetio_1_1__core_1_1audit_1_1_auditor.html", null ],
-      [ "_Timer", "classopenassetio_1_1__core_1_1debug_1_1___timer.html", null ],
       [ "PythonPluginSystem", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html", null ],
       [ "PythonPluginSystemPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html", null ]
     ] ],
