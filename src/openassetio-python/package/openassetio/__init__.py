@@ -76,15 +76,6 @@ from ._openassetio import (  # pylint: disable=import-error
     TraitsData,
     Context,
     EntityReference,
-    BatchElementError,
-    BatchElementException,
-    UnknownBatchElementException,
-    InvalidEntityReferenceBatchElementException,
-    MalformedEntityReferenceBatchElementException,
-    EntityAccessErrorBatchElementException,
-    EntityResolutionErrorBatchElementException,
-    InvalidPreflightHintBatchElementException,
-    InvalidTraitSetBatchElementException,
 )
 
 # pylint: disable=wrong-import-position

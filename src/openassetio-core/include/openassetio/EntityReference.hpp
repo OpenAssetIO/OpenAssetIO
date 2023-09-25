@@ -29,7 +29,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  *
  * Note that this does not preclude the possibility of a malformed
  * reference. See
- * @fqref{BatchElementError.ErrorCode.kInvalidEntityReference}
+ * @fqref{errors.BatchElementError.ErrorCode.kInvalidEntityReference}
  * "kInvalidEntityReference".
  */
 class EntityReference final {

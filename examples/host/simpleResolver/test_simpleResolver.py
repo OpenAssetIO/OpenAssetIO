@@ -23,7 +23,7 @@ import pathlib
 import pytest
 import sys
 
-from openassetio import BatchElementError
+from openassetio.errors import BatchElementError
 from openassetio.hostApi import ManagerFactory
 
 

@@ -10,6 +10,11 @@ v1.0.0-alpha.xx
   share a common base.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+- Exceptional conveniences now provide additional information such
+  as entityReference, index, access, and error type in the message
+  of the exception.
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
+
 ### Breaking changes
 
 - Attempting to retrieve a trait property with
@@ -27,11 +32,11 @@ v1.0.0-alpha.xx
   implementations to make use of private state for efficiency reasons.
   [#518](https://github.com/OpenAssetIO/OpenAssetIO/issues/518)
 
-- Moved `BatchElementError.hpp` into `errors` directory.
-  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
 - Removed python `exceptions` module in favour of new `errors` module.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+- `errors.h` renamed to `errorCodes.h`
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
 - Changed success/return type of `defaultEntityReference` to wrap in
   `std::optional`. Updated expected manager response such that an
@@ -39,6 +44,16 @@ v1.0.0-alpha.xx
   otherwise valid query. Changed default implementation to respond with
   an empty optional in the success callback, rather than error.
   [#1100](https://github.com/OpenAssetIO/OpenAssetIO/issues/1100)
+
+ - Moved `BatchElementError` and `BatchElementException` into the
+  `errors` namespace.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+  - Removed all subtypes of `BatchElementException`, in favour of a
+  single exception type for exceptional type for batch errors in
+  exceptional conveniences.
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
 
 ### Improvements
 

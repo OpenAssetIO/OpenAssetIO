@@ -36,6 +36,7 @@ class Test_errors:
             errors.InputValidationException,
             errors.NotImplementedException,
             errors.UnhandledException,
+            errors.BatchElementException,
         )
 
         for exception in exceptions:
@@ -48,6 +49,7 @@ class Test_errors:
             errors.InputValidationException,
             errors.NotImplementedException,
             errors.UnhandledException,
+            errors.BatchElementException,
         )
 
         for exception in exceptions:

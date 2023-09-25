@@ -43,11 +43,11 @@ target_sources(
     src/_openassetio.cpp
     src/accessBinding.cpp
     src/constantsBinding.cpp
-    src/errorsBinding.cpp
-    src/BatchElementErrorBinding.cpp
     src/ContextBinding.cpp
     src/EntityReferenceBinding.cpp
     src/TraitsDataBinding.cpp
+    src/errors/exceptionsBinding.cpp
+    src/errors/BatchElementErrorBinding.cpp
     src/hostApi/EntityReferencePagerBinding.cpp
     src/hostApi/ManagerBinding.cpp
     src/hostApi/HostInterfaceBinding.cpp
