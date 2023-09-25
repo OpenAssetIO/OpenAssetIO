@@ -66,7 +66,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *   hosts/batch process etc...
  *
  *   @li You generally don't need to call the superclass implementation
- *   of any methods in this interface, unless you are deriving from your
+ *   of any methods in this interface, unless you are deriving from
  *   own subclass which requires it.
  *
  * Logging and Error Handling
@@ -1085,12 +1085,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * @name Publishing
    *
-   * The publishing functions allow a host create entities within the
-   * @ref asset_management_system represented by this implementation.
-   * The API is designed to accommodate the broad variety of roles that
-   * different asset managers embody. Some are 'librarians' that simply
-   * catalog the locations of existing media. Others take an active role
-   * in both the temporary and long-term paths to items they manage.
+   * The publishing functions allow a host create or update entities
+   * within the @ref asset_management_system represented by this
+   * implementation. The API is designed to accommodate the broad
+   * variety of roles that different asset managers embody. Some are
+   * 'librarians' that simply catalog the locations of existing media.
+   * Others take an active role in both the temporary and long-term
+   * paths to items they manage.
    *
    * There are two key components to publishing within this API.
    *

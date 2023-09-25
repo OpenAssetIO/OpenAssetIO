@@ -1118,12 +1118,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * @name Publishing
    *
-   * The publishing functions allow the host to create an @ref entity
-   * within the @ref asset_management_system represented by the Manager.
-   * The API is designed to accommodate the broad variety of roles that
-   * different asset managers embody. Some are 'librarians' that simply
-   * catalog the locations of existing media. Others take an active role
-   * in both the temporary and long-term paths to items they manage.
+   * The publishing functions allow the host to create or update an @ref
+   * entity within the @ref asset_management_system represented by the
+   * Manager. The API is designed to accommodate the broad variety of
+   * roles that different asset managers embody. Some are 'librarians'
+   * that simply catalog the locations of existing media. Others take an
+   * active role in both the temporary and long-term paths to items they
+   * manage.
    *
    * There are two key components to publishing within this API.
    *
