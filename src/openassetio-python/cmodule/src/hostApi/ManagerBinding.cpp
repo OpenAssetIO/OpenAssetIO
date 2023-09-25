@@ -35,11 +35,11 @@ void validateTraitsDatas(const TraitsDatas& traitsDatas) {
 void registerManager(const py::module& mod) {
   namespace access = openassetio::access;
   namespace trait = openassetio::trait;
-  using openassetio::BatchElementError;
   using openassetio::ContextConstPtr;
   using openassetio::EntityReference;
   using openassetio::EntityReferences;
   using openassetio::TraitsDataPtr;
+  using openassetio::errors::BatchElementError;
   using openassetio::hostApi::Manager;
   using openassetio::hostApi::ManagerPtr;
   using openassetio::managerApi::HostSessionPtr;

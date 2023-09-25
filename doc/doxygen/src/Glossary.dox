@@ -410,9 +410,9 @@
  * Providing the preflight hint allows the manager to prepare the
  * backend and provide the most appropriate responses to subsequent @ref
  * glossary_resolve and @ref glossary_register requests; or
- * @fqref{BatchElementError.ErrorCode.kInvalidPreflightHint} "error"
- * early if publishing is likely to fail or insufficient information is
- * given in the hint.
+ * @fqref{errors.BatchElementError.ErrorCode.kInvalidPreflightHint}
+ * "error" early if publishing is likely to fail or insufficient
+ * information is given in the hint.
  *
  * The `preflight` method is also allowed to change the entity
  * reference as required. This mechanism serves several purposes:

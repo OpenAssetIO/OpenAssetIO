@@ -22,18 +22,9 @@ Tests for the BatchElementError type.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import pytest
+import re
 
-from openassetio import (
-    BatchElementError,
-    BatchElementException,
-    UnknownBatchElementException,
-    InvalidEntityReferenceBatchElementException,
-    MalformedEntityReferenceBatchElementException,
-    EntityAccessErrorBatchElementException,
-    EntityResolutionErrorBatchElementException,
-    InvalidPreflightHintBatchElementException,
-    InvalidTraitSetBatchElementException,
-)
+from openassetio.errors import BatchElementError, BatchElementException, OpenAssetIOException
 
 
 class Test_BatchElementError_ErrorCode:
@@ -117,45 +108,38 @@ class Test_BatchElementError_equality:
         assert a_batch_element_error != b_batch_element_error
 
 
-@pytest.mark.parametrize(
-    "exception_type",
-    [
-        BatchElementException,
-        UnknownBatchElementException,
-        InvalidEntityReferenceBatchElementException,
-        MalformedEntityReferenceBatchElementException,
-        EntityAccessErrorBatchElementException,
-        EntityResolutionErrorBatchElementException,
-        InvalidPreflightHintBatchElementException,
-        InvalidTraitSetBatchElementException,
-    ],
-)
-# Note: these tests are not sufficient to assert that C++ exceptions
-# are appropriately translated. This will be implicitly tested via e.g.
-# `resolve` tests.
 class Test_BatchElementException:
-    def test_can_catch_as_self_type(self, exception_type):
-        expected_message = "some string"
-        expected_code = BatchElementError.ErrorCode.kUnknown
+    @pytest.mark.parametrize(
+        "exception_code",
+        [
+            BatchElementError.ErrorCode.kUnknown,
+            BatchElementError.ErrorCode.kInvalidEntityReference,
+            BatchElementError.ErrorCode.kMalformedEntityReference,
+            BatchElementError.ErrorCode.kEntityAccessError,
+            BatchElementError.ErrorCode.kEntityResolutionError,
+            BatchElementError.ErrorCode.kInvalidPreflightHint,
+            BatchElementError.ErrorCode.kInvalidTraitSet,
+        ],
+    )
+    def test_when_thrown_then_correct_data_set(self, exception_code):
+        error_message = "Error Message"
+        expected_exception_message = "ErrorType: Error Message [data][data][data]"
+        expected_code = exception_code
 
-        a_batch_element_error = BatchElementError(expected_code, expected_message)
+        a_batch_element_error = BatchElementError(expected_code, error_message)
 
-        with pytest.raises(exception_type, match=expected_message) as exc:
-            raise exception_type(123, a_batch_element_error)
+        with pytest.raises(
+            BatchElementException, match=re.escape(expected_exception_message)
+        ) as exc:
+            raise BatchElementException(123, a_batch_element_error, expected_exception_message)
 
         assert exc.value.index == 123
         assert exc.value.error.code == expected_code
-        assert exc.value.error.message == expected_message
+        assert exc.value.error.message == error_message
+        assert exc.value.message == expected_exception_message
 
-    def test_can_catch_as_BatchElementException(self, exception_type):
-        expected_message = "some string"
-        expected_code = BatchElementError.ErrorCode.kUnknown
-
-        a_batch_element_error = BatchElementError(expected_code, expected_message)
-
-        with pytest.raises(BatchElementException, match=expected_message) as exc:
-            raise exception_type(123, a_batch_element_error)
-
-        assert exc.value.index == 123
-        assert exc.value.error.code == expected_code
-        assert exc.value.error.message == expected_message
+    def test_inherits_OpenAssetIOException(self):
+        exception = BatchElementException(
+            0, BatchElementError(BatchElementError.ErrorCode.kInvalidEntityReference, ""), ""
+        )
+        assert isinstance(exception, OpenAssetIOException)

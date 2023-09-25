@@ -9,6 +9,7 @@
 
 #include <pybind11/pybind11.h>
 
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 namespace py = pybind11;
 
@@ -29,6 +30,11 @@ void throwException(const std::string& exceptionName, const std::string& msgData
   }
   if (exceptionName == "UnhandledException") {
     throw openassetio::errors::UnhandledException(msgData);
+  }
+  if (exceptionName == "BatchElementException") {
+    auto error = openassetio::errors::BatchElementError{
+        openassetio::errors::BatchElementError::ErrorCode::kEntityAccessError, "errorMessage"};
+    throw openassetio::errors::BatchElementException(0, std::move(error), msgData);
   }
 }
 }  // namespace
@@ -88,6 +94,13 @@ void registerExceptionThrower(py::module_& mod) {
           try {
             throwException(throwExceptionName);
           } catch (const openassetio::errors::UnhandledException&) {
+            return true;
+          }
+        }
+        if (catchExceptionName == "BatchElementException") {
+          try {
+            throwException(throwExceptionName);
+          } catch (const openassetio::errors::BatchElementException&) {
             return true;
           }
         }

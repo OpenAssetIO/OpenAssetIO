@@ -25,7 +25,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import EntityReference, TraitsData, Context, BatchElementError, errors
+from openassetio import EntityReference, TraitsData, Context, errors
 from openassetio.managerApi import (
     ManagerInterface,
     ManagerStateBase,

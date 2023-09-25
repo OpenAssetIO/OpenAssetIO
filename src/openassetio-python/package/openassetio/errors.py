@@ -20,9 +20,10 @@ Provides exception objects to facilitate error handling in OpenAssetIO
 
 from . import _openassetio  # pylint: disable=no-name-in-module
 
-
 OpenAssetIOException = _openassetio.errors.OpenAssetIOException
 InputValidationException = _openassetio.errors.InputValidationException
 ConfigurationException = _openassetio.errors.ConfigurationException
 NotImplementedException = _openassetio.errors.NotImplementedException
 UnhandledException = _openassetio.errors.UnhandledException
+BatchElementError = _openassetio.errors.BatchElementError
+BatchElementException = _openassetio.errors.BatchElementException

@@ -4,16 +4,36 @@
 
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 #include <openassetio/export.h>
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+/**
+ * This namespace contains types related to error handling.
+ *
+ * Generally there are two types of error handling, "standard" non-batch
+ * error handling, which is exception based, and batch errors, which are
+ * based upon the @ref BatchElementError type.
+ *
+ * All exceptions in OpenAssetIO are derived from the @ref
+ * OpenAssetIOException type, the idea being a host can use this as a
+ * catch-all exception type when attempting mitigative exception
+ * handling.
+ *
+ * Batch error handling with @ref BatchElementError is not
+ * exceptional, However, OpenAssetIO provides convenience wrappers
+ * around some batch functions that makes them exceptional, therefore
+ * @ref BatchElementError is converted to its twin,
+ * @ref BatchElementException, also found in this namespace.
+ */
 namespace errors {
+
 /**
  * @name OpenassetIO Exceptions
- *
  * @{
  */
 
@@ -63,6 +83,28 @@ struct OPENASSETIO_CORE_EXPORT NotImplementedException : OpenAssetIOException {
  */
 struct OPENASSETIO_CORE_EXPORT UnhandledException : OpenAssetIOException {
   using OpenAssetIOException::OpenAssetIOException;
+};
+
+/**
+ * Exception thrown when a @ref BatchElementError is converted.
+ *
+ * Not a type that a manager should throw, exclusively thrown via the
+ * middleware when the user is calling an exceptional convenience and a
+ * @ref BatchElementError is emitted by the manager.
+ */
+struct OPENASSETIO_CORE_EXPORT BatchElementException : OpenAssetIOException {
+  BatchElementException(std::size_t idx, BatchElementError err, const std::string& message)
+      : OpenAssetIOException{message}, index{idx}, error{std::move(err)} {}
+
+  /**
+   * Index describing which batch element has caused an error.
+   */
+  std::size_t index;
+
+  /**
+   * Object describing the nature of the specific error.
+   */
+  BatchElementError error;
 };
 
 /**

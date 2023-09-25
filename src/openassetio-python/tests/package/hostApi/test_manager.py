@@ -23,16 +23,9 @@ Tests that cover the openassetio.hostApi.Manager wrapper class.
 from unittest import mock
 
 import pytest
+import re
 
 from openassetio import (
-    UnknownBatchElementException,
-    InvalidEntityReferenceBatchElementException,
-    MalformedEntityReferenceBatchElementException,
-    EntityAccessErrorBatchElementException,
-    EntityResolutionErrorBatchElementException,
-    InvalidPreflightHintBatchElementException,
-    InvalidTraitSetBatchElementException,
-    BatchElementError,
     Context,
     EntityReference,
     TraitsData,
@@ -40,9 +33,14 @@ from openassetio import (
     constants,
     access,
 )
+from openassetio.access import kAccessNames
+from openassetio.errors import (
+    BatchElementException,
+    BatchElementError,
+    InputValidationException,
+)
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
-from openassetio.errors import InputValidationException
 
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API
@@ -1108,20 +1106,6 @@ batch_element_error_codes = [
     BatchElementError.ErrorCode.kInvalidTraitSet,
 ]
 
-batch_element_exceptions = [
-    UnknownBatchElementException,
-    InvalidEntityReferenceBatchElementException,
-    MalformedEntityReferenceBatchElementException,
-    EntityAccessErrorBatchElementException,
-    EntityResolutionErrorBatchElementException,
-    InvalidPreflightHintBatchElementException,
-    InvalidTraitSetBatchElementException,
-]
-
-batch_element_error_code_exception_pairs = list(
-    zip(batch_element_error_codes, batch_element_exceptions)
-)
-
 
 class Test_Manager_resolve_with_singular_default_overload:
     def test_when_success_then_single_TraitsData_returned(
@@ -1157,48 +1141,6 @@ class Test_Manager_resolve_with_singular_default_overload:
         )
 
         assert actual_traitsdata is a_traitsdata
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        invoke_resolve_error_cb,
-        error_code,
-        expected_exception,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(a_ref, an_entity_trait_set, access.ResolveAccess.kRead, a_context)
-
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_singular_throwing_overload:
@@ -1239,54 +1181,6 @@ class Test_Manager_resolve_with_singular_throwing_overload:
         )
 
         assert actual_traitsdata is a_traitsdata
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        error_code,
-        expected_exception,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(
-                a_ref,
-                an_entity_trait_set,
-                access.ResolveAccess.kRead,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_singular_variant_overload:
@@ -1446,51 +1340,6 @@ class Test_Manager_resolve_with_batch_default_overload:
         assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
         assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
 
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        error_code,
-        a_traitsdata,
-        expected_exception,
-        invoke_resolve_success_cb,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context)
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
 
 class Test_Manager_resolve_with_batch_throwing_overload:
     def test_when_success_then_multiple_TraitsDatas_returned(
@@ -1575,57 +1424,6 @@ class Test_Manager_resolve_with_batch_throwing_overload:
         assert len(actual_traitsdatas) == 2
         assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
         assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        error_code,
-        a_traitsdata,
-        expected_exception,
-        invoke_resolve_success_cb,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.resolve(
-                some_refs,
-                an_entity_trait_set,
-                access.ResolveAccess.kRead,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_resolve_with_batch_variant_overload:
@@ -1895,50 +1693,6 @@ class Test_Manager_preflight_with_singular_default_overload:
 
         assert actual_ref == a_different_ref
 
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        error_code,
-        expected_exception,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(
-                a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
-            )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
 
 class Test_Manager_preflight_with_singular_throwing_overload:
     def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
@@ -1988,55 +1742,6 @@ class Test_Manager_preflight_with_singular_throwing_overload:
         )
 
         assert actual_ref == a_different_ref
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        error_code,
-        expected_exception,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            # Success
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(
-                a_ref,
-                a_traitsdata,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_singular_variant_overload:
@@ -2215,56 +1920,6 @@ class Test_Manager_preflight_with_batch_default_overload:
 
         assert actual_refs == some_different_refs
 
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        a_different_ref,
-        expected_exception,
-        invoke_preflight_success_cb,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-            )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
 
 class Test_Manager_preflight_with_batch_throwing_overload:
     def test_when_traits_data_is_None_then_InputValidationException_is_raised(
@@ -2357,57 +2012,6 @@ class Test_Manager_preflight_with_batch_throwing_overload:
         )
 
         assert actual_refs == some_different_refs
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        a_different_ref,
-        expected_exception,
-        invoke_preflight_success_cb,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_preflight_with_batch_variant_overload:
@@ -2659,50 +2263,6 @@ class Test_Manager_register_with_singular_default_overload:
 
         assert actual_ref == a_different_ref
 
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        error_code,
-        expected_exception,
-        a_traitsdata,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(
-                a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
-            )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
 
 class Test_Manager_register_with_singular_throwing_overload:
     def test_when_register_success_then_single_EntityReference_returned(
@@ -2742,54 +2302,6 @@ class Test_Manager_register_with_singular_throwing_overload:
         )
 
         assert actual_ref == a_different_ref
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        error_code,
-        expected_exception,
-        a_traitsdata,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(
-                a_ref,
-                a_traitsdata,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_singular_variant_overload:
@@ -2945,56 +2457,6 @@ class Test_Manager_register_with_batch_default_overload:
 
         assert actual_refs == some_different_refs
 
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        a_different_ref,
-        expected_exception,
-        invoke_register_success_cb,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
-            invoke_register_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-            )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
 
 class Test_Manager_register_with_batch_throwing_overload:
     def test_when_success_then_multiple_EntityReferences_returned(
@@ -3074,58 +2536,6 @@ class Test_Manager_register_with_batch_throwing_overload:
         )
 
         assert actual_refs == some_different_refs
-
-    @pytest.mark.parametrize(
-        "error_code,expected_exception", batch_element_error_code_exception_pairs
-    )
-    def test_when_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        a_different_ref,
-        expected_exception,
-        invoke_register_success_cb,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-        expected_index = 123
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
-            invoke_register_error_cb(expected_index, batch_element_error)
-
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(expected_exception, match=batch_element_error.message) as exc:
-            manager.register(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
 
 
 class Test_Manager_register_with_batch_variant_overload:
@@ -3365,6 +2775,248 @@ class Test_Manager_contextFromPersistenceToken:
         a_context = manager.contextFromPersistenceToken("")
         assert a_context.managerState is None
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
+
+
+batch_element_error_codes_names = [
+    "unknown",
+    "invalidEntityReference",
+    "malformedEntityReference",
+    "entityAccessError",
+    "entityResolutionError",
+    "invalidPreflightHint",
+    "invalidTraitSet",
+]
+
+
+def make_expected_err_msg(batch_element_error, index, access, entityRef):
+    error_type_name = batch_element_error_codes_names[
+        batch_element_error_codes.index(batch_element_error.code)
+    ]
+    return f"{error_type_name}: {batch_element_error.message} [index={index}] [access={kAccessNames[access]}] [entity={entityRef}]"
+
+
+# Conveniences to allow us to paramaterize singular and batch
+def ensure_list(item):
+    return item if isinstance(item, list) else [item]
+
+
+def ensure_singular(item):
+    return item[0] if isinstance(item, list) else item
+
+
+class Test_Manager_convenience_exceptions:
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    @pytest.mark.parametrize("access", [access.ResolveAccess.kRead, access.ResolveAccess.kWrite])
+    @pytest.mark.parametrize("singular", [True, False])
+    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
+    def test_when_batch_resolve_emits_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        error_code,
+        access,
+        singular,
+        tag,
+        invoke_resolve_error_cb,
+    ):
+        method = mock_manager_interface.mock.resolve
+
+        expected_index = 0
+
+        # We're parametrizing over different signatures here for
+        # brevity, we want to invoke different overloads, either the
+        # singular convenience or the batch method.
+        singular_or_multi_ref = some_refs[0] if singular else some_refs
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            invoke_resolve_error_cb(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(
+            BatchElementException,
+            match=re.escape(
+                make_expected_err_msg(
+                    batch_element_error,
+                    expected_index,
+                    access,
+                    ensure_singular(singular_or_multi_ref),
+                )
+            ),
+        ) as exc:
+            manager.resolve(
+                singular_or_multi_ref,
+                an_entity_trait_set,
+                access,
+                a_context,
+                *tag,
+            )
+
+        # Remember this is the managerInterface, always takes a list
+        # regardless of convenience called.
+        method.assert_called_once_with(
+            ensure_list(singular_or_multi_ref),
+            an_entity_trait_set,
+            access,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert exc.value.error == batch_element_error
+
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    @pytest.mark.parametrize(
+        "access", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("singular", [True, False])
+    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
+    def test_when_batch_preflight_emits_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        some_entity_traitsdatas,
+        a_context,
+        error_code,
+        access,
+        singular,
+        tag,
+        invoke_preflight_error_cb,
+    ):
+        method = mock_manager_interface.mock.preflight
+
+        expected_index = 0
+
+        # We're parametrizing over different signatures here for
+        # brevity, we want to invoke different overloads, either the
+        # singular convenience or the batch method.
+        singular_or_multi_ref = some_refs[0] if singular else some_refs
+        singular_or_multi_traitsdatas = (
+            some_entity_traitsdatas[0] if singular else some_entity_traitsdatas
+        )
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            invoke_preflight_error_cb(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(
+            BatchElementException,
+            match=re.escape(
+                make_expected_err_msg(
+                    batch_element_error,
+                    expected_index,
+                    access,
+                    ensure_singular(singular_or_multi_ref),
+                )
+            ),
+        ) as exc:
+            manager.preflight(
+                singular_or_multi_ref, singular_or_multi_traitsdatas, access, a_context, *tag
+            )
+
+        # Remember this is the managerInterface, always takes a list
+        # regardless of convenience called.
+        method.assert_called_once_with(
+            ensure_list(singular_or_multi_ref),
+            ensure_list(singular_or_multi_traitsdatas),
+            access,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert exc.value.error == batch_element_error
+
+    @pytest.mark.parametrize("error_code", batch_element_error_codes)
+    @pytest.mark.parametrize(
+        "access", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("singular", [True, False])
+    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
+    def test_when_batch_register_emits_BatchElementError_then_appropriate_exception_raised(
+        self,
+        manager,
+        a_host_session,
+        mock_manager_interface,
+        some_refs,
+        some_entity_traitsdatas,
+        a_context,
+        error_code,
+        access,
+        tag,
+        singular,
+        invoke_register_error_cb,
+    ):
+        method = mock_manager_interface.mock.register
+        expected_index = 0
+
+        # We're parametrizing over different signatures here for
+        # brevity, we want to invoke different overloads, either the
+        # singular convenience or the batch method.
+        singular_or_multi_ref = some_refs[0] if singular else some_refs
+        singular_or_multi_traitsdatas = (
+            some_entity_traitsdatas[0] if singular else some_entity_traitsdatas
+        )
+
+        batch_element_error = BatchElementError(error_code, "some string ✨")
+
+        def call_callbacks(*_args):
+            invoke_register_error_cb(expected_index, batch_element_error)
+
+            pytest.fail("Exception should have short-circuited this")
+
+        method.side_effect = call_callbacks
+
+        with pytest.raises(
+            BatchElementException,
+            match=re.escape(
+                make_expected_err_msg(
+                    batch_element_error,
+                    expected_index,
+                    access,
+                    ensure_singular(singular_or_multi_ref),
+                )
+            ),
+        ) as exc:
+            manager.register(
+                singular_or_multi_ref,
+                singular_or_multi_traitsdatas,
+                access,
+                a_context,
+                *tag,
+            )
+
+        # Remember this is the managerInterface, always takes a list
+        # regardless of convenience called.
+        method.assert_called_once_with(
+            ensure_list(singular_or_multi_ref),
+            ensure_list(singular_or_multi_traitsdatas),
+            access,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert exc.value.index == expected_index
+        assert exc.value.error == batch_element_error
 
 
 @pytest.fixture

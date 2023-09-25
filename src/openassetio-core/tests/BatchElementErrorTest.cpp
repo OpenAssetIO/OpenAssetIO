@@ -7,7 +7,7 @@
 
 #include <openassetio/errors/BatchElementError.hpp>
 
-using openassetio::BatchElementError;
+using openassetio::errors::BatchElementError;
 
 SCENARIO("BatchElementError usage") {
   GIVEN("BatchElementError is copyable") {

@@ -577,10 +577,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * reference in a batch. Exceptions can be thrown to indicate a
    * whole-batch error.
    *
-   * @see @fqref{BatchElementError.ErrorCode} "ErrorCode" for
+   * @see @fqref{errors.BatchElementError.ErrorCode} "ErrorCode" for
    * appropriate error codes.
    */
-  using BatchElementErrorCallback = std::function<void(std::size_t, BatchElementError)>;
+  using BatchElementErrorCallback = std::function<void(std::size_t, errors::BatchElementError)>;
   /**
    * @}
    */
@@ -686,8 +686,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param errorCallback Callback that must be called for each
    * failed check of an entity reference. It should be given the
    * corresponding index of the entity reference in @p entityReferences
-   * along with a populated @fqref{BatchElementError}
-   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * along with a populated @fqref{errors.BatchElementError}
+   * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread
    * that initiated the call to `entityExists`.
    */
@@ -756,7 +756,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * thrown for unexpected errors that should fail the whole batch, and
    * it is up to the host to handle the exception. For errors specific
    * to a particular entity, where other entities may still resolve
-   * successfully, an appropriate @fqref{BatchElementError}
+   * successfully, an appropriate @fqref{errors.BatchElementError}
    * "BatchElementError" should be given to the @p errorCallback. Using
    * HTTP status codes as an analogy, typically a server error (5xx)
    * would correspond to an exception whereas a client error (4xx) would
@@ -782,14 +782,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param errorCallback Callback that must be called for each
    * failed resolution of an entity reference. It should be given the
    * corresponding index of the entity reference in @p entityReferences
-   * along with a populated @fqref{BatchElementError}
-   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * along with a populated @fqref{errors.BatchElementError}
+   * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread
    * that initiated the call to `resolve`.
    *
    * @see @ref entityExists
    * @see @ref isEntityReferenceString
-   * @see @fqref{BatchElementError} "BatchElementError"
+   * @see @fqref{errors.BatchElementError} "BatchElementError"
    */
   virtual void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                        access::ResolveAccess resolveAccess, const ContextConstPtr& context,
@@ -821,7 +821,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * wish to return this so that a 'Create Shots' action starts
    * somewhere meaningful.
    *
-   * The default implementation returns a @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * The default implementation returns a
+   * @fqref{errors.BatchElementError.ErrorCode.kEntityAccessError}
    * "kEntityAccessError" indicating that no valid default exists.
    *
    * @param traitSets The relevant trait sets for the type of entities
@@ -849,9 +850,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param errorCallback Callback that must be called for each failure
    * to retrieve a sensible default entity reference. It should be given
    * the corresponding index for each of the given sets in @p traitSets
-   * along with a populated @fqref{BatchElementError}
-   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
-   * "ErrorCodes"). The @fqref{BatchElementError.ErrorCode.kInvalidTraitSet}
+   * along with a populated @fqref{errors.BatchElementError}
+   * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
+   * "ErrorCodes"). The
+   * @fqref{errors.BatchElementError.ErrorCode.kEntityAccessError}
+   * "kEntityAccessError" error must be used if no suitable default
+   * reference exists, and the
+   * @fqref{errors.BatchElementError.ErrorCode.kInvalidTraitSet}
    * "kInvalidTraitSet" error should be used if the requested trait set
    * is unrecognised. The callback must be called on the same thread
    * that initiated the call to `defaultEntityReference`.
@@ -959,10 +964,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * failed relationship query for an entity reference. It should be
    * given the corresponding index of the entity reference in
    * @p entityReferences along with a populated
-   * @fqref{BatchElementError} "BatchElementError" (see
-   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
-   * must be called on the same thread that initiated the call to
-   * `getWithRelationship`.
+   * @fqref{errors.BatchElementError} "BatchElementError" (see
+   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
+   * callback must be called on the same thread that initiated the call
+   * to `getWithRelationship`.
    *
    * @note Ensure that your implementation of @ref managementPolicy
    * responds appropriately when queried with relationship trait sets
@@ -1094,7 +1099,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param errorCallback Callback that should be called for each failed
    * relationship query. It should be given the corresponding index of
    * the entity reference in @p entityReferences along with a populated
-   * BatchElementError (see @ref BatchElementError.ErrorCode
+   * BatchElementError (see @ref errors.BatchElementError.ErrorCode
    * "ErrorCodes"). The callback should be called on the same thread
    * that initiated the call to `getWithRelationship`.
    *
@@ -1153,9 +1158,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * relationship query. It should be given the corresponding index of
    * the relationship in @p relationshipTraitsDatas along with a
    * populated BatchElementError (see
-   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
-   * should be called on the same thread that initiated the call to
-   * `getWithRelationships`.
+   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
+   * callback should be called on the same thread that initiated the
+   * call to `getWithRelationships`.
    *
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
@@ -1278,7 +1283,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * insufficient or invalid for upcoming @ref resolve for
    * @fqref{access.ResolveAccess.kWrite} "write" requests or the
    * eventual @ref register_, then error that element with an
-   * appropriate @fqref{BatchElementError.ErrorCode}.
+   * appropriate @fqref{errors.BatchElementError.ErrorCode}.
    *
    * @param entityReferences An @ref entity_reference for each entity
    * that it is desired to publish the forthcoming data to. See the
@@ -1315,18 +1320,18 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param errorCallback Callback to be called for each failed
    * preflight of an entity reference. It should be called with the
    * corresponding index of the entity reference in @p entityReferences
-   * along with a populated @fqref{BatchElementError}
-   * "BatchElementError" (see @fqref{BatchElementError.ErrorCode}
+   * along with a populated @fqref{errors.BatchElementError}
+   * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread that
    * initiated the call to `preflight`. A
-   * @fqref{BatchElementError.ErrorCode.kEntityAccessError}
+   * @fqref{errors.BatchElementError.ErrorCode.kEntityAccessError}
    * "kEntityAccessError" should be used if the access pattern cannot be
    * adhered to, for example when attempting to write any target
    * references that are conceptually read-only in response to
    * @fqref{access.PublishAccess.kWrite} "kWrite", or in response to
    * @fqref{access.PublishAccess.kCreateRelated} "kCreateRelated" if
    * creating related entities is not supported. A
-   * @fqref{BatchElementError.ErrorCode.kInvalidPreflightHint}
+   * @fqref{errors.BatchElementError.ErrorCode.kInvalidPreflightHint}
    * "kInvalidPreflightHint" should be used for any target references
    * who's corresponding @p traitsHints entry holds insufficient or
    * invalid information.
@@ -1376,8 +1381,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * If the supplied @ref trait_set is missing required traits for any
    * of the provided references (maybe they are mismatched with the
-   * target entity, or missing essential data) then error that
-   * element with an appropriate @fqref{BatchElementError.ErrorCode} "ErrorCode".
+   * target entity, or missing essential data) then error that element
+   * with an appropriate @fqref{errors.BatchElementError.ErrorCode}
+   * "ErrorCode".
    *
    * @param entityReferences  The @ref entity_reference of each entity
    * to register_. It is up to the manager to ensure that this is
@@ -1424,12 +1430,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * call to `register`.
    *
    * @param errorCallback Callback to be called for each failed
-   * registration. It should be called with the corresponding index
-   * of the entity reference in @p entityReferences along with a
-   * populated @fqref{BatchElementError} "BatchElementError" (see
-   * @fqref{BatchElementError.ErrorCode} "ErrorCodes"). The callback
-   * must be called on the same thread that initiated the call to
-   * `register`.
+   * registration. It should be called with the corresponding index of
+   * the entity reference in @p entityReferences along with a populated
+   * @fqref{errors.BatchElementError} "BatchElementError" (see
+   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
+   * callback must be called on the same thread that initiated the call
+   * to `register`.
    *
    * @see @fqref{TraitsData} "TraitsData"
    * @see @ref preflight

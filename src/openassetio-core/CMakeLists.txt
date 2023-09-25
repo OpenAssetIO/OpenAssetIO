@@ -66,6 +66,7 @@ target_sources(
     PRIVATE
     src/Context.cpp
     src/TraitsData.cpp
+    src/errors/exceptionMessages.cpp
     src/hostApi/HostInterface.cpp
     src/hostApi/Manager.cpp
     src/hostApi/ManagerFactory.cpp
