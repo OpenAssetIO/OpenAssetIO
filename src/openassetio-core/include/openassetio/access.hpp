@@ -124,7 +124,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
    *
    * This access mode should be used when the related entity already
    * exists, or where the host is unsure whether it exists or not.
-   * Otherwise see @ref kCreateRelated
+   * Otherwise see @ref RelationsAccess.kCreateRelated
    */
   kWrite = internal::access::Access::kWrite,
   /**
@@ -137,7 +137,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
    * a different target location on disk.
    *
    * For querying pre-existing related entities, with the intention of
-   * writing new data, see @ref kWrite.
+   * writing new data, see @ref RelationsAccess.kWrite.
    */
   kCreateRelated = internal::access::Access::kCreateRelated,
 };

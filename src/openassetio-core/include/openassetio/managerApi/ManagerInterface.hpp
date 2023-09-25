@@ -7,6 +7,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 #include <openassetio/export.h>
@@ -14,6 +15,7 @@
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/internal.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -66,7 +68,7 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *   hosts/batch process etc...
  *
  *   @li You generally don't need to call the superclass implementation
- *   of any methods in this interface, unless you are deriving from
+ *   of any methods in this interface, unless you are deriving from your
  *   own subclass which requires it.
  *
  * Logging and Error Handling
@@ -228,6 +230,161 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * asset_management_system itself.
    * @{
    */
+
+  /**
+   * Capabilities that the manager implements.
+   *
+   * Many OpenAssetIO methods are optional. This enum is used with the
+   * introspection mechanism @ref hasCapability to provide a means of
+   * querying which sets of methods the manager provides.
+   *
+   * These capabilities are used by both the host and the middleware to
+   * adapt their behaviour.
+   */
+  enum class Capability : std::underlying_type_t<internal::capability::manager::Capability> {
+    /**
+     * Manager can inform the host whether a given string matches the
+     * pattern of a valid entity reference.
+     *
+     * @warning Support for this capability is required by all managers.
+     * In situations where plugins are implemented as multiple component
+     * plugins (e.g. Python and C++) at least one of the component
+     * plugins must implement this capability.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref isEntityReferenceString
+     */
+    kEntityReferenceIdentification =
+        internal::capability::manager::Capability::kEntityReferenceIdentification,
+
+    /**
+     * Manager can provide a policy describing its behaviour with regard
+     * to specific entity types and relationships.
+     *
+     * @warning Support for this capability is required by all managers.
+     * In situations where plugins are implemented as multiple component
+     * plugins (e.g. Python and C++) at least one of the component
+     * plugins must implement this capability.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref managementPolicy
+     */
+    kManagementPolicyQueries = internal::capability::manager::Capability::kManagementPolicyQueries,
+
+    /**
+     * Manager makes use of the context to persist custom state for
+     * performance reasons or otherwise.
+     *
+     * Therefore, it is required that the host persist the context
+     * across related API calls, including across distributed processes.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref createState
+     * - @ref createChildState
+     * - @ref persistenceTokenForState
+     * - @ref stateFromPersistenceToken
+     *
+     * @see @ref stable_resolution
+     */
+    kStatefulContexts = internal::capability::manager::Capability::kStatefulContexts,
+    /**
+     * Manager customizes certain human-readable strings that the host
+     * might want to use in UI/messages.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref updateTerminology
+     */
+    kCustomTerminology = internal::capability::manager::Capability::kCustomTerminology,
+    /**
+     * Manager is capable of resolving @ref entity_reference into the
+     * data for one or more @ref trait "traits",
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref resolve
+     */
+    kResolution = internal::capability::manager::Capability::kResolution,
+    /**
+     * Manager allows the host to create or update an @ref entity within
+     * the @ref asset_management_system.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref preflight
+     * - @ref register_
+     */
+    kPublishing = internal::capability::manager::Capability::kPublishing,
+    /**
+     * Manager is capable of querying entity references that are related
+     * to the input references by the relationship defined by a set of
+     * traits and their properties.
+     *
+     * This capability means the manager implements the following methods:
+     * - @ref getWithRelationship
+     * - @ref getWithRelationships
+     */
+    kRelationshipQueries = internal::capability::manager::Capability::kRelationshipQueries,
+    /**
+     * Manager is capable of confirming the existence of entities.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref entityExists
+     */
+    kExistenceQueries = internal::capability::manager::Capability::kExistenceQueries,
+
+    /**
+     * Manager may be capable of a providing an @ref EntityReference
+     * considered to be a sensible default for a particular @ref
+     * trait_set "trait set".
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref defaultEntityReference
+     */
+    kDefaultEntityReferences = internal::capability::manager::Capability::kDefaultEntityReferences
+  };
+
+  /// Mapping of ManagerCapability enum value to human-readable name.
+  [[maybe_unused]] static constexpr std::array kCapabilityNames{"entityReferenceIdentification",
+                                                                "managementPolicyQueries",
+                                                                "statefulContexts",
+                                                                "customTerminology",
+                                                                "resolution",
+                                                                "publishing",
+                                                                "relationshipQueries",
+                                                                "existenceQueries",
+                                                                "defaultEntityReferences"};
+
+  /**
+   * Query the manager as to which capabilities it implements.
+   *
+   * This method will only be called post-@ref initialize, but must be
+   * cheap to evaluate, and always return the same values.
+   *
+   * API methods are grouped into "capabilities", which are independent
+   * groupings of functionality. For example, @ref
+   * Capability.kPublishing "publishing" or @ref Capability.kResolution
+   * "resolution".
+   *
+   * Failure to accurately reflect the capabilities of your manager may
+   * result in hosts calling into the default implementation, which
+   * throws @fqref{errors.NotImplementedException}
+   * "NotImplementedException", or may cause hosts to ignore capability
+   * that you have implemented.
+   *
+   * For information on what methods belong to which capability set,
+   * @see @ref Capability.
+   *
+   * @param capability The capability to check.
+   *
+   * @return Whether the manager has the capability in question.
+   */
+  [[nodiscard]] virtual bool hasCapability(Capability capability) = 0;
 
   /**
    * Returns other information that may be useful about this @ref

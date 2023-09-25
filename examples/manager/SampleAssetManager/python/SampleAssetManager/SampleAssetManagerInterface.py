@@ -69,3 +69,9 @@ class SampleAssetManagerInterface(ManagerInterface):
     def managementPolicy(self, traitSets, policyAccess, context, hostSession):
         # pylint: disable=unused-argument
         return [TraitsData() for _ in traitSets]
+
+    def hasCapability(self, capability):
+        if capability == ManagerInterface.Capability.kManagementPolicyQueries:
+            return True
+
+        return False

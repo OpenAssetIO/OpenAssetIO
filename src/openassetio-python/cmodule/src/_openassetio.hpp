@@ -64,7 +64,7 @@ using RetainCommonPyArgs = openassetio::RetainPyArgs<
 /// Concise pybind alias.
 namespace py = pybind11;
 
-/// Register constants for use as dict keys.
+/// Register access enums and strings.
 void registerAccess(const py::module& mod);
 
 /// Register constants for use as dict keys.

@@ -72,6 +72,68 @@ class Test_ManagerInterface_info:
         assert info == {}
 
 
+class Test_ManagerInterface_Capability:
+    def test_has_expected_values(self):
+        assert len(ManagerInterface.Capability.__members__.values()) == 9
+        assert ManagerInterface.Capability.kEntityReferenceIdentification.value == 0
+        assert ManagerInterface.Capability.kManagementPolicyQueries.value == 1
+        assert ManagerInterface.Capability.kStatefulContexts.value == 2
+        assert ManagerInterface.Capability.kCustomTerminology.value == 3
+        assert ManagerInterface.Capability.kResolution.value == 4
+        assert ManagerInterface.Capability.kPublishing.value == 5
+        assert ManagerInterface.Capability.kRelationshipQueries.value == 6
+        assert ManagerInterface.Capability.kExistenceQueries.value == 7
+        assert ManagerInterface.Capability.kDefaultEntityReferences.value == 8
+
+
+class Test_ManagerInterface_kCapabilityNames:
+    def test_names_indices_match_constants(self):
+        assert (
+            ManagerInterface.kCapabilityNames[
+                int(ManagerInterface.Capability.kEntityReferenceIdentification)
+            ]
+            == "entityReferenceIdentification"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[
+                int(ManagerInterface.Capability.kManagementPolicyQueries)
+            ]
+            == "managementPolicyQueries"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[int(ManagerInterface.Capability.kStatefulContexts)]
+            == "statefulContexts"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[int(ManagerInterface.Capability.kCustomTerminology)]
+            == "customTerminology"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[int(ManagerInterface.Capability.kResolution)]
+            == "resolution"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[int(ManagerInterface.Capability.kPublishing)]
+            == "publishing"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[
+                int(ManagerInterface.Capability.kRelationshipQueries)
+            ]
+            == "relationshipQueries"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[int(ManagerInterface.Capability.kExistenceQueries)]
+            == "existenceQueries"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[
+                int(ManagerInterface.Capability.kDefaultEntityReferences)
+            ]
+            == "defaultEntityReferences"
+        )
+
+
 class Test_ManagerInterface_updateTerminology:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(ManagerInterface.updateTerminology)

@@ -6,7 +6,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * Contains private internal implementation details.
  */
-namespace internal::access {
+namespace internal {
+namespace access {
 /**
  * Common constant values for strong enumerations of access pattern.
  *
@@ -16,6 +17,30 @@ namespace internal::access {
  * bindings.
  */
 enum Access : std::size_t { kRead = 0, kWrite, kCreateRelated };
-}  // namespace internal::access
+}  // namespace access
+
+namespace capability::manager {
+/**
+ * Common constant values for strong enumerations of capability sets.
+ *
+ * We must ensure correspondence between the values of the middleware
+ * and manager implementation's strong enums. This allows for
+ * comparison, string lookup, simplifies serialisation, and supports
+ * language (especially C) bindings.
+ */
+enum Capability : std::size_t {
+  kEntityReferenceIdentification = 0,
+  kManagementPolicyQueries,
+  kStatefulContexts,
+  kCustomTerminology,
+  kResolution,
+  kPublishing,
+  kRelationshipQueries,
+  kExistenceQueries,
+  kDefaultEntityReferences
+};
+}  // namespace capability::manager
+
+}  // namespace internal
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

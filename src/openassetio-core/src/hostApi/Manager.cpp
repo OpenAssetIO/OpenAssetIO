@@ -66,6 +66,11 @@ Identifier Manager::identifier() const { return managerInterface_->identifier();
 
 Str Manager::displayName() const { return managerInterface_->displayName(); }
 
+bool Manager::hasCapability(Capability capability) {
+  return managerInterface_->hasCapability(
+      static_cast<managerApi::ManagerInterface::Capability>(capability));
+}
+
 InfoDictionary Manager::info() { return managerInterface_->info(); }
 
 StrMap Manager::updateTerminology(StrMap terms) {

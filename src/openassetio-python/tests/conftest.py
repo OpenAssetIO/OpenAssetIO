@@ -165,6 +165,9 @@ class ValidatingMockManagerInterface(ManagerInterface):
     def updateTerminology(self, stringDict, hostSession):
         return self.mock.updateTerminology(stringDict, hostSession)
 
+    def hasCapability(self, capability):
+        return self.mock.hasCapability(capability)
+
     def settings(self, hostSession):
         return self.mock.settings(hostSession)
 
