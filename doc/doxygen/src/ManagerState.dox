@@ -7,7 +7,7 @@
  * held by the caller and supplied to the manager as part of the method
  * signature. This is to allow multi-threaded access to the @ref ManagerInterface
  * and avoid the need for any additional internal state to exist within
- * its implementation. The @ref openassetio.hostApi.Manager "Manager"
+ * its implementation. The @fqref{hostApi.Manager} "Manager"
  * class wraps the interface implementation to help the @ref host
  * with basic session state management.
  *

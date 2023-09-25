@@ -76,7 +76,7 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
         @fqref{managerApi.ManagerInterface} "ManagerInterface".
 
         This is an instance of some class derived from ManagerInterface
-        to be bound to the Host-facing @ref openassetio.hostApi.Manager.
+        to be bound to the Host-facing @fqref{hostApi.Manager} "Manager".
 
         Generally this is only directly called by the @ref
         openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory.

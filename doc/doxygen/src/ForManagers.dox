@@ -69,10 +69,10 @@
  *   details on this mechanism.
  *
  * - The @ref ManagerInterface implementation will be passed a
- *   @ref openassetio.managerApi.HostSession "HostSession" to the
+ *   @fqref{managerApi.HostSession} "HostSession" to the
  *   majority of API calls. This should be used for *all* logging, and
  *   any generic host queries via the supplied
- *   @ref openassetio.managerApi.Host "Host" object. Managers may wish
+ *   @fqref{managerApi.Host} "Host" object. Managers may wish
  *   to use details of the @ref host obtained from this object to adapt
  *   their behavior if desired.
  *
@@ -220,7 +220,7 @@
  * @see @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
  * "PythonPluginSystemManagerPlugin"
  * @see @fqref{Context} "Context"
- * @see @ref openassetio.managerApi.Host "Host"
+ * @see @fqref{managerApi.Host} "Host"
  * @see @needsref ManagerUIDelegate
  * @see @needsref ui.widgets
  */
