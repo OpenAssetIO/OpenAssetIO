@@ -11,7 +11,13 @@ The project is functional, and moving forward we expect minimal churn in
 the API itself as we complete the implementation of language specific
 features.
 
+This roadmap is influenced by community prioritisation exercises. The
+results of which are available
+[here](https://docs.google.com/spreadsheets/d/1ARGfLIbBg58rGTAgjcvr9DbmsXKTdQKO3BC_M3RQ_w4/edit#gid=0).
+
 ## Y23 Q3: v1.0.0b1
+
+**Backlog:** [here](https://github.com/OpenAssetIO/OpenAssetIO/milestone/1)
 
 This release will support resolution and publishing of entities in batch
 and interactive context, along with relationship discovery.
@@ -21,10 +27,12 @@ and interactive context, along with relationship discovery.
 
 - [x] Migration to the [Trait based API](https://github.com/OpenAssetIO/OpenAssetIO/blob/main/doc/decisions/DR007-Hierarchical-or-compositional-traits-for-specifications.md).
 - [x] Migration to batch-centric API.
-- [ ] Migration of core API methods to C+. [In progress]
-- [ ] Sundry breaking changes and tech-debt cleanup.
+- [x] Migration of core API methods to C++.
+- [ ] Sundry breaking changes and tech-debt cleanup. [In progress]
 
 ## Y24 Q1: v1.0.0
+
+**Backlog:** [here](https://github.com/OpenAssetIO/OpenAssetIO/milestone/7)
 
 This release will provide additional introspection methods and
 debugging functionality, along with language parity between Hosts and
@@ -33,28 +41,20 @@ Managers.
 **Hosts:** C++, Python
 **Managers:** C++, Python
 
-- [ ] Auth related error codes.
 - [ ] Debug trace logging support.
 - [ ] Entity introspection API methods.
 - [ ] C++ Plugin System
 - [ ] Hybrid C++/Python manager bridge.
-- [ ] Out-of-process Python
+- [ ] Read-through cache mix-ins.
 - [ ] Migrate landing page/examples to [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
-
-## Y24 H1: OpenAssetIO UI v1.0.0a1
-
-An initial release of the UI delegation layer that sits on top of
-OpenAssetIO, allowing custom Manager UI elements to be directly embedded
-into Host application.
-
-This first stage will be limited to supporting integrations within a Qt
-host.
 
 ## Y24 onwards
 
+- UI Layer
+- Auth related error codes.
 - Entity change notification/tracking.
-- Out-the-box caching mechanisms for resolve.
 - C API for FFIs or compiler isolation.
+- Out-of-process Python
 - Advanced workflow topics:
   - Transactions
   - Permissions
