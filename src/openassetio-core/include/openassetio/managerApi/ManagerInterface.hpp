@@ -174,10 +174,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   virtual ~ManagerInterface() = default;
 
   /**
-   * @name Asset Management System Information
+   * @name Asset Management System Identification
    *
-   * These functions provide hosts with general information about the
-   * @ref asset_management_system itself.
+   * These functions provide hosts with general identity information
+   * about the @ref asset_management_system itself.These may all be
+   * called before @ref initialize has been called.
    *
    * @{
    */
@@ -215,6 +216,18 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @return Manager's display name.
    */
   [[nodiscard]] virtual Str displayName() const = 0;
+
+  /**
+   * @}
+   */
+
+  /**
+   * @name Asset Management System Information
+   *
+   * These functions provide general information about the @ref
+   * asset_management_system itself.
+   * @{
+   */
 
   /**
    * Returns other information that may be useful about this @ref

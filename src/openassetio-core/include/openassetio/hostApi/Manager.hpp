@@ -70,9 +70,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                                        managerApi::HostSessionPtr hostSession);
 
   /**
-   * @name Asset Management System Information
+   * @name Asset Management System Identification
    *
-   * These functions provide general information about the @ref
+   * These functions provide general identity information about the @ref
    * asset_management_system itself. These can all be called before
    * @ref initialize has been called.
    *
@@ -100,6 +100,18 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *     "OpenAssetIO Test Manager"
    */
   [[nodiscard]] Str displayName() const;
+
+  /**
+   * @}
+   */
+
+  /**
+   * @name Asset Management System Information
+   *
+   * These functions provide general information about the @ref
+   * asset_management_system itself.
+   * @{
+   */
 
   /**
    * Returns other information that may be useful about this @ref
