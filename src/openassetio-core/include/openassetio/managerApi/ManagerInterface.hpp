@@ -366,8 +366,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * potentially save hundreds of thousands of redundant calls into the
    * API for unmanaged entity traits.
    *
-   * As such, the implementation of this method and careful
-   * consideration of the responses it returns is critical.
+   * As such, the implementation of this method (and careful
+   * consideration of the responses it returns) is critical. Due to the
+   * calling patterns, the manager's policy must be runtime invariant
+   * for any given set of inputs.
    *
    * @note It is not _required_ that a Host calls this method before
    * invoking other API methods, and so methods such as @ref resolve or
