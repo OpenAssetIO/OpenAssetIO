@@ -20,6 +20,31 @@ add_subdirectory(package)
 
 
 #-----------------------------------------------------------------------
+# CMake Python packaging tests.
+
+if (OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO)
+    openassetio_add_pytest_target(
+        openassetio.internal.pytest.cmake_package
+        "Running pytest check for CMake dist-info packaging"
+        "${CMAKE_CURRENT_LIST_DIR}/test_cmake.py"
+        "${PROJECT_SOURCE_DIR}"
+        "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}"
+    )
+    openassetio_add_test_target(openassetio.internal.pytest.cmake_package)
+    openassetio_add_test_fixture_dependencies(
+        openassetio.internal.pytest.cmake_package
+        openassetio.internal.install
+    )
+    openassetio_add_test_venv_fixture_dependency(openassetio.internal.pytest.cmake_package)
+    set_tests_properties(
+        openassetio.internal.pytest.cmake_package
+        PROPERTIES
+        ENVIRONMENT OPENASSETIO_CMAKE_PACKAGE_VERSION=${PROJECT_VERSION}
+    )
+endif ()
+
+
+#-----------------------------------------------------------------------
 # Test dependencies.
 
 # Install openassetio-specific dependencies that allow us to

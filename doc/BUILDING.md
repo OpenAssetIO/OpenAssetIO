@@ -177,26 +177,27 @@ about [here](SANDBOXED_BUILDS.md).
 OpenAssetIO provides several custom CMake options to control the
 behaviour of the build.
 
-| Option      | Description | Default |
-| ----------- | ----------- | ------- |
-| `BUILD_SHARED_LIBS` | `ON` to build shared libraries. `OFF` to build static libraries. | `ON` |
-| `OPENASSETIO_ENABLE_PYTHON` | Additionally build python bindings | `ON` |
-| `OPENASSETIO_ENABLE_C` | Additionally build C bindings | `OFF` |
-| `OPENASSETIO_ENABLE_TESTS` | Additionally build tests | `OFF` |
-| `OPENASSETIO_ENABLE_PYTHON_TEST_VENV` | Automatically create environment when running tests | `ON` |
-| `OPENASSETIO_WARNINGS_AS_ERRORS` | Treat compiler warnings as errors | `OFF` |
-| `OPENASSETIO_ENABLE_IPO` | Enable Interprocedural Optimization, aka Link Time Optimization (LTO) | `ON` |
-| `OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE` | Enable position independent code for static library builds | `ON` |
-| `OPENASSETIO_GLIBCXX_USE_CXX11_ABI` | When building under gcc, use the new C++11 library ABI | `OFF` |
-| `OPENASSETIO_ENABLE_NEW_DTAGS` | Set RUNPATH, overriding RPATH, on linux platforms | `OFF` |
-| `OPENASSETIO_ENABLE_COVERAGE` | Enable coverage reporting for gcc/clang | `OFF` |
-| `OPENASSETIO_ENABLE_SANITIZER_ADDRESS` | Enable address sanitizer | `OFF` |
-| `OPENASSETIO_ENABLE_SANITIZER_LEAK` | Enable leak sanitizer | `OFF` |
-| `OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR`   | Enable undefined behavior sanitizer | `OFF` |
-| `OPENASSETIO_ENABLE_SANITIZER_THREAD` | Enable thread sanitizer | `OFF` |
-| `OPENASSETIO_ENABLE_SANITIZER_MEMORY` | Enable memory sanitizer | `OFF` |
-| `OPENASSETIO_ENABLE_CLANG_TIDY` | Enable clang-tidy analysis during build | `OFF` |
-| `OPENASSETIO_ENABLE_CPPLINT` |Enable cpplint linter during build | `OFF` |
+| Option                                            | Description                                                           | Default |
+|---------------------------------------------------|-----------------------------------------------------------------------|---------|
+| `BUILD_SHARED_LIBS`                               | `ON` to build shared libraries. `OFF` to build static libraries.      | `ON`    |
+| `OPENASSETIO_ENABLE_PYTHON`                       | Additionally build python bindings                                    | `ON`    |
+| `OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO`     | Create a dist-info metadata directory alongside Python installation   | `ON`    |
+| `OPENASSETIO_ENABLE_C`                            | Additionally build C bindings                                         | `OFF`   |
+| `OPENASSETIO_ENABLE_TESTS`                        | Additionally build tests                                              | `OFF`   |
+| `OPENASSETIO_ENABLE_PYTHON_TEST_VENV`             | Automatically create environment when running tests                   | `ON`    |
+| `OPENASSETIO_WARNINGS_AS_ERRORS`                  | Treat compiler warnings as errors                                     | `OFF`   |
+| `OPENASSETIO_ENABLE_IPO`                          | Enable Interprocedural Optimization, aka Link Time Optimization (LTO) | `ON`    |
+| `OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE`    | Enable position independent code for static library builds            | `ON`    |
+| `OPENASSETIO_GLIBCXX_USE_CXX11_ABI`               | When building under gcc, use the new C++11 library ABI                | `OFF`   |
+| `OPENASSETIO_ENABLE_NEW_DTAGS`                    | Set RUNPATH, overriding RPATH, on linux platforms                     | `OFF`   |
+| `OPENASSETIO_ENABLE_COVERAGE`                     | Enable coverage reporting for gcc/clang                               | `OFF`   |
+| `OPENASSETIO_ENABLE_SANITIZER_ADDRESS`            | Enable address sanitizer                                              | `OFF`   |
+| `OPENASSETIO_ENABLE_SANITIZER_LEAK`               | Enable leak sanitizer                                                 | `OFF`   |
+| `OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR` | Enable undefined behavior sanitizer                                   | `OFF`   |
+| `OPENASSETIO_ENABLE_SANITIZER_THREAD`             | Enable thread sanitizer                                               | `OFF`   |
+| `OPENASSETIO_ENABLE_SANITIZER_MEMORY`             | Enable memory sanitizer                                               | `OFF`   |
+| `OPENASSETIO_ENABLE_CLANG_TIDY`                   | Enable clang-tidy analysis during build                               | `OFF`   |
+| `OPENASSETIO_ENABLE_CPPLINT`                      | Enable cpplint linter during build                                    | `OFF`   |
 
 ### Presets
 
