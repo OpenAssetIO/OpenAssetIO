@@ -1243,7 +1243,7 @@ This method may block for extended periods of time. </dd></dl>
 <p>This allows you to adapt application logic or user-facing behaviour accordingly.</p>
 <p>Queries return a <a class="el" href="classopenassetio_1_1v1_1_1_traits_data.html">TraitsData</a> for each supplied <a class="el" href="glossary.html#trait_set">Trait Set</a>, imbued with traits that describe the manager's policy for entities with those traits, and which traits they are capable of resolving/storing data for.</p>
 <p>This is an opt-in mechanism, such that if result is empty, then the manager does not handle entities with the supplied traits. In this situation, OpenAssetIO based functionality should be disabled in the host when processing data of that type, and traditional mechanisms used instead.</p>
-<p>This is particularly relevant for data types that may generate large volumes of API requests, that can be avoided if the data in question is not managed by the manager, or it can't resolve a required trait.</p>
+<p>This is particularly relevant for data types that may generate large volumes of API requests, that can be avoided if the data in question is not managed by the manager, or it can't resolve a required trait. Policy is runtime invariant and so only needs to be checked once for any given set of inputs (which includes the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> and its <a class="el" href="glossary.html#locale">locale</a>).</p>
 <p>When querying this API, each Trait Set should be composed of:</p>
 <ul>
 <li>The trait set of the entity type in question. This is usually obtained from the relevant <a class="el" href="glossary.html#Specification">Specification</a>.</li>
@@ -1282,6 +1282,7 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>Returns a serializable token that represents the supplied context's managerState, such that it can be persisted or distributed between processes to associate subsequent API usage with the supplied context. </p>
+<dl class="section note"><dt>Note</dt><dd>Using this within the same process to store a context for use with subsequent API calls or other threads is redundant. Retain the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> object directly in this situation.</dd></dl>
 <p>The returned token can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> for future API use in another session with the same manager.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
