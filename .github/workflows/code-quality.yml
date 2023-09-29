@@ -32,11 +32,11 @@ jobs:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
       - name: Lint
-        uses: TheFoundryVisionmongers/fn-pylint-action@v1.1
+        uses: TheFoundryVisionmongers/fn-pylint-action@v2
         with:
-          pylint-disable: fixme # We track 'todo's through other means
-          pylint-rcfile: src/openassetio-python/pyproject.toml
-          pylint-paths: >
+          pylint-args: >
+            --disable=fixme
+            --rcfile=src/openassetio-python/pyproject.toml
             src/openassetio-python/package/openassetio
             src/openassetio-python/tests/package
 
