@@ -17,7 +17,6 @@
 Tests that cover the openassetio.managerApi.ManagerStateBase class.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

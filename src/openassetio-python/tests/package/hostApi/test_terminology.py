@@ -17,7 +17,6 @@
 Tests that cover the openassetio.hostApi.terminology module.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

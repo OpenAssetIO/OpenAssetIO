@@ -2,7 +2,7 @@
 Tests for the traits data container
 """
 # pylint: disable=invalid-name,missing-class-docstring
-# pylint: disable=redefined-outer-name,no-self-use
+# pylint: disable=redefined-outer-name
 # pylint: disable=missing-function-docstring
 import pytest
 

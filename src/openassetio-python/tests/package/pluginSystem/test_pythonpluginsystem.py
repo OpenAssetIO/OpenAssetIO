@@ -17,7 +17,6 @@
 These tests check the functionality of the PythonPluginSystem class.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

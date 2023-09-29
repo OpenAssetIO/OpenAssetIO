@@ -25,7 +25,7 @@ from unittest import mock
 
 import pytest
 
-from openassetio import hostApi, EntityReference
+from openassetio import hostApi
 from openassetio.trait import TraitsData
 
 

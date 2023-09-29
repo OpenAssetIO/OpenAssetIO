@@ -17,7 +17,7 @@
 Tests for the EntityReference type.
 """
 
-# pylint: disable=no-self-use, too-few-public-methods
+# pylint: disable=too-few-public-methods
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

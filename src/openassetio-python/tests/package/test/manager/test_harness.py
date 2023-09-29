@@ -17,7 +17,6 @@
 Tests for public API of the manager test harness.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
@@ -32,7 +31,7 @@ from unittest.case import SkipTest
 import uuid
 import pytest
 
-from openassetio import constants, Context, EntityReference, errors
+from openassetio import constants, EntityReference, errors
 from openassetio.test.manager.harness import (
     executeSuite,
     fixturesFromPyFile,

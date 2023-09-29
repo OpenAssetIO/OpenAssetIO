@@ -72,7 +72,6 @@ The documentation for OpenAssetIO can be found here:
 """
 
 # pylint: disable=wrong-import-position,import-error
-
 from ._openassetio import (
     constants,
     Context,

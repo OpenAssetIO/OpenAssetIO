@@ -17,7 +17,6 @@
 Integration tests for CLI operation of the manager test harness.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

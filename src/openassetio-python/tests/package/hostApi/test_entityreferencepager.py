@@ -17,16 +17,14 @@
 Tests that cover the openassetio.hostApi.EntityReferencePager wrapper class.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
-from unittest import mock
-
-import pytest
 import weakref
 
+import pytest
+
 from openassetio import EntityReference
-from openassetio.hostApi import Manager, EntityReferencePager
+from openassetio.hostApi import EntityReferencePager
 from openassetio.log import LoggerInterface
 from openassetio.managerApi import EntityReferencePagerInterface
 
@@ -40,7 +38,8 @@ class Test_EntityReferencePager_init:
         # described correctly.
         matchExpr = (
             r".+The following argument types are supported:[^(]+"
-            r"EntityReferencePager\([^,]+managerApi.EntityReferencePagerInterface,[^,]+managerApi.HostSession.+"
+            r"EntityReferencePager\([^,]+managerApi.EntityReferencePagerInterface,[^,]+"
+            r"managerApi.HostSession.+"
         )
 
         with pytest.raises(TypeError, match=matchExpr):
@@ -106,13 +105,13 @@ class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
     def __init__(self):
         EntityReferencePagerInterface.__init__(self)
 
-    def hasNext(self, hostSession):
+    def hasNext(self, _hostSession):
         return False
 
-    def get(self, hostSession):
+    def get(self, _hostSession):
         return []
 
-    def next(self, hostSession):
+    def next(self, _hostSession):
         pass
 
 
@@ -128,7 +127,7 @@ class Test_EntityReferencePager_destruction:
             nonlocal weak_interface_ref
             weak_interface_ref = weakref.ref(pagerInterface)
 
-            pager = EntityReferencePager(pagerInterface, a_host_session)
+            _pager = EntityReferencePager(pagerInterface, a_host_session)
             del pagerInterface
             assert weak_interface_ref() is not None
             # The pager is still in scope until this method exits
@@ -136,7 +135,7 @@ class Test_EntityReferencePager_destruction:
         makePagerInScope()
         # Once method exits, pager falls out of scope, and interface is
         # destroyed.
-        assert weak_interface_ref() is None
+        assert weak_interface_ref() is None  # pylint: disable=not-callable
 
     def test_when_EntityReferencePager_destructed_close_is_called(
         self, a_host_session, mock_entity_reference_pager_interface
@@ -151,6 +150,7 @@ class Test_EntityReferencePager_destruction:
         exception_what = "Mocked exception"
 
         def raise_exception(self):
+            # pylint: disable=broad-exception-raised
             raise Exception(exception_what)
 
         mock_entity_reference_pager_interface.mock.close.side_effect = raise_exception
@@ -158,7 +158,7 @@ class Test_EntityReferencePager_destruction:
         pager = EntityReferencePager(mock_entity_reference_pager_interface, a_host_session)
         del pager
         mock_entity_reference_pager_interface.mock.close.assert_called_once_with(a_host_session)
-        args, kwargs = mock_logger.mock.log.call_args
+        args, _kwargs = mock_logger.mock.log.call_args
 
         # The .what() of the exception comes with a lot of additional
         # text about call location that would be overly verbose to check

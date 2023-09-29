@@ -26,7 +26,6 @@ import os
 import pytest
 
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-class-docstring,missing-function-docstring

@@ -18,7 +18,7 @@ These tests check the functionality of the plugin system based
 ManagerImplementationFactoryInterface implementation.
 """
 
-# pylint: disable=no-self-use, unused-argument
+# pylint: disable=unused-argument
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=use-implicit-booleaness-not-comparison

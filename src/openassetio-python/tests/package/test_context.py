@@ -17,7 +17,7 @@
 Tests that cover the openassetio.Context class.
 """
 
-# pylint: disable=invalid-name,no-self-use,redefined-outer-name
+# pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
