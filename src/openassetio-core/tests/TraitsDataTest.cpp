@@ -4,13 +4,13 @@
 
 #include <catch2/catch.hpp>
 
-#include <openassetio/TraitsData.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/trait/property.hpp>
 
 using openassetio::Int;
-using openassetio::TraitsData;
-using openassetio::TraitsDataPtr;
+using openassetio::trait::TraitsData;
+using openassetio::trait::TraitsDataPtr;
 using openassetio::trait::property::Key;
 using openassetio::trait::property::Value;
 
@@ -23,7 +23,7 @@ SCENARIO("TraitsData trait set constructor is private") {
 }
 
 SCENARIO("TraitsData copy constructor is private") {
-  STATIC_REQUIRE_FALSE(std::is_constructible_v<TraitsData, const openassetio::TraitsData&>);
+  STATIC_REQUIRE_FALSE(std::is_constructible_v<TraitsData, const TraitsData&>);
 }
 
 SCENARIO("TraitsData make from other creates a deep copy") {

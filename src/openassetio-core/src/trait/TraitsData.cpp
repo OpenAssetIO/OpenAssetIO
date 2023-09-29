@@ -3,10 +3,12 @@
 
 #include <unordered_map>
 
-#include <openassetio/TraitsData.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace trait {
+
 class TraitsData::Impl {
  public:
   Impl() = default;
@@ -124,5 +126,6 @@ trait::property::KeySet TraitsData::traitPropertyKeys(const trait::TraitId& trai
 }
 
 bool TraitsData::operator==(const TraitsData& other) const { return *impl_ == *other.impl_; }
+}  // namespace trait
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

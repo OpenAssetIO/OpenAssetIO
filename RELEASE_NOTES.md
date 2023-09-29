@@ -4,6 +4,13 @@ Release Notes
 v1.0.0-alpha.xx
 ---------------
 
+### Deprecated
+
+- Moved `TraitsData` into the `trait` namespace along with its peer
+  container/type definitions. Aliases in the deprecated top-level
+  namespace will be removed in a future release.
+  [#1127](https://github.com/OpenAssetIO/OpenAssetIO/issues/1127)
+
 ### Breaking changes
 
 - Attempting to retrieve a trait property with

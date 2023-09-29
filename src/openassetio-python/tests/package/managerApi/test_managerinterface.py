@@ -25,13 +25,14 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import EntityReference, TraitsData, Context, errors
+from openassetio import EntityReference, Context, errors
+from openassetio.access import RelationsAccess, DefaultEntityAccess
 from openassetio.managerApi import (
     ManagerInterface,
     ManagerStateBase,
     EntityReferencePagerInterface,
 )
-from openassetio.access import RelationsAccess, DefaultEntityAccess
+from openassetio.trait import TraitsData
 
 
 class Test_ManagerInterface_identifier:

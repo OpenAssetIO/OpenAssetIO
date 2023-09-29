@@ -21,7 +21,8 @@ Tests that cover the openassetio.Context class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
-from openassetio import Context, managerApi, TraitsData
+from openassetio import Context, managerApi
+from openassetio.trait import TraitsData
 
 
 class Test_Context_init:
@@ -47,7 +48,7 @@ class Test_Context_init:
 class Test_Context_locale:
     def test_when_set_to_unknown_value_then_raises_ValueError(self, a_context):
         expected_msg = (
-            r"incompatible function arguments.*\n.*arg0: openassetio._openassetio.TraitsData"
+            r"incompatible function arguments.*\n.*arg0: openassetio._openassetio.trait.TraitsData"
         )
 
         with pytest.raises(TypeError, match=expected_msg):

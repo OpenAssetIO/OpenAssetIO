@@ -112,7 +112,7 @@ class BatchElementError final {
 
     /**
      * Error code response from @ref glossary_preflight if the provided
-     * @fqref{TraitsData} "traits data" hint holds insufficient or
+     * @fqref{trait.TraitsData} "traits data" hint holds insufficient or
      * invalid information.
      *
      * This will occur when the manager requires information that the

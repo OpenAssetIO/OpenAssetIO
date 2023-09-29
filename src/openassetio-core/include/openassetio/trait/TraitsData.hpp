@@ -15,6 +15,7 @@
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace trait {
 OPENASSETIO_DECLARE_PTR(TraitsData)
 
 /**
@@ -173,5 +174,6 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   class Impl;
   std::unique_ptr<Impl> impl_;
 };
+}  // namespace trait
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

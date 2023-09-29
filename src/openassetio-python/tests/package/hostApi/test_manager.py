@@ -28,7 +28,6 @@ import re
 from openassetio import (
     Context,
     EntityReference,
-    TraitsData,
     managerApi,
     constants,
     access,
@@ -41,6 +40,7 @@ from openassetio.errors import (
 )
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
+from openassetio.trait import TraitsData
 
 
 ## @todo Remove comments regarding Entity methods when splitting them from core API

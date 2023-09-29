@@ -9,7 +9,6 @@
 #include <catch2/trompeloeil.hpp>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
@@ -17,6 +16,8 @@
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/TraitsData.hpp>
+
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace {
@@ -118,7 +119,7 @@ SCENARIO("Resolving entities") {
       const openassetio::EntityReference ref = openassetio::EntityReference{"testReference"};
       const openassetio::EntityReferences refs = {ref};
 
-      const openassetio::TraitsDataPtr expected = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected = openassetio::trait::TraitsData::make();
       expected->addTrait("aTestTrait");
 
       // With success callback side effect
@@ -127,23 +128,23 @@ SCENARIO("Resolving entities") {
           .LR_SIDE_EFFECT(_6(0, expected));
 
       WHEN("singular resolve is called with default errorPolicyTag") {
-        const openassetio::TraitsDataPtr actual =
+        const openassetio::trait::TraitsDataPtr actual =
             manager->resolve(ref, traits, resolveAccess, context);
         THEN("returned TraitsData is as expected") { CHECK(expected.get() == actual.get()); }
       }
       WHEN("singular resolve is called with kException errorPolicyTag") {
-        const openassetio::TraitsDataPtr actual =
+        const openassetio::trait::TraitsDataPtr actual =
             manager->resolve(ref, traits, resolveAccess, context,
                              hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned TraitsData is as expected") { CHECK(expected.get() == actual.get()); }
       }
       WHEN("singular resolve is called with kVariant errorPolicyTag") {
-        std::variant<openassetio::errors::BatchElementError, openassetio::TraitsDataPtr> actual =
-            manager->resolve(ref, traits, resolveAccess, context,
-                             hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
+        std::variant<openassetio::errors::BatchElementError, openassetio::trait::TraitsDataPtr>
+            actual = manager->resolve(ref, traits, resolveAccess, context,
+                                      hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected TraitsData") {
-          CHECK(std::holds_alternative<openassetio::TraitsDataPtr>(actual));
-          auto actualVal = std::get<openassetio::TraitsDataPtr>(actual);
+          CHECK(std::holds_alternative<openassetio::trait::TraitsDataPtr>(actual));
+          auto actualVal = std::get<openassetio::trait::TraitsDataPtr>(actual);
           CHECK(expected.get() == actualVal.get());
         }
       }
@@ -153,13 +154,13 @@ SCENARIO("Resolving entities") {
                                                   openassetio::EntityReference{"testReference2"},
                                                   openassetio::EntityReference{"testReference3"}};
 
-      const openassetio::TraitsDataPtr expected1 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected1 = openassetio::trait::TraitsData::make();
       expected1->addTrait("aTestTrait1");
-      const openassetio::TraitsDataPtr expected2 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected2 = openassetio::trait::TraitsData::make();
       expected2->addTrait("aTestTrait2");
-      const openassetio::TraitsDataPtr expected3 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected3 = openassetio::trait::TraitsData::make();
       expected3->addTrait("aTestTrait3");
-      std::vector<openassetio::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
+      std::vector<openassetio::trait::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect
       REQUIRE_CALL(mockManagerInterface,
@@ -169,26 +170,26 @@ SCENARIO("Resolving entities") {
           .LR_SIDE_EFFECT(_6(2, expectedVec[2]));
 
       WHEN("batch resolve is called with default errorPolicyTag") {
-        const std::vector<openassetio::TraitsDataPtr> actualVec =
+        const std::vector<openassetio::trait::TraitsDataPtr> actualVec =
             manager->resolve(refs, traits, resolveAccess, context);
         THEN("returned list of TraitsDatas is as expected") { CHECK(expectedVec == actualVec); }
       }
       WHEN("batch resolve is called with kException errorPolicyTag") {
-        const std::vector<openassetio::TraitsDataPtr> actualVec =
+        const std::vector<openassetio::trait::TraitsDataPtr> actualVec =
             manager->resolve(refs, traits, resolveAccess, context,
                              hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned list of TraitsDatas is as expected") { CHECK(expectedVec == actualVec); }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<
-            std::variant<openassetio::errors::BatchElementError, openassetio::TraitsDataPtr>>
+        std::vector<std::variant<openassetio::errors::BatchElementError,
+                                 openassetio::trait::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, resolveAccess, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected TraitsDatas") {
           CHECK(expectedVec.size() == actualVec.size());
           for (size_t i = 0; i < actualVec.size(); ++i) {
-            CHECK(std::holds_alternative<openassetio::TraitsDataPtr>(actualVec[i]));
-            auto actualVal = std::get<openassetio::TraitsDataPtr>(actualVec[i]);
+            CHECK(std::holds_alternative<openassetio::trait::TraitsDataPtr>(actualVec[i]));
+            auto actualVal = std::get<openassetio::trait::TraitsDataPtr>(actualVec[i]);
             CHECK(expectedVec[i].get() == actualVal.get());
           }
         }
@@ -199,13 +200,13 @@ SCENARIO("Resolving entities") {
                                                   openassetio::EntityReference{"testReference2"},
                                                   openassetio::EntityReference{"testReference3"}};
 
-      const openassetio::TraitsDataPtr expected1 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected1 = openassetio::trait::TraitsData::make();
       expected1->addTrait("aTestTrait1");
-      const openassetio::TraitsDataPtr expected2 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected2 = openassetio::trait::TraitsData::make();
       expected2->addTrait("aTestTrait2");
-      const openassetio::TraitsDataPtr expected3 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expected3 = openassetio::trait::TraitsData::make();
       expected3->addTrait("aTestTrait3");
-      std::vector<openassetio::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
+      std::vector<openassetio::trait::TraitsDataPtr> expectedVec{expected1, expected2, expected3};
 
       // With success callback side effect, given out of order.
       REQUIRE_CALL(mockManagerInterface,
@@ -215,14 +216,14 @@ SCENARIO("Resolving entities") {
           .LR_SIDE_EFFECT(_6(1, expectedVec[1]));
 
       WHEN("batch resolve is called with default errorPolicyTag") {
-        const std::vector<openassetio::TraitsDataPtr> actualVec =
+        const std::vector<openassetio::trait::TraitsDataPtr> actualVec =
             manager->resolve(refs, traits, resolveAccess, context);
         THEN("returned list of TraitsDatas is ordered in index order") {
           CHECK(expectedVec == actualVec);
         }
       }
       WHEN("batch resolve is called with kException errorPolicyTag") {
-        const std::vector<openassetio::TraitsDataPtr> actualVec =
+        const std::vector<openassetio::trait::TraitsDataPtr> actualVec =
             manager->resolve(refs, traits, resolveAccess, context,
                              hostApi::Manager::BatchElementErrorPolicyTag::kException);
         THEN("returned list of TraitsDatas is ordered in index order") {
@@ -230,15 +231,15 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<
-            std::variant<openassetio::errors::BatchElementError, openassetio::TraitsDataPtr>>
+        std::vector<std::variant<openassetio::errors::BatchElementError,
+                                 openassetio::trait::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, resolveAccess, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants is ordered in index order") {
           CHECK(expectedVec.size() == actualVec.size());
           for (size_t i = 0; i < actualVec.size(); ++i) {
-            CHECK(std::holds_alternative<openassetio::TraitsDataPtr>(actualVec[i]));
-            auto actualVal = std::get<openassetio::TraitsDataPtr>(actualVec[i]);
+            CHECK(std::holds_alternative<openassetio::trait::TraitsDataPtr>(actualVec[i]));
+            auto actualVal = std::get<openassetio::trait::TraitsDataPtr>(actualVec[i]);
             CHECK(expectedVec[i].get() == actualVal.get());
           }
         }
@@ -275,9 +276,9 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("singular resolve is called with kVariant errorPolicyTag") {
-        std::variant<openassetio::errors::BatchElementError, openassetio::TraitsDataPtr> actual =
-            manager->resolve(ref, traits, resolveAccess, context,
-                             hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
+        std::variant<openassetio::errors::BatchElementError, openassetio::trait::TraitsDataPtr>
+            actual = manager->resolve(ref, traits, resolveAccess, context,
+                                      hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned variant contains the expected BatchElementError") {
           CHECK(std::holds_alternative<openassetio::errors::BatchElementError>(actual));
           const auto& actualVal = std::get<openassetio::errors::BatchElementError>(actual);
@@ -292,7 +293,8 @@ SCENARIO("Resolving entities") {
                                                   openassetio::EntityReference{"testReference2"},
                                                   openassetio::EntityReference{"testReference3"}};
 
-      const openassetio::TraitsDataPtr expectedValue2 = openassetio::TraitsData::make();
+      const openassetio::trait::TraitsDataPtr expectedValue2 =
+          openassetio::trait::TraitsData::make();
       expectedValue2->addTrait("aTestTrait");
       const openassetio::errors::BatchElementError expectedError0{
           openassetio::errors::BatchElementError::ErrorCode::kMalformedEntityReference,
@@ -325,8 +327,8 @@ SCENARIO("Resolving entities") {
         }
       }
       WHEN("batch resolve is called with kVariant errorPolicyTag") {
-        std::vector<
-            std::variant<openassetio::errors::BatchElementError, openassetio::TraitsDataPtr>>
+        std::vector<std::variant<openassetio::errors::BatchElementError,
+                                 openassetio::trait::TraitsDataPtr>>
             actualVec = manager->resolve(refs, traits, resolveAccess, context,
                                          hostApi::Manager::BatchElementErrorPolicyTag::kVariant);
         THEN("returned lists of variants contains the expected objects") {
@@ -336,7 +338,7 @@ SCENARIO("Resolving entities") {
           auto error1 = std::get<openassetio::errors::BatchElementError>(actualVec[1]);
           CHECK(error1 == expectedError1);
 
-          CHECK(std::get<openassetio::TraitsDataPtr>(actualVec[2]) == expectedValue2);
+          CHECK(std::get<openassetio::trait::TraitsDataPtr>(actualVec[2]) == expectedValue2);
         }
       }
     }
@@ -356,8 +358,8 @@ SCENARIO("Preflighting entities") {
         openassetio::EntityReference{"testReference2"},
         openassetio::EntityReference{"testReference3"}};
 
-    const openassetio::TraitsDataPtr traitsData =
-        openassetio::TraitsData::make({"fakeTrait", "secondFakeTrait"});
+    const openassetio::trait::TraitsDataPtr traitsData =
+        openassetio::trait::TraitsData::make({"fakeTrait", "secondFakeTrait"});
     const openassetio::trait::TraitsDatas threeTraitsDatas{traitsData, traitsData, traitsData};
 
     const openassetio::ManagerFixture fixture;
@@ -594,10 +596,10 @@ SCENARIO("Registering entities") {
     // Create TraitSets used in the register method calls
     const openassetio::trait::TraitSet traits = {"fakeTrait", "secondFakeTrait"};
     const openassetio::trait::TraitsDatas threeTraitsDatas = {
-        openassetio::TraitsData::make(traits), openassetio::TraitsData::make(traits),
-        openassetio::TraitsData::make(traits)};
+        openassetio::trait::TraitsData::make(traits), openassetio::trait::TraitsData::make(traits),
+        openassetio::trait::TraitsData::make(traits)};
 
-    auto singleTraitsData = openassetio::TraitsData::make(traits);
+    auto singleTraitsData = openassetio::trait::TraitsData::make(traits);
     const openassetio::trait::TraitsDatas singleTraitsDatas = {singleTraitsData};
 
     GIVEN("manager plugin successfully registers a single entity reference") {

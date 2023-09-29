@@ -6,12 +6,12 @@
 
 #include <openassetio/Context.hpp>
 
-OPENASSETIO_FWD_DECLARE(TraitsData)
+OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 
 using openassetio::Context;
 
 SCENARIO("Context constructor is private") {
-  STATIC_REQUIRE_FALSE(std::is_constructible_v<Context, openassetio::TraitsDataPtr,
+  STATIC_REQUIRE_FALSE(std::is_constructible_v<Context, openassetio::trait::TraitsDataPtr,
                                                openassetio::managerApi::ManagerStateBasePtr>);
 }

@@ -11,7 +11,6 @@
 #include <openassetio/python/converter.hpp>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -23,6 +22,7 @@
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 /*
  * The below tests exercise the to/from python converter functions.
@@ -48,7 +48,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
   py::module_::import("openassetio");
 
   GIVEN("A C++ object casted to a Python object") {
-    const TraitsDataPtr traitsData = TraitsData::make();
+    const trait::TraitsDataPtr traitsData = trait::TraitsData::make();
     PyObject* pyTraitsData = openassetio::python::converter::castToPyObject(traitsData);
     REQUIRE(pyTraitsData != nullptr);
 
@@ -76,11 +76,11 @@ SCENARIO("Mutations in one language are reflected in the other") {
 
   GIVEN("A Python object casted to a C++ object") {
     // Use pybind to conveniently create a CPython object with a ref count of 1.
-    const py::object pyClass = py::module_::import("openassetio").attr("TraitsData");
+    const py::object pyClass = py::module_::import("openassetio.trait").attr("TraitsData");
     py::object pyInstance = pyClass();
     PyObject* pyTraitsData = pyInstance.release().ptr();
-    const TraitsDataPtr traitsData =
-        openassetio::python::converter::castFromPyObject<TraitsData>(pyTraitsData);
+    const trait::TraitsDataPtr traitsData =
+        openassetio::python::converter::castFromPyObject<trait::TraitsData>(pyTraitsData);
 
     WHEN("data is set via the C++ object") {
       traitsData->addTrait(kTestTraitId);
@@ -106,7 +106,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
 
 SCENARIO("Casting to PyObject extends object lifetime") {
   GIVEN("A Python object casted from a C++ object") {
-    TraitsDataPtr traitsData = TraitsData::make();
+    trait::TraitsDataPtr traitsData = trait::TraitsData::make();
     traitsData->addTrait(kTestTraitId);
     PyObject* pyTraitsData = openassetio::python::converter::castToPyObject(traitsData);
 
@@ -134,14 +134,14 @@ SCENARIO("Casting to a C++ object binds object lifetime") {
     py::module_::import("openassetio");
 
     // Use pybind to conveniently create a CPython object with a ref count of 1.
-    const py::object pyClass = py::module_::import("openassetio").attr("TraitsData");
+    const py::object pyClass = py::module_::import("openassetio.trait").attr("TraitsData");
     py::object pyInstance = pyClass();
     PyObject* pyTraitsData = pyInstance.release().ptr();
     CHECK(Py_REFCNT(pyTraitsData) == 1);
 
     WHEN("Python object is converted to a C++ object") {
-      TraitsDataPtr traitsData =
-          openassetio::python::converter::castFromPyObject<TraitsData>(pyTraitsData);
+      trait::TraitsDataPtr traitsData =
+          openassetio::python::converter::castFromPyObject<trait::TraitsData>(pyTraitsData);
 
       THEN("Python reference is obtained") { CHECK(Py_REFCNT(pyTraitsData) == 2); }
 
@@ -202,13 +202,13 @@ SCENARIO("Error attempting to convert API objects without openassetio module loa
     REQUIRE_FALSE(py::module_::import("sys").attr("modules").contains("openassetio"));
 
     AND_GIVEN("an OpenAssetIO C++ API object") {
-      const TraitsDataPtr traitsData = TraitsData::make();
+      const trait::TraitsDataPtr traitsData = trait::TraitsData::make();
 
       WHEN("the C++ object is casted to a Python object") {
         THEN("cast throws expected exception") {
           REQUIRE_THROWS_WITH(openassetio::python::converter::castToPyObject(traitsData),
                               std::string("Unregistered type : openassetio::" STRINGIFY(
-                                  OPENASSETIO_CORE_ABI_VERSION) "::TraitsData"));
+                                  OPENASSETIO_CORE_ABI_VERSION) "::trait::TraitsData"));
         }
       }
 
@@ -227,7 +227,7 @@ SCENARIO("Error attempting to convert API objects without openassetio module loa
           THEN("cast throws expected exception") {
             REQUIRE_THROWS_WITH(openassetio::python::converter::castToPyObject(traitsData),
                                 std::string("Unregistered type : openassetio::" STRINGIFY(
-                                    OPENASSETIO_CORE_ABI_VERSION) "::TraitsData"));
+                                    OPENASSETIO_CORE_ABI_VERSION) "::trait::TraitsData"));
 
             AND_THEN("CPython error state is maintained") {
               // castToPyObject, despite messing with the PyErr state
@@ -252,7 +252,7 @@ namespace managerApi = openassetio::managerApi;
 // clang-format off
 using CastableClasses = std::tuple<
     openassetio::Context,
-    openassetio::TraitsData,
+    openassetio::trait::TraitsData,
     hostApi::HostInterface,
     hostApi::Manager,
     hostApi::ManagerFactory,

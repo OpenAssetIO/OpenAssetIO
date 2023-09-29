@@ -2,11 +2,12 @@
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
 #include <stdexcept>
 
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/TraitsData.hpp>
+
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
@@ -73,7 +74,7 @@ void ManagerInterface::defaultEntityReference(
 
 void ManagerInterface::getWithRelationship(
     const EntityReferences& entityReferences,
-    [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
+    [[maybe_unused]] const trait::TraitsDataPtr& relationshipTraitsData,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet,
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
@@ -116,7 +117,7 @@ class EmptyEntityReferencePagerInterface : public managerApi::EntityReferencePag
 
 void ManagerInterface::getWithRelationshipPaged(
     const EntityReferences& entityReferences,
-    [[maybe_unused]] const TraitsDataPtr& relationshipTraitsData,
+    [[maybe_unused]] const trait::TraitsDataPtr& relationshipTraitsData,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,

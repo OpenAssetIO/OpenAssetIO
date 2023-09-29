@@ -25,7 +25,8 @@ from unittest import mock
 
 import pytest
 
-from openassetio import hostApi, TraitsData, EntityReference
+from openassetio import hostApi, EntityReference
+from openassetio.trait import TraitsData
 
 
 @pytest.fixture

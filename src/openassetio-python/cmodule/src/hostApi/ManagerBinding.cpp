@@ -6,20 +6,20 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 
 #include "../_openassetio.hpp"
 
 namespace {
 using openassetio::EntityReferences;
-using openassetio::TraitsDataPtr;
 using openassetio::hostApi::Manager;
+using openassetio::trait::TraitsDataPtr;
 using openassetio::trait::TraitsDatas;
 
 void validateTraitsDatas(const TraitsDatas& traitsDatas) {
@@ -38,12 +38,12 @@ void registerManager(const py::module& mod) {
   using openassetio::ContextConstPtr;
   using openassetio::EntityReference;
   using openassetio::EntityReferences;
-  using openassetio::TraitsDataPtr;
   using openassetio::errors::BatchElementError;
   using openassetio::hostApi::Manager;
   using openassetio::hostApi::ManagerPtr;
   using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterfacePtr;
+  using openassetio::trait::TraitsDataPtr;
 
   py::class_<Manager, ManagerPtr> pyManager{mod, "Manager"};
 

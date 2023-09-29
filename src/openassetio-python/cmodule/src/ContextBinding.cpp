@@ -4,8 +4,8 @@
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 #include "PyRetainingSharedPtr.hpp"
 #include "_openassetio.hpp"
@@ -13,8 +13,8 @@
 void registerContext(const py::module& mod) {
   using openassetio::Context;
   using openassetio::ContextPtr;
-  using openassetio::TraitsDataPtr;
   using openassetio::managerApi::ManagerStateBasePtr;
+  using openassetio::trait::TraitsDataPtr;
   using PyRetainingManagerStateBasePtr =
       openassetio::PyRetainingSharedPtr<openassetio::managerApi::ManagerStateBase>;
 

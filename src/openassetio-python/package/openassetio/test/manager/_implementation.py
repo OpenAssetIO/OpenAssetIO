@@ -20,7 +20,8 @@ Private implementation classes for the manager test framework.
 """
 import unittest
 
-from openassetio import hostApi, log, pluginSystem, TraitsData
+from openassetio import hostApi, log, pluginSystem
+from openassetio.trait import TraitsData
 from .. import kTestHarnessTraitId, kCasePropertyKey
 
 

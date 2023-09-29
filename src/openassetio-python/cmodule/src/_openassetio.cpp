@@ -18,13 +18,14 @@ PYBIND11_MODULE(_openassetio, mod) {
   const py::module log = mod.def_submodule("log");
   const py::module constants = mod.def_submodule("constants");
   const py::module errors = mod.def_submodule("errors");
+  const py::module trait = mod.def_submodule("trait");
 
   registerAccess(access);
   registerConstants(constants);
   registerLoggerInterface(log);
   registerConsoleLogger(log);
   registerSeverityFilter(log);
-  registerTraitsData(mod);
+  registerTraitsData(trait);
   registerManagerStateBase(managerApi);
   registerContext(mod);
   registerBatchElementError(errors);

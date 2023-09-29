@@ -59,9 +59,6 @@ class Test_package_imports:
     def test_importing_log_succeeds(self):
         from openassetio import log
 
-    def test_importing_TraitsData_succeeds(self):
-        from openassetio import TraitsData
-
 
 class Test_core_imports:
     def test_importing_audit_succeeds(self):
@@ -133,6 +130,11 @@ class Test_errors_imports:
 
     def test_importing_UnhandledException_succeeds(self):
         from openassetio.errors import UnhandledException
+
+
+class Test_trait_imports:
+    def test_importing_TraitsData_succeeds(self):
+        from openassetio.trait import TraitsData
 
 
 class Test_test_imports:

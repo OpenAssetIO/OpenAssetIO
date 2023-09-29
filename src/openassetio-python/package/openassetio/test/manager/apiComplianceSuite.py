@@ -37,9 +37,10 @@ import weakref
 # pylint: disable=too-many-lines,unbalanced-tuple-unpacking
 
 from .harness import FixtureAugmentedTestCase
-from ... import EntityReference, TraitsData
+from ... import EntityReference
 from ...errors import BatchElementError
 from ...access import PolicyAccess, ResolveAccess, RelationsAccess, PublishingAccess
+from ...trait import TraitsData
 
 
 __all__ = []

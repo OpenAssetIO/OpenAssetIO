@@ -19,9 +19,9 @@ implementation providing dummy data and input validation for the manager
 test suite.
 """
 
-from openassetio import TraitsData
 from openassetio.managerApi import ManagerInterface
 from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
+from openassetio.trait import TraitsData
 
 
 class StubManager(ManagerInterface):

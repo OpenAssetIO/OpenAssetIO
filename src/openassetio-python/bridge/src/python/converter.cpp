@@ -5,7 +5,6 @@
 #include <pybind11/embed.h>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
@@ -18,6 +17,7 @@
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 // Private headers
 #include <openassetio/private/python/pointers.hpp>
@@ -86,7 +86,7 @@ typename T::Ptr castFromPyObject(PyObject* pyObject) {
   template OPENASSETIO_PYTHON_BRIDGE_EXPORT Class::Ptr castFromPyObject<Class>(PyObject*);
 
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(openassetio::Context)
-OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(openassetio::TraitsData)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(trait::TraitsData)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(hostApi::HostInterface)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(hostApi::Manager)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(hostApi::ManagerFactory)

@@ -8,7 +8,7 @@
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
-OPENASSETIO_FWD_DECLARE(TraitsData)
+OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 
 namespace openassetio {
@@ -50,13 +50,13 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * than a 'Write node' from a comp tree could result in different
    * behavior.
    *
-   * The Locale uses a @fqref{TraitsData} "TraitsData" to describe in
+   * The Locale uses a @fqref{trait.TraitsData} "TraitsData" to describe in
    * more detail, what specific part of a @ref host is requesting an
    * action. In the case of a file browser for example, it may also
    * include information such as whether or not multi-selection is
    * required.
    */
-  TraitsDataPtr locale;
+  trait::TraitsDataPtr locale;
 
   /**
    * The opaque state token owned by the @ref manager, used to
@@ -73,11 +73,11 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * @fqref{hostApi.Manager.createContext} "Manager.createContext"
    * should always be used instead.
    */
-  [[nodiscard]] static ContextPtr make(TraitsDataPtr locale = nullptr,
+  [[nodiscard]] static ContextPtr make(trait::TraitsDataPtr locale = nullptr,
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
 
  private:
-  Context(TraitsDataPtr locale, managerApi::ManagerStateBasePtr managerState);
+  Context(trait::TraitsDataPtr locale, managerApi::ManagerStateBasePtr managerState);
 };
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

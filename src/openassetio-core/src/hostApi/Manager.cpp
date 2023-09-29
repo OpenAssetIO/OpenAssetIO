@@ -6,7 +6,6 @@
 #include <fmt/format.h>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/constants.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
@@ -14,6 +13,7 @@
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../errors/exceptionMessages.hpp"
@@ -90,14 +90,14 @@ trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
 ContextPtr Manager::createContext() {
   ContextPtr context = Context::make();
   context->managerState = managerInterface_->createState(hostSession_);
-  context->locale = TraitsData::make();
+  context->locale = trait::TraitsData::make();
   return context;
 }
 
 ContextPtr Manager::createChildContext(const ContextPtr &parentContext) {
   // Copy-construct the locale so changes made to the child context
   // don't affect the parent (and vice versa).
-  ContextPtr context = Context::make(TraitsData::make(parentContext->locale));
+  ContextPtr context = Context::make(trait::TraitsData::make(parentContext->locale));
   if (parentContext->managerState) {
     context->managerState =
         managerInterface_->createChildState(parentContext->managerState, hostSession_);
@@ -162,14 +162,14 @@ void Manager::resolve(const EntityReferences &entityReferences, const trait::Tra
 }
 
 // Singular Except
-TraitsDataPtr hostApi::Manager::resolve(
+trait::TraitsDataPtr hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
-  TraitsDataPtr resolveResult;
+  trait::TraitsDataPtr resolveResult;
   resolve(
       {entityReference}, traitSet, resolveAccess, context,
-      [&resolveResult]([[maybe_unused]] std::size_t index, TraitsDataPtr data) {
+      [&resolveResult]([[maybe_unused]] std::size_t index, trait::TraitsDataPtr data) {
         resolveResult = std::move(data);
       },
       [&entityReference, resolveAccess](std::size_t index, errors::BatchElementError error) {
@@ -182,14 +182,14 @@ TraitsDataPtr hostApi::Manager::resolve(
 }
 
 // Singular variant
-std::variant<errors::BatchElementError, TraitsDataPtr> hostApi::Manager::resolve(
+std::variant<errors::BatchElementError, trait::TraitsDataPtr> hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
-  std::variant<errors::BatchElementError, TraitsDataPtr> resolveResult;
+  std::variant<errors::BatchElementError, trait::TraitsDataPtr> resolveResult;
   resolve(
       {entityReference}, traitSet, resolveAccess, context,
-      [&resolveResult]([[maybe_unused]] std::size_t index, TraitsDataPtr data) {
+      [&resolveResult]([[maybe_unused]] std::size_t index, trait::TraitsDataPtr data) {
         resolveResult = std::move(data);
       },
       [&resolveResult]([[maybe_unused]] std::size_t index, errors::BatchElementError error) {
@@ -200,16 +200,16 @@ std::variant<errors::BatchElementError, TraitsDataPtr> hostApi::Manager::resolve
 }
 
 // Multi except
-std::vector<TraitsDataPtr> hostApi::Manager::resolve(
+std::vector<trait::TraitsDataPtr> hostApi::Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
-  std::vector<TraitsDataPtr> resolveResult;
+  std::vector<trait::TraitsDataPtr> resolveResult;
   resolveResult.resize(entityReferences.size());
 
   resolve(
       entityReferences, traitSet, resolveAccess, context,
-      [&resolveResult](std::size_t index, TraitsDataPtr data) {
+      [&resolveResult](std::size_t index, trait::TraitsDataPtr data) {
         resolveResult[index] = std::move(data);
       },
       [&entityReferences, resolveAccess](std::size_t index, errors::BatchElementError error) {
@@ -223,15 +223,16 @@ std::vector<TraitsDataPtr> hostApi::Manager::resolve(
 }
 
 // Multi variant
-std::vector<std::variant<errors::BatchElementError, TraitsDataPtr>> hostApi::Manager::resolve(
+std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>>
+hostApi::Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
-  std::vector<std::variant<errors::BatchElementError, TraitsDataPtr>> resolveResult;
+  std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>> resolveResult;
   resolveResult.resize(entityReferences.size());
   resolve(
       entityReferences, traitSet, resolveAccess, context,
-      [&resolveResult](std::size_t index, TraitsDataPtr data) {
+      [&resolveResult](std::size_t index, trait::TraitsDataPtr data) {
         resolveResult[index] = std::move(data);
       },
       [&resolveResult](std::size_t index, errors::BatchElementError error) {
@@ -251,7 +252,7 @@ void Manager::defaultEntityReference(const trait::TraitSets &traitSets,
 }
 
 void Manager::getWithRelationship(const EntityReferences &entityReferences,
-                                  const TraitsDataPtr &relationshipTraitsData,
+                                  const trait::TraitsDataPtr &relationshipTraitsData,
                                   const access::RelationsAccess relationsAccess,
                                   const ContextConstPtr &context,
                                   const Manager::RelationshipSuccessCallback &successCallback,
@@ -275,7 +276,7 @@ void Manager::getWithRelationships(const EntityReference &entityReference,
 }
 
 void Manager::getWithRelationshipPaged(
-    const EntityReferences &entityReferences, const TraitsDataPtr &relationshipTraitsData,
+    const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
     size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
     const Manager::PagedRelationshipSuccessCallback &successCallback,
     const Manager::BatchElementErrorCallback &errorCallback,
@@ -347,7 +348,7 @@ void Manager::preflight(const EntityReferences &entityReferences,
 }
 
 EntityReference Manager::preflight(
-    const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
+    const EntityReference &entityReference, const trait::TraitsDataPtr &traitsHint,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReference result{""};
@@ -366,7 +367,7 @@ EntityReference Manager::preflight(
 }
 
 std::variant<errors::BatchElementError, EntityReference> Manager::preflight(
-    const EntityReference &entityReference, const TraitsDataPtr &traitsHint,
+    const EntityReference &entityReference, const trait::TraitsDataPtr &traitsHint,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const Manager::BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<errors::BatchElementError, EntityReference> result;
@@ -442,7 +443,7 @@ void Manager::register_(const EntityReferences &entityReferences,
 
 // Singular Except
 EntityReference hostApi::Manager::register_(
-    const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
+    const EntityReference &entityReference, const trait::TraitsDataPtr &entityTraitsData,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   EntityReference result("");
@@ -462,7 +463,7 @@ EntityReference hostApi::Manager::register_(
 
 // Singular variant
 std::variant<errors::BatchElementError, EntityReference> hostApi::Manager::register_(
-    const EntityReference &entityReference, const TraitsDataPtr &entityTraitsData,
+    const EntityReference &entityReference, const trait::TraitsDataPtr &entityTraitsData,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<errors::BatchElementError, EntityReference> result;
