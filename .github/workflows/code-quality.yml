@@ -35,7 +35,7 @@ jobs:
         uses: TheFoundryVisionmongers/fn-pylint-action@v2
         with:
           pylint-args: >
-            --disable=fixme
+            --recursive=y --disable=fixme
             --rcfile=src/openassetio-python/pyproject.toml
             src/openassetio-python/package/openassetio
             src/openassetio-python/tests/package
