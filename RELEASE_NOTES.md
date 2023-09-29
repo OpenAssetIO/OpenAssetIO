@@ -4,17 +4,6 @@ Release Notes
 v1.0.0-alpha.xx
 ---------------
 
-### New Features
-
-- Added new exception types, allowing all OpenAssetIO exceptions to
-  share a common base.
-  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
-- Exceptional conveniences now provide additional information such
-  as entityReference, index, access, and error type in the message
-  of the exception.
-  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
-
 ### Breaking changes
 
 - Attempting to retrieve a trait property with
@@ -49,14 +38,25 @@ v1.0.0-alpha.xx
   an empty optional in the success callback, rather than error.
   [#1100](https://github.com/OpenAssetIO/OpenAssetIO/issues/1100)
 
- - Moved `BatchElementError` and `BatchElementException` into the
+- Moved `BatchElementError` and `BatchElementException` into the
   `errors` namespace.
   [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
-  - Removed all subtypes of `BatchElementException`, in favour of a
+- Removed all subtypes of `BatchElementException`, in favour of a
   single exception type for exceptional type for batch errors in
   exceptional conveniences.
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
+
+### New Features
+
+- Added new exception types, allowing all OpenAssetIO exceptions to
+  share a common base.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+- Exceptional conveniences now provide additional information such
+  as entityReference, index, access, and error type in the message
+  of the exception.
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
 
 ### Improvements
