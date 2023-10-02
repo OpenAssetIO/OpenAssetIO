@@ -36,3 +36,11 @@ def test_renamed_kField_constants():
         == constants.kInfoKey_EntityReferencesMatchPrefix
     )
 
+
+def test_top_level_TraitsData_import():
+    """
+    https://github.com/OpenAssetIO/OpenAssetIO/issues/1127
+    """
+    from openassetio import trait, TraitsData
+
+    assert TraitsData is trait.TraitsData

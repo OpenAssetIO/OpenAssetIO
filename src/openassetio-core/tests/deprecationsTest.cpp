@@ -16,3 +16,8 @@
 
 // Tests for deprecated functionality.
 // All cases must have links to the relevant GitHub issues.
+
+// https://github.com/OpenAssetIO/OpenAssetIO/issues/1127
+SCENARIO("TraitsData still accessible in top level namespace") {
+  STATIC_REQUIRE(std::is_same_v<openassetio::TraitsData, openassetio::trait::TraitsData>);
+}
