@@ -112,8 +112,8 @@ def fixturesFromPyFile(path):
     @see executeSuite for details on the structure of the fixtures
     dictionary.
 
-    @see `examples/SampleAssetManager/test/fixures.py` for a
-      reference fixtures file.
+    @see The <a href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
+    target="_blank">manager template</a> for a reference fixtures file.
     """
     module = moduleFromFile(path)
     if not hasattr(module, "fixtures"):
