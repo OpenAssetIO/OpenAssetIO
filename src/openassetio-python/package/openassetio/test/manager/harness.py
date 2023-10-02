@@ -125,10 +125,10 @@ def fixturesFromPyFile(path):
 def moduleFromFile(path):
     """
     Loads a python module from the specified file, without it needing
-    to be on PYTHONPATH. The file name is used as the module name.
+    to be on PYTHONPATH.
 
-    This can be useful to load test suites from files that are not
-    otherwise on PYTHONPATH.
+    The file name is used as the module name. This can be useful to load
+    test suites from files that are not otherwise on PYTHONPATH.
 
     @param path `str` The path to the file to load the module from.
 
