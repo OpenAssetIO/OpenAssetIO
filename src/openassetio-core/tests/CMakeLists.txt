@@ -21,6 +21,7 @@ target_sources(openassetio-core-cpp-test-exe
     BatchElementErrorTest.cpp
     ContextTest.cpp
     TraitsDataTest.cpp
+    deprecationsTest.cpp
     hostApi/ManagerTest.cpp
     managerApi/HostTest.cpp
     managerApi/HostSessionTest.cpp

@@ -14,15 +14,25 @@
 #   limitations under the License.
 #
 """
-Tests for the constants module.
+Tests for deprecated functionality.
+
+All cases must have a link to the relevant GitHub issue in their
+docstrings.
 """
 
-# pylint: disable=missing-function-docstring
-
-from openassetio import constants
+# pylint: disable=missing-function-docstring,import-outside-toplevel
 
 
-def test():
-    assert constants.kInfoKey_SmallIcon == "smallIcon"
-    assert constants.kInfoKey_Icon == "icon"
-    assert constants.kInfoKey_EntityReferencesMatchPrefix == "entityReferencesMatchPrefix"
+def test_renamed_kField_constants():
+    """
+    https://github.com/OpenAssetIO/OpenAssetIO/issues/998
+    """
+    from openassetio import constants
+
+    assert constants.kField_SmallIcon == constants.kInfoKey_SmallIcon
+    assert constants.kField_Icon == constants.kInfoKey_Icon
+    assert (
+        constants.kField_EntityReferencesMatchPrefix
+        == constants.kInfoKey_EntityReferencesMatchPrefix
+    )
+
