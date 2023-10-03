@@ -112,8 +112,8 @@ def fixturesFromPyFile(path):
     @see executeSuite for details on the structure of the fixtures
     dictionary.
 
-    @see `examples/SampleAssetManager/test/fixures.py` for a
-      reference fixtures file.
+    @see The <a href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
+    target="_blank">manager template</a> for a reference fixtures file.
     """
     module = moduleFromFile(path)
     if not hasattr(module, "fixtures"):
@@ -125,10 +125,10 @@ def fixturesFromPyFile(path):
 def moduleFromFile(path):
     """
     Loads a python module from the specified file, without it needing
-    to be on PYTHONPATH. The file name is used as the module name.
+    to be on PYTHONPATH.
 
-    This can be useful to load test suites from files that are not
-    otherwise on PYTHONPATH.
+    The file name is used as the module name. This can be useful to load
+    test suites from files that are not otherwise on PYTHONPATH.
 
     @param path `str` The path to the file to load the module from.
 

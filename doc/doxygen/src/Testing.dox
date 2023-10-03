@@ -54,8 +54,8 @@
  * @endcode
  *
  * @note A comprehensive example fixtures file is provided as part of
- * the Sample Asset Manager included in the distribution (see
- * `fixtures.py`)
+ * the <a href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
+ * target="_blank">manager template</a> project (see `fixtures.py`).
  *
  * @subsection testing_manager_plugins_cli Using the Command Line
  *

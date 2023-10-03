@@ -38,6 +38,10 @@ v1.0.0-alpha.xx
 - `errors.h` renamed to `errorCodes.h`
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+- Removed the "Sample Asset Manager" example, which was wholly out of
+  date, and has been superseded by the [standalone manager template
+  repository](https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python).
+
 - Changed success/return type of `defaultEntityReference` to wrap in
   `std::optional`. Updated expected manager response such that an
   optional without a value signals that no default is available for an
