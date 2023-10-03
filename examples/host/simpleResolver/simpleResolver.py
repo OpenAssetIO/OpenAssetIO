@@ -25,7 +25,7 @@ import argparse
 import json
 import sys
 
-from openassetio import BatchElementException
+from openassetio.errors import BatchElementException
 from openassetio.access import ResolveAccess
 from openassetio.hostApi import HostInterface, ManagerFactory
 from openassetio.errors import ConfigurationException
