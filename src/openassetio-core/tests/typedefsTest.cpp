@@ -6,7 +6,6 @@
 #include <catch2/catch.hpp>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -18,6 +17,7 @@
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 namespace {
 
@@ -30,7 +30,7 @@ namespace managerApi = openassetio::managerApi;
 // clang-format off
 using ClassesWithPtrAlias = std::tuple<
     CLASS_AND_PTRS(openassetio::Context),
-    CLASS_AND_PTRS(openassetio::TraitsData),
+    CLASS_AND_PTRS(openassetio::trait::TraitsData),
     CLASS_AND_PTRS(hostApi::HostInterface),
     CLASS_AND_PTRS(hostApi::Manager),
     CLASS_AND_PTRS(hostApi::ManagerFactory),

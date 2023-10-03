@@ -5,7 +5,6 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/InfoDictionary.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/trait/collection.hpp>

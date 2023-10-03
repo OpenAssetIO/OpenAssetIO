@@ -188,8 +188,8 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param manager hostApi.Manager.Manager The OpenAssetIO
         @ref manager to be used by test cases.
 
-        @param locale @fqref{TraitsData} "TraitsData" The @ref locale to
-        use by test cases.
+        @param locale @fqref{trait.TraitsData} "TraitsData" The @ref
+        locale to use by test cases.
 
         @param args `List[Any]` Additional args passed along to the
         base class.

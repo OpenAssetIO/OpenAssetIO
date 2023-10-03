@@ -377,10 +377,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * traits (fear not, there is a simple and established failure mode
    * for this situation).
    *
-   * This method must return a @fqref{TraitsData} "TraitsData" for each
-   * requested @ref trait_set. The implementation of this method should
-   * carefully consider the given @fqref{access.PolicyAccess} "access",
-   * and imbue suitable traits in the result to define:
+   * This method must return a @fqref{trait.TraitsData} "TraitsData" for
+   * each requested @ref trait_set. The implementation of this method
+   * should carefully consider the given @fqref{access.PolicyAccess}
+   * "access", and imbue suitable traits in the result to define:
    *
    *   - Whether and how that kind of entity is managed (traits with the
    *    `managementPolicy` usage metadata)
@@ -716,12 +716,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Callback signature used for a successful entity resolution.
    */
-  using ResolveSuccessCallback = std::function<void(std::size_t, TraitsDataPtr)>;
+  using ResolveSuccessCallback = std::function<void(std::size_t, trait::TraitsDataPtr)>;
 
   /**
-   * Provides the host with a @fqref{TraitsData} "TraitsData" populated
-   * with the available data for the properties of the requested set of
-   * traits for each given @ref entity_reference.
+   * Provides the host with a @fqref{trait.TraitsData} "TraitsData"
+   * populated with the available data for the properties of the
+   * requested set of traits for each given @ref entity_reference.
    *
    * This call should block until all resolutions are complete and
    * callbacks have been called. Callbacks must be called on the
@@ -977,7 +977,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * capable of handling queries for those relationships in this method.
    */
   virtual void getWithRelationship(const EntityReferences& entityReferences,
-                                   const TraitsDataPtr& relationshipTraitsData,
+                                   const trait::TraitsDataPtr& relationshipTraitsData,
                                    const trait::TraitSet& resultTraitSet,
                                    access::RelationsAccess relationsAccess,
                                    const ContextConstPtr& context,
@@ -1109,7 +1109,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * entities should have.
    */
   virtual void getWithRelationshipPaged(const EntityReferences& entityReferences,
-                                        const TraitsDataPtr& relationshipTraitsData,
+                                        const trait::TraitsDataPtr& relationshipTraitsData,
                                         const trait::TraitSet& resultTraitSet, size_t pageSize,
                                         access::RelationsAccess relationsAccess,
                                         const ContextConstPtr& context,
@@ -1279,11 +1279,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * supplied references, and callbacks have been called on the same
    * thread that called `preflight`
    *
-   * @warning If the supplied @fqref{TraitsData} "trait data" is missing
-   * required traits for any of the provided references (maybe they are
-   * mismatched with the target entity), or the populated properties are
-   * insufficient or invalid for upcoming @ref resolve for
-   * @fqref{access.ResolveAccess.kWrite} "write" requests or the
+   * @warning If the supplied @fqref{trait.TraitsData} "trait data" is
+   * missing required traits for any of the provided references (maybe
+   * they are mismatched with the target entity), or the populated
+   * properties are insufficient or invalid for upcoming @ref resolve
+   * for @fqref{access.ResolveAccess.kWrite} "write" requests or the
    * eventual @ref register_, then error that element with an
    * appropriate @fqref{errors.BatchElementError.ErrorCode}.
    *
@@ -1358,10 +1358,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * This instructs the implementation to ensure a valid entity exists
    * for each given reference and to persist the data provided in the
-   * @fqref{TraitsData}. This will be called either in isolation or
-   * after calling preflight, depending on whether there is work needed
-   * to be done to generate the data. Preflight is omitted if the data
-   * is already available at the time of publishing.
+   * @fqref{trait.TraitsData}. This will be called either in isolation
+   * or after calling preflight, depending on whether there is work
+   * needed to be done to generate the data. Preflight is omitted if the
+   * data is already available at the time of publishing.
    *
    * This call must block until registration is complete for all
    * supplied references, and callbacks have been called on the same
@@ -1439,7 +1439,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * callback must be called on the same thread that initiated the call
    * to `register`.
    *
-   * @see @fqref{TraitsData} "TraitsData"
+   * @see @fqref{trait.TraitsData} "TraitsData"
    * @see @ref preflight
    */
   // NOLINTNEXTLINE(readability-identifier-naming)

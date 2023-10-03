@@ -222,10 +222,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * you to adapt application logic or user-facing behaviour
    * accordingly.
    *
-   * Queries return a @fqref{TraitsData} "TraitsData" for each supplied
-   * @ref trait_set, imbued with traits that describe the manager's
-   * policy for entities with those traits, and which traits they are
-   * capable of resolving/storing data for.
+   * Queries return a @fqref{trait.TraitsData} "TraitsData" for each
+   * supplied @ref trait_set, imbued with traits that describe the
+   * manager's policy for entities with those traits, and which traits
+   * they are capable of resolving/storing data for.
    *
    * This is an opt-in mechanism, such that if result is empty, then
    * the manager does not handle entities with the supplied traits.
@@ -253,9 +253,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * Along with the traits that describe the manager's desired
    * interaction pattern (ones with the `managementPolicy` usage
-   * metadata), the resulting @fqref{TraitsData} "TraitsData" will be
-   * imbued with (potentially a subset of) the requested traits, which
-   * the manager is capable of resolving/persisting the properties for.
+   * metadata), the resulting @fqref{trait.TraitsData} "TraitsData" will
+   * be imbued with (potentially a subset of) the requested traits,
+   * which the manager is capable of resolving/persisting the properties
+   * for.
    *
    * If a requested trait is not present, then the manager will never
    * return properties for that trait in @ref resolve, or be able to
@@ -271,8 +272,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * target="_blank">OpenAssetIO-MediaCreation</a> project provides
    * traits for common data types used in computer graphics and media
    * production. Use the concrete Trait/Specification classes provided
-   * by these projects to retrieve data from the supplied TraitsData
-   * instead of querying directly using string literals.
+   * by these projects to retrieve data from the supplied
+   * trait::TraitsData instead of querying directly using string
+   * literals.
    *
    * @warning The @p policyAccess that is supplied will be considered by
    * the manager. If it is set to read, then its response applies to
@@ -313,7 +315,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  Creates a new Context for use with the manager.
    *
    *  The @fqref{Context.locale} "locale" will be initialized with an
-   *  empty @fqref{TraitsData} "TraitsData" instance.
+   *  empty @fqref{trait.TraitsData} "TraitsData" instance.
    *
    *  @warning Contexts should never be directly constructed, always
    *  use this method or @ref createChildContext to create a new one.
@@ -425,7 +427,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
     /**
      * Variant policy overloads, when used in a batch context, will be
      * exhaustive for all elements in the batch, a variant result
-     * containing either a @ref TraitsData or @ref
+     * containing either a @ref trait::TraitsData or @ref
      * errors.BatchElementError will be provided for each @ref
      * EntityReference provided as an argument to the operation.
      */
@@ -622,10 +624,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Callback signature used for a successful entity resolution.
    */
-  using ResolveSuccessCallback = std::function<void(std::size_t, TraitsDataPtr)>;
+  using ResolveSuccessCallback = std::function<void(std::size_t, trait::TraitsDataPtr)>;
 
   /**
-   * Provides a @fqref{TraitsData} "TraitsData" populated with the
+   * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available property data for the requested set of traits for each
    * given @ref entity_reference.
    *
@@ -704,7 +706,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                const BatchElementErrorCallback& errorCallback);
 
   /**
-   * Provides a @fqref{TraitsData} "TraitsData" populated with the
+   * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available data for the requested set of traits for the given @ref
    * entity_reference.
    *
@@ -736,13 +738,14 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Populated data.
    */
-  TraitsDataPtr resolve(const EntityReference& entityReference, const trait::TraitSet& traitSet,
-                        access::ResolveAccess resolveAccess, const ContextConstPtr& context,
-                        const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+  trait::TraitsDataPtr resolve(const EntityReference& entityReference,
+                               const trait::TraitSet& traitSet,
+                               access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+                               const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Provides either a populated @fqref{TraitsData} "TraitsData" or a
-   * @fqref{errors.BatchElementError} "BatchElementError".
+   * Provides either a populated @fqref{trait.TraitsData} "TraitsData"
+   * or a @fqref{errors.BatchElementError} "BatchElementError".
    *
    * If successful, the result is populated with the
    * available data for the requested set of traits for the given @ref
@@ -778,13 +781,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Object containing either the populated data or an error
    * object.
    */
-  std::variant<errors::BatchElementError, TraitsDataPtr> resolve(
+  std::variant<errors::BatchElementError, trait::TraitsDataPtr> resolve(
       const EntityReference& entityReference, const trait::TraitSet& traitSet,
       access::ResolveAccess resolveAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
-   * Provides a @fqref{TraitsData} "TraitsData" populated with the
+   * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available data for the requested set of traits for each given @ref
    * entity_reference.
    *
@@ -817,15 +820,15 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return List of populated data objects.
    */
-  std::vector<TraitsDataPtr> resolve(
+  std::vector<trait::TraitsDataPtr> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
       access::ResolveAccess resolveAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Provides either a populated @fqref{TraitsData} "TraitsData" or a
-   * @fqref{errors.BatchElementError} "BatchElementError" for each given
-   * @ref entity_reference.
+   * Provides either a populated @fqref{trait.TraitsData} "TraitsData"
+   * or a @fqref{errors.BatchElementError} "BatchElementError" for each
+   * given @ref entity_reference.
    *
    * For successful references, the corresponding element of the result
    * is populated with the available data for the requested set of
@@ -862,7 +865,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return List of objects, each containing either the populated data
    * or an error.
    */
-  std::vector<std::variant<errors::BatchElementError, TraitsDataPtr>> resolve(
+  std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
       access::ResolveAccess resolveAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
@@ -1022,7 +1025,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * handles relationships of that type.
    */
   void getWithRelationship(const EntityReferences& entityReferences,
-                           const TraitsDataPtr& relationshipTraitsData,
+                           const trait::TraitsDataPtr& relationshipTraitsData,
                            access::RelationsAccess relationsAccess, const ContextConstPtr& context,
                            const RelationshipSuccessCallback& successCallback,
                            const BatchElementErrorCallback& errorCallback,
@@ -1135,8 +1138,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @throws errors.InputValidationException if @p pageSize is zero.
    */
   void getWithRelationshipPaged(const EntityReferences& entityReferences,
-                                const TraitsDataPtr& relationshipTraitsData, size_t pageSize,
-                                access::RelationsAccess relationsAccess,
+                                const trait::TraitsDataPtr& relationshipTraitsData,
+                                size_t pageSize, access::RelationsAccess relationsAccess,
                                 const ContextConstPtr& context,
                                 const PagedRelationshipSuccessCallback& successCallback,
                                 const BatchElementErrorCallback& errorCallback,
@@ -1216,8 +1219,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * determined is beyond the scope of this layer of the API, and
    * functions exists in higher levels that combine browsing and
    * publishing etc... Here, we simply assert that there must be a
-   * meaningful reference given the @fqref{TraitsData} "TraitsData" of
-   * the entity that is being created or published.
+   * meaningful reference given the @fqref{trait.TraitsData}
+   * "TraitsData" of the entity that is being created or published.
    *
    * @note 'Meaningful' is best defined by the asset manager itself. For
    * example, in a system that versions each 'asset' by creating
@@ -1302,9 +1305,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * the Manager may even use this opportunity to switch to some
    * temporary working path or some such.
    *
-   * @note If the supplied @fqref{TraitsData} "trait data" is missing
-   * traits or properties required by the manager for any input entity
-   * reference, then that element will error. See @ref
+   * @note If the supplied @fqref{trait.TraitsData} "trait data" is
+   * missing traits or properties required by the manager for any input
+   * entity reference, then that element will error. See @ref
    * glossary_preflight "glossary entry" for details.
    *
    * @warning The working @ref entity_reference returned by this
@@ -1390,7 +1393,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * the publishing operation
    */
   EntityReference preflight(const EntityReference& entityReference,
-                            const TraitsDataPtr& traitsHint,
+                            const trait::TraitsDataPtr& traitsHint,
                             access::PublishingAccess publishingAccess,
                             const ContextConstPtr& context,
                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
@@ -1439,7 +1442,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * entity.
    */
   std::variant<errors::BatchElementError, EntityReference> preflight(
-      const EntityReference& entityReference, const TraitsDataPtr& traitsHint,
+      const EntityReference& entityReference, const trait::TraitsDataPtr& traitsHint,
       access::PublishingAccess publishingAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
@@ -1568,7 +1571,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * manager (either in response to delegation of UI/etc... or as a
    * return from another call), then it can be assumed that the
    * Manager will understand what it means for you to call `register`
-   * on this reference with the supplied @fqref{TraitsData}
+   * on this reference with the supplied @fqref{trait.TraitsData}
    * "TraitsData". The conceptual meaning of the call is:
    *
    * "I have this reference you gave me, and I would like to register
@@ -1584,7 +1587,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * `ShotSpecification` entity to without error. The resulting entity
    * reference should then reference the newly created Shot.
    *
-   * @note All supplied TraitsDatas should have the same trait
+   * @note All supplied trait::TraitsDatas should have the same trait
    * sets. If you wish to register different "types" of entity, they
    * need to be registered in separate calls.
    *
@@ -1635,7 +1638,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Other exceptions may be raised for fatal runtime errors, for
    * example server communication failure.
    *
-   * @see @fqref{TraitsData} "TraitsData"
+   * @see @fqref{trait.TraitsData} "TraitsData"
    * @see @ref preflight
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
@@ -1684,7 +1687,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   EntityReference register_(const EntityReference& entityReference,
-                            const TraitsDataPtr& entityTraitsData,
+                            const trait::TraitsDataPtr& entityTraitsData,
                             access::PublishingAccess publishingAccess,
                             const ContextConstPtr& context,
                             const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
@@ -1732,10 +1735,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::variant<errors::BatchElementError, EntityReference> register_(
-      const EntityReference& entityReference, const TraitsDataPtr& entityTraitsData,
+      const EntityReference& entityReference, const trait::TraitsDataPtr& entityTraitsData,
       access::PublishingAccess publishingAccess, const ContextConstPtr& context,
       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
-
   /**
    * Register should be used to 'publish' new entities either when
    * originating new data within the application process, or

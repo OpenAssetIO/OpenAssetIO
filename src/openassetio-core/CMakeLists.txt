@@ -65,7 +65,6 @@ target_sources(
     openassetio-core
     PRIVATE
     src/Context.cpp
-    src/TraitsData.cpp
     src/errors/exceptionMessages.cpp
     src/hostApi/HostInterface.cpp
     src/hostApi/Manager.cpp
@@ -79,6 +78,7 @@ target_sources(
     src/managerApi/HostSession.cpp
     src/managerApi/ManagerInterface.cpp
     src/managerApi/EntityReferencePagerInterface.cpp
+    src/trait/TraitsData.cpp
 )
 
 # Public header dependency.

@@ -23,7 +23,7 @@ import sys
 
 import pytest
 
-from openassetio import Context, EntityReference, TraitsData
+from openassetio import Context, EntityReference
 from openassetio.access import (
     PolicyAccess,
     ResolveAccess,
@@ -39,6 +39,7 @@ from openassetio.managerApi import (
     EntityReferencePagerInterface,
 )
 from openassetio.hostApi import HostInterface
+from openassetio.trait import TraitsData
 
 
 # pylint: disable=invalid-name

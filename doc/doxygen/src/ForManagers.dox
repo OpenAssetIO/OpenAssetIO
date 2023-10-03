@@ -112,8 +112,8 @@
  *   "managementPolicy" to control which Host-side data types you wish
  *   to be involved in managing, and specify which property-holding
  *   traits you are capable of resolving. To request not to be involved
- *   in publishing, return an empty @fqref{TraitsData} "TraitsData"
- *   for any queries with a context with `kWrite` access.
+ *   in publishing, return an empty @fqref{trait.TraitsData}
+ *   "TraitsData" for any queries with a context with `kWrite` access.
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the

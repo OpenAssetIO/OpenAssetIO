@@ -28,13 +28,13 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from openassetio import TraitsData
 from openassetio.test import kTestHarnessTraitId, kCasePropertyKey
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 from openassetio.test.manager._implementation import (
     _ValidatorHarnessHostInterface,
     _ValidatorTestLoader,
 )
+from openassetio.trait import TraitsData
 
 
 class Test_Loader_loadTestsFromTestCase:

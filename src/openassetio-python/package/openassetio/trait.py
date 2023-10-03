@@ -14,15 +14,11 @@
 #   limitations under the License.
 #
 """
-Tests for the constants module.
+@namespace openassetio.trait
+Provides the classes related to traits and their data.
 """
 
-# pylint: disable=missing-function-docstring
-
-from openassetio import constants
+from . import _openassetio  # pylint: disable=no-name-in-module
 
 
-def test():
-    assert constants.kInfoKey_SmallIcon == "smallIcon"
-    assert constants.kInfoKey_Icon == "icon"
-    assert constants.kInfoKey_EntityReferencesMatchPrefix == "entityReferencesMatchPrefix"
+TraitsData = _openassetio.trait.TraitsData

@@ -5,15 +5,15 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/TraitsData.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 
-#include "_openassetio.hpp"
+#include "../_openassetio.hpp"
 
 void registerTraitsData(const py::module& mod) {
-  using openassetio::TraitsData;
-  using openassetio::TraitsDataConstPtr;
-  using openassetio::TraitsDataPtr;
+  using openassetio::trait::TraitsData;
+  using openassetio::trait::TraitsDataConstPtr;
+  using openassetio::trait::TraitsDataPtr;
   namespace trait = openassetio::trait;
   namespace property = openassetio::trait::property;
   using MaybeValue = std::optional<property::Value>;

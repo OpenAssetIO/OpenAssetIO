@@ -217,7 +217,7 @@
  *
  * Within OpenAssetIO, the term "locale" is used to define which part of
  * a @ref host "host's" implementation is making a particular call to
- * the API. A suitably configured @fqref{TraitsData} "TraitsData"
+ * the API. A suitably configured @fqref{trait.TraitsData} "TraitsData"
  * instance is supplied through the @fqref{Context.locale}
  * "locale" property of the @fqref{Context} "Context", which is in turn
  * supplied to most @ref ManagerInterface method calls.

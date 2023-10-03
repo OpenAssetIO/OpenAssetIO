@@ -12,7 +12,7 @@
 #include <openassetio/trait/property.hpp>
 #include <openassetio/typedefs.hpp>
 
-OPENASSETIO_FWD_DECLARE(TraitsData)
+OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -32,7 +32,7 @@ using TraitSet = std::unordered_set<TraitId>;
 using TraitSets = std::vector<TraitSet>;
 
 /**
- * An ordered list of @fqref{TraitsData} "TraitsData" instances.
+ * An ordered list of @fqref{trait.TraitsData} "TraitsData" instances.
  */
 using TraitsDatas = std::vector<TraitsDataPtr>;
 }  // namespace trait

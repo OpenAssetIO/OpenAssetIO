@@ -5,12 +5,12 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/InfoDictionary.hpp>
-#include <openassetio/TraitsData.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
@@ -120,7 +120,7 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   void getWithRelationship(
-      const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
+      const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
       const trait::TraitSet& resultTraitSet, const access::RelationsAccess relationsAccess,
       const ContextConstPtr& context, const HostSessionPtr& hostSession,
       const ManagerInterface::RelationshipSuccessCallback& successCallback,
@@ -142,7 +142,7 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   void getWithRelationshipPaged(
-      const EntityReferences& entityReferences, const TraitsDataPtr& relationshipTraitsData,
+      const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
       const trait::TraitSet& resultTraitSet, size_t pageSize,
       const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
@@ -200,12 +200,12 @@ void registerManagerInterface(const py::module& mod) {
   using openassetio::ContextConstPtr;
   using openassetio::EntityReference;
   using openassetio::EntityReferences;
-  using openassetio::TraitsDataPtr;
   using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterface;
   using openassetio::managerApi::ManagerInterfacePtr;
   using openassetio::managerApi::ManagerStateBasePtr;
   using openassetio::managerApi::PyManagerInterface;
+  using openassetio::trait::TraitsDataPtr;
 
   py::class_<ManagerInterface, PyManagerInterface, ManagerInterfacePtr>(mod, "ManagerInterface")
       .def(py::init())

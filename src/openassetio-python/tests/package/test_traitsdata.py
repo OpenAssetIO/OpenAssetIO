@@ -8,7 +8,7 @@ import pytest
 
 # TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
 # pylint: disable=no-name-in-module
-from openassetio import TraitsData
+from openassetio.trait import TraitsData
 
 
 class Test_TraitsData_Inheritance:

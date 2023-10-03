@@ -45,7 +45,6 @@ target_sources(
     src/constantsBinding.cpp
     src/ContextBinding.cpp
     src/EntityReferenceBinding.cpp
-    src/TraitsDataBinding.cpp
     src/errors/exceptionsBinding.cpp
     src/errors/BatchElementErrorBinding.cpp
     src/hostApi/EntityReferencePagerBinding.cpp
@@ -61,6 +60,7 @@ target_sources(
     src/managerApi/EntityReferencePagerInterfaceBinding.cpp
     src/managerApi/ManagerInterfaceBinding.cpp
     src/managerApi/ManagerStateBaseBinding.cpp
+    src/trait/TraitsDataBinding.cpp
 )
 
 target_link_libraries(openassetio-python-module
