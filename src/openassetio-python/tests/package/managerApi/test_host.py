@@ -17,7 +17,6 @@
 Tests that cover the openassetio.managerApi.host class.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

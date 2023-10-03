@@ -21,9 +21,9 @@ Tests that cover the openassetio.hostApi.Manager wrapper class.
 # pylint: disable=too-many-lines,too-many-locals
 # pylint: disable=missing-class-docstring,missing-function-docstring
 from unittest import mock
+import re
 
 import pytest
-import re
 
 from openassetio import (
     Context,
@@ -173,7 +173,7 @@ class Test_Manager_updateTerminology:
         method = mock_manager_interface.mock.updateTerminology
         method.return_value = {"k": "v", "l": "b"}
 
-        ret = manager.updateTerminology(input_dict)
+        _ret = manager.updateTerminology(input_dict)
         assert input_dict == {"k": "v"}
 
 
@@ -2792,7 +2792,10 @@ def make_expected_err_msg(batch_element_error, index, access, entityRef):
     error_type_name = batch_element_error_codes_names[
         batch_element_error_codes.index(batch_element_error.code)
     ]
-    return f"{error_type_name}: {batch_element_error.message} [index={index}] [access={kAccessNames[access]}] [entity={entityRef}]"
+    return (
+        f"{error_type_name}: {batch_element_error.message} [index={index}]"
+        f" [access={kAccessNames[access]}] [entity={entityRef}]"
+    )
 
 
 # Conveniences to allow us to paramaterize singular and batch

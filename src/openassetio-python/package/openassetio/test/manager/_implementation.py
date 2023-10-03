@@ -193,7 +193,7 @@ class _ValidatorHarnessHostInterface(hostApi.HostInterface):
     @private
     """
 
-    # pylint: disable=missing-function-docstring,no-self-use
+    # pylint: disable=missing-function-docstring
     def identifier(self):
         return "org.openassetio.test.manager.harness"
 

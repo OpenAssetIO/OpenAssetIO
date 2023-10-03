@@ -125,6 +125,9 @@ function-rgx = "(_|test_)?[a-z0-9]+([A-Z][a-z0-9]*)*"
 const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
 class-const-rgx = "k([A-Z0-9]+[a-z0-9]*)+_?([A-Z0-9]+[a-z0-9]*)*"
 
+# TODO(DF): Fails on submodules: https://github.com/pylint-dev/pylint/issues/2556
+# extension-pkg-allow-list = ["openassetio._openassetio"]
+
 [tool.pylint.similarities]
 # Ignore imports when computing similarities.
 ignore-imports = true

@@ -17,12 +17,12 @@
 Tests for the BatchElementError type.
 """
 
-# pylint: disable=no-self-use, too-few-public-methods
+# pylint: disable=too-few-public-methods
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
+import re
 
 import pytest
-import re
 
 from openassetio.errors import BatchElementError, BatchElementException, OpenAssetIOException
 

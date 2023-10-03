@@ -17,7 +17,6 @@
 Unit tests for the _implementation module of the manager test harness.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=too-many-arguments,too-few-public-methods
@@ -166,9 +165,10 @@ class Test_Loader_loadTestsFromTestCase:
         test_case_one_locale,
         test_case_two_locale,
     ):
+        # pylint: disable=unused-argument
         # setup
 
-        def create_manager(initialize=True):
+        def create_manager(initialize=True):  # pylint: disable=unused-argument
             return Mock()
 
         manager_create_fn = Mock(wraps=create_manager)
@@ -180,7 +180,7 @@ class Test_Loader_loadTestsFromTestCase:
 
         # action
 
-        suite = loader.loadTestsFromTestCase(mock_test_case_class)
+        _suite = loader.loadTestsFromTestCase(mock_test_case_class)
 
         # confirm
 

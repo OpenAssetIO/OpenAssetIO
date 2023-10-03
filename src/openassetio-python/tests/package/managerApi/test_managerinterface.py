@@ -17,7 +17,6 @@
 Tests for the default implementations of ManagerInterface methods.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
@@ -276,7 +275,7 @@ class Test_ManagerInterface_getWithRelationshipPaged:
 
             # The default pager behaviour is to return no data and
             # report no new pages.
-            for idx, x in enumerate(refs):
+            for idx, _ in enumerate(refs):
                 pager = success_callback.call_args_list[idx][0][1]
                 assert_is_default_pager(a_host_session, pager)
 
@@ -315,7 +314,7 @@ class Test_ManagerInterface_getWithRelationshipsPaged:
 
             error_callback.assert_not_called()
 
-            for idx, x in enumerate(rels):
+            for idx, _ in enumerate(rels):
                 pager = success_callback.call_args_list[idx][0][1]
                 assert_is_default_pager(a_host_session, pager)
 
@@ -326,10 +325,10 @@ def assert_is_default_pager(a_host_session, pager):
     # The default pager behaviour is to return no data and
     # report no new pages.
     assert isinstance(pager, EntityReferencePagerInterface)
-    assert pager.hasNext(a_host_session) == False
+    assert pager.hasNext(a_host_session) is False
     assert pager.get(a_host_session) == []
     pager.next(a_host_session)
-    assert pager.hasNext(a_host_session) == False
+    assert pager.hasNext(a_host_session) is False
     assert pager.get(a_host_session) == []
 
 
