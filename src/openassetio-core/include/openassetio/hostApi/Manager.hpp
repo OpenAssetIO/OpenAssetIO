@@ -13,7 +13,6 @@
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
-#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
