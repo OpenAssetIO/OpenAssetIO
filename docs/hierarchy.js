@@ -41,7 +41,7 @@ var hierarchy =
     [ "TestCase", null, [
       [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
     ] ],
-    [ "TraitsData", "classopenassetio_1_1v1_1_1_traits_data.html", null ],
+    [ "TraitsData", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Variant", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html", null ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],

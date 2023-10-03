@@ -179,7 +179,7 @@ Specifications</h1>
 </ul>
 <h2><a class="anchor" id="locale_specifications"></a>
 Locale Specifications</h2>
-<p>Specifications only ever intended for use in the <a class="el" href="classopenassetio_1_1v1_1_1_context.html#ab46b43ae312ee13e8e17e4ee207bcbcf">Context.locale</a> (to describe which part of a host or application is calling the API) are known as "locale specifications".</p>
+<p>Specifications only ever intended for use in the <a class="el" href="classopenassetio_1_1v1_1_1_context.html#a9f6756fe7e4195a374ce8c453db51efe">Context.locale</a> (to describe which part of a host or application is calling the API) are known as "locale specifications".</p>
 <p>The context locale is the mechanism by which a host can provide information to the manager so that it can supply the correct data in response to an API query, or adapt its behaviour during a publishing operation.</p>
 <p>When used here, the specification's trait properties are used to convey not entity data, but information about the process environment. For example, the <code>usesUrls</code> trait defines that the host requires URLs instead of paths when addressing entity data not passed through the API.</p>
 <h2><a class="anchor" id="entity_specifications"></a>
@@ -202,7 +202,7 @@ specifications".</p>
 A Note on Trait Specificity and Entities</h1>
 <h2><a class="anchor" id="Using"></a>
 Trait Sets as a Filter Predicate</h2>
-<p>When a <a class="el" href="glossary.html#trait_set">Trait Set</a> is used as a predicate to search for entities. Such as in <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8e86bd4f5647f10190be6466f900d848">getWithRelationship</a>, or when browsing for assets, traits are considered additive, and they must all be satisfied.</p>
+<p>When a <a class="el" href="glossary.html#trait_set">Trait Set</a> is used as a predicate to search for entities. Such as in <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a279c7a4b4ed8951d4f88d23e1298547f">getWithRelationship</a>, or when browsing for assets, traits are considered additive, and they must all be satisfied.</p>
 <p>As an example, consider a world-building tool wishing to browse for an arbitrary three-dimensional scene file to incorporate (e.g. USD). If it has no specific interest in exactly what type of objects it may contain - just that it is scene data - it should not include any traits that cover the specific types of scene items in the specification.</p>
 <p>It may be tempting to form a specification composed of all potential traits, eg: <code>locatableContent</code>, <code>scene</code>, <code>camera</code>, <code>lights</code>, <code>geometry</code> etc. Because of the "additive" nature of a <a class="el" href="glossary.html#trait_set">trait sets</a>, this would effectively require that only scenes conforming to <em>all</em> of the listed traits should be presented. The correct trait collection to use would be just <code>locatableContent</code> and <code>scene</code> when browsing for an arbitrary scene file.</p>
 <p>If it was required that the data be in a specific format (eg: USD) then the <code>format</code> property defined by the <code>sceneReader</code> trait should be set in the calling context's locale accordingly.</p>
