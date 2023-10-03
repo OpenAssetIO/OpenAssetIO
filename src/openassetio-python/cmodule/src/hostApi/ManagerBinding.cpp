@@ -162,7 +162,7 @@ void registerManager(const py::module& mod) {
           [](Manager& self, const EntityReference& entityReference,
              const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const Manager::PagedRelationshipSuccessCallback& successCallback,
+             const Manager::RelationshipQuerySuccessCallback& successCallback,
              const Manager::BatchElementErrorCallback& errorCallback,
              const trait::TraitSet& resultTraitSet) {
             validateTraitsDatas(relationshipTraitsDatas);

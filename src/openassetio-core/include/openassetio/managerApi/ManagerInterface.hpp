@@ -916,7 +916,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Callback signature used for a successful paged entity relationship
    * query.
    */
-  using PagedRelationshipSuccessCallback =
+  using RelationshipQuerySuccessCallback =
       std::function<void(std::size_t, managerApi::EntityReferencePagerInterfacePtr)>;
 
   /**
@@ -988,7 +988,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                                    access::RelationsAccess relationsAccess,
                                    const ContextConstPtr& context,
                                    const HostSessionPtr& hostSession,
-                                   const PagedRelationshipSuccessCallback& successCallback,
+                                   const RelationshipQuerySuccessCallback& successCallback,
                                    const BatchElementErrorCallback& errorCallback);
 
   /**
@@ -1065,7 +1065,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                                     access::RelationsAccess relationsAccess,
                                     const ContextConstPtr& context,
                                     const HostSessionPtr& hostSession,
-                                    const PagedRelationshipSuccessCallback& successCallback,
+                                    const RelationshipQuerySuccessCallback& successCallback,
                                     const BatchElementErrorCallback& errorCallback);
 
   /// @}

@@ -124,7 +124,7 @@ struct PyManagerInterface : ManagerInterface {
       const trait::TraitSet& resultTraitSet, size_t pageSize,
       const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
-      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationship,
@@ -139,7 +139,7 @@ struct PyManagerInterface : ManagerInterface {
       const trait::TraitSet& resultTraitSet, size_t pageSize,
       const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
-      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationships,

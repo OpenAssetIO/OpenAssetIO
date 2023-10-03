@@ -94,7 +94,7 @@ void ManagerInterface::getWithRelationship(
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    const PagedRelationshipSuccessCallback& successCallback,
+    const RelationshipQuerySuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   const auto size = entityReferences.size();
 
@@ -110,7 +110,7 @@ void ManagerInterface::getWithRelationships(
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    const PagedRelationshipSuccessCallback& successCallback,
+    const RelationshipQuerySuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   const auto size = relationshipTraitsDatas.size();
 

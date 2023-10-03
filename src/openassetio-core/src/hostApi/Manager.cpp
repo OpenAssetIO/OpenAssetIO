@@ -255,7 +255,7 @@ void Manager::getWithRelationship(const EntityReferences &entityReferences,
                                   const trait::TraitsDataPtr &relationshipTraitsData,
                                   size_t pageSize, const access::RelationsAccess relationsAccess,
                                   const ContextConstPtr &context,
-                                  const Manager::PagedRelationshipSuccessCallback &successCallback,
+                                  const Manager::RelationshipQuerySuccessCallback &successCallback,
                                   const Manager::BatchElementErrorCallback &errorCallback,
                                   const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {
@@ -282,7 +282,7 @@ void Manager::getWithRelationship(const EntityReferences &entityReferences,
 void Manager::getWithRelationships(
     const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
     size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
-    const Manager::PagedRelationshipSuccessCallback &successCallback,
+    const Manager::RelationshipQuerySuccessCallback &successCallback,
     const Manager::BatchElementErrorCallback &errorCallback,
     const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {

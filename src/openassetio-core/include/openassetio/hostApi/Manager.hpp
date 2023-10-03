@@ -973,7 +973,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Callback signature used for a successful paged entity relationship
    * query.
    */
-  using PagedRelationshipSuccessCallback =
+  using RelationshipQuerySuccessCallback =
       std::function<void(std::size_t, EntityReferencePagerPtr)>;
 
   /**
@@ -1033,7 +1033,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   void getWithRelationship(const EntityReferences& entityReferences,
                            const trait::TraitsDataPtr& relationshipTraitsData, size_t pageSize,
                            access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-                           const PagedRelationshipSuccessCallback& successCallback,
+                           const RelationshipQuerySuccessCallback& successCallback,
                            const BatchElementErrorCallback& errorCallback,
                            const trait::TraitSet& resultTraitSet = {});
 
@@ -1098,7 +1098,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
                             access::RelationsAccess relationsAccess,
                             const ContextConstPtr& context,
-                            const PagedRelationshipSuccessCallback& successCallback,
+                            const RelationshipQuerySuccessCallback& successCallback,
                             const BatchElementErrorCallback& errorCallback,
                             const trait::TraitSet& resultTraitSet = {});
   /// @}
