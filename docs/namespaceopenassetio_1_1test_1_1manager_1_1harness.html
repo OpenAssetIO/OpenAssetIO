@@ -215,7 +215,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><code>dict</code> The fixtures dict defined by the supplied file.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1test_1_1manager_1_1harness.html#a244a8eaccd46805e8346659c6e6a8912" title="Executes the supplied test suite with the given fixtures, optionally passing extra arguments to the u...">executeSuite</a> for details on the structure of the fixtures dictionary.</dd>
 <dd>
-<code>examples/SampleAssetManager/test/fixures.py</code> for a reference fixtures file. </dd></dl>
+The <a href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python" target="_blank">manager template</a> for a reference fixtures file. </dd></dl>
 
 </div>
 </div>
@@ -234,12 +234,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Loads a python module from the specified file, without it needing to be on PYTHONPATH. </p>
-<p>The file name is used as the module name. </p><pre class="fragment">This can be useful to load test suites from files that are not
-otherwise on PYTHONPATH.
+<p>The file name is used as the module name. This can be useful to load test suites from files that are not otherwise on PYTHONPATH.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td><code>str</code> The path to the file to load the module from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The loaded module. </dd></dl>
 
-@param path `str` The path to the file to load the module from.
-
-@return The loaded module.</pre> 
 </div>
 </div>
 </div><!-- contents -->
