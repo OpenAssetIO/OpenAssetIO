@@ -180,75 +180,9 @@ class Test_ManagerInterface_defaultEntityReference:
 
 
 class Test_ManagerInterface_getWithRelationship:
-    def test_method_defined_in_python(self, method_introspector):
+    def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
-
-    def test_returns_empty_list_for_each_input(self, manager_interface, a_host_session):
-        success_callback = Mock()
-        error_callback = Mock()
-
-        for refs in (
-            [],
-            [EntityReference("first")],
-            [EntityReference("second"), EntityReference("third")],
-        ):
-            manager_interface.getWithRelationship(
-                refs,
-                TraitsData(),
-                set(),
-                RelationsAccess.kRead,
-                Context(),
-                a_host_session,
-                success_callback,
-                error_callback,
-            )
-
-            error_callback.assert_not_called()
-            success_callback.assert_has_calls([call(i, []) for i in range(len(refs))])
-
-            success_callback.reset_mock()
-
-
-class Test_ManagerInterface_getWithRelationships:
-    def test_method_defined_in_python(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
-        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
-
-    def test_returns_empty_list_for_each_input(self, manager_interface, a_host_session):
-        success_callback = Mock()
-        error_callback = Mock()
-
-        for rels in (
-            [],
-            [TraitsData()],
-            [TraitsData(), TraitsData()],
-        ):
-            manager_interface.getWithRelationships(
-                EntityReference(""),
-                rels,
-                set(),
-                RelationsAccess.kRead,
-                Context(),
-                a_host_session,
-                success_callback,
-                error_callback,
-            )
-
-            error_callback.assert_not_called()
-            success_callback.assert_has_calls([call(i, []) for i in range(len(rels))])
-
-            success_callback.reset_mock()
-
-
-class Test_ManagerInterface_getWithRelationshipPaged:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface.getWithRelationshipPaged
-        )
-        assert method_introspector.is_implemented_once(
-            ManagerInterface, "getWithRelationshipPaged"
-        )
 
     def test_returns_dummy_pager_for_each_input(self, manager_interface, a_host_session):
         success_callback = Mock()
@@ -259,7 +193,7 @@ class Test_ManagerInterface_getWithRelationshipPaged:
             [EntityReference("first")],
             [EntityReference("second"), EntityReference("third")],
         ):
-            manager_interface.getWithRelationshipPaged(
+            manager_interface.getWithRelationship(
                 refs,
                 TraitsData(),
                 set(),
@@ -282,14 +216,10 @@ class Test_ManagerInterface_getWithRelationshipPaged:
             success_callback.reset_mock()
 
 
-class Test_ManagerInterface_getWithRelationshipsPaged:
+class Test_ManagerInterface_getWithRelationships:
     def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface.getWithRelationshipsPaged
-        )
-        assert method_introspector.is_implemented_once(
-            ManagerInterface, "getWithRelationshipsPaged"
-        )
+        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
+        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
 
     def test_returns_dummy_pager_for_each_input(self, manager_interface, a_host_session):
         success_callback = Mock()
@@ -300,7 +230,7 @@ class Test_ManagerInterface_getWithRelationshipsPaged:
             [TraitsData()],
             [TraitsData(), TraitsData()],
         ):
-            manager_interface.getWithRelationshipsPaged(
+            manager_interface.getWithRelationships(
                 EntityReference(""),
                 rels,
                 set(),

@@ -253,34 +253,11 @@ void Manager::defaultEntityReference(const trait::TraitSets &traitSets,
 
 void Manager::getWithRelationship(const EntityReferences &entityReferences,
                                   const trait::TraitsDataPtr &relationshipTraitsData,
-                                  const access::RelationsAccess relationsAccess,
+                                  size_t pageSize, const access::RelationsAccess relationsAccess,
                                   const ContextConstPtr &context,
-                                  const Manager::RelationshipSuccessCallback &successCallback,
+                                  const Manager::PagedRelationshipSuccessCallback &successCallback,
                                   const Manager::BatchElementErrorCallback &errorCallback,
                                   const trait::TraitSet &resultTraitSet) {
-  managerInterface_->getWithRelationship(entityReferences, relationshipTraitsData, resultTraitSet,
-                                         relationsAccess, context, hostSession_, successCallback,
-                                         errorCallback);
-}
-
-void Manager::getWithRelationships(const EntityReference &entityReference,
-                                   const trait::TraitsDatas &relationshipTraitsDatas,
-                                   const access::RelationsAccess relationsAccess,
-                                   const ContextConstPtr &context,
-                                   const Manager::RelationshipSuccessCallback &successCallback,
-                                   const Manager::BatchElementErrorCallback &errorCallback,
-                                   const trait::TraitSet &resultTraitSet) {
-  managerInterface_->getWithRelationships(entityReference, relationshipTraitsDatas, resultTraitSet,
-                                          relationsAccess, context, hostSession_, successCallback,
-                                          errorCallback);
-}
-
-void Manager::getWithRelationshipPaged(
-    const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
-    size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
-    const Manager::PagedRelationshipSuccessCallback &successCallback,
-    const Manager::BatchElementErrorCallback &errorCallback,
-    const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {
     throw errors::InputValidationException{"pageSize must be greater than zero."};
   }
@@ -297,12 +274,12 @@ void Manager::getWithRelationshipPaged(
         auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
         successCallback(idx, std::move(pager));
       };
-  managerInterface_->getWithRelationshipPaged(
-      entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess, context,
-      hostSession_, convertingPagerSuccessCallback, errorCallback);
+  managerInterface_->getWithRelationship(entityReferences, relationshipTraitsData, resultTraitSet,
+                                         pageSize, relationsAccess, context, hostSession_,
+                                         convertingPagerSuccessCallback, errorCallback);
 }
 
-void Manager::getWithRelationshipsPaged(
+void Manager::getWithRelationships(
     const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
     size_t pageSize, const access::RelationsAccess relationsAccess, const ContextConstPtr &context,
     const Manager::PagedRelationshipSuccessCallback &successCallback,
@@ -324,9 +301,9 @@ void Manager::getWithRelationshipsPaged(
         auto pager = hostApi::EntityReferencePager::make(std::move(pagerInterface), hostSession);
         successCallback(idx, std::move(pager));
       };
-  managerInterface_->getWithRelationshipsPaged(
-      entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess, context,
-      hostSession_, convertingPagerSuccessCallback, errorCallback);
+  managerInterface_->getWithRelationships(entityReference, relationshipTraitsDatas, resultTraitSet,
+                                          pageSize, relationsAccess, context, hostSession_,
+                                          convertingPagerSuccessCallback, errorCallback);
 }
 
 void Manager::preflight(const EntityReferences &entityReferences,

@@ -441,267 +441,6 @@ class Test_Manager_defaultEntityReference:
         error_callback.assert_called_once_with(2, a_batch_element_error)
 
 
-class Test_Manager_getWithRelationship:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.getWithRelationship)
-        assert method_introspector.is_implemented_once(Manager, "getWithRelationship")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_different_ref,
-        a_batch_element_error,
-        an_empty_traitsdata,
-        an_entity_trait_set,
-        a_context,
-        invoke_getWithRelationship_success_cb,
-        invoke_getWithRelationship_error_cb,
-    ):
-        # pylint: disable=too-many-locals
-
-        two_refs = [a_ref, a_ref]
-        two_different_refs = [a_different_ref, a_different_ref]
-
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
-
-        method = mock_manager_interface.mock.getWithRelationship
-
-        def call_callbacks(*_args):
-            invoke_getWithRelationship_success_cb(0, two_different_refs)
-            invoke_getWithRelationship_error_cb(1, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.getWithRelationship(
-            two_refs,
-            an_empty_traitsdata,
-            access.RelationsAccess.kWrite,
-            a_context,
-            success_callback,
-            error_callback,
-        )
-
-        method.assert_called_once_with(
-            two_refs,
-            an_empty_traitsdata,
-            set(),
-            access.RelationsAccess.kWrite,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        success_callback.assert_called_once_with(0, two_different_refs)
-        error_callback.assert_called_once_with(1, a_batch_element_error)
-
-        mock_manager_interface.mock.reset_mock()
-
-        # Check optional resultTraitSet
-
-        manager.getWithRelationship(
-            two_refs,
-            an_empty_traitsdata,
-            access.RelationsAccess.kWrite,
-            a_context,
-            success_callback,
-            error_callback,
-            an_entity_trait_set,
-        )
-
-        method.assert_called_once_with(
-            two_refs,
-            an_empty_traitsdata,
-            an_entity_trait_set,
-            access.RelationsAccess.kWrite,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-    def test_when_default_resultTraitSet_modified_then_modifications_dont_persist(
-        self,
-        manager,
-        mock_manager_interface,
-        a_ref,
-        an_empty_traitsdata,
-        a_context,
-    ):
-        def mutate_resultTraitSet(_, __, result_trait_set, *_args):
-            result_trait_set.add("this shouldn't persist")
-
-        def assert_resultTraitSet_empty(_, __, result_trait_set, *_args):
-            assert result_trait_set == set()
-
-        # First call mutates the defaulted resultTraitSet parameter.
-        mock_manager_interface.mock.getWithRelationship.side_effect = mutate_resultTraitSet
-        manager.getWithRelationship(
-            [a_ref],
-            an_empty_traitsdata,
-            access.RelationsAccess.kWrite,
-            a_context,
-            mock.Mock(),
-            mock.Mock(),
-        )
-
-        # Second call asserts that the mutation of the first call didn't
-        # persist in the default value.
-        mock_manager_interface.mock.getWithRelationship.side_effect = assert_resultTraitSet_empty
-        manager.getWithRelationship(
-            [a_ref],
-            an_empty_traitsdata,
-            access.RelationsAccess.kWrite,
-            a_context,
-            mock.Mock(),
-            mock.Mock(),
-        )
-
-        # Confidence check: ensure we actually called the manager plugin.
-        assert mock_manager_interface.mock.getWithRelationship.call_count == 2
-
-
-class Test_Manager_getWithRelationships:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.getWithRelationships)
-        assert method_introspector.is_implemented_once(Manager, "getWithRelationships")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_different_ref,
-        a_batch_element_error,
-        an_empty_traitsdata,
-        an_entity_trait_set,
-        a_context,
-        invoke_getWithRelationships_success_cb,
-        invoke_getWithRelationships_error_cb,
-    ):
-        two_datas = [an_empty_traitsdata, an_empty_traitsdata]
-        two_different_refs = [a_different_ref, a_different_ref]
-
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
-
-        method = mock_manager_interface.mock.getWithRelationships
-
-        def call_callbacks(*_args):
-            invoke_getWithRelationships_success_cb(0, two_different_refs)
-            invoke_getWithRelationships_error_cb(1, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.getWithRelationships(
-            a_ref,
-            two_datas,
-            access.RelationsAccess.kWrite,
-            a_context,
-            success_callback,
-            error_callback,
-        )
-
-        method.assert_called_once_with(
-            a_ref,
-            two_datas,
-            set(),
-            access.RelationsAccess.kWrite,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        success_callback.assert_called_once_with(0, two_different_refs)
-        error_callback.assert_called_once_with(1, a_batch_element_error)
-
-        mock_manager_interface.mock.reset_mock()
-
-        # Check optional resultTraitSet
-
-        manager.getWithRelationships(
-            a_ref,
-            two_datas,
-            access.RelationsAccess.kWrite,
-            a_context,
-            success_callback,
-            error_callback,
-            an_entity_trait_set,
-        )
-
-        method.assert_called_once_with(
-            a_ref,
-            two_datas,
-            an_entity_trait_set,
-            access.RelationsAccess.kWrite,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-    def test_when_relationship_is_None_then_exception_raised(
-        self, manager, mock_manager_interface, a_ref, a_context
-    ):
-        with pytest.raises(TypeError):
-            manager.getWithRelationships(
-                [TraitsData(), None],
-                a_ref,
-                access.RelationsAccess.kWrite,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-        assert not mock_manager_interface.mock.getWithRelationships.called
-
-    def test_when_default_resultTraitSet_modified_then_modifications_dont_persist(
-        self,
-        manager,
-        mock_manager_interface,
-        a_ref,
-        an_empty_traitsdata,
-        a_context,
-    ):
-        def mutate_resultTraitSet(_, __, result_trait_set, *_args):
-            result_trait_set.add("this shouldn't persist")
-
-        def assert_resultTraitSet_empty(_, __, result_trait_set, *_args):
-            assert result_trait_set == set()
-
-        # First call mutates the defaulted resultTraitSet parameter.
-        mock_manager_interface.mock.getWithRelationships.side_effect = mutate_resultTraitSet
-        manager.getWithRelationships(
-            a_ref,
-            [an_empty_traitsdata],
-            access.RelationsAccess.kWrite,
-            a_context,
-            mock.Mock(),
-            mock.Mock(),
-        )
-
-        # Second call asserts that the mutation of the first call didn't
-        # persist in the default value.
-        mock_manager_interface.mock.getWithRelationships.side_effect = assert_resultTraitSet_empty
-        manager.getWithRelationships(
-            a_ref,
-            [an_empty_traitsdata],
-            access.RelationsAccess.kWrite,
-            a_context,
-            mock.Mock(),
-            mock.Mock(),
-        )
-
-        # Confidence check: ensure we actually called the manager plugin.
-        assert mock_manager_interface.mock.getWithRelationships.call_count == 2
-
-
 class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
     """
     Throwaway pager interface def, so we can create a temporary
@@ -723,7 +462,7 @@ class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
         pass
 
 
-class Test_Manager_getWithRelationshipPaged:
+class Test_Manager_getWithRelationship:
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
         manager,
@@ -736,8 +475,8 @@ class Test_Manager_getWithRelationshipPaged:
         an_entity_trait_set,
         an_entity_reference_pager,
         a_context,
-        invoke_getWithRelationshipPaged_success_cb,
-        invoke_getWithRelationshipPaged_error_cb,
+        invoke_getWithRelationship_success_cb,
+        invoke_getWithRelationship_error_cb,
     ):
         # pylint: disable=too-many-locals
 
@@ -747,15 +486,15 @@ class Test_Manager_getWithRelationshipPaged:
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
-        method = mock_manager_interface.mock.getWithRelationshipPaged
+        method = mock_manager_interface.mock.getWithRelationship
 
         def call_callbacks(*_args):
-            invoke_getWithRelationshipPaged_success_cb(0, mock_entity_reference_pager_interface)
-            invoke_getWithRelationshipPaged_error_cb(1, a_batch_element_error)
+            invoke_getWithRelationship_success_cb(0, mock_entity_reference_pager_interface)
+            invoke_getWithRelationship_error_cb(1, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
-        manager.getWithRelationshipPaged(
+        manager.getWithRelationship(
             two_refs,
             an_empty_traitsdata,
             page_size,
@@ -792,7 +531,7 @@ class Test_Manager_getWithRelationshipPaged:
 
         # Check optional resultTraitSet
 
-        manager.getWithRelationshipPaged(
+        manager.getWithRelationship(
             two_refs,
             an_empty_traitsdata,
             page_size,
@@ -825,8 +564,8 @@ class Test_Manager_getWithRelationshipPaged:
         an_empty_traitsdata,
         an_entity_trait_set,
         a_context,
-        invoke_getWithRelationshipPaged_success_cb,
-        invoke_getWithRelationshipPaged_error_cb,
+        invoke_getWithRelationship_success_cb,
+        invoke_getWithRelationship_error_cb,
     ):
         # pylint: disable=too-many-locals
 
@@ -835,16 +574,16 @@ class Test_Manager_getWithRelationshipPaged:
 
         error_callback = mock.Mock()
 
-        method = mock_manager_interface.mock.getWithRelationshipPaged
+        method = mock_manager_interface.mock.getWithRelationship
 
         def call_callbacks(*_args):
-            invoke_getWithRelationshipPaged_success_cb(0, FakeEntityReferencePagerInterface())
-            invoke_getWithRelationshipPaged_error_cb(1, a_batch_element_error)
+            invoke_getWithRelationship_success_cb(0, FakeEntityReferencePagerInterface())
+            invoke_getWithRelationship_error_cb(1, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
         pagers = []
-        manager.getWithRelationshipPaged(
+        manager.getWithRelationship(
             two_refs,
             an_empty_traitsdata,
             page_size,
@@ -870,7 +609,7 @@ class Test_Manager_getWithRelationshipPaged:
         error_callback = mock.Mock()
 
         with pytest.raises(InputValidationException):
-            manager.getWithRelationshipPaged(
+            manager.getWithRelationship(
                 two_refs,
                 an_empty_traitsdata,
                 page_size,
@@ -882,7 +621,7 @@ class Test_Manager_getWithRelationshipPaged:
             )
 
 
-class Test_Manager_getWithRelationshipsPaged:
+class Test_Manager_getWithRelationships:
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
         manager,
@@ -895,8 +634,8 @@ class Test_Manager_getWithRelationshipsPaged:
         mock_entity_reference_pager_interface,
         an_entity_reference_pager,
         a_context,
-        invoke_getWithRelationshipsPaged_success_cb,
-        invoke_getWithRelationshipsPaged_error_cb,
+        invoke_getWithRelationships_success_cb,
+        invoke_getWithRelationships_error_cb,
     ):
         two_datas = [an_empty_traitsdata, an_empty_traitsdata]
         page_size = 3
@@ -904,15 +643,15 @@ class Test_Manager_getWithRelationshipsPaged:
         success_callback = mock.Mock()
         error_callback = mock.Mock()
 
-        method = mock_manager_interface.mock.getWithRelationshipsPaged
+        method = mock_manager_interface.mock.getWithRelationships
 
         def call_callbacks(*_args):
-            invoke_getWithRelationshipsPaged_success_cb(0, mock_entity_reference_pager_interface)
-            invoke_getWithRelationshipsPaged_error_cb(1, a_batch_element_error)
+            invoke_getWithRelationships_success_cb(0, mock_entity_reference_pager_interface)
+            invoke_getWithRelationships_error_cb(1, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
-        manager.getWithRelationshipsPaged(
+        manager.getWithRelationships(
             a_ref,
             two_datas,
             page_size,
@@ -949,7 +688,7 @@ class Test_Manager_getWithRelationshipsPaged:
 
         # Check optional resultTraitSet
 
-        manager.getWithRelationshipsPaged(
+        manager.getWithRelationships(
             a_ref,
             two_datas,
             page_size,
@@ -981,24 +720,24 @@ class Test_Manager_getWithRelationshipsPaged:
         an_empty_traitsdata,
         an_entity_trait_set,
         a_context,
-        invoke_getWithRelationshipsPaged_success_cb,
-        invoke_getWithRelationshipsPaged_error_cb,
+        invoke_getWithRelationships_success_cb,
+        invoke_getWithRelationships_error_cb,
     ):
         two_datas = [an_empty_traitsdata, an_empty_traitsdata]
         page_size = 3
 
         error_callback = mock.Mock()
 
-        method = mock_manager_interface.mock.getWithRelationshipsPaged
+        method = mock_manager_interface.mock.getWithRelationships
 
         def call_callbacks(*_args):
-            invoke_getWithRelationshipsPaged_success_cb(0, FakeEntityReferencePagerInterface())
-            invoke_getWithRelationshipsPaged_error_cb(1, a_batch_element_error)
+            invoke_getWithRelationships_success_cb(0, FakeEntityReferencePagerInterface())
+            invoke_getWithRelationships_error_cb(1, a_batch_element_error)
 
         method.side_effect = call_callbacks
 
         pagers = []
-        manager.getWithRelationshipsPaged(
+        manager.getWithRelationships(
             a_ref,
             two_datas,
             page_size,
@@ -1024,7 +763,7 @@ class Test_Manager_getWithRelationshipsPaged:
         error_callback = mock.Mock()
 
         with pytest.raises(InputValidationException):
-            manager.getWithRelationshipsPaged(
+            manager.getWithRelationships(
                 a_ref,
                 two_datas,
                 page_size,
@@ -3136,64 +2875,10 @@ def invoke_defaultEntityReference_error_cb(mock_manager_interface):
 
 
 @pytest.fixture
-def invoke_getWithRelationshipPaged_success_cb(mock_manager_interface):
-    def invoke(idx, entityReferencesPagerInterface):
-        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][7]
-        callback(idx, entityReferencesPagerInterface)
-
-    return invoke
-
-
-@pytest.fixture
-def invoke_getWithRelationshipsPaged_error_cb(mock_manager_interface):
-    def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][8]
-        callback(idx, batch_element_error)
-
-    return invoke
-
-
-@pytest.fixture
-def invoke_getWithRelationshipsPaged_success_cb(mock_manager_interface):
-    def invoke(idx, entityReferencesPagerInterface):
-        callback = mock_manager_interface.mock.getWithRelationshipsPaged.call_args[0][7]
-        callback(idx, entityReferencesPagerInterface)
-
-    return invoke
-
-
-@pytest.fixture
-def invoke_getWithRelationshipPaged_error_cb(mock_manager_interface):
-    def invoke(idx, batch_element_error):
-        callback = mock_manager_interface.mock.getWithRelationshipPaged.call_args[0][8]
-        callback(idx, batch_element_error)
-
-    return invoke
-
-
-@pytest.fixture
 def invoke_getWithRelationship_success_cb(mock_manager_interface):
-    def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][6]
-        callback(idx, entityReferences)
-
-    return invoke
-
-
-@pytest.fixture
-def invoke_getWithRelationship_error_cb(mock_manager_interface):
-    def invoke(idx, batch_element_error):
+    def invoke(idx, entityReferencesPagerInterface):
         callback = mock_manager_interface.mock.getWithRelationship.call_args[0][7]
-        callback(idx, batch_element_error)
-
-    return invoke
-
-
-@pytest.fixture
-def invoke_getWithRelationships_success_cb(mock_manager_interface):
-    def invoke(idx, entityReferences):
-        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][6]
-        callback(idx, entityReferences)
+        callback(idx, entityReferencesPagerInterface)
 
     return invoke
 
@@ -3201,7 +2886,25 @@ def invoke_getWithRelationships_success_cb(mock_manager_interface):
 @pytest.fixture
 def invoke_getWithRelationships_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.getWithRelationships.call_args[0][8]
+        callback(idx, batch_element_error)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_getWithRelationships_success_cb(mock_manager_interface):
+    def invoke(idx, entityReferencesPagerInterface):
         callback = mock_manager_interface.mock.getWithRelationships.call_args[0][7]
+        callback(idx, entityReferencesPagerInterface)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_getWithRelationship_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.getWithRelationship.call_args[0][8]
         callback(idx, batch_element_error)
 
     return invoke

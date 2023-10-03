@@ -913,9 +913,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
-   * Callback signature used for a successful entity relationship query.
+   * Callback signature used for a successful paged entity relationship
+   * query.
    */
-  using RelationshipSuccessCallback = std::function<void(std::size_t, EntityReferences)>;
+  using PagedRelationshipSuccessCallback =
+      std::function<void(std::size_t, managerApi::EntityReferencePagerInterfacePtr)>;
 
   /**
    * Queries entity references that are related to the input
@@ -934,139 +936,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * default implementation returns an empty list for all
    * relationships.
    *
-   * @param entityReferences A list of @ref entity_reference
-   * "entity references" to query the specified relationship for.
-   *
-   * @param relationshipTraitsData The traits of the relationship to
-   * query.
-   *
-   * @param resultTraitSet A hint as to what traits the returned
-   * entities should have. May be empty.
-   *
-   * @param relationsAccess The host's intended usage of the returned
-   * references.
-   *
-   * @param context The calling context.
-   *
-   * @param hostSession The host session that maps to the caller, this
-   * should be used for all logging and provides access to the Host
-   * object representing the process that initiated the API session.
-   *
-   * @param successCallback Callback that must be called for each
-   * successful relationship query for an input entity reference. It
-   * should be given the corresponding index of the entity reference
-   * in @p entityReferences along with a list of entity references for
-   * entities that have the relationship specified by
-   * @p relationshipTraitsData. If there are no relations, an empty
-   * list should be passed to the callback. The callback must be
-   * called on the same thread that initiated the call to
-   * `getWithRelationship`.
-   *
-   * @param errorCallback Callback that must be called for each
-   * failed relationship query for an entity reference. It should be
-   * given the corresponding index of the entity reference in
-   * @p entityReferences along with a populated
-   * @fqref{errors.BatchElementError} "BatchElementError" (see
-   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
-   * callback must be called on the same thread that initiated the call
-   * to `getWithRelationship`.
-   *
-   * @note Ensure that your implementation of @ref managementPolicy
-   * responds appropriately when queried with relationship trait sets
-   * and a read policy to communicate to the host whether or not you are
-   * capable of handling queries for those relationships in this method.
-   */
-  virtual void getWithRelationship(const EntityReferences& entityReferences,
-                                   const trait::TraitsDataPtr& relationshipTraitsData,
-                                   const trait::TraitSet& resultTraitSet,
-                                   access::RelationsAccess relationsAccess,
-                                   const ContextConstPtr& context,
-                                   const HostSessionPtr& hostSession,
-                                   const RelationshipSuccessCallback& successCallback,
-                                   const BatchElementErrorCallback& errorCallback);
-
-  /**
-   * Queries entity references that are related to the input
-   * reference by the relationships defined by a set of traits and
-   * their properties. Each element of @p relationshipTraitsDatas
-   * defines a specific relationship to query.
-   *
-   * This is an essential function in this API - as it is widely used
-   * to query other entities or organisational structure.
-   *
-   * @note Consult the documentation for the relevant relationship
-   * traits to determine if the order of entities in the inner lists
-   * of matching references is required to be meaningful.
-   *
-   * If any relationship definition is unknown, then an empty list
-   * must be returned for that relationship, and no errors raised. The
-   * default implementation returns an empty list for all
-   * relationships.
-   *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
-   *
-   * @param relationshipTraitsDatas The traits of the relationships to
-   * query.
-   *
-   * @param resultTraitSet A hint as to what traits the returned
-   * entities should have. May be empty.
-   *
-   * @param relationsAccess The host's intended usage of the returned
-   * references.
-   *
-   * @param context Context The calling context.
-   *
-   * @param hostSession The host session that maps to the caller, this
-   * should be used for all logging and provides access to the Host
-   * object representing the process that initiated the API session.
-   *
-   * @param successCallback Callback that must be called for each
-   * successful relationship query for an input relationship. It should
-   * be given the corresponding index of the relationship definition in
-   * @p relationshipTraitsDatas along with a list of entity references
-   * for entities that are related to @p entityReference by that
-   * relationship. If there are no relations, an empty list should be
-   * passed to the callback. The callback must be called on the same
-   * thread that initiated the call to `getWithRelationships`.
-   *
-   * @param errorCallback Callback that must be called for each failed
-   * query for a relationship. It should be given the corresponding
-   * index of the relationship in @p relationshipTraitsDatas along with
-   * a populated BatchElementError (see BatchElementError.ErrorCode
-   * "ErrorCodes"). The callback must be called on the same thread that
-   * initiated the call to `getWithRelationships`.
-   *
-   * @note Ensure that your implementation of @ref managementPolicy
-   * responds appropriately when queried with relationship trait sets
-   * and a read policy to communicate to the host whether or not you are
-   * capable of handling queries for those relationships in this method.
-   */
-  virtual void getWithRelationships(const EntityReference& entityReference,
-                                    const trait::TraitsDatas& relationshipTraitsDatas,
-                                    const trait::TraitSet& resultTraitSet,
-                                    access::RelationsAccess relationsAccess,
-                                    const ContextConstPtr& context,
-                                    const HostSessionPtr& hostSession,
-                                    const RelationshipSuccessCallback& successCallback,
-                                    const BatchElementErrorCallback& errorCallback);
-
-  /**
-   * Callback signature used for a successful paged entity relationship
-   * query.
-   */
-  using PagedRelationshipSuccessCallback =
-      std::function<void(std::size_t, managerApi::EntityReferencePagerInterfacePtr)>;
-
-  /**
-   * Paged version of getWithRelationship. See non-paged
-   * @ref getWithRelationship for further documentation.
-   *
-   * @param relationshipTraitsData The traits of the relationship to
-   * query.
-   *
    * @param entityReferences A list of @ref entity_reference to query
    * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
    *
    * @param pageSize The size of each page of data. The page size must
    * be fixed for the lifetime of pager object given to the @p
@@ -1108,24 +982,38 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
    */
-  virtual void getWithRelationshipPaged(const EntityReferences& entityReferences,
-                                        const trait::TraitsDataPtr& relationshipTraitsData,
-                                        const trait::TraitSet& resultTraitSet, size_t pageSize,
-                                        access::RelationsAccess relationsAccess,
-                                        const ContextConstPtr& context,
-                                        const HostSessionPtr& hostSession,
-                                        const PagedRelationshipSuccessCallback& successCallback,
-                                        const BatchElementErrorCallback& errorCallback);
+  virtual void getWithRelationship(const EntityReferences& entityReferences,
+                                   const trait::TraitsDataPtr& relationshipTraitsData,
+                                   const trait::TraitSet& resultTraitSet, size_t pageSize,
+                                   access::RelationsAccess relationsAccess,
+                                   const ContextConstPtr& context,
+                                   const HostSessionPtr& hostSession,
+                                   const PagedRelationshipSuccessCallback& successCallback,
+                                   const BatchElementErrorCallback& errorCallback);
 
   /**
-   * Paged version of getWithRelationships. See non-paged
-   * @ref getWithRelationships for further documentation.
+   * Queries entity references that are related to the input
+   * reference by the relationships defined by a set of traits and
+   * their properties. Each element of @p relationshipTraitsDatas
+   * defines a specific relationship to query.
    *
-   * @param relationshipTraitsDatas The traits of the relationships to
-   * query.
+   * This is an essential function in this API - as it is widely used
+   * to query other entities or organisational structure.
+   *
+   * @note Consult the documentation for the relevant relationship
+   * traits to determine if the order of entities in the inner lists
+   * of matching references is required to be meaningful.
+   *
+   * If any relationship definition is unknown, then an empty list
+   * must be returned for that relationship, and no errors raised. The
+   * default implementation returns an empty list for all
+   * relationships.
    *
    * @param entityReference The @ref entity_reference to query the
    * specified relationships for.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
    *
    * @param pageSize The size of each page of data. The page size is
    * fixed for the lifetime of pager object given to the @p
@@ -1171,14 +1059,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
    */
-  virtual void getWithRelationshipsPaged(const EntityReference& entityReference,
-                                         const trait::TraitsDatas& relationshipTraitsDatas,
-                                         const trait::TraitSet& resultTraitSet, size_t pageSize,
-                                         access::RelationsAccess relationsAccess,
-                                         const ContextConstPtr& context,
-                                         const HostSessionPtr& hostSession,
-                                         const PagedRelationshipSuccessCallback& successCallback,
-                                         const BatchElementErrorCallback& errorCallback);
+  virtual void getWithRelationships(const EntityReference& entityReference,
+                                    const trait::TraitsDatas& relationshipTraitsDatas,
+                                    const trait::TraitSet& resultTraitSet, size_t pageSize,
+                                    access::RelationsAccess relationsAccess,
+                                    const ContextConstPtr& context,
+                                    const HostSessionPtr& hostSession,
+                                    const PagedRelationshipSuccessCallback& successCallback,
+                                    const BatchElementErrorCallback& errorCallback);
 
   /// @}
   /**
