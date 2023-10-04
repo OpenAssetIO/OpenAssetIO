@@ -1,11 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html":[13,0,0,3,0,2],
-"structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html":[13,0,0,3,0,3],
-"structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html":[13,0,0,3,0,4],
-"structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html":[13,0,0,3,0,5],
-"structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html":[13,0,0,3,0,6],
-"structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html":[13,0,0,3,1,2,0],
 "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html":[13,0,0,3,1,2,0,0],
 "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html":[13,0,0,3,1,2,0,1],
 "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html":[13,0,0,3,1,3,0],

@@ -239,24 +239,15 @@ Related Entities</h2></td></tr>
 <p>In this API, these relationships are represented by trait data. This may just compose property-less traits as a 'type', or additionally, set trait property values to further define the relationship. For example in the case of AOVs, the type might be 'alternate output' and the attributes may be that the 'channel' is 'diffuse'.</p>
 <p>Related references form a vital part in the abstraction of the internal structure of the asset management system from the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> application in its attempts to provide the user with meaningful functionality. A good example of this is in an editorial example, where it may need to query whether a 'shot' exists in a certain part of the asset system. One approach would be to use a 'getChildren' call, on this part of the system. This has the drawback that is assumes that shots are always something that can be described as 'immediate children' of the location in question. This may not always be the case (say, for example there is some kind of 'task' structure in place too). Instead we use a request that asks for any 'shots' that relate to the chosen location. It is then up to the implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> to determine how that maps to its own data model. Hopefully this allows Hosts of this API to work with a broader range of asset managements, without providing any requirements of their structure or data model. </p>
 </td></tr>
-<tr class="memitem:a979fbc668a26e76d957c31361958a005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td></tr>
-<tr class="memdesc:a979fbc668a26e76d957c31361958a005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity relationship query.  <a href="#a979fbc668a26e76d957c31361958a005">More...</a><br /></td></tr>
-<tr class="separator:a979fbc668a26e76d957c31361958a005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa828ae81cd203ad64641fc71fb0e90c8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a>)&gt;</td></tr>
-<tr class="memdesc:aa828ae81cd203ad64641fc71fb0e90c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful paged entity relationship query.  <a href="#aa828ae81cd203ad64641fc71fb0e90c8">More...</a><br /></td></tr>
-<tr class="separator:aa828ae81cd203ad64641fc71fb0e90c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a118a383bb77286187be215baafc31ce7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a118a383bb77286187be215baafc31ce7">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a> &amp;relationshipTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
-<tr class="memdesc:a118a383bb77286187be215baafc31ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>.  <a href="#a118a383bb77286187be215baafc31ce7">More...</a><br /></td></tr>
-<tr class="separator:a118a383bb77286187be215baafc31ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65714a4b9c134c1bd89c9bf4c9c408db"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a65714a4b9c134c1bd89c9bf4c9c408db">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
-<tr class="memdesc:a65714a4b9c134c1bd89c9bf4c9c408db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#a65714a4b9c134c1bd89c9bf4c9c408db">More...</a><br /></td></tr>
-<tr class="separator:a65714a4b9c134c1bd89c9bf4c9c408db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99b408861525b9e271317f4bba132490"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a99b408861525b9e271317f4bba132490">getWithRelationshipPaged</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a> &amp;relationshipTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, size_t pageSize, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
-<tr class="memdesc:a99b408861525b9e271317f4bba132490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationship.  <a href="#a99b408861525b9e271317f4bba132490">More...</a><br /></td></tr>
-<tr class="separator:a99b408861525b9e271317f4bba132490"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8295d760d137eb5b39a8ba7045c5597b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8295d760d137eb5b39a8ba7045c5597b">getWithRelationshipsPaged</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, size_t pageSize, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
-<tr class="memdesc:a8295d760d137eb5b39a8ba7045c5597b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Paged version of getWithRelationships.  <a href="#a8295d760d137eb5b39a8ba7045c5597b">More...</a><br /></td></tr>
-<tr class="separator:a8295d760d137eb5b39a8ba7045c5597b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a040a1e0600a1c6c01705011dda2355c2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a>)&gt;</td></tr>
+<tr class="memdesc:a040a1e0600a1c6c01705011dda2355c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful paged entity relationship query.  <a href="#a040a1e0600a1c6c01705011dda2355c2">More...</a><br /></td></tr>
+<tr class="separator:a040a1e0600a1c6c01705011dda2355c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab97846081943d84b35b0f6542b19dd6c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ab97846081943d84b35b0f6542b19dd6c">getWithRelationship</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a> &amp;relationshipTraitsData, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, size_t pageSize, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:ab97846081943d84b35b0f6542b19dd6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>.  <a href="#ab97846081943d84b35b0f6542b19dd6c">More...</a><br /></td></tr>
+<tr class="separator:ab97846081943d84b35b0f6542b19dd6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e99f89ca60e59be991db355cbf2570"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6e99f89ca60e59be991db355cbf2570">getWithRelationships</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;relationshipTraitsDatas, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;resultTraitSet, size_t pageSize, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a> relationsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:ac6e99f89ca60e59be991db355cbf2570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries entity references that are related to the input reference by the relationships defined by a set of traits and their properties.  <a href="#ac6e99f89ca60e59be991db355cbf2570">More...</a><br /></td></tr>
+<tr class="separator:ac6e99f89ca60e59be991db355cbf2570"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Publishing</h2></td></tr>
@@ -394,20 +385,6 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa828ae81cd203ad64641fc71fb0e90c8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a>)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback signature used for a successful paged entity relationship query. </p>
-
-</div>
-</div>
 <a class="anchor" id="a3c97a3381de287b961c4fa2f3e8ae407"></a>
 <div class="memitem">
 <div class="memproto">
@@ -448,17 +425,17 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a979fbc668a26e76d957c31361958a005"></a>
+<a class="anchor" id="a040a1e0600a1c6c01705011dda2355c2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a>)&gt;</td>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> =  std::function&lt;void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a23bc7398484a7fa77d1e7809b2602659">managerApi::EntityReferencePagerInterfacePtr</a>)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback signature used for a successful entity relationship query. </p>
+<p>Callback signature used for a successful paged entity relationship query. </p>
 
 </div>
 </div>
@@ -861,7 +838,7 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a118a383bb77286187be215baafc31ce7"></a>
+<a class="anchor" id="ab97846081943d84b35b0f6542b19dd6c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -870,95 +847,6 @@ Publishing</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">virtual void getWithRelationship </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
-          <td class="paramname"><em>entityReferences</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>relationshipTraitsData</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>resultTraitSet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a>&#160;</td>
-          <td class="paramname"><em>relationsAccess</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>hostSession</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>successCallback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>errorCallback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>. </p>
-<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
-<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is required to be meaningful.</dd></dl>
-<p>If any relationship definition is unknown, then an empty list must be returned for that entity, and no errors raised. The default implementation returns an empty list for all relationships.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entityReferences</td><td>A list of <a class="el" href="glossary.html#entity_reference">entity references</a> to query the specified relationship for.</td></tr>
-    <tr><td class="paramname">relationshipTraitsData</td><td>The traits of the relationship to query.</td></tr>
-    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have. May be empty.</td></tr>
-    <tr><td class="paramname">relationsAccess</td><td>The host's intended usage of the returned references.</td></tr>
-    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">successCallback</td><td>Callback that must be called for each successful relationship query for an input entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a list of entity references for entities that have the relationship specified by <code>relationshipTraitsData</code>. If there are no relations, an empty list should be passed to the callback. The callback must be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed relationship query for an entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback must be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Ensure that your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> responds appropriately when queried with relationship trait sets and a read policy to communicate to the host whether or not you are capable of handling queries for those relationships in this method. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a99b408861525b9e271317f4bba132490"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void getWithRelationshipPaged </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
           <td class="paramname"><em>entityReferences</em>, </td>
@@ -1002,7 +890,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> &amp;&#160;</td>
           <td class="paramname"><em>successCallback</em>, </td>
         </tr>
         <tr>
@@ -1024,12 +912,14 @@ Publishing</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Paged version of getWithRelationship. </p>
-<p>See non-paged <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a118a383bb77286187be215baafc31ce7">getWithRelationship</a> for further documentation.</p>
+<p>Queries entity references that are related to the input references by the relationship defined by a set of traits and their properties in <code>relationshipTraitsData</code>. </p>
+<p>This is an essential function in this API - as it is widely used to query other entities or organisational structure.</p>
+<dl class="section note"><dt>Note</dt><dd>Consult the documentation for the relevant relationship traits to determine if the order of entities in the inner lists of matching references is required to be meaningful.</dd></dl>
+<p>If any relationship definition is unknown, then an empty list must be returned for that entity, and no errors raised. The default implementation returns an empty list for all relationships.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">relationshipTraitsData</td><td>The traits of the relationship to query.</td></tr>
     <tr><td class="paramname">entityReferences</td><td>A list of <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationship for.</td></tr>
+    <tr><td class="paramname">relationshipTraitsData</td><td>The traits of the relationship to query.</td></tr>
     <tr><td class="paramname">pageSize</td><td>The size of each page of data. The page size must be fixed for the lifetime of pager object given to the <code>successCallback</code>. Guaranteed to be greater than zero.</td></tr>
     <tr><td class="paramname">relationsAccess</td><td>The host's intended usage of the returned references.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
@@ -1050,7 +940,7 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a65714a4b9c134c1bd89c9bf4c9c408db"></a>
+<a class="anchor" id="ac6e99f89ca60e59be991db355cbf2570"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1078,6 +968,12 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>pageSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a>&#160;</td>
           <td class="paramname"><em>relationsAccess</em>, </td>
         </tr>
@@ -1096,7 +992,7 @@ Publishing</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a979fbc668a26e76d957c31361958a005">RelationshipSuccessCallback</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2">RelationshipQuerySuccessCallback</a> &amp;&#160;</td>
           <td class="paramname"><em>successCallback</em>, </td>
         </tr>
         <tr>
@@ -1127,99 +1023,6 @@ Publishing</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">entityReference</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationships for.</td></tr>
     <tr><td class="paramname">relationshipTraitsDatas</td><td>The traits of the relationships to query.</td></tr>
-    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have. May be empty.</td></tr>
-    <tr><td class="paramname">relationsAccess</td><td>The host's intended usage of the returned references.</td></tr>
-    <tr><td class="paramname">context</td><td><a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> The calling context.</td></tr>
-    <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
-    <tr><td class="paramname">successCallback</td><td>Callback that must be called for each successful relationship query for an input relationship. It should be given the corresponding index of the relationship definition in <code>relationshipTraitsDatas</code> along with a list of entity references for entities that are related to <code>entityReference</code> by that relationship. If there are no relations, an empty list should be passed to the callback. The callback must be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed query for a relationship. It should be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a populated BatchElementError (see BatchElementError.ErrorCode "ErrorCodes"). The callback must be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Ensure that your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> responds appropriately when queried with relationship trait sets and a read policy to communicate to the host whether or not you are capable of handling queries for those relationships in this method. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a8295d760d137eb5b39a8ba7045c5597b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void getWithRelationshipsPaged </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
-          <td class="paramname"><em>entityReference</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;&#160;</td>
-          <td class="paramname"><em>relationshipTraitsDatas</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>resultTraitSet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>pageSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#ad42334e47f24d2460580dcbd10ccdb60">access::RelationsAccess</a>&#160;</td>
-          <td class="paramname"><em>relationsAccess</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>hostSession</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa828ae81cd203ad64641fc71fb0e90c8">PagedRelationshipSuccessCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>successCallback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>errorCallback</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Paged version of getWithRelationships. </p>
-<p>See non-paged <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a65714a4b9c134c1bd89c9bf4c9c408db">getWithRelationships</a> for further documentation.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">relationshipTraitsDatas</td><td>The traits of the relationships to query.</td></tr>
-    <tr><td class="paramname">entityReference</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> to query the specified relationships for.</td></tr>
     <tr><td class="paramname">pageSize</td><td>The size of each page of data. The page size is fixed for the lifetime of pager object given to the <code>successCallback</code>. Guaranteed to be greater than zero.</td></tr>
     <tr><td class="paramname">relationsAccess</td><td>The host's intended usage of the returned references.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
