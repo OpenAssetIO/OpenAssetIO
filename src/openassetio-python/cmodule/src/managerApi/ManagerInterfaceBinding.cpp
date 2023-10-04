@@ -97,6 +97,10 @@ struct PyManagerInterface : ManagerInterface {
                            hostSession, successCallback, errorCallback);
   }
 
+  [[nodiscard]] bool hasCapability(ManagerInterface::Capability capability) override {
+    PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, hasCapability, capability);
+  }
+
   [[nodiscard]] StrMap updateTerminology(StrMap terms,
                                          const HostSessionPtr& hostSession) override {
     PYBIND11_OVERRIDE(StrMap, ManagerInterface, updateTerminology, std::move(terms), hostSession);
@@ -185,8 +189,24 @@ void registerManagerInterface(const py::module& mod) {
   using openassetio::managerApi::PyManagerInterface;
   using openassetio::trait::TraitsDataPtr;
 
-  py::class_<ManagerInterface, PyManagerInterface, ManagerInterfacePtr>(mod, "ManagerInterface")
-      .def(py::init())
+  py::class_<ManagerInterface, PyManagerInterface, ManagerInterfacePtr> pyManagerInterface(
+      mod, "ManagerInterface");
+
+  py::enum_<ManagerInterface::Capability>{pyManagerInterface, "Capability"}
+      .value("kEntityReferenceIdentification",
+             ManagerInterface::Capability::kEntityReferenceIdentification)
+      .value("kManagementPolicyQueries", ManagerInterface::Capability::kManagementPolicyQueries)
+      .value("kStatefulContexts", ManagerInterface::Capability::kStatefulContexts)
+      .value("kCustomTerminology", ManagerInterface::Capability::kCustomTerminology)
+      .value("kResolution", ManagerInterface::Capability::kResolution)
+      .value("kPublishing", ManagerInterface::Capability::kPublishing)
+      .value("kRelationshipQueries", ManagerInterface::Capability::kRelationshipQueries)
+      .value("kExistenceQueries", ManagerInterface::Capability::kExistenceQueries)
+      .value("kDefaultEntityReferences", ManagerInterface::Capability::kDefaultEntityReferences);
+
+  pyManagerInterface.attr("kCapabilityNames") = ManagerInterface::kCapabilityNames;
+
+  pyManagerInterface.def(py::init())
       .def("identifier", &ManagerInterface::identifier)
       .def("displayName", &ManagerInterface::displayName)
       .def("info", &ManagerInterface::info)
@@ -209,6 +229,7 @@ void registerManagerInterface(const py::module& mod) {
       .def("entityExists", &ManagerInterface::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
+      .def("hasCapability", &ManagerInterface::hasCapability, py::arg("capability"))
       .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
            py::arg("hostSession").none(false))
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),

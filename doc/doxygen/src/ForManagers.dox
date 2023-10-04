@@ -105,8 +105,9 @@
  *
  * - Implement the @fqref{managerApi.ManagerInterface}
  *   "ManagerInterface" class methods
- *   @fqref{managerApi.ManagerInterface.identifier} "identifier" an
- *   @fqref{managerApi.ManagerInterface.displayName} "displayName".
+ *   @fqref{managerApi.ManagerInterface.identifier} "identifier",
+ *   @fqref{managerApi.ManagerInterface.displayName} "displayName" and
+ *   @fqref{managerApi.ManagerInterface.hasCapability} "hasCapability".
  *
  * - Implement @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to control which Host-side data types you wish

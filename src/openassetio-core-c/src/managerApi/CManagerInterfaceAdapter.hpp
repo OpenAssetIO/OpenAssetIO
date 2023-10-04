@@ -45,6 +45,9 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
   /// Wrap the C suite's `info` function.
   [[nodiscard]] InfoDictionary info() override;
 
+  // Wrap the C suite's `hasCapability` function.
+  [[nodiscard]] bool hasCapability(Capability capability) override;
+
   /// Wrap the C suite's `initialize` function.
   /// @todo Implement C API. Currently throws `runtime_error`.
   void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) override;

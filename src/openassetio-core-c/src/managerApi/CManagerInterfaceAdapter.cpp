@@ -81,6 +81,10 @@ InfoDictionary CManagerInterfaceAdapter::info() {
   return infoDict;
 }
 
+bool CManagerInterfaceAdapter::hasCapability([[maybe_unused]] Capability capability) {
+  throw errors::NotImplementedException{"Not implemented"};
+}
+
 void CManagerInterfaceAdapter::initialize([[maybe_unused]] InfoDictionary managerSettings,
                                           [[maybe_unused]] const HostSessionPtr& hostSession) {
   throw errors::NotImplementedException{"Not implemented"};

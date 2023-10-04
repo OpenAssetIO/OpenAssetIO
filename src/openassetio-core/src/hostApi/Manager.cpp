@@ -7,8 +7,10 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/constants.hpp>
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
+#include <openassetio/internal.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
@@ -63,6 +65,11 @@ Manager::Manager(managerApi::ManagerInterfacePtr managerInterface,
 Identifier Manager::identifier() const { return managerInterface_->identifier(); }
 
 Str Manager::displayName() const { return managerInterface_->displayName(); }
+
+bool Manager::hasCapability(Capability capability) {
+  return managerInterface_->hasCapability(
+      static_cast<managerApi::ManagerInterface::Capability>(capability));
+}
 
 InfoDictionary Manager::info() { return managerInterface_->info(); }
 
@@ -174,7 +181,7 @@ trait::TraitsDataPtr hostApi::Manager::resolve(
       },
       [&entityReference, resolveAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<access::Access>(resolveAccess));
+            error, index, entityReference, static_cast<internal::access::Access>(resolveAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -215,7 +222,8 @@ std::vector<trait::TraitsDataPtr> hostApi::Manager::resolve(
       [&entityReferences, resolveAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index], static_cast<access::Access>(resolveAccess));
+            error, index, entityReferences[index],
+            static_cast<internal::access::Access>(resolveAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -336,7 +344,8 @@ EntityReference Manager::preflight(
       },
       [&entityReference, publishingAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<access::Access>(publishingAccess));
+            error, index, entityReference,
+            static_cast<internal::access::Access>(publishingAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -375,7 +384,8 @@ EntityReferences Manager::preflight(
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index], static_cast<access::Access>(publishingAccess));
+            error, index, entityReferences[index],
+            static_cast<internal::access::Access>(publishingAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -431,7 +441,8 @@ EntityReference hostApi::Manager::register_(
       },
       [&entityReference, publishingAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<access::Access>(publishingAccess));
+            error, index, entityReference,
+            static_cast<internal::access::Access>(publishingAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -472,7 +483,8 @@ std::vector<EntityReference> hostApi::Manager::register_(
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index], static_cast<access::Access>(publishingAccess));
+            error, index, entityReferences[index],
+            static_cast<internal::access::Access>(publishingAccess));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 

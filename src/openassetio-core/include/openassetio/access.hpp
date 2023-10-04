@@ -3,8 +3,10 @@
 #pragma once
 
 #include <array>
+#include <type_traits>
 
 #include <openassetio/export.h>
+#include <openassetio/internal.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -12,16 +14,6 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  * Access modes available for API operations.
  */
 namespace access {
-
-/**
- * Common constant values for strong enumerations.
- *
- * We must ensure correspondence between the values of the various
- * workflows' strong enums. This allows for comparison, string lookup,
- * simplifies serialisation, and supports language (especially C)
- * bindings.
- */
-enum Access { kRead = 0, kWrite, kCreateRelated };
 
 /// Mapping of access enum value to human-readable name.
 [[maybe_unused]] constexpr std::array kAccessNames{"read", "write", "createRelated"};
@@ -36,19 +28,19 @@ enum Access { kRead = 0, kWrite, kCreateRelated };
  * functionality is supported by a manager, these constants largely
  * mirror those for the relevant API methods.
  */
-enum class PolicyAccess : int {
+enum class PolicyAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Host intends to read data.
    *
    * @see @ref ResolveAccess.kRead / @ref RelationsAccess.kRead
    */
-  kRead = kRead,
+  kRead = internal::access::Access::kRead,
   /**
    * Host intends to write data.
    *
    * @see @ref PublishingAccess.kWrite / @ref RelationsAccess.kWrite
    */
-  kWrite = kWrite,
+  kWrite = internal::access::Access::kWrite,
   /**
    * Hosts intends to write data for a new entity in relation to
    * another.
@@ -56,20 +48,20 @@ enum class PolicyAccess : int {
    * @see @ref PublishingAccess.kCreateRelated /
    * @ref RelationsAccess.kCreateRelated
    */
-  kCreateRelated = kCreateRelated,
+  kCreateRelated = internal::access::Access::kCreateRelated,
 };
 
 /**
  * Access pattern for @ref glossary_resolve "entity resolution".
  */
-enum class ResolveAccess : int {
+enum class ResolveAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to query an existing entity for information.
    *
    * For example, trait property values may be used to control the
    * loading of data from a resource, and its subsequent interpretation.
    */
-  kRead = kRead,
+  kRead = internal::access::Access::kRead,
   /**
    * Used by hosts to ask the manager how or where to write new data
    * for an entity.
@@ -78,13 +70,13 @@ enum class ResolveAccess : int {
    * writing of data to a resource, and specifics of its format or
    * content.
    */
-  kWrite = kWrite,
+  kWrite = internal::access::Access::kWrite,
 };
 
 /**
  * Access pattern for @ref publish "publishing".
  */
-enum class PublishingAccess : int {
+enum class PublishingAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used whenever the entity reference explicitly targets the specific
    * entity whose data is being written.
@@ -95,7 +87,7 @@ enum class PublishingAccess : int {
    * Hosts should also choose this access mode if unsure which access
    * mode is appropriate.
    */
-  kWrite = kWrite,
+  kWrite = internal::access::Access::kWrite,
   /**
    * Used whenever the entity reference points to an existing entity,
    * and the intention is to create a  new, related entity instead of
@@ -105,7 +97,7 @@ enum class PublishingAccess : int {
    * existing parent collection, or the publishing of the components of
    * a structured asset based on a single root entity reference.
    */
-  kCreateRelated = kCreateRelated,
+  kCreateRelated = internal::access::Access::kCreateRelated,
 };
 
 /**
@@ -116,11 +108,11 @@ enum class PublishingAccess : int {
  * @fqref{managerApi.ManagerInterface.getWithRelationship}
  * "ManagerInterface.getWithRelationship" (and similar).
  */
-enum class RelationsAccess : int {
+enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to retrieve references to pre-existing related entities.
    */
-  kRead = kRead,
+  kRead = internal::access::Access::kRead,
   /**
    * Used to retrieve references to related entities, with the intention
    * of writing data to them.
@@ -132,9 +124,9 @@ enum class RelationsAccess : int {
    *
    * This access mode should be used when the related entity already
    * exists, or where the host is unsure whether it exists or not.
-   * Otherwise see @ref kCreateRelated
+   * Otherwise see @ref RelationsAccess.kCreateRelated
    */
-  kWrite = kWrite,
+  kWrite = internal::access::Access::kWrite,
   /**
    * Used to allow the manager to dictate a list of entities that the
    * host should create.
@@ -145,9 +137,9 @@ enum class RelationsAccess : int {
    * a different target location on disk.
    *
    * For querying pre-existing related entities, with the intention of
-   * writing new data, see @ref kWrite.
+   * writing new data, see @ref RelationsAccess.kWrite.
    */
-  kCreateRelated = kCreateRelated,
+  kCreateRelated = internal::access::Access::kCreateRelated,
 };
 
 /**
@@ -159,14 +151,14 @@ enum class RelationsAccess : int {
  * @fqref{managerApi.ManagerInterface.defaultEntityReference}
  * "ManagerInterface.defaultEntityReference",
  */
-enum class DefaultEntityAccess : int {
+enum class DefaultEntityAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Indicate that the @ref manager should provide an entity reference
    * that can be queried for existing data.
    *
    * @see @ref ResolveAccess.kRead, @ref RelationsAccess.kRead
    */
-  kRead = kRead,
+  kRead = internal::access::Access::kRead,
 
   /**
    * Indicate that the @ref manager should provide a reference suitable
@@ -175,7 +167,7 @@ enum class DefaultEntityAccess : int {
    * @see @ref PublishingAccess.kWrite,
    * @ref RelationsAccess.kWrite
    */
-  kWrite = kWrite,
+  kWrite = internal::access::Access::kWrite,
 
   /**
    * Indicate that the @ref manager should provide an entity reference
@@ -184,7 +176,7 @@ enum class DefaultEntityAccess : int {
    * @see @ref PublishingAccess.kCreateRelated,
    * @ref RelationsAccess.kCreateRelated
    */
-  kCreateRelated = kCreateRelated
+  kCreateRelated = internal::access::Access::kCreateRelated
 };
 }  // namespace access
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

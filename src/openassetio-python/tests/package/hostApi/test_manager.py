@@ -39,7 +39,7 @@ from openassetio.errors import (
     InputValidationException,
 )
 from openassetio.hostApi import Manager, EntityReferencePager
-from openassetio.managerApi import EntityReferencePagerInterface
+from openassetio.managerApi import EntityReferencePagerInterface, ManagerInterface
 from openassetio.trait import TraitsData
 
 
@@ -238,6 +238,53 @@ class Test_Manager_initialize:
             mock_logger.Severity.kWarning,
             "Entity reference prefix given but is an invalid type: should be a string.",
         )
+
+
+manager_capabilities = [
+    (Manager.Capability.kStatefulContexts, ManagerInterface.Capability.kStatefulContexts),
+    (Manager.Capability.kCustomTerminology, ManagerInterface.Capability.kCustomTerminology),
+    (Manager.Capability.kResolution, ManagerInterface.Capability.kResolution),
+    (Manager.Capability.kPublishing, ManagerInterface.Capability.kPublishing),
+    (Manager.Capability.kRelationshipQueries, ManagerInterface.Capability.kRelationshipQueries),
+    (Manager.Capability.kExistenceQueries, ManagerInterface.Capability.kExistenceQueries),
+    (
+        Manager.Capability.kDefaultEntityReferences,
+        ManagerInterface.Capability.kDefaultEntityReferences,
+    ),
+]
+
+
+class Test_Manager_Capability:
+    def test_has_expected_number_of_values(self):
+        assert len(Manager.Capability.__members__.values()) == 7
+
+    @pytest.mark.parametrize(
+        "manager_capability,managerinterface_capability", manager_capabilities
+    )
+    def test_values_match_managerinterface(self, manager_capability, managerinterface_capability):
+        assert manager_capability.value == managerinterface_capability.value
+
+
+class Test_Manager_hasCapability:
+    @pytest.mark.parametrize(
+        "manager_capability,managerinterface_capability", manager_capabilities
+    )
+    @pytest.mark.parametrize("return_value", (True, False))
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+        self,
+        manager,
+        mock_manager_interface,
+        manager_capability,
+        managerinterface_capability,
+        return_value,
+    ):
+        method = mock_manager_interface.mock.hasCapability
+
+        mock_manager_interface.mock.hasCapability.return_value = return_value
+        actual_return_value = manager.hasCapability(manager_capability)
+
+        method.assert_called_once_with(managerinterface_capability)
+        assert actual_return_value == return_value
 
 
 class Test_Manager_flushCaches:

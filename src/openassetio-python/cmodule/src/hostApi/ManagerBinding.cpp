@@ -62,6 +62,15 @@ void registerManager(const py::module& mod) {
       .def_readonly_static("kException", &Manager::BatchElementErrorPolicyTag::kException)
       .def_readonly_static("kVariant", &Manager::BatchElementErrorPolicyTag::kVariant);
 
+  py::enum_<Manager::Capability>{pyManager, "Capability"}
+      .value("kStatefulContexts", Manager::Capability::kStatefulContexts)
+      .value("kCustomTerminology", Manager::Capability::kCustomTerminology)
+      .value("kResolution", Manager::Capability::kResolution)
+      .value("kPublishing", Manager::Capability::kPublishing)
+      .value("kRelationshipQueries", Manager::Capability::kRelationshipQueries)
+      .value("kExistenceQueries", Manager::Capability::kExistenceQueries)
+      .value("kDefaultEntityReferences", Manager::Capability::kDefaultEntityReferences);
+
   pyManager
       .def(py::init(RetainCommonPyArgs::forFn<&Manager::make>()),
            py::arg("managerInterface").none(false), py::arg("hostSession").none(false))
@@ -86,6 +95,7 @@ void registerManager(const py::module& mod) {
            py::arg("entityReferenceString"))
       .def("entityExists", &Manager::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"))
+      .def("hasCapability", &Manager::hasCapability, py::arg("capability"))
       .def("updateTerminology", &Manager::updateTerminology, py::arg("terms"))
       .def(
           "resolve",

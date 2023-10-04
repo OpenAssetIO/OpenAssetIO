@@ -35,7 +35,7 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
 
 std::string createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
                                                const EntityReference& entityReference,
-                                               access::Access access) {
+                                               internal::access::Access access) {
   /*
    * BatchElementException messages consist of five parts.
    * 1. The name of the error code.
