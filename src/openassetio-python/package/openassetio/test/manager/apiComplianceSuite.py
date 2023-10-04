@@ -98,6 +98,9 @@ class Test_updateTerminology(FixtureAugmentedTestCase):
     """
 
     def test_output_contains_input_terms(self):
+        if not self._manager.hasCapability(self._manager.Capability.kCustomTerminology):
+            self.skipTest("kCustomTerminology capability not implemented")
+
         terms = {"aTermKey🔥 ": "aTermValue🎖️", "aSecondTermKey": "aSecondTermValue"}
         return_terms = self._manager.updateTerminology(terms)
         self.assertEqual(sorted(terms.keys()), sorted(return_terms.keys()))

@@ -163,6 +163,11 @@
  * # for the entity. We inform the manager that we just want to read the
  * # current data for the entity (kRead). See the publishing examples
  * # for use of the alternative `kWrite` access mode.
+ *
+ * # First check that the manager has implemented resolution capability.
+ * if not manager.hasCapability(Manager.Capability.kResolution):
+ *   return
+
  * resolved_asset = manager.resolve(
  *         entity_reference, {LocatableContentTrait.kId},
  *         ResolveAccess.kRead, context)
@@ -175,23 +180,51 @@
  * an entity. In a real-world scenario, it is important to remember
  * that:
  *
+ * - Managers may not support a particular workflow at all.
  * - Managers may not handle certain types of entity (determined by
  *   their @ref trait_set).
  * - Managers may not be able to provide data for all traits.
  *
+ * @subsection Manager Capabilities
+ *
+ * The @fqref{hostApi.Manager.hasCapability} "hasCapability" method
+ * allows a host to determine which workflows that a manager has
+ * implemented.
+ *
+ * This is achieved by grouping sets of methods potentially implemented
+ * by the manager into "capabilities". These capabilities are defined
+ * in @fqref{hostApi.Manager.Capability} "Capability".
+ *
+ * Calling a method not implemented by the manager will result in an
+ * exception. Therefore hosts should check
+ * @fqref{hostApi.Manager.hasCapability} "hasCapability" before calling
+ * into any of these optional methods. The return value of
+ * @fqref{hostApi.Manager.hasCapability} "hasCapability"  is runtime
+ * invariant, post-@fqref{hostApi.Manager.initialize} "initialize",
+ * therefore the check only needs to be made once per manager.
+ *
+ * @subsection Management Policy
+ *
  * The @fqref{hostApi.Manager.managementPolicy} "managementPolicy"
- * method allows a host to query a manager's capabilities and its
- * intentions towards different types of entity.
+ * method allows a host to query a manager's behaviours and intentions
+ * towards different types of entity.
  *
  * This method should be used wherever possible to adapt the host's
  * behaviour so that:
  *
  * - The manager is not invoked in relation to unsupported entity types.
- * - User workflows are appropriate to the supported capabilities.
+ * - User workflows are appropriate to the supported behaviour for a
+ *   given entity type.
+ *
+ * Failing to check the policy leaves a host vulnerable to recieving
+ * empty, null or invalid data by making queries outside of the managers
+ * realm of understanding.
+ *
+ * @subsection Example
  *
  * This example demonstrates how to query a manager in relation to a
- * specific entity type - in this case a simple text file, and
- * inspect its capabilities.
+ * specific entity type - in this case a simple text file, and inspect
+ * its capabilities and the data it may be able to resolve for it.
  *
  * @code{.py}
  *
@@ -207,6 +240,10 @@
  * from openassetio_mediacreation.specifications.files import (
  *     # TextFileSpecification
  * )
+ *
+ * # Ensure that the manager is capable of the resolution workflow.
+ * if not manager.hasCapability(Manager.Capability.kResolution):
+ *   return
  *
  * # We use the well-known specification for a text file to determine
  * # the correct trait set to query. Using the standard definition
@@ -235,7 +272,6 @@
  *
  * if TextEncodingTrait.isImbuedTo(policy):
  *   print("The manager can provide the text encoding used")
- *
  * @endcode
  *
  *
@@ -255,6 +291,9 @@
  *     # TextFileSpecification
  * )
  *
+ * # Ensure that the manager supports publishing.
+ * if not manager.hasCapability(Manager.Capability.kPublishing):
+ *   return
  *
  * # As ever, an appropriately configured context is required
  * context = manager.createContext()
@@ -291,6 +330,11 @@
  *
  * # We then check if the manager can tell us where to save the file.
  * if ResolvesFutureEntitiesTrait.isImbuedTo(policy):
+ *
+ *     # Note we haven't used  `hasCapability` to check the resolution
+ *     # capability, as `ResolvedFutureEntitiesTrait` being imbued
+ *     # assures us the functionality is available.
+ *
  *     working_data = manager.resolve(
  *             working_ref, TextFileSpecification.kTraitSet,
  *             ResolveAccess.kWrite, context)
@@ -331,6 +375,10 @@
  * specifications that are yet to be finalized.
  *
  * @code{.py}
+ *
+ * # Ensure that the manager supports publishing.
+ * if not manager.hasCapability(Manager.Capability.kPublishing):
+ *   return
  *
  * # See if the manager wants a thumbnail
  * if not WantsThumbnailTrait.isImbuedTo(policy):

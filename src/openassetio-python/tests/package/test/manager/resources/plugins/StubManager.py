@@ -58,9 +58,18 @@ class StubManager(ManagerInterface):
         self.__settings = managerSettings
         self.__info["host_identifier"] = hostSession.host().identifier()
 
+    def hasCapability(self, capability):
+        return capability in (
+            ManagerInterface.Capability.kEntityReferenceIdentification,
+            ManagerInterface.Capability.kManagementPolicyQueries,
+        )
+
     def managementPolicy(self, traitSets, access, context, hostSession):
         # pylint: disable=unused-argument
         return [TraitsData() for _ in traitSets]
+
+    def isEntityReferenceString(self, _):
+        return False
 
 
 class StubManagerPlugin(PythonPluginSystemManagerPlugin):

@@ -2433,17 +2433,40 @@ class Test_Manager_createContext:
         assert not method_introspector.is_defined_in_python(Manager.createContext)
         assert method_introspector.is_implemented_once(Manager, "createContext")
 
-    def test_context_is_created_with_expected_properties(
-        self, manager, mock_manager_interface, a_host_session
-    ):
-        state_a = managerApi.ManagerStateBase()
-        mock_manager_interface.mock.createState.return_value = state_a
+    def test_context_is_created_with_locale(self, manager, mock_manager_interface, a_host_session):
+        mock_manager_interface.mock.hasCapability.return_value = False
 
         context_a = manager.createContext()
 
-        assert context_a.managerState is state_a
         assert isinstance(context_a.locale, TraitsData)
         assert context_a.locale.traitSet() == set()
+
+    def test_when_custom_state_not_supported_then_create_state_not_called(
+        self, manager, mock_manager_interface, a_host_session
+    ):
+        mock_manager_interface.mock.hasCapability.return_value = False
+
+        context_a = manager.createContext()
+
+        assert context_a.managerState is None
+        mock_manager_interface.mock.createState.assert_not_called()
+
+    def test_when_custom_state_supported_then_returned_context_contains_state(
+        self, manager, mock_manager_interface, a_host_session
+    ):
+        # setup
+
+        mock_manager_interface.mock.hasCapability.return_value = True
+        state_a = managerApi.ManagerStateBase()
+        mock_manager_interface.mock.createState.return_value = state_a
+
+        # action
+
+        context_a = manager.createContext()
+
+        # confirm
+
+        assert context_a.managerState is state_a
         mock_manager_interface.mock.createState.assert_called_once_with(a_host_session)
 
 

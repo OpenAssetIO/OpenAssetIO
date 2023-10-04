@@ -96,7 +96,9 @@ trait::TraitsDatas Manager::managementPolicy(const trait::TraitSets &traitSets,
 
 ContextPtr Manager::createContext() {
   ContextPtr context = Context::make();
-  context->managerState = managerInterface_->createState(hostSession_);
+  if (hasCapability(Capability::kStatefulContexts)) {
+    context->managerState = managerInterface_->createState(hostSession_);
+  }
   context->locale = trait::TraitsData::make();
   return context;
 }

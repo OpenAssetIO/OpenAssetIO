@@ -98,6 +98,11 @@
  *   user with an additional manual configuration mechanism for your
  *   specific API session if you so wish.
  *
+ * - Ask the manager if it supports the resolution workflow by calling
+ *   @fqref{hostApi.Manager.hasCapability} "Manager.hasCapability",
+ *   passing @fqref{hostApi.Manager.Capability.kResolution}
+ *   "kResolution".
+ *
  * - Create (and configure) a @ref Context as appropriate for calls to
  *   the API. Re-use context objects for all API calls that are related
  *   to the same user session or logical set of interactions. For
@@ -130,6 +135,11 @@
  * @see @ref examples_resolving_a_reference
  *
  * @subsection host_todo_required_publishing Required for Publishing
+ *
+ * - Ask the manager if it supports the publishing workflow by calling
+ *   @fqref{hostApi.Manager.hasCapability} "Manager.hasCapability",
+ *   passing @fqref{hostApi.Manager.Capability.kPublishing}
+ *   "kPublishing".
  *
  * - Ask the @ref manager if they support publishing for the relevant
  *   data by supplying its @ref trait_set to

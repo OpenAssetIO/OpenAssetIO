@@ -2,6 +2,8 @@
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
 #include <stdexcept>
 
+#include <fmt/format.h>
+
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
@@ -14,11 +16,29 @@ namespace managerApi {
 
 ManagerInterface::ManagerInterface() = default;
 
+#define UNIMPLEMENTED_ERROR(capability)                                                           \
+  fmt::format(                                                                                    \
+      "The '{}' method has not been implemented by the manager. Check manager capability for {} " \
+      "by calling `manager.hasCapability`.",                                                      \
+      __func__, ManagerInterface::kCapabilityNames[static_cast<size_t>(capability)])
+
 InfoDictionary ManagerInterface::info() { return {}; }
 
-StrMap ManagerInterface::updateTerminology(StrMap terms,
+// NOLINTNEXTLINE(performance-unnecessary-value-param)
+void ManagerInterface::initialize(InfoDictionary managerSettings,
+                                  [[maybe_unused]] const HostSessionPtr& hostSession) {
+  if (!managerSettings.empty()) {
+    throw errors::InputValidationException{
+        "Settings provided but are not supported. The initialize method has not been implemented "
+        "by the manager."};
+  }
+}
+
+// NOLINTNEXTLINE(performance-unnecessary-value-param)
+StrMap ManagerInterface::updateTerminology([[maybe_unused]] StrMap terms,
                                            [[maybe_unused]] const HostSessionPtr& hostSession) {
-  return terms;
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kCustomTerminology)};
 }
 
 InfoDictionary ManagerInterface::settings([[maybe_unused]] const HostSessionPtr& hostSession) {
@@ -27,29 +47,67 @@ InfoDictionary ManagerInterface::settings([[maybe_unused]] const HostSessionPtr&
 
 void ManagerInterface::flushCaches([[maybe_unused]] const HostSessionPtr& hostSession) {}
 
+trait::TraitsDatas ManagerInterface::managementPolicy(
+    [[maybe_unused]] const trait::TraitSets& traitSets,
+    [[maybe_unused]] access::PolicyAccess policyAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kManagementPolicyQueries)};
+}
+
+void ManagerInterface::entityExists(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::ExistsSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kExistenceQueries)};
+}
+
+void ManagerInterface::resolve(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitSet& traitSet,
+    [[maybe_unused]] access::ResolveAccess resolveAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kResolution)};
+}
+
 ManagerStateBasePtr ManagerInterface::createState(
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  return nullptr;
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kStatefulContexts)};
 }
 
 ManagerStateBasePtr ManagerInterface::createChildState(
     [[maybe_unused]] const ManagerStateBasePtr& parentState,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw errors::NotImplementedException(
-      "createChildState called on a manager that does not implement a custom state.");
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kStatefulContexts)};
 }
 
 Str ManagerInterface::persistenceTokenForState(
     [[maybe_unused]] const ManagerStateBasePtr& state,
     [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw errors::NotImplementedException(
-      "persistenceTokenForState called on a manager that does not implement a custom state.");
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kStatefulContexts)};
 }
 
 ManagerStateBasePtr ManagerInterface::stateFromPersistenceToken(
     [[maybe_unused]] const Str& token, [[maybe_unused]] const HostSessionPtr& hostSession) {
-  throw errors::NotImplementedException(
-      "stateFromPersistenceToken called on a manager that does not implement a custom state.");
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kStatefulContexts)};
+}
+
+bool ManagerInterface::isEntityReferenceString(
+    [[maybe_unused]] const Str& someString, [[maybe_unused]] const HostSessionPtr& hostSession) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kEntityReferenceIdentification)};
 }
 
 // To avoid changing this to non-static in the not too distant, when we
@@ -60,16 +118,14 @@ EntityReference ManagerInterface::createEntityReference(Str entityReferenceStrin
 }
 
 void ManagerInterface::defaultEntityReference(
-    const trait::TraitSets& traitSets,
+    [[maybe_unused]] const trait::TraitSets& traitSets,
     [[maybe_unused]] const access::DefaultEntityAccess defaultEntityAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    const DefaultEntityReferenceSuccessCallback& successCallback,
+    [[maybe_unused]] const DefaultEntityReferenceSuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  const auto size = traitSets.size();
-  for (size_t i = 0; i < size; ++i) {
-    successCallback(i, {});
-  }
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kDefaultEntityReferences)};
 }
 
 namespace {
@@ -88,35 +144,53 @@ class EmptyEntityReferencePagerInterface : public managerApi::EntityReferencePag
 }  // namespace
 
 void ManagerInterface::getWithRelationship(
-    const EntityReferences& entityReferences,
+    [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitsDataPtr& relationshipTraitsData,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    const RelationshipQuerySuccessCallback& successCallback,
+    [[maybe_unused]] const RelationshipQuerySuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  const auto size = entityReferences.size();
-
-  for (std::size_t idx = 0; idx < size; ++idx) {
-    successCallback(idx, std::make_shared<EmptyEntityReferencePagerInterface>());
-  }
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kRelationshipQueries)};
 }
 
 void ManagerInterface::getWithRelationships(
     [[maybe_unused]] const EntityReference& entityReference,
-    const trait::TraitsDatas& relationshipTraitsDatas,
+    [[maybe_unused]] const trait::TraitsDatas& relationshipTraitsDatas,
     [[maybe_unused]] const trait::TraitSet& resultTraitSet, [[maybe_unused]] size_t pageSize,
     [[maybe_unused]] const access::RelationsAccess relationsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    const RelationshipQuerySuccessCallback& successCallback,
+    [[maybe_unused]] const RelationshipQuerySuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
-  const auto size = relationshipTraitsDatas.size();
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kRelationshipQueries)};
+}
 
-  for (std::size_t idx = 0; idx < size; ++idx) {
-    successCallback(idx, std::make_shared<EmptyEntityReferencePagerInterface>());
-  }
+void ManagerInterface::preflight(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitsDatas& traitsHints,
+    [[maybe_unused]] access::PublishingAccess publishingAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::PreflightSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kPublishing)};
+}
+
+void ManagerInterface::register_(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const trait::TraitsDatas& entityTraitsDatas,
+    [[maybe_unused]] access::PublishingAccess publishingAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::RegisterSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kPublishing)};
 }
 
 }  // namespace managerApi

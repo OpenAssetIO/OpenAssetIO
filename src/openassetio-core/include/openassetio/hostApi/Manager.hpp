@@ -260,6 +260,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param terms Map of terms to be substituted by the manager.
    *
    * @return Substituted map of terms.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kCustomTerminology.
+   *
+   * @see @ref Capability.kCustomTerminology
    */
   StrMap updateTerminology(StrMap terms);
 
@@ -498,7 +505,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  supplied here. It does not encode the current locale or other
    *  propeties.
    *
-   *  @see @ref stable_resolution
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kStatefulContexts.
+   *
+   * @see @ref Capability.kStatefulContexts
+   * @see @ref stable_resolution
    */
   Str persistenceTokenForContext(const ContextPtr& context);
 
@@ -520,6 +533,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * restored by this action.
    *
    * @see @ref stable_resolution
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kStatefulContexts.
+   *
+   * @see @ref Capability.kStatefulContexts
    *
    * @todo Should we concatenate the manager id in
    * persistenceTokenForContext so we can verify that they match?
@@ -723,6 +743,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
    * that initiated the call to `entityExists`.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kExistenceQueries.
+   *
+   * @see @ref Capability.kExistenceQueries
    */
   void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
                     const ExistsSuccessCallback& successCallback,
@@ -819,6 +846,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
    * that initiated the call to `resolve`.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   *
+   * @see @ref Capability.kResolution
    */
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                access::ResolveAccess resolveAccess, const ContextConstPtr& context,
@@ -857,6 +891,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * BatchElementErrorPolicyTag::Exception.
    *
    * @return Populated data.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   *
+   * @see @ref Capability.kResolution
    */
   trait::TraitsDataPtr resolve(const EntityReference& entityReference,
                                const trait::TraitSet& traitSet,
@@ -900,6 +941,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Object containing either the populated data or an error
    * object.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   *
+   * @see @ref Capability.kResolution
    */
   std::variant<errors::BatchElementError, trait::TraitsDataPtr> resolve(
       const EntityReference& entityReference, const trait::TraitSet& traitSet,
@@ -939,6 +987,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * BatchElementErrorPolicyTag::Exception.
    *
    * @return List of populated data objects.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   *
+   * @see @ref Capability.kResolution
    */
   std::vector<trait::TraitsDataPtr> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
@@ -984,6 +1039,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return List of objects, each containing either the populated data
    * or an error.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   *
+   * @see @ref Capability.kResolution
    */
   std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>> resolve(
       const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
@@ -1038,6 +1100,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "kInvalidTraitSet" error will be used if the requested trait set is
    * not recognised by the manager. The callback will be called on the
    * same thread that initiated the call to `defaultEntityReference`.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kDefaultEntityReferences.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
    */
   void defaultEntityReference(const trait::TraitSets& traitSets,
                               access::DefaultEntityAccess defaultEntityAccess,
@@ -1149,6 +1218,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * entities should have.
    *
    * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
    */
   void getWithRelationship(const EntityReferences& entityReferences,
                            const trait::TraitsDataPtr& relationshipTraitsData, size_t pageSize,
@@ -1213,6 +1289,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * handles relationships of that type.
    *
    * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
    */
   void getWithRelationships(const EntityReference& entityReference,
                             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
@@ -1372,6 +1455,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * that initiated the call to `preflight`.
    *
    * @see @ref register_
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
                  access::PublishingAccess publishingAccess, const ContextConstPtr& context,
@@ -1415,6 +1505,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Updated reference to use for future interactions as part of
    * the publishing operation
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   EntityReference preflight(const EntityReference& entityReference,
                             const trait::TraitsDataPtr& traitsHint,
@@ -1464,6 +1561,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * interactions as part of the publishing operation, or an error
    * object detailing the reason for the failure of this particular
    * entity.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   std::variant<errors::BatchElementError, EntityReference> preflight(
       const EntityReference& entityReference, const trait::TraitsDataPtr& traitsHint,
@@ -1508,6 +1612,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Updated references to use for future interactions as part
    * of the publishing operation
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   EntityReferences preflight(const EntityReferences& entityReferences,
                              const trait::TraitsDatas& traitsHints,
@@ -1560,6 +1671,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * use for future interactions as part of the publishing operation, or
    * an error object detailing the reason for the failure of that
    * particular entity.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   std::vector<std::variant<errors::BatchElementError, EntityReference>> preflight(
       const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
@@ -1656,14 +1774,20 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return None
    *
-   * @exception std::out_of_range If @p entityReferences and
+   * @throws std::out_of_range If @p entityReferences and
    * @p entityTraitsDatas are not lists of the same length.
-   *
    * Other exceptions may be raised for fatal runtime errors, for
    * example server communication failure.
    *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
    * @see @fqref{trait.TraitsData} "TraitsData"
    * @see @ref preflight
+   * @see @ref Capability.kPublishing
+   *
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   void register_(const EntityReferences& entityReferences,
@@ -1708,6 +1832,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Updated reference to use for future interactions with the
    * resulting new entity.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   EntityReference register_(const EntityReference& entityReference,
@@ -1756,6 +1887,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Updated reference to use for future interactions with the
    * resulting new entity or an error object detailing the reason for
    * the failure of this particular entity.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::variant<errors::BatchElementError, EntityReference> register_(
@@ -1800,6 +1938,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Updated references to use for future interactions with the
    * resulting new entities.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::vector<EntityReference> register_(
@@ -1852,6 +1997,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * use in future interactions with the resulting new entity, or
    * an error object detailing the reason for the failure of that
    * particular entity.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kPublishing.
+   *
+   * @see @ref Capability.kPublishing
    */
   // NOLINTNEXTLINE(readability-identifier-naming)
   std::vector<std::variant<errors::BatchElementError, EntityReference>> register_(
