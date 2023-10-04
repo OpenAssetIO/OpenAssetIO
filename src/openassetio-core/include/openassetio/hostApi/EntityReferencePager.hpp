@@ -22,8 +22,8 @@ OPENASSETIO_DECLARE_PTR(EntityReferencePager)
  * @note Instances of this class should not be constructed directly by
  * the host.
  *
- * @see @ref Manager.getWithRelationshipPaged
- * @see @ref Manager.getWithRelationshipsPaged
+ * @see @ref Manager.getWithRelationship
+ * @see @ref Manager.getWithRelationships
  *
  * None of the functions of this class should be considered thread-safe.
  * Hosts should add their own synchronization around concurrent usage.

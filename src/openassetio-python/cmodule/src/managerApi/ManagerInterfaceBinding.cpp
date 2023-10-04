@@ -121,50 +121,28 @@ struct PyManagerInterface : ManagerInterface {
 
   void getWithRelationship(
       const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
-      const trait::TraitSet& resultTraitSet, const access::RelationsAccess relationsAccess,
-      const ContextConstPtr& context, const HostSessionPtr& hostSession,
-      const ManagerInterface::RelationshipSuccessCallback& successCallback,
-      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationship, entityReferences,
-                      relationshipTraitsData, resultTraitSet, relationsAccess, context,
-                      hostSession, successCallback, errorCallback);
-  }
-
-  void getWithRelationships(
-      const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
-      const trait::TraitSet& resultTraitSet, const access::RelationsAccess relationsAccess,
-      const ContextConstPtr& context, const HostSessionPtr& hostSession,
-      const ManagerInterface::RelationshipSuccessCallback& successCallback,
-      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, getWithRelationships, entityReference,
-                      relationshipTraitsDatas, resultTraitSet, relationsAccess, context,
-                      hostSession, successCallback, errorCallback);
-  }
-
-  void getWithRelationshipPaged(
-      const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
       const trait::TraitSet& resultTraitSet, size_t pageSize,
       const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
-      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
-        void, ManagerInterface, getWithRelationshipPaged,
+        void, ManagerInterface, getWithRelationship,
         (entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess,
          context, hostSession, successCallback, errorCallback),
         entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess,
         context, hostSession, RetainCommonPyArgs::forFn(successCallback), errorCallback);
   }
 
-  void getWithRelationshipsPaged(
+  void getWithRelationships(
       const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
       const trait::TraitSet& resultTraitSet, size_t pageSize,
       const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
       const HostSessionPtr& hostSession,
-      const ManagerInterface::PagedRelationshipSuccessCallback& successCallback,
+      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
       const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
-        void, ManagerInterface, getWithRelationshipsPaged,
+        void, ManagerInterface, getWithRelationships,
         (entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess,
          context, hostSession, successCallback, errorCallback),
         entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess,
@@ -240,26 +218,16 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("traitSets"), py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
            py::arg("errorCallback"))
-      .def("getWithRelationshipPaged", &ManagerInterface::getWithRelationshipPaged,
-           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("resultTraitSet"), py::arg("pageSize").none(false), py::arg("relationsAccess"),
-           py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
-      .def("getWithRelationshipsPaged", &ManagerInterface::getWithRelationshipsPaged,
-           py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-           py::arg("resultTraitSet"), py::arg("pageSize").none(false), py::arg("relationsAccess"),
-           py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("resultTraitSet"), py::arg("relationsAccess"), py::arg("context").none(false),
-           py::arg("hostSession").none(false), py::arg("successCallback"),
-           py::arg("errorCallback"))
+           py::arg("resultTraitSet"), py::arg("pageSize"), py::arg("relationsAccess"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationships", &ManagerInterface::getWithRelationships,
            py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-           py::arg("resultTraitSet"), py::arg("relationsAccess"), py::arg("context").none(false),
-           py::arg("hostSession").none(false), py::arg("successCallback"),
-           py::arg("errorCallback"))
+           py::arg("resultTraitSet"), py::arg("pageSize"), py::arg("relationsAccess"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"))
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
            py::arg("traitsHints"), py::arg("publishingAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),

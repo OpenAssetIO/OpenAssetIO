@@ -154,42 +154,21 @@ void registerManager(const py::module& mod) {
            py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("successCallback"), py::arg("errorCallback"))
       .def("getWithRelationship", &Manager::getWithRelationship, py::arg("entityReferences"),
-           py::arg("relationshipTraitsData").none(false), py::arg("relationsAccess"),
-           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
-           py::arg("resultTraitSet") = trait::TraitSet{})
+           py::arg("relationshipTraitsData").none(false), py::arg("pageSize"),
+           py::arg("relationsAccess"), py::arg("context").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"), py::arg("resultTraitSet") = trait::TraitSet{})
       .def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas,
-             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const Manager::RelationshipSuccessCallback& successCallback,
-             const Manager::BatchElementErrorCallback& errorCallback,
-             const trait::TraitSet& resultTraitSet) {
-            validateTraitsDatas(relationshipTraitsDatas);
-            self.getWithRelationships(entityReference, relationshipTraitsDatas, relationsAccess,
-                                      context, successCallback, errorCallback, resultTraitSet);
-          },
-          py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
-          py::arg("context").none(false), py::arg("context").none(false),
-          py::arg("successCallback"), py::arg("errorCallback"),
-          py::arg("resultTraitSet") = trait::TraitSet{})
-      .def("getWithRelationshipPaged", &Manager::getWithRelationshipPaged,
-           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
-           py::arg("resultTraitSet") = trait::TraitSet{})
-      .def(
-          "getWithRelationshipsPaged",
-          [](Manager& self, const EntityReference& entityReference,
              const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const Manager::PagedRelationshipSuccessCallback& successCallback,
+             const Manager::RelationshipQuerySuccessCallback& successCallback,
              const Manager::BatchElementErrorCallback& errorCallback,
              const trait::TraitSet& resultTraitSet) {
             validateTraitsDatas(relationshipTraitsDatas);
-            self.getWithRelationshipsPaged(entityReference, relationshipTraitsDatas, pageSize,
-                                           relationsAccess, context, successCallback,
-                                           errorCallback, resultTraitSet);
+            self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
+                                      relationsAccess, context, successCallback, errorCallback,
+                                      resultTraitSet);
           },
           py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
           py::arg("relationsAccess"), py::arg("context").none(false), py::arg("successCallback"),

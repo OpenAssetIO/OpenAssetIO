@@ -286,6 +286,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         entityReferences,
         relationshipTraitsData,
         resultTraitSet,
+        pageSize,
         relationsAccess,
         context,
         hostSession,
@@ -298,12 +299,15 @@ class ValidatingMockManagerInterface(ManagerInterface):
         self.__assertCallingContext(context, hostSession)
         assert isinstance(resultTraitSet, set)
         self.__assertIsIterableOf(resultTraitSet, str)
+        assert isinstance(pageSize, int)
+        assert pageSize > 0
         assert callable(successCallback)
         assert callable(errorCallback)
         return self.mock.getWithRelationship(
             entityReferences,
             relationshipTraitsData,
             resultTraitSet,
+            pageSize,
             relationsAccess,
             context,
             hostSession,
@@ -316,6 +320,7 @@ class ValidatingMockManagerInterface(ManagerInterface):
         entityReference,
         relationshipTraitsDatas,
         resultTraitSet,
+        pageSize,
         relationsAccess,
         context,
         hostSession,
@@ -326,80 +331,13 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert isinstance(entityReference, EntityReference)
         assert isinstance(relationsAccess, RelationsAccess)
         self.__assertCallingContext(context, hostSession)
+        assert isinstance(pageSize, int)
+        assert pageSize > 0
         assert callable(successCallback)
         assert callable(errorCallback)
         assert isinstance(resultTraitSet, set)
         self.__assertIsIterableOf(resultTraitSet, str)
         return self.mock.getWithRelationships(
-            entityReference,
-            relationshipTraitsDatas,
-            resultTraitSet,
-            relationsAccess,
-            context,
-            hostSession,
-            successCallback,
-            errorCallback,
-        )
-
-    # Paged overload
-    def getWithRelationshipPaged(
-        self,
-        entityReferences,
-        relationshipTraitsData,
-        resultTraitSet,
-        pageSize,
-        relationsAccess,
-        context,
-        hostSession,
-        successCallback,
-        errorCallback,
-    ):
-        assert isinstance(relationshipTraitsData, TraitsData)
-        self.__assertIsIterableOf(entityReferences, EntityReference)
-        assert isinstance(relationsAccess, RelationsAccess)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(resultTraitSet, set)
-        self.__assertIsIterableOf(resultTraitSet, str)
-        assert isinstance(pageSize, int)
-        assert pageSize > 0
-        assert callable(successCallback)
-        assert callable(errorCallback)
-        return self.mock.getWithRelationshipPaged(
-            entityReferences,
-            relationshipTraitsData,
-            resultTraitSet,
-            pageSize,
-            relationsAccess,
-            context,
-            hostSession,
-            successCallback,
-            errorCallback,
-        )
-
-    # Paged overload
-    def getWithRelationshipsPaged(
-        self,
-        entityReference,
-        relationshipTraitsDatas,
-        resultTraitSet,
-        pageSize,
-        relationsAccess,
-        context,
-        hostSession,
-        successCallback,
-        errorCallback,
-    ):
-        self.__assertIsIterableOf(relationshipTraitsDatas, TraitsData)
-        assert isinstance(entityReference, EntityReference)
-        assert isinstance(relationsAccess, RelationsAccess)
-        self.__assertCallingContext(context, hostSession)
-        assert isinstance(pageSize, int)
-        assert pageSize > 0
-        assert callable(successCallback)
-        assert callable(errorCallback)
-        assert isinstance(resultTraitSet, set)
-        self.__assertIsIterableOf(resultTraitSet, str)
-        return self.mock.getWithRelationshipsPaged(
             entityReference,
             relationshipTraitsDatas,
             resultTraitSet,

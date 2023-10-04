@@ -61,27 +61,28 @@ jobs:
           # `openassetio` package.
           python -m pip install pytest
 
-      - name: Checkout BAL
-        uses: actions/checkout@v4
-        with:
-          repository: OpenAssetIO/OpenAssetIO-Manager-BAL
-          path: external/BAL
-
-      - name: Test BAL
-        run: |
-          python -m pip install external/BAL
-          # We can't install BAL's requirements.txt as this includes
-          # openassetio... we really need to sort
-          # https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/72
-          python -m pip install openassetio-mediacreation
-          python -m pip install -r external/BAL/tests/requirements.txt
-          python -m pytest -v external/BAL/tests
-
-      - name: Test Simple Resolver
-        run: |
-          python -m pytest -v examples/host/simpleResolver
-        env:
-          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
+      # Disabled pending https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL
+#      - name: Checkout BAL
+#        uses: actions/checkout@v4
+#        with:
+#          repository: OpenAssetIO/OpenAssetIO-Manager-BAL
+#          path: external/BAL
+#
+#      - name: Test BAL
+#        run: |
+#          python -m pip install external/BAL
+#          # We can't install BAL's requirements.txt as this includes
+#          # openassetio... we really need to sort
+#          # https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/72
+#          python -m pip install openassetio-mediacreation
+#          python -m pip install -r external/BAL/tests/requirements.txt
+#          python -m pytest -v external/BAL/tests
+#
+#      - name: Test Simple Resolver
+#        run: |
+#          python -m pytest -v examples/host/simpleResolver
+#        env:
+#          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/external/BAL/plugin
 
       - name: Checkout TraitGen
         uses: actions/checkout@v4

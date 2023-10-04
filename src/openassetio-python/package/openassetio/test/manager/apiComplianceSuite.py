@@ -581,7 +581,7 @@ class Test_register(FixtureAugmentedTestCase):
 class Test_getWithRelationship_All(FixtureAugmentedTestCase):
     """
     Check plugin's implementation of
-    managerApi.ManagerInterface.getWithRelationship[s][Paged]
+    managerApi.ManagerInterface.getWithRelationship[s]
     """
 
     def test_when_relation_unknown_then_no_pages_returned(self):
@@ -589,19 +589,11 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         an_unknown_rel = TraitsData({"🐠🐟🐠🐟"})
 
         with self.subTest("getWithRelationship"):
-            results = self.__test_getWithRelationship_success([a_ref], an_unknown_rel)
-            self.assertListEqual(results, [[]])
-
-        with self.subTest("getWithRelationships"):
-            results = self.__test_getWithRelationships_success(a_ref, [an_unknown_rel])
-            self.assertListEqual(results, [[]])
-
-        with self.subTest("getWithRelationshipPaged"):
-            [pager] = self.__test_getWithRelationshipPaged_success([a_ref], an_unknown_rel)
+            [pager] = self.__test_getWithRelationship_success([a_ref], an_unknown_rel)
             self.__assert_pager_is_at_end(pager)
 
-        with self.subTest("getWithRelationshipsPaged"):
-            [pager] = self.__test_getWithRelationshipsPaged_success(a_ref, [an_unknown_rel])
+        with self.subTest("getWithRelationships"):
+            [pager] = self.__test_getWithRelationships_success(a_ref, [an_unknown_rel])
             self.__assert_pager_is_at_end(pager)
 
     def test_when_batched_then_same_number_of_returned_relationships(self):
@@ -609,19 +601,11 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         a_ref = self.requireEntityReferenceFixture("a_reference")
 
         with self.subTest("getWithRelationship"):
-            results = self.__test_getWithRelationship_success([a_ref] * 5, a_rel)
-            self.assertEqual(len(results), 5)
-
-        with self.subTest("getWithRelationships"):
-            results = self.__test_getWithRelationships_success(a_ref, [a_rel] * 5)
-            self.assertEqual(len(results), 5)
-
-        with self.subTest("getWithRelationshipPaged"):
-            pagers = self.__test_getWithRelationshipPaged_success([a_ref] * 5, a_rel)
+            pagers = self.__test_getWithRelationship_success([a_ref] * 5, a_rel)
             self.assertEqual(len(pagers), 5)
 
-        with self.subTest("getWithRelationshipsPaged"):
-            pagers = self.__test_getWithRelationshipsPaged_success(a_ref, [a_rel] * 5)
+        with self.subTest("getWithRelationships"):
+            pagers = self.__test_getWithRelationships_success(a_ref, [a_rel] * 5)
             self.assertEqual(len(pagers), 5)
 
     def test_when_relationship_trait_set_known_then_all_with_trait_set_returned(self):
@@ -630,20 +614,12 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
         with self.subTest("getWithRelationship"):
-            [actual] = self.__test_getWithRelationship_success([a_ref], a_rel)
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationships"):
-            [actual] = self.__test_getWithRelationships_success(a_ref, [a_rel])
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationshipPaged"):
-            [pager] = self.__test_getWithRelationshipPaged_success([a_ref], a_rel)
+            [pager] = self.__test_getWithRelationship_success([a_ref], a_rel)
             actual = self.__concat_all_pages(pager)
             self.assertListEqual(actual, expected)
 
-        with self.subTest("getWithRelationshipsPaged"):
-            [pager] = self.__test_getWithRelationshipsPaged_success(a_ref, [a_rel])
+        with self.subTest("getWithRelationships"):
+            [pager] = self.__test_getWithRelationships_success(a_ref, [a_rel])
             actual = self.__concat_all_pages(pager)
             self.assertListEqual(actual, expected)
 
@@ -655,20 +631,12 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
         with self.subTest("getWithRelationship"):
-            [actual] = self.__test_getWithRelationship_success([a_ref], a_rel)
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationships"):
-            [actual] = self.__test_getWithRelationships_success(a_ref, [a_rel])
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationshipPaged"):
-            [pager] = self.__test_getWithRelationshipPaged_success([a_ref], a_rel)
+            [pager] = self.__test_getWithRelationship_success([a_ref], a_rel)
             actual = self.__concat_all_pages(pager)
             self.assertListEqual(actual, expected)
 
-        with self.subTest("getWithRelationshipsPaged"):
-            [pager] = self.__test_getWithRelationshipsPaged_success(a_ref, [a_rel])
+        with self.subTest("getWithRelationships"):
+            [pager] = self.__test_getWithRelationships_success(a_ref, [a_rel])
             actual = self.__concat_all_pages(pager)
             self.assertListEqual(actual, expected)
 
@@ -679,26 +647,14 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         expected = self.requireEntityReferencesFixture("expected_related_entity_references")
 
         with self.subTest("getWithRelationship"):
-            [actual] = self.__test_getWithRelationship_success(
-                [a_ref], a_rel, resultTraitSet=result_trait_set
-            )
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationships"):
-            [actual] = self.__test_getWithRelationships_success(
-                a_ref, [a_rel], resultTraitSet=result_trait_set
-            )
-            self.assertListEqual(actual, expected)
-
-        with self.subTest("getWithRelationshipPaged"):
-            [pager] = self.__test_getWithRelationshipPaged_success(
+            [pager] = self.__test_getWithRelationship_success(
                 [a_ref], a_rel, resultTraitSet=result_trait_set
             )
             actual = self.__concat_all_pages(pager)
             self.assertListEqual(actual, expected)
 
-        with self.subTest("getWithRelationshipsPaged"):
-            [pager] = self.__test_getWithRelationshipsPaged_success(
+        with self.subTest("getWithRelationships"):
+            [pager] = self.__test_getWithRelationships_success(
                 a_ref, [a_rel], resultTraitSet=result_trait_set
             )
             actual = self.__concat_all_pages(pager)
@@ -728,22 +684,6 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
                 expected_error_message,
             )
 
-        with self.subTest("getWithRelationshipPaged"):
-            self.__test_getWithRelationshipPaged_error(
-                entity_reference,
-                relationship_trait_set,
-                expected_error_code,
-                expected_error_message,
-            )
-
-        with self.subTest("getWithRelationshipsPaged"):
-            self.__test_getWithRelationshipsPaged_error(
-                entity_reference,
-                relationship_trait_set,
-                expected_error_code,
-                expected_error_message,
-            )
-
     def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
         relationship_trait_set = self.requireFixture(
             "a_relationship_trait_set", skipTestIfMissing=True
@@ -762,22 +702,6 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
 
         with self.subTest("getWithRelationships"):
             self.__test_getWithRelationships_error(
-                entity_reference,
-                relationship_trait_set,
-                expected_error_code,
-                expected_error_message,
-            )
-
-        with self.subTest("getWithRelationshipPaged"):
-            self.__test_getWithRelationshipPaged_error(
-                entity_reference,
-                relationship_trait_set,
-                expected_error_code,
-                expected_error_message,
-            )
-
-        with self.subTest("getWithRelationshipsPaged"):
-            self.__test_getWithRelationshipsPaged_error(
                 entity_reference,
                 relationship_trait_set,
                 expected_error_code,
@@ -829,17 +753,17 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             self.__assert_pager_is_at_end(pager)
 
         for page_size in (1, 2):
-            with self.subTest("getWithRelationshipPaged", page_size=page_size):
+            with self.subTest("getWithRelationship", page_size=page_size):
                 test_for_page_size(
                     page_size,
-                    lambda pageSize=page_size: self.__test_getWithRelationshipPaged_success(
+                    lambda pageSize=page_size: self.__test_getWithRelationship_success(
                         [a_ref], a_rel, pageSize=pageSize
                     ),
                 )
-            with self.subTest("getWithRelationshipsPaged", page_size=page_size):
+            with self.subTest("getWithRelationships", page_size=page_size):
                 test_for_page_size(
                     page_size,
-                    lambda pageSize=page_size: self.__test_getWithRelationshipsPaged_success(
+                    lambda pageSize=page_size: self.__test_getWithRelationships_success(
                         a_ref, [a_rel], pageSize=pageSize
                     ),
                 )
@@ -879,11 +803,11 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
                 weakref.ref(result_trait_set),
             )
 
-        with self.subTest("getWithRelationshipPaged"):
+        with self.subTest("getWithRelationship"):
             _pager, *weak_args = get_pager_and_weakref_args(
                 lambda refs, relationships, context, result_trait_set:
                 # Call method to get pager under test.
-                self.__test_getWithRelationshipPaged_success(
+                self.__test_getWithRelationship_success(
                     refs, relationships[0], context=context, resultTraitSet=result_trait_set
                 )
             )
@@ -892,11 +816,11 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             living_args = [weak_arg() for weak_arg in weak_args]
             self.assertListEqual(living_args, [None] * len(living_args))
 
-        with self.subTest("getWithRelationshipsPaged"):
+        with self.subTest("getWithRelationships"):
             _pager, *weak_args = get_pager_and_weakref_args(
                 lambda refs, relationships, context, result_trait_set:
                 # Call method to get pager under test.
-                self.__test_getWithRelationshipsPaged_success(
+                self.__test_getWithRelationships_success(
                     refs[0], relationships, context=context, resultTraitSet=result_trait_set
                 )
             )
@@ -905,48 +829,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             living_args = [weak_arg() for weak_arg in weak_args]
             self.assertListEqual(living_args, [None] * len(living_args))
 
-    def __test_getWithRelationship_success(self, references, relationship, resultTraitSet=None):
-        if resultTraitSet is None:
-            resultTraitSet = set()
-        context = self.createTestContext()
-        results = []
-
-        self._manager.getWithRelationship(
-            references,
-            relationship,
-            RelationsAccess.kRead,
-            context,
-            lambda _idx, traits_data: results.append(traits_data),
-            lambda idx, batch_element_error: self.fail(
-                f"getWithRelationship should not error for: '{references[idx].toString()}': "
-                f"{batch_element_error.message}"
-            ),
-            resultTraitSet,
-        )
-        return results
-
-    def __test_getWithRelationships_success(self, reference, relationships, resultTraitSet=None):
-        if resultTraitSet is None:
-            resultTraitSet = set()
-        context = self.createTestContext()
-        results = []
-
-        self._manager.getWithRelationships(
-            reference,
-            relationships,
-            RelationsAccess.kRead,
-            context,
-            lambda _idx, traits_data: results.append(traits_data),
-            lambda idx, batch_element_error: self.fail(
-                f"getWithRelationships should not error for index {idx}: "
-                f"{batch_element_error.message}"
-            ),
-            resultTraitSet,
-        )
-
-        return results
-
-    def __test_getWithRelationshipPaged_success(
+    def __test_getWithRelationship_success(
         self, references, relationship, pageSize=10, context=None, resultTraitSet=None
     ):
         if context is None:
@@ -957,7 +840,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
 
         pagers = [None] * len(references)
 
-        self._manager.getWithRelationshipPaged(
+        self._manager.getWithRelationship(
             references,
             relationship,
             pageSize,
@@ -965,7 +848,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             context,
             lambda idx, pager: operator.setitem(pagers, idx, pager),
             lambda idx, batch_element_error: self.fail(
-                f"getWithRelationshipPaged should not error for: '{references[idx].toString()}': "
+                f"getWithRelationship should not error for: '{references[idx].toString()}': "
                 f"{batch_element_error.message}"
             ),
             resultTraitSet,
@@ -974,7 +857,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         self.assertTrue(all(pager is not None for pager in pagers))
         return pagers
 
-    def __test_getWithRelationshipsPaged_success(
+    def __test_getWithRelationships_success(
         self, reference, relationships, pageSize=10, context=None, resultTraitSet=None
     ):
         if context is None:
@@ -985,7 +868,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
 
         pagers = [None] * len(relationships)
 
-        self._manager.getWithRelationshipsPaged(
+        self._manager.getWithRelationships(
             reference,
             relationships,
             pageSize,
@@ -993,7 +876,7 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
             context,
             lambda idx, pager: operator.setitem(pagers, idx, pager),
             lambda idx, batch_element_error: self.fail(
-                f"getWithRelationshipsPaged should not error for index {idx}: "
+                f"getWithRelationships should not error for index {idx}: "
                 f"{batch_element_error.message}"
             ),
             resultTraitSet,
@@ -1016,12 +899,14 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         relationship = TraitsData(relationship_trait_set)
 
         results = []
+
         self._manager.getWithRelationship(
             [entity_reference],
             relationship,
+            1,
             RelationsAccess.kRead,
             context,
-            lambda _idx, _refs: self.fail("Unexpected success callback"),
+            lambda _idx, _pager: self.fail("Unexpected success callback"),
             lambda _idx, batch_element_error: results.append(batch_element_error),
         )
         [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
@@ -1042,62 +927,8 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         relationship = TraitsData(relationship_trait_set)
 
         results = []
+
         self._manager.getWithRelationships(
-            entity_reference,
-            [relationship],
-            RelationsAccess.kRead,
-            context,
-            lambda _idx, _refs: self.fail("Unexpected success callback"),
-            lambda _idx, batch_element_error: results.append(batch_element_error),
-        )
-        [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
-
-        self.assertEqual(actual_error, expected_error)
-
-    def __test_getWithRelationshipPaged_error(
-        self,
-        entity_reference,
-        relationship_trait_set,
-        expected_error_code,
-        expected_error_message,
-    ):
-        expected_error = BatchElementError(expected_error_code, expected_error_message)
-
-        context = self.createTestContext()
-
-        relationship = TraitsData(relationship_trait_set)
-
-        results = []
-
-        self._manager.getWithRelationshipPaged(
-            [entity_reference],
-            relationship,
-            1,
-            RelationsAccess.kRead,
-            context,
-            lambda _idx, _pager: self.fail("Unexpected success callback"),
-            lambda _idx, batch_element_error: results.append(batch_element_error),
-        )
-        [actual_error] = results  # pylint: disable=unbalanced-tuple-unpacking
-
-        self.assertEqual(actual_error, expected_error)
-
-    def __test_getWithRelationshipsPaged_error(
-        self,
-        entity_reference,
-        relationship_trait_set,
-        expected_error_code,
-        expected_error_message,
-    ):
-        expected_error = BatchElementError(expected_error_code, expected_error_message)
-
-        context = self.createTestContext()
-
-        relationship = TraitsData(relationship_trait_set)
-
-        results = []
-
-        self._manager.getWithRelationshipsPaged(
             entity_reference,
             [relationship],
             1,

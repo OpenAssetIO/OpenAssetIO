@@ -13,6 +13,18 @@ v1.0.0-alpha.xx
 
 ### Breaking changes
 
+- Renamed the `Manager`/`ManagerInterface`
+  `PagedRelationshipSuccessCallback` to
+  `RelationshipQuerySuccessCallback` to better reflect the default of
+  pagnation, and reduce ambiguity when relationship creation methods are
+  added in the future.
+  [#1125](https://github.com/OpenAssetIO/OpenAssetIO/issues/1125)
+
+- Removed non-paged versions of the `Manager`/`ManagerInterface`
+  relationship query methods, and renamed the paged methods to remove
+  the `Paged` suffix.
+  [#1125](https://github.com/OpenAssetIO/OpenAssetIO/issues/1125)
+
 - Attempting to retrieve a trait property with
   `TraitsData.getTraitProperty` or using trait view classes no longer
   raises an exception if the trait itself is missing. This simplifies
