@@ -10,6 +10,15 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "RegisterSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2", null ],
     [ "RelationshipQuerySuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa5b6518556c1565718132fd069929a07", null ],
     [ "ResolveSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8d3d52b9a3baff068079c6559f3a894a", null ],
+    [ "Capability", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2c", [
+      [ "kStatefulContexts", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e", null ],
+      [ "kCustomTerminology", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca66a22fd542484038ccf8cccd8ff62be7", null ],
+      [ "kResolution", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c", null ],
+      [ "kPublishing", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416", null ],
+      [ "kRelationshipQueries", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006", null ],
+      [ "kExistenceQueries", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99", null ],
+      [ "kDefaultEntityReferences", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45", null ]
+    ] ],
     [ "contextFromPersistenceToken", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0", null ],
     [ "createChildContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021", null ],
     [ "createContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1", null ],
@@ -21,6 +30,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "flushCaches", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aad6d423f15196231b80568c62266fefa", null ],
     [ "getWithRelationship", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b8070bff767608d79f44b2d85c6a582", null ],
     [ "getWithRelationships", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a83b52a53d656fa5ec14e93c2de42d9c4", null ],
+    [ "hasCapability", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860", null ],
     [ "identifier", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39", null ],
     [ "info", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a77822ddc3c077028f2b0853dc89a07f7", null ],
     [ "initialize", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df", null ],

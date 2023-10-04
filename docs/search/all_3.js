@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['capability',['Capability',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2c',1,'openassetio::v1::hostApi::Manager::Capability()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c',1,'openassetio::v1::managerApi::ManagerInterface::Capability()'],['../namespaceopenassetio_1_1v1_1_1internal_1_1capability_1_1manager.html#a69ac1f82dbeebf462b1e9962f0a83caa',1,'openassetio::v1::internal::capability::manager::Capability()']]],
   ['castfrompyobject',['castFromPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#aabce31410223a8d5941005669434ed0b',1,'openassetio::v1::python::converter']]],
   ['casttopyobject',['castToPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#acd4057ac2926074a2a4d3c5e91a4e2d8',1,'openassetio::v1::python::converter']]],
   ['close',['close',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd',1,'openassetio::v1::managerApi::EntityReferencePagerInterface']]],
