@@ -25,7 +25,7 @@ void registerManagerFactory(const py::module& mod) {
       .def(py::init(RetainCommonPyArgs::forFn<&ManagerFactory::make>()),
            py::arg("hostInterface").none(false),
            py::arg("managerImplementationFactory").none(false), py::arg("logger").none(false))
-      .def("identifiers", &ManagerFactory::identifiers);
+      .def("identifiers", &ManagerFactory::identifiers, py::call_guard<py::gil_scoped_release>{});
 
   py::class_<ManagerFactory::ManagerDetail>(managerFactory, "ManagerDetail")
       .def(py::init<openassetio::Identifier, openassetio::Str, openassetio::InfoDictionary>(),
@@ -35,15 +35,18 @@ void registerManagerFactory(const py::module& mod) {
       .def_readwrite("info", &ManagerFactory::ManagerDetail::info)
       .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
 
-  managerFactory.def("availableManagers", &ManagerFactory::availableManagers)
+  managerFactory
+      .def("availableManagers", &ManagerFactory::availableManagers,
+           py::call_guard<py::gil_scoped_release>{})
       .def_readonly_static("kDefaultManagerConfigEnvVarName",
                            &ManagerFactory::kDefaultManagerConfigEnvVarName)
-      .def("createManager", &ManagerFactory::createManager, py::arg("identifier"))
+      .def("createManager", &ManagerFactory::createManager, py::arg("identifier"),
+           py::call_guard<py::gil_scoped_release>{})
       .def_static("createManagerForInterface",
                   RetainCommonPyArgs::forFn<&ManagerFactory::createManagerForInterface>(),
                   py::arg("identifier"), py::arg("hostInterface").none(false),
                   py::arg("managerImplementationFactory").none(false),
-                  py::arg("logger").none(false))
+                  py::arg("logger").none(false), py::call_guard<py::gil_scoped_release>{})
       .def_static("defaultManagerForInterface",
                   RetainCommonPyArgs::forFn<static_cast<ManagerPtr (*)(
                       std::string_view, const HostInterfacePtr&,
@@ -51,12 +54,12 @@ void registerManagerFactory(const py::module& mod) {
                       &ManagerFactory::defaultManagerForInterface)>(),
                   py::arg("configPath"), py::arg("hostInterface").none(false),
                   py::arg("managerImplementationFactory").none(false),
-                  py::arg("logger").none(false))
+                  py::arg("logger").none(false), py::call_guard<py::gil_scoped_release>{})
       .def_static("defaultManagerForInterface",
                   RetainCommonPyArgs::forFn<static_cast<ManagerPtr (*)(
                       const HostInterfacePtr&, const ManagerImplementationFactoryInterfacePtr&,
                       const LoggerInterfacePtr&)>(&ManagerFactory::defaultManagerForInterface)>(),
                   py::arg("hostInterface").none(false),
                   py::arg("managerImplementationFactory").none(false),
-                  py::arg("logger").none(false));
+                  py::arg("logger").none(false), py::call_guard<py::gil_scoped_release>{});
 }

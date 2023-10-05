@@ -22,7 +22,7 @@ void registerEntityReferencePager(const py::module& mod) {
       .def(py::init(RetainCommonPyArgs::forFn<&EntityReferencePager::make>()),
            py::arg("entityReferencePagerInterface").none(false),
            py::arg("hostSession").none(false))
-      .def("hasNext", &EntityReferencePager::hasNext)
-      .def("get", &EntityReferencePager::get)
-      .def("next", &EntityReferencePager::next);
+      .def("hasNext", &EntityReferencePager::hasNext, py::call_guard<py::gil_scoped_release>{})
+      .def("get", &EntityReferencePager::get, py::call_guard<py::gil_scoped_release>{})
+      .def("next", &EntityReferencePager::next, py::call_guard<py::gil_scoped_release>{});
 }

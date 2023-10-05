@@ -404,6 +404,33 @@ So for types that are converted to/from native Python types, it is safe
 to assign them as default argument values.  Note that this includes
 e.g. `std::vector` (Python `list`), which is _not_ safe in pure Python.
 
+### The GIL
+
+The GIL should be released for non-trivial bound methods using
+```c++
+py::call_guard<py::gil_scoped_release>{}
+```
+in the pybind11 `.def(...)` arguments (see [pybind11
+docs](https://pybind11.readthedocs.io/en/stable/advanced/misc.html#global-interpreter-lock-gil)).
+This allows other Python threads to continue while the C++ function
+body runs.
+
+Releasing the GIL also prevents deadlocks in case the C++ function body
+spawns and waits on a thread that calls out to Python. This is
+particularly important for methods that ultimately call out to functions
+provided externally (e.g. manager plugins).
+
+Any methods not released should be in O(1) time and guaranteed to not
+cause a deadlock by calling out to python off-thread.
+
+Until https://github.com/pybind/pybind11/issues/4878 is fixed, pure
+virtual bindings should use the `OPENASSETIO_PYBIND11_OVERRIDE_PURE`
+macro in the pybind11 [trampoline
+class](https://pybind11.readthedocs.io/en/stable/advanced/classes.html),
+rather than `PYBIND11_OVERRIDE_PURE`. See the issue description for more
+details.
+
+
 ## Environment variables
 
 All environment variables should be prefixed with `OPENASSETIO_`.

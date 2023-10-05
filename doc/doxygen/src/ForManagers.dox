@@ -89,6 +89,12 @@
  *   terms that are meaningful for the user. Eg. the state token will be
  *   shared across distributed multi-host renders.
  *
+ * - If the host executes code from Python, then the Global Interpreter
+ *   Lock (GIL) will be released before executing any C++ implementation
+ *   of the @fqref{managerApi.ManagerInterface} "ManagerInterface" and
+ *   @fqref{managerApi.EntityReferencePagerInterface}
+ *   "EntityReferencePagerInterface" class methods.
+ *
  * @section manager_todo Implementation Check List
  *
  * @note You can use the @ref testing_manager_plugins

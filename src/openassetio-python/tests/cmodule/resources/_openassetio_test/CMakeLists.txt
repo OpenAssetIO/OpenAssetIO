@@ -34,6 +34,7 @@ target_sources(
     _openassetio_test.cpp
     PyRetainingSharedPtrTest.cpp
     errorsTest.cpp
+    gilTest.cpp
 )
 
 # Give access to private headers.
@@ -42,6 +43,8 @@ target_include_directories(openassetio-python-test
 
 target_link_libraries(openassetio-python-test
     PRIVATE
+    # Mocking framework.
+    trompeloeil::trompeloeil
     # Core C++ library.
     openassetio-core
     # Python C++ bridge library.

@@ -30,11 +30,11 @@ struct PyManagerInterface : ManagerInterface {
   using PyRetainingManagerStateBasePtr = PyRetainingSharedPtr<ManagerStateBase>;
 
   [[nodiscard]] Identifier identifier() const override {
-    PYBIND11_OVERRIDE_PURE(Identifier, ManagerInterface, identifier, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(Identifier, ManagerInterface, identifier, /* no args */);
   }
 
   [[nodiscard]] Str displayName() const override {
-    PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, displayName, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(Str, ManagerInterface, displayName, /* no args */);
   }
 
   [[nodiscard]] InfoDictionary info() override {
@@ -96,7 +96,7 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   [[nodiscard]] bool hasCapability(ManagerInterface::Capability capability) override {
-    PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, hasCapability, capability);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, hasCapability, capability);
   }
 
   [[nodiscard]] StrMap updateTerminology(StrMap terms,
@@ -206,56 +206,70 @@ void registerManagerInterface(const py::module& mod) {
   pyManagerInterface.attr("kCapabilityNames") = ManagerInterface::kCapabilityNames;
 
   pyManagerInterface.def(py::init())
-      .def("identifier", &ManagerInterface::identifier)
-      .def("displayName", &ManagerInterface::displayName)
-      .def("info", &ManagerInterface::info)
-      .def("settings", &ManagerInterface::settings, py::arg("hostSession").none(false))
+      .def("identifier", &ManagerInterface::identifier, py::call_guard<py::gil_scoped_release>{})
+      .def("displayName", &ManagerInterface::displayName, py::call_guard<py::gil_scoped_release>{})
+      .def("info", &ManagerInterface::info, py::call_guard<py::gil_scoped_release>{})
+      .def("settings", &ManagerInterface::settings, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("initialize", &ManagerInterface::initialize, py::arg("managerSettings"),
-           py::arg("hostSession").none(false))
-      .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false))
+           py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
-           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false))
-      .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false))
+           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),
-           py::arg("parentState").none(false), py::arg("hostSession").none(false))
+           py::arg("parentState").none(false), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("persistenceTokenForState",
            RetainCommonPyArgs::forFn<&ManagerInterface::persistenceTokenForState>(),
-           py::arg("state").none(false), py::arg("hostSession").none(false))
+           py::arg("state").none(false), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("stateFromPersistenceToken", &ManagerInterface::stateFromPersistenceToken,
-           py::arg("token"), py::arg("hostSession").none(false))
+           py::arg("token"), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("isEntityReferenceString", &ManagerInterface::isEntityReferenceString,
-           py::arg("someString"), py::arg("hostSession").none(false))
+           py::arg("someString"), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("entityExists", &ManagerInterface::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
-      .def("hasCapability", &ManagerInterface::hasCapability, py::arg("capability"))
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("hasCapability", &ManagerInterface::hasCapability, py::arg("capability"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
-           py::arg("hostSession").none(false))
+           py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
            py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("defaultEntityReference", &ManagerInterface::defaultEntityReference,
            py::arg("traitSets"), py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
-           py::arg("errorCallback"))
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship", &ManagerInterface::getWithRelationship,
            py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
            py::arg("resultTraitSet"), py::arg("pageSize"), py::arg("relationsAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationships", &ManagerInterface::getWithRelationships,
            py::arg("entityReference"), py::arg("relationshipTraitsDatas"),
            py::arg("resultTraitSet"), py::arg("pageSize"), py::arg("relationsAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("preflight", &ManagerInterface::preflight, py::arg("entityReferences"),
            py::arg("traitsHints"), py::arg("publishingAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
-           py::arg("errorCallback"))
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("register", &ManagerInterface::register_, py::arg("entityReferences"),
            py::arg("entityTraitsDatas"), py::arg("publishingAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"))
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("_createEntityReference", &PyManagerInterface::createEntityReference,
            py::arg("entityReferenceString"));
 }

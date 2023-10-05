@@ -15,7 +15,7 @@ void registerHost(const py::module& mod) {
   py::class_<Host, HostPtr>(mod, "Host", py::is_final())
       .def(py::init(RetainCommonPyArgs::forFn<&Host::make>()),
            py::arg("hostInterface").none(false))
-      .def("identifier", &Host::identifier)
-      .def("displayName", &Host::displayName)
-      .def("info", &Host::info);
+      .def("identifier", &Host::identifier, py::call_guard<py::gil_scoped_release>{})
+      .def("displayName", &Host::displayName, py::call_guard<py::gil_scoped_release>{})
+      .def("info", &Host::info, py::call_guard<py::gil_scoped_release>{});
 }

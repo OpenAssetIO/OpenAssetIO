@@ -17,7 +17,7 @@ struct PyLoggerInterface : LoggerInterface {
   using LoggerInterface::LoggerInterface;
 
   void log(Severity severity, const Str& message) override {
-    PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
   }
 };
 }  // namespace log
@@ -46,12 +46,20 @@ void registerLoggerInterface(const py::module& mod) {
   loggerInterface.def_readonly_static("kSeverityNames", &LoggerInterface::kSeverityNames);
 
   loggerInterface.def(py::init())
-      .def("log", &LoggerInterface::log, py::arg("severity"), py::arg("message"))
-      .def("debugApi", &LoggerInterface::debugApi, py::arg("message"))
-      .def("debug", &LoggerInterface::debug, py::arg("message"))
-      .def("info", &LoggerInterface::info, py::arg("message"))
-      .def("progress", &LoggerInterface::progress, py::arg("message"))
-      .def("warning", &LoggerInterface::warning, py::arg("message"))
-      .def("error", &LoggerInterface::error, py::arg("message"))
-      .def("critical", &LoggerInterface::critical, py::arg("message"));
+      .def("log", &LoggerInterface::log, py::arg("severity"), py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("debugApi", &LoggerInterface::debugApi, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("debug", &LoggerInterface::debug, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("info", &LoggerInterface::info, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("progress", &LoggerInterface::progress, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("warning", &LoggerInterface::warning, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("error", &LoggerInterface::error, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("critical", &LoggerInterface::critical, py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{});
 }

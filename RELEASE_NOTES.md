@@ -100,6 +100,10 @@ v1.0.0-alpha.xx
 
 ### Improvements
 
+- Modified Python bindings for all non-trivial methods such that they
+  release the GIL before calling any underlying C++ implementation.
+  [#554](https://github.com/OpenAssetIO/OpenAssetIO/issues/554)
+
 - Improved error messaging when `defaultManagerForInterface` points to a
   directory not a file.
 
