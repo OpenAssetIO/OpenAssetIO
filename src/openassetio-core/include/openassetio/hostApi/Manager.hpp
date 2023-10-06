@@ -242,8 +242,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * that you might want to use in your UI/messages.
    *
    * See @ref openassetio.hostApi.terminology "terminology" for
-   * well-known keys. These keys are updated in-place to the most
-   * appropriate term for the Manager. You should then use these
+   * well-known keys. These keys are updated in the returned map to the
+   * most appropriate term for the Manager. You should then use these
    * substitutions in any user-facing messages or display text so that
    * they feel at home.
    *
@@ -495,7 +495,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  @warning This only encapsulates the logical identity of the
    *  Context, such that when restored, any API calls made using the
    *  resulting Context will be logically associated with the one
-   *  supplied here. It does not encode the current access or locale.
+   *  supplied here. It does not encode the current locale or other
+   *  propeties.
    *
    *  @see @ref stable_resolution
    */

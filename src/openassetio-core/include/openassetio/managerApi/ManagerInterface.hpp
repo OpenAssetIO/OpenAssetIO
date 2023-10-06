@@ -493,7 +493,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *  @li @ref identifier()
    *  @li @ref displayName()
    *  @li @ref info()
-   *  @li @ref updateTerminology()
    *  @li @ref settings()
    *
    * @todo We need a 'teardown' method to, before a manager is
