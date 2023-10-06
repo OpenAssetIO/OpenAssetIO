@@ -38,7 +38,7 @@ jobs:
             --recursive=y --disable=fixme
             --rcfile=src/openassetio-python/pyproject.toml
             src/openassetio-python/package/openassetio
-            src/openassetio-python/tests/package
+            src/openassetio-python/tests
 
   black:
     runs-on: ubuntu-latest

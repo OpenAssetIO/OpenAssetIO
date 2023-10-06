@@ -17,11 +17,8 @@
 Tests of C++ binding utilities for exception types.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
-from unittest import mock
-
 import pytest
 
 from openassetio import _openassetio_test  # pylint: disable=no-name-in-module

@@ -16,7 +16,7 @@
 """
 Test CMake installed package
 """
-# pylint: disable=missing-function-docstring
+# pylint: disable=missing-function-docstring,invalid-name
 import os
 
 import pytest
@@ -24,6 +24,8 @@ import pytest
 
 try:
     from importlib import metadata
+
+    # pylint: disable=bare-except
 except:
     import importlib_metadata as metadata
 
