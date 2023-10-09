@@ -42,6 +42,33 @@ OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
   return Class::Fn CppArgs
 
 /**
+ * Work around https://github.com/pybind/pybind11/issues/4878
+ *
+ * In a Debug build, where `assert` is enabled, pybind11 will do an
+ * `assert(!PyErr_Occurred())` before throwing "Tried to call pure
+ * virtual function". Since Python 3.9, the PyErr_Occurred() function
+ * requires the GIL to be acquired.
+ *
+ * The following macro duplicates PYBIND11_OVERRIDE_PURE_NAME and
+ * inserts a `gil_scoped_acquire`, in order to work around the problem
+ * until it is fixed upstream.
+ *
+ * @todo Revert to using PYBIND11_OVERRIDE_PURE once upstream fix is
+ * available.
+ */
+#define OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(ret_type, cname, name, fn, ...)               \
+  do {                                                                                        \
+    PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name, __VA_ARGS__); \
+    const pybind11::gil_scoped_acquire gil{};                                                 \
+    pybind11::pybind11_fail(                                                                  \
+        "Tried to call pure virtual function \"" PYBIND11_STRINGIFY(cname) "::" name "\"");   \
+  } while (false)
+
+#define OPENASSETIO_PYBIND11_OVERRIDE_PURE(ret_type, cname, fn, ...)                              \
+  OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), #fn, fn, \
+                                          __VA_ARGS__)
+
+/**
  * Declare a `RetainPyArgs` alias with common template arguments.
  *
  * The template arguments are those types that we expect to be derived
