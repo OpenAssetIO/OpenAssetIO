@@ -11,12 +11,12 @@ v1.0.0-alpha.xx
   namespace will be removed in a future release.
   [#1127](https://github.com/OpenAssetIO/OpenAssetIO/issues/1127)
 
-- Add the `Manager`/`ManagerInterface` `hasCapability` method. A
-  mechanism for the host to query the manager about which particular
-  optional method-sets, or capabilities, it implements.
-  [#1113](https://github.com/OpenAssetIO/OpenAssetIO/issues/1113)
-
 ### Breaking changes
+
+- Add the (required) `Manager`/`ManagerInterface` `hasCapability`
+  method. A mechanism to query the manager about which particular
+  capabilities it implements.
+  [#1113](https://github.com/OpenAssetIO/OpenAssetIO/issues/1113)
 
 - Renamed the `Manager`/`ManagerInterface`
   `PagedRelationshipSuccessCallback` to
