@@ -1243,7 +1243,7 @@ This method may block for extended periods of time. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A persistence token that can be used with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> to create a context associated with the same logical group of actions as the one supplied to this method.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, such that when restored, any API calls made using the resulting <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> will be logically associated with the one supplied here. It does not encode the current access or locale.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, such that when restored, any API calls made using the resulting <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> will be logically associated with the one supplied here. It does not encode the current locale or other propeties.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 
 </div>
@@ -2220,7 +2220,7 @@ This method may block for extended periods of time. </dd></dl>
 </div><div class="memdoc">
 
 <p>This call gives the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> a chance to customize certain strings that you might want to use in your UI/messages. </p>
-<p>See <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> for well-known keys. These keys are updated in-place to the most appropriate term for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. You should then use these substitutions in any user-facing messages or display text so that they feel at home.</p>
+<p>See <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> for well-known keys. These keys are updated in the returned map to the most appropriate term for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a>. You should then use these substitutions in any user-facing messages or display text so that they feel at home.</p>
 <p>It's rare that you need to call this method directly, the <a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">openassetio.hostApi.terminology</a> API provides more utility for far less effort.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1host_api_1_1terminology.html">terminology</a> </dd>
 <dd>
