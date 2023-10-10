@@ -32,8 +32,9 @@
  * The manager state mechanism allows a @ref manager to embed state
  * within the @ref host, such that it can correlate API calls.
  *
- * Whenever a @ref Context is created by the host, the
- * @fqref{managerApi.ManagerInterface.createState}
+ * Whenever a @ref Context is created by the host, if the manager is
+ * @fqref{managerApi.ManagerInterface.Capability.kStatefulContexts}
+ * "capable", the @fqref{managerApi.ManagerInterface.createState}
  * "ManagerInterface.createState" (or
  * @fqref{managerApi.ManagerInterface.createChildState}
  * "ManagerInterface.createChildState") method will be called, and the

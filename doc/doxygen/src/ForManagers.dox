@@ -106,8 +106,10 @@
  * - Implement the @fqref{managerApi.ManagerInterface}
  *   "ManagerInterface" class methods
  *   @fqref{managerApi.ManagerInterface.identifier} "identifier",
- *   @fqref{managerApi.ManagerInterface.displayName} "displayName" and
- *   @fqref{managerApi.ManagerInterface.hasCapability} "hasCapability".
+ *   @fqref{managerApi.ManagerInterface.displayName} "displayName",
+ *   @fqref{managerApi.ManagerInterface.hasCapability} "hasCapability"
+ *   and @fqref{managerApi.ManagerInterface.isEntityReferenceString}
+ *   "isEntityReferenceString".
  *
  * - Implement @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to control which Host-side data types you wish
@@ -130,14 +132,19 @@
  * @subsection manager_todo_publishing Required for Publishing
  *
  * - Update the implementation of
+ *   @fqref{managerApi.ManagerInterface.hasCapability} "hasCapability"
+ *   to return true when queried with
+ *   @fqref{managerApi.ManagerInterface.Capability.kPublishing}
+ *   "kPublishing".
+ *
+ * - Update the implementation of
  *   @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to return suitable traits for contexts with a
  *   `kWrite` access.
  *
- * - Implement the methods grouped under the "Publishing" section, and
- *   the remaining methods in the "Entity Information" section of
- *   @fqref{managerApi.ManagerInterface} "ManagerInterface", to support
- *   the registration of new assets.
+ * - Implement the methods listed under the
+ *   @fqref{managerApi.ManagerInterface.Capability.kPublishing}
+ *   "publishing" capability to support the registration of new assets.
  *
  * - Map supported OpenAssetIO @ref trait "traits" to internal asset
  *   types where possible.
@@ -204,6 +211,11 @@
  *   simplify common pipeline integration tasks. For example, loading
  *   multiple AOVs for a render, or determining data dependencies when
  *   transferring assets.
+ * - Update your implementation of
+ *   @fqref{managerApi.ManagerInterface.hasCapability} "hasCapability"
+ *   to report that you are now implement
+ *   @fqref{managerApi.ManagerInterface.Capability.kRelationshipQueries}
+ *   "relationship queries".
  * - Update your implementation of @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to cover the relationship trait sets you support.
  *

@@ -20,12 +20,9 @@ Tests for the default implementations of ManagerInterface methods.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from unittest.mock import Mock, call
-
 import pytest
 
-from openassetio import EntityReference, Context, errors
-from openassetio.access import RelationsAccess, DefaultEntityAccess
+from openassetio import EntityReference, Context, errors, access
 from openassetio.managerApi import (
     ManagerInterface,
     ManagerStateBase,
@@ -39,12 +36,9 @@ class Test_ManagerInterface_identifier:
         assert not method_introspector.is_defined_in_python(ManagerInterface.identifier)
         assert method_introspector.is_implemented_once(ManagerInterface, "identifier")
 
-    def test_when_not_overridden_then_raises_exception(self):
-        with pytest.raises(RuntimeError) as err:
-            ManagerInterface().identifier()
-        assert (
-            str(err.value) == 'Tried to call pure virtual function "ManagerInterface::identifier"'
-        )
+    def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
+        with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("identifier")):
+            manager_interface.identifier()
 
 
 class Test_ManagerInterface_displayName:
@@ -52,12 +46,9 @@ class Test_ManagerInterface_displayName:
         assert not method_introspector.is_defined_in_python(ManagerInterface.displayName)
         assert method_introspector.is_implemented_once(ManagerInterface, "displayName")
 
-    def test_when_not_overridden_then_raises_exception(self):
-        with pytest.raises(RuntimeError) as err:
-            ManagerInterface().displayName()
-        assert (
-            str(err.value) == 'Tried to call pure virtual function "ManagerInterface::displayName"'
-        )
+    def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
+        with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("displayName")):
+            manager_interface.displayName()
 
 
 class Test_ManagerInterface_info:
@@ -134,16 +125,80 @@ class Test_ManagerInterface_kCapabilityNames:
         )
 
 
-class Test_ManagerInterface_updateTerminology:
+class Test_ManagerInterface_hasCapability:
     def test_method_defined_in_cpp(self, method_introspector):
         assert not method_introspector.is_defined_in_python(ManagerInterface.updateTerminology)
         assert method_introspector.is_implemented_once(ManagerInterface, "updateTerminology")
 
-    def test_when_given_dict_then_returns_same_dict(self, a_host_session):
-        terms = {"aTermKey🔥 ": "aTermValue🎖️", "aSecondTermKey": "aSecondTermValue"}
-        return_terms = ManagerInterface().updateTerminology(terms, a_host_session)
-        assert terms == return_terms
-        assert terms is not return_terms
+    def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
+        with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("hasCapability")):
+            manager_interface.hasCapability(ManagerInterface.Capability.kManagementPolicyQueries)
+
+
+class Test_ManagerInterface_settings:
+    def test_when_not_overridden_then_returns_empty_dict(self, manager_interface, a_host_session):
+        settings = manager_interface.settings(a_host_session)
+
+        assert isinstance(settings, dict)
+        assert settings == {}
+
+
+class Test_ManagerInterface_managementPolicy:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, a_context, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "managementPolicy", "managementPolicyQueries"
+            ),
+        ):
+            manager_interface.managementPolicy(
+                [set()], access.PolicyAccess.kRead, a_context, a_host_session
+            )
+
+
+class Test_ManagerInterface_isEntityReferenceString:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "isEntityReferenceString", "entityReferenceIdentification"
+            ),
+        ):
+            manager_interface.isEntityReferenceString("", a_host_session)
+
+
+class Test_ManagerInterface_initialize:
+    def test_when_settings_not_provided_then_default_implementation_ok(
+        self, manager_interface, a_host_session
+    ):
+        # Lack of exception means all good.
+        manager_interface.initialize({}, a_host_session)
+
+    def test_when_settings_provided_then_default_implementation_raises(
+        self, manager_interface, a_host_session
+    ):
+        expected_error_message = (
+            "Settings provided but are not supported. "
+            "The initialize method has not been implemented by the manager."
+        )
+
+        with pytest.raises(errors.InputValidationException, match=expected_error_message):
+            manager_interface.initialize({"some": "setting"}, a_host_session)
+
+
+class Test_ManagerInterface_updateTerminology:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("updateTerminology", "customTerminology"),
+        ):
+            manager_interface.updateTerminology({}, a_host_session)
 
 
 class Test_ManagerInterface_flushCaches:
@@ -160,8 +215,14 @@ class Test_ManagerInterface_createState:
         assert not method_introspector.is_defined_in_python(ManagerInterface.createState)
         assert method_introspector.is_implemented_once(ManagerInterface, "createState")
 
-    def test_default_implementation_returns_none(self, a_host_session):
-        assert ManagerInterface().createState(a_host_session) is None
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("createState", "statefulContexts"),
+        ):
+            manager_interface.createState(a_host_session)
 
 
 class Test_ManagerInterface_createChildState:
@@ -169,9 +230,14 @@ class Test_ManagerInterface_createChildState:
         assert not method_introspector.is_defined_in_python(ManagerInterface.createChildState)
         assert method_introspector.is_implemented_once(ManagerInterface, "createChildState")
 
-    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
-        with pytest.raises(errors.NotImplementedException):
-            ManagerInterface().createChildState(ManagerStateBase(), a_host_session)
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("createChildState", "statefulContexts"),
+        ):
+            manager_interface.createChildState(ManagerStateBase(), a_host_session)
 
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
@@ -187,13 +253,20 @@ class Test_ManagerInterface_persistenceTokenForState:
             ManagerInterface, "persistenceTokenForState"
         )
 
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "persistenceTokenForState", "statefulContexts"
+            ),
+        ):
+            manager_interface.persistenceTokenForState(ManagerStateBase(), a_host_session)
+
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
             ManagerInterface().persistenceTokenForState(None, a_host_session)
-
-    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
-        with pytest.raises(errors.NotImplementedException):
-            ManagerInterface().persistenceTokenForState(ManagerStateBase(), a_host_session)
 
 
 class Test_ManagerInterface_stateFromPersistenceToken:
@@ -205,13 +278,20 @@ class Test_ManagerInterface_stateFromPersistenceToken:
             ManagerInterface, "stateFromPersistenceToken"
         )
 
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_host_session, unimplemented_method_error_msg
+    ):
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "stateFromPersistenceToken", "statefulContexts"
+            ),
+        ):
+            manager_interface.stateFromPersistenceToken("", a_host_session)
+
     def test_when_none_is_supplied_then_TypeError_is_raised(self, a_host_session):
         with pytest.raises(TypeError):
-            ManagerInterface().createChildState(None, a_host_session)
-
-    def test_default_implementation_raises_NotImplementedException(self, a_host_session):
-        with pytest.raises(errors.NotImplementedException):
-            ManagerInterface().stateFromPersistenceToken("", a_host_session)
+            ManagerInterface().stateFromPersistenceToken(None, a_host_session)
 
 
 class Test_ManagerInterface_defaultEntityReference:
@@ -221,24 +301,51 @@ class Test_ManagerInterface_defaultEntityReference:
         )
         assert method_introspector.is_implemented_once(ManagerInterface, "defaultEntityReference")
 
-    def test_gives_empty_value_for_all_trait_sets(self, manager_interface, a_host_session):
-        success_callback = Mock()
-        error_callback = Mock()
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
 
-        traitsSets = [set(), set()]
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "defaultEntityReference", "defaultEntityReferences"
+            ),
+        ):
+            manager_interface.defaultEntityReference(
+                [], access.DefaultEntityAccess.kRead, a_context, a_host_session, fail, fail
+            )
 
-        manager_interface.defaultEntityReference(
-            traitsSets,
-            DefaultEntityAccess.kRead,
-            Context(),
-            a_host_session,
-            success_callback,
-            error_callback,
-        )
 
-        success_callback.assert_has_calls([call(0, None), call(1, None)])
+class Test_ManagerInterface_entityExists:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
 
-        error_callback.assert_not_called()
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("entityExists", "existenceQueries"),
+        ):
+            manager_interface.entityExists([], a_context, a_host_session, fail, fail)
+
+
+class Test_ManagerInterface_resolve:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
+
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("resolve", "resolution"),
+        ):
+            manager_interface.resolve(
+                [], set(), access.ResolveAccess.kRead, a_context, a_host_session, fail, fail
+            )
 
 
 class Test_ManagerInterface_getWithRelationship:
@@ -246,36 +353,29 @@ class Test_ManagerInterface_getWithRelationship:
         assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
 
-    def test_returns_dummy_pager_for_each_input(self, manager_interface, a_host_session):
-        success_callback = Mock()
-        error_callback = Mock()
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
 
-        for refs in (
-            [],
-            [EntityReference("first")],
-            [EntityReference("second"), EntityReference("third")],
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "getWithRelationship", "relationshipQueries"
+            ),
         ):
             manager_interface.getWithRelationship(
-                refs,
+                [],
                 TraitsData(),
                 set(),
                 1,
-                RelationsAccess.kRead,
-                Context(),
+                access.RelationsAccess.kRead,
+                a_context,
                 a_host_session,
-                success_callback,
-                error_callback,
+                fail,
+                fail,
             )
-
-            error_callback.assert_not_called()
-
-            # The default pager behaviour is to return no data and
-            # report no new pages.
-            for idx, _ in enumerate(refs):
-                pager = success_callback.call_args_list[idx][0][1]
-                assert_is_default_pager(a_host_session, pager)
-
-            success_callback.reset_mock()
 
 
 class Test_ManagerInterface_getWithRelationships:
@@ -283,34 +383,29 @@ class Test_ManagerInterface_getWithRelationships:
         assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
         assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
 
-    def test_returns_dummy_pager_for_each_input(self, manager_interface, a_host_session):
-        success_callback = Mock()
-        error_callback = Mock()
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
 
-        for rels in (
-            [],
-            [TraitsData()],
-            [TraitsData(), TraitsData()],
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "getWithRelationships", "relationshipQueries"
+            ),
         ):
             manager_interface.getWithRelationships(
                 EntityReference(""),
-                rels,
+                [],
                 set(),
                 1,
-                RelationsAccess.kRead,
-                Context(),
+                access.RelationsAccess.kRead,
+                a_context,
                 a_host_session,
-                success_callback,
-                error_callback,
+                fail,
+                fail,
             )
-
-            error_callback.assert_not_called()
-
-            for idx, _ in enumerate(rels):
-                pager = success_callback.call_args_list[idx][0][1]
-                assert_is_default_pager(a_host_session, pager)
-
-            success_callback.reset_mock()
 
 
 def assert_is_default_pager(a_host_session, pager):
@@ -352,6 +447,56 @@ class Test_ManagerInterface__createEntityReference:
         mock_manager_interface.mock.isEntityReferenceString.assert_not_called()
 
 
+class Test_ManagerInterface_preflight:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
+
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("preflight", "publishing"),
+        ):
+            manager_interface.preflight(
+                [], [], access.PublishingAccess.kWrite, a_context, a_host_session, fail, fail
+            )
+
+
+class Test_ManagerInterface_register:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
+
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format("register_", "publishing"),
+        ):
+            manager_interface.register(
+                [], [], access.PublishingAccess.kWrite, a_context, a_host_session, fail, fail
+            )
+
+
 @pytest.fixture
 def manager_interface():
     return ManagerInterface()
+
+
+@pytest.fixture
+def a_context():
+    return Context()
+
+
+@pytest.fixture
+def pure_virtual_error_msg():
+    return 'Tried to call pure virtual function "ManagerInterface::{}"'
+
+
+@pytest.fixture
+def unimplemented_method_error_msg():
+    return (
+        "The '{}' method has not been implemented by the manager. "
+        "Check manager capability for {} by calling `manager.hasCapability`"
+    )

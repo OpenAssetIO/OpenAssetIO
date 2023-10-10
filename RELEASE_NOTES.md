@@ -72,6 +72,12 @@ v1.0.0-alpha.xx
   exceptional conveniences.
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
 
+- Most non-required methods (all that must be checked with
+  `hasCapability`), now have default implementations that throw
+  `NotImplementedException` when called without a manager provided
+  implementation.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 ### New Features
 
 - Added new exception types, allowing all OpenAssetIO exceptions to
@@ -95,6 +101,12 @@ v1.0.0-alpha.xx
   variable `OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO` to disable this
   feature.
   [#1088](https://github.com/OpenAssetIO/OpenAssetIO/issues/1088)
+
+- `Manager.createContext` does not call `ManagerInterface.createState`
+  if manager is not capable of `kStatefulContexts`, in which case the
+  `Context` is returned without a `managerState`.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
 
 v1.0.0-alpha.14
 ---------------

@@ -438,6 +438,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * initiated the API session.
    *
    * @return Substituted map of terms.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kCustomTerminology
    */
   [[nodiscard]] virtual StrMap updateTerminology(StrMap terms, const HostSessionPtr& hostSession);
 
@@ -499,7 +505,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * de-activated in a host, to allow any event registrations etc...
    * to be removed.
    */
-  virtual void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) = 0;
+  virtual void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession);
 
   /**
    * Clears any internal caches.
@@ -588,11 +594,20 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param hostSession The API session.
    *
    * @return a `TraitsData` for each element in @p traitSets.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   * This exception being thrown constitutes a manager implementation
+   * error, as all managers must implement this method in one of their
+   * component plugins.
+   *
+   * @see @ref Capability.kManagementPolicyQueries
    */
   [[nodiscard]] virtual trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
                                                             access::PolicyAccess policyAccess,
                                                             const ContextConstPtr& context,
-                                                            const HostSessionPtr& hostSession) = 0;
+                                                            const HostSessionPtr& hostSession);
 
   /**
    * @}
@@ -651,6 +666,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @exception exceptions.StateError If for some reason creation
    * fails.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kStatefulContexts
    * @see @ref createChildState
    * @see @ref persistenceTokenForState
    * @see @ref stateFromPersistenceToken
@@ -693,6 +713,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @exception std::runtime_error If called on a manager that does not
    * implement custom state management.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kStatefulContexts
    * @see @ref createState
    * @see @ref persistenceTokenForState
    * @see @ref stateFromPersistenceToken
@@ -711,6 +736,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @exception std::runtime_error If called on a manager that does not
    * implement custom state management.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kStatefulContexts
    * @see @ref stateFromPersistenceToken
    */
   [[nodiscard]] virtual Str persistenceTokenForState(const ManagerStateBasePtr& state,
@@ -728,6 +758,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * meaningful, or that a state has already been restored.
    * @exception std::runtime_error If called on a manager that does not
    * implement custom state management.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kStatefulContexts
    */
   [[nodiscard]] virtual ManagerStateBasePtr stateFromPersistenceToken(
       const Str& token, const HostSessionPtr& hostSession);
@@ -806,11 +842,19 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * format of the string is recognised as a potential entity reference
    * by the manager.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   * This exception being thrown constitutes a manager implementation
+   * error, as all managers must implement this method in one of their
+   * component plugins.
+   *
+   * @see @ref Capability.kEntityReferenceIdentification
    * @see @ref entityExists
    * @see @ref resolve
    */
   [[nodiscard]] virtual bool isEntityReferenceString(const Str& someString,
-                                                     const HostSessionPtr& hostSession) = 0;
+                                                     const HostSessionPtr& hostSession);
 
   /**
    * Callback signature used for a successful entity existence query.
@@ -861,11 +905,17 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback must be called on the same thread
    * that initiated the call to `entityExists`.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kExistenceQueries
    */
   virtual void entityExists(const EntityReferences& entityReferences,
                             const ContextConstPtr& context, const HostSessionPtr& hostSession,
                             const ExistsSuccessCallback& successCallback,
-                            const BatchElementErrorCallback& errorCallback) = 0;
+                            const BatchElementErrorCallback& errorCallback);
 
   /**
    * @}
@@ -958,6 +1008,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "ErrorCodes"). The callback must be called on the same thread
    * that initiated the call to `resolve`.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kResolution
    * @see @ref entityExists
    * @see @ref isEntityReferenceString
    * @see @fqref{errors.BatchElementError} "BatchElementError"
@@ -966,7 +1021,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                        access::ResolveAccess resolveAccess, const ContextConstPtr& context,
                        const HostSessionPtr& hostSession,
                        const ResolveSuccessCallback& successCallback,
-                       const BatchElementErrorCallback& errorCallback) = 0;
+                       const BatchElementErrorCallback& errorCallback);
 
   /**
    * Callback signature used for a successful default entity reference
@@ -1031,6 +1086,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * "kInvalidTraitSet" error should be used if the requested trait set
    * is unrecognised. The callback must be called on the same thread
    * that initiated the call to `defaultEntityReference`.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
    */
   virtual void defaultEntityReference(const trait::TraitSets& traitSets,
                                       access::DefaultEntityAccess defaultEntityAccess,
@@ -1150,6 +1211,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * @param resultTraitSet A hint as to what traits the returned
    * entities should have.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kRelationshipQueries
    */
   virtual void getWithRelationship(const EntityReferences& entityReferences,
                                    const trait::TraitsDataPtr& relationshipTraitsData,
@@ -1227,6 +1294,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @note The @ref trait_set of any queried relationship can be passed
    * to @ref managementPolicy in order to determine if the manager
    * handles relationships of that type.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kRelationshipQueries
    */
   virtual void getWithRelationships(const EntityReference& entityReference,
                                     const trait::TraitsDatas& relationshipTraitsDatas,
@@ -1396,6 +1469,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * who's corresponding @p traitsHints entry holds insufficient or
    * invalid information.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kPublishing
    * @see @ref register_
    */
   virtual void preflight(const EntityReferences& entityReferences,
@@ -1403,7 +1481,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                          access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                          const HostSessionPtr& hostSession,
                          const PreflightSuccessCallback& successCallback,
-                         const BatchElementErrorCallback& errorCallback) = 0;
+                         const BatchElementErrorCallback& errorCallback);
 
   /**
    * Callback signature used for a successful register operation on a
@@ -1497,6 +1575,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * callback must be called on the same thread that initiated the call
    * to `register`.
    *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kPublishing
    * @see @fqref{trait.TraitsData} "TraitsData"
    * @see @ref preflight
    */
@@ -1506,7 +1589,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                          access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                          const HostSessionPtr& hostSession,
                          const RegisterSuccessCallback& successCallback,
-                         const BatchElementErrorCallback& errorCallback) = 0;
+                         const BatchElementErrorCallback& errorCallback);
 
   /// @}
  protected:
