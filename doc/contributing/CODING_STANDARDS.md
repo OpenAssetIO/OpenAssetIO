@@ -178,13 +178,10 @@ namespace.
 
 ### Const
 
-Methods of interface classes that are conceptually stateless, and their
-corresponding wrapper class methods should not be marked `const`. For
-example, `ManagerInterface` + `Manager`, `HostInterface` and `Host`.
-This may seem to contradict the "stateless" definition, but it allows
-the implementation to maintain private state to service the API requests
-efficiently, such as server connections or caches. Exceptions to this
-are the identification methods that should be constants.
+Methods of interface classes, and their corresponding wrapper class
+methods should not be marked `const`. For example, `ManagerInterface` +
+`Manager`, `HostInterface` and `Host`. This allows the implementation to
+maintain private state to service the API requests if neccesary.
 
 ## String formatting
 

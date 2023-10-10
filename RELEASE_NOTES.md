@@ -112,6 +112,10 @@ v1.0.0-alpha.xx
   non-existent functionality.
   [#1150](https://github.com/OpenAssetIO/OpenAssetIO/issues/1150)
 
+- Clarified `ManagerInterface` documentation around the relative
+  "stateless" nature of the API and its reentrant design.
+  [#1143](https://github.com/OpenAssetIO/OpenAssetIO/issues/1143)
+
 v1.0.0-alpha.14
 ---------------
 
