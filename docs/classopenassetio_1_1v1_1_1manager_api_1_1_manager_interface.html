@@ -143,7 +143,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a23f620c631306fbcb518c3eb1dcba92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polymorphic destructor.  <a href="#a23f620c631306fbcb518c3eb1dcba92b">More...</a><br /></td></tr>
 <tr class="separator:a23f620c631306fbcb518c3eb1dcba92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Asset Management System Identification</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These functions provide hosts with general identity information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.These may all be called before <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a> has been called. </p>
+<tr><td colspan="2"><div class="groupText"><p>These functions provide hosts with general identity information about the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> itself.These may all be called before <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a> has been called. </p>
 </div></td></tr>
 <tr class="memitem:a5c0c22c1c2681d3a1deae2da9f487870"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da">Identifier</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870">identifier</a> () const  =0</td></tr>
 <tr class="memdesc:a5c0c22c1c2681d3a1deae2da9f487870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an identifier to uniquely identify a specific asset manager.  <a href="#a5c0c22c1c2681d3a1deae2da9f487870">More...</a><br /></td></tr>
@@ -154,16 +154,16 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialization</div></td></tr>
 <tr class="memitem:a496c9cae280337d9f2e64404d13ee306"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="separator:a496c9cae280337d9f2e64404d13ee306"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd5f3664126a234aa411772313d0a27f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
-<tr class="memdesc:afd5f3664126a234aa411772313d0a27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#afd5f3664126a234aa411772313d0a27f">More...</a><br /></td></tr>
-<tr class="separator:afd5f3664126a234aa411772313d0a27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd37733beeb965aa0a8b44bd5a28106"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a> (<a class="el" href="namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a">InfoDictionary</a> managerSettings, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:abcd37733beeb965aa0a8b44bd5a28106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for interaction with a host.  <a href="#abcd37733beeb965aa0a8b44bd5a28106">More...</a><br /></td></tr>
+<tr class="separator:abcd37733beeb965aa0a8b44bd5a28106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29ad1d8754820d0ee36820d97ef5dceb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a29ad1d8754820d0ee36820d97ef5dceb">flushCaches</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
 <tr class="memdesc:a29ad1d8754820d0ee36820d97ef5dceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears any internal caches.  <a href="#a29ad1d8754820d0ee36820d97ef5dceb">More...</a><br /></td></tr>
 <tr class="separator:a29ad1d8754820d0ee36820d97ef5dceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Policy</div></td></tr>
-<tr class="memitem:a748f20ef0a79caf88bc6eff1f096453f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access::PolicyAccess</a> policyAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
-<tr class="memdesc:a748f20ef0a79caf88bc6eff1f096453f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries determine if the manager is interested in participating in interactions with <a class="el" href="glossary.html#entity">entities</a> with a specified <a class="el" href="glossary.html#trait_set">Trait Set</a>, and which traits it is capable of resolving or persisting data for.  <a href="#a748f20ef0a79caf88bc6eff1f096453f">More...</a><br /></td></tr>
-<tr class="separator:a748f20ef0a79caf88bc6eff1f096453f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396dda47e88dbe8b9c1ad25e677a26a4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access::PolicyAccess</a> policyAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:a396dda47e88dbe8b9c1ad25e677a26a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries determine if the manager is interested in participating in interactions with <a class="el" href="glossary.html#entity">entities</a> with a specified <a class="el" href="glossary.html#trait_set">Trait Set</a>, and which traits it is capable of resolving or persisting data for.  <a href="#a396dda47e88dbe8b9c1ad25e677a26a4">More...</a><br /></td></tr>
+<tr class="separator:a396dda47e88dbe8b9c1ad25e677a26a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Manager State</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>A single 'task' in a host, may require more than one interaction with the asset management system.</p>
 <p>Because the <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> is effectively state-less. To simplify error handling, and allow an implementation to know which interactions are related, this API supports the concept of a <a class="el" href="glossary.html#manager_state">Manager State</a> object. This is contained in every <a class="el" href="glossary.html#Context">Context</a> and passed to relevant calls.</p>
@@ -228,12 +228,12 @@ Entity Reference inspection</h2></td></tr>
 <tr class="memitem:acd342c0ca286f8958af28d1ef4d794e1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> = std::function&lt; void(std::size_t, bool)&gt;</td></tr>
 <tr class="memdesc:acd342c0ca286f8958af28d1ef4d794e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity existence query.  <a href="#acd342c0ca286f8958af28d1ef4d794e1">More...</a><br /></td></tr>
 <tr class="separator:acd342c0ca286f8958af28d1ef4d794e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d7e10b739b7bc83c8a6e8a0b0ccd8be"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3d7e10b739b7bc83c8a6e8a0b0ccd8be">isEntityReferenceString</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;someString, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)=0</td></tr>
-<tr class="memdesc:a3d7e10b739b7bc83c8a6e8a0b0ccd8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#a3d7e10b739b7bc83c8a6e8a0b0ccd8be">More...</a><br /></td></tr>
-<tr class="separator:a3d7e10b739b7bc83c8a6e8a0b0ccd8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9123ba49fba1db7dc0857894ed5ed334"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9123ba49fba1db7dc0857894ed5ed334">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)=0</td></tr>
-<tr class="memdesc:a9123ba49fba1db7dc0857894ed5ed334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a9123ba49fba1db7dc0857894ed5ed334">More...</a><br /></td></tr>
-<tr class="separator:a9123ba49fba1db7dc0857894ed5ed334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6eec5f9c270886e65c06cc9d9d75e3f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6eec5f9c270886e65c06cc9d9d75e3f">isEntityReferenceString</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;someString, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession)</td></tr>
+<tr class="memdesc:ac6eec5f9c270886e65c06cc9d9d75e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied string (in its entirety) matches the pattern of a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> in your system.  <a href="#ac6eec5f9c270886e65c06cc9d9d75e3f">More...</a><br /></td></tr>
+<tr class="separator:ac6eec5f9c270886e65c06cc9d9d75e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39dd2e6245b54de12a2d7bca6a3945fe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a39dd2e6245b54de12a2d7bca6a3945fe">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a39dd2e6245b54de12a2d7bca6a3945fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a39dd2e6245b54de12a2d7bca6a3945fe">More...</a><br /></td></tr>
+<tr class="separator:a39dd2e6245b54de12a2d7bca6a3945fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Entity Reference Resolution</h2></td></tr>
@@ -246,9 +246,9 @@ Entity Reference Resolution</h2></td></tr>
 <tr class="memitem:aac778e9fcd0be1551b55a8fafbd5c3d2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aac778e9fcd0be1551b55a8fafbd5c3d2">DefaultEntityReferenceSuccessCallback</a> = std::function&lt; void(std::size_t, std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;)&gt;</td></tr>
 <tr class="memdesc:aac778e9fcd0be1551b55a8fafbd5c3d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful default entity reference query.  <a href="#aac778e9fcd0be1551b55a8fafbd5c3d2">More...</a><br /></td></tr>
 <tr class="separator:aac778e9fcd0be1551b55a8fafbd5c3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae54209405f5d935f71f9abdea444288"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60">access::ResolveAccess</a> resolveAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8d3d52b9a3baff068079c6559f3a894a">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)=0</td></tr>
-<tr class="memdesc:aae54209405f5d935f71f9abdea444288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the host with a <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> populated with the available data for the properties of the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#aae54209405f5d935f71f9abdea444288">More...</a><br /></td></tr>
-<tr class="separator:aae54209405f5d935f71f9abdea444288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a797bb81e67618fa77eaf9fd54f9061fc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60">access::ResolveAccess</a> resolveAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8d3d52b9a3baff068079c6559f3a894a">ResolveSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a797bb81e67618fa77eaf9fd54f9061fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the host with a <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> populated with the available data for the properties of the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.  <a href="#a797bb81e67618fa77eaf9fd54f9061fc">More...</a><br /></td></tr>
+<tr class="separator:a797bb81e67618fa77eaf9fd54f9061fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfe622b271979e27085082cd9bdb85d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#acfe622b271979e27085082cd9bdb85d1">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aac778e9fcd0be1551b55a8fafbd5c3d2">DefaultEntityReferenceSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:acfe622b271979e27085082cd9bdb85d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given <a class="el" href="glossary.html#trait_set">trait sets</a> and context.  <a href="#acfe622b271979e27085082cd9bdb85d1">More...</a><br /></td></tr>
 <tr class="separator:acfe622b271979e27085082cd9bdb85d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -302,12 +302,12 @@ Publishing</h2></td></tr>
 <tr class="memitem:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>)&gt;</td></tr>
 <tr class="memdesc:af4a59453053da4f3ec0972ffcdc66ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful register operation on a particular entity.  <a href="#af4a59453053da4f3ec0972ffcdc66ed2">More...</a><br /></td></tr>
 <tr class="separator:af4a59453053da4f3ec0972ffcdc66ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7f8cb5ea7987210c23acbfe6a7b8a5a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae7f8cb5ea7987210c23acbfe6a7b8a5a">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;traitsHints, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">access::PublishingAccess</a> publishingAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)=0</td></tr>
-<tr class="memdesc:ae7f8cb5ea7987210c23acbfe6a7b8a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for some work to be done to create data for the referenced entity.  <a href="#ae7f8cb5ea7987210c23acbfe6a7b8a5a">More...</a><br /></td></tr>
-<tr class="separator:ae7f8cb5ea7987210c23acbfe6a7b8a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae625b87fb56473dd30fb302c474a673d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">access::PublishingAccess</a> publishingAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)=0</td></tr>
-<tr class="memdesc:ae625b87fb56473dd30fb302c474a673d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish entities to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#ae625b87fb56473dd30fb302c474a673d">More...</a><br /></td></tr>
-<tr class="separator:ae625b87fb56473dd30fb302c474a673d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98d659f287be698d34c29108b8d83db1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a98d659f287be698d34c29108b8d83db1">preflight</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;traitsHints, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">access::PublishingAccess</a> publishingAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a98d659f287be698d34c29108b8d83db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares for some work to be done to create data for the referenced entity.  <a href="#a98d659f287be698d34c29108b8d83db1">More...</a><br /></td></tr>
+<tr class="separator:a98d659f287be698d34c29108b8d83db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457e35ba905ca7c49bb703581d0861d9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a457e35ba905ca7c49bb703581d0861d9">register_</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a> &amp;entityTraitsDatas, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">access::PublishingAccess</a> publishingAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be">HostSessionPtr</a> &amp;hostSession, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2">RegisterSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
+<tr class="memdesc:a457e35ba905ca7c49bb703581d0861d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish entities to the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a457e35ba905ca7c49bb703581d0861d9">More...</a><br /></td></tr>
+<tr class="separator:a457e35ba905ca7c49bb703581d0861d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This Interface binds a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
@@ -337,14 +337,14 @@ Publishing</h2></td></tr>
 <p>Exceptions should be thrown to handle any in-flight errors that occur. The error should be mapped to a derived class of exceptions.OpenAssetIOException, and thrown. All exceptions of this kind will be correctly passed across the plug-in C boundary, and re-thrown. Other exceptions should not be used.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html">errors</a></dd></dl>
 <h2>Threading </h2>
-<p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a>, this will never be called concurrently.</p>
+<p>Any implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a> should be thread safe. The one exception being <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a>, this will never be called concurrently.</p>
 <p>When a <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> object is constructed by <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a6ea5cbb16e4fc2b2e4aaf6e5246cf2d1">createContext</a>, the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> (or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> for <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a951a0ebcb54c4abd6f7a13325e514021">createChildContext</a>) method will be called, and the resulting state object stored in the context. This context will then be re-used across related API calls to your implementation of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html" title="This Interface binds a Asset Management System into OpenAssetIO. ">ManagerInterface</a>. You can use this to determine which calls may be part of a specific 'action' in the same host, or logically grouped processes such as a batch render. This should allow you to implement stable resolution of <a class="el" href="glossary.html#meta_version">meta-versions</a> or other resolve-time concepts.</p>
 <p>There should be no persistent state in the implementation, concepts such as getError(), etc.. for example should not be used.</p>
 <h2>Hosts </h2>
 <p>Sometimes you may need to know more information about the API host. A <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> object is available through the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> object passed to each method of this class. This provides a standardised interface that all API hosts guarantee to implement. This can be used to identify exactly which host you are being called for, and query various entity related specifics of the hosts data model.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a></dd></dl>
 <h2>Initialization </h2>
-<p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
+<p>The constructor makes a new instance, but at this point it is not ready for use. Instances of this class should be light weight to create, but don't have to be lightweight to initialize. The informational methods must be available pre-initialization, so that UI and other display-type queries can be made relatively cheaply to provide users with a list of managers and their settings. None of the entity-related methods will be called until after <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a> has been called. The following methods must be callable prior to initialization:</p>
 <ul>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a5c0c22c1c2681d3a1deae2da9f487870">identifier()</a> </li>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afe51f23c7b60c6f5ba182c57bbeeda92">displayName()</a> </li>
@@ -353,7 +353,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306">settings()</a></li>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Finish/Document settings mechanism. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>OpenAssetIO makes use of shared pointers to facilitate object lifetime management across multiple languages. Instances passed into API methods via shared pointer may have their lifetimes extended beyond that of your code. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="aa3b6716c9f9bbb4b47c912d67002d9b8"></a>
@@ -507,14 +507,14 @@ Publishing</h2></td></tr>
 <p>Manager can inform the host whether a given string matches the pattern of a valid entity reference. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Support for this capability is required by all managers. In situations where plugins are implemented as multiple component plugins (e.g. Python and C++) at least one of the component plugins must implement this capability.</dd></dl>
 <p>This capability means the manager implements the following methods:</p><ul>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3d7e10b739b7bc83c8a6e8a0b0ccd8be">isEntityReferenceString</a> </li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6eec5f9c270886e65c06cc9d9d75e3f">isEntityReferenceString</a> </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2ca08384aded9e63fcc639f5ffddbfb5ddf"></a>kManagementPolicyQueries&#160;</td><td class="fielddoc">
 <p>Manager can provide a policy describing its behaviour with regard to specific entity types and relationships. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Support for this capability is required by all managers. In situations where plugins are implemented as multiple component plugins (e.g. Python and C++) at least one of the component plugins must implement this capability.</dd></dl>
 <p>This capability means the manager implements the following methods:</p><ul>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> </li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a> </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e"></a>kStatefulContexts&#160;</td><td class="fielddoc">
@@ -537,14 +537,14 @@ Publishing</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c"></a>kResolution&#160;</td><td class="fielddoc">
 <p>Manager is capable of resolving <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into the data for one or more <a class="el" href="glossary.html#trait">traits</a>,. </p>
 <p>This capability means the manager implements the following methods:</p><ul>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> </li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416"></a>kPublishing&#160;</td><td class="fielddoc">
 <p>Manager allows the host to create or update an <a class="el" href="glossary.html#entity">entity</a> within the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
 <p>This capability means the manager implements the following methods:</p><ul>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae7f8cb5ea7987210c23acbfe6a7b8a5a">preflight</a></li>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register_</a> </li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a98d659f287be698d34c29108b8d83db1">preflight</a></li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a457e35ba905ca7c49bb703581d0861d9">register_</a> </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006"></a>kRelationshipQueries&#160;</td><td class="fielddoc">
@@ -557,7 +557,7 @@ Publishing</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99"></a>kExistenceQueries&#160;</td><td class="fielddoc">
 <p>Manager is capable of confirming the existence of entities. </p>
 <p>This capability means the manager implements the following methods:</p><ul>
-<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9123ba49fba1db7dc0857894ed5ed334">entityExists</a> </li>
+<li><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a39dd2e6245b54de12a2d7bca6a3945fe">entityExists</a> </li>
 </ul>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45"></a>kDefaultEntityReferences&#160;</td><td class="fielddoc">
@@ -662,10 +662,13 @@ Publishing</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname">exceptions.StateError</td><td>If for some reason creation fails. </td></tr>
     <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> </dd>
 <dd>
@@ -743,10 +746,13 @@ Publishing</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">exceptions.StateError</td><td>If for some reason creation fails.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4e784143c880610d29428209c6af3cea">createChildState</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de">persistenceTokenForState</a> </dd>
 <dd>
@@ -821,10 +827,17 @@ Publishing</h2></td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful default retrieved for each of the given sets in <code>traitSets</code>. It should be given the corresponding index of the trait set in <code>traitSets</code> along with the default entity reference. If the query is well-formed, but there is no default entity reference, then provide an <code>optional</code> without a value. The callback must called on the same thread that initiated the call to <code>defaultEntityReference</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failure to retrieve a sensible default entity reference. It should be given the corresponding index for each of the given sets in <code>traitSets</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> error must be used if no suitable default reference exists, and the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> error should be used if the requested trait set is unrecognised. The callback must be called on the same thread that initiated the call to <code>defaultEntityReference</code>. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failure to retrieve a sensible default entity reference. It should be given the corresponding index for each of the given sets in <code>traitSets</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> error must be used if no suitable default reference exists, and the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> error should be used if the requested trait set is unrecognised. The callback must be called on the same thread that initiated the call to <code>defaultEntityReference</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
 
 </div>
 </div>
@@ -855,7 +868,7 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9123ba49fba1db7dc0857894ed5ed334"></a>
+<a class="anchor" id="a39dd2e6245b54de12a2d7bca6a3945fe"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -900,7 +913,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -915,10 +928,17 @@ Publishing</h2></td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">hostSession</td><td>The host session that maps to the caller, this should be used for all logging and provides access to the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> object representing the process that initiated the API session.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that must be called for each successful check of an entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a boolean indicating the existence (as defined above) of the entity. The callback must be called on the same thread that initiated the call to <code>entityExists</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed check of an entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback must be called on the same thread that initiated the call to <code>entityExists</code>. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that must be called for each failed check of an entity reference. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback must be called on the same thread that initiated the call to <code>entityExists</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -1050,10 +1070,17 @@ Publishing</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorCallback</td><td>Callback that should be called for each failed relationship query. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated BatchElementError (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
-    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have. </td></tr>
+    <tr><td class="paramname">resultTraitSet</td><td>A hint as to what traits the returned entities should have.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -1157,7 +1184,14 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> in order to determine if the manager handles relationships of that type. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a> in order to determine if the manager handles relationships of that type.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -1184,7 +1218,7 @@ Publishing</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Query the manager as to which capabilities it implements. </p>
-<p>This method will only be called post-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a>, but must be cheap to evaluate, and always return the same values.</p>
+<p>This method will only be called post-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a>, but must be cheap to evaluate, and always return the same values.</p>
 <p>API methods are grouped into "capabilities", which are independent groupings of functionality. For example, <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">publishing</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">resolution</a>.</p>
 <p>Failure to accurately reflect the capabilities of your manager may result in hosts calling into the default implementation, which throws <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html">NotImplementedException</a>, or may cause hosts to ignore capability that you have implemented.</p>
 <p>For information on what methods belong to which capability set, </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c">Capability</a>.</dd></dl>
@@ -1255,7 +1289,7 @@ Publishing</h2></td></tr>
 <li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5">constants::kInfoKey_SmallIcon</a> (upto 32x32) </li>
 <li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#ae3a10bd12d0c07579cfbbf75f38c6d51">constants::kInfoKey_Icon</a> (any size)</li>
 </ul>
-<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3d7e10b739b7bc83c8a6e8a0b0ccd8be">isEntityReferenceString</a> should be implemented regardless.</p>
+<p>Because it can often be expensive to bridge between languages, info can also contain an additional field - a prefix that identifies a string as a valid entity reference. If supplied, this will be used by the API to optimize calls to isEntityReferenceString when bridging between C/Python etc. If this isn't supplied, then isEntityReferenceString will always be called to determine if a string is an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> or not. Note, not all invocations require this optimization, so <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6eec5f9c270886e65c06cc9d9d75e3f">isEntityReferenceString</a> should be implemented regardless.</p>
 <ul>
 <li><a class="el" href="namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3">constants::kInfoKey_EntityReferencesMatchPrefix</a></li>
 </ul>
@@ -1263,7 +1297,7 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afd5f3664126a234aa411772313d0a27f"></a>
+<a class="anchor" id="abcd37733beeb965aa0a8b44bd5a28106"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1290,7 +1324,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1311,7 +1345,7 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3d7e10b739b7bc83c8a6e8a0b0ccd8be"></a>
+<a class="anchor" id="ac6eec5f9c270886e65c06cc9d9d75e3f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1338,7 +1372,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1358,13 +1392,21 @@ Publishing</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>bool</code> <code>True</code> if the supplied string should be considered as an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>, <code>False</code> if the pattern is not recognised.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This call should not verify an entity exits, just that the format of the string is recognised as a potential entity reference by the manager.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9123ba49fba1db7dc0857894ed5ed334">entityExists</a> </dd>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation. This exception being thrown constitutes a manager implementation error, as all managers must implement this method in one of their component plugins.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca317e8b979b7fdd86d62a9c42ebfe22ab">Capability::kEntityReferenceIdentification</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a39dd2e6245b54de12a2d7bca6a3945fe">entityExists</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a748f20ef0a79caf88bc6eff1f096453f"></a>
+<a class="anchor" id="a396dda47e88dbe8b9c1ad25e677a26a4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1403,7 +1445,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1411,7 +1453,7 @@ Publishing</h2></td></tr>
 <p>Management Policy queries determine if the manager is interested in participating in interactions with <a class="el" href="glossary.html#entity">entities</a> with a specified <a class="el" href="glossary.html#trait_set">Trait Set</a>, and which traits it is capable of resolving or persisting data for. </p>
 <p>This method is usually called early on by a host to determine whether to enable OpenAssetIO related functionality when handling specific kinds of data. The host will often adapt its subsequent behaviour to minimise unsupported interactions with the manager. In high call volume scenarios (such as CG rendering), this can potentially save hundreds of thousands of redundant calls into the API for unmanaged entity traits.</p>
 <p>As such, the implementation of this method (and careful consideration of the responses it returns) is critical. Due to the calling patterns, the manager's policy must be runtime invariant for any given set of inputs.</p>
-<dl class="section note"><dt>Note</dt><dd>It is not <em>required</em> that a <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> calls this method before invoking other API methods, and so methods such as <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register_</a> must be tolerant of being called with unsupported traits (fear not, there is a simple and established failure mode for this situation).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>It is not <em>required</em> that a <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html" title="The Host object represents the tool or application that created a session with OpenAssetIO, and wants to query or store information within a manager. ">Host</a> calls this method before invoking other API methods, and so methods such as <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a457e35ba905ca7c49bb703581d0861d9">register_</a> must be tolerant of being called with unsupported traits (fear not, there is a simple and established failure mode for this situation).</dd></dl>
 <p>This method must return a <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> for each requested <a class="el" href="glossary.html#trait_set">Trait Set</a>. The implementation of this method should carefully consider the given <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access</a>, and imbue suitable traits in the result to define:</p>
 <ul>
 <li>Whether and how that kind of entity is managed (traits with the <code>managementPolicy</code> usage metadata)</li>
@@ -1429,7 +1471,14 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a <code>TraitsData</code> for each element in <code>traitSets</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a <code>TraitsData</code> for each element in <code>traitSets</code>.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation. This exception being thrown constitutes a manager implementation error, as all managers must implement this method in one of their component plugins.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca08384aded9e63fcc639f5ffddbfb5ddf">Capability::kManagementPolicyQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -1470,14 +1519,17 @@ Publishing</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a73a774a6c37d939eeba276e5ae1b229b">stateFromPersistenceToken</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ae7f8cb5ea7987210c23acbfe6a7b8a5a"></a>
+<a class="anchor" id="a98d659f287be698d34c29108b8d83db1"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1534,7 +1586,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1542,9 +1594,9 @@ Publishing</h2></td></tr>
 <p>Prepares for some work to be done to create data for the referenced entity. </p>
 <p>The entity may not yet exist (<a class="el" href="glossary.html#entity_reference">Entity Reference</a>). This call is designed to allow validation of the target reference, placeholder creation or any other sundry preparatory actions to be carried out.</p>
 <p>If this does not apply to the manager's workflow, then the method can pass back the input reference once the target entity reference has been validated.</p>
-<p>Generally, this will be called before register() when data is not already immediately available for registration, to allow placeholder actions to be performed. Note: depending on the returned <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a>, the host may make additional API queries using the reference returned here before registration.</p>
+<p>Generally, this will be called before register() when data is not already immediately available for registration, to allow placeholder actions to be performed. Note: depending on the returned <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a>, the host may make additional API queries using the reference returned here before registration.</p>
 <p>This call must block until preflight is complete for all supplied references, and callbacks have been called on the same thread that called <code>preflight</code></p>
-<dl class="section warning"><dt>Warning</dt><dd>If the supplied <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">trait data</a> is missing required traits for any of the provided references (maybe they are mismatched with the target entity), or the populated properties are insufficient or invalid for upcoming <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> for <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edead3ac0ba447a9859ad2db8e498056429f">write</a> requests or the eventual <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register_</a>, then error that element with an appropriate <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">openassetio::v1::errors::BatchElementError::ErrorCode</a>.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>If the supplied <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">trait data</a> is missing required traits for any of the provided references (maybe they are mismatched with the target entity), or the populated properties are insufficient or invalid for upcoming <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> for <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edead3ac0ba447a9859ad2db8e498056429f">write</a> requests or the eventual <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a457e35ba905ca7c49bb703581d0861d9">register_</a>, then error that element with an appropriate <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">openassetio::v1::errors::BatchElementError::ErrorCode</a>.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReferences</td><td>An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> for each entity that it is desired to publish the forthcoming data to. See the notes in the API documentation for the specifics of this.</td></tr>
@@ -1557,11 +1609,19 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae625b87fb56473dd30fb302c474a673d">register_</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a457e35ba905ca7c49bb703581d0861d9">register_</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ae625b87fb56473dd30fb302c474a673d"></a>
+<a class="anchor" id="a457e35ba905ca7c49bb703581d0861d9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1618,7 +1678,7 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1632,7 +1692,7 @@ Publishing</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entityReferences</td><td>The <a class="el" href="glossary.html#entity_reference">Entity Reference</a> of each entity to register_. It is up to the manager to ensure that this is meaningful, as it is most likely implementation specific. For example, if an entity with the traits of a 'Shot' specification is requested to be published to a reference that points to a 'Sequence' it makes sense to interpret this as a 'add a shot of this spec to the sequence'. For other types of entity, there may be different constraints on what makes sense.</td></tr>
-    <tr><td class="paramname">entityTraitsDatas</td><td>The data for each entity (or 'asset') that is being published. The implementation must persist the list of traits, and any supported traits with properties. Such that a subsequent call to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aae54209405f5d935f71f9abdea444288">resolve</a> for any of these traits contains that data. It is guaranteed that the trait sets of these instances are constant across the batch.</td></tr>
+    <tr><td class="paramname">entityTraitsDatas</td><td>The data for each entity (or 'asset') that is being published. The implementation must persist the list of traits, and any supported traits with properties. Such that a subsequent call to <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a797bb81e67618fa77eaf9fd54f9061fc">resolve</a> for any of these traits contains that data. It is guaranteed that the trait sets of these instances are constant across the batch.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1647,13 +1707,21 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> </dd>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae7f8cb5ea7987210c23acbfe6a7b8a5a">preflight</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a98d659f287be698d34c29108b8d83db1">preflight</a> </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="aae54209405f5d935f71f9abdea444288"></a>
+<a class="anchor" id="a797bb81e67618fa77eaf9fd54f9061fc"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1710,14 +1778,14 @@ Publishing</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Provides the host with a <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> populated with the available data for the properties of the requested set of traits for each given <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
 <p>This call should block until all resolutions are complete and callbacks have been called. Callbacks must be called on the same thread that called <code>resolve</code>.</p>
-<p>Requested traits that aren't applicable to any particular entity, have no properties, or are not supported by your implementation, should be ignored and not imbued to the result. Your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a748f20ef0a79caf88bc6eff1f096453f">managementPolicy</a> when called with a read <a class="el" href="glossary.html#Context">Context</a> should accurately reflect which traits you understand and are capable of resolving data for here.</p>
+<p>Requested traits that aren't applicable to any particular entity, have no properties, or are not supported by your implementation, should be ignored and not imbued to the result. Your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a> when called with a read <a class="el" href="glossary.html#Context">Context</a> should accurately reflect which traits you understand and are capable of resolving data for here.</p>
 <dl class="section warning"><dt>Warning</dt><dd>See the documentation for each respective trait as to which properties are considered required. It is the responsibility of the caller to handle optional property values being missing in a fashion appropriate to its intended use.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Some trait properties may support substitution tokens, or similar. The conventions for these will be defined in the trait's documentation. See the originating project for more information on their specifics. Don't forget to add a scheme and URL encode any paths that are stored in properties defined as holding a URL.</dd></dl>
 <p>The <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> should also be carefully considered to ensure that the access does not violate any rules of the system - for example, resolving an existing entity reference for write.</p>
@@ -1735,9 +1803,17 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9123ba49fba1db7dc0857894ed5ed334">entityExists</a> </dd>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a3d7e10b739b7bc83c8a6e8a0b0ccd8be">isEntityReferenceString</a> </dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a39dd2e6245b54de12a2d7bca6a3945fe">entityExists</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6eec5f9c270886e65c06cc9d9d75e3f">isEntityReferenceString</a> </dd>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> </dd></dl>
 
@@ -1771,7 +1847,7 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#afd5f3664126a234aa411772313d0a27f">initialize</a> has not yet been called).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#abcd37733beeb965aa0a8b44bd5a28106">initialize</a> has not yet been called).</dd></dl>
 <p>The default implementation returns an empty dictionary. </p>
 
 </div>
@@ -1813,10 +1889,12 @@ Publishing</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">exceptions.StateError</td><td>If the supplied token is not meaningful, or that a state has already been restored. </td></tr>
-    <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>If called on a manager that does not implement custom state management.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd></dl>
 
 </div>
 </div>
@@ -1863,7 +1941,14 @@ Publishing</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Substituted map of terms. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Substituted map of terms.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>by default when this method is not implemented by the manager. Implementations must therefore not invoke the base class implementation.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca66a22fd542484038ccf8cccd8ff62be7">Capability::kCustomTerminology</a> </dd></dl>
 
 </div>
 </div>

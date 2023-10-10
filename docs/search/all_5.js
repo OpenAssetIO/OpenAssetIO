@@ -1,7 +1,7 @@
 var searchData=
 [
   ['entities_2c_20traits_20and_20specifications',['Entities, Traits and Specifications',['../entities_traits_and_specifications.html',1,'']]],
-  ['entityexists',['entityExists',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04',1,'openassetio::v1::hostApi::Manager::entityExists()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a9123ba49fba1db7dc0857894ed5ed334',1,'openassetio::v1::managerApi::ManagerInterface::entityExists()']]],
+  ['entityexists',['entityExists',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04',1,'openassetio::v1::hostApi::Manager::entityExists()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a39dd2e6245b54de12a2d7bca6a3945fe',1,'openassetio::v1::managerApi::ManagerInterface::entityExists()']]],
   ['entityreference',['EntityReference',['../classopenassetio_1_1v1_1_1_entity_reference.html',1,'openassetio::v1']]],
   ['entityreference',['EntityReference',['../classopenassetio_1_1v1_1_1_entity_reference.html#a90776268696932b8108cfac778005033',1,'openassetio::v1::EntityReference']]],
   ['entityreferencepager',['EntityReferencePager',['../classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html',1,'openassetio::v1::hostApi']]],

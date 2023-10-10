@@ -570,6 +570,13 @@ Publishing</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A context that will be associated with the same logical group of actions as the context supplied to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c">persistenceTokenForContext</a> to generate the token.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The context's access or locale is not restored by this action.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a></dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
 
 </div>
@@ -735,10 +742,17 @@ Publishing</h2></td></tr>
     <tr><td class="paramname">defaultEntityAccess</td><td>Intended usage of the returned entity reference(s).</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful default retrieved for each of the given sets in <code>traitSets</code>. It will be given the corresponding index of the trait set in <code>traitSets</code> along with the default entity reference. If the query is well-formed, but there is no available default entity reference, then the <code>optional</code> entity reference will not contain a value. The callback will be called on the same thread that initiated the call to <code>defaultEntityReference</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failure to retrieve a sensible default entity reference. It will be given the corresponding index for each of the given sets in <code>traitSets</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> error will be used if no suitable default reference exists, and the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> error will be used if the requested trait set is not recognised by the manager. The callback will be called on the same thread that initiated the call to <code>defaultEntityReference</code>. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failure to retrieve a sensible default entity reference. It will be given the corresponding index for each of the given sets in <code>traitSets</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485">kEntityAccessError</a> error will be used if no suitable default reference exists, and the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> error will be used if the requested trait set is not recognised by the manager. The callback will be called on the same thread that initiated the call to <code>defaultEntityReference</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
 
 </div>
 </div>
@@ -804,10 +818,17 @@ Publishing</h2></td></tr>
     <tr><td class="paramname">entityReferences</td><td>Entity references to query.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful check of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a boolean indicating existence, as defined above. The callback will be called on the same thread that initiated the call to <code>entityExists</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed check of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>entityExists</code>. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed check of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>entityExists</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -908,10 +929,12 @@ Publishing</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if <code>pageSize</code> is zero. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if <code>pageSize</code> is zero.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -995,10 +1018,12 @@ Publishing</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>The <a class="el" href="glossary.html#trait_set">Trait Set</a> of any queried relationship can be passed to <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a> in order to determine if the manager handles relationships of that type.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if <code>pageSize</code> is zero. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if <code>pageSize</code> is zero.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">Capability::kRelationshipQueries</a> </dd></dl>
 
 </div>
 </div>
@@ -1244,7 +1269,15 @@ This method may block for extended periods of time. </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A persistence token that can be used with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0">contextFromPersistenceToken</a> to create a context associated with the same logical group of actions as the one supplied to this method.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This only encapsulates the logical identity of the <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a>, such that when restored, any API calls made using the resulting <a class="el" href="classopenassetio_1_1v1_1_1_context.html" title="The Context object is used to convey information about the calling environment to a manager...">Context</a> will be logically associated with the one supplied here. It does not encode the current locale or other propeties.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd>
+<dd>
+<a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 
 </div>
 </div>
@@ -1313,7 +1346,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11b2f38b2a7f38a7c3ae559550ef7de0">register_</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11b2f38b2a7f38a7c3ae559550ef7de0">register_</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1372,7 +1412,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions as part of the publishing operation </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions as part of the publishing operation</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1433,7 +1480,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Either an updated reference to use for future interactions as part of the publishing operation, or an error object detailing the reason for the failure of this particular entity. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Either an updated reference to use for future interactions as part of the publishing operation, or an error object detailing the reason for the failure of this particular entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1492,7 +1546,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Updated references to use for future interactions as part of the publishing operation </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Updated references to use for future interactions as part of the publishing operation</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1553,7 +1614,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A list where each element is either an updated reference to use for future interactions as part of the publishing operation, or an error object detailing the reason for the failure of that particular entity. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list where each element is either an updated reference to use for future interactions as part of the publishing operation, or an error object detailing the reason for the failure of that particular entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1627,14 +1695,16 @@ This method may block for extended periods of time. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <code>entityReferences</code> and <code>entityTraitsDatas</code> are not lists of the same length.</td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If <code>entityReferences</code> and <code>entityTraitsDatas</code> are not lists of the same length. Other exceptions may be raised for fatal runtime errors, for example server communication failure.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Other exceptions may be raised for fatal runtime errors, for example server communication failure.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2d6b01cea99fb85c0270624b647af621">preflight</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2d6b01cea99fb85c0270624b647af621">preflight</a> </dd>
+<dd>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1693,7 +1763,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions with the resulting new entity. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions with the resulting new entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1754,7 +1831,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions with the resulting new entity or an error object detailing the reason for the failure of this particular entity. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Updated reference to use for future interactions with the resulting new entity or an error object detailing the reason for the failure of this particular entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1813,7 +1897,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Updated references to use for future interactions with the resulting new entities. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Updated references to use for future interactions with the resulting new entities.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1874,7 +1965,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A list where each element is either an updated reference to use in future interactions with the resulting new entity, or an error object detailing the reason for the failure of that particular entity. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list where each element is either an updated reference to use in future interactions with the resulting new entity, or an error object detailing the reason for the failure of that particular entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a> </dd></dl>
 
 </div>
 </div>
@@ -1940,10 +2038,17 @@ This method may block for extended periods of time. </dd></dl>
     <tr><td class="paramname">resolveAccess</td><td>The intended usage of the data.</td></tr>
     <tr><td class="paramname">context</td><td>The calling context.</td></tr>
     <tr><td class="paramname">successCallback</td><td>Callback that will be called for each successful resolution of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with its <code>TraitsData</code>. The callback will be called on the same thread that initiated the call to <code>resolve</code>.</td></tr>
-    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed resolution of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>resolve</code>. </td></tr>
+    <tr><td class="paramname">errorCallback</td><td>Callback that will be called for each failed resolution of an entity reference. It will be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback will be called on the same thread that initiated the call to <code>resolve</code>.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd></dl>
 
 </div>
 </div>
@@ -2002,7 +2107,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Populated data. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Populated data.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd></dl>
 
 </div>
 </div>
@@ -2063,7 +2175,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Object containing either the populated data or an error object. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Object containing either the populated data or an error object.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd></dl>
 
 </div>
 </div>
@@ -2122,7 +2241,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>List of populated data objects. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List of populated data objects.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd></dl>
 
 </div>
 </div>
@@ -2183,7 +2309,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>List of objects, each containing either the populated data or an error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>List of objects, each containing either the populated data or an error.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a> </dd></dl>
 
 </div>
 </div>
@@ -2233,7 +2366,14 @@ This method may block for extended periods of time. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Substituted map of terms. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Substituted map of terms.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca66a22fd542484038ccf8cccd8ff62be7">Capability::kCustomTerminology</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca66a22fd542484038ccf8cccd8ff62be7">Capability::kCustomTerminology</a> </dd></dl>
 
 </div>
 </div>
