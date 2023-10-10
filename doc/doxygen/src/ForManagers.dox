@@ -87,14 +87,6 @@
  *   terms that are meaningful for the user. Eg. the state token will be
  *   shared across distributed multi-host renders.
  *
- * - A manager can provide additional UI elements that interact
- *   with the host, by returning them from @needsref ManagerUIDelegate.getWidgets.
- *   The host will create suitable panels, etc. for them, based on the
- *   flags set in @needsref BaseWidget.getAttributes.
- *
- * @note The UI classes have not yet been migrated from the
- * `FnAssetAPI` code base.
- *
  * @section manager_todo Implementation Check List
  *
  * @note You can use the @ref testing_manager_plugins
@@ -219,13 +211,6 @@
  * - Update your implementation of @fqref{managerApi.ManagerInterface.managementPolicy}
  *   "managementPolicy" to cover the relationship trait sets you support.
  *
- * @subsection manager_todo_ui Embedding Custom UI Within the Host
- *
- * @note The UI layer of OpenAssetIO is yet to be ported to this code base,
- * this documentation section is currently in-progress.
- *
- * - Filter any browsers based on the supplied @ref trait_set.
- *
  * @section manager_reading Recommended Reading
  *
  * @see @ref entities_traits_and_specifications
@@ -234,6 +219,4 @@
  * "PythonPluginSystemManagerPlugin"
  * @see @fqref{Context} "Context"
  * @see @fqref{managerApi.Host} "Host"
- * @see @needsref ManagerUIDelegate
- * @see @needsref ui.widgets
  */

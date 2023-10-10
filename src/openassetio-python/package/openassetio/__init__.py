@@ -49,9 +49,6 @@ The API covers the following areas:
 
 - Discovery and registration of related assets.
 
-- Replacement/augmentation of in-application UI elements such as
-  browsers and other panels/controls.
-
 The API, by design, does not:
 
 - Define any standardized data structures for the storage or description

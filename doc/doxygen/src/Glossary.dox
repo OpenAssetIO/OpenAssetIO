@@ -90,12 +90,10 @@
  * entities, for various reasons detailed below.
  *
  * An entity reference can be any string, and there are no constraints
- * on the content of the reference other than that of a std::string.
- * It's worth noting however, that if no custom UI widgets are supplied
- * by a manager, a @ref host will simply display it as a standard
- * string. It is up to the design of the @ref manager to decide on the
- * format for it's entity references, and whether they are in a human
- * readable form.
+ * on the content of the reference other than that of a std::string. It
+ * is up to the design of the @ref manager to decide on the format for
+ * its entity references, and whether they are in a human readable
+ * form.
  *
  * > Note: We strongly recommend using a human-readable form that
  * > follows <a

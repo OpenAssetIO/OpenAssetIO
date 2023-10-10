@@ -180,23 +180,8 @@
  *   "managementPolicy" sets the @needsref WantsThumbnail trait, where
  *   possible, generate thumbnails as requested during publishing.
  *
- * - Allow the @needsref ManagerUIDelegate to participate in
- *   browsing/etc... for any data types they have expressed an interest
- *   in managing via @fqref{hostApi.Manager.managementPolicy}
- *   "Manager.managementPolicy".
- *
- * - Make the drawing of any parameters that may hold an @ref
- *   entity_reference delegatable to the @needsref ManagerUIDeleagate.
- *
  * - Create @ref Specification "specifications" for any custom 'asset
  *   types' you may deal with.
  *
- * - You should map any widgets returned by @needsref ManagerUIDelegate.widgets
- *   with the @needsref ui.widgets.attributes.kCreateApplicationPanel flag set to
- *   some native panel type, if you have one.
- *
  * @see @ref example_generating_a_thumbnail
- *
- * @note The UI classes have not yet been migrated from the
- * `FnAssetAPI` code base.
  */
