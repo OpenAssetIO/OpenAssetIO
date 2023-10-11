@@ -984,7 +984,7 @@ class Test_createChildState(FixtureAugmentedTestCase):
         if not context.managerState:
             self.skipTest("createState returned None")
 
-        child_context = self._manager.createChildState(context)
+        child_context = self._manager.createChildContext(context)
         self.assertIsNotNone(child_context.managerState)
 
 
