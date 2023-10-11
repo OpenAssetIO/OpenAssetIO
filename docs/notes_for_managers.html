@@ -120,9 +120,7 @@ Architecture Summary</h1>
 <li>Many API calls are passed a <a class="el" href="glossary.html#trait_set">Trait Set</a>. They form a strong type mechanism, and must be respected as a filter predicate for browsing/query operations, and as a type specifier for creation operations. See <a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a> for more details on this mechanism.</li>
 <li>The <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> implementation will be passed a <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> to the majority of API calls. This should be used for <em>all</em> logging, and any generic host queries via the supplied <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> object. Managers may wish to use details of the <a class="el" href="glossary.html#host">host</a> obtained from this object to adapt their behavior if desired.</li>
 <li>If a manager wants to support some kind of temporally stable resolution of <a class="el" href="glossary.html#meta_version">Meta-versions</a> or similar, implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62">createState</a>, and return some token that can be used as an anchor. A new token will be requested each time a <a class="el" href="glossary.html#Context">Context</a> is made, and will then be available via <a class="el" href="classopenassetio_1_1v1_1_1_context.html#acd7f8f8c42945369c5077f314db5b917">Context.managerState</a> in any call that receives a context. Hosts will take care of managing the lifetime of any given Context in terms that are meaningful for the user. Eg. the state token will be shared across distributed multi-host renders.</li>
-<li>A manager can provide additional UI elements that interact with the host, by returning them from ManagerUIDelegate.getWidgets. The host will create suitable panels, etc. for them, based on the flags set in BaseWidget.getAttributes.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>The UI classes have not yet been migrated from the <code>FnAssetAPI</code> code base.</dd></dl>
 <h1><a class="anchor" id="manager_todo"></a>
 Implementation Check List</h1>
 <dl class="section note"><dt>Note</dt><dd>You can use the <a class="el" href="testing.html#testing_manager_plugins">manager test harness</a> to check your implementation, and as a basis for additional tests/CI of your own.</dd></dl>
@@ -160,12 +158,6 @@ Supporting Relationships</h2>
 <li>Update your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a4fced6fb3fec0de65749a6f9d47a33a3">hasCapability</a> to report that you are now implement <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2ca5a4f49a779aefff10f2a062c0f193006">relationship queries</a>.</li>
 <li>Update your implementation of <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a396dda47e88dbe8b9c1ad25e677a26a4">managementPolicy</a> to cover the relationship trait sets you support.</li>
 </ul>
-<h2><a class="anchor" id="manager_todo_ui"></a>
-Embedding Custom UI Within the Host</h2>
-<dl class="section note"><dt>Note</dt><dd>The UI layer of OpenAssetIO is yet to be ported to this code base, this documentation section is currently in-progress.</dd></dl>
-<ul>
-<li>Filter any browsers based on the supplied <a class="el" href="glossary.html#trait_set">Trait Set</a>.</li>
-</ul>
 <h1><a class="anchor" id="manager_reading"></a>
 Recommended Reading</h1>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a> </dd>
@@ -176,11 +168,7 @@ Recommended Reading</h1>
 <dd>
 <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> </dd>
-<dd>
-ManagerUIDelegate </dd>
-<dd>
-ui.widgets </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

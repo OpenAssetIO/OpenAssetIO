@@ -20,7 +20,6 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ae9213238c75213f7803c02fc7e245216":[13,0,0,1,1,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html":[13,0,0,1,2,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[13,0,0,1,2,0,0],
-"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce":[13,0,0,1,2,0,1],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html":[13,0,0,1,3,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html#a1e0f2c500f5271e13dbed066bd3549f2":[13,0,0,1,3,0,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html":[13,0,0,2,0,0,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a5e4f3779b06bc0c88d2e755d21086de3":[13,0,0,3,3,1,5],
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a75cbc71708c2aa9da382074804ada09c":[13,0,0,3,3,1,11],
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#acd48694a8fe2a806484b94354e9eb33c":[13,0,0,3,3,1,7],
-"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766":[13,0,0,3,3,1,3]
+"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766":[13,0,0,3,3,1,3],
+"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad72568d0403790b179a0b61fa8360437":[13,0,0,3,3,1,1]
 };

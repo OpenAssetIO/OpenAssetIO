@@ -132,9 +132,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aafd0b3ea85ff007407525aa377d03bac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac">interface</a> (cls)</td></tr>
 <tr class="memdesc:aafd0b3ea85ff007407525aa377d03bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>.  <a href="#aafd0b3ea85ff007407525aa377d03bac">More...</a><br /></td></tr>
 <tr class="separator:aafd0b3ea85ff007407525aa377d03bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab276e2a61b4452ffe6e9a54cac10f1ce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce">uiDelegate</a> (cls, interfaceInstance)</td></tr>
-<tr class="memdesc:ab276e2a61b4452ffe6e9a54cac10f1ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of the openassetio-ui.implementation.ManagerUIDelegate.  <a href="#ab276e2a61b4452ffe6e9a54cac10f1ce">More...</a><br /></td></tr>
-<tr class="separator:ab276e2a61b4452ffe6e9a54cac10f1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -146,8 +143,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="textblock"><p>This class represents the various derived classes that make up the binding to a <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
 <p>It used by the dynamic plug-in discovery mechanism (<a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system.html">openassetio.pluginSystem.PythonPluginSystem</a>) to instantiate the main classes in an implementation.</p>
 <p>The class will never be instantiated itself, so all functionality is via class methods.</p>
-<p>In order to register a new asset management system, simply place a python package on the appropriate search path, that has a top-level attribute called 'plugin', that holds a class derived from this.</p>
-<dl class="section warning"><dt>Warning</dt><dd>This class, may be used in a batch, or UI session, so consequently, it is imperative that no ui libraries (QtCore, QtGui etc...) are imported unless <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#ab276e2a61b4452ffe6e9a54cac10f1ce">uiDelegate()</a> is called, and ideally, even then, this should be deferred until something is requested from the openassetio-ui.implementation.ManagerUIDelegate. </dd></dl>
+<p>In order to register a new asset management system, simply place a python package on the appropriate search path, that has a top-level attribute called 'plugin', that holds a class derived from this. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a940fe1b11692b151eeb47b1663417f28"></a>
 <div class="memitem">
@@ -195,43 +191,6 @@ Static Public Member Functions</h2></td></tr>
 <p>This is an instance of some class derived from ManagerInterface to be bound to the Host-facing <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html">Manager</a>.</p>
 <p>Generally this is only directly called by the <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory.html">openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory</a>. It may be called multiple times in a session, but there as the ManagerInterface API itself is specified as being stateless (aside from any internal caching/etc...) then there is no pre-requisite to always return a new instance.</p>
 <dl class="section return"><dt>Returns</dt><dd>ManagerInterface instance </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab276e2a61b4452ffe6e9a54cac10f1ce"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def uiDelegate </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>cls</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>interfaceInstance</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs an instance of the openassetio-ui.implementation.ManagerUIDelegate. </p>
-<p>This is an instance of some class derived from ManagerUIDelegate that is used by the UISessionManager to provide widgets to a host that may bind into panels in the application, or to allow the application to delegate asset browsing/picking etc...</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">interfaceInstance</td><td>An instance of the plugins interface as returned by <a class="el" href="classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac">interface()</a>, this is to allow UI to be configured in relation to a specific instantiation, which may perhaps target a different endpoint due to its settings, etc...</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>It is safe to import any UI toolkits, etc... <em>within in this call</em>, but generally you may want to deffer this to methods in the delegate.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>An instance of some class derived from ManagerUIDelegate. </dd></dl>
 
 </div>
 </div>

@@ -76,8 +76,7 @@ var NAVTREE =
       [ "Implementation Check List", "notes_for_managers.html#manager_todo", [
         [ "Required for Resolution Only", "notes_for_managers.html#manager_todo_basic_resolution", null ],
         [ "Required for Publishing", "notes_for_managers.html#manager_todo_publishing", null ],
-        [ "Supporting Relationships", "notes_for_managers.html#manager_todo_related_entities", null ],
-        [ "Embedding Custom UI Within the Host", "notes_for_managers.html#manager_todo_ui", null ]
+        [ "Supporting Relationships", "notes_for_managers.html#manager_todo_related_entities", null ]
       ] ],
       [ "Recommended Reading", "notes_for_managers.html#manager_reading", null ]
     ] ],
@@ -154,8 +153,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad72568d0403790b179a0b61fa8360437",
-"runtime_configuration.html#configuration_troubleshooting"
+"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#af0d0e0e4f2328eb0fbe63229d35c7d10",
+"runtime_configuration.html#host_default_config"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
