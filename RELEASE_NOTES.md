@@ -107,6 +107,10 @@ v1.0.0-alpha.xx
   `Context` is returned without a `managerState`.
   [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
+- Removed the unused `PythonPluginSystemManagerPlugin.uiDelegate`
+  method, along with associated UI related documentation that referenced
+  non-existent functionality.
+  [#1150](https://github.com/OpenAssetIO/OpenAssetIO/issues/1150)
 
 v1.0.0-alpha.14
 ---------------
