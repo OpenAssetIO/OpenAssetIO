@@ -37,6 +37,7 @@ from openassetio.errors import (
     BatchElementException,
     BatchElementError,
     InputValidationException,
+    ConfigurationException,
 )
 from openassetio.hostApi import Manager, EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface, ManagerInterface
@@ -238,6 +239,56 @@ class Test_Manager_initialize:
             mock_logger.Severity.kWarning,
             "Entity reference prefix given but is an invalid type: should be a string.",
         )
+
+
+class Test_Manager_initialize_capablility_check:
+    def test_has_capability_called_after_initialize(
+        self, manager, a_host_session, mock_manager_interface
+    ):
+        mock_manager_interface.mock.hasCapability.return_value = True
+
+        manager.initialize({})
+
+        assert mock_manager_interface.mock.method_calls[0:3] == [
+            mock.call.initialize({}, a_host_session),
+            mock.call.hasCapability(ManagerInterface.Capability.kEntityReferenceIdentification),
+            mock.call.hasCapability(ManagerInterface.Capability.kManagementPolicyQueries),
+        ]
+
+    def test_when_manager_has_capabilities_then_no_error(self, manager, mock_manager_interface):
+        mock_manager_interface.mock.hasCapability.return_value = True
+        manager.initialize({})
+
+    @pytest.mark.parametrize(
+        "missing_capabilities",
+        [
+            [ManagerInterface.Capability.kEntityReferenceIdentification],
+            [ManagerInterface.Capability.kManagementPolicyQueries],
+            [
+                ManagerInterface.Capability.kEntityReferenceIdentification,
+                ManagerInterface.Capability.kManagementPolicyQueries,
+            ],
+        ],
+    )
+    def test_when_manager_does_not_have_capability_then_ConfigurationException_raised(
+        self, manager, mock_manager_interface, missing_capabilities
+    ):
+        def mock_has_capability(capability):
+            return capability not in missing_capabilities
+
+        mock_manager_interface.mock.hasCapability.side_effect = mock_has_capability
+        mock_manager_interface.mock.identifier.return_value = "expected.identifier"
+
+        capability_names = ", ".join(
+            [ManagerInterface.kCapabilityNames[c] for c in missing_capabilities]
+        )
+        expected_msg = (
+            f"Manager implementation for '{manager.identifier()}' does not "
+            + f"support the required capabilities: {capability_names}"
+        )
+
+        with pytest.raises(ConfigurationException, match=expected_msg):
+            manager.initialize({})
 
 
 manager_capabilities = [

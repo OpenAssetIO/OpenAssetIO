@@ -78,6 +78,11 @@ v1.0.0-alpha.xx
   implementation.
   [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
+- The middleware will validate that the manager's implementation provides
+  the `kEntityReferenceIdentification` and `kManagementPolicyQuery`
+  capabilities upon initialization.
+  [#1148](https://github.com/OpenAssetIO/OpenAssetIO/issues/1148)
+
 ### New Features
 
 - Added new exception types, allowing all OpenAssetIO exceptions to

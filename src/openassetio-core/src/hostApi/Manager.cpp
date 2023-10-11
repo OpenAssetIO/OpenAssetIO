@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
+#include <array>
 #include <stdexcept>
 #include <utility>
+#include <vector>
 
 #include <fmt/format.h>
 
@@ -23,6 +25,41 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace {
+
+/**
+ * Validate the supplied ManagerInterface supports all required
+ * capabilities, or throw a ConfigurationException.
+ *
+ * These capabilities are required at runtime, but not enforced at
+ * compile time, as multi-language implementations may only provide the
+ * implementation in one of the component languages.
+ */
+void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface) {
+  using managerApi::ManagerInterface;
+
+  static constexpr std::array kRequiredCapabilities = {
+      ManagerInterface::Capability::kEntityReferenceIdentification,
+      ManagerInterface::Capability::kManagementPolicyQueries};
+
+  std::vector<std::string> missingCapabilities;
+  for (const ManagerInterface::Capability capability : kRequiredCapabilities) {
+    if (!interface->hasCapability(capability)) {
+      missingCapabilities.emplace_back(
+          ManagerInterface::kCapabilityNames[static_cast<size_t>(capability)]);
+    }
+  }
+
+  if (missingCapabilities.empty()) {
+    return;
+  }
+
+  std::string msg =
+      fmt::format("Manager implementation for '{}' does not support the required capabilities: {}",
+                  interface->identifier(), fmt::join(missingCapabilities, ", "));
+
+  throw errors::ConfigurationException(msg);
+}
+
 /**
  * Extract the entity reference prefix from a manager plugin's info
  * dictionary, if available.
@@ -81,6 +118,12 @@ InfoDictionary Manager::settings() { return managerInterface_->settings(hostSess
 
 void Manager::initialize(InfoDictionary managerSettings) {
   managerInterface_->initialize(std::move(managerSettings), hostSession_);
+
+  // Verify the manager has required capabilities. This must only be
+  // done after initialization, to ensure we can support proxy interface
+  // implementations that need initializing to configure the proxied
+  // implementation
+  verifyRequiredCapabilities(managerInterface_);
 
   entityReferencePrefix_ =
       entityReferencePrefixFromInfo(hostSession_->logger(), managerInterface_->info());
