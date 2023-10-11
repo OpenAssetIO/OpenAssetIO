@@ -1,5 +1,10 @@
 var NAVTREEINDEX2 =
 {
+"notes_for_managers.html#manager_todo_related_entities":[5,1,2],
+"pages.html":[],
+"runtime_configuration.html":[1],
+"runtime_configuration.html#configuration_troubleshooting":[1,3],
+"runtime_configuration.html#default_config_not_working":[1,3,2],
 "runtime_configuration.html#host_default_config":[1,2,0],
 "runtime_configuration.html#host_settings":[1,2],
 "runtime_configuration.html#installing_manager_plugins":[1,1],

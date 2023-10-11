@@ -1,6 +1,7 @@
 var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all =
 [
     [ "weaklist", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all_1_1weaklist.html", null ],
+    [ "test_has_capability", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html#a3db2325f6d7d9cd35adb3a2233f4fa59", null ],
     [ "test_when_batched_then_same_number_of_returned_relationships", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html#a6d0656268482bc9bb43cb8af059f677c", null ],
     [ "test_when_pager_constructed_then_no_references_to_original_args_are_retained", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html#a2cbe81a86d04748700ecff330b899d5e", null ],
     [ "test_when_querying_malformed_reference_then_malformed_reference_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html#aebc120614dc22bf3b518dc9654454e48", null ],

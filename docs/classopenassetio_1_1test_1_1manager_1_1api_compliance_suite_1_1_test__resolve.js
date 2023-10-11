@@ -1,6 +1,7 @@
 var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve =
 [
     [ "setUp", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a26b1b5aaa859d024cb7114cc1d4c1fd2", null ],
+    [ "test_has_capability", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a3db2325f6d7d9cd35adb3a2233f4fa59", null ],
     [ "test_when_multiple_references_then_same_number_of_returned_specifications", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#aefade8690cc2913aa84ce101a5533873", null ],
     [ "test_when_no_traits_then_returned_specification_is_empty", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#a99d2f8d0fbd33d9464bb222b5377d3ca", null ],
     [ "test_when_resolving_malformed_reference_then_malformed_reference_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__resolve.html#acf7e108216a8c9bbda111c1e79ff763a", null ],
