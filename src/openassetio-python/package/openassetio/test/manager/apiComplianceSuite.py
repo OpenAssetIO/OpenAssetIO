@@ -268,6 +268,9 @@ class Test_entityExists(FixtureAugmentedTestCase):
             "a_reference_to_an_existing_entity", skipTestIfMissing=True
         )
 
+    def test_has_capability(self):
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kExistenceQueries))
+
     def test_when_querying_existing_reference_then_true_is_returned(self):
         context = self.createTestContext()
         result = [None]
@@ -337,6 +340,9 @@ class Test_resolve(FixtureAugmentedTestCase):
             self.requireFixture("a_reference_to_a_readable_entity", skipTestIfMissing=True)
         )
         self.collectRequiredFixture("a_set_of_valid_traits")
+
+    def test_has_capability(self):
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kResolution))
 
     def test_when_no_traits_then_returned_specification_is_empty(self):
         ref = self.a_reference_to_a_readable_entity
@@ -441,6 +447,10 @@ class Test_preflight(FixtureAugmentedTestCase):
     managerApi.ManagerInterface.preflight.
     """
 
+    def test_has_capability(self):
+        self.requireFixture("a_traits_data_for_preflight", skipTestIfMissing=True)
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kPublishing))
+
     def test_when_multiple_references_then_same_number_of_returned_references(self):
         traits_data = self.requireFixture("a_traits_data_for_preflight", skipTestIfMissing=True)
         entity_reference = self.requireEntityReferenceFixture("a_reference_for_preflight")
@@ -529,6 +539,9 @@ class Test_register(FixtureAugmentedTestCase):
         )
         self.collectRequiredFixture("a_traitsdata_for_a_reference_to_a_writable_entity")
 
+    def test_has_capability(self):
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kPublishing))
+
     def test_when_multiple_references_then_same_number_of_returned_references(self):
         ref = self.a_reference_to_a_writable_entity
         data = self.a_traitsdata_for_a_reference_to_a_writable_entity
@@ -598,6 +611,10 @@ class Test_getWithRelationship_All(FixtureAugmentedTestCase):
         with self.subTest("getWithRelationships"):
             [pager] = self.__test_getWithRelationships_success(a_ref, [an_unknown_rel])
             self.__assert_pager_is_at_end(pager)
+
+    def test_has_capability(self):
+        self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True)
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kRelationshipQueries))
 
     def test_when_batched_then_same_number_of_returned_relationships(self):
         a_rel = TraitsData(self.requireFixture("a_relationship_trait_set", skipTestIfMissing=True))
@@ -983,6 +1000,8 @@ class Test_createChildState(FixtureAugmentedTestCase):
         context = self._manager.createContext()
         if not context.managerState:
             self.skipTest("createState returned None")
+
+        self.assertTrue(self._manager.hasCapability(self._manager.Capability.kStatefulContexts))
 
         child_context = self._manager.createChildContext(context)
         self.assertIsNotNone(child_context.managerState)
