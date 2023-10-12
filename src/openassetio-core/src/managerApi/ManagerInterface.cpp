@@ -128,21 +128,6 @@ void ManagerInterface::defaultEntityReference(
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kDefaultEntityReferences)};
 }
 
-namespace {
-/*
- * A dummy pager interface that acts as if it has no data. For use in
- * getWithRelationship[s] default implementation.
- */
-class EmptyEntityReferencePagerInterface : public managerApi::EntityReferencePagerInterface {
-  bool hasNext([[maybe_unused]] const HostSessionPtr& hsp) override { return false; }
-
-  Page get([[maybe_unused]] const HostSessionPtr& hsp) override { return {}; }
-
-  void next([[maybe_unused]] const HostSessionPtr& hsp) override {}
-};
-
-}  // namespace
-
 void ManagerInterface::getWithRelationship(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitsDataPtr& relationshipTraitsData,
