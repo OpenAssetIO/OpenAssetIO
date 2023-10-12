@@ -136,7 +136,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An abstract base for all <a class="el" href="glossary.html#manager_state">Manager State</a> objects. </p>
-<p>The manager interface is by design stateless, the state for a session is held in a separate object, whose lifetime is managed by the host. The state object is considered opaque by the rest of the API, and the manager is free to implement this however desired. This class forms an abstract base whose type is used as a value-type to allow instances of any given managers state to be passed through the various language bindings and API middleware.</p>
+<p>The manager interface is reentrant by design, and its implementation must be thread-safe. The state for a session is held in a separate object, whose lifetime is managed by the host. The state object is considered opaque by the rest of the API, and the manager is free to implement this however desired. This class forms an abstract base whose type is used as a value-type to allow instances of any given managers state to be passed through the various language bindings and API middleware.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd>
 <dd>
 <a class="el" href="glossary.html#manager_state">Manager State</a> </dd></dl>
