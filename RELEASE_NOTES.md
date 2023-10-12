@@ -13,21 +13,31 @@ v1.0.0-alpha.xx
 
 ### Breaking changes
 
-- Add the (required) `Manager`/`ManagerInterface` `hasCapability`
-  method. A mechanism to query the manager about which particular
-  capabilities it implements.
+- Updated `ManagerInterface` to reflect which methods are required and
+  which are optional, default method implementations have been updated:
+
+  - Pre-initialization methods are a no-op or return empty data.
+  - Post-initialization methods raise a `NotImplementedException`.
+
+  Note that in order to support multi-language plugins, pure virtual/ABC
+  is not used to denote required methods in all cases. See the class API
+  documentation for more details.
+  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
+
+- Added the (required) `Manager`/`ManagerInterface` `hasCapability`
+  method. A mechanism to query which particular capabilities a manager
+  implements. This allows a Host to avoid `NotImplementedException`s
+  when a specific capability has not been implemented by any given
+  manager.
+  [#DR022](doc/decisions/DR022-Default-method-implementations.md),
   [#1113](https://github.com/OpenAssetIO/OpenAssetIO/issues/1113)
 
-- Renamed the `Manager`/`ManagerInterface`
-  `PagedRelationshipSuccessCallback` to
-  `RelationshipQuerySuccessCallback` to better reflect the default of
-  pagnation, and reduce ambiguity when relationship creation methods are
-  added in the future.
-  [#1125](https://github.com/OpenAssetIO/OpenAssetIO/issues/1125)
-
 - Removed non-paged versions of the `Manager`/`ManagerInterface`
-  relationship query methods, and renamed the paged methods to remove
-  the `Paged` suffix.
+  relationship query methods and renamed the paged methods to remove
+  the `Paged` suffix. `PagedRelationshipSuccessCallback` has been
+  renamed to `RelationshipQuerySuccessCallback` to better reflect the
+  default of pagination, and reduce ambiguity when relationship creation
+  methods are added in the future.
   [#1125](https://github.com/OpenAssetIO/OpenAssetIO/issues/1125)
 
 - Attempting to retrieve a trait property with
@@ -37,8 +47,8 @@ v1.0.0-alpha.xx
   `hasTrait`/`isImbuedTo` checks.
   [#970](https://github.com/OpenAssetIO/OpenAssetIO/issues/970)
 
-- :hammer: Added [fmt](https://fmt.dev/9.1.0) as a new header-only
-  private dependency.
+- Added [fmt](https://fmt.dev/9.1.0) as a new header-only private
+  dependency.
   [#1070](https://github.com/OpenAssetIO/OpenAssetIO/issues/1070)
 
 - Removed `const` from the majority of interface methods to allow
@@ -51,6 +61,16 @@ v1.0.0-alpha.xx
 - `errors.h` renamed to `errorCodes.h`
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
 
+- Moved `BatchElementError` and `BatchElementException` into the
+  `errors` namespace.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+- Removed all subtypes of `BatchElementException`, in favour of a single
+  exception type for batch errors raised by the exception throwing
+  convenience overloads.
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
+
 - Removed the "Sample Asset Manager" example, which was wholly out of
   date, and has been superseded by the [standalone manager template
   repository](https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python).
@@ -61,22 +81,6 @@ v1.0.0-alpha.xx
   otherwise valid query. Changed default implementation to respond with
   an empty optional in the success callback, rather than error.
   [#1100](https://github.com/OpenAssetIO/OpenAssetIO/issues/1100)
-
-- Moved `BatchElementError` and `BatchElementException` into the
-  `errors` namespace.
-  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
-- Removed all subtypes of `BatchElementException`, in favour of a
-  single exception type for exceptional type for batch errors in
-  exceptional conveniences.
-  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
-
-- Most non-required methods (all that must be checked with
-  `hasCapability`), now have default implementations that throw
-  `NotImplementedException` when called without a manager provided
-  implementation.
-  [#163](https://github.com/OpenAssetIO/OpenAssetIO/issues/163)
 
 - The middleware will validate that the manager's implementation provides
   the `kEntityReferenceIdentification` and `kManagementPolicyQuery`
