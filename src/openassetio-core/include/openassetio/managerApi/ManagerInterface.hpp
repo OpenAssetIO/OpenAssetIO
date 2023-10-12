@@ -56,12 +56,13 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *   potentially expensive round-trips and allowing the manager to
  *   use other back-end optimisations.
  *
- *   @li The interface is stateless as far as the host-facing API is
- *   concerned. The result of any method should solely depend on its
- *   inputs. This class could be static. In practice though, in a
+ *   @li The interface is reentrant and must be thead-safe. The result
+ *   of any method should solely depend on its inputs, the underlying
+ *   asset data, and any local (immutable) state established during @ref
+ *   initialize. This class could be static. In practice though, in a
  *   real-world session with a host, there are benefits to having an
  *   'instance' with a managed lifetime. This can be used to facilitate
- *   caching etc.
+ *   caching, persist connections, etc.
  *
  *   @li The implementation of this class should have no UI
  *   dependencies, so that it can be used in command-line only
@@ -147,7 +148,6 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *    @li @ref identifier()
  *    @li @ref displayName()
  *    @li @ref info()
- *    @li @ref updateTerminology()
  *    @li @ref settings()
  *
  * @todo Finish/Document settings mechanism.
@@ -166,7 +166,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Constructor.
    *
    * No work is done here - ManagerInterface instances should be cheap
-   * to construct and stateless.
+   * to construct. Any heavy-lifting should be done in @ref initialize,
+   * where relevant settings are also available.
    */
   ManagerInterface();
 
@@ -473,9 +474,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Prepares for interaction with a host.
    *
-   * This is a good opportunity to initialize any persistent connections
-   * to a back end implementation. It is fine for this call to block for
-   * a period of time.
+   * This method is passed a settings dictionary, that can be used to
+   * configure required local state to service requests. For example,
+   * determining the authoritive back-end service managing asset data.
+   * This is also a good opportunity to initialize any connections or
+   * fetch pre-requisite data. It is fine for this call to block for a
+   * period of time.
    *
    * If an exception is raised by this call, it signifies to the host
    * that a fatal error occurred, and this @ref

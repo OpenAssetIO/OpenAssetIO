@@ -20,9 +20,6 @@
  *
  * - All interaction between the @ref host and a @ref manager occurs
  *   through the manager's implementation of the @ref ManagerInterface.
- *   This is a publicly stateless interface, where all associated
- *   information about the session, and caller are provided to each method
- *   by the API middleware.
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
  *   through its @ref PythonPluginSystemManagerPlugin is wrapped in the
@@ -31,11 +28,16 @@
  *   session state management and other auditing/logging functionality.
  *   It also provides a degree of isolation against future API changes.
  *
- * - The @ref ManagerInterface is designed to be stateless. The
- *   response to any method should only depend on the underlying asset
- *   data and any other objects passed into each call. The same logical
- *   operation may be spread out over time and space. It is critical that
- *   any particular implementation does not rely on local in-memory state.
+ * - Methods of the @ref ManagerInterface are required to be reentrant
+ *   and thread-safe. The response to any method should only depend on
+ *   the local state established during
+ *   @fqref{managerApi.ManagerInterface.initialize} "initialization",
+ *   the underlying asset data and any other objects passed into each
+ *   call. The same logical operation may be spread out over time and
+ *   across processes. It is critical that any particular implementation
+ *   does not rely on local in-memory state across different API
+ *   requests. The only exception here being read-through caches etc. as
+ *   long as they are suitably invalidated when upstream data changes.
  *
  * - The main currency in the interaction with a host is the @ref
  *   entity_reference. These are URIs that uniquely identify an @ref

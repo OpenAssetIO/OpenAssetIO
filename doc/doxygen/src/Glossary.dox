@@ -293,11 +293,13 @@
  *
  * @section manager_state Manager State
  *
- * The @ref ManagerInterface is, by design, a stateless, re-entrant API.
- * Consequently, the result of any call to an instance of this class
- * should solely depend on the methods arguments. In real-world use
- * however, it is often required to understand that a series of discreet
- * calls to the API may be part of the same logical user action.
+ * The @ref ManagerInterface is a reentrant API by design, and its
+ * implementation must be thread-safe. Consequently, the result of any
+ * call to an instance of this class should solely depend on the
+ * initialization settings, underlying asset data and the method
+ * arguments. In real-world use however, it is often required to
+ * understand that a series of discreet calls to the API may be part of
+ * the same logical user action.
  *
  * The most common (and extreme) example of this is a distributed
  * render. Where multiple processes, spread across multiple hosts are
@@ -308,8 +310,9 @@
  * A far simpler example of associating API calls is to provide caching
  * relative to the lifetime of a specific action.
  *
- * OpenAssetIO provides a mechanism to support the entire range of use cases
- * for 'session state' whilst keeping the interface itself stateless.
+ * OpenAssetIO provides a mechanism to support the entire range of use
+ * cases for 'session state' without making it part of the interface
+ * instance.
  *
  * This is achieved by allowing the manager to inject state into each
  * @ref Context created by the @ref host. The host guarantees to

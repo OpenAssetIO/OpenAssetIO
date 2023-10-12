@@ -2,14 +2,18 @@
  * @page stable_resolution Stable Entity Resolution
  *
  * @section stable_resolution_overview Overview
+ *
  * One of the main design principles of the @ref ManagerInterface is
- * that it should be stateless, in the sense that any session state is
- * held by the caller and supplied to the manager as part of the method
- * signature. This is to allow multi-threaded access to the @ref ManagerInterface
- * and avoid the need for any additional internal state to exist within
- * its implementation. The @fqref{hostApi.Manager} "Manager"
- * class wraps the interface implementation to help the @ref host
- * with basic session state management.
+ * that it is a reentrant and thread-safe API. Consequently, the result
+ * of any call to an instance of this class should solely depend on the
+ * initialization settings, underlying asset data and the method
+ * arguments. Any session state is held by the caller and supplied to
+ * the manager as part of the method signature. This is to allow
+ * multi-threaded access to the @ref ManagerInterface and avoid the
+ * inherent need for any additional internal state to exist within its
+ * implementation. The @fqref{hostApi.Manager} "Manager" class wraps the
+ * interface implementation to help the @ref host with basic session
+ * state management.
  *
  * Many common use cases require multiple calls to the API to complete a
  * task. Several textures need to be published together, or multiple
