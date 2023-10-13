@@ -892,6 +892,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return Populated data.
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
@@ -988,6 +991,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @return List of populated data objects.
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
@@ -1506,6 +1512,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Updated reference to use for future interactions as part of
    * the publishing operation
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
@@ -1613,6 +1622,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Updated references to use for future interactions as part
    * of the publishing operation
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
@@ -1833,6 +1845,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Updated reference to use for future interactions with the
    * resulting new entity.
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
@@ -1939,6 +1954,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @return Updated references to use for future interactions with the
    * resulting new entities.
    *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
