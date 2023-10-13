@@ -20,6 +20,12 @@ see breaking changes section for more details._
   installed under `lib/OpenAssetIO/plugins`.
   [#1408](https://github.com/OpenAssetIO/OpenAssetIO/issues/1408)
 
+- Updated the third-party dependency build setup in `resources/build`
+  to require Conan v2. It now ships a Conan v2 `conanfile.py` and a
+  `vfx24.profile` (C++17, new libstdc++ ABI). See `doc/BUILDING.md` for
+  updated instructions.
+  [#1313](https://github.com/OpenAssetIO/OpenAssetIO/issues/1313)
+
 v1.0.2
 ------
 

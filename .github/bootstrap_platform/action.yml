@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2022 The Foundry Visionmongers Ltd
+# Copyright 2022-2026 The Foundry Visionmongers Ltd
 
 # Composite action for reuse within other workflows. Bootstraps the
 # Github runner ready for building OpenAssetIO as appropriate based on
@@ -7,6 +7,13 @@
 
 name: Bootstrap
 description: Bootstrap platform
+inputs:
+  conan-build-types:
+    description: >
+      Space-separated list of CMake build types for OpenAssetIO itself
+      (dependencies are always built as Release). Use `none` to skip
+      installing dependencies, e.g. when they are installed elsewhere.
+    default: Release
 runs:
   using: "composite"
   steps:
@@ -22,13 +29,12 @@ runs:
     uses: actions/cache@v3
     with:
       path: ~/conan
-      key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
-      restore-keys: ${{ matrix.config.os }}-conan-
+      key: ${{ matrix.config.os }}-conan2-${{ github.run_id }}
+      restore-keys: ${{ matrix.config.os }}-conan2-
 
   - name: Install dependencies (Unix)
     if: runner.os != 'Windows'
-    # Configure the system and install library dependencies via conan
-    # packages.
+    # Configure the system and install build tools, including conan.
     run: |
       source resources/build/bootstrap-${{ matrix.config.os }}.sh
     env:
@@ -38,11 +44,30 @@ runs:
 
   - name: Install dependencies (Windows)
     if: runner.os == 'Windows'
-    # Configure the system and install library dependencies via conan
-    # packages.
+    # Configure the system and install build tools, including conan.
     run: |
       cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
     env:
       WORKSPACE: ${{ github.workspace }}
     # Annoyingly required for Github composite actions.
     shell: cmd
+
+  - name: Install Conan dependencies
+    if: inputs.conan-build-types != 'none'
+    # Running `conan install` multiple times with different build types
+    # into the same output folder accumulates the CMake config files for
+    # each build type. Bash is also available on Windows runners.
+    run: |
+      # Use explicit predictable conan root path, where packages are
+      # cached. Windows runners need the native path form.
+      export CONAN_HOME="${USERPROFILE:-$HOME}/conan"
+      for build_type in ${{ inputs.conan-build-types }}; do
+        conan install \
+          --output-folder .conan \
+          --profile:host resources/build/vfx24.profile \
+          --profile:build resources/build/vfx24.profile \
+          --settings "&:build_type=$build_type" \
+          --build=missing \
+          resources/build
+      done
+    shell: bash

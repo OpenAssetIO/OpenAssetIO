@@ -83,23 +83,25 @@ cmake --install build
 > A convenient way to solve this is to use the [`CMAKE_TOOLCHAIN_FILE`](https://cmake.org/cmake/help/v3.24/envvar/CMAKE_TOOLCHAIN_FILE.html)
 > environment variable to augment CMake's package search paths.
 >
-> For example, to use [`conan`](https://docs.conan.io/en/1.46/installation.html)
+> For example, to use [`conan`](https://docs.conan.io/2/installation.html)
 > to resolve dependencies (as we do during internal development), run
 > the following commands from the root of the repository prior to
 > building:
 >
 > ```shell
-> conan install -if .conan resources/build --build=missing
-> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_paths.cmake
+> conan install --output-folder .conan --build=missing \
+>   -pr:h resources/build/vfx24.profile -pr:b resources/build/vfx24.profile \
+>   resources/build
+> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_toolchain.cmake
 > ```
 >
 > (These commands assume a Linux host, translate as necessary).
 >
 > This installs OpenAssetIO's dependencies as described in
 > `/resources/build/conanfile.py`, and allows CMake to deduce the
-> locations via referencing the generated `conan_paths.cmake`. Note that
-> this does not include a development install of Python, which should
-> be provided by other means.
+> locations via referencing the generated `conan_toolchain.cmake`. Note
+> that this does not include a development install of Python, which
+> should be provided by other means.
 
 The artifacts are installed to `/build/dist`. This default location can
 be overridden by setting `CMAKE_INSTALL_PREFIX` prior to build.

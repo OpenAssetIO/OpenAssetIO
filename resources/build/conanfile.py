@@ -1,35 +1,37 @@
-from conans import ConanFile, tools
-from conan.tools.cmake import CMakeDeps
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 The Foundry Visionmongers Ltd
+"""
+Conan consumer recipe for OpenAssetIO's third-party dependencies.
+"""
+
+from conan import ConanFile
+from conan.tools.cmake import CMakeDeps, CMakeToolchain
 
 
 class OpenAssetIOConan(ConanFile):
-    settings = "os", "build_type"
-    # Generate a CMake toolchain preamble file `conan_paths.cmake`,
-    # which augments package search paths with conan package
-    # directories.
-    generators = "cmake_paths"
+    """
+    Declares the dependencies required to build and test OpenAssetIO.
+    """
 
-    def generate(self):
-        """
-        This function is called at the end of a `conan install` and is
-        responsible for generating build toolchain helpers.
-        """
-        # Generate `<PackageName>Config.cmake` files for each
-        # dependency, which CMake's `find_package` will locate and
-        # parse.
-        # Note: we override the configuration and re-run multiple times
-        # to allow us to use a different configuration for dependencies
-        # than we use for the main project. See
-        # https://github.com/conan-io/conan/issues/11607#issuecomment-1188500937
-        deps = CMakeDeps(self)
-        deps.configuration = "Release"
-        deps.generate()
-        deps.configuration = "Debug"
-        deps.generate()
-        deps.configuration = "RelWithDebInfo"
-        deps.generate()
+    settings = "os", "arch", "compiler", "build_type"
+
+    default_options = {
+        "fmt/*:header_only": True,
+        "ada/*:shared": False,
+        "pcre2/*:shared": False,
+        # Unnecessary - we only do UTF-8
+        "pcre2/*:build_pcre2_16": False,
+        "pcre2/*:build_pcre2_32": False,
+        # Unnecessary - we don't need the command-line tool.
+        "pcre2/*:build_pcre2grep": False,
+        # Enable optimising patterns with additional compile step.
+        "pcre2/*:support_jit": True,
+    }
 
     def requirements(self):
+        """
+        Declare third-party dependencies.
+        """
         # Python bindings
         # Note: pybind11 is not a private dependency and can conflict
         # with other versions in the same application. See
@@ -47,16 +49,14 @@ class OpenAssetIOConan(ConanFile):
         self.requires("trompeloeil/42")
         self.requires("fmt/9.1.0")
 
-    def configure(self):
-        self.options["fmt"].header_only = True
-        self.options["ada"].shared = False
-
-        self.options["pcre2"].shared = False
-        # Unnecessary - we only do UTF-8
-        self.options["pcre2"].build_pcre2_16 = False
-        self.options["pcre2"].build_pcre2_32 = False
-        # Unnecessary - we don't need the command-line tool.
-        self.options["pcre2"].build_pcre2grep = False
-        # Enable optimising patterns with additional compile step.
-        self.options["pcre2"].support_jit = True
-
+    def generate(self):
+        """
+        Generate CMake config files and the CMake toolchain file.
+        """
+        CMakeDeps(self).generate()
+        toolchain = CMakeToolchain(self)
+        # The `output_dirs` block sets plain CMAKE_INSTALL_BINDIR et al.
+        # variables, which would shadow the project's presets and any
+        # user-supplied values.
+        toolchain.blocks.remove("output_dirs")
+        toolchain.generate()

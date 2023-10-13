@@ -45,6 +45,8 @@ jobs:
 
     - name: Bootstrap
       uses: ./.github/bootstrap_platform
+      with:
+        conan-build-types: RelWithDebInfo
 
      # We don't want to publish the test build, it gets too big.
     - name: Build and Install (No tests)
@@ -53,7 +55,7 @@ jobs:
 
         cmake -S . -B build -G Ninja
         --install-prefix ${{ github.workspace }}/dist
-        --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
+        --toolchain ${{ github.workspace }}/.conan/conan_toolchain.cmake
         -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
         cmake --build build
