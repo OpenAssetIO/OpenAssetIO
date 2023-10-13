@@ -22,8 +22,8 @@ runs:
     uses: actions/cache@v3
     with:
       path: ~/conan
-      key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
-      restore-keys: ${{ matrix.config.os }}-conan-
+      key: ${{ matrix.config.os }}-conan2-${{ github.run_id }}
+      restore-keys: ${{ matrix.config.os }}-conan2-
 
   - name: Install dependencies (Unix)
     if: runner.os != 'Windows'

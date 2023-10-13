@@ -87,6 +87,9 @@ v1.0.0-alpha.xx
   capabilities upon initialization.
   [#1148](https://github.com/OpenAssetIO/OpenAssetIO/issues/1148)
 
+- Updated build instructions to use Conan v2 syntax.
+  [#1020](https://github.com/OpenAssetIO/OpenAssetIO/issues/1020)
+
 ### New Features
 
 - Added new exception types, allowing all OpenAssetIO exceptions to

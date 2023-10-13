@@ -70,7 +70,7 @@ jobs:
         ${{ matrix.config.preamble }}
         python -m pip install src/openassetio-python
       env:
-        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
 
     - name: Install test dependencies
       run: pip install -r src/openassetio-python/tests/requirements.txt
@@ -109,7 +109,7 @@ jobs:
         ${{ matrix.config.preamble }}
         python -m pip install --editable src/openassetio-python
       env:
-        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
 
     - name: Install test dependencies
       run: pip install -r src/openassetio-python/tests/requirements.txt
@@ -141,7 +141,7 @@ jobs:
         run: >
           cmake -S . -B build
           --install-prefix '${{ env.Python_ROOT_DIR }}'
-          --toolchain '${{ github.workspace }}/.conan/conan_paths.cmake'
+          --toolchain '${{ github.workspace }}/.conan/conan_toolchain.cmake'
 
           cmake --build build --parallel --config Release
 
