@@ -174,6 +174,14 @@ def main():
     # traits.
     ###
 
+    # Resolution is an optional capability, first check the configured
+    # manager supports it. If we don't, it will throw a
+    # NotImplementedException.
+    if not manager.hasCapability(manager.Capability.kResolution):
+        raise ConfigurationException(
+            f"The manager '{manager.identifier()}' does not support entity resolution"
+        )
+
     # Extract the entity reference and trait set to resolve from
     # the CLI args
 
