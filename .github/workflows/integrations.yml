@@ -101,7 +101,7 @@ jobs:
         # unmodified, failing the build.
         run : >
           python -m pip install -r external/TraitGen/tests/requirements.txt
-          | awk '{print} /Requirement already satisfied: openassetio/{found=1} END{exit !found}'
+          | awk '{print} /Attempting uninstall: openassetio/{found=1} END{exit found}'
 
       - name: Test TraitGen
         run: |
