@@ -56,9 +56,19 @@
  *   behavior as required.
  *
  * - You should resolve an entity reference with the minimal set of @ref
- * trait "traits" required, and use resulting data as the authoritative
- * source of information about an asset. For example, to determine the
- * final colorspace of an image.
+ *   trait "traits" required, and use resulting data as the authoritative
+ *   source of information about an asset. For example, to determine the
+ *   final colorspace of an image.
+ *
+ * - If the manager executes code from Python, then the Global
+ *   Interpreter Lock (GIL) will be released before executing any C++
+ *   implementation of the @fqref{hostApi.HostInterface} "HostInterface"
+ *   and @fqref{log.LoggerInterface} "LoggerInterface" class
+ *   methods. Similarly for methods of the
+ *   @fqref{hostApi.ManagerImplementationFactoryInterface}
+ *   "ManagerImplementationFactoryInterface" class (though this is an
+ *   implementation detail of the plugin system and only of concern in
+ *   advanced use cases).
  *
  * @section host_reading Recommended Reading
  *

@@ -20,11 +20,11 @@ struct PyHostInterface : HostInterface {
   using HostInterface::HostInterface;
 
   [[nodiscard]] Identifier identifier() const override {
-    PYBIND11_OVERRIDE_PURE(Identifier, HostInterface, identifier, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(Identifier, HostInterface, identifier, /* no args */);
   }
 
   [[nodiscard]] Str displayName() const override {
-    PYBIND11_OVERRIDE_PURE(Str, HostInterface, displayName, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(Str, HostInterface, displayName, /* no args */);
   }
 
   [[nodiscard]] InfoDictionary info() override {
@@ -43,7 +43,7 @@ void registerHostInterface(const py::module& mod) {
 
   py::class_<HostInterface, PyHostInterface, HostInterfacePtr>(mod, "HostInterface")
       .def(py::init())
-      .def("identifier", &HostInterface::identifier)
-      .def("displayName", &HostInterface::displayName)
-      .def("info", &HostInterface::info);
+      .def("identifier", &HostInterface::identifier, py::call_guard<py::gil_scoped_release>{})
+      .def("displayName", &HostInterface::displayName, py::call_guard<py::gil_scoped_release>{})
+      .def("info", &HostInterface::info, py::call_guard<py::gil_scoped_release>{});
 }

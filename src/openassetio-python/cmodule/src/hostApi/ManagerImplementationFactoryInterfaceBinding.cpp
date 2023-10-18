@@ -22,14 +22,16 @@ struct PyManagerImplementationFactoryInterface : ManagerImplementationFactoryInt
   using ManagerImplementationFactoryInterface::ManagerImplementationFactoryInterface;
 
   [[nodiscard]] Identifiers identifiers() override {
-    PYBIND11_OVERRIDE_PURE(Identifiers, ManagerImplementationFactoryInterface, identifiers,
-                           /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(
+        Identifiers, ManagerImplementationFactoryInterface, identifiers,
+        /* no args */);
   }
 
   [[nodiscard]] managerApi::ManagerInterfacePtr instantiate(
       const Identifier& identifier) override {
-    PYBIND11_OVERRIDE_PURE(PyRetainingSharedPtr<managerApi::ManagerInterface>,
-                           ManagerImplementationFactoryInterface, instantiate, identifier);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(PyRetainingSharedPtr<managerApi::ManagerInterface>,
+                                       ManagerImplementationFactoryInterface, instantiate,
+                                       identifier);
   }
 
   using ManagerImplementationFactoryInterface::logger_;
@@ -50,8 +52,9 @@ void registerManagerImplementationFactoryInterface(const py::module& mod) {
              ManagerImplementationFactoryInterfacePtr>(mod,
                                                        "ManagerImplementationFactoryInterface")
       .def(py::init<PyRetainingLoggerInterfacePtr>(), py::arg("logger").none(false))
-      .def("identifiers", &ManagerImplementationFactoryInterface::identifiers)
+      .def("identifiers", &ManagerImplementationFactoryInterface::identifiers,
+           py::call_guard<py::gil_scoped_release>{})
       .def("instantiate", &ManagerImplementationFactoryInterface::instantiate,
-           py::arg("identifier"))
+           py::arg("identifier"), py::call_guard<py::gil_scoped_release>{})
       .def_readonly("_logger", &PyManagerImplementationFactoryInterface::logger_);
 }

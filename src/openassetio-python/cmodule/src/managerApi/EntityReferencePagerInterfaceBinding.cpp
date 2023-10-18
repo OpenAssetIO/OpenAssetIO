@@ -24,16 +24,16 @@ struct PyEntityReferencePagerInterface : EntityReferencePagerInterface {
   using EntityReferencePagerInterface::EntityReferencePagerInterface;
 
   bool hasNext(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE_PURE(bool, EntityReferencePagerInterface, hasNext, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(bool, EntityReferencePagerInterface, hasNext, hostSession);
   }
 
   EntityReferencePagerInterface::Page get(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE_PURE(EntityReferencePagerInterface::Page, EntityReferencePagerInterface, get,
-                           hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(EntityReferencePagerInterface::Page,
+                                       EntityReferencePagerInterface, get, hostSession);
   }
 
   void next(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE_PURE(void, EntityReferencePagerInterface, next, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE_PURE(void, EntityReferencePagerInterface, next, hostSession);
   }
 
   void close(const HostSessionPtr& hostSession) override {
@@ -53,8 +53,12 @@ void registerEntityReferencePagerInterface(const py::module& mod) {
   py::class_<EntityReferencePagerInterface, PyEntityReferencePagerInterface,
              EntityReferencePagerInterfacePtr>(mod, "EntityReferencePagerInterface")
       .def(py::init())
-      .def("hasNext", &EntityReferencePagerInterface::hasNext, py::arg("hostSession").none(false))
-      .def("get", &EntityReferencePagerInterface::get, py::arg("hostSession").none(false))
-      .def("next", &EntityReferencePagerInterface::next, py::arg("hostSession").none(false))
-      .def("close", &EntityReferencePagerInterface::close, py::arg("hostSession").none(false));
+      .def("hasNext", &EntityReferencePagerInterface::hasNext, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("get", &EntityReferencePagerInterface::get, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("next", &EntityReferencePagerInterface::next, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("close", &EntityReferencePagerInterface::close, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{});
 }
