@@ -68,7 +68,7 @@ The documentation for OpenAssetIO can be found here:
    https://openassetio.github.io/OpenAssetIO.
 """
 
-# pylint: disable=wrong-import-position,import-error
+# pylint: disable=wrong-import-position,import-error,no-name-in-module
 from ._openassetio import (
     constants,
     Context,

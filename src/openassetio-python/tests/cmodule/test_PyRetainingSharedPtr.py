@@ -18,7 +18,6 @@ Tests of C++ binding utilities, which require dummy C++ classes that
 shouldn't be included in the main sources.
 """
 
-# pylint: disable=no-self-use
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import weakref
