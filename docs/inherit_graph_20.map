@@ -1,8 +1,16 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html" title="Exception base for all OpenAssetIO exceptions. " alt="" coords="164,81,335,108"/>
-<area shape="rect" id="node3" href="$structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. " alt="" coords="392,5,569,32"/>
-<area shape="rect" id="node4" href="$structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. " alt="" coords="389,56,573,83"/>
-<area shape="rect" id="node6" href="$structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. " alt="" coords="383,107,579,133"/>
-<area shape="rect" id="node7" href="$structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html" title="Exceptions emitted from manager plugins that are not handled will be converted to this type and re&#45;th..." alt="" coords="403,157,559,184"/>
-<area shape="rect" id="node5" href="$structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html" title="A special case of InputValidationException for cases where the input comes from external config..." alt="" coords="627,56,800,83"/>
+<area shape="rect" id="node2" href="$structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html" title="Exception base for all OpenAssetIO exceptions. " alt="" coords="164,285,335,311"/>
+<area shape="rect" id="node3" href="$structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. " alt="" coords="392,209,569,235"/>
+<area shape="rect" id="node12" href="$structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. " alt="" coords="389,259,573,286"/>
+<area shape="rect" id="node14" href="$structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. " alt="" coords="383,310,579,337"/>
+<area shape="rect" id="node15" href="$structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html" title="Exceptions emitted from manager plugins that are not handled will be converted to this type and re&#45;th..." alt="" coords="403,361,559,387"/>
+<area shape="rect" id="node4" href="$structopenassetio_1_1v1_1_1_batch_element_exception.html" title="BatchElementException" alt="" coords="627,209,804,235"/>
+<area shape="rect" id="node5" href="$structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html" title="EntityAccessErrorBatchElement\lException" alt="" coords="858,5,1085,47"/>
+<area shape="rect" id="node6" href="$structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html" title="EntityResolutionErrorBatch\lElementException" alt="" coords="873,71,1070,112"/>
+<area shape="rect" id="node7" href="$structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html" title="InvalidEntityReferenceBatch\lElementException" alt="" coords="868,136,1075,177"/>
+<area shape="rect" id="node8" href="$structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html" title="InvalidPreflightHintBatch\lElementException" alt="" coords="879,201,1063,243"/>
+<area shape="rect" id="node9" href="$structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html" title="InvalidTraitSetBatchElement\lException" alt="" coords="868,267,1075,308"/>
+<area shape="rect" id="node10" href="$structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html" title="MalformedEntityReference\lBatchElementException" alt="" coords="873,332,1070,373"/>
+<area shape="rect" id="node11" href="$structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html" title="UnknownBatchElementException" alt="" coords="852,398,1091,425"/>
+<area shape="rect" id="node13" href="$structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html" title="A special case of InputValidationException for cases where the input comes from external config..." alt="" coords="629,259,802,286"/>
 </map>

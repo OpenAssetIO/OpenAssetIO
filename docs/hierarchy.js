@@ -30,7 +30,17 @@ var hierarchy =
     ] ],
     [ "runtime_error", null, [
       [ "OpenAssetIOException", "structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html", [
-        [ "BatchElementException", "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html", null ],
+        [ "BatchElementException", "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html", [
+          [ "BatchElementException", "structopenassetio_1_1v1_1_1_batch_element_exception.html", [
+            [ "EntityAccessErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html", null ],
+            [ "EntityResolutionErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_resolution_error_batch_element_exception.html", null ],
+            [ "InvalidEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_invalid_entity_reference_batch_element_exception.html", null ],
+            [ "InvalidPreflightHintBatchElementException", "structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html", null ],
+            [ "InvalidTraitSetBatchElementException", "structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html", null ],
+            [ "MalformedEntityReferenceBatchElementException", "structopenassetio_1_1v1_1_1_malformed_entity_reference_batch_element_exception.html", null ],
+            [ "UnknownBatchElementException", "structopenassetio_1_1v1_1_1_unknown_batch_element_exception.html", null ]
+          ] ]
+        ] ],
         [ "InputValidationException", "structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html", [
           [ "ConfigurationException", "structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html", null ]
         ] ],
