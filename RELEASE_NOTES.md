@@ -6,9 +6,12 @@ v1.0.0-beta.1.0
 
 ### Deprecated
 
+> **Note**
+> The following deprecated code paths are still available in this
+> release, but will be removed in a future version.
+
 - Moved `TraitsData` into the `trait` namespace along with its peer
-  container/type definitions. Aliases in the deprecated top-level
-  namespace will be removed in a future release.
+  container/type definitions.
   [#1127](https://github.com/OpenAssetIO/OpenAssetIO/issues/1127)
 
 - Removed python `exceptions` module in favour of new `errors` module.
