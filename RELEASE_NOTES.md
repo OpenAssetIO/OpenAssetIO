@@ -11,6 +11,19 @@ v1.0.0-alpha.xx
   namespace will be removed in a future release.
   [#1127](https://github.com/OpenAssetIO/OpenAssetIO/issues/1127)
 
+- Removed python `exceptions` module in favour of new `errors` module.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+
+- Moved `BatchElementError` and `BatchElementException` into the
+  `errors` namespace.
+  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
+
+- Removed all subtypes of `BatchElementException`, in favour of a single
+  exception type for batch errors raised by the exception throwing
+  convenience overloads.
+  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
+
 ### Breaking changes
 
 - Updated `ManagerInterface` to reflect which methods are required and
@@ -55,21 +68,8 @@ v1.0.0-alpha.xx
   implementations to make use of private state for efficiency reasons.
   [#518](https://github.com/OpenAssetIO/OpenAssetIO/issues/518)
 
-- Removed python `exceptions` module in favour of new `errors` module.
-  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
-- `errors.h` renamed to `errorCodes.h`
+- `errors.h` renamed to `errors/errorCodes.h`
   [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
-- Moved `BatchElementError` and `BatchElementException` into the
-  `errors` namespace.
-  [#1071](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1071)
-
-- Removed all subtypes of `BatchElementException`, in favour of a single
-  exception type for batch errors raised by the exception throwing
-  convenience overloads.
-  [#1073](https://github.com/OpenAssetIO/OpenAssetIO/issues/1073)
 
 - Removed the "Sample Asset Manager" example, which was wholly out of
   date, and has been superseded by the [standalone manager template
