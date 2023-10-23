@@ -17,7 +17,9 @@ results of which are available
 
 ## Y23 Q3: v1.0.0b1
 
-**Backlog:** [here](https://github.com/OpenAssetIO/OpenAssetIO/milestone/1)
+**Released October 27th**
+
+Milestone: [here](https://github.com/OpenAssetIO/OpenAssetIO/milestone/1)
 
 This release will support resolution and publishing of entities in batch
 and interactive context, along with relationship discovery.
@@ -28,7 +30,7 @@ and interactive context, along with relationship discovery.
 - [x] Migration to the [Trait based API](https://github.com/OpenAssetIO/OpenAssetIO/blob/main/doc/decisions/DR007-Hierarchical-or-compositional-traits-for-specifications.md).
 - [x] Migration to batch-centric API.
 - [x] Migration of core API methods to C++.
-- [ ] Sundry breaking changes and tech-debt cleanup. [In progress]
+- [x] Sundry breaking changes and tech-debt cleanup.
 
 ## Y24 Q1: v1.0.0
 
