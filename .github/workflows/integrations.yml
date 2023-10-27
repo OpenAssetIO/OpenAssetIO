@@ -103,7 +103,7 @@ jobs:
           python -m pip install -r external/TraitGen/tests/requirements.txt
           | awk '{print} /Attempting uninstall: openassetio/{found=1} END{exit found}'
 
-      - name: Test TraitGen
+      - name: Test TraitGen (Python)
         run: |
           python -m pytest -v external/TraitGen
 
@@ -115,10 +115,9 @@ jobs:
       matrix:
         config:
         - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
-          shell: cmd
+          site-packages: Lib/site-packages
         - os: ubuntu-20.04
-          shell: bash
+          site-packages: lib/python3.9/site-packages
         - os: macos-11
           # MacOS toolchain doesn't search /usr/local by default:
           # https://gitlab.kitware.com/cmake/cmake/-/issues/19120
@@ -126,12 +125,10 @@ jobs:
           # OpenAssetIO-Test-CMake) transitively adds linker flags to
           # system libs, which fail due to this issue.
           preamble: export LDFLAGS="-L/usr/local/lib"
-          shell: bash
+          site-packages: lib/python3.9/site-packages
     defaults:
       run:
-        # Annoyingly required here since `matrix` isn't available in
-        # the `shell` property of individual steps.
-        shell: ${{ matrix.config.shell }}
+        shell: bash
 
     steps:
       - uses: actions/checkout@v4
@@ -143,12 +140,12 @@ jobs:
         run: >
           ${{ matrix.config.preamble }}
 
-          cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist
-          -DOPENASSETIO_ENABLE_C=ON
+          cmake -S . -B build --install-prefix '${{ github.workspace }}/dist'
+          -DOPENASSETIO_ENABLE_C=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
-          cmake --build build
+          cmake --build build --parallel --config RelWithDebInfo
 
-          cmake --install build
+          cmake --install build --config RelWithDebInfo
         env:
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
@@ -162,6 +159,24 @@ jobs:
         run : |
           python -m pip install external/TraitGen
 
+      - name: Install TraitGen test dependencies
+        run : >
+          python -m pip install -r external/TraitGen/tests/requirements.txt
+          | awk '{print} /Attempting uninstall: openassetio/{found=1} END{exit found}'
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+
+      - name: Test TraitGen (C++)
+        run: |
+          python -m pytest -v --capture=tee-sys -m ctest external/TraitGen
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+          CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
+          # TODO(DF): Consider adding some linting, e.g. compiler
+          # warnings, sanitizers. Will need additional CMake preset(s).
+          OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
+          CONAN_USER_HOME: ~/conan
+
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v4
         with:
@@ -174,12 +189,17 @@ jobs:
           git submodule update --init --recursive --remote OpenAssetIO-MediaCreation
 
       - name: Test CMake package
-        run: |
+        run: >
           ${{ matrix.config.preamble }}
+
           cd external/OpenAssetIO-Test-CMake
-          cmake -S . -B build -G Ninja -DOPENASSETIOTEST_ENABLE_MEDIACREATION_SUBPROJECT=ON
-          cmake --build build
-          ctest -VV --test-dir build
+
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          -DOPENASSETIOTEST_ENABLE_MEDIACREATION_SUBPROJECT=ON
+
+          cmake --build build --parallel --config RelWithDebInfo
+
+          ctest -VV --test-dir build --build-config RelWithDebInfo
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
