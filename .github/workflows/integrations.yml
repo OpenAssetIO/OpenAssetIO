@@ -89,7 +89,7 @@ jobs:
           repository: OpenAssetIO/OpenAssetIO-TraitGen
           path: external/TraitGen
 
-      - name: Install TraitGen
+      - name: Install TraitGen (Python)
         run : |
           python -m pip install external/TraitGen
 
@@ -115,8 +115,7 @@ jobs:
       matrix:
         config:
         - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
-          shell: cmd
+          shell: bash
         - os: ubuntu-20.04
           shell: bash
         - os: macos-11
@@ -143,10 +142,10 @@ jobs:
         run: >
           ${{ matrix.config.preamble }}
 
-          cmake -S . -B build -G Ninja --install-prefix ${{ github.workspace }}/dist
+          cmake -S . -B build --install-prefix ${{ github.workspace }}/dist
           -DOPENASSETIO_ENABLE_C=ON
 
-          cmake --build build
+          cmake --build build --parallel
 
           cmake --install build
         env:
@@ -161,6 +160,21 @@ jobs:
       - name: Install TraitGen
         run : |
           python -m pip install external/TraitGen
+
+      - name: Install TraitGen test dependencies
+        run : >
+          python -m pip install -r external/TraitGen/tests/requirements.txt
+          | awk '{print} /Attempting uninstall: openassetio/{found=1} END{exit found}'
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dist/lib/python3.9/site-packages
+
+      - name: Test TraitGen (C++)
+        run: |
+          python -m pytest -v -m ctest external/TraitGen
+        env:
+          PYTHONPATH: ${{ github.workspace }}/dist/lib/python3.9/site-packages
+          CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
+          OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: ci
 
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v4
