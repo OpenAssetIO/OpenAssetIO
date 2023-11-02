@@ -1,0 +1,70 @@
+# Build on commit to main and archive  for easy retrieval.
+
+name: Build Archive
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-openassetio-atrifact:
+    name: ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # We can't properly align to the VFX Reference Platform as this
+        # requires glibc 2.17, which is older than any of the available
+        # environments.
+        config:
+        - os: windows-2019
+          #Echo adds a newline character without it being interpreted as a command to vcvarsall
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
+        - os: ubuntu-20.04
+          shell: bash
+        - os: macos-11
+          # MacOS toolchain doesn't search /usr/local by default:
+          # https://gitlab.kitware.com/cmake/cmake/-/issues/19120
+          # The CMake FindPython module's Python::Python target (used
+          # via pybind11::embed in python-bridge-test) transitively adds
+          # linker flags to system libs, which fail due to this issue.
+          preamble: export LDFLAGS="-L/usr/local/lib"
+          shell: bash
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Bootstrap
+      uses: ./.github/bootstrap_platform
+
+    - name: Build
+      run: >
+        ${{ matrix.config.preamble }}
+
+        cmake -S . -B build --install-prefix ${{ github.workspace }}/dist
+        -DOPENASSETIO_ENABLE_C=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+        cmake --build build --parallel --config RelWithDebInfo
+
+        cmake --install build --config RelWithDebInfo
+      env:
+        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+    - name: Upload archive
+      uses: actions/upload-artifact@v3
+      with:
+        name: openassetio-${{ runner.os }}
+        path: ${{ github.workspace }}/dist
