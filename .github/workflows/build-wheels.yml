@@ -57,7 +57,7 @@ jobs:
           # execute directly on the runner. Linux runs are somewhat
           # different, and are containerised fully, therefore they get
           # their toolchain path from pyproject.toml
-          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
           # We matrix the python build here ourselves, rather than
           # letting cibuildwheel do its regular python matrix, as we
           # want to allow a full release pipeline to run "vertically" on

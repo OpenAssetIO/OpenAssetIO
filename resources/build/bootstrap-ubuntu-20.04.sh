@@ -10,21 +10,14 @@ sudo apt-get install -y build-essential pkgconf clang-format-12 clang-tidy-12 py
 # Install additional build tools.
 sudo pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
 # Use explicit predictable conan root path, where packages are cached.
-export CONAN_USER_HOME="$HOME/conan"
-# Create default conan profile so we can configure it before install.
-# Use --force so that if it already exists we don't error out.
-conan profile new default --detect --force
-# Use old C++11 ABI as per VFX Reference Platform CY2022. Not strictly
-# necessary as this is the default for conan, but we can't be certain
-# it'll remain the default in future.
-conan profile update settings.compiler.libcxx=libstdc++ default
-# If we need to pin a package to a specific Conan recipe revision, then
-# we need to explicitly opt-in to this functionality.
-conan config set general.revisions_enabled=True
-
+export CONAN_HOME="$HOME/conan"
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
-conan install --install-folder "$WORKSPACE/.conan" --build=missing "$WORKSPACE/resources/build"
+conan install \
+ --output-folder "$WORKSPACE/.conan" \
+ --profile:host resources/build/vfx22.profile \
+ --profile:build resources/build/vfx22.profile \
+ "$WORKSPACE/resources/build"
 # Ensure we have the expected version of clang-* available
 sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 10
 sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-12 10

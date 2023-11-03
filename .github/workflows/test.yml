@@ -54,7 +54,7 @@ jobs:
 
         cmake -S . -B build -G Ninja
         --install-prefix ${{ github.workspace }}/dist
-        --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
+        --toolchain ${{ github.workspace }}/.conan/conan_toolchain.cmake
         --preset test
 
     - name: Build, install and test

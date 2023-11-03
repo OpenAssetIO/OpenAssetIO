@@ -143,5 +143,5 @@ test-command = "pytest {package}/tests/package"
 [tool.cibuildwheel.linux]
 # Linux runs in a docker container, with the project at top level
 before-build = "resources/build/bootstrap-cibuildwheel-manylinux-2014.sh"
-environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake" }
+environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_toolchain.cmake" }
 environment-pass = ["PIP_VERBOSE"]

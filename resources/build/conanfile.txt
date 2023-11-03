@@ -1,0 +1,16 @@
+[requires]
+# Build dependencies
+pybind11/2.10.1
+tomlplusplus/3.2.0
+fmt/9.1.0
+
+# Test dependencies
+catch2/2.13.8
+trompeloeil/42
+
+[options]
+fmt/*:header_only = True
+
+[generators]
+CMakeDeps
+CMakeToolchain

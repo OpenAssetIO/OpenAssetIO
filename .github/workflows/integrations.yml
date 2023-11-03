@@ -49,7 +49,7 @@ jobs:
           ${{ matrix.config.preamble }}
           python -m pip install src/openassetio-python
         env:
-          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
 
       - name: Install test dependencies
         run: |
@@ -147,7 +147,7 @@ jobs:
 
           cmake --install build --config RelWithDebInfo
         env:
-          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake
 
       - name: Checkout TraitGen
         uses: actions/checkout@v4
@@ -202,4 +202,4 @@ jobs:
           ctest -VV --test-dir build --build-config RelWithDebInfo
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
-          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_toolchain.cmake

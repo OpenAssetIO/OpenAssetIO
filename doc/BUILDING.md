@@ -96,17 +96,17 @@ cmake --install build
 > building:
 >
 > ```shell
-> conan install -if .conan resources/build --build=missing
-> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_paths.cmake
+> conan install -of .conan resources/build
+> export CMAKE_TOOLCHAIN_FILE=`pwd`/.conan/conan_toolchain.cmake
 > ```
 >
 > (These commands assume a Linux host, translate as necessary).
 >
 > This installs OpenAssetIO's dependencies as described in
-> `/resources/build/conanfile.py`, and allows CMake to deduce the
-> locations via referencing the generated `conan_paths.cmake`. Note that
-> this does not include a development install of Python, which should
-> be provided by other means.
+> `/resources/build/conanfile.txt`, and allows CMake to deduce the
+> locations via referencing the generated `conan_toolchain.cmake`. Note
+> that this does not include a development install of Python, which
+> should be provided by other means.
 
 The artifacts are installed to `/build/dist`. This default location can
 be overridden by setting `CMAKE_INSTALL_PREFIX` prior to build.
