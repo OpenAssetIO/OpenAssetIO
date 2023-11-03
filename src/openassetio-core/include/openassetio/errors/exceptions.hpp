@@ -4,6 +4,7 @@
 
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include <utility>
 
 #include <openassetio/export.h>
@@ -106,6 +107,12 @@ struct OPENASSETIO_CORE_EXPORT BatchElementException : OpenAssetIOException {
    */
   BatchElementError error;
 };
+
+/// List of all OpenAssetIO-specific exceptions. Useful for
+/// introspection in language bindings.
+using AllExceptions =
+    std::tuple<OpenAssetIOException, InputValidationException, ConfigurationException,
+               NotImplementedException, UnhandledException, BatchElementException>;
 
 /**
  * @}
