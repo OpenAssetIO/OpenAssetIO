@@ -66,5 +66,5 @@ jobs:
     - name: Upload archive
       uses: actions/upload-artifact@v3
       with:
-        name: openassetio-${{ runner.os }}
+        name: openassetio-${{ matrix.config.os }}
         path: ${{ github.workspace }}/dist
