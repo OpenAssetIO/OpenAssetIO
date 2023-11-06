@@ -1,4 +1,7 @@
-# Build on commit to main and archive  for easy retrieval.
+# Build an archive of OpenAssetIO on PR or commit to main.
+# Intended to be used in downstream projects via the `download-artifact`
+# action. The existance of standard artifacts allows simple retargeting
+# during development.
 
 name: Build Archive
 
