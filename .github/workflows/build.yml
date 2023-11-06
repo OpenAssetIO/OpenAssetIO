@@ -1,19 +1,22 @@
-# A simple workflow to run tests using pytest against supported Python versions
+# Build OpenAssetIO, push an artifact, and test it, all in one handy workflow.
 
-name: Tests
+name: Build and Test
 on:
   pull_request:
     branches-ignore:
       - docs
     paths-ignore:
       - 'docs/**'
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  test:
+  build:
     name: ${{ matrix.config.os }}
     runs-on: ${{ matrix.config.os }}
     strategy:
@@ -48,18 +51,34 @@ jobs:
     - name: Bootstrap
       uses: ./.github/bootstrap_platform
 
-    - name: Configure CMake build
+     # We don't want to publish the test build, it gets too big.
+    - name: Build and Install (No tests)
       run: >
         ${{ matrix.config.preamble }}
 
         cmake -S . -B build -G Ninja
         --install-prefix ${{ github.workspace }}/dist
         --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
-        --preset test
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
-    - name: Build, install and test
+        cmake --build build
+
+        cmake --install build
+
+    - name: Upload archive
+      uses: actions/upload-artifact@v3
+      with:
+        name: openassetio-${{ matrix.config.os }}
+        path: |
+          ${{ github.workspace }}/dist
+
+    # Reconfigure to add the test target. Ctest should rebuild using
+    # the cached build from prior.
+    - name: Test
       run: >
         ${{ matrix.config.preamble }}
+
+        cmake --preset test build
 
         ctest -VV --test-dir build --parallel 2
 
