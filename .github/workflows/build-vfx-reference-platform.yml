@@ -1,0 +1,59 @@
+# Build and upload an artifact of a CY2022 VFX Reference platform
+# OpenAssetIO.
+
+name: Build for VFX Reference Platform CY22
+on:
+  pull_request:
+    branches-ignore:
+      - docs
+    paths-ignore:
+      - 'docs/**'
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/openassetio/openassetio-build
+
+    steps:
+    - uses: actions/checkout@v3 #Needs to be V3 because of GLIBC ver.
+      with:
+        path: openassetio-checkout
+
+     # We don't want to publish the test build, it gets too big.
+    - name: Build and Install (No Tests)
+      shell: bash
+      run: >
+        cd openassetio-checkout
+
+        mkdir build
+
+        cmake -G Ninja -S . -B build
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+        cmake --build build
+
+        cmake --install build
+
+    - name: Upload archive
+      uses: actions/upload-artifact@v3
+      with:
+        name: openassetio-CY2022
+        path: openassetio-checkout/build/dist
+
+      # Reconfigure to build with tests.
+    - name: Test
+      run: >
+        cd openassetio-checkout
+
+        cmake --preset test build
+
+        ctest -VV --test-dir build --parallel 2
