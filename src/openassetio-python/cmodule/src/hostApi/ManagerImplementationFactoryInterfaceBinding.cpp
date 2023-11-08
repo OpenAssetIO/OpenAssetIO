@@ -9,6 +9,7 @@
 
 #include "../PyRetainingSharedPtr.hpp"
 #include "../_openassetio.hpp"
+#include "../overrideMacros.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {

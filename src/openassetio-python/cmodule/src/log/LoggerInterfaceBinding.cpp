@@ -6,6 +6,8 @@
 #include <openassetio/log/LoggerInterface.hpp>
 
 #include "../_openassetio.hpp"
+#include "../overrideMacros.hpp"
+
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace log {

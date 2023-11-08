@@ -15,6 +15,7 @@
 #include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
+#include "../overrideMacros.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -38,61 +39,65 @@ struct PyManagerInterface : ManagerInterface {
   }
 
   [[nodiscard]] InfoDictionary info() override {
-    PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, info, /* no args */);
   }
 
   [[nodiscard]] InfoDictionary settings(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, settings, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(InfoDictionary, ManagerInterface, settings, hostSession);
   }
 
   void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, initialize, std::move(managerSettings), hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, initialize, std::move(managerSettings),
+                                  hostSession);
   }
 
   void flushCaches(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, flushCaches, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, flushCaches, hostSession);
   }
 
   [[nodiscard]] trait::TraitsDatas managementPolicy(const trait::TraitSets& traitSets,
                                                     access::PolicyAccess policyAccess,
                                                     const ContextConstPtr& context,
                                                     const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(trait::TraitsDatas, ManagerInterface, managementPolicy, traitSets,
-                      policyAccess, context, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(trait::TraitsDatas, ManagerInterface, managementPolicy,
+                                  traitSets, policyAccess, context, hostSession);
   }
 
   ManagerStateBasePtr createState(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, createState, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, createState,
+                                  hostSession);
   }
 
   ManagerStateBasePtr createChildState(const ManagerStateBasePtr& parentState,
                                        const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, createChildState,
-                      parentState, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface,
+                                  createChildState, parentState, hostSession);
   }
 
   Str persistenceTokenForState(const ManagerStateBasePtr& parentState,
                                const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(Str, ManagerInterface, persistenceTokenForState, parentState, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(Str, ManagerInterface, persistenceTokenForState, parentState,
+                                  hostSession);
   }
 
   ManagerStateBasePtr stateFromPersistenceToken(const Str& token,
                                                 const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface, stateFromPersistenceToken,
-                      token, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(PyRetainingManagerStateBasePtr, ManagerInterface,
+                                  stateFromPersistenceToken, token, hostSession);
   }
 
   [[nodiscard]] bool isEntityReferenceString(const Str& someString,
                                              const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(bool, ManagerInterface, isEntityReferenceString, someString, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(bool, ManagerInterface, isEntityReferenceString, someString,
+                                  hostSession);
   }
 
   void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
                     const HostSessionPtr& hostSession,
                     const ExistsSuccessCallback& successCallback,
                     const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, entityExists, entityReferences, context, hostSession,
-                      successCallback, errorCallback);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, entityExists, entityReferences, context,
+                                  hostSession, successCallback, errorCallback);
   }
 
   [[nodiscard]] bool hasCapability(ManagerInterface::Capability capability) override {
@@ -101,15 +106,17 @@ struct PyManagerInterface : ManagerInterface {
 
   [[nodiscard]] StrMap updateTerminology(StrMap terms,
                                          const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(StrMap, ManagerInterface, updateTerminology, std::move(terms), hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(StrMap, ManagerInterface, updateTerminology, std::move(terms),
+                                  hostSession);
   }
 
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
                const access::ResolveAccess resolveAccess, const ContextConstPtr& context,
                const HostSessionPtr& hostSession, const ResolveSuccessCallback& successCallback,
                const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, resolve, entityReferences, traitSet, resolveAccess,
-                      context, hostSession, successCallback, errorCallback);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, resolve, entityReferences, traitSet,
+                                  resolveAccess, context, hostSession, successCallback,
+                                  errorCallback);
   }
 
   void defaultEntityReference(const trait::TraitSets& traitSets,
@@ -117,8 +124,9 @@ struct PyManagerInterface : ManagerInterface {
                               const ContextConstPtr& context, const HostSessionPtr& hostSession,
                               const DefaultEntityReferenceSuccessCallback& successCallback,
                               const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, defaultEntityReference, traitSets,
-                      defaultEntityAccess, context, hostSession, successCallback, errorCallback);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, defaultEntityReference, traitSets,
+                                  defaultEntityAccess, context, hostSession, successCallback,
+                                  errorCallback);
   }
 
   void getWithRelationship(
@@ -156,17 +164,18 @@ struct PyManagerInterface : ManagerInterface {
                  const HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE(void, ManagerInterface, preflight, entityReferences, traitsHints,
-                      publishingAccess, context, hostSession, successCallback, errorCallback);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, preflight, entityReferences, traitsHints,
+                                  publishingAccess, context, hostSession, successCallback,
+                                  errorCallback);
   }
 
   void register_(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsDatas,
                  const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                  const HostSessionPtr& hostSession, const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
-    PYBIND11_OVERRIDE_NAME(void, ManagerInterface, "register", register_, entityReferences,
-                           traitsDatas, publishingAccess, context, hostSession, successCallback,
-                           errorCallback);
+    OPENASSETIO_PYBIND11_OVERRIDE_NAME(void, ManagerInterface, "register", register_,
+                                       entityReferences, traitsDatas, publishingAccess, context,
+                                       hostSession, successCallback, errorCallback);
   }
 
   // Hoist protected members
