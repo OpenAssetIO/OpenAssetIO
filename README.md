@@ -181,5 +181,23 @@ For detailed instructions, see [building](doc/BUILDING.md).
 - See the [contribution guide](doc/contributing/PROCESS.md)
 - Join our [working group](https://github.com/OpenAssetIO/OpenAssetIO-WG) meetings
 
+> **Warning**
+> OpenAssetIO is a project used in business-critical workflows, and due
+> to this need to work stably and reliably, it is a project with rigid
+> standards.
+>
+> Combined with its inherently abstract nature, it is a difficult project
+> for casual contribution. We are a small team, and welcome anyone
+> who can directly help contribute to the core tasks outlined in our
+> [roadmap](ROADMAP.md). We are however, at present, unable to
+> provide "good first tasks" or a gentle, guided, on-ramp for those new
+> to the problem space.
+>
+> If you have a prevailing interest in the project, please reach out and
+> start a thread in the Discussions section. This helps us coordinate
+> work and approach to ensure we maintain the standards our users demand
+> of the project. We encourage you to reach out before making any big
+> changes or implementing new features.
+
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
