@@ -196,8 +196,8 @@ For detailed instructions, see [building](doc/BUILDING.md).
 > If you have a prevailing interest in the project, please reach out and
 > start a thread in the Discussions section. This helps us coordinate
 > work and approach to ensure we maintain the standards our users demand
-> of the project. We encourage you to reach out before making any big
-> changes or implementing new features.
+> of the project. We encourage you to [work with the TSC](https://github.com/OpenAssetIO/OpenAssetIO-WG)
+> before making any big changes or implementing new features.
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
