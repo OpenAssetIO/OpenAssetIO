@@ -4,6 +4,7 @@
 
 #include <catch2/catch.hpp>
 
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/trait/property.hpp>
@@ -51,6 +52,15 @@ SCENARIO("TraitsData make from other creates a deep copy") {
           CHECK(value == Int{1});
         }
       }
+    }
+  }
+  GIVEN("a null TraitsDataPtr") {
+    const TraitsDataPtr nullTraitsData{};
+
+    THEN("attempting to make a copy results in an InputValidationException") {
+      namespace errors = openassetio::errors;
+      CHECK_THROWS_MATCHES(TraitsData::make(nullTraitsData), errors::InputValidationException,
+                           Catch::Message("Cannot copy-construct from a null TraitsData"));
     }
   }
 }

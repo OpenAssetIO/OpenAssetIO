@@ -20,6 +20,10 @@ class Test_TraitsData_Inheritance:
 
 
 class Test_TraitsData_Copy_Constructor:
+    def test_when_source_is_None_then_raises(self):
+        with pytest.raises(TypeError, match="incompatible constructor arguments"):
+            TraitsData(None)
+
     def test_when_copying_then_deep_copy_is_made(self):
         data_a = TraitsData()
         data_a.setTraitProperty("a", "p", 1)
