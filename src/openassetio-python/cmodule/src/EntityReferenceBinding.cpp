@@ -7,7 +7,7 @@
 
 #include "_openassetio.hpp"
 
-void registerEntityReference(const py::module &mod) {
+void registerEntityReference(const py::module& mod) {
   using openassetio::EntityReference;
 
   py::class_<EntityReference>{mod, "EntityReference", py::is_final()}
