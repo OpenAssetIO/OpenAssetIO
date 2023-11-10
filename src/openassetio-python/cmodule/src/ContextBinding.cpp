@@ -14,15 +14,26 @@ void registerContext(const py::module& mod) {
   using openassetio::Context;
   using openassetio::ContextPtr;
   using openassetio::managerApi::ManagerStateBasePtr;
-  using openassetio::trait::TraitsDataPtr;
+  using openassetio::trait::TraitsData;
+  using PyRetainingTraitsDataPtr =
+      openassetio::PyRetainingSharedPtr<openassetio::trait::TraitsData>;
   using PyRetainingManagerStateBasePtr =
       openassetio::PyRetainingSharedPtr<openassetio::managerApi::ManagerStateBase>;
 
   py::class_<Context, ContextPtr> context{mod, "Context", py::is_final()};
 
   context
-      .def(py::init(RetainCommonPyArgs::forFn<&Context::make>()),
-           py::arg_v("locale", TraitsDataPtr{}), py::arg_v("managerState", ManagerStateBasePtr{}))
+      .def(py::init(
+               [](PyRetainingTraitsDataPtr locale, PyRetainingManagerStateBasePtr managerState) {
+                 return Context::make(std::move(locale), std::move(managerState));
+               }),
+           py::arg("locale").none(false), py::arg("managerState") = ManagerStateBasePtr{})
+      // Allow no-argument construction. Must use a separate constructor
+      // overload, rather than use a default value for `locale` above,
+      // since we must create a new `TraitsData` rather than re-use the
+      // same default `TraitsData` instance, where any mutations will
+      // persist in the default.
+      .def(py::init([]() { return Context::make(TraitsData::make(), ManagerStateBasePtr{}); }))
       .def_readwrite("locale", &Context::locale)
       .def_property(
           "managerState", [](const Context& self) { return self.managerState; },
