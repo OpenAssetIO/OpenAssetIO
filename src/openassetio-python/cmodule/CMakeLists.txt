@@ -68,7 +68,9 @@ target_link_libraries(openassetio-python-module
     # Core C++ library.
     openassetio-core
     # pybind, including its handy transitive Python-specific properties.
-    pybind11::module pybind11::windows_extras)
+    pybind11::module pybind11::windows_extras
+    $<BUILD_INTERFACE:fmt::fmt-header-only>
+)
 
 target_include_directories(openassetio-python-module
     PRIVATE

@@ -41,6 +41,14 @@ class Test_EntityReference_toString:
         assert an_entity_reference.toString() == expected
 
 
+class Test_EntityReferenve_repr:
+    def test_returns_angle_bracket_string_with_class_and_value(self):
+        for ref_str in ("a://ref", "a 🦆 v1"):
+            expected = f"<openassetio.EntityReference {ref_str}>"
+            a_ref = EntityReference(ref_str)
+            assert repr(a_ref) == expected
+
+
 class Test_EntityReference_equality:
     def test_when_same_then_compares_equal(self):
         assert EntityReference("something") == EntityReference("something")
