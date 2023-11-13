@@ -3,6 +3,7 @@
 
 name: Build for VFX Reference Platform CY22
 on:
+  workflow_dispatch:
   pull_request:
     branches-ignore:
       - docs
