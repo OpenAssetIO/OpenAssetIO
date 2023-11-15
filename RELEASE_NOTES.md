@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-beta.x.x
+---------------
+
+### Improvements
+
+- Added the string representation of an `EntityReference` when `repr`'d
+  in Python.
+  [#1186](https://github.com/OpenAssetIO/OpenAssetIO/issues/1186)
+
 v1.0.0-beta.1.0
 ---------------
 
