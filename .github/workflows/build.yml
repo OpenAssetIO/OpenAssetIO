@@ -110,19 +110,26 @@ jobs:
         name: doxygen-documentation
         path: doc/doxygen/html
 
-  business-language:
+  disallowed-phrases:
     runs-on: ubuntu-latest
+    name: Disallowed phrases
 
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
 
-    - name: Check business language
-      run: |
-        # Check that the acronym version of OpenAssetIO isn't in use
-        # in the code base, see:
-        #   https://github.com/OpenAssetIO/OpenAssetIO/issues/153
-        # NB: The quotes deliberately avoid the string in question
-        # appearing in this file, and failing the test.
+      # Check that the acronym version of OpenAssetIO isn't in use in
+      # the code base, see:
+      #   https://github.com/OpenAssetIO/OpenAssetIO/issues/153
+      # NB: The quotes deliberately avoid the string in question
+      # appearing in this file, and failing the test.
+    - name: Ambiguous acronym
+      run: >
         ! grep -ir "o""aio" .
 
+      # Check that we always use the `OPENASSETIO_`-prefixed pybind11
+      # override macros. Uses Perl regexp with negative lookbehind.
+    - name: pybind11 macros
+      run: >
+        ! grep -Pr '(?<!OPENASSETIO_)PYBIND11_OVERRIDE'
+        --exclude overrideMacros.hpp --exclude-dir _openassetio_test src
