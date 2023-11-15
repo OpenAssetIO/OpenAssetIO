@@ -85,3 +85,36 @@ macro(enable_clang_Format)
         message(FATAL_ERROR "clang-format requested but executable not found")
     endif ()
 endmacro()
+
+# Create a custom target that executes cmake-lint.
+#
+# This is set as a build dependency of other targets.
+#
+# Linter configuration is in cmake-format.yaml.
+macro(enable_cmake_lint)
+    find_program(OPENASSETIO_CMAKELINT_EXE NAMES cmake-lint)
+    if (OPENASSETIO_CMAKELINT_EXE)
+        file(
+            GLOB_RECURSE _sources
+            LIST_DIRECTORIES false
+            CONFIGURE_DEPENDS # Ensure we re-scan if files change.
+            ${PROJECT_SOURCE_DIR}/cmake/*.cmake
+            ${PROJECT_SOURCE_DIR}/src/CMakeLists.txt
+        )
+        # Explicitly add top-level CMakeLists.txt, rather than globbing
+        # from root, so that hidden/build dirs located at project root
+        # are not included.
+        list(PREPEND _sources ${PROJECT_SOURCE_DIR}/CMakeLists.txt)
+
+        # Create a custom target to be added as a dependency to other
+        # targets.
+        add_custom_target(
+            openassetio-cmakelint
+            COMMAND ${CMAKE_COMMAND} -E echo "Executing cmake-lint check..."
+            COMMAND ${OPENASSETIO_CMAKELINT_EXE} --suppress-decorations ${_sources}
+        )
+
+    else ()
+        message(FATAL_ERROR "cmake-lint requested but executable not found")
+    endif ()
+endmacro()
