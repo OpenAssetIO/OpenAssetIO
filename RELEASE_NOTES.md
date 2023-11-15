@@ -10,6 +10,16 @@ v1.0.0-beta.x.x
   in Python.
   [#1186](https://github.com/OpenAssetIO/OpenAssetIO/issues/1186)
 
+### Bug fixes
+
+- Throw an exception when attempting to copy-construct a null
+  `TraitsData`.
+  [#1153](https://github.com/OpenAssetIO/OpenAssetIO/issues/1153)
+
+- Modified no-argument constructor of `Context` to create an empty (but
+  non-null) `locale`.
+  [#1153](https://github.com/OpenAssetIO/OpenAssetIO/issues/1153)
+
 v1.0.0-beta.1.0
 ---------------
 

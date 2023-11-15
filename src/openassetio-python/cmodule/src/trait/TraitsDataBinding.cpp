@@ -23,7 +23,7 @@ void registerTraitsData(const py::module& mod) {
       .def(py::init(static_cast<TraitsDataPtr (*)(const trait::TraitSet&)>(&TraitsData::make)),
            py::arg("traitSet"))
       .def(py::init(static_cast<TraitsDataPtr (*)(const TraitsDataConstPtr&)>(&TraitsData::make)),
-           py::arg("other"))
+           py::arg("other").none(false))
       .def("traitSet", &TraitsData::traitSet)
       .def("hasTrait", &TraitsData::hasTrait, py::arg("traitId"))
       .def("addTrait", &TraitsData::addTrait, py::arg("traitId"))

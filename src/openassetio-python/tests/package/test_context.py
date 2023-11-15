@@ -28,8 +28,10 @@ from openassetio.trait import TraitsData
 class Test_Context_init:
     def test_when_constructed_with_no_args_then_has_default_configuration(self):
         context = Context()
-        assert context.locale is None
+        assert isinstance(context.locale, TraitsData)
         assert context.managerState is None
+        # Ensure we're not re-using the same instance.
+        assert Context().locale is not context.locale
 
     def test_when_constructed_with_args_then_has_configuration_from_args(self):
         class TestState(managerApi.ManagerStateBase):
@@ -43,6 +45,13 @@ class Test_Context_init:
         assert a_context.locale is expected_locale
         assert a_context.managerState is expected_state
         assert isinstance(a_context.managerState, TestState)
+
+    def test_when_constructed_with_null_locale_then_raises(self):
+        class TestState(managerApi.ManagerStateBase):
+            pass
+
+        with pytest.raises(TypeError, match="incompatible constructor arguments"):
+            Context(None, TestState())
 
 
 class Test_Context_locale:

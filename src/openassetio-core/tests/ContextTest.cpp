@@ -15,3 +15,11 @@ SCENARIO("Context constructor is private") {
   STATIC_REQUIRE_FALSE(std::is_constructible_v<Context, openassetio::trait::TraitsDataPtr,
                                                openassetio::managerApi::ManagerStateBasePtr>);
 }
+
+SCENARIO("Default construction") {
+  GIVEN("a default constructed Context") {
+    const Context::Ptr context = Context::make();
+
+    THEN("the locale is not null") { CHECK(context->locale); }
+  }
+}

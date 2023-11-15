@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 
 namespace openassetio {
@@ -90,6 +91,9 @@ TraitsDataPtr TraitsData::make(const trait::TraitSet& traitSet) {
 }
 
 TraitsDataPtr TraitsData::make(const TraitsDataConstPtr& other) {
+  if (!other) {
+    throw errors::InputValidationException("Cannot copy-construct from a null TraitsData");
+  }
   return std::shared_ptr<TraitsData>(new TraitsData(*other));
 }
 

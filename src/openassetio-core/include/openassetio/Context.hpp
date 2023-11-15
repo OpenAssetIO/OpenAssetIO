@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2022 The Foundry Visionmongers Ltd
 #pragma once
-#include <array>
-#include <cstddef>
 #include <memory>
 
 #include <openassetio/export.h>
+#include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/typedefs.hpp>
 
-OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
 
 namespace openassetio {
@@ -73,7 +71,7 @@ class OPENASSETIO_CORE_EXPORT Context final {
    * @fqref{hostApi.Manager.createContext} "Manager.createContext"
    * should always be used instead.
    */
-  [[nodiscard]] static ContextPtr make(trait::TraitsDataPtr locale = nullptr,
+  [[nodiscard]] static ContextPtr make(trait::TraitsDataPtr locale = trait::TraitsData::make(),
                                        managerApi::ManagerStateBasePtr managerState = nullptr);
 
  private:
