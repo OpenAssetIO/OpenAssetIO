@@ -200,6 +200,10 @@ option(OPENASSETIO_ENABLE_CLANG_TIDY "Enable clang-tidy analysis during build" O
 # Enable cpplint linter.
 option(OPENASSETIO_ENABLE_CPPLINT "Enable cpplint linter during build" OFF)
 
+# Enable cmake-lint linter.
+option(OPENASSETIO_ENABLE_CMAKE_LINT "Enable cmake-lint linter during build" OFF)
+
+
 #-----------------------------------------------------------------------
 # Define default install directories, e.g. CMAKE_INSTALL_LIBDIR
 
@@ -245,7 +249,9 @@ endif ()
 if (OPENASSETIO_ENABLE_CPPLINT)
     enable_cpplint()
 endif ()
-
+if (OPENASSETIO_ENABLE_CMAKE_LINT)
+    enable_cmake_lint()
+endif ()
 
 #-----------------------------------------------------------------------
 # Generate OpenAssetIOConfig.cmake et al. for bundling as a CMake lib.
@@ -333,6 +339,7 @@ endif ()
 message(STATUS "Linter: clang-tidy                 = ${OPENASSETIO_ENABLE_CLANG_TIDY} [${OPENASSETIO_CLANGTIDY_EXE}]")
 message(STATUS "Linter: cpplint                    = ${OPENASSETIO_ENABLE_CPPLINT} [${OPENASSETIO_CPPLINT_EXE}]")
 message(STATUS "Linter: clang-format               = ${OPENASSETIO_ENABLE_CLANG_FORMAT} [${OPENASSETIO_CLANGFORMAT_EXE}]")
+message(STATUS "Linter: cmake-lint                 = ${OPENASSETIO_ENABLE_CMAKE_LINT} [${OPENASSETIO_CMAKELINT_EXE}]")
 
 #-----------------------------------------------------------------------
 # Recurse to library targets

@@ -245,6 +245,9 @@ function(openassetio_set_default_target_properties target_name)
         add_dependencies(${target_name} openassetio-clangformat)
     endif ()
 
+    if (TARGET openassetio-cmakelint)
+        add_dependencies(${target_name} openassetio-cmakelint)
+    endif ()
 
     #-------------------------------------------------------------------
     # IDE helpers

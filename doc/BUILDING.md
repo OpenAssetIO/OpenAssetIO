@@ -198,6 +198,7 @@ behaviour of the build.
 | `OPENASSETIO_ENABLE_SANITIZER_MEMORY`             | Enable memory sanitizer                                               | `OFF`   |
 | `OPENASSETIO_ENABLE_CLANG_TIDY`                   | Enable clang-tidy analysis during build                               | `OFF`   |
 | `OPENASSETIO_ENABLE_CPPLINT`                      | Enable cpplint linter during build                                    | `OFF`   |
+| `OPENASSETIO_ENABLE_CMAKE_LINT`                   | Enable cmake-lint linter during build                                 | `OFF`   |
 
 ### Presets
 
