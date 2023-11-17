@@ -3,14 +3,12 @@
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
-#include <openassetio/Context.hpp>
-#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
-#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
+#include "../overrideMacros.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -37,7 +35,7 @@ struct PyEntityReferencePagerInterface : EntityReferencePagerInterface {
   }
 
   void close(const HostSessionPtr& hostSession) override {
-    PYBIND11_OVERRIDE(void, EntityReferencePagerInterface, close, hostSession);
+    OPENASSETIO_PYBIND11_OVERRIDE(void, EntityReferencePagerInterface, close, hostSession);
   }
 };
 

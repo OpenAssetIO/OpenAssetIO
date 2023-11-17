@@ -4,6 +4,13 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
+### New Features
+
+- Propagate `OpenAssetIOException`-derived Python exceptions as a
+  corresponding C++ exception if a Python method implementation raises
+  when transparently called from C++.
+  [#947](https://github.com/OpenAssetIO/OpenAssetIO/issues/947)
+
 ### Improvements
 
 - Added the string representation of an `EntityReference` when `repr`'d

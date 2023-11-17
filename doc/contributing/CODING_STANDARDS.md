@@ -232,6 +232,25 @@ a null pointer.
     .def("setHost", py::arg("host").none(false))
 ```
 
+### Polymorphic override macros
+
+In order to support C++ class instances transparently calling into a
+mirrored Python instance, pybind11 has support for so-called
+["trampoline" classes](https://pybind11.readthedocs.io/en/stable/advanced/classes.html#overriding-virtual-functions-in-python),
+which dispatch either to the Python method override, or to the C++ base
+class implementation if no Python override is found. Method bodies
+use convenience macros to implement this logic.
+
+In pybind11, any exception that occurs in Python, and propagates to C++,
+is translated to an `error_already_set` C++ exception. In order to
+support Python->C++ exception type translation, we must augment the
+pybind11 macros.
+
+So instead of using the `PYBIND11_OVERRIDE_*` family of macros, we must
+use `OPENASSETIO_PYBIND11_OVERRIDE_*`, which decorates the pybind11
+implementation with additional functionality, such as exception
+translation.
+
 ### Python object lifetime
 
 Due to a [Pybind issue](https://github.com/pybind/pybind11/issues/1333),
@@ -268,7 +287,7 @@ member functions from, for example
 
 ```c++
 std::shared_ptr<MyReturnType> PyMyClass::myMethod(myArg) override {
-  PYBIND11_OVERRIDE(
+  OPENASSETIO_PYBIND11_OVERRIDE(
       std::shared_ptr<MyReturnType>, MyClass, myMethod, myArg);
 }
 ```
@@ -277,7 +296,7 @@ to
 
 ```c++
 std::shared_ptr<MyReturnType> PyMyClass::myMethod(myArg) override {
-  PYBIND11_OVERRIDE(
+  OPENASSETIO_PYBIND11_OVERRIDE(
       PyRetainingSharedPtr<MyReturnType>, MyClass, myMethod, myArg);
 }
 ```
@@ -422,14 +441,6 @@ provided externally (e.g. manager plugins).
 
 Any methods not released should be in O(1) time and guaranteed to not
 cause a deadlock by calling out to python off-thread.
-
-Until https://github.com/pybind/pybind11/issues/4878 is fixed, pure
-virtual bindings should use the `OPENASSETIO_PYBIND11_OVERRIDE_PURE`
-macro in the pybind11 [trampoline
-class](https://pybind11.readthedocs.io/en/stable/advanced/classes.html),
-rather than `PYBIND11_OVERRIDE_PURE`. See the issue description for more
-details.
-
 
 ## Environment variables
 

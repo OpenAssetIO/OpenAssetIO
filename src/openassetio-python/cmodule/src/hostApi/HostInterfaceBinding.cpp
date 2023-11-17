@@ -7,6 +7,7 @@
 #include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
+#include "../overrideMacros.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -28,7 +29,7 @@ struct PyHostInterface : HostInterface {
   }
 
   [[nodiscard]] InfoDictionary info() override {
-    PYBIND11_OVERRIDE(InfoDictionary, HostInterface, info, /* no args */);
+    OPENASSETIO_PYBIND11_OVERRIDE(InfoDictionary, HostInterface, info, /* no args */);
   }
 };
 
