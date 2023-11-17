@@ -138,13 +138,36 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html">UnhandledException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exceptions emitted from manager plugins that are not handled will be converted to this type and re-thrown when the exception passes through the OpenAssetIO middleware.  <a href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">OpenassetIO Exceptions</div></td></tr>
+<tr class="memitem:a3a5f1ec8cf10b38441111857edbf2824"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html#a3a5f1ec8cf10b38441111857edbf2824">AllExceptions</a> = std::tuple&lt; <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html">OpenAssetIOException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html">InputValidationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html">ConfigurationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html">NotImplementedException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html">UnhandledException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a> &gt;</td></tr>
+<tr class="memdesc:a3a5f1ec8cf10b38441111857edbf2824"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all OpenAssetIO-specific exceptions.  <a href="#a3a5f1ec8cf10b38441111857edbf2824">More...</a><br /></td></tr>
+<tr class="separator:a3a5f1ec8cf10b38441111857edbf2824"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This namespace contains types related to error handling. </p>
 <p>Generally there are two types of error handling, "standard" non-batch error handling, which is exception based, and batch errors, which are based upon the <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> type.</p>
 <p>All exceptions in OpenAssetIO are derived from the <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html">OpenAssetIOException</a> type, the idea being a host can use this as a catch-all exception type when attempting mitigative exception handling.</p>
 <p>Batch error handling with <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> is not exceptional, However, OpenAssetIO provides convenience wrappers around some batch functions that makes them exceptional, therefore <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> is converted to its twin, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>, also found in this namespace. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a3a5f1ec8cf10b38441111857edbf2824"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html#a3a5f1ec8cf10b38441111857edbf2824">AllExceptions</a> =  std::tuple&lt;<a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html">OpenAssetIOException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html">InputValidationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html">ConfigurationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html">NotImplementedException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html">UnhandledException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List of all OpenAssetIO-specific exceptions. </p>
+<p>Useful for introspection in language bindings. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->
 <!-- start footer part -->

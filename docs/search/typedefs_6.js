@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['identifier',['Identifier',['../namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da',1,'openassetio::v1']]],
-  ['identifiers',['Identifiers',['../namespaceopenassetio_1_1v1.html#a85da9c7e6b9c400a51a15b9f304803be',1,'openassetio::v1']]],
-  ['infodictionary',['InfoDictionary',['../namespaceopenassetio_1_1v1.html#a8ef60a7889e0a9346624d77b0127be0a',1,'openassetio::v1']]],
-  ['infodictionaryvalue',['InfoDictionaryValue',['../namespaceopenassetio_1_1v1.html#a9259b8747e04a2617e45e526fda835d7',1,'openassetio::v1']]],
-  ['int',['Int',['../namespaceopenassetio_1_1v1.html#a1941127620eb673d937ee1117a94497c',1,'openassetio::v1']]]
+  ['hostconstptr',['HostConstPtr',['../namespaceopenassetio_1_1v1_1_1manager_api.html#a0a41be39168f54f6138a3441620b851b',1,'openassetio::v1::managerApi']]],
+  ['hostinterfaceconstptr',['HostInterfaceConstPtr',['../namespaceopenassetio_1_1v1_1_1host_api.html#a110eb2a6c849bf2177dec50833132623',1,'openassetio::v1::hostApi']]],
+  ['hostinterfaceptr',['HostInterfacePtr',['../namespaceopenassetio_1_1v1_1_1host_api.html#af00cc9c4eb923cad81efd770d82db4bd',1,'openassetio::v1::hostApi']]],
+  ['hostptr',['HostPtr',['../namespaceopenassetio_1_1v1_1_1manager_api.html#afc26eb9b59709089c9eb54c76a5249b6',1,'openassetio::v1::managerApi']]],
+  ['hostsessionconstptr',['HostSessionConstPtr',['../namespaceopenassetio_1_1v1_1_1manager_api.html#ad8b96f328fdafe3c2f0e7a5766b5d6ba',1,'openassetio::v1::managerApi']]],
+  ['hostsessionptr',['HostSessionPtr',['../namespaceopenassetio_1_1v1_1_1manager_api.html#ab82173d4315fc82a38df758b556aa4be',1,'openassetio::v1::managerApi']]]
 ];

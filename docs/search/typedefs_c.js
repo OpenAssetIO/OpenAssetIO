@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['severityfilterconstptr',['SeverityFilterConstPtr',['../namespaceopenassetio_1_1v1_1_1log.html#af840ffebe5fc45acd969f9e72dac0a38',1,'openassetio::v1::log']]],
-  ['severityfilterptr',['SeverityFilterPtr',['../namespaceopenassetio_1_1v1_1_1log.html#afe8011941c95c0a4d0e1da37f2b23f4e',1,'openassetio::v1::log']]],
-  ['str',['Str',['../namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6',1,'openassetio::v1']]],
-  ['strmap',['StrMap',['../namespaceopenassetio_1_1v1.html#ae4b604ca1d539db89efab57cf857f799',1,'openassetio::v1']]]
+  ['registersuccesscallback',['RegisterSuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2',1,'openassetio::v1::hostApi::Manager::RegisterSuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#af4a59453053da4f3ec0972ffcdc66ed2',1,'openassetio::v1::managerApi::ManagerInterface::RegisterSuccessCallback()']]],
+  ['relationshipquerysuccesscallback',['RelationshipQuerySuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa5b6518556c1565718132fd069929a07',1,'openassetio::v1::hostApi::Manager::RelationshipQuerySuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a040a1e0600a1c6c01705011dda2355c2',1,'openassetio::v1::managerApi::ManagerInterface::RelationshipQuerySuccessCallback()']]],
+  ['resolvesuccesscallback',['ResolveSuccessCallback',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a8d3d52b9a3baff068079c6559f3a894a',1,'openassetio::v1::hostApi::Manager::ResolveSuccessCallback()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a8d3d52b9a3baff068079c6559f3a894a',1,'openassetio::v1::managerApi::ManagerInterface::ResolveSuccessCallback()']]]
 ];

@@ -7,6 +7,7 @@ var searchData=
   ['action',['action',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a2f4ab7bf743142dae2e459aa18f9f1d4',1,'openassetio::test::manager::__main__']]],
   ['addtrait',['addTrait',['../classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#aaf3a52ee15284475384f647acf3b64be',1,'openassetio::v1::trait::TraitsData']]],
   ['addtraits',['addTraits',['../classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436',1,'openassetio::v1::trait::TraitsData']]],
+  ['allexceptions',['AllExceptions',['../namespaceopenassetio_1_1v1_1_1errors.html#a3a5f1ec8cf10b38441111857edbf2824',1,'openassetio::v1::errors']]],
   ['args',['args',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a8187411843a6284ffb964ef3fb9fcab3',1,'openassetio::test::manager::__main__']]],
   ['assertisstringkeyprimitivevaluedict',['assertIsStringKeyPrimitiveValueDict',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ab2aab2dabbe6b11a6246f95374f2a399',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['assertvaluesoftype',['assertValuesOfType',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#ad0acbba99dff86d3e0065cf0e3fa7bc6',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
