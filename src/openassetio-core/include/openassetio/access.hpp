@@ -74,6 +74,27 @@ enum class ResolveAccess : std::underlying_type_t<internal::access::Access> {
 };
 
 /**
+ * Access pattern for entity trait set queries.
+ */
+enum class EntityTraitsAccess : std::underlying_type_t<internal::access::Access> {
+  /**
+   * Used to query the full trait set of an existing entity.
+   *
+   * For example, when an entity is known to exist, but is of unknown
+   * classification.
+   */
+  kRead = internal::access::Access::kRead,
+  /**
+   * Used to query the minimal trait set that must be specified when
+   * publishing to a particular entity reference.
+   *
+   * For example, when validating that a user-supplied entity reference
+   * is appropriate for a publishing operation.
+   */
+  kWrite = internal::access::Access::kWrite,
+};
+
+/**
  * Access pattern for @ref publish "publishing".
  */
 enum class PublishingAccess : std::underlying_type_t<internal::access::Access> {

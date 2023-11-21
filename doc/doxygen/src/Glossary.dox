@@ -553,7 +553,6 @@
  *
  * @see @ref entities_traits_and_specifications
  *
- *
  * @section trait_set Trait Set
  *
  * A trait set is the logical conjunction of one or more @ref trait
@@ -571,4 +570,7 @@
  * traits it is capable of storing or recalling property data for.
  *
  * @see @ref entities_traits_and_specifications
+ * @see @fqref{hostApi.Manager.entityTraits} "Manager.entityTraits" /
+ * @fqref{managerApi.ManagerInterface.entityTraits}
+ * "ManagerInterface.entityTraits"
  */

@@ -100,6 +100,10 @@ void registerManager(const py::module& mod) {
       .def("entityExists", &Manager::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
            py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits", &Manager::entityTraits, py::arg("entityReferences"),
+           py::arg("entityTraitsAccess"), py::arg("context").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("hasCapability", &Manager::hasCapability, py::arg("capability"),
            py::call_guard<py::gil_scoped_release>{})
       .def("updateTerminology", &Manager::updateTerminology, py::arg("terms"),

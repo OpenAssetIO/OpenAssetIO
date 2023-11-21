@@ -174,6 +174,60 @@
  * url = LocatableContentTrait(resolved_asset).getLocation()  # May be None
  * @endcode
  *
+ * @section examples_inspecting_a_reference Inspecting a reference
+ *
+ * This example shows how an entity reference of unknown provenance can
+ * be inspected to determine the qualities of the entity it points to.
+ *
+ * Let's say we're an audio application written in Qt, and someone has
+ * just dragged and dropped a line of text into the application. We want
+ * to know if the text is an entity reference, and if so, does it point
+ * to an audio clip.
+ *
+ * @code{.py}
+ * from openassetio.access import EntityTraitsAccess
+ * from openassetio_mediacreation.traits.content import LocatableContentTrait
+ * from openassetio_mediacreation.specifications.audio import SampledAudioResource
+ *
+ * class MyAudioApp(QMainWindow):
+ *
+ *   def __init__(self, manager):
+ *     super().__init__()
+ *     self.__manager = manager
+ *     self.__context = manager.createContext()
+ *     self.setAcceptDrops(True)
+ *     # [... Other Qt setup]
+ *
+ *   def dragEnterEvent(self, event):
+ *     if event.mimeData().hasUrls():
+ *       event.acceptProposedAction()
+ *
+ *   def dropEvent(self, event):
+ *     if not event.mimeData().hasUrls():
+ *       return
+ *     uri = event.mimeData().urls().first().toString()
+ *     ref = self.__manager.createEntityReferenceIfValid(uri)
+ *     if ref is None:
+ *       return
+ *
+ *     entity_trait_set = self.__manager.entityTraits(
+ *       ref, EntityTraitsAccess.kRead, self.__context)
+ *
+ *     # Ignore this drop if the entity is not of the correct type for
+ *     # this application.
+ *     if not SampledAudioResource.kTraitSet <= entity_trait_set
+ *       return
+ *
+ *     resolved_asset = manager.resolve(
+ *        entity_reference, {LocatableContentTrait.kId},
+ *        ResolveAccess.kRead, context)
+ *     url = LocatableContentTrait(resolved_asset).getLocation()
+ *
+ *     self.load_audio_from_url(url)
+ *
+ *  # [... Other application setup]
+ * @endcode
+ *
  * @section example_discovering_capability Discovering capability
  *
  * In the previous example, we saw how to resolve a specific trait for

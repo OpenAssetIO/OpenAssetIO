@@ -16,6 +16,7 @@
 """
 Tests that cover the openassetio.hostApi.Manager wrapper class.
 """
+import itertools
 
 # pylint: disable=invalid-name,redefined-outer-name,unused-argument
 # pylint: disable=too-many-lines,too-many-locals
@@ -241,6 +242,22 @@ class Test_Manager_initialize:
         )
 
 
+required_capabilities = [
+    ManagerInterface.Capability.kEntityReferenceIdentification,
+    ManagerInterface.Capability.kManagementPolicyQueries,
+    ManagerInterface.Capability.kEntityTraitIntrospection,
+]
+
+# The powerset (set of all subsets) of capabilities, minus the empty
+# set. Adapted from https://docs.python.org/3/library/itertools.html#itertools-recipes
+required_capabilities_powerset = list(
+    itertools.chain.from_iterable(
+        itertools.combinations(required_capabilities, r)
+        for r in range(1, len(required_capabilities) + 1)
+    )
+)
+
+
 class Test_Manager_initialize_capablility_check:
     def test_has_capability_called_after_initialize(
         self, manager, a_host_session, mock_manager_interface
@@ -249,27 +266,18 @@ class Test_Manager_initialize_capablility_check:
 
         manager.initialize({})
 
-        assert mock_manager_interface.mock.method_calls[0:3] == [
+        assert mock_manager_interface.mock.method_calls[0:4] == [
             mock.call.initialize({}, a_host_session),
             mock.call.hasCapability(ManagerInterface.Capability.kEntityReferenceIdentification),
             mock.call.hasCapability(ManagerInterface.Capability.kManagementPolicyQueries),
+            mock.call.hasCapability(ManagerInterface.Capability.kEntityTraitIntrospection),
         ]
 
     def test_when_manager_has_capabilities_then_no_error(self, manager, mock_manager_interface):
         mock_manager_interface.mock.hasCapability.return_value = True
         manager.initialize({})
 
-    @pytest.mark.parametrize(
-        "missing_capabilities",
-        [
-            [ManagerInterface.Capability.kEntityReferenceIdentification],
-            [ManagerInterface.Capability.kManagementPolicyQueries],
-            [
-                ManagerInterface.Capability.kEntityReferenceIdentification,
-                ManagerInterface.Capability.kManagementPolicyQueries,
-            ],
-        ],
-    )
+    @pytest.mark.parametrize("missing_capabilities", required_capabilities_powerset)
     def test_when_manager_does_not_have_capability_then_ConfigurationException_raised(
         self, manager, mock_manager_interface, missing_capabilities
     ):
@@ -1364,6 +1372,51 @@ class Test_Manager_resolve_with_batch_variant_overload:
         assert actual_traitsdata_and_error[1] is traitsdata1
         assert actual_traitsdata_and_error[2] == batch_element_error2
         assert actual_traitsdata_and_error[3] is traitsdata3
+
+
+class Test_Manager_entityTraits:
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+        self,
+        manager,
+        mock_manager_interface,
+        a_host_session,
+        some_refs,
+        an_entity_trait_set,
+        a_context,
+        a_batch_element_error,
+        invoke_entityTraits_success_cb,
+        invoke_entityTraits_error_cb,
+    ):
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
+
+        method = mock_manager_interface.mock.entityTraits
+
+        def call_callbacks(*_args):
+            invoke_entityTraits_success_cb(123, an_entity_trait_set)
+            invoke_entityTraits_error_cb(456, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        manager.entityTraits(
+            some_refs,
+            access.EntityTraitsAccess.kRead,
+            a_context,
+            success_callback,
+            error_callback,
+        )
+
+        method.assert_called_once_with(
+            some_refs,
+            access.EntityTraitsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        success_callback.assert_called_once_with(123, an_entity_trait_set)
+        error_callback.assert_called_once_with(456, a_batch_element_error)
 
 
 class Test_Manager_managementPolicy:
@@ -3044,6 +3097,24 @@ def invoke_resolve_success_cb(mock_manager_interface):
 def invoke_resolve_error_cb(mock_manager_interface):
     def invoke(idx, batch_element_error):
         callback = mock_manager_interface.mock.resolve.call_args[0][6]
+        callback(idx, batch_element_error)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_entityTraits_success_cb(mock_manager_interface):
+    def invoke(idx, traits_data):
+        callback = mock_manager_interface.mock.entityTraits.call_args[0][4]
+        callback(idx, traits_data)
+
+    return invoke
+
+
+@pytest.fixture
+def invoke_entityTraits_error_cb(mock_manager_interface):
+    def invoke(idx, batch_element_error):
+        callback = mock_manager_interface.mock.entityTraits.call_args[0][5]
         callback(idx, batch_element_error)
 
     return invoke

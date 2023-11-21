@@ -6,6 +6,12 @@ v1.0.0-beta.x.x
 
 ### Breaking changes
 
+- Added new required core API method
+  `Manager`/`ManagerInterface.entityTraits`, which can be used to
+  determine the traits that an existing entity has, or that a new entity
+  must have, for a given entity reference.
+  [#31](https://github.com/OpenAssetIO/OpenAssetIO/issues/31)
+
 - Access policy keyword argument names in the Python bindings for
   `ManagerInterface` has changed  to `"resolveAccess"` for `resolve` and
   `"policyAccess"` for `managementPolicy`, in order to conform to the

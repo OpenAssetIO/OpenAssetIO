@@ -66,6 +66,17 @@ void ManagerInterface::entityExists(
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kExistenceQueries)};
 }
 
+void ManagerInterface::entityTraits(
+    [[maybe_unused]] const EntityReferences& entityReferences,
+    [[maybe_unused]] const access::EntityTraitsAccess entityTraitsAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession,
+    [[maybe_unused]] const ManagerInterface::EntityTraitsSuccessCallback& successCallback,
+    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+  throw errors::NotImplementedException{
+      UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kEntityTraitIntrospection)};
+}
+
 void ManagerInterface::resolve(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const trait::TraitSet& traitSet,

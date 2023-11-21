@@ -19,6 +19,10 @@ void registerAccess(const py::module& mod) {
       .value("kRead", access::ResolveAccess::kRead)
       .value("kWrite", access::ResolveAccess::kWrite);
 
+  py::enum_<access::EntityTraitsAccess>{mod, "EntityTraitsAccess"}
+      .value("kRead", access::EntityTraitsAccess::kRead)
+      .value("kWrite", access::EntityTraitsAccess::kWrite);
+
   py::enum_<access::PublishingAccess>{mod, "PublishingAccess"}
       .value("kWrite", access::PublishingAccess::kWrite)
       .value("kCreateRelated", access::PublishingAccess::kCreateRelated);

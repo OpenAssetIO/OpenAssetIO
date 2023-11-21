@@ -39,7 +39,13 @@ import weakref
 from .harness import FixtureAugmentedTestCase
 from ... import EntityReference
 from ...errors import BatchElementError
-from ...access import PolicyAccess, ResolveAccess, RelationsAccess, PublishingAccess
+from ...access import (
+    PolicyAccess,
+    ResolveAccess,
+    RelationsAccess,
+    PublishingAccess,
+    EntityTraitsAccess,
+)
 from ...trait import TraitsData
 
 
@@ -326,6 +332,152 @@ class Test_entityExists(FixtureAugmentedTestCase):
         [error] = result
 
         self.assertEqual(error.code, BatchElementError.ErrorCode.kMalformedEntityReference)
+        self.assertEqual(error.message, expected_error_message)
+
+
+class Test_entityTraits(FixtureAugmentedTestCase):
+    """
+    Check plugin's implementation of
+    managerApi.ManagerInterface.entityTraits.
+    """
+
+    def test_when_querying_malformed_reference_then_malformed_reference_error_is_returned(self):
+        a_malformed_reference = self.requireEntityReferenceFixture(
+            "a_malformed_reference", skipTestIfMissing=True
+        )
+        expected_error_message = self.requireFixture("expected_error_message")
+        self.__assert_error(
+            a_malformed_reference,
+            BatchElementError.ErrorCode.kMalformedEntityReference,
+            expected_error_message,
+        )
+
+    def test_when_querying_missing_reference_for_read_then_resolution_error_is_returned(self):
+        a_missing_reference = self.requireEntityReferenceFixture(
+            "a_reference_to_a_missing_entity", skipTestIfMissing=True
+        )
+        expected_error_message = self.requireFixture("expected_error_message")
+        self.__assert_error(
+            a_missing_reference,
+            BatchElementError.ErrorCode.kEntityResolutionError,
+            expected_error_message,
+        )
+
+    def test_when_read_only_entity_queried_for_write_then_access_error_is_returned(self):
+        a_readonly_reference = self.requireEntityReferenceFixture(
+            "a_reference_to_a_readonly_entity", skipTestIfMissing=True
+        )
+        expected_error_message = self.requireFixture("expected_error_message")
+        self.__assert_error(
+            a_readonly_reference,
+            BatchElementError.ErrorCode.kEntityAccessError,
+            expected_error_message,
+            entity_traits_access=EntityTraitsAccess.kWrite,
+        )
+
+    def test_when_write_only_entity_queried_for_read_then_access_error_is_returned(self):
+        a_writeonly_reference = self.requireEntityReferenceFixture(
+            "a_reference_to_a_writeonly_entity", skipTestIfMissing=True
+        )
+        expected_error_message = self.requireFixture("expected_error_message")
+        self.__assert_error(
+            a_writeonly_reference,
+            BatchElementError.ErrorCode.kEntityAccessError,
+            expected_error_message,
+            entity_traits_access=EntityTraitsAccess.kRead,
+        )
+
+    def test_when_multiple_references_for_read_then_same_number_of_returned_trait_sets(self):
+        first_ref = self.requireEntityReferenceFixture(
+            "first_entity_reference", skipTestIfMissing=True
+        )
+        first_trait_set = self.requireFixture("first_entity_trait_set")
+
+        second_ref = self.requireEntityReferenceFixture("second_entity_reference")
+        second_trait_set = self.requireFixture("second_entity_trait_set")
+
+        self.__assert_multiple_references(
+            EntityTraitsAccess.kRead,
+            first_ref,
+            first_trait_set,
+            second_ref,
+            second_trait_set,
+        )
+
+    def test_when_multiple_references_for_write_then_same_number_of_returned_trait_sets(self):
+        first_ref = self.requireEntityReferenceFixture(
+            "first_entity_reference", skipTestIfMissing=True
+        )
+        first_trait_set = self.requireFixture("first_entity_trait_set")
+
+        second_ref = self.requireEntityReferenceFixture("second_entity_reference")
+        second_trait_set = self.requireFixture("second_entity_trait_set")
+
+        self.__assert_multiple_references(
+            EntityTraitsAccess.kWrite,
+            first_ref,
+            first_trait_set,
+            second_ref,
+            second_trait_set,
+        )
+
+    def __assert_multiple_references(
+        self,
+        entity_traits_access,
+        first_ref,
+        first_trait_set,
+        second_ref,
+        second_trait_set,
+    ):
+        assert (
+            first_ref != second_ref
+        ), "Fixture error: first/second_entity_reference must be distinct"
+        assert (
+            first_trait_set != second_trait_set
+        ), "Fixture error: first/second_entity_trait_set must be distinct"
+
+        # Some arbitrary order that's unlikely to be replicated by chance.
+        entity_references = [second_ref, first_ref, first_ref, second_ref, first_ref]
+        expected_trait_sets = [
+            second_trait_set,
+            first_trait_set,
+            first_trait_set,
+            second_trait_set,
+            first_trait_set,
+        ]
+
+        context = self.createTestContext()
+        actual_trait_sets = [None] * len(entity_references)
+
+        self._manager.entityTraits(
+            entity_references,
+            entity_traits_access,
+            context,
+            lambda idx, value: operator.setitem(actual_trait_sets, idx, value),
+            lambda idx, error: self.fail("entityTraits should not fail"),
+        )
+
+        self.assertListEqual(actual_trait_sets, expected_trait_sets)
+
+    def __assert_error(
+        self,
+        entity_reference,
+        expected_error_code,
+        expected_error_message,
+        entity_traits_access=EntityTraitsAccess.kRead,
+    ):
+        context = self.createTestContext()
+        result = [None]
+        self._manager.entityTraits(
+            [entity_reference],
+            entity_traits_access,
+            context,
+            lambda idx, value: self.fail("entityTraits should not succeed"),
+            lambda idx, error: operator.setitem(result, idx, error),
+        )
+        [error] = result
+
+        self.assertEqual(error.code, expected_error_code)
         self.assertEqual(error.message, expected_error_message)
 
 

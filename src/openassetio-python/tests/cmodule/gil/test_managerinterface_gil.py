@@ -114,6 +114,11 @@ class Test_ManagerInterface_gil:
     def test_entityExists(self, a_threaded_mock_manager_interface, a_context, a_host_session):
         a_threaded_mock_manager_interface.entityExists([], a_context, a_host_session, fail, fail)
 
+    def test_entityTraits(self, a_threaded_mock_manager_interface, a_context, a_host_session):
+        a_threaded_mock_manager_interface.entityTraits(
+            [], access.EntityTraitsAccess.kRead, a_context, a_host_session, fail, fail
+        )
+
     def test_flushCaches(self, a_threaded_mock_manager_interface, a_host_session):
         a_threaded_mock_manager_interface.flushCaches(a_host_session)
 

@@ -23,6 +23,7 @@ import collections
 import pytest
 
 from openassetio.access import (
+    EntityTraitsAccess,
     PolicyAccess,
     RelationsAccess,
     ResolveAccess,
@@ -87,6 +88,11 @@ class Test_RelationsAccess:
 class Test_ResolveAccess:
     def test_has_expected_constants(self, root_enum):
         assert_expected_enum_values(ResolveAccess, root_enum.kRead, root_enum.kWrite)
+
+
+class Test_EntityTraitsAccess:
+    def test_has_expected_constants(self, root_enum):
+        assert_expected_enum_values(EntityTraitsAccess, root_enum.kRead, root_enum.kWrite)
 
 
 class Test_PublishingAccess:

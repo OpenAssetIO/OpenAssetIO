@@ -104,6 +104,7 @@ struct ThreadedManagerInterface : managerApi::ManagerInterface {
   IMPLEMENT_MOCK2(stateFromPersistenceToken);
   IMPLEMENT_MOCK2(isEntityReferenceString);
   IMPLEMENT_MOCK5(entityExists);
+  IMPLEMENT_MOCK6(entityTraits);
   IMPLEMENT_MOCK7(resolve);
   IMPLEMENT_MOCK6(defaultEntityReference);
   IMPLEMENT_MOCK9(getWithRelationship);
