@@ -7,6 +7,18 @@ It aims to reduce the integration effort and maintenance overhead of
 modern CGI pipelines, and pioneer new, standardized asset-centric
 workflows in content creation tooling.
 
+> - 👋 Come chat with us on [ASWF Slack](https://academysoftwarefdn.slack.com/archives/C03Q36QS8N4)
+>   or our [mailing list](https://lists.aswf.io/g/openassetio-discussion).
+> - 🧰 Get started with the API [docs](https://openassetio.github.io/OpenAssetIO),
+>   Manager plugin [template](https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python),
+>   [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation#readme)
+>   for post-production workflows.
+> - 📖 Or see some examples: Ayon [manager plugin](https://github.com/ynput/ayon-openassetio-manager-plugin/tree/main#readme),
+>   USD [Asset Resolver prototype](https://github.com/OpenAssetIO/usdOpenAssetIOResolver#readme),
+>   OTIO [media linker](https://github.com/OpenAssetIO/otio-openassetio)
+> - 👀 You can follow the development effort [here](https://github.com/orgs/OpenAssetIO/projects/1/views/7)
+>   and the longer term roadmap [here](ROADMAP.md).
+
 ## Problem statement summary
 
 In modern creative pipelines, data is often managed by an authoritative

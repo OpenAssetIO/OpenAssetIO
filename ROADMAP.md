@@ -34,7 +34,7 @@ and interactive context, along with relationship discovery.
 
 ## Y24 Q1: v1.0.0
 
-**Backlog:** [here](https://github.com/OpenAssetIO/OpenAssetIO/milestone/7)
+**Backlog:** [here](https://github.com/orgs/OpenAssetIO/projects/1/views/8)
 
 This release will provide additional introspection methods and
 debugging functionality, along with language parity between Hosts and
