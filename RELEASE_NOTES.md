@@ -4,6 +4,13 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
+### Breaking changes
+
+- Access policy keyword argument names in the Python bindings for
+  `ManagerInterface` has changed  to `"resolveAccess"` for `resolve` and
+  `"policyAccess"` for `managementPolicy`, in order to conform to the
+  corresponding C++ argument names.
+
 ### New Features
 
 - Propagate `OpenAssetIOException`-derived Python exceptions as a

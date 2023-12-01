@@ -225,8 +225,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false),
            py::call_guard<py::gil_scoped_release>{})
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
-           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::call_guard<py::gil_scoped_release>{})
+           py::arg("policyAccess"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false),
            py::call_guard<py::gil_scoped_release>{})
       .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),
@@ -251,9 +251,9 @@ void registerManagerInterface(const py::module& mod) {
       .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
            py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
-           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
-           py::call_guard<py::gil_scoped_release>{})
+           py::arg("resolveAcess"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("defaultEntityReference", &ManagerInterface::defaultEntityReference,
            py::arg("traitSets"), py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),
