@@ -1741,10 +1741,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * `ShotSpecification` entity to without error. The resulting entity
    * reference should then reference the newly created Shot.
    *
-   * @note All supplied trait::TraitsDatas should have the same trait
-   * sets. If you wish to register different "types" of entity, they
-   * need to be registered in separate calls.
-   *
    * @warning When registering traits that contain URLs or file paths
    * (for example the MediaCreation LocatableContent trait), it should
    * never be assumed that the resulting @ref entity_reference will
