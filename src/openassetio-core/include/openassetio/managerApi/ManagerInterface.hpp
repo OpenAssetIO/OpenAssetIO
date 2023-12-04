@@ -954,7 +954,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * have no properties, or are not supported by your implementation,
    * should be ignored and not imbued to the result. Your
    * implementation of @ref managementPolicy when called with a read
-   * @ref Context should accurately reflect which traits you understand
+   * access mode should accurately reflect which traits you understand
    * and are capable of resolving data for here.
    *
    * @warning See the documentation for each respective trait as to
@@ -968,9 +968,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * their specifics. Don't forget to add a scheme and URL encode any
    * paths that are stored in properties defined as holding a URL.
    *
-   * The Context should also be carefully considered to ensure that the
-   * access does not violate any rules of the system - for example,
-   * resolving an existing entity reference for write.
+   * The @p resolveAccess should also be carefully considered to ensure
+   * that it does not violate any rules of the system - for example,
+   * resolving a read-only entity reference for write.
    *
    * The supplied entity references will have already been validated
    * as relevant to this manager (via
