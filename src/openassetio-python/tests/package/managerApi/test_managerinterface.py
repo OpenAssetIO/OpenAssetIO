@@ -65,7 +65,7 @@ class Test_ManagerInterface_info:
 
 class Test_ManagerInterface_Capability:
     def test_has_expected_values(self):
-        assert len(ManagerInterface.Capability.__members__.values()) == 9
+        assert len(ManagerInterface.Capability.__members__.values()) == 10
         assert ManagerInterface.Capability.kEntityReferenceIdentification.value == 0
         assert ManagerInterface.Capability.kManagementPolicyQueries.value == 1
         assert ManagerInterface.Capability.kStatefulContexts.value == 2
@@ -75,6 +75,7 @@ class Test_ManagerInterface_Capability:
         assert ManagerInterface.Capability.kRelationshipQueries.value == 6
         assert ManagerInterface.Capability.kExistenceQueries.value == 7
         assert ManagerInterface.Capability.kDefaultEntityReferences.value == 8
+        assert ManagerInterface.Capability.kEntityTraitIntrospection.value == 9
 
 
 class Test_ManagerInterface_kCapabilityNames:
@@ -122,6 +123,12 @@ class Test_ManagerInterface_kCapabilityNames:
                 int(ManagerInterface.Capability.kDefaultEntityReferences)
             ]
             == "defaultEntityReferences"
+        )
+        assert (
+            ManagerInterface.kCapabilityNames[
+                int(ManagerInterface.Capability.kEntityTraitIntrospection)
+            ]
+            == "entityTraitIntrospection"
         )
 
 
@@ -330,6 +337,24 @@ class Test_ManagerInterface_entityExists:
             match=unimplemented_method_error_msg.format("entityExists", "existenceQueries"),
         ):
             manager_interface.entityExists([], a_context, a_host_session, fail, fail)
+
+
+class Test_ManagerInterface_entityTraits:
+    def test_default_implementation_raises_NotImplementedException(
+        self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
+    ):
+        def fail(*_):
+            pytest.fail("No callbacks should be called")
+
+        with pytest.raises(
+            errors.NotImplementedException,
+            match=unimplemented_method_error_msg.format(
+                "entityTraits", "entityTraitIntrospection"
+            ),
+        ):
+            manager_interface.entityTraits(
+                [], access.EntityTraitsAccess.kRead, a_context, a_host_session, fail, fail
+            )
 
 
 class Test_ManagerInterface_resolve:

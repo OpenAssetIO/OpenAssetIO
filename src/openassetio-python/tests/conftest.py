@@ -30,6 +30,7 @@ from openassetio.access import (
     RelationsAccess,
     PublishingAccess,
     DefaultEntityAccess,
+    EntityTraitsAccess,
 )
 from openassetio.log import LoggerInterface
 from openassetio.managerApi import (
@@ -256,6 +257,29 @@ class ValidatingMockManagerInterface(ManagerInterface):
         assert callable(errorCallback)
         return self.mock.entityExists(
             entityRefs, context, hostSession, successCallback, errorCallback
+        )
+
+    def entityTraits(
+        self,
+        entityRefs,
+        entityTraitsAccess,
+        context,
+        hostSession,
+        successCallback,
+        errorCallback,
+    ):
+        self.__assertIsIterableOf(entityRefs, EntityReference)
+        assert isinstance(entityTraitsAccess, EntityTraitsAccess)
+        self.__assertCallingContext(context, hostSession)
+        assert callable(successCallback)
+        assert callable(errorCallback)
+        return self.mock.entityTraits(
+            entityRefs,
+            entityTraitsAccess,
+            context,
+            hostSession,
+            successCallback,
+            errorCallback,
         )
 
     def resolve(

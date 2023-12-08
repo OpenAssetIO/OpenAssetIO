@@ -24,6 +24,7 @@ from openassetio import _openassetio  # pylint: disable=no-name-in-module
 kAccessNames = _openassetio.access.kAccessNames
 PolicyAccess = _openassetio.access.PolicyAccess
 ResolveAccess = _openassetio.access.ResolveAccess
+EntityTraitsAccess = _openassetio.access.EntityTraitsAccess
 PublishingAccess = _openassetio.access.PublishingAccess
 RelationsAccess = _openassetio.access.RelationsAccess
 DefaultEntityAccess = _openassetio.access.DefaultEntityAccess

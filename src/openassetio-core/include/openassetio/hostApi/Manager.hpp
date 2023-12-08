@@ -390,6 +390,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * know in advance if you can expect the configured manager to be able
    * to provide data you may require.
    *
+   * This method gives the global policy for how the manager wishes to
+   * interact with certain categories of entity. See @ref entityTraits
+   * for entity-specific introspection.
+   *
    * @note Because traits are specific to any given application of the
    * API, please refer to the documentation for any relevant companion
    * project(s) that provide traits and specifications for your specific
@@ -609,11 +613,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
 
   /**
-   * @name Entity Reference inspection
+   * @name Entity Reference Inspection
    *
-   * Because of the nature of an @ref entity_reference, it is often
-   * necessary to determine if some working string is actually an @ref
-   * entity_reference or not, to ensure it is handled correctly.
+   * Functionality for validating and creating entity references, and
+   * the existence or kind of entity that they point to.
    *
    * @{
    */
@@ -754,6 +757,72 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   void entityExists(const EntityReferences& entityReferences, const ContextConstPtr& context,
                     const ExistsSuccessCallback& successCallback,
                     const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Callback signature used for a successful entity trait set query.
+   */
+  using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
+
+  /**
+   * Retrieve the @ref trait_set of one or more @ref entity "entities".
+   *
+   * For example, this may be used to validate that a user-provided
+   * entity reference is appropriate for an operation.
+   *
+   * The trait set returned (via callback) for each @ref
+   * entity_reference varies according to the @p entityTraitsAccess
+   * access mode.
+   *
+   * If @ref access.EntityTraitsAccess.kRead "kRead" is given, the
+   * response will be an exhaustive trait set for the entity. This may
+   * also include traits whose properties the manager is not capable of
+   * @ref resolve "resolving", in order to aid categorisation. If an
+   * entity does not exist, then the error callback will be invoked
+   * using the @ref errors.BatchElementError.ErrorCode.kEntityResolutionError
+   * "kEntityResolutionError" code.
+   *
+   * If @ref access.EntityTraitsAccess.kWrite "kWrite" is given, the
+   * response will be the minimal trait set required to categorize the
+   * entity during publishing.  This may include traits whose properties
+   * the manager is not capable of @ref register_ "persisting". If an
+   * entity is read-only, the error callback will be invoked using the
+   * @ref errors.BatchElementError.ErrorCode.kEntityAccessError
+   * "kEntityAccessError" code.
+   *
+   * Since the trait set will include all relevant traits for the access
+   * mode, not just those with properties that the manager can
+   * supply/store, call @ref managementPolicy to determine which of
+   * those traits hold properties that can be @ref resolve "resolved" or
+   * @ref register_ "persisted".
+   *
+   * An empty trait set is a valid response, for example if the entity
+   * is a new asset with no type constraints.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param entityTraitsAccess The intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param successCallback Callback that will be called for each trait
+   * set retrieved for the entity references. It will be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with its @ref trait_set. The callback will be called on the
+   * same thread that initiated the call to `entityTraits`.
+   *
+   * @param errorCallback Callback that will be called for each failure.
+   * It will be given the corresponding index of the entity reference in
+   * @p entityReferences along with a populated
+   * @fqref{errors.BatchElementError} "BatchElementError" (see
+   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
+   * callback will be called on the same thread that initiated the call
+   * to `entityTraits`.
+   */
+  virtual void entityTraits(const EntityReferences& entityReferences,
+                            access::EntityTraitsAccess entityTraitsAccess,
+                            const ContextConstPtr& context,
+                            const EntityTraitsSuccessCallback& successCallback,
+                            const BatchElementErrorCallback& errorCallback);
   /**
    * @}
    */
@@ -793,6 +862,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * which specific traits any given manager supports resolving property
    * data for.
    *
+   * To determine the @ref trait_set for a particular entity, use @ref
+   * entityTraits. Note that this will give a complete trait set,
+   * including traits that solely aid classification and whose
+   * properties cannot be resolved. See the docs for @ref entityTraits
+   * for more information.
+   *
    * @note @fqref{EntityReference} "EntityReference" objects _must_ be
    * constructed using either
    * @fqref{hostApi.Manager.createEntityReference}
@@ -803,11 +878,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @fqref{hostApi.Manager.isEntityReferenceString}
    * "isEntityReferenceString" first.
    *
-   *  Note that any properties that are defined as being a URL will be
-   *  URL encoded. If it is expected that trait properties may contain
-   *  substitution tokens or similar, their convention and behaviour
-   *  will be defined in the documentation for the respective trait.
-   *  Consult the originating project of the trait for more information.
+   * Note that any properties that are defined as being a URL will be
+   * URL encoded. If it is expected that trait properties may contain
+   * substitution tokens or similar, their convention and behaviour
+   * will be defined in the documentation for the respective trait.
+   * Consult the originating project of the trait for more information.
    *
    * There may be errors during resolution. These can either be
    * exceptions thrown from `resolve`, or
@@ -1423,6 +1498,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * entity reference, then that element will error. See @ref
    * glossary_preflight "glossary entry" for details.
    *
+   * The @ref entityTraits method may be used to determine the minimal
+   * @ref trait_set required for publishing. Note that the manager may
+   * not persist all trait properties in the given set, they may be
+   * required solely for classification. See @ref entityTraits docs for
+   * more information.
+   *
    * @warning The working @ref entity_reference returned by this
    * method should *always* be used in place of the original
    * reference supplied to `preflight` for resolves prior to
@@ -1721,6 +1802,12 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * be ignored. The full @ref trait_set will always be stored though,
    * to facilitate future identification.
    *
+   * The @ref entityTraits method may be used to determine the minimal
+   * @ref trait_set required for publishing. Note that the manager may
+   * not persist all trait properties in the given set, they may be
+   * required solely for classification. See @ref entityTraits docs for
+   * more information.
+   *
    * As each @ref entity_reference has (ultimately) come from the
    * manager (either in response to delegation of UI/etc... or as a
    * return from another call), then it can be assumed that the
@@ -1740,10 +1827,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * should have returned you a reference that you can then register a
    * `ShotSpecification` entity to without error. The resulting entity
    * reference should then reference the newly created Shot.
-   *
-   * @note All supplied trait::TraitsDatas should have the same trait
-   * sets. If you wish to register different "types" of entity, they
-   * need to be registered in separate calls.
    *
    * @warning When registering traits that contain URLs or file paths
    * (for example the MediaCreation LocatableContent trait), it should
@@ -1783,8 +1866,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "BatchElementError" (see @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCodes"). The callback will be called on the same thread
    * that initiated the call to `register`.
-   *
-   * @return None
    *
    * @throws std::out_of_range If @p entityReferences and
    * @p entityTraitsDatas are not lists of the same length.

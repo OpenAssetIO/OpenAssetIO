@@ -275,6 +275,22 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
     kManagementPolicyQueries = internal::capability::manager::Capability::kManagementPolicyQueries,
 
     /**
+     * Manager can be queried for the @ref trait "traits" of a given
+     * entity.
+     *
+     * @warning Support for this capability is required by all managers.
+     * In situations where plugins are implemented as multiple component
+     * plugins (e.g. Python and C++) at least one of the component
+     * plugins must implement this capability.
+     *
+     * This capability means the manager implements the following
+     * methods:
+     * - @ref entityTraits
+     */
+    kEntityTraitIntrospection =
+        internal::capability::manager::Capability::kEntityTraitIntrospection,
+
+    /**
      * Manager makes use of the context to persist custom state for
      * performance reasons or otherwise.
      *
@@ -347,7 +363,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
      * methods:
      * - @ref defaultEntityReference
      */
-    kDefaultEntityReferences = internal::capability::manager::Capability::kDefaultEntityReferences
+    kDefaultEntityReferences = internal::capability::manager::Capability::kDefaultEntityReferences,
   };
 
   /// Mapping of ManagerCapability enum value to human-readable name.
@@ -359,7 +375,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                                                                 "publishing",
                                                                 "relationshipQueries",
                                                                 "existenceQueries",
-                                                                "defaultEntityReferences"};
+                                                                "defaultEntityReferences",
+                                                                "entityTraitIntrospection"};
 
   /**
    * Query the manager as to which capabilities it implements.
@@ -571,6 +588,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @ref trait_set, and hosts should avoid making redundant calls into
    * the API or presenting asset-centric elements of a workflow to the
    * user.
+   *
+   * This method gives the global policy for how you wish to interact
+   * with certain categories of entity. See @ref entityTraits for
+   * entity-specific introspection.
    *
    * @note Because traits are specific to any given application of the
    * API, please refer to the documentation for any relevant companion
@@ -797,11 +818,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
-   * @name Entity Reference inspection
+   * @name Entity Reference Inspection
    *
-   * Because of the nature of an @ref entity_reference, it is often
-   * necessary to determine if some working string is actually an @ref
-   * entity_reference or not, to ensure it is handled correctly.
+   * Functionality for validating entity references, and the existence
+   * or kind of entity that they point to.
    *
    * @{
    */
@@ -922,6 +942,80 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
                             const BatchElementErrorCallback& errorCallback);
 
   /**
+   * Callback signature used for a successful entity trait set query.
+   */
+  using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
+
+  /**
+   * Provides the host with the @ref trait_set of one or more @ref
+   * entity "entities".
+   *
+   * For example, a host may use this to validate that a user-provided
+   * entity reference is appropriate for an operation.
+   *
+   * The trait set returned (via callback) for each @ref
+   * entity_reference should vary according to the @p entityTraitsAccess
+   * access mode.
+   *
+   * If @ref access.EntityTraitsAccess.kRead "kRead" is given, respond
+   * with the exhaustive trait set of the entity. Include traits whose
+   * properties you are not capable of @ref resolve "resolving" , but
+   * that nevertheless are used to categorize the entity. If an entity
+   * does not exist, then call the error callback using the @ref
+   * errors.BatchElementError.ErrorCode.kEntityResolutionError
+   * "kEntityResolutionError" code.
+   *
+   * If @ref access.EntityTraitsAccess.kWrite "kWrite" is given, respond
+   * with the minimal trait set required to publish to the entity
+   * reference. Include traits whose properties you are not capable of
+   * @ref register_ "persisting", but which are required for
+   * categorization. If an entity is read-only, then call the error
+   * callback using the @ref errors.BatchElementError.ErrorCode.kEntityAccessError
+   * "kEntityAccessError" code.
+   *
+   * Ensure your @ref managementPolicy can be used to determine which
+   * traits hold properties that can be @ref resolve "resolved" or @ref
+   * register_ "persisted".
+   *
+   * An empty trait set is a valid response, for example if the entity
+   * is a new asset with no type constraints.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param entityTraitsAccess The host's intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The host session that maps to the caller, this
+   * should be used for all logging and provides access to the Host
+   * object representing the process that initiated the API session.
+   *
+   * @param successCallback Callback that must be called for each trait
+   * set retrieved for the entity references. It should be given the
+   * corresponding index of the entity reference in @p entityReferences
+   * along with its @ref trait_set. The callback must be called on the
+   * same thread that initiated the call to `entityTraits`.
+   *
+   * @param errorCallback Callback that must be called for each failure.
+   * It should be given the corresponding index of the entity reference
+   * in @p entityReferences along with a populated
+   * @fqref{errors.BatchElementError} "BatchElementError" (see
+   * @fqref{errors.BatchElementError.ErrorCode} "ErrorCodes"). The
+   * callback must be called on the same thread that initiated the call
+   * to `entityTraits`.
+   *
+   * @throws errors.NotImplementedException by default when this method
+   * is not implemented by the manager. Implementations must therefore
+   * not invoke the base class implementation.
+   *
+   * @see @ref Capability.kEntityTraitIntrospection
+   */
+  virtual void entityTraits(const EntityReferences& entityReferences,
+                            access::EntityTraitsAccess entityTraitsAccess,
+                            const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                            const EntityTraitsSuccessCallback& successCallback,
+                            const BatchElementErrorCallback& errorCallback);
+  /**
    * @}
    */
 
@@ -954,8 +1048,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * have no properties, or are not supported by your implementation,
    * should be ignored and not imbued to the result. Your
    * implementation of @ref managementPolicy when called with a read
-   * @ref Context should accurately reflect which traits you understand
+   * access mode should accurately reflect which traits you understand
    * and are capable of resolving data for here.
+   *
+   * The @ref entityTraits method may be called by hosts to determine
+   * the @ref trait_set of an entity. It is not necessary to be able to
+   * resolve the properties for all of an entity's traits - they may be
+   * used solely to aid classification. See docs for @ref entityTraits
+   * for more information.
    *
    * @warning See the documentation for each respective trait as to
    * which properties are considered required. It is the responsibility
@@ -968,9 +1068,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * their specifics. Don't forget to add a scheme and URL encode any
    * paths that are stored in properties defined as holding a URL.
    *
-   * The Context should also be carefully considered to ensure that the
-   * access does not violate any rules of the system - for example,
-   * resolving an existing entity reference for write.
+   * The @p resolveAccess should also be carefully considered to ensure
+   * that it does not violate any rules of the system - for example,
+   * resolving a read-only entity reference for write.
    *
    * The supplied entity references will have already been validated
    * as relevant to this manager (via
@@ -1422,6 +1522,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * eventual @ref register_, then error that element with an
    * appropriate @fqref{errors.BatchElementError.ErrorCode}.
    *
+   * A host may use @ref entityTraits to determine the minimal @ref
+   * trait_set required for publishing to an entity reference. Note that
+   * it is not necessary to persist the properties of all of these
+   * traits, they may solely aid in classification. See @ref
+   * entityTraits docs for more information.
+   *
    * @param entityReferences An @ref entity_reference for each entity
    * that it is desired to publish the forthcoming data to. See the
    * notes in the API documentation for the specifics of this.
@@ -1519,13 +1625,19 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * the supplied TraitsData for each reference is persisted. This forms
    * the entity's 'type'. It is also a requirement that the properties
    * of any traits indicated as supported by your response to a
-   * `managementPolicy` query for write context are persisted.
+   * `managementPolicy` query with write access are persisted.
    *
    * If the supplied @ref trait_set is missing required traits for any
    * of the provided references (maybe they are mismatched with the
    * target entity, or missing essential data) then error that element
    * with an appropriate @fqref{errors.BatchElementError.ErrorCode}
    * "ErrorCode".
+   *
+   * A host may use @ref entityTraits to determine the minimal @ref
+   * trait_set required for publishing to an entity reference. Note that
+   * it is not necessary to persist the properties of all of these
+   * traits, they may be used solely to aid in classification. See @ref
+   * entityTraits docs for more information.
    *
    * @param entityReferences  The @ref entity_reference of each entity
    * to register_. It is up to the manager to ensure that this is

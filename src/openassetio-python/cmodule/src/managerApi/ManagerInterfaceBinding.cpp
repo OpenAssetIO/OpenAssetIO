@@ -119,6 +119,16 @@ struct PyManagerInterface : ManagerInterface {
                                   errorCallback);
   }
 
+  void entityTraits(const EntityReferences& entityReferences,
+                    const access::EntityTraitsAccess entityTraitsAccess,
+                    const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                    const EntityTraitsSuccessCallback& successCallback,
+                    const BatchElementErrorCallback& errorCallback) override {
+    OPENASSETIO_PYBIND11_OVERRIDE(void, ManagerInterface, entityTraits, entityReferences,
+                                  entityTraitsAccess, context, hostSession, successCallback,
+                                  errorCallback);
+  }
+
   void defaultEntityReference(const trait::TraitSets& traitSets,
                               const access::DefaultEntityAccess defaultEntityAccess,
                               const ContextConstPtr& context, const HostSessionPtr& hostSession,
@@ -210,7 +220,8 @@ void registerManagerInterface(const py::module& mod) {
       .value("kPublishing", ManagerInterface::Capability::kPublishing)
       .value("kRelationshipQueries", ManagerInterface::Capability::kRelationshipQueries)
       .value("kExistenceQueries", ManagerInterface::Capability::kExistenceQueries)
-      .value("kDefaultEntityReferences", ManagerInterface::Capability::kDefaultEntityReferences);
+      .value("kDefaultEntityReferences", ManagerInterface::Capability::kDefaultEntityReferences)
+      .value("kEntityTraitIntrospection", ManagerInterface::Capability::kEntityTraitIntrospection);
 
   pyManagerInterface.attr("kCapabilityNames") = ManagerInterface::kCapabilityNames;
 
@@ -225,8 +236,8 @@ void registerManagerInterface(const py::module& mod) {
       .def("flushCaches", &ManagerInterface::flushCaches, py::arg("hostSession").none(false),
            py::call_guard<py::gil_scoped_release>{})
       .def("managementPolicy", &ManagerInterface::managementPolicy, py::arg("traitSets"),
-           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::call_guard<py::gil_scoped_release>{})
+           py::arg("policyAccess"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("createState", &ManagerInterface::createState, py::arg("hostSession").none(false),
            py::call_guard<py::gil_scoped_release>{})
       .def("createChildState", RetainCommonPyArgs::forFn<&ManagerInterface::createChildState>(),
@@ -246,14 +257,18 @@ void registerManagerInterface(const py::module& mod) {
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::arg("successCallback"), py::arg("errorCallback"),
            py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits", &ManagerInterface::entityTraits, py::arg("entityReferences"),
+           py::arg("entityTraitsAccess"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("hasCapability", &ManagerInterface::hasCapability, py::arg("capability"),
            py::call_guard<py::gil_scoped_release>{})
       .def("updateTerminology", &ManagerInterface::updateTerminology, py::arg("terms"),
            py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("resolve", &ManagerInterface::resolve, py::arg("entityReferences"), py::arg("traitSet"),
-           py::arg("access"), py::arg("context").none(false), py::arg("hostSession").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
-           py::call_guard<py::gil_scoped_release>{})
+           py::arg("resolveAcess"), py::arg("context").none(false),
+           py::arg("hostSession").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("defaultEntityReference", &ManagerInterface::defaultEntityReference,
            py::arg("traitSets"), py::arg("defaultEntityAccess"), py::arg("context").none(false),
            py::arg("hostSession").none(false), py::arg("successCallback"),

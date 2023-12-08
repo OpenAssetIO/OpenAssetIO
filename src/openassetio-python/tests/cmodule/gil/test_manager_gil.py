@@ -56,8 +56,8 @@ class Test_Manager_gil:
             for method in unimplemented:
                 print(
                     f"""
-    def test_{method}(self, a_threaded_manager, a_context, a_host_session):
-        a_threaded_manager.{method}(a_context, a_host_session)
+    def test_{method}(self, a_threaded_manager, a_context):
+        a_threaded_manager.{method}(a_context)
 """
                 )
 
@@ -110,6 +110,13 @@ class Test_Manager_gil:
         assert "Overloaded" not in a_threaded_manager.entityExists.__doc__
 
         a_threaded_manager.entityExists([], a_context, fail, fail)
+
+    def test_entityTraits(self, a_threaded_manager, a_context):
+        # Defend against forgetting to include convenience signatures in
+        # this test, once added.
+        assert "Overloaded" not in a_threaded_manager.entityExists.__doc__
+
+        a_threaded_manager.entityTraits([], access.EntityTraitsAccess.kRead, a_context, fail, fail)
 
     def test_flushCaches(self, a_threaded_manager):
         a_threaded_manager.flushCaches()

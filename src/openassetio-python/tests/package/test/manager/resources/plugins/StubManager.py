@@ -62,6 +62,7 @@ class StubManager(ManagerInterface):
         return capability in (
             ManagerInterface.Capability.kEntityReferenceIdentification,
             ManagerInterface.Capability.kManagementPolicyQueries,
+            ManagerInterface.Capability.kEntityTraitIntrospection,
         )
 
     def managementPolicy(self, traitSets, access, context, hostSession):

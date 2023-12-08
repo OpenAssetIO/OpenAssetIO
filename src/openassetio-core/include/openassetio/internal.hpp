@@ -37,7 +37,8 @@ enum Capability : std::size_t {
   kPublishing,
   kRelationshipQueries,
   kExistenceQueries,
-  kDefaultEntityReferences
+  kDefaultEntityReferences,
+  kEntityTraitIntrospection
 };
 }  // namespace capability::manager
 

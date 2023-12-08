@@ -39,7 +39,9 @@ void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface
 
   static constexpr std::array kRequiredCapabilities = {
       ManagerInterface::Capability::kEntityReferenceIdentification,
-      ManagerInterface::Capability::kManagementPolicyQueries};
+      ManagerInterface::Capability::kManagementPolicyQueries,
+      ManagerInterface::Capability::kEntityTraitIntrospection,
+  };
 
   std::vector<std::string> missingCapabilities;
   for (const ManagerInterface::Capability capability : kRequiredCapabilities) {
@@ -53,7 +55,7 @@ void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface
     return;
   }
 
-  std::string msg =
+  const std::string msg =
       fmt::format("Manager implementation for '{}' does not support the required capabilities: {}",
                   interface->identifier(), fmt::join(missingCapabilities, ", "));
 
@@ -203,6 +205,15 @@ void Manager::entityExists(const EntityReferences &entityReferences,
                            const BatchElementErrorCallback &errorCallback) {
   managerInterface_->entityExists(entityReferences, context, hostSession_, successCallback,
                                   errorCallback);
+}
+
+void Manager::entityTraits(const EntityReferences &entityReferences,
+                           const access::EntityTraitsAccess entityTraitsAccess,
+                           const ContextConstPtr &context,
+                           const EntityTraitsSuccessCallback &successCallback,
+                           const BatchElementErrorCallback &errorCallback) {
+  managerInterface_->entityTraits(entityReferences, entityTraitsAccess, context, hostSession_,
+                                  successCallback, errorCallback);
 }
 
 void Manager::resolve(const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
