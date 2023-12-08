@@ -1,0 +1,9 @@
+var classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits =
+[
+    [ "test_when_multiple_references_for_read_then_same_number_of_returned_trait_sets", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#a456b8a7a8905dd701f67758060665571", null ],
+    [ "test_when_multiple_references_for_write_then_same_number_of_returned_trait_sets", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#a344306efdc342150a2be2750b21b8910", null ],
+    [ "test_when_querying_malformed_reference_then_malformed_reference_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#aebc120614dc22bf3b518dc9654454e48", null ],
+    [ "test_when_querying_missing_reference_for_read_then_resolution_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#ac78600f3368a1c8a1b260f79ab552b7b", null ],
+    [ "test_when_read_only_entity_queried_for_write_then_access_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#afdbf146dd18137017c59238b285c3a15", null ],
+    [ "test_when_write_only_entity_queried_for_read_then_access_error_is_returned", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html#af717437bd49566299bd56894b038ce24", null ]
+];

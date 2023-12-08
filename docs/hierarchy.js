@@ -57,6 +57,7 @@ var hierarchy =
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],
       [ "Test_displayName", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__display_name.html", null ],
       [ "Test_entityExists", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_exists.html", null ],
+      [ "Test_entityTraits", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__entity_traits.html", null ],
       [ "Test_getWithRelationship_All", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__get_with_relationship___all.html", null ],
       [ "Test_identifier", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__identifier.html", null ],
       [ "Test_info", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html", null ],

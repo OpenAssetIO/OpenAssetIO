@@ -129,6 +129,11 @@ Enumerations</h2></td></tr>
  }<tr class="memdesc:a5b53d22cd09b4f8d64b8d708d2643f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access pattern for <a class="el" href="glossary.html#glossary_resolve">entity resolution</a>.  <a href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a5b53d22cd09b4f8d64b8d708d2643f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e3290ae9f55c96f33e805416db2f4e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4e">EntityTraitsAccess</a> : std::underlying_type_t&lt; internal::access::Access &gt; { <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4ea8604cf55a79d6bfdcb30f77d1622839b">kRead</a> = internal::access::Access::kRead, 
+<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4ead3ac0ba447a9859ad2db8e498056429f">kWrite</a> = internal::access::Access::kWrite
+ }<tr class="memdesc:a03e3290ae9f55c96f33e805416db2f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access pattern for entity trait set queries.  <a href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4e">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a03e3290ae9f55c96f33e805416db2f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9720199838e255042ac72451a11d8466"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">PublishingAccess</a> : std::underlying_type_t&lt; internal::access::Access &gt; { <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466ad3ac0ba447a9859ad2db8e498056429f">kWrite</a> = internal::access::Access::kWrite, 
 <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466aac7744adf0868e7c882fda6a12cf3f5a">kCreateRelated</a> = internal::access::Access::kCreateRelated
  }<tr class="memdesc:a9720199838e255042ac72451a11d8466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access pattern for <a class="el" href="glossary.html#publish">publishing</a>.  <a href="namespaceopenassetio_1_1v1_1_1access.html#a9720199838e255042ac72451a11d8466">More...</a><br /></td></tr>
@@ -188,6 +193,38 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a4c1e161b5fe9076e75129049e0ca7688aac7744adf0868e7c882fda6a12cf3f5a"></a>kCreateRelated&#160;</td><td class="fielddoc">
 <p>Indicate that the <a class="el" href="glossary.html#manager">manager</a> should provide an entity reference that will be used to <a class="el" href="glossary.html#publish">publish</a> one or more new entities to. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">PublishingAccess::kCreateRelated</a>, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">RelationsAccess::kCreateRelated</a> </dd></dl>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="a03e3290ae9f55c96f33e805416db2f4e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4e">EntityTraitsAccess</a> : std::underlying_type_t&lt; <a class="el" href="namespaceopenassetio_1_1v1_1_1internal_1_1access.html#a7e06fc4bbddd3b23c9b4d1048168692d">internal::access::Access</a> &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access pattern for entity trait set queries. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a03e3290ae9f55c96f33e805416db2f4ea8604cf55a79d6bfdcb30f77d1622839b"></a>kRead&#160;</td><td class="fielddoc">
+<p>Used to query the full trait set of an existing entity. </p>
+<p>For example, when an entity is known to exist, but is of unknown classification. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a03e3290ae9f55c96f33e805416db2f4ead3ac0ba447a9859ad2db8e498056429f"></a>kWrite&#160;</td><td class="fielddoc">
+<p>Used to query the minimal trait set that must be specified when publishing to a particular entity reference. </p>
+<p>For example, when validating that a user-supplied entity reference is appropriate for a publishing operation. </p>
 </td></tr>
 </table>
 

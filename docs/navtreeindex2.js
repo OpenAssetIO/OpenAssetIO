@@ -1,5 +1,18 @@
 var NAVTREEINDEX2 =
 {
+"namespaceopenassetio_1_1v1_1_1trait.html":[14,0,0,3,6],
+"notes_for_hosts.html":[4],
+"notes_for_hosts.html#host_architecture":[4,0],
+"notes_for_hosts.html#host_reading":[4,1],
+"notes_for_hosts.html#host_todo":[4,2],
+"notes_for_hosts.html#host_todo_recommended":[4,2,2],
+"notes_for_hosts.html#host_todo_required_publishing":[4,2,1],
+"notes_for_hosts.html#host_todo_required_resolution":[4,2,0],
+"notes_for_managers.html":[5],
+"notes_for_managers.html#manager_architecture_summary":[5,0],
+"notes_for_managers.html#manager_reading":[5,2],
+"notes_for_managers.html#manager_todo":[5,1],
+"notes_for_managers.html#manager_todo_basic_resolution":[5,1,0],
 "notes_for_managers.html#manager_todo_publishing":[5,1,1],
 "notes_for_managers.html#manager_todo_related_entities":[5,1,2],
 "pages.html":[],
