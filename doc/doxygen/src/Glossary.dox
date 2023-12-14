@@ -453,33 +453,110 @@
  *
  * @section publish publish
  *
- * 'Publish' is an ambiguous term, if ever there was one. It seems to
- * mean so many completely different things depending on who you ask. As
- * such, we defined it in this API, and documentation, as the process
- * of creating a new asset in an @ref asset_management_system, or
- * updating an existing one - which usually means a new version should
- * be created.
+ * We define "publishing" as the process of creating a new asset in an
+ * @ref asset_management_system, or updating an existing one. The @ref
+ * host initiates the publishing workflow by providing new or updated
+ * data to the manager for a specific @ref entity_reference. The @ref
+ * manager then determines how that data is stored.
  *
- * The canonical publishing process for new data from a @ref host
- * requires it to:
+ * The manager will interpret the @ref trait_set of the supplied
+ * @fqref{trait.TraitsData} "traits data" in relation to the target
+ * entity to ensure the correct behaviour. This may result in a new
+ * version being created, an existing asset being updated in-place, or
+ * the action failing entirely.
  *
- * - Check whether the @ref manager is interested in that particular
- *   @ref entity "entity's" @ref trait "traits", via the manager's
- *   @fqref{hostApi.Manager.managementPolicy} "managementPolicy", and
- *   what traits it is capable of persisting property data for.
+ * Hosts should not make any assumptions about the specific behaviour of
+ * any given manager, or attempt to dictate this behaviour. Instead,
+ * endeavour provide all relevant known data to the publishing methods,
+ * allowing the manager to choose the appropriate way to manage this
+ * data. This is central to OpenAssetIO philosophy, when it comes to
+ * data management, the asset manager knows best.
+ *
+ * @note For example, hosts should not provide different user-facing options
+ * for "Save" and "Version up and Save" - as not all managers support
+ * these concepts simultaneously. Future extensions to the API will
+ * allow manager's to dictate these user-facing actions directly.
+
+ * Once the publish is complete, the manager will provde a new @ref
+ * entity_reference which will then address
+ * the newly published entity and should be used by the host for all
+ * subsequent operations, disregarding the initial input reference.
+ *
+ * Every manager behaves differently, and has different degrees
+ * of functionality. Some managers simply keep track of existing data,
+ * others allow certain traits to be determined "in advance", and others
+ * will only handle entities with particular trait sets. If a host
+ * workflow requires this, introspection APIs such as
+ * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" should be
+ * used in advance of any potentially expensive operation, avoiding a
+ * costly "try and see" approach.
+ *
+ * There are two main publishing workflows performed by a host:
+ * - Ingesting existing data.
+ * - Generating new data in cooperation with the manager.
+ *
+ * @subsection publishing_existing_data Ingesting Existing Data
+ *
+ * This flow is used when the data already exists, and simply needs to
+ * be published.
+ *
+ * - Obtain an appropriate target entity reference.
+ * - Populate a TraitsData instance with the known data, ideally using
+ *   a well-known @ref Specification.
+ * - Call @fqref{hostApi.Manager.register_} "register" with the
+ *   appropriate access.
+ * - Use the resulting entity reference for any subsequent actions
+ *   pertaining to the newly published data.
+ *
+ * @subsection publishing_new_data Generating New Data
+ *
+ * The process for publishing yet-to-be-generated data is similar to the
+ * case for existing data, with several additions. A preflight step
+ * allows for validation before exensive generative operations are
+ * carried out, and intermediate reference resolution, giving the
+ * ability to the manager to provide inputs to the data generation
+ * process.
+ *
+ * @note Not all managers can determine trait properties in advance
+ * during publishing. If the host workflow requires the manager to drive
+ * these properties, the @fqref{hostApi.Manager.managementPolicy}
+ * "managementPolicy" introspection method can be
+ * used with the `kManagerDriven` access to verify that the specific
+ * manager is capable of providing the neccesary properties.
+ *
+ * - Obtain an appropriate target entity reference.
+ * - Populate a TraitsData instance with all relevent known data, that
+ *   the host does not expect to be driven by the manager. This allows
+ *   pre-validation against the target reference to be performed by the
+ *   manager.
  * - Call @ref glossary_preflight to allow any prerequisite housekeeping
- *   to be performed, and a working @ref entity_reference returned.
- * - Resolve the working reference to determine the URL for new data to
- *   be written to.
- * - Write the data accordingly.
+ *   to be performed (such as validation, storage allocation or version
+ *   locking) and recieve a working @ref entity_reference as the return.
+ * - Resolve the working reference for any traits with properties
+ *   required by your workflow, not populated in the preflight
+ *   TraitsData. For example, the location to write data to, or the
+ *   encoding to use. These are the "manager driven" properties.
+ * - Perform data generation tasks, ensuring to @ref stable_resolution
+ *   "distribute" the @ref Context to worker process if distribution is
+ *   employed.
+ * - Populate (or update) a TraitsData instance with the final values
+ *   used, even though these may have come from the manager. The manager
+ *   does not hold intermediate state about what properties were
+ *   resolved, therefore the register call expects entity trait
+ *   properties to be fully populated.
  * - Call @ref glossary_register to finalize the publish and confirm to
- *   the manager that the data has been written.
+ *   the manager that the data has been generated (as per the
+ *   previous example as now the data is effectively "pre existing").
+ * - Use the resulting entity reference for any subsequent actions
+ *   pertaining to the newly published data.
  *
- * @note Some managers may not be able to determine trait properties in
- * advance, and act more as librarians. This is indicated in the
- * returned management policy. Hosts must act according to this.
- *
- * When publishing existing data, the preflight step is omitted.
+ * This may seem convoluted, but maintaining these abstractions allows a
+ * host to be written to support any given manager, even ones not known
+ * or existing at the time of development. See the introspection APIs
+ * for more details on how to determine the capabilities of a manager at
+ * runtime. In a reciprocal fashion, this prescribed series of steps
+ * also confers benefit to the manager, allowing hosts to be treated in
+ * a generic manner.
  *
  * @section glossary_register register
  *
