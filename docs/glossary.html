@@ -246,17 +246,40 @@ preflight</h1>
 <p>In summary, for a manager capable of determining the location for data, a host won't call <code>preflight</code> if it can't honor the specified location.</p>
 <h1><a class="anchor" id="publish"></a>
 publish</h1>
-<p>'Publish' is an ambiguous term, if ever there was one. It seems to mean so many completely different things depending on who you ask. As such, we defined it in this API, and documentation, as the process of creating a new asset in an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, or updating an existing one - which usually means a new version should be created.</p>
-<p>The canonical publishing process for new data from a <a class="el" href="glossary.html#host">host</a> requires it to:</p>
-<ul>
-<li>Check whether the <a class="el" href="glossary.html#manager">manager</a> is interested in that particular <a class="el" href="glossary.html#entity">entity's</a> <a class="el" href="glossary.html#trait">traits</a>, via the manager's <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a>, and what traits it is capable of persisting property data for.</li>
-<li>Call <a class="el" href="glossary.html#glossary_preflight">preflight</a> to allow any prerequisite housekeeping to be performed, and a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> returned.</li>
-<li>Resolve the working reference to determine the URL for new data to be written to.</li>
-<li>Write the data accordingly.</li>
-<li>Call <a class="el" href="glossary.html#glossary_register">register</a> to finalize the publish and confirm to the manager that the data has been written.</li>
+<p>We define "publishing" as the process of creating a new asset in an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, or updating an existing one. The <a class="el" href="glossary.html#host">host</a> initiates the publishing workflow by providing new or updated data to the manager for a specific <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. The <a class="el" href="glossary.html#manager">manager</a> then determines how that data is stored.</p>
+<p>The manager will interpret the <a class="el" href="glossary.html#trait_set">Trait Set</a> of the supplied <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">traits data</a> in relation to the target entity to ensure the correct behaviour. This may result in a new version being created, an existing asset being updated in-place, or the action failing entirely.</p>
+<p>Hosts should not make any assumptions about the specific behaviour of any given manager, or attempt to dictate this behaviour. Instead, endeavour provide all relevant known data to the publishing methods, allowing the manager to choose the appropriate way to manage this data. This is central to OpenAssetIO philosophy, when it comes to data management, the asset manager knows best.</p>
+<dl class="section note"><dt>Note</dt><dd>For example, hosts should not provide different user-facing options for "Save" and "Version up and Save" - as not all managers support these concepts simultaneously. Future extensions to the API will allow manager's to dictate these user-facing actions directly.</dd></dl>
+<p>Once the publish is complete, the manager will provde a new <a class="el" href="glossary.html#entity_reference">Entity Reference</a> which will then address the newly published entity and should be used by the host for all subsequent operations, disregarding the initial input reference.</p>
+<p>Every manager behaves differently, and has different degrees of functionality. Some managers simply keep track of existing data, others allow certain traits to be determined "in advance", and others will only handle entities with particular trait sets. If a host workflow requires this, introspection APIs such as <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a> should be used in advance of any potentially expensive operation, avoiding a costly "try and see" approach.</p>
+<p>There are two main publishing workflows performed by a host:</p><ul>
+<li>Ingesting existing data.</li>
+<li>Generating new data in cooperation with the manager.</li>
 </ul>
-<dl class="section note"><dt>Note</dt><dd>Some managers may not be able to determine trait properties in advance, and act more as librarians. This is indicated in the returned management policy. Hosts must act according to this.</dd></dl>
-<p>When publishing existing data, the preflight step is omitted.</p>
+<h2><a class="anchor" id="publishing_existing_data"></a>
+Ingesting Existing Data</h2>
+<p>This flow is used when the data already exists, and simply needs to be published.</p>
+<ul>
+<li>Obtain an appropriate target entity reference.</li>
+<li>Populate a TraitsData instance with the known data, ideally using a well-known <a class="el" href="glossary.html#Specification">Specification</a>.</li>
+<li>Call <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a11b2f38b2a7f38a7c3ae559550ef7de0">register</a> with the appropriate access.</li>
+<li>Use the resulting entity reference for any subsequent actions pertaining to the newly published data.</li>
+</ul>
+<h2><a class="anchor" id="publishing_new_data"></a>
+Generating New Data</h2>
+<p>The process for publishing yet-to-be-generated data is similar to the case for existing data, with several additions. A preflight step allows for validation before exensive generative operations are carried out, and intermediate reference resolution, giving the ability to the manager to provide inputs to the data generation process.</p>
+<dl class="section note"><dt>Note</dt><dd>Not all managers can determine trait properties in advance during publishing. If the host workflow requires the manager to drive these properties, the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a> introspection method can be used with the <code>kManagerDriven</code> access to verify that the specific manager is capable of providing the neccesary properties.</dd></dl>
+<ul>
+<li>Obtain an appropriate target entity reference.</li>
+<li>Populate a TraitsData instance with all relevent known data, that the host does not expect to be driven by the manager. This allows pre-validation against the target reference to be performed by the manager.</li>
+<li>Call <a class="el" href="glossary.html#glossary_preflight">preflight</a> to allow any prerequisite housekeeping to be performed (such as validation, storage allocation or version locking) and recieve a working <a class="el" href="glossary.html#entity_reference">Entity Reference</a> as the return.</li>
+<li>Resolve the working reference for any traits with properties required by your workflow, not populated in the preflight TraitsData. For example, the location to write data to, or the encoding to use. These are the "manager driven" properties.</li>
+<li>Perform data generation tasks, ensuring to <a class="el" href="stable_resolution.html">distribute</a> the <a class="el" href="glossary.html#Context">Context</a> to worker process if distribution is employed.</li>
+<li>Populate (or update) a TraitsData instance with the final values used, even though these may have come from the manager. The manager does not hold intermediate state about what properties were resolved, therefore the register call expects entity trait properties to be fully populated.</li>
+<li>Call <a class="el" href="glossary.html#glossary_register">register</a> to finalize the publish and confirm to the manager that the data has been generated (as per the previous example as now the data is effectively "pre existing").</li>
+<li>Use the resulting entity reference for any subsequent actions pertaining to the newly published data.</li>
+</ul>
+<p>This may seem convoluted, but maintaining these abstractions allows a host to be written to support any given manager, even ones not known or existing at the time of development. See the introspection APIs for more details on how to determine the capabilities of a manager at runtime. In a reciprocal fashion, this prescribed series of steps also confers benefit to the manager, allowing hosts to be treated in a generic manner.</p>
 <h1><a class="anchor" id="glossary_register"></a>
 register</h1>
 <p>The registration mechanism allows for a <a class="el" href="glossary.html#host">host</a> to create or update an <a class="el" href="glossary.html#entity">entity</a>. This is the sole mechanism by which data can be mutated within the system.</p>

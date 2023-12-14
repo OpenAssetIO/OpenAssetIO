@@ -99,7 +99,10 @@ var NAVTREE =
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
       [ "preflight", "glossary.html#glossary_preflight", null ],
-      [ "publish", "glossary.html#publish", null ],
+      [ "publish", "glossary.html#publish", [
+        [ "Ingesting Existing Data", "glossary.html#publishing_existing_data", null ],
+        [ "Generating New Data", "glossary.html#publishing_new_data", null ]
+      ] ],
       [ "register", "glossary.html#glossary_register", [
         [ "Create related", "glossary.html#create_related", null ]
       ] ],
@@ -156,7 +159,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4",
-"namespaceopenassetio_1_1v1_1_1trait.html"
+"namespaceopenassetio_1_1v1_1_1manager_api.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

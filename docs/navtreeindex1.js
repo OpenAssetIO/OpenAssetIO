@@ -212,6 +212,8 @@ var NAVTREEINDEX1 =
 "glossary.html#meta_version":[6,14],
 "glossary.html#plugin_path_var":[6,11],
 "glossary.html#publish":[6,17],
+"glossary.html#publishing_existing_data":[6,17,0],
+"glossary.html#publishing_new_data":[6,17,1],
 "glossary.html#trait":[6,21],
 "glossary.html#trait_set":[6,22],
 "hierarchy.html":[14,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "namespaceopenassetio_1_1v1_1_1host_api.html":[14,0,0,3,1],
 "namespaceopenassetio_1_1v1_1_1internal.html":[14,0,0,3,2],
 "namespaceopenassetio_1_1v1_1_1internal_1_1capability.html":[14,0,0,3,2,0],
-"namespaceopenassetio_1_1v1_1_1log.html":[14,0,0,3,3],
-"namespaceopenassetio_1_1v1_1_1manager_api.html":[14,0,0,3,4],
-"namespaceopenassetio_1_1v1_1_1python.html":[14,0,0,3,5]
+"namespaceopenassetio_1_1v1_1_1log.html":[14,0,0,3,3]
 };

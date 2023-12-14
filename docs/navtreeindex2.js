@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"namespaceopenassetio_1_1v1_1_1manager_api.html":[14,0,0,3,4],
+"namespaceopenassetio_1_1v1_1_1python.html":[14,0,0,3,5],
 "namespaceopenassetio_1_1v1_1_1trait.html":[14,0,0,3,6],
 "notes_for_hosts.html":[4],
 "notes_for_hosts.html#host_architecture":[4,0],
