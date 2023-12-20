@@ -70,10 +70,6 @@ jobs:
       - name: Test BAL
         run: |
           python -m pip install external/BAL
-          # We can't install BAL's requirements.txt as this includes
-          # openassetio... we really need to sort
-          # https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL/issues/72
-          python -m pip install openassetio-mediacreation
           python -m pip install -r external/BAL/tests/requirements.txt
           python -m pytest -v external/BAL/tests
 
