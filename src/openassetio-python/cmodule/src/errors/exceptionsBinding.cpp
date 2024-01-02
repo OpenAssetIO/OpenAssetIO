@@ -20,6 +20,7 @@ using openassetio::errors::NotImplementedException;
 using openassetio::errors::OpenAssetIOException;
 using openassetio::errors::UnhandledException;
 using openassetio::python::exceptions::CppExceptionsAndPyClassNames;
+using openassetio::python::exceptions::HybridException;
 
 /**
  * @section topy Conversion from C++ exception to Python exception.
@@ -63,6 +64,12 @@ void setPyException(const Exception &exception, const py::module_ &pyModule,
  * given `exception_ptr` is rethrown and propagates up the nested
  * try-catch blocks until it is caught.
  *
+ * If the exception is a `HybridException` type, i.e. was originally a
+ * Python exception that has propagated through C++ and is now
+ * propagating back out to Python, then rethrow the original Python
+ * error. Otherwise, construct a new Python exception from the C++
+ * exception.
+ *
  * @tparam I Index of exception type to catch in
  * CppExceptionsAndPyClassNames list.
  * @param pyModule Python module containing Python exception classes.
@@ -76,6 +83,8 @@ void tryCatch(const py::module_ &pyModule, std::exception_ptr pexc) {
     } else {
       tryCatch<I - 1>(pyModule, std::move(pexc));
     }
+  } catch (const HybridException<CppExceptionsAndPyClassNames::Exceptions<I>> &cppExc) {
+    throw cppExc.originalPyExc;
   } catch (const CppExceptionsAndPyClassNames::Exceptions<I> &cppExc) {
     setPyException(cppExc, pyModule, CppExceptionsAndPyClassNames::kClassNames[I]);
   }

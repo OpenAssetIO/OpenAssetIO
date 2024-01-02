@@ -93,19 +93,13 @@ struct CppExceptionsAndPyClassNames {
 /**
  * Hybrid of OpenAssetIO and pybind11 exception class.
  *
- * Multiple inheritance means that in C++ we can `catch` this exception
- * as either `error_already_set` or the given OpenAssetIO exception. If
- * (re)thrown, it can be caught further up the stack (again) as either
- * of the two exceptions. In this way we can satisfy the two use-cases:
- * - Catching the exception in C++ as an OpenAssetIO C++ exception.
- * - Allowing the exception to propagate back to Python via pybind11,
- *   which will translate it back into a Python exception (see
- *   registerExceptions).
+ * This template class inherits from its template argument, allowing it
+ * to be caught transparently as the wrapped C++ exception type.
  *
- * Note that calling `.what()` on this exception is ambiguous and will
- * cause a compiler error. However, this is a good thing, since this
- * exception should never appear in a `catch` (should only be caught as
- * one of the base classes).
+ * The corresponding Python exception (as reflected by a pybind11
+ * `error_already_set` object), is stored for potential recall if this
+ * C++ exception propagates back out to Python - see
+ * `registerExceptions`.
  *
  * Generalisation assuming that the given exception type is a simple
  * exception that takes a string message as its only constructor
@@ -113,11 +107,20 @@ struct CppExceptionsAndPyClassNames {
  *
  * @tparam CppException C++ exception type corresponding to given
  * Python exception.
+ *
+ * @todo Remove PYBIND11_EXPORT once tests that require it are
+ *   redesigned. I.e. _openassetio_test throws HybridException which is
+ *   then caught in _openassetio, requiring global RTTI info for libc++.
+ *   This is not representative of real-world use, since HybridException
+ *   should be private to _openassetio. See
+ *   https://github.com/OpenAssetIO/OpenAssetIO/issues/1237
  */
 template <class CppException>
-struct HybridException : py::error_already_set, CppException {
+struct PYBIND11_EXPORT HybridException : CppException {
   explicit HybridException(const py::error_already_set &pyExc)
-      : py::error_already_set{pyExc}, CppException{pyExc.what()} {}
+      : CppException{pyExc.what()}, originalPyExc{pyExc} {}
+
+  py::error_already_set originalPyExc;
 };
 
 /**
@@ -127,13 +130,15 @@ struct HybridException : py::error_already_set, CppException {
  * generalisation, above, for more details.
  */
 template <>
-struct HybridException<BatchElementException> : py::error_already_set, BatchElementException {
+struct HybridException<BatchElementException> : BatchElementException {
   explicit HybridException(const py::error_already_set &pyExc)
-      : py::error_already_set{pyExc},
-        BatchElementException{
-            py::cast<std::size_t>(pyExc.value().attr("index")),
-            py::cast<openassetio::errors::BatchElementError>(pyExc.value().attr("error")),
-            pyExc.what()} {}
+      : BatchElementException{py::cast<std::size_t>(pyExc.value().attr("index")),
+                              py::cast<openassetio::errors::BatchElementError>(
+                                  pyExc.value().attr("error")),
+                              pyExc.what()},
+        originalPyExc{pyExc} {}
+
+  py::error_already_set originalPyExc;
 };
 
 /**
