@@ -45,7 +45,7 @@ jobs:
         cmake --install build
 
     - name: Upload archive
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: openassetio-CY2022
         path: openassetio-checkout/build/dist

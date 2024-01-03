@@ -67,7 +67,7 @@ jobs:
         cmake --install build
 
     - name: Upload archive
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: openassetio-${{ matrix.config.os }}
         path: |
@@ -105,7 +105,7 @@ jobs:
         ! grep -qE "^.*?/src/[^:]+:[0-9]+: ?[a-zA-Z]+: ?.*$" doxygen-log.txt
 
     - name: Expose archive docs artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: doxygen-documentation
         path: doc/doxygen/html

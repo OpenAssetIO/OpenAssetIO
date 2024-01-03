@@ -73,7 +73,7 @@ jobs:
           # Required as we make use of c++17 features
           MACOSX_DEPLOYMENT_TARGET: 10.15
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: "openassetio-wheels"
           path: ./wheelhouse/*.whl
