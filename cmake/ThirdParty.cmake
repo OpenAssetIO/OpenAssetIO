@@ -11,6 +11,12 @@ find_package(fmt REQUIRED)
 
 
 #-----------------------------------------------------------------------
+# URL parsing/construction
+
+find_package(ada REQUIRED)
+
+
+#-----------------------------------------------------------------------
 # Python
 
 if (OPENASSETIO_ENABLE_PYTHON)

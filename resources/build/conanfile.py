@@ -36,6 +36,8 @@ class OpenAssetIOConan(ConanFile):
         self.requires("pybind11/2.10.1")
         # TOML library
         self.requires("tomlplusplus/3.2.0")
+        # URL processing
+        self.requires("ada/2.7.4")
         # Test framework
         self.requires("catch2/2.13.8")
         # Mocking library
@@ -47,3 +49,4 @@ class OpenAssetIOConan(ConanFile):
 
     def configure(self):
         self.options["fmt"].header_only = True
+        self.options["ada"].shared = False

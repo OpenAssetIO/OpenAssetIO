@@ -98,6 +98,8 @@ target_link_libraries(
     # Header-only private dependencies:
     $<BUILD_INTERFACE:tomlplusplus::tomlplusplus>
     $<BUILD_INTERFACE:fmt::fmt-header-only>
+    # (Static) private library dependencies
+    ada::ada
 )
 
 #-----------------------------------------------------------------------

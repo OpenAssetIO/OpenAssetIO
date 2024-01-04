@@ -21,6 +21,11 @@ RUN git clone --branch 9.1.0 https://github.com/fmtlib/fmt
 RUN cd fmt && cmake -S . -B build -DFMT_MASTER_PROJECT=OFF -DFMT_INSTALL=ON && \
      cmake --build build --parallel && cmake --install build
 
+# Pull and install ada
+RUN git clone --branch v2.7.4 https://github.com/ada-url/ada
+RUN cd ada && cmake -S . -B build -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DADA_TESTING=OFF && \
+     cmake --build build --parallel && cmake --install build
+
 # Test dependencies
 # Pull and install catch2
 RUN git clone --branch v2.13.10 https://github.com/catchorg/Catch2
@@ -41,6 +46,12 @@ COPY --from=openassetio-dependencies /usr/local/lib64/cmake/Catch2 /usr/local/li
 COPY --from=openassetio-dependencies /usr/local/include/fmt /usr/local/include/fmt
 COPY --from=openassetio-dependencies /usr/local/lib64/libfmt.a /usr/local/lib64/libfmt.a
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/fmt /usr/local/lib64/cmake/fmt
+
+# Copy ada
+COPY --from=openassetio-dependencies /usr/local/include/ada /usr/local/include/ada
+COPY --from=openassetio-dependencies /usr/local/include/ada.h /usr/local/include/ada.h
+COPY --from=openassetio-dependencies /usr/local/lib64/libada.a /usr/local/lib64/libada.a
+COPY --from=openassetio-dependencies /usr/local/lib64/cmake/ada /usr/local/lib64/cmake/ada
 
 # Copy trompeloeil
 # Trompeloeil installs itself into relevent test framework folders, so
