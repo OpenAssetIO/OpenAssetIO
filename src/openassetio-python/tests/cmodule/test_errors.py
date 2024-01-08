@@ -84,6 +84,16 @@ class Test_errors:
         )
 
     @pytest.mark.parametrize("exception_type", all_exceptions)
+    def test_when_python_exception_thrown_then_can_be_caught_in_cpp_as_stl_base_type(
+        self, exception_type, exception_thrower
+    ):
+        exception = make_exception(exception_type)
+
+        exception_thrower.callee.side_effect = exception
+
+        _openassetio_test.throwPythonExceptionAndCatchAsStdException(exception_thrower)
+
+    @pytest.mark.parametrize("exception_type", all_exceptions)
     def test_when_python_exception_thrown_then_can_be_caught_in_cpp_rethrown_and_caught_in_python(
         self, exception_type, exception_thrower
     ):

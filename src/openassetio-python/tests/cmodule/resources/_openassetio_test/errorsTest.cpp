@@ -361,6 +361,13 @@ struct PyExceptionThrower : ExceptionThrower {
  * some additional confidence. Note that the GIL is released
  * deliberately in order to better simulate the situation in OpenAssetIO
  * Python bindings.
+ *
+ * `throwPythonExceptionAndCatchAsStdException` instructs Python to
+ * throw an exception and attempts to catch it as a `std::exception` and
+ * a `std::runtime_error`. This is a regression test against RTTI issues
+ * between hybrid pybind11 and OpenAssetIO exceptions, which have a
+ * common STL base class so must be composed with care (i.e. avoid
+ * multiple inheritance).
  */
 void registerExceptionThrower(py::module_& mod) {
   mod.def("throwException", [](const std::string& exceptionName, const std::string& msgData) {
@@ -400,6 +407,23 @@ void registerExceptionThrower(py::module_& mod) {
       },
       py::arg("exceptionThrower"), py::arg("catchExceptionName"),
       py::call_guard<py::gil_scoped_release>{});
+
+  mod.def(
+      "throwPythonExceptionAndCatchAsStdException",
+      [](ExceptionThrower& exceptionThrower) {
+        // If we fail to catch in either of the following try-catch
+        // blocks, the exception will propagate, implicitly failing the
+        // pytest test in Python.
+        try {
+          exceptionThrower.throwFromOverride();
+        } catch (const std::exception&) {  // NOLINT(*-empty-catch)
+        }
+        try {
+          exceptionThrower.throwFromOverride();
+        } catch (const std::runtime_error&) {  // NOLINT(*-empty-catch)
+        }
+      },
+      py::arg("exceptionThrower"), py::call_guard<py::gil_scoped_release>{});
 
   py::class_<ExceptionThrower, PyExceptionThrower>{mod, "ExceptionThrower"}
       .def(py::init<>())
