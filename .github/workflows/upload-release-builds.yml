@@ -1,0 +1,116 @@
+# When a release occurs, do a full matrix build (duplicated logic from
+# build.yml), name the artifacts appropriately, and upload them to
+# the release.
+
+name: Upload Release Builds
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  Build-and-upload-release-builds:
+    name: ${{ matrix.config.os }}-${{matrix.config.build-type}}
+    runs-on: ${{ matrix.config.os }}
+    permissions:
+      contents: write # release changes require contents write
+    strategy:
+      fail-fast: false
+      matrix:
+        # We can't properly align to the VFX Reference Platform as this
+        # requires glibc 2.17, which is older than any of the available
+        # environments.
+        config:
+          # No Windows debug, Dosen't work on actions (easily)
+          # It's hard to get a python debug lib.
+        - os: windows-2019
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
+          build-type: RelWithDebInfo
+        - os: windows-2019
+          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          shell: cmd
+          build-type: Release
+        - os: ubuntu-20.04
+          shell: bash
+          build-type: Debug
+        - os: ubuntu-20.04
+          shell: bash
+          build-type: RelWithDebInfo
+        - os: ubuntu-20.04
+          shell: bash
+          build-type: Release
+          # MacOS toolchain doesn't search /usr/local by default:
+          # https://gitlab.kitware.com/cmake/cmake/-/issues/19120
+          # The CMake FindPython module's Python::Python target (used
+          # via pybind11::embed in python-bridge-test) transitively adds
+          # linker flags to system libs, which fail due to this issue.
+        - os: macos-11
+          preamble: export LDFLAGS="-L/usr/local/lib"
+          shell: bash
+          build-type: Debug
+        - os: macos-11
+          preamble: export LDFLAGS="-L/usr/local/lib"
+          shell: bash
+          build-type: RelWithDebInfo
+        - os: macos-11
+          preamble: export LDFLAGS="-L/usr/local/lib"
+          shell: bash
+          build-type: Release
+    defaults:
+      run:
+        # Annoyingly required here since `matrix` isn't available in
+        # the `shell` property of individual steps.
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      # We don't want to publish the test build, it gets too big.
+      - name: Build and Install (No tests)
+        run: >
+          ${{ matrix.config.preamble }}
+
+          cmake -S . -B build -G Ninja
+          --install-prefix ${{ github.workspace }}/dist/${{ matrix.config.os }}${{ matrix.config.build-type }}
+          --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
+          -DCMAKE_BUILD_TYPE=${{matrix.config.build-type}}
+
+          cmake --build build
+
+          cmake --install build
+
+      - name: Get compiler information
+        id: compiler_info
+        shell: bash
+        # Search the cmake info for the compiler information, remove the
+        # env var labels, and dequote it.
+        run: |
+          cd build
+          compiler_version=$(cmake --system-information | grep -E "^CMAKE_CXX_COMPILER_VERSION " | cut -d ' ' -f2 | tr -d '"')
+          compiler_id=$(cmake --system-information | grep -E "^CMAKE_CXX_COMPILER_ID " | cut -d ' ' -f2 | tr -d '"')
+          python_version=$(python -V | sed 's/ /-/')
+          echo "compiler_version=$compiler_version" >> $GITHUB_OUTPUT
+          echo "compiler_id=$compiler_id" >> $GITHUB_OUTPUT
+          echo "python_version=$python_version" >> $GITHUB_OUTPUT
+
+      - name: Bundle and Upload Artifact
+        #Use inbuilt powershell commands because `zip` isn't on windows.
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $env:archive_name="OpenAssetIO-" + `
+          "${{ github.event.release.tag_name }}" + `
+          "-${{runner.os}}" + `
+          "-${{runner.arch}}" + `
+          "-${{matrix.config.build-type}}" + `
+          "-${{ steps.compiler_info.outputs.compiler_id }}" + `
+          "-${{ steps.compiler_info.outputs.compiler_version }}" + `
+          "-${{ steps.compiler_info.outputs.python_version }}.zip"
+          Compress-Archive -Path "${{ github.workspace }}/dist/${{ matrix.config.os }}${{ matrix.config.build-type }}" -DestinationPath ${{ github.workspace }}/dist/$env:archive_name
+          gh release upload ${{ github.event.release.tag_name }} ${{ github.workspace }}/dist/$env:archive_name --clobber
