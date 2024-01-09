@@ -145,7 +145,7 @@ To make a new OpenAssetIO release, follow this procedure.
 > **Warning**
 >
 > Upon merging to main, several actions will kickoff against your merge
-> commit. Notably among these is
+> commit. Notable among these is
 > [Build wheels](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/build-wheels.yml),
 > which makes the python release artifacts available for upload, by the
 > [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
@@ -168,10 +168,13 @@ To make a new OpenAssetIO release, follow this procedure.
   - If this is an alpha or beta release, ensure `Set as a pre-release`
     checkbox is checked.
   - Click "Publish Release"
-- In response to a release being published, the
-  [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
-  action will be invoked. Monitor this to ensure PyPI wheels are
-  uploaded correctly.
+- In response to a release being published, two things happen.
+  - The [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
+    action will be invoked. Monitor this to ensure PyPI wheels are
+    uploaded correctly.
+  - The [Upload release builds](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/upload-release-builds.yml)
+    action will be invoked, building a wider than usual matrix of of
+    openassetio artifacts, and then uploading them to the release page.
 - You're done! Take a break and relax!
 
 ## Breaking integrations
