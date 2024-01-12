@@ -100,6 +100,7 @@ target_link_libraries(
     $<BUILD_INTERFACE:fmt::fmt-header-only>
     # (Static) private library dependencies
     ada::ada
+    PCRE2::8BIT
 )
 
 #-----------------------------------------------------------------------
