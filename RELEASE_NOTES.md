@@ -24,6 +24,11 @@ v1.0.0-beta.x.x
   when transparently called from C++.
   [#947](https://github.com/OpenAssetIO/OpenAssetIO/issues/947)
 
+- Add version accessor methods to allow runtime introspection of
+  OpenAssetIO library version. `version.h` header distributed with
+  install to allow compile time introspection.
+  [#1173](https://github.com/OpenAssetIO/OpenAssetIO/issues/1173)
+
 ### Improvements
 
 - Added the string representation of an `EntityReference` when `repr`'d

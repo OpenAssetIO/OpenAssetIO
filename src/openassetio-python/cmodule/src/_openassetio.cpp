@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 
 #include "_openassetio.hpp"
 
@@ -20,6 +20,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   const py::module errors = mod.def_submodule("errors");
   const py::module trait = mod.def_submodule("trait");
 
+  registerVersion(mod);
   registerAccess(access);
   registerConstants(constants);
   registerLoggerInterface(log);

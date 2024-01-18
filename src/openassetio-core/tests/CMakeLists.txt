@@ -22,6 +22,7 @@ target_sources(openassetio-core-cpp-test-exe
     ContextTest.cpp
     TraitsDataTest.cpp
     deprecationsTest.cpp
+    versionTest.cpp
     hostApi/ManagerTest.cpp
     managerApi/HostTest.cpp
     managerApi/HostSessionTest.cpp
