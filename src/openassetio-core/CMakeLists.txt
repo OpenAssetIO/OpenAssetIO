@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2013-2022 The Foundry Visionmongers Ltd
+# Copyright 2013-2024 The Foundry Visionmongers Ltd
 
 #----------------------------------------------------------------------
 # Versioning
@@ -85,7 +85,7 @@ target_sources(
 # Public header dependency.
 target_include_directories(openassetio-core
     PUBLIC
-    # For generated export.h header.
+    # For generated export.h and version.hpp header.
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
     # Use includes from source tree for building.
     "$<BUILD_INTERFACE:${_public_header_source_root}>"
@@ -126,6 +126,16 @@ install(
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/
 )
 
+#----------------------------------------------------------------------
+# Version header
+# Create a version.hpp with the configured version nums from template
+configure_file(${PROJECT_SOURCE_DIR}/cmake/templates/include/openassetio/version.hpp.in
+               ${PROJECT_BINARY_DIR}/include/openassetio/version.hpp @ONLY)
+
+install(
+    FILES ${PROJECT_BINARY_DIR}/include/openassetio/version.hpp
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/
+)
 
 #-----------------------------------------------------------------------
 # Tests

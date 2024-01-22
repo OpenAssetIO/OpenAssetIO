@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2021 The Foundry Visionmongers Ltd
+#   Copyright 2013-2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -73,6 +73,12 @@ from ._openassetio import (
     constants,
     Context,
     EntityReference,
+    majorVersion,
+    minorVersion,
+    patchVersion,
+    betaMajorVersion,
+    betaMinorVersion,
+    versionString,
 )
 
 

@@ -1,0 +1,70 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2024 The Foundry Visionmongers Ltd
+#pragma once
+
+#include <cstddef>
+#include <string_view>
+
+#include <openassetio/export.h>
+
+// clang-format off
+#define OPENASSETIO_VERSION_MAJOR @OpenAssetIO_VERSION_MAJOR@
+#define OPENASSETIO_VERSION_MINOR @OpenAssetIO_VERSION_MINOR@
+#define OPENASSETIO_VERSION_PATCH @OpenAssetIO_VERSION_PATCH@
+// clang-format on
+
+// For the time being, beta versions must be manually updated prior to
+// the release
+#define OPENASSETIO_BETA_VERSION_MAJOR 1
+#define OPENASSETIO_BETA_VERSION_MINOR 0
+
+#define OPENASSETIO_STRINGIFY(x) #x
+#define OPENASSETIO_MACRO_TO_STRING(x) OPENASSETIO_STRINGIFY(x)
+
+// clang-format off
+#define OPENASSETIO_VERSION_STRING                                                             \
+  "v@OpenAssetIO_VERSION@-beta." OPENASSETIO_MACRO_TO_STRING(OPENASSETIO_BETA_VERSION_MAJOR)\
+  "." OPENASSETIO_MACRO_TO_STRING(OPENASSETIO_BETA_VERSION_MINOR)
+// clang-format on
+
+namespace openassetio {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
+/**
+ * The major version of the OpenAssetIO library.
+ */
+constexpr std::size_t majorVersion() { return OPENASSETIO_VERSION_MAJOR; }
+/**
+ * The minor version of the OpenAssetIO library.
+ */
+constexpr std::size_t minorVersion() { return OPENASSETIO_VERSION_MINOR; }
+/**
+ * The patch version of the OpenAssetIO library.
+ */
+constexpr std::size_t patchVersion() { return OPENASSETIO_VERSION_PATCH; }
+
+/**
+ * The beta major version of the OpenAssetIO library.
+ *
+ * Whilst OpenAssetIO is in beta, its main versioning remains at 1.0.0,
+ * and the beta versions are incremented.
+ * When OpenAssetIO leaves beta, this value will return 0.
+ */
+constexpr std::size_t betaMajorVersion() { return OPENASSETIO_BETA_VERSION_MAJOR; }
+/**
+ * The beta minor version of the OpenAssetIO library.
+ *
+ * Whilst OpenAssetIO is in beta, its main versioning remains at 1.0.0,
+ * and the beta versions are incremented.
+ * When OpenAssetIO leaves beta, this value will return 0.
+ */
+constexpr std::size_t betaMinorVersion() { return OPENASSETIO_BETA_VERSION_MINOR; }
+
+/**
+ * A string containing the OpenAssetIO version string.
+ *
+ * The format is {MAJOR}.{MINOR}.{PATCH}-beta{BETAMAJOR}.{BETAMINOR}.
+ * When OpenAssetIO leaves beta, the beta section will be removed.
+ */
+constexpr std::string_view versionString() { return OPENASSETIO_VERSION_STRING; }
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
+}  // namespace openassetio

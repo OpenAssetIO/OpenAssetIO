@@ -45,6 +45,7 @@ target_sources(
     src/constantsBinding.cpp
     src/ContextBinding.cpp
     src/EntityReferenceBinding.cpp
+    src/versionBinding.cpp
     src/errors/exceptionsAsserts.cpp
     src/errors/exceptionsBinding.cpp
     src/errors/BatchElementErrorBinding.cpp
