@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2023 The Foundry Visionmongers Ltd
 #pragma once
+#include <array>
+#include <cstddef>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <utility>
 
 #include <pybind11/pybind11.h>
 
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 
 /**

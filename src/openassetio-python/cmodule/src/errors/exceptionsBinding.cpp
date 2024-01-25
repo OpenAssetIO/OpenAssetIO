@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
-#include <map>
+#include <cstddef>
+#include <exception>
 #include <string_view>
+#include <unordered_map>
+#include <utility>
 
 #include <pybind11/eval.h>
 #include <pybind11/pybind11.h>
+#include <pyerrors.h>
 
 #include <openassetio/errors/exceptions.hpp>
 
