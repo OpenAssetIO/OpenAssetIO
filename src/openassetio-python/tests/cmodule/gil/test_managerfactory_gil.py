@@ -17,7 +17,7 @@
 Testing that ManagerFactory/ManagerImplementationFactoryInterface
 methods release the GIL.
 """
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
 from unittest import mock
@@ -25,7 +25,7 @@ from unittest import mock
 import pytest
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio_test
+from openassetio import _openassetio
 from openassetio.hostApi import ManagerImplementationFactoryInterface, ManagerFactory
 
 
@@ -208,7 +208,7 @@ def a_threaded_manager_factory(mock_host_interface, a_threaded_manager_impl_fact
 
 @pytest.fixture
 def a_threaded_manager_impl_factory(mock_manager_impl_factory, mock_logger):
-    return _openassetio_test.gil.wrapInThreadedManagerImplFactory(
+    return _openassetio._testutils.gil.wrapInThreadedManagerImplFactory(
         mock_logger, mock_manager_impl_factory
     )
 

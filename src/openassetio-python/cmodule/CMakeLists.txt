@@ -108,3 +108,16 @@ if (UNIX)
 
     set_target_properties(openassetio-python-module PROPERTIES INSTALL_RPATH "${_rpath}")
 endif ()
+
+
+#-----------------------------------------------------------------------
+# Link in the test-specific bindings, if testing is enabled.
+#
+# In order to have representative tests of Python extension module
+# internals we, unfortunately, need to bundle test functionality within
+# the _openassetio module itself.
+
+if (OPENASSETIO_ENABLE_TESTS)
+    target_compile_definitions(openassetio-python-module PRIVATE OPENASSETIO_ENABLE_TESTS)
+    target_link_libraries(openassetio-python-module PRIVATE openassetio-python-module-test)
+endif ()

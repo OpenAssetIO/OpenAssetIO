@@ -17,13 +17,13 @@
 Testing that EntityReferencePager/EntityReferencePagerInterface methods
 release the GIL.
 """
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio_test
+from openassetio import _openassetio
 from openassetio.hostApi import EntityReferencePager
 from openassetio.managerApi import EntityReferencePagerInterface
 
@@ -126,6 +126,6 @@ def a_threaded_entity_ref_pager(a_threaded_entity_ref_pager_interface, a_host_se
 
 @pytest.fixture
 def a_threaded_entity_ref_pager_interface(mock_entity_reference_pager_interface):
-    return _openassetio_test.gil.wrapInThreadedEntityReferencePagerInterface(
+    return _openassetio._testutils.gil.wrapInThreadedEntityReferencePagerInterface(
         mock_entity_reference_pager_interface
     )

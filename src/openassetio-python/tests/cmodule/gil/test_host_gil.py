@@ -16,13 +16,13 @@
 """
 Testing that Host/HostInterface methods release the GIL.
 """
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio_test
+from openassetio import _openassetio
 from openassetio.hostApi import HostInterface
 from openassetio.managerApi import Host
 
@@ -114,4 +114,4 @@ def a_threaded_host(a_threaded_host_interface):
 
 @pytest.fixture
 def a_threaded_host_interface(mock_host_interface):
-    return _openassetio_test.gil.wrapInThreadedHostInterface(mock_host_interface)
+    return _openassetio._testutils.gil.wrapInThreadedHostInterface(mock_host_interface)

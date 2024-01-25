@@ -18,21 +18,21 @@ Tests of C++ binding utilities, which require dummy C++ classes that
 shouldn't be included in the main sources.
 """
 
-# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=invalid-name,redefined-outer-name,protected-access
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import weakref
 from unittest import mock
 
 import pytest
 
-from openassetio import _openassetio_test  # pylint: disable=no-name-in-module
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
 
 class Test_PyRetainingSharedPtr_arg:
     def test_when_not_using_PyRetainingSharedPtr_in_constructor_then_python_implementation_is_lost(
         self,
     ):
-        container = _openassetio_test.SimpleCppContainer(SimpleCppType())
+        container = _openassetio._testutils.SimpleCppContainer(SimpleCppType())
         element = container.heldObject()
 
         with pytest.raises(RuntimeError) as err:
@@ -43,7 +43,7 @@ class Test_PyRetainingSharedPtr_arg:
     def test_when_not_using_PyRetainingSharedPtr_in_factory_then_python_implementation_is_lost(
         self,
     ):
-        container = _openassetio_test.SimpleCppContainer.make(SimpleCppType())
+        container = _openassetio._testutils.SimpleCppContainer.make(SimpleCppType())
         element = container.heldObject()
 
         with pytest.raises(RuntimeError) as err:
@@ -52,7 +52,9 @@ class Test_PyRetainingSharedPtr_arg:
         assert str(err.value) == 'Tried to call pure virtual function "SimpleBaseCppType::value"'
 
     def test_when_not_using_PyRetainingSharedPtr_in_list_then_python_implementation_is_lost(self):
-        container = _openassetio_test.SimpleCppListContainer([SimpleCppType(), SimpleCppType()])
+        container = _openassetio._testutils.SimpleCppListContainer(
+            [SimpleCppType(), SimpleCppType()]
+        )
         elements = container.heldObjects()
 
         with pytest.raises(RuntimeError) as err:
@@ -62,24 +64,24 @@ class Test_PyRetainingSharedPtr_arg:
 
     def test_when_using_constructor_then_TypeError_reports_expected_type_in_error_message(self):
         with pytest.raises(TypeError) as err:
-            _openassetio_test.PyRetainingSimpleCppContainer(123)
+            _openassetio._testutils.PyRetainingSimpleCppContainer(123)
 
         assert "SimpleBaseCppType" in str(err.value)
 
     def test_when_using_factory_then_TypeError_reports_expected_type_in_error_message(self):
         with pytest.raises(TypeError) as err:
-            _openassetio_test.PyRetainingSimpleCppContainer.makeFromPtrValue(123)
+            _openassetio._testutils.PyRetainingSimpleCppContainer.makeFromPtrValue(123)
 
         assert "SimpleBaseCppType" in str(err.value)
 
     def test_when_using_constructor_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingSimpleCppContainer(SimpleCppType())
+        container = _openassetio._testutils.PyRetainingSimpleCppContainer(SimpleCppType())
         element = container.heldObject()
 
         assert element.value() == 2
 
     def test_when_using_factory_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromPtrValue(
+        container = _openassetio._testutils.PyRetainingSimpleCppContainer.makeFromPtrValue(
             SimpleCppType()
         )
         element = container.heldObject()
@@ -89,7 +91,7 @@ class Test_PyRetainingSharedPtr_arg:
     def test_when_using_factory_taking_const_ref_argument_then_python_implementation_is_retained(
         self,
     ):
-        container = _openassetio_test.PyRetainingSimpleCppContainer.makeFromConstRefPtr(
+        container = _openassetio._testutils.PyRetainingSimpleCppContainer.makeFromConstRefPtr(
             SimpleCppType()
         )
         element = container.heldObject()
@@ -97,7 +99,7 @@ class Test_PyRetainingSharedPtr_arg:
         assert element.value() == 2
 
     def test_when_using_multi_arg_constructor_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingMultiElementCppContainer(
+        container = _openassetio._testutils.PyRetainingMultiElementCppContainer(
             SimpleCppType(), OtherSimpleCppType(), SimpleCppType()
         )
         element1 = container.heldObject1()
@@ -109,7 +111,7 @@ class Test_PyRetainingSharedPtr_arg:
         assert element3.value() == 2
 
     def test_when_using_multi_arg_factory_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingMultiElementCppContainer.make(
+        container = _openassetio._testutils.PyRetainingMultiElementCppContainer.make(
             # Note: the False has no effect, just used to check
             # signature matching.
             SimpleCppType(),
@@ -127,7 +129,7 @@ class Test_PyRetainingSharedPtr_arg:
         assert element3.value() == 2
 
     def test_when_using_list_container_then_python_implementation_is_retained(self):
-        container = _openassetio_test.PyRetainingSimpleCppListContainer(
+        container = _openassetio._testutils.PyRetainingSimpleCppListContainer(
             [SimpleCppType(), SimpleCppType()]
         )
         elements = container.heldObjects()
@@ -174,7 +176,7 @@ class Test_PyRetainingSharedPtr_cleanup:
             element = DeathwatchedSimpleCppType(self.death_watcher)
             self.weak_ref = weakref.ref(element)
 
-            container = _openassetio_test.PyRetainingSimpleCppContainer(element)
+            container = _openassetio._testutils.PyRetainingSimpleCppContainer(element)
 
             # Double-check
             assert element.value() == 3
@@ -227,7 +229,7 @@ class Test_PyRetainingSharedPtr_cleanup:
 
             # Store element in container. `element` will be "cast" to a
             # new PyRetainingSharedPtr.
-            container = _openassetio_test.PyRetainingSimpleCppContainer(element)
+            container = _openassetio._testutils.PyRetainingSimpleCppContainer(element)
 
             # Double-check
             assert element.value() == 3
@@ -256,37 +258,37 @@ class Test_PyRetainingSharedPtr_static:
         # segfaults/errors/hangs when cleaning up the PyObject during
         # destruction of the C++ object after the interpreter has shut
         # down.
-        _openassetio_test.setSimplePyRetainedSingleton(SimpleCppType())
+        _openassetio._testutils.setSimplePyRetainedSingleton(SimpleCppType())
 
 
-class SimpleCppType(_openassetio_test.SimpleBaseCppType):
+class SimpleCppType(_openassetio._testutils.SimpleBaseCppType):
     def value(self):
         return 2
 
 
-class OtherSimpleCppType(_openassetio_test.OtherSimpleBaseCppType):
+class OtherSimpleCppType(_openassetio._testutils.OtherSimpleBaseCppType):
     def otherValue(self):
         return 3
 
 
-class SimpleBaseCppFactory(_openassetio_test.SimpleBaseCppFactory):
+class SimpleBaseCppFactory(_openassetio._testutils.SimpleBaseCppFactory):
     def createNewObject(self):
         return SimpleCppType()
 
 
-class PyRetainingSimpleCppFactory(_openassetio_test.PyRetainingSimpleBaseCppFactory):
+class PyRetainingSimpleCppFactory(_openassetio._testutils.PyRetainingSimpleBaseCppFactory):
     def createNewObject(self):
         return SimpleCppType()
 
 
-class DeathwatchedSimpleCppType(_openassetio_test.DeathwatchedSimpleCppType):
+class DeathwatchedSimpleCppType(_openassetio._testutils.DeathwatchedSimpleCppType):
     def value(self):
         return 3
 
 
-class PyRetainingDeathwatchedFactory(_openassetio_test.PyRetainingSimpleBaseCppFactory):
+class PyRetainingDeathwatchedFactory(_openassetio._testutils.PyRetainingSimpleBaseCppFactory):
     def __init__(self, callback):
-        _openassetio_test.PyRetainingSimpleBaseCppFactory.__init__(self)
+        _openassetio._testutils.PyRetainingSimpleBaseCppFactory.__init__(self)
         self.__callback = callback
 
     def createNewObject(self):
