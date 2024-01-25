@@ -4,23 +4,10 @@
 #include <string>
 #include <string_view>
 #include <tuple>
-#include <type_traits>
 
 #include <pybind11/pybind11.h>
 
-#include <openassetio/export.h>
 #include <openassetio/errors/exceptions.hpp>
-
-namespace openassetio {
-inline namespace OPENASSETIO_CORE_ABI_VERSION {
-namespace python::exceptions {
-namespace py = pybind11;
-using openassetio::errors::BatchElementException;
-using openassetio::errors::ConfigurationException;
-using openassetio::errors::InputValidationException;
-using openassetio::errors::NotImplementedException;
-using openassetio::errors::OpenAssetIOException;
-using openassetio::errors::UnhandledException;
 
 /**
  * @section list List of exceptions.
@@ -50,11 +37,12 @@ struct TypesAndIds {
  * such that more-derived exceptions come before less-derived. See
  * `tryCatch`.
  */
-constexpr auto kCppExceptionsAndPyClassNames =
-    TypesAndIds<BatchElementException, NotImplementedException, UnhandledException,
-                ConfigurationException, InputValidationException, OpenAssetIOException>{
-        "BatchElementException",  "NotImplementedException",  "UnhandledException",
-        "ConfigurationException", "InputValidationException", "OpenAssetIOException"};
+constexpr auto kCppExceptionsAndPyClassNames = TypesAndIds<
+    openassetio::errors::BatchElementException, openassetio::errors::NotImplementedException,
+    openassetio::errors::UnhandledException, openassetio::errors::ConfigurationException,
+    openassetio::errors::InputValidationException, openassetio::errors::OpenAssetIOException>{
+    "BatchElementException",  "NotImplementedException",  "UnhandledException",
+    "ConfigurationException", "InputValidationException", "OpenAssetIOException"};
 
 /**
  * Convenience struct deriving compile-time properties from the above
@@ -110,10 +98,10 @@ struct CppExceptionsAndPyClassNames {
  */
 template <class CppException>
 struct HybridException : CppException {
-  explicit HybridException(const py::error_already_set &pyExc)
+  explicit HybridException(const pybind11::error_already_set &pyExc)
       : CppException{pyExc.what()}, originalPyExc{pyExc} {}
 
-  py::error_already_set originalPyExc;
+  pybind11::error_already_set originalPyExc;
 };
 
 /**
@@ -123,15 +111,16 @@ struct HybridException : CppException {
  * generalisation, above, for more details.
  */
 template <>
-struct HybridException<BatchElementException> : BatchElementException {
-  explicit HybridException(const py::error_already_set &pyExc)
-      : BatchElementException{py::cast<std::size_t>(pyExc.value().attr("index")),
-                              py::cast<openassetio::errors::BatchElementError>(
+struct HybridException<openassetio::errors::BatchElementException>
+    : openassetio::errors::BatchElementException {
+  explicit HybridException(const pybind11::error_already_set &pyExc)
+      : BatchElementException{pybind11::cast<std::size_t>(pyExc.value().attr("index")),
+                              pybind11::cast<openassetio::errors::BatchElementError>(
                                   pyExc.value().attr("error")),
                               pyExc.what()},
         originalPyExc{pyExc} {}
 
-  py::error_already_set originalPyExc;
+  pybind11::error_already_set originalPyExc;
 };
 
 /**
@@ -149,7 +138,7 @@ struct HybridException<BatchElementException> : BatchElementException {
  */
 template <class Exception>
 void throwHybridExceptionIfMatches(const std::string_view expectedPyExcName,
-                                   const py::error_already_set &thrownPyExc,
+                                   const pybind11::error_already_set &thrownPyExc,
                                    const std::string_view thrownPyExcName) {
   if (thrownPyExcName == expectedPyExcName) {
     throw HybridException<Exception>{thrownPyExc};
@@ -171,14 +160,14 @@ constexpr std::string_view kErrorsModuleName = "openassetio._openassetio.errors"
  * @param thrownPyExc pybind11-wrapped Python exception.
  */
 template <std::size_t... I>
-void convertPyExceptionAndThrow(const py::error_already_set &thrownPyExc,
+void convertPyExceptionAndThrow(const pybind11::error_already_set &thrownPyExc,
                                 [[maybe_unused]] std::index_sequence<I...> unused) {
   // We need values from the Python exception object, so must hold the
-  // GIL. py::error_already_set::what() does this itself, but we need
+  // GIL. pybind11::error_already_set::what() does this itself, but we need
   // additional attributes too. Note that acquiring the GIL can cause
   // crashes if the Python interpreter is finalizing (i.e. has been
   // destroyed).
-  const py::gil_scoped_acquire gil{};
+  const pybind11::gil_scoped_acquire gil{};
   // Check module name of Python exception.
   if (thrownPyExc.type().attr("__module__").cast<std::string_view>() != kErrorsModuleName) {
     // Just in case another exception is defined by managers/hosts with
@@ -187,7 +176,7 @@ void convertPyExceptionAndThrow(const py::error_already_set &thrownPyExc,
   }
 
   // Extract class name of Python exception.
-  const std::string thrownPyExcName{py::str{thrownPyExc.type().attr("__name__")}};
+  const std::string thrownPyExcName{pybind11::str{thrownPyExc.type().attr("__name__")}};
 
   (throwHybridExceptionIfMatches<CppExceptionsAndPyClassNames::Exceptions<I>>(
        CppExceptionsAndPyClassNames::kClassNames[I], thrownPyExc, thrownPyExcName),
@@ -202,7 +191,7 @@ void convertPyExceptionAndThrow(const py::error_already_set &thrownPyExc,
  *
  * @param thrownPyExc pybind11-wrapped Python exception.
  */
-inline void convertPyExceptionAndThrow(const py::error_already_set &thrownPyExc) {
+inline void convertPyExceptionAndThrow(const pybind11::error_already_set &thrownPyExc) {
   convertPyExceptionAndThrow(thrownPyExc, CppExceptionsAndPyClassNames::kIndices);
 }
 
@@ -219,7 +208,7 @@ template <class Fn>
 auto decorateWithExceptionConverter(Fn &&func) {
   try {
     return func();
-  } catch (const py::error_already_set &exc) {
+  } catch (const pybind11::error_already_set &exc) {
     convertPyExceptionAndThrow(exc);
     // Can't convert exception, so rethrow as-is.
     throw;
@@ -228,6 +217,3 @@ auto decorateWithExceptionConverter(Fn &&func) {
 /**
  * @}
  */
-}  // namespace python::exceptions
-}  // namespace OPENASSETIO_CORE_ABI_VERSION
-}  // namespace openassetio

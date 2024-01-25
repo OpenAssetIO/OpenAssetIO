@@ -17,8 +17,6 @@
 namespace py = pybind11;
 
 namespace {
-using openassetio::python::exceptions::CppExceptionsAndPyClassNames;
-
 /**
  * Throw given exception type.
  *

@@ -3,24 +3,22 @@
 #pragma once
 #include <pybind11/pybind11.h>
 
-#include <openassetio/private/python/exceptions.hpp>
+#include "./errors/exceptionsConverter.hpp"
 
 /// @note Update errorsTest.cpp if adding more override macros below.
 
 /**
  * Decorate PYBIND11_OVERRIDE_NAME with exception type translation.
  */
-#define OPENASSETIO_PYBIND11_OVERRIDE_NAME(ret_type, cname, name, fn, ...)            \
-  do {                                                                                \
-    /* Must explicitly specify decorated lambda return type, since    */              \
-    /* PYBIND11_OVERRIDE_IMPL return type can be PyRetainingSharedPtr,*/              \
-    /* which confuses the compiler.                                   */              \
-    return openassetio::python::exceptions::decorateWithExceptionConverter(           \
-        [&]() -> decltype(cname::fn(__VA_ARGS__)) {                                   \
-          PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name, \
-                                 __VA_ARGS__);                                        \
-          return cname::fn(__VA_ARGS__);                                              \
-        });                                                                           \
+#define OPENASSETIO_PYBIND11_OVERRIDE_NAME(ret_type, cname, name, fn, ...)                      \
+  do {                                                                                          \
+    /* Must explicitly specify decorated lambda return type, since    */                        \
+    /* PYBIND11_OVERRIDE_IMPL return type can be PyRetainingSharedPtr,*/                        \
+    /* which confuses the compiler.                                   */                        \
+    return decorateWithExceptionConverter([&]() -> decltype(cname::fn(__VA_ARGS__)) {           \
+      PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name, __VA_ARGS__); \
+      return cname::fn(__VA_ARGS__);                                                            \
+    });                                                                                         \
   } while (false)
 
 /**
@@ -47,13 +45,12 @@
  * parentheses-enclosed) are passed to the Python override
  * implementation, if one exists.
  */
-#define OPENASSETIO_PYBIND11_OVERRIDE_ARGS(Ret, Class, Fn, CppArgs, ... /* PyArgs */)         \
-  do {                                                                                        \
-    return openassetio::python::exceptions::decorateWithExceptionConverter(                   \
-        [&]() -> decltype(Class::Fn CppArgs) {                                                \
-          PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(Ret), PYBIND11_TYPE(Class), #Fn, __VA_ARGS__); \
-          return Class::Fn CppArgs;                                                           \
-        });                                                                                   \
+#define OPENASSETIO_PYBIND11_OVERRIDE_ARGS(Ret, Class, Fn, CppArgs, ... /* PyArgs */)     \
+  do {                                                                                    \
+    return decorateWithExceptionConverter([&]() -> decltype(Class::Fn CppArgs) {          \
+      PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(Ret), PYBIND11_TYPE(Class), #Fn, __VA_ARGS__); \
+      return Class::Fn CppArgs;                                                           \
+    });                                                                                   \
   } while (false)
 
 /**
@@ -71,16 +68,14 @@
  *
  * @todo Revert GIL workaround once upstream fix is available.
  */
-#define OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(ret_type, cname, name, fn, ...)                   \
-  do {                                                                                            \
-    return openassetio::python::exceptions::decorateWithExceptionConverter(                       \
-        [&]() -> decltype(cname::fn(__VA_ARGS__)) {                                               \
-          PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name,             \
-                                 __VA_ARGS__);                                                    \
-          const pybind11::gil_scoped_acquire gil{};                                               \
-          pybind11::pybind11_fail(                                                                \
-              "Tried to call pure virtual function \"" PYBIND11_STRINGIFY(cname) "::" name "\""); \
-        });                                                                                       \
+#define OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(ret_type, cname, name, fn, ...)                 \
+  do {                                                                                          \
+    return decorateWithExceptionConverter([&]() -> decltype(cname::fn(__VA_ARGS__)) {           \
+      PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name, __VA_ARGS__); \
+      const pybind11::gil_scoped_acquire gil{};                                                 \
+      pybind11::pybind11_fail(                                                                  \
+          "Tried to call pure virtual function \"" PYBIND11_STRINGIFY(cname) "::" name "\"");   \
+    });                                                                                         \
   } while (false)
 
 /**
