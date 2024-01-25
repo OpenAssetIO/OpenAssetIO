@@ -107,16 +107,9 @@ struct CppExceptionsAndPyClassNames {
  *
  * @tparam CppException C++ exception type corresponding to given
  * Python exception.
- *
- * @todo Remove PYBIND11_EXPORT once tests that require it are
- *   redesigned. I.e. _openassetio_test throws HybridException which is
- *   then caught in _openassetio, requiring global RTTI info for libc++.
- *   This is not representative of real-world use, since HybridException
- *   should be private to _openassetio. See
- *   https://github.com/OpenAssetIO/OpenAssetIO/issues/1237
  */
 template <class CppException>
-struct PYBIND11_EXPORT HybridException : CppException {
+struct HybridException : CppException {
   explicit HybridException(const py::error_already_set &pyExc)
       : CppException{pyExc.what()}, originalPyExc{pyExc} {}
 
