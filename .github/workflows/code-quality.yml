@@ -79,7 +79,7 @@ jobs:
         uses: ./.github/bootstrap_platform
 
       - name: Cache ccache cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /tmp/ccache
           key: ubuntu-20.04-ccache-lint-${{ github.run_id }}
@@ -125,7 +125,7 @@ jobs:
         uses: ./.github/bootstrap_platform
 
       - name: Cache ccache cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /tmp/ccache
           key: ubuntu-20.04-ccache-sanitize-${{ github.run_id }}
