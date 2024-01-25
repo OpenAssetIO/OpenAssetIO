@@ -32,7 +32,7 @@ and interactive context, along with relationship discovery.
 - [x] Migration of core API methods to C++.
 - [x] Sundry breaking changes and tech-debt cleanup.
 
-## Y24 Q1: v1.0.0
+## Y24 Q1
 
 **Backlog:** [here](https://github.com/orgs/OpenAssetIO/projects/1/views/8)
 
@@ -43,15 +43,15 @@ Managers.
 **Hosts:** C++, Python
 **Managers:** C++, Python
 
+- [ ] Trait/Specification versioning support
 - [ ] Debug trace logging support.
-- [ ] Entity introspection API methods.
+- [x] Entity introspection API methods.
 - [ ] C++ Plugin System
 - [ ] Hybrid C++/Python manager bridge.
-- [ ] Read-through cache mix-ins.
-- [ ] Migrate landing page/examples to [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
 
 ## Y24 onwards
-
+- Read-through cache mix-ins.
+- Migrate landing page/examples to [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
 - UI Layer
 - Auth related error codes.
 - Entity change notification/tracking.
