@@ -63,6 +63,7 @@ target_sources(
     src/managerApi/ManagerInterfaceBinding.cpp
     src/managerApi/ManagerStateBaseBinding.cpp
     src/trait/TraitsDataBinding.cpp
+    src/utilsBinding.cpp
 )
 
 target_link_libraries(openassetio-python-module

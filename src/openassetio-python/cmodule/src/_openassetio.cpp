@@ -19,6 +19,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   const py::module constants = mod.def_submodule("constants");
   const py::module errors = mod.def_submodule("errors");
   const py::module trait = mod.def_submodule("trait");
+  py::module utils = mod.def_submodule("utils");
 
   registerVersion(mod);
   registerAccess(access);
@@ -41,4 +42,5 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerManagerImplementationFactoryInterface(hostApi);
   registerManager(hostApi);
   registerManagerFactory(hostApi);
+  registerUtils(utils);
 }

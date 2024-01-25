@@ -81,6 +81,13 @@ target_sources(
     src/managerApi/EntityReferencePagerInterface.cpp
     src/trait/TraitsData.cpp
     src/utils/Regex.cpp
+    src/utils/path.cpp
+    src/utils/path/common.cpp
+    src/utils/path/windows.cpp
+    src/utils/path/windows/detail.cpp
+    src/utils/path/windows/pathTypes.cpp
+    src/utils/path/posix.cpp
+    src/utils/path/posix/detail.cpp
 )
 
 # Public header dependency.
