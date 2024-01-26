@@ -11,6 +11,21 @@ find_package(fmt REQUIRED)
 
 
 #-----------------------------------------------------------------------
+# URL parsing/construction
+
+find_package(ada REQUIRED)
+
+
+#-----------------------------------------------------------------------
+# Regex
+
+if (NOT DEFINED PCRE2_USE_STATIC_LIBS)
+    set(PCRE2_USE_STATIC_LIBS ON)
+endif ()
+find_package(PCRE2 REQUIRED COMPONENTS 8BIT)
+
+
+#-----------------------------------------------------------------------
 # Python
 
 if (OPENASSETIO_ENABLE_PYTHON)

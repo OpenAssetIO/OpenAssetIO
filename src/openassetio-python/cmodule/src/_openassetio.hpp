@@ -105,3 +105,6 @@ void registerEntityReferencePager(const py::module& mod);
 
 /// Register the EntityReferencePagerInterface class with Python.
 void registerEntityReferencePagerInterface(const py::module& mod);
+
+/// Register the utils namespace with Python.
+void registerUtils(py::module& mod);

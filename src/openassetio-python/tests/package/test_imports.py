@@ -58,6 +58,9 @@ class Test_package_imports:
     def test_importing_log_succeeds(self):
         from openassetio import log
 
+    def test_importing_utils_succeeds(self):
+        from openassetio import utils
+
 
 class Test_core_imports:
     def test_importing_audit_succeeds(self):

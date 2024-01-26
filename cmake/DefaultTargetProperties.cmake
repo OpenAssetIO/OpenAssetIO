@@ -194,6 +194,8 @@ function(openassetio_set_default_target_properties target_name)
 
         if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
             list(APPEND sanitizers "address")
+            # Allow binaries to detect if they're running under ASan.
+            target_compile_definitions(${target_name} PRIVATE OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
         endif ()
 
         if (OPENASSETIO_ENABLE_SANITIZER_LEAK)

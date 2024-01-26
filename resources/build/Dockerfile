@@ -21,6 +21,18 @@ RUN git clone --branch 9.1.0 https://github.com/fmtlib/fmt
 RUN cd fmt && cmake -S . -B build -DFMT_MASTER_PROJECT=OFF -DFMT_INSTALL=ON && \
      cmake --build build --parallel && cmake --install build
 
+# Pull and install ada
+RUN git clone --branch v2.7.4 https://github.com/ada-url/ada
+RUN cd ada && cmake -S . -B build -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DADA_TESTING=OFF && \
+     cmake --build build --parallel && cmake --install build
+
+# Pull and install pcre2
+RUN git clone --branch pcre2-10.42 https://github.com/PCRE2Project/pcre2
+RUN cd pcre2 && cmake -S . -B build \
+    -DPCRE2_STATIC_PIC=ON -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_PCRE2GREP=OFF \
+    -DPCRE2_BUILD_TESTS=OFF && \
+     cmake --build build --parallel && cmake --install build
+
 # Test dependencies
 # Pull and install catch2
 RUN git clone --branch v2.13.10 https://github.com/catchorg/Catch2
@@ -42,6 +54,19 @@ COPY --from=openassetio-dependencies /usr/local/include/fmt /usr/local/include/f
 COPY --from=openassetio-dependencies /usr/local/lib64/libfmt.a /usr/local/lib64/libfmt.a
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/fmt /usr/local/lib64/cmake/fmt
 
+# Copy ada
+COPY --from=openassetio-dependencies /usr/local/include/ada /usr/local/include/ada
+COPY --from=openassetio-dependencies /usr/local/include/ada.h /usr/local/include/ada.h
+COPY --from=openassetio-dependencies /usr/local/lib64/libada.a /usr/local/lib64/libada.a
+COPY --from=openassetio-dependencies /usr/local/lib64/cmake/ada /usr/local/lib64/cmake/ada
+
+# Copy pcre2
+COPY --from=openassetio-dependencies /usr/local/include/pcre2.h /usr/local/include/pcre2.h
+COPY --from=openassetio-dependencies /usr/local/include/pcre2posix.h /usr/local/include/pcre2posix.h
+COPY --from=openassetio-dependencies /usr/local/lib64/libpcre2-8.a /usr/local/lib64/libpcre2-8.a
+COPY --from=openassetio-dependencies /usr/local/lib64/libpcre2-posix.a /usr/local/lib64/libpcre2-posix.a
+COPY --from=openassetio-dependencies /usr/local/cmake/pcre2-config.cmake /usr/local/cmake/pcre2-config.cmake
+COPY --from=openassetio-dependencies /usr/local/cmake/pcre2-config-version.cmake /usr/local/cmake/pcre2-config-version.cmake
 # Copy trompeloeil
 # Trompeloeil installs itself into relevent test framework folders, so
 # some relevent parts of it for us is copied over with include/catch2

@@ -19,6 +19,12 @@ v1.0.0-beta.x.x
 
 ### New Features
 
+- Added convenience `utils.FileUrlPathConverter` utility class for
+  converting `file://` URLs to and from paths. Both POSIX and Windows
+  paths (including UNC) are supported in a platform-agnostic way (i.e.
+  Windows paths can be processed on POSIX hosts and vice versa).
+  [#1117](https://github.com/OpenAssetIO/OpenAssetIO/issues/1117)
+
 - Propagate `OpenAssetIOException`-derived Python exceptions as a
   corresponding C++ exception if a Python method implementation raises
   when transparently called from C++.
