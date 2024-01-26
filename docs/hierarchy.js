@@ -7,6 +7,7 @@ var hierarchy =
     [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Exception", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html", null ],
+    [ "FileUrlPathConverter", "classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],

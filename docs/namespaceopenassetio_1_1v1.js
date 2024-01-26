@@ -7,6 +7,7 @@ var namespaceopenassetio_1_1v1 =
     [ "managerApi", "namespaceopenassetio_1_1v1_1_1manager_api.html", "namespaceopenassetio_1_1v1_1_1manager_api" ],
     [ "python", "namespaceopenassetio_1_1v1_1_1python.html", null ],
     [ "trait", "namespaceopenassetio_1_1v1_1_1trait.html", "namespaceopenassetio_1_1v1_1_1trait" ],
+    [ "utils", "namespaceopenassetio_1_1v1_1_1utils.html", "namespaceopenassetio_1_1v1_1_1utils" ],
     [ "BatchElementException", "structopenassetio_1_1v1_1_1_batch_element_exception.html", "structopenassetio_1_1v1_1_1_batch_element_exception" ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", "classopenassetio_1_1v1_1_1_context" ],
     [ "EntityAccessErrorBatchElementException", "structopenassetio_1_1v1_1_1_entity_access_error_batch_element_exception.html", null ],

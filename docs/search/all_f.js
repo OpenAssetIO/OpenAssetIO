@@ -1,6 +1,9 @@
 var searchData=
 [
   ['page',['Page',['../classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a194ae23b559b0a3ff5e3f12b6c73b9bf',1,'openassetio::v1::hostApi::EntityReferencePager::Page()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#aa4e2c26a42e074f0d99f5dbe059bc284',1,'openassetio::v1::managerApi::EntityReferencePagerInterface::Page()']]],
+  ['pathfromurl',['pathFromUrl',['../classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html#aae1c758765833baa79ea2c5278c2e24f',1,'openassetio::v1::utils::FileUrlPathConverter']]],
+  ['pathtourl',['pathToUrl',['../classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html#af664e907b01c09f3851e4a0e9fb0da0f',1,'openassetio::v1::utils::FileUrlPathConverter']]],
+  ['pathtype',['PathType',['../namespaceopenassetio_1_1v1_1_1utils.html#a8c57925aaac61cb19d63b999ca92f21a',1,'openassetio::v1::utils']]],
   ['persistencetokenforcontext',['persistenceTokenForContext',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c',1,'openassetio::v1::hostApi::Manager']]],
   ['persistencetokenforstate',['persistenceTokenForState',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ae23c0f2f48ee4e4dbef3eba64608b5de',1,'openassetio::v1::managerApi::ManagerInterface']]],
   ['plugin',['plugin',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de',1,'openassetio::pluginSystem::PythonPluginSystem::PythonPluginSystem']]],
