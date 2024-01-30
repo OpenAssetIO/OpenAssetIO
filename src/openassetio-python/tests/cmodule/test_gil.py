@@ -17,13 +17,13 @@
 Testing pybind11's GIL handling behaviour
 """
 
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import threading
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio_test
+from openassetio import _openassetio
 
 
 class Test_gil:
@@ -36,7 +36,7 @@ class Test_gil:
             assert threading.current_thread().ident != main_thread_id
             self.state_to_update = True
 
-        _openassetio_test.runCallableInThread(update_state)
+        _openassetio._testutils.runCallableInThread(update_state)
 
         assert self.state_to_update is True
 
@@ -48,7 +48,7 @@ class Test_gil:
             assert threading.current_thread().ident != main_thread_id
             self.state_to_update = True
 
-        _openassetio_test.runPyFunctionInThread(update_state)
+        _openassetio._testutils.runPyFunctionInThread(update_state)
 
         assert self.state_to_update is True
 
@@ -60,15 +60,15 @@ class Test_gil:
             assert threading.current_thread().ident != main_thread_id
             self.state_to_update = True
 
-        _openassetio_test.runStdFunctionInThread(update_state)
+        _openassetio._testutils.runStdFunctionInThread(update_state)
 
         assert self.state_to_update is True
 
     def test_when_calling_bound_member_in_another_thread_then_doesnt_error(self):
-        class MyFlag(_openassetio_test.Flag):
+        class MyFlag(_openassetio._testutils.Flag):
             def __init__(self):
                 self.value = None
-                _openassetio_test.Flag.__init__(self)
+                _openassetio._testutils.Flag.__init__(self)
 
             def set(self, value):
                 assert threading.current_thread().ident != main_thread_id
@@ -80,7 +80,7 @@ class Test_gil:
         flag = MyFlag()
         main_thread_id = threading.current_thread().ident
 
-        returned_flag_value = _openassetio_test.flagInThread(flag)
+        returned_flag_value = _openassetio._testutils.flagInThread(flag)
 
         assert flag.value is True
         assert returned_flag_value is flag.value

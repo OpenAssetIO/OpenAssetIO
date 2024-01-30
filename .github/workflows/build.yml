@@ -132,4 +132,4 @@ jobs:
     - name: pybind11 macros
       run: >
         ! grep -Pr '(?<!OPENASSETIO_)PYBIND11_OVERRIDE'
-        --exclude overrideMacros.hpp --exclude-dir _openassetio_test src
+        --exclude overrideMacros.hpp --exclude-dir _testutils src

@@ -3,9 +3,9 @@
 
 
 #-----------------------------------------------------------------------
-# Python test module target for creating test-only bindings.
+# Python test utils static library for creating test-only bindings.
 
-add_subdirectory(resources/_openassetio_test)
+add_subdirectory(resources/_testutils)
 
 
 #-----------------------------------------------------------------------

@@ -3,6 +3,14 @@
 
 #include "_openassetio.hpp"
 
+#ifdef OPENASSETIO_ENABLE_TESTS
+// In order to have representative tests of internal functionality, we
+// must augment this extension module with test-specific bindings. The
+// static library providing the implementation of this entry point is
+// conditionally linked into this extension module.
+void registerTestUtils(py::module& mod);
+#endif
+
 PYBIND11_MODULE(_openassetio, mod) {
   namespace py = pybind11;
 
@@ -43,4 +51,8 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerManager(hostApi);
   registerManagerFactory(hostApi);
   registerUtils(utils);
+
+#ifdef OPENASSETIO_ENABLE_TESTS
+  registerTestUtils(mod);
+#endif
 }

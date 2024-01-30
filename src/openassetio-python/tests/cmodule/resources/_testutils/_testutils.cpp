@@ -8,8 +8,9 @@ void registerPyRetainingSharedPtrTestTypes(py::module_&);
 void registerExceptionThrower(py::module_& mod);
 void registerRunInThread(py::module_& mod);
 
-PYBIND11_MODULE(_openassetio_test, mod) {
-  registerPyRetainingSharedPtrTestTypes(mod);
-  registerExceptionThrower(mod);
-  registerRunInThread(mod);
+void registerTestUtils(py::module& mod) {
+  py::module_ testutils = mod.def_submodule("_testutils");
+  registerPyRetainingSharedPtrTestTypes(testutils);
+  registerExceptionThrower(testutils);
+  registerRunInThread(testutils);
 }

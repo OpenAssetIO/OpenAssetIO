@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <utility>
+
 #include <openassetio/errors/exceptions.hpp>
-#include <openassetio/private/python/exceptions.hpp>
+
+#include "./exceptionsConverter.hpp"
 
 namespace {
-using openassetio::python::exceptions::CppExceptionsAndPyClassNames;
-
 /**
  * @section asserts Compile-time assertions.
  *

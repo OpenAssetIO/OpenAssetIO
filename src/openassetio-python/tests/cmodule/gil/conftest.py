@@ -16,7 +16,7 @@
 """
 Common test utils for our GIL handling behaviour
 """
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import inspect
@@ -24,7 +24,7 @@ import inspect
 import pytest
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio_test, EntityReference, Context
+from openassetio import _openassetio, EntityReference, Context
 from openassetio.trait import TraitsData
 
 
@@ -48,7 +48,7 @@ def find_unimplemented_test_cases():
 
 @pytest.fixture
 def a_threaded_mock_manager_interface(mock_manager_interface):
-    return _openassetio_test.gil.wrapInThreadedManagerInterface(mock_manager_interface)
+    return _openassetio._testutils.gil.wrapInThreadedManagerInterface(mock_manager_interface)
 
 
 @pytest.fixture

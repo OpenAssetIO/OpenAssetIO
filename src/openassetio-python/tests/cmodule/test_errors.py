@@ -16,14 +16,15 @@
 """
 Tests of C++ binding utilities for exception types.
 """
+
+# pylint: disable=invalid-name,redefined-outer-name,protected-access
+# pylint: disable=missing-class-docstring,missing-function-docstring
 import inspect
 from unittest import mock
 
-# pylint: disable=invalid-name,redefined-outer-name
-# pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
-from openassetio import _openassetio_test  # pylint: disable=no-name-in-module
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from openassetio import errors
 
 
@@ -48,28 +49,30 @@ class Test_errors:
         self, exception_type
     ):
         with pytest.raises(exception_type, match="Explosion!"):
-            _openassetio_test.throwException(exception_type.__name__, "Explosion!")
+            _openassetio._testutils.throwException(exception_type.__name__, "Explosion!")
 
     @pytest.mark.parametrize("exception_type", all_exceptions)
     def test_when_cpp_exception_thrown_then_can_be_caught_as_OpenAssetIOException(
         self, exception_type
     ):
-        assert _openassetio_test.isThrownExceptionCatchableAs(
+        assert _openassetio._testutils.isThrownExceptionCatchableAs(
             throwExceptionName=exception_type.__name__,
             catchExceptionName=errors.OpenAssetIOException.__name__,
         )
         with pytest.raises(errors.OpenAssetIOException, match="Explosion!"):
-            _openassetio_test.throwException(exception_type.__name__, "Explosion!")
+            _openassetio._testutils.throwException(exception_type.__name__, "Explosion!")
 
     def test_when_ConfigurationException_thrown_then_can_be_caught_as_InputValidationException(
         self,
     ):
-        assert _openassetio_test.isThrownExceptionCatchableAs(
+        assert _openassetio._testutils.isThrownExceptionCatchableAs(
             throwExceptionName=errors.ConfigurationException.__name__,
             catchExceptionName=errors.InputValidationException.__name__,
         )
         with pytest.raises(errors.InputValidationException, match="Explosion!"):
-            _openassetio_test.throwException(errors.ConfigurationException.__name__, "Explosion!")
+            _openassetio._testutils.throwException(
+                errors.ConfigurationException.__name__, "Explosion!"
+            )
 
     @pytest.mark.parametrize("exception_type", all_exceptions)
     def test_when_python_exception_thrown_then_can_be_caught_in_cpp(
@@ -79,7 +82,7 @@ class Test_errors:
 
         exception_thrower.callee.side_effect = exception
 
-        assert _openassetio_test.isPythonExceptionCatchableAs(
+        assert _openassetio._testutils.isPythonExceptionCatchableAs(
             exception_thrower, exception_type.__name__
         )
 
@@ -91,7 +94,7 @@ class Test_errors:
 
         exception_thrower.callee.side_effect = exception
 
-        _openassetio_test.throwPythonExceptionAndCatchAsStdException(exception_thrower)
+        _openassetio._testutils.throwPythonExceptionAndCatchAsStdException(exception_thrower)
 
     @pytest.mark.parametrize("exception_type", all_exceptions)
     def test_when_python_exception_thrown_then_can_be_caught_in_cpp_rethrown_and_caught_in_python(
@@ -102,7 +105,7 @@ class Test_errors:
         exception_thrower.callee.side_effect = exception
 
         with pytest.raises(exception_type) as err:
-            _openassetio_test.throwPythonExceptionCatchAsCppExceptionAndRethrow(
+            _openassetio._testutils.throwPythonExceptionCatchAsCppExceptionAndRethrow(
                 exception_thrower, exception_type.__name__
             )
 
@@ -121,7 +124,7 @@ class Test_errors:
 
         with pytest.raises(OpenAssetIOException):
             # Should fail to catch and propagate back.
-            _openassetio_test.isPythonExceptionCatchableAs(
+            _openassetio._testutils.isPythonExceptionCatchableAs(
                 exception_thrower, "OpenAssetIOException"
             )
 
@@ -138,7 +141,7 @@ def make_exception(exception_type):
     return exception
 
 
-class PyExceptionThrower(_openassetio_test.ExceptionThrower):
+class PyExceptionThrower(_openassetio._testutils.ExceptionThrower):
     """
     Subclass of pybind11-bound abstract C++ class, which is expected to
     throw the same exception from each of its methods.
@@ -153,7 +156,7 @@ class PyExceptionThrower(_openassetio_test.ExceptionThrower):
     """
 
     def __init__(self):
-        _openassetio_test.ExceptionThrower.__init__(self)
+        _openassetio._testutils.ExceptionThrower.__init__(self)
         self.callee = mock.Mock()
 
     def throwFromOverride(self):

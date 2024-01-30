@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2023 The Foundry Visionmongers Ltd
-#include <map>
+#include <cstddef>
+#include <exception>
 #include <string_view>
+#include <unordered_map>
+#include <utility>
 
 #include <pybind11/eval.h>
-#include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
+#include <pyerrors.h>
 
 #include <openassetio/errors/exceptions.hpp>
-#include <openassetio/private/python/exceptions.hpp>
 
 #include "../_openassetio.hpp"
+#include "./exceptionsConverter.hpp"
 
 namespace {
 using openassetio::errors::BatchElementException;
@@ -19,8 +22,6 @@ using openassetio::errors::InputValidationException;
 using openassetio::errors::NotImplementedException;
 using openassetio::errors::OpenAssetIOException;
 using openassetio::errors::UnhandledException;
-using openassetio::python::exceptions::CppExceptionsAndPyClassNames;
-using openassetio::python::exceptions::HybridException;
 
 /**
  * @section topy Conversion from C++ exception to Python exception.
@@ -226,8 +227,7 @@ void registerPyExceptionClasses(const py::module &mod,
 void registerExceptions(const py::module &mod) {
   // Ensure module name matches what we expect, since it must be
   // imported by name in `register_exception_translator`, below.
-  assert(mod.attr("__name__").cast<std::string>() ==
-         openassetio::python::exceptions::kErrorsModuleName);
+  assert(mod.attr("__name__").cast<std::string>() == kErrorsModuleName);
   // Register new Python exception types. Note that this is not
   // sufficient to cause C++ exceptions to be translated. See
   // `register_exception_translator` below.
@@ -243,8 +243,7 @@ void registerExceptions(const py::module &mod) {
     if (!pexc) {
       return;
     }
-    const py::module_ pyModule =
-        py::module_::import(openassetio::python::exceptions::kErrorsModuleName.data());
+    const py::module_ pyModule = py::module_::import(kErrorsModuleName.data());
 
     // Handle the different possible C++ exceptions, creating the
     // corresponding Python exception and setting it as the active
