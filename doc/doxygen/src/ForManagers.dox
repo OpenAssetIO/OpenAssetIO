@@ -116,7 +116,8 @@
  *   to be involved in managing, and specify which property-holding
  *   traits you are capable of resolving. To request not to be involved
  *   in publishing, return an empty @fqref{trait.TraitsData}
- *   "TraitsData" for any queries with `kWrite` access.
+ *   "TraitsData" for any queries with `kWrite` (or other
+ *   publishing-related) access mode.
  *
  * - Implement the methods grouped under the "Entity Reference Inspection"
  *   and "Entity Reference Resolution" sections of the
@@ -139,8 +140,8 @@
  *
  * - Update the implementation of
  *   @fqref{managerApi.ManagerInterface.managementPolicy}
- *   "managementPolicy" to return suitable traits for a `kWrite` access
- *   mode.
+ *   "managementPolicy" to return suitable traits for a `kWrite` (and
+ *   other publishing-related) access mode.
  *
  * - Implement the methods listed under the
  *   @fqref{managerApi.ManagerInterface.Capability.kPublishing}

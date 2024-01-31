@@ -16,7 +16,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace access {
 
 /// Mapping of access enum value to human-readable name.
-[[maybe_unused]] constexpr std::array kAccessNames{"read", "write", "createRelated"};
+[[maybe_unused]] constexpr std::array kAccessNames{"read", "write", "createRelated", "required",
+                                                   "managerDriven"};
 
 /**
  * Access pattern for a manager policy query.
@@ -49,6 +50,44 @@ enum class PolicyAccess : std::underlying_type_t<internal::access::Access> {
    * @ref RelationsAccess.kCreateRelated
    */
   kCreateRelated = internal::access::Access::kCreateRelated,
+  /**
+   * Host wishes to know which subset of traits must have their required
+   * properties filled for successful publishing of an entity.
+   *
+   * Traits are used for both classification of an entity, and
+   * communication of properties of that entity. That is, many traits
+   * have properties associated with them. When publishing an entity,
+   * the entire trait set of that entity must be provided, in order for
+   * the manager classify the entity being published. However, it may
+   * well be that not all of the properties of those traits need to be
+   * set, in order for publishing to succeed.
+   *
+   * On an individual trait level, some properties will be required and
+   * some optional. Determining this currently requires manual
+   * inspection of the documentation for that trait.
+   *
+   * The `kRequired` policy of a manager, with respect to a given entity
+   * trait set, refers to the subset of traits that must have their
+   * required properties set by the host, in order for publishing to
+   * succeed.
+   */
+  kRequired = internal::access::Access::kRequired,
+  /**
+   * Host wishes to know the subset of traits that have properties the
+   * manager can provide for creating new content when publishing an
+   * entity.
+   *
+   * Note that if a manager provides a property for the host to use
+   * during publishing, the host should not assume that the manager
+   * "remembers" that it provided that property. I.e. the manager-driven
+   * property should be published with the rest of the data, especially
+   * if the associated trait is is part of the @ref
+   * PolicyAccess.kRequired "kRequired" policy for the entity's trait
+   * set.
+   *
+   * @see @ref ResolveAccess.kManagerDriven
+   */
+  kManagerDriven = internal::access::Access::kManagerDriven,
 };
 
 /**
@@ -70,7 +109,7 @@ enum class ResolveAccess : std::underlying_type_t<internal::access::Access> {
    * writing of data to a resource, and specifics of its format or
    * content.
    */
-  kWrite = internal::access::Access::kWrite,
+  kManagerDriven = internal::access::Access::kManagerDriven,
 };
 
 /**

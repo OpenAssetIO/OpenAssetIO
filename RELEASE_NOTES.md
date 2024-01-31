@@ -12,6 +12,11 @@ v1.0.0-beta.x.x
   must have, for a given entity reference.
   [#31](https://github.com/OpenAssetIO/OpenAssetIO/issues/31)
 
+- Renamed access policy for resolving future entities,
+  `ResolveAccess.kWrite` to `ResolveAccess.kManagerDriven`. This is then
+  consistent with the newly added `managementPolicy` access mode.
+  [#1209](https://github.com/OpenAssetIO/OpenAssetIO/issues/1209)
+
 - Access policy keyword argument names in the Python bindings for
   `ManagerInterface` has changed  to `"resolveAccess"` for `resolve` and
   `"policyAccess"` for `managementPolicy`, in order to conform to the
@@ -34,6 +39,13 @@ v1.0.0-beta.x.x
   OpenAssetIO library version. `version.h` header distributed with
   install to allow compile time introspection.
   [#1173](https://github.com/OpenAssetIO/OpenAssetIO/issues/1173)
+
+- Add `managementPolicy` support for querying traits whose required
+  properties must be set in order for a publish to succeed, via a
+  `kRequired` access mode; and support for querying traits whose
+  properties the manager wishes to dictate when publishing, via a
+  `kManagerDriven` access mode.
+  [#1209](https://github.com/OpenAssetIO/OpenAssetIO/issues/1209)
 
 ### Improvements
 

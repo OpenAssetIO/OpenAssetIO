@@ -353,16 +353,20 @@
  * # The first step is to see if the manager wants to manage text files.
  * # Note that this time we request the manager's policy for write
  * # access.
- * policy = manager.managementPolicy(
- *     [TextFileSpecification.kTraitSet], PolicyAccess.kWrite, context)[0]
+ * [policy] = manager.managementPolicy(
+ *     [TextFileSpecification.kTraitSet], PolicyAccess.kWrite, context)
  *
  * if not ManagedTrait.isImbuedTo(policy):
  *   # The manager doesn't care about this type of asset
  *   return
  *
- * # Not all managers can tell us where to put files (irksome).
- * # The reality of handling this is somewhat more challenging, and
- * # depends on the nature of the task in hand. One for further discussion.
+ * # Managers may want to dictate to the host some of the data to be
+ * # published, e.g. tell us where to put files. So we ask the manager
+ * # which traits, if any, it is interested in "driving" itself.
+ * [manager_driven_policy] = manager.managementPolicy(
+ *     [TextFileSpecification.kTraitSet], PolicyAccess.kManagerDriven, context)
+ *
+ * # Choose some defaults in case the manager cannot drive these values.
  * save_path = os.path.join(os.path.expanduser('~'), 'greeting.txt')
  * encoding = "utf-8"
  *
@@ -380,25 +384,21 @@
  * working_ref = manager.preflight(
  *    entity_ref, file_spec, PublishingAccess.kWrite, context)
  *
- * # We then check if the manager can tell us where to save the file.
- * # Not all managers support providing every trait property up front,
- * # or resolving for write at all. This process is currently quite
- * # cumbersome, but will be improved soon:
- * #   https://github.com/OpenAssetIO/OpenAssetIO/issues/1209
- * if manager.hasCapability(Manager.Capability.kResolution):
- *   try:
- *     working_data = manager.resolve(
- *             working_ref, TextFileSpecification.kTraitSet,
- *             ResolveAccess.kWrite, context)
- *     working_spec = TextFileSpecification(working_data)
- *     if save_url := working_spec.locatableContentTrait().getLocation():
- *       save_path = pathFromURL(save_url)  # URL decode etc
- *     if custom_encoding := working_spec.textEncodingTrait().getEncoding():
- *       encoding = custom_encoding
- *   except BatchElementException as exc:
- *     # Only ignore the case the manager can't provide data
- *     if exc.error.code != exc.error.ErrorCode.kEntityAccessError
- *        raise exc
+ * # If the manager wants to drive at least one of the traits we're
+ * # publishing, we can `resolve` with the `kManagerDriven` access mode
+ * # to retrieve the values the manager wants us to use. If we attempt
+ * # to `resolve` without checking the policy first, we risk an error if
+ * # the manager does not support this operation.
+ * if (LocatableContentTrait.isImbuedTo(manager_driven_policy) or
+ *       TextEncodingTrait.isImbuedTo(manager_driven_policy)):
+ *   working_data = manager.resolve(
+ *           working_ref,
+ *           {LocatableContentTrait.kId, TextEncodingTrait.kId},
+ *           ResolveAccess.kManagerDriven, context)
+ *   if save_url := LocatableContentTrait(working_data).getLocation():
+ *     # Assume `file://` URL
+ *     save_path = utils.pathFromUrl(save_url)
+ *   encoding = TextEncodingTrait(working_data).getEncoding(defaultValue=encoding):
  *
  * # Now we can write the file
  * with open(save_path, 'w', encoding=encoding) as f:
@@ -451,23 +451,19 @@
  * thumbnail_attr = {"width": 128, "height": 128}
  *
  * # See if the manager can tell us where to put it, and what it should be like
- * #   https://github.com/OpenAssetIO/OpenAssetIO/issues/1209
- * if manager.hasCapability(Manager.Capability.kResolution):
- *   try:
- *     requested = manager.resolve(
- *             thumbnail_ref, ThumbnailFileSpecification.kTraitSet,
- *             ResolveAccess.kWrite, context)
- *     requested_spec = ThumbnailFileSpecification(requested)
- *     if requested_path := requested_spec.locatableContentTrait().getLocation():
- *       thumbnail_path = pathFromURL(requested_path)
- *     raster_trait = requested_spec.rasterTrait()
- *     if raster_trait.isImbued():
- *       # 'get' calls can take a default value to avoid exceptions if missing.
- *       thumbnail_attr["width"] = raster_trait.getWidth(thumbnail_attr["width"])
- *       thumbnail_attr["height"] = raster_trait.getHeight(thumbnail_attr["height"])
- *   except BatchElementException as exc:
- *     if exc.error.code != exc.error.ErrorCode.kEntityAccessError
- *        raise exc
+ * if (LocatableContentTrait.isImbuedTo(manager_driven_policy) or
+ *       RasterTrait.isImbuedTo(manager_driven_policy)):
+ *   requested = manager.resolve(
+ *           thumbnail_ref,
+ *           {LocatableContentTrait.kId, RasterTrait.kId},
+ *           ResolveAccess.kManagerDriven, context)
+ *   if requested_path := LocatableContentTrait(requested).getLocation():
+ *     thumbnail_path = utils.pathFromURL(requested_path)
+ *   raster_trait = RasterTrait(requested)
+ *   if raster_trait.isImbued():
+ *     # 'get' calls can take a default value to avoid `None` if missing.
+ *     thumbnail_attr["width"] = raster_trait.getWidth(thumbnail_attr["width"])
+ *     thumbnail_attr["height"] = raster_trait.getHeight(thumbnail_attr["height"])
  *
  * # Generate a thumbnail using the supplied criteria
  * mk_thumbnail(thumbnail_path, thumbnail_attr["width"], thumbnail_attr["height"])

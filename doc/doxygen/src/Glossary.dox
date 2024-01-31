@@ -392,9 +392,10 @@
  * In this context, a property is "owned" by the host if it will not be
  * dictated by the manager during the publishing workflow (i.e. by @ref
  * glossary_resolve "resolving" with a
- * @fqref{access.ResolveAccess.kWrite} "write" access flag). Note that
- * this definition of host ownership might include properties that have
- * been resolved from the manager at some point in the past.
+ * @fqref{access.ResolveAccess.kManagerDriven} "manager driven" access
+ * flag). Note that this definition of host ownership might include
+ * properties that have been resolved from the manager at some point in
+ * the past.
  *
  * If a property is not already known or understood by the host, and is
  * optional, then it may be omitted.

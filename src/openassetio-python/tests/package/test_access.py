@@ -40,22 +40,37 @@ class Test_root_enum:
             root_enum.kRead,
             root_enum.kWrite,
             root_enum.kCreateRelated,
+            root_enum.kRequired,
+            root_enum.kManagerDriven,
         )
 
         # The following is just a confidence check of pybind11 and our
         # test fixtures.
 
         all_enum_values = extract_comparable_values_from_enum_values(
-            root_enum.kRead, root_enum.kWrite, root_enum.kCreateRelated
+            root_enum.kRead,
+            root_enum.kWrite,
+            root_enum.kCreateRelated,
+            root_enum.kRequired,
+            root_enum.kManagerDriven,
         )
-        assert len(all_enum_values) == 3
-        assert len(set(member.name for member in all_enum_values)) == 3
-        assert len(set(member.value for member in all_enum_values)) == 3
+
+        expected_num_enum_values = 5
+
+        assert len(all_enum_values) == expected_num_enum_values
+        assert len(set(member.name for member in all_enum_values)) == expected_num_enum_values
+        assert len(set(member.value for member in all_enum_values)) == expected_num_enum_values
 
         all_enum_values_from_class = extract_comparable_values_from_enum_class(root_enum)
-        assert len(all_enum_values_from_class) == 3
-        assert len(set(member.name for member in all_enum_values_from_class)) == 3
-        assert len(set(member.value for member in all_enum_values_from_class)) == 3
+        assert len(all_enum_values_from_class) == expected_num_enum_values
+        assert (
+            len(set(member.name for member in all_enum_values_from_class))
+            == expected_num_enum_values
+        )
+        assert (
+            len(set(member.value for member in all_enum_values_from_class))
+            == expected_num_enum_values
+        )
 
 
 class Test_kAccessNames:
@@ -63,6 +78,8 @@ class Test_kAccessNames:
         assert kAccessNames[int(root_enum.kRead)] == "read"
         assert kAccessNames[int(root_enum.kWrite)] == "write"
         assert kAccessNames[int(root_enum.kCreateRelated)] == "createRelated"
+        assert kAccessNames[int(root_enum.kRequired)] == "required"
+        assert kAccessNames[int(root_enum.kManagerDriven)] == "managerDriven"
 
 
 class Test_PolicyAccess:
@@ -72,6 +89,8 @@ class Test_PolicyAccess:
             root_enum.kRead,
             root_enum.kWrite,
             root_enum.kCreateRelated,
+            root_enum.kRequired,
+            root_enum.kManagerDriven,
         )
 
 
@@ -87,7 +106,7 @@ class Test_RelationsAccess:
 
 class Test_ResolveAccess:
     def test_has_expected_constants(self, root_enum):
-        assert_expected_enum_values(ResolveAccess, root_enum.kRead, root_enum.kWrite)
+        assert_expected_enum_values(ResolveAccess, root_enum.kRead, root_enum.kManagerDriven)
 
 
 class Test_EntityTraitsAccess:

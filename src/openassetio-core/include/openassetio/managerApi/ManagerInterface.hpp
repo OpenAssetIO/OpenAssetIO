@@ -549,10 +549,12 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @{
    */
   /**
-   * Management Policy queries determine if the manager is interested in
-   * participating in interactions with @ref entity "entities" with a
-   * specified @ref trait_set, and which traits it is capable of
-   * resolving or persisting data for.
+   * Management Policy queries allow a host to ask a Manager how they
+   * would like to interact with different kinds of entity.
+   *
+   * This includes the policy for a given trait set, as well as the
+   * per-trait policy, with the context for the policy determined by
+   * the @p policyAccess.
    *
    * This method is usually called early on by a host to determine
    * whether to enable OpenAssetIO related functionality when handling
@@ -581,7 +583,25 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *   - Whether and how that kind of entity is managed (traits with the
    *    `managementPolicy` usage metadata)
    *   - Which of the requested set of traits that have properties that
-   *     can be resolved/persisted by your implementation.
+   *     must/can be resolved/persisted by your implementation.
+   *
+   * The meaning of the subset of traits in the response should vary by
+   * @p policyAccess mode as follows
+   * - @ref access.PolicyAccess.kRead "kRead":  traits that have
+   *   properties the manager can @ref resolve from existing entities.
+   * - @ref access.PolicyAccess.kWrite "kWrite" and @ref
+   *   access.PolicyAccess.kCreateRelated "kCreateRelated": traits that
+   *   have properties the manager can persist when @ref publish
+   *   "publishing".
+   * - @ref access.PolicyAccess.kRequired "kRequired": traits whose
+   *   properties must be provided by the host in order for publishing
+   *   to succeed.
+   * - @ref access.PolicyAccess.kManagerDriven "kManagerDriven": traits
+   *   that have properties that the manager can @ref resolve for a
+   *   future entity (i.e. an entity reference returned from a @ref
+   *   preflight call) that is yet to be @ref register_ "registered".
+   *   That is, traits that the manager wishes to drive, rather than
+   *   have the host decide.
    *
    * Entity management is an opt-in mechanism, and returning an empty
    * TraitsData states that you do not manage data with that specific

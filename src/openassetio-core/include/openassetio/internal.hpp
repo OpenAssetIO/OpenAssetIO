@@ -16,7 +16,7 @@ namespace access {
  * simplifies serialisation, and supports language (especially C)
  * bindings.
  */
-enum Access : std::size_t { kRead = 0, kWrite, kCreateRelated };
+enum Access : std::size_t { kRead = 0, kWrite, kCreateRelated, kRequired, kManagerDriven };
 }  // namespace access
 
 namespace capability::manager {

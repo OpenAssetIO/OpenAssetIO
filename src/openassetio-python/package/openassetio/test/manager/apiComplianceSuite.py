@@ -208,6 +208,14 @@ class Test_managementPolicy(FixtureAugmentedTestCase):
         context = self.createTestContext()
         self.__assertPolicyResults(1, context, policyAccess=PolicyAccess.kCreateRelated)
 
+    def test_calling_with_required_context(self):
+        context = self.createTestContext()
+        self.__assertPolicyResults(1, context, policyAccess=PolicyAccess.kRequired)
+
+    def test_calling_with_managerDriven_context(self):
+        context = self.createTestContext()
+        self.__assertPolicyResults(1, context, policyAccess=PolicyAccess.kManagerDriven)
+
     def test_calling_with_empty_trait_set_does_not_error(self):
         context = self.createTestContext()
         self.__assertPolicyResults(1, context, traitSet=set())
@@ -520,10 +528,10 @@ class Test_resolve(FixtureAugmentedTestCase):
         mixed_traits.add("₲₪₡🤯")
         self.__testResolution([ref], mixed_traits, ResolveAccess.kRead, traits)
 
-    def test_when_resolving_read_only_reference_for_write_then_access_error_is_returned(self):
+    def test_when_resolving_read_only_reference_for_publish_then_access_error_is_returned(self):
         self.__testResolutionError(
             "a_reference_to_a_readonly_entity",
-            resolve_access=ResolveAccess.kWrite,
+            resolve_access=ResolveAccess.kManagerDriven,
             errorCode=BatchElementError.ErrorCode.kEntityAccessError,
         )
 

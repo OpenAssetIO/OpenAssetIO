@@ -343,15 +343,24 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
   /**
    * Management Policy queries allow a host to ask a Manager how they
-   * would like to interact with different kinds of entity, and which
-   * traits they are capable of resolving (or persisting). This allows
-   * you to adapt application logic or user-facing behaviour
-   * accordingly.
+   * would like to interact with different kinds of entity.
    *
-   * Queries return a @fqref{trait.TraitsData} "TraitsData" for each
-   * supplied @ref trait_set, imbued with traits that describe the
-   * manager's policy for entities with those traits, and which traits
-   * they are capable of resolving/storing data for.
+   * This includes the policy for a given trait set, as well as the
+   * per-trait policy, with the context for the policy determined by
+   * the @p policyAccess.
+   *
+   * More specifically, depending on the @p policyAccess mode, the
+   * response can tell you
+   * - Whether the manager is capable of resolving or persisting a
+   *   particular kind of entity at all.
+   * - Which specific traits can be @ref resolve "resolved", for
+   *   existing or future entities.
+   * - Which traits can be @ref register_ "persisted" when publishing.
+   * - Which traits must have their required properties filled for
+   *   publishing to succeed.
+   *
+   * This allows you to adapt application logic or user-facing behaviour
+   * accordingly.
    *
    * This is an opt-in mechanism, such that if result is empty, then
    * the manager does not handle entities with the supplied traits.
@@ -364,7 +373,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * question is not managed by the manager, or it can't resolve a
    * required trait. Policy is runtime invariant and so only needs to be
    * checked once for any given set of inputs (which includes the
-   * Context and its @ref locale).
+   * @ref Context and its @ref locale).
    *
    * When querying this API, each Trait Set should be composed of:
    *
@@ -373,22 +382,33 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *  - For @fqref{access.PolicyAccess.kRead} "read" usage, any
    *    additional traits with properties that you wish to resolve for
    *    that type of entity.
-   *  - For @fqref{access.PolicyAccess.kWrite} "write" usage, any
-   *    additional traits with properties that you wish to publish for
-   *    that type of entity.
+   *  - For publishing usage, any additional traits with properties that
+   *    you wish to publish for that type of entity.
    *
    * Along with the traits that describe the manager's desired
    * interaction pattern (ones with the `managementPolicy` usage
    * metadata), the resulting @fqref{trait.TraitsData} "TraitsData" will
    * be imbued with (potentially a subset of) the requested traits,
-   * which the manager is capable of resolving/persisting the properties
-   * for.
+   * signalling the manager's capability or requirements for
+   * resolving/persisting their properties.
    *
-   * If a requested trait is not present, then the manager will never
-   * return properties for that trait in @ref resolve, or be able to
-   * persist those properties with @ref register_. This allows you to
-   * know in advance if you can expect the configured manager to be able
-   * to provide data you may require.
+   * The meaning of the subset of traits in the response varies by
+   * @p policyAccess mode as follows
+   * - @ref access.PolicyAccess.kRead "kRead":  traits that have
+   *   properties the manager can @ref resolve from existing entities.
+   * - @ref access.PolicyAccess.kWrite "kWrite" and @ref
+   *   access.PolicyAccess.kCreateRelated "kCreateRelated": traits that
+   *   have properties the manager can persist when @ref publish
+   *   "publishing".
+   * - @ref access.PolicyAccess.kRequired "kRequired": traits whose
+   *   properties must be provided by the host in order for publishing
+   *   to succeed.
+   * - @ref access.PolicyAccess.kManagerDriven "kManagerDriven": traits
+   *   that have properties that the manager can @ref resolve for a
+   *   future entity (i.e. an entity reference returned from a @ref
+   *   preflight call) that is yet to be @ref register_ "registered".
+   *   That is, traits that the manager wishes to drive, rather than
+   *   have the host decide.
    *
    * This method gives the global policy for how the manager wishes to
    * interact with certain categories of entity. See @ref entityTraits
@@ -405,13 +425,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * by these projects to retrieve data from the supplied
    * trait::TraitsData instead of querying directly using string
    * literals.
-   *
-   * @warning The @p policyAccess that is supplied will be considered by
-   * the manager. If it is set to read, then its response applies to
-   * resolution. If write, then it applies to publishing. Managers may
-   * not handle both operations in the same way. In most situations you
-   * will need to make separate queries for read and write and adapt
-   * your business logic accordingly.
    *
    * @note There is no requirement to call this method before any other
    * API interaction, though it is strongly recommended to do so where
