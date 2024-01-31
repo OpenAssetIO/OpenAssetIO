@@ -5,6 +5,9 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
+#include <fmt/format.h>
+#include <fmt/ranges.h>
+
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 
@@ -41,5 +44,7 @@ void registerTraitsData(const py::module& mod) {
           },
           py::arg("traitId"), py::arg("propertyKey"))
       .def("traitPropertyKeys", &TraitsData::traitPropertyKeys, py::arg("traitId"))
-      .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
+      .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
+      .def("__repr__",
+           [](const TraitsData& self) { return fmt::format("TraitsData({})", self.traitSet()); });
 }

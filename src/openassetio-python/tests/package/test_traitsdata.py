@@ -183,6 +183,15 @@ class Test_TraitsData_equality:
         assert data_a != data_b
 
 
+class Test_TraitsData_repr:
+    def test(self, a_traitsdata):
+        assert repr(a_traitsdata) == str(a_traitsdata)
+        assert (
+            str(a_traitsdata) == 'TraitsData({"first_trait", "second_trait"})'
+            or str(a_traitsdata) == 'TraitsData({"second_trait", "first_trait"})'
+        )
+
+
 @pytest.fixture
 def a_traitsdata():
     return TraitsData({"first_trait", "second_trait"})
