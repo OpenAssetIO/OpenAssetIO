@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2023 The Foundry Visionmongers Ltd
+#   Copyright 2013-2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,10 +17,12 @@
 Tests that cover the openassetio.hostApi.Manager wrapper class.
 """
 import itertools
+from typing import Callable, Any
 
 # pylint: disable=invalid-name,redefined-outer-name,unused-argument
 # pylint: disable=too-many-lines,too-many-locals
 # pylint: disable=missing-class-docstring,missing-function-docstring
+# pylint: disable=too-many-instance-attributes
 from unittest import mock
 import re
 
@@ -49,6 +51,411 @@ from openassetio.trait import TraitsData
 
 # __str__ and __repr__ aren't tested as they're debug tricks that need
 # assessing when this is ported to cpp
+
+
+class BatchFirstMethodTest:
+    """
+    Assertion helpers for testing batch-first methods and their
+    "convenience" method signatures.
+
+    Many Manager methods have multiple overloads that present signatures
+    friendlier for specific workflows, i.e. exception vs. error object,
+    singular vs. batch.
+
+    Convenience signatures all follow a similar pattern across the
+    Manager API, as does their expected behaviour under corner cases.
+    This base class factors out the common assertion logic for all such
+    methods.
+    """
+
+    subtests: Any
+    method: Callable
+    invoke_success_cb: Callable
+    invoke_error_cb: Callable
+    mock_interface_method: mock.Mock
+
+    a_batch_element_error: BatchElementError
+    a_context: Context
+    a_host_session: managerApi.HostSession
+
+    batch_element_error_codes = list(BatchElementError.ErrorCode.__members__.values())
+
+    batch_element_error_codes_names = [
+        "unknown",
+        "invalidEntityReference",
+        "malformedEntityReference",
+        "entityAccessError",
+        "entityResolutionError",
+        "invalidPreflightHint",
+        "invalidTraitSet",
+    ]
+
+    def assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, method_specific_args_for_batch_of_two, one_success_result
+    ):
+        success_callback = mock.Mock()
+        error_callback = mock.Mock()
+
+        def call_callbacks(*_args):
+            self.invoke_success_cb(123, one_success_result)
+            self.invoke_error_cb(456, self.a_batch_element_error)
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        self.method(
+            *method_specific_args_for_batch_of_two,
+            self.a_context,
+            success_callback,
+            error_callback,
+        )
+
+        self.mock_interface_method.assert_called_once_with(
+            *method_specific_args_for_batch_of_two,
+            self.a_context,
+            self.a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        success_callback.assert_called_once_with(123, one_success_result)
+        error_callback.assert_called_once_with(456, self.a_batch_element_error)
+
+    def assert_callback_overload_errors_with_mixed_array_lengths(
+        self,
+        batched_method_specific_args_for_batch_of_two,
+        nonbatched_remaining_method_specific_args,
+        expected_message_pattern,
+    ):
+        for idx, arg in enumerate(batched_method_specific_args_for_batch_of_two):
+            idx_plus_one = idx + 1
+            mismatched_args = (
+                *batched_method_specific_args_for_batch_of_two[:idx],
+                arg[1:],
+                *batched_method_specific_args_for_batch_of_two[idx_plus_one:],
+            )
+
+            arg_lengths = tuple(map(len, mismatched_args))
+
+            with pytest.raises(
+                InputValidationException,
+                match=expected_message_pattern.format(*arg_lengths),
+            ):
+                self.method(
+                    *mismatched_args,
+                    *nonbatched_remaining_method_specific_args,
+                    self.a_context,
+                    mock.Mock(),
+                    mock.Mock(),
+                )
+
+    def assert_callback_overload_errors_with_invalid_batch_element(
+        self, method_specific_args_for_batch_of_two_with_invalid_element
+    ):
+        with pytest.raises(InputValidationException):
+            self.method(
+                *method_specific_args_for_batch_of_two_with_invalid_element,
+                self.a_context,
+                mock.Mock(),
+                mock.Mock(),
+            )
+
+    def assert_singular_overload_success(
+        self,
+        method_specific_args,
+        batched_method_specific_args,
+        expected_result,
+        assert_result_identity=True,
+    ):
+        def call_callbacks(*_args):
+            self.invoke_success_cb(0, expected_result)
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+            [Manager.BatchElementErrorPolicyTag.kVariant],
+        ):
+            with self.subtests.test(tag=tag):
+
+                actual_result = self.method(*method_specific_args, self.a_context, *tag)
+
+                self.mock_interface_method.assert_called_once_with(
+                    *batched_method_specific_args,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert actual_result == expected_result
+                if assert_result_identity:
+                    assert actual_result is expected_result
+
+    def assert_batch_overload_success(
+        self,
+        method_specific_args_for_batch_of_two,
+        expected_results,
+        assert_result_identity=True,
+    ):
+        def call_callbacks(*_args):
+            self.invoke_success_cb(0, expected_results[0])
+            self.invoke_success_cb(1, expected_results[1])
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+            [Manager.BatchElementErrorPolicyTag.kVariant],
+        ):
+            with self.subtests.test(tag=tag):
+                actual_results = self.method(
+                    *method_specific_args_for_batch_of_two, self.a_context, *tag
+                )
+
+                self.mock_interface_method.assert_called_once_with(
+                    *method_specific_args_for_batch_of_two,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert actual_results == expected_results
+
+                if assert_result_identity:
+                    for actual, expected in zip(actual_results, expected_results):
+                        assert actual is expected
+
+    def assert_batch_overload_success_out_of_order(
+        self,
+        method_specific_args_for_batch_of_two,
+        expected_results,
+        assert_result_identity=True,
+    ):
+        def call_callbacks(*_args):
+            self.invoke_success_cb(1, expected_results[1])
+            self.invoke_success_cb(0, expected_results[0])
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+            [Manager.BatchElementErrorPolicyTag.kVariant],
+        ):
+            with self.subtests.test(tag=tag):
+
+                actual_results = self.method(
+                    *method_specific_args_for_batch_of_two, self.a_context, *tag
+                )
+
+                self.mock_interface_method.assert_called_once_with(
+                    *method_specific_args_for_batch_of_two,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert actual_results == expected_results
+
+                if assert_result_identity:
+                    for actual, expected in zip(actual_results, expected_results):
+                        assert actual is expected
+
+    def assert_singular_variant_overload_error(
+        self,
+        method_specific_args,
+        batched_method_specific_args,
+    ):
+        expected_result = BatchElementError(
+            BatchElementError.ErrorCode.kInvalidEntityReference, "some string ✨"
+        )
+
+        def call_callbacks(*_args):
+            self.invoke_error_cb(123, expected_result)
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        actual_result = self.method(
+            *method_specific_args,
+            self.a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        self.mock_interface_method.assert_called_once_with(
+            *batched_method_specific_args,
+            self.a_context,
+            self.a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert actual_result == expected_result
+
+    def assert_batch_variant_overload_mixed_output(
+        self,
+        method_specific_args_for_batch_of_two,
+        one_success_result,
+    ):
+        expected_error_result = BatchElementError(
+            BatchElementError.ErrorCode.kInvalidEntityReference, "some string ✨"
+        )
+
+        def call_callbacks(*_args):
+            self.invoke_success_cb(0, one_success_result)
+            self.invoke_error_cb(1, expected_error_result)
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        actual_success_result_and_error = self.method(
+            *method_specific_args_for_batch_of_two,
+            self.a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        self.mock_interface_method.assert_called_once_with(
+            *method_specific_args_for_batch_of_two,
+            self.a_context,
+            self.a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_success_result_and_error) == 2
+        assert actual_success_result_and_error[0] == one_success_result
+        assert actual_success_result_and_error[1] == expected_error_result
+
+    def assert_batch_variant_overload_mixed_output_out_of_order(
+        self, method_specific_args_for_batch_of_four, two_success_results
+    ):
+        expected_results = [
+            BatchElementError(
+                BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
+            ),
+            two_success_results[0],
+            BatchElementError(
+                BatchElementError.ErrorCode.kEntityResolutionError, "2 some string ✨"
+            ),
+            two_success_results[1],
+        ]
+
+        def call_callbacks(*_args):
+            self.invoke_success_cb(1, expected_results[1])
+            self.invoke_error_cb(0, expected_results[0])
+            self.invoke_success_cb(3, expected_results[3])
+            self.invoke_error_cb(2, expected_results[2])
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        actual_results = self.method(
+            *method_specific_args_for_batch_of_four,
+            self.a_context,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        )
+
+        self.mock_interface_method.assert_called_once_with(
+            *method_specific_args_for_batch_of_four,
+            self.a_context,
+            self.a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert actual_results == expected_results
+
+    def assert_singular_throwing_overload_raises(
+        self,
+        method_specific_args,
+        batched_method_specific_args,
+        batch_element_error,
+        expected_error_message,
+    ):
+        expected_index = 0
+
+        def call_callbacks(*_args):
+            self.invoke_error_cb(expected_index, batch_element_error)
+            pytest.fail("Singular method shouldn't invoke multiple callbacks")
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        for tag in ([], [Manager.BatchElementErrorPolicyTag.kException]):
+            with self.subtests.test(tag=tag):
+                with pytest.raises(
+                    BatchElementException,
+                    match=re.escape(expected_error_message),
+                ) as exc:
+                    self.method(
+                        *method_specific_args,
+                        self.a_context,
+                        *tag,
+                    )
+
+                # Remember this is the managerInterface, always takes a list
+                # regardless of convenience called.
+                self.mock_interface_method.assert_called_once_with(
+                    *batched_method_specific_args,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert exc.value.index == expected_index
+                assert exc.value.error == batch_element_error
+
+    def assert_batched_throwing_overload_raises(
+        self,
+        method_specific_args_for_batch_of_two,
+        batch_element_error,
+        expected_error_message,
+    ):
+        expected_index = 0
+
+        def call_callbacks(*_args):
+            self.invoke_error_cb(expected_index, batch_element_error)
+            pytest.fail("Exception should have short-circuited this")
+
+        self.mock_interface_method.side_effect = call_callbacks
+
+        for tag in ([], [Manager.BatchElementErrorPolicyTag.kException]):
+            with self.subtests.test(tag=tag):
+                with pytest.raises(
+                    BatchElementException,
+                    match=re.escape(expected_error_message),
+                ) as exc:
+                    self.method(
+                        *method_specific_args_for_batch_of_two,
+                        self.a_context,
+                        *tag,
+                    )
+
+                self.mock_interface_method.assert_called_once_with(
+                    *method_specific_args_for_batch_of_two,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert exc.value.index == expected_index
+                assert exc.value.error == batch_element_error
+
+    def _make_expected_err_msg(self, batch_element_error, access, entityRef):
+        error_type_name = self.batch_element_error_codes_names[
+            self.batch_element_error_codes.index(batch_element_error.code)
+        ]
+        return (
+            f"{error_type_name}: {batch_element_error.message} [index=0]"
+            f" [access={kAccessNames[access]}] [entity={entityRef}]"
+        )
 
 
 class Test_Manager_init:
@@ -889,489 +1296,170 @@ class Test_Manager_BatchElementErrorPolicyTag:
         )
 
 
-class Test_Manager_resolve_with_callback_signature:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.resolve)
-        assert method_introspector.is_implemented_once(Manager, "resolve")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
+class Test_Manager_resolve(BatchFirstMethodTest):
+    @pytest.fixture(autouse=True)
+    def constructor(
         self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        a_traitsdata,
+        subtests,
+        invoke_resolve_success_cb,
+        invoke_resolve_error_cb,
         a_batch_element_error,
-        invoke_resolve_success_cb,
-        invoke_resolve_error_cb,
-    ):
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
-
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(123, a_traitsdata)
-            invoke_resolve_error_cb(456, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.resolve(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            success_callback,
-            error_callback,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        success_callback.assert_called_once_with(123, a_traitsdata)
-        error_callback.assert_called_once_with(456, a_batch_element_error)
-
-
-batch_element_error_codes = [
-    BatchElementError.ErrorCode.kUnknown,
-    BatchElementError.ErrorCode.kInvalidEntityReference,
-    BatchElementError.ErrorCode.kMalformedEntityReference,
-    BatchElementError.ErrorCode.kEntityAccessError,
-    BatchElementError.ErrorCode.kEntityResolutionError,
-    BatchElementError.ErrorCode.kInvalidPreflightHint,
-    BatchElementError.ErrorCode.kInvalidTraitSet,
-]
-
-
-class Test_Manager_resolve_with_singular_default_overload:
-    def test_when_success_then_single_TraitsData_returned(
-        self,
+        a_context,
+        a_host_session,
         manager,
         mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        a_traitsdata,
-        invoke_resolve_success_cb,
     ):
-        method = mock_manager_interface.mock.resolve
+        self.subtests = subtests
+        self.invoke_success_cb = invoke_resolve_success_cb
+        self.invoke_error_cb = invoke_resolve_error_cb
+        self.a_batch_element_error = a_batch_element_error
+        self.a_context = a_context
+        self.a_host_session = a_host_session
 
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
+        self.method = manager.resolve
+        self.mock_interface_method = mock_manager_interface.mock.resolve
 
-        method.side_effect = call_callbacks
-
-        actual_traitsdata = manager.resolve(
-            a_ref, an_entity_trait_set, access.ResolveAccess.kRead, a_context
+    def test_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, two_refs, an_entity_trait_set, a_traitsdata
+    ):
+        self.assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            one_success_result=a_traitsdata,
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+    def test_singular_overload_success(self, a_ref, an_entity_trait_set, a_traitsdata):
+        self.assert_singular_overload_success(
+            method_specific_args=(
+                a_ref,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            expected_result=a_traitsdata,
         )
 
-        assert actual_traitsdata is a_traitsdata
+    def test_batch_overload_success(self, two_refs, an_entity_trait_set, two_entity_traitsdatas):
+        self.assert_batch_overload_success(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            expected_results=two_entity_traitsdatas,
+        )
 
-
-class Test_Manager_resolve_with_singular_throwing_overload:
-    def test_when_resolve_success_then_single_TraitsData_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        a_traitsdata,
-        invoke_resolve_success_cb,
+    def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
+        self, two_refs, an_entity_trait_set, two_entity_traitsdatas
     ):
-        method = mock_manager_interface.mock.resolve
+        self.assert_batch_overload_success_out_of_order(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            expected_results=two_entity_traitsdatas,
+        )
 
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
+    def test_when_singular_variant_overload_errors_then_error_returned(
+        self, a_ref, an_entity_trait_set
+    ):
+        self.assert_singular_variant_overload_error(
+            method_specific_args=(
+                a_ref,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+        )
 
-        method.side_effect = call_callbacks
+    def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
+        self, two_refs, an_entity_trait_set, a_traitsdata
+    ):
+        self.assert_batch_variant_overload_mixed_output(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            one_success_result=a_traitsdata,
+        )
 
-        actual_traitsdata = manager.resolve(
+    def test_when_batch_variant_overload_receives_mixed_output_out_of_order_then_results_reordered(
+        self, four_refs, an_entity_trait_set, two_entity_traitsdatas
+    ):
+        self.assert_batch_variant_overload_mixed_output_out_of_order(
+            method_specific_args_for_batch_of_four=(
+                four_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            two_success_results=two_entity_traitsdatas,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.ResolveAccess.kRead, access.ResolveAccess.kManagerDriven]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_singular_throwing_overload_errors_then_raises(
+        self, a_ref, an_entity_trait_set, a_traitsdata, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
             a_ref,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+        self.assert_singular_throwing_overload_raises(
+            method_specific_args=(
+                a_ref,
+                an_entity_trait_set,
+                access_mode,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                an_entity_trait_set,
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
         )
 
-        assert actual_traitsdata is a_traitsdata
-
-
-class Test_Manager_resolve_with_singular_variant_overload:
-    def test_when_resolve_success_then_single_TraitsData_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        a_traitsdata,
-        invoke_resolve_success_cb,
+    @pytest.mark.parametrize(
+        "access_mode", [access.ResolveAccess.kRead, access.ResolveAccess.kManagerDriven]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_batched_throwing_overload_errors_then_raises(
+        self, two_refs, an_entity_trait_set, access_mode, error_code
     ):
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdata = manager.resolve(
-            a_ref,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            two_refs[0],
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+        self.assert_batched_throwing_overload_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
         )
-
-        assert actual_traitsdata is a_traitsdata
-
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_BatchElementError_then_BatchElementError_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        error_code,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual = manager.resolve(
-            a_ref,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            [a_ref],
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual == batch_element_error
-
-
-class Test_Manager_resolve_with_batch_default_overload:
-    def test_when_success_then_multiple_TraitsDatas_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        some_entity_traitsdatas,
-        invoke_resolve_success_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
-            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdatas = manager.resolve(
-            some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
-
-    def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        some_entity_traitsdatas,
-        invoke_resolve_success_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
-            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdatas = manager.resolve(
-            some_refs, an_entity_trait_set, access.ResolveAccess.kRead, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
-
-
-class Test_Manager_resolve_with_batch_throwing_overload:
-    def test_when_success_then_multiple_TraitsDatas_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        some_entity_traitsdatas,
-        invoke_resolve_success_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
-            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdatas = manager.resolve(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
-
-    def test_when_success_out_of_order_then_TraitsDatas_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        some_entity_traitsdatas,
-        invoke_resolve_success_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        def call_callbacks(*_args):
-            # Success
-            invoke_resolve_success_cb(1, some_entity_traitsdatas[1])
-            invoke_resolve_success_cb(0, some_entity_traitsdatas[0])
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdatas = manager.resolve(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdatas) == 2
-        assert actual_traitsdatas[0] is some_entity_traitsdatas[0]
-        assert actual_traitsdatas[1] is some_entity_traitsdatas[1]
-
-
-class Test_Manager_resolve_with_batch_variant_overload:
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_mixed_output_then_returned_list_contains_output(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        a_traitsdata,
-        error_code,
-        invoke_resolve_success_cb,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(0, a_traitsdata)
-            invoke_resolve_error_cb(1, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdata_and_error = manager.resolve(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdata_and_error) == 2
-        assert actual_traitsdata_and_error[0] is a_traitsdata
-        assert actual_traitsdata_and_error[1] == batch_element_error
-
-    def test_when_mixed_output_out_of_order_then_output_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        an_entity_trait_set,
-        a_context,
-        invoke_resolve_success_cb,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        entity_refs = [a_ref] * 4
-
-        batch_element_error0 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
-        )
-        traitsdata1 = TraitsData({"trait1"})
-        batch_element_error2 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
-        )
-        traitsdata3 = TraitsData({"trait3"})
-
-        def call_callbacks(*_args):
-            invoke_resolve_success_cb(1, traitsdata1)
-            invoke_resolve_error_cb(0, batch_element_error0)
-            invoke_resolve_success_cb(3, traitsdata3)
-            invoke_resolve_error_cb(2, batch_element_error2)
-
-        method.side_effect = call_callbacks
-
-        actual_traitsdata_and_error = manager.resolve(
-            entity_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            entity_refs,
-            an_entity_trait_set,
-            access.ResolveAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_traitsdata_and_error) == 4
-        assert actual_traitsdata_and_error[0] == batch_element_error0
-        assert actual_traitsdata_and_error[1] is traitsdata1
-        assert actual_traitsdata_and_error[2] == batch_element_error2
-        assert actual_traitsdata_and_error[3] is traitsdata3
 
 
 class Test_Manager_entityTraits:
@@ -1445,1091 +1533,384 @@ class Test_Manager_managementPolicy:
         )
 
 
-class Test_Manager_preflight_callback_signature:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.preflight)
-        assert method_introspector.is_implemented_once(Manager, "preflight")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
+class Test_Manager_preflight(BatchFirstMethodTest):
+    @pytest.fixture(autouse=True)
+    def constructor(
         self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
+        subtests,
+        invoke_preflight_success_cb,
+        invoke_preflight_error_cb,
         a_batch_element_error,
-        invoke_preflight_success_cb,
-        invoke_preflight_error_cb,
-    ):
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
-
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            input_refs = method.call_args[0][0]
-            invoke_preflight_success_cb(123, input_refs[0])
-            invoke_preflight_error_cb(456, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.preflight(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            success_callback,
-            error_callback,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        success_callback.assert_called_once_with(123, some_refs[0])
-        error_callback.assert_called_once_with(456, a_batch_element_error)
-
-    def test_when_called_with_mixed_array_lengths_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        expected_message = (
-            "Parameter lists must be of the same length: {} entity references vs. {} traits hints."
-        )
-        with pytest.raises(
-            InputValidationException,
-            match=expected_message.format(len(some_refs) - 1, len(some_refs)),
-        ):
-            manager.preflight(
-                some_refs[1:],
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-        with pytest.raises(
-            InputValidationException,
-            match=expected_message.format(len(some_refs), len(some_refs) - 1),
-        ):
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas[1:],
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        some_entity_traitsdatas[-1] = None
-
-        with pytest.raises(InputValidationException):
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-
-class Test_Manager_preflight_with_singular_default_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
-        with pytest.raises(TypeError):
-            manager.preflight(a_ref, None, access.PublishingAccess.kCreateRelated, a_context)
-
-    def test_when_success_then_single_EntityReference_returned(
-        self,
+        a_context,
+        a_host_session,
         manager,
         mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        a_different_ref,
-        invoke_preflight_success_cb,
     ):
-        method = mock_manager_interface.mock.preflight
+        self.subtests = subtests
+        self.invoke_success_cb = invoke_preflight_success_cb
+        self.invoke_error_cb = invoke_preflight_error_cb
+        self.a_batch_element_error = a_batch_element_error
+        self.a_context = a_context
+        self.a_host_session = a_host_session
 
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
+        self.method = manager.preflight
+        self.mock_interface_method = mock_manager_interface.mock.preflight
 
-        method.side_effect = call_callbacks
-
-        actual_ref = manager.preflight(
-            a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
-        )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_ref == a_different_ref
-
-
-class Test_Manager_preflight_with_singular_throwing_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
-        with pytest.raises(TypeError):
-            manager.preflight(
-                a_ref,
-                None,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-    def test_when_preflight_success_then_single_EntityReference_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        a_different_ref,
-        invoke_preflight_success_cb,
+    def test_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, two_refs, two_entity_traitsdatas, a_ref
     ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
-
-        method.side_effect = call_callbacks
-
-        actual_ref = manager.preflight(
-            a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
+        self.assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_ref == a_different_ref
-
-
-class Test_Manager_preflight_with_singular_variant_overload:
-    def test_when_traits_data_is_None_then_TypeError_is_raised(self, manager, a_ref, a_context):
-        with pytest.raises(TypeError):
-            manager.preflight(
-                a_ref,
-                None,
-                access.PublishingAccess.kCreateRelated,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kVariant,
-            )
-
-    def test_when_preflight_success_then_single_EntityReference_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        a_different_ref,
-        invoke_preflight_success_cb,
+    def test_when_callback_overload_given_mixed_array_lengths_then_raises(
+        self, two_refs, two_entity_traitsdatas
     ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
-
-        method.side_effect = call_callbacks
-
-        actual_ref = manager.preflight(
-            a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
+        self.assert_callback_overload_errors_with_mixed_array_lengths(
+            batched_method_specific_args_for_batch_of_two=(two_refs, two_entity_traitsdatas),
+            nonbatched_remaining_method_specific_args=(access.PublishingAccess.kWrite,),
+            expected_message_pattern=(
+                "Parameter lists must be of the same length: {} entity references vs."
+                " {} traits hints."
+            ),
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_ref == a_different_ref
-
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_BatchElementError_then_BatchElementError_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        error_code,
-        invoke_preflight_error_cb,
+    def test_when_callback_overload_given_invalid_batch_element_then_raises(
+        self, two_refs, a_traitsdata
     ):
-        method = mock_manager_interface.mock.preflight
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual = manager.preflight(
-            a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual == batch_element_error
-
-
-class Test_Manager_preflight_with_batch_default_overload:
-    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        some_entity_traitsdatas[-1] = None
-        with pytest.raises(InputValidationException):
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-            )
-
-    def test_when_success_then_multiple_EntityReferences_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_preflight_success_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, some_different_refs[0])
-            invoke_preflight_success_cb(1, some_different_refs[1])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.preflight(
-            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_preflight_success_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(1, some_different_refs[1])
-            invoke_preflight_success_cb(0, some_different_refs[0])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.preflight(
-            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-
-class Test_Manager_preflight_with_batch_throwing_overload:
-    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        some_entity_traitsdatas[-1] = None
-        with pytest.raises(InputValidationException):
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kException,
-            )
-
-    def test_when_success_then_multiple_EntityReferences_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_preflight_success_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, some_different_refs[0])
-            invoke_preflight_success_cb(1, some_different_refs[1])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.preflight(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_preflight_success_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(1, some_different_refs[1])
-            invoke_preflight_success_cb(0, some_different_refs[0])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.preflight(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-
-class Test_Manager_preflight_with_batch_variant_overload:
-    def test_when_traits_data_is_None_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        some_entity_traitsdatas[-1] = None
-        with pytest.raises(InputValidationException):
-            manager.preflight(
-                some_refs,
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                Manager.BatchElementErrorPolicyTag.kVariant,
-            )
-
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_mixed_output_then_returned_list_contains_output(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        a_different_ref,
-        error_code,
-        invoke_preflight_success_cb,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(0, a_different_ref)
-            invoke_preflight_error_cb(1, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual_ref_or_error = manager.preflight(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_ref_or_error) == 2
-        assert actual_ref_or_error[0] == a_different_ref
-        assert actual_ref_or_error[1] == batch_element_error
-
-    def test_when_mixed_output_out_of_order_then_output_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        invoke_preflight_success_cb,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        entity_refs = [a_ref] * 4
-        traits_datas = [a_traitsdata] * len(entity_refs)
-
-        batch_element_error0 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
-        )
-        entity_ref1 = EntityReference("ref1")
-        batch_element_error2 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "2 some string ✨"
-        )
-        entity_ref3 = EntityReference("ref3")
-
-        def call_callbacks(*_args):
-            invoke_preflight_success_cb(1, entity_ref1)
-            invoke_preflight_error_cb(0, batch_element_error0)
-            invoke_preflight_success_cb(3, entity_ref3)
-            invoke_preflight_error_cb(2, batch_element_error2)
-
-        method.side_effect = call_callbacks
-
-        actual_ref_or_error = manager.preflight(
-            entity_refs,
-            traits_datas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            entity_refs,
-            traits_datas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_ref_or_error) == 4
-        assert actual_ref_or_error[0] == batch_element_error0
-        assert actual_ref_or_error[1] == entity_ref1
-        assert actual_ref_or_error[2] == batch_element_error2
-        assert actual_ref_or_error[3] == entity_ref3
-
-
-class Test_Manager_register_callback_overload:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.register)
-        assert method_introspector.is_implemented_once(Manager, "register")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        a_context,
-        some_entity_traitsdatas,
-        a_batch_element_error,
-        invoke_register_success_cb,
-        invoke_register_error_cb,
-    ):
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
-
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            input_refs = method.call_args[0][0]
-            invoke_register_success_cb(123, input_refs[0])
-            invoke_register_error_cb(456, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.register(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            success_callback,
-            error_callback,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        success_callback.assert_called_once_with(123, some_refs[0])
-        error_callback.assert_called_once_with(456, a_batch_element_error)
-
-    def test_when_called_with_mixed_array_lengths_then_InputValidationException_is_raised(
-        self, manager, some_refs, some_entity_traitsdatas, a_context
-    ):
-        expected_message = (
-            "Parameter lists must be of the same length: {} entity references vs. {} traits datas."
-        )
-        with pytest.raises(
-            InputValidationException,
-            match=expected_message.format(len(some_refs) - 1, len(some_refs)),
-        ):
-            manager.register(
-                some_refs[1:],
-                some_entity_traitsdatas,
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-        with pytest.raises(
-            InputValidationException,
-            match=expected_message.format(len(some_refs), len(some_refs) - 1),
-        ):
-            manager.register(
-                some_refs,
-                some_entity_traitsdatas[1:],
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
-            )
-
-    def test_when_called_with_None_data_then_InputValidationException_is_raised(
-        self, manager, some_refs, a_context, a_traitsdata
-    ):
-        with pytest.raises(InputValidationException):
-            manager.register(
-                some_refs,
+        self.assert_callback_overload_errors_with_invalid_batch_element(
+            method_specific_args_for_batch_of_two_with_invalid_element=(
+                two_refs,
                 [a_traitsdata, None],
-                access.PublishingAccess.kCreateRelated,
-                a_context,
-                mock.Mock(),
-                mock.Mock(),
+                access.PublishingAccess.kWrite,
             )
-
-
-class Test_Manager_register_with_singular_default_overload:
-    def test_when_success_then_single_EntityReference_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        a_different_ref,
-        a_traitsdata,
-        invoke_register_success_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
-
-        method.side_effect = call_callbacks
-
-        actual_ref = manager.register(
-            a_ref, a_traitsdata, access.PublishingAccess.kCreateRelated, a_context
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+    def test_singular_overload_success(self, a_ref, a_different_ref, a_traitsdata):
+        self.assert_singular_overload_success(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+            expected_result=a_different_ref,
+            assert_result_identity=False,
         )
 
-        assert actual_ref == a_different_ref
+    def test_batch_overload_success(self, two_refs, two_entity_traitsdatas, two_different_refs):
+        self.assert_batch_overload_success(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_results=two_different_refs,
+            assert_result_identity=False,
+        )
 
-
-class Test_Manager_register_with_singular_throwing_overload:
-    def test_when_register_success_then_single_EntityReference_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        a_different_ref,
-        a_traitsdata,
-        invoke_register_success_cb,
+    def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
+        self, two_refs, two_entity_traitsdatas, two_different_refs
     ):
-        method = mock_manager_interface.mock.register
+        self.assert_batch_overload_success_out_of_order(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_results=two_different_refs,
+            assert_result_identity=False,
+        )
 
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
+    def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref, a_traitsdata):
+        self.assert_singular_variant_overload_error(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+        )
 
-        method.side_effect = call_callbacks
+    def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
+        self, two_refs, two_entity_traitsdatas, a_ref
+    ):
+        self.assert_batch_variant_overload_mixed_output(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
+        )
 
-        actual_ref = manager.register(
+    def test_when_batch_variant_overload_receives_mixed_output_out_of_order_then_results_reordered(
+        self, four_refs, four_entity_traitsdatas, two_refs
+    ):
+        self.assert_batch_variant_overload_mixed_output_out_of_order(
+            method_specific_args_for_batch_of_four=(
+                four_refs,
+                four_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            two_success_results=two_refs,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_singular_throwing_overload_errors_then_raises(
+        self, a_ref, a_traitsdata, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
             a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+        self.assert_singular_throwing_overload_raises(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access_mode,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
         )
 
-        assert actual_ref == a_different_ref
-
-
-class Test_Manager_register_with_singular_variant_overload:
-    def test_when_register_success_then_single_EntityReference_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        a_different_ref,
-        a_traitsdata,
-        invoke_register_success_cb,
+    @pytest.mark.parametrize(
+        "access_mode", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_batched_throwing_overload_errors_then_raises(
+        self, two_refs, two_entity_traitsdatas, access_mode, error_code
     ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
-
-        method.side_effect = call_callbacks
-
-        actual_ref = manager.register(
-            a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            two_refs[0],
         )
 
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+        self.assert_batched_throwing_overload_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
         )
 
-        assert actual_ref == a_different_ref
 
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_BatchElementError_then_BatchElementError_returned(
+class Test_Manager_register(BatchFirstMethodTest):
+    @pytest.fixture(autouse=True)
+    def constructor(
         self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_context,
-        error_code,
-        a_traitsdata,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        expected_index = 213
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_error_cb(expected_index, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual = manager.register(
-            a_ref,
-            a_traitsdata,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            [a_ref],
-            [a_traitsdata],
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual == batch_element_error
-
-
-class Test_Manager_register_with_batch_default_overload:
-    def test_when_success_then_multiple_EntityReferences_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        a_context,
-        some_different_refs,
-        some_entity_traitsdatas,
-        invoke_register_success_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, some_different_refs[0])
-            invoke_register_success_cb(1, some_different_refs[1])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.register(
-            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        a_context,
-        some_different_refs,
-        some_entity_traitsdatas,
-        invoke_register_success_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(1, some_different_refs[1])
-            invoke_register_success_cb(0, some_different_refs[0])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.register(
-            some_refs, some_entity_traitsdatas, access.PublishingAccess.kCreateRelated, a_context
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-
-class Test_Manager_register_with_batch_throwing_overload:
-    def test_when_success_then_multiple_EntityReferences_returned(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_register_success_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, some_different_refs[0])
-            invoke_register_success_cb(1, some_different_refs[1])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.register(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-    def test_when_success_out_of_order_then_EntityReferences_returned_in_order(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        some_different_refs,
-        invoke_register_success_cb,
-    ):
-        method = mock_manager_interface.mock.register
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(1, some_different_refs[1])
-            invoke_register_success_cb(0, some_different_refs[0])
-
-        method.side_effect = call_callbacks
-
-        actual_refs = manager.register(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kException,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert actual_refs == some_different_refs
-
-
-class Test_Manager_register_with_batch_variant_overload:
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    def test_when_mixed_output_then_returned_list_contains_output(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        a_different_ref,
-        error_code,
+        subtests,
         invoke_register_success_cb,
         invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(0, a_different_ref)
-            invoke_register_error_cb(1, batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        actual_ref_or_error = manager.register(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
-        )
-
-        method.assert_called_once_with(
-            some_refs,
-            some_entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert len(actual_ref_or_error) == 2
-        assert actual_ref_or_error[0] == a_different_ref
-        assert actual_ref_or_error[1] == batch_element_error
-
-    def test_when_mixed_output_out_of_order_then_output_returned_in_order(
-        self,
+        a_batch_element_error,
+        a_context,
+        a_host_session,
         manager,
         mock_manager_interface,
-        a_host_session,
-        a_ref,
-        a_traitsdata,
-        a_context,
-        invoke_register_success_cb,
-        invoke_register_error_cb,
     ):
-        method = mock_manager_interface.mock.register
+        self.subtests = subtests
+        self.invoke_success_cb = invoke_register_success_cb
+        self.invoke_error_cb = invoke_register_error_cb
+        self.a_batch_element_error = a_batch_element_error
+        self.a_context = a_context
+        self.a_host_session = a_host_session
 
-        entity_refs = [a_ref] * 4
-        entity_traitsdatas = [a_traitsdata] * 4
+        self.method = manager.register
+        self.mock_interface_method = mock_manager_interface.mock.register
 
-        batch_element_error0 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "0 some string ✨"
-        )
-        entity_ref1 = EntityReference("ref1")
-        batch_element_error2 = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "2 some string ✨"
-        )
-        entity_ref3 = EntityReference("ref3")
-
-        def call_callbacks(*_args):
-            invoke_register_success_cb(1, entity_ref1)
-            invoke_register_error_cb(0, batch_element_error0)
-            invoke_register_success_cb(3, entity_ref3)
-            invoke_register_error_cb(2, batch_element_error2)
-
-        method.side_effect = call_callbacks
-
-        actual_ref_or_error = manager.register(
-            entity_refs,
-            entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            Manager.BatchElementErrorPolicyTag.kVariant,
+    def test_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, two_refs, two_entity_traitsdatas, a_ref
+    ):
+        self.assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
         )
 
-        method.assert_called_once_with(
-            entity_refs,
-            entity_traitsdatas,
-            access.PublishingAccess.kCreateRelated,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+    def test_when_callback_overload_given_mixed_array_lengths_then_raises(
+        self, two_refs, two_entity_traitsdatas
+    ):
+        self.assert_callback_overload_errors_with_mixed_array_lengths(
+            batched_method_specific_args_for_batch_of_two=(two_refs, two_entity_traitsdatas),
+            nonbatched_remaining_method_specific_args=(access.PublishingAccess.kWrite,),
+            expected_message_pattern=(
+                "Parameter lists must be of the same length: {} entity references vs."
+                " {} traits datas."
+            ),
         )
 
-        assert len(actual_ref_or_error) == 4
-        assert actual_ref_or_error[0] == batch_element_error0
-        assert actual_ref_or_error[1] == entity_ref1
-        assert actual_ref_or_error[2] == batch_element_error2
-        assert actual_ref_or_error[3] == entity_ref3
+    def test_when_callback_overload_given_invalid_batch_element_then_raises(
+        self, two_refs, a_traitsdata
+    ):
+        self.assert_callback_overload_errors_with_invalid_batch_element(
+            method_specific_args_for_batch_of_two_with_invalid_element=(
+                two_refs,
+                [a_traitsdata, None],
+                access.PublishingAccess.kWrite,
+            )
+        )
+
+    def test_singular_overload_success(self, a_ref, a_different_ref, a_traitsdata):
+        self.assert_singular_overload_success(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+            expected_result=a_different_ref,
+            assert_result_identity=False,
+        )
+
+    def test_batch_overload_success(self, two_refs, two_entity_traitsdatas, two_different_refs):
+        self.assert_batch_overload_success(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_results=two_different_refs,
+            assert_result_identity=False,
+        )
+
+    def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
+        self, two_refs, two_entity_traitsdatas, two_different_refs
+    ):
+        self.assert_batch_overload_success_out_of_order(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_results=two_different_refs,
+            assert_result_identity=False,
+        )
+
+    def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref, a_traitsdata):
+        self.assert_singular_variant_overload_error(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
+        self, two_refs, two_entity_traitsdatas, a_ref
+    ):
+        self.assert_batch_variant_overload_mixed_output(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_out_of_order_then_results_reordered(
+        self, four_refs, four_entity_traitsdatas, two_refs
+    ):
+        self.assert_batch_variant_overload_mixed_output_out_of_order(
+            method_specific_args_for_batch_of_four=(
+                four_refs,
+                four_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            two_success_results=two_refs,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_singular_throwing_overload_errors_then_raises(
+        self, a_ref, a_traitsdata, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            a_ref,
+        )
+
+        self.assert_singular_throwing_overload_raises(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access_mode,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_batched_throwing_overload_errors_then_raises(
+        self, two_refs, two_entity_traitsdatas, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            two_refs[0],
+        )
+
+        self.assert_batched_throwing_overload_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
 
 
 class Test_Manager_createContext:
@@ -2690,253 +2071,6 @@ class Test_Manager_contextFromPersistenceToken:
         mock_manager_interface.mock.stateFromPersistenceToken.assert_not_called()
 
 
-batch_element_error_codes_names = [
-    "unknown",
-    "invalidEntityReference",
-    "malformedEntityReference",
-    "entityAccessError",
-    "entityResolutionError",
-    "invalidPreflightHint",
-    "invalidTraitSet",
-]
-
-
-def make_expected_err_msg(batch_element_error, index, access, entityRef):
-    error_type_name = batch_element_error_codes_names[
-        batch_element_error_codes.index(batch_element_error.code)
-    ]
-    return (
-        f"{error_type_name}: {batch_element_error.message} [index={index}]"
-        f" [access={kAccessNames[access]}] [entity={entityRef}]"
-    )
-
-
-# Conveniences to allow us to paramaterize singular and batch
-def ensure_list(item):
-    return item if isinstance(item, list) else [item]
-
-
-def ensure_singular(item):
-    return item[0] if isinstance(item, list) else item
-
-
-class Test_Manager_convenience_exceptions:
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    @pytest.mark.parametrize(
-        "access", [access.ResolveAccess.kRead, access.ResolveAccess.kManagerDriven]
-    )
-    @pytest.mark.parametrize("singular", [True, False])
-    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
-    def test_when_batch_resolve_emits_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        error_code,
-        access,
-        singular,
-        tag,
-        invoke_resolve_error_cb,
-    ):
-        method = mock_manager_interface.mock.resolve
-
-        expected_index = 0
-
-        # We're parametrizing over different signatures here for
-        # brevity, we want to invoke different overloads, either the
-        # singular convenience or the batch method.
-        singular_or_multi_ref = some_refs[0] if singular else some_refs
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_resolve_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(
-            BatchElementException,
-            match=re.escape(
-                make_expected_err_msg(
-                    batch_element_error,
-                    expected_index,
-                    access,
-                    ensure_singular(singular_or_multi_ref),
-                )
-            ),
-        ) as exc:
-            manager.resolve(
-                singular_or_multi_ref,
-                an_entity_trait_set,
-                access,
-                a_context,
-                *tag,
-            )
-
-        # Remember this is the managerInterface, always takes a list
-        # regardless of convenience called.
-        method.assert_called_once_with(
-            ensure_list(singular_or_multi_ref),
-            an_entity_trait_set,
-            access,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    @pytest.mark.parametrize(
-        "access", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
-    )
-    @pytest.mark.parametrize("singular", [True, False])
-    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
-    def test_when_batch_preflight_emits_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        access,
-        singular,
-        tag,
-        invoke_preflight_error_cb,
-    ):
-        method = mock_manager_interface.mock.preflight
-
-        expected_index = 0
-
-        # We're parametrizing over different signatures here for
-        # brevity, we want to invoke different overloads, either the
-        # singular convenience or the batch method.
-        singular_or_multi_ref = some_refs[0] if singular else some_refs
-        singular_or_multi_traitsdatas = (
-            some_entity_traitsdatas[0] if singular else some_entity_traitsdatas
-        )
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_preflight_error_cb(expected_index, batch_element_error)
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(
-            BatchElementException,
-            match=re.escape(
-                make_expected_err_msg(
-                    batch_element_error,
-                    expected_index,
-                    access,
-                    ensure_singular(singular_or_multi_ref),
-                )
-            ),
-        ) as exc:
-            manager.preflight(
-                singular_or_multi_ref, singular_or_multi_traitsdatas, access, a_context, *tag
-            )
-
-        # Remember this is the managerInterface, always takes a list
-        # regardless of convenience called.
-        method.assert_called_once_with(
-            ensure_list(singular_or_multi_ref),
-            ensure_list(singular_or_multi_traitsdatas),
-            access,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
-    @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    @pytest.mark.parametrize(
-        "access", [access.PublishingAccess.kWrite, access.PublishingAccess.kCreateRelated]
-    )
-    @pytest.mark.parametrize("singular", [True, False])
-    @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
-    def test_when_batch_register_emits_BatchElementError_then_appropriate_exception_raised(
-        self,
-        manager,
-        a_host_session,
-        mock_manager_interface,
-        some_refs,
-        some_entity_traitsdatas,
-        a_context,
-        error_code,
-        access,
-        tag,
-        singular,
-        invoke_register_error_cb,
-    ):
-        method = mock_manager_interface.mock.register
-        expected_index = 0
-
-        # We're parametrizing over different signatures here for
-        # brevity, we want to invoke different overloads, either the
-        # singular convenience or the batch method.
-        singular_or_multi_ref = some_refs[0] if singular else some_refs
-        singular_or_multi_traitsdatas = (
-            some_entity_traitsdatas[0] if singular else some_entity_traitsdatas
-        )
-
-        batch_element_error = BatchElementError(error_code, "some string ✨")
-
-        def call_callbacks(*_args):
-            invoke_register_error_cb(expected_index, batch_element_error)
-
-            pytest.fail("Exception should have short-circuited this")
-
-        method.side_effect = call_callbacks
-
-        with pytest.raises(
-            BatchElementException,
-            match=re.escape(
-                make_expected_err_msg(
-                    batch_element_error,
-                    expected_index,
-                    access,
-                    ensure_singular(singular_or_multi_ref),
-                )
-            ),
-        ) as exc:
-            manager.register(
-                singular_or_multi_ref,
-                singular_or_multi_traitsdatas,
-                access,
-                a_context,
-                *tag,
-            )
-
-        # Remember this is the managerInterface, always takes a list
-        # regardless of convenience called.
-        method.assert_called_once_with(
-            ensure_list(singular_or_multi_ref),
-            ensure_list(singular_or_multi_traitsdatas),
-            access,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
-        )
-
-        assert exc.value.index == expected_index
-        assert exc.value.error == batch_element_error
-
-
 @pytest.fixture
 def manager(mock_manager_interface, a_host_session):
     # Default to accepting anything as an entity reference string, to
@@ -2953,6 +2087,20 @@ def an_entity_reference_pager(mock_entity_reference_pager_interface, a_host_sess
 @pytest.fixture
 def an_empty_traitsdata():
     return TraitsData(set())
+
+
+@pytest.fixture
+def four_entity_traitsdatas(two_entity_traitsdatas):
+    first = TraitsData({"another_trait"})
+    second = TraitsData({"another_trait", "another_different_trait"})
+    first.setTraitProperty("another_trait", "another_prop", 123)
+    second.setTraitProperty("another_trait", "another_prop", 456)
+    return [first, second] + two_entity_traitsdatas
+
+
+@pytest.fixture
+def two_entity_traitsdatas(some_entity_traitsdatas):
+    return some_entity_traitsdatas
 
 
 @pytest.fixture
@@ -3002,6 +2150,21 @@ def a_ref(manager):
 @pytest.fixture
 def a_different_ref(manager):
     return manager.createEntityReference("asset://b")
+
+
+@pytest.fixture
+def two_refs(some_refs):
+    return some_refs
+
+
+@pytest.fixture
+def two_different_refs(some_different_refs):
+    return some_different_refs
+
+
+@pytest.fixture
+def four_refs(some_refs, some_different_refs):
+    return some_refs + some_different_refs
 
 
 @pytest.fixture
