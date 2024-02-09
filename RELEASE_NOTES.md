@@ -53,6 +53,10 @@ v1.0.0-beta.x.x
   in Python.
   [#1186](https://github.com/OpenAssetIO/OpenAssetIO/issues/1186)
 
+- Added basic string representation of a `TraitsData` when `repr`'d
+  in Python.
+  [#1209](https://github.com/OpenAssetIO/OpenAssetIO/issues/1209)
+
 ### Bug fixes
 
 - Throw an exception when attempting to copy-construct a null
