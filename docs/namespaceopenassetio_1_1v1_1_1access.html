@@ -118,14 +118,19 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1access.h
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a30c467b0e5cfd9fb5ed7b58e84b06ede"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">PolicyAccess</a> : std::underlying_type_t&lt; internal::access::Access &gt; { <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edea8604cf55a79d6bfdcb30f77d1622839b">kRead</a> = internal::access::Access::kRead, 
+<tr class="memitem:a30c467b0e5cfd9fb5ed7b58e84b06ede"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">PolicyAccess</a> : std::underlying_type_t&lt; internal::access::Access &gt; { <br />
+&#160;&#160;<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edea8604cf55a79d6bfdcb30f77d1622839b">kRead</a> = internal::access::Access::kRead, 
 <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edead3ac0ba447a9859ad2db8e498056429f">kWrite</a> = internal::access::Access::kWrite, 
-<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">kCreateRelated</a> = internal::access::Access::kCreateRelated
+<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">kCreateRelated</a> = internal::access::Access::kCreateRelated, 
+<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaf7c00a6afc59e0b5c1fff929070484a1">kRequired</a> = internal::access::Access::kRequired, 
+<br />
+&#160;&#160;<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edea086ea090954c2436c87314580d744c93">kManagerDriven</a> = internal::access::Access::kManagerDriven
+<br />
  }<tr class="memdesc:a30c467b0e5cfd9fb5ed7b58e84b06ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access pattern for a manager policy query.  <a href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a30c467b0e5cfd9fb5ed7b58e84b06ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b53d22cd09b4f8d64b8d708d2643f60"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60">ResolveAccess</a> : std::underlying_type_t&lt; internal::access::Access &gt; { <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60a8604cf55a79d6bfdcb30f77d1622839b">kRead</a> = internal::access::Access::kRead, 
-<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60ad3ac0ba447a9859ad2db8e498056429f">kWrite</a> = internal::access::Access::kWrite
+<a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60a086ea090954c2436c87314580d744c93">kManagerDriven</a> = internal::access::Access::kManagerDriven
  }<tr class="memdesc:a5b53d22cd09b4f8d64b8d708d2643f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access pattern for <a class="el" href="glossary.html#glossary_resolve">entity resolution</a>.  <a href="namespaceopenassetio_1_1v1_1_1access.html#a5b53d22cd09b4f8d64b8d708d2643f60">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:a5b53d22cd09b4f8d64b8d708d2643f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,7 +159,7 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memItemLeft" align="right" valign="top">constexpr std::array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a188aa4c7eee9d6254a9c65f61e5c67df">kAccessNames</a> {&quot;read&quot;, &quot;write&quot;, &quot;createRelated&quot;}</td></tr>
+<tr class="memitem:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memItemLeft" align="right" valign="top">constexpr std::array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a188aa4c7eee9d6254a9c65f61e5c67df">kAccessNames</a></td></tr>
 <tr class="memdesc:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mapping of access enum value to human-readable name.  <a href="#a188aa4c7eee9d6254a9c65f61e5c67df">More...</a><br /></td></tr>
 <tr class="separator:a188aa4c7eee9d6254a9c65f61e5c67df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -263,6 +268,17 @@ Variables</h2></td></tr>
 <p>Hosts intends to write data for a new entity in relation to another. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">PublishingAccess::kCreateRelated</a> / <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaac7744adf0868e7c882fda6a12cf3f5a">RelationsAccess::kCreateRelated</a> </dd></dl>
 </td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a30c467b0e5cfd9fb5ed7b58e84b06edeaf7c00a6afc59e0b5c1fff929070484a1"></a>kRequired&#160;</td><td class="fielddoc">
+<p>Host wishes to know which subset of traits must have their required properties filled for successful publishing of an entity. </p>
+<p>Traits are used for both classification of an entity, and communication of properties of that entity. That is, many traits have properties associated with them. When publishing an entity, the entire trait set of that entity must be provided, in order for the manager classify the entity being published. However, it may well be that not all of the properties of those traits need to be set, in order for publishing to succeed.</p>
+<p>On an individual trait level, some properties will be required and some optional. Determining this currently requires manual inspection of the documentation for that trait.</p>
+<p>The <code>kRequired</code> policy of a manager, with respect to a given entity trait set, refers to the subset of traits that must have their required properties set by the host, in order for publishing to succeed. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a30c467b0e5cfd9fb5ed7b58e84b06edea086ea090954c2436c87314580d744c93"></a>kManagerDriven&#160;</td><td class="fielddoc">
+<p>Host wishes to know the subset of traits that have properties the manager can provide for creating new content when publishing an entity. </p>
+<p>Note that if a manager provides a property for the host to use during publishing, the host should not assume that the manager "remembers" that it provided that property. I.e. the manager-driven property should be published with the rest of the data, especially if the associated trait is is part of the <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edeaf7c00a6afc59e0b5c1fff929070484a1">kRequired</a> policy for the entity's trait set.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06edea086ea090954c2436c87314580d744c93">ResolveAccess::kManagerDriven</a> </dd></dl>
+</td></tr>
 </table>
 
 </div>
@@ -362,7 +378,7 @@ Variables</h2></td></tr>
 <p>Used to query an existing entity for information. </p>
 <p>For example, trait property values may be used to control the loading of data from a resource, and its subsequent interpretation. </p>
 </td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a5b53d22cd09b4f8d64b8d708d2643f60ad3ac0ba447a9859ad2db8e498056429f"></a>kWrite&#160;</td><td class="fielddoc">
+<tr><td class="fieldname"><a class="anchor" id="a5b53d22cd09b4f8d64b8d708d2643f60a086ea090954c2436c87314580d744c93"></a>kManagerDriven&#160;</td><td class="fielddoc">
 <p>Used by hosts to ask the manager how or where to write new data for an entity. </p>
 <p>For example, trait property values may be used to control the writing of data to a resource, and specifics of its format or content. </p>
 </td></tr>
@@ -376,11 +392,11 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::array kAccessNames {&quot;read&quot;, &quot;write&quot;, &quot;createRelated&quot;}</td>
+          <td class="memname">constexpr std::array kAccessNames</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">{<span class="stringliteral">&quot;read&quot;</span>, <span class="stringliteral">&quot;write&quot;</span>, <span class="stringliteral">&quot;createRelated&quot;</span>, <span class="stringliteral">&quot;required&quot;</span>,</div><div class="line">                                                   <span class="stringliteral">&quot;managerDriven&quot;</span>}</div></div><!-- fragment -->
 <p>Mapping of access enum value to human-readable name. </p>
 
 </div>

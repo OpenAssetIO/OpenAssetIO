@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba176a473e63c17ccdac91640c67f149bf":[14,0,0,3,3,1,2,2],
+"classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b":[14,0,0,3,3,1,2,6],
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba9bf7433b3b97527156274f05666beda4":[14,0,0,3,3,1,2,0],
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82babb53ce21b7c0b7c8a8f7860a41901d29":[14,0,0,3,3,1,2,1],
 "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82bae3587c730cc1aa530fa4ddc9c4204e97":[14,0,0,3,3,1,2,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html":[14,0,0,1,3],
 "namespaceopenassetio_1_1test.html":[14,0,0,2],
 "namespaceopenassetio_1_1test_1_1manager.html":[14,0,0,2,0],
-"namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite.html":[14,0,0,2,0,0],
-"namespaceopenassetio_1_1test_1_1manager_1_1harness.html":[14,0,0,2,0,1],
-"namespaceopenassetio_1_1v1.html":[14,0,0,3]
+"namespaceopenassetio_1_1test_1_1manager_1_1api_compliance_suite.html":[14,0,0,2,0,0]
 };
