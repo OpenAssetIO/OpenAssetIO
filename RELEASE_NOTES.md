@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-beta.x.x
+v1.0.0-beta.2.0
 ---------------
 
 ### Breaking changes
