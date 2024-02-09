@@ -129,7 +129,8 @@ To make a new OpenAssetIO release, follow this procedure.
   to be the concrete release number. (For example, change v1.0.0-alpha.x
   to v1.0.0-alpha.5).
 - Update version numbers in :
-  - [pyproject.toml](../../pyproject.toml) (Under `[project]` section).
+  - [pyproject.toml](../../src/openassetio-python/pyproject.toml)
+    (under `[project]` section).
   - [version.hpp.in](../../cmake/templates/include/openassetio/version.hpp.in)
     (for beta releases only, at the top).
   - [test_version.py](../../src/openassetio-python/tests/package/test_version.py)
