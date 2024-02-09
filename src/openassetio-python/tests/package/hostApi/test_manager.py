@@ -2722,7 +2722,9 @@ def ensure_singular(item):
 
 class Test_Manager_convenience_exceptions:
     @pytest.mark.parametrize("error_code", batch_element_error_codes)
-    @pytest.mark.parametrize("access", [access.ResolveAccess.kRead, access.ResolveAccess.kWrite])
+    @pytest.mark.parametrize(
+        "access", [access.ResolveAccess.kRead, access.ResolveAccess.kManagerDriven]
+    )
     @pytest.mark.parametrize("singular", [True, False])
     @pytest.mark.parametrize("tag", [[], [Manager.BatchElementErrorPolicyTag.kException]])
     def test_when_batch_resolve_emits_BatchElementError_then_appropriate_exception_raised(

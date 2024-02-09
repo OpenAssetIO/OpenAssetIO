@@ -13,11 +13,13 @@ void registerAccess(const py::module& mod) {
   py::enum_<access::PolicyAccess>{mod, "PolicyAccess"}
       .value("kRead", access::PolicyAccess::kRead)
       .value("kWrite", access::PolicyAccess::kWrite)
-      .value("kCreateRelated", access::PolicyAccess::kCreateRelated);
+      .value("kCreateRelated", access::PolicyAccess::kCreateRelated)
+      .value("kRequired", access::PolicyAccess::kRequired)
+      .value("kManagerDriven", access::PolicyAccess::kManagerDriven);
 
   py::enum_<access::ResolveAccess>{mod, "ResolveAccess"}
       .value("kRead", access::ResolveAccess::kRead)
-      .value("kWrite", access::ResolveAccess::kWrite);
+      .value("kManagerDriven", access::ResolveAccess::kManagerDriven);
 
   py::enum_<access::EntityTraitsAccess>{mod, "EntityTraitsAccess"}
       .value("kRead", access::EntityTraitsAccess::kRead)

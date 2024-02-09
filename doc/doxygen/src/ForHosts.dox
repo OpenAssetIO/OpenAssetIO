@@ -154,9 +154,9 @@
  * - Ask the @ref manager if they support publishing for the relevant
  *   data by supplying its @ref trait_set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
- *   with a @ref Context with `kWrite` access, respecting the returned
- *   traits. Note that some managers may not be able to persist data for
- *   all of an entity's traits, these traits will be ommited from the
+ *   with a `kWrite` access, respecting the returned traits. Note that
+ *   some managers may not be able to persist data for all of an
+ *   entity's traits, these traits will be omitted from the
  *   managementPolicy response.
  *
  * - Follow the @fqref{hostApi.Manager.managementPolicy} "policy", @ref
