@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-beta.x.x
+v1.0.0-beta.2.0
 ---------------
 
 ### Breaking changes
@@ -52,6 +52,10 @@ v1.0.0-beta.x.x
 - Added the string representation of an `EntityReference` when `repr`'d
   in Python.
   [#1186](https://github.com/OpenAssetIO/OpenAssetIO/issues/1186)
+
+- Added basic string representation of a `TraitsData` when `repr`'d
+  in Python.
+  [#1209](https://github.com/OpenAssetIO/OpenAssetIO/issues/1209)
 
 ### Bug fixes
 
