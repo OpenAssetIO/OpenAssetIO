@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #include <string_view>
 
+#include <fmt/format.h>
 #include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 
 #include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/typedefs.hpp>
 
 #include "../_openassetio.hpp"
 
-void registerBatchElementError(const py::module &mod) {
+void registerBatchElementError(const py::module& mod) {
   using openassetio::errors::BatchElementError;
 
   py::class_<BatchElementError> batchElementError{mod, "BatchElementError", py::is_final()};
@@ -28,5 +30,9 @@ void registerBatchElementError(const py::module &mod) {
            py::arg("message"))
       .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
       .def_readonly("code", &BatchElementError::code)
-      .def_readonly("message", &BatchElementError::message);
+      .def_readonly("message", &BatchElementError::message)
+      .def("__repr__", [](const BatchElementError& self) {
+        return fmt::format("BatchElementError({}, '{}')",
+                           py::str(py::cast(self.code)).cast<std::string_view>(), self.message);
+      });
 }

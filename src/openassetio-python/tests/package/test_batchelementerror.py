@@ -1,5 +1,5 @@
 #
-#   Copyright 2022 The Foundry Visionmongers Ltd
+#   Copyright 2022-2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -106,6 +106,20 @@ class Test_BatchElementError_equality:
         b_batch_element_error = BatchElementError(expected_code, "another message")
 
         assert a_batch_element_error != b_batch_element_error
+
+
+class Test_BatchElementError_repr:
+    def test(self):
+        batch_element_error = BatchElementError(
+            BatchElementError.ErrorCode.kEntityResolutionError, "some error happened"
+        )
+
+        assert str(batch_element_error) == repr(batch_element_error)
+
+        assert (
+            str(batch_element_error)
+            == "BatchElementError(ErrorCode.kEntityResolutionError, 'some error happened')"
+        )
 
 
 class Test_BatchElementException:
