@@ -99,6 +99,9 @@ as follows:
   the importance of the consideration.
 - `[question]` Something that needs clarifying before an action can be
   determined.
+- `[comment]` Something to mention but that requires no action, e.g.
+  praise or additional context. Can be resolved by either the reviewer
+  or contributor at any time.
 
 
 ## Verifying amendments
