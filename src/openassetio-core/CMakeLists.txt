@@ -69,6 +69,7 @@ target_sources(
     src/errors/exceptionMessages.cpp
     src/hostApi/HostInterface.cpp
     src/hostApi/Manager.cpp
+    src/hostApi/ManagerConveniences.cpp
     src/hostApi/ManagerFactory.cpp
     src/hostApi/ManagerImplementationFactoryInterface.cpp
     src/hostApi/EntityReferencePager.cpp
