@@ -146,7 +146,7 @@ struct UncUnnormalisedDeviceDrivePath {
   detail::DriveLetter& driveLetterHandler;
   detail::UncUnnormalisedDevicePath& uncUnnormalisedDevicePathHandler;
 
-  static constexpr std::size_t kPathPrefixLength = std::string_view{R"(\\?\)"}.size();
+  static constexpr std::string_view kPrefix = R"(\\?\)";
   Regex pathRegex{R"(^\\\\\?\\([^\\]*)(.*)$)"};
 
   /**
@@ -200,6 +200,20 @@ struct UncUnnormalisedDeviceDrivePath {
    * @param url URL object to update.
    */
   void setUrlPath(const detail::UncDetails& uncDetails, ada::url& url) const;
+
+  /**
+   * Prefix a (normalised) drive path to make it an unnormalised device
+   * path.
+   *
+   * E.g. `C:\path\to\file.ext` -> `\\?\C:\path\to\file.ext`
+   *
+   * Note: does not do any normalisation beforehand (e.g. converting
+   * `/` to `\` etc).
+   *
+   * @param drivePath Path to prefix.
+   * @return unnormalised device drive path.
+   */
+  static Str prefixDrivePath(std::string_view drivePath);
 };
 
 /**
@@ -210,7 +224,7 @@ struct UncUnnormalisedDeviceSharePath {
   detail::UncUnnormalisedDevicePath& uncUnnormalisedDevicePathHandler;
   detail::WindowsUrl& urlHandler;
 
-  static constexpr std::size_t kPrefixLength = std::string_view{R"(\\?\UNC\)"}.size();
+  static constexpr std::string_view kPrefix = R"(\\?\UNC\)";
   Regex pathRegex{R"(^\\\\\?\\UNC\\([^\\]*)(.*)$)"};
   Regex pathHeadAndTailRegex{R"(^(\\[^\\]+)(.*)$)"};
 
@@ -272,6 +286,20 @@ struct UncUnnormalisedDeviceSharePath {
    * @param url URL object to update.
    */
   void setUrlPath(const detail::UncDetails& uncDetails, ada::url& url) const;
+
+  /**
+   * Prefix a (normalised) share path to make it an unnormalised device
+   * path.
+   *
+   * E.g. `\\host\share\file.ext` -> `\\?\UNC\host\share\file.ext`
+   *
+   * Note: does not do any normalisation beforehand (e.g. converting
+   * `/` to `\` etc).
+   *
+   * @param uncSharePath Path to prefix.
+   * @return Unnormalised device share path.
+   */
+  static Str prefixUncSharePath(std::string_view uncSharePath);
 };
 
 }  // namespace utils::path::windows::pathTypes

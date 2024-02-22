@@ -1,6 +1,16 @@
 Release Notes
 =============
 
+v1.0.0-beta.x.y
+---------------
+
+### Improvements
+
+- Updated `FileUrlPathConverter.pathFromUrl` to automatically convert
+  long Windows paths, which exceed the Windows `MAX_PATH` limit, to UNC
+  non-normalised device paths (i.e. `\\?\`-prefixed).
+  [#1257](https://github.com/OpenAssetIO/OpenAssetIO/issues/1257)
+
 v1.0.0-beta.2.0
 ---------------
 

@@ -168,3 +168,8 @@ ij_python_use_continuation_indent_for_arguments = false
 ij_python_use_continuation_indent_for_collection_and_comprehensions = false
 ij_python_use_continuation_indent_for_parameters = true
 ij_python_wrap_long_lines = false
+
+[file_url_path_tests.json]
+# For consistent style with upstream source (swift-url).
+indent_size = 4
+max_line_length = 650
