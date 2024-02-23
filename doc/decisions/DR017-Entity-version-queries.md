@@ -67,9 +67,10 @@ These were used in production to:
 ###  The evolution of the entity data model
 
 As described in
-[DR007](./DR007-Hierarchical-or-compositional-traits.md) and
-[DR008](./DR008-Unify-the-entity-data-model.md), the OpenAssetIO data
-model has evolved significantly since these methods were introduced.
+[DR007](./DR007-Hierarchical-or-compositional-traits-for-specifications.md)
+and [DR008](./DR008-Unify-the-entity-data-model.md), the OpenAssetIO
+data model has evolved significantly since these methods were
+introduced.
 
 Critically, traits facilitate structured data groupings that can be
 resolved independently for any given entity.

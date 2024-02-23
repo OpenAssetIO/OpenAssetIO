@@ -10,7 +10,7 @@
 ## Background
 
 Certain OpenAssetIO API methods can produce large sets of data.
-[DR016](DRDR016-One-to-many-result-paging.md) covers the evolution in
+[DR016](DR016-One-to-many-result-paging.md) covers the evolution in
 thinking that lead us to expose this data through a lazy "result pager".
 
 These pagers are supplied by the relevant `Manager` methods. The caller
@@ -25,7 +25,7 @@ should be used when evolving the pager interface in the future.
 
 ## Relevant data
 
-- [DR016](DRDR016-One-to-many-result-paging.md) opted for the pager
+- [DR016](DR016-One-to-many-result-paging.md) opted for the pager
   solution partly as it facilitates future extensions to data set
   navigation with minimal disruption to the rest of the API.
 
