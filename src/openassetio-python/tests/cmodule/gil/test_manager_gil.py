@@ -111,12 +111,18 @@ class Test_Manager_gil:
 
         a_threaded_manager.entityExists([], a_context, fail, fail)
 
-    def test_entityTraits(self, a_threaded_manager, a_context):
-        # Defend against forgetting to include convenience signatures in
-        # this test, once added.
-        assert "Overloaded" not in a_threaded_manager.entityExists.__doc__
+    def test_entityTraits(self, a_threaded_manager, a_context, an_entity_reference):
+        ref = an_entity_reference
+        an_access = access.EntityTraitsAccess.kRead
+        tag = Manager.BatchElementErrorPolicyTag
 
-        a_threaded_manager.entityTraits([], access.EntityTraitsAccess.kRead, a_context, fail, fail)
+        a_threaded_manager.entityTraits([], an_access, a_context, fail, fail)
+        a_threaded_manager.entityTraits(ref, an_access, a_context)
+        a_threaded_manager.entityTraits(ref, an_access, a_context, tag.kException)
+        a_threaded_manager.entityTraits(ref, an_access, a_context, tag.kVariant)
+        a_threaded_manager.entityTraits([], an_access, a_context)
+        a_threaded_manager.entityTraits([], an_access, a_context, tag.kException)
+        a_threaded_manager.entityTraits([], an_access, a_context, tag.kVariant)
 
     def test_flushCaches(self, a_threaded_manager):
         a_threaded_manager.flushCaches()

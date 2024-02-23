@@ -11,6 +11,12 @@ v1.0.0-beta.x.y
   non-normalised device paths (i.e. `\\?\`-prefixed).
   [#1257](https://github.com/OpenAssetIO/OpenAssetIO/issues/1257)
 
+- Added `entityTraits` overloads for convenience, providing alternatives
+  to the core callback-based workflow. Includes a more direct method for
+  resolving a single entity reference, and exception vs. result object
+  workflows.
+  [#1217](https://github.com/OpenAssetIO/OpenAssetIO/issues/1217)
+
 v1.0.0-beta.2.0
 ---------------
 
