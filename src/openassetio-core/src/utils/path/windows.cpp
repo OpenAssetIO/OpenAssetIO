@@ -83,6 +83,12 @@ Str FileUrlPathConverter::pathFromUrl(const std::string_view& url) const {
 
   std::replace(windowsPath.begin(), windowsPath.end(), kForwardSlash, kBackSlash);
 
+  if (windowsPath.size() > kMaxPath) {
+    windowsPath = host.empty()
+                      ? pathTypes::UncUnnormalisedDeviceDrivePath::prefixDrivePath(windowsPath)
+                      : pathTypes::UncUnnormalisedDeviceSharePath::prefixUncSharePath(windowsPath);
+  }
+
   return windowsPath;
 }
 }  // namespace utils::path::windows

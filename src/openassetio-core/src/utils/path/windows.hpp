@@ -22,6 +22,11 @@ namespace utils::path::windows {
  * Window path to/from a URL.
  */
 struct FileUrlPathConverter {
+  /// Windows maximum file path limit, aka MAX_PATH, is 260 chars
+  /// including null terminator. See
+  /// https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
+  static constexpr std::size_t kMaxPath = 259;
+
   detail::WindowsUrl& urlHandler;
   detail::DriveLetter& driveLetterHandler;
   detail::UncHost& uncHostHandler;

@@ -171,7 +171,7 @@ std::optional<detail::UncDetails> UncUnnormalisedDeviceDrivePath::extractUncDeta
   const std::string_view shareNameAndPath =
       uncUnnormalisedDevicePathHandler.withoutTrailingSlashes(pathParts->group(path, 2));
   const std::string_view fullPath =
-      path.substr(kPathPrefixLength, hostOrDrive.size() + shareNameAndPath.size());
+      path.substr(kPrefix.size(), hostOrDrive.size() + shareNameAndPath.size());
   return detail::UncDetails{hostOrDrive, {}, {}, shareNameAndPath, fullPath};
 }
 
@@ -211,6 +211,14 @@ void UncUnnormalisedDeviceDrivePath::setUrlPath(const detail::UncDetails& uncDet
   }
 }
 
+Str UncUnnormalisedDeviceDrivePath::prefixDrivePath(const std::string_view drivePath) {
+  Str prefixedPath;
+  prefixedPath.reserve(kPrefix.size() + drivePath.size());
+  prefixedPath += kPrefix;
+  prefixedPath += drivePath;
+  return prefixedPath;
+}
+
 // ---------------------------------------------------------------------
 // UncUnnormalisedDeviceSharePath
 
@@ -238,7 +246,7 @@ std::optional<detail::UncDetails> UncUnnormalisedDeviceSharePath::extractUncDeta
   const auto [shareName, sharePath, shareNameAndPath] =
       extractShareNameAndPath(pathParts->group(path, 2));
   const std::string_view fullPath =
-      path.substr(kPrefixLength, hostOrDrive.size() + shareNameAndPath.size());
+      path.substr(kPrefix.size(), hostOrDrive.size() + shareNameAndPath.size());
   return detail::UncDetails{hostOrDrive, shareName, sharePath, shareNameAndPath, fullPath};
 }
 
@@ -276,6 +284,14 @@ void UncUnnormalisedDeviceSharePath::setUrlPath(const detail::UncDetails& uncDet
   } else {
     GenericUrl::setUrlPath(urlPath, url);
   }
+}
+
+Str UncUnnormalisedDeviceSharePath::prefixUncSharePath(std::string_view uncSharePath) {
+  Str prefixedPath;
+  prefixedPath.reserve(kPrefix.size() + uncSharePath.size() - 2);
+  prefixedPath += kPrefix;
+  prefixedPath += uncSharePath.substr(2);  // strip leading `\`s.
+  return prefixedPath;
 }
 }  // namespace utils::path::windows::pathTypes
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
