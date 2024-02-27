@@ -168,6 +168,8 @@ endif ()
 
 # Testing instrumentation.
 if (IS_GCC_OR_CLANG)
+    # libstdc++ debug mode (e.g. container range checks).
+    option(OPENASSETIO_ENABLE_GLIBCXX_DEBUG "Enable libstdc++ debug mode" OFF)
     # Coverage reporting (for tests).
     option(OPENASSETIO_ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" OFF)
 
@@ -330,6 +332,7 @@ if (IS_GCC_OR_CLANG)
     message(STATUS "New C++11 ABI for gcc              = ${OPENASSETIO_GLIBCXX_USE_CXX11_ABI}")
     message(STATUS "RUNPATH rather than RPATH          = ${OPENASSETIO_ENABLE_NEW_DTAGS}")
     message(STATUS "Coverage reports                   = ${OPENASSETIO_ENABLE_COVERAGE}")
+    message(STATUS "libstdc++ debug mode               = ${OPENASSETIO_ENABLE_GLIBCXX_DEBUG}")
     message(STATUS "Sanitizer: Address                 = ${OPENASSETIO_ENABLE_SANITIZER_ADDRESS}")
     message(STATUS "Sanitizer: Leak                    = ${OPENASSETIO_ENABLE_SANITIZER_LEAK}")
     message(STATUS "Sanitizer: Undefined behavior      = ${OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR}")
