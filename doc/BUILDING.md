@@ -45,7 +45,7 @@ available.
 
 Building and running tests requires the following additional packages:
 
-- [catch2](https://catch2.docsforge.com/) 2.13
+- [catch2](https://github.com/catchorg/Catch2/) 2.13
 - [trompeloeil](https://github.com/rollbear/trompeloeil) 42
 
 We use the CMake build system for compiling the C++ core library and
