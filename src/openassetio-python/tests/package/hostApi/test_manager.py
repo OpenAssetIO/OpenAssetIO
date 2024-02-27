@@ -1462,49 +1462,161 @@ class Test_Manager_resolve(BatchFirstMethodTest):
         )
 
 
-class Test_Manager_entityTraits:
-    def test_wraps_the_corresponding_method_of_the_held_interface(
+class Test_Manager_entityTraits(BatchFirstMethodTest):
+    @pytest.fixture(autouse=True)
+    def constructor(
         self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        an_entity_trait_set,
-        a_context,
-        a_batch_element_error,
+        subtests,
         invoke_entityTraits_success_cb,
         invoke_entityTraits_error_cb,
+        a_batch_element_error,
+        a_context,
+        a_host_session,
+        manager,
+        mock_manager_interface,
     ):
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
+        self.subtests = subtests
+        self.invoke_success_cb = invoke_entityTraits_success_cb
+        self.invoke_error_cb = invoke_entityTraits_error_cb
+        self.a_batch_element_error = a_batch_element_error
+        self.a_context = a_context
+        self.a_host_session = a_host_session
 
-        method = mock_manager_interface.mock.entityTraits
+        self.method = manager.entityTraits
+        self.mock_interface_method = mock_manager_interface.mock.entityTraits
 
-        def call_callbacks(*_args):
-            invoke_entityTraits_success_cb(123, an_entity_trait_set)
-            invoke_entityTraits_error_cb(456, a_batch_element_error)
-
-        method.side_effect = call_callbacks
-
-        manager.entityTraits(
-            some_refs,
-            access.EntityTraitsAccess.kRead,
-            a_context,
-            success_callback,
-            error_callback,
+    def test_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, two_refs, an_entity_trait_set
+    ):
+        self.assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            one_success_result=an_entity_trait_set,
         )
 
-        method.assert_called_once_with(
-            some_refs,
-            access.EntityTraitsAccess.kRead,
-            a_context,
-            a_host_session,
-            mock.ANY,
-            mock.ANY,
+    def test_singular_overload_success(self, a_ref, an_entity_trait_set):
+        self.assert_singular_overload_success(
+            method_specific_args=(
+                a_ref,
+                access.EntityTraitsAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                access.EntityTraitsAccess.kRead,
+            ),
+            expected_result=an_entity_trait_set,
+            assert_result_identity=False,
         )
 
-        success_callback.assert_called_once_with(123, an_entity_trait_set)
-        error_callback.assert_called_once_with(456, a_batch_element_error)
+    def test_batch_overload_success(self, two_refs, two_entity_trait_sets):
+        self.assert_batch_overload_success(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            expected_results=two_entity_trait_sets,
+            assert_result_identity=False,
+        )
+
+    assert_result_identity = (False,)
+
+    def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
+        self, two_refs, two_entity_trait_sets
+    ):
+        self.assert_batch_overload_success_out_of_order(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            expected_results=two_entity_trait_sets,
+            assert_result_identity=False,
+        )
+
+    def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref):
+        self.assert_singular_variant_overload_error(
+            method_specific_args=(
+                a_ref,
+                access.EntityTraitsAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                access.EntityTraitsAccess.kRead,
+            ),
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
+        self, two_refs, an_entity_trait_set
+    ):
+        self.assert_batch_variant_overload_mixed_output(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            one_success_result=an_entity_trait_set,
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_out_of_order_then_results_reordered(
+        self, four_refs, two_entity_trait_sets
+    ):
+        self.assert_batch_variant_overload_mixed_output_out_of_order(
+            method_specific_args_for_batch_of_four=(
+                four_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            two_success_results=two_entity_trait_sets,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.EntityTraitsAccess.kRead, access.EntityTraitsAccess.kWrite]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_singular_throwing_overload_errors_then_raises(
+        self, a_ref, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            a_ref,
+        )
+
+        self.assert_singular_throwing_overload_raises(
+            method_specific_args=(
+                a_ref,
+                access_mode,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
+
+    @pytest.mark.parametrize(
+        "access_mode", [access.EntityTraitsAccess.kRead, access.EntityTraitsAccess.kWrite]
+    )
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_batched_throwing_overload_errors_then_raises(
+        self, two_refs, access_mode, error_code
+    ):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_err_msg(
+            batch_element_error,
+            access_mode,
+            two_refs[0],
+        )
+
+        self.assert_batched_throwing_overload_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access_mode,
+            ),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
 
 
 class Test_Manager_managementPolicy:
@@ -2120,6 +2232,11 @@ def a_traitsdata():
 @pytest.fixture
 def a_batch_element_error():
     return BatchElementError(BatchElementError.ErrorCode.kUnknown, "some message")
+
+
+@pytest.fixture
+def two_entity_trait_sets():
+    return [{"blob", "lolcat"}, {"lolcat", "dog"}]
 
 
 @pytest.fixture

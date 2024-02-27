@@ -20,6 +20,89 @@ namespace hostApi {
 // callback-based member functions found in `Manager.cpp`
 
 // Singular Except
+trait::TraitSet hostApi::Manager::entityTraits(
+    const EntityReference &entityReference, const access::EntityTraitsAccess entityTraitsAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  trait::TraitSet result;
+  entityTraits(
+      {entityReference}, entityTraitsAccess, context,
+      [&result]([[maybe_unused]] std::size_t index, trait::TraitSet traitSet) {
+        result = std::move(traitSet);
+      },
+      [&entityReference, entityTraitsAccess](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReference,
+            static_cast<internal::access::Access>(entityTraitsAccess));
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return result;
+}
+
+// Singular variant
+std::variant<errors::BatchElementError, trait::TraitSet> hostApi::Manager::entityTraits(
+    const EntityReference &entityReference, const access::EntityTraitsAccess entityTraitsAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<errors::BatchElementError, trait::TraitSet> result;
+  entityTraits(
+      {entityReference}, entityTraitsAccess, context,
+      [&result]([[maybe_unused]] std::size_t index, trait::TraitSet traitSet) {
+        result = std::move(traitSet);
+      },
+      [&result]([[maybe_unused]] std::size_t index, errors::BatchElementError error) {
+        result = std::move(error);
+      });
+
+  return result;
+}
+
+// Multi except
+std::vector<trait::TraitSet> hostApi::Manager::entityTraits(
+    const EntityReferences &entityReferences, const access::EntityTraitsAccess entityTraitsAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<trait::TraitSet> results;
+  results.resize(entityReferences.size());
+
+  entityTraits(
+      entityReferences, entityTraitsAccess, context,
+      [&results](std::size_t index, trait::TraitSet traitSet) {
+        results[index] = std::move(traitSet);
+      },
+      [&entityReferences, entityTraitsAccess](std::size_t index, errors::BatchElementError error) {
+        // Implemented as if FAILFAST is true.
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReferences[index],
+            static_cast<internal::access::Access>(entityTraitsAccess));
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return results;
+}
+
+// Multi variant
+std::vector<std::variant<errors::BatchElementError, trait::TraitSet>>
+hostApi::Manager::entityTraits(
+    const EntityReferences &entityReferences, const access::EntityTraitsAccess entityTraitsAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<errors::BatchElementError, trait::TraitSet>> results;
+  results.resize(entityReferences.size());
+  entityTraits(
+      entityReferences, entityTraitsAccess, context,
+      [&results](std::size_t index, trait::TraitSet traitSet) {
+        results[index] = std::move(traitSet);
+      },
+      [&results](std::size_t index, errors::BatchElementError error) {
+        results[index] = std::move(error);
+      });
+
+  return results;
+}
+
+// Singular Except
 trait::TraitsDataPtr hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,

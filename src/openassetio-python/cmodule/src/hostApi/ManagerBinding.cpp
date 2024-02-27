@@ -100,10 +100,65 @@ void registerManager(const py::module& mod) {
       .def("entityExists", &Manager::entityExists, py::arg("entityReferences"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits", &Manager::entityTraits, py::arg("entityReferences"),
-           py::arg("entityTraitsAccess"), py::arg("context").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
+      .def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&, const Manager::EntityTraitsSuccessCallback&,
+                             const Manager::BatchElementErrorCallback&>(&Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
            py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits",
+           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::entityTraits),
+           py::arg("entityReference"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits",
+           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityTraits),
+           py::arg("entityReference"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "entityTraits",
+          // TODO(DF): Technically we shouldn't need this overload,
+          // see similar comment for `resolve`.
+          [](Manager& self, const EntityReference& entityReference,
+             const access::EntityTraitsAccess access, const ContextConstPtr& context) {
+            return self.entityTraits(entityReference, access, context);
+          },
+          py::arg("entityReference"), py::arg("entityTraitsAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "entityTraits",
+          // TODO(DF): Technically we shouldn't need this overload,
+          // see similar comment for `resolve`.
+          [](Manager& self, const EntityReferences& entityReferences,
+             const access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context) {
+            return self.entityTraits(entityReferences, entityTraitsAccess, context);
+          },
+          py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("hasCapability", &Manager::hasCapability, py::arg("capability"),
            py::call_guard<py::gil_scoped_release>{})
       .def("updateTerminology", &Manager::updateTerminology, py::arg("terms"),

@@ -836,6 +836,160 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                             const ContextConstPtr& context,
                             const EntityTraitsSuccessCallback& successCallback,
                             const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Retrieve the @ref trait_set of an @ref entity.
+   *
+   * See documentation for the <!--
+   * --> @ref entityTraits(const EntityReferences&, <!--
+   * --> access::EntityTraitsAccess ,const ContextConstPtr&, <!--
+   * --> const EntityTraitsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback variation" for more details on resolution behaviour.
+   *
+   * Errors that occur will be thrown as an exception, either from the
+   * @ref manager plugin (for errors not specific to the entity
+   * reference) or as a @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReference Entity reference to query.
+   *
+   * @param entityTraitsAccess The intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return Populated trait set.
+   *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
+   */
+  trait::TraitSet entityTraits(const EntityReference& entityReference,
+                               access::EntityTraitsAccess entityTraitsAccess,
+                               const ContextConstPtr& context,
+                               const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Provides either a populated @ref trait_set or a
+   * @fqref{errors.BatchElementError} "BatchElementError".
+   *
+   * If successful, the result is populated with the trait set of the
+   * @ref entity.
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure to retrieve the traits this particular
+   * entity.
+   *
+   * Errors that are not specific to the entity being queried will be
+   * thrown as an exception.
+   *
+   * See documentation for the <!--
+   * --> @ref entityTraits(const EntityReferences&, <!--
+   * --> access::EntityTraitsAccess, const ContextConstPtr&, <!--
+   * --> const EntityTraitsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback variation" for more details on resolution behaviour.
+   *
+   * @param entityReference Entity reference to query.
+   *
+   * @param entityTraitsAccess The intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return Object containing either the populated trait set or an
+   * error object.
+   */
+  std::variant<errors::BatchElementError, trait::TraitSet> entityTraits(
+      const EntityReference& entityReference, access::EntityTraitsAccess entityTraitsAccess,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Retrieve the @ref trait_set of one or more @ref entity "entities".
+   *
+   * See documentation for the <!--
+   * --> @ref entityTraits(const EntityReferences&, <!--
+   * --> access::EntityTraitsAccess, const ContextConstPtr&, <!--
+   * --> const EntityTraitsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback variation" for more details on resolution behaviour.
+   *
+   * Any errors that occur will be immediately thrown as an exception,
+   * either from the @ref manager plugin (for errors not specific to the
+   * entity reference) or as a @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param entityTraitsAccess The intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return List of populated trait sets.
+   *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kResolution.
+   */
+  std::vector<trait::TraitSet> entityTraits(
+      const EntityReferences& entityReferences, access::EntityTraitsAccess entityTraitsAccess,
+      const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Provides either a populated @ref trait_set or a
+   * @fqref{errors.BatchElementError} "BatchElementError" for each given
+   * @ref entity_reference.
+   *
+   * For successful references, the corresponding element of the result
+   * is populated with its trait set.
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to
+   * entityTraits that particular entity.
+   *
+   * Errors that are not specific to an entity will be thrown as an
+   * exception, failing the whole batch.
+   *
+   * See documentation for the <!--
+   * --> @ref entityTraits(const EntityReferences&, <!--
+   * --> access::EntityTraitsAccess, const ContextConstPtr&, <!--
+   * --> const EntityTraitsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback variation" for more details on resolution behaviour.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param entityTraitsAccess The intended usage of the data.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return List of objects, each containing either the populated trait
+   * set or an error.
+   */
+  std::vector<std::variant<errors::BatchElementError, trait::TraitSet>> entityTraits(
+      const EntityReferences& entityReferences, access::EntityTraitsAccess entityTraitsAccess,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
   /**
    * @}
    */
