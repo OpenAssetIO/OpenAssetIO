@@ -22,15 +22,15 @@ runs:
     uses: actions/cache@v3
     with:
       path: ~/conan
-      key: ${{ matrix.config.os }}-conan-${{ github.run_id }}
-      restore-keys: ${{ matrix.config.os }}-conan-
+      key: ${{ matrix.os }}-conan-${{ github.run_id }}
+      restore-keys: ${{ matrix.os }}-conan-
 
   - name: Install dependencies (Unix)
     if: runner.os != 'Windows'
     # Configure the system and install library dependencies via conan
     # packages.
     run: |
-      source resources/build/bootstrap-${{ matrix.config.os }}.sh
+      source resources/build/bootstrap-${{ matrix.os }}.sh
     env:
       WORKSPACE: ${{ github.workspace }}
     # Annoyingly required for Github composite actions.
@@ -41,7 +41,7 @@ runs:
     # Configure the system and install library dependencies via conan
     # packages.
     run: |
-      cmd /C resources\build\bootstrap-${{ matrix.config.os }}.bat
+      cmd /C resources\build\bootstrap-${{ matrix.os }}.bat
     env:
       WORKSPACE: ${{ github.workspace }}
     # Annoyingly required for Github composite actions.

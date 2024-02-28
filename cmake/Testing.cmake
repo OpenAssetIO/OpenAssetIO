@@ -62,7 +62,8 @@ endfunction()
 function(openassetio_add_generic_test_target target_name)
     add_test(
         NAME ${target_name}
-        COMMAND ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}" --target ${target_name}
+        COMMAND ${CMAKE_COMMAND} --build "${PROJECT_BINARY_DIR}"
+        --target ${target_name} --config $<CONFIG>
     )
 endfunction()
 

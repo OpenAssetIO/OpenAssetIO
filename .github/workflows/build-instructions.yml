@@ -29,7 +29,7 @@ jobs:
         docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
           cd /src && \
           cmake -S . -B build && \
-          cmake --build build && \
+          cmake --build build --parallel && \
           cmake --install build'
 
     - name: Build, install and test (Docker)

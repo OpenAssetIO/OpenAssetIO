@@ -18,27 +18,21 @@ concurrency:
 
 jobs:
   build:
-    name: ${{ matrix.config.os }}
-    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         # We can't properly align to the VFX Reference Platform as this
         # requires glibc 2.17, which is older than any of the available
         # environments.
-        config:
-        - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
-          shell: cmd
-        - os: ubuntu-20.04
-          shell: bash
-        - os: macos-11
-          shell: bash
+        os: [windows-2019, ubuntu-20.04, macos-11]
+
+    env:
+      BUILD_CONFIG: RelWithDebInfo
     defaults:
       run:
-        # Annoyingly required here since `matrix` isn't available in
-        # the `shell` property of individual steps.
-        shell: ${{ matrix.config.shell }}
+        shell: bash
 
     steps:
     - uses: actions/checkout@v4
@@ -49,33 +43,28 @@ jobs:
      # We don't want to publish the test build, it gets too big.
     - name: Build and Install (No tests)
       run: >
-        ${{ matrix.config.preamble }}
+        cmake -S . -B build
+        --install-prefix '${{ github.workspace }}/dist'
+        --toolchain '${{ github.workspace }}/.conan/conan_paths.cmake'
+        -DCMAKE_BUILD_TYPE=${{ env.BUILD_CONFIG }}
 
-        cmake -S . -B build -G Ninja
-        --install-prefix ${{ github.workspace }}/dist
-        --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        cmake --build build --parallel --config ${{ env.BUILD_CONFIG }}
 
-        cmake --build build
-
-        cmake --install build
+        cmake --install build --config ${{ env.BUILD_CONFIG }}
 
     - name: Upload archive
       uses: actions/upload-artifact@v3
       with:
-        name: openassetio-${{ matrix.config.os }}
+        name: openassetio-${{ matrix.os }}
         path: |
-          ${{ github.workspace }}/dist
+          '${{ github.workspace }}/dist'
 
     # Reconfigure to add the test target. Ctest should rebuild using
     # the cached build from prior.
     - name: Test
-      run: >
-        ${{ matrix.config.preamble }}
-
+      run: |
         cmake --preset test build
-
-        ctest -VV --test-dir build --parallel 2
+        ctest -VV --test-dir build --parallel 4 --build-config ${{ env.BUILD_CONFIG }}
 
   docs:
     runs-on: ubuntu-latest

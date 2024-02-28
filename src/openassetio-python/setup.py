@@ -58,8 +58,8 @@ class build_ext(setuptools.command.build_ext.build_ext):
                 str(cmake_project_path),
                 "-B",
                 self.build_temp,
-                "-G",
-                "Ninja",
+                "--config",
+                "Release",
                 # Place output artifacts where setuptools expects.
                 "--install-prefix",
                 os.path.abspath(self.build_lib),
@@ -71,7 +71,17 @@ class build_ext(setuptools.command.build_ext.build_ext):
             ]
         )
 
-        self.__cmake(["--build", self.build_temp, "--target", "openassetio-python-module"])
+        self.__cmake(
+            [
+                "--build",
+                self.build_temp,
+                "--target",
+                "openassetio-python-module",
+                "--config",
+                "Release",
+                "--parallel"
+            ]
+        )
 
         self.__cmake(
             [
@@ -79,6 +89,8 @@ class build_ext(setuptools.command.build_ext.build_ext):
                 self.build_temp,
                 "--component",
                 "openassetio-python-module",
+                "--config",
+                "Release"
             ]
         )
 

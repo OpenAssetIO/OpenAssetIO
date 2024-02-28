@@ -223,7 +223,7 @@ include(ThirdParty)
 # (default on Linux) is used, so we must shell out the install.
 
 add_custom_target(openassetio.internal.install
-    COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
+    COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install --config $<CONFIG>)
 
 
 #-----------------------------------------------------------------------
