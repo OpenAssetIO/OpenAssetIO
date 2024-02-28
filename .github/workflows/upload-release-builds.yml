@@ -47,15 +47,12 @@ jobs:
           # via pybind11::embed in python-bridge-test) transitively adds
           # linker flags to system libs, which fail due to this issue.
         - os: macos-11
-          preamble: export LDFLAGS="-L/usr/local/lib"
           shell: bash
           build-type: Debug
         - os: macos-11
-          preamble: export LDFLAGS="-L/usr/local/lib"
           shell: bash
           build-type: RelWithDebInfo
         - os: macos-11
-          preamble: export LDFLAGS="-L/usr/local/lib"
           shell: bash
           build-type: Release
     defaults:
