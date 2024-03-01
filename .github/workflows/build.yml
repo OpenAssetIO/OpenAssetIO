@@ -75,7 +75,7 @@ jobs:
 
         cmake --preset test build
 
-        ctest -VV --test-dir build --parallel 2
+        ctest -VV --test-dir build --parallel 4
 
   docs:
     runs-on: ubuntu-latest

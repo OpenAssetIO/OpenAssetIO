@@ -189,7 +189,7 @@ jobs:
 
           cmake --build build --parallel --config RelWithDebInfo
 
-          ctest -VV --test-dir build --build-config RelWithDebInfo
+          ctest -VV --test-dir build --build-config RelWithDebInfo --parallel 4
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
