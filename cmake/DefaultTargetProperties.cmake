@@ -192,6 +192,11 @@ function(openassetio_set_default_target_properties target_name)
             target_link_libraries(${target_name} PRIVATE --coverage)
         endif ()
 
+        if (OPENASSETIO_ENABLE_GLIBCXX_DEBUG)
+            # libstdc++ debug mode (e.g. range checks)
+            target_compile_definitions(${target_name} PRIVATE _GLIBCXX_DEBUG)
+        endif()
+
         if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
             list(APPEND sanitizers "address")
             # Allow binaries to detect if they're running under ASan.
