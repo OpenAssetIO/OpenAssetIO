@@ -10,8 +10,12 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
 
+OPENASSETIO_DECLARE_PTR(CppPluginSystemManagerPlugin)
+
 class OPENASSETIO_CORE_EXPORT CppPluginSystemManagerPlugin : public CppPluginSystemPlugin {
  public:
+  OPENASSETIO_ALIAS_PTR(CppPluginSystemManagerPlugin)
+
   [[nodiscard]] virtual managerApi::ManagerInterfacePtr interface() = 0;
 };
 }  // namespace pluginSystem

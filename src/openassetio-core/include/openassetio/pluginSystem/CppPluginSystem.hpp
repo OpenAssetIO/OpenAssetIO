@@ -4,7 +4,7 @@
 
 #include <openassetio/export.h>
 
-OPENASSETIO_FWD_DECLARE(log, LoggerInterface);
+OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {

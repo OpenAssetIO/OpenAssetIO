@@ -5,8 +5,12 @@
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
+OPENASSETIO_DECLARE_PTR(CppPluginSystemPlugin)
+
 class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
  public:
+  OPENASSETIO_ALIAS_PTR(CppPluginSystemPlugin)
+
   virtual ~CppPluginSystemPlugin() = default;
   [[nodiscard]] virtual openassetio::Str identifier() const = 0;
 };
