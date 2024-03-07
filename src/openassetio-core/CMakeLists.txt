@@ -80,6 +80,7 @@ target_sources(
     src/managerApi/HostSession.cpp
     src/managerApi/ManagerInterface.cpp
     src/managerApi/EntityReferencePagerInterface.cpp
+    src/pluginSystem/CppPluginSystem.cpp
     src/trait/TraitsData.cpp
     src/utils/Regex.cpp
     src/utils/path.cpp
