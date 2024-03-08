@@ -2,6 +2,8 @@
 // Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 #include <memory>
+#include <string_view>
+#include <vector>
 
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
@@ -19,6 +21,10 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   OPENASSETIO_ALIAS_PTR(CppPluginSystem)
 
   static Ptr make(log::LoggerInterfacePtr logger);
+
+  void scan(std::string_view paths);
+
+  [[nodiscard]] std::vector<openassetio::Str> identifiers() const;
 
  private:
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);

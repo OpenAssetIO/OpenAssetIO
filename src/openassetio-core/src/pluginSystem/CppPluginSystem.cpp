@@ -12,6 +12,16 @@ CppPluginSystemPtr CppPluginSystem::make(log::LoggerInterfacePtr logger) {
 }
 
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
+
+void CppPluginSystem::scan(std::string_view paths) {
+  (void)this;
+  (void)paths;
+}
+
+std::vector<openassetio::Str> CppPluginSystem::identifiers() const {
+  (void)this;
+  return std::vector<openassetio::Str>();
+}
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
