@@ -5,6 +5,10 @@
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
+namespace openassetio {
+inline namespace OPENASSETIO_CORE_ABI_VERSION {
+namespace pluginSystem {
+
 OPENASSETIO_DECLARE_PTR(CppPluginSystemPlugin)
 
 class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
@@ -14,3 +18,7 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
   virtual ~CppPluginSystemPlugin() = default;
   [[nodiscard]] virtual openassetio::Str identifier() const = 0;
 };
+
+}  // namespace pluginSystem
+}  // namespace OPENASSETIO_CORE_ABI_VERSION
+}  // namespace openassetio

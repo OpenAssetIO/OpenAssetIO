@@ -42,12 +42,13 @@ class Test_CppPluginSystem_scan:
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
         a_plugin_system,
-        a_package_plugin_path,
-        a_cpp_module_plugin_path,
+        the_cpp_resources_directory_path,
         package_plugin_identifier,
         module_plugin_identifier,
     ):
-        combined_path = os.pathsep.join([a_package_plugin_path, a_cpp_module_plugin_path])
+        path_a = os.path.join(the_cpp_resources_directory_path, "pathA")
+        path_b = os.path.join(the_cpp_resources_directory_path, "pathB")
+        combined_path = os.pathsep.join([path_a, path_b])
         a_plugin_system.scan(combined_path)
 
         expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
@@ -68,6 +69,8 @@ class Test_CppPluginSystem_scan:
         a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
         assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
 
+        # TODO(DF): check log message is output
+
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
         a_plugin_system,
@@ -83,22 +86,35 @@ class Test_CppPluginSystem_scan:
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,
-        a_package_plugin_path,
-        a_cpp_module_plugin_path,
+        the_cpp_resources_directory_path,
         package_plugin_identifier,
         module_plugin_identifier,
     ):
-        a_plugin_system.scan(paths=a_package_plugin_path)
-        a_plugin_system.scan(paths=a_cpp_module_plugin_path)
+        a_plugin_system.scan(paths=os.path.join(the_cpp_resources_directory_path, "pathA"))
+        a_plugin_system.scan(paths=os.path.join(the_cpp_resources_directory_path, "pathB"))
 
         expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
+
+    def test_when_path_is_not_a_directory_then_warning_is_logged(
+        self, a_plugin_system, mock_logger
+    ):
+        a_plugin_system.scan("/some/invalid/path")
+
+        mock_logger.mock.log.assert_called_with(
+            mock_logger.Severity.kDebug,
+            "CppPluginSystem: Skipping as not a directory '/some/invalid/path'",
+        )
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
         self, broken_cpp_plugins_path, mock_logger
     ):
         plugin_system = CppPluginSystem(mock_logger)
         plugin_system.scan(broken_cpp_plugins_path)
+
+        # TODO(DF): Ensure a non .so file and test log message generated.
+        # TODO(DF): Ensure a non .so file masquerading as a .so and test log message generated.
+        # TODO(DF): Check dlclose called on failed plugin loads.
 
         assert not plugin_system.identifiers()
         missing_plugin_path = os.path.join(broken_cpp_plugins_path, "missing_plugin.py")
@@ -129,8 +145,8 @@ class Test_CppPluginSystem_plugin:
 
 
 @pytest.fixture
-def a_plugin_system(a_logger):
-    return CppPluginSystem(a_logger)
+def a_plugin_system(mock_logger):
+    return CppPluginSystem(mock_logger)
 
 
 # We use a real logger vs a mock, as it makes debugging test failures

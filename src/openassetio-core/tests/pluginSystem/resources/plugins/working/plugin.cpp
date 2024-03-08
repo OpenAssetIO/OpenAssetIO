@@ -26,7 +26,13 @@ struct Plugin : openassetio::pluginSystem::CppPluginSystemManagerPlugin {
   }
 };
 
+extern "C" {
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
+#endif
+
 OPENASSETIO_CORE_PLUGINSYSTEM_TEST_EXPORT
-openassetio::pluginSystem::CppPluginSystemManagerPluginPtr openassetioPlugin() {
+openassetio::pluginSystem::CppPluginSystemPluginPtr openassetioPlugin() {
   return std::make_shared<Plugin>();
+}
 }

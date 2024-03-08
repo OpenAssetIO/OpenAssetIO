@@ -111,6 +111,8 @@ target_link_libraries(
     # (Static) private library dependencies
     ada::ada
     PCRE2::8BIT
+    # For dlopen et al.
+    ${CMAKE_DL_LIBS}
 )
 
 #-----------------------------------------------------------------------
