@@ -62,6 +62,7 @@ target_sources(
     src/managerApi/EntityReferencePagerInterfaceBinding.cpp
     src/managerApi/ManagerInterfaceBinding.cpp
     src/managerApi/ManagerStateBaseBinding.cpp
+    src/pluginSystem/CppPluginSystemBinding.cpp
     src/trait/TraitsDataBinding.cpp
     src/utilsBinding.cpp
 )

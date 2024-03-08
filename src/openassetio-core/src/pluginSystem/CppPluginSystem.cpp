@@ -6,6 +6,11 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
+
+CppPluginSystemPtr CppPluginSystem::make(log::LoggerInterfacePtr logger) {
+  return std::shared_ptr<CppPluginSystem>(new CppPluginSystem{std::move(logger)});
+}
+
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
