@@ -14,43 +14,29 @@
 #   limitations under the License.
 #
 """
-These tests check the functionality of the PythonPluginSystem class.
+These tests check the functionality of the CppPluginSystem class.
 """
 
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import os
-import sys
 from typing import List
 
 import pytest
 
 from openassetio import errors
 from openassetio.log import ConsoleLogger
-from openassetio.pluginSystem import PythonPluginSystem
+from openassetio.pluginSystem import CppPluginSystem
 
 
-# We use this entry point to allow us to share test resources with
-# the implementation factory tests.
-PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"
-
-
-class Test_PythonPluginSystem_scan:
+class Test_CppPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
         self, a_plugin_system, a_python_module_plugin_path, module_plugin_identifier
     ):
         a_plugin_system.scan(a_python_module_plugin_path)
         assert a_plugin_system.identifiers() == [
             module_plugin_identifier,
-        ]
-
-    def test_when_path_contains_a_package_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_package_plugin_path, package_plugin_identifier
-    ):
-        a_plugin_system.scan(a_package_plugin_path)
-        assert a_plugin_system.identifiers() == [
-            package_plugin_identifier,
         ]
 
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
@@ -64,7 +50,7 @@ class Test_PythonPluginSystem_scan:
         combined_path = os.pathsep.join([a_package_plugin_path, a_python_module_plugin_path])
         a_plugin_system.scan(combined_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
@@ -91,7 +77,7 @@ class Test_PythonPluginSystem_scan:
     ):
         a_plugin_system.scan(a_python_plugin_path_with_symlinks)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_scan_called_multiple_times_then_plugins_combined(
@@ -105,111 +91,46 @@ class Test_PythonPluginSystem_scan:
         a_plugin_system.scan(paths=a_package_plugin_path)
         a_plugin_system.scan(paths=a_python_module_plugin_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
         self, broken_python_plugins_path, mock_logger
     ):
-        plugin_system = PythonPluginSystem(mock_logger)
+        plugin_system = CppPluginSystem(mock_logger)
         plugin_system.scan(broken_python_plugins_path)
 
         assert not plugin_system.identifiers()
         missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
-            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+            f"CppPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
         )
         raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
             StringContaining(
                 [
-                    f"PythonPluginSystem: Caught exception loading {raises_exception_path}:\n",
-                    f'  File "{raises_exception_path}", line 5, in <module>\n',
+                    f"CppPluginSystem: Caught exception loading {raises_exception_path}:\n",
+                    f'  File "{raises_exception_path}", line 4, in <module>\n',
                     '    raise RuntimeError("An exception")',
                 ]
             ),
         )
 
 
-class Test_PythonPluginSystem_scan_entry_points:
-    def test_when_no_package_with_entry_point_installed_then_nothing_loaded_and_true_returned(
-        self, a_plugin_system
-    ):
-        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
-        assert not a_plugin_system.identifiers()
-
-    def test_when_entry_point_package_installed_then_loaded_and_true_returned(
-        self,
-        a_plugin_system,
-        an_entry_point_package_plugin_root,
-        entry_point_plugin_identifier,
-        monkeypatch,
-    ):
-        path_with_plugin = [an_entry_point_package_plugin_root] + sys.path
-        monkeypatch.setattr(sys, "path", path_with_plugin)
-
-        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
-        assert a_plugin_system.identifiers() == [entry_point_plugin_identifier]
-
-    def test_when_importlib_metadata_missing_then_a_warning_is_loggeed_and_false_returned(
-        self, mock_logger, monkeypatch
-    ):
-        # Remove any previously imported versions
-        sys.modules.pop("importlib_metadata", None)
-        monkeypatch.setattr(sys, "path", [])
-
-        plugin_system = PythonPluginSystem(mock_logger)
-        assert plugin_system.scan_entry_points("some.entrypoint") is False
-
-        mock_logger.mock.log.assert_called_once_with(
-            mock_logger.Severity.kWarning,
-            "PythonPluginSystem: Can not load entry point plugins as the importlib_metadata "
-            "package is unavailable.",
-        )
-
-    def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_python_plugins_path, mock_logger, monkeypatch
-    ):
-        path_with_plugin = [broken_python_plugins_path] + sys.path
-        monkeypatch.setattr(sys, "path", path_with_plugin)
-
-        plugin_system = PythonPluginSystem(mock_logger)
-        plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP)
-
-        assert not plugin_system.identifiers()
-        # mock_logger.mock.log.assert_called_once()
-        missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
-        mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kError,
-            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
-        )
-        raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
-        mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kError,
-            StringContaining(
-                [
-                    "PythonPluginSystem: Caught exception loading raies_exception:\n",
-                    f'  File "{raises_exception_path}", line 5, in <module>\n',
-                    '    raise RuntimeError("An exception")',
-                ]
-            ),
-        )
-
-
-class Test_PythonPluginSystem_plugin:
+class Test_CppPluginSystem_plugin:
     def test_when_plugin_not_found_then_raises_InputValidationException(self, a_plugin_system):
         with pytest.raises(
             errors.InputValidationException,
-            match="PythonPluginSystem: No plug-in registered with the identifier 'nonexistent'",
+            match="CppPluginSystem: No plug-in registered with the identifier 'nonexistent'",
         ):
             a_plugin_system.plugin("nonexistent")
 
 
 @pytest.fixture
 def a_plugin_system(a_logger):
-    return PythonPluginSystem(a_logger)
+    return CppPluginSystem(a_logger)
 
 
 # We use a real logger vs a mock, as it makes debugging test failures

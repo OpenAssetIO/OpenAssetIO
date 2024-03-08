@@ -93,26 +93,28 @@ class Test_PythonPluginSystemManagerImplementationFactory_init:
 
     def test_when_no_args_and_path_env_then_path_plugins_loaded(
         self,
-        a_module_plugin_path,
+        a_python_module_plugin_path,
         module_plugin_identifier,
         monkeypatch,
     ):
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
+            a_python_module_plugin_path,
         )
         factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
         assert factory.identifiers() == [module_plugin_identifier]
 
     def test_when_path_arg_set_then_overrides_path_env(
         self,
-        a_module_plugin_path,
+        a_python_module_plugin_path,
         a_package_plugin_path,
         package_plugin_identifier,
         mock_logger,
         monkeypatch,
     ):
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
+            a_python_module_plugin_path,
         )
 
         factory = PythonPluginSystemManagerImplementationFactory(
