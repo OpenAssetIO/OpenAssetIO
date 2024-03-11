@@ -1,4 +1,4 @@
-# DR023 Manager capability introspection
+# DR024 Manager capability introspection
 
 - **Status:** Decided
 - **Driver:** @foundrytom
