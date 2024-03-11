@@ -7,6 +7,11 @@
   using a `managementPolicy` method parameterized by trait set and
   access.
 
+> **Note:**
+> This DR was added retrospectively - to capture choices made prior to
+> the decision record mechanism being adopted (circa 2012). As such, it
+> is not in chronological order in relation to the other records.
+
 ## Background
 
 A fundemental design constraint of OpenAssetIO is that neither the host
