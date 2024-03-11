@@ -92,7 +92,7 @@ that is relevant to those capabilities.
 
 ### Managing runtime overhead in scene expansion
 
-A scene management application that uses a differed node graph to
+A scene management application that uses a defered node graph to
 perform scene aggregation, processing and real-time manipulation of 3D
 data and its translation to a rendering engine, needs to optimize
 performance in all cases to ensure maximum performance. Either to aim
