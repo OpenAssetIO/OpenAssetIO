@@ -250,7 +250,7 @@ management systems. It should be noted that such a mechanism does not
 guarantee that data is available for all entities (the design of
 `resolve` is a soft failure), it simply informs the Host that any given
 Manager at least declares support of that data at an implementation
-level. Makingn this trade-off feel a reasonable compromise given the
+level. Making this trade-off feel a reasonable compromise given the
 benefits of up-front knowledge, and complexity reduction.
 
 If precise, advanced entity-specific introspection is needed for
