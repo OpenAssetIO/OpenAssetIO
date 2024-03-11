@@ -2,8 +2,8 @@
 
 - **Status:** Decided
 - **Driver:** @foundrytom
-- **Contributors:** Assorted
-- **Outcome:** OpenAssetIO will support manager behaivour introspection
+- **Contributors:** Assorted (2010-2012).
+- **Outcome:** OpenAssetIO will support manager behaviour introspection
   using a `managementPolicy` method parameterized by trait set and
   access.
 
@@ -14,7 +14,7 @@
 
 ## Background
 
-A fundemental design constraint of OpenAssetIO is that neither the host
+A fundamental design constraint of OpenAssetIO is that neither the host
 or manager should need to rely on the particular identity of the other
 in order to function. However, as each implementation may not support
 all API features, a mechanism is required to allow the Host (as
@@ -72,9 +72,9 @@ capabilities of the manager without an existing entity reference.
 Depending on supported features, the approximate control flow for a full
 synchronization process is:
 
-1. Ask the user to supply an anchor entity reference (eg: via delegated
-   browsing), that is considered the 'parent' for the shots to be
-   managed.
+1. Ask the user to supply an anchor entity reference (e.g.: via
+   delegated browsing), that is considered the 'parent' for the shots to
+   be managed.
 
 2. Query shots related to the supplied reference, and compare with
    timeline clips.
@@ -91,17 +91,17 @@ synchronization process is:
    image sequences and their timings).
 
 In order for the user to understand what is possible, and not attempt
-actions that will erors due to lack of support from the Manager, the
+actions that will errors due to lack of support from the Manager, the
 Host needs to introspect the Managers capabilities and only present UX
 that is relevant to those capabilities.
 
 ### Managing runtime overhead in scene expansion
 
-A scene management application that uses a defered node graph to
+A scene management application that uses a deferred node graph to
 perform scene aggregation, processing and real-time manipulation of 3D
 data and its translation to a rendering engine, needs to optimize
 performance in all cases to ensure maximum performance. Either to aim
-for real-time user feedback, or minimse core hours in massively
+for real-time user feedback, or minimize core hours in massively
 distributed workflows.
 
 During integration of Katana into several studio pipelines, it was
@@ -112,10 +112,10 @@ runtime overhead.
 
 Of particular note was the facility to allow asset management of
 Shader parameters. The requirement here was that a pipeline may wish to
-assetize shader parameters (eg: textures). As a consequence, the scene
+assetize shader parameters (e.g.: textures). As a consequence, the scene
 build process is required to consider each string shader parameter as a
 potential entity reference. In typical production scenes this can result
-in hundereds of thousands of parameters needing consideration.
+in hundreds of thousands of parameters needing consideration.
 
 Requests were made by pipeline owners to allow them to "turn off"
 assetization within different parts of the application where they did
@@ -166,7 +166,6 @@ Add an introspection mechanism that allows a Host to query the Manager
 for its capabilities regarding specific "types" of entities or
 relationships. The "type" is determined by its trait set.
 
-
 #### Pros
 
 - Capabilities can not vary per entity or relationship type. Allowing
@@ -181,7 +180,7 @@ relationships. The "type" is determined by its trait set.
 
 #### Cons
 
- - Capabilities can not vary per entity, which may result in unexpected
+- Capabilities can not vary per entity, which may result in unexpected
    failures if a specific manager was not also consistent for any given
    trait set.
 
@@ -262,13 +261,13 @@ If precise, advanced entity-specific introspection is needed for
 particular workflows (for example, determining the trait set of a pasted
 entity reference), it is felt that this would be better suited to a more
 tailored mechanism that makes it clear its results _are_ entity specific
-(eg `entityTraits`).
+(e.g. `entityTraits`).
 
 In the cases of reactionary data handling/performance (see the shader
 parameter example), the question of whether the advent of optimizations
 such as `constants.kInfoKey_EntityReferencesMatchPrefix` make this a
 non-issue. Unfortunately not all Managers have the ability to support an
-optimzed constant reference prefix. File-path remapping managers may not
+optimized constant reference prefix. File-path remapping managers may not
 have any such uniform string that can be used to short-circuit API
 evaluation. It is also possible to write these Managers in Python or
 some other non-performant language. As such the `isEntityReference`
