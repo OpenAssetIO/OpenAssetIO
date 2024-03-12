@@ -113,6 +113,7 @@ void CppPluginSystem::scan(std::string_view paths) {
       if (!handle) {
         logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
                                    filePath.string(), dlerror()));
+        dlclose(handle);
         continue;
       }
 
@@ -121,6 +122,7 @@ void CppPluginSystem::scan(std::string_view paths) {
       if (!entrypoint) {
         logger_->debug(fmt::format("CppPluginSystem: No top-level '{}' function in '{}': {}",
                                    kEntrypointFnName, filePath.string(), dlerror()));
+        dlclose(handle);
         continue;
       }
 
@@ -152,6 +154,16 @@ std::vector<openassetio::Str> CppPluginSystem::identifiers() const {
   std::transform(begin(plugins_), end(plugins_), std::back_inserter(result),
                  [](const auto& iter) { return iter.first; });
   return result;
+}
+
+CppPluginSystem::PathAndPlugin CppPluginSystem::plugin(const Identifier& identifier) const {
+  const auto iter = plugins_.find(identifier);
+  if (iter == plugins_.end()) {
+    throw errors::InputValidationException{fmt::format(
+        "CppPluginSystem: No plug-in registered with the identifier '{}'", identifier)};
+  }
+
+  return iter->second;
 }
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

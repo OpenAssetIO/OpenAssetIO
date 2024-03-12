@@ -22,8 +22,13 @@ namespace pluginSystem {
 OPENASSETIO_DECLARE_PTR(CppPluginSystem)
 
 class OPENASSETIO_CORE_EXPORT CppPluginSystem {
+  using PluginMap = std::unordered_map<openassetio::Str,
+                                       std::pair<std::filesystem::path, CppPluginSystemPluginPtr>>;
+
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystem)
+
+  using PathAndPlugin = PluginMap::mapped_type;
 
   static Ptr make(log::LoggerInterfacePtr logger);
 
@@ -31,11 +36,12 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
 
   [[nodiscard]] std::vector<std::string> identifiers() const;
 
+  PathAndPlugin plugin(const openassetio::Identifier& identifier) const;
+
  private:
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);
   log::LoggerInterfacePtr logger_;
-  std::unordered_map<std::string, std::pair<std::filesystem::path, CppPluginSystemPluginPtr>>
-      plugins_;
+  PluginMap plugins_;
 };
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

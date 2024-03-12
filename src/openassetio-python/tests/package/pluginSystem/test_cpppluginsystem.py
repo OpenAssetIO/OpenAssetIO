@@ -62,7 +62,9 @@ class Test_CppPluginSystem_scan:
         path_c = os.path.join(the_cpp_resources_directory_path, "pathC")
 
         a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
-        assert "pathA" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        path, plugin = a_plugin_system.plugin(module_plugin_identifier)
+
+        assert "pathA" in path
 
         a_plugin_system.reset()
 
