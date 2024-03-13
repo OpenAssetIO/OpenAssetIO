@@ -30,6 +30,8 @@ from openassetio.pluginSystem import CppPluginSystem
 
 # TODO(DF): GIL tests
 
+kLibExt = "so" if os.name == "posix" else "dll"
+
 
 class Test_CppPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
@@ -66,6 +68,8 @@ class Test_CppPluginSystem_scan:
         resources_path = pathlib.Path(the_cpp_resources_directory_path)
         path_a = resources_path / "pathA"
         path_c = resources_path / "pathC"
+        path_a_lib = path_a / f"pathA.{kLibExt}"
+        path_c_lib = path_c / f"pathC.{kLibExt}"
 
         a_plugin_system.scan(paths=os.pathsep.join((str(path_a), str(path_c))))
         path, _ = a_plugin_system.plugin(module_plugin_identifier)
@@ -73,8 +77,8 @@ class Test_CppPluginSystem_scan:
         assert "pathA" in path.parts
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
-            f" '{path_c / 'pathC.so'}'. Already registered by '{path_a / 'pathA.so'}'",
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_c_lib}'."
+            f" Already registered by '{path_a_lib}'",
         )
 
         a_plugin_system.reset()
@@ -85,8 +89,8 @@ class Test_CppPluginSystem_scan:
         assert "pathC" in path.parts
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
-            f" '{path_a / 'pathA.so'}'. Already registered by '{path_c / 'pathC.so'}'",
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f" Already registered by '{path_c_lib}'",
         )
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
@@ -137,23 +141,21 @@ class Test_CppPluginSystem_scan:
 
         kDebug = mock_logger.Severity.kDebug
 
-        libext = "so" if os.name == "posix" else "dll"
-
         non_lib_path = os.path.join(broken_cpp_plugins_path, "not-a-lib.txt")
-        fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{libext}")
-        directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{libext}")
-        non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{libext}")
+        fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{kLibExt}")
+        directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{kLibExt}")
+        non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{kLibExt}")
         static_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"staticthrow-exception.{libext}"
+            broken_cpp_plugins_path, f"staticthrow-exception.{kLibExt}"
         )
         static_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"staticthrow-nonexception.{libext}"
+            broken_cpp_plugins_path, f"staticthrow-nonexception.{kLibExt}"
         )
         entrypoint_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"entrypointthrow-exception.{libext}"
+            broken_cpp_plugins_path, f"entrypointthrow-exception.{kLibExt}"
         )
         entrypoint_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"entrypointthrow-nonexception.{libext}"
+            broken_cpp_plugins_path, f"entrypointthrow-nonexception.{kLibExt}"
         )
 
         mock_logger.mock.log.assert_any_call(
