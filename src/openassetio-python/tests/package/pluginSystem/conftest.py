@@ -47,6 +47,11 @@ def a_python_plugin_path_with_symlinks(the_python_resources_directory_path):
 
 
 @pytest.fixture
+def a_cpp_plugin_path_with_symlinks(the_cpp_resources_directory_path):
+    return os.path.join(the_cpp_resources_directory_path, "symlinkPath")
+
+
+@pytest.fixture
 def a_python_module_plugin_path(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "pathA")
 

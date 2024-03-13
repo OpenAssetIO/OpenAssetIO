@@ -1,6 +1,8 @@
 #-----------------------------------------------------------------------
 # Test Plugins
 
+set(_plugins_path ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugins)
+
 # Create a test plugin with a particular path and id suffix.
 function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
 
@@ -13,7 +15,7 @@ function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
     install(
         TARGETS openassetio-core-pluginSystem-test-${path_suffix}
         EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugins/${path_suffix}
+        DESTINATION ${_plugins_path}/${path_suffix}
     )
 
     #-------------------------------------------------------------------
@@ -69,3 +71,28 @@ endfunction()
 openassetio_test_pluginSystem_generate_plugin(pathA modulePlugin)
 openassetio_test_pluginSystem_generate_plugin(pathB packagePlugin)
 openassetio_test_pluginSystem_generate_plugin(pathC modulePlugin)
+
+
+#-----------------------------------------------------------------------
+# Create symlinks in install tree for symlink plugin loading test.
+#
+# See Test_CppPluginSystem_scan
+# test_when_path_contains_symlinks_then_plugins_are_loaded
+
+# cmake-lint: disable=C0301
+install(CODE "
+    file(MAKE_DIRECTORY \"$<INSTALL_PREFIX>/${_plugins_path}/symlinkPath\")
+
+    file(
+        CREATE_LINK
+        \"$<INSTALL_PREFIX>/${_plugins_path}/pathA/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
+        \"$<INSTALL_PREFIX>/${_plugins_path}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
+        SYMBOLIC
+    )
+    file(
+        CREATE_LINK
+        \"$<INSTALL_PREFIX>/${_plugins_path}/pathB/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
+        \"$<INSTALL_PREFIX>/${_plugins_path}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
+        SYMBOLIC
+    )
+")
