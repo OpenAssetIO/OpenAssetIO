@@ -139,8 +139,6 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     return {};
   }
 
-  dlerror();  // Clear any previous error.
-
   // Open the binary.
   void* handle;
   try {
@@ -197,6 +195,8 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     logger_->debug(
         fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. Already registered by '{}'",
                     identifier, filePath.string(), iter->second.first.string()));
+    plugin.reset();  // Must destroy _before_ closing lib.
+    dlclose(handle);
     return {};
   }
 

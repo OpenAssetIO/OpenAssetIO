@@ -26,7 +26,7 @@ import pathlib
 import pytest
 
 from openassetio import errors
-from openassetio.pluginSystem import CppPluginSystem
+from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
 
 # TODO(DF): GIL tests
 
@@ -93,6 +93,36 @@ class Test_CppPluginSystem_scan:
             f" Already registered by '{path_c_lib}'",
         )
 
+    def test_when_multiple_plugin_loaders_load_duplicate_plugins_then_libraries_not_unloaded(
+        self,
+        module_plugin_identifier,
+        the_cpp_resources_directory_path,
+        mock_logger,
+    ):
+        # This is really a test that dlopen/dlclose is reference
+        # counted.
+
+        resources_path = pathlib.Path(the_cpp_resources_directory_path)
+        path_a = resources_path / "pathA"
+        path_c = resources_path / "pathC"
+        path_a_lib = path_a / f"pathA.{kLibExt}"
+        path_c_lib = path_c / f"pathC.{kLibExt}"
+
+        first_plugin_system = CppPluginSystem(mock_logger)
+        second_plugin_system = CppPluginSystem(mock_logger)
+        first_plugin_system.scan(paths=str(path_a))
+        # Will hit "Already registered" and dlclose `pathA.so`, which is
+        # needed by the first plugin system. But libs should be
+        # refcounted, so nothing breaks.
+        second_plugin_system.scan(paths=os.pathsep.join((str(path_c), str(path_a))))
+
+        # Confidence check that we hit the expected code path.
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kDebug,
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f" Already registered by '{path_c_lib}'",
+        )
+
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
         a_plugin_system,
@@ -117,6 +147,35 @@ class Test_CppPluginSystem_scan:
 
         expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
+
+    def test_when_path_contains_duplicate_entries_then_plugin_remains_loaded(
+        self,
+        a_plugin_system,
+        a_cpp_module_plugin_path,
+        a_cpp_plugin_path_with_symlinks,
+        module_plugin_identifier,
+        mock_logger,
+    ):
+        # Essentially testing that dlclose is refcounted.
+
+        combined_path = os.pathsep.join(
+            [a_cpp_plugin_path_with_symlinks, a_cpp_module_plugin_path]
+        )
+        path_a_lib = os.path.join(a_cpp_module_plugin_path, f"pathA.{kLibExt}")
+        symlink_path_a_lib = os.path.join(a_cpp_plugin_path_with_symlinks, f"pathA.{kLibExt}")
+
+        a_plugin_system.scan(combined_path)
+
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kDebug,
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f" Already registered by '{symlink_path_a_lib}'",
+        )
+        # Confidence check: we can still use the plugin instance.
+        assert (
+            a_plugin_system.plugin(module_plugin_identifier)[1].identifier()
+            == module_plugin_identifier
+        )
 
     def test_when_path_is_not_a_directory_then_warning_is_logged(
         self, a_plugin_system, mock_logger
