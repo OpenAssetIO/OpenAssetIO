@@ -30,6 +30,7 @@ from openassetio.pluginSystem import CppPluginSystem
 
 # TODO(DF): GIL tests
 
+
 class Test_CppPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
         self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
@@ -73,9 +74,7 @@ class Test_CppPluginSystem_scan:
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
             f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
-            f" '{path_c / 'libopenassetio-core-pluginSystem-test-pathC.so'}'."
-            f" Already registered by"
-            f" '{path_a / 'libopenassetio-core-pluginSystem-test-pathA.so'}'",
+            f" '{path_c / 'pathC.so'}'. Already registered by '{path_a / 'pathA.so'}'",
         )
 
         a_plugin_system.reset()
@@ -87,9 +86,7 @@ class Test_CppPluginSystem_scan:
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
             f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
-            f" '{path_a / 'libopenassetio-core-pluginSystem-test-pathA.so'}'."
-            f" Already registered by"
-            f" '{path_c / 'libopenassetio-core-pluginSystem-test-pathC.so'}'",
+            f" '{path_a / 'pathA.so'}'. Already registered by '{path_c / 'pathC.so'}'",
         )
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(

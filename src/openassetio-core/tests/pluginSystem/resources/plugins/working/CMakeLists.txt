@@ -9,6 +9,7 @@ function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
 
     add_library(openassetio-core-pluginSystem-test-${path_suffix} MODULE)
     openassetio_set_default_target_properties(openassetio-core-pluginSystem-test-${path_suffix})
+    openassetio_simplify_lib_name(openassetio-core-pluginSystem-test-${path_suffix} ${path_suffix})
     # Add to the set of installable targets.
     install(
         TARGETS openassetio-core-pluginSystem-test-${path_suffix}
