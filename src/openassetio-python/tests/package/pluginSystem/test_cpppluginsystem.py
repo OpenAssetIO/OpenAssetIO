@@ -259,6 +259,37 @@ class Test_CppPluginSystem_scan:
         )
 
 
+class Test_CppPluginSystem_reset:
+    def test_when_plugin_system_reset_then_plugin_still_accessible(
+        self, a_cpp_module_plugin_path, module_plugin_identifier, mock_logger
+    ):
+        # Essentially testing that we don't dlclose the last reference
+        # to the dll on reset.
+
+        plugin_system = CppPluginSystem(mock_logger)
+        plugin_system.scan(a_cpp_module_plugin_path)
+        _path, plugin = plugin_system.plugin(module_plugin_identifier)
+
+        plugin_system.reset()
+
+        assert plugin.identifier() == module_plugin_identifier
+
+    def test_when_plugin_system_destructs_then_plugin_still_accessible(
+        self, a_cpp_module_plugin_path, module_plugin_identifier, mock_logger
+    ):
+        # Essentially testing that we don't dlclose the last reference
+        # to the dll on destruction.
+
+        def get_plugin():
+            plugin_system = CppPluginSystem(mock_logger)
+            plugin_system.scan(a_cpp_module_plugin_path)
+            return plugin_system.plugin(module_plugin_identifier)
+
+        _path, plugin = get_plugin()
+
+        assert plugin.identifier() == module_plugin_identifier
+
+
 class Test_CppPluginSystem_plugin:
     def test_when_plugin_not_found_then_raises_InputValidationException(self, a_plugin_system):
         with pytest.raises(

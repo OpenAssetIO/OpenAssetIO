@@ -73,7 +73,10 @@ CppPluginSystemPtr CppPluginSystem::make(log::LoggerInterfacePtr logger) {
   return std::shared_ptr<CppPluginSystem>(new CppPluginSystem{std::move(logger)});
 }
 
-void CppPluginSystem::reset() { plugins_.clear(); }
+void CppPluginSystem::reset() {
+  // Note: do not dlclose plugins - they may be in use.
+  plugins_.clear();
+}
 
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 

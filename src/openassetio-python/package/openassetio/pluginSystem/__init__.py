@@ -21,6 +21,7 @@ openassetio package.
 """
 from .. import _openassetio
 CppPluginSystem = _openassetio.pluginSystem.CppPluginSystem
+CppPluginSystemPlugin = _openassetio.pluginSystem.CppPluginSystemPlugin
 from .PythonPluginSystemManagerPlugin import PythonPluginSystemManagerPlugin
 from .PythonPluginSystem import PythonPluginSystem
 from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
