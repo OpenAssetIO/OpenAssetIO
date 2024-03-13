@@ -29,7 +29,7 @@ constexpr const char* kEntrypointFnName = "openassetioPlugin";
 #if defined(_WIN32)
 // Dummy values
 #define RTLD_LAZY 0
-#define RTLD_GLOBAL 0
+#define RTLD_LOCAL 0
 
 void* dlopen(const char* filename, int) {
   const std::string_view filename_u8{filename};
@@ -95,57 +95,14 @@ void CppPluginSystem::scan(std::string_view paths) {
 
     for (const std::filesystem::directory_entry& directoryEntry :
          std::filesystem::directory_iterator{directoryPath}) {
-      if (!directoryEntry.is_regular_file()) {
-        logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
-                                   directoryEntry.path().string()));
-        continue;
-      }
       std::filesystem::path filePath = directoryEntry.path();
 
-      if (filePath.extension() != kLibExt) {
-        logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
-                                   filePath.string()));
-        continue;
+      if (MaybeIdentifierAndPlugin idAndPlugin = maybeLoadPlugin(filePath)) {
+        logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
+                                   idAndPlugin->first, filePath.string()));
+        plugins_[std::move(idAndPlugin->first)] = {std::move(filePath),
+                                                   std::move(idAndPlugin->second)};
       }
-
-      dlerror();  // Clear any previous error.
-
-      // Open the binary.
-      void* handle = dlopen(filePath.c_str(), RTLD_LAZY | RTLD_GLOBAL);
-      if (!handle) {
-        logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
-                                   filePath.string(), dlerror()));
-        dlclose(handle);
-        continue;
-      }
-
-      // Get the entrypoint function.
-      void* entrypoint = dlsym(handle, kEntrypointFnName);
-      if (!entrypoint) {
-        logger_->debug(fmt::format("CppPluginSystem: No top-level '{}' function in '{}': {}",
-                                   kEntrypointFnName, filePath.string(), dlerror()));
-        dlclose(handle);
-        continue;
-      }
-
-      // Load the plugin object.
-      CppPluginSystemPluginPtr plugin =
-          reinterpret_cast<CppPluginSystemPluginPtr (*)()>(entrypoint)();
-
-      const openassetio::Str identifier = plugin->identifier();
-
-      // Ensure it's not already been registered.
-      if (const auto iter = plugins_.find(identifier); iter != plugins_.end()) {
-        logger_->debug(fmt::format(
-            "CppPluginSystem: Skipping '{}' defined in '{}'. Already registered by '{}'",
-            identifier, filePath.string(), iter->second.first.string()));
-        continue;
-      }
-
-      logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'", identifier,
-                                 filePath.string()));
-
-      plugins_[identifier] = {std::move(filePath), std::move(plugin)};
     }
   }
 }
@@ -166,6 +123,84 @@ CppPluginSystem::PathAndPlugin CppPluginSystem::plugin(const Identifier& identif
   }
 
   return iter->second;
+}
+
+CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
+    const std::filesystem::path& filePath) {
+  if (!std::filesystem::is_regular_file(filePath)) {
+    logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
+                               filePath.string()));
+    return {};
+  }
+
+  if (filePath.extension() != kLibExt) {
+    logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
+                               filePath.string()));
+    return {};
+  }
+
+  dlerror();  // Clear any previous error.
+
+  // Open the binary.
+  void* handle;
+  try {
+    handle = dlopen(filePath.c_str(), RTLD_LAZY | RTLD_LOCAL);
+    if (!handle) {
+      logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
+                                 filePath.string(), dlerror()));
+      return {};
+    }
+  } catch (const std::exception& exc) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}': {}",
+                    filePath.string(), exc.what()));
+    return {};
+  } catch (...) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}':"
+                    " <unknown non-exception value caught>",
+                    filePath.string()));
+    return {};
+  }
+
+  // Get the entrypoint function.
+  void* entrypoint = dlsym(handle, kEntrypointFnName);
+  if (!entrypoint) {
+    logger_->debug(fmt::format("CppPluginSystem: No top-level '{}' function in '{}': {}",
+                               kEntrypointFnName, filePath.string(), dlerror()));
+    dlclose(handle);
+    return {};
+  }
+
+  // Load the plugin object.
+  CppPluginSystemPluginPtr plugin;
+  try {
+    plugin = reinterpret_cast<CppPluginSystemPluginPtr (*)()>(entrypoint)();
+  } catch (const std::exception& exc) {
+    logger_->debug(fmt::format("CppPluginSystem: Caught exception calling '{}' of '{}': {}",
+                               kEntrypointFnName, filePath.string(), exc.what()));
+    dlclose(handle);
+    return {};
+  } catch (...) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Caught exception calling '{}' of '{}':"
+                    " <unknown non-exception value caught>",
+                    kEntrypointFnName, filePath.string()));
+    dlclose(handle);
+    return {};
+  }
+
+  openassetio::Identifier identifier = plugin->identifier();
+
+  // Ensure it's not already been registered.
+  if (const auto iter = plugins_.find(identifier); iter != plugins_.end()) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. Already registered by '{}'",
+                    identifier, filePath.string(), iter->second.first.string()));
+    return {};
+  }
+
+  return {{std::move(identifier), std::move(plugin)}};
 }
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

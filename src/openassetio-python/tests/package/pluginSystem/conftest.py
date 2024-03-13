@@ -72,6 +72,11 @@ def broken_python_plugins_path(the_python_resources_directory_path):
 
 
 @pytest.fixture
+def broken_cpp_plugins_path(the_cpp_resources_directory_path):
+    return os.path.join(the_cpp_resources_directory_path, "broken")
+
+
+@pytest.fixture
 def an_entry_point_package_plugin_root(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "entryPoint", "site-packages")
 
@@ -84,17 +89,21 @@ def the_python_resources_directory_path():
 @pytest.fixture
 def the_cpp_resources_directory_path():
     scheme = f"{os.name}_user"
-    return os.path.normpath(os.path.join(
-        # Top-level __init__.py
-        openassetio.__file__,
-        # up to openassetio dir
-        "..",
-        # up to site-packages
-        "..",
-        # up to install tree root (i.e. posix ../../.., nt ../..)
-        os.path.relpath(sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)),
-        # down to install location of C++ plugins
-        "lib",
-        "OpenAssetIO",
-        "plugins",
-    ))
+    return os.path.normpath(
+        os.path.join(
+            # Top-level __init__.py
+            openassetio.__file__,
+            # up to openassetio dir
+            "..",
+            # up to site-packages
+            "..",
+            # up to install tree root (i.e. posix ../../.., nt ../..)
+            os.path.relpath(
+                sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)
+            ),
+            # down to install location of C++ plugins
+            "lib",
+            "OpenAssetIO",
+            "plugins",
+        )
+    )

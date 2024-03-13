@@ -3,6 +3,7 @@
 #pragma once
 #include <filesystem>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -41,6 +42,10 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   PathAndPlugin plugin(const openassetio::Identifier& identifier) const;
 
  private:
+  using MaybeIdentifierAndPlugin =
+      std::optional<std::pair<openassetio::Identifier, CppPluginSystemPluginPtr>>;
+  MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath);
+
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);
   log::LoggerInterfacePtr logger_;
   PluginMap plugins_;

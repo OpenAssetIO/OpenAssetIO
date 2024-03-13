@@ -22,14 +22,13 @@ These tests check the functionality of the CppPluginSystem class.
 
 import os
 import pathlib
-from typing import List
 
 import pytest
 
 from openassetio import errors
-from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import CppPluginSystem
 
+# TODO(DF): GIL tests
 
 class Test_CppPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
@@ -134,26 +133,71 @@ class Test_CppPluginSystem_scan:
         plugin_system = CppPluginSystem(mock_logger)
         plugin_system.scan(broken_cpp_plugins_path)
 
-        # TODO(DF): Ensure a non .so file and test log message generated.
-        # TODO(DF): Ensure a non .so file masquerading as a .so and test log message generated.
-        # TODO(DF): Check dlclose called on failed plugin loads.
+        # TODO(DF): How to check dlclose is called on failed plugin loads?
+        # TODO(DF): Check `openassetioPlugin` symbol exists but is bad?
 
         assert not plugin_system.identifiers()
-        missing_plugin_path = os.path.join(broken_cpp_plugins_path, "missing_plugin.py")
-        mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kError,
-            f"CppPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+
+        kDebug = mock_logger.Severity.kDebug
+
+        libext = "so" if os.name == "posix" else "dll"
+
+        non_lib_path = os.path.join(broken_cpp_plugins_path, "not-a-lib.txt")
+        fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{libext}")
+        directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{libext}")
+        non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{libext}")
+        static_throw_exception_path = os.path.join(
+            broken_cpp_plugins_path, f"staticthrow-exception.{libext}"
         )
-        raises_exception_path = os.path.join(broken_cpp_plugins_path, "raises_exception.py")
+        static_throw_nonexception_path = os.path.join(
+            broken_cpp_plugins_path, f"staticthrow-nonexception.{libext}"
+        )
+        entrypoint_throw_exception_path = os.path.join(
+            broken_cpp_plugins_path, f"entrypointthrow-exception.{libext}"
+        )
+        entrypoint_throw_nonexception_path = os.path.join(
+            broken_cpp_plugins_path, f"entrypointthrow-nonexception.{libext}"
+        )
+
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kError,
-            StringContaining(
-                [
-                    f"CppPluginSystem: Caught exception loading {raises_exception_path}:\n",
-                    f'  File "{raises_exception_path}", line 4, in <module>\n',
-                    '    raise RuntimeError("An exception")',
-                ]
-            ),
+            kDebug,
+            f"CppPluginSystem: Ignoring as it is not a library binary '{non_lib_path}'",
+        )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            f"CppPluginSystem: Ignoring as it is not a library binary '{directory_path}'",
+        )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            f"CppPluginSystem: Failed to open library '{fake_lib_path}':"
+            f" {fake_lib_path}: file too short",
+        )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: No top-level 'openassetioPlugin' function in"
+            f" '{non_plugin_path}': {non_plugin_path}: undefined symbol: openassetioPlugin",
+        )
+        # mock_logger.mock.log.assert_any_call(
+        #     kDebug,
+        #     "CppPluginSystem: Caught exception during static initialisation of"
+        #     f" '{static_throw_exception_path}': Statically thrown",
+        # )
+        # mock_logger.mock.log.assert_any_call(
+        #     kDebug,
+        #     "CppPluginSystem: Caught exception during static initialisation of"
+        #     f" '{static_throw_nonexception_path}':"
+        #     " <unknown non-exception value caught>",
+        # )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+            f" '{entrypoint_throw_exception_path}': Thrown from entrypoint",
+        )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+            f" '{entrypoint_throw_nonexception_path}':"
+            " <unknown non-exception value caught>",
         )
 
 
@@ -169,35 +213,3 @@ class Test_CppPluginSystem_plugin:
 @pytest.fixture
 def a_plugin_system(mock_logger):
     return CppPluginSystem(mock_logger)
-
-
-class StringContaining:
-    """
-    A helper class that aids testing runtime generated strings that may
-    contain unpredictable content along with known text (e.g stack
-    traces).
-
-    It only compares True to another string that contains all of the
-    supplied substrings.
-    """
-
-    def __init__(self, substrings: List[str]):
-        """
-        @param substrings A list of substrings that must be present
-        when this object is compared to a string.
-        """
-        self.__substrings = substrings
-
-    def __eq__(self, other):
-        if not isinstance(other, str):
-            return False
-        for substring in self.__substrings:
-            if substring not in other:
-                return False
-        return True
-
-    def __neq__(self, other):
-        return not self.__eq__(other)
-
-    def __repr__(self):
-        return f"StringContaining({repr(self.__substrings)})"

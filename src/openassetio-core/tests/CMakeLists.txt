@@ -127,4 +127,4 @@ openassetio_add_test_fixture_dependencies(
 #-----------------------------------------------------------------------
 # Test resources
 
-add_subdirectory(pluginSystem/resources/plugins/working)
+add_subdirectory(pluginSystem/resources/plugins)
