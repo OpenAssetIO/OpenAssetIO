@@ -32,6 +32,8 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
 
   static Ptr make(log::LoggerInterfacePtr logger);
 
+  void reset();
+
   void scan(std::string_view paths);
 
   [[nodiscard]] std::vector<std::string> identifiers() const;

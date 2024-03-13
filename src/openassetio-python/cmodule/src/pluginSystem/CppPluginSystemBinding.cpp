@@ -16,6 +16,7 @@ void registerCppPluginSystem(const py::module_ &mod) {
   py::class_<CppPluginSystem, CppPluginSystem::Ptr>(mod, "CppPluginSystem")
       .def(py::init(RetainCommonPyArgs::forFn<&CppPluginSystem::make>()),
            py::arg("logger").none(false))
+      .def("reset", &CppPluginSystem::reset)
       .def("scan", &CppPluginSystem::scan, py::arg("paths"))
       .def("identifiers", &CppPluginSystem::identifiers)
       .def("plugin", &CppPluginSystem::plugin, py::arg("identifier"));

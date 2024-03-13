@@ -21,6 +21,7 @@ These tests check the functionality of the CppPluginSystem class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
 import os
+import pathlib
 from typing import List
 
 import pytest
@@ -55,23 +56,42 @@ class Test_CppPluginSystem_scan:
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
-        self, a_plugin_system, the_cpp_resources_directory_path, module_plugin_identifier
+        self,
+        a_plugin_system,
+        the_cpp_resources_directory_path,
+        module_plugin_identifier,
+        mock_logger,
     ):
         # The module plugin exists in pathA and pathC
-        path_a = os.path.join(the_cpp_resources_directory_path, "pathA")
-        path_c = os.path.join(the_cpp_resources_directory_path, "pathC")
+        resources_path = pathlib.Path(the_cpp_resources_directory_path)
+        path_a = resources_path / "pathA"
+        path_c = resources_path / "pathC"
 
-        a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
-        path, plugin = a_plugin_system.plugin(module_plugin_identifier)
+        a_plugin_system.scan(paths=os.pathsep.join((str(path_a), str(path_c))))
+        path, _ = a_plugin_system.plugin(module_plugin_identifier)
 
-        assert "pathA" in path
+        assert "pathA" in path.parts
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kDebug,
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
+            f" '{path_c / 'libopenassetio-core-pluginSystem-test-pathC.so'}'."
+            f" Already registered by"
+            f" '{path_a / 'libopenassetio-core-pluginSystem-test-pathA.so'}'",
+        )
 
         a_plugin_system.reset()
 
-        a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
-        assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        a_plugin_system.scan(paths=os.pathsep.join((str(path_c), str(path_a))))
+        path, _ = a_plugin_system.plugin(module_plugin_identifier)
 
-        # TODO(DF): check log message is output
+        assert "pathC" in path.parts
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kDebug,
+            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in"
+            f" '{path_a / 'libopenassetio-core-pluginSystem-test-pathA.so'}'."
+            f" Already registered by"
+            f" '{path_c / 'libopenassetio-core-pluginSystem-test-pathC.so'}'",
+        )
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
@@ -149,14 +169,6 @@ class Test_CppPluginSystem_plugin:
 @pytest.fixture
 def a_plugin_system(mock_logger):
     return CppPluginSystem(mock_logger)
-
-
-# We use a real logger vs a mock, as it makes debugging test failures
-# easier as it surfaces any actual in-flight errors from the plugin
-# system.
-@pytest.fixture
-def a_logger():
-    return ConsoleLogger()
 
 
 class StringContaining:
