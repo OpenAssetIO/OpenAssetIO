@@ -23,13 +23,9 @@ namespace pluginSystem {
 OPENASSETIO_DECLARE_PTR(CppPluginSystem)
 
 class OPENASSETIO_CORE_EXPORT CppPluginSystem {
-  using PluginMap = std::unordered_map<openassetio::Str,
-                                       std::pair<std::filesystem::path, CppPluginSystemPluginPtr>>;
-
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystem)
-
-  using PathAndPlugin = PluginMap::mapped_type;
+  using PathAndPlugin = std::pair<std::filesystem::path, CppPluginSystemPluginPtr>;
 
   static Ptr make(log::LoggerInterfacePtr logger);
 
@@ -42,8 +38,10 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   PathAndPlugin plugin(const openassetio::Identifier& identifier) const;
 
  private:
+  using PluginMap = std::unordered_map<openassetio::Str, PathAndPlugin>;
   using MaybeIdentifierAndPlugin =
       std::optional<std::pair<openassetio::Identifier, CppPluginSystemPluginPtr>>;
+
   MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath);
 
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);
