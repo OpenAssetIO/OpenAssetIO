@@ -23,5 +23,6 @@ void registerCppPluginSystemPlugin(const py::module_ &mod) {
   py::class_<CppPluginSystemPlugin, PyCppPluginSystemPlugin, CppPluginSystemPlugin::Ptr>(
       mod, "CppPluginSystemPlugin")
       .def(py::init())
-      .def("identifier", &CppPluginSystemPlugin::identifier);
+      .def("identifier", &CppPluginSystemPlugin::identifier,
+           py::call_guard<py::gil_scoped_release>{});
 }
