@@ -21,3 +21,6 @@ set(OPENASSETIO_TEST_PLUGINS_PATH ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugin
 
 add_subdirectory(working)
 add_subdirectory(broken)
+if (OPENASSETIO_ENABLE_PYTHON)
+    add_subdirectory(python-gil-check)
+endif()

@@ -43,7 +43,7 @@ function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
         PRIVATE
         # Mocking framework.
         trompeloeil::trompeloeil
-        # Lib under test.
+        # Core library
         openassetio-core
     )
 

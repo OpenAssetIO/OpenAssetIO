@@ -28,7 +28,6 @@ import pytest
 from openassetio import errors
 from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
 
-# TODO(DF): GIL tests
 
 kLibExt = "so" if os.name == "posix" else "dll"
 
