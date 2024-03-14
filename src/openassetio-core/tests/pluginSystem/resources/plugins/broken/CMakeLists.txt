@@ -49,11 +49,11 @@ add_library(
 openassetio_set_default_target_properties(openassetio-core-pluginSystem-test-staticthrow-exception)
 openassetio_simplify_lib_name(
     openassetio-core-pluginSystem-test-staticthrow-exception staticthrow-exception)
-#install(
-#    TARGETS openassetio-core-pluginSystem-test-staticthrow-exception
-#    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-#    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
-#)
+install(
+    TARGETS openassetio-core-pluginSystem-test-staticthrow-exception
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+)
 
 #-----------------------------------------------------------------------
 # A library that throws a non-std::exception during static initialisation.
@@ -67,11 +67,11 @@ openassetio_set_default_target_properties(
     openassetio-core-pluginSystem-test-staticthrow-nonexception)
 openassetio_simplify_lib_name(
     openassetio-core-pluginSystem-test-staticthrow-nonexception staticthrow-nonexception)
-#install(
-#    TARGETS openassetio-core-pluginSystem-test-staticthrow-nonexception
-#    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-#    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
-#)
+install(
+    TARGETS openassetio-core-pluginSystem-test-staticthrow-nonexception
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+)
 
 #-----------------------------------------------------------------------
 # A plugin that throws a std::exception in the entrypoint.

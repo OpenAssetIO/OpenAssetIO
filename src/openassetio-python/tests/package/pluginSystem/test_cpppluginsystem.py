@@ -235,17 +235,17 @@ class Test_CppPluginSystem_scan:
             "CppPluginSystem: No top-level 'openassetioPlugin' function in"
             f" '{non_plugin_path}': {non_plugin_path}: undefined symbol: openassetioPlugin",
         )
-        # mock_logger.mock.log.assert_any_call(
-        #     kDebug,
-        #     "CppPluginSystem: Caught exception during static initialisation of"
-        #     f" '{static_throw_exception_path}': Statically thrown",
-        # )
-        # mock_logger.mock.log.assert_any_call(
-        #     kDebug,
-        #     "CppPluginSystem: Caught exception during static initialisation of"
-        #     f" '{static_throw_nonexception_path}':"
-        #     " <unknown non-exception value caught>",
-        # )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception during static initialisation of"
+            f" '{static_throw_exception_path}': Statically thrown",
+        )
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception during static initialisation of"
+            f" '{static_throw_nonexception_path}':"
+            " <unknown non-exception value caught>",
+        )
         mock_logger.mock.log.assert_any_call(
             kDebug,
             "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"

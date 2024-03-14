@@ -143,14 +143,10 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   // Open the binary.
-  void* handle;
+  void* handle{nullptr};
+
   try {
-    handle = dlopen(filePath.c_str(), RTLD_LAZY | RTLD_LOCAL);
-    if (!handle) {
-      logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
-                                 filePath.string(), dlerror()));
-      return {};
-    }
+    handle = openLibrary(filePath.c_str());
   } catch (const std::exception& exc) {
     logger_->debug(
         fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}': {}",
@@ -161,6 +157,11 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
         fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}':"
                     " <unknown non-exception value caught>",
                     filePath.string()));
+    return {};
+  }
+  if (!handle) {
+    logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
+                               filePath.string(), dlerror()));
     return {};
   }
 
@@ -204,6 +205,20 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   return {{std::move(identifier), std::move(plugin)}};
+}
+
+void* CppPluginSystem::openLibrary(const std::filesystem::path& filePath) {
+  // For some reason, wrapping in a function means we can catch
+  // exceptions that happen at static initialisation time in gcc.
+  // Probably exploiting UB. It's not to be relied upon, but in the
+  // cases where it works, it avoids a crash.
+  // See
+  // https://inbox.sourceware.org/gcc-help/CAAxjCEzY31LuebN_Y-w3p=eNmA0vikOPtCtMSUqSy6nhnN5Viw@mail.gmail.com/T/
+
+  // Use RTLD_LOCAL to avoid pollution of global namespace, and to
+  // better match Windows behaviour (which ignores the flags, see
+  // above).
+  return dlopen(filePath.c_str(), RTLD_LAZY | RTLD_LOCAL);
 }
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
