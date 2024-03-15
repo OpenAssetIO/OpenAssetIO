@@ -91,7 +91,7 @@ def the_python_resources_directory_path():
     return os.path.join(os.path.dirname(__file__), "resources")
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def the_cpp_plugins_root_path():
     """
     Compute the install tree location of the `plugins` directory, as

@@ -319,3 +319,24 @@ class Test_CppPluginSystem_plugin:
 @pytest.fixture
 def a_plugin_system(mock_logger):
     return CppPluginSystem(mock_logger)
+
+
+@pytest.fixture(scope="module", autouse=True)
+def skip_if_no_test_plugins_available(the_cpp_plugins_root_path):
+    """
+    Skip tests in this module if there are no plugins to test against.
+
+    Some test runs may genuinely not have access to the plugins, e.g.
+    when building/testing Python wheels, since the test plugins are
+    created by CMake when test targets are enabled. In this case, skip
+    the tests in this module.
+
+    If we know we are running via CTest (i.e. OPENASSETIO_CTEST is
+    defined), then the test plugins should definitely exist. So in this
+    case, ensure we do _not_ disable these tests.
+    """
+    if (
+        not os.path.isdir(the_cpp_plugins_root_path)
+        and os.environ.get("OPENASSETIO_CTEST") is None
+    ):
+        pytest.skip("Skipping C++ plugin system tests as no test plugins are available")
