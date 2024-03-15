@@ -27,18 +27,18 @@ import pytest
 
 
 @pytest.fixture
-def module_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.modulePlugin"
+def plugin_a_identifier():
+    return "org.openassetio.test.pluginSystem.resources.pluginA"
 
 
 @pytest.fixture
-def package_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.packagePlugin"
+def plugin_b_identifier():
+    return "org.openassetio.test.pluginSystem.resources.pluginB"
 
 
 @pytest.fixture
-def entry_point_plugin_identifier(package_plugin_identifier):
-    return package_plugin_identifier
+def entry_point_plugin_identifier(plugin_b_identifier):
+    return plugin_b_identifier
 
 
 @pytest.fixture
@@ -47,8 +47,13 @@ def a_python_plugin_path_with_symlinks(the_python_resources_directory_path):
 
 
 @pytest.fixture
-def a_cpp_plugin_path_with_symlinks(the_cpp_resources_directory_path):
-    return os.path.join(the_cpp_resources_directory_path, "symlinkPath")
+def a_cpp_plugin_path_with_symlinks(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "symlinkPath")
+
+
+@pytest.fixture
+def a_symlink_to_a_cpp_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "pathASymlink")
 
 
 @pytest.fixture
@@ -57,12 +62,12 @@ def a_python_module_plugin_path(the_python_resources_directory_path):
 
 
 @pytest.fixture
-def a_cpp_module_plugin_path(the_cpp_resources_directory_path):
-    return os.path.join(the_cpp_resources_directory_path, "pathA")
+def a_cpp_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "pathA")
 
 
 @pytest.fixture
-def a_package_plugin_path(the_python_resources_directory_path):
+def a_python_package_plugin_path(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "pathB")
 
 
@@ -72,8 +77,8 @@ def broken_python_plugins_path(the_python_resources_directory_path):
 
 
 @pytest.fixture
-def broken_cpp_plugins_path(the_cpp_resources_directory_path):
-    return os.path.join(the_cpp_resources_directory_path, "broken")
+def broken_cpp_plugins_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "broken")
 
 
 @pytest.fixture
@@ -87,7 +92,11 @@ def the_python_resources_directory_path():
 
 
 @pytest.fixture
-def the_cpp_resources_directory_path():
+def the_cpp_plugins_root_path():
+    """
+    Compute the install tree location of the `plugins` directory, as
+    configured in CMake.
+    """
     scheme = f"{os.name}_user"
     return os.path.normpath(
         os.path.join(

@@ -34,74 +34,74 @@ kLibExt = "so" if os.name == "posix" else "dll"
 
 class Test_CppPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
+        self, a_plugin_system, a_cpp_plugin_path, plugin_a_identifier
     ):
-        a_plugin_system.scan(a_cpp_module_plugin_path)
+        a_plugin_system.scan(a_cpp_plugin_path)
         assert a_plugin_system.identifiers() == [
-            module_plugin_identifier,
+            plugin_a_identifier,
         ]
 
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
         a_plugin_system,
-        the_cpp_resources_directory_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        the_cpp_plugins_root_path,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        path_a = os.path.join(the_cpp_resources_directory_path, "pathA")
-        path_b = os.path.join(the_cpp_resources_directory_path, "pathB")
+        path_a = os.path.join(the_cpp_plugins_root_path, "pathA")
+        path_b = os.path.join(the_cpp_plugins_root_path, "pathB")
         combined_path = os.pathsep.join([path_a, path_b])
         a_plugin_system.scan(combined_path)
 
-        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
+        expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
         self,
         a_plugin_system,
-        the_cpp_resources_directory_path,
-        module_plugin_identifier,
+        the_cpp_plugins_root_path,
+        plugin_a_identifier,
         mock_logger,
     ):
         # The module plugin exists in pathA and pathC
-        resources_path = pathlib.Path(the_cpp_resources_directory_path)
+        resources_path = pathlib.Path(the_cpp_plugins_root_path)
         path_a = resources_path / "pathA"
         path_c = resources_path / "pathC"
         path_a_lib = path_a / f"pathA.{kLibExt}"
         path_c_lib = path_c / f"pathC.{kLibExt}"
 
         a_plugin_system.scan(paths=os.pathsep.join((str(path_a), str(path_c))))
-        path, _ = a_plugin_system.plugin(module_plugin_identifier)
+        path, _ = a_plugin_system.plugin(plugin_a_identifier)
 
         assert "pathA" in path.parts
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_c_lib}'."
+            f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_c_lib}'."
             f" Already registered by '{path_a_lib}'",
         )
 
         a_plugin_system.reset()
 
         a_plugin_system.scan(paths=os.pathsep.join((str(path_c), str(path_a))))
-        path, _ = a_plugin_system.plugin(module_plugin_identifier)
+        path, _ = a_plugin_system.plugin(plugin_a_identifier)
 
         assert "pathC" in path.parts
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{path_c_lib}'",
         )
 
     def test_when_multiple_plugin_loaders_load_duplicate_plugins_then_libraries_not_unloaded(
         self,
-        module_plugin_identifier,
-        the_cpp_resources_directory_path,
+        plugin_a_identifier,
+        the_cpp_plugins_root_path,
         mock_logger,
     ):
         # This is really a test that dlopen/dlclose is reference
         # counted.
 
-        resources_path = pathlib.Path(the_cpp_resources_directory_path)
+        resources_path = pathlib.Path(the_cpp_plugins_root_path)
         path_a = resources_path / "pathA"
         path_c = resources_path / "pathC"
         path_a_lib = path_a / f"pathA.{kLibExt}"
@@ -118,7 +118,7 @@ class Test_CppPluginSystem_scan:
         # Confidence check that we hit the expected code path.
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{path_c_lib}'",
         )
 
@@ -126,66 +126,61 @@ class Test_CppPluginSystem_scan:
         self,
         a_plugin_system,
         a_cpp_plugin_path_with_symlinks,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
         a_plugin_system.scan(a_cpp_plugin_path_with_symlinks)
 
-        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
+        expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_search_path_is_a_symlink_then_plugins_are_loaded(
         self,
         a_plugin_system,
-        the_cpp_resources_directory_path,
-        module_plugin_identifier,
+        a_symlink_to_a_cpp_plugin_path,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(os.path.join(the_cpp_resources_directory_path, "pathASymlink"))
+        a_plugin_system.scan(a_symlink_to_a_cpp_plugin_path)
 
-        expected_identifiers = {module_plugin_identifier}
+        expected_identifiers = {plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,
-        the_cpp_resources_directory_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        the_cpp_plugins_root_path,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(paths=os.path.join(the_cpp_resources_directory_path, "pathA"))
-        a_plugin_system.scan(paths=os.path.join(the_cpp_resources_directory_path, "pathB"))
+        a_plugin_system.scan(paths=os.path.join(the_cpp_plugins_root_path, "pathA"))
+        a_plugin_system.scan(paths=os.path.join(the_cpp_plugins_root_path, "pathB"))
 
-        expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
+        expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_path_contains_duplicate_entries_then_plugin_remains_loaded(
         self,
         a_plugin_system,
-        a_cpp_module_plugin_path,
+        a_cpp_plugin_path,
         a_cpp_plugin_path_with_symlinks,
-        module_plugin_identifier,
+        plugin_a_identifier,
         mock_logger,
     ):
         # Essentially testing that dlclose is refcounted.
 
-        combined_path = os.pathsep.join(
-            [a_cpp_plugin_path_with_symlinks, a_cpp_module_plugin_path]
-        )
-        path_a_lib = os.path.join(a_cpp_module_plugin_path, f"pathA.{kLibExt}")
+        combined_path = os.pathsep.join([a_cpp_plugin_path_with_symlinks, a_cpp_plugin_path])
+        path_a_lib = os.path.join(a_cpp_plugin_path, f"pathA.{kLibExt}")
         symlink_path_a_lib = os.path.join(a_cpp_plugin_path_with_symlinks, f"pathA.{kLibExt}")
 
         a_plugin_system.scan(combined_path)
 
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
-            f"CppPluginSystem: Skipping '{module_plugin_identifier}' defined in '{path_a_lib}'."
+            f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{symlink_path_a_lib}'",
         )
         # Confidence check: we can still use the plugin instance.
-        assert (
-            a_plugin_system.plugin(module_plugin_identifier)[1].identifier()
-            == module_plugin_identifier
-        )
+        assert a_plugin_system.plugin(plugin_a_identifier)[1].identifier() == plugin_a_identifier
 
     def test_when_path_is_not_a_directory_then_warning_is_logged(
         self, a_plugin_system, mock_logger
@@ -272,44 +267,44 @@ class Test_CppPluginSystem_scan:
 class Test_CppPluginSystem_reset:
     def test_when_reset_then_identifiers_empty(self):
         def test_when_plugin_system_reset_then_plugin_still_accessible(
-            self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
+            self, a_plugin_system, a_cpp_plugin_path, plugin_a_identifier
         ):
-            a_plugin_system.scan(a_cpp_module_plugin_path)
+            a_plugin_system.scan(a_cpp_plugin_path)
 
             # Confidence check.
-            assert a_plugin_system.identifiers() == [module_plugin_identifier]
+            assert a_plugin_system.identifiers() == [plugin_a_identifier]
 
             a_plugin_system.reset()
 
             assert a_plugin_system.identifiers() == []
 
     def test_when_plugin_system_reset_then_plugin_still_accessible(
-        self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
+        self, a_plugin_system, a_cpp_plugin_path, plugin_a_identifier
     ):
         # Essentially testing that we don't dlclose the last reference
         # to the dll on reset.
 
-        a_plugin_system.scan(a_cpp_module_plugin_path)
-        _path, plugin = a_plugin_system.plugin(module_plugin_identifier)
+        a_plugin_system.scan(a_cpp_plugin_path)
+        _path, plugin = a_plugin_system.plugin(plugin_a_identifier)
 
         a_plugin_system.reset()
 
-        assert plugin.identifier() == module_plugin_identifier
+        assert plugin.identifier() == plugin_a_identifier
 
     def test_when_plugin_system_destructs_then_plugin_still_accessible(
-        self, a_cpp_module_plugin_path, module_plugin_identifier, mock_logger
+        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger
     ):
         # Essentially testing that we don't dlclose the last reference
         # to the dll on destruction.
 
         def get_plugin():
             plugin_system = CppPluginSystem(mock_logger)
-            plugin_system.scan(a_cpp_module_plugin_path)
-            return plugin_system.plugin(module_plugin_identifier)
+            plugin_system.scan(a_cpp_plugin_path)
+            return plugin_system.plugin(plugin_a_identifier)
 
         _path, plugin = get_plugin()
 
-        assert plugin.identifier() == module_plugin_identifier
+        assert plugin.identifier() == plugin_a_identifier
 
 
 class Test_CppPluginSystem_plugin:

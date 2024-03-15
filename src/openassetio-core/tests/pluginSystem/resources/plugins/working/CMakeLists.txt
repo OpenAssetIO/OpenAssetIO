@@ -67,9 +67,9 @@ function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
 endfunction()
 
 # Path/ID chosen to mirror Python plugin system test plugins.
-openassetio_test_pluginSystem_generate_plugin(pathA modulePlugin)
-openassetio_test_pluginSystem_generate_plugin(pathB packagePlugin)
-openassetio_test_pluginSystem_generate_plugin(pathC modulePlugin)
+openassetio_test_pluginSystem_generate_plugin(pathA pluginA)
+openassetio_test_pluginSystem_generate_plugin(pathB pluginB)
+openassetio_test_pluginSystem_generate_plugin(pathC pluginA)
 
 
 #-----------------------------------------------------------------------

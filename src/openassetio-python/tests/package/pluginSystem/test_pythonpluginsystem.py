@@ -38,74 +38,76 @@ PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"
 
 class Test_PythonPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_python_module_plugin_path, module_plugin_identifier
+        self, a_plugin_system, a_python_module_plugin_path, plugin_a_identifier
     ):
         a_plugin_system.scan(a_python_module_plugin_path)
         assert a_plugin_system.identifiers() == [
-            module_plugin_identifier,
+            plugin_a_identifier,
         ]
 
     def test_when_path_contains_a_package_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_package_plugin_path, package_plugin_identifier
+        self, a_plugin_system, a_python_package_plugin_path, plugin_b_identifier
     ):
-        a_plugin_system.scan(a_package_plugin_path)
+        a_plugin_system.scan(a_python_package_plugin_path)
         assert a_plugin_system.identifiers() == [
-            package_plugin_identifier,
+            plugin_b_identifier,
         ]
 
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
         a_plugin_system,
-        a_package_plugin_path,
+        a_python_package_plugin_path,
         a_python_module_plugin_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        combined_path = os.pathsep.join([a_package_plugin_path, a_python_module_plugin_path])
+        combined_path = os.pathsep.join(
+            [a_python_package_plugin_path, a_python_module_plugin_path]
+        )
         a_plugin_system.scan(combined_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
-        self, a_plugin_system, the_python_resources_directory_path, module_plugin_identifier
+        self, a_plugin_system, the_python_resources_directory_path, plugin_a_identifier
     ):
         # The module plugin exists in pathA and pathC
         path_a = os.path.join(the_python_resources_directory_path, "pathA")
         path_c = os.path.join(the_python_resources_directory_path, "pathC")
 
         a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
-        assert "pathA" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathA" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
         a_plugin_system.reset()
 
         a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
-        assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathC" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
         a_plugin_system,
         a_python_plugin_path_with_symlinks,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
         a_plugin_system.scan(a_python_plugin_path_with_symlinks)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,
-        a_package_plugin_path,
+        a_python_package_plugin_path,
         a_python_module_plugin_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(paths=a_package_plugin_path)
+        a_plugin_system.scan(paths=a_python_package_plugin_path)
         a_plugin_system.scan(paths=a_python_module_plugin_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
