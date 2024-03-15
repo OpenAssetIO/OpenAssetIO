@@ -30,15 +30,15 @@ struct Plugin : openassetio::pluginSystem::CppPluginSystemManagerPlugin {
 };
 
 extern "C" {
-#if defined(__clang__)
-#pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
-#endif
+using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
 
 OPENASSETIO_CORE_PLUGINSYSTEM_TEST_EXPORT
-openassetio::pluginSystem::CppPluginSystemPluginPtr openassetioPlugin() {
+PluginFactory openassetioPlugin() {
   if (PyGILState_Check()) {
     throw std::runtime_error{"GIL was not released when loading C++ plugin"};
   }
-  return std::make_shared<Plugin>();
+  return []() -> openassetio::pluginSystem::CppPluginSystemPluginPtr {
+    return std::make_shared<Plugin>();
+  };
 }
 }

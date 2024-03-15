@@ -170,7 +170,10 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   // Load the plugin object.
   CppPluginSystemPluginPtr plugin;
   try {
-    plugin = reinterpret_cast<CppPluginSystemPluginPtr (*)()>(entrypoint)();
+    using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
+    using PluginEntrypoint = PluginFactory (*)();
+
+    plugin = reinterpret_cast<PluginEntrypoint>(entrypoint)()();
   } catch (const std::exception& exc) {
     logger_->debug(fmt::format("CppPluginSystem: Caught exception calling '{}' of '{}': {}",
                                kEntrypointFnName, filePath.string(), exc.what()));

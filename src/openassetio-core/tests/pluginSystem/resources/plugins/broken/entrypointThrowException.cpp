@@ -6,11 +6,8 @@
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 
 extern "C" {
-#if defined(__clang__)
-#pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
-#endif
+using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
+
 OPENASSETIO_CORE_PLUGINSYSTEM_TEST_EXPORT
-openassetio::pluginSystem::CppPluginSystemPluginPtr openassetioPlugin() {
-  throw std::runtime_error{"Thrown from entrypoint"};
-}
+PluginFactory openassetioPlugin() { throw std::runtime_error{"Thrown from entrypoint"}; }
 }
