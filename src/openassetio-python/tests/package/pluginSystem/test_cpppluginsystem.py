@@ -134,6 +134,17 @@ class Test_CppPluginSystem_scan:
         expected_identifiers = {package_plugin_identifier, module_plugin_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
+    def test_when_search_path_is_a_symlink_then_plugins_are_loaded(
+        self,
+        a_plugin_system,
+        the_cpp_resources_directory_path,
+        module_plugin_identifier,
+    ):
+        a_plugin_system.scan(os.path.join(the_cpp_resources_directory_path, "pathASymlink"))
+
+        expected_identifiers = {module_plugin_identifier}
+        assert set(a_plugin_system.identifiers()) == expected_identifiers
+
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,

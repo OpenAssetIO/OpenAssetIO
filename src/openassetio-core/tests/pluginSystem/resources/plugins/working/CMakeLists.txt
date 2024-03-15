@@ -80,8 +80,14 @@ openassetio_test_pluginSystem_generate_plugin(pathC modulePlugin)
 
 # cmake-lint: disable=C0301
 install(CODE "
-    file(MAKE_DIRECTORY \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/symlinkPath\")
+    file(
+        CREATE_LINK
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathA\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathASymlink\"
+        SYMBOLIC
+    )
 
+    file(MAKE_DIRECTORY \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/symlinkPath\")
     file(
         CREATE_LINK
         \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathA/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"

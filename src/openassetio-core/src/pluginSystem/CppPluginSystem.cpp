@@ -80,7 +80,7 @@ void CppPluginSystem::reset() {
 
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 
-void CppPluginSystem::scan(std::string_view paths) {
+void CppPluginSystem::scan(const std::string_view paths) {
   std::size_t pathsStartIdx = 0;
   std::size_t pathsEndIdx = 0;
 
