@@ -141,10 +141,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # Account for windows not being able to set variables inline
         if (WIN32)
             list(JOIN ARGN $<SEMICOLON> pythonpath)
-            set(combined_pytest_env set PYTHONPATH=${pythonpath} ${_pytest_env})
+            set(combined_pytest_env
+                set OPENASSETIO_CTEST=1 PYTHONPATH=${pythonpath} ${_pytest_env})
         else ()
             list(JOIN ARGN ":" pythonpath)
-            set(combined_pytest_env export PYTHONPATH=${pythonpath} ${_pytest_env})
+            set(combined_pytest_env
+                export OPENASSETIO_CTEST=1 PYTHONPATH=${pythonpath} ${_pytest_env})
         endif ()
 
         add_custom_target(
