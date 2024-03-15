@@ -31,16 +31,9 @@ constexpr const char* kEntrypointFnName = "openassetioPlugin";
 #define RTLD_LAZY 0
 #define RTLD_LOCAL 0
 
-void* dlopen(const char* filename, int) {
-  const std::string_view filename_u8{filename};
-  const int size =
-      MultiByteToWideChar(CP_UTF8, 0, filename_u8.data(), filename_u8.size(), NULL, 0);
-  std::wstring filename_w(size, 0);
-  MultiByteToWideChar(CP_UTF8, 0, filename_u8.data(), filename_u8.size(), filename_w.data(), size);
-  return LoadLibraryW(filename_w.c_str());
-}
+void* dlopen(const wchar_t* filename, int) { return LoadLibraryW(filename); }
 
-bool dlclose(void* handle) { return FreeLibrary(static_cast<HMODULE>(plugin_handle)) != 0; }
+bool dlclose(void* handle) { return FreeLibrary(static_cast<HMODULE>(handle)) != 0; }
 
 void* dlsym(void* handle, const char* symbol) {
   return static_cast<void*>(GetProcAddress(static_cast<HMODULE>(handle), symbol));
