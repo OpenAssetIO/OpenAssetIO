@@ -270,17 +270,29 @@ class Test_CppPluginSystem_scan:
 
 
 class Test_CppPluginSystem_reset:
+    def test_when_reset_then_identifiers_empty(self):
+        def test_when_plugin_system_reset_then_plugin_still_accessible(
+            self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
+        ):
+            a_plugin_system.scan(a_cpp_module_plugin_path)
+
+            # Confidence check.
+            assert a_plugin_system.identifiers() == [module_plugin_identifier]
+
+            a_plugin_system.reset()
+
+            assert a_plugin_system.identifiers() == []
+
     def test_when_plugin_system_reset_then_plugin_still_accessible(
-        self, a_cpp_module_plugin_path, module_plugin_identifier, mock_logger
+        self, a_plugin_system, a_cpp_module_plugin_path, module_plugin_identifier
     ):
         # Essentially testing that we don't dlclose the last reference
         # to the dll on reset.
 
-        plugin_system = CppPluginSystem(mock_logger)
-        plugin_system.scan(a_cpp_module_plugin_path)
-        _path, plugin = plugin_system.plugin(module_plugin_identifier)
+        a_plugin_system.scan(a_cpp_module_plugin_path)
+        _path, plugin = a_plugin_system.plugin(module_plugin_identifier)
 
-        plugin_system.reset()
+        a_plugin_system.reset()
 
         assert plugin.identifier() == module_plugin_identifier
 
