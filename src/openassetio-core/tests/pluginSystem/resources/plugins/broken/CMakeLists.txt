@@ -38,40 +38,47 @@ install(
     DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
 )
 
-#-----------------------------------------------------------------------
-# A library that throws a std::exception during static initialisation.
 
-add_library(
-    openassetio-core-pluginSystem-test-staticthrow-exception
-    MODULE
-    staticThrowException.cpp
-)
-openassetio_set_default_target_properties(openassetio-core-pluginSystem-test-staticthrow-exception)
-openassetio_simplify_lib_name(
-    openassetio-core-pluginSystem-test-staticthrow-exception staticthrow-exception)
-install(
-    TARGETS openassetio-core-pluginSystem-test-staticthrow-exception
-    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
-)
+if (NOT APPLE)  # MacOS cannot catch the following exceptions
 
-#-----------------------------------------------------------------------
-# A library that throws a non-std::exception during static initialisation.
+    #-------------------------------------------------------------------
+    # A library that throws a std::exception during static
+    # initialisation.
 
-add_library(
-    openassetio-core-pluginSystem-test-staticthrow-nonexception
-    MODULE
-    staticThrowNonException.cpp
-)
-openassetio_set_default_target_properties(
-    openassetio-core-pluginSystem-test-staticthrow-nonexception)
-openassetio_simplify_lib_name(
-    openassetio-core-pluginSystem-test-staticthrow-nonexception staticthrow-nonexception)
-install(
-    TARGETS openassetio-core-pluginSystem-test-staticthrow-nonexception
-    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
-)
+    add_library(
+        openassetio-core-pluginSystem-test-staticthrow-exception
+        MODULE
+        staticThrowException.cpp
+    )
+    openassetio_set_default_target_properties(openassetio-core-pluginSystem-test-staticthrow-exception)
+    openassetio_simplify_lib_name(
+        openassetio-core-pluginSystem-test-staticthrow-exception staticthrow-exception)
+    install(
+        TARGETS openassetio-core-pluginSystem-test-staticthrow-exception
+        EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+        DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    )
+
+    #-----------------------------------------------------------------------
+    # A library that throws a non-std::exception during static
+    # initialisation.
+
+    add_library(
+        openassetio-core-pluginSystem-test-staticthrow-nonexception
+        MODULE
+        staticThrowNonException.cpp
+    )
+    openassetio_set_default_target_properties(
+        openassetio-core-pluginSystem-test-staticthrow-nonexception)
+    openassetio_simplify_lib_name(
+        openassetio-core-pluginSystem-test-staticthrow-nonexception staticthrow-nonexception)
+    install(
+        TARGETS openassetio-core-pluginSystem-test-staticthrow-nonexception
+        EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+        DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    )
+
+endif ()
 
 #-----------------------------------------------------------------------
 # A plugin that throws a std::exception in the entrypoint.
