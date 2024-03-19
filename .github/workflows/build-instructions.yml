@@ -26,7 +26,7 @@ jobs:
 
     - name: Build and install (Docker)
       run: |
-        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build:2024.2.rc1 bash -c '
           cd /src && \
           cmake -S . -B build && \
           cmake --build build --parallel && \
@@ -34,7 +34,7 @@ jobs:
 
     - name: Build, install and test (Docker)
       run: |
-        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build:2024.2.rc1 bash -c '
           cd /src && \
           cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON && \
           ctest --test-dir build --output-on-failure --parallel 4'
