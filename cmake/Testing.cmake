@@ -150,22 +150,17 @@ if (OPENASSETIO_ENABLE_PYTHON)
     # (and is useful for debugging regardless).
     function(openassetio_add_pytest_target
         target_name description target_directory working_directory)
-
-        # Account for windows not being able to set variables inline
         if (WIN32)
             list(JOIN ARGN $<SEMICOLON> pythonpath)
-            set(set_pytest_env
-                set PYTHONPATH=${pythonpath} ${_pytest_env})
         else ()
             list(JOIN ARGN ":" pythonpath)
-            set(set_pytest_env
-                export PYTHONPATH=${pythonpath} ${_pytest_env})
         endif ()
+        set(pytest_env PYTHONPATH=${pythonpath} ${_pytest_env})
 
         add_custom_target(
             ${target_name}
-            COMMAND cmake -E echo -- ${description}
-            COMMAND ${set_pytest_env} &&
+            COMMAND ${CMAKE_COMMAND} -E echo -- ${description}
+            COMMAND ${CMAKE_COMMAND} -E env ${pytest_env}
             ${OPENASSETIO_PYTHON_EXE} -m pytest -v --capture=tee-sys
             ${target_directory}
             WORKING_DIRECTORY "${working_directory}"
