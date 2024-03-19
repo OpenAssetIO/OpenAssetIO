@@ -14,7 +14,7 @@ function (openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix)
     install(
         TARGETS openassetio-core-pluginSystem-test-${path_suffix}
         EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-        DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/${path_suffix}
+        DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/${path_suffix}
     )
 
     #-------------------------------------------------------------------
@@ -82,22 +82,22 @@ openassetio_test_pluginSystem_generate_plugin(pathC pluginA)
 install(CODE "
     file(
         CREATE_LINK
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathA\"
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathASymlink\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/pathA\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/pathASymlink\"
         SYMBOLIC
     )
 
-    file(MAKE_DIRECTORY \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/symlinkPath\")
+    file(MAKE_DIRECTORY \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/symlinkPath\")
     file(
         CREATE_LINK
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathA/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/pathA/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathA>\"
         SYMBOLIC
     )
     file(
         CREATE_LINK
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/pathB/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
-        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_PLUGINS_PATH}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/pathB/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
+        \"$<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/symlinkPath/$<TARGET_FILE_NAME:openassetio-core-pluginSystem-test-pathB>\"
         SYMBOLIC
     )
 ")

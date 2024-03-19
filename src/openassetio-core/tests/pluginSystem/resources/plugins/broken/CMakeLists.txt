@@ -5,7 +5,7 @@ include(GenerateExportHeader)
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/not-a-lib.txt "Not a lib")
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/not-a-lib.txt
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 #-----------------------------------------------------------------------
@@ -14,7 +14,7 @@ install(
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_LIBRARY_SUFFIX} "Fake lib")
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_LIBRARY_SUFFIX}
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 #-----------------------------------------------------------------------
@@ -23,7 +23,7 @@ install(
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_LIBRARY_SUFFIX})
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_LIBRARY_SUFFIX}
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 #-----------------------------------------------------------------------
@@ -35,7 +35,7 @@ openassetio_simplify_lib_name(openassetio-core-pluginSystem-test-nonplugin nonpl
 install(
     TARGETS openassetio-core-pluginSystem-test-nonplugin
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 
@@ -56,7 +56,7 @@ if (NOT APPLE)  # MacOS cannot catch the following exceptions
     install(
         TARGETS openassetio-core-pluginSystem-test-staticthrow-exception
         EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-        DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+        DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
     )
 
     #-----------------------------------------------------------------------
@@ -75,7 +75,7 @@ if (NOT APPLE)  # MacOS cannot catch the following exceptions
     install(
         TARGETS openassetio-core-pluginSystem-test-staticthrow-nonexception
         EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-        DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+        DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
     )
 
 endif ()
@@ -110,7 +110,7 @@ openassetio_simplify_lib_name(
 install(
     TARGETS openassetio-core-pluginSystem-test-entrypointthrow-exception
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 #-----------------------------------------------------------------------
@@ -143,5 +143,5 @@ openassetio_simplify_lib_name(
 install(
     TARGETS openassetio-core-pluginSystem-test-entrypointthrow-nonexception
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/broken
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )

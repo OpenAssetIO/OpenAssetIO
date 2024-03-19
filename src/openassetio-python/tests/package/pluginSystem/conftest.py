@@ -94,8 +94,8 @@ def the_python_resources_directory_path():
 @pytest.fixture(scope="session")
 def the_cpp_plugins_root_path():
     """
-    Compute the install tree location of the `plugins` directory, as
-    configured in CMake.
+    Assume C++ plugins are installed in
+    $<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}
     """
     scheme = f"{os.name}_user"
     return os.path.normpath(
@@ -111,8 +111,6 @@ def the_cpp_plugins_root_path():
                 sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)
             ),
             # down to install location of C++ plugins
-            "lib",
-            "OpenAssetIO",
-            "plugins",
+            os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugins"),
         )
     )

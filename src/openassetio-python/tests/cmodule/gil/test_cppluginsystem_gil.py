@@ -166,10 +166,10 @@ def the_cpp_gil_check_plugin_identifier():
     return "org.openassetio.test.pluginSystem.python.gil-check"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def the_cpp_gil_check_plugin_path():
     scheme = f"{os.name}_user"
-    return os.path.normpath(
+    plugin_path = os.path.normpath(
         os.path.join(
             # Top-level __init__.py
             openassetio.__file__,
@@ -182,9 +182,13 @@ def the_cpp_gil_check_plugin_path():
                 sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)
             ),
             # down to install location of C++ plugin
-            "lib",
-            "OpenAssetIO",
-            "plugins",
+            os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", ""),
             "python-gil-check",
         )
     )
+    if (
+        not os.path.isdir(plugin_path)
+        and os.environ.get("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR") is None
+    ):
+        pytest.skip("Skipping C++ plugin system tests as no test plugins are available")
+    return plugin_path

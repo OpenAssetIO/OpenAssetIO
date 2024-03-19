@@ -10,7 +10,7 @@ openassetio_simplify_lib_name(openassetio-core-pluginSystem-test-python-gil plug
 install(
     TARGETS openassetio-core-pluginSystem-test-python-gil
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
-    DESTINATION ${OPENASSETIO_TEST_PLUGINS_PATH}/python-gil-check
+    DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/python-gil-check
 )
 
 #-------------------------------------------------------------------

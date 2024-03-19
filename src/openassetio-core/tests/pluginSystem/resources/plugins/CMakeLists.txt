@@ -14,7 +14,6 @@ function(openassetio_simplify_lib_name target_name lib_name)
     )
 endfunction()
 
-set(OPENASSETIO_TEST_PLUGINS_PATH ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugins)
 
 #-----------------------------------------------------------------------
 # Plugin sets to build/install for tests.
