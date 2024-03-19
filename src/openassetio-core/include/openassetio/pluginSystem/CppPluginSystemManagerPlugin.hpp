@@ -16,6 +16,8 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystemManagerPlugin : public CppPluginSys
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystemManagerPlugin)
 
+  ~CppPluginSystemManagerPlugin() override;
+
   [[nodiscard]] virtual managerApi::ManagerInterfacePtr interface() = 0;
 };
 }  // namespace pluginSystem

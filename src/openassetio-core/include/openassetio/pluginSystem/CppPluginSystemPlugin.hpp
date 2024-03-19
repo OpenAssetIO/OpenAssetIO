@@ -15,7 +15,7 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystemPlugin)
 
-  virtual ~CppPluginSystemPlugin() = default;
+  virtual ~CppPluginSystemPlugin();
   [[nodiscard]] virtual openassetio::Str identifier() const = 0;
 };
 
