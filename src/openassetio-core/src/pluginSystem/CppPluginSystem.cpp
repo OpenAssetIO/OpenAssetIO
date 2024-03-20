@@ -188,6 +188,14 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     return {};
   }
 
+  if (!plugin) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Null plugin returned by '{}'", filePath.string()));
+
+    dlclose(handle);
+    return {};
+  }
+
   openassetio::Identifier identifier = plugin->identifier();
 
   // Ensure it's not already been registered.

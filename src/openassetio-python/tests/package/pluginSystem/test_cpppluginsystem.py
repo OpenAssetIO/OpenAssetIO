@@ -229,6 +229,15 @@ class Test_CppPluginSystem_scan:
         factory_throw_nonexception_path = os.path.join(
             broken_cpp_plugins_path, f"factorythrow-nonexception.{kLibExt}"
         )
+        identifier_throw_exception_path = os.path.join(
+            broken_cpp_plugins_path, f"identifierthrow-exception.{kLibExt}"
+        )
+        identifier_throw_nonexception_path = os.path.join(
+            broken_cpp_plugins_path, f"identifierthrow-nonexception.{kLibExt}"
+        )
+        factory_return_null_path = os.path.join(
+            broken_cpp_plugins_path, f"factory-returnnull.{kLibExt}"
+        )
 
         mock_logger.mock.log.assert_any_call(
             kDebug,
@@ -291,6 +300,24 @@ class Test_CppPluginSystem_scan:
                 f" '{factory_throw_nonexception_path}':"
                 " <unknown non-exception value caught>",
             )
+
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception calling 'identifier' of"
+            f" '{identifier_throw_exception_path}':"
+            " Thrown from identifier",
+        )
+
+        mock_logger.mock.log.assert_any_call(
+            kDebug,
+            "CppPluginSystem: Caught exception calling 'identifier' of"
+            f" '{identifier_throw_nonexception_path}':"
+            " <unknown non-exception value caught>",
+        )
+
+        mock_logger.mock.log.assert_any_call(
+            kDebug, f"CppPluginSystem: Null plugin returned by '{factory_return_null_path}'"
+        )
 
 
 class Test_CppPluginSystem_reset:
