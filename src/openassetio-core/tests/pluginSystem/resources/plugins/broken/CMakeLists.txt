@@ -38,7 +38,6 @@ install(
     DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
-
 if (NOT APPLE)  # MacOS cannot catch the following exceptions
 
     #-------------------------------------------------------------------
@@ -50,7 +49,8 @@ if (NOT APPLE)  # MacOS cannot catch the following exceptions
         MODULE
         staticThrowException.cpp
     )
-    openassetio_set_default_target_properties(openassetio-core-pluginSystem-test-staticthrow-exception)
+    openassetio_set_default_target_properties(
+        openassetio-core-pluginSystem-test-staticthrow-exception)
     openassetio_simplify_lib_name(
         openassetio-core-pluginSystem-test-staticthrow-exception staticthrow-exception)
     install(
