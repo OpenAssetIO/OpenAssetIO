@@ -250,7 +250,7 @@ class Test_CppPluginSystem_scan:
                 + " .+"
             ),
         )
-        if platform.system() != "Darwin":  # MacOS cannot catch these exceptions.
+        if platform.system() == "Linux":  # MacOS/Windows cannot catch these exceptions.
             mock_logger.mock.log.assert_any_call(
                 kDebug,
                 "CppPluginSystem: Caught exception during static initialisation of"
@@ -263,17 +263,18 @@ class Test_CppPluginSystem_scan:
                 " <unknown non-exception value caught>",
             )
 
-        mock_logger.mock.log.assert_any_call(
-            kDebug,
-            "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-            f" '{entrypoint_throw_exception_path}': Thrown from entrypoint",
-        )
-        mock_logger.mock.log.assert_any_call(
-            kDebug,
-            "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-            f" '{entrypoint_throw_nonexception_path}':"
-            " <unknown non-exception value caught>",
-        )
+        if platform.system() != "Windows":  # Windows cannot catch these exceptions.
+            mock_logger.mock.log.assert_any_call(
+                kDebug,
+                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+                f" '{entrypoint_throw_exception_path}': Thrown from entrypoint",
+            )
+            mock_logger.mock.log.assert_any_call(
+                kDebug,
+                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+                f" '{entrypoint_throw_nonexception_path}':"
+                " <unknown non-exception value caught>",
+            )
 
 
 class Test_CppPluginSystem_reset:
