@@ -126,7 +126,7 @@ class Test_PythonPluginSystem_scan:
             StringContaining(
                 [
                     f"PythonPluginSystem: Caught exception loading {raises_exception_path}:\n",
-                    f'  File "{raises_exception_path}", line 4, in <module>\n',
+                    f'  File "{raises_exception_path}", line 5, in <module>\n',
                     '    raise RuntimeError("An exception")',
                 ]
             ),
@@ -191,7 +191,7 @@ class Test_PythonPluginSystem_scan_entry_points:
             StringContaining(
                 [
                     "PythonPluginSystem: Caught exception loading raies_exception:\n",
-                    f'  File "{raises_exception_path}", line 4, in <module>\n',
+                    f'  File "{raises_exception_path}", line 5, in <module>\n',
                     '    raise RuntimeError("An exception")',
                 ]
             ),
