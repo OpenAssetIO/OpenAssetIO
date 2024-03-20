@@ -200,8 +200,6 @@ class Test_CppPluginSystem_scan:
         plugin_system = CppPluginSystem(mock_logger)
         plugin_system.scan(broken_cpp_plugins_path)
 
-        print(mock_logger.mock.log.call_args_list)
-
         # TODO(DF): How to check dlclose is called on failed plugin loads?
         # TODO(DF): Check `openassetioPlugin` symbol exists but is bad?
 
@@ -224,6 +222,12 @@ class Test_CppPluginSystem_scan:
         )
         entrypoint_throw_nonexception_path = os.path.join(
             broken_cpp_plugins_path, f"entrypointthrow-nonexception.{kLibExt}"
+        )
+        factory_throw_exception_path = os.path.join(
+            broken_cpp_plugins_path, f"factorythrow-exception.{kLibExt}"
+        )
+        factory_throw_nonexception_path = os.path.join(
+            broken_cpp_plugins_path, f"factorythrow-nonexception.{kLibExt}"
         )
 
         mock_logger.mock.log.assert_any_call(
@@ -273,6 +277,18 @@ class Test_CppPluginSystem_scan:
                 kDebug,
                 "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
                 f" '{entrypoint_throw_nonexception_path}':"
+                " <unknown non-exception value caught>",
+            )
+
+            mock_logger.mock.log.assert_any_call(
+                kDebug,
+                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+                f" '{factory_throw_exception_path}': Thrown from factory",
+            )
+            mock_logger.mock.log.assert_any_call(
+                kDebug,
+                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
+                f" '{factory_throw_nonexception_path}':"
                 " <unknown non-exception value caught>",
             )
 
