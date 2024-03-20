@@ -11,18 +11,18 @@ install(
 #-----------------------------------------------------------------------
 # A non-library file masquerading as a library.
 
-file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_LIBRARY_SUFFIX} "Fake lib")
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_MODULE_SUFFIX} "Fake lib")
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_LIBRARY_SUFFIX}
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/fake-lib${CMAKE_SHARED_MODULE_SUFFIX}
     DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
 #-----------------------------------------------------------------------
 # A directory (i.e. std::filesystem::is_regular_file is false).
 
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_LIBRARY_SUFFIX})
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_MODULE_SUFFIX})
 install(
-    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_LIBRARY_SUFFIX}
+    DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/a-directory${CMAKE_SHARED_MODULE_SUFFIX}
     DESTINATION ${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}/broken
 )
 
