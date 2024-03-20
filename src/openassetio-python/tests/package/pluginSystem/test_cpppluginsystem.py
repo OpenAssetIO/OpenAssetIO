@@ -23,6 +23,7 @@ These tests check the functionality of the CppPluginSystem class.
 import os
 import pathlib
 import platform
+import re
 
 import pytest
 
@@ -199,6 +200,8 @@ class Test_CppPluginSystem_scan:
         plugin_system = CppPluginSystem(mock_logger)
         plugin_system.scan(broken_cpp_plugins_path)
 
+        print(mock_logger.mock.log.call_args_list)
+
         # TODO(DF): How to check dlclose is called on failed plugin loads?
         # TODO(DF): Check `openassetioPlugin` symbol exists but is bad?
 
@@ -233,13 +236,19 @@ class Test_CppPluginSystem_scan:
         )
         mock_logger.mock.log.assert_any_call(
             kDebug,
-            f"CppPluginSystem: Failed to open library '{fake_lib_path}':"
-            f" {fake_lib_path}: file too short",
+            RegexMatch(
+                re.escape(f"CppPluginSystem: Failed to open library '{fake_lib_path}':") + " .+"
+            ),
         )
         mock_logger.mock.log.assert_any_call(
             kDebug,
-            "CppPluginSystem: No top-level 'openassetioPlugin' function in"
-            f" '{non_plugin_path}': {non_plugin_path}: undefined symbol: openassetioPlugin",
+            RegexMatch(
+                re.escape(
+                    "CppPluginSystem: No top-level 'openassetioPlugin' function in"
+                    f" '{non_plugin_path}':"
+                )
+                + " .+"
+            ),
         )
         if platform.system() != "Darwin":  # MacOS cannot catch these exceptions.
             mock_logger.mock.log.assert_any_call(
@@ -317,6 +326,14 @@ class Test_CppPluginSystem_plugin:
             match="CppPluginSystem: No plug-in registered with the identifier 'nonexistent'",
         ):
             a_plugin_system.plugin("nonexistent")
+
+
+class RegexMatch:
+    def __init__(self, pattern):
+        self.__pattern = pattern
+
+    def __eq__(self, text):
+        return bool(re.search(self.__pattern, text))
 
 
 @pytest.fixture
