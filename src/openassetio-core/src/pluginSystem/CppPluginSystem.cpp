@@ -135,23 +135,19 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     return {};
   }
 
-  // Open the binary.
   void* handle{nullptr};
 
-  try {
-    handle = openLibrary(filePath.c_str());
-  } catch (const std::exception& exc) {
-    logger_->debug(
-        fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}': {}",
-                    filePath.string(), exc.what()));
-    return {};
-  } catch (...) {
-    logger_->debug(
-        fmt::format("CppPluginSystem: Caught exception during static initialisation of '{}':"
-                    " <unknown non-exception value caught>",
-                    filePath.string()));
-    return {};
-  }
+  // Open the binary.
+  //
+  // Use RTLD_LOCAL to avoid pollution of global namespace, and to
+  // better match Windows behaviour (which ignores the flags, see
+  // above).
+  //
+  // Note that this is considered a `noexcept` operation. On GCC it is
+  // hackily possible to catch exceptions at static initialization time,
+  // but is UB.
+  handle = dlopen(filePath.c_str(), RTLD_LAZY | RTLD_LOCAL);
+
   if (!handle) {
     logger_->debug(fmt::format("CppPluginSystem: Failed to open library '{}': {}",
                                filePath.string(), dlerror()));
@@ -168,25 +164,13 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   // Load the plugin object.
-  CppPluginSystemPluginPtr plugin;
-  try {
-    using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
-    using PluginEntrypoint = PluginFactory (*)();
-
-    plugin = reinterpret_cast<PluginEntrypoint>(entrypoint)()();
-  } catch (const std::exception& exc) {
-    logger_->debug(fmt::format("CppPluginSystem: Caught exception calling '{}' of '{}': {}",
-                               kEntrypointFnName, filePath.string(), exc.what()));
-    dlclose(handle);
-    return {};
-  } catch (...) {
-    logger_->debug(
-        fmt::format("CppPluginSystem: Caught exception calling '{}' of '{}':"
-                    " <unknown non-exception value caught>",
-                    kEntrypointFnName, filePath.string()));
-    dlclose(handle);
-    return {};
-  }
+  //
+  // Note that this is considered a `noexcept` operation. This is for
+  // the best cross-platform consistency. I.e. By default, POSIX can
+  // support exceptions from both the initial entrypoint function
+  // and from the PluginFactory function pointer. Windows
+  // cannot support exceptions (fatal "access violation") from either.
+  CppPluginSystemPluginPtr plugin = reinterpret_cast<PluginFactory (*)()>(entrypoint)()();
 
   if (!plugin) {
     logger_->debug(
@@ -196,7 +180,29 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     return {};
   }
 
-  openassetio::Identifier identifier = plugin->identifier();
+  // Get plugin's unique identifier.
+  openassetio::Identifier identifier;
+  try {
+    identifier = plugin->identifier();
+  } catch (const std::exception& exc) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Caught exception calling 'identifier' of '{}': {}",
+                    filePath.string(), exc.what()));
+    plugin.reset();
+  } catch (...) {
+    logger_->debug(
+        fmt::format("CppPluginSystem: Caught exception calling 'identifier' of '{}':"
+                    " <unknown non-exception value caught>",
+                    filePath.string()));
+    plugin.reset();
+  }
+  // Must wait til after try-catch to close handle, since exception
+  // object needs a chance to destruct whilst the plugin binary is still
+  // loaded.
+  if (!plugin) {
+    dlclose(handle);
+    return {};
+  }
 
   // Ensure it's not already been registered.
   if (const auto iter = plugins_.find(identifier); iter != plugins_.end()) {
@@ -209,20 +215,6 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   return {{std::move(identifier), std::move(plugin)}};
-}
-
-void* CppPluginSystem::openLibrary(const std::filesystem::path& filePath) {
-  // For some reason, wrapping in a function means we can catch
-  // exceptions that happen at static initialisation time in gcc.
-  // Probably exploiting UB. It's not to be relied upon, but in the
-  // cases where it works, it avoids a crash.
-  // See
-  // https://inbox.sourceware.org/gcc-help/CAAxjCEzY31LuebN_Y-w3p=eNmA0vikOPtCtMSUqSy6nhnN5Viw@mail.gmail.com/T/
-
-  // Use RTLD_LOCAL to avoid pollution of global namespace, and to
-  // better match Windows behaviour (which ignores the flags, see
-  // above).
-  return dlopen(filePath.c_str(), RTLD_LAZY | RTLD_LOCAL);
 }
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

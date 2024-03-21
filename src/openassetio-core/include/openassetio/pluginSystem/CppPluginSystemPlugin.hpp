@@ -19,6 +19,7 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
   [[nodiscard]] virtual openassetio::Str identifier() const = 0;
 };
 
+using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)() noexcept;
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

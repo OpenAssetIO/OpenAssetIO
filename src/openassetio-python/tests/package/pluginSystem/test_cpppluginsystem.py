@@ -195,15 +195,11 @@ class Test_CppPluginSystem_scan:
         )
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_cpp_plugins_path, mock_logger
+        self, broken_cpp_plugins_path, a_plugin_system, mock_logger
     ):
-        plugin_system = CppPluginSystem(mock_logger)
-        plugin_system.scan(broken_cpp_plugins_path)
+        a_plugin_system.scan(broken_cpp_plugins_path)
 
-        # TODO(DF): How to check dlclose is called on failed plugin loads?
-        # TODO(DF): Check `openassetioPlugin` symbol exists but is bad?
-
-        assert not plugin_system.identifiers()
+        assert not a_plugin_system.identifiers()
 
         kDebug = mock_logger.Severity.kDebug
 
@@ -211,24 +207,6 @@ class Test_CppPluginSystem_scan:
         fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{kLibExt}")
         directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{kLibExt}")
         non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{kLibExt}")
-        static_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"staticthrow-exception.{kLibExt}"
-        )
-        static_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"staticthrow-nonexception.{kLibExt}"
-        )
-        entrypoint_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"entrypointthrow-exception.{kLibExt}"
-        )
-        entrypoint_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"entrypointthrow-nonexception.{kLibExt}"
-        )
-        factory_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"factorythrow-exception.{kLibExt}"
-        )
-        factory_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"factorythrow-nonexception.{kLibExt}"
-        )
         identifier_throw_exception_path = os.path.join(
             broken_cpp_plugins_path, f"identifierthrow-exception.{kLibExt}"
         )
@@ -263,43 +241,6 @@ class Test_CppPluginSystem_scan:
                 + " .+"
             ),
         )
-        if platform.system() == "Linux":  # MacOS/Windows cannot catch these exceptions.
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception during static initialisation of"
-                f" '{static_throw_exception_path}': Statically thrown",
-            )
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception during static initialisation of"
-                f" '{static_throw_nonexception_path}':"
-                " <unknown non-exception value caught>",
-            )
-
-        if platform.system() != "Windows":  # Windows cannot catch these exceptions.
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-                f" '{entrypoint_throw_exception_path}': Thrown from entrypoint",
-            )
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-                f" '{entrypoint_throw_nonexception_path}':"
-                " <unknown non-exception value caught>",
-            )
-
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-                f" '{factory_throw_exception_path}': Thrown from factory",
-            )
-            mock_logger.mock.log.assert_any_call(
-                kDebug,
-                "CppPluginSystem: Caught exception calling 'openassetioPlugin' of"
-                f" '{factory_throw_nonexception_path}':"
-                " <unknown non-exception value caught>",
-            )
 
         mock_logger.mock.log.assert_any_call(
             kDebug,

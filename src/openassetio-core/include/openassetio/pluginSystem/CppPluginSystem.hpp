@@ -44,9 +44,6 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
 
   MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath);
 
-  // Must be an exported function for gcc exception catching workaround.
-  static void* openLibrary(const std::filesystem::path& filePath);
-
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);
   log::LoggerInterfacePtr logger_;
   PluginMap plugins_;

@@ -6,16 +6,13 @@
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 
 class ThrowingPlugin : public openassetio::pluginSystem::CppPluginSystemPlugin {
-  [[nodiscard]] openassetio::Str identifier() const override {
-    throw 123;
-  }
+  [[nodiscard]] openassetio::Str identifier() const override { throw 0; }
 };
 
-using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
 extern "C" {
 OPENASSETIO_CORE_PLUGINSYSTEM_TEST_EXPORT
-PluginFactory openassetioPlugin() {
-  return []() -> openassetio::pluginSystem::CppPluginSystemPluginPtr {
+openassetio::pluginSystem::PluginFactory openassetioPlugin() noexcept {
+  return []() noexcept -> openassetio::pluginSystem::CppPluginSystemPluginPtr {
     return std::make_shared<ThrowingPlugin>();
   };
 }

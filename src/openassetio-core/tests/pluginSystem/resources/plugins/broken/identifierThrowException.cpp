@@ -13,11 +13,10 @@ class ThrowingPlugin : public openassetio::pluginSystem::CppPluginSystemPlugin {
   }
 };
 
-using PluginFactory = openassetio::pluginSystem::CppPluginSystemPluginPtr (*)();
 extern "C" {
 OPENASSETIO_CORE_PLUGINSYSTEM_TEST_EXPORT
-PluginFactory openassetioPlugin() {
-  return []() -> openassetio::pluginSystem::CppPluginSystemPluginPtr {
+openassetio::pluginSystem::PluginFactory openassetioPlugin() noexcept {
+  return []() noexcept -> openassetio::pluginSystem::CppPluginSystemPluginPtr {
     return std::make_shared<ThrowingPlugin>();
   };
 }
