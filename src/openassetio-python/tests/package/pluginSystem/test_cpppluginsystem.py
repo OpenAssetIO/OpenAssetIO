@@ -31,7 +31,7 @@ from openassetio import errors
 from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
 
 
-kLibExt = "so" if os.name == "posix" else "dll"
+lib_ext = "so" if os.name == "posix" else "dll"
 
 
 class Test_CppPluginSystem_scan:
@@ -69,8 +69,8 @@ class Test_CppPluginSystem_scan:
         resources_path = pathlib.Path(the_cpp_plugins_root_path)
         path_a = resources_path / "pathA"
         path_c = resources_path / "pathC"
-        path_a_lib = path_a / f"pathA.{kLibExt}"
-        path_c_lib = path_c / f"pathC.{kLibExt}"
+        path_a_lib = path_a / f"pathA.{lib_ext}"
+        path_c_lib = path_c / f"pathC.{lib_ext}"
 
         a_plugin_system.scan(paths=os.pathsep.join((str(path_a), str(path_c))))
         path, _ = a_plugin_system.plugin(plugin_a_identifier)
@@ -106,8 +106,8 @@ class Test_CppPluginSystem_scan:
         resources_path = pathlib.Path(the_cpp_plugins_root_path)
         path_a = resources_path / "pathA"
         path_c = resources_path / "pathC"
-        path_a_lib = path_a / f"pathA.{kLibExt}"
-        path_c_lib = path_c / f"pathC.{kLibExt}"
+        path_a_lib = path_a / f"pathA.{lib_ext}"
+        path_c_lib = path_c / f"pathC.{lib_ext}"
 
         first_plugin_system = CppPluginSystem(mock_logger)
         second_plugin_system = CppPluginSystem(mock_logger)
@@ -171,8 +171,8 @@ class Test_CppPluginSystem_scan:
         # Essentially testing that dlclose is refcounted.
 
         combined_path = os.pathsep.join([a_cpp_plugin_path_with_symlinks, a_cpp_plugin_path])
-        path_a_lib = os.path.join(a_cpp_plugin_path, f"pathA.{kLibExt}")
-        symlink_path_a_lib = os.path.join(a_cpp_plugin_path_with_symlinks, f"pathA.{kLibExt}")
+        path_a_lib = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
+        symlink_path_a_lib = os.path.join(a_cpp_plugin_path_with_symlinks, f"pathA.{lib_ext}")
 
         a_plugin_system.scan(combined_path)
 
@@ -204,17 +204,17 @@ class Test_CppPluginSystem_scan:
         kDebug = mock_logger.Severity.kDebug
 
         non_lib_path = os.path.join(broken_cpp_plugins_path, "not-a-lib.txt")
-        fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{kLibExt}")
-        directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{kLibExt}")
-        non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{kLibExt}")
+        fake_lib_path = os.path.join(broken_cpp_plugins_path, f"fake-lib.{lib_ext}")
+        directory_path = os.path.join(broken_cpp_plugins_path, f"a-directory.{lib_ext}")
+        non_plugin_path = os.path.join(broken_cpp_plugins_path, f"nonplugin.{lib_ext}")
         identifier_throw_exception_path = os.path.join(
-            broken_cpp_plugins_path, f"identifierthrow-exception.{kLibExt}"
+            broken_cpp_plugins_path, f"identifierthrow-exception.{lib_ext}"
         )
         identifier_throw_nonexception_path = os.path.join(
-            broken_cpp_plugins_path, f"identifierthrow-nonexception.{kLibExt}"
+            broken_cpp_plugins_path, f"identifierthrow-nonexception.{lib_ext}"
         )
         factory_return_null_path = os.path.join(
-            broken_cpp_plugins_path, f"factory-returnnull.{kLibExt}"
+            broken_cpp_plugins_path, f"factory-returnnull.{lib_ext}"
         )
 
         mock_logger.mock.log.assert_any_call(
