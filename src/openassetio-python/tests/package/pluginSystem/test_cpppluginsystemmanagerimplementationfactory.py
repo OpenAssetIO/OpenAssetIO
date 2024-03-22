@@ -37,18 +37,17 @@ class Test_CppPluginSystemManagerImplementationFactory_kPluginEnvVar:
         )
 
 
-class Test_CppPluginSystemManagerImplementationFactory_init:
+class Test_CppPluginSystemManagerImplementationFactory:
     def test_when_no_paths_then_warning_logged(self, mock_logger, monkeypatch):
         expected_msg = (
             "No search paths specified, no plugins will load - check"
-            f" ${CppPluginSystemManagerImplementationFactory.kPluginEnvVar} is set."
+            f" ${CppPluginSystemManagerImplementationFactory.kPluginEnvVar} is set"
         )
         expected_severity = mock_logger.Severity.kWarning
 
         monkeypatch.delenv(
             CppPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False
         )
-
         factory = CppPluginSystemManagerImplementationFactory(mock_logger)
         # Plugins are scanned lazily when first requested
         assert factory.identifiers() == []
@@ -88,7 +87,6 @@ class Test_CppPluginSystemManagerImplementationFactory_init:
         ]
 
     def test_when_paths_empty_then_returns_empty_list(self, mock_logger):
-
         plugin_paths = ""
         factory = CppPluginSystemManagerImplementationFactory(
             paths=plugin_paths, logger=mock_logger
@@ -98,13 +96,20 @@ class Test_CppPluginSystemManagerImplementationFactory_init:
     def test_when_non_manager_plugin_then_logs_warning(
         self, the_cpp_plugins_root_path, mock_logger
     ):
-        non_manager_plugin_path = os.path.join(the_cpp_plugins_root_path, "not-a-manager")
-
-        factory = CppPluginSystemManagerImplementationFactory(non_manager_plugin_path, mock_logger)
+        # TODO(DF): Create this test plugin.
+        a_non_manager_plugin_path = os.path.join(the_cpp_plugins_root_path, "not-a-manager")
+        a_non_manager_plugin_file_path = os.path.join(a_non_manager_plugin_path, f"not-a-manager.{lib_ext}")
+        a_non_manager_plugin_identifier = (
+            "org.openassetio.test.pluginSystem.resources.not-a-manager"
+        )
+        factory = CppPluginSystemManagerImplementationFactory(
+            a_non_manager_plugin_path, mock_logger
+        )
 
         assert factory.identifiers() == []
+
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kWarning,
-            "Plugin is not a CppPluginSystemManagerPlugin"
-            f" '{non_manager_plugin_path}/not-a-manager.{lib_ext}'",
+            f"Plugin '{a_non_manager_plugin_identifier}' from '{a_non_manager_plugin_file_path}'"
+            " is not a CppPluginSystemManagerPlugin"
         )

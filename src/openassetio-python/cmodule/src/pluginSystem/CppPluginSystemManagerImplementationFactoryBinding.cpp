@@ -49,7 +49,7 @@ void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod)
       .def_readonly_static("kPluginEnvVar",
                            &CppPluginSystemManagerImplementationFactory::kPluginEnvVar)
       .def(py::init(
-               RetainCommonPyArgs::forFn<py::overload_cast<std::string_view, LoggerInterfacePtr>(
+               RetainCommonPyArgs::forFn<py::overload_cast<openassetio::Str, LoggerInterfacePtr>(
                    &CppPluginSystemManagerImplementationFactory::make)>()),
            py::arg("paths"), py::arg("logger").none(false))
       .def(py::init(RetainCommonPyArgs::forFn<py::overload_cast<LoggerInterfacePtr>(
