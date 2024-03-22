@@ -111,7 +111,7 @@ std::vector<openassetio::Str> CppPluginSystem::identifiers() const {
   return result;
 }
 
-CppPluginSystem::PathAndPlugin CppPluginSystem::plugin(const Identifier& identifier) const {
+const CppPluginSystem::PathAndPlugin& CppPluginSystem::plugin(const Identifier& identifier) const {
   const auto iter = plugins_.find(identifier);
   if (iter == plugins_.end()) {
     throw errors::InputValidationException{fmt::format(

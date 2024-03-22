@@ -33,9 +33,9 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
 
   void scan(std::string_view paths);
 
-  [[nodiscard]] std::vector<std::string> identifiers() const;
+  [[nodiscard]] openassetio::Identifiers identifiers() const;
 
-  PathAndPlugin plugin(const openassetio::Identifier& identifier) const;
+  const PathAndPlugin& plugin(const openassetio::Identifier& identifier) const;
 
  private:
   using PluginMap = std::unordered_map<openassetio::Str, PathAndPlugin>;
