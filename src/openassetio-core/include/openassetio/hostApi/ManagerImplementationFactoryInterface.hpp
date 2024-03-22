@@ -72,10 +72,11 @@ class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
       const Identifier& identifier) = 0;
 
  protected:
-  /// Logger instance that should be used for all logging. Allow
-  /// violation of no protected members, since this is within an
-  /// abstract interface.
-  // NOLINTNEXTLINE(misc-non-private-member-variables-in-classes)
+  /// Get logger instance.
+  [[nodiscard]] const log::LoggerInterfacePtr& logger() const;
+
+ private:
+  /// Logger instance that should be used for all logging
   log::LoggerInterfacePtr logger_;
 };
 }  // namespace hostApi

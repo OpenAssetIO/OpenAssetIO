@@ -11,6 +11,10 @@ ManagerImplementationFactoryInterface::~ManagerImplementationFactoryInterface() 
 ManagerImplementationFactoryInterface::ManagerImplementationFactoryInterface(
     log::LoggerInterfacePtr logger)
     : logger_{std::move(logger)} {}
+
+const log::LoggerInterfacePtr& ManagerImplementationFactoryInterface::logger() const {
+  return logger_;
+}
 }  // namespace hostApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

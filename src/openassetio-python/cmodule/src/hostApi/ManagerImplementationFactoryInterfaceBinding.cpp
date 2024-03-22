@@ -35,7 +35,7 @@ struct PyManagerImplementationFactoryInterface : ManagerImplementationFactoryInt
                                        identifier);
   }
 
-  using ManagerImplementationFactoryInterface::logger_;
+  using ManagerImplementationFactoryInterface::logger;
 };
 
 }  // namespace hostApi
@@ -57,5 +57,5 @@ void registerManagerImplementationFactoryInterface(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def("instantiate", &ManagerImplementationFactoryInterface::instantiate,
            py::arg("identifier"), py::call_guard<py::gil_scoped_release>{})
-      .def_readonly("_logger", &PyManagerImplementationFactoryInterface::logger_);
+      .def_property_readonly("_logger", &PyManagerImplementationFactoryInterface::logger);
 }
