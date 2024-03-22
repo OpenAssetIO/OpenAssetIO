@@ -37,11 +37,12 @@ struct PyCppPluginSystemManagerImplementationFactory
 }  // namespace openassetio
 
 void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod) {
+  using openassetio::hostApi::ManagerImplementationFactoryInterface;
   using openassetio::log::LoggerInterfacePtr;
   using openassetio::pluginSystem::CppPluginSystemManagerImplementationFactory;
   using openassetio::pluginSystem::PyCppPluginSystemManagerImplementationFactory;
 
-  py::class_<CppPluginSystemManagerImplementationFactory,
+  py::class_<CppPluginSystemManagerImplementationFactory, ManagerImplementationFactoryInterface,
              PyCppPluginSystemManagerImplementationFactory,
              CppPluginSystemManagerImplementationFactory::Ptr>(
       mod, "CppPluginSystemManagerImplementationFactory")
@@ -50,10 +51,10 @@ void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod)
       .def(py::init(
                RetainCommonPyArgs::forFn<py::overload_cast<std::string_view, LoggerInterfacePtr>(
                    &CppPluginSystemManagerImplementationFactory::make)>()),
-           py::arg("paths"), py::arg("logger"))
+           py::arg("paths"), py::arg("logger").none(false))
       .def(py::init(RetainCommonPyArgs::forFn<py::overload_cast<LoggerInterfacePtr>(
                         &CppPluginSystemManagerImplementationFactory::make)>()),
-           py::arg("logger"))
+           py::arg("logger").none(false))
       .def("identifiers", &CppPluginSystemManagerImplementationFactory::identifiers,
            py::call_guard<py::gil_scoped_release>{})
       .def("instantiate", &CppPluginSystemManagerImplementationFactory::instantiate,
