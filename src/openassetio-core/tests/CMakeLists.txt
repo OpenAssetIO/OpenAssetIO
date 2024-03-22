@@ -122,3 +122,9 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.core-cpp-internal-test
     openassetio.internal.install
 )
+
+
+#-----------------------------------------------------------------------
+# Test resources
+
+add_subdirectory(pluginSystem/resources/plugins)

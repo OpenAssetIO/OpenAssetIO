@@ -38,89 +38,91 @@ PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"
 
 class Test_PythonPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_module_plugin_path, module_plugin_identifier
+        self, a_plugin_system, a_python_module_plugin_path, plugin_a_identifier
     ):
-        a_plugin_system.scan(a_module_plugin_path)
+        a_plugin_system.scan(a_python_module_plugin_path)
         assert a_plugin_system.identifiers() == [
-            module_plugin_identifier,
+            plugin_a_identifier,
         ]
 
     def test_when_path_contains_a_package_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_package_plugin_path, package_plugin_identifier
+        self, a_plugin_system, a_python_package_plugin_path, plugin_b_identifier
     ):
-        a_plugin_system.scan(a_package_plugin_path)
+        a_plugin_system.scan(a_python_package_plugin_path)
         assert a_plugin_system.identifiers() == [
-            package_plugin_identifier,
+            plugin_b_identifier,
         ]
 
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
         a_plugin_system,
-        a_package_plugin_path,
-        a_module_plugin_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        a_python_package_plugin_path,
+        a_python_module_plugin_path,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        combined_path = os.pathsep.join([a_package_plugin_path, a_module_plugin_path])
+        combined_path = os.pathsep.join(
+            [a_python_package_plugin_path, a_python_module_plugin_path]
+        )
         a_plugin_system.scan(combined_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
-        self, a_plugin_system, the_resources_directory_path, module_plugin_identifier
+        self, a_plugin_system, the_python_resources_directory_path, plugin_a_identifier
     ):
         # The module plugin exists in pathA and pathC
-        path_a = os.path.join(the_resources_directory_path, "pathA")
-        path_c = os.path.join(the_resources_directory_path, "pathC")
+        path_a = os.path.join(the_python_resources_directory_path, "pathA")
+        path_c = os.path.join(the_python_resources_directory_path, "pathC")
 
         a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
-        assert "pathA" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathA" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
         a_plugin_system.reset()
 
         a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
-        assert "pathC" in a_plugin_system.plugin(module_plugin_identifier).__file__
+        assert "pathC" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
         a_plugin_system,
-        a_plugin_path_with_symlinks,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        a_python_plugin_path_with_symlinks,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_plugin_path_with_symlinks)
+        a_plugin_system.scan(a_python_plugin_path_with_symlinks)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,
-        a_package_plugin_path,
-        a_module_plugin_path,
-        package_plugin_identifier,
-        module_plugin_identifier,
+        a_python_package_plugin_path,
+        a_python_module_plugin_path,
+        plugin_b_identifier,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(paths=a_package_plugin_path)
-        a_plugin_system.scan(paths=a_module_plugin_path)
+        a_plugin_system.scan(paths=a_python_package_plugin_path)
+        a_plugin_system.scan(paths=a_python_module_plugin_path)
 
-        expected_identifiers = set([package_plugin_identifier, module_plugin_identifier])
+        expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_plugins_path, mock_logger
+        self, broken_python_plugins_path, mock_logger
     ):
         plugin_system = PythonPluginSystem(mock_logger)
-        plugin_system.scan(broken_plugins_path)
+        plugin_system.scan(broken_python_plugins_path)
 
         assert not plugin_system.identifiers()
-        missing_plugin_path = os.path.join(broken_plugins_path, "missing_plugin.py")
+        missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
             f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
         )
-        raises_exception_path = os.path.join(broken_plugins_path, "raises_exception.py")
+        raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
             StringContaining(
@@ -170,9 +172,9 @@ class Test_PythonPluginSystem_scan_entry_points:
         )
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_plugins_path, mock_logger, monkeypatch
+        self, broken_python_plugins_path, mock_logger, monkeypatch
     ):
-        path_with_plugin = [broken_plugins_path] + sys.path
+        path_with_plugin = [broken_python_plugins_path] + sys.path
         monkeypatch.setattr(sys, "path", path_with_plugin)
 
         plugin_system = PythonPluginSystem(mock_logger)
@@ -180,12 +182,12 @@ class Test_PythonPluginSystem_scan_entry_points:
 
         assert not plugin_system.identifiers()
         # mock_logger.mock.log.assert_called_once()
-        missing_plugin_path = os.path.join(broken_plugins_path, "missing_plugin.py")
+        missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
             f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
         )
-        raises_exception_path = os.path.join(broken_plugins_path, "raises_exception.py")
+        raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
             StringContaining(

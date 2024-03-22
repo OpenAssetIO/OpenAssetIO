@@ -13,6 +13,7 @@
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 
 /*
  * Hack trompeloeil to make use of its internals, but provide our own
@@ -167,6 +168,19 @@ struct ThreadedManagerImplFactory : hostApi::ManagerImplementationFactoryInterfa
   IMPLEMENT_MOCK0(identifiers);
   IMPLEMENT_MOCK1(instantiate);
 };
+
+namespace pluginSystem = openassetio::pluginSystem;
+
+struct ThreadedCppPluginSystemPlugin : pluginSystem::CppPluginSystemPlugin {
+  using Base = pluginSystem::CppPluginSystemPlugin;
+  static Ptr make(Ptr wrapped) {
+    return std::make_shared<ThreadedCppPluginSystemPlugin>(std::move(wrapped));
+  }
+  explicit ThreadedCppPluginSystemPlugin(Ptr wrapped) : wrapped_{std::move(wrapped)} {}
+  Ptr wrapped_;
+
+  IMPLEMENT_CONST_MOCK0(identifier);
+};
 }  // namespace
 
 void registerRunInThread(py::module_& mod) {
@@ -220,4 +234,5 @@ void registerRunInThread(py::module_& mod) {
   gil.def("wrapInThreadedHostInterface", &ThreadedHostInterface::make);
   gil.def("wrapInThreadedLoggerInterface", &ThreadedLoggerInterface::make);
   gil.def("wrapInThreadedManagerImplFactory", &ThreadedManagerImplFactory::make);
+  gil.def("wrapInThreadedCppPluginSystemPlugin", &ThreadedCppPluginSystemPlugin::make);
 }

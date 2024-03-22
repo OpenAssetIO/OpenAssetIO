@@ -77,7 +77,3 @@ class Test_LoggerInterface_gil:
     def test_warning(self, a_threaded_logger_interface):
         a_threaded_logger_interface.warning("")
 
-
-@pytest.fixture
-def a_threaded_logger_interface(mock_logger):
-    return _openassetio._testutils.gil.wrapInThreadedLoggerInterface(mock_logger)

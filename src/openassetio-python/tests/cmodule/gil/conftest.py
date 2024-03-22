@@ -52,6 +52,11 @@ def a_threaded_mock_manager_interface(mock_manager_interface):
 
 
 @pytest.fixture
+def a_threaded_logger_interface(mock_logger):
+    return _openassetio._testutils.gil.wrapInThreadedLoggerInterface(mock_logger)
+
+
+@pytest.fixture
 def a_context():
     return Context()
 

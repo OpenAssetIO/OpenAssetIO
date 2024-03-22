@@ -93,33 +93,35 @@ class Test_PythonPluginSystemManagerImplementationFactory_init:
 
     def test_when_no_args_and_path_env_then_path_plugins_loaded(
         self,
-        a_module_plugin_path,
-        module_plugin_identifier,
+        a_python_module_plugin_path,
+        plugin_a_identifier,
         monkeypatch,
     ):
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
+            a_python_module_plugin_path,
         )
         factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
-        assert factory.identifiers() == [module_plugin_identifier]
+        assert factory.identifiers() == [plugin_a_identifier]
 
     def test_when_path_arg_set_then_overrides_path_env(
         self,
-        a_module_plugin_path,
-        a_package_plugin_path,
-        package_plugin_identifier,
+        a_python_module_plugin_path,
+        a_python_package_plugin_path,
+        plugin_b_identifier,
         mock_logger,
         monkeypatch,
     ):
         monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, a_module_plugin_path
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
+            a_python_module_plugin_path,
         )
 
         factory = PythonPluginSystemManagerImplementationFactory(
-            paths=a_package_plugin_path, logger=mock_logger
+            paths=a_python_package_plugin_path, logger=mock_logger
         )
         assert factory.identifiers() == [
-            package_plugin_identifier,
+            plugin_b_identifier,
         ]
 
     def test_when_entry_points_disable_arg_set_then_overrides_entry_points_disable_env(
@@ -150,18 +152,18 @@ class Test_PythonPluginSystemManagerImplementationFactory_init:
     def test_when_duplicate_identifiers_path_selected_over_entry_point(
         self,
         prepended_sys_path_with_entry_point_plugin,
-        a_package_plugin_path,
-        package_plugin_identifier,
+        a_python_package_plugin_path,
+        plugin_b_identifier,
         mock_logger,
     ):
         factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=a_package_plugin_path, disableEntryPointsPlugins=False
+            mock_logger, paths=a_python_package_plugin_path, disableEntryPointsPlugins=False
         )
 
         assert factory.identifiers() == [
-            package_plugin_identifier,
+            plugin_b_identifier,
         ]
-        assert a_package_plugin_path in factory.instantiate(package_plugin_identifier)["file"]
+        assert a_python_package_plugin_path in factory.instantiate(plugin_b_identifier)["file"]
 
 
 @pytest.fixture

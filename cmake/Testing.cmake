@@ -76,6 +76,12 @@ openassetio_add_test_fixture_target(openassetio.internal.install)
 
 
 #-----------------------------------------------------------------------
+# Variables for use in tests.
+
+set(OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugins)
+
+
+#-----------------------------------------------------------------------
 # Python-specific helpers
 
 if (OPENASSETIO_ENABLE_PYTHON)
@@ -96,6 +102,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
             openassetio_add_test_fixture_dependencies(${target_name} openassetio-python-venv)
         endif ()
     endfunction()
+
+    #-------------------------------------------------------------------
+    # Common environment variables for pytest tests.
+
+    set(_pytest_env
+        OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR})
 
     #-------------------------------------------------------------------
     # Gather ASan-specific environment variables to prepend to the
@@ -126,7 +138,8 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # memory allocator to use the C (or rather, ASan's) `malloc`
         # rather than the optimized `pymalloc`, so that ASan can
         # properly count memory (de)allocations.
-        set(_pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${_openassetio_path})
+        set(_pytest_env
+            PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${_openassetio_path} ${_pytest_env})
     endif ()
 
 
@@ -137,20 +150,17 @@ if (OPENASSETIO_ENABLE_PYTHON)
     # (and is useful for debugging regardless).
     function(openassetio_add_pytest_target
         target_name description target_directory working_directory)
-
-        # Account for windows not being able to set variables inline
         if (WIN32)
             list(JOIN ARGN $<SEMICOLON> pythonpath)
-            set(combined_pytest_env set PYTHONPATH=${pythonpath} ${_pytest_env})
         else ()
             list(JOIN ARGN ":" pythonpath)
-            set(combined_pytest_env export PYTHONPATH=${pythonpath} ${_pytest_env})
         endif ()
+        set(pytest_env PYTHONPATH=${pythonpath} ${_pytest_env})
 
         add_custom_target(
             ${target_name}
-            COMMAND cmake -E echo -- ${description}
-            COMMAND ${combined_pytest_env} &&
+            COMMAND ${CMAKE_COMMAND} -E echo -- ${description}
+            COMMAND ${CMAKE_COMMAND} -E env ${pytest_env}
             ${OPENASSETIO_PYTHON_EXE} -m pytest -v --capture=tee-sys
             ${target_directory}
             WORKING_DIRECTORY "${working_directory}"

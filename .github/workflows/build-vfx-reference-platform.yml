@@ -22,7 +22,7 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/openassetio/openassetio-build
+      image: ghcr.io/openassetio/openassetio-build:2024.2.rc1
 
     steps:
     - uses: actions/checkout@v3 #Needs to be V3 because of GLIBC ver.
