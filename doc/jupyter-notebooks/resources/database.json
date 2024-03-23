@@ -1,0 +1,30 @@
+{
+  "managementPolicy": {
+    "read": {
+      "default": {
+        "openassetio-mediacreation:managementPolicy.Managed": {},
+        "openassetio-mediacreation:content.LocatableContent": {}
+      }
+    },
+    "write": {
+      "default": {
+        "openassetio-mediacreation:managementPolicy.Managed": {},
+        "openassetio-mediacreation:content.LocatableContent": {}
+      }
+    }
+  },
+  "entities": {
+    "demo_project/logos/openassetio": {
+      "versions": [
+        {
+          "traits": {
+            "openassetio-mediacreation:identity.DisplayName": {
+              "name": "The OpenAssetOI logo",
+              "qualifiedName": "logos / openassetio"                
+            }
+          }
+        }
+      ]
+    }
+  }
+}
