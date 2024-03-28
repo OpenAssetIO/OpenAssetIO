@@ -1,5 +1,27 @@
 /*! @mainpage An Introduction
  *
+ * @note Looking for resources?
+ * * 🐍 Get OpenAssetIO from <a
+     href="https://pypi.org/project/openassetio/">PyPI</a>
+ * * 🛠️ Learn how to <a
+     href="https://github.com/OpenAssetIO/OpenAssetIO/blob/main/doc/BUILDING.md">build
+     OpenAssetIO</a>
+ * * 📐 Get off to a good start with the <a
+     href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python">python
+     manager template.</a>
+ * * 📖 See some examples: <a
+     href="https://github.com/ynput/ayon-openassetio-manager-plugin/tree/main#readme">Ayon
+     manager plugin</a>, <a
+     href="https://github.com/OpenAssetIO/usdOpenAssetIOResolver#readme">USD
+     Asset Resolver prototype</a>, <a
+     href="https://github.com/OpenAssetIO/otio-openassetio">OTIO media
+     linker</a>
+ * * 📇 Check out the <a
+     href="https://github.com/OpenAssetIO/OpenAssetIO/">OpenAssetIO
+     codebase</a>
+ * * 📖 Or find some additional examples in <a
+     href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation/tree/main/examples/">OpenAssetIO-MediaCreation</a>
+ *
  * @warning The API has a long history. The OpenAssetIO release version is
  * currently in a beta stage and is subject to some refinements over the
  * coming months. See the <a href="https://github.com/orgs/OpenAssetIO/projects/1"
