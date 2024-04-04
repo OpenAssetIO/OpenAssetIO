@@ -94,7 +94,7 @@ class PythonPluginSystem(object):
                     _, ext = os.path.splitext(itemPath)
                     if ext not in self.__validModuleExtensions:
                         self.__logger.debug(
-                            f"PythonPluginSystem: Ignoring as its not a python module {itemPath}"
+                            f"PythonPluginSystem: Ignoring as it is not a Python module {itemPath}"
                         )
                         continue
 
