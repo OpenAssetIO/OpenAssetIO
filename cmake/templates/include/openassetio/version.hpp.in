@@ -16,7 +16,7 @@
 // For the time being, beta versions must be manually updated prior to
 // the release
 #define OPENASSETIO_BETA_VERSION_MAJOR 2
-#define OPENASSETIO_BETA_VERSION_MINOR 0
+#define OPENASSETIO_BETA_VERSION_MINOR 1
 
 #define OPENASSETIO_STRINGIFY(x) #x
 #define OPENASSETIO_MACRO_TO_STRING(x) OPENASSETIO_STRINGIFY(x)
