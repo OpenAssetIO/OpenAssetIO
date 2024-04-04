@@ -28,6 +28,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   const py::module errors = mod.def_submodule("errors");
   const py::module trait = mod.def_submodule("trait");
   py::module utils = mod.def_submodule("utils");
+  const py::module pluginSystem = mod.def_submodule("pluginSystem");
 
   registerVersion(mod);
   registerAccess(access);
@@ -51,6 +52,8 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerManager(hostApi);
   registerManagerFactory(hostApi);
   registerUtils(utils);
+  registerCppPluginSystemPlugin(pluginSystem);
+  registerCppPluginSystem(pluginSystem);
 
 #ifdef OPENASSETIO_ENABLE_TESTS
   registerTestUtils(mod);

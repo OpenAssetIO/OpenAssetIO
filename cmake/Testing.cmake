@@ -76,6 +76,14 @@ openassetio_add_test_fixture_target(openassetio.internal.install)
 
 
 #-----------------------------------------------------------------------
+# Variables for use in tests.
+
+# Subdirectory under INSTALL_PREFIX where C++ test plugins will be
+# installed
+set(OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/plugins)
+
+
+#-----------------------------------------------------------------------
 # Python-specific helpers
 
 if (OPENASSETIO_ENABLE_PYTHON)
@@ -96,6 +104,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
             openassetio_add_test_fixture_dependencies(${target_name} openassetio-python-venv)
         endif ()
     endfunction()
+
+    #-------------------------------------------------------------------
+    # Common environment variables for pytest tests.
+
+    set(_pytest_env
+        OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR})
 
     #-------------------------------------------------------------------
     # Gather ASan-specific environment variables to prepend to the
@@ -126,7 +140,8 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # memory allocator to use the C (or rather, ASan's) `malloc`
         # rather than the optimized `pymalloc`, so that ASan can
         # properly count memory (de)allocations.
-        set(_pytest_env PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${_openassetio_path})
+        set(_pytest_env
+            PYTHONMALLOC=malloc LD_PRELOAD=${asan_path}:${_openassetio_path} ${_pytest_env})
     endif ()
 
 

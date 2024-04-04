@@ -20,7 +20,9 @@ Helper fixtures for testing the Python plugin system
 # pylint: disable=invalid-name
 
 import os
+import sysconfig
 
+import openassetio
 import pytest
 
 
@@ -45,13 +47,23 @@ def a_python_plugin_path_with_symlinks(the_python_resources_directory_path):
 
 
 @pytest.fixture
+def a_cpp_plugin_path_with_symlinks(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "symlinkPath")
+
+
+@pytest.fixture
+def a_symlink_to_a_cpp_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "pathASymlink")
+
+
+@pytest.fixture
 def a_python_module_plugin_path(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "pathA")
 
 
 @pytest.fixture
-def a_module_plugin_path(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "pathA")
+def a_cpp_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "pathA")
 
 
 @pytest.fixture
@@ -65,6 +77,11 @@ def broken_python_plugins_path(the_python_resources_directory_path):
 
 
 @pytest.fixture
+def broken_cpp_plugins_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "broken")
+
+
+@pytest.fixture
 def an_entry_point_package_plugin_root(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "entryPoint", "site-packages")
 
@@ -72,3 +89,32 @@ def an_entry_point_package_plugin_root(the_python_resources_directory_path):
 @pytest.fixture
 def the_python_resources_directory_path():
     return os.path.join(os.path.dirname(__file__), "resources")
+
+
+@pytest.fixture(scope="session")
+def the_cpp_plugins_root_path():
+    """
+    Assume C++ plugins are installed in
+    $<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}
+    """
+    scheme = f"{os.name}_user"
+    return os.path.normpath(
+        os.path.join(
+            # Top-level __init__.py
+            openassetio.__file__,
+            # up to openassetio dir
+            "..",
+            # up to site-packages
+            "..",
+            # up to install tree root (i.e. posix ../../.., nt ../..)
+            os.path.relpath(
+                sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)
+            ),
+            # down to install location of C++ plugins. Environment
+            # variable set automatically if running pytest via CMake's
+            # ctest. Default value provides a valid path to check (and
+            # fail) in consuming fixtures - see
+            # `skip_if_no_test_plugins_available`.
+            os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugin-env-var-not-set"),
+        )
+    )

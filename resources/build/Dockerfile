@@ -74,6 +74,9 @@ COPY --from=openassetio-dependencies /usr/local/cmake/pcre2-config-version.cmake
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/trompeloeil /usr/local/lib64/cmake/trompeloeil
 COPY --from=openassetio-dependencies /usr/local/include/trompeloeil.hpp /usr/local/include/trompeloeil.hpp
 
+# Update CMake. See cmake_minimum_required in top-level CMakeLists.txt.
+RUN pip install cmake==3.28.3
+
 LABEL org.opencontainers.image.name="openassetio-build"
 LABEL org.opencontainers.image.title="OpenAssetIO VFX CY2022 Build Docker Image"
 LABEL org.opencontainers.image.description="Extends ASWF CY2022, adds OpenAssetIO dependencies"

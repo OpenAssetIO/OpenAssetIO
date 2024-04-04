@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2022-2024 The Foundry Visionmongers Ltd
+
 #-----------------------------------------------------------------------
 # C++ API test target
 
@@ -122,3 +125,9 @@ openassetio_add_test_fixture_dependencies(
     openassetio.internal.core-cpp-internal-test
     openassetio.internal.install
 )
+
+
+#-----------------------------------------------------------------------
+# Test resources
+
+add_subdirectory(pluginSystem/resources/plugins)
