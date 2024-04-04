@@ -25,23 +25,28 @@ import pytest
 
 
 @pytest.fixture
-def module_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.modulePlugin"
+def plugin_a_identifier():
+    return "org.openassetio.test.pluginSystem.resources.pluginA"
 
 
 @pytest.fixture
-def package_plugin_identifier():
-    return "org.openassetio.test.pluginSystem.resources.packagePlugin"
+def plugin_b_identifier():
+    return "org.openassetio.test.pluginSystem.resources.pluginB"
 
 
 @pytest.fixture
-def entry_point_plugin_identifier(package_plugin_identifier):
-    return package_plugin_identifier
+def entry_point_plugin_identifier(plugin_b_identifier):
+    return plugin_b_identifier
 
 
 @pytest.fixture
-def a_plugin_path_with_symlinks(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "symlinkPath")
+def a_python_plugin_path_with_symlinks(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "symlinkPath")
+
+
+@pytest.fixture
+def a_python_module_plugin_path(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "pathA")
 
 
 @pytest.fixture
@@ -50,20 +55,20 @@ def a_module_plugin_path(the_resources_directory_path):
 
 
 @pytest.fixture
-def a_package_plugin_path(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "pathB")
+def a_python_package_plugin_path(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "pathB")
 
 
 @pytest.fixture
-def broken_plugins_path(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "broken", "site-packages")
+def broken_python_plugins_path(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "broken", "site-packages")
 
 
 @pytest.fixture
-def an_entry_point_package_plugin_root(the_resources_directory_path):
-    return os.path.join(the_resources_directory_path, "entryPoint", "site-packages")
+def an_entry_point_package_plugin_root(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "entryPoint", "site-packages")
 
 
 @pytest.fixture
-def the_resources_directory_path():
+def the_python_resources_directory_path():
     return os.path.join(os.path.dirname(__file__), "resources")

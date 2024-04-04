@@ -10,7 +10,7 @@ class PackagePlugin(PythonPluginSystemManagerPlugin):
 
     @classmethod
     def identifier(cls):
-        return "org.openassetio.test.pluginSystem.resources.packagePlugin"
+        return "org.openassetio.test.pluginSystem.resources.pluginB"
 
     @classmethod
     def interface(cls):
