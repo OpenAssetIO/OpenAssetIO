@@ -64,6 +64,7 @@ target_sources(
     src/managerApi/ManagerStateBaseBinding.cpp
     src/pluginSystem/CppPluginSystemBinding.cpp
     src/pluginSystem/CppPluginSystemPluginBinding.cpp
+    src/pluginSystem/CppPluginSystemManagerImplementationFactoryBinding.cpp
     src/trait/TraitsDataBinding.cpp
     src/utilsBinding.cpp
 )

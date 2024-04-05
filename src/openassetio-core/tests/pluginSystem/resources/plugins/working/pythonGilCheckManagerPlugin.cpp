@@ -6,15 +6,23 @@
 
 #include <Python.h>
 
-#include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
 
-struct Plugin : openassetio::pluginSystem::CppPluginSystemPlugin {
+#include "StubManagerInterface.hpp"
+
+struct Plugin : openassetio::pluginSystem::CppPluginSystemManagerPlugin {
   [[nodiscard]] openassetio::Str identifier() const override {
     if (PyGILState_Check()) {
       throw std::runtime_error{"GIL was not released when identifying C++ plugin"};
     }
     return "org.openassetio.test.pluginSystem."
            "resources." OPENASSETIO_CORE_PLUGINSYSTEM_TEST_PLUGIN_ID_SUFFIX;
+  }
+  openassetio::managerApi::ManagerInterfacePtr interface() override {
+    if (PyGILState_Check()) {
+      throw std::runtime_error{"GIL was not released when instantiating manager from C++ plugin"};
+    }
+    return std::make_shared<StubManagerInterface>();
   }
 };
 

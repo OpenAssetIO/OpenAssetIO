@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+v1.0.0-beta.x.y
+---------------
+
+### New Features
+
+- Added a C++ plugin system. In particular, hosts can use the
+  `CppPluginSystemManagerImplementationFactory` class (as a drop-in
+  replacement for `PythonPluginSystemManagerImplementationFactory`) in
+  order to load C++ manager plugins. Manager plugin authors provide
+  a shared library that exposes an `openassetioPlugin` function that
+  returns a `PluginFactory` function pointer, which in turn returns
+  a `CppPluginSystemManagerPlugin` object.
+  [#1115](https://github.com/OpenAssetIO/OpenAssetIO/issues/1115)
+
 v1.0.0-beta.2.1
 ---------------
 

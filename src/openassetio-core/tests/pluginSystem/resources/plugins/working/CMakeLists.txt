@@ -77,13 +77,17 @@ openassetio_test_pluginSystem_generate_plugin(pathC pluginA genericPlugin.cpp)
 if (OPENASSETIO_ENABLE_PYTHON)
     # Plugin for testing the Python GIL is released
     openassetio_test_pluginSystem_generate_plugin(
-        python-gil-check python-gil-check pythonGilCheckGenericPlugin.cpp)
+        python-gil-check python-gil-check pythonGilCheckManagerPlugin.cpp)
     target_link_libraries(
         openassetio-core-pluginSystem-test-python-gil-check
         PRIVATE
         $<BUILD_INTERFACE:pybind11::module>
     )
 endif ()
+
+# Plugins for testing the CppPluginSystemManagerImplementationFactory.
+openassetio_test_pluginSystem_generate_plugin(managerA pluginA managerPlugin.cpp)
+openassetio_test_pluginSystem_generate_plugin(managerB pluginB managerPlugin.cpp)
 
 
 #-----------------------------------------------------------------------

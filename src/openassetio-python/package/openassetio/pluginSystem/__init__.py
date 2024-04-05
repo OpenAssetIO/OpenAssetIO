@@ -30,3 +30,6 @@ from .. import _openassetio  # pylint: disable=no-name-in-module
 
 CppPluginSystem = _openassetio.pluginSystem.CppPluginSystem
 CppPluginSystemPlugin = _openassetio.pluginSystem.CppPluginSystemPlugin
+CppPluginSystemManagerImplementationFactory = (
+    _openassetio.pluginSystem.CppPluginSystemManagerImplementationFactory
+)

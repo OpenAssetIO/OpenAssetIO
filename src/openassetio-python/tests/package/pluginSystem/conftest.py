@@ -67,6 +67,11 @@ def a_cpp_plugin_path(the_cpp_plugins_root_path):
 
 
 @pytest.fixture
+def a_cpp_manager_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "managerA")
+
+
+@pytest.fixture
 def a_python_package_plugin_path(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "pathB")
 

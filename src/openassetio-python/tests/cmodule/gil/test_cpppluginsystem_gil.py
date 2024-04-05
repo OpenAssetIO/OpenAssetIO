@@ -30,7 +30,12 @@ import pytest
 
 # pylint: disable=no-name-in-module
 from openassetio import _openassetio
-from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
+from openassetio.managerApi import ManagerInterface
+from openassetio.pluginSystem import (
+    CppPluginSystem,
+    CppPluginSystemPlugin,
+    CppPluginSystemManagerImplementationFactory,
+)
 
 
 class Test_CppPluginSystemPlugin_gil:
@@ -129,9 +134,66 @@ class Test_CppPluginSystem_gil:
         _path, _plugin = a_cpp_plugin_system.plugin(the_cpp_gil_check_plugin_identifier)
 
 
+class Test_CppPluginSystemManagerImplementationFactory_gil:
+    """
+    Check that the GIL is released in the
+    CppPluginSystemManagerImplementationFactory bindings, especially
+    where a method calls out to a virtual method.
+
+    Such a virtual method could be in the plugin itself, or in the
+    logger, both of which are mocked such that they throw if the GIL
+    is held when they are called.
+    """
+
+    def test_all_methods_covered(self, find_unimplemented_test_cases):
+        """
+        Ensure this test class covers all methods.
+        """
+        unimplemented = find_unimplemented_test_cases(
+            CppPluginSystemManagerImplementationFactory, self
+        )
+
+        if unimplemented:
+            print("\nSome test cases not implemented. Method templates can be found below:\n")
+            for method in unimplemented:
+                print(
+                    f"""
+    def test_{method}(self, a_cpp_plugin_impl_factory):
+        a_cpp_plugin_impl_factory.{method}()
+"""
+                )
+
+        assert unimplemented == []
+
+    def test_identifiers(
+        self,
+        the_cpp_gil_check_plugin_identifier,
+        a_cpp_plugin_impl_factory,
+    ):
+        assert a_cpp_plugin_impl_factory.identifiers() == [the_cpp_gil_check_plugin_identifier]
+
+    def test_instantiate(
+        self,
+        the_cpp_gil_check_plugin_identifier,
+        a_cpp_plugin_impl_factory,
+    ):
+        manager_interface = a_cpp_plugin_impl_factory.instantiate(
+            the_cpp_gil_check_plugin_identifier
+        )
+        # Confidence check.
+        assert isinstance(manager_interface, ManagerInterface)
+
+
 @pytest.fixture
 def a_cpp_plugin_system(a_threaded_logger_interface):
     return CppPluginSystem(a_threaded_logger_interface)
+
+
+@pytest.fixture
+def a_cpp_plugin_impl_factory(the_cpp_gil_check_plugin_path, a_threaded_logger_interface):
+    return CppPluginSystemManagerImplementationFactory(
+        the_cpp_gil_check_plugin_path, a_threaded_logger_interface
+    )
 
 
 @pytest.fixture

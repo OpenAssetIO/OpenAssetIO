@@ -81,6 +81,8 @@ target_sources(
     src/managerApi/ManagerInterface.cpp
     src/managerApi/EntityReferencePagerInterface.cpp
     src/pluginSystem/CppPluginSystem.cpp
+    src/pluginSystem/CppPluginSystemManagerImplementationFactory.cpp
+    src/pluginSystem/CppPluginSystemManagerPlugin.cpp
     src/pluginSystem/CppPluginSystemPlugin.cpp
     src/trait/TraitsData.cpp
     src/utils/Regex.cpp

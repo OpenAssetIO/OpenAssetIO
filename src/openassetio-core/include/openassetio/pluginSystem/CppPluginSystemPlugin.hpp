@@ -13,6 +13,8 @@ OPENASSETIO_DECLARE_PTR(CppPluginSystemPlugin)
 
 /**
  * The base class that defines a plugin of the C++ plugin system.
+ *
+ * @see CppPluginSystemManagerPlugin for a more concrete use case.
  */
 class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
  public:
