@@ -58,7 +58,7 @@ class PythonPluginSystem(object):
         Searches the supplied paths for modules that define a
         PythonPluginSystemPlugin through a top-level `plugin` variable.
 
-        Paths are searched right-to-left, but only the first instance of
+        Paths are searched left-to-right, but only the first instance of
         any given plugin identifier will be used, and subsequent
         registrations ignored. This means entries to the left of the
         paths list take precedence over ones to the right.
