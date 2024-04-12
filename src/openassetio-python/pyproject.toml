@@ -4,7 +4,9 @@
 [build-system]
 requires = [
     "setuptools>=65.5.0",
-    "cmake>=3.24.1.1",
+    # CMake 3.29 PyPI package requires importlib_metadata, which is not
+    # available in a fresh Python 3.7 environment.
+    "cmake==3.28.3",
     "ninja>=1.10.2.4"
 ]
 build-backend = "setuptools.build_meta"

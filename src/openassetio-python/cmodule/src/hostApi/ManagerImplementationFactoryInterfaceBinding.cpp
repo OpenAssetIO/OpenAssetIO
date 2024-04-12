@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #include <pybind11/stl.h>
 
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
@@ -35,7 +35,7 @@ struct PyManagerImplementationFactoryInterface : ManagerImplementationFactoryInt
                                        identifier);
   }
 
-  using ManagerImplementationFactoryInterface::logger_;
+  using ManagerImplementationFactoryInterface::logger;
 };
 
 }  // namespace hostApi
@@ -57,5 +57,5 @@ void registerManagerImplementationFactoryInterface(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def("instantiate", &ManagerImplementationFactoryInterface::instantiate,
            py::arg("identifier"), py::call_guard<py::gil_scoped_release>{})
-      .def_readonly("_logger", &PyManagerImplementationFactoryInterface::logger_);
+      .def_property_readonly("_logger", &PyManagerImplementationFactoryInterface::logger);
 }

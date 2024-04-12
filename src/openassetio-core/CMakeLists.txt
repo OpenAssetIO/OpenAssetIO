@@ -80,6 +80,10 @@ target_sources(
     src/managerApi/HostSession.cpp
     src/managerApi/ManagerInterface.cpp
     src/managerApi/EntityReferencePagerInterface.cpp
+    src/pluginSystem/CppPluginSystem.cpp
+    src/pluginSystem/CppPluginSystemManagerImplementationFactory.cpp
+    src/pluginSystem/CppPluginSystemManagerPlugin.cpp
+    src/pluginSystem/CppPluginSystemPlugin.cpp
     src/trait/TraitsData.cpp
     src/utils/Regex.cpp
     src/utils/path.cpp
@@ -110,6 +114,8 @@ target_link_libraries(
     # (Static) private library dependencies
     ada::ada
     PCRE2::8BIT
+    # For dlopen et al.
+    ${CMAKE_DL_LIBS}
 )
 
 #-----------------------------------------------------------------------

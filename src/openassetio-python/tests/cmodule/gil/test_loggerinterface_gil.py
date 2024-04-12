@@ -19,10 +19,8 @@ Testing that LoggerInterface methods release the GIL.
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
-import pytest
 
 # pylint: disable=no-name-in-module
-from openassetio import _openassetio
 from openassetio.log import LoggerInterface
 
 
@@ -76,8 +74,3 @@ class Test_LoggerInterface_gil:
 
     def test_warning(self, a_threaded_logger_interface):
         a_threaded_logger_interface.warning("")
-
-
-@pytest.fixture
-def a_threaded_logger_interface(mock_logger):
-    return _openassetio._testutils.gil.wrapInThreadedLoggerInterface(mock_logger)

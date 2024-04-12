@@ -11,7 +11,7 @@ class ModulePlugin(PythonPluginSystemManagerPlugin):
 
     @classmethod
     def identifier(cls):
-        return "org.openassetio.test.pluginSystem.resources.modulePlugin"
+        return "org.openassetio.test.pluginSystem.resources.pluginA"
 
     @classmethod
     def interface(cls):

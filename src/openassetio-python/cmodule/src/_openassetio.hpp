@@ -108,3 +108,12 @@ void registerEntityReferencePagerInterface(const py::module& mod);
 
 /// Register the utils namespace with Python.
 void registerUtils(py::module& mod);
+
+// Register the C++ plugin system plugin
+void registerCppPluginSystemPlugin(const py::module& mod);
+
+// Register the C++ plugin system
+void registerCppPluginSystem(const py::module& mod);
+
+// Register the C++ plugin system manager factory
+void registerCppPluginSystemManagerImplementationFactory(const py::module& mod);

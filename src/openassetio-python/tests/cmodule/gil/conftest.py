@@ -48,7 +48,29 @@ def find_unimplemented_test_cases():
 
 @pytest.fixture
 def a_threaded_mock_manager_interface(mock_manager_interface):
+    """
+    Wrap in a C++ proxy manager that asserts the Python GIL is released
+    before forwarding calls to mock_manager_interface in a separate
+    thread.
+
+    This is used to (indirectly) detect that Python binding API entry
+    points release the GIL before continuing on to the C++
+    implementation.
+    """
     return _openassetio._testutils.gil.wrapInThreadedManagerInterface(mock_manager_interface)
+
+
+@pytest.fixture
+def a_threaded_logger_interface(mock_logger):
+    """
+    Wrap in a C++ proxy logger that asserts the Python GIL is released
+    before forwarding calls to mock_logger in a separate thread.
+
+    This is used to (indirectly) detect that Python binding API entry
+    points release the GIL before continuing on to the C++
+    implementation.
+    """
+    return _openassetio._testutils.gil.wrapInThreadedLoggerInterface(mock_logger)
 
 
 @pytest.fixture

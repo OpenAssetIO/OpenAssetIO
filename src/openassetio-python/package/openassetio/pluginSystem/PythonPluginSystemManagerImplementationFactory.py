@@ -42,16 +42,19 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
     additional plugins found under paths specified in the
     `OPENASSETIO_PLUGIN_PATH` env var.
 
-    @envvar **OPENASSETIO_PLUGIN_PATH** *str* A PATH-style list of
+    @envvar **OPENASSETIO_PLUGIN_PATH** *str* A **PATH**-style list of
     directories to search for @ref
-    openassetio.pluginSystem.PythonPluginSystemManagerPlugin based
-    plugins. It uses the platform-native delimiter.  Searched left to
-    right. Plugins found here will take precedence over those discovered
-    through package entry points. Note: this search path is entirely
-    independent of **PYTHONPATH** and doesn't need to be a subset of
-    those paths. This allows OpenAssetIO plugins to be managed entirely
-    independent of the python runtime if desired, and masked from
-    `import` statements.
+    openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+    "PythonPluginSystemManagerPlugin" based plugins. It uses the
+    platform-native delimiter.  Searched left to right. Plugins found
+    here will take precedence over those discovered through package
+    entry points. Note: this search path is entirely independent of
+    **PYTHONPATH** and doesn't need to be a subset of those paths. This
+    allows OpenAssetIO plugins to be managed entirely independent of the
+    python runtime if desired, and masked from `import` statements. Note
+    that this environment variable is also used by the
+    @fqref{pluginSystem.CppPluginSystemManagerImplementationFactory}
+    "CppPluginSystemManagerImplementationFactory".
 
     @envvar **OPENASSETIO_DISABLE_ENTRYPOINTS_PLUGINS** when set,
     disables entry point based plugin discovery. This can be useful if

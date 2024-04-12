@@ -19,10 +19,17 @@ This module provides a plugin system that can be used to register and
 instantiate manager plugins from code that lives outside of the
 openassetio package.
 """
-
 from .PythonPluginSystemManagerPlugin import PythonPluginSystemManagerPlugin
 from .PythonPluginSystem import PythonPluginSystem
 from .PythonPluginSystemPlugin import PythonPluginSystemPlugin
 from .PythonPluginSystemManagerImplementationFactory import (
     PythonPluginSystemManagerImplementationFactory,
+)
+
+from .. import _openassetio  # pylint: disable=no-name-in-module
+
+CppPluginSystem = _openassetio.pluginSystem.CppPluginSystem
+CppPluginSystemPlugin = _openassetio.pluginSystem.CppPluginSystemPlugin
+CppPluginSystemManagerImplementationFactory = (
+    _openassetio.pluginSystem.CppPluginSystemManagerImplementationFactory
 )
