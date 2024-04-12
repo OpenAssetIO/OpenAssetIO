@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scan',['scan',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a6423e8313300165e964a9c468adb897e',1,'openassetio::pluginSystem::PythonPluginSystem::PythonPluginSystem']]],
+  ['scan',['scan',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a84bb3c16c7e7265f9a2359a099d66509',1,'openassetio::v1::pluginSystem::CppPluginSystem::scan()'],['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a6423e8313300165e964a9c468adb897e',1,'openassetio.pluginSystem.PythonPluginSystem.PythonPluginSystem.scan()']]],
   ['scan_5fentry_5fpoints',['scan_entry_points',['../classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ae6f3226f1a8e91837335c951408ebe94',1,'openassetio::pluginSystem::PythonPluginSystem::PythonPluginSystem']]],
   ['setseverity',['setSeverity',['../classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#a4fb718b6573db64329b3e3b32175cf89',1,'openassetio::v1::log::SeverityFilter']]],
   ['settings',['settings',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a0a9d76d1103c52d52be1bbcd67ed7f3b',1,'openassetio::v1::hostApi::Manager::settings()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a496c9cae280337d9f2e64404d13ee306',1,'openassetio::v1::managerApi::ManagerInterface::settings()']]],

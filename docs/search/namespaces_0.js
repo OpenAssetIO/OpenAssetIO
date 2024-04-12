@@ -20,6 +20,7 @@ var searchData=
   ['managerapi',['managerApi',['../namespaceopenassetio_1_1v1_1_1manager_api.html',1,'openassetio::v1']]],
   ['openassetio',['openassetio',['../namespaceopenassetio.html',1,'']]],
   ['pluginsystem',['pluginSystem',['../namespaceopenassetio_1_1plugin_system.html',1,'openassetio']]],
+  ['pluginsystem',['pluginSystem',['../namespaceopenassetio_1_1v1_1_1plugin_system.html',1,'openassetio::v1']]],
   ['property',['property',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html',1,'openassetio::v1::trait']]],
   ['python',['python',['../namespaceopenassetio_1_1v1_1_1python.html',1,'openassetio::v1']]],
   ['pythonpluginsystem',['PythonPluginSystem',['../namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system.html',1,'openassetio::pluginSystem']]],

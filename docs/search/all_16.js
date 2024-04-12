@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['_7ecpppluginsystemmanagerplugin',['~CppPluginSystemManagerPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html#add5c7ccc04ecb78d140f93549306aedc',1,'openassetio::v1::pluginSystem::CppPluginSystemManagerPlugin']]],
+  ['_7ecpppluginsystemplugin',['~CppPluginSystemPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html#a641255cbab75d3fff9aa2a51db6dc7b6',1,'openassetio::v1::pluginSystem::CppPluginSystemPlugin']]],
   ['_7eentityreferencepager',['~EntityReferencePager',['../classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a711e000681ebded2ab56046174f23f6f',1,'openassetio::v1::hostApi::EntityReferencePager']]],
   ['_7eentityreferencepagerinterface',['~EntityReferencePagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#afbafe12ce1b796e05da6763685663310',1,'openassetio::v1::managerApi::EntityReferencePagerInterface']]],
   ['_7efileurlpathconverter',['~FileUrlPathConverter',['../classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html#a5014ac42a49c8886b117faae5689a5f9',1,'openassetio::v1::utils::FileUrlPathConverter']]],

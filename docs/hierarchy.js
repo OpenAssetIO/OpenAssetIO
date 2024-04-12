@@ -3,6 +3,10 @@ var hierarchy =
     [ "BatchElementError", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html", null ],
     [ "Manager::BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", null ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
+    [ "CppPluginSystem", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html", null ],
+    [ "CppPluginSystemPlugin", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html", [
+      [ "CppPluginSystemManagerPlugin", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html", null ]
+    ] ],
     [ "EntityReference", "classopenassetio_1_1v1_1_1_entity_reference.html", null ],
     [ "EntityReferencePager", "classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html", null ],
     [ "EntityReferencePagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html", null ],
@@ -21,7 +25,9 @@ var hierarchy =
     [ "Manager", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html", null ],
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
     [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
-    [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", null ],
+    [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", [
+      [ "CppPluginSystemManagerImplementationFactory", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_implementation_factory.html", null ]
+    ] ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],
     [ "Mapper", "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html", null ],

@@ -320,7 +320,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Searches the supplied paths for modules that define a <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin.html" title="A single-class module, providing the PythonPluginSystemPlugin class. ">PythonPluginSystemPlugin</a> through a top-level <code>plugin</code> variable. </p>
-<p>Paths are searched right-to-left, but only the first instance of any given plugin identifier will be used, and subsequent registrations ignored. This means entries to the left of the paths list take precedence over ones to the right.</p>
+<p>Paths are searched left-to-right, but only the first instance of any given plugin identifier will be used, and subsequent registrations ignored. This means entries to the left of the paths list take precedence over ones to the right.</p>
 <dl class="section note"><dt>Note</dt><dd>Precedence order is undefined for plugins sharing the same identifier within the same directory.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

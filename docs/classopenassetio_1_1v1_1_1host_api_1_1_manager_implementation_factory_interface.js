@@ -6,5 +6,5 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interf
     [ "~ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a055c922e8337e22bbbac4003839453cc", null ],
     [ "identifiers", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a827699c443ec2eff2275144fcec2ae0e", null ],
     [ "instantiate", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#ac842ca22f0df30e9b5f3e343f313a309", null ],
-    [ "logger_", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a3b9cdcc96378167ea406fb7b5ead7c67", null ]
+    [ "logger", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a75be492c7f5ebe638b5e204cfc6010dc", null ]
 ];

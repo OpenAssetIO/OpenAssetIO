@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html" title="The EntityReferencePager allows for the retrieval and traversal of large datasets in a paginated mann..." alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node1" href="$classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html" title="The base class that defines a plugin of the C++ plugin system. " alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html" title="Base class to be subclassed by plugins binding a host to an Asset Management System. " alt="" coords="229,5,463,32"/>
 </map>
