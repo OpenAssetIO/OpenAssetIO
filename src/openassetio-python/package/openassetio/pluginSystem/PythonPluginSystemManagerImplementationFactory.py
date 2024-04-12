@@ -151,8 +151,8 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
 
         @returns openassetio.managerApi.ManagerInterface
 
-        @throws PluginError if the requested identifier has not been
-        registered.
+        @throws InputValidationException if the requested identifier has
+        not been registered.
 
         @throws RuntimeError if the requested plugin is valid but has
         no `interface` method.
