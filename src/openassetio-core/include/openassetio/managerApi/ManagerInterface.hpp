@@ -1322,9 +1322,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * If there are no relations, the pager should have no pages. The
    * callback should be called on the same thread that initiated the
-   * call to `getWithRelationship`. To access the data, retrieve the
-   * @fqref{hostApi.EntityReferencePager} from the callback, and use its
-   * interface to traverse pages.
+   * call to `getWithRelationship`.
    *
    * @param errorCallback Callback that should be called for each failed
    * relationship query. It should be given the corresponding index of
@@ -1400,9 +1398,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * If there are no relations, the pager should have no pages. The
    * callback should be called on the same thread that initiated the
-   * call to `getWithRelationship`. To access the data, retrieve the
-   * @fqref{hostApi.EntityReferencePager} from the callback, and use its
-   * interface to traverse pages.
+   * call to `getWithRelationship`.
    *
    * @param errorCallback Callback that should be called for each failed
    * relationship query. It should be given the corresponding index of
