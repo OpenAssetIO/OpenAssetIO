@@ -1177,7 +1177,7 @@ Publishing</h2></td></tr>
   </dd>
 </dl>
 <p>The pager should be created by implementing <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html">EntityReferencePagerInterface</a>, and should return results in pages of size specified by <code>pageSize</code> </p>
-<p>If there are no relations, the pager should have no pages. The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>. To access the data, retrieve the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html">openassetio::v1::hostApi::EntityReferencePager</a> from the callback, and use its interface to traverse pages.</p>
+<p>If there are no relations, the pager should have no pages. The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorCallback</td><td>Callback that should be called for each failed relationship query. It should be given the corresponding index of the entity reference in <code>entityReferences</code> along with a populated BatchElementError (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>.</td></tr>
@@ -1287,7 +1287,7 @@ Publishing</h2></td></tr>
   </dd>
 </dl>
 <p>The pager should be created by implementing <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html">EntityReferencePagerInterface</a>, and should return results in pages of size specified by <code>pageSize</code> </p>
-<p>If there are no relations, the pager should have no pages. The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>. To access the data, retrieve the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html">openassetio::v1::hostApi::EntityReferencePager</a> from the callback, and use its interface to traverse pages.</p>
+<p>If there are no relations, the pager should have no pages. The callback should be called on the same thread that initiated the call to <code>getWithRelationship</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">errorCallback</td><td>Callback that should be called for each failed relationship query. It should be given the corresponding index of the relationship in <code>relationshipTraitsDatas</code> along with a populated BatchElementError (see <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCodes</a>). The callback should be called on the same thread that initiated the call to <code>getWithRelationships</code>.</td></tr>
