@@ -50,12 +50,38 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * This method must be implemented to present the supplied message
    * to the user in an appropriate fashion.
    *
-   * @param message The message string to be logged.
-   *
    * @param severity One of the severity constants defined in @ref
    * Severity.
+   *
+   * @param message The message string to be logged.
    */
   virtual void log(Severity severity, const Str& message) = 0;
+
+  /**
+   * Check if a given severity level should/will be filtered out.
+   *
+   * The implementation of the logger may have a mechanism by which
+   * certain severity levels are not output. If a severity level is not
+   * output, then constructing a string to pass to the logger is wasted
+   * effort. This method can be queried before constructing a complex
+   * string, in order to avoid that wasted effort.
+   *
+   * Implementors of LoggerInterface subclasses should override this
+   * method if they wish to conditionally skip logging at particular
+   * severity levels.
+   *
+   * If @ref log is called regardless, with a severity that elicits a
+   * `false` response from this method, then the logger may still output
+   * the message, but it is not guaranteed (and is discouraged).
+   *
+   * The default implementation returns `true` for all severities.
+   *
+   * @param severity Severity level to check.
+   *
+   * @return Whether a message will be output if `log` is called
+   * with the given severity.
+   */
+  [[nodiscard]] virtual bool isSeverityLogged(Severity severity) const;
 
   /**
    * @name Conveniences

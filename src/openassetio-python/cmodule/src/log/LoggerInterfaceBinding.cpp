@@ -21,6 +21,10 @@ struct PyLoggerInterface : LoggerInterface {
   void log(Severity severity, const Str& message) override {
     OPENASSETIO_PYBIND11_OVERRIDE_PURE(void, LoggerInterface, log, severity, message);
   }
+
+  [[nodiscard]] bool isSeverityLogged(Severity severity) const override {
+    OPENASSETIO_PYBIND11_OVERRIDE(bool, LoggerInterface, isSeverityLogged, severity);
+  }
 };
 }  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
@@ -49,6 +53,8 @@ void registerLoggerInterface(const py::module& mod) {
 
   loggerInterface.def(py::init())
       .def("log", &LoggerInterface::log, py::arg("severity"), py::arg("message"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("isSeverityLogged", &LoggerInterface::isSeverityLogged, py::arg("severity"),
            py::call_guard<py::gil_scoped_release>{})
       .def("debugApi", &LoggerInterface::debugApi, py::arg("message"),
            py::call_guard<py::gil_scoped_release>{})
