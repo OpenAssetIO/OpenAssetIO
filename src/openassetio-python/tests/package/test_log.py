@@ -110,6 +110,12 @@ class Test_ConsoleLogger:
         assert "\033[0m" not in output.err
 
 
+class Test_LoggerInterface_log:
+    def test_is_pure_virtual(self):
+        with pytest.raises(RuntimeError, match="Tried to call pure virtual function"):
+            lg.LoggerInterface().log(lg.LoggerInterface.Severity.kInfo, "")
+
+
 class Test_LoggerInterface:
     def test_severity_names(self):
         assert (
