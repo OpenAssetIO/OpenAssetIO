@@ -15,5 +15,6 @@ var searchData=
   ['invalidpreflighthintbatchelementexception',['InvalidPreflightHintBatchElementException',['../structopenassetio_1_1v1_1_1_invalid_preflight_hint_batch_element_exception.html',1,'openassetio::v1']]],
   ['invalidtraitsetbatchelementexception',['InvalidTraitSetBatchElementException',['../structopenassetio_1_1v1_1_1_invalid_trait_set_batch_element_exception.html',1,'openassetio::v1']]],
   ['isentityreferencestring',['isEntityReferenceString',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a72203b43e0f56f2d5bf6268c6e3b5033',1,'openassetio::v1::hostApi::Manager::isEntityReferenceString()'],['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#ac6eec5f9c270886e65c06cc9d9d75e3f',1,'openassetio::v1::managerApi::ManagerInterface::isEntityReferenceString()']]],
+  ['isseveritylogged',['isSeverityLogged',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#afd67d14dabdcbc2ed2dd7e713d1e7da6',1,'openassetio::v1::log::LoggerInterface::isSeverityLogged()'],['../classopenassetio_1_1v1_1_1log_1_1_severity_filter.html#a5fcd4b8d85bdecc9961f8e69ee5f37fe',1,'openassetio::v1::log::SeverityFilter::isSeverityLogged()']]],
   ['issuccessful',['isSuccessful',['../namespaceopenassetio_1_1test_1_1manager_1_1____main____.html#a3d275eae44512b72b40f0f4926ec1f61',1,'openassetio::test::manager::__main__']]]
 ];

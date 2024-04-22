@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#trait":[6,21],
+"glossary.html#trait_set":[6,22],
 "hierarchy.html":[14,2],
 "index.html":[],
 "index.html":[0],

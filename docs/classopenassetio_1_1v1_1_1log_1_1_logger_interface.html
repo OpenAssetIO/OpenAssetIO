@@ -145,6 +145,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085">log</a> (<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity, const <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &amp;message)=0</td></tr>
 <tr class="memdesc:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a message to the user.  <a href="#a599b5dad27e6ac3d6c96dbd0a00c5085">More...</a><br /></td></tr>
 <tr class="separator:a599b5dad27e6ac3d6c96dbd0a00c5085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd67d14dabdcbc2ed2dd7e713d1e7da6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#afd67d14dabdcbc2ed2dd7e713d1e7da6">isSeverityLogged</a> (<a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a> severity) const </td></tr>
+<tr class="memdesc:afd67d14dabdcbc2ed2dd7e713d1e7da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a given severity level should/will be filtered out.  <a href="#afd67d14dabdcbc2ed2dd7e713d1e7da6">More...</a><br /></td></tr>
+<tr class="separator:afd67d14dabdcbc2ed2dd7e713d1e7da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Conveniences</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Conveniences, equivalent to calling <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a599b5dad27e6ac3d6c96dbd0a00c5085">log</a> with the corresponding <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>. </p>
 </div></td></tr>
@@ -350,6 +353,43 @@ Log Severity</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="afd67d14dabdcbc2ed2dd7e713d1e7da6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool isSeverityLogged </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>&#160;</td>
+          <td class="paramname"><em>severity</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if a given severity level should/will be filtered out. </p>
+<p>The implementation of the logger may have a mechanism by which certain severity levels are not output. If a severity level is not output, then constructing a string to pass to the logger is wasted effort. This method can be queried before constructing a complex string, in order to avoid that wasted effort.</p>
+<p>Implementors of <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t...">LoggerInterface</a> subclasses should override this method if they wish to conditionally skip logging at particular severity levels.</p>
+<p>If <a class="el" href="namespaceopenassetio_1_1v1_1_1log.html">log</a> is called regardless, with a severity that elicits a <code>false</code> response from this method, then the logger may still output the message, but it is not guaranteed (and is discouraged).</p>
+<p>The default implementation returns <code>true</code> for all severities.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">severity</td><td>Severity level to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether a message will be output if <code>log</code> is called with the given severity. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a599b5dad27e6ac3d6c96dbd0a00c5085"></a>
 <div class="memitem">
 <div class="memproto">
@@ -386,8 +426,8 @@ Log Severity</h2></td></tr>
 <p>This method must be implemented to present the supplied message to the user in an appropriate fashion.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td>The message string to be logged.</td></tr>
-    <tr><td class="paramname">severity</td><td>One of the severity constants defined in <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>. </td></tr>
+    <tr><td class="paramname">severity</td><td>One of the severity constants defined in <a class="el" href="classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82b">Severity</a>.</td></tr>
+    <tr><td class="paramname">message</td><td>The message string to be logged. </td></tr>
   </table>
   </dd>
 </dl>
