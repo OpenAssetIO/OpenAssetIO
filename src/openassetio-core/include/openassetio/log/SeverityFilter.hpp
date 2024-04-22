@@ -63,9 +63,34 @@ class OPENASSETIO_CORE_EXPORT SeverityFilter final : public LoggerInterface {
   [[nodiscard]] LoggerInterface::Severity getSeverity() const;
 
   /**
+   * Check if given severity will be logged.
+   *
+   * Uses the value of getSeverity() as well as querying the @ref
+   * upstreamLogger, and returns the most pessimistic answer.
+   *
+   * This logic is used in @ref log to determine which messages to
+   * filter out.
+   *
+   * @param severity Severity to check.
+   *
+   * @return Whether a log message at the given severity will be output.
+   */
+  [[nodiscard]] bool isSeverityLogged(Severity severity) const override;
+  /**
    * @}
    */
 
+  /**
+   * Filter out messages based on severity before delegating to the
+   * @ref upstreamLogger.
+   *
+   * Whether a log is output or not obeys the result of @ref
+   * isSeverityLogged
+   *
+   * @param severity Severity level.
+   *
+   * @param message The message to be logged.
+   */
   void log(Severity severity, const Str& message) override;
 
  private:

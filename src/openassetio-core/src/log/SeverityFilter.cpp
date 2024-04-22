@@ -34,7 +34,7 @@ SeverityFilter::SeverityFilter(LoggerInterfacePtr upstreamLogger)
 }
 
 void SeverityFilter::log(Severity severity, const Str& message) {
-  if (severity < minSeverity_) {
+  if (severity < minSeverity_ || !upstreamLogger_->isSeverityLogged(severity)) {
     return;
   }
   upstreamLogger_->log(severity, message);
@@ -45,6 +45,10 @@ void SeverityFilter::setSeverity(LoggerInterface::Severity severity) { minSeveri
 LoggerInterface::Severity SeverityFilter::getSeverity() const { return minSeverity_; }
 
 LoggerInterfacePtr SeverityFilter::upstreamLogger() const { return upstreamLogger_; }
+
+bool SeverityFilter::isSeverityLogged(LoggerInterface::Severity severity) const {
+  return severity >= minSeverity_ && upstreamLogger_->isSeverityLogged(severity);
+}
 }  // namespace log
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

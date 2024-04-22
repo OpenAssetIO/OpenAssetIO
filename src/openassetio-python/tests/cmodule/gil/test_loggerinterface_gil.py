@@ -74,3 +74,6 @@ class Test_LoggerInterface_gil:
 
     def test_warning(self, a_threaded_logger_interface):
         a_threaded_logger_interface.warning("")
+
+    def test_isSeverityLogged(self, a_threaded_logger_interface):
+        a_threaded_logger_interface.isSeverityLogged(LoggerInterface.Severity.kInfo)
