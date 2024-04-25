@@ -20,9 +20,14 @@ Private implementation classes for the manager test framework.
 """
 import unittest
 
-from openassetio import hostApi, log, pluginSystem
+from openassetio import hostApi, log
+from openassetio.pluginSystem import (
+    CppPluginSystemManagerImplementationFactory,
+    PythonPluginSystemManagerImplementationFactory,
+)
 from openassetio.trait import TraitsData
 from .. import kTestHarnessTraitId, kCasePropertyKey
+from ...errors import InputValidationException
 
 
 __all__ = ["createHarness"]
@@ -32,15 +37,30 @@ def createHarness(managerIdentifier, settings=None):
     """
     Create the test harness used begin test case execution.
     @private
+
+    @exception errors.InputValidationException Raised if no plugin
+    provides the specified identifier.
     """
     if settings is None:
         settings = {}
 
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
-    managerFactoryImplementation = pluginSystem.PythonPluginSystemManagerImplementationFactory(
-        logger
-    )
+
+    managerFactoryImplementation = PythonPluginSystemManagerImplementationFactory(logger)
+
+    # If the python plugin cannot be found on a scan (occurs lazily when
+    # identifiers is called), then move forward with C++, as it could
+    # be there.
+    if managerIdentifier not in managerFactoryImplementation.identifiers():
+        managerFactoryImplementation = CppPluginSystemManagerImplementationFactory(logger)
+
+    if managerIdentifier not in managerFactoryImplementation.identifiers():
+        msg = (
+            "Test Harness: Could not find Python or Cpp plugin with identifier '%s'"
+            % managerIdentifier
+        )
+        raise InputValidationException(msg)
 
     def createManager(initialize=True):
         manager = hostApi.ManagerFactory.createManagerForInterface(
