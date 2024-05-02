@@ -454,6 +454,9 @@ class MockLogger(LoggerInterface):
     def log(self, severity, message):
         self.mock.log(severity, message)
 
+    def isSeverityLogged(self, severity):
+        return self.mock.isSeverityLogged(severity)
+
 
 class MockEntityReferencePagerInterface(EntityReferencePagerInterface):
     """

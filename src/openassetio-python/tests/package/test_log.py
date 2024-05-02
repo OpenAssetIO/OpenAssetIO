@@ -110,6 +110,18 @@ class Test_ConsoleLogger:
         assert "\033[0m" not in output.err
 
 
+class Test_LoggerInterface_log:
+    def test_is_pure_virtual(self):
+        with pytest.raises(RuntimeError, match="Tried to call pure virtual function"):
+            lg.LoggerInterface().log(lg.LoggerInterface.Severity.kInfo, "")
+
+
+class Test_LoggerInterface_isSeverityLogged:
+    @pytest.mark.parametrize("severity", all_severities)
+    def test_when_not_overridden_then_always_returns_true(self, severity):
+        assert lg.LoggerInterface().isSeverityLogged(severity) is True
+
+
 class Test_LoggerInterface:
     def test_severity_names(self):
         assert (
@@ -276,6 +288,36 @@ class Test_SeverityFilter_log:
                     mock_logger.mock.log.assert_called_once_with(message_severity, msg)
                 else:
                     mock_logger.mock.log.assert_not_called()
+
+    @pytest.mark.parametrize("is_severity_logged", (True, False))
+    @pytest.mark.parametrize("filter_severity", all_severities)
+    @pytest.mark.parametrize("log_severity", all_severities)
+    def test_when_wrapped_and_wrapper_both_filter_by_severity_then_most_severe_used(
+        self, mock_logger, severity_filter, is_severity_logged, filter_severity, log_severity
+    ):
+        mock_logger.mock.isSeverityLogged.return_value = is_severity_logged
+        severity_filter.setSeverity(filter_severity)
+
+        severity_filter.log(log_severity, "a message")
+
+        assert mock_logger.mock.log.called == (
+            log_severity >= filter_severity and is_severity_logged
+        )
+
+
+class Test_SeverityFilter_isSeverityLogged:
+    @pytest.mark.parametrize("is_severity_logged", (True, False))
+    @pytest.mark.parametrize("filter_severity", all_severities)
+    @pytest.mark.parametrize("log_severity", all_severities)
+    def test_when_wrapped_and_wrapper_both_filter_by_severity_then_most_severe_used(
+        self, mock_logger, severity_filter, is_severity_logged, filter_severity, log_severity
+    ):
+        mock_logger.mock.isSeverityLogged.return_value = is_severity_logged
+        severity_filter.setSeverity(filter_severity)
+
+        assert severity_filter.isSeverityLogged(log_severity) == (
+            log_severity >= filter_severity and is_severity_logged
+        )
 
 
 class Test_SeverityFilter_upstreamLogger:

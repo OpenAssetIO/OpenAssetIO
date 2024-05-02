@@ -15,6 +15,14 @@ v1.0.0-beta.x.y
   a `CppPluginSystemManagerPlugin` object.
   [#1115](https://github.com/OpenAssetIO/OpenAssetIO/issues/1115)
 
+- Added `LoggerInterface.isSeverityLogged` to allow users to
+  short-circuit log message construction if the logger indicates the
+  intended severity will be filtered. Updated `SeverityFilter` to use
+  the most pessimistic of its own severity and that of the wrapped
+  logger.
+  [#1014](https://github.com/OpenAssetIO/OpenAssetIO/issues/1014)
+
+
 v1.0.0-beta.2.1
 ---------------
 

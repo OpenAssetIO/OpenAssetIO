@@ -10,6 +10,10 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace log {
 LoggerInterface::~LoggerInterface() = default;
 
+bool LoggerInterface::isSeverityLogged([[maybe_unused]] LoggerInterface::Severity severity) const {
+  return true;
+}
+
 void LoggerInterface::debugApi(const Str &message) { log(Severity::kDebugApi, message); }
 
 void LoggerInterface::debug(const Str &message) { log(Severity::kDebug, message); }
