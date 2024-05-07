@@ -15,6 +15,11 @@ v1.0.0-beta.x.y
   a `CppPluginSystemManagerPlugin` object.
   [#1115](https://github.com/OpenAssetIO/OpenAssetIO/issues/1115)
 
+- `openassetio.test.manager`, notably used for Api Compliance tests,
+  updated to automatically load C++ plugins if a python plugin of the
+  requested identifier cannot be found.
+  [#1294](https://github.com/OpenAssetIO/OpenAssetIO/issues/1294)
+
 - Added `LoggerInterface.isSeverityLogged` to allow users to
   short-circuit log message construction if the logger indicates the
   intended severity will be filtered. Updated `SeverityFilter` to use
