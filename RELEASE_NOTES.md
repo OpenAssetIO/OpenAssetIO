@@ -27,6 +27,11 @@ v1.0.0-beta.x.y
   logger.
   [#1014](https://github.com/OpenAssetIO/OpenAssetIO/issues/1014)
 
+### Improvements
+
+- Added `.pyi` stub files to the Python package to aid IDE code
+  completion for Python bindings of C++ types.
+  [#1252](https://github.com/OpenAssetIO/OpenAssetIO/issues/1252)
 
 v1.0.0-beta.2.1
 ---------------

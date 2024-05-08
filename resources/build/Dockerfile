@@ -74,8 +74,9 @@ COPY --from=openassetio-dependencies /usr/local/cmake/pcre2-config-version.cmake
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/trompeloeil /usr/local/lib64/cmake/trompeloeil
 COPY --from=openassetio-dependencies /usr/local/include/trompeloeil.hpp /usr/local/include/trompeloeil.hpp
 
-# Update CMake. See cmake_minimum_required in top-level CMakeLists.txt.
-RUN pip install cmake==3.28.3
+# * Update CMake. See cmake_minimum_required in top-level CMakeLists.txt.
+# * Add pybind11-stubgen for generating .pyi stub files
+RUN pip install cmake==3.28.3 pybind11-stubgen==2.5.1
 
 LABEL org.opencontainers.image.name="openassetio-build"
 LABEL org.opencontainers.image.title="OpenAssetIO VFX CY2022 Build Docker Image"

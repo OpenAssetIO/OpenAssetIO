@@ -108,8 +108,11 @@ if (OPENASSETIO_ENABLE_PYTHON)
     #-------------------------------------------------------------------
     # Common environment variables for pytest tests.
 
-    set(_pytest_env
-        OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR})
+    set(
+        _pytest_env
+        OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}
+        OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN=$<BOOL:${OPENASSETIO_ENABLE_PYTHON_STUBGEN}>
+    )
 
     #-------------------------------------------------------------------
     # Gather ASan-specific environment variables to prepend to the

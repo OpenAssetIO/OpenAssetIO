@@ -124,3 +124,102 @@ if (OPENASSETIO_ENABLE_TESTS)
     target_compile_definitions(openassetio-python-module PRIVATE OPENASSETIO_ENABLE_TESTS)
     target_link_libraries(openassetio-python-module PRIVATE openassetio-python-module-test)
 endif ()
+
+
+#-----------------------------------------------------------------------
+# Generate .pyi stubs
+#
+# pybind11-stubgen will create openassetio/_openassetio subdirectories
+# in the build output directory. We use this knowledge to assemble a
+# Python pseudo-package in the build output directory, such that stubgen
+# can import the module to do its thing then dump its output alongside.
+
+if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
+    # Check pybind11-stubgen is available.
+    execute_process(
+        COMMAND "${Python_EXECUTABLE}" -m pybind11_stubgen --help
+        OUTPUT_VARIABLE _pybind11_stubgen_output
+        ERROR_VARIABLE _pybind11_stubgen_output
+        RESULT_VARIABLE _pybind11_stubgen_exit_code
+    )
+
+    # Fatal error if pybind11-stubgen isn't available.
+    if (NOT _pybind11_stubgen_exit_code EQUAL "0")
+        message(
+            FATAL_ERROR
+            "OPENASSETIO_ENABLE_PYTHON_STUBGEN=${OPENASSETIO_ENABLE_PYTHON_STUBGEN} but"
+            " pybind11-stubgen not found: status=${_pybind11_stubgen_exit_code}:"
+            " ${_pybind11_stubgen_output}"
+        )
+    endif()
+
+    # Create temporary pseudo-package directory.
+    add_custom_command(
+        TARGET openassetio-python-module POST_BUILD
+        COMMAND
+        "${CMAKE_COMMAND}" -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/openassetio"
+    )
+
+    if (WIN32)
+        # On Windows, copy openassetio.dll dependency into the
+        # pseudo-package directory, so that stubgen can import
+        # _openassetio.
+        # Note that this must be done _after_ the build, otherwise
+        # Windows (Visual Studio CMake generator) complains that the
+        # build directory already exists.
+        add_custom_command(
+            TARGET openassetio-python-module POST_BUILD
+            COMMAND
+            "${CMAKE_COMMAND}" -E copy_if_different
+            "$<TARGET_FILE:openassetio-core>"
+            "${CMAKE_CURRENT_BINARY_DIR}/openassetio/"
+        )
+    endif()
+
+    # Execute commands to generate .pyi stubs.
+    add_custom_command(
+        TARGET openassetio-python-module POST_BUILD
+        COMMAND
+        "${CMAKE_COMMAND}" -E echo "Generating .pyi stubs with pybind11-stubgen..."
+        # Copy the Python extension module under the pseudo-package
+        # directory.
+        COMMAND
+        "${CMAKE_COMMAND}" -E copy_if_different
+        "$<TARGET_FILE:openassetio-python-module>"
+        "${CMAKE_CURRENT_BINARY_DIR}/openassetio/"
+        # Ensure we have a py.typed file at the root of our package, to
+        # signal to IDEs that stubs exist.
+        COMMAND
+        "${CMAKE_COMMAND}" -E touch "${CMAKE_CURRENT_BINARY_DIR}/openassetio/py.typed"
+        # Execute pybind11-stubgen, modifying PYTHONPATH so it can
+        # locate the openassetio._openassetio module.
+        COMMAND
+        "${CMAKE_COMMAND}" -E env
+        --modify "PYTHONPATH=path_list_prepend:${CMAKE_CURRENT_BINARY_DIR}"
+        --
+        "${Python_EXECUTABLE}" -m pybind11_stubgen
+        # Fail the build and abort if any errors generating stubs.
+        --exit-code
+        # For whatever reason, stubgen fails to resolve PathType.
+        --enum-class-locations PathType:openassetio._openassetio.utils
+        -o "${CMAKE_CURRENT_BINARY_DIR}" openassetio._openassetio
+        VERBATIM
+    )
+
+    # Add stub files to the Python extension module installation
+    # component, so that
+    # `cmake --install --component openassetio-python-module` will
+    # include the stubs.
+    install(
+        # pybind11-stubgen generates stubs for openassetio._openassetio
+        # under an `openassetio/_openassetio` directory structure.
+        DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/openassetio/_openassetio"
+        DESTINATION "${_install_subdir}"
+        COMPONENT openassetio-python-module
+    )
+    install(
+        FILES "${CMAKE_CURRENT_BINARY_DIR}/openassetio/py.typed"
+        DESTINATION "${_install_subdir}"
+        COMPONENT openassetio-python-module
+    )
+endif ()

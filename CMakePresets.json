@@ -31,7 +31,10 @@
         "enable-sanitizers",
         "enable-targets-all",
         "enable-tests"
-      ]
+      ],
+      "cacheVariables": {
+        "OPENASSETIO_ENABLE_PYTHON_STUBGEN": "OFF"
+      }
     },
     {
       "name": "test",

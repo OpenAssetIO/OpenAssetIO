@@ -212,6 +212,11 @@ void registerRunInThread(py::module_& mod) {
       [](const std::function<void()>& func) { std::async(std::launch::async, func).get(); },
       py::arg("func"), py::call_guard<py::gil_scoped_release>());
 
+  py::class_<Flag, PyFlag>{mod, "Flag"}
+      .def(py::init())
+      .def("get", &Flag::get)
+      .def("set", &Flag::set);
+
   mod.def(
       "flagInThread",
       [](Flag& flag) {
@@ -220,11 +225,6 @@ void registerRunInThread(py::module_& mod) {
         return flag.get();
       },
       py::arg("func"), py::call_guard<py::gil_scoped_release>());
-
-  py::class_<Flag, PyFlag>{mod, "Flag"}
-      .def(py::init())
-      .def("get", &Flag::get)
-      .def("set", &Flag::set);
 
   auto gil = mod.def_submodule("gil");
 

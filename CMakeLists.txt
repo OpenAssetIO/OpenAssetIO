@@ -127,6 +127,8 @@ if (OPENASSETIO_ENABLE_PYTHON)
         " discoverability and prevent overwrite by package managers such as pip")
     option(OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO
         "${OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO_desc}" ON)
+
+    option(OPENASSETIO_ENABLE_PYTHON_STUBGEN "Enable Python .pyi stub file generation" ON)
 endif ()
 
 # Enable C bindings, built as a separate library that depends on the
@@ -323,6 +325,7 @@ message(STATUS "Enable Python module build         = ${OPENASSETIO_ENABLE_PYTHON
 if (OPENASSETIO_ENABLE_PYTHON)
     message(STATUS "Python install .dist-info metadata = ${OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO}")
     message(STATUS "Python relative install dir        = ${OPENASSETIO_PYTHON_SITEDIR}")
+    message(STATUS "Generate .pyi stubs                = ${OPENASSETIO_ENABLE_PYTHON_STUBGEN}")
 endif ()
 message(STATUS "Create test targets                = ${OPENASSETIO_ENABLE_TESTS}")
 message(STATUS "Create Python venv during tests    = ${OPENASSETIO_ENABLE_PYTHON_TEST_VENV}")
