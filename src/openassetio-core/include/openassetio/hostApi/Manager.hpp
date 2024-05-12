@@ -1414,12 +1414,15 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       std::function<void(std::size_t, EntityReferencePagerPtr)>;
 
   /**
-   * Query entity references that are related to the input
+   * Query for entity references that are related to the input
    * references by the relationship defined by a set of traits and
    * their properties.
    *
    * This is an essential function in this API - as it is widely used
    * to query other entities or organisational structure.
+   *
+   * When calling this method, you can expect to receive one result
+   * per @ref entity_reference provided.
    *
    * @note Consult the documentation for the relevant relationship
    * traits to determine if the order of entities in the inner lists
@@ -1482,8 +1485,264 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                            const trait::TraitSet& resultTraitSet = {});
 
   /**
-   * Queries entity references that are related to the input reference
-   * by the relationships defined by a set of traits and their
+   * Query for entity references that are related to the input
+   * reference by the relationship defined by a set of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationship(const EntityReferences&, <!--
+   * --> const trait::TraitsDataPtr&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * Any errors that occur during the query will be immediately thrown
+   * as an exception, either from the @ref manager plugin (for errors
+   * not specific to the entity relationship) or as a
+   * @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReference An @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return @ref EntityReferencePager pointer. Pages over
+   * an unbounded set of entity references related to the input
+   * entity reference.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  EntityReferencePagerPtr getWithRelationship(
+      const EntityReference& entityReference, const trait::TraitsDataPtr& relationshipTraitsData,
+      size_t pageSize, access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Query for entity references that are related to the input
+   * reference by the relationship defined by a set of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationship(const EntityReferences&, <!--
+   * --> const trait::TraitsDataPtr&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * If successful, the result is populated with an
+   * EntityReferencePager, which pages over an unbounded set of entity
+   * references related to the input entity reference, or an error.
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure to fetch the related entities.
+   *
+   * Errors that are not specific to the entity relationship will be
+   * thrown as an exception.
+   *
+   * @param entityReference An @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return Object containing either the EntityReferencePager pointer,
+   * which pages over an unbounded set of entity references related to
+   * the input entity reference, or an error.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  std::variant<errors::BatchElementError, EntityReferencePagerPtr> getWithRelationship(
+      const EntityReference& entityReference, const trait::TraitsDataPtr& relationshipTraitsData,
+      size_t pageSize, access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Query for entity references that are related to the input
+   * references by the relationship defined by a set of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationship(const EntityReferences&, <!--
+   * --> const trait::TraitsDataPtr&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * Any errors that occur during the query will be immediately thrown
+   * as an exception, either from the @ref manager plugin (for errors
+   * not specific to the entity relationship) or as a
+   * @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReferences A list of @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return List of @ref EntityReferencePager pointers. These page over
+   * unbounded sets of entity references related to the input
+   * entity references.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  std::vector<EntityReferencePagerPtr> getWithRelationship(
+      const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
+      size_t pageSize, access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Query for entity references that are related to the input
+   * references by the relationship defined by a set of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationship(const EntityReferences&, <!--
+   * --> const trait::TraitsDataPtr&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * For successful relationships, the corresponding element of the
+   * result is populated with an EntityReferencePager, which pages over
+   * an unbounded set of entity references related to the corresponding
+   * input entity reference.
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to
+   * fetch the related entities for that particular relationship.
+   *
+   * Errors that are not specific to an entity relationship will be
+   * thrown as an exception, failing the whole batch.
+   *
+   * @param entityReferences A list of @ref entity_reference to query
+   * the specified relationship for.
+   *
+   * @param relationshipTraitsData The traits of the relationship to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return List of objects, each containing either the
+   * EntityReferencePager pointer, which pages over an unbounded set of
+   * entity references related to the input entity reference, or an
+   * error.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
+  getWithRelationship(const EntityReferences& entityReferences,
+                      const trait::TraitsDataPtr& relationshipTraitsData, size_t pageSize,
+                      access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+                      const trait::TraitSet& resultTraitSet,
+                      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Query for entity references that are related to the input reference
+   * by the relationships defined by sets of traits and their
    * properties.
    *
    * This is an essential function in this API - as it is widely used to
@@ -1492,6 +1751,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @note Consult the documentation for the relevant relationship
    * traits to determine if the order of entities in the inner lists of
    * matching references is considered meaningful.
+   *
+   * When calling this method, you can expect to receive one result
+   * per relationship provided in @p relationshipTraitsDatas.
    *
    * If any relationship definition is unknown, then an empty list will
    * be returned for that relationship, and no errors will be raised.
@@ -1552,6 +1814,136 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                             const RelationshipQuerySuccessCallback& successCallback,
                             const BatchElementErrorCallback& errorCallback,
                             const trait::TraitSet& resultTraitSet = {});
+
+  /**
+   * Query for entity references that are related to the input
+   * reference by the relationships defined by sets of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationships(const EntityReference&, <!--
+   * --> const trait::TraitsDatas&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * Any errors that occur during the query will be immediately thrown
+   * as an exception, either from the @ref manager plugin (for errors
+   * not specific to the entity relationship) or as a
+   * @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return List of @ref EntityReferencePager pointers. These page over
+   * unbounded sets of entity references related to the input
+   * entity reference.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  std::vector<EntityReferencePagerPtr> getWithRelationships(
+      const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
+      size_t pageSize, access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+      const trait::TraitSet& resultTraitSet,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Query for entity references that are related to the input
+   * reference by the relationships defined by sets of traits and
+   * their properties.
+   *
+   * See documentation for the <!--
+   * --> @ref getWithRelationships(const EntityReference&, <!--
+   * --> const trait::TraitsDatas&, size_t, <!--
+   * --> access::RelationsAccess, const ContextConstPtr&, <!--
+   * --> const RelationshipQuerySuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback, <!--
+   * --> const trait::TraitSet&)
+   * "callback variation" for more details on relationship behaviour.
+   *
+   * For successful relationships, the corresponding element of the
+   * result is populated with an EntityReferencePager, which pages over
+   * an unbounded set of entity references related to the corresponding
+   * input entity reference
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to
+   * fetch the related entities for that particular relationship.
+   *
+   * Errors that are not specific to an entity relationship will be
+   * thrown as an exception, failing the whole batch.
+   *
+   * @param entityReference The @ref entity_reference to query the
+   * specified relationships for.
+   *
+   * @param relationshipTraitsDatas The traits of the relationships to
+   * query.
+   *
+   * @param pageSize The size of each page of data. The page size is
+   * fixed for the lifetime of pager object given to the @p
+   * successCallback. Must be greater than zero.
+   *
+   * @param relationsAccess The intended usage of the returned
+   * references.
+   *
+   * @param context The calling context.
+   *
+   * @param resultTraitSet A hint as to what traits the returned
+   * entities should have.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return List of objects, each containing either the
+   * EntityReferencePager pointer, which pages over an unbounded set of
+   * entity references related to the input entity reference, or an error.
+   *
+   * @throws errors.InputValidationException if @p pageSize is zero.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kRelationshipQueries.
+   *
+   * @see @ref Capability.kRelationshipQueries
+   */
+  std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
+  getWithRelationships(const EntityReference& entityReference,
+                       const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
+                       access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+                       const trait::TraitSet& resultTraitSet,
+                       const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
   /// @}
 
   /**
