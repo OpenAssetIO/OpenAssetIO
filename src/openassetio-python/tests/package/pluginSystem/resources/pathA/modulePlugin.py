@@ -21,4 +21,4 @@ class ModulePlugin(PythonPluginSystemManagerPlugin):
 
 
 # pylint: disable=invalid-name
-plugin = ModulePlugin
+openassetioPlugin = ModulePlugin

@@ -56,7 +56,7 @@ class PythonPluginSystem(object):
     def scan(self, paths):
         """
         Searches the supplied paths for modules that define a
-        PythonPluginSystemPlugin through a top-level `plugin` variable.
+        PythonPluginSystemPlugin through a top-level `openassetioPlugin` variable.
 
         Paths are searched left-to-right, but only the first instance of
         any given plugin identifier will be used, and subsequent
@@ -146,13 +146,19 @@ class PythonPluginSystem(object):
                 )
                 continue
 
-            if not hasattr(module, "plugin"):
-                self.__logger.error(
-                    f"PythonPluginSystem: No top-level 'plugin' variable {module.__file__}"
+            if hasattr(module, "openassetioPlugin"):
+                self.register(module.openassetioPlugin, module.__file__)
+            elif hasattr(module, "plugin"):
+                self.__logger.warning(
+                    "PythonPluginSystem: Use of top-level 'plugin' variable is deprecated, "
+                    f"use `openassetioPlugin` instead. {module.__file__}"
                 )
-                continue
-
-            self.register(module.plugin, module.__file__)
+                self.register(module.plugin, module.__file__)
+            else:
+                self.__logger.error(
+                    "PythonPluginSystem: No top-level 'openassetioPlugin' variable "
+                    f"{module.__file__}"
+                )
 
         return True
 
@@ -214,7 +220,7 @@ class PythonPluginSystem(object):
     def __load(self, path):
         """
         Loads the specified python file and registers it's plugin.
-        The file must expose a top-level 'plugin' variable.
+        The file must expose a top-level 'openassetioPlugin' variable.
 
         @param path `str` This can be either a single-file module,
         or the __init__.py at the root of a package.
@@ -243,13 +249,23 @@ class PythonPluginSystem(object):
             )
             return
 
-        if not hasattr(module, "plugin"):
-            self.__logger.error(f"PythonPluginSystem: No top-level 'plugin' variable {path}")
-            return
-
-        # Store where this plugin was loaded from. Not entirely
-        # accurate, but more useful for debugging than it not being
-        # there.
-        module.plugin.__file__ = path
-
-        self.register(module.plugin, path)
+        if hasattr(module, "openassetioPlugin"):
+            # Store where this plugin was loaded from. Not entirely
+            # accurate, but more useful for debugging than it not being
+            # there.
+            module.openassetioPlugin.__file__ = path
+            self.register(module.openassetioPlugin, module.__file__)
+        elif hasattr(module, "plugin"):
+            self.__logger.warning(
+                "PythonPluginSystem: Use of top-level 'plugin' variable is deprecated, "
+                f"use `openassetioPlugin` instead. {module.__file__}"
+            )
+            # Store where this plugin was loaded from. Not entirely
+            # accurate, but more useful for debugging than it not being
+            # there.
+            module.plugin.__file__ = path
+            self.register(module.plugin, module.__file__)
+        else:
+            self.__logger.error(
+                f"PythonPluginSystem: No top-level 'openassetioPlugin' variable {module.__file__}"
+            )

@@ -15,4 +15,4 @@ class ModulePlugin(PythonPluginSystemPlugin):
 
 
 # pylint: disable=invalid-name
-plugin = ModulePlugin
+openassetioPlugin = ModulePlugin

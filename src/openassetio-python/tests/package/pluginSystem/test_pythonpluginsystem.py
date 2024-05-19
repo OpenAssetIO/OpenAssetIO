@@ -69,6 +69,26 @@ class Test_PythonPluginSystem_scan:
         expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
+    def test_when_path_contains_deprecated_plugin_hook_then_it_is_loaded(
+        self, a_plugin_system, a_deprecated_plugin_path, deprecated_plugin_identifier
+    ):
+        a_plugin_system.scan(a_deprecated_plugin_path)
+        assert a_plugin_system.identifiers() == [
+            deprecated_plugin_identifier,
+        ]
+
+    def test_when_path_contains_deprecated_plugin_hook_then_deprecation_warning_is_logged(
+        self, a_deprecated_plugin_path, mock_logger
+    ):
+        deprecated_plugin_path = os.path.join(a_deprecated_plugin_path, "deprecatedPlugin.py")
+        plugin_system = PythonPluginSystem(mock_logger)
+        plugin_system.scan(a_deprecated_plugin_path)
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            "PythonPluginSystem: Use of top-level 'plugin' variable is deprecated, "
+            f"use `openassetioPlugin` instead. {deprecated_plugin_path}",
+        )
+
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
         self, a_plugin_system, the_python_resources_directory_path, plugin_a_identifier
     ):
@@ -120,7 +140,7 @@ class Test_PythonPluginSystem_scan:
         missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
-            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+            f"PythonPluginSystem: No top-level 'openassetioPlugin' variable {missing_plugin_path}",
         )
         raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
         mock_logger.mock.log.assert_any_call(
@@ -185,7 +205,7 @@ class Test_PythonPluginSystem_scan_entry_points:
         missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kError,
-            f"PythonPluginSystem: No top-level 'plugin' variable {missing_plugin_path}",
+            f"PythonPluginSystem: No top-level 'openassetioPlugin' variable {missing_plugin_path}",
         )
         raises_exception_path = os.path.join(broken_python_plugins_path, "raises_exception.py")
         mock_logger.mock.log.assert_any_call(

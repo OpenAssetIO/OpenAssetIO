@@ -9,4 +9,4 @@ from .PackagePlugin import PackagePlugin
 
 
 # pylint: disable=invalid-name
-plugin = PackagePlugin
+openassetioPlugin = PackagePlugin

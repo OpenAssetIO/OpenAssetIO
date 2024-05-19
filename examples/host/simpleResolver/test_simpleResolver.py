@@ -49,11 +49,13 @@ class Test_simpleResolver_errors:
         self, test_config_env  # pylint: disable=unused-argument
     ):
         result = execute_cli()
-        expected_message = [
-            "usage: simpleResolver.py [-h] traitset entityref",
-            "simpleResolver.py: error: the following arguments are required: traitset, entityref",
-        ]
-        assert result.stderr.splitlines() == expected_message
+        expected_message = (
+            "usage: simpleResolver.py [-h] traitset entityref\n"
+            "simpleResolver.py: error: the following arguments are required: traitset, entityref"
+        )
+
+        # TODO E.M, Revert this to being an exact check once BAL no longer prints "plugin" deprecation warning.
+        assert expected_message in result.stderr
         assert result.returncode == 2
 
     def test_when_entity_ref_and_trait_set_valid_then_expected_data_output_and_return_code_zero(
@@ -81,7 +83,8 @@ class Test_simpleResolver_errors:
     ):
         result = execute_cli("named", "bal:///doesNotExist")
         # Don't test the specific message as it couples to BAL specifics
-        assert result.stderr.startswith("ERROR:")
+        # TODO E.M, Revert this to being a startswith check once BAL no longer prints "plugin" deprecation warning.
+        assert "ERROR:" in result.stderr
         assert result.returncode == int(BatchElementError.ErrorCode.kEntityResolutionError)
 
 
