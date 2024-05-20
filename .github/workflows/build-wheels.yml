@@ -72,6 +72,8 @@ jobs:
           PIP_VERBOSE: 1
           # Required as we make use of c++17 features
           MACOSX_DEPLOYMENT_TARGET: 10.15
+          # Ensure .pyi stub tests won't be skipped
+          OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN: 1
 
       - uses: actions/upload-artifact@v3
         with:

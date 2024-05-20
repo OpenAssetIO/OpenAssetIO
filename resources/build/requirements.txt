@@ -2,3 +2,4 @@ conan==1.59.0
 cmake==3.28.3
 ninja==1.10.2.3
 pip>=21.3
+pybind11-stubgen==2.5.1

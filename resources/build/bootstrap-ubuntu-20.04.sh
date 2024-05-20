@@ -8,7 +8,7 @@ sudo apt-get update
 sudo apt-get install -y build-essential pkgconf clang-format-12 clang-tidy-12 python3-pip ccache
 
 # Install additional build tools.
-sudo pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
+pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
 # Use explicit predictable conan root path, where packages are cached.
 export CONAN_USER_HOME="$HOME/conan"
 # Create default conan profile so we can configure it before install.

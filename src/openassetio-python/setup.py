@@ -96,6 +96,7 @@ class build_ext(setuptools.command.build_ext.build_ext):
 setup(
     packages=find_packages(where="package"),
     package_dir={"": "package"},
+    package_data={"": ["py.typed", "_openassetio/*.pyi"]},
     ext_modules=[Extension("openassetio._openassetio", sources=[])],
     cmdclass={"build_ext": build_ext},
     # See pyproject.toml for other metadata fields.

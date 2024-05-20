@@ -7,7 +7,9 @@ requires = [
     # CMake 3.29 PyPI package requires importlib_metadata, which is not
     # available in a fresh Python 3.7 environment.
     "cmake==3.28.3",
-    "ninja>=1.10.2.4"
+    "ninja>=1.10.2.4",
+    # For generating .pyi stub files.
+    "pybind11-stubgen==2.5.1"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -141,9 +143,9 @@ target-version = ["py39"]
 [tool.cibuildwheel]
 test-requires = ["pytest==7.4.4", "pytest-subtests==0.11.0"]
 test-command = "pytest {package}/tests/package"
+environment-pass = ["PIP_VERBOSE", "OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN"]
 
 [tool.cibuildwheel.linux]
 # Linux runs in a docker container, with the project at top level
 before-build = "resources/build/bootstrap-cibuildwheel-manylinux-2014.sh"
 environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake" }
-environment-pass = ["PIP_VERBOSE"]
