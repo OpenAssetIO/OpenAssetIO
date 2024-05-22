@@ -47,6 +47,9 @@ v2.0.0
 This release refactors the data model in to a container + view
 mechanism.
 
+This release breaks source and binary compatibility for hosts and
+managers.
+
 ### Breaking changes
 
 - Split `Specification` class in to `SpecificationBase` and `TraitsData`
@@ -80,13 +83,13 @@ v1.2.0
    use the `=` (equals) markup.
 2. Underneath this, and separated by one blank line, should be a level-2
    heading for each release version, using the `-` (hyphen) markup.
-3. For each version, changes should be grouped into the four
+3. Each release must have a short summary, and this **must** at least
+   include a sentence describing the source and binary compatibility
+   implications of this release, for both hosts and managers.
+4. For each version, changes should be grouped into the four
    standardized categories noted below, using the `###` markup. With a
    single blank line below the heading, and a single blank line at the
    end of each section.
-4. If required, a high-level summary of the release, or any other
-   information or warnings can be added before the first changes
-   section.
 
 ### Change categories
 
