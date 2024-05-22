@@ -213,3 +213,30 @@ For detailed instructions, see [building](doc/BUILDING.md).
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
+
+## Versioning strategy
+
+OpenAssetIO broadly follows [semver](https://semver.org/). We maintain
+a compatibility guarantee based on the category of release in question.
+
+- Major releases : May contain source incompatible changes.
+- Minor releases : May contain binary incompatible changes.
+- Patch releases : Will remain compatible.
+
+OpenAssetIO is a multi-language, multi-headed library, presenting
+differing interface points for hosts and managers. These interfaces are
+versioned together under a single OpenAssetIO version. For this reason,
+it is possible that a breaking OpenAssetIO update may not cause an
+incompatibility for your particular concern. For information on this,
+consult the [release notes](./RELEASE_NOTES.md).
+
+### Pre-releases
+
+During pre-release phases, the project utilizes a reduced form of
+semver, which looks like `v1.0.0-beta.x.y`.
+
+During this period, one may assume that the `x` above is synonymous with
+major version, and the `y` with minor version, for the purpose of
+compatibility. This means patch versions will be rolled into minor
+versions, but you may still consult the [release
+notes](./RELEASE_NOTES.md) for specific compatibility information.
