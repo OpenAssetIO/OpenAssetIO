@@ -89,4 +89,4 @@ class StubManagerPlugin(PythonPluginSystemManagerPlugin):
 
 
 # pylint: disable=invalid-name
-plugin = StubManagerPlugin
+openassetioPlugin = StubManagerPlugin

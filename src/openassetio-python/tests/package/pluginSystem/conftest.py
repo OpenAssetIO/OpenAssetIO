@@ -37,6 +37,11 @@ def plugin_b_identifier():
 
 
 @pytest.fixture
+def deprecated_plugin_identifier():
+    return "org.openassetio.test.pluginSystem.resources.deprecated"
+
+
+@pytest.fixture
 def entry_point_plugin_identifier(plugin_b_identifier):
     return plugin_b_identifier
 
@@ -74,6 +79,11 @@ def a_cpp_manager_plugin_path(the_cpp_plugins_root_path):
 @pytest.fixture
 def a_python_package_plugin_path(the_python_resources_directory_path):
     return os.path.join(the_python_resources_directory_path, "pathB")
+
+
+@pytest.fixture
+def a_deprecated_plugin_path(the_python_resources_directory_path):
+    return os.path.join(the_python_resources_directory_path, "deprecated")
 
 
 @pytest.fixture

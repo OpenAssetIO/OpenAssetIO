@@ -33,6 +33,13 @@ v1.0.0-beta.x.y
   completion for Python bindings of C++ types.
   [#1252](https://github.com/OpenAssetIO/OpenAssetIO/issues/1252)
 
+### Deprecated
+
+- Deprecated top level `plugin` variable for python plugins in favour of
+  `openassetioPlugin`, in order to reduce risk of conflict with other
+  plugin systems, and maintain consistency with the C++ plugin system.
+  [#1290](https://github.com/OpenAssetIO/OpenAssetIO/issues/1290)
+
 v1.0.0-beta.2.1
 ---------------
 
