@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#manager_state":[6,13],
+"glossary.html#meta_version":[6,14],
+"glossary.html#plugin_path_var":[6,11],
+"glossary.html#publish":[6,17],
+"glossary.html#publishing_existing_data":[6,17,0],
+"glossary.html#publishing_new_data":[6,17,1],
 "glossary.html#trait":[6,21],
 "glossary.html#trait_set":[6,22],
 "hierarchy.html":[14,2],
