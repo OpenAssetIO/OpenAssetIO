@@ -975,7 +975,13 @@ class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
         pass
 
 
-class Test_Manager_getWithRelationship:
+# The getWithRelationship tests are more repetitive than most tests
+# in this suite. They are unable to make use of the test
+# automation that we have written for the conveniences signatures, as
+# the arguments for getWithRelationship are not in the standard format.
+
+
+class Test_Manager_getWithRelationship_with_callback_signiature:
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
         manager,
@@ -1134,7 +1140,246 @@ class Test_Manager_getWithRelationship:
             )
 
 
-class Test_Manager_getWithRelationships:
+class Test_Manager_getWithRelationship_singular_convenience:
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_success_then_entityReferencePager_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        invoke_getWithRelationship_success_cb,
+        error_mode,
+    ):
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        def call_callbacks(*_args):
+            invoke_getWithRelationship_success_cb(0, mock_entity_reference_pager_interface)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pager = manager.getWithRelationship(**args)
+
+        method.assert_called_once_with(
+            [a_ref],
+            an_empty_traitsdata,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert isinstance(actual_pager, EntityReferencePager)
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_fail_then_error_emitted(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        a_batch_element_error,
+        invoke_getWithRelationship_error_cb,
+        error_mode,
+    ):
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        def call_callbacks(*_args):
+            invoke_getWithRelationship_error_cb(0, a_batch_element_error)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        if error_mode is None or error_mode is Manager.BatchElementErrorPolicyTag.kException:
+            with pytest.raises(BatchElementException) as exc_info:
+                manager.getWithRelationship(**args)
+
+            assert exc_info.value.error == a_batch_element_error
+            assert (
+                exc_info.value.message
+                == "unknown: some message [index=0] [access=read] [entity=asset://a]"
+            )
+        else:
+            variant_error = manager.getWithRelationship(**args)
+            assert variant_error == a_batch_element_error
+
+
+class Test_Manager_getWithRelationship_batch_convenience:
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_success_then_entityReferencePagers_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        mock_entity_reference_pager_interface_2,
+        invoke_getWithRelationship_success_cb,
+        error_mode,
+    ):
+
+        two_refs = [a_ref, a_ref]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        def call_callbacks(*_args):
+            mock_entity_reference_pager_interface.mock.hasNext.return_value = True
+            invoke_getWithRelationship_success_cb(0, mock_entity_reference_pager_interface)
+            mock_entity_reference_pager_interface_2.mock.hasNext.return_value = False
+            invoke_getWithRelationship_success_cb(1, mock_entity_reference_pager_interface_2)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReferences": two_refs,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pagers = manager.getWithRelationship(**args)
+
+        method.assert_called_once_with(
+            two_refs,
+            an_empty_traitsdata,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_pagers) == 2
+        assert actual_pagers[0].hasNext() is True
+        assert actual_pagers[1].hasNext() is False
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_fail_then_error_emitted(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        a_batch_element_error,
+        a_batch_element_error_2,
+        invoke_getWithRelationship_error_cb,
+        error_mode,
+    ):
+
+        two_refs = [a_ref, a_ref]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        def call_callbacks(*_args):
+            invoke_getWithRelationship_error_cb(0, a_batch_element_error)
+            invoke_getWithRelationship_error_cb(1, a_batch_element_error_2)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReferences": two_refs,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        if error_mode is None or error_mode is Manager.BatchElementErrorPolicyTag.kException:
+            with pytest.raises(BatchElementException) as exc_info:
+                manager.getWithRelationship(**args)
+
+            assert exc_info.value.error == a_batch_element_error
+            assert (
+                exc_info.value.message
+                == "unknown: some message [index=0] [access=read] [entity=asset://a]"
+            )
+        else:
+            variant_error = manager.getWithRelationship(**args)
+            assert variant_error == [a_batch_element_error, a_batch_element_error_2]
+
+
+class Test_Manager_getWithRelationships_with_callback_signature:
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
         manager,
@@ -1286,6 +1531,134 @@ class Test_Manager_getWithRelationships:
                 error_callback,
                 resultTraitSet=an_entity_trait_set,
             )
+
+
+# GetWithRelationships have no singular conveniences, as they would just be
+# duplicates of GetWithRelationship
+
+
+class Test_Manager_getWithRelationships_with_batch_convenience:
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_success_then_entityReferencePagers_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        mock_entity_reference_pager_interface_2,
+        invoke_getWithRelationships_success_cb,
+        error_mode,
+    ):
+
+        two_traitsdatas = [an_empty_traitsdata, an_empty_traitsdata]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationships
+
+        def call_callbacks(*_args):
+            mock_entity_reference_pager_interface.mock.hasNext.return_value = True
+            invoke_getWithRelationships_success_cb(0, mock_entity_reference_pager_interface)
+            mock_entity_reference_pager_interface_2.mock.hasNext.return_value = False
+            invoke_getWithRelationships_success_cb(1, mock_entity_reference_pager_interface_2)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsDatas": two_traitsdatas,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pagers = manager.getWithRelationships(**args)
+
+        method.assert_called_once_with(
+            a_ref,
+            two_traitsdatas,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        assert len(actual_pagers) == 2
+        assert actual_pagers[0].hasNext() is True
+        assert actual_pagers[1].hasNext() is False
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_fail_then_error_emitted(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        a_batch_element_error,
+        a_batch_element_error_2,
+        invoke_getWithRelationships_error_cb,
+        error_mode,
+    ):
+
+        two_traitsdatas = [an_empty_traitsdata, an_empty_traitsdata]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationships
+
+        def call_callbacks(*_args):
+            invoke_getWithRelationships_error_cb(0, a_batch_element_error)
+            invoke_getWithRelationships_error_cb(1, a_batch_element_error_2)
+
+        method.side_effect = call_callbacks
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsDatas": two_traitsdatas,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        if error_mode is None or error_mode is Manager.BatchElementErrorPolicyTag.kException:
+            with pytest.raises(BatchElementException) as exc_info:
+                manager.getWithRelationships(**args)
+
+            assert exc_info.value.error == a_batch_element_error
+            assert (
+                exc_info.value.message
+                == "unknown: some message [index=0] [access=read] [entity=asset://a]"
+            )
+        else:
+            variant_error = manager.getWithRelationships(**args)
+            assert variant_error == [a_batch_element_error, a_batch_element_error_2]
 
 
 class Test_Manager_BatchElementErrorPolicyTag:
@@ -2232,6 +2605,13 @@ def a_traitsdata():
 @pytest.fixture
 def a_batch_element_error():
     return BatchElementError(BatchElementError.ErrorCode.kUnknown, "some message")
+
+
+@pytest.fixture
+def a_batch_element_error_2():
+    return BatchElementError(
+        BatchElementError.ErrorCode.kInvalidEntityReference, "another message"
+    )
 
 
 @pytest.fixture

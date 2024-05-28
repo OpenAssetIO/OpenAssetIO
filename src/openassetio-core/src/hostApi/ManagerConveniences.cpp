@@ -19,6 +19,10 @@ namespace hostApi {
 // alternate, often friendlier signatures wrapping the core batch-first
 // callback-based member functions found in `Manager.cpp`
 
+/******************************************
+ * entityTraits
+ ******************************************/
+
 // Singular Except
 trait::TraitSet hostApi::Manager::entityTraits(
     const EntityReference &entityReference, const access::EntityTraitsAccess entityTraitsAccess,
@@ -102,6 +106,10 @@ hostApi::Manager::entityTraits(
   return results;
 }
 
+/******************************************
+ * resolve
+ ******************************************/
+
 // Singular Except
 trait::TraitsDataPtr hostApi::Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
@@ -184,6 +192,10 @@ hostApi::Manager::resolve(
   return resolveResult;
 }
 
+/******************************************
+ * preflight
+ ******************************************/
+
 EntityReference Manager::preflight(
     const EntityReference &entityReference, const trait::TraitsDataPtr &traitsHint,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
@@ -261,6 +273,10 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> Manager::p
 
   return results;
 }
+
+/******************************************
+ * register_
+ ******************************************/
 
 // Singular Except
 EntityReference hostApi::Manager::register_(
@@ -340,6 +356,150 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> hostApi::M
       [&result](std::size_t index, errors::BatchElementError error) {
         result[index] = std::move(error);
       });
+
+  return result;
+}
+
+/******************************************
+ * getWithRelationship
+ ******************************************/
+
+// Singular Except
+EntityReferencePagerPtr hostApi::Manager::getWithRelationship(
+    const EntityReference &entityReference, const trait::TraitsDataPtr &relationshipTraitsData,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  EntityReferencePagerPtr result = nullptr;
+  getWithRelationship(
+      {entityReference}, relationshipTraitsData, pageSize, relationsAccess, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReferencePagerPtr pager) {
+        result = std::move(pager);
+      },
+      [&entityReference, relationsAccess](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReference, static_cast<internal::access::Access>(relationsAccess));
+        throw errors::BatchElementException(index, std::move(error), msg);
+      },
+      resultTraitSet);
+
+  return result;
+}
+
+// Singular Variant
+std::variant<errors::BatchElementError, EntityReferencePagerPtr>
+hostApi::Manager::getWithRelationship(
+    const EntityReference &entityReference, const trait::TraitsDataPtr &relationshipTraitsData,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<errors::BatchElementError, EntityReferencePagerPtr> result;
+  getWithRelationship(
+      {entityReference}, relationshipTraitsData, pageSize, relationsAccess, context,
+      [&result]([[maybe_unused]] std::size_t index, EntityReferencePagerPtr pager) {
+        result = std::move(pager);
+      },
+      [&result]([[maybe_unused]] std::size_t index, errors::BatchElementError error) {
+        result = std::move(error);
+      },
+      resultTraitSet);
+
+  return result;
+}
+
+// Multi Except
+std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationship(
+    const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<EntityReferencePagerPtr> result;
+  result.resize(entityReferences.size());
+
+  getWithRelationship(
+      entityReferences, relationshipTraitsData, pageSize, relationsAccess, context,
+      [&result](std::size_t index, EntityReferencePagerPtr pager) {
+        result[index] = std::move(pager);
+      },
+      [&entityReferences, relationsAccess](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReferences[index],
+            static_cast<internal::access::Access>(relationsAccess));
+        throw errors::BatchElementException(index, std::move(error), msg);
+      },
+      resultTraitSet);
+
+  return result;
+}
+
+// Multi Variant
+std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
+hostApi::Manager::getWithRelationship(
+    const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>> result;
+  result.resize(entityReferences.size());
+
+  getWithRelationship(
+      entityReferences, relationshipTraitsData, pageSize, relationsAccess, context,
+      [&result](std::size_t index, EntityReferencePagerPtr pager) {
+        result[index] = std::move(pager);
+      },
+      [&result](std::size_t index, errors::BatchElementError error) {
+        result[index] = std::move(error);
+      },
+      resultTraitSet);
+
+  return result;
+}
+
+/******************************************
+ * getWithRelationships. No singulars as they mirror GetWithRelationship
+ ******************************************/
+
+// Multi Except
+std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationships(
+    const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<EntityReferencePagerPtr> result;
+  result.resize(relationshipTraitsDatas.size(), nullptr);
+  getWithRelationships(
+      entityReference, relationshipTraitsDatas, pageSize, relationsAccess, context,
+      [&result](std::size_t index, EntityReferencePagerPtr pager) {
+        result[index] = std::move(pager);
+      },
+      [&entityReference, relationsAccess](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReference, static_cast<internal::access::Access>(relationsAccess));
+        throw errors::BatchElementException(index, std::move(error), msg);
+      },
+      resultTraitSet);
+
+  return result;
+}
+
+// Multi Variant
+std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
+hostApi::Manager::getWithRelationships(
+    const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
+    const size_t pageSize, const access::RelationsAccess relationsAccess,
+    const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>> result;
+  result.resize(relationshipTraitsDatas.size());
+  getWithRelationships(
+      entityReference, relationshipTraitsDatas, pageSize, relationsAccess, context,
+      [&result](std::size_t index, EntityReferencePagerPtr pager) {
+        result[index] = std::move(pager);
+      },
+      [&result](std::size_t index, errors::BatchElementError error) {
+        result[index] = std::move(error);
+      },
+      resultTraitSet);
 
   return result;
 }

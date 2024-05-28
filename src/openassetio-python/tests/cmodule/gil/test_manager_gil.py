@@ -127,11 +127,9 @@ class Test_Manager_gil:
     def test_flushCaches(self, a_threaded_manager):
         a_threaded_manager.flushCaches()
 
-    def test_getWithRelationship(self, a_threaded_manager, a_traits_data, a_context):
-        # Defend against forgetting to include convenience signatures in
-        # this test, once added.
-        assert "Overloaded" not in a_threaded_manager.getWithRelationship.__doc__
-
+    def test_getWithRelationship(
+        self, a_threaded_manager, an_entity_reference, a_traits_data, a_context
+    ):
         a_threaded_manager.getWithRelationship(
             [],
             a_traits_data,
@@ -142,11 +140,37 @@ class Test_Manager_gil:
             fail,
         )
 
-    def test_getWithRelationships(self, a_threaded_manager, an_entity_reference, a_context):
-        # Defend against forgetting to include convenience signatures in
-        # this test, once added.
-        assert "Overloaded" not in a_threaded_manager.getWithRelationships.__doc__
+        tag = Manager.BatchElementErrorPolicyTag
 
+        a_threaded_manager.getWithRelationship(
+            an_entity_reference,
+            a_traits_data,
+            1,
+            access.RelationsAccess.kRead,
+            a_context,
+            set(),
+            tag.kVariant,
+        )
+
+        a_threaded_manager.getWithRelationship(
+            an_entity_reference,
+            a_traits_data,
+            1,
+            access.RelationsAccess.kRead,
+            a_context,
+            set(),
+            tag.kException,
+        )
+
+        a_threaded_manager.getWithRelationship(
+            [], a_traits_data, 1, access.RelationsAccess.kRead, a_context, set(), tag.kVariant
+        )
+
+        a_threaded_manager.getWithRelationship(
+            [], a_traits_data, 1, access.RelationsAccess.kRead, a_context, set(), tag.kException
+        )
+
+    def test_getWithRelationships(self, a_threaded_manager, an_entity_reference, a_context):
         a_threaded_manager.getWithRelationships(
             an_entity_reference,
             [],
@@ -155,6 +179,30 @@ class Test_Manager_gil:
             a_context,
             fail,
             fail,
+        )
+
+        tag = Manager.BatchElementErrorPolicyTag
+
+        # No singular getWithRelationships conveniences.
+
+        a_threaded_manager.getWithRelationships(
+            an_entity_reference,
+            [],
+            1,
+            access.RelationsAccess.kRead,
+            a_context,
+            set(),
+            tag.kVariant,
+        )
+
+        a_threaded_manager.getWithRelationships(
+            an_entity_reference,
+            [],
+            1,
+            access.RelationsAccess.kRead,
+            a_context,
+            set(),
+            tag.kException,
         )
 
     def test_hasCapability(self, a_threaded_manager):

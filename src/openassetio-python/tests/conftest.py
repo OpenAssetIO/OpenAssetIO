@@ -115,6 +115,15 @@ def mock_entity_reference_pager_interface():
 
 
 @pytest.fixture
+def mock_entity_reference_pager_interface_2():
+    """
+    Fixture for an `EntityReferencePagerInterface` that forwards method
+    calls to an internal public `mock.Mock` instance.
+    """
+    return MockEntityReferencePagerInterface()
+
+
+@pytest.fixture
 def mock_manager_interface(create_mock_manager_interface):
     """
     Fixture for a `ManagerInterface` that asserts parameter types and

@@ -29,6 +29,13 @@ v1.0.0-beta.x.y
 
 ### Improvements
 
+- Added `getRelationship(s)` overloads for convenience, providing
+  alternatives to the core callback-based workflow. Includes a more
+  direct method for resolving relationships for single entity
+  references, or single relationships, as well exception vs. result
+  object workflows.
+  [#973](https://github.com/OpenAssetIO/OpenAssetIO/issues/973)
+
 - Added `.pyi` stub files to the Python package to aid IDE code
   completion for Python bindings of C++ types.
   [#1252](https://github.com/OpenAssetIO/OpenAssetIO/issues/1252)
