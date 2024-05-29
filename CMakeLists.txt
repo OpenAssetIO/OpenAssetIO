@@ -195,6 +195,15 @@ cmake_dependent_option(
     OPENASSETIO_ENABLE_TESTS
     OFF
 )
+cmake_dependent_option(
+    OPENASSETIO_ENABLE_TEST_ABI
+    "Enable ABI diff check test (Debug builds only)"
+    OFF
+    # Only visible if tests are enabled and this is a debug build (or is
+    # a multi-config generator so has no build type).
+    "OPENASSETIO_ENABLE_TESTS;NOT DEFINED CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL Debug"
+    OFF
+)
 
 # Enable clang-format formatting check.
 option(OPENASSETIO_ENABLE_CLANG_FORMAT "Enable clang-format check during build" OFF)
@@ -331,7 +340,10 @@ if (OPENASSETIO_ENABLE_PYTHON)
     message(STATUS "Generate .pyi stubs                = ${OPENASSETIO_ENABLE_PYTHON_STUBGEN}")
 endif ()
 message(STATUS "Create test targets                = ${OPENASSETIO_ENABLE_TESTS}")
-message(STATUS "Create Python venv during tests    = ${OPENASSETIO_ENABLE_PYTHON_TEST_VENV}")
+if (OPENASSETIO_ENABLE_TESTS)
+    message(STATUS "Create Python venv during tests    = ${OPENASSETIO_ENABLE_PYTHON_TEST_VENV}")
+    message(STATUS "Enable ABI diff check test         = ${OPENASSETIO_ENABLE_TEST_ABI}")
+endif()
 message(STATUS "Warnings as errors                 = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization       = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs         = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")

@@ -66,6 +66,52 @@ function(openassetio_add_generic_test_target target_name)
     )
 endfunction()
 
+#-----------------------------------------------------------------------
+# ABI checker tests.
+
+if (OPENASSETIO_ENABLE_TEST_ABI)
+    find_program(OPENASSETIO_ABIDIFF_EXE NAMES abidiff REQUIRED)
+
+    # Create a test to check the ABI compatibility of a target.
+    #
+    # Uses libabigail's `abidiff` tool, and assumes .xml snapshots with
+    # the same name as the library, under `resources/abi` in the
+    # project root.
+    #
+    # Uses the build artifact location for convenience (i.e. handy
+    # generator expressions to get the path), rather than the install
+    # artifacts, but they are equivalent for `abidiff` purposes.
+    function(openassetio_add_abi_test_target target_name)
+        add_custom_target(
+            openassetio.test.abi.${target_name}
+            # Empty echos to print newlines.
+            COMMAND ${CMAKE_COMMAND} -E echo
+            COMMAND ${CMAKE_COMMAND} -E echo
+            "===== Checking ABI of $<TARGET_FILE_NAME:${target_name}> ====="
+            COMMAND ${CMAKE_COMMAND} -E echo
+            COMMAND ${OPENASSETIO_ABIDIFF_EXE}
+            # Ensure we have a Debug build to extract symbol info from.
+            --fail-no-debug-info
+            # Reduce output to just salient info. I.e. skip the  "impact
+            # analysis" tree showing an example function that is
+            # affected by the change.
+            --leaf-changes-only
+            # TODO(DF): Bug in libabigail 2.4 `default.abignore` default
+            # suppression file causes false negatives. Any ABI break
+            # involving a function with `std::` in the demangled name is
+            # suppressed - this includes template specialisations, e.g.
+            # `castToPyObject<std::shared_ptr<...`.
+            --no-default-suppression
+            ${PROJECT_SOURCE_DIR}/resources/abi/$<TARGET_FILE_NAME:${target_name}>.xml
+            $<TARGET_FILE:${target_name}>
+        )
+        openassetio_add_test_target(openassetio.test.abi.${target_name})
+        openassetio_add_test_fixture_dependencies(
+            openassetio.test.abi.${target_name}
+            openassetio.internal.install
+        )
+    endfunction()
+endif ()
 
 #-----------------------------------------------------------------------
 # Fixture to ensure install tree has been generated

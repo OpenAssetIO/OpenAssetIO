@@ -262,8 +262,7 @@ using CastableClasses = std::tuple<
     log::SeverityFilter,
     managerApi::Host,
     managerApi::HostSession,
-    managerApi::ManagerInterface,
-    managerApi::ManagerStateBase
+    managerApi::ManagerInterface
 >;
 // clang-format on
 }  // namespace

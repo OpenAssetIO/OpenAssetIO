@@ -86,6 +86,20 @@ one code path. In that case shoehorning a test case description into a
 alternative. Best judgement should be used, bearing in mind readability
 and consistency trade-offs.
 
+### ABI checks
+
+When the OpenAssetIO C/C++ ABI changes, we need to know about it to
+inform our release notes and semver versioning.
+
+We try to avoid breaking changes more than most projects, due to the
+nature of software adoption in the VFX industry, where tools can be
+pinned to a major/minor release for several years before an upgrade is
+allowed.
+
+To help monitor breaking changes we have automated checks against C++
+ABI snapshots. See [resources/abi](../../resources/abi/README.md) for
+more details.
+
 ## C++
 
 ### Classes

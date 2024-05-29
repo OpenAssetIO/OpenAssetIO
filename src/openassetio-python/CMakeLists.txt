@@ -52,4 +52,9 @@ endif ()
 
 if (OPENASSETIO_ENABLE_TESTS)
     add_subdirectory(tests)
+    if (OPENASSETIO_ENABLE_TEST_ABI)
+        # Only the Python bridge needs an ABI test. The Python C
+        # extension module should never be linked directly.
+        openassetio_add_abi_test_target(openassetio-python-bridge)
+    endif ()
 endif ()

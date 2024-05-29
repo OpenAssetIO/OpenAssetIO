@@ -18,7 +18,7 @@ include:
 - Changes to the behavior of existing features.
 - Changes to public API signatures or methods (including exposed test
   infrastructure).
-- Changes to library ABIs.
+- Changes to [library ABIs](../../resources/abi/README.md).
 - Changes to runtime dependencies.
 - Changes to supported platforms.
 - Changes to the distribution format.

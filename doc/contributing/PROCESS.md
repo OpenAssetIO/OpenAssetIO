@@ -93,7 +93,8 @@ and that change notes are written at the time of greatest understanding.
 
 Any commit that makes a user facing change should update the log. See
 the [Recording user facing changes in the release notes](CHANGES.md)
-section for more details.
+section for more details. This includes otherwise invisible changes that
+cause source or binary incompatibilities.
 
 ### Contribution sign off
 
@@ -185,6 +186,15 @@ To make a new OpenAssetIO release, follow this procedure.
     action will be invoked, building a wider than usual matrix of of
     openassetio artifacts, and then uploading them to the release page.
 - You're done! Take a break and relax!
+
+## Breaking the application binary interface (ABI)
+
+OpenAssetIO is a C++ library, and as such, it is important to manage ABI
+changes carefully. We use [tooling to detect ABI
+changes](../../resources/abi/README.md). When a deliberate and
+non-binary compatible change occurs, the release notes should be updated
+to [document this](CHANGES.md), even if there is no other user facing
+change.
 
 ## Breaking integrations
 
@@ -289,6 +299,7 @@ of any breaking change in OpenAssetIO.
 - [Commits and commit messages](COMMITS.md)
 - [Code Reviews](CODE_REVIEWS.md)
 - [Updating the release notes](CHANGES.md)
+- [ABI change monitoring](../../resources/abi/README.md)
 
 ## Trusted committers
 
