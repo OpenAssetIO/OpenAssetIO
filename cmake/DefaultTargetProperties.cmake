@@ -50,7 +50,7 @@ function(openassetio_set_default_target_properties target_name)
                 INTERPROCEDURAL_OPTIMIZATION ON
             )
         else ()
-            message(WARNING "OPENASSETIO_ENABLE_IPO is not supported, option ignored: ${output}")
+            message(WARNING "OPENASSETIO_ENABLE_IPO is not supported, option ignored")
         endif ()
     endif ()
 
