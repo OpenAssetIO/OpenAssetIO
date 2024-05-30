@@ -227,8 +227,11 @@ include(ThirdParty)
 # unavailable as a target dependency if the Unix Makefile generator
 # (default on Linux) is used, so we must shell out the install.
 
-add_custom_target(openassetio.internal.install
-    COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}" --target install)
+add_custom_target(
+    openassetio.internal.install
+    COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}"
+    --target install --parallel
+)
 
 
 #-----------------------------------------------------------------------
