@@ -153,3 +153,27 @@ jobs:
           /usr/bin/ccache -s
         env:
           CCACHE_DIR: /tmp/ccache
+
+  abi-check:
+    name: ABI diff check
+    runs-on: ubuntu-latest
+    # We must test ABI on a consistent platform. So choose our VFX
+    # reference platform compatible Docker image, which we have
+    # pre-installed libabigail into for performing the ABI diff checks.
+    container:
+      image: ghcr.io/openassetio/openassetio-build
+
+    steps:
+      - uses: actions/checkout@v3 # Needs to be V3 because of GLIBC ver.
+        with:
+          path: src
+
+      - name: Build and check ABI
+        shell: bash
+        run: >
+          cd src
+
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+          -DOPENASSETIO_ENABLE_TESTS=ON -DOPENASSETIO_ENABLE_TEST_ABI=ON
+
+          ctest --test-dir build --output-on-failure -R openassetio.test.abi --parallel 4
