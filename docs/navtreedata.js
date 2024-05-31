@@ -84,7 +84,7 @@ var NAVTREE =
     [ "Glossary", "glossary.html", [
       [ "Asset Management System", "glossary.html#asset_management_system", null ],
       [ "Context", "glossary.html#Context", null ],
-      [ "Digital Contentent Creation tool (DCC)", "glossary.html#DCC", null ],
+      [ "Digital Content Creation tool (DCC)", "glossary.html#DCC", null ],
       [ "entity", "glossary.html#entity", null ],
       [ "Entity Reference", "glossary.html#entity_reference", null ],
       [ "host", "glossary.html#host", null ],
