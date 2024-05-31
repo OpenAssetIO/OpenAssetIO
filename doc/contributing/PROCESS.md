@@ -145,7 +145,11 @@ To make a new OpenAssetIO release, follow this procedure.
 - Commit changes using the title: `[Release] Bump version to <version>`.
 - Have a final scan over the release notes to check for typos. If any
   are spotted, add a commit *before* the version bump to fix them.
-- Create a PR into the primary repo, review and merge as normal.
+- Create a PR into the primary repo and await review.
+- Check if this release must occur simultaneously with a release of
+  another project in the OpenAssetIO ecosystem, and if so ensure they
+  are also ready to release before continuing.
+- Merge the release PR to `main` as normal.
 
 > **Warning**
 >
