@@ -1012,7 +1012,7 @@ class Test_Manager_entityExists(BatchFirstMethodTest):
     def test_batch_overload_default_response(self, two_refs):
         self.assert_batch_overload_default_response(
             method_specific_args_for_batch_of_two=(two_refs,),
-            expected_default_results=[True, True],
+            expected_default_results=[False, False],
         )
 
     def test_singular_overload_success(self, a_ref):
@@ -1061,7 +1061,7 @@ class Test_Manager_entityExists(BatchFirstMethodTest):
     @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
     def test_when_singular_throwing_overload_errors_then_raises(self, a_ref, error_code):
         batch_element_error = BatchElementError(error_code, "some error")
-        expected_error_message = self._make_expected_err_msg(
+        expected_error_message = self._make_expected_existence_err_msg(
             batch_element_error,
             a_ref,
         )
@@ -1076,7 +1076,7 @@ class Test_Manager_entityExists(BatchFirstMethodTest):
     @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
     def test_when_batched_throwing_overload_errors_then_raises(self, two_refs, error_code):
         batch_element_error = BatchElementError(error_code, "some error")
-        expected_error_message = self._make_expected_err_msg(
+        expected_error_message = self._make_expected_existence_err_msg(
             batch_element_error,
             two_refs[0],
         )
@@ -1087,7 +1087,7 @@ class Test_Manager_entityExists(BatchFirstMethodTest):
             expected_error_message=expected_error_message,
         )
 
-    def _make_expected_err_msg(self, batch_element_error, entityRef):
+    def _make_expected_existence_err_msg(self, batch_element_error, entityRef):
         error_type_name = self.batch_element_error_codes_names[
             self.batch_element_error_codes.index(batch_element_error.code)
         ]

@@ -19,7 +19,7 @@ Str errorCodeName(BatchElementError::ErrorCode code);
 /**Construct a full message to place into a convenience exception.*/
 std::string createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
                                                const EntityReference& entityReference,
-                                               internal::access::Access access);
+                                               std::optional<internal::access::Access> access);
 }  // namespace errors
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

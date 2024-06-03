@@ -33,9 +33,9 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
   return "Unknown ErrorCode";
 }
 
-std::string createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
-                                               const EntityReference& entityReference,
-                                               internal::access::Access access) {
+std::string createBatchElementExceptionMessage(
+    const BatchElementError& err, size_t index, const EntityReference& entityReference,
+    const std::optional<internal::access::Access> access) {
   /*
    * BatchElementException messages consist of five parts.
    * 1. The name of the error code.
@@ -47,16 +47,24 @@ std::string createBatchElementExceptionMessage(const BatchElementError& err, siz
    * Ends up looking something like : "entityAccessError: Could not
    * access Entity [index=2] [access=read] [entity=bal:///entityRef]"
    */
-  const auto errorCodeStr = fmt::format("{}:", errorCodeName(err.code));
-  const auto errorMessageStr = err.message.empty() ? "" : fmt::format(" {}", err.message);
+  std::string result;
 
-  // Data elements
-  const auto indexStr = fmt::format(" [index={}]", index);
-  const auto accessStr = fmt::format(" [access={}]", access::kAccessNames[access]);
-  const auto entityReferenceStr = fmt::format(" [entity={}]", entityReference.toString());
+  result += fmt::format("{}:", errorCodeName(err.code));
 
-  return fmt::format("{}{}{}{}{}", errorCodeStr, errorMessageStr, indexStr, accessStr,
-                     entityReferenceStr);
+  if (!err.message.empty()) {
+    result += " ";
+    result += err.message;
+  }
+
+  result += fmt::format(" [index={}]", index);
+
+  if (access) {
+    result += fmt::format(" [access={}]", access::kAccessNames[*access]);
+  }
+
+  result += fmt::format(" [entity={}]", entityReference.toString());
+
+  return result;
 }
 }  // namespace errors
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
