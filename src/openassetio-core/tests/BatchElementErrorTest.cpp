@@ -14,6 +14,15 @@ SCENARIO("BatchElementError usage") {
     STATIC_REQUIRE(std::is_copy_assignable_v<BatchElementError>);
   }
 
+  GIVEN("a default-constructed BatchElementError") {
+    const BatchElementError error{};
+
+    THEN("code is kUnknown and message is empty") {
+      CHECK(error.code == BatchElementError::ErrorCode::kUnknown);
+      CHECK(error.message.empty());
+    }
+  }
+
   GIVEN("an error code and message") {
     const auto code = BatchElementError::ErrorCode::kUnknown;
     const openassetio::Str message = "some message";
