@@ -940,10 +940,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @throws errors.BatchElementException Converted exception thrown
    * when the manager emits a @fqref{errors.BatchElementError}
    * "BatchElementError".
-   * @throws errors.NotImplementedException Thrown when this method is
-   * not implemented by the manager. Check that this method is
-   * implemented before use by calling @ref hasCapability with @ref
-   * Capability.kResolution.
    */
   std::vector<trait::TraitSet> entityTraits(
       const EntityReferences& entityReferences, access::EntityTraitsAccess entityTraitsAccess,
@@ -1136,6 +1132,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @throws errors.BatchElementException Converted exception thrown
    * when the manager emits a @fqref{errors.BatchElementError}
    * "BatchElementError".
+   *
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref
