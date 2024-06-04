@@ -27,6 +27,10 @@ v1.0.0-beta.x.y
   logger.
   [#1014](https://github.com/OpenAssetIO/OpenAssetIO/issues/1014)
 
+- Added `utils.substitute` providing a common string substitution format
+  using named placeholders in libfmt/Python format string style syntax.
+  [#1213](https://github.com/OpenAssetIO/OpenAssetIO/issues/1213)
+
 ### Improvements
 
 - Added `getRelationship(s)` overloads for convenience, providing

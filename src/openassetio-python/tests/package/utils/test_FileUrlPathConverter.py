@@ -14,7 +14,7 @@
 #   limitations under the License.
 #
 """
-Tests that cover the openassetio.utils namespace.
+Tests that cover the FileUrlPathConverter utility.
 """
 import collections
 import json
