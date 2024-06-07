@@ -831,11 +831,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * callback will be called on the same thread that initiated the call
    * to `entityTraits`.
    */
-  virtual void entityTraits(const EntityReferences& entityReferences,
-                            access::EntityTraitsAccess entityTraitsAccess,
-                            const ContextConstPtr& context,
-                            const EntityTraitsSuccessCallback& successCallback,
-                            const BatchElementErrorCallback& errorCallback);
+  void entityTraits(const EntityReferences& entityReferences,
+                    access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context,
+                    const EntityTraitsSuccessCallback& successCallback,
+                    const BatchElementErrorCallback& errorCallback);
 
   /**
    * Retrieve the @ref trait_set of an @ref entity.

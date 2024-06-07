@@ -74,6 +74,9 @@ COPY --from=openassetio-dependencies /usr/local/cmake/pcre2-config-version.cmake
 COPY --from=openassetio-dependencies /usr/local/lib64/cmake/trompeloeil /usr/local/lib64/cmake/trompeloeil
 COPY --from=openassetio-dependencies /usr/local/include/trompeloeil.hpp /usr/local/include/trompeloeil.hpp
 
+# libabigail providing abidiff tool for ABI checking
+RUN yum install -y libabigail-2.4-3.el7
+
 # * Update CMake. See cmake_minimum_required in top-level CMakeLists.txt.
 # * Add pybind11-stubgen for generating .pyi stub files
 RUN pip install cmake==3.28.3 pybind11-stubgen==2.5.1
