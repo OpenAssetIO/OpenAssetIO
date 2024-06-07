@@ -93,6 +93,7 @@ target_sources(
     src/utils/path/windows/pathTypes.cpp
     src/utils/path/posix.cpp
     src/utils/path/posix/detail.cpp
+    src/utils/substitute.cpp
 )
 
 # Public header dependency.

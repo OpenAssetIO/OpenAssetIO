@@ -24,3 +24,5 @@ from openassetio import _openassetio  # pylint: disable=no-name-in-module
 PathType = _openassetio.utils.PathType
 
 FileUrlPathConverter = _openassetio.utils.FileUrlPathConverter
+
+substitute = _openassetio.utils.substitute
