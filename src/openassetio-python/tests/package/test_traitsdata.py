@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2024 The Foundry Visionmongers Ltd
+
 """
 Tests for the traits data container
 """
@@ -182,15 +185,6 @@ class Test_TraitsData_equality:
         data_b = TraitsData({"another_trait"})
         assert data_a != data_b
         assert data_a != data_b
-
-
-class Test_TraitsData_repr:
-    def test(self, a_traitsdata):
-        assert repr(a_traitsdata) == str(a_traitsdata)
-        assert (
-            str(a_traitsdata) == 'TraitsData({"first_trait", "second_trait"})'
-            or str(a_traitsdata) == 'TraitsData({"second_trait", "first_trait"})'
-        )
 
 
 @pytest.fixture

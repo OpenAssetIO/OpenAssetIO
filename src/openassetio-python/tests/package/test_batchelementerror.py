@@ -108,20 +108,6 @@ class Test_BatchElementError_equality:
         assert a_batch_element_error != b_batch_element_error
 
 
-class Test_BatchElementError_repr:
-    def test(self):
-        batch_element_error = BatchElementError(
-            BatchElementError.ErrorCode.kEntityResolutionError, "some error happened"
-        )
-
-        assert str(batch_element_error) == repr(batch_element_error)
-
-        assert (
-            str(batch_element_error)
-            == "BatchElementError(ErrorCode.kEntityResolutionError, 'some error happened')"
-        )
-
-
 class Test_BatchElementException:
     @pytest.mark.parametrize(
         "exception_code",

@@ -11,6 +11,16 @@ _The addition of a new virtual method,
 
 ### New Features
 
+- Many types are now printable, with `<<` operators available in C++, and `str`
+  and `repr` functions available in python.
+  Notably, this includes `TraitsData`, which when printed now displays all the
+  properties contained within the traits, rather than simply a list of trait
+  ids.
+  
+  Note: Due to this, some runtime string output may have slightly changed, and
+  tests may need to be adjusted.
+  [#1307](https://github.com/OpenAssetIO/OpenAssetIO/issues/1307)
+
 - Added a C++ plugin system. In particular, hosts can use the
   `CppPluginSystemManagerImplementationFactory` class (as a drop-in
   replacement for `PythonPluginSystemManagerImplementationFactory`) in

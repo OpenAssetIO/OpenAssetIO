@@ -1,15 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #include <optional>
+#include <sstream>
 
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 
 #include <fmt/format.h>
-#include <fmt/ranges.h>
 
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
+#include <openassetio/utils/ostream.hpp>
 
 #include "../_openassetio.hpp"
 
@@ -45,6 +46,15 @@ void registerTraitsData(const py::module& mod) {
           py::arg("traitId"), py::arg("propertyKey"))
       .def("traitPropertyKeys", &TraitsData::traitPropertyKeys, py::arg("traitId"))
       .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
-      .def("__repr__",
-           [](const TraitsData& self) { return fmt::format("TraitsData({})", self.traitSet()); });
+      .def("__str__",
+           [](const TraitsData& self) {
+             std::ostringstream stringStream;
+             stringStream << self;
+             return stringStream.str();
+           })
+      .def("__repr__", [](const TraitsData& self) {
+        std::ostringstream stringStream;
+        stringStream << "TraitsData(" << self << ")";
+        return stringStream.str();
+      });
 }

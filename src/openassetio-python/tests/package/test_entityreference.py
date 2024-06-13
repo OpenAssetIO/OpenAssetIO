@@ -1,5 +1,5 @@
 #
-#   Copyright 2022 The Foundry Visionmongers Ltd
+#   Copyright 2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -39,14 +39,6 @@ class Test_EntityReference_toString:
         expected = "ref://some/entity/🐈"
         an_entity_reference = EntityReference(expected)
         assert an_entity_reference.toString() == expected
-
-
-class Test_EntityReferenve_repr:
-    def test_returns_angle_bracket_string_with_class_and_value(self):
-        for ref_str in ("a://ref", "a 🦆 v1"):
-            expected = f"<openassetio.EntityReference {ref_str}>"
-            a_ref = EntityReference(ref_str)
-            assert repr(a_ref) == expected
 
 
 class Test_EntityReference_equality:
