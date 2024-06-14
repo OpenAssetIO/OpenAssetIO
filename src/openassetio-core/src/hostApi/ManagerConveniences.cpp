@@ -15,9 +15,83 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
+
 // The definitions below are the "convenience" method signatures -
 // alternate, often friendlier signatures wrapping the core batch-first
 // callback-based member functions found in `Manager.cpp`
+
+/******************************************
+ * entityExists
+ ******************************************/
+
+// Singular Except
+bool hostApi::Manager::entityExists(
+    const EntityReference &entityReference, const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  bool result{};
+  entityExists(
+      {entityReference}, context,
+      [&result]([[maybe_unused]] std::size_t index, bool exists) { result = exists; },
+      [&entityReference](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(error, index, entityReference,
+                                                              std::nullopt);
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return result;
+}
+
+// Singular variant
+std::variant<errors::BatchElementError, bool> hostApi::Manager::entityExists(
+    const EntityReference &entityReference, const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<errors::BatchElementError, bool> result;
+  entityExists(
+      {entityReference}, context,
+      [&result]([[maybe_unused]] std::size_t index, bool exists) { result = exists; },
+      [&result]([[maybe_unused]] std::size_t index, errors::BatchElementError error) {
+        result = std::move(error);
+      });
+
+  return result;
+}
+
+// Multi except
+std::vector<hostApi::Manager::BoolAsUint> hostApi::Manager::entityExists(
+    const EntityReferences &entityReferences, const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<BoolAsUint> results;
+  results.resize(entityReferences.size());
+
+  entityExists(
+      entityReferences, context,
+      [&results](std::size_t index, bool exists) {
+        results[index] = static_cast<BoolAsUint>(exists);
+      },
+      [&entityReferences](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, entityReferences[index], std::nullopt);
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return results;
+}
+
+// Multi variant
+std::vector<std::variant<errors::BatchElementError, bool>> hostApi::Manager::entityExists(
+    const EntityReferences &entityReferences, const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<errors::BatchElementError, bool>> results;
+  results.resize(entityReferences.size());
+  entityExists(
+      entityReferences, context,
+      [&results](std::size_t index, bool exists) { results[index] = exists; },
+      [&results](std::size_t index, errors::BatchElementError error) {
+        results[index] = std::move(error);
+      });
+
+  return results;
+}
 
 /******************************************
  * entityTraits

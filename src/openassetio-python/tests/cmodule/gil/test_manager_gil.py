@@ -104,12 +104,17 @@ class Test_Manager_gil:
         mock_manager_interface.mock.displayName.return_value = "My Name"
         assert a_threaded_manager.displayName() == "My Name"
 
-    def test_entityExists(self, a_threaded_manager, a_context):
-        # Defend against forgetting to include convenience signatures in
-        # this test, once added.
-        assert "Overloaded" not in a_threaded_manager.entityExists.__doc__
+    def test_entityExists(self, a_threaded_manager, a_context, an_entity_reference):
+        ref = an_entity_reference
+        tag = Manager.BatchElementErrorPolicyTag
 
         a_threaded_manager.entityExists([], a_context, fail, fail)
+        a_threaded_manager.entityExists(ref, a_context)
+        a_threaded_manager.entityExists(ref, a_context, tag.kException)
+        a_threaded_manager.entityExists(ref, a_context, tag.kVariant)
+        a_threaded_manager.entityExists([], a_context)
+        a_threaded_manager.entityExists([], a_context, tag.kException)
+        a_threaded_manager.entityExists([], a_context, tag.kVariant)
 
     def test_entityTraits(self, a_threaded_manager, a_context, an_entity_reference):
         ref = an_entity_reference

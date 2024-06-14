@@ -159,6 +159,107 @@ class BatchFirstMethodTest:
                 mock.Mock(),
             )
 
+    def assert_singular_overload_default_response(
+        self,
+        method_specific_args,
+        batched_method_specific_args,
+        expected_default_result,
+        assert_result_identity=True,
+    ):
+        """
+        Check the default response when the manager doesn't call a
+        callback.
+        """
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+        ):
+            with self.subtests.test(tag=tag):
+
+                actual_result = self.method(*method_specific_args, self.a_context, *tag)
+
+                self.mock_interface_method.assert_called_once_with(
+                    *batched_method_specific_args,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert actual_result == expected_default_result
+                if assert_result_identity:
+                    assert actual_result is expected_default_result
+
+        with self.subtests.test(tag=Manager.BatchElementErrorPolicyTag.kVariant):
+
+            actual_result = self.method(
+                *method_specific_args, self.a_context, Manager.BatchElementErrorPolicyTag.kVariant
+            )
+
+            self.mock_interface_method.assert_called_once_with(
+                *batched_method_specific_args,
+                self.a_context,
+                self.a_host_session,
+                mock.ANY,
+                mock.ANY,
+            )
+
+            assert actual_result == BatchElementError(BatchElementError.ErrorCode.kUnknown, "")
+
+    def assert_batch_overload_default_response(
+        self,
+        method_specific_args_for_batch_of_two,
+        expected_default_results,
+        assert_result_identity=True,
+    ):
+        """
+        Check the default response when the manager doesn't call a
+        callback.
+        """
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+        ):
+            with self.subtests.test(tag=tag):
+                actual_results = self.method(
+                    *method_specific_args_for_batch_of_two, self.a_context, *tag
+                )
+
+                self.mock_interface_method.assert_called_once_with(
+                    *method_specific_args_for_batch_of_two,
+                    self.a_context,
+                    self.a_host_session,
+                    mock.ANY,
+                    mock.ANY,
+                )
+                self.mock_interface_method.reset_mock()
+
+                assert actual_results == expected_default_results
+
+                if assert_result_identity:
+                    for actual, expected in zip(actual_results, expected_default_results):
+                        assert actual is expected
+
+        with self.subtests.test(tag=Manager.BatchElementErrorPolicyTag.kVariant):
+            actual_results = self.method(
+                *method_specific_args_for_batch_of_two,
+                self.a_context,
+                Manager.BatchElementErrorPolicyTag.kVariant,
+            )
+
+            self.mock_interface_method.assert_called_once_with(
+                *method_specific_args_for_batch_of_two,
+                self.a_context,
+                self.a_host_session,
+                mock.ANY,
+                mock.ANY,
+            )
+
+            assert (
+                actual_results == [BatchElementError(BatchElementError.ErrorCode.kUnknown, "")] * 2
+            )
+
     def assert_singular_overload_success(
         self,
         method_specific_args,
@@ -870,39 +971,129 @@ class Test_Manager_createEntityReferenceIfValid:
         assert entity_reference.toString() == a_ref_string
 
 
-class Test_Manager_entityExists:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.entityExists)
-        assert method_introspector.is_implemented_once(Manager, "entityExists")
-
-    def test_wraps_the_corresponding_method_of_the_held_interface(
+class Test_Manager_entityExists(BatchFirstMethodTest):
+    @pytest.fixture(autouse=True)
+    def constructor(
         self,
-        manager,
-        mock_manager_interface,
-        a_host_session,
-        some_refs,
-        a_context,
-        a_batch_element_error,
+        subtests,
         invoke_entityExists_success_cb,
         invoke_entityExists_error_cb,
+        a_batch_element_error,
+        a_context,
+        a_host_session,
+        manager,
+        mock_manager_interface,
     ):
-        success_callback = mock.Mock()
-        error_callback = mock.Mock()
+        self.subtests = subtests
+        self.invoke_success_cb = invoke_entityExists_success_cb
+        self.invoke_error_cb = invoke_entityExists_error_cb
+        self.a_batch_element_error = a_batch_element_error
+        self.a_context = a_context
+        self.a_host_session = a_host_session
 
-        method = mock_manager_interface.mock.entityExists
+        self.method = manager.entityExists
+        self.mock_interface_method = mock_manager_interface.mock.entityExists
 
-        def call_callbacks(*_args):
-            invoke_entityExists_success_cb(123, False)
-            invoke_entityExists_error_cb(456, a_batch_element_error)
+    def test_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, two_refs
+    ):
+        self.assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            one_success_result=True,
+        )
 
-        method.side_effect = call_callbacks
+    def test_singular_overload_default_response(self, a_ref):
+        self.assert_singular_overload_default_response(
+            method_specific_args=(a_ref,),
+            batched_method_specific_args=([a_ref],),
+            expected_default_result=False,
+        )
 
-        manager.entityExists(some_refs, a_context, success_callback, error_callback)
+    def test_batch_overload_default_response(self, two_refs):
+        self.assert_batch_overload_default_response(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            expected_default_results=[False, False],
+        )
 
-        method.assert_called_once_with(some_refs, a_context, a_host_session, mock.ANY, mock.ANY)
+    def test_singular_overload_success(self, a_ref):
+        self.assert_singular_overload_success(
+            method_specific_args=(a_ref,),
+            batched_method_specific_args=([a_ref],),
+            expected_result=True,
+        )
 
-        success_callback.assert_called_once_with(123, False)
-        error_callback.assert_called_once_with(456, a_batch_element_error)
+    def test_batch_overload_success(self, two_refs):
+        self.assert_batch_overload_success(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            expected_results=[False, True],
+        )
+
+    def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
+        self, two_refs
+    ):
+        self.assert_batch_overload_success_out_of_order(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            expected_results=[True, False],
+        )
+
+    def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref):
+        self.assert_singular_variant_overload_error(
+            method_specific_args=(a_ref,),
+            batched_method_specific_args=([a_ref],),
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
+        self, two_refs
+    ):
+        self.assert_batch_variant_overload_mixed_output(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            one_success_result=True,
+        )
+
+    def test_when_batch_variant_overload_receives_mixed_output_out_of_order_then_results_reordered(
+        self, four_refs
+    ):
+        self.assert_batch_variant_overload_mixed_output_out_of_order(
+            method_specific_args_for_batch_of_four=(four_refs,),
+            two_success_results=[True, False],
+        )
+
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_singular_throwing_overload_errors_then_raises(self, a_ref, error_code):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_existence_err_msg(
+            batch_element_error,
+            a_ref,
+        )
+
+        self.assert_singular_throwing_overload_raises(
+            method_specific_args=(a_ref,),
+            batched_method_specific_args=([a_ref],),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
+
+    @pytest.mark.parametrize("error_code", BatchFirstMethodTest.batch_element_error_codes)
+    def test_when_batched_throwing_overload_errors_then_raises(self, two_refs, error_code):
+        batch_element_error = BatchElementError(error_code, "some error")
+        expected_error_message = self._make_expected_existence_err_msg(
+            batch_element_error,
+            two_refs[0],
+        )
+
+        self.assert_batched_throwing_overload_raises(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            batch_element_error=batch_element_error,
+            expected_error_message=expected_error_message,
+        )
+
+    def _make_expected_existence_err_msg(self, batch_element_error, entityRef):
+        error_type_name = self.batch_element_error_codes_names[
+            self.batch_element_error_codes.index(batch_element_error.code)
+        ]
+        return (
+            f"{error_type_name}: {batch_element_error.message} [index=0]" f" [entity={entityRef}]"
+        )
 
 
 class Test_Manager_defaultEntityReference:
@@ -981,7 +1172,7 @@ class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
 # the arguments for getWithRelationship are not in the standard format.
 
 
-class Test_Manager_getWithRelationship_with_callback_signiature:
+class Test_Manager_getWithRelationship_with_callback_signature:
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self,
         manager,
@@ -1149,6 +1340,61 @@ class Test_Manager_getWithRelationship_singular_convenience:
             Manager.BatchElementErrorPolicyTag.kVariant,
         ],
     )
+    def test_when_no_response_then_None_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        invoke_getWithRelationship_success_cb,
+        error_mode,
+    ):
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pager = manager.getWithRelationship(**args)
+
+        method.assert_called_once_with(
+            [a_ref],
+            an_empty_traitsdata,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        if error_mode is Manager.BatchElementErrorPolicyTag.kVariant:
+            assert actual_pager == BatchElementError(BatchElementError.ErrorCode.kUnknown, "")
+        else:
+            assert actual_pager is None
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
     def test_when_success_then_entityReferencePager_returned(
         self,
         manager,
@@ -1254,6 +1500,65 @@ class Test_Manager_getWithRelationship_singular_convenience:
 
 
 class Test_Manager_getWithRelationship_batch_convenience:
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_no_response_then_None_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        mock_entity_reference_pager_interface_2,
+        invoke_getWithRelationship_success_cb,
+        error_mode,
+    ):
+
+        two_refs = [a_ref, a_ref]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        args = {
+            "entityReferences": two_refs,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pagers = manager.getWithRelationship(**args)
+
+        method.assert_called_once_with(
+            two_refs,
+            an_empty_traitsdata,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        if error_mode is Manager.BatchElementErrorPolicyTag.kVariant:
+            assert (
+                actual_pagers == [BatchElementError(BatchElementError.ErrorCode.kUnknown, "")] * 2
+            )
+        else:
+            assert actual_pagers == [None, None]
 
     @pytest.mark.parametrize(
         "error_mode",
@@ -1546,6 +1851,66 @@ class Test_Manager_getWithRelationships_with_batch_convenience:
             Manager.BatchElementErrorPolicyTag.kVariant,
         ],
     )
+    def test_when_no_response_then_Nones_returned(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        a_host_session,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        mock_entity_reference_pager_interface_2,
+        invoke_getWithRelationships_success_cb,
+        error_mode,
+    ):
+
+        two_traitsdatas = [an_empty_traitsdata, an_empty_traitsdata]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationships
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsDatas": two_traitsdatas,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        actual_pagers = manager.getWithRelationships(**args)
+
+        method.assert_called_once_with(
+            a_ref,
+            two_traitsdatas,
+            an_entity_trait_set,
+            page_size,
+            access.RelationsAccess.kRead,
+            a_context,
+            a_host_session,
+            mock.ANY,
+            mock.ANY,
+        )
+
+        if error_mode is Manager.BatchElementErrorPolicyTag.kVariant:
+            assert (
+                actual_pagers == [BatchElementError(BatchElementError.ErrorCode.kUnknown, "")] * 2
+            )
+        else:
+            assert actual_pagers == [None, None]
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
     def test_when_success_then_entityReferencePagers_returned(
         self,
         manager,
@@ -1702,6 +2067,31 @@ class Test_Manager_resolve(BatchFirstMethodTest):
                 access.ResolveAccess.kRead,
             ),
             one_success_result=a_traitsdata,
+        )
+
+    def test_singular_overload_default_response(self, a_ref, an_entity_trait_set):
+        self.assert_singular_overload_default_response(
+            method_specific_args=(
+                a_ref,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            expected_default_result=None,
+        )
+
+    def test_batch_overload_default_response(self, two_refs, an_entity_trait_set):
+        self.assert_batch_overload_default_response(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            expected_default_results=[None, None],
         )
 
     def test_singular_overload_success(self, a_ref, an_entity_trait_set, a_traitsdata):
@@ -1869,6 +2259,30 @@ class Test_Manager_entityTraits(BatchFirstMethodTest):
             one_success_result=an_entity_trait_set,
         )
 
+    def test_singular_overload_default_response(self, a_ref):
+        self.assert_singular_overload_default_response(
+            method_specific_args=(
+                a_ref,
+                access.EntityTraitsAccess.kRead,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                access.EntityTraitsAccess.kRead,
+            ),
+            expected_default_result=set(),
+            assert_result_identity=False,
+        )
+
+    def test_batch_overload_default_response(self, two_refs):
+        self.assert_batch_overload_default_response(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            expected_default_results=[set(), set()],
+            assert_result_identity=False,
+        )
+
     def test_singular_overload_success(self, a_ref, an_entity_trait_set):
         self.assert_singular_overload_success(
             method_specific_args=(
@@ -1892,8 +2306,6 @@ class Test_Manager_entityTraits(BatchFirstMethodTest):
             expected_results=two_entity_trait_sets,
             assert_result_identity=False,
         )
-
-    assert_result_identity = (False,)
 
     def test_when_batch_overload_receives_output_out_of_order_then_results_reordered(
         self, two_refs, two_entity_trait_sets
@@ -2074,6 +2486,33 @@ class Test_Manager_preflight(BatchFirstMethodTest):
                 [a_traitsdata, None],
                 access.PublishingAccess.kWrite,
             )
+        )
+
+    def test_singular_overload_default_response(self, a_ref, a_different_ref, a_traitsdata):
+        self.assert_singular_overload_default_response(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+            expected_default_result=EntityReference(""),
+            assert_result_identity=False,
+        )
+
+    def test_batch_overload_default_response(self, two_refs, two_entity_traitsdatas):
+        self.assert_batch_overload_default_response(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_default_results=[EntityReference(""), EntityReference("")],
+            assert_result_identity=False,
         )
 
     def test_singular_overload_success(self, a_ref, a_different_ref, a_traitsdata):
@@ -2264,6 +2703,33 @@ class Test_Manager_register(BatchFirstMethodTest):
                 [a_traitsdata, None],
                 access.PublishingAccess.kWrite,
             )
+        )
+
+    def test_singular_overload_default_response(self, a_ref, a_different_ref, a_traitsdata):
+        self.assert_singular_overload_default_response(
+            method_specific_args=(
+                a_ref,
+                a_traitsdata,
+                access.PublishingAccess.kWrite,
+            ),
+            batched_method_specific_args=(
+                [a_ref],
+                [a_traitsdata],
+                access.PublishingAccess.kWrite,
+            ),
+            expected_default_result=EntityReference(""),
+            assert_result_identity=False,
+        )
+
+    def test_batch_overload_default_response(self, two_refs, two_entity_traitsdatas):
+        self.assert_batch_overload_default_response(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            expected_default_results=[EntityReference(""), EntityReference("")],
+            assert_result_identity=False,
         )
 
     def test_singular_overload_success(self, a_ref, a_different_ref, a_traitsdata):

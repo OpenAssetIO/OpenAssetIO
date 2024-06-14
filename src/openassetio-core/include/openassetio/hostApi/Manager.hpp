@@ -772,6 +772,183 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                     const BatchElementErrorCallback& errorCallback);
 
   /**
+   * Determines if the supplied @ref entity_reference points to an
+   * entity that exists in the @ref asset_management_system.
+   *
+   * See the documentation for the @ref
+   * entityExists(const EntityReferences&, <!--
+   * --> const ContextConstPtr&, const ExistsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&) "callback overload" for more
+   * details.
+   *
+   * Errors that occur will be thrown as an exception, either from the
+   * @ref manager plugin (for errors not specific to the entity
+   * reference) or as a @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReference Entity reference to query.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return Boolean indicating existence of the entity.
+   *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kExistenceQueries.
+   *
+   * @see @ref Capability.kExistenceQueries
+   */
+  bool entityExists(const EntityReference& entityReference, const ContextConstPtr& context,
+                    const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Determines if the supplied @ref entity_reference points to an
+   * entity that exists in the @ref asset_management_system.
+   *
+   * See the documentation for the @ref
+   * entityExists(const EntityReferences&, <!--
+   * --> const ContextConstPtr&, const ExistsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&) "callback overload" for more
+   * details.
+   *
+   * If successful, the result is a boolean indicating the existence of
+   * the @ref entity.
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure to check the existence of this
+   * particular entity.
+   *
+   * Errors that are not specific to the entity being queried will be
+   * thrown as an exception.
+   *
+   * @param entityReference Entity reference to query.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return Object containing either a boolean indicating the existence
+   * of the entity or an error object.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kExistenceQueries.
+   *
+   * @see @ref Capability.kExistenceQueries
+   */
+  std::variant<errors::BatchElementError, bool> entityExists(
+      const EntityReference& entityReference, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Type to use in place of bool in `vector<bool>` so that the "dynamic
+   * bitset" specialisation of std::vector is not used.
+   *
+   * `std::vector<bool>` is a specialisation that uses a single bit per
+   * element, which is more memory efficient but limits the use of
+   * the vector for certain operations.
+   *
+   * As a workaround, we can use an integral type as the vector element,
+   * such that zero represents false and non-zero represents true.
+   */
+  using BoolAsUint = std::uint_fast8_t;
+
+  /**
+   * Determines if each supplied @ref entity_reference points to an
+   * entity that exists in the @ref asset_management_system.
+   *
+   * See documentation for the <!--
+   * --> @ref entityExists(const EntityReferences&, <!--
+   * --> const ContextConstPtr&, const ExistsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback overload" for more details on existence check behaviour.
+   *
+   * Any errors that occur will be immediately thrown as an exception,
+   * either from the @ref manager plugin (for errors not specific to the
+   * entity reference) or as a @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return List of boolean values indicating the existence of each
+   * entity.
+   *
+   * @throws errors.BatchElementException Converted exception thrown
+   * when the manager emits a @fqref{errors.BatchElementError}
+   * "BatchElementError".
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kExistenceQueries.
+   *
+   * @see @ref Capability.kExistenceQueries
+   */
+  std::vector<BoolAsUint> entityExists(
+      const EntityReferences& entityReferences, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Determines if each supplied @ref entity_reference points to an
+   * entity that exists in the @ref asset_management_system.
+   *
+   * For successful references, the corresponding element of the result
+   * is populated with a boolean indicating the existence of the entity.
+   *
+   * Otherwise, the corresponding element of the result is populated
+   * with an error object detailing the reason for the failure to check
+   * the existence of that particular entity.
+   *
+   * Errors that are not specific to an entity will be thrown as an
+   * exception, failing the whole batch.
+   *
+   * See documentation for the <!--
+   * --> @ref entityExists(const EntityReferences&, <!--
+   * --> const ContextConstPtr&, const ExistsSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback& errorCallback)
+   * "callback overload" for more details on existence check behaviour.
+   *
+   * @param entityReferences Entity references to query.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tag dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return List of objects, each containing either a boolean indicating
+   * the existence of the entity or an error.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kExistenceQueries.
+   *
+   * @see @ref Capability.kExistenceQueries
+   */
+  std::vector<std::variant<errors::BatchElementError, bool>> entityExists(
+      const EntityReferences& entityReferences, const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
    * Callback signature used for a successful entity trait set query.
    */
   using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
@@ -940,10 +1117,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @throws errors.BatchElementException Converted exception thrown
    * when the manager emits a @fqref{errors.BatchElementError}
    * "BatchElementError".
-   * @throws errors.NotImplementedException Thrown when this method is
-   * not implemented by the manager. Check that this method is
-   * implemented before use by calling @ref hasCapability with @ref
-   * Capability.kResolution.
    */
   std::vector<trait::TraitSet> entityTraits(
       const EntityReferences& entityReferences, access::EntityTraitsAccess entityTraitsAccess,
@@ -1136,6 +1309,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @throws errors.BatchElementException Converted exception thrown
    * when the manager emits a @fqref{errors.BatchElementError}
    * "BatchElementError".
+   *
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
    * implemented before use by calling @ref hasCapability with @ref

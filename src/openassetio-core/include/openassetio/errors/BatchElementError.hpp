@@ -146,7 +146,7 @@ class BatchElementError final {
   constexpr bool operator!=(const BatchElementError& other) const { return !(*this == other); }
 
   /// Error code indicating the class of error.
-  ErrorCode code;
+  ErrorCode code{ErrorCode::kUnknown};
   /// Human-readable error message.
   Str message;
 };

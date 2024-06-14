@@ -30,6 +30,15 @@ void validateTraitsDatas(const TraitsDatas& traitsDatas) {
     throw openassetio::errors::InputValidationException{"Traits data cannot be None"};
   }
 }
+
+py::list pyBoolListFromUintVector(const std::vector<Manager::BoolAsUint>& boolAsUints) {
+  py::gil_scoped_acquire gil{};
+  py::list pyResult;
+  for (const Manager::BoolAsUint boolAsUint : boolAsUints) {
+    pyResult.append(static_cast<bool>(boolAsUint));
+  }
+  return pyResult;
+}
 }  // namespace
 
 void registerManager(const py::module& mod) {
@@ -97,9 +106,56 @@ void registerManager(const py::module& mod) {
            py::arg("entityReferenceString"), py::call_guard<py::gil_scoped_release>{})
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"), py::call_guard<py::gil_scoped_release>{})
-      .def("entityExists", &Manager::entityExists, py::arg("entityReferences"),
-           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+      .def(
+          "entityExists",
+          [](Manager& self, const EntityReference& entityReference,
+             const ContextConstPtr& context) {
+            return self.entityExists(entityReference, context);
+          },
+          py::arg("entityReference"), py::arg("context").none(false),
+          py::call_guard<py::gil_scoped_release>{})
+      .def("entityExists",
+           py::overload_cast<const EntityReference&, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::entityExists),
+           py::arg("entityReference"), py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
+      .def("entityExists",
+           py::overload_cast<const EntityReference&, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityExists),
+           py::arg("entityReference"), py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "entityExists",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const ContextConstPtr& context) {
+            return pyBoolListFromUintVector(self.entityExists(entityReferences, context));
+          },
+          py::arg("entityReferences"), py::arg("context").none(false),
+          py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "entityExists",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
+            return pyBoolListFromUintVector(
+                self.entityExists(entityReferences, context, errorPolicyTag));
+          },
+          py::arg("entityReferences"), py::arg("context").none(false), py::arg("errorPolicyTag"),
+          py::call_guard<py::gil_scoped_release>{})
+      .def("entityExists",
+           py::overload_cast<const EntityReferences&, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityExists),
+           py::arg("entityReferences"), py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("entityExists",
+           py::overload_cast<const EntityReferences&, const ContextConstPtr&,
+                             const Manager::ExistsSuccessCallback&,
+                             const Manager::BatchElementErrorCallback&>(&Manager::entityExists),
+           py::arg("entityReferences"), py::arg("context").none(false), py::arg("successCallback"),
+           py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("entityTraits",
            py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
                              const ContextConstPtr&, const Manager::EntityTraitsSuccessCallback&,
@@ -530,4 +586,4 @@ void registerManager(const py::module& mod) {
           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
           py::arg("publishAccess"), py::arg("context").none(false),
           py::call_guard<py::gil_scoped_release>{});
-}
+}  // NOLINT(readability/fn_size)
