@@ -2,6 +2,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
 [
     [ "BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag" ],
     [ "BatchElementErrorCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa3b6716c9f9bbb4b47c912d67002d9b8", null ],
+    [ "BoolAsUint", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b2d8ba256ae847edf1414f4c333d64c", null ],
     [ "ConstPtr", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa0626ac24c1ced0ff7bdba5218432739", null ],
     [ "DefaultEntityReferenceSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac778e9fcd0be1551b55a8fafbd5c3d2", null ],
     [ "EntityTraitsSuccessCallback", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a68afdbe0feefdf4b9808740065dd9ee4", null ],
@@ -28,6 +29,10 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "defaultEntityReference", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae", null ],
     [ "displayName", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a23ee7fe8e44aa1895e2bfcf5d6b7804e", null ],
     [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04", null ],
+    [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab54931579d960d46c71d3075f839c0c8", null ],
+    [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a85faa8d64d28e8d715b2c655680dde9a", null ],
+    [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a19f925d46156dee4b556d81604ea6985", null ],
+    [ "entityExists", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a760ed0fd447695b48a87720537faeeec", null ],
     [ "entityTraits", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a87aec4b8beea9510a0cbaa57cf6209c9", null ],
     [ "entityTraits", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2788feb5ea0e78345d4654dd9fad37ed", null ],
     [ "entityTraits", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a5f7ad7a3f60149a3239b2bee377eb231", null ],

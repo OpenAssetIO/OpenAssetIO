@@ -1,5 +1,10 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#glossary_resolve":[6,19],
+"glossary.html#host":[6,5],
+"glossary.html#locale":[6,7],
+"glossary.html#logging_severity_var":[6,12],
+"glossary.html#manager":[6,15],
 "glossary.html#manager_state":[6,13],
 "glossary.html#meta_version":[6,14],
 "glossary.html#plugin_path_var":[6,11],

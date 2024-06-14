@@ -1,5 +1,10 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html":[14,0,0,3,1,4],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a055c922e8337e22bbbac4003839453cc":[14,0,0,3,1,4,3],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a5abb3f954266ff5c4e85684eee91ab02":[14,0,0,3,1,4,0],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a75be492c7f5ebe638b5e204cfc6010dc":[14,0,0,3,1,4,6],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a827699c443ec2eff2275144fcec2ae0e":[14,0,0,3,1,4,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a8e7870960546eeee22da01fe2d7ea436":[14,0,0,3,1,4,2],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#ac842ca22f0df30e9b5f3e343f313a309":[14,0,0,3,1,4,5],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#ae37394347809f7bc4dc2dc80655b23ab":[14,0,0,3,1,4,1],
@@ -183,8 +188,8 @@ var NAVTREEINDEX1 =
 "examples.html#examples_inspecting_a_reference":[3,3],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
-"functions.html":[14,3,0],
 "functions.html":[14,3,0,0],
+"functions.html":[14,3,0],
 "functions_0x7e.html":[14,3,0,21],
 "functions_a.html":[14,3,0,1],
 "functions_b.html":[14,3,0,2],
@@ -244,10 +249,5 @@ var NAVTREEINDEX1 =
 "glossary.html#entity":[6,3],
 "glossary.html#entity_reference":[6,4],
 "glossary.html#glossary_preflight":[6,16],
-"glossary.html#glossary_register":[6,18],
-"glossary.html#glossary_resolve":[6,19],
-"glossary.html#host":[6,5],
-"glossary.html#locale":[6,7],
-"glossary.html#logging_severity_var":[6,12],
-"glossary.html#manager":[6,15]
+"glossary.html#glossary_register":[6,18]
 };

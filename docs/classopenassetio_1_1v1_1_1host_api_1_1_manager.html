@@ -221,6 +221,10 @@ Entity Reference Inspection</h2></td></tr>
 <tr class="memitem:acd342c0ca286f8958af28d1ef4d794e1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> = std::function&lt; void(std::size_t, bool)&gt;</td></tr>
 <tr class="memdesc:acd342c0ca286f8958af28d1ef4d794e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity existence query.  <a href="#acd342c0ca286f8958af28d1ef4d794e1">More...</a><br /></td></tr>
 <tr class="separator:acd342c0ca286f8958af28d1ef4d794e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b2d8ba256ae847edf1414f4c333d64c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b2d8ba256ae847edf1414f4c333d64c">BoolAsUint</a> = std::uint_fast8_t</td></tr>
+<tr class="memdesc:a9b2d8ba256ae847edf1414f4c333d64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type to use in place of bool in <code>vector&lt;bool&gt;</code> so that the "dynamic
+bitset" specialisation of std::vector is not used.  <a href="#a9b2d8ba256ae847edf1414f4c333d64c">More...</a><br /></td></tr>
+<tr class="separator:a9b2d8ba256ae847edf1414f4c333d64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68afdbe0feefdf4b9808740065dd9ee4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a68afdbe0feefdf4b9808740065dd9ee4">EntityTraitsSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a>)&gt;</td></tr>
 <tr class="memdesc:a68afdbe0feefdf4b9808740065dd9ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful entity trait set query.  <a href="#a68afdbe0feefdf4b9808740065dd9ee4">More...</a><br /></td></tr>
 <tr class="separator:a68afdbe0feefdf4b9808740065dd9ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,6 +239,18 @@ Entity Reference Inspection</h2></td></tr>
 <tr class="memitem:a3d52a9d856e70e6be410849772461a04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1">ExistsSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:a3d52a9d856e70e6be410849772461a04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine if each <a class="el" href="glossary.html#entity_reference">Entity Reference</a> supplied points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>, and that they can be resolved into a meaningful string or otherwise queried.  <a href="#a3d52a9d856e70e6be410849772461a04">More...</a><br /></td></tr>
 <tr class="separator:a3d52a9d856e70e6be410849772461a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54931579d960d46c71d3075f839c0c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab54931579d960d46c71d3075f839c0c8">entityExists</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:ab54931579d960d46c71d3075f839c0c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#ab54931579d960d46c71d3075f839c0c8">More...</a><br /></td></tr>
+<tr class="separator:ab54931579d960d46c71d3075f839c0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85faa8d64d28e8d715b2c655680dde9a"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a85faa8d64d28e8d715b2c655680dde9a">entityExists</a> (const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;entityReference, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:a85faa8d64d28e8d715b2c655680dde9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a85faa8d64d28e8d715b2c655680dde9a">More...</a><br /></td></tr>
+<tr class="separator:a85faa8d64d28e8d715b2c655680dde9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19f925d46156dee4b556d81604ea6985"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b2d8ba256ae847edf1414f4c333d64c">BoolAsUint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a19f925d46156dee4b556d81604ea6985">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:a19f925d46156dee4b556d81604ea6985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a19f925d46156dee4b556d81604ea6985">More...</a><br /></td></tr>
+<tr class="separator:a19f925d46156dee4b556d81604ea6985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a760ed0fd447695b48a87720537faeeec"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a760ed0fd447695b48a87720537faeeec">entityExists</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:a760ed0fd447695b48a87720537faeeec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.  <a href="#a760ed0fd447695b48a87720537faeeec">More...</a><br /></td></tr>
+<tr class="separator:a760ed0fd447695b48a87720537faeeec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87aec4b8beea9510a0cbaa57cf6209c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a87aec4b8beea9510a0cbaa57cf6209c9">entityTraits</a> (const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;entityReferences, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a03e3290ae9f55c96f33e805416db2f4e">access::EntityTraitsAccess</a> entityTraitsAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a68afdbe0feefdf4b9808740065dd9ee4">EntityTraitsSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:a87aec4b8beea9510a0cbaa57cf6209c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the <a class="el" href="glossary.html#trait_set">Trait Set</a> of one or more <a class="el" href="glossary.html#entity">entities</a>.  <a href="#a87aec4b8beea9510a0cbaa57cf6209c9">More...</a><br /></td></tr>
 <tr class="separator:a87aec4b8beea9510a0cbaa57cf6209c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -400,6 +416,23 @@ Publishing</h2></td></tr>
 <p>Callback signature used for an unsuccessful operation on an element in a batch. </p>
 <p>This will be called for errors that are specific to a particular reference in a batch. Exceptions can be thrown to indicate a whole-batch error.</p>
 <p>The appropriate error code should be used for these errors. See <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">ErrorCode</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9b2d8ba256ae847edf1414f4c333d64c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b2d8ba256ae847edf1414f4c333d64c">BoolAsUint</a> =  std::uint_fast8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type to use in place of bool in <code>vector&lt;bool&gt;</code> so that the "dynamic
+bitset" specialisation of std::vector is not used. </p>
+<p><code>std::vector&lt;bool&gt;</code> is a specialisation that uses a single bit per element, which is more memory efficient but limits the use of the vector for certain operations.</p>
+<p>As a workaround, we can use an integral type as the vector element, such that zero represents false and non-zero represents true. </p>
 
 </div>
 </div>
@@ -882,6 +915,220 @@ Publishing</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab54931579d960d46c71d3075f839c0c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool entityExists </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReference</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
+<p>See the documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">callback overload</a> for more details.</p>
+<p>Errors that occur will be thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to the entity reference) or as a <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReference</td><td>Entity reference to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Boolean indicating existence of the entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. ">errors.BatchElementException</a></td><td>Converted exception thrown when the manager emits a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a>.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a85faa8d64d28e8d715b2c655680dde9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, bool&gt; entityExists </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReference</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines if the supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
+<p>See the documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">callback overload</a> for more details.</p>
+<p>If successful, the result is a boolean indicating the existence of the <a class="el" href="glossary.html#entity">entity</a>.</p>
+<p>Otherwise, the result is populated with an error object detailing the reason for the failure to check the existence of this particular entity.</p>
+<p>Errors that are not specific to the entity being queried will be thrown as an exception.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReference</td><td>Entity reference to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Object containing either a boolean indicating the existence of the entity or an error object.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a19f925d46156dee4b556d81604ea6985"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9b2d8ba256ae847edf1414f4c333d64c">BoolAsUint</a>&gt; entityExists </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines if each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">callback overload</a> for more details on existence check behaviour.</p>
+<p>Any errors that occur will be immediately thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to the entity reference) or as a <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferences</td><td>Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of boolean values indicating the existence of each entity.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. ">errors.BatchElementException</a></td><td>Converted exception thrown when the manager emits a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a>.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a760ed0fd447695b48a87720537faeeec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, bool&gt; &gt; entityExists </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>entityReferences</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines if each supplied <a class="el" href="glossary.html#entity_reference">Entity Reference</a> points to an entity that exists in the <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>. </p>
+<p>For successful references, the corresponding element of the result is populated with a boolean indicating the existence of the entity.</p>
+<p>Otherwise, the corresponding element of the result is populated with an error object detailing the reason for the failure to check the existence of that particular entity.</p>
+<p>Errors that are not specific to an entity will be thrown as an exception, failing the whole batch.</p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3d52a9d856e70e6be410849772461a04">callback overload</a> for more details on existence check behaviour.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entityReferences</td><td>Entity references to query.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tag dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of objects, each containing either a boolean indicating the existence of the entity or an error.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca77e07db27cf46ed1d94433d7b1516d99">Capability::kExistenceQueries</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a87aec4b8beea9510a0cbaa57cf6209c9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1108,7 +1355,6 @@ Publishing</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. ">errors.BatchElementException</a></td><td>Converted exception thrown when the manager emits a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a>. </td></tr>
-    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2958,7 +3204,7 @@ There is no requirement to call this method before any other API interaction, th
 <dl class="section return"><dt>Returns</dt><dd>Populated data.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. ">errors.BatchElementException</a></td><td>Converted exception thrown when the manager emits a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html" title="Exception thrown when a BatchElementError is converted. ">errors.BatchElementException</a></td><td>Converted exception thrown when the manager emits a <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a>.</td></tr>
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2cab924fec4e38433cb2a8bbfbad7898e8c">Capability::kResolution</a>.</td></tr>
   </table>
   </dd>
