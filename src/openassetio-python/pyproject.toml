@@ -148,4 +148,4 @@ environment-pass = ["PIP_VERBOSE", "OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN"]
 [tool.cibuildwheel.linux]
 # Linux runs in a docker container, with the project at top level
 before-build = "resources/build/bootstrap-cibuildwheel-manylinux-2014.sh"
-environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake" }
+environment = { CMAKE_TOOLCHAIN_FILE=".conan/conan_paths.cmake", CONAN_REVISIONS_ENABLED=1 }
