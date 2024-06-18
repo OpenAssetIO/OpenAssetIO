@@ -35,7 +35,11 @@ class OpenAssetIOConan(ConanFile):
         # CY2022
         self.requires("pybind11/2.10.1")
         # TOML library
-        self.requires("tomlplusplus/3.2.0")
+        # TODO (EM) Unpin this. This is only pinned because a recipe update
+        # seemed to remove all exceptions no matter how the configuration
+        # is set.
+        # https://github.com/conan-io/conan-center-index/pull/24336#issuecomment-2175846302
+        self.requires("tomlplusplus/3.2.0#e2e85cfd0746ace46d77657fa1103045")
         # URL processing
         self.requires("ada/2.7.4")
         # Regex
