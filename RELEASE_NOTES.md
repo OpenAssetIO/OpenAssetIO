@@ -1,8 +1,13 @@
 Release Notes
 =============
 
-v1.0.0-beta.x.y
+v1.0.0-beta.2.2
 ---------------
+
+_This release introduces new features, and remains source compatible._
+
+_The addition of a new virtual method,
+ `LoggerInterface.isSeverityLogged`, makes this release a binary incompatibility._
 
 ### New Features
 
