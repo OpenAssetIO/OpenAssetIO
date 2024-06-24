@@ -30,7 +30,7 @@ jobs:
           shell: cmd
         - os: ubuntu-20.04
           shell: bash
-        - os: macos-11
+        - os: macos-12
           shell: bash
     defaults:
       run:
@@ -114,7 +114,7 @@ jobs:
           site-packages: Lib/site-packages
         - os: ubuntu-20.04
           site-packages: lib/python3.9/site-packages
-        - os: macos-11
+        - os: macos-12
           site-packages: lib/python3.9/site-packages
     defaults:
       run:

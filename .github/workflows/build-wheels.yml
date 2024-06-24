@@ -26,7 +26,7 @@ jobs:
         config:
           - os: ubuntu-20.04
             shell: bash
-          - os: macos-11
+          - os: macos-12
             shell: bash
           - os: windows-2019
             preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64

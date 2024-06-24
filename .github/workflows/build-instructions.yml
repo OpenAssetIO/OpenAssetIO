@@ -51,7 +51,7 @@ jobs:
             shell: cmd
           - os: ubuntu-20.04
             shell: bash
-          - os: macos-11
+          - os: macos-12
             shell: bash
     defaults:
       run:
@@ -90,7 +90,7 @@ jobs:
             shell: cmd
           - os: ubuntu-20.04
             shell: bash
-          - os: macos-11
+          - os: macos-12
             shell: bash
     defaults:
       run:
@@ -126,7 +126,7 @@ jobs:
         config:
           - os: windows-2019
           - os: ubuntu-20.04
-          - os: macos-11
+          - os: macos-12
     defaults:
       run:
         shell: bash
