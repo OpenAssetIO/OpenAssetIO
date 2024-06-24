@@ -23,7 +23,7 @@ jobs:
         # config.os vs os to match requirements of bootstrap_platform
         config:
           - os: ubuntu-20.04
-          - os: macos-11
+          - os: macos-12
           - os: windows-2019
 
     steps:

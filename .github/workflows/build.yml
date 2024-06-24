@@ -32,7 +32,7 @@ jobs:
           shell: cmd
         - os: ubuntu-20.04
           shell: bash
-        - os: macos-11
+        - os: macos-12
           shell: bash
     defaults:
       run:
