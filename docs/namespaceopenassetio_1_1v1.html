@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1.html','');}
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">openassetio::v1 Namespace Reference</div>  </div>
@@ -180,9 +181,9 @@ Typedefs</h2></td></tr>
 <tr class="separator:a3983eec04aa4edfee3477a0e75b440d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2407eee04d809095fe15156c2c1aa21c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> &gt;</td></tr>
 <tr class="separator:a2407eee04d809095fe15156c2c1aa21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b783e7692cd92026435774795197b38"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> = std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;</td></tr>
-<tr class="memdesc:a6b783e7692cd92026435774795197b38"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of entity references, used or batch-first functions.  <a href="#a6b783e7692cd92026435774795197b38">More...</a><br /></td></tr>
-<tr class="separator:a6b783e7692cd92026435774795197b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bd29eb0e0e76bcca97beea53aaabf57"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a0bd29eb0e0e76bcca97beea53aaabf57">EntityReferences</a> = std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;</td></tr>
+<tr class="memdesc:a0bd29eb0e0e76bcca97beea53aaabf57"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of entity references, used or batch-first functions.  <a href="#a0bd29eb0e0e76bcca97beea53aaabf57">More...</a><br /></td></tr>
+<tr class="separator:a0bd29eb0e0e76bcca97beea53aaabf57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9259b8747e04a2617e45e526fda835d7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a9259b8747e04a2617e45e526fda835d7">InfoDictionaryValue</a> = std::variant&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a39011fca2df8f8b3d2cf72a39108c588">Bool</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a1941127620eb673d937ee1117a94497c">Int</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a8e3779455205500f06002645c670f038">Float</a>, <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &gt;</td></tr>
 <tr class="memdesc:a9259b8747e04a2617e45e526fda835d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types available as values in a InfoDictionary.  <a href="#a9259b8747e04a2617e45e526fda835d7">More...</a><br /></td></tr>
 <tr class="separator:a9259b8747e04a2617e45e526fda835d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +226,24 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a85da9c7e6b9c400a51a15b9f304803be"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a85da9c7e6b9c400a51a15b9f304803be">Identifiers</a> = std::vector&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a7e82ad242271d065c76fd306ad38f4da">Identifier</a> &gt;</td></tr>
 <tr class="memdesc:a85da9c7e6b9c400a51a15b9f304803be"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of identifiers.  <a href="#a85da9c7e6b9c400a51a15b9f304803be">More...</a><br /></td></tr>
 <tr class="separator:a85da9c7e6b9c400a51a15b9f304803be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7d709d4fe7d16d290670da869033fe22"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a7d709d4fe7d16d290670da869033fe22">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a7d709d4fe7d16d290670da869033fe22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a7d709d4fe7d16d290670da869033fe22">More...</a><br /></td></tr>
+<tr class="separator:a7d709d4fe7d16d290670da869033fe22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5d0be16ae1052807e9c81abfd9270f"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a7c5d0be16ae1052807e9c81abfd9270f">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="namespaceopenassetio_1_1v1.html#a0bd29eb0e0e76bcca97beea53aaabf57">EntityReferences</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a7c5d0be16ae1052807e9c81abfd9270f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a7c5d0be16ae1052807e9c81abfd9270f">More...</a><br /></td></tr>
+<tr class="separator:a7c5d0be16ae1052807e9c81abfd9270f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ebd7c3eb31dd0d75ede2bf310b16fb3"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a7ebd7c3eb31dd0d75ede2bf310b16fb3">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a7ebd7c3eb31dd0d75ede2bf310b16fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a7ebd7c3eb31dd0d75ede2bf310b16fb3">More...</a><br /></td></tr>
+<tr class="separator:a7ebd7c3eb31dd0d75ede2bf310b16fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa40aa75e35516a451f55ab84d08c7d40"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#aa40aa75e35516a451f55ab84d08c7d40">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;formattable)</td></tr>
+<tr class="memdesc:aa40aa75e35516a451f55ab84d08c7d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#aa40aa75e35516a451f55ab84d08c7d40">More...</a><br /></td></tr>
+<tr class="separator:aa40aa75e35516a451f55ab84d08c7d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f14f915baa3791b06c864c84bc8f71b"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1.html#a8f14f915baa3791b06c864c84bc8f71b">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a8f14f915baa3791b06c864c84bc8f71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a8f14f915baa3791b06c864c84bc8f71b">More...</a><br /></td></tr>
+<tr class="separator:a8f14f915baa3791b06c864c84bc8f71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -270,12 +289,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6b783e7692cd92026435774795197b38"></a>
+<a class="anchor" id="a0bd29eb0e0e76bcca97beea53aaabf57"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1.html#a6b783e7692cd92026435774795197b38">EntityReferences</a> =  std::vector&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt;</td>
+          <td class="memname">typedef std::vector&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; <a class="el" href="namespaceopenassetio_1_1v1.html#a0bd29eb0e0e76bcca97beea53aaabf57">EntityReferences</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -418,6 +437,152 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a7d709d4fe7d16d290670da869033fe22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "an_entity_reference". </p>
+
+</div>
+</div>
+<a class="anchor" id="a7c5d0be16ae1052807e9c81abfd9270f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a0bd29eb0e0e76bcca97beea53aaabf57">EntityReferences</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "['an_entity_reference_1', 'an_entity_reference_2']". </p>
+
+</div>
+</div>
+<a class="anchor" id="a7ebd7c3eb31dd0d75ede2bf310b16fb3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a3983eec04aa4edfee3477a0e75b440d1">ContextPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "{'locale': {'aTrait': {'aProperty': propertyVal}}, 'managerState': memoryAddress}". </p>
+
+</div>
+</div>
+<a class="anchor" id="aa40aa75e35516a451f55ab84d08c7d40"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "{'locale': {'aTrait': {'aProperty': propertyVal}}, 'managerState': memoryAddress}". </p>
+
+</div>
+</div>
+<a class="anchor" id="a8f14f915baa3791b06c864c84bc8f71b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1_context.html">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "{'locale': {'aTrait': {'aProperty': propertyVal}}, 'managerState': memoryAddress}". </p>
 
 </div>
 </div>

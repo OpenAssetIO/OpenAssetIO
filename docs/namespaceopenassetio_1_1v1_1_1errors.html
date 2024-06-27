@@ -106,7 +106,8 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1errors.h
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">openassetio::v1::errors Namespace Reference</div>  </div>
 </div><!--header-->
@@ -145,6 +146,15 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a3a5f1ec8cf10b38441111857edbf2824"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html#a3a5f1ec8cf10b38441111857edbf2824">AllExceptions</a> = std::tuple&lt; <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_open_asset_i_o_exception.html">OpenAssetIOException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html">InputValidationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_configuration_exception.html">ConfigurationException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html">NotImplementedException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_unhandled_exception.html">UnhandledException</a>, <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a> &gt;</td></tr>
 <tr class="memdesc:a3a5f1ec8cf10b38441111857edbf2824"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of all OpenAssetIO-specific exceptions.  <a href="#a3a5f1ec8cf10b38441111857edbf2824">More...</a><br /></td></tr>
 <tr class="separator:a3a5f1ec8cf10b38441111857edbf2824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a84dd71f4f0a7dc3b6b042c1e55f3ea28"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html#a84dd71f4f0a7dc3b6b042c1e55f3ea28">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">BatchElementError::ErrorCode</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a84dd71f4f0a7dc3b6b042c1e55f3ea28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a84dd71f4f0a7dc3b6b042c1e55f3ea28">More...</a><br /></td></tr>
+<tr class="separator:a84dd71f4f0a7dc3b6b042c1e55f3ea28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a814eac627a6a9628b718644b5d7df0a6"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1errors.html#a814eac627a6a9628b718644b5d7df0a6">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a814eac627a6a9628b718644b5d7df0a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a814eac627a6a9628b718644b5d7df0a6">More...</a><br /></td></tr>
+<tr class="separator:a814eac627a6a9628b718644b5d7df0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This namespace contains types related to error handling. </p>
@@ -164,6 +174,65 @@ Typedefs</h2></td></tr>
 
 <p>List of all OpenAssetIO-specific exceptions. </p>
 <p>Useful for introspection in language bindings. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a84dd71f4f0a7dc3b6b042c1e55f3ea28"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::errors::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">BatchElementError::ErrorCode</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "humanReadableErrorCodeName". </p>
+
+</div>
+</div>
+<a class="anchor" id="a814eac627a6a9628b718644b5d7df0a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::errors::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">BatchElementError</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "humanReadableErrorCodeName: Error message.". </p>
 
 </div>
 </div>

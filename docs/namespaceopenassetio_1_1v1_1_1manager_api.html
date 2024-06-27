@@ -107,7 +107,8 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1manager_
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">openassetio::v1::managerApi Namespace Reference</div>  </div>
 </div><!--header-->
@@ -156,6 +157,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:afc26eb9b59709089c9eb54c76a5249b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a41be39168f54f6138a3441620b851b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a0a41be39168f54f6138a3441620b851b">HostConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host.html">Host</a> &gt;</td></tr>
 <tr class="separator:a0a41be39168f54f6138a3441620b851b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a690563ecea21de9b18e28d9cbccc837f"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html#a690563ecea21de9b18e28d9cbccc837f">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c">ManagerInterface::Capability</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a690563ecea21de9b18e28d9cbccc837f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a690563ecea21de9b18e28d9cbccc837f">More...</a><br /></td></tr>
+<tr class="separator:a690563ecea21de9b18e28d9cbccc837f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This namespace contains code relevant to anyone wanting to add support for an asset management system. </p>
@@ -278,6 +285,36 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a690563ecea21de9b18e28d9cbccc837f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::managerApi::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c">ManagerInterface::Capability</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "humanReadableCapabilityName". </p>
 
 </div>
 </div>

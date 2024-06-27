@@ -106,7 +106,8 @@ $(document).ready(function(){initNavTree('namespaceopenassetio_1_1v1_1_1trait_1_
 
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">openassetio::v1::trait::property Namespace Reference</div>  </div>
 </div><!--header-->
@@ -126,6 +127,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a991ec35b2b5f7557d938a2780ba4b294"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a991ec35b2b5f7557d938a2780ba4b294">KeySet</a> = std::unordered_set&lt; <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">Key</a> &gt;</td></tr>
 <tr class="memdesc:a991ec35b2b5f7557d938a2780ba4b294"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of trait property keys.  <a href="#a991ec35b2b5f7557d938a2780ba4b294">More...</a><br /></td></tr>
 <tr class="separator:a991ec35b2b5f7557d938a2780ba4b294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6e4d4a3cafb98ef9ce11f82975faab5d"><td class="memItemLeft" align="right" valign="top">OPENASSETIO_CORE_EXPORT std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a6e4d4a3cafb98ef9ce11f82975faab5d">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d">Value</a> &amp;formattable)</td></tr>
+<tr class="memdesc:a6e4d4a3cafb98ef9ce11f82975faab5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insertion operator for use with ostreams.  <a href="#a6e4d4a3cafb98ef9ce11f82975faab5d">More...</a><br /></td></tr>
+<tr class="separator:a6e4d4a3cafb98ef9ce11f82975faab5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Type aliases for <a class="el" href="glossary.html#trait">Trait</a> properties within a <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> instance. </p>
@@ -172,6 +179,36 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Property dictionary values. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a6e4d4a3cafb98ef9ce11f82975faab5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OPENASSETIO_CORE_EXPORT std::ostream&amp; openassetio::v1::trait::property::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d">Value</a> &amp;&#160;</td>
+          <td class="paramname"><em>formattable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Insertion operator for use with ostreams. </p>
+<p>Formats as "Value", (or "'Value'" if formattable is a string) </p>
 
 </div>
 </div>
