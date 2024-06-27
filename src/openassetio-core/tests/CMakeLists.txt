@@ -84,10 +84,13 @@ target_sources(openassetio-core-cpp-internal-test-exe
     PRIVATE
     # Implementation dependencies.
     ${PROJECT_SOURCE_DIR}/src/openassetio-core/src/utils/Regex.cpp
+    ${PROJECT_SOURCE_DIR}/src/openassetio-core/src/utils/formatter.cpp
+    ${PROJECT_SOURCE_DIR}/src/openassetio-core/src/errors/exceptionMessages.cpp
 
     # Tests.
     main.cpp
     utils/RegexTest.cpp
+    utils/PrintableTest.cpp
 )
 
 target_include_directories(

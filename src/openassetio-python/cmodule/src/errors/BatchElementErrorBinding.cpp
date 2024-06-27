@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2024 The Foundry Visionmongers Ltd
+#include <sstream>
 #include <string_view>
 
 #include <fmt/format.h>
@@ -8,6 +9,7 @@
 
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/typedefs.hpp>
+#include <openassetio/utils/ostream.hpp>
 
 #include "../_openassetio.hpp"
 
@@ -31,8 +33,9 @@ void registerBatchElementError(const py::module& mod) {
       .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
       .def_readonly("code", &BatchElementError::code)
       .def_readonly("message", &BatchElementError::message)
-      .def("__repr__", [](const BatchElementError& self) {
-        return fmt::format("BatchElementError({}, '{}')",
-                           py::str(py::cast(self.code)).cast<std::string_view>(), self.message);
+      .def("__str__", [](const BatchElementError& self) {
+        std::ostringstream stringStream;
+        stringStream << self;
+        return stringStream.str();
       });
 }
