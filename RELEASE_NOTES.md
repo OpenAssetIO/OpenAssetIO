@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+v1.0.0-beta.x.x
+---------------
+
+### New Features
+
+- Added SimpleCppManager - a minimal C++ manager and plugin example
+  implementation, useful for testing C++ plugin support in hosts. This
+  has minimal API support, so [Basic Asset Library (BAL)](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL)
+  should still be preferred as a test manager when Python is available.
+  [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
+
 v1.0.0-beta.2.2
 ---------------
 
@@ -16,7 +27,7 @@ _The addition of a new virtual method,
   Notably, this includes `TraitsData`, which when printed now displays all the
   properties contained within the traits, rather than simply a list of trait
   ids.
-  
+
   Note: Due to this, some runtime string output may have slightly changed, and
   tests may need to be adjusted.
   [#1307](https://github.com/OpenAssetIO/OpenAssetIO/issues/1307)

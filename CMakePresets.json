@@ -33,7 +33,8 @@
         "enable-tests"
       ],
       "cacheVariables": {
-        "OPENASSETIO_ENABLE_PYTHON_STUBGEN": "OFF"
+        "OPENASSETIO_ENABLE_PYTHON_STUBGEN": "OFF",
+        "OPENASSETIO_ENABLE_SIMPLECPPMANAGER": "OFF"
       }
     },
     {
@@ -104,7 +105,8 @@
       "hidden": true,
       "cacheVariables": {
         "OPENASSETIO_ENABLE_PYTHON": "ON",
-        "OPENASSETIO_ENABLE_C": "ON"
+        "OPENASSETIO_ENABLE_C": "ON",
+        "OPENASSETIO_ENABLE_SIMPLECPPMANAGER": "ON"
       }
     },
     {
