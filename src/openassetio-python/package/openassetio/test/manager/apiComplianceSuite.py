@@ -257,18 +257,18 @@ class Test_isEntityReferenceString(FixtureAugmentedTestCase):
         self.collectRequiredFixture("an_invalid_reference")
 
     def test_valid_reference_returns_true(self):
-        assert self._manager.isEntityReferenceString(self.a_valid_reference) is True
+        self.assertTrue(self._manager.isEntityReferenceString(self.a_valid_reference))
 
     def test_non_reference_returns_false(self):
         assert self.an_invalid_reference != ""
-        assert self._manager.isEntityReferenceString(self.an_invalid_reference) is False
+        self.assertFalse(self._manager.isEntityReferenceString(self.an_invalid_reference))
 
     def test_empty_string_returns_false(self):
-        assert self._manager.isEntityReferenceString("") is False
+        self.assertFalse(self._manager.isEntityReferenceString(""))
 
     def test_random_unicode_input_returns_false(self):
         unicode_reference = "🦆🦆🦑"
-        assert self._manager.isEntityReferenceString(unicode_reference) is False
+        self.assertFalse(self._manager.isEntityReferenceString(unicode_reference))
 
 
 class Test_entityExists(FixtureAugmentedTestCase):
