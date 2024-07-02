@@ -193,3 +193,44 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      # TODO(DF): SimpleCppManager should (also) be tested as part of
+      # Python e2e tests, once we fix loading C++ plugins from Python.
+
+      - name: Build/install SimpleCppManager
+        run: >
+          ${{ matrix.config.preamble }}
+
+          cd examples/manager/SimpleCppManager
+
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          -DOPENASSETIO_ENABLE_TESTS=ON
+          -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=OFF
+
+          cmake --build build --parallel --config RelWithDebInfo
+
+          cmake --install build --prefix '${{ github.workspace }}/dist/plugins'
+          --config RelWithDebInfo
+
+        env:
+          CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
+
+      - name: Add shared library dir to PATH (Windows)
+        # This is needed because the SimpleCppManager plugin needs to
+        # link to the openassetio core C++ library. We must append to
+        # PATH rather than overwrite, so cannot use `env:`.
+        if: runner.os == 'Windows'
+        run: echo 'PATH=${{ github.workspace }}/dist/bin' >> $GITHUB_PATH
+
+      - name: Test SimpleCppManager with simpleResolver
+        run: >
+          python '${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py'
+          openassetio-mediacreation:identity.DisplayName simplecpp://test/entity/1
+          | grep 'Test Entity 1'
+
+        env:
+          LD_LIBRARY_PATH: ${{ github.workspace }}/dist/lib
+          PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+          OPENASSETIO_LOGGING_SEVERITY: 1
+          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
+          OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml

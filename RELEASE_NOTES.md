@@ -12,6 +12,11 @@ v1.0.0-beta.x.x
   should still be preferred as a test manager when Python is available.
   [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
 
+### Improvements
+
+- Updated the `simpleResolver` example host to support C++ plugins.
+  [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
+
 v1.0.0-beta.2.2
 ---------------
 
