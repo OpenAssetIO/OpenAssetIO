@@ -68,10 +68,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # varying installation structures were used (eg GitHub Actions
         # runners).
         if (WIN32) # Should not use 'bin' for Windows
-            set(OPENASSETIO_PYTHON_SITEDIR "Lib/site-packages")
+            set(OPENASSETIO_PYTHON_SITEDIR "Lib/site-packages"
+                CACHE STRING "Python site-packages directory" FORCE)
         else ()
             set(OPENASSETIO_PYTHON_SITEDIR
-                "lib/python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages")
+                "lib/python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages"
+                CACHE STRING "Python site-packages directory" FORCE)
         endif ()
     endif ()
 

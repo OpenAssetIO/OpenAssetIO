@@ -205,6 +205,8 @@ cmake_dependent_option(
     OFF
 )
 
+option(OPENASSETIO_ENABLE_SIMPLECPPMANAGER "Build the SimpleCppManager example" OFF)
+
 # Enable clang-format formatting check.
 option(OPENASSETIO_ENABLE_CLANG_FORMAT "Enable clang-format check during build" OFF)
 
@@ -339,11 +341,12 @@ if (OPENASSETIO_ENABLE_PYTHON)
     message(STATUS "Python relative install dir        = ${OPENASSETIO_PYTHON_SITEDIR}")
     message(STATUS "Generate .pyi stubs                = ${OPENASSETIO_ENABLE_PYTHON_STUBGEN}")
 endif ()
+message(STATUS "Build SimpleCppManager             = ${OPENASSETIO_ENABLE_SIMPLECPPMANAGER}")
 message(STATUS "Create test targets                = ${OPENASSETIO_ENABLE_TESTS}")
 if (OPENASSETIO_ENABLE_TESTS)
     message(STATUS "Create Python venv during tests    = ${OPENASSETIO_ENABLE_PYTHON_TEST_VENV}")
     message(STATUS "Enable ABI diff check test         = ${OPENASSETIO_ENABLE_TEST_ABI}")
-endif()
+endif ()
 message(STATUS "Warnings as errors                 = ${OPENASSETIO_WARNINGS_AS_ERRORS}")
 message(STATUS "Interprocedural optimization       = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs         = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")
@@ -367,3 +370,7 @@ message(STATUS "Linter: cmake-lint                 = ${OPENASSETIO_ENABLE_CMAKE_
 # Recurse to library targets
 
 add_subdirectory(src)
+
+if (OPENASSETIO_ENABLE_SIMPLECPPMANAGER)
+    add_subdirectory(examples/manager/SimpleCppManager)
+endif ()

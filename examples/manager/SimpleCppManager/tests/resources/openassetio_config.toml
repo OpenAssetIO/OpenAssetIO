@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2024 The Foundry Visionmongers Ltd
+
+[manager]
+identifier = "org.openassetio.examples.manager.simplecppmanager"
+
+[manager.settings]
+
+# Prefix to be used for all entity references. Used by
+# `isEntityReference`.
+prefix = "simplecpp://"
+
+# By default, only required capabilities plus "resolution" are
+# supported. Enabling other capabilities will provide stub
+# implementations for their associated functions. The following are the
+# default set of capabilities:
+# capabilities="entityReferenceIdentification,managementPolicyQueries,resolution,entityTraitIntrospection"
+# The available capabilities are:
+# capabilities="entityReferenceIdentification,managementPolicyQueries,statefulContexts,customTerminology,resolution,publishing,relationshipQueries,existenceQueries,defaultEntityReferences,entityTraitIntrospection"
+
+# Additional trait to imbue when querying managementPolcy with `kRead`
+# access mode, as long as at least one entity (below) satisfies the
+# provided trait set.
+read_policy = "openassetio-mediacreation:managementPolicy.Managed"
+
+# Mapping of entity references to trait properties. This is the
+# "database" to be used by the manager. Used by `resolve` with a `kRead`
+# access mode.
+#
+# The entity reference and trait ID is required. A blank property key
+# field indicates the trait has no properties.
+read_traits = '''
+simplecpp://test/entity/1,openassetio-mediacreation:usage.Entity
+simplecpp://test/entity/1,openassetio-mediacreation:content.LocatableContent,location,file:///tmp/test1.txt
+simplecpp://test/entity/1,openassetio-mediacreation:identity.DisplayName,name,Test Entity 1
+simplecpp://test/entity/2,openassetio-mediacreation:usage.Entity,,
+simplecpp://test/entity/2,openassetio-mediacreation:content.LocatableContent,location,file:///tmp/test2.txt
+simplecpp://test/entity/2,openassetio-mediacreation:content.LocatableContent,isTemplated,false
+simplecpp://test/entity/2,openassetio-mediacreation:timeDomain.FrameRanged,startFrame,123
+simplecpp://test/entity/2,openassetio-mediacreation:timeDomain.FrameRanged,framesPerSecond,123.4
+'''
