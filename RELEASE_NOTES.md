@@ -17,6 +17,8 @@ v1.0.0-beta.x.x
 - Added singular overload of `managementPolicy` for convenience.
   [#856](https://github.com/OpenAssetIO/OpenAssetIO/issues/856)
 
+- Updated the `simpleResolver` example host to support C++ plugins.
+  [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
 
 v1.0.0-beta.2.2
 ---------------
