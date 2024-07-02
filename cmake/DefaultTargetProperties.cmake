@@ -1,5 +1,16 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
+include_guard(GLOBAL)
+include(CompilerWarnings)
+include(CheckIPOSupported)
+
+if (OPENASSETIO_ENABLE_IPO)
+    check_ipo_supported(RESULT _is_ipo_supported)
+    if (NOT _is_ipo_supported)
+        message(WARNING "OPENASSETIO_ENABLE_IPO is not supported, option ignored")
+        set(OPENASSETIO_ENABLE_IPO OFF)
+    endif ()
+endif ()
 
 # disable checks : too-many-branches, too-many-statements
 # cmake-lint: disable=R0912,R0915
@@ -33,25 +44,13 @@ function(openassetio_set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # Compiler warnings
 
-    include(CompilerWarnings)
     set_default_compiler_warnings(${target_name})
-
 
     #-------------------------------------------------------------------
     # Interprocedural Optimization
 
     if (OPENASSETIO_ENABLE_IPO)
-        include(CheckIPOSupported)
-        check_ipo_supported(RESULT result OUTPUT output)
-        if (result)
-            set_target_properties(
-                ${target_name}
-                PROPERTIES
-                INTERPROCEDURAL_OPTIMIZATION ON
-            )
-        else ()
-            message(WARNING "OPENASSETIO_ENABLE_IPO is not supported, option ignored")
-        endif ()
+        set_target_properties(${target_name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
     endif ()
 
 
@@ -195,7 +194,7 @@ function(openassetio_set_default_target_properties target_name)
         if (OPENASSETIO_ENABLE_GLIBCXX_DEBUG)
             # libstdc++ debug mode (e.g. range checks)
             target_compile_definitions(${target_name} PRIVATE _GLIBCXX_DEBUG)
-        endif()
+        endif ()
 
         if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
             list(APPEND sanitizers "address")
