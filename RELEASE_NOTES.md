@@ -4,6 +4,14 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
+### New Features
+
+- Added SimpleCppManager - a minimal C++ manager and plugin example
+  implementation, useful for testing C++ plugin support in hosts. This
+  has minimal API support, so [Basic Asset Library (BAL)](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL)
+  should still be preferred as a test manager when Python is available.
+  [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
+
 ### Improvements
 
 - Added singular overload of `managementPolicy` for convenience.
