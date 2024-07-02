@@ -1,5 +1,10 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2013-2022 The Foundry Visionmongers Ltd
+include_guard(GLOBAL)
+include(CompilerWarnings)
+include(CheckIPOSupported)
+
+check_ipo_supported(RESULT _is_ipo_supported)
 
 # disable checks : too-many-branches, too-many-statements
 # cmake-lint: disable=R0912,R0915
@@ -33,17 +38,13 @@ function(openassetio_set_default_target_properties target_name)
     #-------------------------------------------------------------------
     # Compiler warnings
 
-    include(CompilerWarnings)
     set_default_compiler_warnings(${target_name})
-
 
     #-------------------------------------------------------------------
     # Interprocedural Optimization
 
     if (OPENASSETIO_ENABLE_IPO)
-        include(CheckIPOSupported)
-        check_ipo_supported(RESULT result OUTPUT output)
-        if (result)
+        if (_is_ipo_supported)
             set_target_properties(
                 ${target_name}
                 PROPERTIES
