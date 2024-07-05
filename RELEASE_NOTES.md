@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+v1.0.0-beta.x.x
+---------------
+
+### Improvements
+
+- Added singular overload of `managementPolicy` for convenience.
+  [#856](https://github.com/OpenAssetIO/OpenAssetIO/issues/856)
+
+
 v1.0.0-beta.2.2
 ---------------
 

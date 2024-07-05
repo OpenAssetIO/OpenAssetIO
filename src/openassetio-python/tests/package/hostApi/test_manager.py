@@ -2409,7 +2409,7 @@ class Test_Manager_managementPolicy:
         assert not method_introspector.is_defined_in_python(Manager.managementPolicy)
         assert method_introspector.is_implemented_once(Manager, "managementPolicy")
 
-    def test_wraps_the_corresponding_method_of_the_held_interface(
+    def test_batch_overload_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session, some_entity_trait_sets, a_context
     ):
         data1 = TraitsData()
@@ -2428,6 +2428,36 @@ class Test_Manager_managementPolicy:
         method.assert_called_once_with(
             some_entity_trait_sets, access.PolicyAccess.kWrite, a_context, a_host_session
         )
+
+    def test_singular_overload_wraps_the_corresponding_method_of_the_held_interface(
+        self, manager, mock_manager_interface, a_host_session, an_entity_trait_set, a_context
+    ):
+        expected = TraitsData()
+        expected.setTraitProperty("t1", "p1", 1)
+        method = mock_manager_interface.mock.managementPolicy
+        method.return_value = [expected]
+
+        actual = manager.managementPolicy(
+            an_entity_trait_set, access.PolicyAccess.kWrite, a_context
+        )
+
+        assert actual == expected
+        method.assert_called_once_with(
+            [an_entity_trait_set], access.PolicyAccess.kWrite, a_context, a_host_session
+        )
+
+    def test_when_plugin_gives_no_result_then_singular_overload_raises(
+        self, manager, mock_manager_interface, an_entity_trait_set, a_context
+    ):
+        """
+        This is a truly exceptional exception, we're just checking that
+        we don't get a segfault. The message isn't important.
+        """
+        method = mock_manager_interface.mock.managementPolicy
+        method.return_value = []
+
+        with pytest.raises(IndexError):
+            manager.managementPolicy(an_entity_trait_set, access.PolicyAccess.kWrite, a_context)
 
 
 class Test_Manager_preflight(BatchFirstMethodTest):

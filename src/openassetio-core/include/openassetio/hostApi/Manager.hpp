@@ -444,6 +444,29 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                                                     const ContextConstPtr& context);
 
   /**
+   * Management Policy queries allow a host to ask a Manager how they
+   * would like to interact with different kinds of entity.
+   *
+   * This includes the policy for a given trait set, as well as the
+   * per-trait policy, with the context for the policy determined by
+   * the @p policyAccess.
+   *
+   * See the @ref managementPolicy(const trait::TraitSets&,<!--
+   * -->access::PolicyAccess, const ContextConstPtr&) "batch overload"
+   * documentation for more details.
+   *
+   * @param traitSet The entity @ref trait "traits" to query.
+   *
+   * @param policyAccess Intended operation type to perform on entities.
+   *
+   * @param context The calling context.
+   *
+   * @return Policy for the @p traitSet.
+   */
+  [[nodiscard]] trait::TraitsDataPtr managementPolicy(const trait::TraitSet& traitSet,
+                                                      access::PolicyAccess policyAccess,
+                                                      const ContextConstPtr& context);
+  /**
    * @}
    */
 

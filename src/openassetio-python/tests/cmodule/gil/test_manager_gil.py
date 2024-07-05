@@ -25,6 +25,7 @@ import pytest
 from openassetio import access
 from openassetio.hostApi import Manager
 from openassetio.managerApi import ManagerStateBase
+from openassetio.trait import TraitsData
 
 
 class Test_Manager_gil:
@@ -226,7 +227,10 @@ class Test_Manager_gil:
     def test_isEntityReferenceString(self, a_threaded_manager):
         a_threaded_manager.isEntityReferenceString("")
 
-    def test_managementPolicy(self, a_threaded_manager, a_context):
+    def test_managementPolicy(self, mock_manager_interface, a_threaded_manager, a_context):
+        mock_manager_interface.mock.managementPolicy.return_value = [TraitsData()]
+
+        a_threaded_manager.managementPolicy(set(), access.PolicyAccess.kRead, a_context)
         a_threaded_manager.managementPolicy([], access.PolicyAccess.kRead, a_context)
 
     def test_preflight(self, a_threaded_manager, an_entity_reference, a_traits_data, a_context):
