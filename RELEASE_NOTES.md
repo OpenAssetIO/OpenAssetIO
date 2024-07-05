@@ -25,7 +25,7 @@ _The addition of a new virtual method,
   Notably, this includes `TraitsData`, which when printed now displays all the
   properties contained within the traits, rather than simply a list of trait
   ids.
-  
+
   Note: Due to this, some runtime string output may have slightly changed, and
   tests may need to be adjusted.
   [#1307](https://github.com/OpenAssetIO/OpenAssetIO/issues/1307)

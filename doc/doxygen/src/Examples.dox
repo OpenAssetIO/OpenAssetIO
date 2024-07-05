@@ -303,8 +303,8 @@
  * # the correct trait set to query. Using the standard definition
  * # ensures consistent behaviour across managers/hosts. We request
  * # the manager's policy for read access to this entity type.
- * [policy] = manager.managementPolicy(
- *  [TextFileSpecification.kTraitSet], PolicyAccess.kRead, context)
+ * policy = manager.managementPolicy(
+ *  TextFileSpecification.kTraitSet, PolicyAccess.kRead, context)
  *
  * # We can now check which traits were imbued in the policy, the
  * # absence of a trait means it is unsupported.
@@ -353,8 +353,8 @@
  * # The first step is to see if the manager wants to manage text files.
  * # Note that this time we request the manager's policy for write
  * # access.
- * [policy] = manager.managementPolicy(
- *     [TextFileSpecification.kTraitSet], PolicyAccess.kWrite, context)
+ * policy = manager.managementPolicy(
+ *     TextFileSpecification.kTraitSet, PolicyAccess.kWrite, context)
  *
  * if not ManagedTrait.isImbuedTo(policy):
  *   # The manager doesn't care about this type of asset
@@ -363,8 +363,8 @@
  * # Managers may want to dictate to the host some of the data to be
  * # published, e.g. tell us where to put files. So we ask the manager
  * # which traits, if any, it is interested in "driving" itself.
- * [manager_driven_policy] = manager.managementPolicy(
- *     [TextFileSpecification.kTraitSet], PolicyAccess.kManagerDriven, context)
+ * manager_driven_policy = manager.managementPolicy(
+ *     TextFileSpecification.kTraitSet, PolicyAccess.kManagerDriven, context)
  *
  * # Choose some defaults in case the manager cannot drive these values.
  * save_path = os.path.join(os.path.expanduser('~'), 'greeting.txt')
