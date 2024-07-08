@@ -20,6 +20,12 @@ namespace hostApi {
 // alternate, often friendlier signatures wrapping the core batch-first
 // callback-based member functions found in `Manager.cpp`
 
+trait::TraitsDataPtr Manager::managementPolicy(const trait::TraitSet &traitSet,
+                                               access::PolicyAccess policyAccess,
+                                               const ContextConstPtr &context) {
+  return managementPolicy(trait::TraitSets{traitSet}, policyAccess, context).at(0);
+}
+
 /******************************************
  * entityExists
  ******************************************/

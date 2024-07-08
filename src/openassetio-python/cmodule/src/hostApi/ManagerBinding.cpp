@@ -90,9 +90,17 @@ void registerManager(const py::module& mod) {
       .def("initialize", &Manager::initialize, py::arg("managerSettings"),
            py::call_guard<py::gil_scoped_release>{})
       .def("flushCaches", &Manager::flushCaches, py::call_guard<py::gil_scoped_release>{})
-      .def("managementPolicy", &Manager::managementPolicy, py::arg("traitSets"),
-           py::arg("policyAccess"), py::arg("context").none(false),
+      .def("managementPolicy",
+           py::overload_cast<const trait::TraitSet&, access::PolicyAccess, const ContextConstPtr&>(
+               &Manager::managementPolicy),
+           py::arg("traitSet"), py::arg("policyAccess"), py::arg("context").none(false),
            py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "managementPolicy",
+          py::overload_cast<const trait::TraitSets&, access::PolicyAccess, const ContextConstPtr&>(
+              &Manager::managementPolicy),
+          py::arg("traitSets"), py::arg("policyAccess"), py::arg("context").none(false),
+          py::call_guard<py::gil_scoped_release>{})
       .def("createContext", &Manager::createContext, py::call_guard<py::gil_scoped_release>{})
       .def("createChildContext", &Manager::createChildContext,
            py::arg("parentContext").none(false), py::call_guard<py::gil_scoped_release>{})
