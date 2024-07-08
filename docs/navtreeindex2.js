@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#glossary_register":[6,18],
 "glossary.html#glossary_resolve":[6,19],
 "glossary.html#host":[6,5],
 "glossary.html#locale":[6,7],
@@ -14,8 +15,8 @@ var NAVTREEINDEX2 =
 "glossary.html#trait":[6,21],
 "glossary.html#trait_set":[6,22],
 "hierarchy.html":[14,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#architecture_overview":[0,2],
 "index.html#host_implementation_concept":[0,3],
 "index.html#intro_ams":[0,1,0],

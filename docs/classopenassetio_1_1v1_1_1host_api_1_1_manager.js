@@ -53,6 +53,7 @@ var classopenassetio_1_1v1_1_1host_api_1_1_manager =
     [ "initialize", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df", null ],
     [ "isEntityReferenceString", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a72203b43e0f56f2d5bf6268c6e3b5033", null ],
     [ "managementPolicy", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76", null ],
+    [ "managementPolicy", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe0ed598ca32bfe699bd68fd7ebe00b4", null ],
     [ "persistenceTokenForContext", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a95b9611b3994ff983f8743d6d781009c", null ],
     [ "preflight", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2d6b01cea99fb85c0270624b647af621", null ],
     [ "preflight", "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a68a804c23de6cabf504f52be2e610a26", null ],

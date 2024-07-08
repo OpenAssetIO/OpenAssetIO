@@ -165,6 +165,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a622a08f046689fbdb1a55d96dfacbb76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a85498884b976e67239a35add1aa39f88">trait::TraitsDatas</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access::PolicyAccess</a> policyAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context)</td></tr>
 <tr class="memdesc:a622a08f046689fbdb1a55d96dfacbb76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity.  <a href="#a622a08f046689fbdb1a55d96dfacbb76">More...</a><br /></td></tr>
 <tr class="separator:a622a08f046689fbdb1a55d96dfacbb76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe0ed598ca32bfe699bd68fd7ebe00b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe0ed598ca32bfe699bd68fd7ebe00b4">managementPolicy</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;traitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access::PolicyAccess</a> policyAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context)</td></tr>
+<tr class="memdesc:afe0ed598ca32bfe699bd68fd7ebe00b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity.  <a href="#afe0ed598ca32bfe699bd68fd7ebe00b4">More...</a><br /></td></tr>
+<tr class="separator:afe0ed598ca32bfe699bd68fd7ebe00b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Context Management</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="section see"><dt>See also</dt><dd><a class="el" href="stable_resolution.html">Stable Entity Resolution</a> </dd></dl>
 </div></td></tr>
@@ -2330,6 +2333,51 @@ There is no requirement to call this method before any other API interaction, th
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a <code>TraitsData</code> for each element in <code>traitSets</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afe0ed598ca32bfe699bd68fd7ebe00b4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#a669411d68046a0cc90555897b03d8407">trait::TraitsDataPtr</a> managementPolicy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab8370686417ae635f48d34e8732a485f">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a30c467b0e5cfd9fb5ed7b58e84b06ede">access::PolicyAccess</a>&#160;</td>
+          <td class="paramname"><em>policyAccess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Management Policy queries allow a host to ask a <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> how they would like to interact with different kinds of entity. </p>
+<p>This includes the policy for a given trait set, as well as the per-trait policy, with the context for the policy determined by the <code>policyAccess</code>.</p>
+<p>See the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">batch overload</a> documentation for more details.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitSet</td><td>The entity <a class="el" href="glossary.html#trait">traits</a> to query.</td></tr>
+    <tr><td class="paramname">policyAccess</td><td>Intended operation type to perform on entities.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Policy for the <code>traitSet</code>. </dd></dl>
 
 </div>
 </div>
