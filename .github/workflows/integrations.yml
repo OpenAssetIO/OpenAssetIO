@@ -194,9 +194,6 @@ jobs:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
-      # TODO(DF): SimpleCppManager should (also) be tested as part of
-      # Python e2e tests, once we fix loading C++ plugins from Python.
-
       - name: Build/install SimpleCppManager
         run: >
           ${{ matrix.config.preamble }}
@@ -215,7 +212,7 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
 
-      - name: Test SimpleCppManager with simpleResolver
+      - name: Test SimpleCppManager with simpleResolver (via CMake install tree)
         run: >
           python '${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py'
           openassetio-mediacreation:identity.DisplayName simplecpp://test/entity/1
@@ -223,6 +220,24 @@ jobs:
 
         env:
           PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+          OPENASSETIO_LOGGING_SEVERITY: 1
+          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
+          OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml
+
+      - name: Build/install Python OpenAssetIO distribution (setup.py)
+        run: |
+          ${{ matrix.config.preamble }}
+          python -m pip install src/openassetio-python
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      - name: Test SimpleCppManager with simpleResolver (via Python distribution)
+        run: >
+          python '${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py'
+          openassetio-mediacreation:identity.DisplayName simplecpp://test/entity/1
+          | grep 'Test Entity 1'
+
+        env:
           OPENASSETIO_LOGGING_SEVERITY: 1
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
           OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml
