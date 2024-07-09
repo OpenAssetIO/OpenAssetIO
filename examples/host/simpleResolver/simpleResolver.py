@@ -28,9 +28,12 @@ import sys
 from openassetio.errors import BatchElementException
 from openassetio.access import ResolveAccess
 from openassetio.hostApi import HostInterface, ManagerFactory
-from openassetio.errors import ConfigurationException
+from openassetio.errors import ConfigurationException, OpenAssetIOException
 from openassetio.log import ConsoleLogger, SeverityFilter
-from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
+from openassetio.pluginSystem import (
+    PythonPluginSystemManagerImplementationFactory,
+    CppPluginSystemManagerImplementationFactory,
+)
 
 
 # pylint: disable=missing-function-docstring,no-self-use,invalid-name
@@ -147,20 +150,31 @@ def main():
     # used in standalone situations such as this.
     logger = SeverityFilter(ConsoleLogger())
 
-    # The Python plugin system can load manager implementations
-    # defined outside of the API package.
-    impl_factory = PythonPluginSystemManagerImplementationFactory(logger)
-
     # The HostInterface implementation we supply that identifies
     # ourselves to the manager
     host_interface = SimpleResolverHostInterface()
 
+    # The C++ plugin system can load manager implementations
+    # defined outside of the API package.
+    impl_factory = CppPluginSystemManagerImplementationFactory(logger)
+
     # Initialize the default manager as configured by $OPENASSETIO_DEFAULT_CONFIG
     # See: https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76
     # All API/Manager messaging is channeled through the supplied logger.
-    manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
+    try:
+        manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
+    except OpenAssetIOException:
+        # Exceptions occur when configuration exists, but loading the
+        # config file or the plugin fails. E.g. if the config file
+        # specifies the identifier of a Python plugin, but we tried to
+        # locate and load a C++ plugin.
+        # If a C++ plugin was not found, try the Python plugin system.
+        impl_factory = PythonPluginSystemManagerImplementationFactory(logger)
+        manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
 
     if not manager:
+        # Manager will be None only if OPENASSETIO_DEFAULT_CONFIG is
+        # not set.
         raise ConfigurationException(
             "No default manager configured, "
             f"check ${ManagerFactory.kDefaultManagerConfigEnvVarName}"
