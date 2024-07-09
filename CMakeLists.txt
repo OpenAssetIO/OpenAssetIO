@@ -241,7 +241,7 @@ include(ThirdParty)
 add_custom_target(
     openassetio.internal.install
     COMMAND "${CMAKE_COMMAND}" --build "${PROJECT_BINARY_DIR}"
-    --target install --parallel
+    --target install --parallel --config $<CONFIG>
 )
 
 
