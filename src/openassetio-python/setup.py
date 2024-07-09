@@ -71,14 +71,14 @@ class build_ext(setuptools.command.build_ext.build_ext):
             ]
         )
 
-        self.__cmake(["--build", self.build_temp, "--target", "openassetio-python-module"])
+        self.__cmake(["--build", self.build_temp, "--parallel"])
 
         self.__cmake(
             [
                 "--install",
                 self.build_temp,
                 "--component",
-                "openassetio-python-module",
+                "openassetio-python-distribution",
             ]
         )
 

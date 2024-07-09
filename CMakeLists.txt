@@ -110,7 +110,7 @@ include(CMakeDependentOption)
 # TODO(DF): We may end up needing to support building of both shared
 #   and static libs simultaneously. Also, using this means we inherit
 #   the option if openassetio is used as a CMake subproject.
-option(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
+option(BUILD_SHARED_LIBS "Set to OFF to build static libraries. Not recommended." ON)
 
 # Enable Python bindings build by default.
 option(OPENASSETIO_ENABLE_PYTHON "Build Python bindings" ON)
@@ -218,6 +218,20 @@ option(OPENASSETIO_ENABLE_CPPLINT "Enable cpplint linter during build" OFF)
 
 # Enable cmake-lint linter.
 option(OPENASSETIO_ENABLE_CMAKE_LINT "Enable cmake-lint linter during build" OFF)
+
+
+#-----------------------------------------------------------------------
+# Warn against static library builds
+
+if (NOT BUILD_SHARED_LIBS)
+    message(WARNING [[
+Building OpenAssetIO as a static library is not recommended. For C++
+plugins to load, the necessary symbols must be exported and be available
+to link against. In addition, C++ plugins will generally have a
+dependency on the OpenAssetIO core C++ shared library file, and if that
+file is not available (because it has been statically linked into a
+larger binary), then the plugin will fail to load.]])
+endif()
 
 
 #-----------------------------------------------------------------------
