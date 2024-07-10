@@ -78,45 +78,6 @@ jobs:
     - name: Run Python tests
       run: pytest src/openassetio-python/tests/package
 
-  editable_pip_install:
-    name: Editable pip install on  ${{ matrix.config.os }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - os: windows-2019
-            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
-            shell: cmd
-          - os: ubuntu-20.04
-            shell: bash
-          - os: macos-12
-            shell: bash
-    defaults:
-      run:
-        # Annoyingly required here since `matrix` isn't available in
-        # the `shell` property of individual steps.
-        shell: ${{ matrix.config.shell }}
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Bootstrap
-      uses: ./.github/bootstrap_platform
-
-    - name: Install using pip
-      run: |
-        ${{ matrix.config.preamble }}
-        python -m pip install --editable src/openassetio-python
-      env:
-        CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
-
-    - name: Install test dependencies
-      run: pip install -r src/openassetio-python/tests/requirements.txt
-
-    - name: Run Python tests
-      run: pytest src/openassetio-python/tests/package
-
   disallowed_pip_install:
     name: Disallowed pip install on  ${{ matrix.config.os }}
     runs-on: ${{ matrix.config.os }}

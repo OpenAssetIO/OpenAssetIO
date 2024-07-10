@@ -155,14 +155,6 @@ you should be able to simply `import openassetio` from your python shell.
 > non-python hosts or managers should build via the CMake method
 > described above.
 
-For users that wish to modify the Python sources and test their changes
-without reinstalling, [editable installs](https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs)
-are also supported
-
-```shell
-python -m pip install --editable src/openassetio-python
-```
-
 ### Sandboxed builds
 
 For a more convenient "out of the box" build environments, OpenAssetIO

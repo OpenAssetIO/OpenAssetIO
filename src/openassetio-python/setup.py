@@ -40,6 +40,9 @@ class build_ext(setuptools.command.build_ext.build_ext):
 
         @param _ext: Extension to build (we only have one, so ignored).
         """
+        if self.editable_mode:
+            raise NotImplementedError("OpenAssetIO does not support editable installs")
+
         cmake_project_path = pathlib.Path("../..")
 
         if not os.path.isfile(cmake_project_path / "CMakeLists.txt"):
