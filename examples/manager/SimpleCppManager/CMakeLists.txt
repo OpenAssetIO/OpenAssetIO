@@ -115,15 +115,12 @@ if (NOT TARGET OpenAssetIO::openassetio-core)
 endif ()
 
 # Link to the OpenAssetIO core library.
-# TODO(DF): ideally we'd use CMake's `$<COMPILE_ONLY:` here, to avoid
-# baking in a dependency on the OpenAssetIO core library. In theory, the
-# OpenAssetIO symbols should already be available in the process
-# environment by the time the plugin is loaded (its loaded by
-# OpenAssetIO!). However, Python (and any other process that loads
+# Note that we cannot reliably avoid baking in a dependency on the
+# OpenAssetIO core library. Python (and any other process that loads
 # OpenAssetIO with RTLD_LOCAL or equivalent) will not expose the
-# OpenAssetIO symbols to the plugin. So we need to link the plugin to
-# the OpenAssetIO library explicitly. This means the plugin will not
-# load if the OpenAssetIO core C++ shared library is not found, e.g. if
+# OpenAssetIO symbols publicly. So we need to link the plugin to the
+# OpenAssetIO library explicitly. This means the plugin will not load if
+# the OpenAssetIO core C++ shared library is not found, e.g. if
 # OpenAssetIO is statically linked into a larger third-party binary.
 target_link_libraries(${_target_name} PRIVATE OpenAssetIO::openassetio-core)
 

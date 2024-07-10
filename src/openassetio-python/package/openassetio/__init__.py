@@ -67,6 +67,14 @@ API documentation
 The documentation for OpenAssetIO can be found here:
    https://openassetio.github.io/OpenAssetIO.
 """
+import os
+
+# If Windows, we may need to wrangle DLL search paths.
+if os.name == "nt":
+    from . import _windows
+
+    _windows.addDllDirectoryFromEnvVar()
+
 
 # pylint: disable=wrong-import-position,import-error,no-name-in-module
 from ._openassetio import (

@@ -68,7 +68,8 @@
       "description": "Settings for building Python extension module consumed by setuptools",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "BUILD_SHARED_LIBS": "OFF",
+        "CMAKE_INSTALL_BINDIR": "openassetio",
+        "CMAKE_INSTALL_LIBDIR": "openassetio",
         "OPENASSETIO_PYTHON_SITEDIR": "."
       }
     },

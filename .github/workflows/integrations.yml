@@ -166,6 +166,8 @@ jobs:
           # warnings, sanitizers. Will need additional CMake preset(s).
           OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
           CONAN_USER_HOME: ~/conan
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v4
@@ -193,6 +195,8 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
       # TODO(DF): SimpleCppManager should (also) be tested as part of
       # Python e2e tests, once we fix loading C++ plugins from Python.
@@ -226,3 +230,5 @@ jobs:
           OPENASSETIO_LOGGING_SEVERITY: 1
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
           OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin

@@ -282,6 +282,17 @@
  * is then controlled by the host's own configuration mechanism(s).
  *
  *
+ * @section dll_path_var $OPENASSETIO_DLL_PATH
+ *
+ * When using OpenAssetIO via Python on Windows, this environment
+ * variable can be set to the directory containing openassetio.dll, to
+ * ensure importing `openassetio` succeeds. This is useful if the
+ * particular OpenAssetIO deployment places the openassetio.dll core
+ * library outside the standard Python search path. If a relative path
+ * is given, it is assumed to be relative to the `openassetio` package
+ * directory.
+ *
+ *
  * @section manager_state Manager State
  *
  * The @ref ManagerInterface is a reentrant API by design, and its

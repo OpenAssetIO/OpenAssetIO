@@ -124,13 +124,6 @@ In installing the Python module, OpenAssetIO creates a valid Python
 package, placed at
 `build/dist/lib/{python-version}/site-packages/openassetio`.
 
-> **Note**
->
-> When built this way, the `openassetio` Python package will not
-> function unless the binary artifacts are also made available to your
-> Python environment.
->
-
 ### Building via pip
 
 OpenAssetIO can alternately be built and installed via `pip`, which may
@@ -144,22 +137,6 @@ python -m pip install src/openassetio-python
 This will automatically build and install the Python extension module
 into your python environment, along with the Python sources. After this,
 you should be able to simply `import openassetio` from your python shell.
-
-> **Note**
->
-> `pip install src/openassetio-python` is not a substantially different
-> operation to calling CMake directly as described above (and as such,
-> all the same dependency requirements apply).
->
-> However, be aware that once the C++
-> library is built, it is statically, rather than dynamically, linked
-> into the python libraries, and is not usable as a standalone
-> OpenAssetIO C++ library.
->
-> This means that this method of building is only appropriate for the
-> exclusively python focused developer. Anyone wishing to write
-> non-python hosts or managers should build via the CMake method
-> described above.
 
 ### Sandboxed builds
 

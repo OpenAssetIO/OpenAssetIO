@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2013-2022 The Foundry Visionmongers Ltd
+# Copyright 2013-2024 The Foundry Visionmongers Ltd
 
 #----------------------------------------------------------------------
 # Public headers
@@ -35,8 +35,6 @@ install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGET
 
 # TODO(DF): This needs some thought to get right - see #538.
 if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
-    install(TARGETS openassetio-python-bridge
-        DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)

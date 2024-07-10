@@ -30,8 +30,21 @@ install(
     TARGETS openassetio-python-module
     EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
     DESTINATION ${_install_subdir}
-    COMPONENT openassetio-python-module
+    COMPONENT openassetio-python-distribution
 )
+if (BUILD_SHARED_LIBS)
+    # For a shared library build, we must ensure the core C++ library
+    # dependency is installed when the Python extension module component
+    # is installed. The openassetio-python-distribution component is
+    # targeted for install when building Python wheels - see setup.py.
+    # In addition, ensure the Python bridge library is also available,
+    # to enable (the albeit rare case of) C++ plugin direct interaction
+    # with Python objects.
+    install(
+        TARGETS openassetio-core openassetio-python-bridge
+        COMPONENT openassetio-python-distribution
+    )
+endif ()
 
 
 #-----------------------------------------------------------------------
@@ -151,7 +164,7 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
             " pybind11-stubgen not found: status=${_pybind11_stubgen_exit_code}:"
             " ${_pybind11_stubgen_output}"
         )
-    endif()
+    endif ()
 
     # Create temporary pseudo-package directory.
     add_custom_command(
@@ -167,6 +180,10 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
         # Note that this must be done _after_ the build, otherwise
         # Windows (Visual Studio CMake generator) complains that the
         # build directory already exists.
+        # Also note OPENASSETIO_DLL_PATH does not work here, since that
+        # requires the top-level `openassetio.__init__.py` to be
+        # importable, but it lives in a different directory (at build
+        # time).
         add_custom_command(
             TARGET openassetio-python-module POST_BUILD
             COMMAND
@@ -174,7 +191,7 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
             "$<TARGET_FILE:openassetio-core>"
             "${CMAKE_CURRENT_BINARY_DIR}/openassetio/"
         )
-    endif()
+    endif ()
 
     # Execute commands to generate .pyi stubs.
     add_custom_command(
@@ -208,18 +225,18 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
 
     # Add stub files to the Python extension module installation
     # component, so that
-    # `cmake --install --component openassetio-python-module` will
+    # `cmake --install --component openassetio-python-distribution` will
     # include the stubs.
     install(
         # pybind11-stubgen generates stubs for openassetio._openassetio
         # under an `openassetio/_openassetio` directory structure.
         DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/openassetio/_openassetio"
         DESTINATION "${_install_subdir}"
-        COMPONENT openassetio-python-module
+        COMPONENT openassetio-python-distribution
     )
     install(
         FILES "${CMAKE_CURRENT_BINARY_DIR}/openassetio/py.typed"
         DESTINATION "${_install_subdir}"
-        COMPONENT openassetio-python-module
+        COMPONENT openassetio-python-distribution
     )
 endif ()
