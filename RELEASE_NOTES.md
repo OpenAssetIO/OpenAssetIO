@@ -20,6 +20,10 @@ v1.0.0-beta.x.x
 - Updated the `simpleResolver` example host to support C++ plugins.
   [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
 
+- Added a type hint for the `Manager` instance injected into the
+  `openassetio.test.manager` API Compliance test harness, to aid in
+  IDE code completion when writing test cases for manager plugins.
+
 v1.0.0-beta.2.2
 ---------------
 

@@ -32,6 +32,8 @@ import unittest
 
 from . import _implementation
 from ...errors import ConfigurationException, InputValidationException
+from ... import hostApi
+from ... import trait
 
 
 __all__ = ["executeSuite", "fixturesFromPyFile", "moduleFromFile", "FixtureAugmentedTestCase"]
@@ -173,6 +175,9 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     for each case.
     """
 
+    _manager: hostApi.Manager
+    _locale: trait.TraitsData
+
     shareManager = True
 
     def __init__(self, fixtures, manager, locale, *args, **kwargs):
@@ -197,9 +202,9 @@ class FixtureAugmentedTestCase(unittest.TestCase):
         @param kwargs: `Dict[str, Any]` Additional keyword args passed
         along to the base class.
         """
-        self._fixtures = fixtures  # type: dict
-        self._manager = manager  # type: hostApi.Manager
-        self._locale = locale  # type: openassetio.Specification
+        self._fixtures = fixtures
+        self._manager = manager
+        self._locale = locale
 
         super(FixtureAugmentedTestCase, self).__init__(*args, **kwargs)
 
