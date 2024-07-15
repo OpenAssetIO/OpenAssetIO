@@ -18,7 +18,8 @@ void registerEntityReferencePager(const py::module& mod) {
   using openassetio::hostApi::EntityReferencePager;
   using openassetio::hostApi::EntityReferencePagerPtr;
 
-  py::class_<EntityReferencePager, EntityReferencePagerPtr>{mod, "EntityReferencePager"}
+  py::class_<EntityReferencePager, EntityReferencePagerPtr>{mod, "EntityReferencePager",
+                                                            py::is_final()}
       .def(py::init(RetainCommonPyArgs::forFn<&EntityReferencePager::make>()),
            py::arg("entityReferencePagerInterface").none(false),
            py::arg("hostSession").none(false))

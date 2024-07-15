@@ -10,43 +10,15 @@
 #include "../_openassetio.hpp"
 #include "../overrideMacros.hpp"
 
-namespace openassetio {
-inline namespace OPENASSETIO_CORE_ABI_VERSION {
-namespace pluginSystem {
-namespace {
-using openassetio::pluginSystem::CppPluginSystemManagerImplementationFactory;
-struct PyCppPluginSystemManagerImplementationFactory
-    : CppPluginSystemManagerImplementationFactory {
-  using CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory;
-
-  [[nodiscard]] openassetio::Identifiers identifiers() override {
-    OPENASSETIO_PYBIND11_OVERRIDE_PURE(
-        openassetio::Identifiers, CppPluginSystemManagerImplementationFactory, identifiers,
-        /* no args */);
-  }
-
-  [[nodiscard]] openassetio::managerApi::ManagerInterfacePtr instantiate(
-      const openassetio::Identifier& identifier) override {
-    OPENASSETIO_PYBIND11_OVERRIDE_PURE(PyRetainingSharedPtr<managerApi::ManagerInterface>,
-                                       CppPluginSystemManagerImplementationFactory, instantiate,
-                                       identifier);
-  }
-};
-}  // namespace
-}  // namespace pluginSystem
-}  // namespace OPENASSETIO_CORE_ABI_VERSION
-}  // namespace openassetio
-
 void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod) {
   using openassetio::hostApi::ManagerImplementationFactoryInterface;
   using openassetio::log::LoggerInterfacePtr;
   using openassetio::pluginSystem::CppPluginSystemManagerImplementationFactory;
-  using openassetio::pluginSystem::PyCppPluginSystemManagerImplementationFactory;
 
   py::class_<CppPluginSystemManagerImplementationFactory, ManagerImplementationFactoryInterface,
-             PyCppPluginSystemManagerImplementationFactory,
+
              CppPluginSystemManagerImplementationFactory::Ptr>(
-      mod, "CppPluginSystemManagerImplementationFactory")
+      mod, "CppPluginSystemManagerImplementationFactory", py::is_final())
       .def_readonly_static("kPluginEnvVar",
                            &CppPluginSystemManagerImplementationFactory::kPluginEnvVar)
       .def(py::init(

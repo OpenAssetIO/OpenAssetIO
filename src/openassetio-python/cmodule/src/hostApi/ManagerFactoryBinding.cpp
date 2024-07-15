@@ -19,8 +19,8 @@ void registerManagerFactory(const py::module& mod) {
   using openassetio::hostApi::ManagerPtr;
   using openassetio::log::LoggerInterfacePtr;
 
-  // TODO(DF): `py::final()` once ManagerFactory is fully C++.
-  py::class_<ManagerFactory, ManagerFactoryPtr> managerFactory(mod, "ManagerFactory");
+  py::class_<ManagerFactory, ManagerFactoryPtr> managerFactory(mod, "ManagerFactory",
+                                                               py::is_final());
   managerFactory
       .def(py::init(RetainCommonPyArgs::forFn<&ManagerFactory::make>()),
            py::arg("hostInterface").none(false),
