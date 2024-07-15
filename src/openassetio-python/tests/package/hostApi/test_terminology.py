@@ -38,42 +38,27 @@ all_terminology_keys = (
 )
 
 
-class MockTerminologyManager(Manager):
-    kTerm_custom = "custom"
-    kTermValue_custom = "alternative"
-
-    __mockDisplayName = "Mock Terminology Manager"
-    __mockTerminology = {
-        tgy.kTerm_Asset: "mock-asset",
-        tgy.kTerm_Assets: "mock-assets",
-        tgy.kTerm_Publish: "mock-publish",
-        tgy.kTerm_Publishing: "mock-publishing",
-        tgy.kTerm_Published: "mock-published",
-        tgy.kTerm_Shot: "mock-shot",
-        tgy.kTerm_Shots: "mock-shots",
-        kTerm_custom: kTermValue_custom,
-    }
-
-    # ManagerInterface methods
-
-    def updateTerminology(self, stringDict):
-        stringDict.update(self.__mockTerminology)
-
-    def displayName(self):
-        return self.__mockDisplayName
-
-    # Test helpers
-
-    @classmethod
-    def expectedTerminology(cls):
-        expected = dict(cls.__mockTerminology)
-        expected[tgy.kTerm_Manager] = cls.__mockDisplayName
-        return expected
+kTerm_custom = "custom"
+kTerm_custom_value = "custom"
 
 
 @pytest.fixture
 def mock_manager(mock_manager_interface, a_host_session):
-    return MockTerminologyManager(mock_manager_interface, a_host_session)
+    mock_manager_interface.mock.updateTerminology.side_effect = lambda terms_to_modify, _: dict(
+        terms_to_modify,
+        **{
+            tgy.kTerm_Asset: "mock-asset",
+            tgy.kTerm_Assets: "mock-assets",
+            tgy.kTerm_Publish: "mock-publish",
+            tgy.kTerm_Publishing: "mock-publishing",
+            tgy.kTerm_Published: "mock-published",
+            tgy.kTerm_Shot: "mock-shot",
+            tgy.kTerm_Shots: "mock-shots",
+            kTerm_custom: kTerm_custom_value,
+        },
+    )
+    mock_manager_interface.mock.displayName.return_value = "Mock Terminology Manager"
+    return Manager(mock_manager_interface, a_host_session)
 
 
 @pytest.fixture
@@ -96,20 +81,28 @@ class Test_Mapper_init:
     def test_when_constructed_with_custom_terminology_then_it_is_used_for_replacement(
         self, mock_manager
     ):
-        custom_terminology = {mock_manager.kTerm_custom: mock_manager.kTermValue_custom}
+        custom_terminology = {kTerm_custom: kTerm_custom_value}
         a_mapper = tgy.Mapper(mock_manager, terminology=custom_terminology)
-        assert (
-            a_mapper.replaceTerms(f"{{{mock_manager.kTerm_custom}}}")
-            == mock_manager.kTermValue_custom
-        )
+        assert a_mapper.replaceTerms(f"{{{kTerm_custom}}}") == kTerm_custom_value
 
 
 class Test_Mapper_replaceTerms:
     def test_when_called_with_known_terms_then_they_are_replaced_with_target_terminology(
-        self, mock_manager, mapper
+        self, mapper
     ):
         all_terms_str = ", ".join([f"{k}" for k in all_terminology_keys])
-        expected = all_terms_str.format(**mock_manager.expectedTerminology())
+        expected = {
+            tgy.kTerm_Asset: "mock-asset",
+            tgy.kTerm_Assets: "mock-assets",
+            tgy.kTerm_Publish: "mock-publish",
+            tgy.kTerm_Publishing: "mock-publishing",
+            tgy.kTerm_Published: "mock-published",
+            tgy.kTerm_Shot: "mock-shot",
+            tgy.kTerm_Shots: "mock-shots",
+            kTerm_custom: kTerm_custom_value,
+            tgy.kTerm_Manager: "Mock Terminology Manager",
+        }
+        expected = all_terms_str.format(**expected)
         assert mapper.replaceTerms(all_terms_str) == expected
 
     def test_when_called_with_unknown_terms_then_their_braces_are_removed(self, mapper):

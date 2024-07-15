@@ -42,6 +42,10 @@ v1.0.0-beta.x.x
   multiple shared libraries, allowing external libraries to link.
   [#1340](https://github.com/OpenAssetIO/OpenAssetIO/issues/1340)
 
+- Fixed the (Python-only) `terminology.Mapper` class such that its
+  terminology dict can be updated by the manager.
+  [#1356](https://github.com/OpenAssetIO/OpenAssetIO/pull/1356)
+
 v1.0.0-beta.2.2
 ---------------
 
