@@ -4,7 +4,7 @@
  * @section testing_manager_plugins Testing Manager Plugins
  *
  * The API distribution includes a test harness that can be used to test
- * the implementation of any given @ref PythonPluginSystemManagerPlugin.
+ * the implementation of any given @ref glossary_manager_plugin.
  * It is a
  * <a href="https://docs.python.org/3/library/unittest.html" target="_blank"><tt>unittest</tt></a>
  * based framework that can be used stand-alone via the command line,
@@ -13,8 +13,7 @@
  * The harness acts as an OpenAssetIO @ref host. Two things are needed
  * to test any given codebase:
  *
- * - A @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
- *   "PythonPluginSystemManagerPlugin" implementation for the manager to
+ * - A @ref glossary_manager_plugin implementation for the manager to
  *   be tested.
  * - A Python 'fixtures' file that provides valid inputs, and expected
  *   outputs for that manager.
@@ -59,7 +58,7 @@
  *
  * @subsection testing_manager_plugins_cli Using the Command Line
  *
- * The simplest way to test a @ref PythonPluginSystemManagerPlugin is
+ * The simplest way to test a @ref glossary_manager_plugin is
  * via the command line:
  *
  * @code{.sh}

@@ -98,10 +98,19 @@
  *      in a @fqref{log.SeverityFilter} "SeverityFilter".
  *    - A @fqref{hostApi.ManagerImplementationFactoryInterface}
  *      "ManagerImplementationFactoryInterface" capable of instantiating
- *      managers. In the majority of cases a default-configured @ref
+ *      managers. Where a Python environment is available, the most
+ *      flexible option is to construct a
+ *      @fqref{pluginSystem.HybridPluginSystemManagerImplementationFactory}
+ *      "hybrid plugin system", composing a default-configured
+ *      @fqref{pluginSystem.CppPluginSystemManagerImplementationFactory}
+ *      "C++ plugin system" and @ref
  *      openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory
- *      "PythonPluginSystemManagerImplementationFactory" will be
- *      sufficient.
+ *      "Python plugin system" (C++ hosts should see
+ *      @fqref{python.hostApi.createPythonPluginSystemManagerImplementationFactory}
+ *      "createPythonPluginSystemManagerImplementationFactory"). Plugin
+ *      systems can be used on their own too - for example, if a Python
+ *      environment isn't available, the C++ plugin system could be used
+ *      directly.
  *
  *   Note that in some environments, a default manager may not be
  *   configured. As a host, can error here, or choose to present the

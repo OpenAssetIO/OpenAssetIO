@@ -55,6 +55,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerCppPluginSystemPlugin(pluginSystem);
   registerCppPluginSystem(pluginSystem);
   registerCppPluginSystemManagerImplementationFactory(pluginSystem);
+  registerHybridPluginSystemManagerImplementationFactory(pluginSystem);
 
 #ifdef OPENASSETIO_ENABLE_TESTS
   registerTestUtils(mod);

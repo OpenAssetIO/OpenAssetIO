@@ -35,7 +35,7 @@
  * @startuml
  * node Host {
  *   package OpenAssetIO {
- *     collections PythonPluginSystemManagerPlugin
+ *     collections "Manager Plugin" as ManagerPlugin
  *   }
  * }
  *
@@ -44,8 +44,8 @@
  *   collections "Resolver, etc..."
  * }
  *
- * PythonPluginSystemManagerPlugin -right-> ams
- * ams -left-> PythonPluginSystemManagerPlugin
+ * ManagerPlugin -right-> ams
+ * ams -left-> ManagerPlugin
  * @enduml
  *
  * It aims to reduce the integration effort and maintenance overhead of

@@ -17,8 +17,11 @@
  * interact with an @ref asset_management_system.
  *
  * It makes use of the @ref openassetio.pluginSystem "Plugin System" to
- * discover available @ref PythonPluginSystemManagerPlugin
- * "PythonPluginSystemManagerPlugins".
+ * discover available @ref
+ * openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+ * "PythonPluginSystemManagerPlugin" "PythonPluginSystemManagerPlugins"
+ * and @fqref{pluginSystem.CppPluginSystemManagerPlugin}
+ * "CppPluginSystemManagerPlugins".
  *
  * It also includes a bare-minimum example of a
  * @fqref{hostApi.HostInterface} "HostInterface" implementation.
@@ -26,7 +29,10 @@
  * @code{.py}
  * from openassetio.log import ConsoleLogger, SeverityFilter
  * from openassetio.hostApi import HostInterface, Manager, ManagerFactory
- * from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
+ * from openassetio.pluginSystem import (
+ *     CppPluginSystemManagerImplementationFactory,
+ *     PythonPluginSystemManagerImplementationFactory,
+ *     HybridPluginSystemManagerImplementationFactory)
  *
  * class ExamplesHost(HostInterface):
  *     """
@@ -45,9 +51,12 @@
  * logger = SeverityFilter(ConsoleLogger())
  *
  * # We need to provide the mechanism by which managers are created, the
- * # built-in plugin system allows these to be loaded from
- * # OPENASSETIO_PLUGIN_PATH.
- * factory_impl = PythonPluginSystemManagerImplementationFactory(logger)
+ * # built-in plugin systems allow these to be loaded from
+ * # OPENASSETIO_PLUGIN_PATH. The hybrid plugin system allows multiple
+ * # plugin systems to be composed.
+ * factory_impl = HybridPluginSystemManagerImplementationFactory([
+ *     CppPluginSystemManagerImplementationFactory(logger),
+ *     PythonPluginSystemManagerImplementationFactory(logger)], logger)
  *
  * # We then need our implementation of the HostInterface class
  * host_interface = ExamplesHost()

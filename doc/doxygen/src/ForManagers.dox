@@ -12,8 +12,7 @@
  *
  * - The implementation of any given manager may consist of
  *   several discrete services, but within any OpenAssetIO session, it
- *   is represented though a singular @ref
- *   PythonPluginSystemManagerPlugin.
+ *   is represented though a singular @ref glossary_manager_plugin
  *
  * - The API is initialized and coordinated by a @ref host. The host may
  *   instantiate one or more managers.
@@ -22,11 +21,11 @@
  *   through the manager's implementation of the @ref ManagerInterface.
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
- *   through its @ref PythonPluginSystemManagerPlugin is wrapped in the
- *   @fqref{hostApi.Manager} "Manager" class before
- *   being made available to the @ref host. This is to allow for host
- *   session state management and other auditing/logging functionality.
- *   It also provides a degree of isolation against future API changes.
+ *   through its @ref glossary_manager_plugin is wrapped in the
+ *   @fqref{hostApi.Manager} "Manager" class before being made available
+ *   to the @ref host. This is to allow for host session state
+ *   management and other auditing/logging functionality. It also
+ *   provides a degree of isolation against future API changes.
  *
  * - Methods of the @ref ManagerInterface are required to be reentrant
  *   and thread-safe. The response to any method should only depend on
@@ -127,8 +126,8 @@
  * - Implement @fqref{managerApi.ManagerInterface.resolve} "resolve" and
  *   populate the requested trait property values.
  *
- * - Implement a @ref PythonPluginSystemManagerPlugin and install this
- *   on @ref plugin_path_var.
+ * - Implement a @ref glossary_manager_plugin and install this on @ref
+ *   plugin_path_var.
  *
  * @subsection manager_todo_publishing Required for Publishing
  *
@@ -226,6 +225,8 @@
  * @see @fqref{managerApi.ManagerInterface} "ManagerInterface"
  * @see @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
  * "PythonPluginSystemManagerPlugin"
+ * @see @fqref{pluginSystem.CppPluginSystemManagerPlugin}
+ * "CppPluginSystemManagerPlugin"
  * @see @fqref{Context} "Context"
  * @see @fqref{managerApi.Host} "Host"
  */

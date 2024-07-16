@@ -78,6 +78,7 @@ target_sources(
     src/pluginSystem/CppPluginSystemBinding.cpp
     src/pluginSystem/CppPluginSystemPluginBinding.cpp
     src/pluginSystem/CppPluginSystemManagerImplementationFactoryBinding.cpp
+    src/pluginSystem/HybridPluginSystemManagerImplementationFactoryBinding.cpp
     src/trait/TraitsDataBinding.cpp
     src/utilsBinding.cpp
 )
