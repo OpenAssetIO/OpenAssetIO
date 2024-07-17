@@ -24,7 +24,6 @@ import operator
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-import os
 import pathlib
 
 import pytest
@@ -36,6 +35,43 @@ from openassetio import managerApi
 from openassetio.hostApi import HostInterface, ManagerFactory, Manager
 from openassetio.pluginSystem import CppPluginSystemManagerImplementationFactory
 from openassetio.log import ConsoleLogger
+
+
+class Test_SimpleCppManager_identifier:
+
+    def test_when_not_overridden_by_env_var_then_identifier_matches_default(
+        self, the_host_interface
+    ):
+        impl_factory = CppPluginSystemManagerImplementationFactory(ConsoleLogger())
+        manager_factory = ManagerFactory(the_host_interface, impl_factory, ConsoleLogger())
+
+        available_managers = manager_factory.availableManagers()
+
+        assert list(available_managers.keys()) == [
+            "org.openassetio.examples.manager.simplecppmanager"
+        ]
+
+        manager = manager_factory.createManager(
+            "org.openassetio.examples.manager.simplecppmanager"
+        )
+
+        assert manager.identifier() == "org.openassetio.examples.manager.simplecppmanager"
+
+    def test_when_overridden_by_env_var_then_identifier_matches_env_var(
+        self, monkeypatch, the_host_interface
+    ):
+        monkeypatch.setenv("OPENASSETIO_SIMPLECPPMANAGER_IDENTIFIER", "foo.bar")
+
+        impl_factory = CppPluginSystemManagerImplementationFactory(ConsoleLogger())
+        manager_factory = ManagerFactory(the_host_interface, impl_factory, ConsoleLogger())
+
+        available_managers = manager_factory.availableManagers()
+
+        assert list(available_managers.keys()) == ["foo.bar"]
+
+        manager = manager_factory.createManager("foo.bar")
+
+        assert manager.identifier() == "foo.bar"
 
 
 class Test_SimpleCppManager_initialize:
@@ -383,7 +419,18 @@ def a_context(a_simple_cpp_manager):
 
 
 @pytest.fixture(scope="module")
-def the_args_for_manager_factory():
+def the_args_for_manager_factory(the_host_interface):
+    logger = ConsoleLogger()
+
+    impl_factory = CppPluginSystemManagerImplementationFactory(logger)
+
+    config_file_path = pathlib.Path(__file__).parent / "resources" / "openassetio_config.toml"
+
+    return (str(config_file_path), the_host_interface, impl_factory, logger)
+
+
+@pytest.fixture(scope="module")
+def the_host_interface():
     class TestHostInterface(HostInterface):
         def identifier(self):
             return "org.openassetio.examples.SimpleCppManager.test"
@@ -391,12 +438,4 @@ def the_args_for_manager_factory():
         def displayName(self):
             return "Simple C++ Manager Test Host"
 
-    logger = ConsoleLogger()
-
-    host_interface = TestHostInterface()
-
-    impl_factory = CppPluginSystemManagerImplementationFactory(logger)
-
-    config_file_path = pathlib.Path(__file__).parent / "resources" / "openassetio_config.toml"
-
-    return (str(config_file_path), host_interface, impl_factory, logger)
+    return TestHostInterface()

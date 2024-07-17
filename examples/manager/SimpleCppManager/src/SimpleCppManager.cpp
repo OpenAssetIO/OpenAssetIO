@@ -15,7 +15,9 @@
 #include <openassetio/trait/TraitsData.hpp>
 
 // Unique ID of the plugin.
-constexpr std::string_view kPluginId = "org.openassetio.examples.manager.simplecppmanager";
+constexpr std::string_view kDefaultPluginId = "org.openassetio.examples.manager.simplecppmanager";
+// Environment variable that can be used to override the plugin ID.
+constexpr std::string_view kPluginIdEnvVar = "OPENASSETIO_SIMPLECPPMANAGER_IDENTIFIER";
 // Settings keys.
 constexpr std::string_view kSettingsKeyForEntityRefPrefix = "prefix";
 constexpr std::string_view kSettingsKeyForCapabilities = "capabilities";
@@ -36,11 +38,19 @@ constexpr std::string_view kSettingsKeyForReadEntityTraitProperties = "read_trai
  * return a stub response, rather than throw a
  * `NotImplementedException`.
  *
+ * The unique identifier of this plugin can be customised using the
+ * OPENASSETIO_SIMPLECPPMANAGER_IDENTIFIER environment variable.
+ * Otherwise it is set to
+ * "org.openassetio.examples.manager.simplecppmanager"
+ *
  * @see initialize
  */
 struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterface {
   [[nodiscard]] openassetio::Identifier identifier() const override {
-    return openassetio::Identifier{kPluginId};
+    if (const char* envVar = std::getenv(kPluginIdEnvVar.data())) {
+      return openassetio::Identifier{envVar};
+    }
+    return openassetio::Identifier{kDefaultPluginId};
   }
 
   /**
@@ -612,7 +622,10 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
  */
 struct Plugin final : openassetio::pluginSystem::CppPluginSystemManagerPlugin {
   [[nodiscard]] openassetio::Identifier identifier() const override {
-    return openassetio::Identifier{kPluginId};
+    if (const char* envVar = std::getenv(kPluginIdEnvVar.data())) {
+      return openassetio::Identifier{envVar};
+    }
+    return openassetio::Identifier{kDefaultPluginId};
   }
   openassetio::managerApi::ManagerInterfacePtr interface() override {
     return std::make_shared<SimpleCppManagerInterface>();
