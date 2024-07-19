@@ -4,6 +4,12 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
+### Breaking changes
+
+- Removed official support for Python 3.7. The minimum supported Python
+  version is now Python 3.9.
+  [#1365](https://github.com/OpenAssetIO/OpenAssetIO/pull/1365)
+
 ### New Features
 
 - Added SimpleCppManager - a minimal C++ manager and plugin example

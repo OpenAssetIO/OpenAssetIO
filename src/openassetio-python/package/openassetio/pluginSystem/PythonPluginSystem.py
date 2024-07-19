@@ -117,9 +117,8 @@ class PythonPluginSystem(object):
         there was a problem loading importlib_metadata.
         """
 
-        # We opt to use the backport implementation of modern importlib to avoid
-        # needing to support 3+ code paths to cover Python 3.7 to 3.10. It is
-        # made available for 3.7 onwards (for now, at least).
+        # We opt to use the backport implementation of modern importlib
+        # since the API changes from 3.9 to 3.10.
         # Pip installs should have this module available, but other methods may not,
         # so be tolerant of it being missing.
         try:

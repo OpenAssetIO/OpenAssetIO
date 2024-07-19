@@ -105,8 +105,6 @@ def execute_cli(fixtures_path, *extra_args):
     # correctly configured with the appropriate dependencies, so we
     # attempt to use the same executable as the tests.
 
-    # Str wrapping prevents issues with Path objects in Windows
-    # Python 3.7
     all_args = [sys.executable, "-m", "openassetio.test.manager"]
     if fixtures_path:
         all_args.extend(["-f", str(fixtures_path)])

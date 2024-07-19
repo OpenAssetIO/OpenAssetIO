@@ -54,7 +54,8 @@ disambiguating fixtures from tests.
 
 ### Python
 
-Python code should be written using only features included in Python 3.7.
+Python code should be written using only features included in Python
+3.9.
 
 Where feasible, Python unit test cases should use a class for each unit,
 where the methods of the test class are the test cases for that unit. In

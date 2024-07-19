@@ -156,8 +156,7 @@ which appears to overlap with a subset of `OpenAssetIO`s concerns.
 
 ### System requirements
 
-OpenAssetIO aligns itself with [VFX Reference Platform CY2022](https://vfxplatform.com/)
-with additional support for python 3.7.
+OpenAssetIO aligns itself with [VFX Reference Platform CY2022](https://vfxplatform.com/).
 
 Windows, macOS, and Linux are all supported platforms.
 

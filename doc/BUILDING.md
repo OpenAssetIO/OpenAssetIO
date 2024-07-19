@@ -34,7 +34,7 @@ following packages are installed:
 Binary builds additionally require the following packages to be
 available.
 
-- [Python 3.7+](https://www.python.org/) (development install)
+- [Python 3.9+](https://www.python.org/) (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
 - [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0
@@ -55,11 +55,6 @@ must be discoverable by CMake's [`find_package`](https://cmake.org/cmake/help/la
 During development, we tend use [ConanCenter](https://conan.io/center/)
 to fulfill the [`find_package`](https://cmake.org/cmake/help/latest/command/find_package.html) requirement.
 See [Building](#building) for more information.
-
-> **Warning**
->
-> If attempting to build on CentOS 7 using the ConanCenter
-> Python 3.7 package you will likely hit an [issue installing pkgconf](https://github.com/conan-io/conan-center-index/issues/8541).
 
 > **Warning**
 >
