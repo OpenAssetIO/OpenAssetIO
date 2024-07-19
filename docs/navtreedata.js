@@ -95,6 +95,7 @@ var NAVTREE =
       [ "$OPENASSETIO_DEFAULT_CONFIG", "glossary.html#default_config_var", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "$OPENASSETIO_LOGGING_SEVERITY", "glossary.html#logging_severity_var", null ],
+      [ "$OPENASSETIO_DLL_PATH", "glossary.html#dll_path_var", null ],
       [ "Manager State", "glossary.html#manager_state", null ],
       [ "Meta-version", "glossary.html#meta_version", null ],
       [ "manager", "glossary.html#manager", null ],
@@ -159,7 +160,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#ab38c3627bdd12ef7d7d20308fa97ebc6",
-"glossary.html#glossary_register"
+"glossary.html#glossary_preflight"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

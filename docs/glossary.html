@@ -194,6 +194,9 @@ $OPENASSETIO_PLUGIN_PATH</h1>
 <h1><a class="anchor" id="logging_severity_var"></a>
 $OPENASSETIO_LOGGING_SEVERITY</h1>
 <p>This is the environment variable used to control the default logging severity of the API. Note that many <a class="el" href="glossary.html#host">hosts</a> re-direct logging to their own system. Usually in these cases, logging severity is then controlled by the host's own configuration mechanism(s).</p>
+<h1><a class="anchor" id="dll_path_var"></a>
+$OPENASSETIO_DLL_PATH</h1>
+<p>When using OpenAssetIO via Python on Windows, this environment variable can be set to the directory containing openassetio.dll, to ensure importing <code>openassetio</code> succeeds. This is useful if the particular OpenAssetIO deployment places the openassetio.dll core library outside the standard Python search path. If a relative path is given, it is assumed to be relative to the <code>openassetio</code> package directory.</p>
 <h1><a class="anchor" id="manager_state"></a>
 Manager State</h1>
 <p>The <a class="el" href="glossary.html#ManagerInterface">ManagerInterface</a> is a reentrant API by design, and its implementation must be thread-safe. Consequently, the result of any call to an instance of this class should solely depend on the initialization settings, underlying asset data and the method arguments. In real-world use however, it is often required to understand that a series of discreet calls to the API may be part of the same logical user action.</p>
