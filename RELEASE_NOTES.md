@@ -18,6 +18,11 @@ v1.0.0-beta.x.x
   should still be preferred as a test manager when Python is available.
   [#1324](https://github.com/OpenAssetIO/OpenAssetIO/issues/1324)
 
+- For Windows users, added `OPENASSETIO_DLL_PATH` environment variable
+  to allow non-standard Python installations to locate
+  `openassetio.dll`, if required.
+  [#1340](https://github.com/OpenAssetIO/OpenAssetIO/issues/1340)
+
 ### Improvements
 
 - Added singular overload of `managementPolicy` for convenience.
@@ -29,6 +34,13 @@ v1.0.0-beta.x.x
 - Added a type hint for the `Manager` instance injected into the
   `openassetio.test.manager` API Compliance test harness, to aid in
   IDE code completion when writing test cases for manager plugins.
+
+### Bug fixes
+
+- Modified OpenAssetIO Python distributions (e.g. installed with `pip
+  install`) to allow C++ plugins to load. OpenAssetIO is now bundled as
+  multiple shared libraries, allowing external libraries to link.
+  [#1340](https://github.com/OpenAssetIO/OpenAssetIO/issues/1340)
 
 v1.0.0-beta.2.2
 ---------------

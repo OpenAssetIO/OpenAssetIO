@@ -166,6 +166,8 @@ jobs:
           # warnings, sanitizers. Will need additional CMake preset(s).
           OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
           CONAN_USER_HOME: ~/conan
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
       - name: Checkout OpenAssetIO-Test-CMake
         uses: actions/checkout@v4
@@ -193,9 +195,52 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
           CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
-      # TODO(DF): SimpleCppManager should (also) be tested as part of
-      # Python e2e tests, once we fix loading C++ plugins from Python.
+  cpp-manager-plugin:
+    name: C++ manager plugin on ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - os: windows-2019
+            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+            site-packages: Lib/site-packages
+            shell: cmd
+          - os: ubuntu-20.04
+            site-packages: lib/python3.9/site-packages
+            shell: bash
+          - os: macos-12
+            site-packages: lib/python3.9/site-packages
+            shell: bash
+    defaults:
+      run:
+        shell: ${{ matrix.config.shell }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bootstrap
+        uses: ./.github/bootstrap_platform
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install pytest
+
+      - name: Build/install OpenAssetIO (CMake)
+        run: >
+          ${{ matrix.config.preamble }}
+
+          cmake -S . -B build --install-prefix ${{ github.workspace }}/dist
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+          cmake --build build --parallel --config RelWithDebInfo
+
+          cmake --install build --config RelWithDebInfo
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
 
       - name: Build/install SimpleCppManager
         run: >
@@ -215,14 +260,34 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
 
-      - name: Test SimpleCppManager with simpleResolver
+      - name: Test SimpleCppManager with simpleResolver (via CMake install tree)
         run: >
-          python '${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py'
+          python ${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py
           openassetio-mediacreation:identity.DisplayName simplecpp://test/entity/1
           | grep 'Test Entity 1'
 
         env:
           PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
+          OPENASSETIO_LOGGING_SEVERITY: 1
+          OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
+          OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml
+          # For Windows:
+          OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
+
+      - name: Build/install OpenAssetIO (setup.py)
+        run: |
+          ${{ matrix.config.preamble }}
+          python -m pip install src/openassetio-python
+        env:
+          CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/.conan/conan_paths.cmake
+
+      - name: Test SimpleCppManager with simpleResolver (via Python distribution)
+        run: >
+          python ${{ github.workspace }}/examples/host/simpleResolver/simpleResolver.py
+          openassetio-mediacreation:identity.DisplayName simplecpp://test/entity/1
+          | grep 'Test Entity 1'
+
+        env:
           OPENASSETIO_LOGGING_SEVERITY: 1
           OPENASSETIO_PLUGIN_PATH: ${{ github.workspace }}/dist/plugins
           OPENASSETIO_DEFAULT_CONFIG: ${{ github.workspace }}/examples/manager/SimpleCppManager/tests/resources/openassetio_config.toml

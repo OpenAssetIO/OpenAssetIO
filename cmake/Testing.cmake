@@ -160,6 +160,18 @@ if (OPENASSETIO_ENABLE_PYTHON)
         OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN=$<BOOL:${OPENASSETIO_ENABLE_PYTHON_STUBGEN}>
     )
 
+    if (WIN32)
+        file(RELATIVE_PATH
+            _install_dir_rel_to_bin
+            "${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR}/openassetio"
+            "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
+        # On Windows the _openassetio Python extension module may not be
+        # installed alongside the openassetio.dll core library, and
+        # loading the Python extension module will fail in that case
+        # unless we augment the DLL search path.
+        set(_pytest_env OPENASSETIO_DLL_PATH=${_install_dir_rel_to_bin} ${_pytest_env})
+    endif()
+
     #-------------------------------------------------------------------
     # Gather ASan-specific environment variables to prepend to the
     # `pytest` invocations.

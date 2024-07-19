@@ -25,6 +25,21 @@ list(APPEND _envmod
 
 list(APPEND _envmod "OPENASSETIO_LOGGING_SEVERITY=1")
 
+# On Windows we (might) need to augment the DLL search path.
+if (WIN32)
+    # The dll will be in OPENASSETIO_BINARY_DIR, which is set in the
+    # OpenAssetIO CMake config file, and so is only available if we used
+    # `find_package(OpenAssetIO)`.
+    # If the variable is not available, then we must be building as a
+    # subproject of the parent OpenAssetIO project.
+    if (NOT DEFINED OPENASSETIO_BINARY_DIR)
+        # If building as part of OpenAssetIO, then we know where the
+        # OpenAssetIO DLLs are installed.
+        set(OPENASSETIO_BINARY_DIR "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}")
+    endif ()
+    list(APPEND _envmod "OPENASSETIO_DLL_PATH=${OPENASSETIO_BINARY_DIR}")
+endif ()
+
 # Add pytest test
 add_test(
     NAME openassetio.example.${PROJECT_NAME}.pytest

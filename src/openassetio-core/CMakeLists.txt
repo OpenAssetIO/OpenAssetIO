@@ -43,8 +43,6 @@ set_target_properties(openassetio-core PROPERTIES OUTPUT_NAME openassetio)
 install(TARGETS openassetio-core EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 
 if (WIN32)
-    install(TARGETS openassetio-core
-        DESTINATION "${OPENASSETIO_PYTHON_SITEDIR}/openassetio")
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)

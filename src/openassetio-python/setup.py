@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -40,6 +40,9 @@ class build_ext(setuptools.command.build_ext.build_ext):
 
         @param _ext: Extension to build (we only have one, so ignored).
         """
+        if self.editable_mode:
+            raise NotImplementedError("OpenAssetIO does not support editable installs")
+
         cmake_project_path = pathlib.Path("../..")
 
         if not os.path.isfile(cmake_project_path / "CMakeLists.txt"):
@@ -71,14 +74,14 @@ class build_ext(setuptools.command.build_ext.build_ext):
             ]
         )
 
-        self.__cmake(["--build", self.build_temp, "--target", "openassetio-python-module"])
+        self.__cmake(["--build", self.build_temp, "--parallel"])
 
         self.__cmake(
             [
                 "--install",
                 self.build_temp,
                 "--component",
-                "openassetio-python-module",
+                "openassetio-python-distribution",
             ]
         )
 
