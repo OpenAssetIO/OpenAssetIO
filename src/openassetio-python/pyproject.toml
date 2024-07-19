@@ -4,8 +4,6 @@
 [build-system]
 requires = [
     "setuptools>=65.5.0",
-    # CMake 3.29 PyPI package requires importlib_metadata, which is not
-    # available in a fresh Python 3.7 environment.
     "cmake==3.28.3",
     "ninja>=1.10.2.4",
     # For generating .pyi stub files.
@@ -16,7 +14,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "openassetio"
 version = "1.0.0b2.rev2"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
     "importlib_metadata >= 3.6"
 ]
@@ -39,7 +37,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
