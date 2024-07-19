@@ -56,7 +56,8 @@ class PythonPluginSystem(object):
     def scan(self, paths):
         """
         Searches the supplied paths for modules that define a
-        PythonPluginSystemPlugin through a top-level `openassetioPlugin` variable.
+        PythonPluginSystemPlugin through a top-level `openassetioPlugin`
+        variable.
 
         Paths are searched left-to-right, but only the first instance of
         any given plugin identifier will be used, and subsequent
@@ -105,7 +106,8 @@ class PythonPluginSystem(object):
     def scan_entry_points(self, entryPointName):
         """
         Searches packages for entry points that define a
-        PythonPluginSystemPlugin through a top-level `plugin` variable.
+        PythonPluginSystemPlugin through a top-level `openassetioPlugin`
+        variable.
 
         @note The order of discovery is determined by `importlib`, only
         the first plugin with any given identifier will be registered.
