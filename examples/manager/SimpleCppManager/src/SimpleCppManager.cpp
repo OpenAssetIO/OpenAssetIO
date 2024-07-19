@@ -100,6 +100,9 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
     // Support customisable capabilities. Assume a single-row CSV
     // format.
     if (const auto& maybeValue = valueFromSettings(kSettingsKeyForCapabilities)) {
+      // Remove default capabilities - they will all come from settings.
+      capabilities_.clear();
+
       std::istringstream csvRowAsStream{*maybeValue};
       std::string capability;
       // Loop over each listed capability.

@@ -137,6 +137,18 @@ class Test_SimpleCppManager_initialize:
         with pytest.raises(errors.NotImplementedException):
             a_fresh_simple_cpp_manager.contextFromPersistenceToken("abc")
 
+    def test_when_default_capability_missing_from_explicit_settings_then_capability_unavailable(
+        self, a_fresh_simple_cpp_manager
+    ):
+        settings = a_fresh_simple_cpp_manager.settings()
+        # Same as default, but without "resolution".
+        settings["capabilities"] = (
+            "entityReferenceIdentification,managementPolicyQueries,entityTraitIntrospection"
+        )
+        a_fresh_simple_cpp_manager.initialize(settings)
+
+        assert not a_fresh_simple_cpp_manager.hasCapability(Manager.Capability.kResolution)
+
     def test_when_capability_is_overridden_then_stub_implementations_available(
         self, a_fresh_simple_cpp_manager, a_context
     ):
