@@ -7,6 +7,7 @@
 #include <catch2/catch.hpp>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -14,10 +15,15 @@
 #include <openassetio/log/ConsoleLogger.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/log/SeverityFilter.hpp>
+#include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
+#include <openassetio/pluginSystem/CppPluginSystem.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemManagerImplementationFactory.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 
 namespace {
@@ -27,11 +33,13 @@ namespace {
 namespace hostApi = openassetio::hostApi;
 namespace log = openassetio::log;
 namespace managerApi = openassetio::managerApi;
+namespace pluginSystem = openassetio::pluginSystem;
 
 // clang-format off
 using ClassesWithPtrAlias = std::tuple<
     CLASS_AND_PTRS(openassetio::Context),
     CLASS_AND_PTRS(openassetio::trait::TraitsData),
+    CLASS_AND_PTRS(hostApi::EntityReferencePager),
     CLASS_AND_PTRS(hostApi::HostInterface),
     CLASS_AND_PTRS(hostApi::Manager),
     CLASS_AND_PTRS(hostApi::ManagerFactory),
@@ -39,10 +47,15 @@ using ClassesWithPtrAlias = std::tuple<
     CLASS_AND_PTRS(log::ConsoleLogger),
     CLASS_AND_PTRS(log::LoggerInterface),
     CLASS_AND_PTRS(log::SeverityFilter),
+    CLASS_AND_PTRS(managerApi::EntityReferencePagerInterface),
     CLASS_AND_PTRS(managerApi::Host),
     CLASS_AND_PTRS(managerApi::HostSession),
     CLASS_AND_PTRS(managerApi::ManagerInterface),
-    CLASS_AND_PTRS(managerApi::ManagerStateBase)
+    CLASS_AND_PTRS(managerApi::ManagerStateBase),
+    CLASS_AND_PTRS(pluginSystem::CppPluginSystem),
+    CLASS_AND_PTRS(pluginSystem::CppPluginSystemManagerImplementationFactory),
+    CLASS_AND_PTRS(pluginSystem::CppPluginSystemManagerPlugin),
+    CLASS_AND_PTRS(pluginSystem::CppPluginSystemPlugin)
 >;
 // clang-format on
 }  // namespace
