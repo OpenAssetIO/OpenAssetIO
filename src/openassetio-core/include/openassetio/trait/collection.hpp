@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <unordered_set>
+#include <set>
 #include <vector>
 
 #include <openassetio/export.h>
@@ -24,7 +24,7 @@ namespace trait {
  * no single ID can appear more than once and the order of the IDs
  * has no meaning and is not preserved.
  */
-using TraitSet = std::unordered_set<TraitId>;
+using TraitSet = std::set<TraitId>;
 
 /**
  * An ordered list of trait sets.

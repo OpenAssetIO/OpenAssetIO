@@ -22,7 +22,6 @@ class TraitsData::Impl {
 
   [[nodiscard]] trait::TraitSet traitSet() const {
     trait::TraitSet ids;
-    ids.reserve(data_.size());
     for (const auto& item : data_) {
       ids.insert(item.first);
     }
