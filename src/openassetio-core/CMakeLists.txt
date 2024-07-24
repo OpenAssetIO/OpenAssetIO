@@ -62,7 +62,6 @@ endif ()
 target_sources(
     openassetio-core
     PRIVATE
-    src/BatchElementError.cpp
     src/Context.cpp
     src/errors/exceptionMessages.cpp
     src/hostApi/HostInterface.cpp
