@@ -20,9 +20,6 @@ integration of a @ref manager "manager's" custom terminology into its
 user-facing components.
 """
 
-from .._core.audit import auditApiCall
-
-
 ## @namespace openassetio.hostApi.terminology
 #
 # The terminology mapping mechanism allows Managers to customize
@@ -95,7 +92,6 @@ class Mapper:
         self.__terminology = dict(terminology)
         self.__updateTerminology(manager)
 
-    @auditApiCall("Terminology")
     def replaceTerms(self, sourceStr):
         """
         Substitutes any valid terminology tokens in the input string
@@ -121,7 +117,6 @@ class Mapper:
             pass
         return sourceStr.replace("{", "").replace("}", "")
 
-    @auditApiCall("Terminology")
     def term(self, key, default=""):
         """
         Returns the term corresponding to the supplied key, @ref

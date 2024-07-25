@@ -62,14 +62,6 @@ class Test_package_imports:
         from openassetio import utils
 
 
-class Test_core_imports:
-    def test_importing_audit_succeeds(self):
-        from openassetio._core import audit
-
-    def test_importing_debug_succeeds(self):
-        from openassetio._core import debug
-
-
 class Test_hostApi_imports:
     def test_importing_HostInterface_succeeds(self):
         from openassetio.hostApi import HostInterface
