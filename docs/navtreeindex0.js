@@ -64,12 +64,10 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__info.html#a7a55201eb44f76d7c980d780177e5607":[14,0,0,2,0,0,6,1],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html":[14,0,0,2,0,0,7],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#a26b1b5aaa859d024cb7114cc1d4c1fd2":[14,0,0,2,0,0,7,0],
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#a3a6f29f97b55b608b05d5e278329a40a":[14,0,0,2,0,0,7,4],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#a56c54e463c817da67a20bb5e7b3b433a":[14,0,0,2,0,0,7,1],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#a6a861be3e1e8eca15fbb1074ca3400d1":[14,0,0,2,0,0,7,3],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#aafc6b7a1662a9678a250f51741f94030":[14,0,0,2,0,0,7,2],
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#abf3868508a0ce992328252e27ed89c55":[14,0,0,2,0,0,7,6],
-"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#ac48741e58335bc8832476cca565ffcfc":[14,0,0,2,0,0,7,5],
+"classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__initialize.html#abf3868508a0ce992328252e27ed89c55":[14,0,0,2,0,0,7,4],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference_string.html":[14,0,0,2,0,0,8],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference_string.html#a26b1b5aaa859d024cb7114cc1d4c1fd2":[14,0,0,2,0,0,8,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__is_entity_reference_string.html#a8dad3260a54046954bd27991bb624f87":[14,0,0,2,0,0,8,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a0f1c9241fd0dbb073bcb3c30884e31bb":[14,0,0,3,1,3,6],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a1ca7b7135362b663eb8212e7ade3ba8f":[14,0,0,3,1,3,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a689613257280d7516ce90a63e86e8be1":[14,0,0,3,1,3,3],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5":[14,0,0,3,1,3,5]
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5":[14,0,0,3,1,3,5],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#ab38c3627bdd12ef7d7d20308fa97ebc6":[14,0,0,3,1,3,1],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html":[14,0,0,3,1,4]
 };

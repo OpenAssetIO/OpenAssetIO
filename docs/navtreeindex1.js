@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#ab38c3627bdd12ef7d7d20308fa97ebc6":[14,0,0,3,1,3,1],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html":[14,0,0,3,1,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a055c922e8337e22bbbac4003839453cc":[14,0,0,3,1,4,3],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a5abb3f954266ff5c4e85684eee91ab02":[14,0,0,3,1,4,0],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a75be492c7f5ebe638b5e204cfc6010dc":[14,0,0,3,1,4,6],
@@ -189,8 +187,8 @@ var NAVTREEINDEX1 =
 "examples.html#examples_inspecting_a_reference":[3,3],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
-"functions.html":[14,3,0,0],
 "functions.html":[14,3,0],
+"functions.html":[14,3,0,0],
 "functions_0x7e.html":[14,3,0,21],
 "functions_a.html":[14,3,0,1],
 "functions_b.html":[14,3,0,2],
@@ -249,5 +247,7 @@ var NAVTREEINDEX1 =
 "glossary.html#default_config_var":[6,10],
 "glossary.html#dll_path_var":[6,13],
 "glossary.html#entity":[6,3],
-"glossary.html#entity_reference":[6,4]
+"glossary.html#entity_reference":[6,4],
+"glossary.html#glossary_preflight":[6,17],
+"glossary.html#glossary_register":[6,19]
 };
