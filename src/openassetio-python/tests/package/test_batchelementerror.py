@@ -36,6 +36,7 @@ class Test_BatchElementError_ErrorCode:
         assert int(BatchElementError.ErrorCode.kEntityResolutionError) == 132
         assert int(BatchElementError.ErrorCode.kInvalidPreflightHint) == 133
         assert int(BatchElementError.ErrorCode.kInvalidTraitSet) == 134
+        assert int(BatchElementError.ErrorCode.kAuthError) == 135
 
 
 class Test_BatchElementError_inheritance:
@@ -119,6 +120,7 @@ class Test_BatchElementException:
             BatchElementError.ErrorCode.kEntityResolutionError,
             BatchElementError.ErrorCode.kInvalidPreflightHint,
             BatchElementError.ErrorCode.kInvalidTraitSet,
+            BatchElementError.ErrorCode.kAuthError,
         ],
     )
     def test_when_thrown_then_correct_data_set(self, exception_code):

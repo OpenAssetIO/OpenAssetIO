@@ -25,7 +25,8 @@ void registerBatchElementError(const py::module& mod) {
       .value("kEntityAccessError", BatchElementError::ErrorCode::kEntityAccessError)
       .value("kEntityResolutionError", BatchElementError::ErrorCode::kEntityResolutionError)
       .value("kInvalidPreflightHint", BatchElementError::ErrorCode::kInvalidPreflightHint)
-      .value("kInvalidTraitSet", BatchElementError::ErrorCode::kInvalidTraitSet);
+      .value("kInvalidTraitSet", BatchElementError::ErrorCode::kInvalidTraitSet)
+      .value("kAuthError", BatchElementError::ErrorCode::kAuthError);
 
   batchElementError
       .def(py::init<BatchElementError::ErrorCode, openassetio::Str>(), py::arg("code"),

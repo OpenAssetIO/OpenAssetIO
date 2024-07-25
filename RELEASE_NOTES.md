@@ -47,6 +47,10 @@ section for more details._
   `openassetio.dll`, if required.
   [#1340](https://github.com/OpenAssetIO/OpenAssetIO/issues/1340)
 
+- Added `kAuthError` to the set of possible `BatchElementError` error
+  codes.
+  [#1009](https://github.com/OpenAssetIO/OpenAssetIO/issues/1009)
+
 ### Improvements
 
 - Added singular overload of `managementPolicy` for convenience.

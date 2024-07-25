@@ -88,6 +88,7 @@ class BatchFirstMethodTest:
         "entityResolutionError",
         "invalidPreflightHint",
         "invalidTraitSet",
+        "authError",
     ]
 
     def assert_callback_overload_wraps_the_corresponding_method_of_the_held_interface(
