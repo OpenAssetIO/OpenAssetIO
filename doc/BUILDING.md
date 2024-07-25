@@ -18,7 +18,7 @@
 
 We assume the following system packages are installed
 
-- CMake 3.21+
+- CMake 3.27+
 - C++17 or later compliant compiler
 (GCC 9.3+ / MSVC 16.9+ / macOS 10.15+)
 
@@ -40,6 +40,8 @@ available.
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0
 - [Ada](https://github.com/ada-url/ada) 2.7.4
 - [PCRE2](https://github.com/PCRE2Project/pcre2) 10.42
+- [pybind11-stubgen](https://github.com/sizmailov/pybind11-stubgen)
+  2.5.1 (optional, enabled by default)
 
 ### Test dependencies
 
@@ -55,13 +57,6 @@ must be discoverable by CMake's [`find_package`](https://cmake.org/cmake/help/la
 During development, we tend use [ConanCenter](https://conan.io/center/)
 to fulfill the [`find_package`](https://cmake.org/cmake/help/latest/command/find_package.html) requirement.
 See [Building](#building) for more information.
-
-> **Warning**
->
-> On macOS, by default, CMake prefers Framework installations
-> (see: [$CMAKE_FIND_FRAMEWORK](https://cmake.org/cmake/help/latest/variable/CMAKE_FIND_FRAMEWORK.html)).
-> This means dependencies may default to the system installation despite
-> alternatives being present.
 
 ## Building
 
@@ -152,8 +147,10 @@ behaviour of the build.
 | Option                                            | Description                                                           | Default |
 |---------------------------------------------------|-----------------------------------------------------------------------|---------|
 | `OPENASSETIO_ENABLE_PYTHON`                       | Additionally build python bindings                                    | `ON`    |
+| `OPENASSETIO_PYTHON_SITEDIR`                      | Python site-packages install prefix subdirectory                      | auto    |
+| `OPENASSETIO_ENABLE_PYTHON_STUBGEN`               | Enable Python .pyi stub file generation                               | `ON`    |
 | `OPENASSETIO_ENABLE_PYTHON_INSTALL_DIST_INFO`     | Create a dist-info metadata directory alongside Python installation   | `ON`    |
-| `OPENASSETIO_ENABLE_C`                            | Additionally build C bindings                                         | `OFF`   |
+| `OPENASSETIO_ENABLE_SIMPLECPPMANAGER`             | Build the SimpleCppManager example plugin                             | `OFF`   |
 | `OPENASSETIO_ENABLE_TESTS`                        | Additionally build tests                                              | `OFF`   |
 | `OPENASSETIO_ENABLE_PYTHON_TEST_VENV`             | Automatically create environment when running tests                   | `ON`    |
 | `OPENASSETIO_WARNINGS_AS_ERRORS`                  | Treat compiler warnings as errors                                     | `OFF`   |
@@ -161,12 +158,12 @@ behaviour of the build.
 | `OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE`    | Enable position independent code for static library builds            | `ON`    |
 | `OPENASSETIO_GLIBCXX_USE_CXX11_ABI`               | When building under gcc, use the new C++11 library ABI                | `OFF`   |
 | `OPENASSETIO_ENABLE_NEW_DTAGS`                    | Set RUNPATH, overriding RPATH, on linux platforms                     | `OFF`   |
-| `OPENASSETIO_ENABLE_COVERAGE`                     | Enable coverage reporting for gcc/clang                               | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_ADDRESS`            | Enable address sanitizer                                              | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_LEAK`               | Enable leak sanitizer                                                 | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_UNDEFINED_BEHAVIOR` | Enable undefined behavior sanitizer                                   | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_THREAD`             | Enable thread sanitizer                                               | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_MEMORY`             | Enable memory sanitizer                                               | `OFF`   |
+| `OPENASSETIO_ENABLE_GLIBCXX_DEBUG`                | Enable libstdc++ debug mode                                           | `OFF`   |
 | `OPENASSETIO_ENABLE_CLANG_TIDY`                   | Enable clang-tidy analysis during build                               | `OFF`   |
 | `OPENASSETIO_ENABLE_CPPLINT`                      | Enable cpplint linter during build                                    | `OFF`   |
 | `OPENASSETIO_ENABLE_CMAKE_LINT`                   | Enable cmake-lint linter during build                                 | `OFF`   |
