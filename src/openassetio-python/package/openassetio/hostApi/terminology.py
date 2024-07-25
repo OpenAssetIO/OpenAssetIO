@@ -136,5 +136,5 @@ class Mapper:
         # Get any custom strings from the manager that we should use in the UI,
         # this is to allow a consistent terminology across implementations of a
         # specific asset management system.
-        manager.updateTerminology(self.__terminology)
+        self.__terminology = manager.updateTerminology(self.__terminology)
         self.__terminology[kTerm_Manager] = manager.displayName()
