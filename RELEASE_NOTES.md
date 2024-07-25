@@ -10,6 +10,12 @@ v1.0.0-beta.x.x
   version is now Python 3.9.
   [#1365](https://github.com/OpenAssetIO/OpenAssetIO/pull/1365)
 
+- Updated the API contract to no longer require that managers throw an
+  exception when an unrecognized setting is given during initialization.
+  The `openassetio.test.manager` API Compliance test suite no longer
+  asserts that this is the case.
+  [#1202](https://github.com/OpenAssetIO/OpenAssetIO/issues/1202)
+
 ### New Features
 
 - Added SimpleCppManager - a minimal C++ manager and plugin example

@@ -143,27 +143,6 @@ class Test_initialize(FixtureAugmentedTestCase):
 
         self.assertEqual(self._manager.settings(), expected)
 
-    def test_when_settings_have_invalid_keys_then_raises_KeyError(self):
-        invalid_settings = self.requireFixture(
-            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True
-        )
-
-        with self.assertRaises(KeyError):
-            self._manager.initialize(invalid_settings)
-
-    def test_when_settings_have_invalid_keys_then_all_settings_unchanged(self):
-        expected = self._manager.settings()
-        invalid_settings = self.requireFixture(
-            "some_settings_with_new_values_and_invalid_keys", skipTestIfMissing=True
-        )
-
-        try:
-            self._manager.initialize(invalid_settings)
-        except Exception:  # pylint: disable=broad-except
-            pass
-
-        self.assertEqual(self._manager.settings(), expected)
-
     def test_when_settings_have_all_keys_then_all_settings_updated(self):
         updated = self.requireFixture("some_settings_with_all_keys", skipTestIfMissing=True)
 
