@@ -126,6 +126,20 @@ class BatchElementError final {
      * the manager.
      */
     kInvalidTraitSet = OPENASSETIO_BatchErrorCode_kInvalidTraitSet,
+
+    /**
+     * Error code indicating that the host is not authorized for a
+     * pariticular request.
+     *
+     * The operation may be valid if attempted again, once the
+     * authorization issue is resolved.
+     *
+     * This can be due to insufficient or incomplete authentication as
+     * well as authorization, and could be specific to a particular
+     * action, or a particular entity. The error message should provide
+     * details of the reason.
+     */
+    kAuthError = OPENASSETIO_BatchErrorCode_kAuthError,
   };
 
   /**

@@ -47,3 +47,6 @@
 
 /// Failure due to a TraitSet being unknown to the manager
 #define OPENASSETIO_BatchErrorCode_kInvalidTraitSet (OPENASSETIO_BatchErrorCode_BEGIN + 6)
+
+/// Failure due to a authentication or authorization.
+#define OPENASSETIO_BatchErrorCode_kAuthError (OPENASSETIO_BatchErrorCode_BEGIN + 7)

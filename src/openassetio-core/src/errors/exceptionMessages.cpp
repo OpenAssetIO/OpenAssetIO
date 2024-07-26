@@ -27,6 +27,8 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
       return "invalidPreflightHint";
     case BatchElementError::ErrorCode::kInvalidTraitSet:
       return "invalidTraitSet";
+    case BatchElementError::ErrorCode::kAuthError:
+      return "authError";
   }
 
   assert(false);  // Impossible case.
