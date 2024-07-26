@@ -54,7 +54,7 @@ void registerManager(const py::module& mod) {
   using openassetio::managerApi::ManagerInterfacePtr;
   using openassetio::trait::TraitsDataPtr;
 
-  py::class_<Manager, ManagerPtr> pyManager{mod, "Manager"};
+  py::class_<Manager, ManagerPtr> pyManager{mod, "Manager", py::is_final()};
 
   // BatchElementErrorPolicy tags for tag dispatch overload resolution
   // idiom.

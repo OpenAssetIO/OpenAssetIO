@@ -18,7 +18,7 @@ void registerCppPluginSystem(const py::module_ &mod) {
   // catch if this changes (e.g. if we add logger calls in the other
   // methods).
 
-  py::class_<CppPluginSystem, CppPluginSystem::Ptr>(mod, "CppPluginSystem")
+  py::class_<CppPluginSystem, CppPluginSystem::Ptr>(mod, "CppPluginSystem", py::is_final())
       .def(py::init(RetainCommonPyArgs::forFn<&CppPluginSystem::make>()),
            py::arg("logger").none(false))
       .def("reset", &CppPluginSystem::reset)

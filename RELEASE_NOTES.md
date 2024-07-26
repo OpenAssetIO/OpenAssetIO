@@ -4,11 +4,19 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
+_This release might not be source compatible for Python hosts. See
+breaking changes, below._
+
 ### Breaking changes
 
 - Removed official support for Python 3.7. The minimum supported Python
   version is now Python 3.9.
   [#1365](https://github.com/OpenAssetIO/OpenAssetIO/pull/1365)
+
+- Marked as "final" several C++ Python bindings of classes that do not
+  support Python inheritance, such that an error will be encountered at
+  import time if an attempt is made to inherit from them.
+  [#1357](https://github.com/OpenAssetIO/OpenAssetIO/pull/1357)
 
 - Updated the API contract to no longer require that managers throw an
   exception when an unrecognized setting is given during initialization.
