@@ -7,7 +7,8 @@ var classopenassetio_1_1v1_1_1errors_1_1_batch_element_error =
       [ "kEntityAccessError", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faceb0d45cea8e029a5a33bb468a090485", null ],
       [ "kEntityResolutionError", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5", null ],
       [ "kInvalidPreflightHint", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458", null ],
-      [ "kInvalidTraitSet", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526", null ]
+      [ "kInvalidTraitSet", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526", null ],
+      [ "kAuthError", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa146c06479718cbd4db4cb222594f6227", null ]
     ] ],
     [ "operator!=", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#aeaccd4c5d9d5f1f091178c826b20e596", null ],
     [ "operator==", "classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a6c43523e367a104a3c3a470add1b07f6", null ],

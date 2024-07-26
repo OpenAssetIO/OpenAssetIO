@@ -133,7 +133,8 @@ Public Types</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5">kEntityResolutionError</a> = OPENASSETIO_BatchErrorCode_kEntityResolutionError, 
 <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458">kInvalidPreflightHint</a> = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint, 
-<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> = OPENASSETIO_BatchErrorCode_kInvalidTraitSet
+<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526">kInvalidTraitSet</a> = OPENASSETIO_BatchErrorCode_kInvalidTraitSet, 
+<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fa146c06479718cbd4db4cb222594f6227">kAuthError</a> = OPENASSETIO_BatchErrorCode_kAuthError
 <br />
  }<tr class="memdesc:a59e56af19e754a6aa26a612ebf91d05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible classes of error.  <a href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05f">More...</a><br /></td></tr>
 </td></tr>
@@ -212,6 +213,11 @@ Public Attributes</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fad5fd38ffaca6912c052b40066e024526"></a>kInvalidTraitSet&#160;</td><td class="fielddoc">
 <p>Error code used whenever a trait set is not one that is known to the manager. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fa146c06479718cbd4db4cb222594f6227"></a>kAuthError&#160;</td><td class="fielddoc">
+<p>Error code indicating that the host is not authorized for a pariticular request. </p>
+<p>The operation may be valid if attempted again, once the authorization issue is resolved.</p>
+<p>This can be due to insufficient or incomplete authentication as well as authorization, and could be specific to a particular action, or a particular entity. The error message should provide details of the reason. </p>
 </td></tr>
 </table>
 

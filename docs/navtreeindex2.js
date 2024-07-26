@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#glossary_register":[6,19],
 "glossary.html#glossary_resolve":[6,20],
 "glossary.html#host":[6,5],
 "glossary.html#locale":[6,7],
