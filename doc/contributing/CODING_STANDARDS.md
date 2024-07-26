@@ -427,7 +427,7 @@ a C++ function call and those mutations persist to the next invocation.
 However, some C++ types are converted to/from native Python types,
 including primitives such as `int` and `float`, but also (by default)
 `std::string` and container types like `std::vector` (converted to
-Python `list`) and `std::unordered_set` (converted to Python `set`).
+Python `list`) and `std::set` (converted to Python `set`).
 
 In these cases, the initial conversion of the C++ default value to a
 Python object (to be stored in the function record) necessitates a copy.

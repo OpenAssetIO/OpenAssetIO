@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
+#include <algorithm>
 #include <memory>
 #include <tuple>
 
@@ -55,4 +56,66 @@ TEMPLATE_LIST_TEST_CASE("Appropriate classes have shared_ptr aliases", "", Class
   STATIC_REQUIRE(std::is_same_v<ClassConstPtr, std::shared_ptr<const Class>>);
   STATIC_REQUIRE(std::is_same_v<typename Class::Ptr, ClassPtr>);
   STATIC_REQUIRE(std::is_same_v<typename Class::ConstPtr, ClassConstPtr>);
+}
+
+SCENARIO("TraitSet supports set operations") {
+  using openassetio::trait::TraitsData;
+  using openassetio::trait::TraitSet;
+
+  GIVEN("two trait sets") {
+    const TraitSet traitsA{"a", "b", "c"};
+    const TraitSet traitsB{"d", "c", "b"};
+
+    WHEN("union is performed") {
+      TraitSet actualUnion;
+      std::set_union(cbegin(traitsA), cend(traitsA), cbegin(traitsB), cend(traitsB),
+                     std::inserter(actualUnion, end(actualUnion)));
+
+      THEN("union is correct") {
+        const TraitSet expectedUnion{"a", "b", "c", "d"};
+        CHECK(actualUnion == expectedUnion);
+      }
+    }
+
+    WHEN("intersection is performed") {
+      TraitSet actualIntersection;
+      std::set_intersection(cbegin(traitsA), cend(traitsA), cbegin(traitsB), cend(traitsB),
+                            std::inserter(actualIntersection, end(actualIntersection)));
+      THEN("intersection is correct") {
+        const TraitSet expectedIntersection{"b", "c"};
+        CHECK(actualIntersection == expectedIntersection);
+      }
+    }
+
+    WHEN("non-subset is checked for inclusion in set A") {
+      const bool isSubset =
+          std::includes(cbegin(traitsA), cend(traitsA), cbegin(traitsB), cend(traitsB));
+
+      THEN("A is not a subset of B") { CHECK(!isSubset); }
+    }
+
+    AND_GIVEN("a subset of set A") {
+      const TraitSet subset{"c", "a"};
+
+      WHEN("subset is checked for inclusion in set A") {
+        const bool isSubset =
+            std::includes(cbegin(traitsA), cend(traitsA), cbegin(subset), cend(subset));
+
+        THEN("subset is detected as included in A") { CHECK(isSubset); }
+      }
+    }
+
+    GIVEN("an TraitsData initialized with a TraitSet") {
+      const TraitSet traits{"a", "b", "c"};
+      const auto traitsData = TraitsData::make(traits);
+
+      WHEN("the trait set is retrieved") {
+        const auto actualTraits = traitsData->traitSet();
+
+        THEN("it is of type TraitSet") {
+          CHECK(std::is_same_v<const TraitSet, decltype(actualTraits)>);
+        }
+      }
+    }
+  }
 }

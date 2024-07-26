@@ -4,8 +4,10 @@ Release Notes
 v1.0.0-beta.x.x
 ---------------
 
-_This release might not be source compatible for Python hosts. See
-breaking changes, below._
+_This release breaks binary compatibility and may break source
+compatibility with C++ hosts and managers. In addition, this release may
+break source compatibility for Python hosts. See breaking changes
+section for more details._
 
 ### Breaking changes
 
@@ -23,6 +25,14 @@ breaking changes, below._
   The `openassetio.test.manager` API Compliance test suite no longer
   asserts that this is the case.
   [#1202](https://github.com/OpenAssetIO/OpenAssetIO/issues/1202)
+
+- Switched from `std::unordered_set` to `std::set` for trait sets (via
+  `TraitSet` alias) in C++. This allows C++ `std` algorithm set
+  operations to work. Python is unaffected. This is mostly a
+  source-compatible change, provided the `TraitSet` alias is used in
+  consuming code, and no `unordered_set`-specific API is used (e.g.
+  `reserve(...)`).
+  [#1339](https://github.com/OpenAssetIO/OpenAssetIO/issues/1339)
 
 ### New Features
 
