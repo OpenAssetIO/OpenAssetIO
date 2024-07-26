@@ -131,7 +131,6 @@ var NAVTREE =
       [ "Looking Up Existing Thumbnails", "thumbnails.html#thumbnails_lookup", null ]
     ] ],
     [ "Todo List", "todo.html", null ],
-    [ "Deprecated List", "deprecated.html", null ],
     [ "Environment Variable List", "envvar.html", null ],
     [ "Namespace Members", "namespacemembers.html", [
       [ "All", "namespacemembers.html", null ],
@@ -160,7 +159,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html",
-"glossary.html#glossary_register"
+"glossary.html#glossary_resolve"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
