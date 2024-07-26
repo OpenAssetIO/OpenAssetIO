@@ -88,37 +88,3 @@ from ._openassetio import (
     betaMinorVersion,
     versionString,
 )
-
-
-#
-# Deprecated: https://github.com/OpenAssetIO/OpenAssetIO/issues/1127
-#
-from ._openassetio import trait
-
-TraitsData = trait.TraitsData
-del trait
-
-
-from ._openassetio import errors as _errors
-
-BatchElementError = _errors.BatchElementError
-
-
-class BatchElementException(_errors.BatchElementException):
-    """
-    @deprecated See openassetio.errors.BatchElementException
-    """
-
-    def __init__(self, index, error):
-        super().__init__(index, error, error.message)
-
-
-UnknownBatchElementException = _errors.BatchElementException
-InvalidEntityReferenceBatchElementException = _errors.BatchElementException
-MalformedEntityReferenceBatchElementException = _errors.BatchElementException
-EntityAccessErrorBatchElementException = _errors.BatchElementException
-EntityResolutionErrorBatchElementException = _errors.BatchElementException
-InvalidPreflightHintBatchElementException = _errors.BatchElementException
-InvalidTraitSetBatchElementException = _errors.BatchElementException
-
-del _errors

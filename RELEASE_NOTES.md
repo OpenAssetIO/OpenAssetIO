@@ -15,6 +15,15 @@ section for more details._
   version is now Python 3.9.
   [#1365](https://github.com/OpenAssetIO/OpenAssetIO/pull/1365)
 
+- Removed deprecated type aliases `openassetio.TraitsData`,
+  `openassetio.BatchElementError`
+  and `openassetio.BatchElementException`.
+  Removed the deprecated explicit `*BatchElementException` exception
+  subtypes under the top-level `openassetio` namespace. Removed the
+  deprecated Python `openassetio.exceptions` module. Removed the
+  deprecated `kField_*` constants.
+  [#1311](https://github.com/OpenAssetIO/OpenAssetIO/issues/1311)
+
 - Marked as "final" several C++ Python bindings of classes that do not
   support Python inheritance, such that an error will be encountered at
   import time if an attempt is made to inherit from them.
