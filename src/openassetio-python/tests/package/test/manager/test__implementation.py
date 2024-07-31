@@ -20,7 +20,7 @@ Unit tests for the _implementation module of the manager test harness.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=too-many-arguments,too-few-public-methods
-# pylint: disable=protected-access
+# pylint: disable=protected-access,unused-argument
 
 from unittest import mock
 from unittest.mock import Mock, call
@@ -29,17 +29,10 @@ import pytest
 
 from openassetio.test import kTestHarnessTraitId, kCasePropertyKey
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
-from openassetio.test.manager._implementation import (
-    _ValidatorHarnessHostInterface,
-    _ValidatorTestLoader,
-    createHarness,
-)
+from openassetio.test.manager import _implementation
 from openassetio.trait import TraitsData
 from openassetio.hostApi import ManagerFactory
-from openassetio.pluginSystem import (
-    PythonPluginSystemManagerImplementationFactory,
-    CppPluginSystemManagerImplementationFactory,
-)
+from openassetio import pluginSystem
 from openassetio import errors
 
 
@@ -59,7 +52,7 @@ class Test_Loader_loadTestsFromTestCase:
         manager_create_fn = Mock()
         manager_create_fn.return_value = mock_manager
 
-        loader = _ValidatorTestLoader(manager_create_fn)
+        loader = _implementation._ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -102,7 +95,7 @@ class Test_Loader_loadTestsFromTestCase:
             "test_one": case_one_fixtures,
             "test_two": case_two_fixtures,
         }
-        loader = _ValidatorTestLoader(manager_create_fn)
+        loader = _implementation._ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -141,7 +134,7 @@ class Test_Loader_loadTestsFromTestCase:
         # Only include fixtures for one test case
         case_two_fixtures = {}
         a_fixture_dict["Test_MockTest"] = {"test_two": case_two_fixtures}
-        loader = _ValidatorTestLoader(manager_create_fn)
+        loader = _implementation._ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         # action
@@ -180,7 +173,7 @@ class Test_Loader_loadTestsFromTestCase:
 
         manager_create_fn = Mock(wraps=create_manager)
 
-        loader = _ValidatorTestLoader(manager_create_fn)
+        loader = _implementation._ValidatorTestLoader(manager_create_fn)
         loader.setFixtures(a_fixture_dict)
 
         mock_test_case_class.shareManager = False
@@ -206,13 +199,13 @@ class Test_Loader_loadTestsFromTestCase:
 
 class Test_ValidatorHostInterface_identifier:
     def test_returns_expected_id(self):
-        interface = _ValidatorHarnessHostInterface()
+        interface = _implementation._ValidatorHarnessHostInterface()
         assert interface.identifier() == "org.openassetio.test.manager.harness"
 
 
 class Test_ValidatorHostInterface_displayName:
     def test_returns_expected_name(self):
-        interface = _ValidatorHarnessHostInterface()
+        interface = _implementation._ValidatorHarnessHostInterface()
         assert interface.displayName() == "OpenAssetIO Manager Test Harness"
 
 
@@ -227,111 +220,66 @@ class Test_FixtureAugmentedTestCase_init:
 # implementation factory based on the reported results of scanning the
 # system environment
 class Test_createHarness:
-    def test_no_managers_available(self, monkeypatch):
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            PythonPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: [""],
+    def test_cpp_has_priority_over_python(self, mock_manager_factory, mock_hybrid_plugin_system):
+        mock_hybrid_plugin_system.return_value.identifiers.return_value = ["an.asset.manager"]
+
+        _implementation.createHarness("an.asset.manager")
+
+        assert isinstance(
+            mock_hybrid_plugin_system.call_args_list[0].args[0][0],
+            pluginSystem.CppPluginSystemManagerImplementationFactory,
         )
-        monkeypatch.setattr(
-            CppPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: [""],
+        assert isinstance(
+            mock_hybrid_plugin_system.call_args_list[0].args[0][1],
+            pluginSystem.PythonPluginSystemManagerImplementationFactory,
         )
+
+    def test_when_identifier_not_found_then_raises(
+        self, mock_manager_factory, mock_hybrid_plugin_system
+    ):
+        mock_hybrid_plugin_system.return_value.identifiers.return_value = ["another.asset.manager"]
+
         with pytest.raises(
             errors.InputValidationException,
             match="Test Harness: Could not find Python or Cpp plugin with identifier "
             "'an.asset.manager'",
         ):
-            createHarness("an.asset.manager")
+            _implementation.createHarness("an.asset.manager")
 
-    def test_python_manager_available_only(self, monkeypatch):
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            PythonPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["an.asset.manager"],
-        )
-        createHarness("an.asset.manager")
-        ManagerFactory.createManagerForInterface.assert_called_once()
-        assert isinstance(
-            ManagerFactory.createManagerForInterface.call_args[0][2],
-            PythonPluginSystemManagerImplementationFactory,
+    def test_when_identifier_found_then_creates_interface(
+        self, mock_manager_factory, mock_hybrid_plugin_system
+    ):
+        mock_hybrid_plugin_system.return_value.identifiers.return_value = ["an.asset.manager"]
+
+        _implementation.createHarness("an.asset.manager")
+
+        mock_manager_factory.createManagerForInterface.assert_called_once_with(
+            "an.asset.manager", mock.ANY, mock.ANY, mock.ANY
         )
 
-    def test_cpp_manager_available_only(self, monkeypatch):
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            CppPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["an.asset.manager"],
-        )
-        createHarness("an.asset.manager")
-        ManagerFactory.createManagerForInterface.assert_called_once()
-        assert isinstance(
-            ManagerFactory.createManagerForInterface.call_args[0][2],
-            CppPluginSystemManagerImplementationFactory,
-        )
 
-    def test_python_and_cpp_manager_available(self, monkeypatch):
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            PythonPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["an.asset.manager"],
-        )
-        monkeypatch.setattr(
-            CppPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["an.asset.manager"],
-        )
-        createHarness("an.asset.manager")
-        ManagerFactory.createManagerForInterface.assert_called_once()
-        # We should preference python if both are available.
-        assert isinstance(
-            ManagerFactory.createManagerForInterface.call_args[0][2],
-            PythonPluginSystemManagerImplementationFactory,
-        )
+@pytest.fixture
+def mock_manager_factory(monkeypatch):
+    mocked = mock.create_autospec(ManagerFactory, spec_set=True)
+    monkeypatch.setattr(
+        _implementation.hostApi,
+        "ManagerFactory",
+        mocked,
+    )
+    return mocked
 
-    def test_specified_cpp_manager_chosen(self, monkeypatch):
 
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            PythonPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["a.python.manager"],
-        )
-        monkeypatch.setattr(
-            CppPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["a.cpp.manager"],
-        )
-        createHarness("a.cpp.manager")
-        ManagerFactory.createManagerForInterface.assert_called_once()
-        assert isinstance(
-            ManagerFactory.createManagerForInterface.call_args[0][2],
-            CppPluginSystemManagerImplementationFactory,
-        )
-
-    def test_specified_python_manager_chosen(self, monkeypatch):
-        monkeypatch.setattr(ManagerFactory, "createManagerForInterface", mock.Mock())
-        monkeypatch.setattr(
-            PythonPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["a.python.manager"],
-        )
-        monkeypatch.setattr(
-            CppPluginSystemManagerImplementationFactory,
-            "identifiers",
-            lambda self: ["a.cpp.manager"],
-        )
-        createHarness("a.python.manager")
-        ManagerFactory.createManagerForInterface.assert_called_once()
-        assert isinstance(
-            ManagerFactory.createManagerForInterface.call_args[0][2],
-            PythonPluginSystemManagerImplementationFactory,
-        )
+@pytest.fixture
+def mock_hybrid_plugin_system(monkeypatch):
+    mocked = mock.create_autospec(
+        pluginSystem.HybridPluginSystemManagerImplementationFactory, spec_set=True
+    )
+    monkeypatch.setattr(
+        _implementation,
+        "HybridPluginSystemManagerImplementationFactory",
+        mocked,
+    )
+    return mocked
 
 
 @pytest.fixture
