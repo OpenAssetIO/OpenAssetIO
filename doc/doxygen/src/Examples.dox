@@ -73,7 +73,12 @@
  * that some example @ref asset_management_system has a plugin,
  * installed on @ref plugin_path_var).
  *
- * We will be providing an example manager implementation soon!
+ * Check out <a style="font-weight:bold" href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
+ * target="_blank">Python Manager Template</a> for an example
+ * minimalist plugin.
+ *
+ * Also, for a "real world" manager plugin, check out the <a style="font-weight:bold" href="https://github.com/ynput/ayon-openassetio-manager-plugin"
+ * target="_blank">Plugin for Ayon</a>.
  *
  * @code{.py}
  * availableManagers = managerFactory.availableManagers()
