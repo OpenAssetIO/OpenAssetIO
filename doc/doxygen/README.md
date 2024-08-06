@@ -12,14 +12,13 @@ Python classes.
 ## Building via Docker
 
 The simplest way to build the documentation is via Docker using the
-container published to the GitHub Container Registry:
+container published to the GitHub Container Registry.
 
-```
-docker run -v `pwd`/../:/src ghcr.io/OpenAssetIO/openassetio-doc-build bash -c 'make -C /src/doc html'
-```
+If you have GNU Make installed on your system, all is needed is to run
+`make` via the included [Makefile](Makefile).
 
-If you have GNU Make installed on your system, the included `Makefile`
-simplifies this to `make`.
+Otherwise, you will need to manually run the contents of the
+`container-build` command in the [Makefile](Makefile).
 
 The documentation will be built in the container, but stored (along with
 the required additional tooling) in your local checkout - see
