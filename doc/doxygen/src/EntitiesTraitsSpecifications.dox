@@ -238,7 +238,7 @@
  *
  * @subsection entity_specifications Entity Specifications
  *
- * Specifictions used with @ref glossary_register and returned by @ref
+ * Specifications used with @ref glossary_register and returned by @ref
  * glossary_resolve to hold @ref entity data are known as "entity
  * specifications". The @ref trait_set they define can also be used as a
  * shorthand for consistency when:
