@@ -23,6 +23,7 @@ import unittest
 from openassetio import hostApi, log
 from openassetio.pluginSystem import (
     CppPluginSystemManagerImplementationFactory,
+    HybridPluginSystemManagerImplementationFactory,
     PythonPluginSystemManagerImplementationFactory,
 )
 from openassetio.trait import TraitsData
@@ -47,13 +48,13 @@ def createHarness(managerIdentifier, settings=None):
     hostInterface = _ValidatorHarnessHostInterface()
     logger = log.SeverityFilter(log.ConsoleLogger())
 
-    managerFactoryImplementation = PythonPluginSystemManagerImplementationFactory(logger)
-
-    # If the python plugin cannot be found on a scan (occurs lazily when
-    # identifiers is called), then move forward with C++, as it could
-    # be there.
-    if managerIdentifier not in managerFactoryImplementation.identifiers():
-        managerFactoryImplementation = CppPluginSystemManagerImplementationFactory(logger)
+    managerFactoryImplementation = HybridPluginSystemManagerImplementationFactory(
+        [
+            CppPluginSystemManagerImplementationFactory(logger),
+            PythonPluginSystemManagerImplementationFactory(logger),
+        ],
+        logger,
+    )
 
     if managerIdentifier not in managerFactoryImplementation.identifiers():
         msg = (

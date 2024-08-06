@@ -33,6 +33,7 @@ from openassetio.log import ConsoleLogger, SeverityFilter
 from openassetio.pluginSystem import (
     PythonPluginSystemManagerImplementationFactory,
     CppPluginSystemManagerImplementationFactory,
+    HybridPluginSystemManagerImplementationFactory,
 )
 
 
@@ -154,23 +155,26 @@ def main():
     # ourselves to the manager
     host_interface = SimpleResolverHostInterface()
 
-    # The C++ plugin system can load manager implementations
-    # defined outside of the API package.
-    impl_factory = CppPluginSystemManagerImplementationFactory(logger)
+    # Create a "hybrid" plugin system, which is used here to combine the
+    # C++ and Python plugin systems. When a plugin is requested by its
+    # unique identifier (as configured by OPENASSETIO_DEFAULT_CONFIG),
+    # both plugin systems are queried. If only one of them returns a
+    # matching plugin, then it is used directly. If both return a match,
+    # then the plugins are composed, such that the plugin used to serve
+    # a given API method is based on priority order and advertised
+    # capabilities.
+    impl_factory = HybridPluginSystemManagerImplementationFactory(
+        [
+            CppPluginSystemManagerImplementationFactory(logger),
+            PythonPluginSystemManagerImplementationFactory(logger),
+        ],
+        logger,
+    )
 
     # Initialize the default manager as configured by $OPENASSETIO_DEFAULT_CONFIG
     # See: https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76
     # All API/Manager messaging is channeled through the supplied logger.
-    try:
-        manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
-    except OpenAssetIOException:
-        # Exceptions occur when configuration exists, but loading the
-        # config file or the plugin fails. E.g. if the config file
-        # specifies the identifier of a Python plugin, but we tried to
-        # locate and load a C++ plugin.
-        # If a C++ plugin was not found, try the Python plugin system.
-        impl_factory = PythonPluginSystemManagerImplementationFactory(logger)
-        manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
+    manager = ManagerFactory.defaultManagerForInterface(host_interface, impl_factory, logger)
 
     if not manager:
         # Manager will be None only if OPENASSETIO_DEFAULT_CONFIG is

@@ -40,11 +40,19 @@
  *
  * @section installing_manager_plugins Installing Manager plugins
  *
- * @note To aid problem solving, the plugin system logs debug messages
- * when it searches for, and loads plugins.
+ * @note To aid problem solving, the plugin systems log debug messages
+ * when they search for and load plugins.
  *
- * Presently, OpenAssetIO only supports Python based plugins.
- * These can be installed in one of two ways.
+ * OpenAssetIO supports Python, C++, and @ref
+ * installing_manager_plugins_hybrid "hybrid" plugins.
+ *
+ * Typically there will only be a single asset management system in use,
+ * with a corresponding plugin(s). However, if there are multiple
+ * systems available with their own OpenAssetIO manager plugins, it is
+ * safe, and encouraged, to install all of them such that they're
+ * discoverable (as described below). For example, some host
+ * applications may support multiple managers simultaneously.
+ *
  *
  * @subsection installing_manager_plugins_pip Using pip
  *
@@ -83,16 +91,21 @@
  * variable can be set to point to one or more directories containing
  * manager plugins.
  *
+ * This is required for C++ plugins, but can be used for Python plugins
+ * as well, where entry point discovery (described above) is not
+ * available.
+ *
  * It is a standard 'left-most wins' search-path, that uses platform
  * specific delimiters (see @ref plugin_path_var "here" for more
  * information).
  *
- * This variable is completely independent from `$PYTHONPATH` or any
- * other language/host specific configuration.
+ * This variable is completely independent from `$PYTHONPATH`,
+ * `$LD_LIBRARY_PATH`, or any other language/host specific
+ * configuration.
  *
  * This can simplify deployment by allowing a common location to be
- * specified to service multiple hosts and Python versions (assuming the
- * manager plugins have been suitably coded).
+ * specified to, for example, service multiple hosts and Python versions
+ * (assuming the manager plugins have been suitably coded).
  *
  * To install a plugin using this approach:
  *
@@ -100,6 +113,47 @@
  * - Place this in your chosen location. This can be anywhere on a
  *   filesystem that is visible to the hosts that you wish to use.
  * - Set, or extend @ref plugin_path_var to include this location.
+ *
+ *
+ * @subsection installing_manager_plugins_hybrid Hybrid plugins
+ *
+ * The @fqref{pluginSystem.HybridPluginSystemManagerImplementationFactory}
+ * "hybrid plugin system" allows multiple plugin systems to be composed.
+ * Typically, this means a C++ and a Python plugin system.
+ *
+ * This reduces boilerplate for supporting multiple plugin systems
+ * simultaneously. It also has the unique ability to compose multiple
+ * plugins together, dispatching to the appropriate plugin for a given
+ * API request.
+ *
+ * The hybrid plugin system should be the default choice for any host
+ * that can support both Python and C++ plugins - i.e. any pure Python
+ * host or any C++ host with an embedded Python interpreter.
+ *
+ * The appropriate plugin for an API request is determined as follows:
+ *
+ * - On construction, the hybrid plugin system is provided with a list
+ *   of plugin systems to compose (e.g.
+ *   @fqref{pluginSystem.CppPluginSystemManagerImplementationFactory}
+ *   "C++" and @ref
+ *   openassetio.pluginSystem.PythonPluginSystemManagerImplementationFactory
+ *   "Python"). The order of this list establishes a priority order.
+ * - When the host requests a plugin with a particular identifier (via
+ *   a @ref host_default_config "config file" or otherwise), any plugin
+ *   that matches the identifier, from any listed plugin system, is a
+ *   candidate for API requests.
+ * - When a specific API request is made, the highest priority plugin
+ *   is used that supports the
+ *   @fqref{managerApi.ManagerInterface.Capability} "capability"
+ *   associated with the API method.
+ *
+ * Note that the OpenAssetIO API is designed to be stateless. By this
+ * we mean that all data required to service an API request is provided
+ * with every API method invocation. In particular, the @ref Context
+ * can be used by managers to coordinate higher-level state
+ * across API method invocations. This can enable data sharing
+ * between multiple constituent plugins of a hybrid plugin, without
+ * them requiring an explicit communication channel.
  *
  *
  * @section host_settings Host configuration

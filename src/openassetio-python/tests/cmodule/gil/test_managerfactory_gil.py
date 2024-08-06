@@ -27,6 +27,7 @@ import pytest
 # pylint: disable=no-name-in-module
 from openassetio import _openassetio
 from openassetio.hostApi import ManagerImplementationFactoryInterface, ManagerFactory
+from openassetio.pluginSystem import HybridPluginSystemManagerImplementationFactory
 
 
 class Test_ManagerImplementationFactoryInterface_gil:
@@ -54,7 +55,7 @@ class Test_ManagerImplementationFactoryInterface_gil:
 """
                 )
 
-        assert unimplemented == []
+        assert not unimplemented
 
     def test_identifiers(self, a_threaded_manager_impl_factory, mock_manager_impl_factory):
         mock_manager_impl_factory.mock.identifiers.return_value = []
@@ -68,6 +69,50 @@ class Test_ManagerImplementationFactoryInterface_gil:
     ):
         mock_manager_impl_factory.mock.instantiate.return_value = mock_manager_interface
         a_threaded_manager_impl_factory.instantiate("")
+
+
+class Test_HybridPluginSystemManagerImplementationFactory_gil:
+    """
+    Check all methods release the GIL during C++ function body
+    execution.
+
+    See docstring for similar test under `gil/Test_ManagerInterface.py`
+    for details on how these tests are structured.
+    """
+
+    def test_all_methods_covered(self, find_unimplemented_test_cases):
+        """
+        Ensure this test class covers all methods.
+        """
+        unimplemented = find_unimplemented_test_cases(
+            HybridPluginSystemManagerImplementationFactory, self
+        )
+
+        if unimplemented:
+            print("\nSome test cases not implemented. Method templates can be found below:\n")
+            for method in unimplemented:
+                print(
+                    f"""
+    def test_{method}(self, a_threaded_hybrid_impl_factory, mock_manager_impl_factory):
+        a_threaded_hybrid_impl_factory.{method}()
+"""
+                )
+
+        assert not unimplemented
+
+    def test_identifiers(self, a_threaded_hybrid_impl_factory, mock_manager_impl_factory):
+        mock_manager_impl_factory.mock.identifiers.return_value = []
+        a_threaded_hybrid_impl_factory.identifiers()
+
+    def test_instantiate(
+        self,
+        a_threaded_hybrid_impl_factory,
+        mock_manager_impl_factory,
+        mock_manager_interface,
+    ):
+        mock_manager_impl_factory.mock.identifiers.return_value = [""]
+        mock_manager_impl_factory.mock.instantiate.return_value = mock_manager_interface
+        a_threaded_hybrid_impl_factory.instantiate("")
 
 
 class Test_ManagerFactory_gil:
@@ -115,7 +160,7 @@ class Test_ManagerFactory_gil:
 """
                 )
 
-        assert unimplemented == []
+        assert not unimplemented
 
     def test_availableManagers(
         self,
@@ -204,6 +249,13 @@ class Test_ManagerFactory_gil:
 @pytest.fixture
 def a_threaded_manager_factory(mock_host_interface, a_threaded_manager_impl_factory, mock_logger):
     return ManagerFactory(mock_host_interface, a_threaded_manager_impl_factory, mock_logger)
+
+
+@pytest.fixture
+def a_threaded_hybrid_impl_factory(a_threaded_manager_impl_factory, mock_logger):
+    return HybridPluginSystemManagerImplementationFactory(
+        [a_threaded_manager_impl_factory], mock_logger
+    )
 
 
 @pytest.fixture

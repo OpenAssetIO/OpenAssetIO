@@ -28,8 +28,19 @@ from .PythonPluginSystemManagerImplementationFactory import (
 
 from .. import _openassetio  # pylint: disable=no-name-in-module
 
+## @see @fqref{pluginSystem.CppPluginSystem} "CppPluginSystem"
 CppPluginSystem = _openassetio.pluginSystem.CppPluginSystem
+## @see @fqref{pluginSystem.CppPluginSystemPlugin}
+# "CppPluginSystemPlugin"
 CppPluginSystemPlugin = _openassetio.pluginSystem.CppPluginSystemPlugin
+## @see @fqref{pluginSystem.CppPluginSystemManagerImplementationFactory}
+# "CppPluginSystemManagerImplementationFactory"
 CppPluginSystemManagerImplementationFactory = (
     _openassetio.pluginSystem.CppPluginSystemManagerImplementationFactory
+)
+## @see
+# @fqref{pluginSystem.HybridPluginSystemManagerImplementationFactory}
+# "HybridPluginSystemManagerImplementationFactory"
+HybridPluginSystemManagerImplementationFactory = (
+    _openassetio.pluginSystem.HybridPluginSystemManagerImplementationFactory
 )

@@ -234,19 +234,31 @@
  * to be performed by the API middleware.
  *
  *
- * @section PythonPluginSystemManagerPlugin Manager Plugin
+ * @section glossary_manager_plugin Manager Plugin
  *
- * The Plug-in mechanism implemented by the @ref
- * openassetio.pluginSystem automatically discovers packages that
- * provide an instance of the openassetio.pluginSystem.PythonPluginSystemManagerPlugin
- * using a search-path based mechanism. This is independent of
- * $PYTHONPATH, and presently searches using the environment variable
- * @ref plugin_path_var
+ * The plug-in mechanism implemented by the @ref
+ * openassetio.pluginSystem automatically discovers libraries that
+ * provide an instance of @ref
+ * openassetio.pluginSystem.PythonPluginSystemManagerPlugin
+ * "PythonPluginSystemManagerPlugin" or
+ * @fqref{pluginSystem.CppPluginSystemManagerPlugin}
+ * "CppPluginSystemManagerPlugin" using a search-path based mechanism.
+ * This is independent of $PYTHONPATH, and searches using the
+ * environment variable @ref plugin_path_var
  *
- * The PythonPluginSystemManagerPlugin instance is then responsible for
- * constructing an instance of the respective @ref
- * asset_management_system's implementation of the
- * @fqref{managerApi.ManagerInterface} "ManagerInterface".
+ * The plugin instance is then responsible for constructing an instance
+ * of the respective @ref asset_management_system's implementation of
+ * the @fqref{managerApi.ManagerInterface} "ManagerInterface".
+ *
+ * Plugins have an associated unique identifier. Hosts query plugin
+ * systems for plugins that advertise the particular identifier they are
+ * interested in (e.g. see @ref default_config_var).
+ *
+ * Multiple plugins that advertise the same identifier, but are written
+ * in different languages, can be transparently composed, such that API
+ * calls are routed based on priority and/or capability, using a
+ * @fqref{pluginSystem.HybridPluginSystemManagerImplementationFactory}
+ * "hybrid" of the plugin systems.
  *
  *
  * @section default_config_var $OPENASSETIO_DEFAULT_CONFIG
@@ -264,11 +276,11 @@
  *
  * @section plugin_path_var $OPENASSETIO_PLUGIN_PATH
  *
- * This is the environment variable used to discover @ref PythonPluginSystemManagerPlugin
- * "PythonPluginSystemManagerPlugins", it is searched left-to-right,
- * using standard `$PATH` semantics (delimited by `:` on POSIX systems
- * and `;` on Windows). The first package that registers a specific
- * identifier wins.
+ * This is the environment variable used to discover @ref
+ * glossary_manager_plugin, it is searched left-to-right, using standard
+ * `$PATH` semantics (delimited by `:` on POSIX systems and `;` on
+ * Windows). The first package that registers a specific identifier
+ * wins.
  *
  * So to override a plug-in with a dev version, ensure it is to the left
  * of the standard plug-in.
@@ -361,9 +373,8 @@
  * concepts (eg @ref trait "traits" and their properties into their own
  * internal structures, and back again when queried.
  *
- * Managers are made available via a @ref
- * PythonPluginSystemManagerPlugin, that ultimately registers classes
- * derived from the @ref ManagerInterface.
+ * Managers are made available via a @ref glossary_manager_plugin, that
+ * ultimately registers classes derived from the @ref ManagerInterface.
  *
  * A @ref host never uses the ManagerInterface class directly, but instead
  * uses the @fqref{hostApi.Manager} "Manager" class. This

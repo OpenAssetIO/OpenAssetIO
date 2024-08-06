@@ -81,6 +81,7 @@ target_sources(
     src/pluginSystem/CppPluginSystemManagerImplementationFactory.cpp
     src/pluginSystem/CppPluginSystemManagerPlugin.cpp
     src/pluginSystem/CppPluginSystemPlugin.cpp
+    src/pluginSystem/HybridPluginSystemManagerImplementationFactory.cpp
     src/trait/TraitsData.cpp
     src/utils/formatter.cpp
     src/utils/ostream.cpp

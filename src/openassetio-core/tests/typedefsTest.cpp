@@ -24,6 +24,7 @@
 #include <openassetio/pluginSystem/CppPluginSystemManagerImplementationFactory.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
+#include <openassetio/pluginSystem/HybridPluginSystemManagerImplementationFactory.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 
 namespace {
@@ -55,7 +56,8 @@ using ClassesWithPtrAlias = std::tuple<
     CLASS_AND_PTRS(pluginSystem::CppPluginSystem),
     CLASS_AND_PTRS(pluginSystem::CppPluginSystemManagerImplementationFactory),
     CLASS_AND_PTRS(pluginSystem::CppPluginSystemManagerPlugin),
-    CLASS_AND_PTRS(pluginSystem::CppPluginSystemPlugin)
+    CLASS_AND_PTRS(pluginSystem::CppPluginSystemPlugin),
+    CLASS_AND_PTRS(pluginSystem::HybridPluginSystemManagerImplementationFactory)
 >;
 // clang-format on
 }  // namespace
