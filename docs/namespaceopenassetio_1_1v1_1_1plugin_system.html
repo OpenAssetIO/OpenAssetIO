@@ -127,6 +127,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html">CppPluginSystemPlugin</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The base class that defines a plugin of the C++ plugin system.  <a href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">HybridPluginSystemManagerImplementationFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The hybrid plugin system composes one or more child plugin systems, and abstracts away routing API calls based on priority and capability.  <a href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -149,6 +152,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a00f7f5d4fa14513e29e9c5a756ef1747"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a> = openassetio::pluginSystem::CppPluginSystemPluginPtr(*)() noexcept</td></tr>
 <tr class="memdesc:a00f7f5d4fa14513e29e9c5a756ef1747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer to a factory that produces instances of <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html">CppPluginSystemPlugin</a> wrapped in a shared_ptr.  <a href="#a00f7f5d4fa14513e29e9c5a756ef1747">More...</a><br /></td></tr>
 <tr class="separator:a00f7f5d4fa14513e29e9c5a756ef1747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ad4a748b6b123ba308e33e94aea8b14"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a2ad4a748b6b123ba308e33e94aea8b14">HybridPluginSystemManagerImplementationFactoryPtr</a> = std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">HybridPluginSystemManagerImplementationFactory</a> &gt;</td></tr>
+<tr class="separator:a2ad4a748b6b123ba308e33e94aea8b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172a8d00c0adc78494952ab6840fb9a5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a172a8d00c0adc78494952ab6840fb9a5">HybridPluginSystemManagerImplementationFactoryConstPtr</a> = std::shared_ptr&lt; const <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">HybridPluginSystemManagerImplementationFactory</a> &gt;</td></tr>
+<tr class="separator:a172a8d00c0adc78494952ab6840fb9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="aaafa363c53f8eba1aa232630050cd1eb"></a>
@@ -241,6 +248,30 @@ Typedefs</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html">CppPluginSystem</a> &gt; <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a363d959cf75f45cb5e6b4321b9321329">CppPluginSystemPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a172a8d00c0adc78494952ab6840fb9a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a172a8d00c0adc78494952ab6840fb9a5">HybridPluginSystemManagerImplementationFactoryConstPtr</a> =  std::shared_ptr&lt;const <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">HybridPluginSystemManagerImplementationFactory</a> &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2ad4a748b6b123ba308e33e94aea8b14"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a2ad4a748b6b123ba308e33e94aea8b14">HybridPluginSystemManagerImplementationFactoryPtr</a> =  std::shared_ptr&lt; <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">HybridPluginSystemManagerImplementationFactory</a> &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">

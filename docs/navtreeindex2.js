@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"glossary.html#dll_path_var":[6,13],
+"glossary.html#entity":[6,3],
+"glossary.html#entity_reference":[6,4],
+"glossary.html#glossary_manager_plugin":[6,9],
+"glossary.html#glossary_preflight":[6,17],
+"glossary.html#glossary_register":[6,19],
 "glossary.html#glossary_resolve":[6,20],
 "glossary.html#host":[6,5],
 "glossary.html#locale":[6,7],
@@ -73,6 +79,7 @@ var NAVTREEINDEX2 =
 "runtime_configuration.html#host_default_config":[1,2,0],
 "runtime_configuration.html#host_settings":[1,2],
 "runtime_configuration.html#installing_manager_plugins":[1,1],
+"runtime_configuration.html#installing_manager_plugins_hybrid":[1,1,2],
 "runtime_configuration.html#installing_manager_plugins_manual":[1,1,1],
 "runtime_configuration.html#installing_manager_plugins_pip":[1,1,0],
 "runtime_configuration.html#manual_plugins_missing":[1,3,1],

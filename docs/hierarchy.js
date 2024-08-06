@@ -26,7 +26,8 @@ var hierarchy =
     [ "ManagerFactory::ManagerDetail", "structopenassetio_1_1v1_1_1host_api_1_1_manager_factory_1_1_manager_detail.html", null ],
     [ "ManagerFactory", "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html", null ],
     [ "ManagerImplementationFactoryInterface", "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html", [
-      [ "CppPluginSystemManagerImplementationFactory", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_implementation_factory.html", null ]
+      [ "CppPluginSystemManagerImplementationFactory", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_implementation_factory.html", null ],
+      [ "HybridPluginSystemManagerImplementationFactory", "classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html", null ]
     ] ],
     [ "ManagerInterface", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html", null ],
     [ "ManagerStateBase", "classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html", null ],

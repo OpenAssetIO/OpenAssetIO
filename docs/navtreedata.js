@@ -15,7 +15,8 @@ var NAVTREE =
       [ "Overview", "runtime_configuration.html#runtime_configuration_overview", null ],
       [ "Installing Manager plugins", "runtime_configuration.html#installing_manager_plugins", [
         [ "Using pip", "runtime_configuration.html#installing_manager_plugins_pip", null ],
-        [ "Manual installation", "runtime_configuration.html#installing_manager_plugins_manual", null ]
+        [ "Manual installation", "runtime_configuration.html#installing_manager_plugins_manual", null ],
+        [ "Hybrid plugins", "runtime_configuration.html#installing_manager_plugins_hybrid", null ]
       ] ],
       [ "Host configuration", "runtime_configuration.html#host_settings", [
         [ "The Default Config Mechanism", "runtime_configuration.html#host_default_config", null ]
@@ -91,7 +92,7 @@ var NAVTREE =
       [ "HostInterface", "glossary.html#HostInterface", null ],
       [ "locale", "glossary.html#locale", null ],
       [ "ManagerInterface", "glossary.html#ManagerInterface", null ],
-      [ "Manager Plugin", "glossary.html#PythonPluginSystemManagerPlugin", null ],
+      [ "Manager Plugin", "glossary.html#glossary_manager_plugin", null ],
       [ "$OPENASSETIO_DEFAULT_CONFIG", "glossary.html#default_config_var", null ],
       [ "$OPENASSETIO_PLUGIN_PATH", "glossary.html#plugin_path_var", null ],
       [ "$OPENASSETIO_LOGGING_SEVERITY", "glossary.html#logging_severity_var", null ],
@@ -159,7 +160,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html",
-"glossary.html#glossary_resolve"
+"glossary.html#dll_path_var"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

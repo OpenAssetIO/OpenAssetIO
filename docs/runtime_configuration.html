@@ -119,8 +119,9 @@ Overview</h1>
 </ul>
 <h1><a class="anchor" id="installing_manager_plugins"></a>
 Installing Manager plugins</h1>
-<dl class="section note"><dt>Note</dt><dd>To aid problem solving, the plugin system logs debug messages when it searches for, and loads plugins.</dd></dl>
-<p>Presently, OpenAssetIO only supports Python based plugins. These can be installed in one of two ways.</p>
+<dl class="section note"><dt>Note</dt><dd>To aid problem solving, the plugin systems log debug messages when they search for and load plugins.</dd></dl>
+<p>OpenAssetIO supports Python, C++, and <a class="el" href="runtime_configuration.html#installing_manager_plugins_hybrid">hybrid</a> plugins.</p>
+<p>Typically there will only be a single asset management system in use, with a corresponding plugin(s). However, if there are multiple systems available with their own OpenAssetIO manager plugins, it is safe, and encouraged, to install all of them such that they're discoverable (as described below). For example, some host applications may support multiple managers simultaneously.</p>
 <h2><a class="anchor" id="installing_manager_plugins_pip"></a>
 Using pip</h2>
 <p>Most Python-based plugins should support what is known as <a href="https://packaging.python.org/en/latest/specifications/entry-points/" target="_blank">"entry point" based loading</a>. This means they can be installed using the package installer for Python, and will then be automatically detected.</p>
@@ -130,15 +131,28 @@ Using pip</h2>
 <h2><a class="anchor" id="installing_manager_plugins_manual"></a>
 Manual installation</h2>
 <p>The OpenAssetIO plugin system can also be explicitly configured to look in specific locations. The <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> environment variable can be set to point to one or more directories containing manager plugins.</p>
+<p>This is required for C++ plugins, but can be used for Python plugins as well, where entry point discovery (described above) is not available.</p>
 <p>It is a standard 'left-most wins' search-path, that uses platform specific delimiters (see <a class="el" href="glossary.html#plugin_path_var">here</a> for more information).</p>
-<p>This variable is completely independent from <code>$PYTHONPATH</code> or any other language/host specific configuration.</p>
-<p>This can simplify deployment by allowing a common location to be specified to service multiple hosts and Python versions (assuming the manager plugins have been suitably coded).</p>
+<p>This variable is completely independent from <code>$PYTHONPATH</code>, <code>$LD_LIBRARY_PATH</code>, or any other language/host specific configuration.</p>
+<p>This can simplify deployment by allowing a common location to be specified to, for example, service multiple hosts and Python versions (assuming the manager plugins have been suitably coded).</p>
 <p>To install a plugin using this approach:</p>
 <ul>
 <li>Download or otherwise obtain the required manager plugin.</li>
 <li>Place this in your chosen location. This can be anywhere on a filesystem that is visible to the hosts that you wish to use.</li>
 <li>Set, or extend <a class="el" href="glossary.html#plugin_path_var">$OPENASSETIO_PLUGIN_PATH</a> to include this location.</li>
 </ul>
+<h2><a class="anchor" id="installing_manager_plugins_hybrid"></a>
+Hybrid plugins</h2>
+<p>The <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_hybrid_plugin_system_manager_implementation_factory.html">hybrid plugin system</a> allows multiple plugin systems to be composed. Typically, this means a C++ and a Python plugin system.</p>
+<p>This reduces boilerplate for supporting multiple plugin systems simultaneously. It also has the unique ability to compose multiple plugins together, dispatching to the appropriate plugin for a given API request.</p>
+<p>The hybrid plugin system should be the default choice for any host that can support both Python and C++ plugins - i.e. any pure Python host or any C++ host with an embedded Python interpreter.</p>
+<p>The appropriate plugin for an API request is determined as follows:</p>
+<ul>
+<li>On construction, the hybrid plugin system is provided with a list of plugin systems to compose (e.g. <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_implementation_factory.html">C++</a> and <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory.html">Python</a>). The order of this list establishes a priority order.</li>
+<li>When the host requests a plugin with a particular identifier (via a <a class="el" href="runtime_configuration.html#host_default_config">config file</a> or otherwise), any plugin that matches the identifier, from any listed plugin system, is a candidate for API requests.</li>
+<li>When a specific API request is made, the highest priority plugin is used that supports the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c">capability</a> associated with the API method.</li>
+</ul>
+<p>Note that the OpenAssetIO API is designed to be stateless. By this we mean that all data required to service an API request is provided with every API method invocation. In particular, the <a class="el" href="glossary.html#Context">Context</a> can be used by managers to coordinate higher-level state across API method invocations. This can enable data sharing between multiple constituent plugins of a hybrid plugin, without them requiring an explicit communication channel.</p>
 <h1><a class="anchor" id="host_settings"></a>
 Host configuration</h1>
 <p>In order to make use of OpenAssetIO to manage data, the host needs to know which manager plugin it should use, and any associated settings that plugin many need (e.g. server configuration).</p>
