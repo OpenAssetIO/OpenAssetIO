@@ -43,6 +43,10 @@ section for more details._
   `reserve(...)`).
   [#1339](https://github.com/OpenAssetIO/OpenAssetIO/issues/1339)
 
+- Source values for `BatchElementError` error codes changed to an
+  internally-namespaced `enum` rather than global macros.
+  [#1060](https://github.com/OpenAssetIO/OpenAssetIO/issues/1060)
+
 ### New Features
 
 - Added SimpleCppManager - a minimal C++ manager and plugin example
