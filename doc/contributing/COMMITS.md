@@ -68,7 +68,7 @@ For example:
 [Core] Ensure data flushed to disk on exit
 ```
 
-See the [appendix below](#appendix-code-components) for a list of common
+See the [appendix below](#appendix---code-components) for a list of common
 components.
 
 > IMPORTANT: Do not put GitHub refs in the title - they belong in the
