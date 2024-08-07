@@ -66,6 +66,13 @@ section for more details._
 
 ### Improvements
 
+- Updated the default libstdc++ ABI (i.e. CMake option
+  `OPENASSETIO_GLIBCXX_USE_CXX11_ABI`) to be based on the detected
+  Python version (if Python is enabled) such that it is consistent with
+  the VFX Reference Platform. This means Python wheels for Python 3.10+
+  will now use the non-deprecated ABI.
+  [#1352](https://github.com/OpenAssetIO/OpenAssetIO/issues/1352)
+
 - Added singular overload of `managementPolicy` for convenience.
   [#856](https://github.com/OpenAssetIO/OpenAssetIO/issues/856)
 

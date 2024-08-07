@@ -162,6 +162,12 @@ option(OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE
 #   to `1`, but can be overridden.
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
     CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5.0)
+    if (NOT DEFINED OPENASSETIO_GLIBCXX_USE_CXX11_ABI)
+        # Set a flag so that subsequent CMake scripts know that this is
+        # the first time the option has been defined and so it is set to
+        # the default.
+        set(OPENASSETIO_GLIBCXX_USE_CXX11_ABI_IS_DEFAULT TRUE)
+    endif()
     option(OPENASSETIO_GLIBCXX_USE_CXX11_ABI "For gcc, use the new C++11 library ABI" OFF)
 endif ()
 

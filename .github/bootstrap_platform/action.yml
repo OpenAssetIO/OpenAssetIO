@@ -14,8 +14,8 @@ runs:
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
-      # CY2022 (https://vfxplatform.com)
-      python-version: "3.9"
+      # CY2022 by default (https://vfxplatform.com)
+      python-version: ${{ matrix.python_version || '3.9' }}
 
   - name: Cache conan packages
     id: cache-conan

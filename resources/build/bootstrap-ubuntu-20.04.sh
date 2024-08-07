@@ -14,10 +14,10 @@ export CONAN_USER_HOME="$HOME/conan"
 # Create default conan profile so we can configure it before install.
 # Use --force so that if it already exists we don't error out.
 conan profile new default --detect --force
-# Use old C++11 ABI as per VFX Reference Platform CY2022. Not strictly
-# necessary as this is the default for conan, but we can't be certain
-# it'll remain the default in future.
-conan profile update settings.compiler.libcxx=libstdc++ default
+# Use appropriate libstdc++ ABI for the target VFX Reference Platform,
+# as detected by target Python version. The magic here is `sort -VC`.
+libstdcxxabi=$(printf "Python 3.10\n%s" "$(python --version)" | sort -VC && echo "libstdc++11" || echo "libstdc++")
+conan profile update settings.compiler.libcxx="${libstdcxxabi}" default
 # If we need to pin a package to a specific Conan recipe revision, then
 # we need to explicitly opt-in to this functionality.
 conan config set general.revisions_enabled=True

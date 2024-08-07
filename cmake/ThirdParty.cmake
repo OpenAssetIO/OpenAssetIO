@@ -106,6 +106,26 @@ if (OPENASSETIO_ENABLE_PYTHON)
 
 
     #-------------------------------------------------------------------
+    # On first CMake configure, update libstdc++ ABI option to best
+    # match the Python version (based on VFX Reference Platform).
+
+    if (OPENASSETIO_GLIBCXX_USE_CXX11_ABI_IS_DEFAULT)
+        if (Python_VERSION VERSION_GREATER_EQUAL "3.10")
+            set(
+                OPENASSETIO_GLIBCXX_USE_CXX11_ABI ON CACHE BOOL
+                "For gcc, use the new C++11 library ABI (default ON for >=CY23 Python version)"
+                FORCE
+            )
+        else ()
+            set(
+                OPENASSETIO_GLIBCXX_USE_CXX11_ABI OFF CACHE BOOL
+                "For gcc, use the new C++11 library ABI (default OFF for <CY23 Python version)"
+                FORCE
+            )
+        endif()
+    endif()
+
+    #-------------------------------------------------------------------
     # Target to create a Python virtual environment in the install tree.
 
     # Target to create a Python environment in the install directory.
