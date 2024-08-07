@@ -2,13 +2,10 @@
 // Copyright 2022 The Foundry Visionmongers Ltd
 #pragma once
 
-#include <functional>
-#include <stdexcept>
-#include <string>
-#include <utility>
+#include <type_traits>
 
-#include <openassetio/errors/errorCodes.h>
 #include <openassetio/export.h>
+#include <openassetio/internal.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -51,7 +48,7 @@ class BatchElementError final {
   /// Possible classes of error.
   enum class ErrorCode {
     /// Fallback for uncommon errors.
-    kUnknown = OPENASSETIO_BatchErrorCode_kUnknown,
+    kUnknown = internal::errors::kBatchElementUnknownError,
 
     /**
      * Error code used whenever an entity reference is not one that
@@ -60,7 +57,7 @@ class BatchElementError final {
      * In the case of a manager that uses standard URIs, then it
      * could be that the scheme is that of another manager.
      */
-    kInvalidEntityReference = OPENASSETIO_BatchErrorCode_kInvalidEntityReference,
+    kInvalidEntityReference = internal::errors::kBatchElementInvalidEntityReference,
 
     /**
      * Error code used whenever an entity-based action is performed on
@@ -79,7 +76,7 @@ class BatchElementError final {
      * parameters is missing for a given operation, or a supplied
      * parameter is not relevant to that particular operation/entity.
      */
-    kMalformedEntityReference = OPENASSETIO_BatchErrorCode_kMalformedEntityReference,
+    kMalformedEntityReference = internal::errors::kBatchElementMalformedEntityReference,
 
     /**
      * Error code used when the reference is valid, but the supplied
@@ -89,7 +86,7 @@ class BatchElementError final {
      * glossary_register when the target entity s read-only and does not
      * support updating.
      */
-    kEntityAccessError = OPENASSETIO_BatchErrorCode_kEntityAccessError,
+    kEntityAccessError = internal::errors::kBatchElementEntityAccessError,
 
     /**
      * Error code used during @ref glossary_resolve "entity resolution"
@@ -108,7 +105,7 @@ class BatchElementError final {
      * entity-based operations on a valid @ref entity_reference that
      * fail for some reason.
      */
-    kEntityResolutionError = OPENASSETIO_BatchErrorCode_kEntityResolutionError,
+    kEntityResolutionError = internal::errors::kBatchElementEntityResolutionError,
 
     /**
      * Error code response from @ref glossary_preflight if the provided
@@ -119,13 +116,13 @@ class BatchElementError final {
      * host owns to be passed to `preflight`, but the host did not
      * provide it.
      */
-    kInvalidPreflightHint = OPENASSETIO_BatchErrorCode_kInvalidPreflightHint,
+    kInvalidPreflightHint = internal::errors::kBatchElementInvalidPreflightHint,
 
     /**
      * Error code used whenever a trait set is not one that is known to
      * the manager.
      */
-    kInvalidTraitSet = OPENASSETIO_BatchErrorCode_kInvalidTraitSet,
+    kInvalidTraitSet = internal::errors::kBatchElementInvalidTraitSet,
 
     /**
      * Error code indicating that the host is not authorized for a
@@ -139,7 +136,7 @@ class BatchElementError final {
      * action, or a particular entity. The error message should provide
      * details of the reason.
      */
-    kAuthError = OPENASSETIO_BatchErrorCode_kAuthError,
+    kAuthError = internal::errors::kBatchElementAuthError,
   };
 
   /**

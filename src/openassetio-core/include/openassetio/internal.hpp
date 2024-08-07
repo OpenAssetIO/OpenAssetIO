@@ -19,6 +19,25 @@ namespace access {
 enum Access : std::size_t { kRead = 0, kWrite, kCreateRelated, kRequired, kManagerDriven };
 }  // namespace access
 
+namespace errors {
+/**
+ * Common constant values for error codes.
+ *
+ * The enum values must be kept in sync with the C API.
+ */
+enum ErrorCode : std::size_t {
+  // 0-127 is reserved for C API error codes.
+  kBatchElementUnknownError = 128,
+  kBatchElementInvalidEntityReference,
+  kBatchElementMalformedEntityReference,
+  kBatchElementEntityAccessError,
+  kBatchElementEntityResolutionError,
+  kBatchElementInvalidPreflightHint,
+  kBatchElementInvalidTraitSet,
+  kBatchElementAuthError
+};
+}  // namespace errors
+
 namespace capability::manager {
 /**
  * Common constant values for strong enumerations of capability sets.
