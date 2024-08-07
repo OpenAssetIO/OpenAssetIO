@@ -9,6 +9,7 @@ var searchData=
   ['constants',['constants',['../namespaceopenassetio_1_1v1_1_1constants.html',1,'openassetio::v1']]],
   ['converter',['converter',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html',1,'openassetio::v1::python']]],
   ['errors',['errors',['../namespaceopenassetio_1_1v1_1_1errors.html',1,'openassetio::v1']]],
+  ['errors',['errors',['../namespaceopenassetio_1_1v1_1_1internal_1_1errors.html',1,'openassetio::v1::internal']]],
   ['harness',['harness',['../namespaceopenassetio_1_1test_1_1manager_1_1harness.html',1,'openassetio::test::manager']]],
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1host_api.html',1,'openassetio']]],
   ['hostapi',['hostApi',['../namespaceopenassetio_1_1v1_1_1host_api.html',1,'openassetio::v1']]],
