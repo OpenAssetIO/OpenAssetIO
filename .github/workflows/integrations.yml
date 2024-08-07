@@ -199,7 +199,7 @@ jobs:
           OPENASSETIO_DLL_PATH: ${{ github.workspace }}/dist/bin
 
   cpp-manager-plugin:
-    name: C++ manager plugin on ${{ matrix.config.os }}
+    name: C++ manager plugin on ${{ matrix.config.os }} and Python ${{ matrix.config.python_version }}
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
@@ -208,12 +208,19 @@ jobs:
           - os: windows-2019
             preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
             site-packages: Lib/site-packages
+            python_version: "3.9"
             shell: cmd
           - os: ubuntu-20.04
             site-packages: lib/python3.9/site-packages
+            python_version: "3.9"
+            shell: bash
+          - os: ubuntu-20.04
+            site-packages: lib/python3.10/site-packages
+            python_version: "3.10"  # CY23
             shell: bash
           - os: macos-12
             site-packages: lib/python3.9/site-packages
+            python_version: "3.9"
             shell: bash
     defaults:
       run:
@@ -250,7 +257,7 @@ jobs:
 
           cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
           -DOPENASSETIO_ENABLE_TESTS=ON
-          -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=OFF
+          -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=${{ matrix.config.python_version == '3.9' && 'OFF' || 'ON' }}
 
           cmake --build build --parallel --config RelWithDebInfo
 
