@@ -112,8 +112,11 @@ jobs:
         config:
         - os: windows-2019
           site-packages: Lib/site-packages
-        - os: ubuntu-20.04
-          site-packages: lib/python3.9/site-packages
+        # TODO(DF): Disabled pending upstream changes to use system
+        # default libstdc++ - i.e. dropping CY22 support in favour of
+        # CY24.
+#        - os: ubuntu-20.04
+#          site-packages: lib/python3.9/site-packages
         - os: macos-12
           site-packages: lib/python3.9/site-packages
     defaults:
