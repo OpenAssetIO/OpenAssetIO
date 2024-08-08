@@ -156,7 +156,6 @@ behaviour of the build.
 | `OPENASSETIO_WARNINGS_AS_ERRORS`                  | Treat compiler warnings as errors                                     | `OFF`   |
 | `OPENASSETIO_ENABLE_IPO`                          | Enable Interprocedural Optimization, aka Link Time Optimization (LTO) | `ON`    |
 | `OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE`    | Enable position independent code for static library builds            | `ON`    |
-| `OPENASSETIO_GLIBCXX_USE_CXX11_ABI`               | When building under gcc, use the new C++11 library ABI                | `OFF`   |
 | `OPENASSETIO_ENABLE_NEW_DTAGS`                    | Set RUNPATH, overriding RPATH, on linux platforms                     | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_ADDRESS`            | Enable address sanitizer                                              | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_LEAK`               | Enable leak sanitizer                                                 | `OFF`   |

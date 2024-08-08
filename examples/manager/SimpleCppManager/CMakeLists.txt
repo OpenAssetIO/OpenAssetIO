@@ -78,20 +78,6 @@ target_compile_options(${_target_name} PRIVATE ${_project_warnings})
 
 
 #-----------------------------------------------------------------------
-# GCC ABI.
-
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5.0)
-    if (DEFINED OPENASSETIO_GLIBCXX_USE_CXX11_ABI)
-        if (OPENASSETIO_GLIBCXX_USE_CXX11_ABI)
-            target_compile_definitions(${_target_name} PRIVATE _GLIBCXX_USE_CXX11_ABI=1)
-        else ()
-            target_compile_definitions(${_target_name} PRIVATE _GLIBCXX_USE_CXX11_ABI=0)
-        endif ()
-    endif ()
-endif ()
-
-
-#-----------------------------------------------------------------------
 # API export header.
 
 include(GenerateExportHeader)

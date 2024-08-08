@@ -47,6 +47,11 @@ section for more details._
   internally-namespaced `enum` rather than global macros.
   [#1060](https://github.com/OpenAssetIO/OpenAssetIO/issues/1060)
 
+- Removed `OPENASSETIO_GLIBCXX_USE_CXX11_ABI` CMake build option. Builds
+  will use the system default libstdc++ ABI, rather than defaulting to
+  the old ABI.
+  [#1353](https://github.com/OpenAssetIO/OpenAssetIO/issues/1353)
+
 ### New Features
 
 - Added SimpleCppManager - a minimal C++ manager and plugin example

@@ -253,7 +253,6 @@ jobs:
 
           cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
           -DOPENASSETIO_ENABLE_TESTS=ON
-          -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=OFF
 
           cmake --build build --parallel --config RelWithDebInfo
 

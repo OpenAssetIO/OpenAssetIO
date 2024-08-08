@@ -72,16 +72,6 @@ function(openassetio_set_default_target_properties target_name)
         target_link_options(${target_name} PRIVATE ${_exclude_all_libs_linker_flag})
     endif ()
 
-    # Whether to use the old or new C++ ABI with gcc.
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
-        CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5.0)
-        if (OPENASSETIO_GLIBCXX_USE_CXX11_ABI)
-            target_compile_definitions(${target_name} PRIVATE _GLIBCXX_USE_CXX11_ABI=1)
-        else ()
-            target_compile_definitions(${target_name} PRIVATE _GLIBCXX_USE_CXX11_ABI=0)
-        endif ()
-    endif ()
-
     # Whether to enable position independent code, even for static libs.
     set_target_properties(
         ${target_name}
