@@ -1,7 +1,7 @@
-# Build and upload an artifact of a CY2022 VFX Reference platform
+# Build and upload an artifact of a CY2024 VFX Reference platform
 # OpenAssetIO.
 
-name: Build for VFX Reference Platform CY22
+name: Build for VFX Reference Platform CY24
 on:
   workflow_dispatch:
   pull_request:
@@ -16,13 +16,6 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-env:
-  # Buy some more time to use the deprecated Node 16 (needed for GLIBC
-  # version - also see comment re. pinning to actions/checkout@v3).
-  # Upgrading to the CY23 Docker images will solve this longer term. See
-  # https://github.com/OpenAssetIO/OpenAssetIO/issues/984#issuecomment-2210792734
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   build:
@@ -54,7 +47,7 @@ jobs:
     - name: Upload archive
       uses: actions/upload-artifact@v3
       with:
-        name: openassetio-CY2022
+        name: openassetio-CY2024
         path: openassetio-checkout/build/dist
 
       # Reconfigure to build with tests.

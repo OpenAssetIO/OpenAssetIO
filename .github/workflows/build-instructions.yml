@@ -18,7 +18,7 @@ concurrency:
 jobs:
 
   aswf-docker:
-    name: CY2022
+    name: CY2024
     runs-on: ubuntu-latest
 
     steps:

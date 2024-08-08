@@ -9,7 +9,7 @@ A simple way to perform a from-source build is to use the
 [openassetio-build docker image.](https://github.com/OpenAssetIO/OpenAssetIO/pkgs/container/openassetio-build)
 
 The `openassetio-build` image is almost identical to the
-[ASWF CY22 Docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2022),
+[ASWF CY24 Docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2024),
 with just a few [added dependencies](BUILDING.md#library-dependencies).
 This image contains all the necessary dependencies to build and test
 OpenAssetIO, and functions as a fully configured build environment.
