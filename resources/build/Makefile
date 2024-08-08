@@ -11,7 +11,7 @@ default: docker-image
 ##
 
 # This container version mimicks the VFX reference platform versioning.
-CONTAINER_VERSION=2022.2
+CONTAINER_VERSION=2024.5
 CONTAINER_NAME=openassetio-build
 
 ##

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
 
-#include <pybind11/gil.h>
+#include <pybind11/pybind11.h>
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 

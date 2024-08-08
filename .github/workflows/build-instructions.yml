@@ -18,15 +18,15 @@ concurrency:
 jobs:
 
   aswf-docker:
-    name: CY2022
-    runs-on: ubuntu-latest
+    name: CY2024
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
 
     - name: Build and install (Docker)
       run: |
-        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build:2024.5.rc1 bash -c '
           cd /src && \
           cmake -S . -B build && \
           cmake --build build --parallel && \
@@ -34,7 +34,7 @@ jobs:
 
     - name: Build, install and test (Docker)
       run: |
-        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
+        docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build:2024.5.rc1 bash -c '
           cd /src && \
           cmake -S . -B build -DOPENASSETIO_ENABLE_TESTS=ON && \
           ctest --test-dir build --output-on-failure --parallel 4'
@@ -46,10 +46,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: windows-2019
-            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          - os: windows-2022
+            preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
             shell: cmd
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             shell: bash
           - os: macos-12
             shell: bash
@@ -85,8 +85,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: windows-2019
-          - os: ubuntu-20.04
+          - os: windows-2022
+          - os: ubuntu-22.04
           - os: macos-12
     defaults:
       run:

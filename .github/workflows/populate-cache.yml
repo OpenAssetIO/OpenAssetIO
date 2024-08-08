@@ -22,9 +22,9 @@ jobs:
       matrix:
         # config.os vs os to match requirements of bootstrap_platform
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
           - os: macos-12
-          - os: windows-2019
+          - os: windows-2022
 
     steps:
     - uses: actions/checkout@v4
