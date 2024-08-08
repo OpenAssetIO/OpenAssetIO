@@ -19,6 +19,7 @@ A single-class module, providing the PythonPluginSystem class.
 """
 
 import os.path
+import importlib.metadata
 import importlib.util
 import hashlib
 import sys
@@ -113,30 +114,17 @@ class PythonPluginSystem(object):
         the first plugin with any given identifier will be registered.
 
         @param entryPointName `str` The entry point name to search for
-        (see: importlib_metadata.entry_points group).
+        (see: importlib.metadata.entry_points group).
 
         @returns True if entry point discovery is possible, False if
-        there was a problem loading importlib_metadata.
+        there was a problem loading importlib.metadata.
         """
-
-        # We opt to use the backport implementation of modern importlib
-        # since the API changes from 3.9 to 3.10.
-        # Pip installs should have this module available, but other methods may not,
-        # so be tolerant of it being missing.
-        try:
-            import importlib_metadata  # pylint: disable=import-outside-toplevel
-        except ImportError:
-            self.__logger.warning(
-                "PythonPluginSystem: Can not load entry point plugins as the importlib_metadata "
-                "package is unavailable."
-            )
-            return False
 
         self.__logger.debug(
             f"PythonPluginSystem: Searching packages for '{entryPointName}' entry points."
         )
 
-        for entryPoint in importlib_metadata.entry_points(group=entryPointName):
+        for entryPoint in importlib.metadata.entry_points(group=entryPointName):
             self.__logger.debug(f"PythonPluginSystem: Found entry point in {entryPoint.name}")
             try:
                 module = entryPoint.load()

@@ -20,7 +20,7 @@ We assume the following system packages are installed
 
 - CMake 3.27+
 - C++17 or later compliant compiler
-(GCC 9.3+ / MSVC 16.9+ / macOS 10.15+)
+(GCC 11.2+ / MSVC 17.4+ / macOS 11+)
 
 For linting and other build verification options, we assume the
 following packages are installed:
@@ -34,7 +34,7 @@ following packages are installed:
 Binary builds additionally require the following packages to be
 available.
 
-- [Python 3.9+](https://www.python.org/) (development install)
+- [Python 3.10+](https://www.python.org/) (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
 - [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0

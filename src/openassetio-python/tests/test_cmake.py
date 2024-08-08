@@ -18,16 +18,9 @@ Test CMake installed package
 """
 # pylint: disable=missing-function-docstring,invalid-name
 import os
+from importlib import metadata
 
 import pytest
-
-
-try:
-    from importlib import metadata
-
-    # pylint: disable=bare-except
-except:
-    import importlib_metadata as metadata
 
 
 @pytest.mark.skipif(

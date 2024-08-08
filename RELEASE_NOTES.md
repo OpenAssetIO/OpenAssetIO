@@ -11,9 +11,10 @@ section for more details._
 
 ### Breaking changes
 
-- Removed official support for Python 3.7. The minimum supported Python
-  version is now Python 3.9.
+- Removed official support for Python 3.7 and 3.9. The minimum supported
+  Python version is now Python 3.10. This includes PyPI packages.
   [#1365](https://github.com/OpenAssetIO/OpenAssetIO/pull/1365)
+  [#1389](https://github.com/OpenAssetIO/OpenAssetIO/pull/1389)
 
 - Removed deprecated type aliases `openassetio.TraitsData`,
   `openassetio.BatchElementError`
@@ -81,12 +82,20 @@ section for more details._
   `openassetio.test.manager` API Compliance test harness, to aid in
   IDE code completion when writing test cases for manager plugins.
 
+- `importlib_metadata` is no longer a dependency for Python
+  manager plugins to make use of Python entry point hooks.
+  [#1389](https://github.com/OpenAssetIO/OpenAssetIO/issues/1389)
+
 ### Bug fixes
 
 - Modified OpenAssetIO Python distributions (e.g. installed with `pip
   install`) to allow C++ plugins to load. OpenAssetIO is now bundled as
   multiple shared libraries, allowing external libraries to link.
   [#1340](https://github.com/OpenAssetIO/OpenAssetIO/issues/1340)
+
+- Fixed Python wheel builds to use the new libstdc++ ABI, reflecting
+  their associated VFX Reference Platform version.
+  [#1352](https://github.com/OpenAssetIO/OpenAssetIO/issues/1352)
 
 - Fixed the (Python-only) `terminology.Mapper` class such that its
   terminology dict can be updated by the manager.

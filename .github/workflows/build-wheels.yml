@@ -34,7 +34,7 @@ jobs:
           # These are the platform build strings provided to
           # cibuildwheel, with wildcarding. See
           # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
-        python-build: ['cp39*64', 'cp310*64', 'cp311*64']
+        python-build: ['cp310*64', 'cp311*64']
     defaults:
       run:
         # Annoyingly required here since `matrix` isn't available in the
@@ -68,10 +68,12 @@ jobs:
           # deploy on that platform.
           CIBW_BUILD: ${{ matrix.python-build }}
           CIBW_SKIP: '*musllinux* *arm64*'
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          # manylinux_2_28 is based on AlmaLinux 8, which uses glibc
+          # 2.28 and new libstdc++ ABI.
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           PIP_VERBOSE: 1
-          # Required as we make use of c++17 features
-          MACOSX_DEPLOYMENT_TARGET: 10.15
+          # VFX Reference Platform CY23-CY24
+          MACOSX_DEPLOYMENT_TARGET: 11
           # Ensure .pyi stub tests won't be skipped
           OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN: 1
 
