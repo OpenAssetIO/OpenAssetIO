@@ -24,12 +24,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             shell: bash
           - os: macos-12
             shell: bash
-          - os: windows-2019
-            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          - os: windows-2022
+            preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
             shell: cmd
           # These are the platform build strings provided to
           # cibuildwheel, with wildcarding. See

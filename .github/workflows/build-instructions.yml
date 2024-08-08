@@ -19,7 +19,7 @@ jobs:
 
   aswf-docker:
     name: CY2024
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4
@@ -46,10 +46,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: windows-2019
-            preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+          - os: windows-2022
+            preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
             shell: cmd
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             shell: bash
           - os: macos-12
             shell: bash
@@ -85,8 +85,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: windows-2019
-          - os: ubuntu-20.04
+          - os: windows-2022
+          - os: ubuntu-22.04
           - os: macos-12
     defaults:
       run:

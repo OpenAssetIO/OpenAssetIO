@@ -141,11 +141,6 @@ option(OPENASSETIO_ENABLE_C "Build C bindings" OFF)
 # For dev/CI we should remember to switch this ON, though!
 option(OPENASSETIO_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
-# Enable IPO by default. For such a small project, the increased build
-# resources seem worth the potential additional compiler optimisations.
-option(OPENASSETIO_ENABLE_IPO
-    "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)" ON)
-
 # Enable position independent code by default. This is redundant for
 # shared libraries (CMake sets it automatically). Enabling this for
 # static libraries allows our symbols to be linked to by downstream
@@ -173,6 +168,21 @@ if (IS_GCC_OR_CLANG)
     option(OPENASSETIO_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
     option(OPENASSETIO_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
 endif ()
+
+# Enable IPO by default. For such a small project, the increased build
+# resources seem worth the potential additional compiler optimisations.
+# However, disable by default if ASan is enabled, otherwise false
+# positive odr-violation errors abound (on GCC 11).
+# https://github.com/google/sanitizers/issues/647
+set(_openassetio_enable_ipo_default ON)
+if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
+    set(_openassetio_enable_ipo_default OFF)
+endif()
+option(
+    OPENASSETIO_ENABLE_IPO
+    "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)"
+    ${_openassetio_enable_ipo_default}
+)
 
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)

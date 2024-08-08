@@ -1,6 +1,6 @@
 name: Deploy_PyPI
 
-on: 
+on:
   release:
     types: [published]
   workflow_dispatch:
@@ -14,11 +14,11 @@ concurrency:
 jobs:
   # testpypi and pypi are done as two seperate jobs due to a potential
   # fail in the pypi upload, and wanting to be able to rerun just the
-  # mainline pypi upload. This can happen when pypi goes into read 
+  # mainline pypi upload. This can happen when pypi goes into read
   # only mode, which happens sometimes.
   publish_testpypi:
     name: Publish distribution 📦 to TestPyPI
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       # This action will download the artifact for workflow runs that
       # happen for this actual commit (the commit that the tag points to).
@@ -44,7 +44,7 @@ jobs:
   publish_pypi:
     name: Publish distribution 📦 to PyPI
     needs: publish_testpypi
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Download wheels from commit ${{ github.sha }}
         uses: dawidd6/action-download-artifact@v6
