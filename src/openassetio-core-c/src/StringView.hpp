@@ -21,7 +21,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  */
 inline void assignStringView(oa_StringView* dest, const std::string_view src) {
   dest->size = std::min(src.size(), dest->capacity);
-  strncpy(dest->data, src.data(), dest->size);
+  std::memcpy(dest->data, src.data(), dest->size);
 }
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
