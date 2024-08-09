@@ -207,9 +207,6 @@
  *   version as the one used to install via `pip`.
  * - Check that the appropriate directory is on `sys.path` in the
  *   host's interpreter.
- * - Check that `importlib_metadata` is available to the host
- *   interpreter (a message will be logged during startup if this is
- *   missing).
  *
  * @subsection manual_plugins_missing Manually installed plugins not being found
  *

@@ -19,26 +19,26 @@ jobs:
       fail-fast: false
       matrix:
         # We can't properly align to the VFX Reference Platform as this
-        # requires glibc 2.17, which is older than any of the available
-        # environments.
+        # requires glibc 2.28, which is older than the closest matching
+        # Linux environment (Ubuntu 22.04 with glibc 2.35).
         config:
           # No Windows debug, Dosen't work on actions (easily)
           # It's hard to get a python debug lib.
-        - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+        - os: windows-2022
+          preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
           shell: cmd
           build-type: RelWithDebInfo
-        - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+        - os: windows-2022
+          preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
           shell: cmd
           build-type: Release
-        - os: ubuntu-20.04
+        - os: ubuntu-22.04
           shell: bash
           build-type: Debug
-        - os: ubuntu-20.04
+        - os: ubuntu-22.04
           shell: bash
           build-type: RelWithDebInfo
-        - os: ubuntu-20.04
+        - os: ubuntu-22.04
           shell: bash
           build-type: Release
         - os: macos-12

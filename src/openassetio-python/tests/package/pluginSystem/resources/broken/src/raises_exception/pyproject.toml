@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "raises-exception"
 version = "0.0.0"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 description = """\
     A test OpenAssetIO Manager plugin that raises an exception during inmport.

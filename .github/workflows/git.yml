@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   # Prevent any PR's being merge that have fixup commits in them
   block-fixup:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v4

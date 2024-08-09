@@ -20,7 +20,7 @@ We assume the following system packages are installed
 
 - CMake 3.27+
 - C++17 or later compliant compiler
-(GCC 9.3+ / MSVC 16.9+ / macOS 10.15+)
+(GCC 11.2+ / MSVC 17.4+ / macOS 11+)
 
 For linting and other build verification options, we assume the
 following packages are installed:
@@ -34,7 +34,7 @@ following packages are installed:
 Binary builds additionally require the following packages to be
 available.
 
-- [Python 3.9+](https://www.python.org/) (development install)
+- [Python 3.10+](https://www.python.org/) (development install)
 - [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
 - [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0
@@ -156,7 +156,6 @@ behaviour of the build.
 | `OPENASSETIO_WARNINGS_AS_ERRORS`                  | Treat compiler warnings as errors                                     | `OFF`   |
 | `OPENASSETIO_ENABLE_IPO`                          | Enable Interprocedural Optimization, aka Link Time Optimization (LTO) | `ON`    |
 | `OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE`    | Enable position independent code for static library builds            | `ON`    |
-| `OPENASSETIO_GLIBCXX_USE_CXX11_ABI`               | When building under gcc, use the new C++11 library ABI                | `OFF`   |
 | `OPENASSETIO_ENABLE_NEW_DTAGS`                    | Set RUNPATH, overriding RPATH, on linux platforms                     | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_ADDRESS`            | Enable address sanitizer                                              | `OFF`   |
 | `OPENASSETIO_ENABLE_SANITIZER_LEAK`               | Enable leak sanitizer                                                 | `OFF`   |
