@@ -32,11 +32,6 @@ Alternatively, the plugin can be built as an independent CMake project.
 
 Available CMake settings
 
-- `OPENASSETIO_GLIBCXX_USE_CXX11_ABI` - If truthy, and using
-  `libstdc++` (default on Linux), the C++11 ABI will be used rather than
-  the deprecated pre-C++11 ABI. The value of this option must match the
-  identically named option used when building OpenAssetIO. See
-  [VFX Reference Platform](https://vfxplatform.com/).
 - `OPENASSETIO_ENABLE_TESTS` - If truthy, tests will be enabled. These
   require an OpenAssetIO build with Python enabled, and a Python
   environment with `pytest` installed.
@@ -46,7 +41,7 @@ project, and assuming a POSIX host
 
 ```sh
 export CMAKE_PREFIX_PATH=/path/to/OpenAssetIO/dist
-cmake -S . -B build -DOPENASSETIO_GLIBCXX_USE_CXX11_ABI=OFF
+cmake -S . -B build
 cmake --build build --parallel
 cmake --install build --prefix /path/to/OpenAssetIO/plugins
 ```

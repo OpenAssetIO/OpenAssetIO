@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# This bootstrap script is used by both the Github CI action and the
-# Vagrant VM configuration.
+# This bootstrap script is used by both the Github CI action.
 
 set -xeo pipefail
 
