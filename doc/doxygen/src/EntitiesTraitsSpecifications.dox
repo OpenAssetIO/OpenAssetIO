@@ -45,7 +45,8 @@
  * This is accomplished within OpenAssetIO using a set of
  * 'traits'. A trait represents a concrete characteristic manifest
  * by the thing in question. A trait may have one or more properties
- * associated with it.
+ * associated with it. Traits are non-hierarchical.
+ * Traits can not be comprised of other traits.
  *
  * For entities, traits define the nature of that entity and what
  * associated data it holds.
@@ -81,6 +82,7 @@
  * The manager doesn't need to check an extensive list of which entity
  * types may be registered with data on disk - it just checks if any
  * given entity has that specific trait.
+ *
  *
  * @section entity_data Entity Data
  *
