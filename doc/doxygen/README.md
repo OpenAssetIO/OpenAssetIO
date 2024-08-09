@@ -37,9 +37,8 @@ available on `$PATH`:
 -   [GNU Make](https://www.gnu.org/software/make/)
 -   [Doxygen](https://www.doxygen.nl) 1.8.11 (exact version, see [this
     issue](https://github.com/doxygen/doxygen/issues/7096))
--   [npm](https://nodejs.org/en/)
 
-Once `doxygen` and `npm` are available on `$PATH`, the included
+Once `doxygen` is available on `$PATH`, the included
 `Makefile` will build the docs bundle, simply run:
 
 ```
@@ -47,7 +46,7 @@ make html
 ```
 
 The `Makefile` takes care of installing the other pre-requisite tooling
-such as `sass` and `doxypy.py` for you.
+such as `doxypy.py` for you.
 
 ## Viewing the docs
 
