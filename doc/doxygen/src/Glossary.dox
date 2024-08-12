@@ -88,8 +88,8 @@
  *
  * > Note: We strongly recommend using a human-readable form that
  * > follows <a
- * href=https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#cite_ref-FOOTNOTERFC_3986,_section_32005_23-0"
- * target="_blank">RFC_3986</a>.
+ * > href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier"
+ * > target="_blank">RFC_3986</a>.
  *
  * The following are examples of perfectly valid entity references:
  *
