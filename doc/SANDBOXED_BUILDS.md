@@ -9,7 +9,7 @@ A simple way to perform a from-source build is to use the
 [openassetio-build docker image.](https://github.com/OpenAssetIO/OpenAssetIO/pkgs/container/openassetio-build)
 
 The `openassetio-build` image is almost identical to the
-[ASWF CY22 Docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2022),
+[ASWF CY24 Docker image](https://hub.docker.com/r/aswf/ci-base/tags?name=2024),
 with just a few [added dependencies](BUILDING.md#library-dependencies).
 This image contains all the necessary dependencies to build and test
 OpenAssetIO, and functions as a fully configured build environment.
@@ -47,29 +47,6 @@ docker run -v `pwd`:/src ghcr.io/openassetio/openassetio-build bash -c '
 >
 > Running tests via `ctest` will automatically perform the build and
 > install steps.
-
-## Vagrant
-
-Included for convenience is a [Vagrant](https://www.vagrantup.com/)
-configuration for creating reproducible build environments. This is
-configured to create a virtual machine that matches the Linux Github CI
-environment as close as is feasible.
-
-In order to build and run the tests within a Vagrant VM, assuming
-Vagrant is installed and the current working directory is the root of
-the repository, run the following
-
-```shell
-cd resources/build
-vagrant up
-# Wait a while...
-vagrant ssh
-cmake -S openassetio -B build --install-prefix ~/dist \
-  --toolchain ~/.conan/conan_paths.cmake
-```
-
-Then we can run the usual steps (see above) to build and install
-OpenAssetIO, and run the tests (if enabled).
 
 ## Steps for creating openassetio-build docker image
 

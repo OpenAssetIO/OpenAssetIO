@@ -175,22 +175,6 @@ class Test_PythonPluginSystem_scan_entry_points:
         assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
         assert a_plugin_system.identifiers() == [entry_point_plugin_identifier]
 
-    def test_when_importlib_metadata_missing_then_a_warning_is_loggeed_and_false_returned(
-        self, mock_logger, monkeypatch
-    ):
-        # Remove any previously imported versions
-        sys.modules.pop("importlib_metadata", None)
-        monkeypatch.setattr(sys, "path", [])
-
-        plugin_system = PythonPluginSystem(mock_logger)
-        assert plugin_system.scan_entry_points("some.entrypoint") is False
-
-        mock_logger.mock.log.assert_called_once_with(
-            mock_logger.Severity.kWarning,
-            "PythonPluginSystem: Can not load entry point plugins as the importlib_metadata "
-            "package is unavailable.",
-        )
-
     def test_when_plugins_broken_then_skipped_with_expected_errors(
         self, broken_python_plugins_path, mock_logger, monkeypatch
     ):

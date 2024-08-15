@@ -27,10 +27,10 @@ jobs:
         # requires glibc 2.17, which is older than any of the available
         # environments.
         config:
-        - os: windows-2019
-          preamble: call "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
+        - os: windows-2022
+          preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
           shell: cmd
-        - os: ubuntu-20.04
+        - os: ubuntu-22.04
           shell: bash
         - os: macos-12
           shell: bash
@@ -78,7 +78,7 @@ jobs:
         ctest -VV --test-dir build --parallel 4
 
   docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout source
@@ -105,7 +105,7 @@ jobs:
         path: doc/doxygen/html
 
   disallowed-phrases:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Disallowed phrases
 
     steps:

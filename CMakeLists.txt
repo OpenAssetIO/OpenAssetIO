@@ -13,8 +13,8 @@ cmake_minimum_required(VERSION 3.27)
 # Additional include directories for CMake utils.
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
-# Minimum required for the C++17 features used.
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+# VFX Reference Platform CY23-CY24
+set(CMAKE_OSX_DEPLOYMENT_TARGET 11)
 
 # Forbid in-source builds.
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -141,29 +141,12 @@ option(OPENASSETIO_ENABLE_C "Build C bindings" OFF)
 # For dev/CI we should remember to switch this ON, though!
 option(OPENASSETIO_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
-# Enable IPO by default. For such a small project, the increased build
-# resources seem worth the potential additional compiler optimisations.
-option(OPENASSETIO_ENABLE_IPO
-    "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)" ON)
-
 # Enable position independent code by default. This is redundant for
 # shared libraries (CMake sets it automatically). Enabling this for
 # static libraries allows our symbols to be linked to by downstream
 # shared libraries.
 option(OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE
     "Enable position independent code for static library builds" ON)
-
-# Disable C++11 ABI by default, as per current VFX reference
-# platform(s), but allow optionally enabling.
-# For reference, note that the default varies by platform, e.g.
-# * CentOS 7.9.2009's GCC 6.3, `_GLIBCXX_USE_CXX11_ABI` is
-#   always `0` and cannot be overridden.
-# * Ubuntu 18.04's GCC 6.5, `_GLIBCXX_USE_CXX11_ABI` defaults
-#   to `1`, but can be overridden.
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
-    CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5.0)
-    option(OPENASSETIO_GLIBCXX_USE_CXX11_ABI "For gcc, use the new C++11 library ABI" OFF)
-endif ()
 
 # Whether to use RPATH or RUNPATH runtime search path behavior.
 if (IS_GCC_OR_CLANG)
@@ -185,6 +168,21 @@ if (IS_GCC_OR_CLANG)
     option(OPENASSETIO_ENABLE_SANITIZER_THREAD "Enable thread sanitizer" OFF)
     option(OPENASSETIO_ENABLE_SANITIZER_MEMORY "Enable memory sanitizer" OFF)
 endif ()
+
+# Enable IPO by default. For such a small project, the increased build
+# resources seem worth the potential additional compiler optimisations.
+# However, disable by default if ASan is enabled, otherwise false
+# positive odr-violation errors abound (on GCC 11).
+# https://github.com/google/sanitizers/issues/647
+set(_openassetio_enable_ipo_default ON)
+if (OPENASSETIO_ENABLE_SANITIZER_ADDRESS)
+    set(_openassetio_enable_ipo_default OFF)
+endif()
+option(
+    OPENASSETIO_ENABLE_IPO
+    "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)"
+    ${_openassetio_enable_ipo_default}
+)
 
 # Enable unit tests.
 option(OPENASSETIO_ENABLE_TESTS "Create test targets" OFF)
@@ -366,7 +364,6 @@ message(STATUS "Warnings as errors                 = ${OPENASSETIO_WARNINGS_AS_E
 message(STATUS "Interprocedural optimization       = ${OPENASSETIO_ENABLE_IPO}")
 message(STATUS "Enable PIC for static libs         = ${OPENASSETIO_ENABLE_POSITION_INDEPENDENT_CODE}")
 if (IS_GCC_OR_CLANG)
-    message(STATUS "New C++11 ABI for gcc              = ${OPENASSETIO_GLIBCXX_USE_CXX11_ABI}")
     message(STATUS "RUNPATH rather than RPATH          = ${OPENASSETIO_ENABLE_NEW_DTAGS}")
     message(STATUS "Coverage reports                   = ${OPENASSETIO_ENABLE_COVERAGE}")
     message(STATUS "libstdc++ debug mode               = ${OPENASSETIO_ENABLE_GLIBCXX_DEBUG}")

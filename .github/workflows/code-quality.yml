@@ -5,13 +5,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  # Buy some more time to use the deprecated Node 16 (needed for GLIBC
-  # version - also see comment re. pinning to actions/checkout@v3).
-  # Upgrading to the CY23 Docker images will solve this longer term. See
-  # https://github.com/OpenAssetIO/OpenAssetIO/issues/984#issuecomment-2210792734
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-
 jobs:
   pylint:
     runs-on: ${{ matrix.config.os }}
@@ -19,7 +12,7 @@ jobs:
     strategy:
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
@@ -48,7 +41,7 @@ jobs:
             src/openassetio-python/tests
 
   black:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Python formatting
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +49,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -67,7 +60,7 @@ jobs:
         run: black --config src/openassetio-python/pyproject.toml --check --diff .
 
   markdown-link-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
@@ -80,11 +73,11 @@ jobs:
 
   cpp-linters:
     name: C++ linters
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
@@ -95,8 +88,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/ccache
-          key: ubuntu-20.04-ccache-lint-${{ github.run_id }}
-          restore-keys: ubuntu-20.04-ccache-lint-
+          key: ubuntu-22.04-ccache-lint-${{ github.run_id }}
+          restore-keys: ubuntu-22.04-ccache-lint-
 
       - name: Install dependencies
         # Configure the system and install library dependencies via
@@ -126,11 +119,11 @@ jobs:
 
   sanitizers:
     name: Sanitizers
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         config:
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
@@ -141,8 +134,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /tmp/ccache
-          key: ubuntu-20.04-ccache-sanitize-${{ github.run_id }}
-          restore-keys: ubuntu-20.04-ccache-sanitize-
+          key: ubuntu-22.04-ccache-sanitize-${{ github.run_id }}
+          restore-keys: ubuntu-22.04-ccache-sanitize-
 
       - name: Configure CMake build
         run: >
@@ -163,7 +156,7 @@ jobs:
 
   abi-check:
     name: ABI diff check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # We must test ABI on a consistent platform. So choose our VFX
     # reference platform compatible Docker image, which we have
     # pre-installed libabigail into for performing the ABI diff checks.
