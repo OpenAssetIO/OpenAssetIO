@@ -10,7 +10,7 @@ default: container-build
 # `git`, `python3-venv`, `doxygen` and `graphviz` to be installed. See
 # README.md for more information.
 #
-# The `tooling` target takes care of installing `sass` and `doxypy` if
+# The `tooling` target takes care of installing `doxypy` if
 # required.  They will be installed into the current working directory
 # for both Docker and local builds. The `clean-tooling` target (invoked
 # by `clean`) will remove these if required.
@@ -86,13 +86,12 @@ publish-docker: docker-image
 
 # Tooling paths
 VENV = ./venv
-SASS = ./node_modules/.bin/sass
 
 # Force clean-html as we don't declare all the sources
-html: clean-html src/styles.css tooling
+html: clean-html tooling
 	. $(VENV)/bin/activate && OPENASSETIO_CORE_ABI_VERSION=$(OPENASSETIO_CORE_ABI_VERSION) doxygen ./Doxyfile
 
-tooling: $(SASS) $(VENV)
+tooling: $(VENV)
 
 #
 # Deployment to GH Pages
@@ -137,7 +136,6 @@ clean-html:
 	rm -rf ./html
 
 clean-tooling:
-	rm -rf node_modules
 	rm -rf $(VENV)
 
 #
@@ -147,19 +145,9 @@ clean-tooling:
 todo:
 	@grep -Eor "@needsref [a-zA-Z._-]+" ../ | sort | uniq | sed 's|..//||' | column -s ':' -t
 
-##
-## File targets
-##
-
-src/styles.css: src/styles.scss $(SASS)
-	./node_modules/.bin/sass --no-source-map ./src/styles.scss ./src/styles.css
-
 #
 # Tooling
 #
-
-$(SASS):
-	npm ci
 
 # `pip install wheel` avoids "error: invalid command 'bdist_wheel'"
 $(VENV): requirements.txt

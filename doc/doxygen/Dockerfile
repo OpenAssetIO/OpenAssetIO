@@ -12,11 +12,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y build-essential curl git python3.8-venv && \
 #
-# Node.js so we can use npm to install sass in the Makefile
-#
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs && \
-#
 # Graphviz and plantuml for in-code diagrams
 #
     apt-get install -y graphviz plantuml && \

@@ -1,9 +1,0 @@
-{
-  "name": "openassetio-docs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "html/index.html",
-  "devDependencies": {
-    "sass": "^1.42.1"
-  }
-}
