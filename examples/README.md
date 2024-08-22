@@ -88,6 +88,13 @@ offering. Their
 [manager plugin](https://github.com/ynput/ayon-openassetio-manager-plugin)
 is available on GitHub.
 
+### Ftrack manager plugin
+
+[Ftrack Studio](https://www.ftrack.com/en/studio) is a commercial
+production tracking and asset management system. They maintain a
+[manager plugin](https://github.com/ftrackhq/ftrack-openassetio-manager)
+on GitHub.
+
 ### Blender OpenAssetIO demo script
 
 [Blender](https://www.blender.org/) is an open source 3D digital content

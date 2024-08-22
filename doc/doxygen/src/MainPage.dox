@@ -6,13 +6,8 @@
  * * 📐 Get off to a good start with the <a
      href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python">Python
      manager template.</a>
- * * 📖 See some examples: <a
-     href="https://github.com/ynput/ayon-openassetio-manager-plugin/tree/main#readme">Ayon
-     manager plugin</a>, <a
-     href="https://github.com/OpenAssetIO/usdOpenAssetIOResolver#readme">USD
-     Asset Resolver prototype</a>, <a
-     href="https://github.com/OpenAssetIO/otio-openassetio">OTIO media
-     linker</a>
+ * * 📖 See some <a href="https://github.com/OpenAssetIO/OpenAssetIO/tree/main/examples#readme">examples</a>
+ *   in the OpenAssetIO ecosystem, including USD, OTIO, Ftrack, Ayon, and more.
  * * 📖 See a <a
      href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation/blob/main/examples/hello_openassetio.ipynb">Hello World</a> tutorial example, with more tutorial examples to be found in <a
      href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation/tree/main/examples/">OpenAssetIO-MediaCreation</a>

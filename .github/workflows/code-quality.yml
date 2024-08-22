@@ -64,6 +64,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        # Suppress ftrack.com, which errors with http 520 when accessed
+        # via GitHub CI, for unknown reasons.
+        config-file: .github/markdown-link-check-config.json
 
   # Note: in order to keep an `actions/cache` cache up to date, we must
   # use the approach detailed in
