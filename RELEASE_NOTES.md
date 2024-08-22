@@ -1,13 +1,12 @@
 Release Notes
 =============
 
-v1.0.0-beta.x.x
+v1.0.0-rc.x.x
 ---------------
 
-_This release breaks binary compatibility and may break source
-compatibility with C++ hosts and managers. In addition, this release may
-break source compatibility for Python hosts. See breaking changes
-section for more details._
+_This release breaks binary compatibility with C++ hosts and managers.
+It may break source compatibility for hosts and managers in both C++ and
+Python. See breaking changes section for more details._
 
 ### Breaking changes
 
@@ -52,6 +51,9 @@ section for more details._
   will use the system default libstdc++ ABI, rather than defaulting to
   the old ABI.
   [#1353](https://github.com/OpenAssetIO/OpenAssetIO/issues/1353)
+
+- Removed support for querying the "beta" version number of the library.
+  [#1401](https://github.com/OpenAssetIO/OpenAssetIO/issues/1401)
 
 ### New Features
 

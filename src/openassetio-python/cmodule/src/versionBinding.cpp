@@ -9,7 +9,5 @@ void registerVersion(py::module& mod) {
   mod.def("majorVersion", &openassetio::majorVersion);
   mod.def("minorVersion", &openassetio::minorVersion);
   mod.def("patchVersion", &openassetio::patchVersion);
-  mod.def("betaMajorVersion", &openassetio::betaMajorVersion);
-  mod.def("betaMinorVersion", &openassetio::betaMinorVersion);
   mod.def("versionString", &openassetio::versionString);
 }

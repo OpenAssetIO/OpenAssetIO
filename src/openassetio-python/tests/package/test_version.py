@@ -28,25 +28,21 @@ import pytest
 import openassetio
 
 # Update this value each release
-openassetio_version_string = "v1.0.0-beta.2.2"
+openassetio_version_string = "v1.0.0-rc.1.0"
 
 
 @pytest.fixture(scope="module")
 def extracted_version_nums():
     # Extract version numbers so we can test them
-    pattern = r"v(\d+)\.(\d+)\.(\d+)-beta\.(\d+)\.(\d+)"
+    pattern = r"v(\d+)\.(\d+)\.(\d+)"
     match = re.search(pattern, openassetio_version_string)
     major_version = match.group(1)
     minor_version = match.group(2)
     patch_version = match.group(3)
-    beta_major_version = match.group(4)
-    beta_minor_version = match.group(5)
     return (
         int(major_version),
         int(minor_version),
-        int(patch_version),
-        int(beta_major_version),
-        int(beta_minor_version),
+        int(patch_version)
     )
 
 
@@ -62,9 +58,3 @@ class Test_Version:
 
     def test_patch_version(self, extracted_version_nums):
         assert openassetio.patchVersion() == extracted_version_nums[2]
-
-    def test_major_beta_version(self, extracted_version_nums):
-        assert openassetio.betaMajorVersion() == extracted_version_nums[3]
-
-    def test_minor_beta_version(self, extracted_version_nums):
-        assert openassetio.betaMinorVersion() == extracted_version_nums[4]
