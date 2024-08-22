@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-rc.x.x
+v1.0.0-rc.1.0
 ---------------
 
 _This release breaks binary compatibility with C++ hosts and managers.

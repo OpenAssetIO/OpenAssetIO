@@ -3,8 +3,8 @@
 PRs should aim to be small, containing a single meaningful change to
 the project. For all merges, the target branch should be functional
 after merge.
-- For feature branches, or during alpha development, the target should
-  be functional, but not necessarily feature-complete.
+- For feature branches the target should be functional, but not
+  necessarily feature-complete.
 - For release branches the target should always be in a release-ready
   state before, and after any PR is merged.
 

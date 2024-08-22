@@ -39,11 +39,7 @@ def extracted_version_nums():
     major_version = match.group(1)
     minor_version = match.group(2)
     patch_version = match.group(3)
-    return (
-        int(major_version),
-        int(minor_version),
-        int(patch_version)
-    )
+    return int(major_version), int(minor_version), int(patch_version)
 
 
 class Test_Version:

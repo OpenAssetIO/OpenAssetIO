@@ -44,7 +44,7 @@ We have a few golden rules for commits to release branches:
 
 - All code should follow the project coding standards.
 - `main` and maintenance branches should always be functional, once we
-  pass alpha and beta, they must always be release ready.
+  pass pre-release, they must always be release ready.
 - Commits should form meaningful atomic units of change. The build
   should never be (intentionally) broken between commits merged to
   release branches.
@@ -176,8 +176,8 @@ To make a new OpenAssetIO release, follow this procedure.
     - Remove line wrapping from the release notes, each note
       should becomes a single line.
       (vim users: `set tw=9999`, `gg<S-V><S-G>gq`)
-  - If this is an alpha or beta release, ensure `Set as a pre-release`
-    checkbox is checked.
+  - If this is a pre-release, ensure `Set as a pre-release` checkbox is
+    checked.
   - Click "Publish Release"
 - In response to a release being published, two things happen.
   - The [Deploy PyPI](https://github.com/OpenAssetIO/OpenAssetIO/actions/workflows/deploy-pypi.yml)
