@@ -123,7 +123,7 @@ Entities</h1>
 <h1><a class="anchor" id="Traits"></a>
 Traits</h1>
 <p>Within the API, it is often necessary to classify an entity, relationship or the nature of the calling environment to ensure data is handled correctly.</p>
-<p>This is accomplished within OpenAssetIO using a set of 'traits'. A trait represents a concrete characteristic manifest by the thing in question. A trait may have one or more properties associated with it.</p>
+<p>This is accomplished within OpenAssetIO using a set of 'traits'. A trait represents a concrete characteristic manifest by the thing in question. A trait may have one or more properties associated with it. Traits are non-hierarchical. Traits can not be comprised of other traits.</p>
 <p>For entities, traits define the nature of that entity and what associated data it holds.</p>
 <p>For example, an entity representing an image stored in an EXR file may have the <code>image</code>, <code>raster</code> and <code>locatableContent</code> traits. Each of these conveys a different characteristic of that entity:</p><ul>
 <li><code>locatableContent</code>: Data is accessed elsewhere, through the path (or URL) supplied in the trait's <code>location</code> property.</li>
