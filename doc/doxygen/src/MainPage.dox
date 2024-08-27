@@ -18,11 +18,6 @@
      href="https://github.com/OpenAssetIO/OpenAssetIO/">OpenAssetIO
      codebase</a>
  *
- * @warning The API has a long history. The OpenAssetIO release version is
- * currently in a beta stage and is subject to some refinements over the
- * coming months. See the <a href="https://github.com/orgs/OpenAssetIO/projects/1"
- * target="_blank">project tracker</a> for more details.
- *
  * OpenAssetIO defines a common set of interactions between a @ref host
  * of the API (eg: a Digital Content Creation tool or pipeline script)
  * and an @ref asset_management_system.

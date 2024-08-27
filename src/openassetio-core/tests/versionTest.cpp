@@ -8,7 +8,5 @@ SCENARIO("OpenassetIO exposes version information") {
   CHECK(openassetio::majorVersion() == OPENASSETIO_VERSION_MAJOR);
   CHECK(openassetio::minorVersion() == OPENASSETIO_VERSION_MINOR);
   CHECK(openassetio::patchVersion() == OPENASSETIO_VERSION_PATCH);
-  CHECK(openassetio::betaMajorVersion() == OPENASSETIO_BETA_VERSION_MAJOR);
-  CHECK(openassetio::betaMinorVersion() == OPENASSETIO_BETA_VERSION_MINOR);
   CHECK(openassetio::versionString() == OPENASSETIO_VERSION_STRING);
 }

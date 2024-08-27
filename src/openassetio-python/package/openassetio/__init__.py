@@ -84,7 +84,5 @@ from ._openassetio import (
     majorVersion,
     minorVersion,
     patchVersion,
-    betaMajorVersion,
-    betaMinorVersion,
     versionString,
 )

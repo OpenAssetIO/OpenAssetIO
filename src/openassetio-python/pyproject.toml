@@ -13,7 +13,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openassetio"
-version = "1.0.0b2.rev2"
+version = "1.0.0rc1.rev0"
 requires-python = ">=3.10"
 
 authors = [
@@ -25,7 +25,7 @@ description = """\
     """
 keywords = ["asset", "ams", "dam", "mam", "pipeline", "dcc", "media", "resolver"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Build Tools",
     "License :: OSI Approved :: Apache Software License",

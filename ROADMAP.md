@@ -1,6 +1,6 @@
 # Roadmap
 
-The OpenAssetIO project is working towards an initial beta release of
+The OpenAssetIO project is working towards an initial v1.0.0 release of
 the core API.
 
 We are looking for early adopters who can help fine tune its final form,
@@ -46,8 +46,8 @@ Managers.
 - [ ] Trait/Specification versioning support
 - [ ] Debug trace logging support.
 - [x] Entity introspection API methods.
-- [ ] C++ Plugin System
-- [ ] Hybrid C++/Python manager bridge.
+- [x] C++ Plugin System
+- [x] Hybrid C++/Python manager bridge.
 
 ## Y24 onwards
 - Read-through cache mix-ins.
