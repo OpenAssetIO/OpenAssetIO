@@ -1,6 +1,20 @@
 Release Notes
 =============
 
+v1.0.0-rc.x.x
+---------------
+
+_This release remains binary and source compatible for both hosts and
+managers._
+
+## New features
+
+- Added `defaultEntityReference` overloads for convenience, providing
+  alternatives to the core callback-based workflow. Includes querying
+  for a single result vs. a batch of results, and exception vs. result
+  object workflows.
+  [#1170](https://github.com/OpenAssetIO/OpenAssetIO/issues/1170)
+
 v1.0.0-rc.1.0
 ---------------
 

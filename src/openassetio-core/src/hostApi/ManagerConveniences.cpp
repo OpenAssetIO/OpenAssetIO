@@ -1,13 +1,22 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2024 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <optional>
 #include <utility>
+#include <variant>
 #include <vector>
+
+#include <openassetio/export.h>
 
 #include <openassetio/Context.hpp>
 #include <openassetio/EntityReference.hpp>
+#include <openassetio/access.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/Manager.hpp>
+#include <openassetio/internal.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../errors/exceptionMessages.hpp"
@@ -27,6 +36,95 @@ trait::TraitsDataPtr Manager::managementPolicy(const trait::TraitSet &traitSet,
 }
 
 /******************************************
+ * defaultEntityReference
+ ******************************************/
+
+// Singular Except
+std::optional<EntityReference> Manager::defaultEntityReference(
+    const trait::TraitSet &traitSet, access::DefaultEntityAccess defaultEntityAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::optional<EntityReference> result;
+  defaultEntityReference(
+      {traitSet}, defaultEntityAccess, context,
+      [&result]([[maybe_unused]] std::size_t index,
+                std::optional<EntityReference> entityReference) {
+        result = std::move(entityReference);
+      },
+      [&traitSet, defaultEntityAccess](const std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, static_cast<internal::access::Access>(defaultEntityAccess), std::nullopt,
+            traitSet);
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return result;
+}
+
+// Singular variant
+std::variant<errors::BatchElementError, std::optional<EntityReference>>
+Manager::defaultEntityReference(
+    const trait::TraitSet &traitSet, access::DefaultEntityAccess defaultEntityAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::variant<errors::BatchElementError, std::optional<EntityReference>> result;
+  defaultEntityReference(
+      {traitSet}, defaultEntityAccess, context,
+      [&result]([[maybe_unused]] std::size_t index,
+                std::optional<EntityReference> entityReference) {
+        result = std::move(entityReference);
+      },
+      [&result]([[maybe_unused]] std::size_t index, errors::BatchElementError error) {
+        result = std::move(error);
+      });
+
+  return result;
+}
+
+// Multi except
+std::vector<std::optional<EntityReference>> Manager::defaultEntityReference(
+    const trait::TraitSets &traitSets, access::DefaultEntityAccess defaultEntityAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
+  std::vector<std::optional<EntityReference>> results;
+  results.resize(traitSets.size());
+
+  defaultEntityReference(
+      traitSets, defaultEntityAccess, context,
+      [&results](std::size_t index, std::optional<EntityReference> entityReference) {
+        results[index] = std::move(entityReference);
+      },
+      [&traitSets, defaultEntityAccess](std::size_t index, errors::BatchElementError error) {
+        auto msg = errors::createBatchElementExceptionMessage(
+            error, index, static_cast<internal::access::Access>(defaultEntityAccess), std::nullopt,
+            traitSets[index]);
+        throw errors::BatchElementException(index, std::move(error), msg);
+      });
+
+  return results;
+}
+
+// Multi variant
+std::vector<std::variant<errors::BatchElementError, std::optional<EntityReference>>>
+Manager::defaultEntityReference(
+    const trait::TraitSets &traitSets, access::DefaultEntityAccess defaultEntityAccess,
+    const ContextConstPtr &context,
+    [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
+  std::vector<std::variant<errors::BatchElementError, std::optional<EntityReference>>> results;
+  results.resize(traitSets.size());
+  defaultEntityReference(
+      traitSets, defaultEntityAccess, context,
+      [&results](std::size_t index, std::optional<EntityReference> entityReference) {
+        results[index] = std::move(entityReference);
+      },
+      [&results](std::size_t index, errors::BatchElementError error) {
+        results[index] = std::move(error);
+      });
+
+  return results;
+}
+
+/******************************************
  * entityExists
  ******************************************/
 
@@ -39,8 +137,8 @@ bool Manager::entityExists(
       {entityReference}, context,
       [&result]([[maybe_unused]] std::size_t index, bool exists) { result = exists; },
       [&entityReference](std::size_t index, errors::BatchElementError error) {
-        auto msg = errors::createBatchElementExceptionMessage(error, index, entityReference,
-                                                              std::nullopt);
+        auto msg = errors::createBatchElementExceptionMessage(error, index, std::nullopt,
+                                                              entityReference, std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -76,7 +174,7 @@ std::vector<Manager::BoolAsUint> Manager::entityExists(
       },
       [&entityReferences](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index], std::nullopt);
+            error, index, std::nullopt, entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -116,8 +214,8 @@ trait::TraitSet Manager::entityTraits(
       },
       [&entityReference, entityTraitsAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference,
-            static_cast<internal::access::Access>(entityTraitsAccess));
+            error, index, static_cast<internal::access::Access>(entityTraitsAccess),
+            entityReference, std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -158,8 +256,8 @@ std::vector<trait::TraitSet> Manager::entityTraits(
       [&entityReferences, entityTraitsAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index],
-            static_cast<internal::access::Access>(entityTraitsAccess));
+            error, index, static_cast<internal::access::Access>(entityTraitsAccess),
+            entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -167,8 +265,7 @@ std::vector<trait::TraitSet> Manager::entityTraits(
 }
 
 // Multi variant
-std::vector<std::variant<errors::BatchElementError, trait::TraitSet>>
-hostApi::Manager::entityTraits(
+std::vector<std::variant<errors::BatchElementError, trait::TraitSet>> Manager::entityTraits(
     const EntityReferences &entityReferences, const access::EntityTraitsAccess entityTraitsAccess,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -203,7 +300,8 @@ trait::TraitsDataPtr Manager::resolve(
       },
       [&entityReference, resolveAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<internal::access::Access>(resolveAccess));
+            error, index, static_cast<internal::access::Access>(resolveAccess), entityReference,
+            std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -244,8 +342,8 @@ std::vector<trait::TraitsDataPtr> Manager::resolve(
       [&entityReferences, resolveAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index],
-            static_cast<internal::access::Access>(resolveAccess));
+            error, index, static_cast<internal::access::Access>(resolveAccess),
+            entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -253,8 +351,7 @@ std::vector<trait::TraitsDataPtr> Manager::resolve(
 }
 
 // Multi variant
-std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>>
-hostApi::Manager::resolve(
+std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>> Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -288,8 +385,8 @@ EntityReference Manager::preflight(
       },
       [&entityReference, publishingAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference,
-            static_cast<internal::access::Access>(publishingAccess));
+            error, index, static_cast<internal::access::Access>(publishingAccess), entityReference,
+            std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -328,8 +425,8 @@ EntityReferences Manager::preflight(
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index],
-            static_cast<internal::access::Access>(publishingAccess));
+            error, index, static_cast<internal::access::Access>(publishingAccess),
+            entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -371,8 +468,8 @@ EntityReference Manager::register_(
       },
       [&entityReference, publishingAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference,
-            static_cast<internal::access::Access>(publishingAccess));
+            error, index, static_cast<internal::access::Access>(publishingAccess), entityReference,
+            std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -413,8 +510,8 @@ std::vector<EntityReference> Manager::register_(
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index],
-            static_cast<internal::access::Access>(publishingAccess));
+            error, index, static_cast<internal::access::Access>(publishingAccess),
+            entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -458,7 +555,8 @@ EntityReferencePagerPtr Manager::getWithRelationship(
       },
       [&entityReference, relationsAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<internal::access::Access>(relationsAccess));
+            error, index, static_cast<internal::access::Access>(relationsAccess), entityReference,
+            std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       },
       resultTraitSet);
@@ -467,8 +565,7 @@ EntityReferencePagerPtr Manager::getWithRelationship(
 }
 
 // Singular Variant
-std::variant<errors::BatchElementError, EntityReferencePagerPtr>
-hostApi::Manager::getWithRelationship(
+std::variant<errors::BatchElementError, EntityReferencePagerPtr> Manager::getWithRelationship(
     const EntityReference &entityReference, const trait::TraitsDataPtr &relationshipTraitsData,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
@@ -503,8 +600,8 @@ std::vector<EntityReferencePagerPtr> Manager::getWithRelationship(
       },
       [&entityReferences, relationsAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReferences[index],
-            static_cast<internal::access::Access>(relationsAccess));
+            error, index, static_cast<internal::access::Access>(relationsAccess),
+            entityReferences[index], std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       },
       resultTraitSet);
@@ -554,7 +651,8 @@ std::vector<EntityReferencePagerPtr> Manager::getWithRelationships(
       },
       [&entityReference, relationsAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, entityReference, static_cast<internal::access::Access>(relationsAccess));
+            error, index, static_cast<internal::access::Access>(relationsAccess), entityReference,
+            std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       },
       resultTraitSet);

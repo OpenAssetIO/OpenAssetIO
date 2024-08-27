@@ -89,17 +89,22 @@ class Test_Manager_gil:
         a_threaded_manager.persistenceTokenForContext(a_context)
 
     def test_defaultEntityReference(self, a_threaded_manager, a_context):
-        # Defend against forgetting to include convenience signatures in
-        # this test, once added.
-        assert "Overloaded" not in a_threaded_manager.defaultEntityReference.__doc__
+        tag = Manager.BatchElementErrorPolicyTag
+        an_access = access.DefaultEntityAccess.kRead
 
         a_threaded_manager.defaultEntityReference(
             [],
-            access.DefaultEntityAccess.kRead,
+            an_access,
             a_context,
             fail,
             fail,
         )
+        a_threaded_manager.defaultEntityReference(set(), an_access, a_context)
+        a_threaded_manager.defaultEntityReference(set(), an_access, a_context, tag.kException)
+        a_threaded_manager.defaultEntityReference(set(), an_access, a_context, tag.kVariant)
+        a_threaded_manager.defaultEntityReference([], an_access, a_context)
+        a_threaded_manager.defaultEntityReference([], an_access, a_context, tag.kException)
+        a_threaded_manager.defaultEntityReference([], an_access, a_context, tag.kVariant)
 
     def test_displayName(self, mock_manager_interface, a_threaded_manager):
         mock_manager_interface.mock.displayName.return_value = "My Name"

@@ -4,8 +4,17 @@
 #include "exceptionMessages.hpp"
 
 #include <cassert>
+#include <cstddef>
+#include <optional>
 
 #include <fmt/core.h>
+
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/access.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/typedefs.hpp>
+
+#include "../utils/formatter.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -35,9 +44,10 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
   return "Unknown ErrorCode";
 }
 
-std::string createBatchElementExceptionMessage(
-    const BatchElementError& err, size_t index, const EntityReference& entityReference,
-    const std::optional<internal::access::Access> access) {
+Str createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
+                                       const std::optional<internal::access::Access> access,
+                                       const std::optional<EntityReference>& entityReference,
+                                       const std::optional<trait::TraitSet>& traitSet) {
   /*
    * BatchElementException messages consist of five parts.
    * 1. The name of the error code.
@@ -45,11 +55,12 @@ std::string createBatchElementExceptionMessage(
    * 3. The index that the batch error relates to.
    * 4. The access mode.
    * 5. The entity reference.
+   * 6. The trait set.
    *
    * Ends up looking something like : "entityAccessError: Could not
    * access Entity [index=2] [access=read] [entity=bal:///entityRef]"
    */
-  std::string result;
+  Str result;
 
   result += fmt::format("{}:", errorCodeName(err.code));
 
@@ -64,7 +75,13 @@ std::string createBatchElementExceptionMessage(
     result += fmt::format(" [access={}]", access::kAccessNames[*access]);
   }
 
-  result += fmt::format(" [entity={}]", entityReference.toString());
+  if (entityReference) {
+    result += fmt::format(" [entity={}]", entityReference->toString());
+  }
+
+  if (traitSet) {
+    result += fmt::format(" [traits={}]", *traitSet);
+  }
 
   return result;
 }
