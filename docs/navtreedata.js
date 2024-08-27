@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "OpenAssetIO [beta]", "index.html", [
+  [ "OpenAssetIO", "index.html", [
     [ "An Introduction", "index.html", [
       [ "Scope", "index.html#intro_scope", null ],
       [ "The Approach", "index.html#intro_approach", [
