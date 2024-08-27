@@ -57,6 +57,16 @@ Python. See breaking changes section for more details._
 
 ### New Features
 
+- Added the Hybrid Plugin System via a
+  `HybridPluginSystemManagerImplementationFactory`, allowing multiple
+  plugin systems to be composed (i.e. Python and C++). As well as
+  reducing host boilerplate, this also supports merging two (or more)
+  plugins. API requests are routed to the plugin that advertises the
+  associated capability for that API request. Performance-critical API
+  methods can then be coded in C++, whilst other methods are coded in
+  more developer-friendly Python.
+  [#1202](https://github.com/OpenAssetIO/OpenAssetIO/issues/1202)
+
 - Added SimpleCppManager - a minimal C++ manager and plugin example
   implementation, useful for testing C++ plugin support in hosts. This
   has minimal API support, so [Basic Asset Library (BAL)](https://github.com/OpenAssetIO/OpenAssetIO-Manager-BAL)
