@@ -31,7 +31,7 @@ trait::TraitsDataPtr Manager::managementPolicy(const trait::TraitSet &traitSet,
  ******************************************/
 
 // Singular Except
-bool hostApi::Manager::entityExists(
+bool Manager::entityExists(
     const EntityReference &entityReference, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   bool result{};
@@ -48,7 +48,7 @@ bool hostApi::Manager::entityExists(
 }
 
 // Singular variant
-std::variant<errors::BatchElementError, bool> hostApi::Manager::entityExists(
+std::variant<errors::BatchElementError, bool> Manager::entityExists(
     const EntityReference &entityReference, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::variant<errors::BatchElementError, bool> result;
@@ -63,7 +63,7 @@ std::variant<errors::BatchElementError, bool> hostApi::Manager::entityExists(
 }
 
 // Multi except
-std::vector<hostApi::Manager::BoolAsUint> hostApi::Manager::entityExists(
+std::vector<Manager::BoolAsUint> Manager::entityExists(
     const EntityReferences &entityReferences, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
   std::vector<BoolAsUint> results;
@@ -84,7 +84,7 @@ std::vector<hostApi::Manager::BoolAsUint> hostApi::Manager::entityExists(
 }
 
 // Multi variant
-std::vector<std::variant<errors::BatchElementError, bool>> hostApi::Manager::entityExists(
+std::vector<std::variant<errors::BatchElementError, bool>> Manager::entityExists(
     const EntityReferences &entityReferences, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
   std::vector<std::variant<errors::BatchElementError, bool>> results;
@@ -104,7 +104,7 @@ std::vector<std::variant<errors::BatchElementError, bool>> hostApi::Manager::ent
  ******************************************/
 
 // Singular Except
-trait::TraitSet hostApi::Manager::entityTraits(
+trait::TraitSet Manager::entityTraits(
     const EntityReference &entityReference, const access::EntityTraitsAccess entityTraitsAccess,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -125,7 +125,7 @@ trait::TraitSet hostApi::Manager::entityTraits(
 }
 
 // Singular variant
-std::variant<errors::BatchElementError, trait::TraitSet> hostApi::Manager::entityTraits(
+std::variant<errors::BatchElementError, trait::TraitSet> Manager::entityTraits(
     const EntityReference &entityReference, const access::EntityTraitsAccess entityTraitsAccess,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -143,7 +143,7 @@ std::variant<errors::BatchElementError, trait::TraitSet> hostApi::Manager::entit
 }
 
 // Multi except
-std::vector<trait::TraitSet> hostApi::Manager::entityTraits(
+std::vector<trait::TraitSet> Manager::entityTraits(
     const EntityReferences &entityReferences, const access::EntityTraitsAccess entityTraitsAccess,
     const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -191,7 +191,7 @@ hostApi::Manager::entityTraits(
  ******************************************/
 
 // Singular Except
-trait::TraitsDataPtr hostApi::Manager::resolve(
+trait::TraitsDataPtr Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -211,7 +211,7 @@ trait::TraitsDataPtr hostApi::Manager::resolve(
 }
 
 // Singular variant
-std::variant<errors::BatchElementError, trait::TraitsDataPtr> hostApi::Manager::resolve(
+std::variant<errors::BatchElementError, trait::TraitsDataPtr> Manager::resolve(
     const EntityReference &entityReference, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -229,7 +229,7 @@ std::variant<errors::BatchElementError, trait::TraitsDataPtr> hostApi::Manager::
 }
 
 // Multi except
-std::vector<trait::TraitsDataPtr> hostApi::Manager::resolve(
+std::vector<trait::TraitsDataPtr> Manager::resolve(
     const EntityReferences &entityReferences, const trait::TraitSet &traitSet,
     const access::ResolveAccess resolveAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -359,7 +359,7 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> Manager::p
  ******************************************/
 
 // Singular Except
-EntityReference hostApi::Manager::register_(
+EntityReference Manager::register_(
     const EntityReference &entityReference, const trait::TraitsDataPtr &entityTraitsData,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -380,7 +380,7 @@ EntityReference hostApi::Manager::register_(
 }
 
 // Singular variant
-std::variant<errors::BatchElementError, EntityReference> hostApi::Manager::register_(
+std::variant<errors::BatchElementError, EntityReference> Manager::register_(
     const EntityReference &entityReference, const trait::TraitsDataPtr &entityTraitsData,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -398,7 +398,7 @@ std::variant<errors::BatchElementError, EntityReference> hostApi::Manager::regis
 }
 
 // Multi except
-std::vector<EntityReference> hostApi::Manager::register_(
+std::vector<EntityReference> Manager::register_(
     const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Exception &errorPolicyTag) {
@@ -422,7 +422,7 @@ std::vector<EntityReference> hostApi::Manager::register_(
 }
 
 // Multi variant
-std::vector<std::variant<errors::BatchElementError, EntityReference>> hostApi::Manager::register_(
+std::vector<std::variant<errors::BatchElementError, EntityReference>> Manager::register_(
     const EntityReferences &entityReferences, const trait::TraitsDatas &entityTraitsDatas,
     const access::PublishingAccess publishingAccess, const ContextConstPtr &context,
     [[maybe_unused]] const BatchElementErrorPolicyTag::Variant &errorPolicyTag) {
@@ -445,7 +445,7 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> hostApi::M
  ******************************************/
 
 // Singular Except
-EntityReferencePagerPtr hostApi::Manager::getWithRelationship(
+EntityReferencePagerPtr Manager::getWithRelationship(
     const EntityReference &entityReference, const trait::TraitsDataPtr &relationshipTraitsData,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
@@ -488,7 +488,7 @@ hostApi::Manager::getWithRelationship(
 }
 
 // Multi Except
-std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationship(
+std::vector<EntityReferencePagerPtr> Manager::getWithRelationship(
     const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
@@ -514,7 +514,7 @@ std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationship(
 
 // Multi Variant
 std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
-hostApi::Manager::getWithRelationship(
+Manager::getWithRelationship(
     const EntityReferences &entityReferences, const trait::TraitsDataPtr &relationshipTraitsData,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
@@ -540,7 +540,7 @@ hostApi::Manager::getWithRelationship(
  ******************************************/
 
 // Multi Except
-std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationships(
+std::vector<EntityReferencePagerPtr> Manager::getWithRelationships(
     const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
@@ -564,7 +564,7 @@ std::vector<EntityReferencePagerPtr> hostApi::Manager::getWithRelationships(
 
 // Multi Variant
 std::vector<std::variant<errors::BatchElementError, EntityReferencePagerPtr>>
-hostApi::Manager::getWithRelationships(
+Manager::getWithRelationships(
     const EntityReference &entityReference, const trait::TraitsDatas &relationshipTraitsDatas,
     const size_t pageSize, const access::RelationsAccess relationsAccess,
     const ContextConstPtr &context, const trait::TraitSet &resultTraitSet,
