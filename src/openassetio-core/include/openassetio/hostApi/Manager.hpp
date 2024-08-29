@@ -1513,7 +1513,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * no meaningful default, so the caller should be robust to this
    * situation.
    *
-   * @param traitSets  The relevant trait sets for the type of entities
+   * @param traitSets The relevant trait sets for the type of entities
    * required, these will be interpreted in conjunction with the context
    * to determine the most sensible default.
    *
@@ -1557,6 +1557,202 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                               const ContextConstPtr& context,
                               const DefaultEntityReferenceSuccessCallback& successCallback,
                               const BatchElementErrorCallback& errorCallback);
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for the given entity @ref trait_set
+   * "trait set" and @ref Context "context".
+   *
+   * See documentation for the <!--
+   * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
+   * --> access::DefaultEntityAccess, const ContextConstPtr&, <!--
+   * --> const DefaultEntityReferenceSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback signature" for more details on default entity behaviour.
+   *
+   * Any errors that occur during the query will be immediately thrown
+   * as an exception, either from the @ref manager plugin (for errors
+   * not specific to the default entity query) or as a
+   * @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param traitSet The relevant trait set for the type of entity
+   * required. This will be interpreted in conjunction with the @p
+   * context to determine the most sensible default.
+   *
+   * @param defaultEntityAccess Intended usage of the returned entity
+   * reference.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return Default entity reference for the @p traitSet and @p
+   * context. If the query is well-formed, but there is no available
+   * default entity reference, then the `optional` entity reference will
+   * not contain a value.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kDefaultEntityReferences.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
+   */
+  std::optional<EntityReference> defaultEntityReference(
+      const trait::TraitSet& traitSet, access::DefaultEntityAccess defaultEntityAccess,
+      const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for the given entity @ref trait_set
+   * "trait set" and @ref Context "context".
+   *
+   * See documentation for the <!--
+   * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
+   * --> access::DefaultEntityAccess, const ContextConstPtr&, <!--
+   * --> const DefaultEntityReferenceSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback signature" for more details on default entity behaviour.
+   *
+   * If successful, the result is populated with a suitable default
+   * entity reference, or an empty optional if there is no suitable
+   * default.
+   *
+   * Otherwise, the result is populated with an error object detailing
+   * the reason for the failure.
+   *
+   * @param traitSet The relevant trait set for the type of entity
+   * required. This will be interpreted in conjunction with the @p
+   * context to determine the most sensible default.
+   *
+   * @param defaultEntityAccess Intended usage of the returned entity
+   * reference.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return Either an error object, or the default entity reference
+   * for the @p traitSet and @p context. If the query is well-formed,
+   * but there is no available default entity reference, then the
+   * `optional` entity reference will not contain a value.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kDefaultEntityReferences.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
+   */
+  std::variant<errors::BatchElementError, std::optional<EntityReference>> defaultEntityReference(
+      const trait::TraitSet& traitSet, access::DefaultEntityAccess defaultEntityAccess,
+      const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for each of the given entity @ref trait_set
+   * "trait sets" and @ref Context "context".
+   *
+   * See documentation for the <!--
+   * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
+   * --> access::DefaultEntityAccess, const ContextConstPtr&, <!--
+   * --> const DefaultEntityReferenceSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback signature" for more details on default entity behaviour.
+   *
+   * Any errors that occur during the query will be immediately thrown
+   * as an exception, either from the @ref manager plugin (for errors
+   * not specific to the default entity query) or as a
+   * @fqref{errors.BatchElementException}
+   * "BatchElementException"-derived error.
+   *
+   * @param traitSets The relevant trait sets for each type of entity
+   * required. These will be interpreted in conjunction with the @p
+   * context to determine the most sensible default.
+   *
+   * @param defaultEntityAccess Intended usage of the returned entity
+   * reference.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Exception.
+   *
+   * @return A list of default entity references, each corresponding an
+   * entry in @p traitSets. If the query is well-formed, but there is no
+   * available default entity reference, then the `optional` entity
+   * reference will not contain a value.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kDefaultEntityReferences.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
+   */
+  std::vector<std::optional<EntityReference>> defaultEntityReference(
+      const trait::TraitSets& traitSets, access::DefaultEntityAccess defaultEntityAccess,
+      const ContextConstPtr& context,
+      const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
+
+  /**
+   * Called to determine an @ref EntityReference considered to be a
+   * sensible default for each of the given entity @ref trait_set
+   * "trait sets" and @ref Context "context".
+   *
+   * See documentation for the <!--
+   * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
+   * --> access::DefaultEntityAccess, const ContextConstPtr&, <!--
+   * --> const DefaultEntityReferenceSuccessCallback&, <!--
+   * --> const BatchElementErrorCallback&)
+   * "callback signature" for more details on default entity behaviour.
+   *
+   * If successful, the corresponding element of the result is populated
+   * with a suitable default entity reference, or an empty `optional` if
+   * there is no suitable default.
+   *
+   * Otherwise, the corresponding entry of the result is populated with
+   * an error object detailing the reason for the failure.
+   *
+   * @param traitSets The relevant trait sets for each type of entity
+   * required. These will be interpreted in conjunction with the @p
+   * context to determine the most sensible default.
+   *
+   * @param defaultEntityAccess Intended usage of the returned entity
+   * reference.
+   *
+   * @param context The calling context.
+   *
+   * @param errorPolicyTag  Parameter for selecting the appropriate
+   * overload (tagged dispatch idiom). See @ref
+   * BatchElementErrorPolicyTag::Variant.
+   *
+   * @return A list where each element is either an error object, or the
+   * default entity reference for the corresponding @p traitSet and @p
+   * context. If the query is well-formed, but there is no available
+   * default entity reference for a particular trait set, then the
+   * `optional` entity reference corresponding to that trait set will
+   * not contain a value.
+   *
+   * @throws errors.NotImplementedException Thrown when this method is
+   * not implemented by the manager. Check that this method is
+   * implemented before use by calling @ref hasCapability with @ref
+   * Capability.kDefaultEntityReferences.
+   *
+   * @see @ref Capability.kDefaultEntityReferences
+   */
+  std::vector<std::variant<errors::BatchElementError, std::optional<EntityReference>>>
+  defaultEntityReference(const trait::TraitSets& traitSets,
+                         access::DefaultEntityAccess defaultEntityAccess,
+                         const ContextConstPtr& context,
+                         const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /// @}
 

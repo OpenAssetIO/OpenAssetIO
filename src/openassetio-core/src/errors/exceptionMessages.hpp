@@ -9,6 +9,7 @@
 #include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/internal.hpp>
+#include <openassetio/trait/collection.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -17,9 +18,10 @@ namespace errors {
 Str errorCodeName(BatchElementError::ErrorCode code);
 
 /**Construct a full message to place into a convenience exception.*/
-std::string createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
-                                               const EntityReference& entityReference,
-                                               std::optional<internal::access::Access> access);
+Str createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
+                                       std::optional<internal::access::Access> access,
+                                       const std::optional<EntityReference>& entityReference,
+                                       const std::optional<trait::TraitSet>& traitSet);
 }  // namespace errors
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

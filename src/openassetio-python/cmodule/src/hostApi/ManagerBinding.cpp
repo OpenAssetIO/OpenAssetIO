@@ -115,6 +115,65 @@ void registerManager(const py::module& mod) {
       .def("createEntityReferenceIfValid", &Manager::createEntityReferenceIfValid,
            py::arg("entityReferenceString"), py::call_guard<py::gil_scoped_release>{})
       .def(
+          "defaultEntityReference",
+          [](Manager& self, const trait::TraitSet& traitSet,
+             const access::DefaultEntityAccess defaultEntityReferenceAccess,
+             const ContextConstPtr& context) {
+            return self.defaultEntityReference(traitSet, defaultEntityReferenceAccess, context);
+          },
+          py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def(
+          "defaultEntityReference",
+          [](Manager& self, const trait::TraitSets& traitSets,
+             const access::DefaultEntityAccess defaultEntityReferenceAccess,
+             const ContextConstPtr& context) {
+            return self.defaultEntityReference(traitSets, defaultEntityReferenceAccess, context);
+          },
+          py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSet&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::DefaultEntityReferenceSuccessCallback&,
+                             const Manager::BatchElementErrorCallback&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSet&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def(
           "entityExists",
           [](Manager& self, const EntityReference& entityReference,
              const ContextConstPtr& context) {
@@ -295,10 +354,6 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference", &Manager::defaultEntityReference, py::arg("traitSets"),
-           py::arg("defaultEntityAccess"), py::arg("context").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
-           py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
            py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, size_t,
                              access::RelationsAccess, const ContextConstPtr&,
