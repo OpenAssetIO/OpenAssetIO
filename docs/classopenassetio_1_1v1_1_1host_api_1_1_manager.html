@@ -303,6 +303,18 @@ Entity Resolution</h2></td></tr>
 <tr class="memitem:a9e22352cacba1c4f27aa924a6bd4b7ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aac778e9fcd0be1551b55a8fafbd5c3d2">DefaultEntityReferenceSuccessCallback</a> &amp;successCallback, const <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa3b6716c9f9bbb4b47c912d67002d9b8">BatchElementErrorCallback</a> &amp;errorCallback)</td></tr>
 <tr class="memdesc:a9e22352cacba1c4f27aa924a6bd4b7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait_set">trait sets</a> and context.  <a href="#a9e22352cacba1c4f27aa924a6bd4b7ae">More...</a><br /></td></tr>
 <tr class="separator:a9e22352cacba1c4f27aa924a6bd4b7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a995abb58d67aa143222286f41ea96bd9"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a995abb58d67aa143222286f41ea96bd9">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab7c50b53a821cb3af49b3276925e97bb">trait::TraitSet</a> &amp;traitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:a995abb58d67aa143222286f41ea96bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for the given entity <a class="el" href="glossary.html#trait_set">trait set</a> and <a class="el" href="glossary.html#Context">context</a>.  <a href="#a995abb58d67aa143222286f41ea96bd9">More...</a><br /></td></tr>
+<tr class="separator:a995abb58d67aa143222286f41ea96bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa84ee6d3850dcbfc134ee8c85e4a5518"><td class="memItemLeft" align="right" valign="top">std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa84ee6d3850dcbfc134ee8c85e4a5518">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab7c50b53a821cb3af49b3276925e97bb">trait::TraitSet</a> &amp;traitSet, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:aa84ee6d3850dcbfc134ee8c85e4a5518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for the given entity <a class="el" href="glossary.html#trait_set">trait set</a> and <a class="el" href="glossary.html#Context">context</a>.  <a href="#aa84ee6d3850dcbfc134ee8c85e4a5518">More...</a><br /></td></tr>
+<tr class="separator:aa84ee6d3850dcbfc134ee8c85e4a5518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430e1ae2804353f903ea8c59b8ad0a4e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a430e1ae2804353f903ea8c59b8ad0a4e">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;errorPolicyTag={})</td></tr>
+<tr class="memdesc:a430e1ae2804353f903ea8c59b8ad0a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait_set">trait sets</a> and <a class="el" href="glossary.html#Context">context</a>.  <a href="#a430e1ae2804353f903ea8c59b8ad0a4e">More...</a><br /></td></tr>
+<tr class="separator:a430e1ae2804353f903ea8c59b8ad0a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86928e6efbf5b7f5c6ad6b043e3c8e11"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::variant&lt; <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, std::optional&lt; <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a86928e6efbf5b7f5c6ad6b043e3c8e11">defaultEntityReference</a> (const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;traitSets, <a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a> defaultEntityAccess, const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;context, const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;errorPolicyTag)</td></tr>
+<tr class="memdesc:a86928e6efbf5b7f5c6ad6b043e3c8e11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait_set">trait sets</a> and <a class="el" href="glossary.html#Context">context</a>.  <a href="#a86928e6efbf5b7f5c6ad6b043e3c8e11">More...</a><br /></td></tr>
+<tr class="separator:a86928e6efbf5b7f5c6ad6b043e3c8e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Related Entities</h2></td></tr>
@@ -836,6 +848,244 @@ bitset" specialisation of std::vector is not used. </p>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a995abb58d67aa143222286f41ea96bd9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt; defaultEntityReference </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab7c50b53a821cb3af49b3276925e97bb">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a>&#160;</td>
+          <td class="paramname"><em>defaultEntityAccess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for the given entity <a class="el" href="glossary.html#trait_set">trait set</a> and <a class="el" href="glossary.html#Context">context</a>. </p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae">callback signature</a> for more details on default entity behaviour.</p>
+<p>Any errors that occur during the query will be immediately thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to the default entity query) or as a <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitSet</td><td>The relevant trait set for the type of entity required. This will be interpreted in conjunction with the <code>context</code> to determine the most sensible default.</td></tr>
+    <tr><td class="paramname">defaultEntityAccess</td><td>Intended usage of the returned entity reference.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Default entity reference for the <code>traitSet</code> and <code>context</code>. If the query is well-formed, but there is no available default entity reference, then the <code>optional</code> entity reference will not contain a value.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa84ee6d3850dcbfc134ee8c85e4a5518"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, std::optional&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt; &gt; defaultEntityReference </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ab7c50b53a821cb3af49b3276925e97bb">trait::TraitSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a>&#160;</td>
+          <td class="paramname"><em>defaultEntityAccess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for the given entity <a class="el" href="glossary.html#trait_set">trait set</a> and <a class="el" href="glossary.html#Context">context</a>. </p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae">callback signature</a> for more details on default entity behaviour.</p>
+<p>If successful, the result is populated with a suitable default entity reference, or an empty optional if there is no suitable default.</p>
+<p>Otherwise, the result is populated with an error object detailing the reason for the failure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitSet</td><td>The relevant trait set for the type of entity required. This will be interpreted in conjunction with the <code>context</code> to determine the most sensible default.</td></tr>
+    <tr><td class="paramname">defaultEntityAccess</td><td>Intended usage of the returned entity reference.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Either an error object, or the default entity reference for the <code>traitSet</code> and <code>context</code>. If the query is well-formed, but there is no available default entity reference, then the <code>optional</code> entity reference will not contain a value.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a430e1ae2804353f903ea8c59b8ad0a4e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::optional&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt; &gt; defaultEntityReference </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a>&#160;</td>
+          <td class="paramname"><em>defaultEntityAccess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait_set">trait sets</a> and <a class="el" href="glossary.html#Context">context</a>. </p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae">callback signature</a> for more details on default entity behaviour.</p>
+<p>Any errors that occur during the query will be immediately thrown as an exception, either from the <a class="el" href="glossary.html#manager">manager</a> plugin (for errors not specific to the default entity query) or as a <a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html">BatchElementException</a>-derived error.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitSets</td><td>The relevant trait sets for each type of entity required. These will be interpreted in conjunction with the <code>context</code> to determine the most sensible default.</td></tr>
+    <tr><td class="paramname">defaultEntityAccess</td><td>Intended usage of the returned entity reference.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_exception.html">BatchElementErrorPolicyTag::Exception</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of default entity references, each corresponding an entry in <code>traitSets</code>. If the query is well-formed, but there is no available default entity reference, then the <code>optional</code> entity reference will not contain a value.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a86928e6efbf5b7f5c6ad6b043e3c8e11"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::variant&lt;<a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html">errors::BatchElementError</a>, std::optional&lt;<a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>&gt; &gt; &gt; defaultEntityReference </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1_1_1trait.html#ac37f4808caeb63bc488756d50cb9911b">trait::TraitSets</a> &amp;&#160;</td>
+          <td class="paramname"><em>traitSets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceopenassetio_1_1v1_1_1access.html#a4c1e161b5fe9076e75129049e0ca7688">access::DefaultEntityAccess</a>&#160;</td>
+          <td class="paramname"><em>defaultEntityAccess</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceopenassetio_1_1v1.html#a2407eee04d809095fe15156c2c1aa21c">ContextConstPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a> &amp;&#160;</td>
+          <td class="paramname"><em>errorPolicyTag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called to determine an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> considered to be a sensible default for each of the given entity <a class="el" href="glossary.html#trait_set">trait sets</a> and <a class="el" href="glossary.html#Context">context</a>. </p>
+<p>See documentation for the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a9e22352cacba1c4f27aa924a6bd4b7ae">callback signature</a> for more details on default entity behaviour.</p>
+<p>If successful, the corresponding element of the result is populated with a suitable default entity reference, or an empty <code>optional</code> if there is no suitable default.</p>
+<p>Otherwise, the corresponding entry of the result is populated with an error object detailing the reason for the failure.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">traitSets</td><td>The relevant trait sets for each type of entity required. These will be interpreted in conjunction with the <code>context</code> to determine the most sensible default.</td></tr>
+    <tr><td class="paramname">defaultEntityAccess</td><td>Intended usage of the returned entity reference.</td></tr>
+    <tr><td class="paramname">context</td><td>The calling context.</td></tr>
+    <tr><td class="paramname">errorPolicyTag</td><td>Parameter for selecting the appropriate overload (tagged dispatch idiom). See <a class="el" href="structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html">BatchElementErrorPolicyTag::Variant</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A list where each element is either an error object, or the default entity reference for the corresponding <code>traitSet</code> and <code>context</code>. If the query is well-formed, but there is no available default entity reference for a particular trait set, then the <code>optional</code> entity reference corresponding to that trait set will not contain a value.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4479bbe423f64fe0bffcc20516574c45">Capability::kDefaultEntityReferences</a>.</td></tr>
