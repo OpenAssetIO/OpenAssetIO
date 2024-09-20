@@ -15,6 +15,13 @@ managers._
   object workflows.
   [#1170](https://github.com/OpenAssetIO/OpenAssetIO/issues/1170)
 
+### Bug fixes
+
+- pybind11 exception class symbols are no longer exported from the
+  OpenAssetIO Python extension module, so that hosts using a different
+  version of pybind11 do not conflict.
+  [#1416](https://github.com/OpenAssetIO/OpenAssetIO/issues/1416)
+
 v1.0.0-rc.1.0
 ---------------
 

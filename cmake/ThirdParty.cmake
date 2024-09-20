@@ -79,6 +79,13 @@ if (OPENASSETIO_ENABLE_PYTHON)
 
     # pybind11 for C++ Python bindings.
     find_package(pybind11 2 REQUIRED)
+    # TODO(DF): Remove if/when fixed upstream: https://github.com/pybind/pybind11/issues/5359
+    # Ensure the pybind11 exception types are not exported. If a host
+    # uses a different version of pybind11 then we can get bad ODR bugs.
+    get_target_property(_pybind11_defs pybind11::module INTERFACE_COMPILE_DEFINITIONS)
+    list(APPEND _pybind11_defs PYBIND11_EXPORT_EXCEPTION=)
+    set_target_properties(
+        pybind11::module PROPERTIES INTERFACE_COMPILE_DEFINITIONS "${_pybind11_defs}")
 
 
     #-------------------------------------------------------------------
