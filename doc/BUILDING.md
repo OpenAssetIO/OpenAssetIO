@@ -36,7 +36,7 @@ available. Package versions given correspond to those that are actively
 tested, other versions may also work.
 
 - [Python 3.10+](https://www.python.org/) (development install)
-- [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1
+- [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.9.2
 - [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0
 - [Ada](https://github.com/ada-url/ada) 2.7.4

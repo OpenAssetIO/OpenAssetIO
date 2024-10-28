@@ -32,8 +32,11 @@ class OpenAssetIOConan(ConanFile):
         deps.generate()
 
     def requirements(self):
-        # CY2022
-        self.requires("pybind11/2.10.1")
+        # Python bindings
+        # Note: pybind11 is not a private dependency and can conflict
+        # with other versions in the same application. See
+        # https://github.com/pybind/pybind11/issues/5359
+        self.requires("pybind11/2.9.2")
         # TOML library
         self.requires("tomlplusplus/3.2.0")
         # URL processing
