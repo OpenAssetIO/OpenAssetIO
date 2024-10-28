@@ -32,11 +32,12 @@ following packages are installed:
 ### Build dependencies
 
 Binary builds additionally require the following packages to be
-available.
+available. Package versions given correspond to those that are actively
+tested, other versions may also work.
 
 - [Python 3.10+](https://www.python.org/) (development install)
-- [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1+
-- [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0+
+- [pybind11](https://pybind11.readthedocs.io/en/stable/) 2.8.1
+- [toml++](https://marzer.github.io/tomlplusplus/) 3.2.0
 - [fmt](https://github.com/fmtlib/fmt) 9.1.0
 - [Ada](https://github.com/ada-url/ada) 2.7.4
 - [PCRE2](https://github.com/PCRE2Project/pcre2) 10.42
