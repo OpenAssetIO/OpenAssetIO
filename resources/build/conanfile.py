@@ -32,13 +32,12 @@ class OpenAssetIOConan(ConanFile):
         deps.generate()
 
     def requirements(self):
-        # CY2022
-        self.requires("pybind11/2.10.1")
+        # Python bindings
+        # Note: pybind11 is not a private dependency and can conflict
+        # with other versions in the same application. See
+        # https://github.com/pybind/pybind11/issues/5359
+        self.requires("pybind11/2.9.2")
         # TOML library
-        # TODO (EM) Unpin this. This is only pinned because a recipe update
-        # seemed to remove all exceptions no matter how the configuration
-        # is set.
-        # https://github.com/conan-io/conan-center-index/pull/24336#issuecomment-2175846302
         self.requires("tomlplusplus/3.2.0")
         # URL processing
         self.requires("ada/2.7.4")
