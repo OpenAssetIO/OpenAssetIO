@@ -15,6 +15,13 @@ managers._
   object workflows.
   [#1170](https://github.com/OpenAssetIO/OpenAssetIO/issues/1170)
 
+## Bug fixes
+
+- Added "raise from" behaviour in C++->Python exception translation, in
+  case a Python exception is already active when the C++ exception
+  occurs.
+  [#1419](https://github.com/OpenAssetIO/OpenAssetIO/issues/1419)
+
 v1.0.0-rc.1.0
 ---------------
 

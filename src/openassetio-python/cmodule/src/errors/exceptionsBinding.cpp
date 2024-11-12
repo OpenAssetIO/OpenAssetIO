@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2024 The Foundry Visionmongers Ltd
+#include <cassert>
 #include <cstddef>
 #include <exception>
 #include <string_view>
@@ -34,15 +35,44 @@ using openassetio::errors::UnhandledException;
  *
  * @tparam Exception C++ exception type.
  * @param exception C++ exception instance.
- * @param pyModule Python module containing Python exception class.
  * @param pyClassName Python exception class name to look up in @p
  * pyModule.
  */
 template <class Exception>
-void setPyException(const Exception &exception, const py::module_ &pyModule,
+void setPyException(const Exception &exception,
                     // TODO(DF): False positive in clang-tidy 12 :(
                     // NOLINTNEXTLINE(readability-avoid-const-params-in-decls)
                     const std::string_view pyClassName) {
+  // Python "raise from" logic. See pybind11::raise_from. We need this
+  // to handle the case of a C++ exception being translated when the
+  // Python error indicator is already set for a different exception.
+  // This can't happen easily - most likely a C++ function triggered a
+  // CPython error state before throwing its own C++ exception.
+  auto fromExcVal = []() -> PyObject * {
+    if (!PyErr_Occurred()) {
+      return nullptr;
+    }
+    PyObject *excVal = nullptr;
+    PyObject *excType = nullptr;
+    PyObject *excTraceback = nullptr;
+    // Fetch (and clear) the original "from" exception. Note that if we
+    // don't clear it, the `import` below will cause a fatal Python
+    // error.
+    PyErr_Fetch(&excType, &excVal, &excTraceback);
+    PyErr_NormalizeException(&excType, &excVal, &excTraceback);
+    if (excTraceback != nullptr) {
+      PyException_SetTraceback(excVal, excTraceback);
+      Py_DECREF(excTraceback);
+    }
+    Py_DECREF(excType);
+    return excVal;
+  }();
+
+  assert(!PyErr_Occurred());
+
+  // Find the Python exception type corresponding to the given C++
+  // exception, and construct an instance.
+  const py::module_ pyModule = py::module_::import(kErrorsModuleName.data());
   const py::object pyClass = pyModule.attr(pyClassName.data());
   const py::object pyInstance = [&] {
     if constexpr (std::is_same_v<Exception, BatchElementException>) {
@@ -51,7 +81,23 @@ void setPyException(const Exception &exception, const py::module_ &pyModule,
       return pyClass(exception.what());
     }
   }();
+
+  // Set the error indicator to our converted C++->Python exception.
   PyErr_SetObject(pyClass.ptr(), pyInstance.ptr());
+
+  // Set the __cause__ of our new exception if raising from a previous
+  // exception.
+  if (fromExcVal != nullptr) {
+    PyObject *excVal = nullptr;
+    PyObject *excType = nullptr;
+    PyObject *excTraceback = nullptr;
+    PyErr_Fetch(&excType, &excVal, &excTraceback);
+    PyErr_NormalizeException(&excType, &excVal, &excTraceback);
+    Py_INCREF(fromExcVal);  // Bump to own two references, stolen by SetCause and SetContext.
+    PyException_SetCause(excVal, fromExcVal);
+    PyException_SetContext(excVal, fromExcVal);
+    PyErr_Restore(excType, excVal, excTraceback);
+  }
 }
 
 /**
@@ -73,21 +119,20 @@ void setPyException(const Exception &exception, const py::module_ &pyModule,
  *
  * @tparam I Index of exception type to catch in
  * CppExceptionsAndPyClassNames list.
- * @param pyModule Python module containing Python exception classes.
  * @param pexc C++ exception to rethrow.
  */
 template <std::size_t I>
-void tryCatch(const py::module_ &pyModule, std::exception_ptr pexc) {
+void tryCatch(std::exception_ptr pexc) {
   try {
     if constexpr (I == 0) {
       std::rethrow_exception(std::move(pexc));
     } else {
-      tryCatch<I - 1>(pyModule, std::move(pexc));
+      tryCatch<I - 1>(std::move(pexc));
     }
   } catch (const HybridException<CppExceptionsAndPyClassNames::Exceptions<I>> &cppExc) {
     throw cppExc.originalPyExc;
   } catch (const CppExceptionsAndPyClassNames::Exceptions<I> &cppExc) {
-    setPyException(cppExc, pyModule, CppExceptionsAndPyClassNames::kClassNames[I]);
+    setPyException(cppExc, CppExceptionsAndPyClassNames::kClassNames[I]);
   }
 }
 
@@ -226,7 +271,7 @@ void registerPyExceptionClasses(const py::module &mod,
  */
 void registerExceptions(const py::module &mod) {
   // Ensure module name matches what we expect, since it must be
-  // imported by name in `register_exception_translator`, below.
+  // imported by name in `setPyException`.
   assert(mod.attr("__name__").cast<std::string>() == kErrorsModuleName);
   // Register new Python exception types. Note that this is not
   // sufficient to cause C++ exceptions to be translated. See
@@ -238,17 +283,15 @@ void registerExceptions(const py::module &mod) {
   //
   // Note that capturing lambdas are not allowed here, so we must
   // `import` the module containing the exceptions in the body of the
-  // function.
+  // function (see setPyException).
   py::register_exception_translator([](std::exception_ptr pexc) {
     if (!pexc) {
       return;
     }
-    const py::module_ pyModule = py::module_::import(kErrorsModuleName.data());
-
     // Handle the different possible C++ exceptions, creating the
     // corresponding Python exception and setting it as the active
     // exception in this thread.
-    tryCatch<CppExceptionsAndPyClassNames::kSize - 1>(pyModule, std::move(pexc));
+    tryCatch<CppExceptionsAndPyClassNames::kSize - 1>(std::move(pexc));
   });
 }
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2024 The Foundry Visionmongers Ltd
 /**
  * Bindings used for testing errors behaviour.
  * Specifically, the conversion from cpp -> python.
@@ -8,6 +8,7 @@
  */
 
 #include <pybind11/pybind11.h>
+#include <pyerrors.h>
 
 #include <overrideMacros.hpp>
 
@@ -366,6 +367,10 @@ struct PyExceptionThrower : ExceptionThrower {
  * between hybrid pybind11 and OpenAssetIO exceptions, which have a
  * common STL base class so must be composed with care (i.e. avoid
  * multiple inheritance).
+ *
+ * `setErrorIndicatorAndThrowCppException` "raises" an exception through
+ * raw CPython, then throws a C++ exception, which should result in
+ * equivalent of "raise from".
  */
 void registerExceptionThrower(py::module_& mod) {
   mod.def("throwException", [](const std::string& exceptionName, const std::string& msgData) {
@@ -422,6 +427,11 @@ void registerExceptionThrower(py::module_& mod) {
         }
       },
       py::arg("exceptionThrower"), py::call_guard<py::gil_scoped_release>{});
+
+  mod.def("setErrorIndicatorAndThrowCppException", [] {
+    PyErr_SetString(PyExc_TypeError, "CPython exception");
+    throw openassetio::errors::OpenAssetIOException{"Cpp exception"};
+  });
 
   py::class_<ExceptionThrower, PyExceptionThrower>{mod, "ExceptionThrower"}
       .def(py::init<>())

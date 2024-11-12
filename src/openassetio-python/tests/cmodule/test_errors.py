@@ -1,5 +1,5 @@
 #
-#   Copyright 2023 The Foundry Visionmongers Ltd
+#   Copyright 2023-2024 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -127,6 +127,16 @@ class Test_errors:
             _openassetio._testutils.isPythonExceptionCatchableAs(
                 exception_thrower, "OpenAssetIOException"
             )
+
+
+class Test_raise_from:
+    def test_when_CPython_error_indicator_and_cpp_exception_thrown_then_exceptions_combined(self):
+
+        with pytest.raises(errors.OpenAssetIOException, match="Cpp exception") as err:
+            _openassetio._testutils.setErrorIndicatorAndThrowCppException()
+
+        assert isinstance(err.value.__cause__, TypeError)
+        assert str(err.value.__cause__) == "CPython exception"
 
 
 def make_exception(exception_type):
