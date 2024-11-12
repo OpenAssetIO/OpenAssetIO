@@ -30,5 +30,9 @@ void registerEntityReference(const py::module& mod) {
              stringStream << self;
              return fmt::format("EntityReference('{}')", stringStream.str());
            })
-      .def(py::self == py::self);  // NOLINT(misc-redundant-expression)
+      .def(py::self == py::self)  // NOLINT(misc-redundant-expression)
+      .def(py::self < py::self)   // NOLINT(misc-redundant-expression)
+      .def(py::self <= py::self)  // NOLINT(misc-redundant-expression)
+      .def("__hash__",
+           [](const EntityReference& self) { return std::hash<EntityReference>{}(self); });
 }

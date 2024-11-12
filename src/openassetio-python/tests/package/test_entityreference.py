@@ -49,6 +49,32 @@ class Test_EntityReference_equality:
         assert EntityReference("something") != EntityReference("something else")
 
 
+class Test_EntityReference_ordering:
+    def test_when_less_than_then_compares_lesser(self):
+        assert EntityReference("a") < EntityReference("b")
+
+    def test_when_greater_than_then_compares_greater(self):
+        assert EntityReference("b") > EntityReference("a")
+
+    def test_when_greater_or_equal_than_then_compares_greater_or_equal(self):
+        assert EntityReference("b") >= EntityReference("a")
+        assert EntityReference("a") >= EntityReference("a")
+
+    def test_when_less_or_equal_than_then_compares_lesser_or_equal(self):
+        assert EntityReference("a") <= EntityReference("b")
+        assert EntityReference("a") <= EntityReference("a")
+
+
+class Test_EntityReference_hash:
+    def test_when_refs_used_in_associative_container_then_deduped_appropriately(self):
+        a_ref = EntityReference("value")
+        b_ref = EntityReference("value")
+        c_ref = EntityReference("different value")
+        d_str = "value"
+
+        assert {a_ref, b_ref, c_ref, d_str} == {a_ref, c_ref, d_str}
+
+
 class Test_EntityReference_string_equivalence:
     def test_when_used_with_format_then_result_contains_toString_value(self):
         a_ref = EntityReference("Some 🍟 with that?")

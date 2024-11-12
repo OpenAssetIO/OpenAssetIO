@@ -23,6 +23,7 @@ target_sources(openassetio-core-cpp-test-exe
     typedefsTest.cpp
     BatchElementErrorTest.cpp
     ContextTest.cpp
+    EntityReferenceTest.cpp
     TraitsDataTest.cpp
     versionTest.cpp
     hostApi/ManagerTest.cpp

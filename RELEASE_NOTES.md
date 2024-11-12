@@ -15,6 +15,13 @@ managers._
   object workflows.
   [#1170](https://github.com/OpenAssetIO/OpenAssetIO/issues/1170)
 
+## Improvements
+
+- Added operators and hash functions to the `EntityReference` type, in
+  both C++ and Python, such that `EntityReference` objects can be used
+  as keys in associative containers (e.g. `dict`/`std::unordered_map`).
+  [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
+
 ## Bug fixes
 
 - Added "raise from" behaviour in C++->Python exception translation, in
