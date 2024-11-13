@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <utility>
@@ -41,16 +41,68 @@ class EntityReference final {
       : entityReferenceString_(std::move(entityReferenceString)) {}
 
   /**
-   * Compare the contents of this reference with another for equality.
+   * Compare this reference with another lexicographically.
    *
-   * @param other Entity refernce to compare against.
+   * @param other Entity reference to compare against.
    *
    * @return `true` if contents are equal, `false` otherwise.
    */
-  bool operator==(const EntityReference& other) const {
+  [[nodiscard]] bool operator==(const EntityReference& other) const {
     return other.entityReferenceString_ == entityReferenceString_;
   }
 
+  /**
+   * Compare this reference with another lexicographically.
+   *
+   * @param other Entity reference to compare against.
+   *
+   * @return `true` if contents are not equal, `false` otherwise.
+   */
+  [[nodiscard]] bool operator!=(const EntityReference& other) const { return !(*this == other); }
+
+  /**
+   * Compare this reference with another lexicographically.
+   *
+   * @param other Entity reference to compare against.
+   *
+   * @return `true` if this reference is less than other, `false`
+   * otherwise.
+   */
+  [[nodiscard]] bool operator<(const EntityReference& other) const {
+    return entityReferenceString_ < other.entityReferenceString_;
+  }
+
+  /**
+   * Compare this reference with another lexicographically.
+   *
+   * @param other Entity reference to compare against.
+   *
+   * @return `true` if this reference is less or equal than other,
+   * `false` otherwise.
+   */
+  [[nodiscard]] bool operator<=(const EntityReference& other) const {
+    return entityReferenceString_ <= other.entityReferenceString_;
+  }
+
+  /**
+   * Compare this reference with another lexicographically.
+   *
+   * @param other Entity reference to compare against.
+   *
+   * @return `true` if this reference is greater than other, `false`
+   * otherwise.
+   */
+  [[nodiscard]] bool operator>(const EntityReference& other) const { return !(*this <= other); }
+
+  /**
+   * Compare this reference with another lexicographically.
+   *
+   * @param other Entity reference to compare against.
+   *
+   * @return `true` if this reference is greater or equal than other,
+   * `false` otherwise.
+   */
+  [[nodiscard]] bool operator>=(const EntityReference& other) const { return !(*this < other); }
   /**
    * @return The string representation of this entity reference.
    */
@@ -62,8 +114,34 @@ class EntityReference final {
 
 static_assert(std::is_move_constructible_v<EntityReference>);
 static_assert(std::is_move_assignable_v<EntityReference>);
+static_assert(std::is_copy_constructible_v<EntityReference>);
+static_assert(std::is_copy_assignable_v<EntityReference>);
 
 /// A list of entity references, used or batch-first functions.
 using EntityReferences = std::vector<EntityReference>;
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
+
+namespace std {
+template <>
+struct hash<openassetio::EntityReference> {
+  std::size_t operator()(const openassetio::EntityReference& ref) const noexcept {
+    // Construct hash using common hashing function found
+    // across the literature, e.g. boost::hash_combine. I.e.
+    // seed ^= hasher(value) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+
+    // int(2^32 / phi) (where phi is the golden ratio).
+    constexpr std::size_t kInvPhi = 0x9e3779b9;
+    // Small coprime shift distances to spread out the bits.
+    constexpr std::size_t kLShift = 6;
+    constexpr std::size_t kRShift = 2;
+    // Seed incorporating type hash, assuming initial seed of 0
+    // (note: hash_code() is not constexpr in C++17).
+    static const std::size_t kSeed = typeid(openassetio::EntityReference).hash_code() + kInvPhi;
+    // Precompute rhs of hash equation.
+    static const std::size_t kBitMixer = kInvPhi + (kSeed << kLShift) + (kSeed >> kRShift);
+
+    return kSeed ^ (std::hash<openassetio::Str>{}(ref.toString()) + kBitMixer);
+  }
+};
+}  // namespace std
