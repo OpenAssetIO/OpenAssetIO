@@ -1,5 +1,10 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0":[13,0,0,3,1,2,13],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe0ed598ca32bfe699bd68fd7ebe00b4":[13,0,0,3,1,2,49],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html":[13,0,0,3,1,3],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a01bd0dda4387ae9989db6d8759dc1d71":[13,0,0,3,1,3,2],
+"classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a0f1c9241fd0dbb073bcb3c30884e31bb":[13,0,0,3,1,3,6],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a1ca7b7135362b663eb8212e7ade3ba8f":[13,0,0,3,1,3,4],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a689613257280d7516ce90a63e86e8be1":[13,0,0,3,1,3,3],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5":[13,0,0,3,1,3,5],
@@ -197,8 +202,8 @@ var NAVTREEINDEX1 =
 "examples.html#examples_inspecting_a_reference":[3,3],
 "examples.html#examples_picking_a_manager":[3,1],
 "examples.html#examples_resolving_a_reference":[3,2],
-"functions.html":[13,3,0,0],
 "functions.html":[13,3,0],
+"functions.html":[13,3,0,0],
 "functions_0x7e.html":[13,3,0,21],
 "functions_a.html":[13,3,0,1],
 "functions_b.html":[13,3,0,2],
@@ -207,8 +212,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[13,3,0,5],
 "functions_enum.html":[13,3,4],
 "functions_f.html":[13,3,0,6],
-"functions_func.html":[13,3,1],
 "functions_func.html":[13,3,1,0],
+"functions_func.html":[13,3,1],
 "functions_func_0x7e.html":[13,3,1,20],
 "functions_func_a.html":[13,3,1,1],
 "functions_func_b.html":[13,3,1,2],
@@ -244,10 +249,5 @@ var NAVTREEINDEX1 =
 "functions_type.html":[13,3,3],
 "functions_u.html":[13,3,0,19],
 "functions_vars.html":[13,3,2],
-"functions_w.html":[13,3,0,20],
-"glossary.html":[6],
-"glossary.html#Context":[6,1],
-"glossary.html#DCC":[6,2],
-"glossary.html#HostInterface":[6,6],
-"glossary.html#ManagerInterface":[6,8]
+"functions_w.html":[13,3,0,20]
 };
