@@ -16,6 +16,7 @@ namespace utils::path::windows {
 
 Str FileUrlPathConverter::pathToUrl(const std::string_view& windowsPath) const {
   // Precondition.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(!windowsPath.empty());
 
   ada::url url;

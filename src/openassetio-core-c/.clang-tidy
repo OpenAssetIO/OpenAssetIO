@@ -5,5 +5,24 @@ InheritParentConfig: true
 
 # -bugprone-easily-swappable-parameters:
 #   Hard to avoid in a C API.
+#
+# -cppcoreguidelines-owning-memory:
+#   C opaque handles are not classed as valid owner objects by
+#   cppcoreguidelines.
+#
+# -cppcoreguidelines-pro-type-reinterpret-cast:
+#   reinterpret_cast is required to convert C opaque handles to/from
+#   C++ pointers.
+#
+# -cppcoreguidelines-avoid-c-arrays:
+#   C arrays are used throughout mostly to provide char arrays for
+#   error messages.
+#
+# -cppcoreguidelines-pro-bounds-pointer-arithmetic:
+#   We need to access char* as an array e.g. C StringView.
 Checks: >
-    -bugprone-easily-swappable-parameters
+    -bugprone-easily-swappable-parameters,
+    -cppcoreguidelines-owning-memory,
+    -cppcoreguidelines-pro-type-reinterpret-cast,
+    -cppcoreguidelines-avoid-c-arrays,
+    -cppcoreguidelines-pro-bounds-pointer-arithmetic,

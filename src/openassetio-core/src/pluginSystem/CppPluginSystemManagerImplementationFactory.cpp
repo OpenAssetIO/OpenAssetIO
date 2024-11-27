@@ -46,6 +46,8 @@ CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementatio
     : CppPluginSystemManagerImplementationFactory{
           // getenv returns nullptr if var not set, which cannot be
           // used to construct a std::string.
+          // False positive in clang-tidy-12:
+          // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
           [paths = std::getenv(kPluginEnvVar.data())] { return paths ? paths : ""; }(),
           std::move(logger)} {}
 

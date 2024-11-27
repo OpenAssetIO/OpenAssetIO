@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #pragma once
 #include <string>
 
@@ -35,6 +35,11 @@ class OPENASSETIO_CORE_C_EXPORT CManagerInterfaceAdapter : ManagerInterface {
 
   /// Destructor that calls the C suite's `dtor` function.
   ~CManagerInterfaceAdapter() override;
+
+  CManagerInterfaceAdapter(const CManagerInterfaceAdapter&) = delete;
+  CManagerInterfaceAdapter(CManagerInterfaceAdapter&&) noexcept = default;
+  CManagerInterfaceAdapter& operator=(const CManagerInterfaceAdapter&) = delete;
+  CManagerInterfaceAdapter& operator=(CManagerInterfaceAdapter&&) noexcept = default;
 
   /// Wrap the C suite's `identifier` function.
   [[nodiscard]] Identifier identifier() const override;

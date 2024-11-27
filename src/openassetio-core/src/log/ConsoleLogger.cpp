@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
+#include <array>
+#include <cstddef>
 #include <iomanip>
 #include <iostream>
 
 #include <openassetio/log/ConsoleLogger.hpp>
+#include <openassetio/typedefs.hpp>
 
 // Foreground ANSI color codes (combined with \033[<color>m)
-constexpr const int kSeverityColors[] = {36, 32, 32, 0, 33, 31, 31};
+constexpr std::array kSeverityColors = {36, 32, 32, 0, 33, 31, 31};
+constexpr int kSeverityWidth = 11;
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -25,7 +29,7 @@ void ConsoleLogger::log(Severity severity, const Str& message) {
   }
 
   // NOLINTNEXTLINE(readability-magic-numbers)
-  std::cerr << std::setw(11) << kSeverityNames[severityIdx] << ": " << message;
+  std::cerr << std::setw(kSeverityWidth) << kSeverityNames[severityIdx] << ": " << message;
 
   if (shouldColorOutput_) {
     std::cerr << "\033[0m";

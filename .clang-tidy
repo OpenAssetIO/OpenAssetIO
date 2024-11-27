@@ -26,7 +26,14 @@
 #      cpp core guidelines recommends against unless the parameter is
 #      nullable: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f60-prefer-t-over-t-when-no-argument-is-a-valid-option
 #
+#  -cppcoreguidelines-macro-usage: Often, macros are the only way to
+#      declare constants and functions, e.g. __attribute__.
 #
+#  -cppcoreguidelines-pro-bounds-constant-array-index: It is reasonable
+#      to use [] over .at() in most of our use-cases, i.e. when the
+#      index is trusted and tested. In addition, this check only works
+#      for std::array and not for e.g. std::vector, so introduces
+#      inconsistencies.
 Checks: >
     -*,
     bugprone-*,
@@ -36,9 +43,12 @@ Checks: >
     performance-*,
     portability-*,
     readability-*,
+    cppcoreguidelines-*,
     -modernize-return-braced-init-list,
     -modernize-use-trailing-return-type,
     -modernize-avoid-c-arrays,
+    -cppcoreguidelines-macro-usage,
+    -cppcoreguidelines-pro-bounds-constant-array-index,
 
 # Turn all the warnings from the checks above into errors.
 WarningsAsErrors: "*"
@@ -77,3 +87,8 @@ CheckOptions:
     # Allow structs where (all) member variables are public, even if
     # the struct has member functions.
     - { key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic,  value: 1 }
+    # Don't warn about rule of 5 for classes that just have a destructor
+    # and no other special member functions. Many trivial classes in
+    # OpenAssetIO define a virtual default destructor just to make them
+    # polymorphic.
+    - { key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor,  value: 1 }

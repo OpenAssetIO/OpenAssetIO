@@ -1,8 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
-#include <openassetio/utils/path.hpp>
+// Copyright 2024 The Foundry Visionmongers Ltd
+#include <memory>
+#include <string_view>
 
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/typedefs.hpp>
+#include <openassetio/utils/path.hpp>
 
 #include "./path/common.hpp"
 #include "./path/posix.hpp"

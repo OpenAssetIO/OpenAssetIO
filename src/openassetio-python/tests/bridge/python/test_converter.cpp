@@ -56,6 +56,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
       traitsData->addTrait(kTestTraitId);
 
       THEN("Python object reflects that data set") {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         PyObject* resultBool = PyObject_CallMethod(pyTraitsData, "hasTrait", "s", kTestTraitId);
 
         // Use CHECK rather than REQUIRE in order to ensure the Decrefs
@@ -67,6 +68,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
     }
 
     WHEN("data is set via the Python object") {
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
       PyObject_CallMethod(pyTraitsData, "addTrait", "s", kTestTraitId);
 
       THEN("C++ object reflects the data set") { CHECK(traitsData->hasTrait(kTestTraitId)); }
@@ -86,6 +88,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
       traitsData->addTrait(kTestTraitId);
 
       THEN("Python object reflects that data set") {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         PyObject* resultBool = PyObject_CallMethod(pyTraitsData, "hasTrait", "s", kTestTraitId);
 
         // Use CHECK rather than REQUIRE in order to ensure the Decrefs
@@ -97,6 +100,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
     }
 
     WHEN("data is set via the Python object") {
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
       PyObject_CallMethod(pyTraitsData, "addTrait", "s", kTestTraitId);
       THEN("C++ object reflects the data set") { CHECK(traitsData->hasTrait(kTestTraitId)); }
     }
@@ -116,6 +120,7 @@ SCENARIO("Casting to PyObject extends object lifetime") {
 
       THEN("object remains alive and can be operated on via the Python interpreter") {
         CHECK(Py_REFCNT(pyTraitsData) == 1);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         PyObject* resultBool = PyObject_CallMethod(pyTraitsData, "hasTrait", "s", kTestTraitId);
 
         // Use CHECK rather than REQUIRE in order to ensure the Decrefs
@@ -267,6 +272,7 @@ using CastableClasses = std::tuple<
 // clang-format on
 }  // namespace
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays,cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_LIST_TEST_CASE("Appropriate classes have castFromPyObject functions", "",
                         CastableClasses) {
   // These tests check that the nullptr exception works, but also
@@ -277,6 +283,7 @@ TEMPLATE_LIST_TEST_CASE("Appropriate classes have castFromPyObject functions", "
                                   "openassetio::python::converter::castFromPyObject"));
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays,cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_LIST_TEST_CASE("Appropriate classes have castToPyObject functions", "", CastableClasses) {
   // These tests check that nullptrs are converted to None, but also
   // serve to verify that the functions exist for all expected types.

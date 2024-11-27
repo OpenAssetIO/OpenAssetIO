@@ -100,7 +100,7 @@ SCENARIO("A Manager is constructed and destructed") {
 
       AND_GIVEN("a Manager constructed using the C API") {
         // C handle for Manager
-        oa_hostApi_Manager_h managerHandle;
+        oa_hostApi_Manager_h managerHandle = nullptr;
         // Construct Manager through C API.
         const oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
             &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
@@ -162,7 +162,7 @@ SCENARIO("A Manager is constructed and destructed") {
 
       AND_GIVEN("a Manager constructed using the C API") {
         // C handle for Manager
-        oa_hostApi_Manager_h managerHandle;
+        oa_hostApi_Manager_h managerHandle = nullptr;
         // Construct Manager through C API.
         const oa_ErrorCode actualErrorCode = oa_hostApi_Manager_ctor(
             &actualErrorMsg, &managerHandle, mockManagerInterfaceHandle, hostSessionHandle);
@@ -187,7 +187,7 @@ SCENARIO("A host calls Manager::identifier") {
     // Create mock ManagerInterface to inject and assert on.
     const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
-    auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    auto& mockManagerInterface = dynamic_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),
@@ -250,7 +250,7 @@ SCENARIO("A host calls Manager::displayName") {
     // Create mock ManagerInterface to inject and assert on.
     const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
-    auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    auto& mockManagerInterface = dynamic_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),
@@ -313,7 +313,7 @@ SCENARIO("A host calls Manager::info") {
     // Create mock ManagerInterface to inject and assert on.
     const managerApi::ManagerInterfacePtr mockManagerInterfacePtr =
         std::make_shared<MockManagerInterface>();
-    auto& mockManagerInterface = static_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
+    auto& mockManagerInterface = dynamic_cast<MockManagerInterface&>(*mockManagerInterfacePtr);
     // Create a HostSession with our mock HostInterface
     const managerApi::HostSessionPtr hostSessionPtr = managerApi::HostSession::make(
         managerApi::Host::make(std::make_shared<MockHostInterface>()),

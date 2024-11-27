@@ -40,6 +40,7 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
       return "authError";
   }
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(false);  // Impossible case.
   return "Unknown ErrorCode";
 }

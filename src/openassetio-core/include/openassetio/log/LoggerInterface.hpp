@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #include <array>
 
 #include <openassetio/export.h>
@@ -28,6 +28,7 @@ OPENASSETIO_DECLARE_PTR(LoggerInterface)
  * API methods via shared pointer may have their lifetimes extended
  * beyond that of your code.
  */
+// NOLINTNEXTLINE(cppcoreguidelines-special-member-functions)
 class OPENASSETIO_CORE_EXPORT LoggerInterface {
  public:
   OPENASSETIO_ALIAS_PTR(LoggerInterface)
@@ -42,7 +43,8 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
                                              "warning",  "error", "critical"};
   /// @}
 
-  virtual ~LoggerInterface() = 0;
+  /// Defaulted polymorphic destructor.
+  virtual ~LoggerInterface();
 
   /**
    * Logs a message to the user.

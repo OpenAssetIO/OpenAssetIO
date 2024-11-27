@@ -58,18 +58,22 @@ auto fmt::formatter<openassetio::StrMap>::format(const openassetio::StrMap& strM
 auto fmt::formatter<openassetio::managerApi::ManagerInterface::Capability>::format(
     openassetio::managerApi::ManagerInterface::Capability capability, format_context& ctx) const
     -> decltype(ctx.out()) {
+  // Use checked access (.at()) since `capability` might come from a
+  // buggy external source (e.g. bad static_cast from an int).
   return formatter<string_view>::format(
-      openassetio::managerApi::ManagerInterface::kCapabilityNames[static_cast<std::size_t>(
-          capability)],
+      openassetio::managerApi::ManagerInterface::kCapabilityNames.at(
+          static_cast<std::size_t>(capability)),
       ctx);
 }
 
 auto fmt::formatter<openassetio::hostApi::Manager::Capability>::format(
     openassetio::hostApi::Manager::Capability capability, format_context& ctx) const
     -> decltype(ctx.out()) {
+  // Use checked access (.at()) since `capability` might come from a
+  // buggy external source (e.g. bad static_cast from an int).
   return formatter<string_view>::format(
-      openassetio::managerApi::ManagerInterface::kCapabilityNames[static_cast<std::size_t>(
-          capability)],
+      openassetio::managerApi::ManagerInterface::kCapabilityNames.at(
+          static_cast<std::size_t>(capability)),
       ctx);
 }
 

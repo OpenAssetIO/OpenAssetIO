@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 /**
  *  Provide the transport-level data container for trait sets and their
  *  property values.
@@ -90,6 +90,13 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
    * Defaulted destructor.
    */
   ~TraitsData();
+
+  /// Explicitly deleted copy assignment.
+  TraitsData& operator=(const TraitsData&) = delete;
+  /// Explicitly deleted move construction.
+  TraitsData(TraitsData&&) noexcept = delete;
+  /// Explicitly deleted move assignment.
+  TraitsData& operator=(TraitsData&&) noexcept = delete;
 
   /**
    * Return the trait IDs held by the instance.

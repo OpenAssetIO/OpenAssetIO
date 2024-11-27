@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2022 The Foundry Visionmongers Ltd
 #include <type_traits>
+#include <variant>
 
 #include <catch2/catch.hpp>
 
@@ -36,7 +37,7 @@ SCENARIO("TraitsData make from other creates a deep copy") {
       WHEN("existing values are queried") {
         THEN("property data has been copied") {
           Value someValue;
-          Int value;
+          Int value{};
           REQUIRE(copy->getTraitProperty(&someValue, "a", "a"));
           value = *std::get_if<Int>(&someValue);
           CHECK(value == Int{1});
@@ -46,7 +47,7 @@ SCENARIO("TraitsData make from other creates a deep copy") {
         data->setTraitProperty("a", "a", Int{3});
         THEN("the copy is unchanged") {
           Value someValue;
-          Int value;
+          Int value{};
           REQUIRE(copy->getTraitProperty(&someValue, "a", "a"));
           value = *std::get_if<Int>(&someValue);
           CHECK(value == Int{1});

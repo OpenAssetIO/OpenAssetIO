@@ -10,6 +10,7 @@ namespace utils::path::posix {
 
 Str FileUrlPathConverter::pathToUrl(const std::string_view& posixPath) const {
   // Precondition.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(!posixPath.empty());
 
   if (posixPathHandler.containsUpwardsTraversal(posixPath)) {

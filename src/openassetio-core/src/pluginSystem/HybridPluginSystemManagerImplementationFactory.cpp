@@ -37,6 +37,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   explicit HybridManagerInterface(ManagerInterfaces managerInterfacess)
       : managerInterfaces_{std::move(managerInterfacess)} {
     // Precondition.
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
     assert(!managerInterfaces_.empty());
   }
 

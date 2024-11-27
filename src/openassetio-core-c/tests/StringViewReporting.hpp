@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 /**
  * Comparison and stream operators to simplify asserting and reporting
  * of StringView instances during tests.
@@ -24,6 +24,8 @@ inline bool operator==(const oa_StringView& lhs, const oa_StringView& rhs) {
 /// string-like container are equal.
 template <typename Str>
 inline bool operator==(const oa_StringView& lhs, const Str& rhs) {
+  // `rhs` can be a character array.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 
@@ -31,6 +33,8 @@ inline bool operator==(const oa_StringView& lhs, const Str& rhs) {
 /// string-like container are equal.
 template <typename Str>
 inline bool operator==(const oa_ConstStringView& lhs, const Str& rhs) {
+  // `rhs` can be a character array.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   return std::string_view{lhs.data, lhs.size} == rhs;
 }
 

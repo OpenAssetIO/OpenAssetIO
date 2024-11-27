@@ -22,7 +22,7 @@ SCENARIO("Accessing the Python plugin system from C++") {
     const pybind11::gil_scoped_release gil{};
 
     const openassetio::log::LoggerInterfacePtr logger = std::make_shared<MockLogger>();
-    auto& mockLogger = static_cast<MockLogger&>(*logger);
+    auto& mockLogger = dynamic_cast<MockLogger&>(*logger);
 
     ALLOW_CALL(mockLogger, log(_, _));
 

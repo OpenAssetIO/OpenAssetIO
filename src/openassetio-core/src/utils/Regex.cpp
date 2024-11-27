@@ -3,10 +3,17 @@
 #include "Regex.hpp"
 
 #include <cassert>
+#include <cstddef>
+#include <optional>
+#include <string_view>
+#include <type_traits>
 
 #include <fmt/format.h>
+#include <pcre2.h>
 
+#include <openassetio/export.h>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -17,7 +24,11 @@ constexpr Str::size_type kErrorMessageMaxLength = 1000;
 
 Str errorCodeToMessage(int errorCode) {
   Str errorMessage(kErrorMessageMaxLength, '\0');
+
+  static_assert(sizeof(Str::value_type) == sizeof(PCRE2_UCHAR8), "PCRE2 char type size mismatch");
+
   const auto errorMessageLength = pcre2_get_error_message(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
       errorCode, reinterpret_cast<PCRE2_UCHAR8*>(errorMessage.data()), errorMessage.size());
   errorMessage.resize(static_cast<Str::size_type>(errorMessageLength));
   return errorMessage;
@@ -25,10 +36,14 @@ Str errorCodeToMessage(int errorCode) {
 }  // namespace
 
 Regex::Regex(const std::string_view pattern) {
-  int errorCode;
-  std::size_t errorOffset;
+  int errorCode = 0;
+  std::size_t errorOffset = 0;
+
+  static_assert(sizeof(std::string_view::value_type) == sizeof(std::remove_pointer_t<PCRE2_SPTR8>),
+                "PCRE2 char type size mismatch");
 
   code_ = pcre2_compile(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
       reinterpret_cast<PCRE2_SPTR8>(pattern.data()), pattern.size(),
       PCRE2_CASELESS | PCRE2_DOLLAR_ENDONLY |
           PCRE2_DOTALL, /* case-insensitive; `$` matches end of string; `.` matches newlines */
@@ -56,8 +71,12 @@ Regex::~Regex() { pcre2_code_free(code_); }
 std::optional<Regex::Match> Regex::match(const std::string_view subject) const {
   Match matchObj{code_};
 
+  static_assert(sizeof(std::string_view::value_type) == sizeof(std::remove_pointer_t<PCRE2_SPTR8>),
+                "PCRE2 char type size mismatch");
+
   const int numMatches =
-      pcre2_jit_match(code_,                                         /* regex object */
+      pcre2_jit_match(code_, /* regex object */
+                             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
                       reinterpret_cast<PCRE2_SPTR8>(subject.data()), /* subject */
                       subject.size(),                                /* length of subject */
                       0,                     /* start at offset 0 in the subject */
@@ -88,18 +107,25 @@ Str Regex::substituteToReduceSize(const std::string_view& subject,
   Str result(subject.size() + 1, '\0');
   std::size_t resultSize = result.size();
 
+  static_assert(sizeof(std::string_view::value_type) == sizeof(std::remove_pointer_t<PCRE2_SPTR8>),
+                "PCRE2 char type size mismatch");
+  static_assert(sizeof(Str::value_type) == sizeof(PCRE2_UCHAR8), "PCRE2 char type size mismatch");
+
   int numSubstitutions =
-      pcre2_substitute(code_,                                         /* regex object */
+      pcre2_substitute(code_, /* regex object */
+                              // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
                        reinterpret_cast<PCRE2_SPTR8>(subject.data()), /* subject */
                        subject.size(),                                /* length of subject */
                        0,                         /* start at offset 0 in the subject */
                        PCRE2_SUBSTITUTE_GLOBAL,   /* substitute all matches */
                        Match{code_}.data().get(), /* block for storing the result */
                        nullptr,                   /* use default match context */
+                       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
                        reinterpret_cast<PCRE2_SPTR8>(replacement.data()), /* replacement */
                        replacement.size(),                                /* replacement length */
-                       reinterpret_cast<PCRE2_UCHAR8*>(result.data()),    /* output buffer */
-                       &resultSize                                        /* output buffer size */
+                       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+                       reinterpret_cast<PCRE2_UCHAR8*>(result.data()), /* output buffer */
+                       &resultSize                                     /* output buffer size */
       );
 
   if (numSubstitutions < 0) {
@@ -122,13 +148,21 @@ Regex::Match::Match(const pcre2_code_8* code)
 
 std::string_view Regex::Match::group(const std::string_view subject,
                                      const std::size_t groupNum) const {
-  // Precondition.
+  // Preconditions.
+  // Not a moved-from object.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+  assert(data_);
+  // Group number is in valid range.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(groupNum < pcre2_get_ovector_count(data_.get()));
 
   PCRE2_SIZE* matches = pcre2_get_ovector_pointer(data_.get());
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   const std::size_t startIdx = matches[groupNum * 2];
-  const std::size_t onePastEndIdx = matches[groupNum * 2 + 1];
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+  const std::size_t onePastEndIdx = matches[(groupNum * 2) + 1];
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(subject.size() >= onePastEndIdx);
   return subject.substr(startIdx, onePastEndIdx - startIdx);
 }

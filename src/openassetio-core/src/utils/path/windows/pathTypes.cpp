@@ -42,6 +42,7 @@ void DrivePath::validatePath(const std::string_view& windowsPath) const {
 
 void DrivePath::setUrlPath(const std::string_view& windowsPath, ada::url& url) const {
   // Precondition.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(driveLetterHandler.isAbsoluteDrivePath(windowsPath));
 
   // TODO(DF): This trimming logic could surely be optimised.

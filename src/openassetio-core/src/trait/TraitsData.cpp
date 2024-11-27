@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 
 #include <unordered_map>
 
@@ -15,10 +15,6 @@ class TraitsData::Impl {
   Impl() = default;
 
   explicit Impl(const trait::TraitSet& traitSet) { addTraits(traitSet); }
-
-  Impl(const Impl& other) = default;
-
-  ~Impl() = default;
 
   [[nodiscard]] trait::TraitSet traitSet() const {
     trait::TraitSet ids;

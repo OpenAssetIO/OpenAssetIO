@@ -33,7 +33,7 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
     //  currently is `bad_alloc` (i.e. insufficient memory), which is
     //  a pain to simulate for testing.
 
-    oa_InfoDictionary_h infoDictionaryHandle;
+    oa_InfoDictionary_h infoDictionaryHandle = nullptr;
     const oa_ErrorCode actualErrorCode =
         oa_InfoDictionary_ctor(&actualErrorMsg, &infoDictionaryHandle);
     CHECK(actualErrorCode == oa_ErrorCode_kOK);
@@ -141,6 +141,7 @@ struct TypeOfFixture<openassetio::Str> : InfoDictionaryFixture {
       oa_InfoDictionary_ValueType_kStr;
 };
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
                           "Retrieving the type of an entry in a InfoDictionary via C API", "",
                           openassetio::Bool, openassetio::Int, openassetio::Float,
@@ -157,7 +158,7 @@ TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
 
     WHEN("the type of an entry is queried") {
       const oa_ConstStringView key{keyStr.data(), keyStr.size()};
-      oa_InfoDictionary_ValueType actualValueType;
+      oa_InfoDictionary_ValueType actualValueType{};
 
       const oa_ErrorCode actualErrorCode =
           oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
@@ -300,6 +301,7 @@ struct AccessorFixture<openassetio::Str> : InfoDictionaryFixture {
   oa_StringView actualValue_ = kInitialValue;
 };
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_TEST_CASE_METHOD(AccessorFixture, "InfoDictionary accessed via C API", "",
                           openassetio::Bool, openassetio::Int, openassetio::Float,
                           openassetio::Str) {
@@ -492,6 +494,7 @@ struct MutatorFixture<openassetio::Str> : InfoDictionaryFixture {
   inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
 };
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", "",
                           openassetio::Bool, openassetio::Int, openassetio::Float) {
   GIVEN("a populated C++ InfoDictionary and its C handle function pointer") {

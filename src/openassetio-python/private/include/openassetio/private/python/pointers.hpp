@@ -52,6 +52,7 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
       // If the Python interpreter is gone, clear the internal PyObject*
       // so pybind11 won't attempt to clean it up.
       pyObjectPtr->release();
+      // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
       delete pyObjectPtr;
     } else {
       // Acquire the GIL, in case deleter runs in a non-Python thread.
@@ -60,6 +61,7 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
       //  exception here trying to acquire the GIL (though only in
       //  catastrophic cases). Tricky to test, though.
       const py::gil_scoped_acquire gil;
+      // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
       delete pyObjectPtr;
     }
   };

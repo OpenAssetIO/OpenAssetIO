@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 /**
  * Bindings used for testing PyRetainingSharedPtr behaviour.
  */
@@ -197,6 +197,11 @@ struct DeathwatchedSimpleCppType : SimpleBaseCppType {
 
   explicit DeathwatchedSimpleCppType(pybind11::function watcher) : watcher_{std::move(watcher)} {}
   ~DeathwatchedSimpleCppType() override { watcher_(); }  // NOLINT(bugprone-exception-escape)
+
+  DeathwatchedSimpleCppType(const DeathwatchedSimpleCppType& other) = delete;
+  DeathwatchedSimpleCppType(DeathwatchedSimpleCppType&& other) noexcept = default;
+  DeathwatchedSimpleCppType& operator=(const DeathwatchedSimpleCppType& other) = delete;
+  DeathwatchedSimpleCppType& operator=(DeathwatchedSimpleCppType&& other) noexcept = default;
 
   py::function watcher_;
 };
