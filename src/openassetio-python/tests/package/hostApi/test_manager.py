@@ -370,6 +370,47 @@ class BatchFirstMethodTest:
                     for actual, expected in zip(actual_results, expected_results):
                         assert actual is expected
 
+    def assert_batch_overload_index_out_of_bounds_raises(
+        self, method_specific_args_for_batch_of_two, one_success_result
+    ):
+        expected_error_msg = "Index '3' out of bounds for batch size of 2"
+
+        # Success callback case.
+
+        def call_success_callback(*_args):
+            self.invoke_success_cb(3, one_success_result)
+
+        self.mock_interface_method.side_effect = call_success_callback
+
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+            [Manager.BatchElementErrorPolicyTag.kVariant],
+        ):
+            with self.subtests.test(tag=tag, callback="success"):
+                with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+                    self.method(*method_specific_args_for_batch_of_two, self.a_context, *tag)
+
+        # Error callback case.
+
+        error_result = BatchElementError(
+            BatchElementError.ErrorCode.kInvalidEntityReference, "some string ✨"
+        )
+
+        def call_error_callback(*_args):
+            self.invoke_error_cb(3, error_result)
+
+        self.mock_interface_method.side_effect = call_error_callback
+
+        for tag in (
+            [],
+            [Manager.BatchElementErrorPolicyTag.kException],
+            [Manager.BatchElementErrorPolicyTag.kVariant],
+        ):
+            with self.subtests.test(tag=tag, callback="error"):
+                with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+                    self.method(*method_specific_args_for_batch_of_two, self.a_context, *tag)
+
     def assert_singular_variant_overload_error(
         self,
         method_specific_args,
@@ -1037,6 +1078,12 @@ class Test_Manager_entityExists(BatchFirstMethodTest):
             expected_results=[True, False],
         )
 
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(self, two_refs):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(two_refs,),
+            one_success_result=True,
+        )
+
     def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref):
         self.assert_singular_variant_overload_error(
             method_specific_args=(a_ref,),
@@ -1179,6 +1226,17 @@ class Test_Manager_defaultEntityReference(BatchFirstMethodTest):
             assert_result_identity=False,
         )
 
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(
+        self, two_entity_trait_sets, a_ref
+    ):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(
+                two_entity_trait_sets,
+                access.DefaultEntityAccess.kRead,
+            ),
+            one_success_result=a_ref,
+        )
+
     def test_when_singular_variant_overload_errors_then_error_returned(self, an_entity_trait_set):
         self.assert_singular_variant_overload_error(
             method_specific_args=(an_entity_trait_set, access.DefaultEntityAccess.kRead),
@@ -1284,10 +1342,11 @@ class FakeEntityReferencePagerInterface(EntityReferencePagerInterface):
         pass
 
 
-# The getWithRelationship tests are more repetitive than most tests
-# in this suite. They are unable to make use of the test
-# automation that we have written for the conveniences signatures, as
-# the arguments for getWithRelationship are not in the standard format.
+# The getWithRelationship tests are more repetitive than most tests in
+# this suite. They are unable to make use of the test automation (see
+# BatchFirstMethodTest) that we have written for the conveniences
+# signatures, as the arguments for getWithRelationship are not in the
+# standard format.
 
 
 class Test_Manager_getWithRelationship_with_callback_signature:
@@ -1795,11 +1854,70 @@ class Test_Manager_getWithRelationship_batch_convenience:
             assert exc_info.value.error == a_batch_element_error
             assert (
                 exc_info.value.message
-                == "unknown: some message [index=0] [access=read] [entity=asset://a]"
+                == "unknown: some message [index=0] [access=read] [entity=asset://a] [traits={}]"
             )
         else:
             variant_error = manager.getWithRelationship(**args)
             assert variant_error == [a_batch_element_error, a_batch_element_error_2]
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_receives_out_of_bounds_index_then_raises(
+        self,
+        manager,
+        two_refs,
+        mock_manager_interface,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        a_batch_element_error,
+        invoke_getWithRelationship_success_cb,
+        invoke_getWithRelationship_error_cb,
+        error_mode,
+    ):
+
+        expected_error_msg = "Index '3' out of bounds for batch size of 2"
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationship
+
+        args = {
+            "entityReferences": two_refs,
+            "relationshipTraitsData": an_empty_traitsdata,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        # Success callback case.
+
+        def call_success_callback(*_args):
+            invoke_getWithRelationship_success_cb(3, mock_entity_reference_pager_interface)
+
+        method.side_effect = call_success_callback
+
+        with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+            manager.getWithRelationship(**args)
+
+        # Error callback case
+
+        def call_error_callback(*_args):
+            invoke_getWithRelationship_error_cb(3, a_batch_element_error)
+
+        method.side_effect = call_error_callback
+
+        with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+            manager.getWithRelationship(**args)
 
 
 class Test_Manager_getWithRelationships_with_callback_signature:
@@ -2137,11 +2255,71 @@ class Test_Manager_getWithRelationships_with_batch_convenience:
             assert exc_info.value.error == a_batch_element_error
             assert (
                 exc_info.value.message
-                == "unknown: some message [index=0] [access=read] [entity=asset://a]"
+                == "unknown: some message [index=0] [access=read] [entity=asset://a] [traits={}]"
             )
         else:
             variant_error = manager.getWithRelationships(**args)
             assert variant_error == [a_batch_element_error, a_batch_element_error_2]
+
+    @pytest.mark.parametrize(
+        "error_mode",
+        [
+            None,
+            Manager.BatchElementErrorPolicyTag.kException,
+            Manager.BatchElementErrorPolicyTag.kVariant,
+        ],
+    )
+    def test_when_receives_out_of_bounds_index_then_raises(
+        self,
+        manager,
+        a_ref,
+        mock_manager_interface,
+        an_empty_traitsdata,
+        an_entity_trait_set,
+        a_context,
+        mock_entity_reference_pager_interface,
+        a_batch_element_error,
+        invoke_getWithRelationships_success_cb,
+        invoke_getWithRelationships_error_cb,
+        error_mode,
+    ):
+
+        expected_error_msg = "Index '3' out of bounds for batch size of 2"
+        two_traitsdatas = [an_empty_traitsdata, an_empty_traitsdata]
+        page_size = 3
+        method = mock_manager_interface.mock.getWithRelationships
+
+        args = {
+            "entityReference": a_ref,
+            "relationshipTraitsDatas": two_traitsdatas,
+            "pageSize": page_size,
+            "relationsAccess": access.RelationsAccess.kRead,
+            "context": a_context,
+            "resultTraitSet": an_entity_trait_set,
+        }
+
+        if error_mode is not None:
+            args["errorPolicyTag"] = error_mode
+
+        # Success callback case.
+
+        def call_success_callback(*_args):
+            invoke_getWithRelationships_success_cb(3, mock_entity_reference_pager_interface)
+
+        method.side_effect = call_success_callback
+
+        with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+            manager.getWithRelationships(**args)
+
+        # Error callback case
+
+        def call_error_callback(*_args):
+            invoke_getWithRelationships_error_cb(3, a_batch_element_error)
+
+        method.side_effect = call_error_callback
+
+        with pytest.raises(InputValidationException, match=re.escape(expected_error_msg)):
+            manager.getWithRelationships(**args)
 
 
 class Test_Manager_BatchElementErrorPolicyTag:
@@ -2247,6 +2425,18 @@ class Test_Manager_resolve(BatchFirstMethodTest):
                 access.ResolveAccess.kRead,
             ),
             expected_results=two_entity_traitsdatas,
+        )
+
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(
+        self, two_refs, an_entity_trait_set, a_traitsdata
+    ):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                an_entity_trait_set,
+                access.ResolveAccess.kRead,
+            ),
+            one_success_result=a_traitsdata,
         )
 
     def test_when_singular_variant_overload_errors_then_error_returned(
@@ -2435,6 +2625,17 @@ class Test_Manager_entityTraits(BatchFirstMethodTest):
             ),
             expected_results=two_entity_trait_sets,
             assert_result_identity=False,
+        )
+
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(
+        self, two_refs, an_entity_trait_set
+    ):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                access.EntityTraitsAccess.kRead,
+            ),
+            one_success_result=an_entity_trait_set,
         )
 
     def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref):
@@ -2717,6 +2918,18 @@ class Test_Manager_preflight(BatchFirstMethodTest):
             ),
         )
 
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(
+        self, a_ref, two_refs, two_entity_traitsdatas
+    ):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
+        )
+
     def test_when_batch_variant_overload_receives_mixed_output_then_mixed_results_returned(
         self, two_refs, two_entity_traitsdatas, a_ref
     ):
@@ -2918,6 +3131,18 @@ class Test_Manager_register(BatchFirstMethodTest):
             ),
             expected_results=two_different_refs,
             assert_result_identity=False,
+        )
+
+    def test_when_batch_overload_receives_out_of_bounds_index_then_raises(
+        self, a_ref, two_refs, two_entity_traitsdatas
+    ):
+        self.assert_batch_overload_index_out_of_bounds_raises(
+            method_specific_args_for_batch_of_two=(
+                two_refs,
+                two_entity_traitsdatas,
+                access.PublishingAccess.kWrite,
+            ),
+            one_success_result=a_ref,
         )
 
     def test_when_singular_variant_overload_errors_then_error_returned(self, a_ref, a_traitsdata):

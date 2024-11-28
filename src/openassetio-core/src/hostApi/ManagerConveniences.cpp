@@ -2,12 +2,14 @@
 // Copyright 2024 The Foundry Visionmongers Ltd
 #include <cstddef>
 #include <optional>
+#include <stdexcept>
 #include <utility>
 #include <variant>
 #include <vector>
 
-#include <openassetio/export.h>
+#include <fmt/format.h>
 
+#include <openassetio/export.h>
 #include <openassetio/Context.hpp>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/access.hpp>
@@ -24,6 +26,23 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
+
+namespace {
+template <class Container>
+decltype(auto) safeGet(Container &container, const std::size_t idx) {
+  try {
+    return container.at(idx);
+  } catch (const std::out_of_range &) {
+    throw errors::InputValidationException(
+        fmt::format("Index '{}' out of bounds for batch size of {}", idx, container.size()));
+  }
+}
+
+template <class Container, class Element>
+void safeSet(Container &container, const std::size_t idx, Element &&element) {
+  safeGet(container, idx) = std::forward<Element>(element);
+}
+}  // namespace
 
 // The definitions below are the "convenience" method signatures -
 // alternate, often friendlier signatures wrapping the core batch-first
@@ -92,12 +111,12 @@ std::vector<std::optional<EntityReference>> Manager::defaultEntityReference(
   defaultEntityReference(
       traitSets, defaultEntityAccess, context,
       [&results](std::size_t index, std::optional<EntityReference> entityReference) {
-        results[index] = std::move(entityReference);
+        safeSet(results, index, std::move(entityReference));
       },
       [&traitSets, defaultEntityAccess](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(defaultEntityAccess), std::nullopt,
-            traitSets[index]);
+            safeGet(traitSets, index));
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -115,10 +134,10 @@ Manager::defaultEntityReference(
   defaultEntityReference(
       traitSets, defaultEntityAccess, context,
       [&results](std::size_t index, std::optional<EntityReference> entityReference) {
-        results[index] = std::move(entityReference);
+        safeSet(results, index, std::move(entityReference));
       },
       [&results](std::size_t index, errors::BatchElementError error) {
-        results[index] = std::move(error);
+        safeSet(results, index, std::move(error));
       });
 
   return results;
@@ -170,11 +189,11 @@ std::vector<Manager::BoolAsUint> Manager::entityExists(
   entityExists(
       entityReferences, context,
       [&results](std::size_t index, bool exists) {
-        results[index] = static_cast<BoolAsUint>(exists);
+        safeSet(results, index, static_cast<BoolAsUint>(exists));
       },
       [&entityReferences](std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
-            error, index, std::nullopt, entityReferences[index], std::nullopt);
+            error, index, std::nullopt, safeGet(entityReferences, index), std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -189,11 +208,10 @@ std::vector<std::variant<errors::BatchElementError, bool>> Manager::entityExists
   results.resize(entityReferences.size());
   entityExists(
       entityReferences, context,
-      [&results](std::size_t index, bool exists) { results[index] = exists; },
+      [&results](std::size_t index, bool exists) { safeSet(results, index, exists); },
       [&results](std::size_t index, errors::BatchElementError error) {
-        results[index] = std::move(error);
+        safeSet(results, index, std::move(error));
       });
-
   return results;
 }
 
@@ -251,13 +269,13 @@ std::vector<trait::TraitSet> Manager::entityTraits(
   entityTraits(
       entityReferences, entityTraitsAccess, context,
       [&results](std::size_t index, trait::TraitSet traitSet) {
-        results[index] = std::move(traitSet);
+        safeSet(results, index, std::move(traitSet));
       },
       [&entityReferences, entityTraitsAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(entityTraitsAccess),
-            entityReferences[index], std::nullopt);
+            safeGet(entityReferences, index), std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -274,12 +292,11 @@ std::vector<std::variant<errors::BatchElementError, trait::TraitSet>> Manager::e
   entityTraits(
       entityReferences, entityTraitsAccess, context,
       [&results](std::size_t index, trait::TraitSet traitSet) {
-        results[index] = std::move(traitSet);
+        safeSet(results, index, std::move(traitSet));
       },
       [&results](std::size_t index, errors::BatchElementError error) {
-        results[index] = std::move(error);
+        safeSet(results, index, std::move(error));
       });
-
   return results;
 }
 
@@ -337,13 +354,13 @@ std::vector<trait::TraitsDataPtr> Manager::resolve(
   resolve(
       entityReferences, traitSet, resolveAccess, context,
       [&resolveResult](std::size_t index, trait::TraitsDataPtr data) {
-        resolveResult[index] = std::move(data);
+        safeSet(resolveResult, index, std::move(data));
       },
       [&entityReferences, resolveAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(resolveAccess),
-            entityReferences[index], std::nullopt);
+            safeGet(entityReferences, index), std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -360,10 +377,10 @@ std::vector<std::variant<errors::BatchElementError, trait::TraitsDataPtr>> Manag
   resolve(
       entityReferences, traitSet, resolveAccess, context,
       [&resolveResult](std::size_t index, trait::TraitsDataPtr data) {
-        resolveResult[index] = std::move(data);
+        safeSet(resolveResult, index, std::move(data));
       },
       [&resolveResult](std::size_t index, errors::BatchElementError error) {
-        resolveResult[index] = std::move(error);
+        safeSet(resolveResult, index, std::move(error));
       });
 
   return resolveResult;
@@ -420,13 +437,13 @@ EntityReferences Manager::preflight(
   preflight(
       entityReferences, traitsHints, publishingAccess, context,
       [&results](std::size_t index, EntityReference preflightedRef) {
-        results[index] = std::move(preflightedRef);
+        safeSet(results, index, std::move(preflightedRef));
       },
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(publishingAccess),
-            entityReferences[index], std::nullopt);
+            safeGet(entityReferences, index), std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -442,10 +459,10 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> Manager::p
   preflight(
       entityReferences, traitsHints, publishingAccess, context,
       [&results](std::size_t index, EntityReference entityReference) {
-        results[index] = std::move(entityReference);
+        safeSet(results, index, std::move(entityReference));
       },
       [&results](std::size_t index, errors::BatchElementError error) {
-        results[index] = std::move(error);
+        safeSet(results, index, std::move(error));
       });
 
   return results;
@@ -505,13 +522,13 @@ std::vector<EntityReference> Manager::register_(
   register_(
       entityReferences, entityTraitsDatas, publishingAccess, context,
       [&result](std::size_t index, EntityReference registeredRef) {
-        result[index] = std::move(registeredRef);
+        safeSet(result, index, std::move(registeredRef));
       },
       [&entityReferences, publishingAccess](std::size_t index, errors::BatchElementError error) {
         // Implemented as if FAILFAST is true.
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(publishingAccess),
-            entityReferences[index], std::nullopt);
+            safeGet(entityReferences, index), std::nullopt);
         throw errors::BatchElementException(index, std::move(error), msg);
       });
 
@@ -528,10 +545,10 @@ std::vector<std::variant<errors::BatchElementError, EntityReference>> Manager::r
   register_(
       entityReferences, entityTraitsDatas, publishingAccess, context,
       [&result](std::size_t index, EntityReference registeredRef) {
-        result[index] = std::move(registeredRef);
+        safeSet(result, index, std::move(registeredRef));
       },
       [&result](std::size_t index, errors::BatchElementError error) {
-        result[index] = std::move(error);
+        safeSet(result, index, std::move(error));
       });
 
   return result;
@@ -596,12 +613,13 @@ std::vector<EntityReferencePagerPtr> Manager::getWithRelationship(
   getWithRelationship(
       entityReferences, relationshipTraitsData, pageSize, relationsAccess, context,
       [&result](std::size_t index, EntityReferencePagerPtr pager) {
-        result[index] = std::move(pager);
+        safeSet(result, index, std::move(pager));
       },
-      [&entityReferences, relationsAccess](std::size_t index, errors::BatchElementError error) {
+      [&entityReferences, &relationshipTraitsData, relationsAccess](
+          std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(relationsAccess),
-            entityReferences[index], std::nullopt);
+            safeGet(entityReferences, index), relationshipTraitsData->traitSet());
         throw errors::BatchElementException(index, std::move(error), msg);
       },
       resultTraitSet);
@@ -622,13 +640,12 @@ Manager::getWithRelationship(
   getWithRelationship(
       entityReferences, relationshipTraitsData, pageSize, relationsAccess, context,
       [&result](std::size_t index, EntityReferencePagerPtr pager) {
-        result[index] = std::move(pager);
+        safeSet(result, index, std::move(pager));
       },
       [&result](std::size_t index, errors::BatchElementError error) {
-        result[index] = std::move(error);
+        safeSet(result, index, std::move(error));
       },
       resultTraitSet);
-
   return result;
 }
 
@@ -647,12 +664,13 @@ std::vector<EntityReferencePagerPtr> Manager::getWithRelationships(
   getWithRelationships(
       entityReference, relationshipTraitsDatas, pageSize, relationsAccess, context,
       [&result](std::size_t index, EntityReferencePagerPtr pager) {
-        result[index] = std::move(pager);
+        safeSet(result, index, std::move(pager));
       },
-      [&entityReference, relationsAccess](std::size_t index, errors::BatchElementError error) {
+      [&entityReference, &relationshipTraitsDatas, relationsAccess](
+          std::size_t index, errors::BatchElementError error) {
         auto msg = errors::createBatchElementExceptionMessage(
             error, index, static_cast<internal::access::Access>(relationsAccess), entityReference,
-            std::nullopt);
+            safeGet(relationshipTraitsDatas, index)->traitSet());
         throw errors::BatchElementException(index, std::move(error), msg);
       },
       resultTraitSet);
@@ -672,10 +690,10 @@ Manager::getWithRelationships(
   getWithRelationships(
       entityReference, relationshipTraitsDatas, pageSize, relationsAccess, context,
       [&result](std::size_t index, EntityReferencePagerPtr pager) {
-        result[index] = std::move(pager);
+        safeSet(result, index, std::move(pager));
       },
       [&result](std::size_t index, errors::BatchElementError error) {
-        result[index] = std::move(error);
+        safeSet(result, index, std::move(error));
       },
       resultTraitSet);
 
