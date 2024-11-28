@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 #include <cstddef>
 #include <memory>
@@ -40,6 +40,14 @@ class Regex {
 
    public:
     explicit Match(const pcre2_code* code);
+
+    ~Match() = default;
+    Match(const Match&) = delete;
+    // Move must be defined to wrap in std::optional. Note that it will
+    // leave the moved-from object in an invalid state.
+    Match(Match&&) noexcept = default;
+    Match& operator=(const Match&) = delete;
+    Match& operator=(Match&&) noexcept = delete;
 
     /**
      * Get the string from a group in the match.
@@ -83,6 +91,10 @@ class Regex {
   explicit Regex(std::string_view pattern);
 
   ~Regex();
+  Regex(const Regex& other) = delete;
+  Regex(Regex&& other) noexcept = delete;
+  Regex& operator=(const Regex& other) = delete;
+  Regex& operator=(Regex&& other) noexcept = delete;
 
   /**
    * Check if the regex matches a given subject string.

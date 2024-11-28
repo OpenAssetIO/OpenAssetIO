@@ -62,6 +62,7 @@ using ClassesWithPtrAlias = std::tuple<
 // clang-format on
 }  // namespace
 
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables,cppcoreguidelines-avoid-c-arrays)
 TEMPLATE_LIST_TEST_CASE("Appropriate classes have shared_ptr aliases", "", ClassesWithPtrAlias) {
   using Class = std::tuple_element_t<0, TestType>;
   using ClassPtr = std::tuple_element_t<1, TestType>;

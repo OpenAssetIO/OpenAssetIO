@@ -68,6 +68,7 @@ void setPyException(const Exception &exception,
     return excVal;
   }();
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)`
   assert(!PyErr_Occurred());
 
   // Find the Python exception type corresponding to the given C++
@@ -272,6 +273,7 @@ void registerPyExceptionClasses(const py::module &mod,
 void registerExceptions(const py::module &mod) {
   // Ensure module name matches what we expect, since it must be
   // imported by name in `setPyException`.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(mod.attr("__name__").cast<std::string>() == kErrorsModuleName);
   // Register new Python exception types. Note that this is not
   // sufficient to cause C++ exceptions to be translated. See

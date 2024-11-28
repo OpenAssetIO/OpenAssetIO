@@ -26,12 +26,12 @@ Identifier CManagerInterfaceAdapter::identifier() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  oa_StringView errorMessage{kStringBufferSize, errorMessageBuffer, 0};
+  oa_StringView errorMessage{kStringBufferSize, static_cast<char*>(errorMessageBuffer), 0};
 
   // Return value string buffer.
   char outBuffer[kStringBufferSize];
   // Return value.
-  oa_StringView out{kStringBufferSize, outBuffer, 0};
+  oa_StringView out{kStringBufferSize, static_cast<char*>(outBuffer), 0};
 
   // Execute corresponding suite function.
   const oa_ErrorCode errorCode = suite_.identifier(&errorMessage, &out, handle_);
@@ -46,12 +46,12 @@ Str CManagerInterfaceAdapter::displayName() const {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  oa_StringView errorMessage{kStringBufferSize, errorMessageBuffer, 0};
+  oa_StringView errorMessage{kStringBufferSize, static_cast<char*>(errorMessageBuffer), 0};
 
   // Return value string buffer.
   char outBuffer[kStringBufferSize];
   // Return value.
-  oa_StringView out{kStringBufferSize, outBuffer, 0};
+  oa_StringView out{kStringBufferSize, static_cast<char*>(outBuffer), 0};
 
   // Execute corresponding suite function.
   const oa_ErrorCode errorCode = suite_.displayName(&errorMessage, &out, handle_);
@@ -66,7 +66,7 @@ InfoDictionary CManagerInterfaceAdapter::info() {
   // Buffer for error message.
   char errorMessageBuffer[kStringBufferSize];
   // Error message.
-  oa_StringView errorMessage{kStringBufferSize, errorMessageBuffer, 0};
+  oa_StringView errorMessage{kStringBufferSize, static_cast<char*>(errorMessageBuffer), 0};
 
   // Return value.
   InfoDictionary infoDict{};

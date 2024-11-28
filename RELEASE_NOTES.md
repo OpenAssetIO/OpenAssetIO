@@ -4,8 +4,7 @@ Release Notes
 v1.0.0-rc.x.x
 ---------------
 
-_This release remains binary and source compatible for both hosts and
-managers._
+_This release remains source compatible for both hosts and managers._
 
 ## New features
 
@@ -21,6 +20,16 @@ managers._
   both C++ and Python, such that `EntityReference` objects can be used
   as keys in associative containers (e.g. `dict`/`std::unordered_map`).
   [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
+
+- Removed the requirement to define C++ destructors for classes
+  inheriting from `LoggerInterface` and
+  `ManagerImplementationFactoryInterface`. I.e. the destructors are no
+  longer pure virtual.
+  [#1196](https://github.com/OpenAssetIO/OpenAssetIO/issues/1196)
+
+- Explicitly disabled unsafe special member functions for `TraitsData`
+  and `FileUrlPathConverter` classes in C++.
+  [#1196](https://github.com/OpenAssetIO/OpenAssetIO/issues/1196)
 
 ## Bug fixes
 

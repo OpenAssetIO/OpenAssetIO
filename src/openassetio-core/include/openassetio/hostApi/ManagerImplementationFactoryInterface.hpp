@@ -37,6 +37,7 @@ OPENASSETIO_DECLARE_PTR(ManagerImplementationFactoryInterface)
  * logger to report any non-critical messages. For any critical failures
  * exceptions should be thrown, and logging left up to the caller.
  */
+// NOLINTNEXTLINE(cppcoreguidelines-special-member-functions)
 class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
  public:
   OPENASSETIO_ALIAS_PTR(ManagerImplementationFactoryInterface)
@@ -49,7 +50,8 @@ class OPENASSETIO_CORE_EXPORT ManagerImplementationFactoryInterface {
    */
   explicit ManagerImplementationFactoryInterface(log::LoggerInterfacePtr logger);
 
-  virtual ~ManagerImplementationFactoryInterface() = 0;
+  /// Defaulted polymorphic destructor.
+  virtual ~ManagerImplementationFactoryInterface();
 
   /**
    * All identifiers known to the factory.

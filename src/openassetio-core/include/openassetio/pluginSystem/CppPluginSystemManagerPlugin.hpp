@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -27,11 +27,12 @@ OPENASSETIO_DECLARE_PTR(CppPluginSystemManagerPlugin)
  *
  * @see CppPluginSystemManagerImplementationFactory
  */
+// NOLINTNEXTLINE(cppcoreguidelines-special-member-functions)
 class OPENASSETIO_CORE_EXPORT CppPluginSystemManagerPlugin : public CppPluginSystemPlugin {
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystemManagerPlugin)
 
-  /// No-op destructor.
+  /// Defaulted destructor.
   ~CppPluginSystemManagerPlugin() override;
 
   /**

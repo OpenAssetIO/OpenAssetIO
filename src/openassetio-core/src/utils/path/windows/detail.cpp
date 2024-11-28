@@ -102,6 +102,7 @@ Str NormalisedPath::removeTrailingSlashesInPathSegments(const std::string_view& 
 
 bool NormalisedPath::startsWithSlash(const std::string_view& path) {
   // Precondition.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(!path.empty());
   return path.substr(0, 1).find_first_of(kAnySlash) != std::string_view::npos;
 }

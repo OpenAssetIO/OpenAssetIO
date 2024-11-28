@@ -67,7 +67,7 @@ struct ManagerFixture {
 
   // For convenience, to avoid casting all the time in tests.
   MockManagerInterface& mockManagerInterface =
-      static_cast<openassetio::MockManagerInterface&>(*managerInterface);
+      dynamic_cast<openassetio::MockManagerInterface&>(*managerInterface);
 
   // Create a HostSession with our mock HostInterface
   const managerApi::HostSessionPtr hostSession = managerApi::HostSession::make(

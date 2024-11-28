@@ -17,6 +17,7 @@ bool PosixPath::containsUpwardsTraversal(const std::string_view& str) const {
 
 bool PosixPath::startsWithForwardSlash(const std::string_view& path) {
   // Precondition
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(!path.empty());
   return path.front() == kForwardSlash;
 }

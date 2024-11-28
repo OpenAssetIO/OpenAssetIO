@@ -540,19 +540,19 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
 
     // Attempt integer conversion.
     converter = std::stringstream{valueAsString};
-    if (openassetio::Int result; (converter >> result) && (converter.peek() == kEof)) {
+    if (openassetio::Int result = 0; (converter >> result) && (converter.peek() == kEof)) {
       return result;
     }
 
     // Attempt float conversion.
     converter = std::stringstream{valueAsString};
-    if (openassetio::Float result; (converter >> result) && (converter.peek() == kEof)) {
+    if (openassetio::Float result = 0; (converter >> result) && (converter.peek() == kEof)) {
       return result;
     }
 
     // Attempt boolean conversion (from "true"/"false" strings).
     converter = std::stringstream{valueAsString};
-    if (openassetio::Bool result;
+    if (openassetio::Bool result = false;
         (converter >> std::boolalpha >> result) && (converter.peek() == kEof)) {
       return result;
     }

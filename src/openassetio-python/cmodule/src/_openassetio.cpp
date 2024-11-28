@@ -11,6 +11,7 @@
 void registerTestUtils(py::module& mod);
 #endif
 
+// NOLINTNEXTLINE
 PYBIND11_MODULE(_openassetio, mod) {
   namespace py = pybind11;
 

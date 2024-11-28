@@ -16,10 +16,11 @@ OPENASSETIO_DECLARE_PTR(CppPluginSystemPlugin)
  *
  * @see CppPluginSystemManagerPlugin for a more concrete use case.
  */
+// NOLINTNEXTLINE(cppcoreguidelines-special-member-functions)
 class OPENASSETIO_CORE_EXPORT CppPluginSystemPlugin {
  public:
   OPENASSETIO_ALIAS_PTR(CppPluginSystemPlugin)
-  /// No-op virtual destructor.
+  /// Defaulted virtual destructor.
   virtual ~CppPluginSystemPlugin();
 
   /**

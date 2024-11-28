@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 #include <cstdint>
 #include <memory>
@@ -51,8 +51,22 @@ enum class PathType : std::uint8_t {
  */
 class OPENASSETIO_CORE_EXPORT FileUrlPathConverter {
  public:
+  /// Constructor.
   FileUrlPathConverter();
+  /// Defaulted destructor.
   ~FileUrlPathConverter();
+
+  // Delete special member functions, for now, since copy/move needs
+  // careful consideration of internals.
+
+  /// Explicitly deleted copy constructor.
+  FileUrlPathConverter(const FileUrlPathConverter &) = delete;
+  /// Explicitly deleted move constructor.
+  FileUrlPathConverter(FileUrlPathConverter &&) noexcept = delete;
+  /// Explicitly deleted copy assignment.
+  FileUrlPathConverter &operator=(const FileUrlPathConverter &) = delete;
+  /// Explicitly deleted move assignment.
+  FileUrlPathConverter &operator=(FileUrlPathConverter &&) noexcept = delete;
 
   /**
    * Construct a file URL from a path.

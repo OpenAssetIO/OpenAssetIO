@@ -208,6 +208,7 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   // The entry point function should be a no-argument function that
   // returns a function pointer. I.e. a factory function for creating a
   // PluginFactory.
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
   const auto pluginFactoryFactory = reinterpret_cast<PluginFactory (*)()>(entrypoint);
 
   // Calling the entry point function yields a PluginFactory function
