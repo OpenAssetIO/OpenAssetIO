@@ -11,7 +11,7 @@ var classopenassetio_1_1v1_1_1log_1_1_logger_interface =
       [ "kError", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82bae3587c730cc1aa530fa4ddc9c4204e97", null ],
       [ "kCritical", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba5a20548c220f372fc701cae6de94040b", null ]
     ] ],
-    [ "~LoggerInterface", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#ad4e3fe520c4703d0cc29c5d41bbb8766", null ],
+    [ "~LoggerInterface", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0b08ad753e285e70c68c86c1fc73a27c", null ],
     [ "critical", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0144f67265558357e7ea17f5da008a50", null ],
     [ "debug", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a5e4f3779b06bc0c88d2e755d21086de3", null ],
     [ "debugApi", "classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a4f924d8c287456dfbd4a03545a2fc241", null ],

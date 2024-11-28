@@ -1,5 +1,12 @@
 var NAVTREEINDEX2 =
 {
+"functions_r.html":[13,3,0,16],
+"functions_s.html":[13,3,0,17],
+"functions_t.html":[13,3,0,18],
+"functions_type.html":[13,3,3],
+"functions_u.html":[13,3,0,19],
+"functions_vars.html":[13,3,2],
+"functions_w.html":[13,3,0,20],
 "glossary.html":[6],
 "glossary.html#Context":[6,1],
 "glossary.html#DCC":[6,2],
