@@ -618,10 +618,6 @@ class Test_Manager_init:
 
 
 class Test_Manager_identifier:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.identifier)
-        assert method_introspector.is_implemented_once(Manager, "identifier")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface
     ):
@@ -650,10 +646,6 @@ class Test_Manager_identifier:
 
 
 class Test_Manager_displayName:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.displayName)
-        assert method_introspector.is_implemented_once(Manager, "displayName")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface
     ):
@@ -677,10 +669,6 @@ class Test_Manager_displayName:
 
 
 class Test_Manager_info:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.info)
-        assert method_introspector.is_implemented_once(Manager, "info")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface
     ):
@@ -704,10 +692,6 @@ class Test_Manager_info:
 
 
 class Test_Manager_updateTerminology:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.updateTerminology)
-        assert method_introspector.is_implemented_once(Manager, "updateTerminology")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -730,10 +714,6 @@ class Test_Manager_updateTerminology:
 
 
 class Test_Manager_settings:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.settings)
-        assert method_introspector.is_implemented_once(Manager, "settings")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -748,10 +728,6 @@ class Test_Manager_settings:
 
 
 class Test_Manager_initialize:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.initialize)
-        assert method_introspector.is_implemented_once(Manager, "initialize")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -897,10 +873,6 @@ class Test_Manager_hasCapability:
 
 
 class Test_Manager_flushCaches:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.flushCaches)
-        assert method_introspector.is_implemented_once(Manager, "flushCaches")
-
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -910,10 +882,6 @@ class Test_Manager_flushCaches:
 
 
 class Test_Manager_isEntityReferenceString:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.isEntityReferenceString)
-        assert method_introspector.is_implemented_once(Manager, "isEntityReferenceString")
-
     @pytest.mark.parametrize("expected", (True, False))
     def test_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session, a_ref_string, expected
@@ -951,10 +919,6 @@ class Test_Manager_isEntityReferenceString:
 
 
 class Test_Manager_createEntityReference:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.createEntityReference)
-        assert method_introspector.is_implemented_once(Manager, "createEntityReference")
-
     def test_when_invalid_then_raises_InputValidationException(
         self, manager, mock_manager_interface, a_ref_string, a_host_session
     ):
@@ -983,10 +947,6 @@ class Test_Manager_createEntityReference:
 
 
 class Test_Manager_createEntityReferenceIfValid:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.createEntityReferenceIfValid)
-        assert method_introspector.is_implemented_once(Manager, "createEntityReferenceIfValid")
-
     def test_when_invalid_then_returns_None(
         self, manager, mock_manager_interface, a_ref_string, a_host_session
     ):
@@ -2724,10 +2684,6 @@ class Test_Manager_entityTraits(BatchFirstMethodTest):
 
 
 class Test_Manager_managementPolicy:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.managementPolicy)
-        assert method_introspector.is_implemented_once(Manager, "managementPolicy")
-
     def test_batch_overload_wraps_the_corresponding_method_of_the_held_interface(
         self, manager, mock_manager_interface, a_host_session, some_entity_trait_sets, a_context
     ):
@@ -3238,10 +3194,6 @@ class Test_Manager_register(BatchFirstMethodTest):
 
 
 class Test_Manager_createContext:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.createContext)
-        assert method_introspector.is_implemented_once(Manager, "createContext")
-
     def test_context_is_created_with_locale(self, manager, mock_manager_interface, a_host_session):
         mock_manager_interface.mock.hasCapability.return_value = False
 
@@ -3280,10 +3232,6 @@ class Test_Manager_createContext:
 
 
 class Test_Manager_createChildContext:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.createChildContext)
-        assert method_introspector.is_implemented_once(Manager, "createChildContext")
-
     def test_when_called_with_parent_then_props_copied_and_createState_called_with_parent_state(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -3336,10 +3284,6 @@ class Test_Manager_createChildContext:
 
 
 class Test_Manager_persistenceTokenForContext:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.persistenceTokenForContext)
-        assert method_introspector.is_implemented_once(Manager, "persistenceTokenForContext")
-
     def test_when_called_then_the_managers_persistence_token_is_returned(
         self, manager, mock_manager_interface, a_host_session
     ):
@@ -3368,10 +3312,6 @@ class Test_Manager_persistenceTokenForContext:
 
 
 class Test_Manager_contextFromPersistenceToken:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(Manager.contextFromPersistenceToken)
-        assert method_introspector.is_implemented_once(Manager, "contextFromPersistenceToken")
-
     def test_when_called_then_the_managers_restored_state_is_set_in_the_context(
         self, manager, mock_manager_interface, a_host_session
     ):

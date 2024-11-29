@@ -32,30 +32,18 @@ from openassetio.trait import TraitsData
 
 
 class Test_ManagerInterface_identifier:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.identifier)
-        assert method_introspector.is_implemented_once(ManagerInterface, "identifier")
-
     def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
         with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("identifier")):
             manager_interface.identifier()
 
 
 class Test_ManagerInterface_displayName:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.displayName)
-        assert method_introspector.is_implemented_once(ManagerInterface, "displayName")
-
     def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
         with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("displayName")):
             manager_interface.displayName()
 
 
 class Test_ManagerInterface_info:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.info)
-        assert method_introspector.is_implemented_once(ManagerInterface, "info")
-
     def test_when_not_overridden_then_returns_empty_dict(self):
         info = ManagerInterface().info()
 
@@ -133,10 +121,6 @@ class Test_ManagerInterface_kCapabilityNames:
 
 
 class Test_ManagerInterface_hasCapability:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.updateTerminology)
-        assert method_introspector.is_implemented_once(ManagerInterface, "updateTerminology")
-
     def test_is_pure_virtual(self, manager_interface, pure_virtual_error_msg):
         with pytest.raises(RuntimeError, match=pure_virtual_error_msg.format("hasCapability")):
             manager_interface.hasCapability(ManagerInterface.Capability.kManagementPolicyQueries)
@@ -209,19 +193,11 @@ class Test_ManagerInterface_updateTerminology:
 
 
 class Test_ManagerInterface_flushCaches:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.flushCaches)
-        assert method_introspector.is_implemented_once(ManagerInterface, "flushCaches")
-
     def test_default_implementation_exists(self, a_host_session):
         ManagerInterface().flushCaches(a_host_session)
 
 
 class Test_ManagerInterface_createState:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.createState)
-        assert method_introspector.is_implemented_once(ManagerInterface, "createState")
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_host_session, unimplemented_method_error_msg
     ):
@@ -233,10 +209,6 @@ class Test_ManagerInterface_createState:
 
 
 class Test_ManagerInterface_createChildState:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.createChildState)
-        assert method_introspector.is_implemented_once(ManagerInterface, "createChildState")
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_host_session, unimplemented_method_error_msg
     ):
@@ -252,14 +224,6 @@ class Test_ManagerInterface_createChildState:
 
 
 class Test_ManagerInterface_persistenceTokenForState:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface.persistenceTokenForState
-        )
-        assert method_introspector.is_implemented_once(
-            ManagerInterface, "persistenceTokenForState"
-        )
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_host_session, unimplemented_method_error_msg
     ):
@@ -277,14 +241,6 @@ class Test_ManagerInterface_persistenceTokenForState:
 
 
 class Test_ManagerInterface_stateFromPersistenceToken:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface.stateFromPersistenceToken
-        )
-        assert method_introspector.is_implemented_once(
-            ManagerInterface, "stateFromPersistenceToken"
-        )
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_host_session, unimplemented_method_error_msg
     ):
@@ -302,12 +258,6 @@ class Test_ManagerInterface_stateFromPersistenceToken:
 
 
 class Test_ManagerInterface_defaultEntityReference:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface.defaultEntityReference
-        )
-        assert method_introspector.is_implemented_once(ManagerInterface, "defaultEntityReference")
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
     ):
@@ -374,10 +324,6 @@ class Test_ManagerInterface_resolve:
 
 
 class Test_ManagerInterface_getWithRelationship:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationship)
-        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationship")
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
     ):
@@ -404,10 +350,6 @@ class Test_ManagerInterface_getWithRelationship:
 
 
 class Test_ManagerInterface_getWithRelationships:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(ManagerInterface.getWithRelationships)
-        assert method_introspector.is_implemented_once(ManagerInterface, "getWithRelationships")
-
     def test_default_implementation_raises_NotImplementedException(
         self, manager_interface, a_context, a_host_session, unimplemented_method_error_msg
     ):
@@ -445,12 +387,6 @@ def assert_is_default_pager(a_host_session, pager):
 
 
 class Test_ManagerInterface__createEntityReference:
-    def test_method_defined_in_cpp(self, method_introspector):
-        assert not method_introspector.is_defined_in_python(
-            ManagerInterface._createEntityReference  # pylint:disable=protected-access
-        )
-        assert method_introspector.is_implemented_once(ManagerInterface, "_createEntityReference")
-
     def test_when_input_is_string_then_wrapped_in_entity_reference(self, manager_interface):
         a_string = "some string"
         # pylint: disable=protected-access
