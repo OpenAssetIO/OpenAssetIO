@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <Python.h>
@@ -32,11 +32,6 @@ namespace python::converter {
  *
  * @warning A Python environment, with `openassetio` imported, must be
  *          available in order to use this function.
- *
- * @warning Some methods on @ref manager and @ref ManagerInterface are
- * currently implemented in python, pending imminent port to C++. Due to
- * this, these methods will not yet be available for use on a python
- * object returned from this function.
  *
  * @param objectPtr A non-const OpenAssetIO pointer type, (eg, @needsref
  * ManagerPtr). The returned `PyObject` takes shared ownership of this
