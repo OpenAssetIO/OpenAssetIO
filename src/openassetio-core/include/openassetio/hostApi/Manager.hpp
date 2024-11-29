@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <functional>
@@ -2405,11 +2405,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * call, in order to allow the Manager to standardize some of the
    * language and terminology used in your presentation of the asset
    * management system with other integrations of the system.
-   *
-   * *3 - Thumbnails*
-   *
-   * The API provides a mechanism for a manager to request a thumbnail
-   * for an entity as it is being published, see: @ref thumbnails.
    *
    * @{
    */
