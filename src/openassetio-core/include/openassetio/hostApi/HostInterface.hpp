@@ -100,8 +100,6 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
    * { 'version' : '1.1v3' }
    *
    * @return Arbitrary manager-specific info dictionary.
-   *
-   * @todo Definitions for well-known keys such as 'version' etc.
    */
   [[nodiscard]] virtual InfoDictionary info();
   /// @}

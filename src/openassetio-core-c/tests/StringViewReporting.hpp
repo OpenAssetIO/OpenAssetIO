@@ -3,11 +3,6 @@
 /**
  * Comparison and stream operators to simplify asserting and reporting
  * of StringView instances during tests.
- *
- * @todo Move these operators out of tests to form part of the public
- * API. We expect such operators to be useful more broadly. This will
- * require some design work, however (e.g. is `capacity` compared when
- * determining StringView equality?).
  */
 #pragma once
 #include <openassetio/c/StringView.h>

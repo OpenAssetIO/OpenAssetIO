@@ -281,8 +281,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
 
   /**
-   * @todo Document settings mechanism
-   *
    * @return Any settings relevant to the function of the manager with
    * their current values (or their defaults if @ref initialize has
    * not yet been called).
@@ -580,9 +578,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Capability.kStatefulContexts.
    *
    * @see @ref Capability.kStatefulContexts
-   *
-   * @todo Should we concatenate the manager id in
-   * persistenceTokenForContext so we can verify that they match?
    */
   ContextPtr contextFromPersistenceToken(const Str& token);
 
@@ -714,8 +709,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @throw errors::InputValidationException If the given string is not
    * recognized as an entity reference by this manager.
-   *
-   * @todo Use a custom exception type rather than std::domain_error.
    */
   [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString);
 

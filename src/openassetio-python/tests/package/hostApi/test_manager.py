@@ -47,12 +47,6 @@ from openassetio.managerApi import EntityReferencePagerInterface, ManagerInterfa
 from openassetio.trait import TraitsData
 
 
-## @todo Remove comments regarding Entity methods when splitting them from core API
-
-# __str__ and __repr__ aren't tested as they're debug tricks that need
-# assessing when this is ported to cpp
-
-
 class BatchFirstMethodTest:
     """
     Assertion helpers for testing batch-first methods and their

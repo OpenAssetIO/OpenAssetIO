@@ -29,8 +29,6 @@ extern "C" {
 #define oa_managerApi_SharedHostSession_t OPENASSETIO_NS(managerApi_SharedHostSession_t)
 #define oa_managerApi_SharedHostSession_h OPENASSETIO_NS(managerApi_SharedHostSession_h)
 
-/// @todo HostSession method bindings
-
 /// @}
 // oa_managerApi_SharedHostSession_aliases
 

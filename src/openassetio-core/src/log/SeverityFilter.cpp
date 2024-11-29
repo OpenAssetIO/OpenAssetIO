@@ -14,8 +14,6 @@ SeverityFilterPtr SeverityFilter::make(LoggerInterfacePtr upstreamLogger) {
 
 SeverityFilter::SeverityFilter(LoggerInterfacePtr upstreamLogger)
     : upstreamLogger_(std::move(upstreamLogger)) {
-  /// @todo [#546] Redesign and improve env var handling and associated logging.
-
   // If the env var is set to a suitable int, attempt to extract a valid
   // severity from it, and use as minSeverity_.
   if (const char* envSeverityStr = std::getenv("OPENASSETIO_LOGGING_SEVERITY")) {
