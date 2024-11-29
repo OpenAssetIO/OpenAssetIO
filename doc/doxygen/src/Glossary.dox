@@ -664,4 +664,21 @@
  * @see @fqref{hostApi.Manager.entityTraits} "Manager.entityTraits" /
  * @fqref{managerApi.ManagerInterface.entityTraits}
  * "ManagerInterface.entityTraits"
+ *
+ * @section trait_views Trait View classes
+ *
+ * The medium of exchange of @ref trait "traits" is primarily the
+ * @fqref{trait.TraitsData} "TraitsData" class. This is a low-level
+ * dictionary-like structure. Typcially, the low-level interface
+ * provided by `TraitsData` will not be used directly. Instead, concrete
+ * view classes will be used, which wrap the `TraitsData`, and provide
+ * typed accessor and mutator methods. For example,
+ *
+ * ```python
+ * url = LocatableContentTrait(traits_data).getLocation()
+ * ```
+ *
+ * See the [TraitGen project](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
+ * and its usage in the [MediaCreation trait library](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
+ * for more details.
  */

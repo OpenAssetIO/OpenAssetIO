@@ -51,9 +51,9 @@
  *   data from the relevant query methods when supplied the reference
  *   returned from the registration.
  *
- * - A @ref host may query other well-known or host-specific @needsref
- *   traits to provide additional customization of behavior or the
- *   handling of data referenced by an @ref entity_reference. For
+ * - A @ref host may query other well-known or host-specific @ref
+ *   trait "traits" to provide additional customization of behavior or
+ *   the handling of data referenced by an @ref entity_reference. For
  *   example, determining the correct frame range and colorspace of an
  *   image sequence.
  *

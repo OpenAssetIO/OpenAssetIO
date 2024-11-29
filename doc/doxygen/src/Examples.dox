@@ -435,8 +435,8 @@
  *
  * @section example_generating_a_thumbnail Generating a Thumbnail During Publish
  *
- * This example demonstrates the correct handling in a @ref host of a hypothetical
- * @needsref WantsThumbnail trait if set by a @ref manager in its
+ * This example demonstrates the correct handling in a @ref host of a
+ * hypothetical WantsThumbnail trait if set by a @ref manager in its
  * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.

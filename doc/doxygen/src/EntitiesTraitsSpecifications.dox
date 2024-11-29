@@ -330,11 +330,12 @@
  * Traits that are not relevant, missing all data, or not known to the
  * manager should be omitted.
  *
- * When populating @needsref entityTraits, any traits that are
- * applicable, or the manager is capable of providing data for should be
- * set. The result of this query will be used by a host to decide if it
- * is capable of consuming the entity's data in a specific way, so
- * including all applicable traits is generally benefical.
+ * When populating @fqref{managerApi.ManagerInterface.entityTraits}
+ * "entityTraits", any traits that are applicable, or the manager is
+ * capable of providing data for should be set. The result of this query
+ * will be used by a host to decide if it is capable of consuming the
+ * entity's data in a specific way, so including all applicable traits
+ * is generally benefical.
  *
  * @note This may need a little time to settle in practice. There has
  * been discussion around whether there is need to define 'excluded'

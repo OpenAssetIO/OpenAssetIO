@@ -33,12 +33,12 @@ namespace python::converter {
  * @warning A Python environment, with `openassetio` imported, must be
  *          available in order to use this function.
  *
- * @param objectPtr A non-const OpenAssetIO pointer type, (eg, @needsref
- * ManagerPtr). The returned `PyObject` takes shared ownership of this
- * input \p objectPtr, and will keep the C++ instance alive until the
- * `PyObject` is destroyed.
- * This parameter must be the non-const OpenAssetIO pointer type as
- * casting to python erases constness.
+ * @param objectPtr A non-const OpenAssetIO pointer type, (e.g.
+ * @fqref{hostApi.ManagerPtr} "ManagerPtr"). The returned `PyObject`
+ * takes shared ownership of this input \p objectPtr, and will keep the
+ * C++ instance alive until the `PyObject` is destroyed. This parameter
+ * must be the non-const OpenAssetIO pointer type as casting to python
+ * erases constness.
  *
  * @return A `PyObject` pointer to an object of the Python API type
  * associated with the C++ API object provided. The reference count of
