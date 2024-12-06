@@ -375,9 +375,7 @@ Publishing</h2></td></tr>
 <li><b>Registration</b> When you wish to publish media that exists.</li>
 </ul>
 <p>For examples of how to correctly call these parts of the API, see the <a class="el" href="examples.html">Examples</a> page.</p>
-<dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a58b71ad2be219244ad9817355c51771d">updateTerminology</a> call, in order to allow the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to standardize some of the language and terminology used in your presentation of the asset management system with other integrations of the system.</dd></dl>
-<p><em>3 - Thumbnails</em></p>
-<p>The API provides a mechanism for a manager to request a thumbnail for an entity as it is being published, see: <a class="el" href="thumbnails.html">Thumbnails</a>. </p>
+<dl class="section note"><dt>Note</dt><dd>The term '<a class="el" href="glossary.html#publish">publish</a>' is somewhat loaded. It generally means something different depending on who you are talking to. See the <a class="el" href="glossary.html#publish">Glossary entry</a> for more on this, but to help avoid confusion, this API provides the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a58b71ad2be219244ad9817355c51771d">updateTerminology</a> call, in order to allow the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. ">Manager</a> to standardize some of the language and terminology used in your presentation of the asset management system with other integrations of the system. </dd></dl>
 </td></tr>
 <tr class="memitem:a3c97a3381de287b961c4fa2f3e8ae407"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3c97a3381de287b961c4fa2f3e8ae407">PreflightSuccessCallback</a> = std::function&lt; void(std::size_t, <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a>)&gt;</td></tr>
 <tr class="memdesc:a3c97a3381de287b961c4fa2f3e8ae407"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature used for a successful preflight operation on a particular entity.  <a href="#a3c97a3381de287b961c4fa2f3e8ae407">More...</a><br /></td></tr>
@@ -678,8 +676,7 @@ bitset" specialisation of std::vector is not used. </p>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Should we concatenate the manager id in persistenceTokenForContext so we can verify that they match? </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2caf2fd925fd454b051bf5271ef69c4b16e">Capability::kStatefulContexts</a> </dd></dl>
 
 </div>
 </div>
@@ -760,11 +757,10 @@ bitset" specialisation of std::vector is not used. </p>
 <dl class="section return"><dt>Returns</dt><dd>Validated entity reference object.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors::InputValidationException</a></td><td>If the given string is not recognized as an entity reference by this manager.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors::InputValidationException</a></td><td>If the given string is not recognized as an entity reference by this manager. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>Use a custom exception type rather than std::domain_error. </dd></dl>
 
 </div>
 </div>
@@ -3730,7 +3726,6 @@ There is no requirement to call this method before any other API interaction, th
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Document settings mechanism</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Any settings relevant to the function of the manager with their current values (or their defaults if <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df">initialize</a> has not yet been called).</dd></dl>
 <p>Some managers may not have any settings, so this function will return an empty dictionary. </p>
 

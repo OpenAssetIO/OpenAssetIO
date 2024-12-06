@@ -316,7 +316,11 @@ Trait Set</h1>
 <p>Trait sets are supplied to the <a class="el" href="glossary.html#manager">manager</a> through the API whenever there is need to describe the type of something in advance. A good example of their usage is in the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a622a08f046689fbdb1a55d96dfacbb76">managementPolicy</a> query, where the manager declares its intent towards specific types of entity - described by the supplied trait sets, and which of those traits it is capable of storing or recalling property data for.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="entities_traits_and_specifications.html">Entities, Traits and Specifications</a> </dd>
 <dd>
-<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a87aec4b8beea9510a0cbaa57cf6209c9">Manager.entityTraits</a> / <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa9b8cad7fd8664b582fa92e8691fa38d">ManagerInterface.entityTraits</a> </dd></dl>
+<a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a87aec4b8beea9510a0cbaa57cf6209c9">Manager.entityTraits</a> / <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#aa9b8cad7fd8664b582fa92e8691fa38d">ManagerInterface.entityTraits</a></dd></dl>
+<h1><a class="anchor" id="trait_views"></a>
+Trait View classes</h1>
+<p>The medium of exchange of <a class="el" href="glossary.html#trait">traits</a> is primarily the <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> class. This is a low-level dictionary-like structure. Typcially, the low-level interface provided by <code>TraitsData</code> will not be used directly. Instead, concrete view classes will be used, which wrap the <code>TraitsData</code>, and provide typed accessor and mutator methods. For example,</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;url = LocatableContentTrait(traits_data).getLocation()</div></div><!-- fragment --><p>See the <a href="https://github.com/OpenAssetIO/OpenAssetIO-TraitGen">TraitGen project</a> and its usage in the <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation">MediaCreation trait library</a> for more details. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

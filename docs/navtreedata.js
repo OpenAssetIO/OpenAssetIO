@@ -111,7 +111,8 @@ var NAVTREE =
       [ "resolve", "glossary.html#glossary_resolve", null ],
       [ "Specification", "glossary.html#Specification", null ],
       [ "Trait", "glossary.html#trait", null ],
-      [ "Trait Set", "glossary.html#trait_set", null ]
+      [ "Trait Set", "glossary.html#trait_set", null ],
+      [ "Trait View classes", "glossary.html#trait_views", null ]
     ] ],
     [ "Stable Entity Resolution", "stable_resolution.html", [
       [ "Overview", "stable_resolution.html#stable_resolution_overview", null ],
@@ -126,12 +127,6 @@ var NAVTREE =
         [ "Scripting The Test Harness", "testing.html#testing_manager_plugins_api", null ]
       ] ]
     ] ],
-    [ "Thumbnails", "thumbnails.html", [
-      [ "Overview", "thumbnails.html#thumbnails_overview", null ],
-      [ "Requesting Thumbnail Creation", "thumbnails.html#thumbnails_creation_during_publish", null ],
-      [ "Looking Up Existing Thumbnails", "thumbnails.html#thumbnails_lookup", null ]
-    ] ],
-    [ "Todo List", "todo.html", null ],
     [ "Environment Variable List", "envvar.html", null ],
     [ "Namespace Members", "namespacemembers.html", [
       [ "All", "namespacemembers.html", null ],
