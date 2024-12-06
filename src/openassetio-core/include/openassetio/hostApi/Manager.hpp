@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <functional>
@@ -281,8 +281,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    */
 
   /**
-   * @todo Document settings mechanism
-   *
    * @return Any settings relevant to the function of the manager with
    * their current values (or their defaults if @ref initialize has
    * not yet been called).
@@ -580,9 +578,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Capability.kStatefulContexts.
    *
    * @see @ref Capability.kStatefulContexts
-   *
-   * @todo Should we concatenate the manager id in
-   * persistenceTokenForContext so we can verify that they match?
    */
   ContextPtr contextFromPersistenceToken(const Str& token);
 
@@ -714,8 +709,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @throw errors::InputValidationException If the given string is not
    * recognized as an entity reference by this manager.
-   *
-   * @todo Use a custom exception type rather than std::domain_error.
    */
   [[nodiscard]] EntityReference createEntityReference(Str entityReferenceString);
 
@@ -2405,11 +2398,6 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * call, in order to allow the Manager to standardize some of the
    * language and terminology used in your presentation of the asset
    * management system with other integrations of the system.
-   *
-   * *3 - Thumbnails*
-   *
-   * The API provides a mechanism for a manager to request a thumbnail
-   * for an entity as it is being published, see: @ref thumbnails.
    *
    * @{
    */

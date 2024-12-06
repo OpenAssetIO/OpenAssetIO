@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <openassetio/c/StringView.h>
@@ -15,9 +15,6 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace errors {
 /**
  * Throw the appropriate exception for given error code, if any.
- *
- * @todo Establish a mapping of code to exception type - currently
- *  everything is the OpenAssetIO base exception.
  *
  * @param code Error code.
  * @param msg Error message to bundle in exception.

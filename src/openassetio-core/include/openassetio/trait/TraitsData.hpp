@@ -58,8 +58,6 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  * to the consumer (host or manager, depending on the API method) to
  * decide how this should be handled.
  *
- * @todo Add InfoDictionary trait property value type.
- *
  * @see trait::property
  * @see @ref entities_traits_and_specifications
  */

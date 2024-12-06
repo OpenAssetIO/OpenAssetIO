@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2024 The Foundry Visionmongers Ltd
 
 #pragma once
 
@@ -150,7 +150,6 @@ OPENASSETIO_DECLARE_PTR(ManagerInterface)
  *    @li @ref info()
  *    @li @ref settings()
  *
- * @todo Finish/Document settings mechanism.
  * @see @ref initialize
  *
  * @note OpenAssetIO makes use of shared pointers to facilitate object
@@ -476,8 +475,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    */
 
   /**
-   * @todo Document settings mechanism
-   *
    * @param hostSession The API session.
    *
    * @return Any settings relevant to the function of the manager with
@@ -521,10 +518,6 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *  @li @ref displayName()
    *  @li @ref info()
    *  @li @ref settings()
-   *
-   * @todo We need a 'teardown' method to, before a manager is
-   * de-activated in a host, to allow any event registrations etc...
-   * to be removed.
    */
   virtual void initialize(InfoDictionary managerSettings, const HostSessionPtr& hostSession);
 

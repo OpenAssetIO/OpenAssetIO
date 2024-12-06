@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2024 The Foundry Visionmongers Ltd
 #pragma once
 #include <pybind11/pybind11.h>
 
@@ -65,8 +65,6 @@
  * The following macro duplicates PYBIND11_OVERRIDE_PURE_NAME and
  * inserts a `gil_scoped_acquire`, in order to work around the problem
  * until it is fixed upstream.
- *
- * @todo Revert GIL workaround once upstream fix is available.
  */
 #define OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(ret_type, cname, name, fn, ...)                 \
   do {                                                                                          \

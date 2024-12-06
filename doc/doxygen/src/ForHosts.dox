@@ -196,8 +196,8 @@
  *   calls to the API.
  *
  * - If a manager's @fqref{hostApi.Manager.managementPolicy}
- *   "managementPolicy" sets the @needsref WantsThumbnail trait, where
- *   possible, generate thumbnails as requested during publishing.
+ *   "managementPolicy" sets the WantsThumbnail trait, where possible,
+ *   generate thumbnails as requested during publishing.
  *
  * - Create @ref Specification "specifications" for any custom 'asset
  *   types' you may deal with.

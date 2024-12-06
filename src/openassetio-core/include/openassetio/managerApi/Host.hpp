@@ -31,8 +31,6 @@ OPENASSETIO_DECLARE_PTR(Host)
  * provided to all manager API entry points provides access to the
  * current host through the @fqref{managerApi.HostSession.host}
  * "HostSession.host" method
- *
- * @todo Add auditing functionality.
  */
 class OPENASSETIO_CORE_EXPORT Host final {
  public:
