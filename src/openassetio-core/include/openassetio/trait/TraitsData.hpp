@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 /**
  *  Provide the transport-level data container for trait sets and their
  *  property values.
@@ -165,11 +165,20 @@ class OPENASSETIO_CORE_EXPORT TraitsData final {
   [[nodiscard]] trait::property::KeySet traitPropertyKeys(const trait::TraitId& traitId) const;
 
   /**
-   * Compares instances based on their trait and property values.
+   * Compares instances for equality based on their trait and property
+   * values.
    *
    * @param other The instance to compare to.
    */
   bool operator==(const TraitsData& other) const;
+
+  /**
+   * Compares instances for non-equality based on their trait and
+   * property values.
+   *
+   * @param other The instance to compare to.
+   */
+  bool operator!=(const TraitsData& other) const;
 
  private:
   TraitsData();

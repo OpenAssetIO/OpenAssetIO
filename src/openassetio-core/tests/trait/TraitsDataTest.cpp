@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <type_traits>
 #include <variant>
 
@@ -9,6 +9,7 @@
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/trait/property.hpp>
+#include <openassetio/typedefs.hpp>
 
 using openassetio::Int;
 using openassetio::trait::TraitsData;
@@ -62,6 +63,52 @@ SCENARIO("TraitsData make from other creates a deep copy") {
       namespace errors = openassetio::errors;
       CHECK_THROWS_MATCHES(TraitsData::make(nullTraitsData), errors::InputValidationException,
                            Catch::Message("Cannot copy-construct from a null TraitsData"));
+    }
+  }
+}
+
+SCENARIO("TraitsData equality") {
+  GIVEN("two empty TraitsData instances") {
+    const TraitsDataPtr lhs = TraitsData::make();
+    const TraitsDataPtr rhs = TraitsData::make();
+
+    THEN("they compare equal") {
+      CHECK(*lhs == *rhs);
+      CHECK_FALSE(*lhs != *rhs);
+    }
+  }
+
+  GIVEN("two equal TraitsData instances") {
+    const TraitsDataPtr lhs = TraitsData::make();
+    const TraitsDataPtr rhs = TraitsData::make();
+    lhs->setTraitProperty("a", "b", "c");
+    rhs->setTraitProperty("a", "b", "c");
+
+    THEN("they compare equal") {
+      CHECK(*lhs == *rhs);
+      CHECK_FALSE(*lhs != *rhs);
+    }
+  }
+
+  GIVEN("two TraitsData instances with different trait sets") {
+    const TraitsDataPtr lhs = TraitsData::make({"a"});
+    const TraitsDataPtr rhs = TraitsData::make({"b"});
+
+    THEN("they compare not equal") {
+      CHECK_FALSE(*lhs == *rhs);
+      CHECK(*lhs != *rhs);
+    }
+  }
+
+  GIVEN("two TraitsData instances with different trait properties") {
+    const TraitsDataPtr lhs = TraitsData::make();
+    const TraitsDataPtr rhs = TraitsData::make();
+    lhs->setTraitProperty("a", "b", "c");
+    rhs->setTraitProperty("a", "b", "d");
+
+    THEN("they compare not equal") {
+      CHECK_FALSE(*lhs == *rhs);
+      CHECK(*lhs != *rhs);
     }
   }
 }

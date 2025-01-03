@@ -128,6 +128,8 @@ property::KeySet TraitsData::traitPropertyKeys(const TraitId& traitId) const {
 }
 
 bool TraitsData::operator==(const TraitsData& other) const { return *impl_ == *other.impl_; }
+
+bool TraitsData::operator!=(const TraitsData& other) const { return !(*this == other); }
 }  // namespace trait
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio
