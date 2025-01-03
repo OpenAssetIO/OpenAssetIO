@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <sstream>
-#include <string_view>
 
-#include <fmt/format.h>
 #include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 

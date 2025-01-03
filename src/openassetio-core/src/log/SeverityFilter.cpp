@@ -1,9 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
-#include <cstdlib>
-#include <iostream>
-
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <openassetio/log/SeverityFilter.hpp>
+
+#include <cstdlib>
+#include <memory>
+#include <string>
+#include <utility>
+
+#include <openassetio/export.h>
+#include <openassetio/log/LoggerInterface.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -31,20 +37,20 @@ SeverityFilter::SeverityFilter(LoggerInterfacePtr upstreamLogger)
   }
 }
 
-void SeverityFilter::log(Severity severity, const Str& message) {
+void SeverityFilter::log(const Severity severity, const Str& message) {
   if (severity < minSeverity_ || !upstreamLogger_->isSeverityLogged(severity)) {
     return;
   }
   upstreamLogger_->log(severity, message);
 }
 
-void SeverityFilter::setSeverity(LoggerInterface::Severity severity) { minSeverity_ = severity; }
+void SeverityFilter::setSeverity(const Severity severity) { minSeverity_ = severity; }
 
 LoggerInterface::Severity SeverityFilter::getSeverity() const { return minSeverity_; }
 
 LoggerInterfacePtr SeverityFilter::upstreamLogger() const { return upstreamLogger_; }
 
-bool SeverityFilter::isSeverityLogged(LoggerInterface::Severity severity) const {
+bool SeverityFilter::isSeverityLogged(const Severity severity) const {
   return severity >= minSeverity_ && upstreamLogger_->isSeverityLogged(severity);
 }
 }  // namespace log

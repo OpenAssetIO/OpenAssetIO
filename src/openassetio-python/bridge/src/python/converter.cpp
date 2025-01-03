@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <openassetio/python/converter.hpp>
 
+#include <Python.h>
 #include <pybind11/embed.h>
 
-#include <openassetio/Context.hpp>
+#include <openassetio/export.h>
+#include <openassetio/python/export.h>
 #include <openassetio/errors/exceptions.hpp>
+
+// NOLINTBEGIN(misc-include-cleaner) - false positive unused headers.
+#include <openassetio/Context.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/hostApi/ManagerFactory.hpp>
@@ -18,6 +23,7 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+// NOLINTEND(misc-include-cleaner)
 
 // Private headers
 #include <openassetio/private/python/pointers.hpp>

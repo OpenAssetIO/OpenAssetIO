@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
-#include <map>
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <set>
 #include <unordered_set>
 

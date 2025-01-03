@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 // #include <openassetio_test/export.h>
 #include <memory>
 
 #include <export.h>
 
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
+#include "openassetio/typedefs.hpp"
 
 struct Plugin : openassetio::pluginSystem::CppPluginSystemPlugin {
   [[nodiscard]] openassetio::Str identifier() const override {
     return "org.openassetio.test.pluginSystem."
+           // NOLINTNEXTLINE(misc-include-cleaner) - definition provided on command line.
            "resources." OPENASSETIO_CORE_PLUGINSYSTEM_TEST_PLUGIN_ID_SUFFIX;
   }
 };

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <optional>
 #include <string_view>
@@ -23,8 +23,10 @@ namespace utils::path::windows::pathTypes {
  * Utility for handling Windows drive paths e.g. `C:\path`.
  */
 struct DrivePath {
+  // NOLINTBEGIN(cppcoreguidelines-avoid-const-or-ref-data-members)
   detail::DriveLetter& driveLetterHandler;
   detail::NormalisedPath& normalisedPathHandler;
+  // NOLINTEND(cppcoreguidelines-avoid-const-or-ref-data-members)
 
   static constexpr std::size_t kDriveLetterLength = 2;
 

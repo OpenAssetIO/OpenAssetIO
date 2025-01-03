@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl/filesystem.h>
 
-#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystem.hpp>
+
+// NOLINTBEGIN(misc-include-cleaner) - required for pybind11
+#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
+// NOLINTEND(misc-include-cleaner)
 
 #include "../_openassetio.hpp"
 

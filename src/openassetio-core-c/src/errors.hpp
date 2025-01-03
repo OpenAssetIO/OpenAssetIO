@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <openassetio/c/StringView.h>
@@ -57,7 +57,7 @@ void extractExceptionMessage(oa_StringView *err, const Exception &exc) {
  * @return Error code.
  */
 template <typename Fn>
-auto catchUnknownExceptionAsCode(oa_StringView *err, Fn &&callable) {
+auto catchUnknownExceptionAsCode(oa_StringView *err, const Fn &callable) {
   try {
     return callable();
   } catch (std::exception &exc) {

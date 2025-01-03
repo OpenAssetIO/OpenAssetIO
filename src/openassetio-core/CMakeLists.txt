@@ -134,6 +134,8 @@ set(_define_version
 
 # Use CMake utility to generate the export header.
 include(GenerateExportHeader)
+# Note: CMake>=3.30 recommended, since it adds Clang-Tidy linter
+# suppressions to the generated file.
 generate_export_header(
     openassetio-core
     EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/openassetio/export.h

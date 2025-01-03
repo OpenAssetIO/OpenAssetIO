@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <algorithm>
+#include <cstddef>
+#include <functional>
+#include <vector>
 
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/Manager.hpp>
@@ -19,20 +24,20 @@
 namespace {
 using openassetio::EntityReferences;
 using openassetio::hostApi::Manager;
-using openassetio::trait::TraitsDataPtr;
-using openassetio::trait::TraitsDatas;
+namespace trait = openassetio::trait;
 
-void validateTraitsDatas(const TraitsDatas& traitsDatas) {
+void validateTraitsDatas(const trait::TraitsDatas& traitsDatas) {
   // Pybind has no built-in way to assert that a collection
   // does not contain any `None` elements, so we must add our
   // own check here.
-  if (std::any_of(traitsDatas.begin(), traitsDatas.end(), std::logical_not<TraitsDataPtr>{})) {
+  if (std::any_of(traitsDatas.begin(), traitsDatas.end(),
+                  std::logical_not<trait::TraitsDataPtr>{})) {
     throw openassetio::errors::InputValidationException{"Traits data cannot be None"};
   }
 }
 
 py::list pyBoolListFromUintVector(const std::vector<Manager::BoolAsUint>& boolAsUints) {
-  py::gil_scoped_acquire gil{};
+  const py::gil_scoped_acquire gil{};
   py::list pyResult;
   for (const Manager::BoolAsUint boolAsUint : boolAsUints) {
     pyResult.append(static_cast<bool>(boolAsUint));
@@ -52,7 +57,6 @@ void registerManager(const py::module& mod) {
   using openassetio::hostApi::ManagerPtr;
   using openassetio::managerApi::HostSessionPtr;
   using openassetio::managerApi::ManagerInterfacePtr;
-  using openassetio::trait::TraitsDataPtr;
 
   py::class_<Manager, ManagerPtr> pyManager{mod, "Manager", py::is_final()};
 
@@ -251,8 +255,8 @@ void registerManager(const py::module& mod) {
           // TODO(DF): Technically we shouldn't need this overload,
           // see similar comment for `resolve`.
           [](Manager& self, const EntityReference& entityReference,
-             const access::EntityTraitsAccess access, const ContextConstPtr& context) {
-            return self.entityTraits(entityReference, access, context);
+             const access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context) {
+            return self.entityTraits(entityReference, entityTraitsAccess, context);
           },
           py::arg("entityReference"), py::arg("entityTraitsAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
@@ -318,9 +322,9 @@ void registerManager(const py::module& mod) {
           // `py::arg("errorPolicyTag") = {}`. However, this causes a
           // memory leak in pybind11.
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitSet& traitSet, const access::ResolveAccess access,
+             const trait::TraitSet& traitSet, const access::ResolveAccess resolveAccess,
              const ContextConstPtr& context) {
-            return self.resolve(entityReference, traitSet, access, context);
+            return self.resolve(entityReference, traitSet, resolveAccess, context);
           },
           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
@@ -355,7 +359,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
-           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, size_t,
+           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const Manager::RelationshipQuerySuccessCallback&,
                              const Manager::BatchElementErrorCallback&, const trait::TraitSet&>(
@@ -372,7 +376,7 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationship",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDataPtr& relationshipTraitsData, size_t pageSize,
+             const trait::TraitsDataPtr& relationshipTraitsData, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const trait::TraitSet& resultTraitSet) {
             return self.getWithRelationship(entityReference, relationshipTraitsData, pageSize,
@@ -384,7 +388,7 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationship",
           [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDataPtr& relationshipTraitsData, size_t pageSize,
+             const trait::TraitsDataPtr& relationshipTraitsData, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const trait::TraitSet& resultTraitSet) {
             return self.getWithRelationship(entityReferences, relationshipTraitsData, pageSize,
@@ -394,7 +398,7 @@ void registerManager(const py::module& mod) {
           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
           py::arg("resultTraitSet"), py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, size_t,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
                              const Manager::BatchElementErrorPolicyTag::Exception&>(
@@ -404,7 +408,7 @@ void registerManager(const py::module& mod) {
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, size_t,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
@@ -414,7 +418,7 @@ void registerManager(const py::module& mod) {
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
-           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, size_t,
+           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
                              const Manager::BatchElementErrorPolicyTag::Exception&>(
@@ -424,7 +428,7 @@ void registerManager(const py::module& mod) {
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def("getWithRelationship",
-           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, size_t,
+           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
@@ -436,15 +440,15 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const Manager::RelationshipQuerySuccessCallback& successCallback,
              const Manager::BatchElementErrorCallback& errorCallback,
              const trait::TraitSet& resultTraitSet) {
             validateTraitsDatas(relationshipTraitsDatas);
-            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
-                                             relationsAccess, context, successCallback,
-                                             errorCallback, resultTraitSet);
+            self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
+                                      relationsAccess, context, successCallback, errorCallback,
+                                      resultTraitSet);
           },
           py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
           py::arg("relationsAccess"), py::arg("context").none(false), py::arg("successCallback"),
@@ -458,7 +462,7 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const trait::TraitSet& resultTraitSet) {
             validateTraitsDatas(relationshipTraitsDatas);
@@ -471,8 +475,8 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
-             access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
+             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const trait::TraitSet& resultTraitSet,
              const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
             validateTraitsDatas(relationshipTraitsDatas);
@@ -486,8 +490,8 @@ void registerManager(const py::module& mod) {
       .def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, size_t pageSize,
-             access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
+             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
              const trait::TraitSet& resultTraitSet,
              const Manager::BatchElementErrorPolicyTag::Variant& errorPolicyTag) {
             validateTraitsDatas(relationshipTraitsDatas);
@@ -513,7 +517,7 @@ void registerManager(const py::module& mod) {
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
           py::call_guard<py::gil_scoped_release>{})
       .def("preflight",
-           py::overload_cast<const EntityReference&, const TraitsDataPtr&,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Exception&>(
                &Manager::preflight),
@@ -521,7 +525,7 @@ void registerManager(const py::module& mod) {
            py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def("preflight",
-           py::overload_cast<const EntityReference&, const TraitsDataPtr&,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
                &Manager::preflight),
@@ -531,8 +535,8 @@ void registerManager(const py::module& mod) {
       .def(
           "preflight",
           [](Manager& self, const EntityReference& entityReference,
-             const TraitsDataPtr& traitsHint, const access::PublishingAccess publishingAccess,
-             const ContextConstPtr& context) {
+             const trait::TraitsDataPtr& traitsHint,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
             return self.preflight(entityReference, traitsHint, publishingAccess, context);
           },
           py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
@@ -587,7 +591,7 @@ void registerManager(const py::module& mod) {
           py::call_guard<py::gil_scoped_release>{})
 
       .def("register",
-           py::overload_cast<const EntityReference&, const TraitsDataPtr&,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Exception&>(
                &Manager::register_),
@@ -595,7 +599,7 @@ void registerManager(const py::module& mod) {
            py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def("register",
-           py::overload_cast<const EntityReference&, const TraitsDataPtr&,
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
                &Manager::register_),
@@ -605,7 +609,7 @@ void registerManager(const py::module& mod) {
       .def(
           "register",
           [](Manager& self, const EntityReference& entityReference,
-             const TraitsDataPtr& entityTraitsData,
+             const trait::TraitsDataPtr& entityTraitsData,
              const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
             return self.register_(entityReference, entityTraitsData, publishingAccess, context);
           },
@@ -615,8 +619,8 @@ void registerManager(const py::module& mod) {
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
-             const TraitsDatas& entityTraitsDatas, const access::PublishingAccess publishingAccess,
-             const ContextConstPtr& context,
+             const trait::TraitsDatas& entityTraitsDatas,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
              const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
             validateTraitsDatas(entityTraitsDatas);
             return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context,
@@ -628,8 +632,8 @@ void registerManager(const py::module& mod) {
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
-             const TraitsDatas& entityTraitsDatas, const access::PublishingAccess publishingAccess,
-             const ContextConstPtr& context,
+             const trait::TraitsDatas& entityTraitsDatas,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
              const Manager::BatchElementErrorPolicyTag::Variant& errorPolicyTag) {
             validateTraitsDatas(entityTraitsDatas);
             return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context,
@@ -641,8 +645,8 @@ void registerManager(const py::module& mod) {
       .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
-             const TraitsDatas& entityTraitsDatas, const access::PublishingAccess publishingAccess,
-             const ContextConstPtr& context) {
+             const trait::TraitsDatas& entityTraitsDatas,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
             validateTraitsDatas(entityTraitsDatas);
             return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context);
           },

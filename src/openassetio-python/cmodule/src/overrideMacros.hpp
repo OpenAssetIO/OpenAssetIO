@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <pybind11/pybind11.h>
 
@@ -11,7 +11,7 @@
  * Decorate PYBIND11_OVERRIDE_NAME with exception type translation.
  */
 #define OPENASSETIO_PYBIND11_OVERRIDE_NAME(ret_type, cname, name, fn, ...)                      \
-  do {                                                                                          \
+  do { /* NOLINT(cppcoreguidelines-avoid-do-while) */                                           \
     /* Must explicitly specify decorated lambda return type, since    */                        \
     /* PYBIND11_OVERRIDE_IMPL return type can be PyRetainingSharedPtr,*/                        \
     /* which confuses the compiler.                                   */                        \
@@ -46,7 +46,7 @@
  * implementation, if one exists.
  */
 #define OPENASSETIO_PYBIND11_OVERRIDE_ARGS(Ret, Class, Fn, CppArgs, ... /* PyArgs */)     \
-  do {                                                                                    \
+  do { /* NOLINT(cppcoreguidelines-avoid-do-while) */                                     \
     return decorateWithExceptionConverter([&]() -> decltype(Class::Fn CppArgs) {          \
       PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(Ret), PYBIND11_TYPE(Class), #Fn, __VA_ARGS__); \
       return Class::Fn CppArgs;                                                           \
@@ -67,7 +67,7 @@
  * until it is fixed upstream.
  */
 #define OPENASSETIO_PYBIND11_OVERRIDE_PURE_NAME(ret_type, cname, name, fn, ...)                 \
-  do {                                                                                          \
+  do { /* NOLINT(cppcoreguidelines-avoid-do-while) */                                           \
     return decorateWithExceptionConverter([&]() -> decltype(cname::fn(__VA_ARGS__)) {           \
       PYBIND11_OVERRIDE_IMPL(PYBIND11_TYPE(ret_type), PYBIND11_TYPE(cname), name, __VA_ARGS__); \
       const pybind11::gil_scoped_acquire gil{};                                                 \

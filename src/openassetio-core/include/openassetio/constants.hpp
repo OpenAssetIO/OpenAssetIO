@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 /**
  * @file
@@ -28,6 +28,7 @@ namespace constants {
 
 // General
 
+// NOLINTBEGIN(readability-identifier-naming): requires source breaking change.
 inline constexpr std::string_view kInfoKey_SmallIcon = "smallIcon";
 inline constexpr std::string_view kInfoKey_Icon = "icon";
 
@@ -44,6 +45,7 @@ inline constexpr std::string_view kInfoKey_Icon = "icon";
 inline constexpr std::string_view kInfoKey_EntityReferencesMatchPrefix =
     "entityReferencesMatchPrefix";
 
+// NOLINTEND(readability-identifier-naming)
 /// @}
 }  // namespace constants
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

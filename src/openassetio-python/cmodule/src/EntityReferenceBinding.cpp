@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <sstream>
 
-#include <fmt/format.h>
+#include <fmt/core.h>
 
 #include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 
 #include <openassetio/EntityReference.hpp>
+#include <openassetio/typedefs.hpp>
 #include <openassetio/utils/ostream.hpp>
 
 #include "_openassetio.hpp"

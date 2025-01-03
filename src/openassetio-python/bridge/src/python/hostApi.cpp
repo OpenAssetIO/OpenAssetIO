@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <openassetio/python/hostApi.hpp>
 
-#include <memory>
+#include <utility>
 
 #include <pybind11/embed.h>
 
+#include <openassetio/export.h>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 // Private headers

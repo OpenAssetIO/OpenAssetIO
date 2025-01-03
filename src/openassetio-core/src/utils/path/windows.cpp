@@ -1,11 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include "windows.hpp"
 
 #include <algorithm>
 #include <cassert>
+#include <string_view>
 
 #include <ada.h>
+
+#include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
+
+#include "common.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {

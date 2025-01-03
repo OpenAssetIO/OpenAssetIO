@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+
 #include <openassetio/c/InfoDictionary.h>
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
-#include <openassetio/c/namespace.h>
 
 #include <catch2/catch.hpp>
 
@@ -74,7 +75,7 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
       }
     }
   }
-}
+}  // NOLINT - clang-analyzer-cplusplus.NewDeleteLeaks
 
 /**
  * Base fixture for tests, providing a pre-populated InfoDictionary and
@@ -141,6 +142,10 @@ struct TypeOfFixture<openassetio::Str> : InfoDictionaryFixture {
       oa_InfoDictionary_ValueType_kStr;
 };
 
+// https://github.com/catchorg/Catch2/issues/2910
+#ifdef __clang__
+#pragma clang diagnostic ignored "-Wc++20-extensions"
+#endif
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 TEMPLATE_TEST_CASE_METHOD(TypeOfFixture,
                           "Retrieving the type of an entry in a InfoDictionary via C API", "",
@@ -184,9 +189,9 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
       openassetio::Str errStorage(kStrStorageCapacity, '\0');
       oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
       // Initial value of storage for return value.
-      const oa_InfoDictionary_ValueType initialValueType{};
+      constexpr oa_InfoDictionary_ValueType kInitialValueType{};
       // Storage for return value.
-      oa_InfoDictionary_ValueType actualValueType = initialValueType;
+      oa_InfoDictionary_ValueType actualValueType = kInitialValueType;
 
       const oa_ErrorCode actualErrorCode =
           oa_InfoDictionary_typeOf(&actualErrorMsg, &actualValueType, infoDictionaryHandle, key);
@@ -194,7 +199,7 @@ SCENARIO("Attempting to retrieve the type of a non-existent InfoDictionary entry
       THEN("error code and message is set") {
         CHECK(actualErrorCode == oa_ErrorCode_kOutOfRange);
         CHECK(actualErrorMsg == "Invalid key");
-        CHECK(actualValueType == initialValueType);
+        CHECK(actualValueType == kInitialValueType);
       }
     }
   }
@@ -488,8 +493,7 @@ struct MutatorFixture<openassetio::Float> : InfoDictionaryFixture {
 template <>
 struct MutatorFixture<openassetio::Str> : InfoDictionaryFixture {
   INFODICTIONARY_FN(setStr);
-  inline static const openassetio::Str kExpectedValue =
-      InfoDictionaryFixture::kStrValue + " updated";
+  inline static const openassetio::Str kExpectedValue = kStrValue + " updated";
   inline static const openassetio::Str kKeyStr = kStrKey;
   inline static const openassetio::Str kOtherValueTypeKeyStr = kIntKey;
 };

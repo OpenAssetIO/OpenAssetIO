@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2013-2022 The Foundry Visionmongers Ltd
+# Copyright 2013-2025 The Foundry Visionmongers Ltd
 
 InheritParentConfig: true
 
@@ -8,3 +8,4 @@ CheckOptions:
     # e.g. "oa_nameSpace_ClassName".
     - { key: readability-identifier-naming.FunctionPrefix,  value: oa_ }
     - { key: readability-identifier-naming.FunctionCase,  value: camel_Snake_Back }
+    - { key: readability-identifier-naming.FunctionIgnoredRegexp,  value: "oa_[a-z]+[A-Za-z0-9]*(_[A-Za-z0-9_]+)?" }

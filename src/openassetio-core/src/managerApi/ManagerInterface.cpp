@@ -1,14 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
-#include <stdexcept>
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <utility>
 
-#include <fmt/format.h>
+#include <fmt/core.h>
 
+#include <openassetio/export.h>
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -20,7 +27,7 @@ ManagerInterface::ManagerInterface() = default;
   fmt::format(                                                                                    \
       "The '{}' method has not been implemented by the manager. Check manager capability for {} " \
       "by calling `manager.hasCapability`.",                                                      \
-      __func__, ManagerInterface::kCapabilityNames[static_cast<size_t>(capability)])
+      __func__, ManagerInterface::kCapabilityNames[static_cast<std::size_t>(capability)])
 
 InfoDictionary ManagerInterface::info() { return {}; }
 
@@ -42,7 +49,7 @@ StrMap ManagerInterface::updateTerminology([[maybe_unused]] StrMap terms,
 }
 
 InfoDictionary ManagerInterface::settings([[maybe_unused]] const HostSessionPtr& hostSession) {
-  return openassetio::InfoDictionary{};
+  return InfoDictionary{};
 }
 
 void ManagerInterface::flushCaches([[maybe_unused]] const HostSessionPtr& hostSession) {}
@@ -60,8 +67,8 @@ void ManagerInterface::entityExists(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::ExistsSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+    [[maybe_unused]] const ExistsSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kExistenceQueries)};
 }
@@ -71,20 +78,19 @@ void ManagerInterface::entityTraits(
     [[maybe_unused]] const access::EntityTraitsAccess entityTraitsAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::EntityTraitsSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+    [[maybe_unused]] const EntityTraitsSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kEntityTraitIntrospection)};
 }
 
-void ManagerInterface::resolve(
-    [[maybe_unused]] const EntityReferences& entityReferences,
-    [[maybe_unused]] const trait::TraitSet& traitSet,
-    [[maybe_unused]] access::ResolveAccess resolveAccess,
-    [[maybe_unused]] const ContextConstPtr& context,
-    [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+void ManagerInterface::resolve([[maybe_unused]] const EntityReferences& entityReferences,
+                               [[maybe_unused]] const trait::TraitSet& traitSet,
+                               [[maybe_unused]] access::ResolveAccess resolveAccess,
+                               [[maybe_unused]] const ContextConstPtr& context,
+                               [[maybe_unused]] const HostSessionPtr& hostSession,
+                               [[maybe_unused]] const ResolveSuccessCallback& successCallback,
+                               [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kResolution)};
 }
@@ -165,26 +171,24 @@ void ManagerInterface::getWithRelationships(
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kRelationshipQueries)};
 }
 
-void ManagerInterface::preflight(
-    [[maybe_unused]] const EntityReferences& entityReferences,
-    [[maybe_unused]] const trait::TraitsDatas& traitsHints,
-    [[maybe_unused]] access::PublishingAccess publishingAccess,
-    [[maybe_unused]] const ContextConstPtr& context,
-    [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::PreflightSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+void ManagerInterface::preflight([[maybe_unused]] const EntityReferences& entityReferences,
+                                 [[maybe_unused]] const trait::TraitsDatas& traitsHints,
+                                 [[maybe_unused]] access::PublishingAccess publishingAccess,
+                                 [[maybe_unused]] const ContextConstPtr& context,
+                                 [[maybe_unused]] const HostSessionPtr& hostSession,
+                                 [[maybe_unused]] const PreflightSuccessCallback& successCallback,
+                                 [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kPublishing)};
 }
 
-void ManagerInterface::register_(
-    [[maybe_unused]] const EntityReferences& entityReferences,
-    [[maybe_unused]] const trait::TraitsDatas& entityTraitsDatas,
-    [[maybe_unused]] access::PublishingAccess publishingAccess,
-    [[maybe_unused]] const ContextConstPtr& context,
-    [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::RegisterSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+void ManagerInterface::register_([[maybe_unused]] const EntityReferences& entityReferences,
+                                 [[maybe_unused]] const trait::TraitsDatas& entityTraitsDatas,
+                                 [[maybe_unused]] access::PublishingAccess publishingAccess,
+                                 [[maybe_unused]] const ContextConstPtr& context,
+                                 [[maybe_unused]] const HostSessionPtr& hostSession,
+                                 [[maybe_unused]] const RegisterSuccessCallback& successCallback,
+                                 [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{
       UNIMPLEMENTED_ERROR(ManagerInterface::Capability::kPublishing)};
 }

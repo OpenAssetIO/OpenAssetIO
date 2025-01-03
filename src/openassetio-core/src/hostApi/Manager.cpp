@@ -1,22 +1,31 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <array>
+#include <cstddef>
+#include <memory>
+#include <optional>
 #include <string>
 #include <utility>
+#include <variant>
 #include <vector>
 
+#include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <openassetio/export.h>
 #include <openassetio/Context.hpp>
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/constants.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
-#include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 namespace openassetio {
@@ -44,7 +53,7 @@ void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface
   for (const ManagerInterface::Capability capability : kRequiredCapabilities) {
     if (!interface->hasCapability(capability)) {
       missingCapabilities.emplace_back(
-          ManagerInterface::kCapabilityNames[static_cast<size_t>(capability)]);
+          ManagerInterface::kCapabilityNames[static_cast<std::size_t>(capability)]);
     }
   }
 
@@ -53,8 +62,8 @@ void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface
   }
 
   const std::string msg =
-      fmt::format("Manager implementation for '{}' does not support the required capabilities: {}",
-                  interface->identifier(), fmt::join(missingCapabilities, ", "));
+      format("Manager implementation for '{}' does not support the required capabilities: {}",
+             interface->identifier(), fmt::join(missingCapabilities, ", "));
 
   throw errors::ConfigurationException(msg);
 }
@@ -66,9 +75,9 @@ void verifyRequiredCapabilities(const managerApi::ManagerInterfacePtr &interface
 std::optional<Str> entityReferencePrefixFromInfo(const log::LoggerInterfacePtr &logger,
                                                  const InfoDictionary &info) {
   // Check if the info dict has the prefix key.
-  if (auto iter = info.find(Str{constants::kInfoKey_EntityReferencesMatchPrefix});
+  if (const auto iter = info.find(Str{constants::kInfoKey_EntityReferencesMatchPrefix});
       iter != info.end()) {
-    if (const auto *prefixPtr = std::get_if<openassetio::Str>(&iter->second)) {
+    if (const auto *prefixPtr = std::get_if<Str>(&iter->second)) {
       logger->debugApi(
           fmt::format("Entity reference prefix '{}' provided by manager's info() dict. Subsequent"
                       " calls to isEntityReferenceString will use this prefix rather than call the"
@@ -234,8 +243,8 @@ void Manager::getWithRelationship(const EntityReferences &entityReferences,
                                   const trait::TraitsDataPtr &relationshipTraitsData,
                                   size_t pageSize, const access::RelationsAccess relationsAccess,
                                   const ContextConstPtr &context,
-                                  const Manager::RelationshipQuerySuccessCallback &successCallback,
-                                  const Manager::BatchElementErrorCallback &errorCallback,
+                                  const RelationshipQuerySuccessCallback &successCallback,
+                                  const BatchElementErrorCallback &errorCallback,
                                   const trait::TraitSet &resultTraitSet) {
   if (pageSize == 0) {
     throw errors::InputValidationException{"pageSize must be greater than zero."};
@@ -317,8 +326,8 @@ void Manager::register_(const EntityReferences &entityReferences,
     message += " traits datas.";
     throw errors::InputValidationException{message};
   }
-  return managerInterface_->register_(entityReferences, entityTraitsDatas, publishingAccess,
-                                      context, hostSession_, successCallback, errorCallback);
+  managerInterface_->register_(entityReferences, entityTraitsDatas, publishingAccess, context,
+                               hostSession_, successCallback, errorCallback);
 }
 
 }  // namespace hostApi

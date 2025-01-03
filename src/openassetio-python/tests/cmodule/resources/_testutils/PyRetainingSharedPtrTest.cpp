@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 /**
  * Bindings used for testing PyRetainingSharedPtr behaviour.
  */
 #include <memory>
+#include <utility>
+#include <vector>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -11,7 +13,7 @@
 #include <PyRetainingSharedPtr.hpp>
 
 namespace py = pybind11;
-
+namespace {
 /**
  * Base class to be inherited in Python.
  */
@@ -226,8 +228,9 @@ void setSimpleSingleton(std::shared_ptr<SimpleBaseCppType> newSingleton) {
   static std::shared_ptr<SimpleBaseCppType> singleton;
   singleton = std::move(newSingleton);
 }
+}  // namespace
 
-void registerPyRetainingSharedPtrTestTypes(py::module_& mod) {
+extern void registerPyRetainingSharedPtrTestTypes(py::module_& mod) {
   py::class_<SimpleBaseCppType, std::shared_ptr<SimpleBaseCppType>, PySimpleBaseCppType>(
       mod, "SimpleBaseCppType")
       .def(py::init())

@@ -1,18 +1,33 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <algorithm>
+#include <cstdlib>
+#include <ios>
+#include <iterator>
+#include <memory>
 #include <optional>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
 
 #include <export.h>
 
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
+#include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
+#include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/trait/property.hpp>
+#include <openassetio/typedefs.hpp>
 
 // Unique ID of the plugin.
 constexpr std::string_view kDefaultPluginId = "org.openassetio.examples.manager.simplecppmanager";
@@ -47,6 +62,7 @@ constexpr std::string_view kSettingsKeyForReadEntityTraitProperties = "read_trai
  */
 struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterface {
   [[nodiscard]] openassetio::Identifier identifier() const override {
+    // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
     if (const char* envVar = std::getenv(kPluginIdEnvVar.data())) {
       return openassetio::Identifier{envVar};
     }
@@ -112,7 +128,7 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
             iter != cend(kCapabilityNames)) {
           const std::size_t capabilityIdx = std::distance(cbegin(kCapabilityNames), iter);
           // Update the capability set.
-          capabilities_.insert(static_cast<ManagerInterface::Capability>(capabilityIdx));
+          capabilities_.insert(static_cast<Capability>(capabilityIdx));
         } else {
           throw openassetio::errors::ConfigurationException(
               "SimpleCppManager: unsupported capability: " + capability);
@@ -448,7 +464,7 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
       const openassetio::EntityReferences& entityReferences,
       [[maybe_unused]] const openassetio::trait::TraitsDataPtr& relationshipTraitsData,
       [[maybe_unused]] const openassetio::trait::TraitSet& resultTraitSet,
-      [[maybe_unused]] const size_t pageSize,
+      [[maybe_unused]] const std::size_t pageSize,
       [[maybe_unused]] const openassetio::access::RelationsAccess relationsAccess,
       [[maybe_unused]] const openassetio::ContextConstPtr& context,
       [[maybe_unused]] const openassetio::managerApi::HostSessionPtr& hostSession,
@@ -468,7 +484,7 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
       [[maybe_unused]] const openassetio::EntityReference& entityReference,
       const openassetio::trait::TraitsDatas& relationshipTraitsDatas,
       [[maybe_unused]] const openassetio::trait::TraitSet& resultTraitSet,
-      [[maybe_unused]] const size_t pageSize,
+      [[maybe_unused]] const std::size_t pageSize,
       [[maybe_unused]] const openassetio::access::RelationsAccess relationsAccess,
       [[maybe_unused]] const openassetio::ContextConstPtr& context,
       [[maybe_unused]] const openassetio::managerApi::HostSessionPtr& hostSession,
@@ -591,7 +607,7 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
    * non-stub) functionality. Capabilities can be toggled using the
    * "capabilities" key in @ref settings_.
    */
-  std::unordered_set<ManagerInterface::Capability> capabilities_{
+  std::unordered_set<Capability> capabilities_{
       Capability::kEntityReferenceIdentification, Capability::kManagementPolicyQueries,
       Capability::kEntityTraitIntrospection, Capability::kResolution};
 
@@ -625,6 +641,7 @@ struct SimpleCppManagerInterface final : openassetio::managerApi::ManagerInterfa
  */
 struct Plugin final : openassetio::pluginSystem::CppPluginSystemManagerPlugin {
   [[nodiscard]] openassetio::Identifier identifier() const override {
+    // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
     if (const char* envVar = std::getenv(kPluginIdEnvVar.data())) {
       return openassetio::Identifier{envVar};
     }

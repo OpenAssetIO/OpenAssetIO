@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <openassetio/export.h>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 
 namespace openassetio {

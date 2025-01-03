@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <cstddef>
 #include <optional>
 #include <stdexcept>
@@ -15,11 +15,11 @@
 #include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/internal.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/trait/collection.hpp>
-#include <openassetio/typedefs.hpp>
 
 #include "../errors/exceptionMessages.hpp"
 

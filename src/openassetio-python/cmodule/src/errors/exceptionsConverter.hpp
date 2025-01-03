@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <array>
 #include <cstddef>
@@ -29,7 +29,7 @@ template <class... Type>
 struct TypesAndIds {
   static constexpr std::size_t kSize = sizeof...(Type);
   using Types = std::tuple<Type...>;
-  const std::array<std::string_view, kSize> ids;
+  std::array<std::string_view, kSize> ids;
 };
 
 /**
@@ -209,7 +209,7 @@ inline void convertPyExceptionAndThrow(const pybind11::error_already_set &thrown
  * @return Return value of callable, if no exception occurs.
  */
 template <class Fn>
-auto decorateWithExceptionConverter(Fn &&func) {
+auto decorateWithExceptionConverter(const Fn &func) {
   try {
     return func();
   } catch (const pybind11::error_already_set &exc) {

@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <exception>
+#include <utility>
 
-#include <openassetio/EntityReference.hpp>
+#include <openassetio/export.h>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
-#include <openassetio/log/LoggerInterface.hpp>
+#include <openassetio/log/LoggerInterface.hpp>  // NOLINT(*-include-cleaner): needed for logger()
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 
@@ -11,7 +13,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace hostApi {
 
-typename EntityReferencePager::Ptr EntityReferencePager::make(
+EntityReferencePager::Ptr EntityReferencePager::make(
     managerApi::EntityReferencePagerInterfacePtr pagerInterface,
     managerApi::HostSessionPtr hostSession) {
   return EntityReferencePager::Ptr{
@@ -36,7 +38,7 @@ EntityReferencePager::~EntityReferencePager() {
 
 bool EntityReferencePager::hasNext() { return pagerInterface_->hasNext(hostSession_); }
 
-typename EntityReferencePager::Page EntityReferencePager::get() {
+EntityReferencePager::Page EntityReferencePager::get() {
   return pagerInterface_->get(hostSession_);
 }
 

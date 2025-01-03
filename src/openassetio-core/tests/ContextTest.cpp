@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <type_traits>
 
 #include <catch2/catch.hpp>
 
 #include <openassetio/Context.hpp>
+#include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)

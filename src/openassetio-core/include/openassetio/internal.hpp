@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -16,6 +16,7 @@ namespace access {
  * simplifies serialisation, and supports language (especially C)
  * bindings.
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum Access : std::size_t { kRead = 0, kWrite, kCreateRelated, kRequired, kManagerDriven };
 }  // namespace access
 
@@ -25,6 +26,7 @@ namespace errors {
  *
  * The enum values must be kept in sync with the C API.
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum ErrorCode : std::size_t {
   // 0-127 is reserved for C API error codes.
   kBatchElementUnknownError = 128,
@@ -47,6 +49,7 @@ namespace capability::manager {
  * comparison, string lookup, simplifies serialisation, and supports
  * language (especially C) bindings.
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum Capability : std::size_t {
   kEntityReferenceIdentification = 0,
   kManagementPolicyQueries,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 
 #pragma once
 
@@ -241,6 +241,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * These capabilities are used by both the host and the middleware to
    * adapt their behaviour.
    */
+  // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
   enum class Capability : std::underlying_type_t<internal::capability::manager::Capability> {
     /**
      * Manager can inform the host whether a given string matches the

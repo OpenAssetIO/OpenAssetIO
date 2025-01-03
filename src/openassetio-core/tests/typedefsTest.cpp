@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <algorithm>
+#include <iterator>
 #include <memory>
 #include <tuple>
+#include <type_traits>
 
 #include <catch2/catch.hpp>
 
@@ -26,6 +28,7 @@
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
 #include <openassetio/pluginSystem/HybridPluginSystemManagerImplementationFactory.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 
 namespace {
 

@@ -283,9 +283,9 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
                  ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
                  log::LoggerInterfacePtr logger);
 
-  const HostInterfacePtr hostInterface_;
-  const ManagerImplementationFactoryInterfacePtr managerImplementationFactory_;
-  const log::LoggerInterfacePtr logger_;
+  HostInterfacePtr hostInterface_;
+  ManagerImplementationFactoryInterfacePtr managerImplementationFactory_;
+  log::LoggerInterfacePtr logger_;
 };
 
 }  // namespace hostApi

@@ -1,14 +1,14 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2013-2022 The Foundry Visionmongers Ltd
+# Copyright 2013-2025 The Foundry Visionmongers Ltd
 
 InheritParentConfig: true
 
 # -readability-function-cognitive-complexity
 #   Catch2 test macros trigger this.
-# -bugprone-infinite-loop
-#   clang-tidy v12 flags false positives for Catch2 CHECK macro.
-#   TODO(DF): Remove once clang-tidy version updated.
+#
+# -bugprone-chained-comparison:
+#   False positives from Catch2 CHECK macros.
 Checks: >
     -readability-function-cognitive-complexity,
-     -bugprone-infinite-loop,
+    -bugprone-chained-comparison,
 

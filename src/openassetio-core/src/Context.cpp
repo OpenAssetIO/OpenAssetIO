@@ -1,6 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
+#include <memory>
+#include <utility>
+
+#include <openassetio/export.h>
 #include <openassetio/Context.hpp>
+#include <openassetio/trait/TraitsData.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {

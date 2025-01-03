@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
-#include <fmt/format.h>
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+
+#include <fmt/core.h>
 #include <catch2/catch.hpp>
 
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/typedefs.hpp>
 
 #include <utils/Regex.hpp>
 
@@ -15,12 +18,13 @@ using openassetio::errors::InputValidationException;
 using openassetio::utils::Regex;
 
 TEST_CASE("Happy path") {
-  Regex regex{"a(.)c"};
-  openassetio::Str text{"abcde"};
+  const Regex regex{"a(.)c"};
+  const openassetio::Str text{"abcde"};
 
-  auto match = regex.match(text);
+  const auto match = regex.match(text);
 
   REQUIRE(match.has_value());
+  // NOLINTNEXTLINE(*-unchecked-optional-access) - checked above.
   CHECK(match->group(text, 1) == "b");
   CHECK(regex.substituteToReduceSize(text, "f") == "fde");
 }
@@ -51,14 +55,14 @@ TEST_CASE("Invalid JIT pattern exception") {
 #endif
 
 TEST_CASE("Invalid match exception") {
-  Regex regex{"(*LIMIT_MATCH=1)((a+)b)+"};
+  const Regex regex{"(*LIMIT_MATCH=1)((a+)b)+"};
   CHECK_THROWS_MATCHES(
       regex.match("abab"), InputValidationException,
       ExceptionMessageMatcher{"Error -47 matching regex to 'abab': match limit exceeded"});
 }
 
 TEST_CASE("Invalid substitution exception") {
-  Regex regex{"a"};
+  const Regex regex{"a"};
   CHECK_THROWS_MATCHES(
       regex.substituteToReduceSize("a", "aa"), InputValidationException,
       ExceptionMessageMatcher{

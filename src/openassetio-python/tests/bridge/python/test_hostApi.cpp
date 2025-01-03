@@ -1,13 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
+#include <memory>
 
 #include <pybind11/pybind11.h>
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
+#include <trompeloeil.hpp>
 
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/python/hostApi.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace {
 struct MockLogger : trompeloeil::mock_interface<openassetio::log::LoggerInterface> {

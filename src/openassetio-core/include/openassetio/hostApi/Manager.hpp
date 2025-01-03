@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -121,6 +122,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * introspection mechanism @ref hasCapability to provide a means of
    * querying which sets of methods the manager provides.
    */
+  // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
   enum class Capability : std::underlying_type_t<internal::capability::manager::Capability> {
     /**
      * Manager makes use of the context to persist custom state for

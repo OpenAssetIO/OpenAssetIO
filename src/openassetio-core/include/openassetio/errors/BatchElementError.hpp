@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <type_traits>
@@ -46,6 +46,7 @@ namespace errors {
 class BatchElementError final {
  public:
   /// Possible classes of error.
+  // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
   enum class ErrorCode {
     /// Fallback for uncommon errors.
     kUnknown = internal::errors::kBatchElementUnknownError,

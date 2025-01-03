@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include "./namespace.h"
@@ -36,7 +36,7 @@ extern "C" {
 /// @}
 // oa_ErrorCode_aliases
 
-// NOLINTNEXTLINE(modernize-use-using)
+// NOLINTNEXTLINE(modernize-use-using,performance-enum-size)
 typedef enum {
   /// Error code indicating an OK result from a C API function.
   oa_ErrorCode_kOK = 0,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <string_view>
 
@@ -20,8 +20,10 @@ namespace utils::path::posix {
  * to/from a URL.
  */
 struct FileUrlPathConverter {
+  // NOLINTBEGIN(cppcoreguidelines-avoid-const-or-ref-data-members)
   detail::PosixUrl& urlHandler;
   detail::PosixPath& posixPathHandler;
+  // NOLINTEND(cppcoreguidelines-avoid-const-or-ref-data-members)
 
   /**
    * Convert a POSIX path into a file URL.

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 /**
  * Typedefs for the trait property data stored within specifications.
  */
@@ -64,6 +64,7 @@ using KeySet = std::unordered_set<Key>;
 using TraitId = property::Key;
 
 /// Status of a trait property within a specification.
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class TraitPropertyStatus { kFound, kMissing, kInvalidValue };
 }  // namespace trait
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
