@@ -27,6 +27,7 @@ target_sources(openassetio-core-cpp-test-exe
     trait/TraitsDataTest.cpp
     versionTest.cpp
     hostApi/ManagerTest.cpp
+    hostApi/ManagerFactoryTest.cpp
     managerApi/HostTest.cpp
     managerApi/HostSessionTest.cpp
     managerApi/ManagerStateBaseTest.cpp
