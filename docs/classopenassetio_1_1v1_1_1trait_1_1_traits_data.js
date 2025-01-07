@@ -8,6 +8,7 @@ var classopenassetio_1_1v1_1_1trait_1_1_traits_data =
     [ "addTraits", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#a5d144159b4aecaa49e38fa40075a5436", null ],
     [ "getTraitProperty", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#a08fa5975381df4904c7a5dfad6f13b83", null ],
     [ "hasTrait", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#ab156681737e47cc39be246cd986b7d2e", null ],
+    [ "operator!=", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#ae7d94278880a0e17cb5729ddb23257ad", null ],
     [ "operator=", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#af0477ebbe2f6666847f5b9f7481a28ea", null ],
     [ "operator=", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#a3fb758d39dad9db8cae27b7078668b0e", null ],
     [ "operator==", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#a8d562237a6f72f18170521e0c71ce822", null ],
