@@ -21,6 +21,10 @@ _This release remains source compatible for both hosts and managers._
   as keys in associative containers (e.g. `dict`/`std::unordered_map`).
   [#573](https://github.com/OpenAssetIO/OpenAssetIO/issues/573)
 
+- Added non-equality `!=` operator to the `TraitsData` and
+  `ManagerDetail` types in C++, providing feature parity with Python.
+  [#875](https://github.com/OpenAssetIO/OpenAssetIO/issues/875)
+
 - Added bounds checking of array access to convenience methods that wrap
   batch-first callback-based signatures. This avoids some potential
   segfaults if a manager plugin calls a callback passing an invalid index

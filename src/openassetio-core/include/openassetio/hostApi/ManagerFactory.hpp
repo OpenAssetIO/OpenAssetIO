@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <memory>
@@ -75,6 +75,16 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
       return identifier == other.identifier && displayName == other.displayName &&
              info == other.info;
     }
+    /**
+     * Compare all fields in this instance and another for by-value
+     * non-equality.
+     *
+     * @param other Other instance to compare against.
+     *
+     * @return `true` if any field compares non-equal, `false`
+     * otherwise.
+     */
+    bool operator!=(const ManagerDetail& other) const { return !(*this == other); }
   };
   /// Mapping of manager identifier to its configuration details.
   using ManagerDetails = std::unordered_map<Identifier, ManagerDetail>;
