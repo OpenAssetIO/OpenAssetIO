@@ -1,14 +1,27 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <openassetio/pluginSystem/HybridPluginSystemManagerImplementationFactory.hpp>
+
 #include <algorithm>
 #include <cassert>
+#include <cstddef>
+#include <iterator>
 #include <memory>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
-#include <fmt/format.h>
+#include <fmt/core.h>
 
+#include <openassetio/export.h>
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
-#include <openassetio/pluginSystem/HybridPluginSystemManagerImplementationFactory.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -30,7 +43,7 @@ namespace {
  * child is chosen, or the results from all children are merged - see
  * method-specific docs for details.
  */
-class HybridManagerInterface : public managerApi::ManagerInterface {
+class HybridManagerInterface final : public managerApi::ManagerInterface {
   using ManagerInterfaces = std::vector<managerApi::ManagerInterfacePtr>;
 
  public:
@@ -99,7 +112,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
    * to dispatch to the appropriate implementation in subsequent API
    * methods.
    */
-  void initialize(InfoDictionary managerSettings,
+  void initialize(const InfoDictionary managerSettings,
                   const managerApi::HostSessionPtr& hostSession) override {
     for (const auto& managerInterface : managerInterfaces_) {
       managerInterface->initialize(managerSettings, hostSession);
@@ -160,7 +173,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   }
 
   [[nodiscard]] trait::TraitsDatas managementPolicy(
-      const trait::TraitSets& traitSets, access::PolicyAccess policyAccess,
+      const trait::TraitSets& traitSets, const access::PolicyAccess policyAccess,
       const ContextConstPtr& context, const managerApi::HostSessionPtr& hostSession) override {
     return INVOKE_CAPABLE_MANAGER_FOR_FUNCTION(Capability::kManagementPolicyQueries,
                                                managementPolicy, traitSets, policyAccess, context,
@@ -209,8 +222,8 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   }
 
   void entityTraits(const EntityReferences& entityReferences,
-                    access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context,
-                    const managerApi::HostSessionPtr& hostSession,
+                    const access::EntityTraitsAccess entityTraitsAccess,
+                    const ContextConstPtr& context, const managerApi::HostSessionPtr& hostSession,
                     const EntityTraitsSuccessCallback& successCallback,
                     const BatchElementErrorCallback& errorCallback) override {
     INVOKE_CAPABLE_MANAGER_FOR_FUNCTION(Capability::kEntityTraitIntrospection, entityTraits,
@@ -219,7 +232,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   }
 
   void resolve(const EntityReferences& entityReferences, const trait::TraitSet& traitSet,
-               access::ResolveAccess resolveAccess, const ContextConstPtr& context,
+               const access::ResolveAccess resolveAccess, const ContextConstPtr& context,
                const managerApi::HostSessionPtr& hostSession,
                const ResolveSuccessCallback& successCallback,
                const BatchElementErrorCallback& errorCallback) override {
@@ -229,7 +242,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   }
 
   void defaultEntityReference(const trait::TraitSets& traitSets,
-                              access::DefaultEntityAccess defaultEntityAccess,
+                              const access::DefaultEntityAccess defaultEntityAccess,
                               const ContextConstPtr& context,
                               const managerApi::HostSessionPtr& hostSession,
                               const DefaultEntityReferenceSuccessCallback& successCallback,
@@ -241,8 +254,9 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
 
   void getWithRelationship(const EntityReferences& entityReferences,
                            const trait::TraitsDataPtr& relationshipTraitsData,
-                           const trait::TraitSet& resultTraitSet, size_t pageSize,
-                           access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+                           const trait::TraitSet& resultTraitSet, const std::size_t pageSize,
+                           const access::RelationsAccess relationsAccess,
+                           const ContextConstPtr& context,
                            const managerApi::HostSessionPtr& hostSession,
                            const RelationshipQuerySuccessCallback& successCallback,
                            const BatchElementErrorCallback& errorCallback) override {
@@ -254,8 +268,8 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
 
   void getWithRelationships(const EntityReference& entityReference,
                             const trait::TraitsDatas& relationshipTraitsDatas,
-                            const trait::TraitSet& resultTraitSet, size_t pageSize,
-                            access::RelationsAccess relationsAccess,
+                            const trait::TraitSet& resultTraitSet, const std::size_t pageSize,
+                            const access::RelationsAccess relationsAccess,
                             const ContextConstPtr& context,
                             const managerApi::HostSessionPtr& hostSession,
                             const RelationshipQuerySuccessCallback& successCallback,
@@ -267,7 +281,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
   }
 
   void preflight(const EntityReferences& entityReferences, const trait::TraitsDatas& traitsHints,
-                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                  const managerApi::HostSessionPtr& hostSession,
                  const PreflightSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {
@@ -278,7 +292,7 @@ class HybridManagerInterface : public managerApi::ManagerInterface {
 
   void register_(const EntityReferences& entityReferences,
                  const trait::TraitsDatas& entityTraitsDatas,
-                 access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+                 const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
                  const managerApi::HostSessionPtr& hostSession,
                  const RegisterSuccessCallback& successCallback,
                  const BatchElementErrorCallback& errorCallback) override {

@@ -1,25 +1,30 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <openassetio/pluginSystem/CppPluginSystemManagerImplementationFactory.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <memory>
 #include <unordered_map>
 #include <utility>
 
+#include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <openassetio/export.h>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystem.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
 
 CppPluginSystemManagerImplementationFactoryPtr CppPluginSystemManagerImplementationFactory::make(
-    openassetio::Str paths, log::LoggerInterfacePtr logger) {
+    Str paths, log::LoggerInterfacePtr logger) {
   return std::make_shared<CppPluginSystemManagerImplementationFactory>(
       CppPluginSystemManagerImplementationFactory{std::move(paths), std::move(logger)});
 }
@@ -31,7 +36,7 @@ CppPluginSystemManagerImplementationFactoryPtr CppPluginSystemManagerImplementat
 }
 
 CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory(
-    openassetio::Str paths, log::LoggerInterfacePtr logger)
+    Str paths, log::LoggerInterfacePtr logger)
     : ManagerImplementationFactoryInterface{std::move(logger)}, paths_{std::move(paths)} {
   if (paths_.empty()) {
     this->logger()->log(
@@ -46,8 +51,7 @@ CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementatio
     : CppPluginSystemManagerImplementationFactory{
           // getenv returns nullptr if var not set, which cannot be
           // used to construct a std::string.
-          // False positive in clang-tidy-12:
-          // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
+          // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
           [paths = std::getenv(kPluginEnvVar.data())] { return paths ? paths : ""; }(),
           std::move(logger)} {}
 
@@ -59,7 +63,7 @@ Identifiers CppPluginSystemManagerImplementationFactory::identifiers() {
   }
 
   // Get all OpenAssetIO plugins, whether manager plugins or otherwise.
-  openassetio::Identifiers pluginIds = pluginSystem_->identifiers();
+  Identifiers pluginIds = pluginSystem_->identifiers();
 
   // Filter plugins to only those that are manager plugins.
   pluginIds.erase(

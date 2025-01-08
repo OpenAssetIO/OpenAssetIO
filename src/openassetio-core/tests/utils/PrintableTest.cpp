@@ -1,27 +1,31 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <algorithm>
+#include <memory>
 #include <sstream>
+#include <string>
 
 #include <fmt/format.h>
 #include <catch2/catch.hpp>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/errors/exceptions.hpp>
-#include <openassetio/hostApi/HostInterface.hpp>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/hostApi/Manager.hpp>
-#include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/typedefs.hpp>
 #include <openassetio/utils/ostream.hpp>
-#include "utils/formatter.hpp"
+
+#include <utils/formatter.hpp>
 
 namespace {
 
 template <typename T>
-void checkBasicPrintable(T&& value, const std::string& expected) {
+void checkBasicPrintable(const T& value, const std::string& expected) {
   // Check fmt::format
-  REQUIRE(fmt::format("{}", std::forward<T>(value)) == expected);
+  REQUIRE(fmt::format("{}", value) == expected);
 
   // Check stream operator
   std::ostringstream oss;
@@ -30,9 +34,9 @@ void checkBasicPrintable(T&& value, const std::string& expected) {
 }
 
 template <typename T>
-void checkBasicPrintableContains(T&& value, const std::string& expected) {
+void checkBasicPrintableContains(const T& value, const std::string& expected) {
   // Check fmt::format
-  REQUIRE_THAT(fmt::format("{}", std::forward<T>(value)), Catch::Matchers::Contains(expected));
+  REQUIRE_THAT(fmt::format("{}", value), Catch::Matchers::Contains(expected));
 
   // Check stream operator
   std::ostringstream oss;
@@ -43,12 +47,12 @@ void checkBasicPrintableContains(T&& value, const std::string& expected) {
 // This function is here because we can't assume order of set and map types.
 // Doing this characterwise check is _almost_ just as good.
 template <typename T>
-void checkBasicPrintableByCharacters(T&& value, const std::string& expected) {
+void checkBasicPrintableByCharacters(const T& value, const std::string& expected) {
   auto sortedExpected = expected;
   std::sort(sortedExpected.begin(), sortedExpected.end());
 
   // Check fmt::format
-  auto sortedValueFromFmt = fmt::format("{}", std::forward<T>(value));
+  auto sortedValueFromFmt = fmt::format("{}", value);
   std::sort(sortedValueFromFmt.begin(), sortedValueFromFmt.end());
   REQUIRE(sortedValueFromFmt == sortedExpected);
 
@@ -68,42 +72,39 @@ SCENARIO("Printing api types") {
     batchElementError.code = openassetio::errors::BatchElementError::ErrorCode::kInvalidTraitSet;
     batchElementError.message = "Invalid trait set";
 
-    openassetio::EntityReference entityReference("test:///an_entity_reference");
+    const openassetio::EntityReference entityReference("test:///an_entity_reference");
 
     openassetio::EntityReferences entityReferences;
     entityReferences.emplace_back("test:///an_entity_reference_1");
     entityReferences.emplace_back("test:///an_entity_reference_2");
 
-    openassetio::EntityReferences emptyEntityReferences;
+    const openassetio::trait::TraitSet traitSet = {"trait1", "trait2"};
+    const openassetio::trait::TraitSets traitSets = {{"trait1", "trait2"}, {"trait3", "trait4"}};
 
-    openassetio::trait::TraitSet traitSet = {"trait1", "trait2"};
-    openassetio::trait::TraitSets traitSets = {{"trait1", "trait2"}, {"trait3", "trait4"}};
+    const openassetio::Identifier identifier = "an identifier";
 
-    openassetio::Identifier identifier = "an identifier";
+    const openassetio::Str str = "example string";
 
-    openassetio::Str str = "example string";
+    const openassetio::StrMap strMap = {{"key1", "value1"}, {"key2", "value2"}};
 
-    openassetio::StrMap strMap = {{"key1", "value1"}, {"key2", "value2"}};
+    const openassetio::InfoDictionary infoDictionary = {{"key1", openassetio::Str("value1")},
+                                                        {"key2", false}};
 
-    openassetio::InfoDictionary infoDictionary = {{"key1", openassetio::Str("value1")},
-                                                  {"key2", false}};
-
-    openassetio::managerApi::ManagerInterface::Capability managerInterfaceCapability =
+    auto managerInterfaceCapability =
         openassetio::managerApi::ManagerInterface::Capability::kPublishing;
 
-    openassetio::hostApi::Manager::Capability managerCapability =
-        openassetio::hostApi::Manager::Capability::kPublishing;
+    auto managerCapability = openassetio::hostApi::Manager::Capability::kPublishing;
 
     auto context = openassetio::Context::make();
 
-    context->locale->setTraitProperty("aTrait", "aIntTraitProperty", std::int64_t(2));
+    context->locale->setTraitProperty("aTrait", "aIntTraitProperty", 2);
     context->managerState = std::make_shared<openassetio::managerApi::ManagerStateBase>();
 
     openassetio::trait::TraitsDataPtr traitsData = openassetio::trait::TraitsData::make();
-    traitsData->setTraitProperty("aTrait", "aIntTraitProperty", std::int64_t(2));
+    traitsData->setTraitProperty("aTrait", "aIntTraitProperty", 2);
     traitsData->setTraitProperty("aTrait", "aBoolTraitProperty", false);
     traitsData->setTraitProperty("a.long.namespaced.trait.that.goes.on.and.on.and.on",
-                                 "aIntTraitProperty", std::int64_t(2));
+                                 "aIntTraitProperty", 2);
     traitsData->setTraitProperty("a.long.namespaced.trait.that.goes.on.and.on.and.on",
                                  "aStringTraitProperty", openassetio::Str("a string"));
     traitsData->setTraitProperty("a.long.namespaced.trait.that.goes.on.and.on.and.on",
@@ -142,6 +143,7 @@ SCENARIO("Printing api types") {
 
     WHEN("EntityReferences are printed") {
       THEN("They can be printed via fmt and <<") {
+        const openassetio::EntityReferences emptyEntityReferences;
         checkBasicPrintable(entityReferences,
                             "['test:///an_entity_reference_1', 'test:///an_entity_reference_2']");
         checkBasicPrintable(emptyEntityReferences, "[]");

@@ -1,16 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <algorithm>
+#include <functional>
+#include <iterator>
+#include <utility>
+#include <vector>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/pluginSystem/HybridPluginSystemManagerImplementationFactory.hpp>
 
+#include "../PyRetainingSharedPtr.hpp"
 #include "../_openassetio.hpp"
-#include "../overrideMacros.hpp"
 
 void registerHybridPluginSystemManagerImplementationFactory(const py::module_& mod) {
   using openassetio::hostApi::ManagerImplementationFactoryInterface;

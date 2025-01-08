@@ -1,11 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include "pathTypes.hpp"
 
-#include <algorithm>
 #include <cassert>
+#include <optional>
+#include <string_view>
+#include <tuple>
+
+#include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
 
 #include "../common.hpp"
+#include "detail.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -84,7 +90,7 @@ bool UncSharePath::toUrl(const std::string_view& windowsPath, ada::url& url) con
 
 std::optional<detail::UncDetails> UncSharePath::extractUncDetails(
     const std::string_view& path) const {
-  auto pathParts = pathRegex.match(path);
+  const auto pathParts = pathRegex.match(path);
   if (!pathParts) {
     return std::nullopt;
   }
@@ -100,7 +106,7 @@ std::optional<detail::UncDetails> UncSharePath::extractUncDetails(
 std::tuple<std::string_view, std::string_view, std::string_view>
 UncSharePath::extractShareNameAndPath(std::string_view shareNameAndPath) const {
   shareNameAndPath = normalisedPathHandler.withoutTrailingSlashes(shareNameAndPath);
-  auto headAndTail = pathHeadAndTailRegex.match(shareNameAndPath);
+  const auto headAndTail = pathHeadAndTailRegex.match(shareNameAndPath);
   if (!headAndTail) {
     // Share name without path.
     return {shareNameAndPath, {}, shareNameAndPath};
@@ -164,7 +170,7 @@ bool UncUnnormalisedDeviceDrivePath::toUrl(const std::string_view& windowsPath,
 
 std::optional<detail::UncDetails> UncUnnormalisedDeviceDrivePath::extractUncDetails(
     const std::string_view& path) const {
-  auto pathParts = pathRegex.match(path);
+  const auto pathParts = pathRegex.match(path);
   if (!pathParts) {
     return std::nullopt;
   }
@@ -239,7 +245,7 @@ bool UncUnnormalisedDeviceSharePath::toUrl(const std::string_view& windowsPath,
 
 std::optional<detail::UncDetails> UncUnnormalisedDeviceSharePath::extractUncDetails(
     const std::string_view& path) const {
-  auto pathParts = pathRegex.match(path);
+  const auto pathParts = pathRegex.match(path);
   if (!pathParts) {
     return std::nullopt;
   }
@@ -254,7 +260,7 @@ std::optional<detail::UncDetails> UncUnnormalisedDeviceSharePath::extractUncDeta
 std::tuple<std::string_view, std::string_view, std::string_view>
 UncUnnormalisedDeviceSharePath::extractShareNameAndPath(std::string_view shareNameAndPath) const {
   shareNameAndPath = uncUnnormalisedDevicePathHandler.withoutTrailingSlashes(shareNameAndPath);
-  auto headAndTail = pathHeadAndTailRegex.match(shareNameAndPath);
+  const auto headAndTail = pathHeadAndTailRegex.match(shareNameAndPath);
   if (!headAndTail) {
     return {shareNameAndPath, {}, shareNameAndPath};
   }
@@ -287,7 +293,7 @@ void UncUnnormalisedDeviceSharePath::setUrlPath(const detail::UncDetails& uncDet
   }
 }
 
-Str UncUnnormalisedDeviceSharePath::prefixUncSharePath(std::string_view uncSharePath) {
+Str UncUnnormalisedDeviceSharePath::prefixUncSharePath(const std::string_view uncSharePath) {
   Str prefixedPath;
   prefixedPath.reserve(kPrefix.size() + uncSharePath.size() - 2);
   prefixedPath += kPrefix;

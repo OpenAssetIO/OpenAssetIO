@@ -1,26 +1,33 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
-
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include "formatter.hpp"
 
 #include <algorithm>
-#include <sstream>
+#include <cstddef>
+#include <iterator>
 #include <string>
-#include <utility>
+#include <variant>
 #include <vector>
+
+#include <fmt/core.h>
+#include <fmt/format.h>
 
 #include <openassetio/Context.hpp>
 #include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/hostApi/Manager.hpp>
-#include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/trait/property.hpp>
+#include <openassetio/typedefs.hpp>
+
 #include "../errors/exceptionMessages.hpp"
 
 auto fmt::formatter<openassetio::EntityReference>::format(
     const openassetio::EntityReference& entityRef, format_context& ctx) const
     -> decltype(ctx.out()) {
-  return fmt::formatter<string_view>::format(fmt::format("{}", entityRef.toString()), ctx);
+  return formatter<string_view>::format(fmt::format("{}", entityRef.toString()), ctx);
 }
 
 auto fmt::formatter<openassetio::EntityReferences>::format(
@@ -32,11 +39,11 @@ auto fmt::formatter<openassetio::EntityReferences>::format(
     result = "[]";
   } else {
     result += "['";
-    result += fmt::format("{}", fmt::join(entityRefs, "', '"));
+    result += fmt::format("{}", join(entityRefs, "', '"));
     result += "']";
   }
 
-  return fmt::formatter<string_view>::format(result, ctx);
+  return formatter<string_view>::format(result, ctx);
 }
 
 auto fmt::formatter<openassetio::StrMap>::format(const openassetio::StrMap& strMap,
@@ -46,13 +53,12 @@ auto fmt::formatter<openassetio::StrMap>::format(const openassetio::StrMap& strM
   flattenedStrMap.reserve(
       strMap.size());  // Reserve space for the elements to avoid multiple allocations
 
-  for (const auto& kv : strMap) {
+  for (const auto& [key, value] : strMap) {
     // Format each key-value pair into a single string
-    flattenedStrMap.push_back(fmt::format("'{}': '{}'", kv.first, kv.second));
+    flattenedStrMap.push_back(fmt::format("'{}': '{}'", key, value));
   }
 
-  return formatter<string_view>::format(fmt::format("{{{}}}", fmt::join(flattenedStrMap, ", ")),
-                                        ctx);
+  return formatter<string_view>::format(fmt::format("{{{}}}", join(flattenedStrMap, ", ")), ctx);
 }
 
 auto fmt::formatter<openassetio::managerApi::ManagerInterface::Capability>::format(
@@ -78,15 +84,15 @@ auto fmt::formatter<openassetio::hostApi::Manager::Capability>::format(
 }
 
 auto fmt::formatter<openassetio::errors::BatchElementError::ErrorCode>::format(
-    openassetio::errors::BatchElementError::ErrorCode errorCode, format_context& ctx) const
+    const openassetio::errors::BatchElementError::ErrorCode errorCode, format_context& ctx) const
     -> decltype(ctx.out()) {
-  return formatter<string_view>::format(openassetio::errors::errorCodeName(errorCode), ctx);
+  return formatter<string_view>::format(errorCodeName(errorCode), ctx);
 }
 
 auto fmt::formatter<openassetio::errors::BatchElementError>::format(
     const openassetio::errors::BatchElementError& ber, format_context& ctx) const
     -> decltype(ctx.out()) {
-  openassetio::Str out = fmt::format("{}: {}", ber.code, ber.message);
+  const openassetio::Str out = fmt::format("{}: {}", ber.code, ber.message);
   return formatter<string_view>::format(out, ctx);
 }
 
@@ -98,28 +104,28 @@ auto fmt::formatter<openassetio::trait::TraitSet>::format(
   std::transform(traitSet.cbegin(), traitSet.cend(), std::back_inserter(quotedTraitSet),
                  [](const std::string& trait) { return fmt::format("'{}'", trait); });
 
-  return fmt::formatter<string_view>::format(
-      fmt::format("{{{}}}", fmt::join(quotedTraitSet, ", ")), ctx);
+  return formatter<string_view>::format(fmt::format("{{{}}}", join(quotedTraitSet, ", ")), ctx);
 }
 
 auto fmt::formatter<openassetio::trait::TraitSets>::format(
     const openassetio::trait::TraitSets& traitSets, format_context& ctx) const
     -> decltype(ctx.out()) {
-  return fmt::formatter<string_view>::format(fmt::format("[{}]", fmt::join(traitSets, ", ")), ctx);
+  return formatter<string_view>::format(fmt::format("[{}]", join(traitSets, ", ")), ctx);
 }
 
 namespace {
 struct ToStringVisitor {
-  std::string operator()(openassetio::Str arg) const { return fmt::format("'{}'", arg); }
-  std::string operator()(openassetio::Float arg) const { return std::to_string(arg); }
-  std::string operator()(openassetio::Int arg) const { return std::to_string(arg); }
-  std::string operator()(openassetio::Bool arg) const { return arg ? "True" : "False"; }
+  std::string operator()(const openassetio::Str& arg) const { return fmt::format("'{}'", arg); }
+  std::string operator()(const openassetio::Float arg) const { return std::to_string(arg); }
+  std::string operator()(const openassetio::Int arg) const { return std::to_string(arg); }
+  std::string operator()(const openassetio::Bool arg) const { return arg ? "True" : "False"; }
 };
 }  // namespace
+
 auto fmt::formatter<openassetio::trait::property::Value>::format(
     const openassetio::trait::property::Value& val, format_context& ctx) const
     -> decltype(ctx.out()) {
-  return fmt::formatter<string_view>::format(std::visit(ToStringVisitor(), val), ctx);
+  return formatter<string_view>::format(std::visit(ToStringVisitor(), val), ctx);
 }
 
 auto fmt::formatter<openassetio::InfoDictionary>::format(
@@ -129,63 +135,61 @@ auto fmt::formatter<openassetio::InfoDictionary>::format(
   flattenedStrMap.reserve(
       infoDict.size());  // Reserve space for the elements to avoid multiple allocations
 
-  for (const auto& kv : infoDict) {
+  for (const auto& [key, value] : infoDict) {
     // Format each key-value pair into a single string
-    flattenedStrMap.push_back(
-        fmt::format("'{}': {}", kv.first, std::visit(ToStringVisitor(), kv.second)));
+    flattenedStrMap.push_back(fmt::format("'{}': {}", key, std::visit(ToStringVisitor(), value)));
   }
 
-  return formatter<string_view>::format(fmt::format("{{{}}}", fmt::join(flattenedStrMap, ", ")),
-                                        ctx);
+  return formatter<string_view>::format(fmt::format("{{{}}}", join(flattenedStrMap, ", ")), ctx);
 }
 
 auto fmt::formatter<openassetio::ContextPtr>::format(const openassetio::ContextPtr& context,
                                                      format_context& ctx) const
     -> decltype(ctx.out()) {
   if (context == nullptr) {
-    return fmt::formatter<string_view>::format("null", ctx);
+    return formatter<string_view>::format("null", ctx);
   }
-  fmt::formatter<openassetio::Context> valueFormatter;
-  return valueFormatter.format(*context, ctx);
+  constexpr formatter<openassetio::Context> kValueFormatter;
+  return kValueFormatter.format(*context, ctx);
 }
 
 auto fmt::formatter<openassetio::ContextConstPtr>::format(
     const openassetio::ContextConstPtr& context, format_context& ctx) const
     -> decltype(ctx.out()) {
   if (context == nullptr) {
-    return fmt::formatter<string_view>::format("null", ctx);
+    return formatter<string_view>::format("null", ctx);
   }
-  fmt::formatter<openassetio::Context> valueFormatter;
-  return valueFormatter.format(*context, ctx);
+  constexpr formatter<openassetio::Context> kValueFormatter;
+  return kValueFormatter.format(*context, ctx);
 }
 
 auto fmt::formatter<openassetio::Context>::format(const openassetio::Context& context,
                                                   format_context& ctx) const
     -> decltype(ctx.out()) {
-  openassetio::Str out = fmt::format("{{'locale': {}, 'managerState': {}}}", context.locale,
-                                     static_cast<void*>(context.managerState.get()));
+  const openassetio::Str out = fmt::format("{{'locale': {}, 'managerState': {}}}", context.locale,
+                                           static_cast<void*>(context.managerState.get()));
 
-  return fmt::formatter<string_view>::format(out, ctx);
+  return formatter<string_view>::format(out, ctx);
 }
 
 auto fmt::formatter<openassetio::trait::TraitsDataPtr>::format(
     const openassetio::trait::TraitsDataPtr& traitsData, format_context& ctx) const
     -> decltype(ctx.out()) {
   if (traitsData == nullptr) {
-    return fmt::formatter<string_view>::format("null", ctx);
+    return formatter<string_view>::format("null", ctx);
   }
-  fmt::formatter<openassetio::trait::TraitsData> valueFormatter;
-  return valueFormatter.format(*traitsData, ctx);
+  constexpr formatter<openassetio::trait::TraitsData> kValueFormatter;
+  return kValueFormatter.format(*traitsData, ctx);
 }
 
 auto fmt::formatter<openassetio::trait::TraitsDataConstPtr>::format(
     const openassetio::trait::TraitsDataConstPtr& traitsData, format_context& ctx) const
     -> decltype(ctx.out()) {
   if (traitsData == nullptr) {
-    return fmt::formatter<string_view>::format("null", ctx);
+    return formatter<string_view>::format("null", ctx);
   }
-  fmt::formatter<openassetio::trait::TraitsData> valueFormatter;
-  return valueFormatter.format(*traitsData, ctx);
+  constexpr formatter<openassetio::trait::TraitsData> kValueFormatter;
+  return kValueFormatter.format(*traitsData, ctx);
 }
 
 auto fmt::formatter<openassetio::trait::TraitsData>::format(
@@ -207,10 +211,9 @@ auto fmt::formatter<openassetio::trait::TraitsData>::format(
 
     // Add the string that makes up the trait, which is the dict section for the traitId,
     // followed by all the property key value pairs.
-    traitStrings.push_back(fmt::format("'{}': {{{}}}", traitId, fmt::join(propertyStrings, ", ")));
+    traitStrings.push_back(fmt::format("'{}': {{{}}}", traitId, join(propertyStrings, ", ")));
   }
 
   // The idea here being that this is a valid python dict, hence all the extra brace formatting
-  return fmt::formatter<string_view>::format(fmt::format("{{{}}}", fmt::join(traitStrings, ", ")),
-                                             ctx);
+  return formatter<string_view>::format(fmt::format("{{{}}}", join(traitStrings, ", ")), ctx);
 }

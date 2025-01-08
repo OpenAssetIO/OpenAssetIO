@@ -1,22 +1,27 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
+#include <openassetio/hostApi/ManagerFactory.hpp>
+
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
+#include <string>
 #include <string_view>
+#include <utility>
 
 #include <toml++/toml.h>
 
+#include <openassetio/export.h>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
-#include <openassetio/hostApi/ManagerFactory.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/typedefs.hpp>
-#include "openassetio/InfoDictionary.hpp"
 
 namespace {
 constexpr std::string_view kConfigDirVar = "${config_dir}";
@@ -32,7 +37,7 @@ ManagerFactoryPtr ManagerFactory::make(
     HostInterfacePtr hostInterface,
     ManagerImplementationFactoryInterfacePtr managerImplementationFactory,
     log::LoggerInterfacePtr logger) {
-  return openassetio::hostApi::ManagerFactoryPtr{new ManagerFactory{
+  return ManagerFactoryPtr{new ManagerFactory{
       std::move(hostInterface), std::move(managerImplementationFactory), std::move(logger)}};
 }
 
@@ -183,7 +188,7 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
   const managerApi::HostSessionPtr hostSession =
       managerApi::HostSession::make(managerApi::Host::make(hostInterface), logger);
 
-  ManagerPtr manager = Manager::make(
+  const ManagerPtr manager = Manager::make(
       managerImplementationFactory->instantiate(Identifier(identifier)), hostSession);
 
   manager->initialize(settings);

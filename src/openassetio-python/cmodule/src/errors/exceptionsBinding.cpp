@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023-2024 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include <cassert>
 #include <cstddef>
 #include <exception>
+#include <string>  // NOLINT(misc-include-cleaner): used in assert().
 #include <string_view>
 #include <unordered_map>
 #include <utility>
 
 #include <pybind11/eval.h>
 #include <pybind11/pybind11.h>
-#include <pyerrors.h>
 
 #include <openassetio/errors/exceptions.hpp>
 
@@ -73,7 +73,9 @@ void setPyException(const Exception &exception,
 
   // Find the Python exception type corresponding to the given C++
   // exception, and construct an instance.
+  // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
   const py::module_ pyModule = py::module_::import(kErrorsModuleName.data());
+  // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
   const py::object pyClass = pyModule.attr(pyClassName.data());
   const py::object pyInstance = [&] {
     if constexpr (std::is_same_v<Exception, BatchElementException>) {
@@ -188,6 +190,7 @@ void registerPyExceptionClass(const std::string_view pyClassName, const py::modu
     if constexpr (std::is_same_v<Exception, OpenAssetIOException>) {
       // Specialisation for OpenAssetIOException root base class, which
       // inherits from built-in Python RuntimeError exception.
+      // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
       return py::exception<void /* unused */>{mod, pyClassName.data(), PyExc_RuntimeError};
     } else if constexpr (std::is_same_v<Exception, BatchElementException>) {
       // Specialisation for BatchElementException, which must be handled
@@ -231,8 +234,9 @@ class BatchElementException(OpenAssetIOException):
       static constexpr std::string_view kPyBaseClassName =
           findPyClassNameOfCppBaseClass<Exception>(CppExceptionsAndPyClassNames::kIndices);
       // Look up the Python base class object.
-      const py::object pyBaseClass = registeredExceptions.at(kPyBaseClassName);
+      const py::object &pyBaseClass = registeredExceptions.at(kPyBaseClassName);
       // Register the exception, inheriting from looked-up base.
+      // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
       return py::exception<void /* unused */>{mod, pyClassName.data(), pyBaseClass};
     }
   }();

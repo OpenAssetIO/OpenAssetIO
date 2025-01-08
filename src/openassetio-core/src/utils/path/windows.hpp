@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <string_view>
 
@@ -27,6 +27,7 @@ struct FileUrlPathConverter {
   /// https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation
   static constexpr std::size_t kMaxPath = 259;
 
+  // NOLINTBEGIN(cppcoreguidelines-avoid-const-or-ref-data-members)
   detail::WindowsUrl& urlHandler;
   detail::DriveLetter& driveLetterHandler;
   detail::UncHost& uncHostHandler;
@@ -36,6 +37,7 @@ struct FileUrlPathConverter {
   pathTypes::UncSharePath& uncSharePathHandler;
   pathTypes::UncUnnormalisedDeviceDrivePath& uncUnnormalisedDeviceDrivePathHandler;
   pathTypes::UncUnnormalisedDeviceSharePath& uncUnnormalisedDeviceSharePathHandler;
+  // NOLINTEND(cppcoreguidelines-avoid-const-or-ref-data-members)
 
   /**
    * Convert a Windows path into a file URL.

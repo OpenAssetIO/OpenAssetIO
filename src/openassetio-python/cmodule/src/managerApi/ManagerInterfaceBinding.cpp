@@ -1,10 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <utility>
+
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
 
+#include <openassetio/export.h>
 #include <openassetio/Context.hpp>
+#include <openassetio/EntityReference.hpp>
 #include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/hostApi/EntityReferencePager.hpp>
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
@@ -14,6 +20,7 @@
 #include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
+#include "../PyRetainingSharedPtr.hpp"
 #include "../_openassetio.hpp"
 #include "../overrideMacros.hpp"
 
@@ -25,7 +32,7 @@ namespace managerApi {
  * Trampoline class required for pybind to bind pure virtual methods
  * and allow C++ -> Python calls via a C++ instance.
  */
-struct PyManagerInterface : ManagerInterface {
+struct PyManagerInterface final : ManagerInterface {
   using ManagerInterface::ManagerInterface;
 
   using PyRetainingManagerStateBasePtr = PyRetainingSharedPtr<ManagerStateBase>;
@@ -100,7 +107,7 @@ struct PyManagerInterface : ManagerInterface {
                                   hostSession, successCallback, errorCallback);
   }
 
-  [[nodiscard]] bool hasCapability(ManagerInterface::Capability capability) override {
+  [[nodiscard]] bool hasCapability(Capability capability) override {
     OPENASSETIO_PYBIND11_OVERRIDE_PURE(bool, ManagerInterface, hasCapability, capability);
   }
 
@@ -139,13 +146,13 @@ struct PyManagerInterface : ManagerInterface {
                                   errorCallback);
   }
 
-  void getWithRelationship(
-      const EntityReferences& entityReferences, const trait::TraitsDataPtr& relationshipTraitsData,
-      const trait::TraitSet& resultTraitSet, size_t pageSize,
-      const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession,
-      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
-      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+  void getWithRelationship(const EntityReferences& entityReferences,
+                           const trait::TraitsDataPtr& relationshipTraitsData,
+                           const trait::TraitSet& resultTraitSet, std::size_t pageSize,
+                           const access::RelationsAccess relationsAccess,
+                           const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                           const RelationshipQuerySuccessCallback& successCallback,
+                           const BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationship,
         (entityReferences, relationshipTraitsData, resultTraitSet, pageSize, relationsAccess,
@@ -154,13 +161,13 @@ struct PyManagerInterface : ManagerInterface {
         context, hostSession, RetainCommonPyArgs::forFn(successCallback), errorCallback);
   }
 
-  void getWithRelationships(
-      const EntityReference& entityReference, const trait::TraitsDatas& relationshipTraitsDatas,
-      const trait::TraitSet& resultTraitSet, size_t pageSize,
-      const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-      const HostSessionPtr& hostSession,
-      const ManagerInterface::RelationshipQuerySuccessCallback& successCallback,
-      const ManagerInterface::BatchElementErrorCallback& errorCallback) override {
+  void getWithRelationships(const EntityReference& entityReference,
+                            const trait::TraitsDatas& relationshipTraitsDatas,
+                            const trait::TraitSet& resultTraitSet, std::size_t pageSize,
+                            const access::RelationsAccess relationsAccess,
+                            const ContextConstPtr& context, const HostSessionPtr& hostSession,
+                            const RelationshipQuerySuccessCallback& successCallback,
+                            const BatchElementErrorCallback& errorCallback) override {
     OPENASSETIO_PYBIND11_OVERRIDE_ARGS(
         void, ManagerInterface, getWithRelationships,
         (entityReference, relationshipTraitsDatas, resultTraitSet, pageSize, relationsAccess,

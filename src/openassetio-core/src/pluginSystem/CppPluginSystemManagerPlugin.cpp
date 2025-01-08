@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <openassetio/export.h>
 #include <openassetio/pluginSystem/CppPluginSystemManagerPlugin.hpp>
 
 namespace openassetio {

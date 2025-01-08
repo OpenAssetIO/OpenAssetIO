@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <stddef.h>  // NOLINT(modernize-deprecated-headers)
@@ -57,9 +57,9 @@ extern "C" {
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct {
   /// Immutable buffer storing the string data.
-  const char* const data;
+  const char* data;
   /// Number of bytes used for string storage in the buffer.
-  const size_t size;
+  size_t size;
 } oa_ConstStringView;
 
 /**
@@ -115,9 +115,9 @@ typedef struct {
 // NOLINTNEXTLINE(modernize-use-using)
 typedef struct {
   /// Number of bytes available for string storage in the buffer.
-  const size_t capacity;
+  size_t capacity;
   /// Writeable buffer storing the string data.
-  char* const data;
+  char* data;
   /// Number of bytes used for string storage in the buffer.
   size_t size;
 } oa_StringView;

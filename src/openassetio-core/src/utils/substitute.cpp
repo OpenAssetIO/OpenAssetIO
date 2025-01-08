@@ -1,17 +1,24 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
+#include <string_view>
+#include <type_traits>
+#include <variant>
+
 #include <fmt/args.h>
+#include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <openassetio/export.h>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/typedefs.hpp>
 #include <openassetio/utils/substitute.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace utils {
 
-openassetio::Str substitute(const std::string_view input,
-                            const openassetio::InfoDictionary& substitutions) {
+Str substitute(const std::string_view input, const InfoDictionary& substitutions) {
   fmt::dynamic_format_arg_store<fmt::format_context> args;
   args.reserve(substitutions.size(), substitutions.size());
 
@@ -23,7 +30,7 @@ openassetio::Str substitute(const std::string_view input,
         [&args, &substitution](const auto& value) {
           const auto& [key, variantValue] = substitution;
           using T = std::decay_t<decltype(value)>;
-          if constexpr (std::is_same_v<T, openassetio::Str>) {
+          if constexpr (std::is_same_v<T, Str>) {
             args.push_back(fmt::arg(key.c_str(), std::string_view{value}));
           } else {
             args.push_back(fmt::arg(key.c_str(), value));
@@ -33,9 +40,9 @@ openassetio::Str substitute(const std::string_view input,
   }
 
   try {
-    return fmt::vformat(input, args);
+    return vformat(input, args);
   } catch (const fmt::format_error& exc) {
-    throw openassetio::errors::InputValidationException{fmt::format(
+    throw errors::InputValidationException{fmt::format(
         "substitute(): failed to process the input string '{}': {}", input, exc.what())};
   }
 }

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include "Regex.hpp"
 
 #include <cassert>
@@ -8,7 +8,7 @@
 #include <string_view>
 #include <type_traits>
 
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include <pcre2.h>
 
 #include <openassetio/export.h>
@@ -22,7 +22,7 @@ namespace utils {
 namespace {
 constexpr Str::size_type kErrorMessageMaxLength = 1000;
 
-Str errorCodeToMessage(int errorCode) {
+Str errorCodeToMessage(const int errorCode) {
   Str errorMessage(kErrorMessageMaxLength, '\0');
 
   static_assert(sizeof(Str::value_type) == sizeof(PCRE2_UCHAR8), "PCRE2 char type size mismatch");
@@ -111,7 +111,7 @@ Str Regex::substituteToReduceSize(const std::string_view& subject,
                 "PCRE2 char type size mismatch");
   static_assert(sizeof(Str::value_type) == sizeof(PCRE2_UCHAR8), "PCRE2 char type size mismatch");
 
-  int numSubstitutions =
+  const int numSubstitutions =
       pcre2_substitute(code_, /* regex object */
                               // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
                        reinterpret_cast<PCRE2_SPTR8>(subject.data()), /* subject */
@@ -156,7 +156,7 @@ std::string_view Regex::Match::group(const std::string_view subject,
   // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(groupNum < pcre2_get_ovector_count(data_.get()));
 
-  PCRE2_SIZE* matches = pcre2_get_ovector_pointer(data_.get());
+  const PCRE2_SIZE* matches = pcre2_get_ovector_pointer(data_.get());
 
   // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   const std::size_t startIdx = matches[groupNum * 2];

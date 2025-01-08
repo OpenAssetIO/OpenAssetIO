@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
-#include <string>
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <type_traits>
 
 #include <catch2/catch.hpp>

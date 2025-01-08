@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
+#include <tuple>
 
+#include <Python.h>
 #include <pybind11/embed.h>
 
 #include <openassetio/export.h>
@@ -21,7 +23,6 @@
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
-#include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 
 /*
@@ -49,7 +50,7 @@ SCENARIO("Mutations in one language are reflected in the other") {
 
   GIVEN("A C++ object casted to a Python object") {
     const trait::TraitsDataPtr traitsData = trait::TraitsData::make();
-    PyObject* pyTraitsData = openassetio::python::converter::castToPyObject(traitsData);
+    PyObject* pyTraitsData = python::converter::castToPyObject(traitsData);
     REQUIRE(pyTraitsData != nullptr);
 
     WHEN("data is set via the C++ object") {
@@ -112,7 +113,7 @@ SCENARIO("Casting to PyObject extends object lifetime") {
   GIVEN("A Python object casted from a C++ object") {
     trait::TraitsDataPtr traitsData = trait::TraitsData::make();
     traitsData->addTrait(kTestTraitId);
-    PyObject* pyTraitsData = openassetio::python::converter::castToPyObject(traitsData);
+    PyObject* pyTraitsData = python::converter::castToPyObject(traitsData);
 
     WHEN("C++ reference is destroyed") {
       CHECK(Py_REFCNT(pyTraitsData) == 1);  // Initial condition.
@@ -162,9 +163,9 @@ SCENARIO("Casting to a C++ object binds object lifetime") {
 }
 
 SCENARIO("Attempting to cast from an incorrect Python type") {
-  using openassetio::hostApi::Manager;
-  using openassetio::hostApi::ManagerPtr;
-  namespace converter = openassetio::python::converter;
+  using hostApi::Manager;
+  using hostApi::ManagerPtr;
+  namespace converter = python::converter;
 
   GIVEN("an invalid for casting Python object") {
     // Use pybind to conveniently create a CPython object with a ref count of 1.
@@ -250,14 +251,10 @@ SCENARIO("Error attempting to convert API objects without openassetio module loa
 
 namespace {
 
-namespace hostApi = openassetio::hostApi;
-namespace log = openassetio::log;
-namespace managerApi = openassetio::managerApi;
-
 // clang-format off
 using CastableClasses = std::tuple<
-    openassetio::Context,
-    openassetio::trait::TraitsData,
+    Context,
+    trait::TraitsData,
     hostApi::HostInterface,
     hostApi::Manager,
     hostApi::ManagerFactory,

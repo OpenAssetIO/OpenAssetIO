@@ -1,23 +1,32 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 // Copyright Contributors to the OpenImageIO project.
 // Much of the cross-platform code below is taken and modified from the
 // OpenImageIO project.
 
+#include <algorithm>
+#include <cstddef>
+#include <exception>
+#include <filesystem>
+#include <iterator>
+#include <memory>
+#include <string>
+#include <string_view>
+#include <utility>
 #ifdef _WIN32
 #include <windows.h>
 #else
 #include <dlfcn.h>
 #endif
 
-#include <filesystem>
+#include <fmt/core.h>
 
-#include <fmt/format.h>
-
+#include <openassetio/export.h>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystem.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemPlugin.hpp>
+#include <openassetio/typedefs.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -113,7 +122,7 @@ void CppPluginSystem::scan(const std::string_view paths) {
         paths.substr(pathsStartIdx, pathsEndIdx - pathsStartIdx);
 
     // Check the provided path is actually a searchable directory.
-    if (!std::filesystem::is_directory(directoryPath)) {
+    if (!is_directory(directoryPath)) {
       logger_->debug(fmt::format("CppPluginSystem: Skipping as not a directory '{}'",
                                  directoryPath.string()));
       continue;
@@ -137,8 +146,8 @@ void CppPluginSystem::scan(const std::string_view paths) {
   }
 }
 
-openassetio::Identifiers CppPluginSystem::identifiers() const {
-  openassetio::Identifiers result;
+Identifiers CppPluginSystem::identifiers() const {
+  Identifiers result;
   result.reserve(plugins_.size());
   std::transform(begin(plugins_), end(plugins_), std::back_inserter(result),
                  [](const auto& iter) { return iter.first; });
@@ -158,7 +167,7 @@ const CppPluginSystem::PathAndPlugin& CppPluginSystem::plugin(const Identifier& 
 CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     const std::filesystem::path& filePath) {
   // Check the proposed path is actually a file.
-  if (!std::filesystem::is_regular_file(filePath)) {
+  if (!is_regular_file(filePath)) {
     logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
                                filePath.string()));
     return {};
@@ -229,7 +238,7 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   // Get plugin's unique identifier.
-  openassetio::Identifier identifier;
+  Identifier identifier;
   try {
     identifier = plugin->identifier();
   } catch (const std::exception& exc) {

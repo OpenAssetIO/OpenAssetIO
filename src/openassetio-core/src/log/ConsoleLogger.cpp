@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 #include <array>
 #include <cstddef>
 #include <iomanip>
 #include <iostream>
+#include <memory>
 
+#include <openassetio/export.h>
 #include <openassetio/log/ConsoleLogger.hpp>
 #include <openassetio/typedefs.hpp>
 

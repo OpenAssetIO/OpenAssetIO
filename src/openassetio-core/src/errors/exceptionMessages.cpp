@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 
 #include "exceptionMessages.hpp"
 
@@ -9,9 +9,12 @@
 
 #include <fmt/core.h>
 
+#include <openassetio/export.h>
 #include <openassetio/EntityReference.hpp>
 #include <openassetio/access.hpp>
 #include <openassetio/errors/BatchElementError.hpp>
+#include <openassetio/internal.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 
 #include "../utils/formatter.hpp"
@@ -45,7 +48,7 @@ Str errorCodeName(BatchElementError::ErrorCode code) {
   return "Unknown ErrorCode";
 }
 
-Str createBatchElementExceptionMessage(const BatchElementError& err, size_t index,
+Str createBatchElementExceptionMessage(const BatchElementError& err, std::size_t index,
                                        const std::optional<internal::access::Access> access,
                                        const std::optional<EntityReference>& entityReference,
                                        const std::optional<trait::TraitSet>& traitSet) {

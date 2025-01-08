@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 
 #include "_openassetio.hpp"
 
@@ -8,7 +8,7 @@
 // must augment this extension module with test-specific bindings. The
 // static library providing the implementation of this entry point is
 // conditionally linked into this extension module.
-void registerTestUtils(py::module& mod);
+extern void registerTestUtils(py::module& mod);
 #endif
 
 // NOLINTNEXTLINE

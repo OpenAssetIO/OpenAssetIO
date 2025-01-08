@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <array>
@@ -29,6 +29,7 @@ namespace access {
  * functionality is supported by a manager, these constants largely
  * mirror those for the relevant API methods.
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class PolicyAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Host intends to read data.
@@ -93,6 +94,7 @@ enum class PolicyAccess : std::underlying_type_t<internal::access::Access> {
 /**
  * Access pattern for @ref glossary_resolve "entity resolution".
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class ResolveAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to query an existing entity for information.
@@ -115,6 +117,7 @@ enum class ResolveAccess : std::underlying_type_t<internal::access::Access> {
 /**
  * Access pattern for entity trait set queries.
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class EntityTraitsAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to query the full trait set of an existing entity.
@@ -136,6 +139,7 @@ enum class EntityTraitsAccess : std::underlying_type_t<internal::access::Access>
 /**
  * Access pattern for @ref publish "publishing".
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class PublishingAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used whenever the entity reference explicitly targets the specific
@@ -168,6 +172,7 @@ enum class PublishingAccess : std::underlying_type_t<internal::access::Access> {
  * @fqref{managerApi.ManagerInterface.getWithRelationship}
  * "ManagerInterface.getWithRelationship" (and similar).
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Used to retrieve references to pre-existing related entities.
@@ -211,6 +216,7 @@ enum class RelationsAccess : std::underlying_type_t<internal::access::Access> {
  * @fqref{managerApi.ManagerInterface.defaultEntityReference}
  * "ManagerInterface.defaultEntityReference",
  */
+// NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class DefaultEntityAccess : std::underlying_type_t<internal::access::Access> {
   /**
    * Indicate that the @ref manager should provide an entity reference

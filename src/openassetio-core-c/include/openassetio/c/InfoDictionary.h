@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <stdbool.h>  // NOLINT(modernize-deprecated-headers)
@@ -75,7 +75,7 @@ typedef struct oa_InfoDictionary_t* oa_InfoDictionary_h;
  * @see @fqcref{InfoDictionary_typeOf} "typeOf()"
  * @see @ref CppPrimitiveTypes "Primitive types"
  */
-// NOLINTNEXTLINE(modernize-use-using)
+// NOLINTNEXTLINE(modernize-use-using,performance-enum-size)
 typedef enum {
   /// Boolean value type
   oa_InfoDictionary_ValueType_kBool = 1,

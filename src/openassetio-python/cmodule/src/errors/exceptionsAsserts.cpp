@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2023 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <cstddef>
+#include <tuple>
 #include <utility>
 
 #include <openassetio/errors/exceptions.hpp>

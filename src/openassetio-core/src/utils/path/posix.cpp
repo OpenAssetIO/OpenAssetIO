@@ -1,8 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include "posix.hpp"
 
 #include <cassert>
+#include <string_view>
+
+#include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
+
+#include "common.hpp"
+#include "posix/detail.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -27,7 +34,7 @@ Str FileUrlPathConverter::pathToUrl(const std::string_view& posixPath) const {
   adaUrl.set_host("");
 
   const Str processedPath = [&] {
-    if (auto encodedPath = detail::PosixUrl::maybePercentEncode(posixPath)) {
+    if (const auto encodedPath = detail::PosixUrl::maybePercentEncode(posixPath)) {
       return posixPathHandler.removeTrailingForwardSlashesInPathSegments(*encodedPath);
     }
     return posixPathHandler.removeTrailingForwardSlashesInPathSegments(posixPath);

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <cstddef>
@@ -7,12 +7,14 @@
 
 #include <openassetio/export.h>
 
+// NOLINTBEGIN(*-macro-to-enum)
 // clang-format off
 #define OPENASSETIO_VERSION_MAJOR @OpenAssetIO_VERSION_MAJOR@
 #define OPENASSETIO_VERSION_MINOR @OpenAssetIO_VERSION_MINOR@
 #define OPENASSETIO_VERSION_PATCH @OpenAssetIO_VERSION_PATCH@
 #define OPENASSETIO_VERSION_STRING "v@OpenAssetIO_VERSION@-rc.1.0"
 // clang-format on
+// NOLINTEND(*-macro-to-enum)
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {

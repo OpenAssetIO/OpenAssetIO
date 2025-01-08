@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
 #include <openassetio/log/LoggerInterface.hpp>
-#include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystemManagerImplementationFactory.hpp>
+#include <openassetio/typedefs.hpp>
+
+// NOLINTBEGIN(misc-include-cleaner) - required for pybind11
+#include <openassetio/managerApi/ManagerInterface.hpp>
+// NOLINTEND(misc-include-cleaner)
 
 #include "../_openassetio.hpp"
-#include "../overrideMacros.hpp"
 
 void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod) {
   using openassetio::hostApi::ManagerImplementationFactoryInterface;

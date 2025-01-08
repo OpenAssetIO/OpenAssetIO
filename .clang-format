@@ -3,3 +3,5 @@ Language: Cpp
 Standard: c++17
 ColumnLimit: 99
 IncludeBlocks: Preserve
+# E.g. `const int x` vs. `int const x`.
+QualifierAlignment: Left

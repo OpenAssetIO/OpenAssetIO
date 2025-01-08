@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <string_view>
-#include <type_traits>
 
 #include <openassetio/c/StringView.h>
 
@@ -28,7 +27,6 @@ SCENARIO("Creating, modifying and querying a C API mutable StringView") {
       }
 
       AND_WHEN("string is modified through the StringView") {
-        STATIC_REQUIRE(std::is_const_v<decltype(actualStringView.capacity)>);
         actualStringView.data[1] = '0';
         actualStringView.size = 4;
 
@@ -95,13 +93,6 @@ SCENARIO("Creating and querying a C API immutable ConstStringView") {
         CHECK(actualStringView.size == expectedStr.size());
         CHECK(actualStringView.data == expectedStr.data());
         CHECK(actualStringView == expectedStr);
-      }
-
-      THEN("string cannot be modified through the ConstStringView") {
-        STATIC_REQUIRE(std::is_const_v<decltype(actualStringView.data)>);
-        STATIC_REQUIRE(
-            std::is_const_v<std::remove_reference_t<decltype(actualStringView.data[0])>>);
-        STATIC_REQUIRE(std::is_const_v<decltype(actualStringView.size)>);
       }
     }
   }

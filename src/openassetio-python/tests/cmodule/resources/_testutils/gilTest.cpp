@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
+#include <functional>
 #include <future>
 #include <memory>
 #include <utility>
@@ -183,13 +184,13 @@ struct ThreadedCppPluginSystemPlugin : pluginSystem::CppPluginSystemPlugin {
 };
 }  // namespace
 
-void registerRunInThread(py::module_& mod) {
+extern void registerRunInThread(py::module_& mod) {
   mod.def(
       "runCallableInThread",
       [](const py::object& func) {
         std::async(std::launch::async, [&func]() {
           // Callable py::objects need explicit GIL re-acquire.
-          [[maybe_unused]] py::gil_scoped_acquire const gil{};
+          [[maybe_unused]] const py::gil_scoped_acquire gil{};
           func();
         }).get();
       },
@@ -201,7 +202,7 @@ void registerRunInThread(py::module_& mod) {
         std::async(std::launch::async, [&func]() {
           // py::function needs explicit GIL re-acquire, unlike
           // std::function.
-          [[maybe_unused]] py::gil_scoped_acquire const gil{};
+          [[maybe_unused]] const py::gil_scoped_acquire gil{};
           func();
         }).get();
       },

@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
-#include <stdexcept>
-
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <openassetio/c/InfoDictionary.h>
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/hostApi/Manager.h>
+#include <openassetio/c/managerApi/HostSession.h>
 #include <openassetio/c/managerApi/ManagerInterface.h>
-#include <openassetio/c/namespace.h>
-
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
@@ -19,7 +17,6 @@
 #include "../handles/hostApi/Manager.hpp"
 #include "../handles/managerApi/HostSession.hpp"
 #include "../handles/managerApi/ManagerInterface.hpp"
-#include "openassetio/c/managerApi/HostSession.h"
 
 namespace errors = openassetio::errors;
 namespace handles = openassetio::handles;

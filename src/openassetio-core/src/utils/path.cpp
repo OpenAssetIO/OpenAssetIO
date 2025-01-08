@@ -1,15 +1,20 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <openassetio/utils/path.hpp>
+
 #include <memory>
 #include <string_view>
 
+#include <openassetio/export.h>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/typedefs.hpp>
-#include <openassetio/utils/path.hpp>
 
 #include "./path/common.hpp"
 #include "./path/posix.hpp"
+#include "./path/posix/detail.hpp"
 #include "./path/windows.hpp"
+#include "./path/windows/detail.hpp"
+#include "./path/windows/pathTypes.hpp"
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -114,11 +119,13 @@ FileUrlPathConverter::FileUrlPathConverter()
 
 FileUrlPathConverter::~FileUrlPathConverter() = default;
 
-Str FileUrlPathConverter::pathToUrl(std::string_view absolutePath, PathType pathType) const {
+Str FileUrlPathConverter::pathToUrl(const std::string_view absolutePath,
+                                    const PathType pathType) const {
   return impl_->pathToUrl(absolutePath, pathType);
 }
 
-Str FileUrlPathConverter::pathFromUrl(std::string_view fileUrl, PathType pathType) const {
+Str FileUrlPathConverter::pathFromUrl(const std::string_view fileUrl,
+                                      const PathType pathType) const {
   return impl_->pathFromUrl(fileUrl, pathType);
 }
 }  // namespace utils

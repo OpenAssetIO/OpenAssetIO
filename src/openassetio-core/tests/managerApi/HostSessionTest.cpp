@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022-2023 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
+#include <memory>
 #include <type_traits>
-
-#include <openassetio/export.h>
 
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
+#include <trompeloeil.hpp>
 
+#include <openassetio/export.h>  // NOLINT - cpplint
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
@@ -19,7 +20,7 @@ namespace {
 /**
  * Mock implementation of a HostInterface
  */
-struct MockHostInterface : trompeloeil::mock_interface<hostApi::HostInterface> {
+struct MockHostInterface final : trompeloeil::mock_interface<hostApi::HostInterface> {
   IMPLEMENT_CONST_MOCK0(identifier);
   IMPLEMENT_CONST_MOCK0(displayName);
 };
@@ -27,7 +28,7 @@ struct MockHostInterface : trompeloeil::mock_interface<hostApi::HostInterface> {
 /**
  * Mock implementation of a LoggerInterface
  */
-struct MockLoggerInterface : trompeloeil::mock_interface<log::LoggerInterface> {
+struct MockLoggerInterface final : trompeloeil::mock_interface<log::LoggerInterface> {
   IMPLEMENT_MOCK2(log);
 };
 

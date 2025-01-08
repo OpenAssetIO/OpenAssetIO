@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2022 Google LLC
-# Copyright 2013-2022 The Foundry Visionmongers Ltd
+# Copyright 2013-2025 The Foundry Visionmongers Ltd
 
 # Modified from: https://raw.githubusercontent.com/googleapis/google-cloud-cpp/main/.clang-tidy
 # See: https://releases.llvm.org/10.0.0/tools/clang/tools/extra/docs/clang-tidy/checks/list.html
@@ -74,7 +74,7 @@ CheckOptions:
     - { key: readability-identifier-naming.ProtectedMemberSuffix,  value: _          }
     - { key: readability-identifier-naming.EnumConstantCase,         value: CamelCase }
     - { key: readability-identifier-naming.EnumConstantPrefix,       value: k         }
-    - { key: readability-identifier-naming.ConstexprVariableCase,    value: Camel_Snake_Case }
+    - { key: readability-identifier-naming.ConstexprVariableCase,    value: CamelCase }
     - { key: readability-identifier-naming.ConstexprVariablePrefix,  value: k         }
     - { key: readability-identifier-naming.GlobalConstantCase,       value: CamelCase }
     - { key: readability-identifier-naming.GlobalConstantPrefix,     value: k         }
@@ -92,3 +92,12 @@ CheckOptions:
     # OpenAssetIO define a virtual default destructor just to make them
     # polymorphic.
     - { key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor,  value: 1 }
+    # Suppressions for `#include` checks.
+    # * Python.h, pystate.h, pytypedefs.h, object.h, pyerrors.h,
+    #   abstract.h - Python.h is the umbrella header.
+    # * toml++/ - toml.h is the umbrella header.
+    # * ada/ - ada.h the umbrella header.
+    # * pybind11/ - pybind11.h is the umbrella header. Other headers add
+    #   functionality (e.g. stl.h), but may be falsely flagged as
+    #   unused.
+    - { key: misc-include-cleaner.IgnoreHeaders,  value: "Python.h;pystate.h;pytypedefs.h;object.h;pyerrors.h;abstract.h;toml\\+\\+/.*;ada/.*;pybind11/.*" }

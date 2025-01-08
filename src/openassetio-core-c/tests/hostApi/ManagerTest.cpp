@@ -1,14 +1,20 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <memory>
+
+#include <openassetio/c/InfoDictionary.h>
+#include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
 #include <openassetio/c/hostApi/Manager.h>
 #include <openassetio/c/managerApi/HostSession.h>
 #include <openassetio/c/managerApi/ManagerInterface.h>
-#include <openassetio/c/namespace.h>
 
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
+#include <trompeloeil.hpp>
 
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/hostApi/Manager.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
@@ -33,7 +39,7 @@ using openassetio::log::LoggerInterface;
 using openassetio::log::LoggerInterfacePtr;
 
 namespace {
-constexpr size_t kStringBufferSize = 500;
+constexpr std::size_t kStringBufferSize = 500;
 /**
  * Mock implementation of a ManagerInterface.
  *

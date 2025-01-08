@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
-#include <openassetio/c/InfoDictionary.h>
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <stdexcept>
+#include <string_view>
+
 #include <openassetio/c/errors.h>
-#include <openassetio/c/namespace.h>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/typedefs.hpp>
 
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
+#include <trompeloeil.hpp>
 
 // private headers
 #include <handles/InfoDictionary.hpp>
@@ -15,7 +20,7 @@
 
 namespace {
 // Duplicated from CManagerInterfaceAdapter.
-constexpr size_t kStringBufferSize = 500;
+constexpr std::size_t kStringBufferSize = 500;
 }  // namespace
 
 namespace handles = openassetio::handles;
@@ -28,7 +33,7 @@ SCENARIO("A CManagerInterfaceAdapter is destroyed") {
     MockCManagerInterfaceImpl mockImpl;
 
     auto *handle = MockCManagerInterfaceHandleConverter::toHandle(&mockImpl);
-    auto const suite = mockManagerInterfaceSuite();
+    const auto suite = mockManagerInterfaceSuite();
 
     THEN("CManagerInterfaceAdapter's destructor calls the suite's dtor") {
       REQUIRE_CALL(mockImpl, dtor(handle));
@@ -43,7 +48,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
     MockCManagerInterfaceImpl mockImpl;
 
     auto *handle = MockCManagerInterfaceHandleConverter::toHandle(&mockImpl);
-    auto const suite = mockManagerInterfaceSuite();
+    const auto suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
@@ -54,7 +59,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
     const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's identifier() call succeeds") {
-      const std::string_view expectedIdentifier = "my.id";
+      constexpr std::string_view kExpectedIdentifier = "my.id";
 
       using trompeloeil::_;
 
@@ -64,8 +69,8 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
           // Ensure max size is reasonable.
           .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_2->data, expectedIdentifier.data(), expectedIdentifier.size()))
-          .LR_SIDE_EFFECT(_2->size = expectedIdentifier.size())
+          .LR_SIDE_EFFECT(memcpy(_2->data, kExpectedIdentifier.data(), kExpectedIdentifier.size()))
+          .LR_SIDE_EFFECT(_2->size = kExpectedIdentifier.size())
           // Return OK code.
           .RETURN(oa_ErrorCode_kOK);
 
@@ -73,14 +78,14 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
         const openassetio::Identifier actualIdentifier = cManagerInterface.identifier();
 
         THEN("the returned identifier matches expected identifier") {
-          CHECK(actualIdentifier == expectedIdentifier);
+          CHECK(actualIdentifier == kExpectedIdentifier);
         }
       }
     }
 
     AND_GIVEN("the C suite's identifier() call fails") {
-      const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
+      constexpr std::string_view kExpectedErrorMsg = "some error happened";
+      constexpr auto kExpectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
@@ -91,10 +96,10 @@ SCENARIO("A host calls CManagerInterfaceAdapter::identifier") {
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
-          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
+          .LR_SIDE_EFFECT(memcpy(_1->data, kExpectedErrorMsg.data(), kExpectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = kExpectedErrorMsg.size())
           // Return OK code.
-          .RETURN(expectedErrorCode);
+          .RETURN(kExpectedErrorCode);
 
       WHEN("the manager's identifier is queried") {
         THEN("an exception is thrown with expected error message") {
@@ -111,7 +116,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
     MockCManagerInterfaceImpl mockImpl;
 
     auto *handle = MockCManagerInterfaceHandleConverter::toHandle(&mockImpl);
-    auto const suite = mockManagerInterfaceSuite();
+    const auto suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
@@ -120,7 +125,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
     const openassetio::managerApi::CManagerInterfaceAdapter cManagerInterface{handle, suite};
 
     AND_GIVEN("the C suite's displayName() call succeeds") {
-      const std::string_view expectedDisplayName = "My Display Name";
+      constexpr std::string_view kExpectedDisplayName = "My Display Name";
 
       using trompeloeil::_;
 
@@ -131,8 +136,8 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
           .LR_WITH(_2->capacity == kStringBufferSize)
           // Update StringView out-parameter.
           .LR_SIDE_EFFECT(
-              strncpy(_2->data, expectedDisplayName.data(), expectedDisplayName.size()))
-          .LR_SIDE_EFFECT(_2->size = expectedDisplayName.size())
+              memcpy(_2->data, kExpectedDisplayName.data(), kExpectedDisplayName.size()))
+          .LR_SIDE_EFFECT(_2->size = kExpectedDisplayName.size())
           // Return OK code.
           .RETURN(oa_ErrorCode_kOK);
 
@@ -140,14 +145,14 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
         const openassetio::Str actualDisplayName = cManagerInterface.displayName();
 
         THEN("the returned displayName matches expected displayName") {
-          CHECK(actualDisplayName == expectedDisplayName);
+          CHECK(actualDisplayName == kExpectedDisplayName);
         }
       }
     }
 
     AND_GIVEN("the C suite's displayName() call fails") {
-      const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
+      constexpr std::string_view kExpectedErrorMsg = "some error happened";
+      constexpr auto kExpectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
@@ -158,10 +163,10 @@ SCENARIO("A host calls CManagerInterfaceAdapter::displayName") {
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
-          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
+          .LR_SIDE_EFFECT(memcpy(_1->data, kExpectedErrorMsg.data(), kExpectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = kExpectedErrorMsg.size())
           // Return OK code.
-          .RETURN(expectedErrorCode);
+          .RETURN(kExpectedErrorCode);
 
       WHEN("the manager's displayName is queried") {
         THEN("an exception is thrown with expected error message") {
@@ -178,7 +183,7 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
     MockCManagerInterfaceImpl mockImpl;
 
     auto *handle = MockCManagerInterfaceHandleConverter::toHandle(&mockImpl);
-    auto const suite = mockManagerInterfaceSuite();
+    const auto suite = mockManagerInterfaceSuite();
 
     // Expect the destructor to be called, i.e. when cManagerInterface
     // goes out of scope.
@@ -188,14 +193,14 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
 
     AND_GIVEN("the C suite's info() call succeeds") {
       const openassetio::Str expectedInfoKey = "info key";
-      const openassetio::Float expectedInfoValue = 123.456;
+      constexpr openassetio::Float kExpectedInfoValue = 123.456;
 
       using trompeloeil::_;
 
       REQUIRE_CALL(mockImpl, info(_, _, handle))
           // Update out-parameter.
           .LR_SIDE_EFFECT(handles::InfoDictionary::toInstance(_2)->insert(
-              {expectedInfoKey, expectedInfoValue}))
+              {expectedInfoKey, kExpectedInfoValue}))
           // Return OK code.
           .RETURN(oa_ErrorCode_kOK);
 
@@ -204,14 +209,14 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
 
         THEN("the returned info contains the expected entry") {
           const auto actualInfoValue = std::get<openassetio::Float>(infoDict.at(expectedInfoKey));
-          CHECK(actualInfoValue == expectedInfoValue);
+          CHECK(actualInfoValue == kExpectedInfoValue);
         }
       }
     }
 
     AND_GIVEN("the C suite's info() call fails") {
-      const std::string_view expectedErrorMsg = "some error happened";
-      const auto expectedErrorCode = oa_ErrorCode_kUnknown;
+      constexpr std::string_view kExpectedErrorMsg = "some error happened";
+      constexpr auto kExpectedErrorCode = oa_ErrorCode_kUnknown;
       const openassetio::Str expectedErrorCodeAndMsg = "1: some error happened";
 
       using trompeloeil::_;
@@ -222,10 +227,10 @@ SCENARIO("A host calls CManagerInterfaceAdapter::info") {
           // Ensure max size is reasonable.
           .LR_WITH(_1->capacity == kStringBufferSize)
           // Update StringView error message out-parameter.
-          .LR_SIDE_EFFECT(strncpy(_1->data, expectedErrorMsg.data(), expectedErrorMsg.size()))
-          .LR_SIDE_EFFECT(_1->size = expectedErrorMsg.size())
+          .LR_SIDE_EFFECT(memcpy(_1->data, kExpectedErrorMsg.data(), kExpectedErrorMsg.size()))
+          .LR_SIDE_EFFECT(_1->size = kExpectedErrorMsg.size())
           // Return OK code.
-          .RETURN(expectedErrorCode);
+          .RETURN(kExpectedErrorCode);
 
       WHEN("the manager's info is queried") {
         THEN("an exception is thrown with expected error message") {

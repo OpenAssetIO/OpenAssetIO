@@ -3,7 +3,7 @@
 
 #Enable clang-tidy using cmake arguments
 macro(enable_clang_tidy)
-    find_program(OPENASSETIO_CLANGTIDY_EXE NAMES clang-tidy clang-tidy-12)
+    find_program(OPENASSETIO_CLANGTIDY_EXE NAMES clang-tidy clang-tidy-19)
 
     if (OPENASSETIO_CLANGTIDY_EXE)
         # Construct the clang-tidy command line

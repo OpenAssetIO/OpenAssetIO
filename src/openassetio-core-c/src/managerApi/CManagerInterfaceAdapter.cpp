@@ -1,12 +1,22 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
-
-#include <stdexcept>
-#include <string>
-
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include "CManagerInterfaceAdapter.hpp"
 
+#include <cstddef>
+
+#include <openassetio/c/InfoDictionary.h>
+#include <openassetio/c/StringView.h>
+#include <openassetio/c/errors.h>
+#include <openassetio/c/managerApi/CManagerInterface.h>
+#include <openassetio/export.h>
+#include <openassetio/EntityReference.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/access.hpp>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/typedefs.hpp>
+
 #include "../errors.hpp"
 #include "../handles/InfoDictionary.hpp"
 
@@ -14,7 +24,7 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace managerApi {
 
-constexpr size_t kStringBufferSize = 500;
+constexpr std::size_t kStringBufferSize = 500;
 
 CManagerInterfaceAdapter::CManagerInterfaceAdapter(oa_managerApi_CManagerInterface_h handle,
                                                    oa_managerApi_CManagerInterface_s suite)
@@ -107,8 +117,8 @@ void CManagerInterfaceAdapter::entityExists(
     [[maybe_unused]] const EntityReferences& entityReferences,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::ExistsSuccessCallback& successCallback,
-    [[maybe_unused]] const ManagerInterface::BatchElementErrorCallback& errorCallback) {
+    [[maybe_unused]] const ExistsSuccessCallback& successCallback,
+    [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{"Not implemented"};
 }
 
@@ -118,7 +128,7 @@ void CManagerInterfaceAdapter::resolve(
     [[maybe_unused]] const access::ResolveAccess resolveAccess,
     [[maybe_unused]] const ContextConstPtr& context,
     [[maybe_unused]] const HostSessionPtr& hostSession,
-    [[maybe_unused]] const ManagerInterface::ResolveSuccessCallback& successCallback,
+    [[maybe_unused]] const ResolveSuccessCallback& successCallback,
     [[maybe_unused]] const BatchElementErrorCallback& errorCallback) {
   throw errors::NotImplementedException{"Not implemented"};
 }

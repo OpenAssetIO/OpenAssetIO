@@ -1,9 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #include "detail.hpp"
 
 #include <algorithm>
 #include <cassert>
+#include <optional>
+#include <string_view>
+
+#include <openassetio/export.h>
+#include <openassetio/typedefs.hpp>
 
 #include "../common.hpp"
 
@@ -20,7 +25,7 @@ bool WindowsUrl::containsPercentEncodedSlash(const std::string_view& url) const 
 }
 
 std::optional<Str> WindowsUrl::ip6ToValidHostname(const std::string_view& host) const {
-  auto match = ip6HostRegex.match(host);
+  const auto match = ip6HostRegex.match(host);
   if (!match) {
     return std::nullopt;
   }
@@ -38,8 +43,8 @@ bool WindowsUrl::maybePercentEncodeAndAppendTo(const std::string_view& path, Str
   // to a given string if encoding is needed. However, that
   // specialisation is not generated in ada v2.7.4 on MacOS/clang and
   // fails to link. See https://github.com/ada-url/ada/issues/580
-  Str result;
-  if (ada::unicode::percent_encode<false>(path, kPercentEncodeCharacterSet.data(), result)) {
+  if (Str result;
+      ada::unicode::percent_encode<false>(path, kPercentEncodeCharacterSet.data(), result)) {
     appendTo += result;
     return true;
   }
@@ -57,7 +62,7 @@ bool WindowsUrl::setUrlHost(const std::string_view& host, ada::url& url) const {
 // NormalisedPath
 
 std::string_view NormalisedPath::withoutTrailingSlashes(const std::string_view& path) const {
-  auto match = trailingSlashesRegex.match(path);
+  const auto match = trailingSlashesRegex.match(path);
   if (!match) {
     return path;
   }
@@ -65,7 +70,7 @@ std::string_view NormalisedPath::withoutTrailingSlashes(const std::string_view& 
 }
 
 std::string_view NormalisedPath::withoutTrailingDotsAsFile(const std::string_view& path) const {
-  auto match = trailingDotsAsFileRegex.match(path);
+  const auto match = trailingDotsAsFileRegex.match(path);
   if (!match) {
     return path;
   }
@@ -73,7 +78,7 @@ std::string_view NormalisedPath::withoutTrailingDotsAsFile(const std::string_vie
 }
 
 std::string_view NormalisedPath::withoutTrailingDotsInFile(const std::string_view& path) const {
-  auto match = trailingDotsInFileRegex.match(path);
+  const auto match = trailingDotsInFileRegex.match(path);
   if (!match) {
     return path;
   }
@@ -81,7 +86,7 @@ std::string_view NormalisedPath::withoutTrailingDotsInFile(const std::string_vie
 }
 
 std::string_view NormalisedPath::withoutTrailingSpacesAndDots(const std::string_view& path) const {
-  auto match = trailingDotsAndSpacesRegex.match(path);
+  const auto match = trailingDotsAndSpacesRegex.match(path);
   if (!match) {
     return path;
   }

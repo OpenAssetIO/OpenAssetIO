@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# This bootstrap script is used by both the Github CI action.
+# This bootstrap script is used by the Github CI action.
 
 set -xeo pipefail
 sudo apt-get update
 # Install gcc, linters, build tools used by conan and Python 3.
-sudo apt-get install -y build-essential pkgconf clang-format-12 clang-tidy-12 python3-pip ccache
+sudo apt-get install -y build-essential pkgconf python3-pip ccache
 
 # Install additional build tools.
 pip3 install -r "$WORKSPACE/resources/build/requirements.txt"
@@ -23,8 +23,3 @@ conan config set general.revisions_enabled=True
 # Install openassetio third-party dependencies from public Conan Center
 # package repo.
 conan install --install-folder "$WORKSPACE/.conan" --build=missing "$WORKSPACE/resources/build"
-# Ensure we have the expected version of clang-* available
-sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 10
-sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-12 10
-sudo update-alternatives --set clang-tidy /usr/bin/clang-tidy-12
-sudo update-alternatives --set clang-format /usr/bin/clang-format-12

@@ -1,5 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <memory>
+#include <utility>
+
+#include <openassetio/export.h>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/managerApi/Host.hpp>
 #include <openassetio/typedefs.hpp>

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <array>
 #include <cstddef>
@@ -53,7 +53,7 @@ struct WindowsUrl {
       charSet[idx] = ada::character_sets::PATH_PERCENT_ENCODE[idx];
     }
     // Augment the %-encode set with additional characters.
-    for (std::uint8_t charCode : {kPercentHex, kColonHex, kVerticalBarHex}) {
+    for (const std::uint8_t charCode : {kPercentHex, kColonHex, kVerticalBarHex}) {
       charSet[charCode / kByteSize] |= static_cast<std::uint8_t>(1 << (charCode % kByteSize));
     }
 

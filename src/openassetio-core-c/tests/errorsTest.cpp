@@ -1,24 +1,26 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
+#include <stdexcept>
+
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/errors.h>
-#include <openassetio/c/namespace.h>
 
 #include <catch2/catch.hpp>
 
-// private headers
 #include <errors.hpp>
 
 #include "StringViewReporting.hpp"
+#include "openassetio/typedefs.hpp"
 
 SCENARIO("throwIfError error code/message handling") {
   using openassetio::errors::throwIfError;
 
   GIVEN("an OK error code") {
-    const oa_ErrorCode code = oa_ErrorCode_kOK;
+    constexpr oa_ErrorCode kCode = oa_ErrorCode_kOK;
 
     WHEN("throwIfError is called") {
-      THEN("no exception is thrown") { throwIfError(code, oa_StringView{}); }
+      THEN("no exception is thrown") { throwIfError(kCode, oa_StringView{}); }
     }
   }
 
@@ -76,7 +78,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
   oa_StringView actualErrorMessage{storage.size(), storage.data(), 0};
 
   GIVEN("A callable that doesn't throw") {
-    auto const callable = [&] { return oa_ErrorCode_kOK; };
+    const auto callable = [&] { return oa_ErrorCode_kOK; };
 
     WHEN("callable is executed whilst decorated") {
       const oa_ErrorCode actualErrorCode =
@@ -92,7 +94,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
   GIVEN("A callable that throws an exception") {
     const openassetio::Str expectedErrorMessage = "some error";
 
-    auto const callable = [&]() -> oa_ErrorCode { throw std::length_error{expectedErrorMessage}; };
+    const auto callable = [&]() -> oa_ErrorCode { throw std::length_error{expectedErrorMessage}; };
 
     WHEN("callable is executed whilst decorated") {
       const oa_ErrorCode actualErrorCode =
@@ -108,7 +110,7 @@ SCENARIO("Decorating an exception-throwing C++ function to instead return an err
   GIVEN("A callable that throws a non-exception") {
     const openassetio::Str expectedErrorMessage = "Unknown non-exception object thrown";
 
-    auto const callable = [&]() -> oa_ErrorCode { throw "some error"; };
+    const auto callable = [&]() -> oa_ErrorCode { throw "some error"; };
 
     WHEN("callable is executed whilst decorated") {
       const oa_ErrorCode actualErrorCode =

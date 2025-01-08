@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <pybind11/stl.h>
 
+#include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/hostApi/HostInterface.hpp>
 #include <openassetio/typedefs.hpp>

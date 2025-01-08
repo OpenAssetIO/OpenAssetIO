@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <array>
 
 #include <openassetio/export.h>
@@ -37,6 +37,7 @@ class OPENASSETIO_CORE_EXPORT LoggerInterface {
    * @name Log Severity
    * @{
    */
+  // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
   enum class Severity { kDebugApi, kDebug, kInfo, kProgress, kWarning, kError, kCritical };
 
   static constexpr std::array kSeverityNames{"debugApi", "debug", "info",    "progress",

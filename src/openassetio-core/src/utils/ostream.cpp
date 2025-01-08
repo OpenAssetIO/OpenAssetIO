@@ -1,8 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <ostream>
+
+#include <fmt/core.h>
+
+#include <openassetio/export.h>
 #include <openassetio/Context.hpp>
 #include <openassetio/EntityReference.hpp>
-#include <openassetio/managerApi/HostSession.hpp>
+#include <openassetio/InfoDictionary.hpp>
+#include <openassetio/managerApi/ManagerInterface.hpp>
+#include <openassetio/trait/collection.hpp>
+#include <openassetio/trait/property.hpp>
+#include <openassetio/typedefs.hpp>
 #include <openassetio/utils/ostream.hpp>
 
 #include "formatter.hpp"

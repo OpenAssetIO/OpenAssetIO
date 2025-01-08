@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #include <sstream>
+#include <utility>
 
-#include <fmt/format.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -19,8 +19,7 @@ void registerContext(const py::module& mod) {
   using openassetio::ContextPtr;
   using openassetio::managerApi::ManagerStateBasePtr;
   using openassetio::trait::TraitsData;
-  using PyRetainingTraitsDataPtr =
-      openassetio::PyRetainingSharedPtr<openassetio::trait::TraitsData>;
+  using PyRetainingTraitsDataPtr = openassetio::PyRetainingSharedPtr<TraitsData>;
   using PyRetainingManagerStateBasePtr =
       openassetio::PyRetainingSharedPtr<openassetio::managerApi::ManagerStateBase>;
 
@@ -37,7 +36,7 @@ void registerContext(const py::module& mod) {
       // since we must create a new `TraitsData` rather than re-use the
       // same default `TraitsData` instance, where any mutations will
       // persist in the default.
-      .def(py::init([]() { return Context::make(TraitsData::make(), ManagerStateBasePtr{}); }))
+      .def(py::init([] { return Context::make(TraitsData::make(), ManagerStateBasePtr{}); }))
       .def("__str__",
            [](const Context& self) {
              std::ostringstream stringStream;

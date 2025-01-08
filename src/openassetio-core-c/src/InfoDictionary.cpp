@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
+#include <cstddef>
 #include <stdexcept>
+#include <type_traits>
+#include <variant>
 
 #include <openassetio/c/InfoDictionary.h>
 #include <openassetio/c/StringView.h>
@@ -31,12 +34,12 @@ template <class... T>
  * @return Error code.
  */
 template <typename Fn>
-oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, Fn &&callable) {
+oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, const Fn &callable) {
   // TODO(DF): @exception messages.
   return errors::catchUnknownExceptionAsCode(err, [&] {
     try {
       return callable();
-    } catch (const std::out_of_range &exc) {
+    } catch ([[maybe_unused]] const std::out_of_range &exc) {
       // Default exception message:
       // VS 2019: "invalid unordered_map<K, T> key"
       // GCC 9: "_Map_base::at"
@@ -66,7 +69,7 @@ oa_ErrorCode get(oa_StringView *err, Type *out, oa_InfoDictionary_h handle,
     // TODO(DF): @exception messages.
     try {
       *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
-    } catch (const std::bad_variant_access &exc) {
+    } catch ([[maybe_unused]] const std::bad_variant_access &exc) {
       // Default exception message:
       // VS 2019: "bad variant access"
       // GCC 9: "Unexpected index"
@@ -115,8 +118,8 @@ oa_ErrorCode set(oa_StringView *err, oa_InfoDictionary_h handle, const oa_ConstS
 
 extern "C" {
 
-oa_ErrorCode oa_InfoDictionary_ctor(oa_StringView *err, oa_InfoDictionary_h *out) {
-  return errors::catchUnknownExceptionAsCode(err, [&] {
+oa_ErrorCode oa_InfoDictionary_ctor(oa_StringView *error, oa_InfoDictionary_h *out) {
+  return errors::catchUnknownExceptionAsCode(error, [&] {
     *out = handles::InfoDictionary::toHandle(new InfoDictionary{});
     return oa_ErrorCode_kOK;
   });
@@ -130,13 +133,13 @@ std::size_t oa_InfoDictionary_size(oa_InfoDictionary_h handle) {
   return handles::InfoDictionary::toInstance(handle)->size();
 }
 
-oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView *err, oa_InfoDictionary_ValueType *out,
+oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView *error, oa_InfoDictionary_ValueType *out,
                                       oa_InfoDictionary_h handle, const oa_ConstStringView key) {
-  return catchCommonExceptionAsCode(err, [&] {
+  return catchCommonExceptionAsCode(error, [&] {
     const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
     std::visit(
-        [&out](auto &&value) {
+        [&out]([[maybe_unused]] auto &&value) {
           using ValueType = std::decay_t<decltype(value)>;
           if constexpr (std::is_same_v<ValueType, openassetio::Bool>) {
             *out = oa_InfoDictionary_ValueType_kBool;
@@ -156,61 +159,61 @@ oa_ErrorCode oa_InfoDictionary_typeOf(oa_StringView *err, oa_InfoDictionary_Valu
   });
 }
 
-oa_ErrorCode oa_InfoDictionary_getBool(oa_StringView *err, openassetio::Bool *out,
+oa_ErrorCode oa_InfoDictionary_getBool(oa_StringView *error, openassetio::Bool *out,
                                        oa_InfoDictionary_h handle, const oa_ConstStringView key) {
-  return get<openassetio::Bool>(err, out, handle, key);
+  return get<openassetio::Bool>(error, out, handle, key);
 }
 
-oa_ErrorCode oa_InfoDictionary_getInt(oa_StringView *err, openassetio::Int *out,
+oa_ErrorCode oa_InfoDictionary_getInt(oa_StringView *error, openassetio::Int *out,
                                       oa_InfoDictionary_h handle, const oa_ConstStringView key) {
-  return get<openassetio::Int>(err, out, handle, key);
+  return get<openassetio::Int>(error, out, handle, key);
 }
 
-oa_ErrorCode oa_InfoDictionary_getFloat(oa_StringView *err, openassetio::Float *out,
+oa_ErrorCode oa_InfoDictionary_getFloat(oa_StringView *error, openassetio::Float *out,
                                         oa_InfoDictionary_h handle, const oa_ConstStringView key) {
-  return get<openassetio::Float>(err, out, handle, key);
+  return get<openassetio::Float>(error, out, handle, key);
 }
 
-oa_ErrorCode oa_InfoDictionary_getStr(oa_StringView *err, oa_StringView *out,
+oa_ErrorCode oa_InfoDictionary_getStr(oa_StringView *error, oa_StringView *out,
                                       oa_InfoDictionary_h handle, const oa_ConstStringView key) {
   openassetio::Str str;
-  const oa_ErrorCode errorCode = get(err, &str, handle, key);
 
-  if (errorCode != oa_ErrorCode_kOK) {
+  if (const oa_ErrorCode errorCode = get(error, &str, handle, key);
+      errorCode != oa_ErrorCode_kOK) {
     return errorCode;
   }
 
   openassetio::assignStringView(out, str);
 
   if (str.size() > out->capacity) {
-    openassetio::assignStringView(err, "Insufficient storage for return value");
+    openassetio::assignStringView(error, "Insufficient storage for return value");
     return oa_ErrorCode_kLengthError;
   }
 
   return oa_ErrorCode_kOK;
 }
 
-oa_ErrorCode oa_InfoDictionary_setBool(oa_StringView *err, oa_InfoDictionary_h handle,
+oa_ErrorCode oa_InfoDictionary_setBool(oa_StringView *error, oa_InfoDictionary_h handle,
                                        const oa_ConstStringView key,
                                        const openassetio::Bool value) {
-  return set<openassetio::Bool>(err, handle, key, value);
+  return set<openassetio::Bool>(error, handle, key, value);
 }
 
-oa_ErrorCode oa_InfoDictionary_setInt(oa_StringView *err, oa_InfoDictionary_h handle,
+oa_ErrorCode oa_InfoDictionary_setInt(oa_StringView *error, oa_InfoDictionary_h handle,
                                       const oa_ConstStringView key, const openassetio::Int value) {
-  return set<openassetio::Int>(err, handle, key, value);
+  return set<openassetio::Int>(error, handle, key, value);
 }
 
-oa_ErrorCode oa_InfoDictionary_setFloat(oa_StringView *err, oa_InfoDictionary_h handle,
+oa_ErrorCode oa_InfoDictionary_setFloat(oa_StringView *error, oa_InfoDictionary_h handle,
                                         const oa_ConstStringView key,
                                         const openassetio::Float value) {
-  return set<openassetio::Float>(err, handle, key, value);
+  return set<openassetio::Float>(error, handle, key, value);
 }
 
-oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView *err, oa_InfoDictionary_h handle,
+oa_ErrorCode oa_InfoDictionary_setStr(oa_StringView *error, oa_InfoDictionary_h handle,
                                       const oa_ConstStringView key,
                                       const oa_ConstStringView value) {
-  return errors::catchUnknownExceptionAsCode(err, [&] {
+  return errors::catchUnknownExceptionAsCode(error, [&] {
     set(handle, key, openassetio::Str{value.data, value.size});
     return oa_ErrorCode_kOK;
   });

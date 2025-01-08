@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023-2024 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 /**
  * Bindings used for testing errors behaviour.
  * Specifically, the conversion from cpp -> python.
  *
  * See tests/cmodule/test_errors.py
  */
+#include <cstddef>
+#include <exception>
+#include <stdexcept>
+#include <string>
+#include <utility>
 
 #include <pybind11/pybind11.h>
 #include <pyerrors.h>
 
-#include <overrideMacros.hpp>
-
 #include <openassetio/errors/BatchElementError.hpp>
 #include <openassetio/errors/exceptions.hpp>
+
+#include <errors/exceptionsConverter.hpp>
+#include <overrideMacros.hpp>
 
 namespace py = pybind11;
 
@@ -168,7 +174,7 @@ bool throwAndCatch(const std::string& throwExceptionName, const std::string& cat
  * propagate exception) otherwise.
  */
 template <std::size_t I, class Fn>
-bool executeFnAndCatchIfMatches(Fn&& func, const std::string& catchExceptionName) {
+bool executeFnAndCatchIfMatches(const Fn& func, const std::string& catchExceptionName) {
   if (catchExceptionName == CppExceptionsAndPyClassNames::kClassNames[I]) {
     try {
       func();
@@ -195,9 +201,9 @@ bool executeFnAndCatchIfMatches(Fn&& func, const std::string& catchExceptionName
  * otherwise.
  */
 template <std::size_t... I, class Fn>
-bool executeFnAndCatchMatchingException(Fn&& func, const std::string& catchExceptionName,
+bool executeFnAndCatchMatchingException(const Fn& func, const std::string& catchExceptionName,
                                         [[maybe_unused]] std::index_sequence<I...> unused) {
-  return (executeFnAndCatchIfMatches<I>(std::forward<Fn>(func), catchExceptionName) || ...);
+  return (executeFnAndCatchIfMatches<I>(func, catchExceptionName) || ...);
 }
 
 /**
@@ -211,8 +217,8 @@ bool executeFnAndCatchMatchingException(Fn&& func, const std::string& catchExcep
  * thrown by the callable, `false` (or propagate exception) otherwise.
  */
 template <class Fn>
-bool executeFnAndCatch(Fn&& func, const std::string& catchExceptionName) {
-  return executeFnAndCatchMatchingException(std::forward<Fn>(func), catchExceptionName,
+bool executeFnAndCatch(const Fn& func, const std::string& catchExceptionName) {
+  return executeFnAndCatchMatchingException(func, catchExceptionName,
                                             CppExceptionsAndPyClassNames::kIndices);
 }
 
@@ -232,13 +238,13 @@ bool executeFnAndCatch(Fn&& func, const std::string& catchExceptionName) {
  * @param catchExceptionName Name of exception to catch.
  */
 template <std::size_t I, class Fn>
-void executeFnAndCatchAndRethrowIfMatches(Fn&& func, const std::string& catchExceptionName) {
+void executeFnAndCatchAndRethrowIfMatches(const Fn& func, const std::string& catchExceptionName) {
   if (catchExceptionName == CppExceptionsAndPyClassNames::kClassNames[I]) {
     try {
       func();
     } catch (const CppExceptionsAndPyClassNames::Exceptions<I>&) {
       throw;
-    } catch (...) {
+    } catch (...) {  // NOLINT(*-empty-catch)
       // Ensure error_already_set doesn't propagate and cause a false
       // positive back in the Python test case.
     }
@@ -263,9 +269,9 @@ void executeFnAndCatchAndRethrowIfMatches(Fn&& func, const std::string& catchExc
  */
 template <std::size_t... I, class Fn>
 void executeFnAndCatchAndRethrowMatchingException(
-    Fn&& func, const std::string& catchExceptionName,
+    const Fn& func, const std::string& catchExceptionName,
     [[maybe_unused]] std::index_sequence<I...> unused) {
-  (executeFnAndCatchAndRethrowIfMatches<I>(std::forward<Fn>(func), catchExceptionName), ...);
+  (executeFnAndCatchAndRethrowIfMatches<I>(func, catchExceptionName), ...);
 }
 
 /**
@@ -310,7 +316,7 @@ struct ExceptionThrower {
  * dispatch logic, so that all macros can be tested by calling the
  * corresponding method.
  */
-struct PyExceptionThrower : ExceptionThrower {
+struct PyExceptionThrower final : ExceptionThrower {
   void throwFromOverride() override {
     OPENASSETIO_PYBIND11_OVERRIDE(void, ExceptionThrower, throwFromOverride, );
   }
@@ -372,7 +378,7 @@ struct PyExceptionThrower : ExceptionThrower {
  * raw CPython, then throws a C++ exception, which should result in
  * equivalent of "raise from".
  */
-void registerExceptionThrower(py::module_& mod) {
+extern void registerExceptionThrower(py::module_& mod) {
   mod.def("throwException", [](const std::string& exceptionName, const std::string& msgData) {
     throwException(exceptionName, msgData);
   });
