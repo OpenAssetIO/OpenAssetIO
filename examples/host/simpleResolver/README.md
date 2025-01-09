@@ -41,7 +41,7 @@ cd examples/host/simpeResolver
 ```
 
 The CLI doesn't have any configuration options itself, it makes use of
-the [default manager](https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76)
+the [default manager](https://docs.openassetio.org/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a8b6c44543faebcb1b441bbf63c064c76)
 mechanism. We need to tell OpenAssetIO which config file to use:
 
 ```bash
@@ -58,7 +58,7 @@ python -m pip install openassetio-manager-bal
 At this point, we can now use the CLI to resolve entity data.
 The sample library has two entities `bal:///cat` and `bal:///dog`.
 
-The first argument to the CLI is a list of [traits](https://openassetio.github.io/OpenAssetIO/entities_traits_and_specifications.html)
+The first argument to the CLI is a list of [traits](https://docs.openassetio.org/OpenAssetIO/entities_traits_and_specifications.html)
 to resolve for, the second is the entity reference to resolve:
 
 ```bash

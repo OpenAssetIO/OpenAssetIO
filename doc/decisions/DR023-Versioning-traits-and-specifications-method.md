@@ -64,7 +64,7 @@ model potential workflows/integrations in the future (GRPC/HTTP), etc.
 However, we do not believe this necessarily excludes any handshake style
 interactions. OpenAssetIO already provides a mechanism to configure
 managers at the beginning of the session with
-[initialize](https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df).
+[initialize](https://docs.openassetio.org/OpenAssetIO/classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa52c7436ff63ae96e33d7db8d6fd38df).
 Whilst we agree that state must not be utilized during a session,
 injecting version state before or at initialize time remains a valid
 option.

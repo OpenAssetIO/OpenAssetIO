@@ -9,7 +9,7 @@ workflows in content creation tooling.
 
 > - 👋 Come chat with us on [ASWF Slack](https://academysoftwarefdn.slack.com/archives/C03Q36QS8N4)
 >   or our [mailing list](https://lists.aswf.io/g/openassetio-discussion).
-> - 🧰 Get started with the [API docs](https://openassetio.github.io/OpenAssetIO),
+> - 🧰 Get started with the [API docs](https://docs.openassetio.org/OpenAssetIO),
 >   Manager plugin [template](https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python),
 >   and [MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation#readme)
 >   for post-production workflows.
@@ -91,7 +91,7 @@ for a wider range of asset types and publishing workflows.
 
 ## API documentation
 
-The documentation for OpenAssetIO can be found here: [https://openassetio.github.io/OpenAssetIO](https://openassetio.github.io/OpenAssetIO/).
+The documentation for OpenAssetIO can be found here: [https://docs.openassetio.org/OpenAssetIO](https://docs.openassetio.org/OpenAssetIO/).
 
 ## Project status
 

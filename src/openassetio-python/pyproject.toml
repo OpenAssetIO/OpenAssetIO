@@ -44,7 +44,7 @@ classifiers = [
 
 [project.urls]
 Source = "https://github.com/OpenAssetIO/OpenAssetIO"
-Documentation = "https://openassetio.github.io/OpenAssetIO"
+Documentation = "https://docs.openassetio.org/OpenAssetIO"
 Issues = "https://github.com/OpenAssetIO/OpenAssetIO/issues"
 
 [project.readme]
