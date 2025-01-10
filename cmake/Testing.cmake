@@ -97,7 +97,7 @@ if (OPENASSETIO_ENABLE_TEST_ABI)
             # analysis" tree showing an example function that is
             # affected by the change.
             --leaf-changes-only
-            # TODO(DF): Bug in libabigail 2.4 `default.abignore` default
+            # Note: a bug in libabigail 2.5 `default.abignore` default
             # suppression file causes false negatives. Any ABI break
             # involving a function with `std::` in the demangled name is
             # suppressed - this includes template specialisations, e.g.
@@ -183,7 +183,6 @@ if (OPENASSETIO_ENABLE_PYTHON)
         # (`python` in this case) doesn't link libasan we must add it to
         # `LD_PRELOAD`. But first we have to find libasan on the system:
         execute_process(
-            # TODO(DF): This is probably wrong for OSX (clang).
             COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan.so
             OUTPUT_VARIABLE asan_path
             OUTPUT_STRIP_TRAILING_WHITESPACE

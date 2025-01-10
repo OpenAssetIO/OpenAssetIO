@@ -162,8 +162,6 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}/dist/${{ matrix.config.site-packages }}
           CMAKE_PREFIX_PATH: ${{ github.workspace }}/dist
-          # TODO(DF): Consider adding some linting, e.g. compiler
-          # warnings, sanitizers. Will need additional CMake preset(s).
           OPENASSETIO_TRAITGENTEST_CMAKE_PRESET: test
           CONAN_USER_HOME: ~/conan
           # For Windows:

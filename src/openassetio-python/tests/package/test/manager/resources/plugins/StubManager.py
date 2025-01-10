@@ -31,10 +31,7 @@ class StubManager(ManagerInterface):
     test suite to function.
     """
 
-    # TODO: @pylint Remove once we have closed #163
-    # pylint: disable=abstract-method
-
-    # pylint: disable=no-self-use,missing-function-docstring
+    # pylint: disable=missing-function-docstring
 
     def __init__(self):
         super().__init__()

@@ -15,10 +15,6 @@ set(_core_abi_version 1)
 set(_public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
 
 # Installation location for install phase.
-# TODO(DF): When CMake 3.23 is released, use FILE_SET, which allows
-#   explicitly associating public headers with a target. Note that the
-#   PUBLIC_HEADER target property is not useful since it flattens the
-#   directory structure when installed.
 install(
     DIRECTORY
     ${_public_header_source_root}/openassetio
@@ -32,7 +28,6 @@ install(
 
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
-# TODO(DF): Allow customising library name (e.g. suffix)? See OCIO.
 add_library(openassetio-core)
 add_library(${PROJECT_NAME}::openassetio-core ALIAS openassetio-core)
 # Set good default target options.
@@ -123,14 +118,8 @@ target_link_libraries(
 # API export header
 
 # Definition for export header, to use for versioned namespacing.
-# TODO(DF): It may turn out this should go in a separate header. Also
-#   other projects have much more elaborate version headers. See OCIO
-#   (bundles version in export header) and OTIO (uses separate header),
-#   both of which include a long list of additional #defines.
 set(_define_version
     "#define OPENASSETIO_CORE_ABI_VERSION v${_core_abi_version}")
-
-# TODO(DF): Allow customising namespace? See OCIO.
 
 # Use CMake utility to generate the export header.
 include(GenerateExportHeader)

@@ -29,7 +29,7 @@ void DrivePath::toUrl(const std::string_view& windowsPath, ada::url& url) const 
 }
 
 void DrivePath::validatePath(const std::string_view& windowsPath) const {
-  // TODO(DF): Kludge to match error priority of swift-url. Otherwise
+  // Note: kludge to match error priority of swift-url. Otherwise
   // this would be handled by `isAbsoluteDrivePath`.
   if (detail::NormalisedPath::startsWithSlash(windowsPath)) {
     // Path starts with slash so is a relative path.
@@ -51,7 +51,6 @@ void DrivePath::setUrlPath(const std::string_view& windowsPath, ada::url& url) c
   // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
   assert(driveLetterHandler.isAbsoluteDrivePath(windowsPath));
 
-  // TODO(DF): This trimming logic could surely be optimised.
   const std::string_view trimmedPath = normalisedPathHandler.withoutTrailingDotsInFile(
       normalisedPathHandler.withoutTrailingDotsAsFile(
           normalisedPathHandler.withoutTrailingSpacesAndDots(

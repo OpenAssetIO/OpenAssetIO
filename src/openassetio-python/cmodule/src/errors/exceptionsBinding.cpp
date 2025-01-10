@@ -39,10 +39,7 @@ using openassetio::errors::UnhandledException;
  * pyModule.
  */
 template <class Exception>
-void setPyException(const Exception &exception,
-                    // TODO(DF): False positive in clang-tidy 12 :(
-                    // NOLINTNEXTLINE(readability-avoid-const-params-in-decls)
-                    const std::string_view pyClassName) {
+void setPyException(const Exception &exception, const std::string_view pyClassName) {
   // Python "raise from" logic. See pybind11::raise_from. We need this
   // to handle the case of a C++ exception being translated when the
   // Python error indicator is already set for a different exception.

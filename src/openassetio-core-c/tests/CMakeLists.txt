@@ -40,8 +40,6 @@ target_include_directories(
     openassetio-core-c-test-exe
     PRIVATE
     # Give access to private headers.
-    # TODO(DF): This requires otherwise unnecessary symbol export, is
-    #   there a neater way?
     ${PROJECT_SOURCE_DIR}/src/openassetio-core-c/src
 )
 

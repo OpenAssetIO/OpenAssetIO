@@ -68,7 +68,6 @@ function(openassetio_set_default_target_properties target_name)
 
     # Hide all symbols from external statically linked libraries.
     if (IS_GCC_OR_CLANG AND NOT APPLE)
-        # TODO(TC): Find a way to hide symbols on macOS
         target_link_options(${target_name} PRIVATE ${_exclude_all_libs_linker_flag})
     endif ()
 
@@ -119,10 +118,9 @@ function(openassetio_set_default_target_properties target_name)
             # Runtime search path value
             INSTALL_RPATH "${rpath}"
             # Enable RPATH on OSX
-            # TODO(TC): this produces seemingly innocuous
-            # install_name_tool errors during re-builds when it attempts
-            # to set the rpath in a previously installed target that
-            # hasn't changed.
+            # Note: this produces seemingly innocuous install_name_tool
+            # errors during re-builds when it attempts to set the rpath
+            # in a previously installed target that hasn't changed.
             MACOSX_RPATH TRUE
         )
     endif ()
@@ -263,7 +261,6 @@ endfunction()
 # This is disallowed by default in the above function
 # openassetio_set_default_target_properties.
 function(openassetio_allow_static_lib_symbol_export target_name)
-    # TODO(DF): only works on Linux - see above related TODO(TC).
     if (IS_GCC_OR_CLANG AND NOT APPLE)
         get_target_property(_link_options ${target_name} LINK_OPTIONS)
 

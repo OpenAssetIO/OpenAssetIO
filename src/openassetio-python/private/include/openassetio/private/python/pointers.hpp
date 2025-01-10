@@ -45,9 +45,9 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
                          typename Ptr::element_type* cppInstancePtr) {
   // Custom deleter for shared_ptr below.
   const auto deleter = [](py::object* pyObjectPtr) {
-    // TODO(DF): Technically we have a race condition here with
-    //  _Py_IsFinalizing if multiple threads are involved, but that is
-    //  a corner case of a corner case, and difficult to solve.
+    // Note: Technically we have a race condition here with
+    // _Py_IsFinalizing if multiple threads are involved, but that is a
+    // corner case of a corner case, and difficult to solve.
     if (_Py_IsFinalizing()) {
       // If the Python interpreter is gone, clear the internal PyObject*
       // so pybind11 won't attempt to clean it up.
@@ -56,10 +56,10 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
       delete pyObjectPtr;
     } else {
       // Acquire the GIL, in case deleter runs in a non-Python thread.
-      // TODO(DF): We may be inside the destructor of some parent
-      //  object, and yet it is possible that pybind11 will throw an
-      //  exception here trying to acquire the GIL (though only in
-      //  catastrophic cases). Tricky to test, though.
+      // Note: We may be inside the destructor of some parent object,
+      // and yet it is possible that pybind11 will throw an exception
+      // here trying to acquire the GIL (though only in catastrophic
+      // cases). Tricky to test, though.
       const py::gil_scoped_acquire gil;
       // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
       delete pyObjectPtr;
