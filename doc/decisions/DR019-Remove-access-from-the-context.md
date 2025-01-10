@@ -11,9 +11,9 @@
 
 OpenAssetIO forms a bridge between a 'host' (tool or application) and a
 'manager' (asset management system). The [interface to the
-manager](https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html)
+manager](https://docs.openassetio.org/OpenAssetIO/classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html)
 is considered stateless. Its methods are supplied a
-[`Context`](https://openassetio.github.io/OpenAssetIO/classopenassetio_1_1v1_1_1_context.html)
+[`Context`](https://docs.openassetio.org/OpenAssetIO/classopenassetio_1_1v1_1_1_context.html)
 object to correlate disparate calls by the host and encapsulate the
 state of the current session.
 
