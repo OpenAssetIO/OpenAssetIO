@@ -78,8 +78,6 @@ if (OPENASSETIO_ENABLE_PYTHON)
     endif ()
 
     # pybind11 for C++ Python bindings.
-    # TODO(DF): Our pybind11 conan package doesn't give version info, so
-    #   we can't pin it at the moment.
     find_package(pybind11 REQUIRED)
 
 

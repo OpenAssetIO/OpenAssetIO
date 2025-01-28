@@ -66,7 +66,6 @@ class Test_simpleResolver_errors:
             "simpleResolver.py: error: the following arguments are required: traitset, entityref"
         )
 
-        # TODO E.M, Revert this to being an exact check once BAL no longer prints "plugin" deprecation warning.
         assert expected_message in result.stderr
         assert result.returncode == 2
 
@@ -95,7 +94,6 @@ class Test_simpleResolver_errors:
     ):
         result = execute_cli("named", "bal:///doesNotExist")
         # Don't test the specific message as it couples to BAL specifics
-        # TODO E.M, Revert this to being a startswith check once BAL no longer prints "plugin" deprecation warning.
         assert "ERROR:" in result.stderr
         assert result.returncode == int(BatchElementError.ErrorCode.kEntityResolutionError)
 

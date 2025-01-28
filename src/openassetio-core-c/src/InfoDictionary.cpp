@@ -35,7 +35,6 @@ template <class... T>
  */
 template <typename Fn>
 oa_ErrorCode catchCommonExceptionAsCode(oa_StringView *err, const Fn &callable) {
-  // TODO(DF): @exception messages.
   return errors::catchUnknownExceptionAsCode(err, [&] {
     try {
       return callable();
@@ -66,7 +65,6 @@ oa_ErrorCode get(oa_StringView *err, Type *out, oa_InfoDictionary_h handle,
   const InfoDictionary *infoDictionary = handles::InfoDictionary::toInstance(handle);
 
   return catchCommonExceptionAsCode(err, [&] {
-    // TODO(DF): @exception messages.
     try {
       *out = std::get<Type>(infoDictionary->at({key.data, key.size}));
     } catch ([[maybe_unused]] const std::bad_variant_access &exc) {

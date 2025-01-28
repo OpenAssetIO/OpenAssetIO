@@ -36,10 +36,6 @@ def a_context():
     return Context()
 
 
-# TODO(TC):  __str__ and __repr__ aren't tested as they're debug tricks that need
-#   assessing when this is ported to cpp
-
-
 class Test_Host_init:
     def test_when_inheriting_then_raises_TypeError(self):
         with pytest.raises(TypeError) as err:

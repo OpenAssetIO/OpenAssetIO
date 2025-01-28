@@ -39,10 +39,10 @@ std::optional<Str> WindowsUrl::ip6ToValidHostname(const std::string_view& host) 
 bool WindowsUrl::maybePercentEncodeAndAppendTo(const std::string_view& path, Str& appendTo) {
   // Ada will automatically %-encode upon setting the URL path, but
   // with a more limited set than we want.
-  // TODO(DF): Ideally we'd use `percent_encode<true>`, which appends
-  // to a given string if encoding is needed. However, that
-  // specialisation is not generated in ada v2.7.4 on MacOS/clang and
-  // fails to link. See https://github.com/ada-url/ada/issues/580
+  // Note: Cannot use `percent_encode<true>`, which appends to a given
+  // string only if encoding is needed. That specialisation is not
+  // generated in Ada on MacOS/clang and fails to link. Ada devs will
+  // not support it. See https://github.com/ada-url/ada/issues/580
   if (Str result;
       ada::unicode::percent_encode<false>(path, kPercentEncodeCharacterSet.data(), result)) {
     appendTo += result;

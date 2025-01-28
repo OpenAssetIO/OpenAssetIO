@@ -107,9 +107,6 @@ include(CMakeDependentOption)
 
 # Surface `BUILD_SHARED_LIBS` as a non-hidden CMake option in CMake
 # GUIs. This controls whether static or shared libs are built.
-# TODO(DF): We may end up needing to support building of both shared
-#   and static libs simultaneously. Also, using this means we inherit
-#   the option if openassetio is used as a CMake subproject.
 option(BUILD_SHARED_LIBS
     "Set to OFF to build static libraries. Static libaries are not recommended." ON)
 
@@ -315,7 +312,6 @@ configure_package_config_file(
     cmake/packaging/Config.cmake.in
     ${_project_config_file}
     INSTALL_DESTINATION ${_config_install_dir}
-    # TODO(DF): PATH_VARS?
 )
 
 install(
@@ -329,8 +325,6 @@ install(
     FILES "${_project_config_file}" "${_version_config_file}" "${_variables_config_file}"
     DESTINATION "${_config_install_dir}"
 )
-
-# TODO(DF): pkg-config? See OCIO.
 
 
 #-----------------------------------------------------------------------

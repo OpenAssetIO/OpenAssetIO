@@ -7,10 +7,6 @@
 set(_public_header_source_root ${CMAKE_CURRENT_LIST_DIR}/include)
 
 # Installation location for install phase.
-# TODO(DF): When CMake 3.23 is released, use FILE_SET, which allows
-#   explicitly associating public headers with a target. Note that the
-#   PUBLIC_HEADER target property is not useful since it flattens the
-#   directory structure when installed.
 install(
     DIRECTORY
     ${_public_header_source_root}/openassetio
@@ -33,7 +29,6 @@ set_target_properties(openassetio-python-bridge PROPERTIES OUTPUT_NAME openasset
 # Add to the set of installable targets.
 install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 
-# TODO(DF): This needs some thought to get right - see #538.
 if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"

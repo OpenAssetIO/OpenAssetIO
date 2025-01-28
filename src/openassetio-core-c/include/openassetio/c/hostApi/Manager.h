@@ -67,14 +67,6 @@ typedef struct oa_hostApi_Manager_t* oa_hostApi_Manager_h;
  * to.
  *
  **/
-// TODO(DF): The ownership semantic of a
-// `ManagerInterface`/`HostSession` handle is "shared" (i.e. it wraps a
-// dynamically allocated `shared_ptr`), however there is no way to
-// "release" a `ManagerInterface` handle. We need to figure out where
-// these handles are created and what API we need around them - probably
-// a `dtor`, at minimum. Or possibly `Manager`s in the C API should only
-// be constructed via some factory, and there is no need for this `ctor`
-// and thus no need for a `ManagerInterface_h` handle?
 OPENASSETIO_CORE_C_EXPORT oa_ErrorCode
 oa_hostApi_Manager_ctor(oa_StringView* err, oa_hostApi_Manager_h* handle,
                         oa_managerApi_SharedManagerInterface_h managerInterfaceHandle,

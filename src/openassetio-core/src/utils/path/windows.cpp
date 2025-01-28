@@ -58,8 +58,9 @@ Str FileUrlPathConverter::pathFromUrl(const std::string_view& url) const {
 
   Str decodedPath = ada::unicode::percent_decode(trimmedPath, trimmedPath.find(kPercent));
 
-  // TODO(DF): Ordering of validation to satisfy error priority of
-  // swift-url test cases.
+  // Note: validation is ordered to match swift-url's implementation,
+  // i.e. it satisfies the error priority of the test suite from the
+  // swift-url project, which we use for our unit tests.
 
   if (host.empty() && !driveLetterHandler.isAbsoluteDrivePath(decodedPath)) {
     throwError(kErrorRelativePath, url);

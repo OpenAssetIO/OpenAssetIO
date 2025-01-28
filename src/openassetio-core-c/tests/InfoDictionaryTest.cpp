@@ -30,10 +30,6 @@ SCENARIO("InfoDictionary construction, conversion and destruction") {
   oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 
   GIVEN("a InfoDictionary handle constructed using the C API") {
-    // TODO(DF): The only way InfoDictionary construction can error
-    //  currently is `bad_alloc` (i.e. insufficient memory), which is
-    //  a pain to simulate for testing.
-
     oa_InfoDictionary_h infoDictionaryHandle = nullptr;
     const oa_ErrorCode actualErrorCode =
         oa_InfoDictionary_ctor(&actualErrorMsg, &infoDictionaryHandle);
@@ -522,8 +518,6 @@ TEMPLATE_TEST_CASE_METHOD(MutatorFixture, "InfoDictionary mutated via C API", ""
     const openassetio::Str& nonExistentKeyStr = Fixture::kNonExistentKeyStr;
 
     // Storage for error messages coming from C API functions.
-    // TODO(DF): The only exception currently possible is `bad_alloc`,
-    //  which is tricky to test.
     openassetio::Str errStorage(kStrStorageCapacity, '\0');
     oa_StringView actualErrorMsg{errStorage.size(), errStorage.data(), 0};
 

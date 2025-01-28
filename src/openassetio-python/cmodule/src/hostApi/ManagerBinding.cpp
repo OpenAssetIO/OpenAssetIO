@@ -252,8 +252,8 @@ void registerManager(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "entityTraits",
-          // TODO(DF): Technically we shouldn't need this overload,
-          // see similar comment for `resolve`.
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for `resolve`.
           [](Manager& self, const EntityReference& entityReference,
              const access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context) {
             return self.entityTraits(entityReference, entityTraitsAccess, context);
@@ -278,8 +278,8 @@ void registerManager(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "entityTraits",
-          // TODO(DF): Technically we shouldn't need this overload,
-          // see similar comment for `resolve`.
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for `resolve`.
           [](Manager& self, const EntityReferences& entityReferences,
              const access::EntityTraitsAccess entityTraitsAccess, const ContextConstPtr& context) {
             return self.entityTraits(entityReferences, entityTraitsAccess, context);
@@ -316,11 +316,11 @@ void registerManager(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "resolve",
-          // TODO(DF): Technically we shouldn't need this overload,
-          // since we can use a similar trick to C++ to default the
-          // appropriate overload's tag parameter, e.g.
+          // Note: Technically we shouldn't need this overload, since we
+          // can use a similar trick to C++ to default the appropriate
+          // overload's tag parameter, e.g.
           // `py::arg("errorPolicyTag") = {}`. However, this causes a
-          // memory leak in pybind11.
+          // memory leak in pybind11 v2.9.2.
           [](Manager& self, const EntityReference& entityReference,
              const trait::TraitSet& traitSet, const access::ResolveAccess resolveAccess,
              const ContextConstPtr& context) {
@@ -346,11 +346,8 @@ void registerManager(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "resolve",
-          // TODO(DF): Technically we shouldn't need this overload,
-          // since we can use a similar trick to C++ to default the
-          // appropriate overload's tag parameter, e.g.
-          // `py::arg("errorPolicyTag") = {}`. However, this causes a
-          // memory leak in pybind11.
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for other `resolve` overload.
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitSet& traitSet, const access::ResolveAccess resolveAccess,
              const ContextConstPtr& context) {
@@ -368,13 +365,10 @@ void registerManager(const py::module& mod) {
            py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("successCallback"), py::arg("errorCallback"),
            py::arg("resultTraitSet") = trait::TraitSet{}, py::call_guard<py::gil_scoped_release>{})
-      // TODO(DF): Technically we shouldn't need this overload,
-      // since we can use a similar trick to C++ to default the
-      // appropriate overload's tag parameter, e.g.
-      // `py::arg("errorPolicyTag") = {}`. However, this causes a
-      // memory leak in pybind11.
       .def(
           "getWithRelationship",
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for `resolve`.
           [](Manager& self, const EntityReference& entityReference,
              const trait::TraitsDataPtr& relationshipTraitsData, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
@@ -454,13 +448,10 @@ void registerManager(const py::module& mod) {
           py::arg("relationsAccess"), py::arg("context").none(false), py::arg("successCallback"),
           py::arg("errorCallback"), py::arg("resultTraitSet") = trait::TraitSet{},
           py::call_guard<py::gil_scoped_release>{})
-      // TODO(DF): Technically we shouldn't need this overload,
-      // since we can use a similar trick to C++ to default the
-      // appropriate overload's tag parameter, e.g.
-      // `py::arg("errorPolicyTag") = {}`. However, this causes a
-      // memory leak in pybind11.
       .def(
           "getWithRelationships",
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for `resolve`.
           [](Manager& self, const EntityReference& entityReference,
              const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
              const access::RelationsAccess relationsAccess, const ContextConstPtr& context,

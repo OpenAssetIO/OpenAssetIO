@@ -10,8 +10,6 @@ Tests for the traits data container
 # pylint: disable=missing-function-docstring
 import pytest
 
-# TODO(DF): @pylint - re-enable once Python dev vs. install mess sorted.
-# pylint: disable=no-name-in-module
 from openassetio.trait import TraitsData
 
 
@@ -46,8 +44,6 @@ class Test_TraitsData_Copy_Constructor:
 
 
 class Test_TraitsData_traitSet:
-    ## TODO(TC): Asset that result is a set, and not a reference to
-    ## any internal structures.
     def test_when_has_no_traits_returns_empty_list(self):
         empty_data = TraitsData()
         assert empty_data.traitSet() == set()

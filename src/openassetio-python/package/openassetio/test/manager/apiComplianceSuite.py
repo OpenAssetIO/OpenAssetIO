@@ -89,8 +89,6 @@ class Test_info(FixtureAugmentedTestCase):
     Check plugin's implementation of managerApi.ManagerInterface.info.
     """
 
-    # TODO(DF): Once `isEntityReferenceString` tests are added, check
-    # that `kInfoKey_EntityReferencesMatchPrefix` in info dict is used.
     def test_is_correct_type(self):
         self.assertIsStringKeyPrimitiveValueDict(self._manager.info())
 

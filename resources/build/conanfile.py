@@ -7,8 +7,6 @@ class OpenAssetIOConan(ConanFile):
     # Generate a CMake toolchain preamble file `conan_paths.cmake`,
     # which augments package search paths with conan package
     # directories.
-    # TODO(DF): This is deprecated and should be swapped for the
-    # CMakeToolchain generator.
     generators = "cmake_paths"
 
     def generate(self):
@@ -47,9 +45,6 @@ class OpenAssetIOConan(ConanFile):
         self.requires("catch2/2.13.8")
         # Mocking library
         self.requires("trompeloeil/42")
-        # TODO(DF): fmt v10 forcibly exports the symbol for its
-        #  `format_error` exception in GCC, making it not a true private
-        #  dependency. So pin to v9 for now.
         self.requires("fmt/9.1.0")
 
     def configure(self):
