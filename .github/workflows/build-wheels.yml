@@ -31,10 +31,13 @@ jobs:
           - os: windows-2022
             preamble: call "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat" x64
             shell: cmd
-          # These are the platform build strings provided to
-          # cibuildwheel, with wildcarding. See
-          # https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
-        python-build: ['cp310*64', 'cp311*64']
+          # Prefixes for the platform build strings provided to
+          # cibuildwheel. The remainder of the string, including
+          # wildcard, is appended when used below. We only specify the
+          # prefix here so that it can also be used in the file name of
+          # the uploaded archive (i.e. wildcard `*` is not allowed).
+          # See https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
+        python-build: ['cp310', 'cp311']
     defaults:
       run:
         # Annoyingly required here since `matrix` isn't available in the
@@ -66,7 +69,7 @@ jobs:
           # performance reasons (although it does help) and more so a
           # single failing python version won't interrupt every other
           # deploy on that platform.
-          CIBW_BUILD: ${{ matrix.python-build }}
+          CIBW_BUILD: ${{ matrix.python-build }}*64
           CIBW_SKIP: '*musllinux* *arm64*'
           # manylinux_2_28 is based on AlmaLinux 8, which uses glibc
           # 2.28 and new libstdc++ ABI.
@@ -77,7 +80,7 @@ jobs:
           # Ensure .pyi stub tests won't be skipped
           OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN: 1
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: "openassetio-wheels"
+          name: "openassetio-wheels-${{ matrix.config.os }}-${{ matrix.python-build }}"
           path: ./wheelhouse/*.whl

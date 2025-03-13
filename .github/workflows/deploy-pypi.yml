@@ -26,12 +26,15 @@ jobs:
       # This does however mean that when making a release, you must be
       # sure that the build-wheels job on main has completed
       - name: Download wheels from commit ${{ github.sha }}
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build-wheels.yml
           workflow_conclusion: success
           commit: ${{ github.sha }}
-          name: openassetio-wheels
+          name: openassetio-wheels.*
+          name_is_regexp: true
+          # Ensure all archives are extracted under the same directory.
+          merge_multiple: true
           path: dist
 
       - name: Upload to TestPyPI
@@ -47,12 +50,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Download wheels from commit ${{ github.sha }}
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v9
         with:
           workflow: build-wheels.yml
           workflow_conclusion: success
           commit: ${{ github.sha }}
-          name: openassetio-wheels
+          name: openassetio-wheels.*
+          name_is_regexp: true
+          # Ensure all archives are extracted under the same directory.
+          merge_multiple: true
           path: dist
 
       - name: Upload to PyPI
