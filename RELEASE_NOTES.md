@@ -4,7 +4,16 @@ Release Notes
 v1.0.0-rc.x.x
 ---------------
 
-_This release remains source compatible for both hosts and managers._
+_This release may break source compatibility for Python hosts, see
+breaking changes section for more details._
+
+## Breaking changes
+
+- Modified signature of `PythonPluginSystem.scan()` to accept
+  alternative top-level variables names as module hooks. This class is
+  primarily an internal implementation detail, so this change will only
+  break advanced downstream use-cases.
+  [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
 
 ## New features
 

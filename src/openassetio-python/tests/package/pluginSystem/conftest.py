@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,6 +24,11 @@ import sysconfig
 
 import openassetio
 import pytest
+
+
+@pytest.fixture
+def the_manager_plugin_module_hook():
+    return "openassetioPlugin"
 
 
 @pytest.fixture

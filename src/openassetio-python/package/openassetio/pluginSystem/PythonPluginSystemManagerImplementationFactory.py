@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -72,6 +72,10 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
     ## discovered plugins.
     kPackageEntryPointGroup = "openassetio.manager_plugin"
 
+    ## The name of the top-level variable that references the plugin
+    ## class.
+    kModuleHookName = "openassetioPlugin"
+
     def __init__(self, logger, paths=None, disableEntryPointsPlugins=None):
         """
         Creates a new factory. The factory scans for plugins lazily on
@@ -122,12 +126,14 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         # point plugins
 
         if self.__paths:
-            self.__pluginManager.scan(self.__paths)
+            self.__pluginManager.scan(self.__paths, self.kModuleHookName)
 
         if self.__disableEntryPointsPlugins:
             self._logger.debug("Entry point based plugins are disabled")
         else:
-            self.__pluginManager.scan_entry_points(self.kPackageEntryPointGroup)
+            self.__pluginManager.scan_entry_points(
+                self.kPackageEntryPointGroup, self.kModuleHookName
+            )
 
     def identifiers(self):
         """

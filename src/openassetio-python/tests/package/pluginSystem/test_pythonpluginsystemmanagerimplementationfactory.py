@@ -48,6 +48,11 @@ class Test_PythonPluginSystemManagerImplementationFactory:
             == "openassetio.manager_plugin"
         )
 
+    def test_exposes_module_hook_with_expected_value(self):
+        assert (
+            PythonPluginSystemManagerImplementationFactory.kModuleHookName == "openassetioPlugin"
+        )
+
 
 class Test_PythonPluginSystemManagerImplementationFactory_init:
     def test_when_no_args_or_env_vars_then_entry_point_plugins_loaded(

@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -38,17 +38,25 @@ PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"
 
 class Test_PythonPluginSystem_scan:
     def test_when_path_contains_a_module_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_python_module_plugin_path, plugin_a_identifier
+        self,
+        a_plugin_system,
+        the_manager_plugin_module_hook,
+        a_python_module_plugin_path,
+        plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_python_module_plugin_path)
+        a_plugin_system.scan(a_python_module_plugin_path, the_manager_plugin_module_hook)
         assert a_plugin_system.identifiers() == [
             plugin_a_identifier,
         ]
 
     def test_when_path_contains_a_package_plugin_definition_then_it_is_loaded(
-        self, a_plugin_system, a_python_package_plugin_path, plugin_b_identifier
+        self,
+        a_plugin_system,
+        the_manager_plugin_module_hook,
+        a_python_package_plugin_path,
+        plugin_b_identifier,
     ):
-        a_plugin_system.scan(a_python_package_plugin_path)
+        a_plugin_system.scan(a_python_package_plugin_path, the_manager_plugin_module_hook)
         assert a_plugin_system.identifiers() == [
             plugin_b_identifier,
         ]
@@ -56,6 +64,7 @@ class Test_PythonPluginSystem_scan:
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
         a_plugin_system,
+        the_manager_plugin_module_hook,
         a_python_package_plugin_path,
         a_python_module_plugin_path,
         plugin_b_identifier,
@@ -64,25 +73,29 @@ class Test_PythonPluginSystem_scan:
         combined_path = os.pathsep.join(
             [a_python_package_plugin_path, a_python_module_plugin_path]
         )
-        a_plugin_system.scan(combined_path)
+        a_plugin_system.scan(combined_path, the_manager_plugin_module_hook)
 
         expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_path_contains_deprecated_plugin_hook_then_it_is_loaded(
-        self, a_plugin_system, a_deprecated_plugin_path, deprecated_plugin_identifier
+        self,
+        a_plugin_system,
+        the_manager_plugin_module_hook,
+        a_deprecated_plugin_path,
+        deprecated_plugin_identifier,
     ):
-        a_plugin_system.scan(a_deprecated_plugin_path)
+        a_plugin_system.scan(a_deprecated_plugin_path, the_manager_plugin_module_hook)
         assert a_plugin_system.identifiers() == [
             deprecated_plugin_identifier,
         ]
 
     def test_when_path_contains_deprecated_plugin_hook_then_deprecation_warning_is_logged(
-        self, a_deprecated_plugin_path, mock_logger
+        self, the_manager_plugin_module_hook, a_deprecated_plugin_path, mock_logger
     ):
         deprecated_plugin_path = os.path.join(a_deprecated_plugin_path, "deprecatedPlugin.py")
         plugin_system = PythonPluginSystem(mock_logger)
-        plugin_system.scan(a_deprecated_plugin_path)
+        plugin_system.scan(a_deprecated_plugin_path, the_manager_plugin_module_hook)
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kWarning,
             "PythonPluginSystem: Use of top-level 'plugin' variable is deprecated, "
@@ -90,28 +103,37 @@ class Test_PythonPluginSystem_scan:
         )
 
     def test_when_multiple_plugins_share_identifiers_then_leftmost_is_used(
-        self, a_plugin_system, the_python_resources_directory_path, plugin_a_identifier
+        self,
+        a_plugin_system,
+        the_python_resources_directory_path,
+        the_manager_plugin_module_hook,
+        plugin_a_identifier,
     ):
         # The module plugin exists in pathA and pathC
         path_a = os.path.join(the_python_resources_directory_path, "pathA")
         path_c = os.path.join(the_python_resources_directory_path, "pathC")
 
-        a_plugin_system.scan(paths=os.pathsep.join((path_a, path_c)))
+        a_plugin_system.scan(
+            moduleHookName=the_manager_plugin_module_hook, paths=os.pathsep.join((path_a, path_c))
+        )
         assert "pathA" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
         a_plugin_system.reset()
 
-        a_plugin_system.scan(paths=os.pathsep.join((path_c, path_a)))
+        a_plugin_system.scan(
+            moduleHookName=the_manager_plugin_module_hook, paths=os.pathsep.join((path_c, path_a))
+        )
         assert "pathC" in a_plugin_system.plugin(plugin_a_identifier).__file__
 
     def test_when_path_contains_symlinks_then_plugins_are_loaded(
         self,
         a_plugin_system,
+        the_manager_plugin_module_hook,
         a_python_plugin_path_with_symlinks,
         plugin_b_identifier,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_python_plugin_path_with_symlinks)
+        a_plugin_system.scan(a_python_plugin_path_with_symlinks, the_manager_plugin_module_hook)
 
         expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
@@ -119,22 +141,27 @@ class Test_PythonPluginSystem_scan:
     def test_when_scan_called_multiple_times_then_plugins_combined(
         self,
         a_plugin_system,
+        the_manager_plugin_module_hook,
         a_python_package_plugin_path,
         a_python_module_plugin_path,
         plugin_b_identifier,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(paths=a_python_package_plugin_path)
-        a_plugin_system.scan(paths=a_python_module_plugin_path)
+        a_plugin_system.scan(
+            moduleHookName=the_manager_plugin_module_hook, paths=a_python_package_plugin_path
+        )
+        a_plugin_system.scan(
+            moduleHookName=the_manager_plugin_module_hook, paths=a_python_module_plugin_path
+        )
 
         expected_identifiers = set([plugin_b_identifier, plugin_a_identifier])
         assert set(a_plugin_system.identifiers()) == expected_identifiers
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_python_plugins_path, mock_logger
+        self, the_manager_plugin_module_hook, broken_python_plugins_path, mock_logger
     ):
         plugin_system = PythonPluginSystem(mock_logger)
-        plugin_system.scan(broken_python_plugins_path)
+        plugin_system.scan(broken_python_plugins_path, the_manager_plugin_module_hook)
 
         assert not plugin_system.identifiers()
         missing_plugin_path = os.path.join(broken_python_plugins_path, "missing_plugin.py")
@@ -157,14 +184,20 @@ class Test_PythonPluginSystem_scan:
 
 class Test_PythonPluginSystem_scan_entry_points:
     def test_when_no_package_with_entry_point_installed_then_nothing_loaded_and_true_returned(
-        self, a_plugin_system
+        self, a_plugin_system, the_manager_plugin_module_hook
     ):
-        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
+        assert (
+            a_plugin_system.scan_entry_points(
+                PLUGIN_ENTRY_POINT_GROUP, the_manager_plugin_module_hook
+            )
+            is True
+        )
         assert not a_plugin_system.identifiers()
 
     def test_when_entry_point_package_installed_then_loaded_and_true_returned(
         self,
         a_plugin_system,
+        the_manager_plugin_module_hook,
         an_entry_point_package_plugin_root,
         entry_point_plugin_identifier,
         monkeypatch,
@@ -172,17 +205,22 @@ class Test_PythonPluginSystem_scan_entry_points:
         path_with_plugin = [an_entry_point_package_plugin_root] + sys.path
         monkeypatch.setattr(sys, "path", path_with_plugin)
 
-        assert a_plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP) is True
+        assert (
+            a_plugin_system.scan_entry_points(
+                PLUGIN_ENTRY_POINT_GROUP, the_manager_plugin_module_hook
+            )
+            is True
+        )
         assert a_plugin_system.identifiers() == [entry_point_plugin_identifier]
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_python_plugins_path, mock_logger, monkeypatch
+        self, the_manager_plugin_module_hook, broken_python_plugins_path, mock_logger, monkeypatch
     ):
         path_with_plugin = [broken_python_plugins_path] + sys.path
         monkeypatch.setattr(sys, "path", path_with_plugin)
 
         plugin_system = PythonPluginSystem(mock_logger)
-        plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP)
+        plugin_system.scan_entry_points(PLUGIN_ENTRY_POINT_GROUP, the_manager_plugin_module_hook)
 
         assert not plugin_system.identifiers()
         # mock_logger.mock.log.assert_called_once()
