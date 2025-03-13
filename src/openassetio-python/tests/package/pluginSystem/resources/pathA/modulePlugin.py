@@ -3,21 +3,15 @@ Provides a test PythonPluginSystemPlugin implemented within a single file
 module.
 """
 
-from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
+from openassetio.pluginSystem import PythonPluginSystemPlugin
 
 
-class ModulePlugin(PythonPluginSystemManagerPlugin):
+class ModulePlugin(PythonPluginSystemPlugin):
     # pylint: disable=missing-class-docstring
 
     @classmethod
     def identifier(cls):
         return "org.openassetio.test.pluginSystem.resources.pluginA"
-
-    @classmethod
-    def interface(cls):
-        # This is nonsense, but allows us to check where this was
-        # loaded from in precedence checks.
-        return {"file": __file__}
 
 
 # pylint: disable=invalid-name

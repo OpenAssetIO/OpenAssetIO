@@ -3,10 +3,10 @@ Provides a test PythonPluginSystemPlugin using the deprecated `plugin`
 hook
 """
 
-from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
+from openassetio.pluginSystem import PythonPluginSystemPlugin
 
 
-class DeprecatedPlugin(PythonPluginSystemManagerPlugin):
+class DeprecatedPlugin(PythonPluginSystemPlugin):
     # pylint: disable=missing-class-docstring
 
     @classmethod
