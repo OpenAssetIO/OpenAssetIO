@@ -33,8 +33,6 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
 
 namespace {
-constexpr const char* kEntrypointFnName = "openassetioPlugin";
-
 #if defined(_WIN32)
 // Dummy values
 #define RTLD_LAZY 0
@@ -111,7 +109,8 @@ void CppPluginSystem::reset() {
 
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 
-void CppPluginSystem::scan(const std::string_view paths) {
+// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+void CppPluginSystem::scan(const std::string_view paths, const std::string_view moduleHookName) {
   std::size_t pathsStartIdx = 0;
   std::size_t pathsEndIdx = 0;
 
@@ -135,7 +134,7 @@ void CppPluginSystem::scan(const std::string_view paths) {
 
       // Assume the item in the search path is a plugin file and attempt
       // to load it.
-      if (MaybeIdentifierAndPlugin idAndPlugin = maybeLoadPlugin(filePath)) {
+      if (MaybeIdentifierAndPlugin idAndPlugin = maybeLoadPlugin(filePath, moduleHookName)) {
         logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
                                    idAndPlugin->first, filePath.string()));
         // Register the successfully loaded plugin.
@@ -165,7 +164,7 @@ const CppPluginSystem::PathAndPlugin& CppPluginSystem::plugin(const Identifier& 
 }
 
 CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
-    const std::filesystem::path& filePath) {
+    const std::filesystem::path& filePath, const std::string_view moduleHookName) {
   // Check the proposed path is actually a file.
   if (!is_regular_file(filePath)) {
     logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
@@ -198,10 +197,11 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   // Get the entrypoint function.
-  void* entrypoint = dlsym(handle, kEntrypointFnName);
+  // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
+  void* entrypoint = dlsym(handle, moduleHookName.data());
   if (!entrypoint) {
     logger_->debug(fmt::format("CppPluginSystem: No top-level '{}' function in '{}': {}",
-                               kEntrypointFnName, filePath.string(), dlerror()));
+                               moduleHookName, filePath.string(), dlerror()));
     dlclose(handle);
     return {};
   }

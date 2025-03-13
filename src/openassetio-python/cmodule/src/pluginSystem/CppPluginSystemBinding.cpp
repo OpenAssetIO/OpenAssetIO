@@ -25,7 +25,7 @@ void registerCppPluginSystem(const py::module_ &mod) {
       .def(py::init(RetainCommonPyArgs::forFn<&CppPluginSystem::make>()),
            py::arg("logger").none(false))
       .def("reset", &CppPluginSystem::reset)
-      .def("scan", &CppPluginSystem::scan, py::arg("paths"),
+      .def("scan", &CppPluginSystem::scan, py::arg("paths"), py::arg("moduleHookName"),
            py::call_guard<py::gil_scoped_release>{})
       .def("identifiers", &CppPluginSystem::identifiers)
       .def("plugin", &CppPluginSystem::plugin, py::arg("identifier"));

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2023 The Foundry Visionmongers Ltd
+// Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <filesystem>
 #include <optional>
@@ -52,6 +52,8 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystemManagerImplementationFactory
 
   /// Environment variable to read the plugin search path from.
   static constexpr std::string_view kPluginEnvVar = "OPENASSETIO_PLUGIN_PATH";
+  /// Name of entry point function to locate within discovered paths.
+  static constexpr std::string_view kModuleHookName = "openassetioPlugin";
 
   /**
    * Construct a new instance.

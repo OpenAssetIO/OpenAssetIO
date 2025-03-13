@@ -24,6 +24,8 @@ void registerCppPluginSystemManagerImplementationFactory(const py::module_& mod)
       mod, "CppPluginSystemManagerImplementationFactory", py::is_final())
       .def_readonly_static("kPluginEnvVar",
                            &CppPluginSystemManagerImplementationFactory::kPluginEnvVar)
+      .def_readonly_static("kModuleHookName",
+                           &CppPluginSystemManagerImplementationFactory::kModuleHookName)
       .def(py::init(
                RetainCommonPyArgs::forFn<py::overload_cast<openassetio::Str, LoggerInterfacePtr>(
                    &CppPluginSystemManagerImplementationFactory::make)>()),

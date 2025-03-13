@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <filesystem>
 #include <memory>
@@ -68,11 +68,10 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    * @note Precedence order is undefined for plugins sharing the
    * same identifier within the same directory.
    *
-   * Each given directory is scanned for shared libraries that expose an
-   * `openassetioPlugin` entry point function (with C linkage), which is
-   * expected to return a @ref PluginFactory function pointer, which
-   * when called returns an instantiated (subclass of) @ref
-   * CppPluginSystemPlugin.
+   * Each given directory is scanned for shared libraries that expose a
+   * given hook function (with C linkage), which is expected to return a
+   * @ref PluginFactory function pointer, which when called returns an
+   * instantiated (subclass of) @ref CppPluginSystemPlugin.
    *
    * Discovered plugins are registered by their exposed identifier, and
    * subsequent registrations with the same identifier will be skipped.
@@ -84,8 +83,11 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    * @param paths A list of paths to search, delimited by operating
    * system specific path separator (i.e. `:` for POSIX, `;` for
    * Windows).
+   *
+   * @param moduleHookName The name of the entry point function to scan
+   * for and execute within discovered files.
    */
-  void scan(std::string_view paths);
+  void scan(std::string_view paths, std::string_view moduleHookName);
 
   /**
    * Returns the identifiers known to the plugin system.
@@ -114,7 +116,8 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
       std::optional<std::pair<openassetio::Identifier, CppPluginSystemPluginPtr>>;
   /// Attempt to load a plugin at a given path, returning nullopt on
   /// failure.
-  MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath);
+  MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath,
+                                           std::string_view moduleHookName);
 
   /// Private constructor. See @ref make.
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);

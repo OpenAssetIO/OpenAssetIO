@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <memory>
+#include <string_view>
 #include <unordered_map>
 #include <utility>
 
@@ -59,7 +60,7 @@ Identifiers CppPluginSystemManagerImplementationFactory::identifiers() {
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_);
+    pluginSystem_->scan(paths_, kModuleHookName);
   }
 
   // Get all OpenAssetIO plugins, whether manager plugins or otherwise.
@@ -94,7 +95,7 @@ managerApi::ManagerInterfacePtr CppPluginSystemManagerImplementationFactory::ins
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_);
+    pluginSystem_->scan(paths_, kModuleHookName);
   }
   const auto& [path, plugin] = pluginSystem_->plugin(identifier);
 

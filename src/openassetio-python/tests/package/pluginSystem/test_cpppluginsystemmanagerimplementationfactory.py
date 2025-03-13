@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2024 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -40,6 +40,11 @@ class Test_CppPluginSystemManagerImplementationFactory_kPluginEnvVar:
         assert (
             CppPluginSystemManagerImplementationFactory.kPluginEnvVar == "OPENASSETIO_PLUGIN_PATH"
         )
+
+
+class Test_CppPluginSystemManagerImplementationFactory_kModuleHookName:
+    def test_exposes_module_hook_name_with_expected_value(self):
+        assert CppPluginSystemManagerImplementationFactory.kModuleHookName == "openassetioPlugin"
 
 
 class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:

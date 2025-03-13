@@ -1,5 +1,5 @@
 #
-#   Copyright 2024 The Foundry Visionmongers Ltd
+#   Copyright 2024-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -63,35 +63,39 @@ class Test_CppPluginSystem_gil:
     def test_scan(
         self,
         the_cpp_gil_check_plugin_path,
+        the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path)
+        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
 
     def test_identifiers(
         self,
         the_cpp_gil_check_plugin_identifier,
         the_cpp_gil_check_plugin_path,
+        the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path)
+        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
 
         assert a_cpp_plugin_system.identifiers() == [the_cpp_gil_check_plugin_identifier]
 
     def test_reset(
         self,
         the_cpp_gil_check_plugin_path,
+        the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path)
+        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
         a_cpp_plugin_system.reset()
 
     def test_plugin(
         self,
         the_cpp_gil_check_plugin_identifier,
         the_cpp_gil_check_plugin_path,
+        the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path)
+        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
 
         _path, _plugin = a_cpp_plugin_system.plugin(the_cpp_gil_check_plugin_identifier)
 
@@ -156,6 +160,11 @@ def a_cpp_plugin_impl_factory(the_cpp_gil_check_plugin_path, a_threaded_logger_i
     return CppPluginSystemManagerImplementationFactory(
         the_cpp_gil_check_plugin_path, a_threaded_logger_interface
     )
+
+
+@pytest.fixture(scope="session")
+def the_cpp_gil_check_module_hook():
+    return "openassetioPlugin"
 
 
 @pytest.fixture(scope="session")
