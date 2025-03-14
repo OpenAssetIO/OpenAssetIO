@@ -78,6 +78,9 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    * @note Precedence order is undefined for plugins sharing the
    * same identifier within the same directory.
    *
+   * If the given paths string and the given environment variable both
+   * contain search paths, then only the paths string is used.
+   *
    * Each given directory is scanned for shared libraries that expose a
    * given hook function (with C linkage), which is expected to return a
    * @ref PluginFactory function pointer, which when called returns an
@@ -92,7 +95,12 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    *
    * @param paths A list of paths to search, delimited by operating
    * system specific path separator (i.e. `:` for POSIX, `;` for
-   * Windows).
+   * Windows). Leave blank to search paths given by the environment
+   * variable specified in @p pathsEnvVar.
+   *
+   * @param pathsEnvVar An environment variable name containing paths
+   * formatted as described in @p paths. Paths from this environment
+   * variable are ignored if @p paths is non-empty.
    *
    * @param moduleHookName The name of the entry point function to scan
    * for and execute within discovered files.
@@ -101,7 +109,7 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    * CppPluginSystemPtr and should return an empty optional if the
    * plugin is valid, or a reason string if not valid.
    */
-  void scan(std::string_view paths, std::string_view moduleHookName,
+  void scan(std::string_view paths, std::string_view pathsEnvVar, std::string_view moduleHookName,
             const ValidationCallback& validationCallback);
 
   /**

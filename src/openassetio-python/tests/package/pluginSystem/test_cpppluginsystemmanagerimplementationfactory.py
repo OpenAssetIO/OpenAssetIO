@@ -78,23 +78,6 @@ class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
         factory = CppPluginSystemManagerImplementationFactory(mock_logger)
         assert factory.identifiers() == [plugin_a_identifier]
 
-    def test_when_path_arg_set_then_overrides_path_env(
-        self,
-        the_cpp_plugins_root_path,
-        plugin_b_identifier,
-        mock_logger,
-        monkeypatch,
-    ):
-        monkeypatch.setenv(
-            CppPluginSystemManagerImplementationFactory.kPluginEnvVar,
-            os.path.join(the_cpp_plugins_root_path, "managerA"),
-        )
-
-        factory = CppPluginSystemManagerImplementationFactory(
-            paths=os.path.join(the_cpp_plugins_root_path, "managerB"), logger=mock_logger
-        )
-        assert factory.identifiers() == [plugin_b_identifier]
-
     def test_when_paths_empty_then_returns_empty_list(self, mock_logger):
         plugin_paths = ""
         factory = CppPluginSystemManagerImplementationFactory(

@@ -8,8 +8,6 @@
 #include <string_view>
 #include <utility>
 
-#include <fmt/core.h>
-
 #include <openassetio/export.h>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
@@ -47,29 +45,17 @@ CppPluginSystemManagerImplementationFactoryPtr CppPluginSystemManagerImplementat
 
 CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory(
     Str paths, log::LoggerInterfacePtr logger)
-    : ManagerImplementationFactoryInterface{std::move(logger)}, paths_{std::move(paths)} {
-  if (paths_.empty()) {
-    this->logger()->log(
-        log::LoggerInterface::Severity::kWarning,
-        fmt::format("No search paths specified, no plugins will load - check ${} is set",
-                    kPluginEnvVar));
-  }
-}
+    : ManagerImplementationFactoryInterface{std::move(logger)}, paths_{std::move(paths)} {}
 
 CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory(
     log::LoggerInterfacePtr logger)
-    : CppPluginSystemManagerImplementationFactory{
-          // getenv returns nullptr if var not set, which cannot be
-          // used to construct a std::string.
-          // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
-          [paths = std::getenv(kPluginEnvVar.data())] { return paths ? paths : ""; }(),
-          std::move(logger)} {}
+    : CppPluginSystemManagerImplementationFactory{"", std::move(logger)} {}
 
 Identifiers CppPluginSystemManagerImplementationFactory::identifiers() {
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_, kModuleHookName, kCheckIsManagerPlugin);
+    pluginSystem_->scan(paths_, kPluginEnvVar, kModuleHookName, kCheckIsManagerPlugin);
   }
 
   return pluginSystem_->identifiers();
@@ -80,7 +66,7 @@ managerApi::ManagerInterfacePtr CppPluginSystemManagerImplementationFactory::ins
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_, kModuleHookName, kCheckIsManagerPlugin);
+    pluginSystem_->scan(paths_, kPluginEnvVar, kModuleHookName, kCheckIsManagerPlugin);
   }
   const auto& [path, plugin] = pluginSystem_->plugin(identifier);
 

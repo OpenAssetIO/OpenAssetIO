@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <cstdlib>
 #include <exception>
 #include <filesystem>
 #include <iterator>
@@ -110,39 +111,60 @@ void CppPluginSystem::reset() {
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 
 // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-void CppPluginSystem::scan(const std::string_view paths, const std::string_view moduleHookName,
+void CppPluginSystem::scan(const std::string_view paths, const std::string_view pathsEnvVar,
+                           const std::string_view moduleHookName,
                            const ValidationCallback& validationCallback) {
-  std::size_t pathsStartIdx = 0;
-  std::size_t pathsEndIdx = 0;
+  const auto scanPaths = [&](const std::string_view pathsToScan) {
+    std::size_t pathsStartIdx = 0;
+    std::size_t pathsEndIdx = 0;
 
-  // Loop through each path in ';'/:'-delimited paths string.
-  while ((pathsStartIdx = paths.find_first_not_of(kPathSep, pathsEndIdx)) != std::string::npos) {
-    pathsEndIdx = paths.find(kPathSep, pathsStartIdx);
-    const std::filesystem::path directoryPath =
-        paths.substr(pathsStartIdx, pathsEndIdx - pathsStartIdx);
+    // Loop through each path in ';'/:'-delimited paths string.
+    while ((pathsStartIdx = pathsToScan.find_first_not_of(kPathSep, pathsEndIdx)) !=
+           std::string::npos) {
+      pathsEndIdx = pathsToScan.find(kPathSep, pathsStartIdx);
+      const std::filesystem::path directoryPath =
+          pathsToScan.substr(pathsStartIdx, pathsEndIdx - pathsStartIdx);
 
-    // Check the provided path is actually a searchable directory.
-    if (!is_directory(directoryPath)) {
-      logger_->debug(fmt::format("CppPluginSystem: Skipping as not a directory '{}'",
-                                 directoryPath.string()));
-      continue;
-    }
-
-    // Loop each item in the provided search path.
-    for (const std::filesystem::directory_entry& directoryEntry :
-         std::filesystem::directory_iterator{directoryPath}) {
-      std::filesystem::path filePath = directoryEntry.path();
-
-      // Assume the item in the search path is a plugin file and attempt
-      // to load it.
-      if (MaybeIdentifierAndPlugin idAndPlugin =
-              maybeLoadPlugin(filePath, moduleHookName, validationCallback)) {
-        logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
-                                   idAndPlugin->first, filePath.string()));
-        // Register the successfully loaded plugin.
-        plugins_[std::move(idAndPlugin->first)] = {std::move(filePath),
-                                                   std::move(idAndPlugin->second)};
+      // Check the provided path is actually a searchable directory.
+      if (!is_directory(directoryPath)) {
+        logger_->debug(fmt::format("CppPluginSystem: Skipping as not a directory '{}'",
+                                   directoryPath.string()));
+        continue;
       }
+
+      // Loop each item in the provided search path.
+      for (const std::filesystem::directory_entry& directoryEntry :
+           std::filesystem::directory_iterator{directoryPath}) {
+        std::filesystem::path filePath = directoryEntry.path();
+
+        // Assume the item in the search path is a plugin file and attempt
+        // to load it.
+        if (MaybeIdentifierAndPlugin idAndPlugin =
+                maybeLoadPlugin(filePath, moduleHookName, validationCallback)) {
+          logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
+                                     idAndPlugin->first, filePath.string()));
+          // Register the successfully loaded plugin.
+          plugins_[std::move(idAndPlugin->first)] = {std::move(filePath),
+                                                     std::move(idAndPlugin->second)};
+        }
+      }
+    }
+  };
+
+  // Prefer fixed paths, else fall back to env var.
+  if (!paths.empty()) {
+    scanPaths(paths);
+  } else {
+    // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
+    const std::string_view pathsFromEnvVar = [maybePaths = std::getenv(pathsEnvVar.data())] {
+      return maybePaths == nullptr ? "" : maybePaths;
+    }();
+
+    if (pathsFromEnvVar.empty()) {
+      logger_->warning(fmt::format(
+          "No search paths specified, no plugins will load - check ${} is set", pathsEnvVar));
+    } else {
+      scanPaths(pathsFromEnvVar);
     }
   }
 }

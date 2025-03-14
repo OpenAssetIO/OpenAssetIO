@@ -71,7 +71,7 @@ class Test_CppPluginSystem_gil:
         a_cpp_plugin_system,
     ):
         a_cpp_plugin_system.scan(
-            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+            the_cpp_gil_check_plugin_path, "", the_cpp_gil_check_module_hook, noop
         )
 
     def test_identifiers(
@@ -82,7 +82,7 @@ class Test_CppPluginSystem_gil:
         a_cpp_plugin_system,
     ):
         a_cpp_plugin_system.scan(
-            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+            the_cpp_gil_check_plugin_path, "", the_cpp_gil_check_module_hook, noop
         )
 
         assert a_cpp_plugin_system.identifiers() == [the_cpp_gil_check_plugin_identifier]
@@ -94,7 +94,7 @@ class Test_CppPluginSystem_gil:
         a_cpp_plugin_system,
     ):
         a_cpp_plugin_system.scan(
-            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+            the_cpp_gil_check_plugin_path, "", the_cpp_gil_check_module_hook, noop
         )
         a_cpp_plugin_system.reset()
 
@@ -106,7 +106,7 @@ class Test_CppPluginSystem_gil:
         a_cpp_plugin_system,
     ):
         a_cpp_plugin_system.scan(
-            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+            the_cpp_gil_check_plugin_path, "", the_cpp_gil_check_module_hook, noop
         )
 
         _path, _plugin = a_cpp_plugin_system.plugin(the_cpp_gil_check_plugin_identifier)
