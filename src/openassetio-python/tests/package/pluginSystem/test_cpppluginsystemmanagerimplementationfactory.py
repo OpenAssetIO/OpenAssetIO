@@ -105,47 +105,34 @@ class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
 
 class Test_CppPluginSystemManagerImplementationFactory_identifiers:
     def test_when_non_manager_plugin_then_logs_warning(
-        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger
+        self, a_cpp_plugin_path, mock_logger, regex_matcher
     ):
-        expected_binary_path = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
-        expected_log_message = (
-            f"Plugin '{plugin_a_identifier}' from '{expected_binary_path}' is not a manager plugin"
-            " as it cannot be cast to a CppPluginSystemManagerPlugin"
-        )
+        expected_log_message_suffix = "It is not a manager plugin (CppPluginSystemManagerPlugin)."
+
         factory = CppPluginSystemManagerImplementationFactory(a_cpp_plugin_path, mock_logger)
 
         assert factory.identifiers() == []
 
-        mock_logger.mock.log.assert_any_call(mock_logger.Severity.kWarning, expected_log_message)
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            regex_matcher(re.escape(expected_log_message_suffix) + "$"),
+        )
 
 
 class Test_CppPluginSystemManagerImplementationFactory_instantiate:
     def test_when_non_manager_plugin_then_raises_InputValidationException(
-        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger
+        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger, regex_matcher
     ):
-        expected_binary_path = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
-        expected_error_message = (
-            f"Plugin '{plugin_a_identifier}' from '{expected_binary_path}' is not a manager plugin"
-            " as it cannot be cast to a CppPluginSystemManagerPlugin"
-        )
         factory = CppPluginSystemManagerImplementationFactory(a_cpp_plugin_path, mock_logger)
 
-        with pytest.raises(
-            errors.InputValidationException, match=re.escape(expected_error_message)
-        ):
+        with pytest.raises(errors.InputValidationException):
             factory.instantiate(plugin_a_identifier)
 
-    def test_when_plugin_not_found_then_raises_InputValidationException(self, mock_logger):
-        expected_identifier = "doesnt-exist"
-        expected_error_message = (
-            f"CppPluginSystem: No plug-in registered with the identifier '{expected_identifier}'"
+        expected_log_message_suffix = "It is not a manager plugin (CppPluginSystemManagerPlugin)."
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            regex_matcher(re.escape(expected_log_message_suffix) + "$"),
         )
-        factory = CppPluginSystemManagerImplementationFactory("", mock_logger)
-
-        with pytest.raises(
-            errors.InputValidationException, match=re.escape(expected_error_message)
-        ):
-            factory.instantiate(expected_identifier)
 
     def test_when_plugin_found_then_returns_instantiated_manager_implementation(
         self, a_cpp_manager_plugin_path, plugin_a_identifier, mock_logger

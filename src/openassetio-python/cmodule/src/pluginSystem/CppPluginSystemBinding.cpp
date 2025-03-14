@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2024-2025 The Foundry Visionmongers Ltd
+#include <pybind11/functional.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl/filesystem.h>
@@ -26,7 +27,7 @@ void registerCppPluginSystem(const py::module_ &mod) {
            py::arg("logger").none(false))
       .def("reset", &CppPluginSystem::reset)
       .def("scan", &CppPluginSystem::scan, py::arg("paths"), py::arg("moduleHookName"),
-           py::call_guard<py::gil_scoped_release>{})
+           py::arg("validationCallback"), py::call_guard<py::gil_scoped_release>{})
       .def("identifiers", &CppPluginSystem::identifiers)
       .def("plugin", &CppPluginSystem::plugin, py::arg("identifier"));
 }

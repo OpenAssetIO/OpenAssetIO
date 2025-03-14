@@ -20,6 +20,7 @@ Helper fixtures for testing the Python plugin system
 # pylint: disable=invalid-name
 
 import os
+import re
 import sysconfig
 
 import openassetio
@@ -138,3 +139,20 @@ def the_cpp_plugins_root_path():
             os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugin-env-var-not-set"),
         )
     )
+
+
+class RegexMatch:
+    """
+    Argument matcher to match strings by regular expression.
+    """
+
+    def __init__(self, pattern):
+        self.__pattern = pattern
+
+    def __eq__(self, text):
+        return bool(re.search(self.__pattern, text))
+
+
+@pytest.fixture(scope="session")
+def regex_matcher():
+    return RegexMatch

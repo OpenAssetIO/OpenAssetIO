@@ -2,6 +2,7 @@
 // Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <filesystem>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -58,6 +59,15 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   void reset();
 
   /**
+   * Callback provided to @ref scan to provide further validation.
+   *
+   * A return value of empty optional signals that the plugin is OK.
+   * A return value of a string signals that the plugin is not OK and
+   * the string provides the reason.
+   */
+  using ValidationCallback = std::function<std::optional<Str>(const CppPluginSystemPluginPtr&)>;
+
+  /**
    * Searches the supplied paths for plugin modules.
    *
    * Paths are searched left-to-right, but only the first instance of
@@ -86,8 +96,13 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    *
    * @param moduleHookName The name of the entry point function to scan
    * for and execute within discovered files.
+   *
+   * @param validationCallback A callback that will be given a candidate
+   * CppPluginSystemPtr and should return an empty optional if the
+   * plugin is valid, or a reason string if not valid.
    */
-  void scan(std::string_view paths, std::string_view moduleHookName);
+  void scan(std::string_view paths, std::string_view moduleHookName,
+            const ValidationCallback& validationCallback);
 
   /**
    * Returns the identifiers known to the plugin system.
@@ -117,7 +132,8 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   /// Attempt to load a plugin at a given path, returning nullopt on
   /// failure.
   MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath,
-                                           std::string_view moduleHookName);
+                                           std::string_view moduleHookName,
+                                           const ValidationCallback& validationCallback);
 
   /// Private constructor. See @ref make.
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);

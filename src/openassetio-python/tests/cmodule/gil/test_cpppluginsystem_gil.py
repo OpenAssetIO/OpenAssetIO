@@ -32,6 +32,10 @@ from openassetio.managerApi import ManagerInterface
 from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemManagerImplementationFactory
 
 
+def noop(_):
+    return None
+
+
 class Test_CppPluginSystem_gil:
     """
     Check that the GIL is released in the CppPluginSystem bindings,
@@ -66,7 +70,9 @@ class Test_CppPluginSystem_gil:
         the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
+        a_cpp_plugin_system.scan(
+            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+        )
 
     def test_identifiers(
         self,
@@ -75,7 +81,9 @@ class Test_CppPluginSystem_gil:
         the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
+        a_cpp_plugin_system.scan(
+            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+        )
 
         assert a_cpp_plugin_system.identifiers() == [the_cpp_gil_check_plugin_identifier]
 
@@ -85,7 +93,9 @@ class Test_CppPluginSystem_gil:
         the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
+        a_cpp_plugin_system.scan(
+            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+        )
         a_cpp_plugin_system.reset()
 
     def test_plugin(
@@ -95,7 +105,9 @@ class Test_CppPluginSystem_gil:
         the_cpp_gil_check_module_hook,
         a_cpp_plugin_system,
     ):
-        a_cpp_plugin_system.scan(the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook)
+        a_cpp_plugin_system.scan(
+            the_cpp_gil_check_plugin_path, the_cpp_gil_check_module_hook, noop
+        )
 
         _path, _plugin = a_cpp_plugin_system.plugin(the_cpp_gil_check_plugin_identifier)
 

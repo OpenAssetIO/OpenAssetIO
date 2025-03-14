@@ -110,7 +110,8 @@ void CppPluginSystem::reset() {
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 
 // NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
-void CppPluginSystem::scan(const std::string_view paths, const std::string_view moduleHookName) {
+void CppPluginSystem::scan(const std::string_view paths, const std::string_view moduleHookName,
+                           const ValidationCallback& validationCallback) {
   std::size_t pathsStartIdx = 0;
   std::size_t pathsEndIdx = 0;
 
@@ -134,7 +135,8 @@ void CppPluginSystem::scan(const std::string_view paths, const std::string_view 
 
       // Assume the item in the search path is a plugin file and attempt
       // to load it.
-      if (MaybeIdentifierAndPlugin idAndPlugin = maybeLoadPlugin(filePath, moduleHookName)) {
+      if (MaybeIdentifierAndPlugin idAndPlugin =
+              maybeLoadPlugin(filePath, moduleHookName, validationCallback)) {
         logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
                                    idAndPlugin->first, filePath.string()));
         // Register the successfully loaded plugin.
@@ -164,7 +166,8 @@ const CppPluginSystem::PathAndPlugin& CppPluginSystem::plugin(const Identifier& 
 }
 
 CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
-    const std::filesystem::path& filePath, const std::string_view moduleHookName) {
+    const std::filesystem::path& filePath, const std::string_view moduleHookName,
+    const ValidationCallback& validationCallback) {
   // Check the proposed path is actually a file.
   if (!is_regular_file(filePath)) {
     logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
@@ -261,6 +264,14 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   // object needs a chance to destruct whilst the plugin binary is still
   // loaded.
   if (!plugin) {
+    dlclose(handle);
+    return {};
+  }
+
+  if (auto maybeInvalidReason = validationCallback(plugin)) {
+    logger_->warning(fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. {}", identifier,
+                                 filePath.string(), *maybeInvalidReason));
+    plugin.reset();  // Must destroy _before_ closing lib.
     dlclose(handle);
     return {};
   }

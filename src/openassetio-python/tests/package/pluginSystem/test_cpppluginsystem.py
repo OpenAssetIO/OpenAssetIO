@@ -27,7 +27,7 @@ import re
 import pytest
 
 from openassetio import errors
-from openassetio.pluginSystem import CppPluginSystem
+from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
 
 
 lib_ext = "so" if os.name == "posix" else "dll"
@@ -41,11 +41,48 @@ class Test_CppPluginSystem_scan:
         a_cpp_plugin_path,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook, noop)
 
         assert a_plugin_system.identifiers() == [
             plugin_a_identifier,
         ]
+
+    def test_when_validator_fails_then_plugin_is_skipped_and_reason_is_logged(
+        self,
+        a_plugin_system,
+        the_manager_plugin_module_hook,
+        a_cpp_plugin_path,
+        the_cpp_plugins_root_path,
+        plugin_a_identifier,
+        mock_logger,
+    ):
+        resources_path = pathlib.Path(the_cpp_plugins_root_path)
+        path_a_lib = resources_path / "pathA" / f"pathA.{lib_ext}"
+
+        def validator(plugin):
+            assert isinstance(plugin, CppPluginSystemPlugin)
+            return "Some reason."
+
+        a_plugin_system.scan(
+            # Add a dummy path to the list, in order to test proper
+            # cleanup. It is mysterious why this is needed, and is
+            # probably down to C++ undefined behaviour and/or Linux
+            # linker shenanigans. I.e. in GCC if we destroy a
+            # CppPluginSystemPlugin instance _after_ dlclose-ing its
+            # associated library, then we risk a segfault. Strangely, we
+            # don't see a segfault when only one path is in the list to
+            # be scanned.
+            os.pathsep.join((a_cpp_plugin_path, os.path.join(a_cpp_plugin_path, "dummy"))),
+            the_manager_plugin_module_hook,
+            validator,
+        )
+
+        assert not a_plugin_system.identifiers()
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
+            " Some reason.",
+        )
 
     def test_when_path_contains_multiple_entries_then_all_plugins_are_loaded(
         self,
@@ -58,7 +95,7 @@ class Test_CppPluginSystem_scan:
         path_a = os.path.join(the_cpp_plugins_root_path, "pathA")
         path_b = os.path.join(the_cpp_plugins_root_path, "pathB")
         combined_path = os.pathsep.join([path_a, path_b])
-        a_plugin_system.scan(combined_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(combined_path, the_manager_plugin_module_hook, noop)
 
         expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
@@ -81,6 +118,7 @@ class Test_CppPluginSystem_scan:
         a_plugin_system.scan(
             paths=os.pathsep.join((str(path_a), str(path_c))),
             moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop,
         )
         path, _ = a_plugin_system.plugin(plugin_a_identifier)
 
@@ -96,6 +134,7 @@ class Test_CppPluginSystem_scan:
         a_plugin_system.scan(
             paths=os.pathsep.join((str(path_c), str(path_a))),
             moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop
         )
         path, _ = a_plugin_system.plugin(plugin_a_identifier)
 
@@ -124,13 +163,18 @@ class Test_CppPluginSystem_scan:
 
         first_plugin_system = CppPluginSystem(mock_logger)
         second_plugin_system = CppPluginSystem(mock_logger)
-        first_plugin_system.scan(paths=str(path_a), moduleHookName=the_manager_plugin_module_hook)
+        first_plugin_system.scan(
+            paths=str(path_a),
+            moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop,
+        )
         # Will hit "Already registered" and dlclose `pathA.so`, which is
         # needed by the first plugin system. But libs should be
         # refcounted, so nothing breaks.
         second_plugin_system.scan(
             paths=os.pathsep.join((str(path_c), str(path_a))),
             moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop
         )
 
         # Confidence check that we hit the expected code path.
@@ -148,7 +192,7 @@ class Test_CppPluginSystem_scan:
         plugin_b_identifier,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_cpp_plugin_path_with_symlinks, the_manager_plugin_module_hook)
+        a_plugin_system.scan(a_cpp_plugin_path_with_symlinks, the_manager_plugin_module_hook, noop)
 
         expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
@@ -160,7 +204,7 @@ class Test_CppPluginSystem_scan:
         a_symlink_to_a_cpp_plugin_path,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_symlink_to_a_cpp_plugin_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(a_symlink_to_a_cpp_plugin_path, the_manager_plugin_module_hook, noop)
 
         expected_identifiers = {plugin_a_identifier}
         assert set(a_plugin_system.identifiers()) == expected_identifiers
@@ -176,10 +220,12 @@ class Test_CppPluginSystem_scan:
         a_plugin_system.scan(
             paths=os.path.join(the_cpp_plugins_root_path, "pathA"),
             moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop,
         )
         a_plugin_system.scan(
             paths=os.path.join(the_cpp_plugins_root_path, "pathB"),
             moduleHookName=the_manager_plugin_module_hook,
+            validationCallback=noop,
         )
 
         expected_identifiers = {plugin_b_identifier, plugin_a_identifier}
@@ -200,7 +246,7 @@ class Test_CppPluginSystem_scan:
         path_a_lib = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
         symlink_path_a_lib = os.path.join(a_cpp_plugin_path_with_symlinks, f"pathA.{lib_ext}")
 
-        a_plugin_system.scan(combined_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(combined_path, the_manager_plugin_module_hook, noop)
 
         mock_logger.mock.log.assert_any_call(
             mock_logger.Severity.kDebug,
@@ -213,7 +259,7 @@ class Test_CppPluginSystem_scan:
     def test_when_path_is_not_a_directory_then_warning_is_logged(
         self, a_plugin_system, the_manager_plugin_module_hook, mock_logger
     ):
-        a_plugin_system.scan("/some/invalid/path", the_manager_plugin_module_hook)
+        a_plugin_system.scan("/some/invalid/path", the_manager_plugin_module_hook, noop)
 
         mock_logger.mock.log.assert_called_with(
             mock_logger.Severity.kDebug,
@@ -221,9 +267,15 @@ class Test_CppPluginSystem_scan:
         )
 
     def test_when_plugins_broken_then_skipped_with_expected_errors(
-        self, broken_cpp_plugins_path, a_plugin_system, the_manager_plugin_module_hook, mock_logger
+        self,
+        broken_cpp_plugins_path,
+        a_plugin_system,
+        the_manager_plugin_module_hook,
+        mock_logger,
+        regex_matcher,
     ):
-        a_plugin_system.scan(broken_cpp_plugins_path, the_manager_plugin_module_hook)
+        # pylint: disable=too-many-locals
+        a_plugin_system.scan(broken_cpp_plugins_path, the_manager_plugin_module_hook, noop)
 
         assert not a_plugin_system.identifiers()
 
@@ -254,13 +306,13 @@ class Test_CppPluginSystem_scan:
         )
         mock_logger.mock.log.assert_any_call(
             kDebug,
-            RegexMatch(
+            regex_matcher(
                 re.escape(f"CppPluginSystem: Failed to open library '{fake_lib_path}':") + " .+"
             ),
         )
         mock_logger.mock.log.assert_any_call(
             kDebug,
-            RegexMatch(
+            regex_matcher(
                 re.escape(
                     "CppPluginSystem: No top-level 'openassetioPlugin' function in"
                     f" '{non_plugin_path}':"
@@ -296,7 +348,7 @@ class Test_CppPluginSystem_reset:
         a_cpp_plugin_path,
         plugin_a_identifier,
     ):
-        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook, noop)
         # Confidence check.
         assert a_plugin_system.identifiers() == [plugin_a_identifier]
 
@@ -314,7 +366,7 @@ class Test_CppPluginSystem_reset:
         # Essentially testing that we don't dlclose the last reference
         # to the dll on reset.
 
-        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook)
+        a_plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook, noop)
         _path, plugin = a_plugin_system.plugin(plugin_a_identifier)
 
         a_plugin_system.reset()
@@ -331,7 +383,7 @@ class Test_CppPluginSystem_destruction:
 
         def get_plugin():
             plugin_system = CppPluginSystem(mock_logger)
-            plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook)
+            plugin_system.scan(a_cpp_plugin_path, the_manager_plugin_module_hook, noop)
             return plugin_system.plugin(plugin_a_identifier)
 
         _path, plugin = get_plugin()
@@ -346,14 +398,6 @@ class Test_CppPluginSystem_plugin:
             match="CppPluginSystem: No plug-in registered with the identifier 'nonexistent'",
         ):
             a_plugin_system.plugin("nonexistent")
-
-
-class RegexMatch:
-    def __init__(self, pattern):
-        self.__pattern = pattern
-
-    def __eq__(self, text):
-        return bool(re.search(self.__pattern, text))
 
 
 @pytest.fixture
@@ -381,3 +425,7 @@ def skip_if_no_test_plugins_available(the_cpp_plugins_root_path):
         and os.environ.get("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR") is None
     ):
         pytest.skip("Skipping C++ plugin system tests as no test plugins are available")
+
+
+def noop(_):
+    return None

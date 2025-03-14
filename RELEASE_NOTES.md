@@ -22,6 +22,12 @@ see breaking changes section for more details._
   advanced downstream use-cases.
   [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
 
+- Modified signature of `CppPluginSystem.scan()` to accept a validator
+  callback to provide an additional filter when loading plugins. This
+  class is primarily an internal implementation detail, so this change
+  will only break advanced downstream use-cases.
+  [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
+
 ## New features
 
 - Added `defaultEntityReference` overloads for convenience, providing
