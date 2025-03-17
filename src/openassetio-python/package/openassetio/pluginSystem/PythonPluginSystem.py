@@ -34,7 +34,7 @@ __all__ = ["PythonPluginSystem"]
 class PythonPluginSystem(object):
     """
     Loads Python Packages, using entry point discovery or from a custom
-    search path. If they manager a top-level 'plugin' attribute, that
+    search path. If they contain a top-level 'plugin' attribute, that
     holds a class derived from PythonPluginSystemPlugin, it will be
     registered with its identifier. Once a plug-in has registered an
     identifier, any subsequent registrations with that id will be
@@ -54,7 +54,65 @@ class PythonPluginSystem(object):
         self.__map = {}
         self.__paths = {}
 
-    def scan(self, paths, moduleHookName):
+    def scan(
+        self,
+        paths,
+        pathsEnvVar,
+        entryPointName,
+        disableEntryPointsEnvVar,
+        disableEntryPoints,
+        moduleHookName,
+    ):
+        """
+        Searches the supplied paths and/or entry points for modules that
+        define a PythonPluginSystemPlugin through a supplied top-level
+        variable.
+
+        @param paths `str` A list of paths to search, delimited by
+        `os.pathsep`. Set to blank (or otherwise falsey) to use the
+        environment variable given by @p pathsEnvVar instead.
+
+        @param pathsEnvVar `str` The name of the environment variable
+        that contains paths to search, formatted as given in @p paths.
+        If @p paths is set then this environment variable is unused.
+
+        @param entryPointName `str` The name of the entry point group
+        to search for plugins.
+
+        @param disableEntryPointsEnvVar `str` An environment variable
+        that, if set, will disable scanning for entry point plugins,
+        unless overridden by @p disableEntryPoints.
+
+        @param disableEntryPoints `Optional[bool]` Set to `True` or
+        `False` to force disabling or enabling of entry point plugins,
+        respectively. Set to `None` to enable unless @p
+        disableEntryPointsEnvVar is set.
+
+        @param moduleHookName `str` The name of the top-level variable
+        that contains the plugin class.
+        """
+        if not paths:
+            paths = os.environ.get(pathsEnvVar)
+
+        if disableEntryPoints is None:
+            disableEntryPoints = os.environ.get(disableEntryPointsEnvVar, False)
+
+        if not paths and disableEntryPoints:
+            self.__logger.warning(
+                "PythonPluginSystem: No search paths specified and entry point plugins are"
+                f" disabled, no plugins will load - check ${pathsEnvVar} is set.",
+            )
+            return
+
+        if paths:
+            self.scan_paths(paths, moduleHookName)
+
+        if not disableEntryPoints:
+            self.scan_entry_points(entryPointName, moduleHookName)
+        else:
+            self.__logger.debug("Entry point based plugins are disabled")
+
+    def scan_paths(self, paths, moduleHookName):
         """
         Searches the supplied paths for modules that define a
         PythonPluginSystemPlugin through a supplied top-level variable.

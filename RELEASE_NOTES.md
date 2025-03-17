@@ -9,10 +9,11 @@ breaking changes section for more details._
 
 ## Breaking changes
 
-- Modified signature of `PythonPluginSystem.scan()` to accept
-  alternative top-level variables names as module hooks. This class is
-  primarily an internal implementation detail, so this change will only
-  break advanced downstream use-cases.
+- Modified `PythonPluginSystem.scan()` method to search Python
+  distribution entry point hooks as well as scan given paths. Added
+  arguments to parametrise search path and entry point usage. This class
+  is primarily an internal implementation detail, so the change will
+  only break advanced downstream use-cases.
   [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
 
 ## New features

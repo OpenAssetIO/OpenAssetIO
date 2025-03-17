@@ -19,8 +19,6 @@ A single-class module, providing the
 PythonPluginSystemManagerImplementationFactory class.
 """
 
-import os
-
 from ..hostApi import ManagerImplementationFactoryInterface
 
 from .PythonPluginSystem import PythonPluginSystem
@@ -97,13 +95,7 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         super(PythonPluginSystemManagerImplementationFactory, self).__init__(logger)
 
         self.__pluginManager = None
-
-        if paths is None:
-            paths = os.environ.get(self.kPluginEnvVar, "")
         self.__paths = paths
-
-        if disableEntryPointsPlugins is None:
-            disableEntryPointsPlugins = os.environ.get(self.kDisableEntryPointsEnvVar, False)
         self.__disableEntryPointsPlugins = disableEntryPointsPlugins
 
     def __scan(self):
@@ -113,27 +105,14 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         """
         # Construct this here, so we have this even if we early out
         self.__pluginManager = PythonPluginSystem(self._logger)
-
-        if not self.__paths and self.__disableEntryPointsPlugins:
-            self._logger.log(
-                self._logger.Severity.kWarning,
-                "No search paths specified and entry point plugins are disabled, no plugins "
-                f"will load - check ${self.kPluginEnvVar} is set.",
-            )
-            return
-
-        # We scan custom paths first, so they take precedence over entry
-        # point plugins
-
-        if self.__paths:
-            self.__pluginManager.scan(self.__paths, self.kModuleHookName)
-
-        if self.__disableEntryPointsPlugins:
-            self._logger.debug("Entry point based plugins are disabled")
-        else:
-            self.__pluginManager.scan_entry_points(
-                self.kPackageEntryPointGroup, self.kModuleHookName
-            )
+        self.__pluginManager.scan(
+            self.__paths,
+            self.kPluginEnvVar,
+            self.kPackageEntryPointGroup,
+            self.kDisableEntryPointsEnvVar,
+            self.__disableEntryPointsPlugins,
+            self.kModuleHookName,
+        )
 
     def identifiers(self):
         """
