@@ -152,3 +152,11 @@ class Test_ui_hostApi_imports:
 class Test_ui_managerApi_imports:
     def test_importing_UIDelegateInterface_succeeds(self):
         from openassetio.ui.managerApi import UIDelegateInterface
+
+
+class Test_ui_pluginSystem_imports:
+    def test_importing_PythonPluginSystemUIDelegatePlugin_succeeds(self):
+        from openassetio.ui.pluginSystem import PythonPluginSystemUIDelegatePlugin
+
+    def test_importing_PythonPluginSystemUIDelegateImplementationFactory_succeeds(self):
+        from openassetio.ui.pluginSystem import PythonPluginSystemUIDelegateImplementationFactory
