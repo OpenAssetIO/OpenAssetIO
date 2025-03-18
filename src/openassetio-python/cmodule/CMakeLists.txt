@@ -33,15 +33,13 @@ install(
     COMPONENT openassetio-python-distribution
 )
 if (BUILD_SHARED_LIBS)
-    # For a shared library build, we must ensure the core C++ library
-    # dependency is installed when the Python extension module component
-    # is installed. The openassetio-python-distribution component is
-    # targeted for install when building Python wheels - see setup.py.
-    # In addition, ensure the Python bridge library is also available,
-    # to enable (the albeit rare case of) C++ plugin direct interaction
-    # with Python objects.
+    # For a shared library build, we must ensure C++ library
+    # dependencies are installed when the Python extension module
+    # component is installed. The openassetio-python-distribution
+    # component is targeted for install when building Python wheels -
+    # see setup.py.
     install(
-        TARGETS openassetio-core openassetio-python-bridge
+        TARGETS openassetio-core openassetio-python-bridge openassetio-ui
         COMPONENT openassetio-python-distribution
     )
 endif ()
@@ -81,12 +79,16 @@ target_sources(
     src/pluginSystem/HybridPluginSystemManagerImplementationFactoryBinding.cpp
     src/trait/TraitsDataBinding.cpp
     src/utilsBinding.cpp
+    src/ui/hostApi/UIDelegateImplementationFactoryInterfaceBinding.cpp
+    src/ui/managerApi/UIDelegateInterfaceBinding.cpp
 )
 
 target_link_libraries(openassetio-python-module
     PRIVATE
     # Core C++ library.
     openassetio-core
+    # UI delegation library.
+    openassetio-ui
     # pybind, including its handy transitive Python-specific properties.
     pybind11::module pybind11::windows_extras
     $<BUILD_INTERFACE:fmt::fmt-header-only>
@@ -175,9 +177,8 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
     )
 
     if (WIN32)
-        # On Windows, copy openassetio.dll dependency into the
-        # pseudo-package directory, so that stubgen can import
-        # _openassetio.
+        # On Windows, copy dll dependencies into the pseudo-package
+        # directory, so that stubgen can import _openassetio.
         # Note that this must be done _after_ the build, otherwise
         # Windows (Visual Studio CMake generator) complains that the
         # build directory already exists.
@@ -190,6 +191,10 @@ if (OPENASSETIO_ENABLE_PYTHON_STUBGEN)
             COMMAND
             "${CMAKE_COMMAND}" -E copy_if_different
             "$<TARGET_FILE:openassetio-core>"
+            "${CMAKE_CURRENT_BINARY_DIR}/openassetio/"
+            COMMAND
+            "${CMAKE_COMMAND}" -E copy_if_different
+            "$<TARGET_FILE:openassetio-ui>"
             "${CMAKE_CURRENT_BINARY_DIR}/openassetio/"
         )
     endif ()

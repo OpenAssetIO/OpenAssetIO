@@ -1,5 +1,5 @@
 #
-#   Copyright 2024 The Foundry Visionmongers Ltd
+#   Copyright 2024-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -38,11 +38,18 @@ expected_pyi_files = (
     "pluginSystem.pyi",
     "trait.pyi",
     "utils.pyi",
+    "ui/__init__.pyi",
+    "ui/hostApi.pyi",
+    "ui/managerApi.pyi",
 )
 
 
 def test_expected_pyi_files_generated(pyi_dir: pathlib.Path):
-    actual_pyi_files = set(p.name for p in pyi_dir.glob("*") if p.name != "_testutils")
+    actual_pyi_files = set(
+        p.relative_to(pyi_dir).as_posix()
+        for p in pyi_dir.glob("**/*.pyi")
+        if p.parent.name != "_testutils"
+    )
     assert actual_pyi_files == set(expected_pyi_files)
 
 
@@ -52,7 +59,8 @@ def test_pyi_files_have_valid_python_ast(pyi_dir: pathlib.Path, pyi_filename):
     # ordering of statements causes errors. E.g. exception classes
     # inheriting from OpenAssetIOException come before the definition of
     # OpenAssetIOException in the .pyi file. So just check the AST is
-    # valid.
+    # valid. See
+    # https://github.com/sizmailov/pybind11-stubgen/issues/231
     with open(pyi_dir / pyi_filename, encoding="utf-8") as pyi_file:
         ast.parse(pyi_file.read())
 

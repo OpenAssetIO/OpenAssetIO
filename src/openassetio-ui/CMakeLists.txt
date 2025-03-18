@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2013-2024 The Foundry Visionmongers Ltd
+# Copyright 2025 The Foundry Visionmongers Ltd
 
 #----------------------------------------------------------------------
 # Public headers
@@ -16,25 +16,23 @@ install(
 
 
 #-----------------------------------------------------------------------
-# Create C++ Python bridge target
+# Create ui target
 
 # Note: static vs. shared is auto-determined by CMake's built-in
 # BUILD_SHARED_LIBS option.
-add_library(openassetio-python-bridge)
-add_library(${PROJECT_NAME}::openassetio-python-bridge ALIAS openassetio-python-bridge)
+add_library(openassetio-ui)
+add_library(${PROJECT_NAME}::openassetio-ui ALIAS openassetio-ui)
 # Set good default target options.
-openassetio_set_default_target_properties(openassetio-python-bridge)
-# Set output artifact base filename.
-set_target_properties(openassetio-python-bridge PROPERTIES OUTPUT_NAME openassetio-python)
+openassetio_set_default_target_properties(openassetio-ui)
 # Add to the set of installable targets.
-install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(TARGETS openassetio-ui EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
 
-if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
+if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
     # artifacts"
     if (BUILD_SHARED_LIBS)
         install(
-            FILES $<TARGET_PDB_FILE:openassetio-python-bridge>
+            FILES $<TARGET_PDB_FILE:openassetio-ui>
             TYPE BIN
             CONFIGURATIONS "Debug" "RelWithDebInfo"
         )
@@ -46,34 +44,31 @@ endif ()
 # Target dependencies
 
 # Source file dependencies.
-target_sources(openassetio-python-bridge
+target_sources(
+    openassetio-ui
     PRIVATE
-    src/python/hostApi.cpp
-    src/python/converter.cpp)
+    src/ui/hostApi/UIDelegateImplementationFactoryInterface.cpp
+    src/ui/managerApi/UIDelegateInterface.cpp
+)
 
 # Public header dependency.
-target_include_directories(openassetio-python-bridge
+target_include_directories(
+    openassetio-ui
     PUBLIC
-    # Common helpers only available at build time.
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../private/include>"
     # For generated export.h header.
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
     # Use includes from source tree for building.
     "$<BUILD_INTERFACE:${_public_header_source_root}>"
     # Use includes from install tree for installed lib.
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
 
-# Library dependencies.
-target_link_libraries(openassetio-python-bridge
-    PUBLIC
-    openassetio-core
+target_link_libraries(
     openassetio-ui
-    PRIVATE
-    # pybind11 is not needed by consumers in order to use this target,
-    # so we don't want it listed as a required dependency in
-    # OpenAssetIOConfig.cmake et al.
-    $<BUILD_INTERFACE:pybind11::module>)
-
+    PUBLIC
+    # OpenAssetIO dependencies
+    openassetio-core
+)
 
 #-----------------------------------------------------------------------
 # API export header
@@ -81,11 +76,21 @@ target_link_libraries(openassetio-python-bridge
 # Use CMake utility to generate the export header.
 include(GenerateExportHeader)
 generate_export_header(
-    openassetio-python-bridge
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/openassetio/python/export.h
+    openassetio-ui
+    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/include/openassetio/ui/export.h
+    CUSTOM_CONTENT_FROM_VARIABLE _define_version
 )
 
 install(
-    FILES ${PROJECT_BINARY_DIR}/include/openassetio/python/export.h
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/python/
+    FILES ${PROJECT_BINARY_DIR}/include/openassetio/ui/export.h
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/ui/
 )
+
+#-----------------------------------------------------------------------
+# Tests
+
+if (OPENASSETIO_ENABLE_TESTS)
+    if (OPENASSETIO_ENABLE_TEST_ABI)
+        openassetio_add_abi_test_target(openassetio-ui)
+    endif ()
+endif ()

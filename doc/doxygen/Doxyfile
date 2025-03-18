@@ -801,6 +801,7 @@ WARN_LOGFILE           =
  # hoists in the class index.
 INPUT                  = ./src \
                          ../../src/openassetio-core/include \
+                         ../../src/openassetio-ui/include \
                          ../../src/openassetio-python/bridge/include \
                          ../../src/openassetio-python/package/openassetio/hostApi/terminology.py \
                          ../../src/openassetio-python/package/openassetio/hostApi/HostInterface.py \

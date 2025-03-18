@@ -142,3 +142,13 @@ class Test_test_manager_imports:
 
     def test_importing_harness_succeeds(self):
         from openassetio.test.manager import harness
+
+
+class Test_ui_hostApi_imports:
+    def test_importing_UIDelegateImplementationFactoryInterface_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateImplementationFactoryInterface
+
+
+class Test_ui_managerApi_imports:
+    def test_importing_UIDelegateInterface_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateInterface

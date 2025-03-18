@@ -23,6 +23,8 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/ui/hostApi/UIDelegateImplementationFactoryInterface.hpp>
+#include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 // NOLINTEND(misc-include-cleaner)
 
 // Private headers
@@ -104,6 +106,8 @@ OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::Host)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::HostSession)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::ManagerInterface)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::ManagerStateBase)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegateImplementationFactoryInterface)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::managerApi::UIDelegateInterface)
 
 }  // namespace python::converter
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

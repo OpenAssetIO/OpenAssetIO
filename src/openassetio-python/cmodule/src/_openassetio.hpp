@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 /**
  * Python binding bootstrap functions and typedefs.
  */
@@ -19,6 +19,8 @@ OPENASSETIO_FWD_DECLARE(managerApi, EntityReferencePagerInterface)
 OPENASSETIO_FWD_DECLARE(log, LoggerInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
+OPENASSETIO_FWD_DECLARE(ui::managerApi, UIDelegateInterface)
+OPENASSETIO_FWD_DECLARE(ui::hostApi, UIDelegateImplementationFactoryInterface)
 
 /**
  * Declare a `RetainPyArgs` alias with common template arguments.
@@ -38,7 +40,9 @@ using RetainCommonPyArgs = openassetio::RetainPyArgs<
     openassetio::log::LoggerInterfacePtr, openassetio::ManagerStateBasePtr,
     openassetio::managerApi::ManagerInterfacePtr, openassetio::hostApi::HostInterfacePtr,
     openassetio::hostApi::ManagerImplementationFactoryInterfacePtr,
-    openassetio::managerApi::EntityReferencePagerInterfacePtr>;
+    openassetio::managerApi::EntityReferencePagerInterfacePtr,
+    openassetio::ui::managerApi::UIDelegateInterfacePtr,
+    openassetio::ui::hostApi::UIDelegateImplementationFactoryInterfacePtr>;
 
 /// Concise pybind alias.
 namespace py = pybind11;
@@ -120,3 +124,9 @@ void registerCppPluginSystemManagerImplementationFactory(const py::module& mod);
 
 // Register the hybrid plugin system manager factory
 void registerHybridPluginSystemManagerImplementationFactory(const py::module& mod);
+
+/// Register the UIDelegateImplementationFactoryInterface class with Python.
+void registerUIDelegateImplementationFactoryInterface(const py::module& mod);
+
+/// Register the UIDelegateInterface class with Python.
+void registerUIDelegateInterface(const py::module& mod);

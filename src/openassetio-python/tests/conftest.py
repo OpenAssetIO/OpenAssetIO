@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2024 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ from openassetio.managerApi import (
 )
 from openassetio.hostApi import HostInterface
 from openassetio.trait import TraitsData
-
+from openassetio.ui.managerApi import UIDelegateInterface
 
 # pylint: disable=invalid-name
 
@@ -147,6 +147,11 @@ def create_mock_manager_interface():
         return manager_interface
 
     return creator
+
+
+@pytest.fixture
+def mock_ui_delegate_interface():
+    return MockUIDelegateInterface()
 
 
 class ValidatingMockManagerInterface(ManagerInterface):
@@ -489,3 +494,12 @@ class MockEntityReferencePagerInterface(EntityReferencePagerInterface):
 
     def close(self, hostSession):
         self.mock.close(hostSession)
+
+
+class MockUIDelegateInterface(UIDelegateInterface):
+    """
+    `UIDelegateInterface` implementation that delegates all calls to a
+    public `Mock` instance.
+    """
+
+    # TODO(DF): fill out details
