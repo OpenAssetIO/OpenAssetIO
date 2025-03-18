@@ -23,6 +23,14 @@
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/managerApi/ManagerStateBase.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/ui/hostApi/UIDelegate.hpp>
+#include <openassetio/ui/hostApi/UIDelegateFactory.hpp>
+#include <openassetio/ui/hostApi/UIDelegateImplementationFactoryInterface.hpp>
+#include <openassetio/ui/hostApi/UIDelegateRequestInterface.hpp>
+#include <openassetio/ui/hostApi/UIDelegateState.hpp>
+#include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
+#include <openassetio/ui/managerApi/UIDelegateRequest.hpp>
+#include <openassetio/ui/managerApi/UIDelegateStateInterface.hpp>
 // NOLINTEND(misc-include-cleaner)
 
 // Private headers
@@ -104,7 +112,14 @@ OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::Host)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::HostSession)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::ManagerInterface)
 OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(managerApi::ManagerStateBase)
-
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegateImplementationFactoryInterface)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegate)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegateFactory)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::managerApi::UIDelegateInterface)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegateState)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::hostApi::UIDelegateRequestInterface)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::managerApi::UIDelegateStateInterface)
+OPENASSETIO_SPECIALIZE_PYTHON_CONVERSIONS(ui::managerApi::UIDelegateRequest)
 }  // namespace python::converter
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
 }  // namespace openassetio

@@ -98,6 +98,8 @@ target_include_directories(openassetio-core
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
     # Use includes from source tree for building.
     "$<BUILD_INTERFACE:${_public_header_source_root}>"
+    # Use includes from source tree for building.
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../private/include>"
     # Use includes from install tree for installed lib.
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 

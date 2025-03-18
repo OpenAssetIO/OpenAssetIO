@@ -33,6 +33,7 @@ target_sources(
     main.cpp
     python/test_converter.cpp
     python/test_hostApi.cpp
+    python/ui/test_hostApi.cpp
 )
 
 target_link_libraries(
@@ -68,8 +69,9 @@ execute_process(
 list(APPEND _envvars PYTHONHOME=${Python_PREFIX})
 # Add the openassetio package to the Python search path.
 list(APPEND _envvars PYTHONPATH=${CMAKE_INSTALL_PREFIX}/${OPENASSETIO_PYTHON_SITEDIR})
-# Set OpenAssetIO's plugin search path.
+# Set OpenAssetIO's plugin search paths.
 list(APPEND _envvars OPENASSETIO_PLUGIN_PATH=${CMAKE_CURRENT_LIST_DIR}/resources)
+list(APPEND _envvars OPENASSETIO_UI_PLUGIN_PATH=${CMAKE_CURRENT_LIST_DIR}/resources)
 # Augment the PATH on Windows to find Python library dll, if it was
 # linked as a shared library.
 if (WIN32 AND Python_RUNTIME_LIBRARY_DIRS)

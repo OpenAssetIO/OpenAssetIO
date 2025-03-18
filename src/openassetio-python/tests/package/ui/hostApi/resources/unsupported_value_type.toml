@@ -1,0 +1,5 @@
+[manager]
+identifier = "identifier.from.toml.file"
+
+[ui.settings]
+a_dict = { key = "value" }

@@ -142,3 +142,50 @@ class Test_test_manager_imports:
 
     def test_importing_harness_succeeds(self):
         from openassetio.test.manager import harness
+
+
+class Test_ui_hostApi_imports:
+    def test_importing_UIDelegateImplementationFactoryInterface_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateImplementationFactoryInterface
+
+    def test_importing_UIDelegateFactory_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateFactory
+
+    def test_importing_UIDelegate_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegate
+
+    def test_importing_UIDelegateState_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateState
+
+    def test_importing_UIDelegateRequestInterface_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateRequestInterface
+
+
+class Test_ui_managerApi_imports:
+    def test_importing_UIDelegateInterface_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateInterface
+
+    def test_importing_UIDelegateStateInterface_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateStateInterface
+
+    def test_importing_UIDelegateRequest_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateRequest
+
+
+class Test_ui_pluginSystem_imports:
+    def test_importing_PythonPluginSystemUIDelegatePlugin_succeeds(self):
+        from openassetio.ui.pluginSystem import PythonPluginSystemUIDelegatePlugin
+
+    def test_importing_PythonPluginSystemUIDelegateImplementationFactory_succeeds(self):
+        from openassetio.ui.pluginSystem import PythonPluginSystemUIDelegateImplementationFactory
+
+    def test_importing_CppPluginSystemUIDelegateImplementationFactory_succeeds(self):
+        from openassetio.ui.pluginSystem import CppPluginSystemUIDelegateImplementationFactory
+
+    def test_importing_HybridPluginSystemUIDelegateImplementationFactory_succeeds(self):
+        from openassetio.ui.pluginSystem import HybridPluginSystemUIDelegateImplementationFactory
+
+
+class Test_ui_access_imports:
+    def test_importing_UIAccess_succeeds(self):
+        from openassetio.ui.access import UIAccess
