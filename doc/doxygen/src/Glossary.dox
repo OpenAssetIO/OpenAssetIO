@@ -681,4 +681,29 @@
  * See the [TraitGen project](https://github.com/OpenAssetIO/OpenAssetIO-TraitGen)
  * and its usage in the [MediaCreation trait library](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
  * for more details.
+ *
+ * @section glossary_UI_Delegate UI Delegate
+ *
+ * UI delegation is an optional feature of OpenAssetIO that is useful in
+ * interactive applications. It allows an @ref manager to augment and/or
+ * replace parts of the @ref host's UI.
+ *
+ * A typical example would be to replace a file browser with an asset
+ * browser, but many other examples are possible.
+ *
+ * The UI delegation API is separate from the core OpenAssetIO API, but
+ * it's design philosophy follows a similar pattern, including how
+ * plugins are discovered, loaded and configured.
+ *
+ * The key function in the UI delegation API is
+ * @fqref{ui.hostApi.UIDelegate.populateUI()} "populateUI". It is this
+ * single function that is called by the host to delegate all different
+ * kinds of UI. The function is heavily parametrised, in particular by
+ * UI-specific @ref trait "traits".
+ *
+ * By their nature, UI Delegate plugins are much more host-specific than
+ * their corresponding @ref glossary_manager_plugin. It is likely a
+ * separate plugin will be required per UI framework, if not per host,
+ * whereas the promise of managers is that a single plugin will work in
+ * any host.
  */

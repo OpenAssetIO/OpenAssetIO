@@ -8,6 +8,13 @@ include(DefaultTargetProperties)
 
 add_subdirectory(openassetio-core)
 
+
+#-----------------------------------------------------------------------
+# UI delegation C++ library
+
+add_subdirectory(openassetio-ui)
+
+
 #-----------------------------------------------------------------------
 # Core C bindings library
 
