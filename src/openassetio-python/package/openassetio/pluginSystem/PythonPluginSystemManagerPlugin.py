@@ -46,8 +46,8 @@ class PythonPluginSystemManagerPlugin(PythonPluginSystemPlugin):
     attribute called 'plugin', that holds a class derived from this.
     """
 
-    @staticmethod
-    def identifier():
+    @classmethod
+    def identifier(cls):
         """
         Returns an identifier to uniquely identify the plug-in.
         Generally, this should be the identifier used by the manager.
