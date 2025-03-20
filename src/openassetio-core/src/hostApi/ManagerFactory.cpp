@@ -9,6 +9,7 @@
 #include <string_view>
 #include <utility>
 
+#include <fmt/core.h>
 #include <toml++/toml.h>
 
 #include <openassetio/export.h>
@@ -93,20 +94,15 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
   const char* configPath = std::getenv(kDefaultManagerConfigEnvVarName.c_str());
 
   if (!configPath) {
-    const Str msg =
-        kDefaultManagerConfigEnvVarName + " not set, unable to instantiate default manager.";
-    // We leave this as a debug message, as it is expected may hosts
+    // We leave this as a debug message, as it is expected many hosts
     // will call this by default, and handle a null return manager, vs
     // it being a warning/error.
-    logger->log(log::LoggerInterface::Severity::kDebug, msg);
+    logger->debug(fmt::format("{} not set, unable to instantiate default manager.",
+                              kDefaultManagerConfigEnvVarName));
     return nullptr;
   }
-  {
-    Str msg = "Retrieved default manager config file path from '";
-    msg += kDefaultManagerConfigEnvVarName;
-    msg += "'";
-    logger->log(log::LoggerInterface::Severity::kDebug, msg);
-  }
+  logger->debug(fmt::format("Retrieved default manager config file path from '{}'",
+                            kDefaultManagerConfigEnvVarName));
 
   return defaultManagerForInterface(configPath, hostInterface, managerImplementationFactory,
                                     logger);
@@ -116,34 +112,24 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
     const std::string_view configPath, const HostInterfacePtr& hostInterface,
     const ManagerImplementationFactoryInterfacePtr& managerImplementationFactory,
     const log::LoggerInterfacePtr& logger) {
-  {
-    Str msg = "Loading default manager config at '";
-    msg += configPath;
-    msg += "'";
-    logger->log(log::LoggerInterface::Severity::kDebug, msg);
-  }
+  logger->debug(fmt::format("Loading default manager config at '{}'", configPath));
 
   if (!std::filesystem::exists(configPath)) {
-    Str msg = "Could not load default manager config from '";
-    msg += configPath;
-    msg += "', file does not exist.";
-    throw errors::InputValidationException(msg);
+    throw errors::InputValidationException(fmt::format(
+        "Could not load default manager config from '{}', file does not exist.", configPath));
   }
 
   if (std::filesystem::is_directory(configPath)) {
-    Str msg = "Could not load default manager config from '";
-    msg += configPath;
-    msg += "', must be a TOML file not a directory.";
-    throw errors::InputValidationException(msg);
+    throw errors::InputValidationException(fmt::format(
+        "Could not load default manager config from '{}', must be a TOML file not a directory.",
+        configPath));
   }
 
   toml::parse_result config;
   try {
     config = toml::parse_file(configPath);
   } catch (const std::exception& exc) {
-    std::string msg = "Error parsing config file. ";
-    msg += exc.what();
-    throw errors::ConfigurationException{msg};
+    throw errors::ConfigurationException{fmt::format("Error parsing config file. {}", exc.what())};
   }
   const std::string_view identifier = config["manager"]["identifier"].value_or("");
 
@@ -177,10 +163,8 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
       } else if (val.is_boolean()) {
         settings.insert({Str{key}, val.as_boolean()->get()});
       } else {
-        Str msg = "Unsupported value type for '";
-        msg += key.str();
-        msg += "'.";
-        throw errors::ConfigurationException(msg);
+        throw errors::ConfigurationException(
+            fmt::format("Unsupported value type for '{}'.", key.str()));
       }
     }
   }
