@@ -61,8 +61,10 @@ PYBIND11_MODULE(_openassetio, mod) {
   py::module ui = mod.def_submodule("ui");
   const py::module uiHostApi = ui.def_submodule("hostApi");
   const py::module uiManagerApi = ui.def_submodule("managerApi");
+  const py::module uiPluginSystem = ui.def_submodule("pluginSystem");
   registerUIDelegateInterface(uiManagerApi);
   registerUIDelegateImplementationFactoryInterface(uiHostApi);
+  registerCppPluginSystemUIDelegateImplementationFactory(uiPluginSystem);
 
 #ifdef OPENASSETIO_ENABLE_TESTS
   registerTestUtils(mod);

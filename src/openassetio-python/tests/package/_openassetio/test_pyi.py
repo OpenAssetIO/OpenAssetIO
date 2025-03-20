@@ -41,6 +41,7 @@ expected_pyi_files = (
     "ui/__init__.pyi",
     "ui/hostApi.pyi",
     "ui/managerApi.pyi",
+    "ui/pluginSystem.pyi",
 )
 
 

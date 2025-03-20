@@ -15,6 +15,7 @@
 #include <openassetio/managerApi/EntityReferencePagerInterface.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/ui/hostApi/UIDelegateImplementationFactoryInterface.hpp>
+#include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 
 /*
  * Hack trompeloeil to make use of its internals, but provide our own
@@ -185,6 +186,20 @@ struct ThreadedUIDelegateImplFactory : ui::hostApi::UIDelegateImplementationFact
   IMPLEMENT_MOCK0(identifiers);
   IMPLEMENT_MOCK1(instantiate);
 };
+
+struct ThreadedUIDelegateInterface : ui::managerApi::UIDelegateInterface {
+  using Base = UIDelegateInterface;
+  static Ptr make(Ptr wrapped) {
+    return std::make_shared<ThreadedUIDelegateInterface>(std::move(wrapped));
+  }
+  explicit ThreadedUIDelegateInterface(Ptr wrapped) : wrapped_{std::move(wrapped)} {}
+  Ptr wrapped_;
+
+  // The following macros expand to the redefined TROMPELOEIL_* macros,
+  // see above.
+  IMPLEMENT_CONST_MOCK0(identifier);
+  IMPLEMENT_MOCK0(info);
+};
 }  // namespace
 
 extern void registerRunInThread(py::module_& mod) {
@@ -239,4 +254,5 @@ extern void registerRunInThread(py::module_& mod) {
   gil.def("wrapInThreadedLoggerInterface", &ThreadedLoggerInterface::make);
   gil.def("wrapInThreadedManagerImplFactory", &ThreadedManagerImplFactory::make);
   gil.def("wrapInThreadedUIDelegateImplFactory", &ThreadedUIDelegateImplFactory::make);
+  gil.def("wrapInThreadedUIDelegateInterface", &ThreadedUIDelegateInterface::make);
 }

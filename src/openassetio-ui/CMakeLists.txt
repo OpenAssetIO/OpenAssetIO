@@ -49,6 +49,8 @@ target_sources(
     PRIVATE
     src/ui/hostApi/UIDelegateImplementationFactoryInterface.cpp
     src/ui/managerApi/UIDelegateInterface.cpp
+    src/ui/pluginSystem/CppPluginSystemUIDelegatePlugin.cpp
+    src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactory.cpp
 )
 
 # Public header dependency.
@@ -90,6 +92,7 @@ install(
 # Tests
 
 if (OPENASSETIO_ENABLE_TESTS)
+    add_subdirectory(tests)
     if (OPENASSETIO_ENABLE_TEST_ABI)
         openassetio_add_abi_test_target(openassetio-ui)
     endif ()

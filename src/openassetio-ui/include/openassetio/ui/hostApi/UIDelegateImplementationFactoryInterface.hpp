@@ -57,7 +57,8 @@ class OPENASSETIO_UI_EXPORT UIDelegateImplementationFactoryInterface {
   /**
    * All identifiers known to the factory.
    *
-   * @see @needsref "UIDelegateInterface.identifier"
+   * @see @fqref{ui.managerApi.UIDelegateInterface.identifier}
+   * "UIDelegateInterface.identifier"
    */
   [[nodiscard]] virtual Identifiers identifiers() = 0;
 

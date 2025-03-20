@@ -19,7 +19,15 @@ This module provides a plugin system that can be used to register and
 instantiate UI delegate plugins from code that lives outside the
 openassetio package.
 """
+from ... import _openassetio  # pylint: disable=no-name-in-module
+
 from .PythonPluginSystemUIDelegatePlugin import PythonPluginSystemUIDelegatePlugin
 from .PythonPluginSystemUIDelegateImplementationFactory import (
     PythonPluginSystemUIDelegateImplementationFactory,
+)
+
+## @see @fqref{ui.pluginSystem.CppPluginSystemUIDelegateImplementationFactory}
+## "CppPluginSystemUIDelegateImplementationFactory"
+CppPluginSystemUIDelegateImplementationFactory = (
+    _openassetio.ui.pluginSystem.CppPluginSystemUIDelegateImplementationFactory
 )

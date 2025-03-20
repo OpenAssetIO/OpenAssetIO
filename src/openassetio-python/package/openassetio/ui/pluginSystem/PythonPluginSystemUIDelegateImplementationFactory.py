@@ -52,7 +52,8 @@ class PythonPluginSystemUIDelegateImplementationFactory(UIDelegateImplementation
     allows OpenAssetIO plugins to be managed entirely independent of the
     python runtime if desired, and masked from `import` statements. Note
     that this environment variable is also used by the
-    @needsref "CppPluginSystemUIDelegateImplementationFactory".
+    @fqref{ui.pluginSystem.CppPluginSystemUIDelegateImplementationFactory}
+    "CppPluginSystemUIDelegateImplementationFactory".
 
     @envvar **OPENASSETIO_UI_DISABLE_ENTRYPOINTS_PLUGINS** when set,
     disables entry point based plugin discovery. This can be useful if
