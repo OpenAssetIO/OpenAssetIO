@@ -46,10 +46,13 @@ endif ()
 # Target dependencies
 
 # Source file dependencies.
-target_sources(openassetio-python-bridge
+target_sources(
+    openassetio-python-bridge
     PRIVATE
     src/python/hostApi.cpp
-    src/python/converter.cpp)
+    src/python/converter.cpp
+    src/python/ui/hostApi.cpp
+)
 
 # Public header dependency.
 target_include_directories(openassetio-python-bridge
