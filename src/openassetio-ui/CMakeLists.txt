@@ -51,6 +51,7 @@ target_sources(
     src/ui/managerApi/UIDelegateInterface.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegatePlugin.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactory.cpp
+    src/ui/pluginSystem/HybridPluginSystemUIDelegateImplementationFactory.cpp
 )
 
 # Public header dependency.
@@ -70,6 +71,9 @@ target_link_libraries(
     PUBLIC
     # OpenAssetIO dependencies
     openassetio-core
+    PRIVATE
+    # Header-only private dependencies
+    $<BUILD_INTERFACE:fmt::fmt-header-only>
 )
 
 #-----------------------------------------------------------------------

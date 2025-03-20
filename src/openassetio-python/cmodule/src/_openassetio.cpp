@@ -65,6 +65,7 @@ PYBIND11_MODULE(_openassetio, mod) {
   registerUIDelegateInterface(uiManagerApi);
   registerUIDelegateImplementationFactoryInterface(uiHostApi);
   registerCppPluginSystemUIDelegateImplementationFactory(uiPluginSystem);
+  registerHybridPluginSystemUIDelegateImplementationFactory(uiPluginSystem);
 
 #ifdef OPENASSETIO_ENABLE_TESTS
   registerTestUtils(mod);

@@ -31,3 +31,8 @@ from .PythonPluginSystemUIDelegateImplementationFactory import (
 CppPluginSystemUIDelegateImplementationFactory = (
     _openassetio.ui.pluginSystem.CppPluginSystemUIDelegateImplementationFactory
 )
+## @see @fqref{ui.pluginSystem.HybridPluginSystemUIDelegateImplementationFactory}
+## "HybridPluginSystemUIDelegateImplementationFactory"
+HybridPluginSystemUIDelegateImplementationFactory = (
+    _openassetio.ui.pluginSystem.HybridPluginSystemUIDelegateImplementationFactory
+)

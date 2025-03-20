@@ -134,3 +134,7 @@ void registerUIDelegateInterface(const py::module& mod);
 /// Register the CppPluginSystemUIDelegateImplementationFactory class
 /// with Python.
 void registerCppPluginSystemUIDelegateImplementationFactory(const py::module& mod);
+
+/// Register the HybridPluginSystemUIDelegateImplementationFactory class
+/// with Python.
+void registerHybridPluginSystemUIDelegateImplementationFactory(const py::module_& mod);

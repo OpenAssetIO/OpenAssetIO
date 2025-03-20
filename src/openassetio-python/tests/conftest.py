@@ -159,8 +159,17 @@ def create_mock_manager_interface():
 
 
 @pytest.fixture
-def mock_ui_delegate_interface():
-    return MockUIDelegateInterface()
+def mock_ui_delegate_interface(create_mock_ui_delegate_interface):
+    return create_mock_ui_delegate_interface()
+
+
+@pytest.fixture
+def create_mock_ui_delegate_interface():
+
+    def creator():
+        return MockUIDelegateInterface()
+
+    return creator
 
 
 @pytest.fixture

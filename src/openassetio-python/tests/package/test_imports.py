@@ -163,3 +163,6 @@ class Test_ui_pluginSystem_imports:
 
     def test_importing_CppPluginSystemUIDelegateImplementationFactory_succeeds(self):
         from openassetio.ui.pluginSystem import CppPluginSystemUIDelegateImplementationFactory
+
+    def test_importing_HybridPluginSystemUIDelegateImplementationFactory_succeeds(self):
+        from openassetio.ui.pluginSystem import HybridPluginSystemUIDelegateImplementationFactory
