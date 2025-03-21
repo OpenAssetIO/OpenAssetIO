@@ -14,21 +14,21 @@
 #   limitations under the License.
 #
 """
-Testing that UIDelegateInterface methods release the GIL.
+Testing that UIDelegate methods release the GIL.
 """
-# pylint: disable=redefined-outer-name,too-many-public-methods
-# pylint: disable=invalid-name,c-extension-no-member,protected-access
 # pylint: disable=missing-class-docstring,missing-function-docstring
+# pylint: disable=invalid-name,redefined-outer-name
+import pytest
 
-from openassetio.ui.managerApi import UIDelegateInterface
+from openassetio.ui.hostApi import UIDelegate
 
 
-class Test_UIDelegateInterface_gil:
+class Test_UIDelegate_gil:
     """
     Check all methods release the GIL during C++ function body
     execution.
 
-    See docstring for similar test under `test_managerinterface_gil.py`
+    See docstring for similar test under `test_manager_gil.py`
     for details on how these tests are structured.
     """
 
@@ -36,37 +36,44 @@ class Test_UIDelegateInterface_gil:
         """
         Ensure this test class covers all UIDelegateInterface methods.
         """
-        unimplemented = find_unimplemented_test_cases(UIDelegateInterface, self)
+        unimplemented = find_unimplemented_test_cases(UIDelegate, self)
 
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
                 print(
                     f"""
-    def test_{method}(self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface):
-        a_threaded_mock_ui_delegate_interface.{method}()
+    def test_{method}(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
+        a_threaded_ui_delegate.{method}()
 """
                 )
 
         assert unimplemented == []
 
-    def test_identifier(self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface):
+    def test_identifier(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
         mock_ui_delegate_interface.mock.identifier.return_value = ""
-        a_threaded_mock_ui_delegate_interface.identifier()
+        a_threaded_ui_delegate.identifier()
 
-    def test_displayName(self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface):
+    def test_displayName(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
         mock_ui_delegate_interface.mock.displayName.return_value = ""
-        a_threaded_mock_ui_delegate_interface.displayName()
+        a_threaded_ui_delegate.displayName()
 
-    def test_info(self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface):
+    def test_info(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
         mock_ui_delegate_interface.mock.info.return_value = {}
-        a_threaded_mock_ui_delegate_interface.info()
+        a_threaded_ui_delegate.info()
 
-    def test_settings(
-        self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface, a_host_session
-    ):
-        mock_ui_delegate_interface.mock.settings.return_value = {}
-        a_threaded_mock_ui_delegate_interface.settings(a_host_session)
+    def test_settings(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
+        mock_ui_delegate_interface.mock.identifier.return_value = ""
+        a_threaded_ui_delegate.identifier()
 
-    def test_initialize(self, a_threaded_mock_ui_delegate_interface, a_host_session):
-        a_threaded_mock_ui_delegate_interface.initialize({}, a_host_session)
+    def test_initialize(self, a_threaded_ui_delegate):
+        a_threaded_ui_delegate.initialize({})
+
+
+@pytest.fixture
+def a_threaded_ui_delegate(a_threaded_mock_ui_delegate_interface, a_host_session):
+    """
+    Returns a UIDelegate instance that is backed by a threaded
+    UIDelegateInterface that errors on being called with the GIL held.
+    """
+    return UIDelegate(a_threaded_mock_ui_delegate_interface, a_host_session)

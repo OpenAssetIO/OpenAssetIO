@@ -28,6 +28,7 @@ import re
 import pytest
 
 from openassetio import errors
+from openassetio.ui.hostApi import UIDelegateFactory
 from openassetio.ui.pluginSystem import CppPluginSystemUIDelegateImplementationFactory
 
 
@@ -159,8 +160,20 @@ class Test_UIDelegateFactory_CppPluginSystemUIDelegateImplementationFactory:
         # Confidence check that UIDelegateFactory works with
         # CppPluginSystemUIDelegateImplementationFactory.
 
-        # TODO(DF): fill in details when UIDelegateFactory available
-        pass
+        monkeypatch.setenv(
+            CppPluginSystemUIDelegateImplementationFactory.kPluginEnvVar,
+            a_cpp_ui_delegate_plugin_path,
+        )
+
+        ui_delegate_factory = UIDelegateFactory(
+            mock_host_interface,
+            CppPluginSystemUIDelegateImplementationFactory(mock_logger),
+            mock_logger,
+        )
+
+        ui_delegate = ui_delegate_factory.createUIDelegate(plugin_a_identifier)
+
+        assert ui_delegate.identifier() == plugin_a_identifier
 
 
 @pytest.fixture

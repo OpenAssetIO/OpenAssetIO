@@ -198,7 +198,10 @@ struct ThreadedUIDelegateInterface : ui::managerApi::UIDelegateInterface {
   // The following macros expand to the redefined TROMPELOEIL_* macros,
   // see above.
   IMPLEMENT_CONST_MOCK0(identifier);
+  IMPLEMENT_CONST_MOCK0(displayName);
   IMPLEMENT_MOCK0(info);
+  IMPLEMENT_MOCK1(settings);
+  IMPLEMENT_MOCK2(initialize);
 };
 }  // namespace
 

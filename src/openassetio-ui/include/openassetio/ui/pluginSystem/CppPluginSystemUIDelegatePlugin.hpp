@@ -43,7 +43,7 @@ class OPENASSETIO_UI_EXPORT CppPluginSystemUIDelegatePlugin
    * ui.managerApi.UIDelegateInterface "UIDelegateInterface".
    *
    * This is an instance of some class derived from UIDelegateInterface
-   * to be bound to the Host-facing @needsref ui.hostApi.UIDelegate
+   * to be bound to the Host-facing @ref hostApi.UIDelegate
    * "UIDelegate".
    *
    * Generally this is only directly called by the @ref

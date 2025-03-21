@@ -80,6 +80,8 @@ target_sources(
     src/trait/TraitsDataBinding.cpp
     src/utilsBinding.cpp
     src/ui/hostApi/UIDelegateImplementationFactoryInterfaceBinding.cpp
+    src/ui/hostApi/UIDelegateFactoryBinding.cpp
+    src/ui/hostApi/UIDelegateBinding.cpp
     src/ui/managerApi/UIDelegateInterfaceBinding.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactoryBinding.cpp
     src/ui/pluginSystem/HybridPluginSystemUIDelegateImplementationFactoryBinding.cpp

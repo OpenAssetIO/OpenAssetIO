@@ -11,6 +11,8 @@ struct StubUIDelegateInterface : openassetio::ui::managerApi::UIDelegateInterfac
            "resources." OPENASSETIO_CORE_PLUGINSYSTEM_TEST_PLUGIN_ID_SUFFIX;
   }
 
+  [[nodiscard]] openassetio::Str displayName() const override { return "Stub UI Delegate"; }
+
   // Deliberately throw an exception, for use in checking RTTI.
   openassetio::InfoDictionary info() override {
     throw openassetio::errors::NotImplementedException{"Stub doesn't support info"};

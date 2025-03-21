@@ -71,7 +71,7 @@ class PythonPluginSystemUIDelegatePlugin(PythonPluginSystemPlugin):
 
         This is an instance of some class derived from
         UIDelegateInterface to be bound to the Host-facing
-        @needsref "UIDelegate".
+        @fqref{ui.hostApi.UIDelegate} "UIDelegate".
 
         Generally this is only directly called by the @ref
         openassetio.ui.pluginSystem.PythonPluginSystemUIDelegateImplementationFactory.

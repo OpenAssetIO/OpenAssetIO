@@ -26,7 +26,7 @@ import pytest
 
 # pylint: disable=no-name-in-module
 from openassetio import _openassetio
-from openassetio.ui.hostApi import UIDelegateImplementationFactoryInterface
+from openassetio.ui.hostApi import UIDelegateImplementationFactoryInterface, UIDelegateFactory
 
 
 class Test_UIDelegateImplementationFactoryInterface_gil:
@@ -70,6 +70,129 @@ class Test_UIDelegateImplementationFactoryInterface_gil:
     ):
         mock_ui_delegate_impl_factory.mock.instantiate.return_value = mock_ui_delegate_interface
         a_threaded_ui_delegate_impl_factory.instantiate("")
+
+
+class Test_UIDelegateFactory_gil:
+    """
+    UIDelegateFactory is one of the more complex cases for testing GIL
+    release, since it has actual logic inside it, and has multiple
+    dependencies.
+
+    This is the same problem as for testing ManagerFactory. See
+    `test_managerfactory_gil.py:Test_ManagerFactory_gil` for a
+    discussion of the approach taken there and here.
+    """
+
+    def test_all_methods_covered(self, find_unimplemented_test_cases):
+        """
+        Ensure this test class covers all methods.
+        """
+        unimplemented = find_unimplemented_test_cases(UIDelegateFactory, self)
+
+        if unimplemented:
+            print("\nSome test cases not implemented. Method templates can be found below:\n")
+            for method in unimplemented:
+                print(
+                    f"""
+    def test_{method}(
+            self, a_ui_delegate_factory, mock_ui_delegate_impl_factory, mock_logger,
+            mock_host_interface
+    ):
+        a_ui_delegate_factory.{method}(
+                mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger
+        )
+"""
+                )
+
+        assert not unimplemented
+
+    def test_availableUIDelegates(
+        self,
+        a_ui_delegate_factory,
+        mock_ui_delegate_impl_factory,
+    ):
+        mock_ui_delegate_impl_factory.mock.identifiers.return_value = []
+
+        a_ui_delegate_factory.availableUIDelegates()
+
+        mock_ui_delegate_impl_factory.mock.identifiers.assert_called()
+
+    def test_createUIDelegate(
+        self, a_ui_delegate_factory, mock_ui_delegate_impl_factory, mock_ui_delegate_interface
+    ):
+        mock_ui_delegate_impl_factory.mock.instantiate.return_value = mock_ui_delegate_interface
+
+        a_ui_delegate_factory.createUIDelegate("")
+
+        mock_ui_delegate_impl_factory.mock.instantiate.assert_called()
+
+    def test_createUIDelegateForInterface(
+        self,
+        a_threaded_ui_delegate_impl_factory,
+        mock_logger,
+        mock_host_interface,
+        mock_ui_delegate_impl_factory,
+        mock_ui_delegate_interface,
+    ):
+        mock_ui_delegate_impl_factory.mock.instantiate.return_value = mock_ui_delegate_interface
+
+        UIDelegateFactory.createUIDelegateForInterface(
+            "", mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger
+        )
+
+        mock_ui_delegate_impl_factory.mock.instantiate.assert_called()
+
+    def test_defaultUIDelegateForInterface(
+        self,
+        a_threaded_ui_delegate_impl_factory,
+        mock_logger,
+        mock_host_interface,
+        mock_ui_delegate_impl_factory,
+        tmp_path,
+        monkeypatch,
+        mock_ui_delegate_interface,
+    ):
+        mock_ui_delegate_impl_factory.mock.instantiate.return_value = mock_ui_delegate_interface
+        config_path = tmp_path / "ui_delegate.toml"
+        config_path.write_text('[ui_delegate]\nidentifier = "something"')
+
+        # First overload
+
+        UIDelegateFactory.defaultUIDelegateForInterface(
+            str(config_path),
+            mock_host_interface,
+            a_threaded_ui_delegate_impl_factory,
+            mock_logger,
+        )
+
+        mock_ui_delegate_impl_factory.mock.instantiate.assert_called()
+
+        # Second overload
+
+        mock_ui_delegate_impl_factory.mock.instantiate.reset_mock()
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", str(config_path))
+
+        UIDelegateFactory.defaultUIDelegateForInterface(
+            mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger
+        )
+
+        mock_ui_delegate_impl_factory.mock.instantiate.assert_called()
+
+    def test_identifiers(
+        self,
+        a_ui_delegate_factory,
+        mock_ui_delegate_impl_factory,
+    ):
+        mock_ui_delegate_impl_factory.mock.identifiers.return_value = []
+
+        a_ui_delegate_factory.identifiers()
+
+        mock_ui_delegate_impl_factory.mock.identifiers.assert_called()
+
+
+@pytest.fixture
+def a_ui_delegate_factory(mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger):
+    return UIDelegateFactory(mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger)
 
 
 @pytest.fixture

@@ -24,6 +24,8 @@
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/ui/hostApi/UIDelegate.hpp>
+#include <openassetio/ui/hostApi/UIDelegateFactory.hpp>
 #include <openassetio/ui/hostApi/UIDelegateImplementationFactoryInterface.hpp>
 #include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 
@@ -268,6 +270,8 @@ using CastableClasses = std::tuple<
     managerApi::HostSession,
     managerApi::ManagerInterface,
     ui::hostApi::UIDelegateImplementationFactoryInterface,
+    ui::hostApi::UIDelegateFactory,
+    ui::hostApi::UIDelegate,
     ui::managerApi::UIDelegateInterface
 >;
 // clang-format on

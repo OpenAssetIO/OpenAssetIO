@@ -48,6 +48,8 @@ target_sources(
     openassetio-ui
     PRIVATE
     src/ui/hostApi/UIDelegateImplementationFactoryInterface.cpp
+    src/ui/hostApi/UIDelegate.cpp
+    src/ui/hostApi/UIDelegateFactory.cpp
     src/ui/managerApi/UIDelegateInterface.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegatePlugin.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactory.cpp
@@ -74,6 +76,7 @@ target_link_libraries(
     PRIVATE
     # Header-only private dependencies
     $<BUILD_INTERFACE:fmt::fmt-header-only>
+    $<BUILD_INTERFACE:tomlplusplus::tomlplusplus>
 )
 
 #-----------------------------------------------------------------------

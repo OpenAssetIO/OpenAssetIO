@@ -26,7 +26,7 @@ OPENASSETIO_DECLARE_PTR(CppPluginSystemUIDelegateImplementationFactory)
  * plugins.
  *
  * This class is not usually used directly by a @ref host, which instead
- * uses the @needsref ui.hostApi.UIDelegateFactory "UIDelegateFactory".
+ * uses the @ref hostApi.UIDelegateFactory "UIDelegateFactory".
  *
  * The factory loads plugins found under paths specified in the
  * `OPENASSETIO_UI_PLUGIN_PATH` env var.

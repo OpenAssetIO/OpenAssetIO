@@ -64,7 +64,7 @@ class OPENASSETIO_UI_EXPORT HybridPluginSystemUIDelegateImplementationFactory
    * "UIDelegateInterface" with the specified identifier.
    *
    * Note that, like any other plugin system, the returned
-   * `UIDelegateInterface` cannot be used until @needsref
+   * `UIDelegateInterface` cannot be used until @ref
    * managerApi.UIDelegateInterface.initialize "initialized".
    *
    * Child factories are searched in the order they were provided to

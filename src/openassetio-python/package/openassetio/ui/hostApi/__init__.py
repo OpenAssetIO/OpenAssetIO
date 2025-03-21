@@ -28,3 +28,5 @@ from ... import _openassetio  # pylint: disable=no-name-in-module
 UIDelegateImplementationFactoryInterface = (
     _openassetio.ui.hostApi.UIDelegateImplementationFactoryInterface
 )
+UIDelegateFactory = _openassetio.ui.hostApi.UIDelegateFactory
+UIDelegate = _openassetio.ui.hostApi.UIDelegate

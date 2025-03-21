@@ -578,7 +578,16 @@ class MockUIDelegateInterface(UIDelegateInterface):
     def identifier(self):
         return self.mock.identifier()
 
+    def displayName(self):
+        return self.mock.displayName()
+
     def info(self):
         return self.mock.info()
 
-    # TODO(DF): fill out details
+    def settings(self, hostSession):
+        return self.mock.settings(hostSession)
+
+    def initialize(self, uiDelegateSettings, hostSession):
+        return self.mock.initialize(uiDelegateSettings, hostSession)
+
+    # TODO(DF): fill out remaining details
