@@ -50,7 +50,11 @@ target_sources(
     src/ui/hostApi/UIDelegateImplementationFactoryInterface.cpp
     src/ui/hostApi/UIDelegate.cpp
     src/ui/hostApi/UIDelegateFactory.cpp
+    src/ui/hostApi/UIDelegateRequestInterface.cpp
+    src/ui/hostApi/UIDelegateState.cpp
     src/ui/managerApi/UIDelegateInterface.cpp
+    src/ui/managerApi/UIDelegateStateInterface.cpp
+    src/ui/managerApi/UIDelegateRequest.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegatePlugin.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactory.cpp
     src/ui/pluginSystem/HybridPluginSystemUIDelegateImplementationFactory.cpp

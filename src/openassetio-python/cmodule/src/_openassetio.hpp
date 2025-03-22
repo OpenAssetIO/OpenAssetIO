@@ -21,6 +21,8 @@ OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 OPENASSETIO_FWD_DECLARE(hostApi, ManagerImplementationFactoryInterface)
 OPENASSETIO_FWD_DECLARE(ui::managerApi, UIDelegateInterface)
 OPENASSETIO_FWD_DECLARE(ui::hostApi, UIDelegateImplementationFactoryInterface)
+OPENASSETIO_FWD_DECLARE(ui::hostApi, UIDelegateRequestInterface)
+OPENASSETIO_FWD_DECLARE(ui::managerApi, UIDelegateStateInterface)
 
 /**
  * Declare a `RetainPyArgs` alias with common template arguments.
@@ -42,7 +44,9 @@ using RetainCommonPyArgs = openassetio::RetainPyArgs<
     openassetio::hostApi::ManagerImplementationFactoryInterfacePtr,
     openassetio::managerApi::EntityReferencePagerInterfacePtr,
     openassetio::ui::managerApi::UIDelegateInterfacePtr,
-    openassetio::ui::hostApi::UIDelegateImplementationFactoryInterfacePtr>;
+    openassetio::ui::hostApi::UIDelegateImplementationFactoryInterfacePtr,
+    openassetio::ui::hostApi::UIDelegateRequestInterfacePtr,
+    openassetio::ui::managerApi::UIDelegateStateInterfacePtr>;
 
 /// Concise pybind alias.
 namespace py = pybind11;
@@ -144,3 +148,6 @@ void registerUIDelegate(const py::module& mod);
 
 /// Register the UIDelegateFactory class with Python.
 void registerUIDelegateFactory(const py::module& mod);
+
+/// Register the UIDelegateRequest/State[Interface] classes with Python.
+void registerUIDelegateRequestState(const py::module& hostApi, const py::module& managerApi);

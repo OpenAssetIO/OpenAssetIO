@@ -15,6 +15,7 @@ target_sources(
     errorsTest.cpp
     gilTest.cpp
     HostInterfaceTest.cpp
+    UIDelegateTest.cpp
 )
 
 # Give access to private headers.

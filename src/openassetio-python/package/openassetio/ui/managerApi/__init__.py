@@ -23,4 +23,5 @@ openassetio.ui.hostApi
 """
 from ... import _openassetio  # pylint: disable=no-name-in-module
 
-UIDelegateInterface = _openassetio.ui.managerApi.UIDelegateInterface
+UIDelegateStateInterface = _openassetio.ui.managerApi.UIDelegateStateInterface
+UIDelegateRequest = _openassetio.ui.managerApi.UIDelegateRequest

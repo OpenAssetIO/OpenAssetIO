@@ -30,3 +30,5 @@ UIDelegateImplementationFactoryInterface = (
 )
 UIDelegateFactory = _openassetio.ui.hostApi.UIDelegateFactory
 UIDelegate = _openassetio.ui.hostApi.UIDelegate
+UIDelegateRequestInterface = _openassetio.ui.hostApi.UIDelegateRequestInterface
+UIDelegateState = _openassetio.ui.hostApi.UIDelegateState

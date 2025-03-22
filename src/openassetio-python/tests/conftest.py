@@ -44,7 +44,8 @@ from openassetio.managerApi import (
 )
 from openassetio.hostApi import HostInterface
 from openassetio.trait import TraitsData
-from openassetio.ui.managerApi import UIDelegateInterface
+from openassetio.ui.managerApi import UIDelegateInterface, UIDelegateStateInterface
+from openassetio.ui.hostApi import UIDelegateRequestInterface
 
 # pylint: disable=invalid-name
 
@@ -170,6 +171,16 @@ def create_mock_ui_delegate_interface():
         return MockUIDelegateInterface()
 
     return creator
+
+
+@pytest.fixture
+def mock_ui_delegate_request_interface():
+    return MockUIDelegateRequestInterface()
+
+
+@pytest.fixture
+def mock_ui_delegate_state_interface():
+    return MockUIDelegateStateInterface()
 
 
 @pytest.fixture
@@ -591,3 +602,49 @@ class MockUIDelegateInterface(UIDelegateInterface):
         return self.mock.initialize(uiDelegateSettings, hostSession)
 
     # TODO(DF): fill out remaining details
+
+
+class MockUIDelegateRequestInterface(UIDelegateRequestInterface):
+    """
+    A UIDelegateRequestInterface implementation that delegates all calls
+    to a public Mock instance.
+    """
+
+    def __init__(self):
+        UIDelegateRequestInterface.__init__(self)
+        self.mock = mock.create_autospec(UIDelegateRequestInterface, spec_set=True, instance=True)
+
+    def entityReferences(self):
+        return self.mock.entityReferences()
+
+    def entityTraitsDatas(self):
+        return self.mock.entityTraitsDatas()
+
+    def nativeData(self):
+        return self.mock.nativeData()
+
+    def stateChangedCallback(self):
+        return self.mock.stateChangedCallback()
+
+
+class MockUIDelegateStateInterface(UIDelegateStateInterface):
+    """
+    A UIDelegateStateInterface implementation that delegates all calls
+    to a public Mock instance.
+    """
+
+    def __init__(self):
+        UIDelegateStateInterface.__init__(self)
+        self.mock = mock.create_autospec(UIDelegateStateInterface, spec_set=True, instance=True)
+
+    def entityReferences(self):
+        return self.mock.entityReferences()
+
+    def entityTraitsDatas(self):
+        return self.mock.entityTraitsDatas()
+
+    def nativeData(self):
+        return self.mock.nativeData()
+
+    def updateRequestCallback(self):
+        return self.mock.updateRequestCallback()

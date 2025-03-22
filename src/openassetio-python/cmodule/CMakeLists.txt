@@ -85,6 +85,7 @@ target_sources(
     src/ui/managerApi/UIDelegateInterfaceBinding.cpp
     src/ui/pluginSystem/CppPluginSystemUIDelegateImplementationFactoryBinding.cpp
     src/ui/pluginSystem/HybridPluginSystemUIDelegateImplementationFactoryBinding.cpp
+    src/ui/UIDelegateRequestStateBinding.cpp
 )
 
 target_link_libraries(openassetio-python-module

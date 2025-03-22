@@ -154,10 +154,22 @@ class Test_ui_hostApi_imports:
     def test_importing_UIDelegate_succeeds(self):
         from openassetio.ui.hostApi import UIDelegate
 
+    def test_importing_UIDelegateState_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateState
+
+    def test_importing_UIDelegateRequestInterface_succeeds(self):
+        from openassetio.ui.hostApi import UIDelegateRequestInterface
+
 
 class Test_ui_managerApi_imports:
     def test_importing_UIDelegateInterface_succeeds(self):
         from openassetio.ui.managerApi import UIDelegateInterface
+
+    def test_importing_UIDelegateStateInterface_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateStateInterface
+
+    def test_importing_UIDelegateRequest_succeeds(self):
+        from openassetio.ui.managerApi import UIDelegateRequest
 
 
 class Test_ui_pluginSystem_imports:
