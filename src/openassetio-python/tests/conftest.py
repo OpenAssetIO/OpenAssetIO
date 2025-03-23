@@ -17,6 +17,8 @@
 Shared fixtures/code for pytest cases.
 """
 # pylint: disable=missing-function-docstring,redefined-outer-name
+
+import collections
 from unittest import mock
 import sys
 import os
@@ -220,6 +222,42 @@ def the_cpp_plugins_root_path():
             os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugin-env-var-not-set"),
         )
     )
+
+
+@pytest.fixture
+def root_enum():
+    """
+    An enum class that contains all possible values that we support.
+
+    Uses PolicyAccess as a representative enum with all values.
+    """
+    return PolicyAccess
+
+
+@pytest.fixture
+def assert_expected_enum_values():
+    """
+    Provides a function to assert that a given enum type has expected
+    values.
+    """
+
+    # Required since enum values under different enum classes compare
+    # non-equal, even if their string name and integer values are
+    # identical.
+    ComparableEnumValue = collections.namedtuple("ComparableEnumValue", ("name", "value"))
+
+    def extract_comparable_values_from_enum_class(enum_class):
+        return extract_comparable_values_from_enum_values(*enum_class.__members__.values())
+
+    def extract_comparable_values_from_enum_values(*enum_values):
+        return set(ComparableEnumValue(member.name, member.value) for member in enum_values)
+
+    def asserter(enum_under_test, *expected_values):
+        expected = extract_comparable_values_from_enum_values(*expected_values)
+        actual = extract_comparable_values_from_enum_class(enum_under_test)
+        assert actual == expected
+
+    return asserter
 
 
 class RegexMatch:

@@ -184,3 +184,8 @@ class Test_ui_pluginSystem_imports:
 
     def test_importing_HybridPluginSystemUIDelegateImplementationFactory_succeeds(self):
         from openassetio.ui.pluginSystem import HybridPluginSystemUIDelegateImplementationFactory
+
+
+class Test_ui_access_imports:
+    def test_importing_UIAccess_succeeds(self):
+        from openassetio.ui.access import UIAccess

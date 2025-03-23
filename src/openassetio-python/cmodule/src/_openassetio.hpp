@@ -151,3 +151,6 @@ void registerUIDelegateFactory(const py::module& mod);
 
 /// Register the UIDelegateRequest/State[Interface] classes with Python.
 void registerUIDelegateRequestState(const py::module& hostApi, const py::module& managerApi);
+
+/// Register the UIAccess class with Python
+void registerUIAccess(const py::module& mod);
