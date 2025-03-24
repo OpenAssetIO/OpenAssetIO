@@ -803,6 +803,7 @@ INPUT                  = ./src \
                          ../../src/openassetio-core/include \
                          ../../src/openassetio-python/bridge/include \
                          ../../src/openassetio-python/package/openassetio/hostApi/terminology.py \
+                         ../../src/openassetio-python/package/openassetio/hostApi/HostInterface.py \
                          ../../src/openassetio-python/package/openassetio/pluginSystem \
                          ../../src/openassetio-python/package/openassetio/test \
 

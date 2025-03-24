@@ -26,3 +26,4 @@ def test():
     assert constants.kInfoKey_SmallIcon == "smallIcon"
     assert constants.kInfoKey_Icon == "icon"
     assert constants.kInfoKey_EntityReferencesMatchPrefix == "entityReferencesMatchPrefix"
+    assert constants.kInfoKey_IsPython == "isPython"

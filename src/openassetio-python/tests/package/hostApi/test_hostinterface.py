@@ -21,6 +21,7 @@ Tests that cover the openassetio.hostApi.HostInterface class.
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import pytest
 
+from openassetio import constants
 from openassetio.hostApi import HostInterface
 
 
@@ -34,6 +35,13 @@ class Test_HostInterface_displayName:
     def test_is_pure_virtual(self, an_unimplemented_host_interface):
         with pytest.raises(RuntimeError, match="Tried to call pure virtual function"):
             an_unimplemented_host_interface.displayName()
+
+
+class Test_HostInterface_info:
+    def test_default_implementation_has_default_values(self, an_unimplemented_host_interface):
+        info = an_unimplemented_host_interface.info()
+
+        assert info == {constants.kInfoKey_IsPython: True}
 
 
 @pytest.fixture
