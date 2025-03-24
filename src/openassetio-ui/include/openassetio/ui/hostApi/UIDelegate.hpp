@@ -105,6 +105,11 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * Returns other information that may be useful about this UI
    * delegate. This can contain arbitrary key/value pairs.
    *
+   * The @ref constants.kInfoKey_IsPython constant is used to signal to
+   * the that the UI delegate is written in Python, and therefore any
+   * @ref UIDelegateRequestInterface.nativeData and @ref
+   * UIDelegateState.nativeData will/must be a CPython `PyObject*`.
+   *
    * @return Map of info string key to primitive value.
    */
   [[nodiscard]] InfoDictionary info();

@@ -24,8 +24,8 @@ import os
 
 import pytest
 
+from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from openassetio.managerApi import ManagerInterface
-from openassetio.ui.managerApi import UIDelegateInterface
 from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemManagerImplementationFactory
 from openassetio.ui.pluginSystem import CppPluginSystemUIDelegateImplementationFactory
 
@@ -209,7 +209,7 @@ class Test_CppPluginSystemUIDelegateImplementationFactory_gil:
             the_cpp_gil_check_plugin_identifier
         )
         # Confidence check.
-        assert isinstance(ui_delegate_interface, UIDelegateInterface)
+        assert isinstance(ui_delegate_interface, _openassetio.ui.managerApi.UIDelegateInterface)
 
 
 @pytest.fixture

@@ -6,8 +6,10 @@
 
 #include <pybind11/pybind11.h>
 
+#include <openassetio/typedefs.hpp>
 #include <openassetio/ui/hostApi/UIDelegateRequestInterface.hpp>
 #include <openassetio/ui/hostApi/UIDelegateState.hpp>
+#include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 #include <openassetio/ui/managerApi/UIDelegateRequest.hpp>
 #include <openassetio/ui/managerApi/UIDelegateStateInterface.hpp>
 
@@ -57,9 +59,18 @@ struct StubUIDelegateState : openassetio::ui::managerApi::UIDelegateStateInterfa
   std::any nativeData_;
 };
 
+struct StubUIDelegateInterface : openassetio::ui::managerApi::UIDelegateInterface {
+  [[nodiscard]] openassetio::Identifier identifier() const override {
+    return "org.openassetio.test.cmodule.stub";
+  }
+
+  [[nodiscard]] openassetio::Str displayName() const override { return "Stub UI Delegate"; }
+};
+
 extern void registerUIDelegateTestTypes(py::module& mod) {
   using openassetio::ui::hostApi::UIDelegateRequestInterfacePtr;
   using openassetio::ui::hostApi::UIDelegateState;
+  using openassetio::ui::managerApi::UIDelegateInterfacePtr;
   using openassetio::ui::managerApi::UIDelegateRequest;
   using openassetio::ui::managerApi::UIDelegateStateInterfacePtr;
 
@@ -108,4 +119,6 @@ extern void registerUIDelegateTestTypes(py::module& mod) {
     state->nativeData_ = PyLong_FromLong(42);  // NOLINT
     return UIDelegateState::make(std::move(state));
   });
+  ui.def("createCppUIDelegateInterface",
+         []() -> UIDelegateInterfacePtr { return std::make_shared<StubUIDelegateInterface>(); });
 }

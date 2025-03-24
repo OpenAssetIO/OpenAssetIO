@@ -158,6 +158,14 @@ class OPENASSETIO_UI_EXPORT UIDelegateInterface {
    *   @li @ref constants.kInfoKey_SmallIcon (upto 32x32)
    *   @li @ref constants.kInfoKey_Icon (any size)
    *
+   * The @ref constants.kInfoKey_IsPython constant is used to signal to
+   * the host that the UI delegate is written in Python, and therefore
+   * any @ref UIDelegateRequest.nativeData and @ref
+   * UIDelegateStateInterface.nativeData will/must be a CPython
+   * `PyObject*`. The @ref
+   * openassetio.ui.managerApi.UIDelegateInterface.UIDelegateInterface.info
+   * "Python base class implementation" sets `kInfoKey_IsPython: True`.
+   *
    * @return Map of info string key to primitive value.
    */
   [[nodiscard]] virtual InfoDictionary info();

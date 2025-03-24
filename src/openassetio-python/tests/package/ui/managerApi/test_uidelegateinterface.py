@@ -22,7 +22,7 @@ Tests for the default implementations of UIDelegateInterface methods.
 
 import pytest
 
-from openassetio import errors
+from openassetio import errors, constants
 from openassetio.ui.managerApi import UIDelegateInterface
 
 
@@ -39,11 +39,12 @@ class Test_UIDelegateInterface_displayName:
 
 
 class Test_UIDelegateInterface_info:
-    def test_when_not_overridden_then_returns_empty_dict(self, ui_delegate_interface):
+    def test_default_implementation_has_default_values(self, ui_delegate_interface):
         info = ui_delegate_interface.info()
 
         assert isinstance(info, dict)
-        assert info == {}
+
+        assert info == {constants.kInfoKey_IsPython: True}
 
 
 class Test_UIDelegateInterface_settings:
