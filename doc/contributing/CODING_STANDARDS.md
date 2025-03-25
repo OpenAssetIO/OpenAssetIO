@@ -4,6 +4,38 @@ This document covers the specifics of how code should be structured.
 Details on code formatting conventions can be found in the
 [Coding Style](CODING_STYLE.md) guide.
 
+## Adding a new type/function checklist
+
+The following is a checklist of things that are easy to forget when
+adding a new type or function to OpenAssetIO. Read subsequent sections
+for more detail on these.
+
+- [ ] Add middleware wrapper for interface types (see e.g.
+  `EntityReferencePagerInterface` vs. `EntityReferencePager`).
+- [ ] Use `shared_ptr` for passing non-trivial types; and use a
+  `shared_ptr` holder in their Python bindings (see
+  `OPENASSETIO_DECLARE_PTR` / `OPENASSETIO_ALIAS_PTR`)
+- [ ] Add a `static` `make` factory function returning a `shared_ptr`
+  for middleware types, ensure direct construction is private, and
+  (usually) copy-construction is disabled but move-construction is
+  enabled.
+- [ ] Add to `RetainCommonPyArgs` list if Python subclasses are possible
+  (see `_openassetio.hpp`).
+- [ ] Use `RetainCommonPyArgs` in Python bindings for appropriate
+  arguments and return values.
+- [ ] Ensure method arguments in Python bindings have `py::arg`
+  descriptors, and use `.none(false)` for any pointer types, unless
+  there is a good reason not to.
+- [ ] Add test for `castTo`/`FromPyObject` specialisation (see
+  `test_converter.cpp`).
+- [ ] Add test for GIL release in Python bindings, for both interface
+  and middleware classes, unless there is a good reason not to (see
+  `openassetio-python/tests/cmodule/gil/*`).
+- [ ] Add test for Python import hoist (see `test_imports.py`).
+- [ ] Add test for stringifying, if appropriate (see
+  `test_printable.py`).
+- [ ] Ensure copyright headers are added/updated with the current year.
+
 ## Method/function naming
 
 Accessor (getter) methods that do not have a corresponding mutator
