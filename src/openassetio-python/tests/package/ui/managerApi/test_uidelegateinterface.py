@@ -94,6 +94,21 @@ class Test_UIDelegateInterface_populateUI:
         assert actual is expected
 
 
+class Test_UIDelegateInterface_uiPolicy:
+    def test_default_implementation_returns_empty_traits_data(
+        self, ui_delegate_interface, a_host_session
+    ):
+        expected = TraitsData()
+        actual = ui_delegate_interface.uiPolicy(
+            set(),
+            UIAccess.kRead,
+            Context(),
+            a_host_session,
+        )
+
+        assert actual == expected
+
+
 @pytest.fixture
 def ui_delegate_interface():
     return UIDelegateInterface()

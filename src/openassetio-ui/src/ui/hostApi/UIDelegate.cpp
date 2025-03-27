@@ -12,6 +12,7 @@
 #include <openassetio/log/LoggerInterface.hpp>  // NOLINT(*-include-cleaner): needed for logger()
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/typedefs.hpp>
 #include <openassetio/ui/access.hpp>
 #include <openassetio/ui/hostApi/UIDelegateState.hpp>
@@ -45,6 +46,12 @@ void UIDelegate::initialize(InfoDictionary uiDelegateSettings) {
 }
 
 InfoDictionary UIDelegate::info() { return uiDelegateInterface_->info(); }
+
+trait::TraitsDataPtr UIDelegate::uiPolicy(const trait::TraitSet& uiTraitSet,
+                                          const access::UIAccess uiAccess,
+                                          const ContextConstPtr& context) {
+  return uiDelegateInterface_->uiPolicy(uiTraitSet, uiAccess, context, hostSession_);
+}
 
 std::optional<UIDelegateStatePtr> UIDelegate::populateUI(
     const trait::TraitsDataConstPtr& uiTraitsData, const access::UIAccess uiAccess,

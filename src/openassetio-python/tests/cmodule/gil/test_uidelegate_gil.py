@@ -86,6 +86,14 @@ class Test_UIDelegate_gil:
             Context(),
         )
 
+    def test_uiPolicy(self, a_threaded_ui_delegate, mock_ui_delegate_interface):
+        mock_ui_delegate_interface.mock.uiPolicy.return_value = TraitsData()
+        a_threaded_ui_delegate.uiPolicy(
+            set(),
+            UIAccess.kRead,
+            Context(),
+        )
+
 
 @pytest.fixture
 def a_threaded_ui_delegate(a_threaded_mock_ui_delegate_interface, a_host_session):

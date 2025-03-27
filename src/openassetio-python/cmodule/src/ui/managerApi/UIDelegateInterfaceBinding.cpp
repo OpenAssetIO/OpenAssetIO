@@ -13,6 +13,7 @@
 
 #include <openassetio/Context.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/ui/access.hpp>
 #include <openassetio/ui/managerApi/UIDelegateRequest.hpp>
 #include <openassetio/ui/managerApi/UIDelegateStateInterface.hpp>
@@ -57,6 +58,13 @@ struct PyUIDelegateInterface : UIDelegateInterface {
                                   std::move(uiDelegateSettings), hostSession);
   }
 
+  trait::TraitsDataPtr uiPolicy(const trait::TraitSet& uiTraitSet, access::UIAccess uiAccess,
+                                const ContextConstPtr& context,
+                                const HostSessionPtr& hostSession) override {
+    OPENASSETIO_PYBIND11_OVERRIDE(trait::TraitsDataPtr, UIDelegateInterface, uiPolicy, uiTraitSet,
+                                  uiAccess, context, hostSession);
+  }
+
   using PyRetainingUIDelegateStateInterfacePtr = PyRetainingSharedPtr<UIDelegateStateInterface>;
 
   std::optional<UIDelegateStateInterfacePtr> populateUI(
@@ -90,6 +98,9 @@ void registerUIDelegateInterface(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def("initialize", &UIDelegateInterface::initialize, py::arg("managerSettings"),
            py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def("uiPolicy", &UIDelegateInterface::uiPolicy, py::arg("uiTraitSet"), py::arg("uiAccess"),
+           py::arg("context").none(false), py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("populateUI", RetainCommonPyArgs::forFn<&UIDelegateInterface::populateUI>(),
            py::arg("uiTraitsData").none(false), py::arg("uiAccess"),
            py::arg("uiRequest").none(false), py::arg("context").none(false),

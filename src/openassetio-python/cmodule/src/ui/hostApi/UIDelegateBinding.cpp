@@ -31,6 +31,8 @@ void registerUIDelegate(const py::module& mod) {
       .def("settings", &UIDelegate::settings, py::call_guard<py::gil_scoped_release>{})
       .def("initialize", &UIDelegate::initialize, py::arg("uiDelegateSettings"),
            py::call_guard<py::gil_scoped_release>{})
+      .def("uiPolicy", &UIDelegate::uiPolicy, py::arg("uiTraitSet"), py::arg("uiAccess"),
+           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
       .def("populateUI", RetainCommonPyArgs::forFn<&UIDelegate::populateUI>(),
            py::arg("uiTraitsData").none(false), py::arg("uiAccess"),
            py::arg("uiRequestInterface").none(false), py::arg("context").none(false),

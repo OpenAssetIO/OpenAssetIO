@@ -205,6 +205,7 @@ struct ThreadedUIDelegateInterface : ui::managerApi::UIDelegateInterface {
   IMPLEMENT_MOCK1(settings);
   IMPLEMENT_MOCK2(initialize);
   IMPLEMENT_MOCK5(populateUI);
+  IMPLEMENT_MOCK4(uiPolicy);
 };
 
 struct ThreadedUIDelegateStateInterface : ui::managerApi::UIDelegateStateInterface {

@@ -235,6 +235,77 @@ class OPENASSETIO_UI_EXPORT UIDelegateInterface {
    */
 
   /**
+   * @name Policy
+   *
+   * @{
+   */
+
+  /**
+   * Retrieve the policy for UI delegation with respect to different
+   * kinds of UI request.
+   *
+   * The set of UI-specific traits indicates the kind of UI element
+   * requested, and the access mode determines if the request is for
+   * a read or publishing operation.
+   *
+   * A return value of an empty @ref trait.TraitsData "TraitsData"
+   * indicates to the host that UI delegation requests of this kind are
+   * not supported, and it should not attempt @ref populateUI calls with
+   * these arguments.
+   *
+   * This method is usually called early on by a host to determine
+   * whether to attempt to present OpenAssetIO related UI elements to
+   * the user, and to retrieve other sundry UI related metadata that is
+   * not specific to an individual request.
+   *
+   * Note that even if this method returns positively, @ref populateUI
+   * may refuse to provide a UI element, based on the specific request.
+   *
+   * Consult the relevant traits library to discover the available
+   * UI policy-specific traits. For example, the
+   * <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation"
+   * target="_blank">OpenAssetIO-MediaCreation</a> project provides
+   * traits related to computer graphics and media production. In
+   * particular, imbuing the return value with the `Managed` UI policy
+   * trait from the MediaCreation library indicates to the host that UI
+   * delegation requests are likely to succeed.
+   *
+   * As well as determining whether a request is likely to be supported,
+   * additional metadata that may be used by the host can be populated
+   * in the returned @ref trait.TraitsData "TraitsData". For example,
+   * this could include a "display name" that the host may use in the
+   * titles of tabs or windows that contain the delegated UI element(s).
+   *
+   * This method is opt-in - hosts may call @ref populateUI without
+   * first consulting this method. It is therefore important that
+   * correct behaviour is not reliant on this method being called. Any
+   * additional metadata offered in the returned policy may be useful in
+   * optimising the user experience, but cannot be considered a
+   * requirement.
+   *
+   * @param uiTraitSet The set of UI-specific @ref trait "traits"
+   * determining the kind of UI element the host may wish to delegate.
+   *
+   * @param uiAccess Type of operation that the delegated UI will be
+   * used for.
+   *
+   * @param context The calling context.
+   *
+   * @param hostSession The API session.
+   *
+   * @return Policy-specific traits with their associated properties
+   * filled, if applicable. The default implementation returns an empty
+   * response, indicating UI delegation is not supported.
+   */
+  virtual trait::TraitsDataPtr uiPolicy(const trait::TraitSet& uiTraitSet,
+                                        access::UIAccess uiAccess, const ContextConstPtr& context,
+                                        const HostSessionPtr& hostSession);
+
+  /**
+   * @}
+   */
+
+  /**
    * @name UI population
    *
    * @{

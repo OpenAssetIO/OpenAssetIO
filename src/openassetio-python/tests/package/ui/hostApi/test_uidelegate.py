@@ -145,6 +145,28 @@ class Test_UIDelegate_populateUI:
         assert actual_native_data is expected_native_data
 
 
+class Test_UIDelegate_uiPolicy:
+    def test_wraps_the_corresponding_method_of_the_held_interface(
+        self, ui_delegate, mock_ui_delegate_interface, a_context, a_host_session, a_traits_data
+    ):
+        expected = a_traits_data
+        mock_ui_delegate_interface.mock.uiPolicy.return_value = expected
+
+        actual = ui_delegate.uiPolicy(
+            {"d", "e"},
+            UIAccess.kRead,
+            a_context,
+        )
+
+        mock_ui_delegate_interface.mock.uiPolicy.assert_called_once_with(
+            {"d", "e"},
+            UIAccess.kRead,
+            a_context,
+            a_host_session,
+        )
+        assert actual == expected
+
+
 @pytest.fixture
 def a_traits_data():
     return TraitsData({"a", "b", "c"})

@@ -90,3 +90,14 @@ class Test_UIDelegateInterface_gil:
             Context(),
             a_host_session,
         )
+
+    def test_uiPolicy(
+        self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface, a_host_session
+    ):
+        mock_ui_delegate_interface.mock.uiPolicy.return_value = TraitsData()
+        a_threaded_mock_ui_delegate_interface.uiPolicy(
+            set(),
+            UIAccess.kRead,
+            Context(),
+            a_host_session,
+        )

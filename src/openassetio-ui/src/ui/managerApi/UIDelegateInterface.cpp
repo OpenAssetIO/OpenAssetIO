@@ -9,6 +9,7 @@
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/errors/exceptions.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/trait/collection.hpp>
 #include <openassetio/ui/access.hpp>
 
 namespace openassetio {
@@ -31,6 +32,13 @@ void UIDelegateInterface::initialize(InfoDictionary uiDelegateSettings,
         "Settings provided but are not supported. The initialize method has not been implemented "
         "by the UI delegate."};
   }
+}
+
+trait::TraitsDataPtr UIDelegateInterface::uiPolicy(
+    [[maybe_unused]] const trait::TraitSet& uiTraitSet, [[maybe_unused]] access::UIAccess uiAccess,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
+  return trait::TraitsData::make();
 }
 
 std::optional<UIDelegateStateInterfacePtr> UIDelegateInterface::populateUI(
