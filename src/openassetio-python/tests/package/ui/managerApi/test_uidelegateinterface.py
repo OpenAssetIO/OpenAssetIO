@@ -22,8 +22,10 @@ Tests for the default implementations of UIDelegateInterface methods.
 
 import pytest
 
-from openassetio import errors, constants
-from openassetio.ui.managerApi import UIDelegateInterface
+from openassetio import errors, constants, Context
+from openassetio.trait import TraitsData
+from openassetio.ui.access import UIAccess
+from openassetio.ui.managerApi import UIDelegateInterface, UIDelegateRequest
 
 
 class Test_UIDelegateInterface_identifier:
@@ -74,6 +76,22 @@ class Test_UIDelegateInterface_initialize:
 
         with pytest.raises(errors.InputValidationException, match=expected_error_message):
             ui_delegate_interface.initialize({"some": "setting"}, a_host_session)
+
+
+class Test_UIDelegateInterface_populateUI:
+    def test_default_implementation_returns_None(
+        self, ui_delegate_interface, mock_ui_delegate_request_interface, a_host_session
+    ):
+        expected = None
+        actual = ui_delegate_interface.populateUI(
+            TraitsData(),
+            UIAccess.kRead,
+            UIDelegateRequest(mock_ui_delegate_request_interface),
+            Context(),
+            a_host_session,
+        )
+
+        assert actual is expected
 
 
 @pytest.fixture

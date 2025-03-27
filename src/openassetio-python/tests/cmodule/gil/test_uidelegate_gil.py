@@ -20,6 +20,9 @@ Testing that UIDelegate methods release the GIL.
 # pylint: disable=invalid-name,redefined-outer-name
 import pytest
 
+from openassetio import Context
+from openassetio.trait import TraitsData
+from openassetio.ui.access import UIAccess
 from openassetio.ui.hostApi import UIDelegate
 
 
@@ -68,6 +71,20 @@ class Test_UIDelegate_gil:
 
     def test_initialize(self, a_threaded_ui_delegate):
         a_threaded_ui_delegate.initialize({})
+
+    def test_populateUI(
+        self,
+        a_threaded_ui_delegate,
+        mock_ui_delegate_interface,
+        mock_ui_delegate_request_interface,
+    ):
+        mock_ui_delegate_interface.mock.populateUI.return_value = None
+        a_threaded_ui_delegate.populateUI(
+            TraitsData(),
+            UIAccess.kRead,
+            mock_ui_delegate_request_interface,
+            Context(),
+        )
 
 
 @pytest.fixture

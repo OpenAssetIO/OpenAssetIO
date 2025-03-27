@@ -16,11 +16,15 @@
 """
 Testing that UIDelegateInterface methods release the GIL.
 """
+from openassetio import Context
+from openassetio.trait import TraitsData
+from openassetio.ui.access import UIAccess
+
 # pylint: disable=redefined-outer-name,too-many-public-methods
 # pylint: disable=invalid-name,c-extension-no-member,protected-access
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
-from openassetio.ui.managerApi import UIDelegateInterface
+from openassetio.ui.managerApi import UIDelegateInterface, UIDelegateRequest
 
 
 class Test_UIDelegateInterface_gil:
@@ -70,3 +74,19 @@ class Test_UIDelegateInterface_gil:
 
     def test_initialize(self, a_threaded_mock_ui_delegate_interface, a_host_session):
         a_threaded_mock_ui_delegate_interface.initialize({}, a_host_session)
+
+    def test_populateUI(
+        self,
+        mock_ui_delegate_interface,
+        a_threaded_mock_ui_delegate_interface,
+        mock_ui_delegate_request_interface,
+        a_host_session,
+    ):
+        mock_ui_delegate_interface.mock.populateUI.return_value = None
+        a_threaded_mock_ui_delegate_interface.populateUI(
+            TraitsData(),
+            UIAccess.kRead,
+            UIDelegateRequest(mock_ui_delegate_request_interface),
+            Context(),
+            a_host_session,
+        )

@@ -639,6 +639,9 @@ class MockUIDelegateInterface(UIDelegateInterface):
     def initialize(self, uiDelegateSettings, hostSession):
         return self.mock.initialize(uiDelegateSettings, hostSession)
 
+    def populateUI(self, uiTraitsData, uiAccess, uiRequest, context, hostSession):
+        return self.mock.populateUI(uiTraitsData, uiAccess, uiRequest, context, hostSession)
+
     # TODO(DF): fill out remaining details
 
 

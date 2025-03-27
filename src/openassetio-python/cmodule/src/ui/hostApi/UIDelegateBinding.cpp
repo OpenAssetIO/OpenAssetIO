@@ -9,6 +9,8 @@
 
 // NOLINTBEGIN(*-include-cleaner): Needed by pybind11.
 #include <openassetio/managerApi/HostSession.hpp>
+#include <openassetio/ui/hostApi/UIDelegateRequestInterface.hpp>
+#include <openassetio/ui/hostApi/UIDelegateState.hpp>
 #include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 // NOLINTEND(*-include-cleaner)
 
@@ -28,5 +30,9 @@ void registerUIDelegate(const py::module& mod) {
       .def("info", &UIDelegate::info, py::call_guard<py::gil_scoped_release>{})
       .def("settings", &UIDelegate::settings, py::call_guard<py::gil_scoped_release>{})
       .def("initialize", &UIDelegate::initialize, py::arg("uiDelegateSettings"),
+           py::call_guard<py::gil_scoped_release>{})
+      .def("populateUI", RetainCommonPyArgs::forFn<&UIDelegate::populateUI>(),
+           py::arg("uiTraitsData").none(false), py::arg("uiAccess"),
+           py::arg("uiRequestInterface").none(false), py::arg("context").none(false),
            py::call_guard<py::gil_scoped_release>{});
 }

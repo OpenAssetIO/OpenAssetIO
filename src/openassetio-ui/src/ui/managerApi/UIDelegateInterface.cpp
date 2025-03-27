@@ -2,10 +2,14 @@
 // Copyright 2025 The Foundry Visionmongers Ltd
 #include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
 
-#include <openassetio/export.h>
-#include <openassetio/InfoDictionary.hpp>
+#include <optional>
 
+#include <openassetio/export.h>
+#include <openassetio/Context.hpp>
+#include <openassetio/InfoDictionary.hpp>
 #include <openassetio/errors/exceptions.hpp>
+#include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/ui/access.hpp>
 
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
@@ -27,6 +31,16 @@ void UIDelegateInterface::initialize(InfoDictionary uiDelegateSettings,
         "Settings provided but are not supported. The initialize method has not been implemented "
         "by the UI delegate."};
   }
+}
+
+std::optional<UIDelegateStateInterfacePtr> UIDelegateInterface::populateUI(
+    [[maybe_unused]] const trait::TraitsDataConstPtr& uiTraitsData,
+    [[maybe_unused]] access::UIAccess uiAccess,
+    // NOLINTNEXTLINE(performance-unnecessary-value-param)
+    [[maybe_unused]] UIDelegateRequestPtr uiRequest,
+    [[maybe_unused]] const ContextConstPtr& context,
+    [[maybe_unused]] const HostSessionPtr& hostSession) {
+  return std::nullopt;
 }
 
 }  // namespace ui::managerApi

@@ -26,6 +26,7 @@ target_sources(openassetio-ui-cpp-test-exe
     PRIVATE
     main.cpp
     UIDelegateRequestStateTest.cpp
+    hostApi/UIDelegateTest.cpp
 )
 
 target_link_libraries(

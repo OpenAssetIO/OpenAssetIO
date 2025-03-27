@@ -14,8 +14,11 @@
 #include <openassetio/InfoDictionary.hpp>
 #include <openassetio/trait/TraitsData.hpp>
 #include <openassetio/typedefs.hpp>
+#include <openassetio/ui/access.hpp>
 
 OPENASSETIO_FWD_DECLARE(ui::managerApi, UIDelegateInterface)
+OPENASSETIO_FWD_DECLARE(ui::hostApi, UIDelegateRequestInterface)
+OPENASSETIO_FWD_DECLARE(ui::hostApi, UIDelegateState)
 OPENASSETIO_FWD_DECLARE(managerApi, HostSession)
 OPENASSETIO_FWD_DECLARE(Context)
 
@@ -168,6 +171,75 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * initialisation.
    */
   void initialize(InfoDictionary uiDelegateSettings);
+  /**
+   * @}
+   */
+  /**
+   * @name UI population
+   *
+   * @{
+   */
+
+  /**
+   * Populate a UI element on behalf of the host.
+   *
+   * If the request is not supported, then an unset optional (`None` in
+   * Python) will be returned.
+   *
+   * The nature of the UI to populate, how it should be populated, and
+   * what communication channels should be set up with the host, is
+   * determined by considering all the parameters.
+   *
+   * In particular, the UI-specific traits determine the kind of UI that
+   * the host wants to present, and the access mode determines whether
+   * that UI is for a read or publishing operation. The documentation of
+   * the traits must be consulted to understand their meaning.
+   *
+   * Once the kind of UI is determined, the data used to initialise it
+   * (e.g. the target entities) should be placed in the request object.
+   *
+   * The request object may also provide a host or UI framework-specific
+   * native data object that should be used as part of, or to contain,
+   * any newly constructed UI. The UI-specific traits, combined with the
+   * host's own documentation, determine how such native data should
+   * be used.
+   *
+   * Finally, the request object may contain a callback for notifying
+   * the host of updates to the state of the UI (e.g. due to user
+   * interaction).
+   *
+   * The initial returned state from this method will contain the
+   * initially selected/populated entities and/or trait data, if any.
+   *
+   * The returned state may also contain a native data object - again,
+   * how this should be used is determined by the UI traits and
+   * host-specific documentation.
+   *
+   * Finally, the returned state may contain a callback allowing the
+   * host to update the initial request with changes, e.g. the target
+   * selection of entities.
+   *
+   * @param uiTraitsData UI-specific @ref trait "traits" (and their
+   * associated properties, if any) determining the kind of UI to
+   * create.
+   *
+   * @param uiAccess The host's intended usage of the output from the
+   * UI element.
+   *
+   * @param uiRequestInterface The request object containing UI-specific
+   * parameters, as well as a callback hook for communicating
+   * asynchronous UI state changes.
+   *
+   * @param context The calling context.
+   *
+   * @return Empty optional (`None` in Python) if this request is not
+   * supported, otherwise the initial state of the UI.
+   */
+  std::optional<UIDelegateStatePtr> populateUI(const trait::TraitsDataConstPtr& uiTraitsData,
+                                               access::UIAccess uiAccess,
+                                               UIDelegateRequestInterfacePtr uiRequestInterface,
+                                               const ContextConstPtr& context);
+
   /**
    * @}
    */
