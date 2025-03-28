@@ -26,8 +26,8 @@ OPENASSETIO_DECLARE_PTR(UIDelegateFactory)
 
 /**
  * The UIDelegateFactory is the primary mechanism for querying for
- * available @ref UIDelegate "UI delegates" and constructing instances
- * of them.
+ * available @ref glossary_UI_Delegate plugins and constructing
+ * instances of them.
  *
  * The underlying UI delegate implementation is constructed using the
  * supplied @ref UIDelegateImplementationFactoryInterface factory

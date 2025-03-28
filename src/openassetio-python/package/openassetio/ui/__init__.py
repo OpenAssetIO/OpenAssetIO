@@ -15,5 +15,6 @@
 #
 """
 @namespace openassetio.ui
-Packages and modules specifically related to the UI delegation system.
+Packages and modules specifically related to the @ref
+glossary_UI_Delegate system.
 """

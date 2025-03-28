@@ -24,8 +24,8 @@ namespace ui::managerApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateRequest)
 
 /**
- * Class encapsulating a @ref UIDelegateInterface "UI delegate" request
- * that may change over time.
+ * Class encapsulating a @ref glossary_UI_Delegate request that may
+ * change over time.
  *
  * The @ref host provides instances of this class to a UI delegate when
  * @ref UIDelegateInterface.populateUI "initiating a request" for UI

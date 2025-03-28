@@ -22,7 +22,7 @@ namespace ui::hostApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateRequestInterface)
 
 /**
- * Abstract interface encapsulating a @ref UIDelegate "UI delegate"
+ * Abstract interface encapsulating a @ref glossary_UI_Delegate
  * request that may change over time.
  *
  * The @ref host is expected to subclass this class and implement its

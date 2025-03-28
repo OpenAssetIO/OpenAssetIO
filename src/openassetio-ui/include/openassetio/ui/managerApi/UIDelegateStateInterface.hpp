@@ -23,8 +23,8 @@ namespace ui::managerApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateStateInterface)
 
 /**
- * Abstract interface encapsulating the @ref UIDelegateInterface
- * "UI delegate" state that may change over time.
+ * Abstract interface encapsulating the @ref glossary_UI_Delegate state
+ * that may change over time.
  *
  * The UI Delegate is expected to subclass this class and implement its
  * methods. Instances are then be provided to a @ref host upon @ref

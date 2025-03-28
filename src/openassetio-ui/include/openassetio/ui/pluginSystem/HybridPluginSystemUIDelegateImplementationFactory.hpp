@@ -16,9 +16,9 @@ namespace ui::pluginSystem {
 OPENASSETIO_DECLARE_PTR(HybridPluginSystemUIDelegateImplementationFactory)
 
 /**
- * The hybrid UI delegate plugin system composes one or more child
- * plugin systems, and selects the first plugin that matches the desired
- * identifier.
+ * The hybrid @ref glossary_UI_Delegate plugin system composes one or
+ * more child plugin systems, and selects the first plugin that matches
+ * the desired identifier.
  *
  * A list of factories are provided in priority order. When a plugin
  * with a particular identifier is requested, factories are consulted

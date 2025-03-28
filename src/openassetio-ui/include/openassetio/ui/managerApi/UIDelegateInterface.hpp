@@ -24,8 +24,8 @@ namespace ui::managerApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateInterface)
 
 /**
- * This interface binds an @ref asset_management_system "asset
- * management system's" bespoke UI into OpenAssetIO.
+ * This interface binds the @ref glossary_UI_Delegate of an @ref
+ * asset_management_system into OpenAssetIO.
  *
  * It is not called directly by a @ref host, but by the middleware that
  * presents a more object-oriented model of this to the @ref host -

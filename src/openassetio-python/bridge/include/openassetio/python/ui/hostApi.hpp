@@ -12,8 +12,8 @@ namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace python::ui::hostApi {
 /**
- * Retrieve an instance of the Python UI delegate plugin system
- * implementation.
+ * Retrieve an instance of the Python @ref glossary_UI_Delegate plugin
+ * system implementation.
  *
  * @return Python plugin system.
  */

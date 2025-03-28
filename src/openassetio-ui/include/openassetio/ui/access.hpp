@@ -14,7 +14,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  */
 namespace ui::access {
 /**
- * Access pattern for a UI delegation request.
+ * Access pattern for a @ref glossary_UI_Delegate request.
  */
 // NOLINTNEXTLINE(performance-enum-size): requires binary breaking change
 enum class UIAccess : std::underlying_type_t<internal::access::Access> {

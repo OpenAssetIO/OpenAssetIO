@@ -16,8 +16,8 @@
 """
 @namespace openassetio.ui.pluginSystem
 This module provides a plugin system that can be used to register and
-instantiate UI delegate plugins from code that lives outside the
-openassetio package.
+instantiate @ref glossary_UI_Delegate plugins from code that lives
+outside the openassetio package.
 """
 from ... import _openassetio  # pylint: disable=no-name-in-module
 

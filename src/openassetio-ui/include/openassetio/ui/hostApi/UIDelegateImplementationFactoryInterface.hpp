@@ -19,9 +19,9 @@ namespace ui::hostApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateImplementationFactoryInterface)
 
 /**
- * UI Delegate Factories are responsible for instantiating classes that
- * derive from @fqref{ui.managerApi.UIDelegateInterface} for use within
- * a host.
+ * @ref glossary_UI_Delegate Factories are responsible for instantiating
+ * classes that derive from @fqref{ui.managerApi.UIDelegateInterface}
+ * "UIDelegateInterface" for use within a host.
  *
  * UIDelegateImplementationFactoryInterface defines the abstract
  * interface that any such factory must adopt.

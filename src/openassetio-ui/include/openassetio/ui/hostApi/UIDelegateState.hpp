@@ -24,7 +24,7 @@ namespace ui::hostApi {
 OPENASSETIO_DECLARE_PTR(UIDelegateState)
 
 /**
- * Class encapsulating the @ref UIDelegate "UI delegate" state that may
+ * Class encapsulating the @ref glossary_UI_Delegate state that may
  * change over time.
  *
  * The UI Delegate provides instances of this class to a host upon @ref
