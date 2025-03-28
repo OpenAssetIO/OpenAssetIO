@@ -58,6 +58,10 @@ struct PyUIDelegateInterface : UIDelegateInterface {
                                   std::move(uiDelegateSettings), hostSession);
   }
 
+  void close(const HostSessionPtr& hostSession) override {
+    OPENASSETIO_PYBIND11_OVERRIDE(void, UIDelegateInterface, close, hostSession);
+  }
+
   trait::TraitsDataPtr uiPolicy(const trait::TraitSet& uiTraitSet, access::UIAccess uiAccess,
                                 const ContextConstPtr& context,
                                 const HostSessionPtr& hostSession) override {
@@ -98,6 +102,8 @@ void registerUIDelegateInterface(const py::module& mod) {
            py::call_guard<py::gil_scoped_release>{})
       .def("initialize", &UIDelegateInterface::initialize, py::arg("managerSettings"),
            py::arg("hostSession").none(false), py::call_guard<py::gil_scoped_release>{})
+      .def("close", &UIDelegateInterface::close, py::arg("hostSession").none(false),
+           py::call_guard<py::gil_scoped_release>{})
       .def("uiPolicy", &UIDelegateInterface::uiPolicy, py::arg("uiTraitSet"), py::arg("uiAccess"),
            py::arg("context").none(false), py::arg("hostSession").none(false),
            py::call_guard<py::gil_scoped_release>{})

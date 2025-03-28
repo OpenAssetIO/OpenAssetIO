@@ -75,6 +75,9 @@ class Test_UIDelegateInterface_gil:
     def test_initialize(self, a_threaded_mock_ui_delegate_interface, a_host_session):
         a_threaded_mock_ui_delegate_interface.initialize({}, a_host_session)
 
+    def test_close(self, a_threaded_mock_ui_delegate_interface, a_host_session):
+        a_threaded_mock_ui_delegate_interface.close(a_host_session)
+
     def test_populateUI(
         self,
         mock_ui_delegate_interface,

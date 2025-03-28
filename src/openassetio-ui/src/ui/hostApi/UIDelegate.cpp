@@ -2,9 +2,12 @@
 // Copyright 2025 The Foundry Visionmongers Ltd
 #include <openassetio/ui/hostApi/UIDelegate.hpp>
 
+#include <exception>
 #include <memory>
 #include <optional>
 #include <utility>
+
+#include <fmt/core.h>
 
 #include <openassetio/export.h>
 #include <openassetio/InfoDictionary.hpp>
@@ -31,6 +34,26 @@ UIDelegatePtr UIDelegate::make(managerApi::UIDelegateInterfacePtr uiDelegateInte
       new UIDelegate(std::move(uiDelegateInterface), std::move(hostSession)));
 }
 
+UIDelegate::~UIDelegate() {
+  try {
+    close();
+  } catch (const std::exception& exc) {
+    try {
+      hostSession_->logger()->error(
+          fmt::format("Exception closing UI delegate during destruction: {}", exc.what()));
+    } catch (...) {  // NOLINT(*-empty-catch)
+      // Nothing we can do.
+    }
+  } catch (...) {
+    try {
+      hostSession_->logger()->error(
+          "Exception closing UI delegate during destruction: <unknown non-exception type thrown>");
+    } catch (...) {  // NOLINT(*-empty-catch)
+      // Nothing we can do.
+    }
+  }
+}
+
 UIDelegate::UIDelegate(managerApi::UIDelegateInterfacePtr uiDelegateInterface,
                        HostSessionPtr hostSession)
     : uiDelegateInterface_{std::move(uiDelegateInterface)}, hostSession_{std::move(hostSession)} {}
@@ -44,6 +67,8 @@ InfoDictionary UIDelegate::settings() { return uiDelegateInterface_->settings(ho
 void UIDelegate::initialize(InfoDictionary uiDelegateSettings) {
   uiDelegateInterface_->initialize(std::move(uiDelegateSettings), hostSession_);
 }
+
+void UIDelegate::close() { uiDelegateInterface_->close(hostSession_); }
 
 InfoDictionary UIDelegate::info() { return uiDelegateInterface_->info(); }
 

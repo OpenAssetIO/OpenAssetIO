@@ -72,6 +72,9 @@ class Test_UIDelegate_gil:
     def test_initialize(self, a_threaded_ui_delegate):
         a_threaded_ui_delegate.initialize({})
 
+    def test_close(self, a_threaded_ui_delegate):
+        a_threaded_ui_delegate.close()
+
     def test_populateUI(
         self,
         a_threaded_ui_delegate,

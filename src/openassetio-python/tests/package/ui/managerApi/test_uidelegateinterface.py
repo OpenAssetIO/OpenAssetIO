@@ -78,6 +78,11 @@ class Test_UIDelegateInterface_initialize:
             ui_delegate_interface.initialize({"some": "setting"}, a_host_session)
 
 
+class Test_UIDelegateInterface_close:
+    def test_default_implementation_is_noop(self, ui_delegate_interface, a_host_session):
+        ui_delegate_interface.close(a_host_session)
+
+
 class Test_UIDelegateInterface_populateUI:
     def test_default_implementation_returns_None(
         self, ui_delegate_interface, mock_ui_delegate_request_interface, a_host_session

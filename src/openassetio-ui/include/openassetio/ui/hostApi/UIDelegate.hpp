@@ -72,6 +72,11 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
                                           openassetio::managerApi::HostSessionPtr hostSession);
 
   /**
+   * Destructor that will call @ref close() wrapped in a try-catch.
+   */
+  ~UIDelegate();
+
+  /**
    * @name  UI Delegate Identification
    *
    * These functions provide general identity information about UI
@@ -171,6 +176,27 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * initialisation.
    */
   void initialize(InfoDictionary uiDelegateSettings);
+
+  /**
+   * Instruct the UI delegate to dispose of all active references to
+   * delegated UI.
+   *
+   * Called automatically on destruction of this UIDelegate instance,
+   * but can be called independently in order to reuse this instance.
+   *
+   * This should be used when all UI elements created by the UI delegate
+   * are being destroyed wholesale. The UI delegate will consider any
+   * handles to UI elements as unsafe when this method is called.
+   *
+   * To close a single UI delegation request, call the associated @ref
+   * UIDelegateState.updateRequestCallback with an unset request (`None`
+   * in Python), if available.
+   *
+   * @warning When this is called during destruction of a Python
+   * instance, the Python GIL will be held for the duration of the call.
+   */
+  void close();
+
   /**
    * @}
    */
@@ -312,7 +338,6 @@ class OPENASSETIO_UI_EXPORT UIDelegate final {
    * @}
    */
 
-  ~UIDelegate() = default;
   UIDelegate(const UIDelegate& other) = delete;
   UIDelegate(UIDelegate&& other) noexcept = default;
   UIDelegate& operator=(const UIDelegate& other) = delete;

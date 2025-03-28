@@ -34,6 +34,8 @@ void UIDelegateInterface::initialize(InfoDictionary uiDelegateSettings,
   }
 }
 
+void UIDelegateInterface::close([[maybe_unused]] const HostSessionPtr& hostSession) {}
+
 trait::TraitsDataPtr UIDelegateInterface::uiPolicy(
     [[maybe_unused]] const trait::TraitSet& uiTraitSet, [[maybe_unused]] access::UIAccess uiAccess,
     [[maybe_unused]] const ContextConstPtr& context,

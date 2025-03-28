@@ -85,7 +85,7 @@ class OPENASSETIO_UI_EXPORT UIDelegateStateInterface {
    * If the host calls the callback with an empty optional (`None` in
    * Python), this notifies the UI delegate that the request is finished
    * (e.g. the UI element is about to be destroyed) and any dangling
-   * state should be cleaned up. See also @needsref
+   * state should be cleaned up. See also @ref
    * UIDelegateInterface.close.
    *
    * @note The request provided to the callback is a reference type,

@@ -231,6 +231,28 @@ class OPENASSETIO_UI_EXPORT UIDelegateInterface {
   virtual void initialize(InfoDictionary uiDelegateSettings, const HostSessionPtr& hostSession);
 
   /**
+   * Dispose of all active references to delegated UI.
+   *
+   * Called automatically on destruction of the @ref hostApi.UIDelegate
+   * middleware in use by the host, but the host may call this
+   * independently in order to re-use this instance.
+   *
+   * @warning When this is called during destruction of a Python @ref
+   * hostApi.UIDelegate instance, the Python GIL will be held for the
+   * duration of the call.
+   *
+   * Any UI elements created by this UI delegate should be considered
+   * unsafe for access when this method is called. Any dangling state
+   * should be cleaned up to prevent memory leaks and/or potential
+   * access to destroyed objects.
+   *
+   * The default implementation is a no-op.
+   *
+   * @param hostSession The API session.
+   */
+  virtual void close(const HostSessionPtr& hostSession);
+
+  /**
    * @}
    */
 
@@ -377,8 +399,6 @@ class OPENASSETIO_UI_EXPORT UIDelegateInterface {
   /**
    * @}
    */
-
-  // TODO(DF): Fill out remaining details
 };
 }  // namespace ui::managerApi
 }  // namespace OPENASSETIO_CORE_ABI_VERSION
