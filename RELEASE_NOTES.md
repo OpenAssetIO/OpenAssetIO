@@ -24,6 +24,13 @@ see breaking changes section for more details._
 
 ## New features
 
+- Added an experimental UI delegation API alongside the core manager
+  API. This allows asset management systems to augment or replace
+  portions of a host application's user interface. The UI delegation API
+  has its own separate plugin system and namespace, and is entirely
+  opt-in.
+  [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
+
 - Added `defaultEntityReference` overloads for convenience, providing
   alternatives to the core callback-based workflow. Includes querying
   for a single result vs. a batch of results, and exception vs. result
