@@ -5,7 +5,7 @@ Provides a test PythonPluginSystemPlugin implementation.
 from openassetio.pluginSystem import PythonPluginSystemManagerPlugin
 
 
-class PackagePlugin(PythonPluginSystemManagerPlugin):
+class PackageManagerPlugin(PythonPluginSystemManagerPlugin):
     # pylint: disable=missing-class-docstring
 
     @classmethod

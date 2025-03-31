@@ -26,8 +26,6 @@ function(openassetio_test_pluginSystem_generate_plugin path_suffix id_suffix src
     target_compile_definitions(
         openassetio-core-pluginSystem-test-${path_suffix}
         PRIVATE
-        # Suffix for plugin path
-        OPENASSETIO_CORE_PLUGINSYSTEM_TEST_PLUGIN_PATH_SUFFIX="${path_suffix}"
         # Suffix for plugin identifier
         OPENASSETIO_CORE_PLUGINSYSTEM_TEST_PLUGIN_ID_SUFFIX="${id_suffix}"
     )

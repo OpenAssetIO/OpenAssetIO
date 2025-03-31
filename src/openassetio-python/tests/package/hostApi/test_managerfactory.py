@@ -25,12 +25,9 @@ from unittest import mock
 
 import pytest
 
-from openassetio import _openassetio, errors  # pylint: disable=no-name-in-module
+from openassetio import errors
 from openassetio.hostApi import ManagerFactory, Manager, ManagerImplementationFactoryInterface
 from openassetio.log import LoggerInterface
-
-
-CppManagerFactory = _openassetio.hostApi.ManagerFactory  # pylint: disable=no-member
 
 
 class Test_ManagerFactory_ManagerDetail_equality:
@@ -514,11 +511,6 @@ def assert_expected_manager(mock_host_interface, mock_manager_interface):
 @pytest.fixture
 def a_manager_factory(mock_host_interface, mock_manager_implementation_factory, mock_logger):
     return ManagerFactory(mock_host_interface, mock_manager_implementation_factory, mock_logger)
-
-
-@pytest.fixture
-def a_cpp_manager_factory(mock_host_interface, mock_manager_implementation_factory, mock_logger):
-    return CppManagerFactory(mock_host_interface, mock_manager_implementation_factory, mock_logger)
 
 
 @pytest.fixture
