@@ -164,7 +164,7 @@ ManagerPtr ManagerFactory::defaultManagerForInterface(
         settings.insert({Str{key}, val.as_boolean()->get()});
       } else {
         throw errors::ConfigurationException(
-            fmt::format("Unsupported value type for '{}'.", key.str()));
+            fmt::format("Error parsing config file. Unsupported value type for '{}'.", key.str()));
       }
     }
   }

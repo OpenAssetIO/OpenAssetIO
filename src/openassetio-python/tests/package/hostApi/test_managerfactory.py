@@ -237,7 +237,8 @@ class Test_ManagerFactory_defaultManagerForInterface:
         mock_logger,
     ):
         with pytest.raises(
-            errors.ConfigurationException, match="Unsupported value type for 'a_dict'."
+            errors.ConfigurationException,
+            match="Error parsing config file. Unsupported value type for 'a_dict'.",
         ):
             if use_env_var_for_config_file:
                 ManagerFactory.defaultManagerForInterface(
