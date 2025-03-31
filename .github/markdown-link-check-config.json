@@ -2,6 +2,9 @@
   "ignorePatterns": [
     {
       "pattern": "^https://www.ftrack.com"
+    },
+    {
+      "pattern": "^https://www.gnu.org"
     }
   ]
 }
