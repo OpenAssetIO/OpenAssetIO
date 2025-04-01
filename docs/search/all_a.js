@@ -33,6 +33,7 @@ var searchData=
   ['kinfo',['kInfo',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a11717da96dc4e4a5f79371318448f82ba176a473e63c17ccdac91640c67f149bf',1,'openassetio::v1::log::LoggerInterface']]],
   ['kinfokey_5fentityreferencesmatchprefix',['kInfoKey_EntityReferencesMatchPrefix',['../namespaceopenassetio_1_1v1_1_1constants.html#a2eccaa3a65a128a5893911056fa45ca3',1,'openassetio::v1::constants']]],
   ['kinfokey_5ficon',['kInfoKey_Icon',['../namespaceopenassetio_1_1v1_1_1constants.html#ae3a10bd12d0c07579cfbbf75f38c6d51',1,'openassetio::v1::constants']]],
+  ['kinfokey_5fispython',['kInfoKey_IsPython',['../namespaceopenassetio_1_1v1_1_1constants.html#a5e6fb39f863efb36d2a72be4d425b80a',1,'openassetio::v1::constants']]],
   ['kinfokey_5fsmallicon',['kInfoKey_SmallIcon',['../namespaceopenassetio_1_1v1_1_1constants.html#a9be6a7dbdf4c0c63e0c6d94afc35ade5',1,'openassetio::v1::constants']]],
   ['kinvalidentityreference',['kInvalidEntityReference',['../classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05fad7169a72790e20fb3e3d956a2112d8e3',1,'openassetio::v1::errors::BatchElementError']]],
   ['kinvalidpreflighthint',['kInvalidPreflightHint',['../classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html#a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458',1,'openassetio::v1::errors::BatchElementError']]],

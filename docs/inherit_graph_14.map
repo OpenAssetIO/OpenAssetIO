@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classopenassetio_1_1v1_1_1host_api_1_1_manager.html" title="The Manager is the Host facing representation of an Asset Management System. " alt="" coords="5,5,84,32"/>
+<area shape="rect" id="node1" href="$classopenassetio_1_1v1_1_1log_1_1_logger_interface.html" title="An abstract base class that defines the receiving interface for log messages generated a manager or t..." alt="" coords="5,31,129,57"/>
+<area shape="rect" id="node2" href="$classopenassetio_1_1v1_1_1log_1_1_console_logger.html" title="A logger that sends messages to the console (stderr). " alt="" coords="177,5,296,32"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1v1_1_1log_1_1_severity_filter.html" title="The SeverityFilter is a wrapper for a logger that drops messages below a requested severity..." alt="" coords="182,56,291,83"/>
 </map>

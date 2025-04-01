@@ -14,6 +14,9 @@ var hierarchy =
     [ "FileUrlPathConverter", "classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html", null ],
     [ "hash< openassetio::EntityReference >", "structstd_1_1hash_3_01openassetio_1_1_entity_reference_01_4.html", null ],
     [ "Host", "classopenassetio_1_1v1_1_1manager_api_1_1_host.html", null ],
+    [ "HostInterface", null, [
+      [ "HostInterface", "classopenassetio_1_1host_api_1_1_host_interface_1_1_host_interface.html", null ]
+    ] ],
     [ "HostInterface", "classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html", null ],
     [ "HostSession", "classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html", null ],
     [ "list", null, [
