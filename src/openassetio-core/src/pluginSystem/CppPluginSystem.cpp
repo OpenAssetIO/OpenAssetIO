@@ -300,7 +300,7 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
 
   // Ensure it's not already been registered.
   if (const auto iter = plugins_.find(identifier); iter != plugins_.end()) {
-    logger_->debug(
+    logger_->warning(
         fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. Already registered by '{}'",
                     identifier, filePath.string(), iter->second.first.string()));
     plugin.reset();  // Must destroy _before_ closing lib.

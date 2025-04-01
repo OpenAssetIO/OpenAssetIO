@@ -481,7 +481,7 @@ class Test_PythonPluginSystem_scan_entry_points:
             an_entry_point_package_plugin_root, "packaged_plugin", "__init__.py"
         )
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kDebug,
+            mock_logger.Severity.kWarning,
             f"PythonPluginSystem: Skipping class"
             f" '<class 'packaged_plugin.PackagePlugin.PackagePlugin'>' defined in"
             f" '{entry_point_plugin_init}'. Already registered by '/some/plugin/path'",

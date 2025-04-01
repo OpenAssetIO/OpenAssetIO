@@ -201,7 +201,7 @@ class Test_CppPluginSystem_scan:
 
         assert "pathA" in path.parts
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kDebug,
+            mock_logger.Severity.kWarning,
             f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_c_lib}'."
             f" Already registered by '{path_a_lib}'",
         )
@@ -218,7 +218,7 @@ class Test_CppPluginSystem_scan:
 
         assert "pathC" in path.parts
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kDebug,
+            mock_logger.Severity.kWarning,
             f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{path_c_lib}'",
         )
@@ -260,7 +260,7 @@ class Test_CppPluginSystem_scan:
 
         # Confidence check that we hit the expected code path.
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kDebug,
+            mock_logger.Severity.kWarning,
             f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{path_c_lib}'",
         )
@@ -348,7 +348,7 @@ class Test_CppPluginSystem_scan:
         )
 
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kDebug,
+            mock_logger.Severity.kWarning,
             f"CppPluginSystem: Skipping '{plugin_a_identifier}' defined in '{path_a_lib}'."
             f" Already registered by '{symlink_path_a_lib}'",
         )

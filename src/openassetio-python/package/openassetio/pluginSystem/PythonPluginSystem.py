@@ -257,7 +257,7 @@ class PythonPluginSystem(object):
         """
         identifier = cls.identifier()
         if identifier in self.__map:
-            self.__logger.debug(
+            self.__logger.warning(
                 f"PythonPluginSystem: Skipping class '{cls}' defined in '{path}'. "
                 f"Already registered by '{self.__paths[identifier]}'"
             )
