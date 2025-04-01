@@ -78,9 +78,7 @@ struct OPENASSETIO_CORE_EXPORT NotImplementedException : OpenAssetIOException {
 };
 
 /**
- * Exceptions emitted from manager plugins that are not handled will
- * be converted to this type and re-thrown when the exception passes
- * through the OpenAssetIO middleware.
+ * Currently unused.
  */
 struct OPENASSETIO_CORE_EXPORT UnhandledException : OpenAssetIOException {
   using OpenAssetIOException::OpenAssetIOException;
