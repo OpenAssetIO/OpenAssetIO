@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2":[11,0,0,3,1,2,9],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0":[11,0,0,3,1,2,13],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afe0ed598ca32bfe699bd68fd7ebe00b4":[11,0,0,3,1,2,49],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html":[11,0,0,3,1,3],
@@ -220,8 +221,8 @@ var NAVTREEINDEX1 =
 "functions_e.html":[11,3,0,5],
 "functions_enum.html":[11,3,4],
 "functions_f.html":[11,3,0,6],
-"functions_func.html":[11,3,1,0],
 "functions_func.html":[11,3,1],
+"functions_func.html":[11,3,1,0],
 "functions_func_0x7e.html":[11,3,1,20],
 "functions_func_a.html":[11,3,1,1],
 "functions_func_b.html":[11,3,1,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "functions_k.html":[11,3,0,10],
 "functions_l.html":[11,3,0,11],
 "functions_m.html":[11,3,0,12],
-"functions_n.html":[11,3,0,13],
-"functions_o.html":[11,3,0,14]
+"functions_n.html":[11,3,0,13]
 };

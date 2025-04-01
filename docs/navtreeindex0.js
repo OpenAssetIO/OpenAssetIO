@@ -19,7 +19,8 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ac5a497055ee194e573cd76f9957782cb":[11,0,0,1,1,0,1],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ae9213238c75213f7803c02fc7e245216":[11,0,0,1,1,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html":[11,0,0,1,2,0],
-"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[11,0,0,1,2,0,0],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#a1e0f2c500f5271e13dbed066bd3549f2":[11,0,0,1,2,0,0],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html#aafd0b3ea85ff007407525aa377d03bac":[11,0,0,1,2,0,1],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html":[11,0,0,1,3,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_plugin_1_1_python_plugin_system_plugin.html#a1e0f2c500f5271e13dbed066bd3549f2":[11,0,0,1,3,0,0],
 "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html":[11,0,0,2,0,0,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb59095a8fda6c331d7af7185f1ae5e3":[11,0,0,3,1,2,38],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb94be5902be798d51732b0a603d1a04":[11,0,0,3,1,2,16],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeeeb16da8d1fed4e1cc8854453660992":[11,0,0,3,1,2,8],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af1f175478ec85d374fab8896f62849f5":[11,0,0,3,1,2,53],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af4a59453053da4f3ec0972ffcdc66ed2":[11,0,0,3,1,2,9]
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#af1f175478ec85d374fab8896f62849f5":[11,0,0,3,1,2,53]
 };
