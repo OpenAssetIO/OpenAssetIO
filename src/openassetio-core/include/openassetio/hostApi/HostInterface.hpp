@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2022 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 #pragma once
 
 #include <memory>
@@ -92,9 +92,18 @@ class OPENASSETIO_CORE_EXPORT HostInterface {
 
   /**
    * Returns other information that may be useful about this Host.
-   * This can contain arbitrary key/value pairs. Managers never rely
-   * directly on any particular keys being set here, but the
-   * information may be useful for diagnostic or debugging purposes.
+   *
+   * This can contain arbitrary key/value pairs.
+   *
+   * The default implementation gives an empty dictionary. The Python
+   * base class implementation adds @ref
+   * constants.kInfoKey_IsPython - see @ref
+   * openassetio.hostApi.HostInterface.HostInterface "Python
+   * HostInterface".
+   *
+   * Otherwise, managers never rely directly on any particular keys
+   * being set here, but the information may be useful for diagnostic or
+   * debugging purposes.
    * For example:
    *
    * { 'version' : '1.1v3' }

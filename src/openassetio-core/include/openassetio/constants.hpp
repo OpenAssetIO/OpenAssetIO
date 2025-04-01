@@ -32,6 +32,17 @@ namespace constants {
 inline constexpr std::string_view kInfoKey_SmallIcon = "smallIcon";
 inline constexpr std::string_view kInfoKey_Icon = "icon";
 
+/**
+ * Indicate that the callee is written primarily in Python.
+ *
+ * OpenAssetIO is a mostly seamless dual-language library, but for some
+ * access patterns it may be necessary for callers to be aware that the
+ * callee is written in Python to ensure correct behaviour.
+ *
+ * @see @ref hostApi.HostInterface.info "HostInterface.info".
+ */
+inline constexpr std::string_view kInfoKey_IsPython = "isPython";
+
 // Entity Reference Properties
 
 /**
