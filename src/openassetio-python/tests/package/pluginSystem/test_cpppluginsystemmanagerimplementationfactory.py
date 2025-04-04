@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2024 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -42,6 +42,11 @@ class Test_CppPluginSystemManagerImplementationFactory_kPluginEnvVar:
         )
 
 
+class Test_CppPluginSystemManagerImplementationFactory_kModuleHookName:
+    def test_exposes_module_hook_name_with_expected_value(self):
+        assert CppPluginSystemManagerImplementationFactory.kModuleHookName == "openassetioPlugin"
+
+
 class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
     def test_when_no_paths_then_warning_logged(self, mock_logger, monkeypatch):
         expected_msg = (
@@ -73,23 +78,6 @@ class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
         factory = CppPluginSystemManagerImplementationFactory(mock_logger)
         assert factory.identifiers() == [plugin_a_identifier]
 
-    def test_when_path_arg_set_then_overrides_path_env(
-        self,
-        the_cpp_plugins_root_path,
-        plugin_b_identifier,
-        mock_logger,
-        monkeypatch,
-    ):
-        monkeypatch.setenv(
-            CppPluginSystemManagerImplementationFactory.kPluginEnvVar,
-            os.path.join(the_cpp_plugins_root_path, "managerA"),
-        )
-
-        factory = CppPluginSystemManagerImplementationFactory(
-            paths=os.path.join(the_cpp_plugins_root_path, "managerB"), logger=mock_logger
-        )
-        assert factory.identifiers() == [plugin_b_identifier]
-
     def test_when_paths_empty_then_returns_empty_list(self, mock_logger):
         plugin_paths = ""
         factory = CppPluginSystemManagerImplementationFactory(
@@ -100,47 +88,34 @@ class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
 
 class Test_CppPluginSystemManagerImplementationFactory_identifiers:
     def test_when_non_manager_plugin_then_logs_warning(
-        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger
+        self, a_cpp_plugin_path, mock_logger, regex_matcher
     ):
-        expected_binary_path = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
-        expected_log_message = (
-            f"Plugin '{plugin_a_identifier}' from '{expected_binary_path}' is not a manager plugin"
-            " as it cannot be cast to a CppPluginSystemManagerPlugin"
-        )
+        expected_log_message_suffix = "It is not a manager plugin (CppPluginSystemManagerPlugin)."
+
         factory = CppPluginSystemManagerImplementationFactory(a_cpp_plugin_path, mock_logger)
 
         assert factory.identifiers() == []
 
-        mock_logger.mock.log.assert_any_call(mock_logger.Severity.kWarning, expected_log_message)
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            regex_matcher(re.escape(expected_log_message_suffix) + "$"),
+        )
 
 
 class Test_CppPluginSystemManagerImplementationFactory_instantiate:
     def test_when_non_manager_plugin_then_raises_InputValidationException(
-        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger
+        self, a_cpp_plugin_path, plugin_a_identifier, mock_logger, regex_matcher
     ):
-        expected_binary_path = os.path.join(a_cpp_plugin_path, f"pathA.{lib_ext}")
-        expected_error_message = (
-            f"Plugin '{plugin_a_identifier}' from '{expected_binary_path}' is not a manager plugin"
-            " as it cannot be cast to a CppPluginSystemManagerPlugin"
-        )
         factory = CppPluginSystemManagerImplementationFactory(a_cpp_plugin_path, mock_logger)
 
-        with pytest.raises(
-            errors.InputValidationException, match=re.escape(expected_error_message)
-        ):
+        with pytest.raises(errors.InputValidationException):
             factory.instantiate(plugin_a_identifier)
 
-    def test_when_plugin_not_found_then_raises_InputValidationException(self, mock_logger):
-        expected_identifier = "doesnt-exist"
-        expected_error_message = (
-            f"CppPluginSystem: No plug-in registered with the identifier '{expected_identifier}'"
+        expected_log_message_suffix = "It is not a manager plugin (CppPluginSystemManagerPlugin)."
+        mock_logger.mock.log.assert_any_call(
+            mock_logger.Severity.kWarning,
+            regex_matcher(re.escape(expected_log_message_suffix) + "$"),
         )
-        factory = CppPluginSystemManagerImplementationFactory("", mock_logger)
-
-        with pytest.raises(
-            errors.InputValidationException, match=re.escape(expected_error_message)
-        ):
-            factory.instantiate(expected_identifier)
 
     def test_when_plugin_found_then_returns_instantiated_manager_implementation(
         self, a_cpp_manager_plugin_path, plugin_a_identifier, mock_logger

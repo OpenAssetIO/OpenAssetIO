@@ -4,7 +4,23 @@ Release Notes
 v1.0.0-rc.x.x
 ---------------
 
-_This release remains source compatible for both hosts and managers._
+_This release may break source compatibility for Python and C++ hosts,
+see breaking changes section for more details._
+
+## Breaking changes
+
+- Modified `PythonPluginSystem.scan()` method to search Python
+  distribution entry point hooks as well as scan given paths. Added
+  arguments to parametrise search path and entry point usage. This class
+  is primarily an internal implementation detail, so the change will
+  only break advanced downstream use-cases.
+  [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
+
+- Modified signature of `CppPluginSystem.scan()` to accept more
+  arguments to further parametrise search path usage. This class is
+  primarily an internal implementation detail, so this change will only
+  break advanced downstream use-cases.
+  [#1445](https://github.com/OpenAssetIO/OpenAssetIO/issues/1445)
 
 ## New features
 

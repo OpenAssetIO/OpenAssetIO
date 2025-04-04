@@ -2,17 +2,13 @@
 // Copyright 2024-2025 The Foundry Visionmongers Ltd
 #include <openassetio/pluginSystem/CppPluginSystemManagerImplementationFactory.hpp>
 
-#include <algorithm>
 #include <cstdlib>
 #include <memory>
-#include <unordered_map>
+#include <optional>
+#include <string_view>
 #include <utility>
 
-#include <fmt/core.h>
-#include <fmt/format.h>
-
 #include <openassetio/export.h>
-#include <openassetio/errors/exceptions.hpp>
 #include <openassetio/hostApi/ManagerImplementationFactoryInterface.hpp>
 #include <openassetio/log/LoggerInterface.hpp>
 #include <openassetio/pluginSystem/CppPluginSystem.hpp>
@@ -22,6 +18,18 @@
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
+
+namespace {
+
+const CppPluginSystem::ValidationCallback kCheckIsManagerPlugin{
+    [](const CppPluginSystemPluginPtr& plugin) -> std::optional<Str> {
+      if (!std::dynamic_pointer_cast<CppPluginSystemManagerPlugin>(plugin)) {
+        return "It is not a manager plugin (CppPluginSystemManagerPlugin).";
+      }
+      return std::nullopt;
+    }};
+
+}  // namespace
 
 CppPluginSystemManagerImplementationFactoryPtr CppPluginSystemManagerImplementationFactory::make(
     Str paths, log::LoggerInterfacePtr logger) {
@@ -37,56 +45,20 @@ CppPluginSystemManagerImplementationFactoryPtr CppPluginSystemManagerImplementat
 
 CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory(
     Str paths, log::LoggerInterfacePtr logger)
-    : ManagerImplementationFactoryInterface{std::move(logger)}, paths_{std::move(paths)} {
-  if (paths_.empty()) {
-    this->logger()->log(
-        log::LoggerInterface::Severity::kWarning,
-        fmt::format("No search paths specified, no plugins will load - check ${} is set",
-                    kPluginEnvVar));
-  }
-}
+    : ManagerImplementationFactoryInterface{std::move(logger)}, paths_{std::move(paths)} {}
 
 CppPluginSystemManagerImplementationFactory::CppPluginSystemManagerImplementationFactory(
     log::LoggerInterfacePtr logger)
-    : CppPluginSystemManagerImplementationFactory{
-          // getenv returns nullptr if var not set, which cannot be
-          // used to construct a std::string.
-          // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
-          [paths = std::getenv(kPluginEnvVar.data())] { return paths ? paths : ""; }(),
-          std::move(logger)} {}
+    : CppPluginSystemManagerImplementationFactory{"", std::move(logger)} {}
 
 Identifiers CppPluginSystemManagerImplementationFactory::identifiers() {
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_);
+    pluginSystem_->scan(paths_, kPluginEnvVar, kModuleHookName, kCheckIsManagerPlugin);
   }
 
-  // Get all OpenAssetIO plugins, whether manager plugins or otherwise.
-  Identifiers pluginIds = pluginSystem_->identifiers();
-
-  // Filter plugins to only those that are manager plugins.
-  pluginIds.erase(
-      std::remove_if(
-          begin(pluginIds), end(pluginIds),
-          [&](const auto& identifier) {
-            const auto& [path, plugin] = pluginSystem_->plugin(identifier);
-
-            auto managerPlugin = std::dynamic_pointer_cast<CppPluginSystemManagerPlugin>(plugin);
-
-            if (!managerPlugin) {
-              logger()->log(
-                  log::LoggerInterface::Severity::kWarning,
-                  fmt::format(
-                      "Plugin '{}' from '{}' is not a manager plugin as it cannot be cast to a"
-                      " CppPluginSystemManagerPlugin",
-                      identifier, path.string()));
-            }
-
-            return !managerPlugin;
-          }),
-      end(pluginIds));
-  return pluginIds;
+  return pluginSystem_->identifiers();
 }
 
 managerApi::ManagerInterfacePtr CppPluginSystemManagerImplementationFactory::instantiate(
@@ -94,20 +66,16 @@ managerApi::ManagerInterfacePtr CppPluginSystemManagerImplementationFactory::ins
   if (!pluginSystem_) {
     // Lazy load plugins.
     pluginSystem_ = CppPluginSystem::make(logger());
-    pluginSystem_->scan(paths_);
+    pluginSystem_->scan(paths_, kPluginEnvVar, kModuleHookName, kCheckIsManagerPlugin);
   }
   const auto& [path, plugin] = pluginSystem_->plugin(identifier);
 
-  auto managerPlugin = std::dynamic_pointer_cast<CppPluginSystemManagerPlugin>(plugin);
+  // Should definitely be a manager plugin, as validated by
+  // `kCheckIsManagerPlugin`. We use the exception-throwing version of
+  // dynamic_cast just to be extra safe.
+  auto& managerPlugin = dynamic_cast<CppPluginSystemManagerPlugin&>(*plugin);
 
-  if (!managerPlugin) {
-    throw errors::InputValidationException{
-        fmt::format("Plugin '{}' from '{}' is not a manager plugin as it cannot be cast to a"
-                    " CppPluginSystemManagerPlugin",
-                    identifier, path.string())};
-  }
-
-  return managerPlugin->interface();
+  return managerPlugin.interface();
 }
 }  // namespace pluginSystem
 }  // namespace OPENASSETIO_CORE_ABI_VERSION

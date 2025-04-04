@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -22,11 +22,16 @@ ManagerImplementationFactoryInterface implementation.
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=use-implicit-booleaness-not-comparison
+import sys
+from unittest import mock
 
 import pytest
 
 from openassetio.log import ConsoleLogger
-from openassetio.pluginSystem import PythonPluginSystemManagerImplementationFactory
+from openassetio.pluginSystem import (
+    PythonPluginSystemManagerImplementationFactory,
+    PythonPluginSystem,
+)
 
 
 class Test_PythonPluginSystemManagerImplementationFactory:
@@ -48,124 +53,117 @@ class Test_PythonPluginSystemManagerImplementationFactory:
             == "openassetio.manager_plugin"
         )
 
+    def test_exposes_module_hook_with_expected_value(self):
+        assert (
+            PythonPluginSystemManagerImplementationFactory.kModuleHookName == "openassetioPlugin"
+        )
+
 
 class Test_PythonPluginSystemManagerImplementationFactory_init:
-    def test_when_no_args_or_env_vars_then_entry_point_plugins_loaded(
-        self,
-        prepended_sys_path_with_entry_point_plugin,
-        entry_point_plugin_identifier,
-    ):
+    def test_when_no_paths_then_paths_not_scanned(self, mock_plugin_system):
         factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
-        assert factory.identifiers() == [entry_point_plugin_identifier]
 
-    def test_when_no_paths_and_entry_points_disabled_then_warning_logged(
-        self, mock_logger, monkeypatch
-    ):
-        expected_msg = (
-            "No search paths specified and entry point plugins are disabled, no plugins will "
-            f"load - check ${PythonPluginSystemManagerImplementationFactory.kPluginEnvVar} is set."
-        )
-        expected_severity = mock_logger.Severity.kWarning
+        factory.identifiers()
 
-        monkeypatch.delenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False
-        )
-
-        factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, disableEntryPointsPlugins=True
-        )
-        # Plugins are scanned lazily when first requested
-        assert factory.identifiers() == []
-        mock_logger.mock.log.assert_called_once_with(expected_severity, expected_msg)
-
-    def test_when_no_args_and_entry_points_disabled_env_then_entry_point_not_loaded(
-        self, prepended_sys_path_with_entry_point_plugin, monkeypatch
-    ):
-        monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar, "1"
-        )
-        monkeypatch.delenv(
-            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False
-        )
-
-        factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
-        assert factory.identifiers() == []
-
-    def test_when_no_args_and_path_env_then_path_plugins_loaded(
-        self,
-        a_python_module_plugin_path,
-        plugin_a_identifier,
-        monkeypatch,
-    ):
-        monkeypatch.setenv(
+        mock_plugin_system.scan.assert_called_once_with(
+            None,
             PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
-            a_python_module_plugin_path,
+            PythonPluginSystemManagerImplementationFactory.kPackageEntryPointGroup,
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar,
+            None,
+            PythonPluginSystemManagerImplementationFactory.kModuleHookName,
         )
-        factory = PythonPluginSystemManagerImplementationFactory(ConsoleLogger())
-        assert factory.identifiers() == [plugin_a_identifier]
 
-    def test_when_path_arg_set_then_overrides_path_env(
-        self,
-        a_python_module_plugin_path,
-        a_python_package_plugin_path,
-        plugin_b_identifier,
-        mock_logger,
-        monkeypatch,
-    ):
-        monkeypatch.setenv(
+    def test_when_paths_then_paths_scanned(self, mock_plugin_system):
+        factory = PythonPluginSystemManagerImplementationFactory(
+            ConsoleLogger(), paths="/some/path"
+        )
+
+        factory.identifiers()
+
+        mock_plugin_system.scan.assert_called_once_with(
+            "/some/path",
             PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
-            a_python_module_plugin_path,
+            PythonPluginSystemManagerImplementationFactory.kPackageEntryPointGroup,
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar,
+            None,
+            PythonPluginSystemManagerImplementationFactory.kModuleHookName,
         )
 
-        factory = PythonPluginSystemManagerImplementationFactory(
-            paths=a_python_package_plugin_path, logger=mock_logger
-        )
-        assert factory.identifiers() == [
-            plugin_b_identifier,
-        ]
-
-    def test_when_entry_points_disable_arg_set_then_overrides_entry_points_disable_env(
-        self,
-        prepended_sys_path_with_entry_point_plugin,
-        entry_point_plugin_identifier,
-        mock_logger,
-        monkeypatch,
+    def test_when_entry_points_disabled_arg_then_arg_passed_to_plugin_system(
+        self, mock_plugin_system
     ):
-        monkeypatch.setenv(
-            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar, "1"
-        )
+        disable_entry_points = mock.Mock()
+
         factory = PythonPluginSystemManagerImplementationFactory(
-            disableEntryPointsPlugins=False, logger=mock_logger
+            ConsoleLogger(), disableEntryPointsPlugins=disable_entry_points
         )
-        assert factory.identifiers() == [
-            entry_point_plugin_identifier,
-        ]
 
-    def test_when_paths_empty_then_returns_empty_list(self, mock_logger):
+        factory.identifiers()
 
-        plugin_paths = ""
-        factory = PythonPluginSystemManagerImplementationFactory(
-            paths=plugin_paths, logger=mock_logger
+        mock_plugin_system.scan.assert_called_once_with(
+            None,
+            PythonPluginSystemManagerImplementationFactory.kPluginEnvVar,
+            PythonPluginSystemManagerImplementationFactory.kPackageEntryPointGroup,
+            PythonPluginSystemManagerImplementationFactory.kDisableEntryPointsEnvVar,
+            disable_entry_points,
+            PythonPluginSystemManagerImplementationFactory.kModuleHookName,
         )
-        assert factory.identifiers() == []
 
-    def test_when_duplicate_identifiers_path_selected_over_entry_point(
-        self,
-        prepended_sys_path_with_entry_point_plugin,
-        a_python_package_plugin_path,
-        plugin_b_identifier,
-        mock_logger,
+
+class Test_PythonPluginSystemManagerImplementationFactory_identifiers:
+    def test_lazy_scans_for_plugins_before_returning_identifiers(
+        self, mock_plugin_system, mock_logger
     ):
-        factory = PythonPluginSystemManagerImplementationFactory(
-            mock_logger, paths=a_python_package_plugin_path, disableEntryPointsPlugins=False
-        )
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
+        calls = mock.Mock()
+        calls.attach_mock(mock_plugin_system.scan, "scan")
+        calls.attach_mock(mock_plugin_system.identifiers, "identifiers")
 
-        assert factory.identifiers() == [
-            plugin_b_identifier,
+        first_identifiers = factory.identifiers()
+        second_identifiers = factory.identifiers()
+
+        assert calls.method_calls == [
+            mock.call.scan(mock.ANY, mock.ANY, mock.ANY, mock.ANY, mock.ANY, mock.ANY),
+            mock.call.identifiers(),
+            mock.call.identifiers(),
         ]
-        assert a_python_package_plugin_path in factory.instantiate(plugin_b_identifier)["file"]
+        assert first_identifiers == second_identifiers
+        assert first_identifiers == mock_plugin_system.identifiers.return_value
+
+
+class Test_PythonPluginSystemManagerImplementationFactory_instantiate:
+    def test_lazy_scans_for_plugins_before_instantiating(self, mock_plugin_system, mock_logger):
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
+        calls = mock.Mock()
+        calls.attach_mock(mock_plugin_system.scan, "scan")
+        calls.attach_mock(mock_plugin_system.plugin, "plugin")
+
+        factory.instantiate("first_id")
+        factory.instantiate("second_id")
+
+        assert calls.method_calls == [
+            mock.call.scan(mock.ANY, mock.ANY, mock.ANY, mock.ANY, mock.ANY, mock.ANY),
+            mock.call.plugin("first_id"),
+            mock.call.plugin("second_id"),
+        ]
+
+    def test_returns_instance_created_by_plugin(self, mock_plugin_system, mock_logger):
+        factory = PythonPluginSystemManagerImplementationFactory(mock_logger)
+
+        instance = factory.instantiate("some_identifier")
+
+        mock_plugin_system.plugin.assert_called_once_with("some_identifier")
+        mock_plugin_system.plugin.return_value.interface.assert_called_once_with()
+        assert instance is mock_plugin_system.plugin.return_value.interface.return_value
 
 
 @pytest.fixture
-def prepended_sys_path_with_entry_point_plugin(an_entry_point_package_plugin_root, monkeypatch):
-    monkeypatch.syspath_prepend(an_entry_point_package_plugin_root)
+def mock_plugin_system(monkeypatch):
+    plugin_system = mock.create_autospec(spec=PythonPluginSystem)
+    monkeypatch.setattr(
+        sys.modules[PythonPluginSystemManagerImplementationFactory.__module__],
+        "PythonPluginSystem",
+        plugin_system,
+    )
+    return plugin_system.return_value

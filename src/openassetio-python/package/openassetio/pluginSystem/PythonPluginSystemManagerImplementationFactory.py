@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@
 A single-class module, providing the
 PythonPluginSystemManagerImplementationFactory class.
 """
-
-import os
 
 from ..hostApi import ManagerImplementationFactoryInterface
 
@@ -72,6 +70,10 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
     ## discovered plugins.
     kPackageEntryPointGroup = "openassetio.manager_plugin"
 
+    ## The name of the top-level variable that references the plugin
+    ## class.
+    kModuleHookName = "openassetioPlugin"
+
     def __init__(self, logger, paths=None, disableEntryPointsPlugins=None):
         """
         Creates a new factory. The factory scans for plugins lazily on
@@ -93,13 +95,7 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         super(PythonPluginSystemManagerImplementationFactory, self).__init__(logger)
 
         self.__pluginManager = None
-
-        if paths is None:
-            paths = os.environ.get(self.kPluginEnvVar, "")
         self.__paths = paths
-
-        if disableEntryPointsPlugins is None:
-            disableEntryPointsPlugins = os.environ.get(self.kDisableEntryPointsEnvVar, False)
         self.__disableEntryPointsPlugins = disableEntryPointsPlugins
 
     def __scan(self):
@@ -109,25 +105,14 @@ class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactor
         """
         # Construct this here, so we have this even if we early out
         self.__pluginManager = PythonPluginSystem(self._logger)
-
-        if not self.__paths and self.__disableEntryPointsPlugins:
-            self._logger.log(
-                self._logger.Severity.kWarning,
-                "No search paths specified and entry point plugins are disabled, no plugins "
-                f"will load - check ${self.kPluginEnvVar} is set.",
-            )
-            return
-
-        # We scan custom paths first, so they take precedence over entry
-        # point plugins
-
-        if self.__paths:
-            self.__pluginManager.scan(self.__paths)
-
-        if self.__disableEntryPointsPlugins:
-            self._logger.debug("Entry point based plugins are disabled")
-        else:
-            self.__pluginManager.scan_entry_points(self.kPackageEntryPointGroup)
+        self.__pluginManager.scan(
+            self.__paths,
+            self.kPluginEnvVar,
+            self.kPackageEntryPointGroup,
+            self.kDisableEntryPointsEnvVar,
+            self.__disableEntryPointsPlugins,
+            self.kModuleHookName,
+        )
 
     def identifiers(self):
         """

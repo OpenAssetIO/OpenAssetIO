@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <filesystem>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -58,6 +59,15 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
   void reset();
 
   /**
+   * Callback provided to @ref scan to provide further validation.
+   *
+   * A return value of empty optional signals that the plugin is OK.
+   * A return value of a string signals that the plugin is not OK and
+   * the string provides the reason.
+   */
+  using ValidationCallback = std::function<std::optional<Str>(const CppPluginSystemPluginPtr&)>;
+
+  /**
    * Searches the supplied paths for plugin modules.
    *
    * Paths are searched left-to-right, but only the first instance of
@@ -68,11 +78,13 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    * @note Precedence order is undefined for plugins sharing the
    * same identifier within the same directory.
    *
-   * Each given directory is scanned for shared libraries that expose an
-   * `openassetioPlugin` entry point function (with C linkage), which is
-   * expected to return a @ref PluginFactory function pointer, which
-   * when called returns an instantiated (subclass of) @ref
-   * CppPluginSystemPlugin.
+   * If the given paths string and the given environment variable both
+   * contain search paths, then only the paths string is used.
+   *
+   * Each given directory is scanned for shared libraries that expose a
+   * given hook function (with C linkage), which is expected to return a
+   * @ref PluginFactory function pointer, which when called returns an
+   * instantiated (subclass of) @ref CppPluginSystemPlugin.
    *
    * Discovered plugins are registered by their exposed identifier, and
    * subsequent registrations with the same identifier will be skipped.
@@ -83,9 +95,22 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
    *
    * @param paths A list of paths to search, delimited by operating
    * system specific path separator (i.e. `:` for POSIX, `;` for
-   * Windows).
+   * Windows). Leave blank to search paths given by the environment
+   * variable specified in @p pathsEnvVar.
+   *
+   * @param pathsEnvVar An environment variable name containing paths
+   * formatted as described in @p paths. Paths from this environment
+   * variable are ignored if @p paths is non-empty.
+   *
+   * @param moduleHookName The name of the entry point function to scan
+   * for and execute within discovered files.
+   *
+   * @param validationCallback A callback that will be given a candidate
+   * CppPluginSystemPtr and should return an empty optional if the
+   * plugin is valid, or a reason string if not valid.
    */
-  void scan(std::string_view paths);
+  void scan(std::string_view paths, std::string_view pathsEnvVar, std::string_view moduleHookName,
+            const ValidationCallback& validationCallback);
 
   /**
    * Returns the identifiers known to the plugin system.
@@ -114,7 +139,9 @@ class OPENASSETIO_CORE_EXPORT CppPluginSystem {
       std::optional<std::pair<openassetio::Identifier, CppPluginSystemPluginPtr>>;
   /// Attempt to load a plugin at a given path, returning nullopt on
   /// failure.
-  MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath);
+  MaybeIdentifierAndPlugin maybeLoadPlugin(const std::filesystem::path& filePath,
+                                           std::string_view moduleHookName,
+                                           const ValidationCallback& validationCallback);
 
   /// Private constructor. See @ref make.
   explicit CppPluginSystem(log::LoggerInterfacePtr logger);

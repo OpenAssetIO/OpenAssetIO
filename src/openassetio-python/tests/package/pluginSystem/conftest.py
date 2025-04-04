@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2022 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,10 +20,16 @@ Helper fixtures for testing the Python plugin system
 # pylint: disable=invalid-name
 
 import os
+import re
 import sysconfig
 
 import openassetio
 import pytest
+
+
+@pytest.fixture
+def the_manager_plugin_module_hook():
+    return "openassetioPlugin"
 
 
 @pytest.fixture
@@ -133,3 +139,20 @@ def the_cpp_plugins_root_path():
             os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugin-env-var-not-set"),
         )
     )
+
+
+class RegexMatch:
+    """
+    Argument matcher to match strings by regular expression.
+    """
+
+    def __init__(self, pattern):
+        self.__pattern = pattern
+
+    def __eq__(self, text):
+        return bool(re.search(self.__pattern, text))
+
+
+@pytest.fixture(scope="session")
+def regex_matcher():
+    return RegexMatch

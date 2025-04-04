@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <cstdlib>
 #include <exception>
 #include <filesystem>
 #include <iterator>
@@ -33,8 +34,6 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace pluginSystem {
 
 namespace {
-constexpr const char* kEntrypointFnName = "openassetioPlugin";
-
 #if defined(_WIN32)
 // Dummy values
 #define RTLD_LAZY 0
@@ -111,37 +110,61 @@ void CppPluginSystem::reset() {
 
 CppPluginSystem::CppPluginSystem(log::LoggerInterfacePtr logger) : logger_{std::move(logger)} {}
 
-void CppPluginSystem::scan(const std::string_view paths) {
-  std::size_t pathsStartIdx = 0;
-  std::size_t pathsEndIdx = 0;
+// NOLINTNEXTLINE(bugprone-easily-swappable-parameters)
+void CppPluginSystem::scan(const std::string_view paths, const std::string_view pathsEnvVar,
+                           const std::string_view moduleHookName,
+                           const ValidationCallback& validationCallback) {
+  const auto scanPaths = [&](const std::string_view pathsToScan) {
+    std::size_t pathsStartIdx = 0;
+    std::size_t pathsEndIdx = 0;
 
-  // Loop through each path in ';'/:'-delimited paths string.
-  while ((pathsStartIdx = paths.find_first_not_of(kPathSep, pathsEndIdx)) != std::string::npos) {
-    pathsEndIdx = paths.find(kPathSep, pathsStartIdx);
-    const std::filesystem::path directoryPath =
-        paths.substr(pathsStartIdx, pathsEndIdx - pathsStartIdx);
+    // Loop through each path in ';'/:'-delimited paths string.
+    while ((pathsStartIdx = pathsToScan.find_first_not_of(kPathSep, pathsEndIdx)) !=
+           std::string::npos) {
+      pathsEndIdx = pathsToScan.find(kPathSep, pathsStartIdx);
+      const std::filesystem::path directoryPath =
+          pathsToScan.substr(pathsStartIdx, pathsEndIdx - pathsStartIdx);
 
-    // Check the provided path is actually a searchable directory.
-    if (!is_directory(directoryPath)) {
-      logger_->debug(fmt::format("CppPluginSystem: Skipping as not a directory '{}'",
-                                 directoryPath.string()));
-      continue;
-    }
-
-    // Loop each item in the provided search path.
-    for (const std::filesystem::directory_entry& directoryEntry :
-         std::filesystem::directory_iterator{directoryPath}) {
-      std::filesystem::path filePath = directoryEntry.path();
-
-      // Assume the item in the search path is a plugin file and attempt
-      // to load it.
-      if (MaybeIdentifierAndPlugin idAndPlugin = maybeLoadPlugin(filePath)) {
-        logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
-                                   idAndPlugin->first, filePath.string()));
-        // Register the successfully loaded plugin.
-        plugins_[std::move(idAndPlugin->first)] = {std::move(filePath),
-                                                   std::move(idAndPlugin->second)};
+      // Check the provided path is actually a searchable directory.
+      if (!is_directory(directoryPath)) {
+        logger_->debug(fmt::format("CppPluginSystem: Skipping as not a directory '{}'",
+                                   directoryPath.string()));
+        continue;
       }
+
+      // Loop each item in the provided search path.
+      for (const std::filesystem::directory_entry& directoryEntry :
+           std::filesystem::directory_iterator{directoryPath}) {
+        std::filesystem::path filePath = directoryEntry.path();
+
+        // Assume the item in the search path is a plugin file and attempt
+        // to load it.
+        if (MaybeIdentifierAndPlugin idAndPlugin =
+                maybeLoadPlugin(filePath, moduleHookName, validationCallback)) {
+          logger_->debug(fmt::format("CppPluginSystem: Registered plug-in '{}' from '{}'",
+                                     idAndPlugin->first, filePath.string()));
+          // Register the successfully loaded plugin.
+          plugins_[std::move(idAndPlugin->first)] = {std::move(filePath),
+                                                     std::move(idAndPlugin->second)};
+        }
+      }
+    }
+  };
+
+  // Prefer fixed paths, else fall back to env var.
+  if (!paths.empty()) {
+    scanPaths(paths);
+  } else {
+    // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
+    const std::string_view pathsFromEnvVar = [maybePaths = std::getenv(pathsEnvVar.data())] {
+      return maybePaths == nullptr ? "" : maybePaths;
+    }();
+
+    if (pathsFromEnvVar.empty()) {
+      logger_->warning(fmt::format(
+          "No search paths specified, no plugins will load - check ${} is set", pathsEnvVar));
+    } else {
+      scanPaths(pathsFromEnvVar);
     }
   }
 }
@@ -165,7 +188,8 @@ const CppPluginSystem::PathAndPlugin& CppPluginSystem::plugin(const Identifier& 
 }
 
 CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
-    const std::filesystem::path& filePath) {
+    const std::filesystem::path& filePath, const std::string_view moduleHookName,
+    const ValidationCallback& validationCallback) {
   // Check the proposed path is actually a file.
   if (!is_regular_file(filePath)) {
     logger_->debug(fmt::format("CppPluginSystem: Ignoring as it is not a library binary '{}'",
@@ -198,10 +222,11 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
   }
 
   // Get the entrypoint function.
-  void* entrypoint = dlsym(handle, kEntrypointFnName);
+  // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
+  void* entrypoint = dlsym(handle, moduleHookName.data());
   if (!entrypoint) {
     logger_->debug(fmt::format("CppPluginSystem: No top-level '{}' function in '{}': {}",
-                               kEntrypointFnName, filePath.string(), dlerror()));
+                               moduleHookName, filePath.string(), dlerror()));
     dlclose(handle);
     return {};
   }
@@ -265,9 +290,17 @@ CppPluginSystem::MaybeIdentifierAndPlugin CppPluginSystem::maybeLoadPlugin(
     return {};
   }
 
+  if (auto maybeInvalidReason = validationCallback(plugin)) {
+    logger_->warning(fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. {}", identifier,
+                                 filePath.string(), *maybeInvalidReason));
+    plugin.reset();  // Must destroy _before_ closing lib.
+    dlclose(handle);
+    return {};
+  }
+
   // Ensure it's not already been registered.
   if (const auto iter = plugins_.find(identifier); iter != plugins_.end()) {
-    logger_->debug(
+    logger_->warning(
         fmt::format("CppPluginSystem: Skipping '{}' defined in '{}'. Already registered by '{}'",
                     identifier, filePath.string(), iter->second.first.string()));
     plugin.reset();  // Must destroy _before_ closing lib.
