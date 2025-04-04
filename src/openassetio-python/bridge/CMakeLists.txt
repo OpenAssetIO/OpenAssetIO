@@ -46,10 +46,13 @@ endif ()
 # Target dependencies
 
 # Source file dependencies.
-target_sources(openassetio-python-bridge
+target_sources(
+    openassetio-python-bridge
     PRIVATE
     src/python/hostApi.cpp
-    src/python/converter.cpp)
+    src/python/converter.cpp
+    src/python/ui/hostApi.cpp
+)
 
 # Public header dependency.
 target_include_directories(openassetio-python-bridge
@@ -67,6 +70,7 @@ target_include_directories(openassetio-python-bridge
 target_link_libraries(openassetio-python-bridge
     PUBLIC
     openassetio-core
+    openassetio-ui
     PRIVATE
     # pybind11 is not needed by consumers in order to use this target,
     # so we don't want it listed as a required dependency in

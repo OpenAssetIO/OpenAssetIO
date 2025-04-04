@@ -17,7 +17,8 @@ namespace python {  // NOLINT(modernize-concat-nested-namespaces)
 /// Host-side utilities for bridging from C++ to Python.
 namespace hostApi {
 /**
- * Retrieve an instance of the the Python plugin system implementation.
+ * Retrieve an instance of the Python manager plugin system
+ * implementation.
  *
  * @return Python plugin system.
  */

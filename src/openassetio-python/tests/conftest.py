@@ -1,5 +1,5 @@
 #
-#   Copyright 2013-2024 The Foundry Visionmongers Ltd
+#   Copyright 2013-2025 The Foundry Visionmongers Ltd
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,11 +17,17 @@
 Shared fixtures/code for pytest cases.
 """
 # pylint: disable=missing-function-docstring,redefined-outer-name
+
+import collections
 from unittest import mock
 import sys
+import os
+import sysconfig
+import re
 
 import pytest
 
+import openassetio
 from openassetio import Context, EntityReference
 from openassetio.access import (
     PolicyAccess,
@@ -40,9 +46,15 @@ from openassetio.managerApi import (
 )
 from openassetio.hostApi import HostInterface
 from openassetio.trait import TraitsData
-
+from openassetio.ui.managerApi import UIDelegateInterface, UIDelegateStateInterface
+from openassetio.ui.hostApi import UIDelegateRequestInterface
 
 # pylint: disable=invalid-name
+
+
+@pytest.fixture(scope="session")
+def regex_matcher():
+    return RegexMatch
 
 
 @pytest.fixture
@@ -147,6 +159,117 @@ def create_mock_manager_interface():
         return manager_interface
 
     return creator
+
+
+@pytest.fixture
+def mock_ui_delegate_interface(create_mock_ui_delegate_interface):
+    return create_mock_ui_delegate_interface()
+
+
+@pytest.fixture
+def create_mock_ui_delegate_interface():
+
+    def creator():
+        return MockUIDelegateInterface()
+
+    return creator
+
+
+@pytest.fixture
+def mock_ui_delegate_request_interface():
+    return MockUIDelegateRequestInterface()
+
+
+@pytest.fixture
+def mock_ui_delegate_state_interface():
+    return MockUIDelegateStateInterface()
+
+
+@pytest.fixture
+def plugin_a_identifier():
+    return "org.openassetio.test.pluginSystem.resources.pluginA"
+
+
+@pytest.fixture
+def a_cpp_plugin_path(the_cpp_plugins_root_path):
+    return os.path.join(the_cpp_plugins_root_path, "pathA")
+
+
+@pytest.fixture(scope="session")
+def the_cpp_plugins_root_path():
+    """
+    Assume C++ plugins are installed in
+    $<INSTALL_PREFIX>/${OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR}
+    """
+    scheme = f"{os.name}_user"
+    return os.path.normpath(
+        os.path.join(
+            # Top-level __init__.py
+            openassetio.__file__,
+            # up to openassetio dir
+            "..",
+            # up to site-packages
+            "..",
+            # up to install tree root (i.e. posix ../../.., nt ../..)
+            os.path.relpath(
+                sysconfig.get_path("data", scheme), sysconfig.get_path("platlib", scheme)
+            ),
+            # down to install location of C++ plugins. Environment
+            # variable set automatically if running pytest via CMake's
+            # ctest. Default value provides a valid path to check (and
+            # fail) in consuming fixtures - see
+            # `skip_if_no_test_plugins_available`.
+            os.getenv("OPENASSETIO_TEST_CPP_PLUGINS_SUBDIR", "plugin-env-var-not-set"),
+        )
+    )
+
+
+@pytest.fixture
+def root_enum():
+    """
+    An enum class that contains all possible values that we support.
+
+    Uses PolicyAccess as a representative enum with all values.
+    """
+    return PolicyAccess
+
+
+@pytest.fixture
+def assert_expected_enum_values():
+    """
+    Provides a function to assert that a given enum type has expected
+    values.
+    """
+
+    # Required since enum values under different enum classes compare
+    # non-equal, even if their string name and integer values are
+    # identical.
+    ComparableEnumValue = collections.namedtuple("ComparableEnumValue", ("name", "value"))
+
+    def extract_comparable_values_from_enum_class(enum_class):
+        return extract_comparable_values_from_enum_values(*enum_class.__members__.values())
+
+    def extract_comparable_values_from_enum_values(*enum_values):
+        return set(ComparableEnumValue(member.name, member.value) for member in enum_values)
+
+    def asserter(enum_under_test, *expected_values):
+        expected = extract_comparable_values_from_enum_values(*expected_values)
+        actual = extract_comparable_values_from_enum_class(enum_under_test)
+        assert actual == expected
+
+    return asserter
+
+
+class RegexMatch:
+    """
+    Argument matcher to match strings by regular expression.
+    """
+
+    def __init__(self, pattern):
+        self.__pattern = pattern
+
+    def __eq__(self, text):
+        return bool(re.search(self.__pattern, text))
 
 
 class ValidatingMockManagerInterface(ManagerInterface):
@@ -489,3 +612,84 @@ class MockEntityReferencePagerInterface(EntityReferencePagerInterface):
 
     def close(self, hostSession):
         self.mock.close(hostSession)
+
+
+class MockUIDelegateInterface(UIDelegateInterface):
+    """
+    `UIDelegateInterface` implementation that delegates all calls to a
+    public `Mock` instance.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.mock = mock.create_autospec(UIDelegateInterface, spec_set=True, instance=True)
+
+    def identifier(self):
+        return self.mock.identifier()
+
+    def displayName(self):
+        return self.mock.displayName()
+
+    def info(self):
+        return self.mock.info()
+
+    def settings(self, hostSession):
+        return self.mock.settings(hostSession)
+
+    def initialize(self, uiDelegateSettings, hostSession):
+        return self.mock.initialize(uiDelegateSettings, hostSession)
+
+    def close(self, hostSession):
+        return self.mock.close(hostSession)
+
+    def uiPolicy(self, uiTraitSet, uiAccess, context, hostSession):
+        return self.mock.uiPolicy(uiTraitSet, uiAccess, context, hostSession)
+
+    def populateUI(self, uiTraitsData, uiAccess, uiRequest, context, hostSession):
+        return self.mock.populateUI(uiTraitsData, uiAccess, uiRequest, context, hostSession)
+
+
+class MockUIDelegateRequestInterface(UIDelegateRequestInterface):
+    """
+    A UIDelegateRequestInterface implementation that delegates all calls
+    to a public Mock instance.
+    """
+
+    def __init__(self):
+        UIDelegateRequestInterface.__init__(self)
+        self.mock = mock.create_autospec(UIDelegateRequestInterface, spec_set=True, instance=True)
+
+    def entityReferences(self):
+        return self.mock.entityReferences()
+
+    def entityTraitsDatas(self):
+        return self.mock.entityTraitsDatas()
+
+    def nativeData(self):
+        return self.mock.nativeData()
+
+    def stateChangedCallback(self):
+        return self.mock.stateChangedCallback()
+
+
+class MockUIDelegateStateInterface(UIDelegateStateInterface):
+    """
+    A UIDelegateStateInterface implementation that delegates all calls
+    to a public Mock instance.
+    """
+
+    def __init__(self):
+        UIDelegateStateInterface.__init__(self)
+        self.mock = mock.create_autospec(UIDelegateStateInterface, spec_set=True, instance=True)
+
+    def entityReferences(self):
+        return self.mock.entityReferences()
+
+    def entityTraitsDatas(self):
+        return self.mock.entityTraitsDatas()
+
+    def nativeData(self):
+        return self.mock.nativeData()
+
+    def updateRequestCallback(self):
+        return self.mock.updateRequestCallback()
