@@ -136,15 +136,18 @@ Public Types</h2></td></tr>
 <tr class="memitem:abb158c82e793127533fa5b9c11a08ebe"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#abb158c82e793127533fa5b9c11a08ebe">PathAndPlugin</a> = std::pair&lt; std::filesystem::path, <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a1fd6aa3e72d50e8363a3d74bce007817">CppPluginSystemPluginPtr</a> &gt;</td></tr>
 <tr class="memdesc:abb158c82e793127533fa5b9c11a08ebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pair of absolute path to plugin and shared_ptr to plugin instance.  <a href="#abb158c82e793127533fa5b9c11a08ebe">More...</a><br /></td></tr>
 <tr class="separator:abb158c82e793127533fa5b9c11a08ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48e0eacd9784c4a210c6c7a29f7049b2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a48e0eacd9784c4a210c6c7a29f7049b2">ValidationCallback</a> = std::function&lt; std::optional&lt; <a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a> &gt;(const <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a1fd6aa3e72d50e8363a3d74bce007817">CppPluginSystemPluginPtr</a> &amp;)&gt;</td></tr>
+<tr class="memdesc:a48e0eacd9784c4a210c6c7a29f7049b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback provided to <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a54230c56d659b13e7c1cd73b20f8d616">scan</a> to provide further validation.  <a href="#a48e0eacd9784c4a210c6c7a29f7049b2">More...</a><br /></td></tr>
+<tr class="separator:a48e0eacd9784c4a210c6c7a29f7049b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad20897c5c8bd47f5d4005989bead0e55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#ad20897c5c8bd47f5d4005989bead0e55">reset</a> ()</td></tr>
 <tr class="memdesc:ad20897c5c8bd47f5d4005989bead0e55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear any previously loaded plugins.  <a href="#ad20897c5c8bd47f5d4005989bead0e55">More...</a><br /></td></tr>
 <tr class="separator:ad20897c5c8bd47f5d4005989bead0e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84bb3c16c7e7265f9a2359a099d66509"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a84bb3c16c7e7265f9a2359a099d66509">scan</a> (std::string_view paths)</td></tr>
-<tr class="memdesc:a84bb3c16c7e7265f9a2359a099d66509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths for plugin modules.  <a href="#a84bb3c16c7e7265f9a2359a099d66509">More...</a><br /></td></tr>
-<tr class="separator:a84bb3c16c7e7265f9a2359a099d66509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54230c56d659b13e7c1cd73b20f8d616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a54230c56d659b13e7c1cd73b20f8d616">scan</a> (std::string_view paths, std::string_view pathsEnvVar, std::string_view moduleHookName, const <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a48e0eacd9784c4a210c6c7a29f7049b2">ValidationCallback</a> &amp;validationCallback)</td></tr>
+<tr class="memdesc:a54230c56d659b13e7c1cd73b20f8d616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the supplied paths for plugin modules.  <a href="#a54230c56d659b13e7c1cd73b20f8d616">More...</a><br /></td></tr>
+<tr class="separator:a54230c56d659b13e7c1cd73b20f8d616"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07586989a508ed6a2b5c9c77cc339f2e"><td class="memItemLeft" align="right" valign="top">openassetio::Identifiers&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a07586989a508ed6a2b5c9c77cc339f2e">identifiers</a> () const </td></tr>
 <tr class="memdesc:a07586989a508ed6a2b5c9c77cc339f2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the identifiers known to the plugin system.  <a href="#a07586989a508ed6a2b5c9c77cc339f2e">More...</a><br /></td></tr>
 <tr class="separator:a07586989a508ed6a2b5c9c77cc339f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,7 +164,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generic plugin system for C++ plugins. </p>
 <p>The API broadly mirrors the <a class="el" href="namespaceopenassetio_1_1plugin_system_1_1_python_plugin_system.html">PythonPluginSystem</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a84bb3c16c7e7265f9a2359a099d66509">scan</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a54230c56d659b13e7c1cd73b20f8d616">scan</a> </dd>
 <dd>
 <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a> </dd>
 <dd>
@@ -205,6 +208,21 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a48e0eacd9784c4a210c6c7a29f7049b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a48e0eacd9784c4a210c6c7a29f7049b2">ValidationCallback</a> =  std::function&lt;std::optional&lt;<a class="el" href="namespaceopenassetio_1_1v1.html#a376207d46bd161163b9089964e8fbed6">Str</a>&gt;(const <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a1fd6aa3e72d50e8363a3d74bce007817">CppPluginSystemPluginPtr</a>&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback provided to <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a54230c56d659b13e7c1cd73b20f8d616">scan</a> to provide further validation. </p>
+<p>A return value of empty optional signals that the plugin is OK. A return value of a string signals that the plugin is not OK and the string provides the reason. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a07586989a508ed6a2b5c9c77cc339f2e"></a>
 <div class="memitem">
@@ -220,7 +238,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the identifiers known to the plugin system. </p>
-<p>If <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a84bb3c16c7e7265f9a2359a099d66509">scan</a> has not been called, then this will be empty. </p>
+<p>If <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a54230c56d659b13e7c1cd73b20f8d616">scan</a> has not been called, then this will be empty. </p>
 
 </div>
 </div>
@@ -306,7 +324,7 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a84bb3c16c7e7265f9a2359a099d66509"></a>
+<a class="anchor" id="a54230c56d659b13e7c1cd73b20f8d616"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -314,8 +332,30 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">void scan </td>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>paths</em></td><td>)</td>
+          <td class="paramname"><em>paths</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>pathsEnvVar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>moduleHookName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a48e0eacd9784c4a210c6c7a29f7049b2">ValidationCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>validationCallback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -323,12 +363,16 @@ Static Public Member Functions</h2></td></tr>
 <p>Searches the supplied paths for plugin modules. </p>
 <p>Paths are searched left-to-right, but only the first instance of any given plugin identifier will be used, and subsequent registrations ignored. This means entries to the left of the paths list take precedence over ones to the right.</p>
 <dl class="section note"><dt>Note</dt><dd>Precedence order is undefined for plugins sharing the same identifier within the same directory.</dd></dl>
-<p>Each given directory is scanned for shared libraries that expose an <code>openassetioPlugin</code> entry point function (with C linkage), which is expected to return a <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a> function pointer, which when called returns an instantiated (subclass of) <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html">CppPluginSystemPlugin</a>.</p>
+<p>If the given paths string and the given environment variable both contain search paths, then only the paths string is used.</p>
+<p>Each given directory is scanned for shared libraries that expose a given hook function (with C linkage), which is expected to return a <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a> function pointer, which when called returns an instantiated (subclass of) <a class="el" href="classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html">CppPluginSystemPlugin</a>.</p>
 <p>Discovered plugins are registered by their exposed identifier, and subsequent registrations with the same identifier will be skipped.</p>
 <p>No attempt is made to catch exceptions during static initialisation or during the call to the provided <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a>, and any such exception will almost definitely terminate the process.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">paths</td><td>A list of paths to search, delimited by operating system specific path separator (i.e. <code>:</code> for POSIX, <code>;</code> for Windows). </td></tr>
+    <tr><td class="paramname">paths</td><td>A list of paths to search, delimited by operating system specific path separator (i.e. <code>:</code> for POSIX, <code>;</code> for Windows). Leave blank to search paths given by the environment variable specified in <code>pathsEnvVar</code>.</td></tr>
+    <tr><td class="paramname">pathsEnvVar</td><td>An environment variable name containing paths formatted as described in <code>paths</code>. Paths from this environment variable are ignored if <code>paths</code> is non-empty.</td></tr>
+    <tr><td class="paramname">moduleHookName</td><td>The name of the entry point function to scan for and execute within discovered files.</td></tr>
+    <tr><td class="paramname">validationCallback</td><td>A callback that will be given a candidate CppPluginSystemPtr and should return an empty optional if the plugin is valid, or a reason string if not valid. </td></tr>
   </table>
   </dd>
 </dl>

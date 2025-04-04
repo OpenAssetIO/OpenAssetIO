@@ -10,12 +10,13 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1host_api_1_1terminology_1_1_mapper.html#af9b416a985bdbd90ceb122e09cfc647f":[11,0,0,0,1,0,1],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html":[11,0,0,1,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a51829b63adb24ac48d350dee60181002":[11,0,0,1,0,0,4],
-"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a6423e8313300165e964a9c468adb897e":[11,0,0,1,0,0,5],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a8bef8dba8f08056f70b6ec9e4ad9f907":[11,0,0,1,0,0,3],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#a919fe77275c3810d42cc596d8ed9d062":[11,0,0,1,0,0,7],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aa537d4a3d4b4c472862d9c815d9686de":[11,0,0,1,0,0,2],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aa6841fbcf6833b1ac4ff471ac8584c36":[11,0,0,1,0,0,6],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#aac3cdede3d1da7dd5e392212b10c4cf5":[11,0,0,1,0,0,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ac5a497055ee194e573cd76f9957782cb":[11,0,0,1,0,0,1],
-"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ae6f3226f1a8e91837335c951408ebe94":[11,0,0,1,0,0,6],
+"classopenassetio_1_1plugin_system_1_1_python_plugin_system_1_1_python_plugin_system.html#ad473d38ba73d324c54224a32d604b3d4":[11,0,0,1,0,0,5],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html":[11,0,0,1,1,0],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#a89a52717920638af304c1ffb6e3fb660":[11,0,0,1,1,0,2],
 "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_implementation_factory_1_1_py4b6b6f65ab5cc09ad9187008541077ea.html#ac5a497055ee194e573cd76f9957782cb":[11,0,0,1,1,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#ab54931579d960d46c71d3075f839c0c8":[11,0,0,3,1,2,25],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd342c0ca286f8958af28d1ef4d794e1":[11,0,0,3,1,2,6],
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#acd6071a3e45f9d19590366df23aaac39":[11,0,0,3,1,2,44],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb59095a8fda6c331d7af7185f1ae5e3":[11,0,0,3,1,2,38],
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb94be5902be798d51732b0a603d1a04":[11,0,0,3,1,2,16]
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb59095a8fda6c331d7af7185f1ae5e3":[11,0,0,3,1,2,38]
 };
