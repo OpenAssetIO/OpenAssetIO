@@ -161,8 +161,9 @@ void CppPluginSystem::scan(const std::string_view paths, const std::string_view 
     }();
 
     if (pathsFromEnvVar.empty()) {
-      logger_->warning(fmt::format(
-          "No search paths specified, no plugins will load - check ${} is set", pathsEnvVar));
+      logger_->debug(fmt::format(
+          "CppPluginSystem: No search paths specified, no plugins will load - check ${} is set",
+          pathsEnvVar));
     } else {
       scanPaths(pathsFromEnvVar);
     }
