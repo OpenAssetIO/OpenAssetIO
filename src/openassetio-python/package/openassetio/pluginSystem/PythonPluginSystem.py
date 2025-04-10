@@ -98,7 +98,7 @@ class PythonPluginSystem(object):
             disableEntryPoints = os.environ.get(disableEntryPointsEnvVar, False)
 
         if not paths and disableEntryPoints:
-            self.__logger.warning(
+            self.__logger.debug(
                 "PythonPluginSystem: No search paths specified and entry point plugins are"
                 f" disabled, no plugins will load - check ${pathsEnvVar} is set.",
             )

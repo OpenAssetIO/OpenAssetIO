@@ -60,7 +60,7 @@ class Test_PythonPluginSystem_scan:
         a_plugin_system_with_mocked_scanning.scan_entry_points.assert_not_called()
 
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kWarning,
+            mock_logger.Severity.kDebug,
             "PythonPluginSystem: No search paths specified and entry point plugins are disabled,"
             f" no plugins will load - check ${a_paths_env_var} is set.",
         )
@@ -90,7 +90,7 @@ class Test_PythonPluginSystem_scan:
         a_plugin_system_with_mocked_scanning.scan_entry_points.assert_not_called()
 
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kWarning,
+            mock_logger.Severity.kDebug,
             "PythonPluginSystem: No search paths specified and entry point plugins are disabled,"
             f" no plugins will load - check ${a_paths_env_var} is set.",
         )
