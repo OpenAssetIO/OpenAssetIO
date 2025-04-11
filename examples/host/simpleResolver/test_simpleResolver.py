@@ -51,8 +51,7 @@ class Test_simpleResolver_errors:
         monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", "/some/bad/path")
         result = execute_cli()
         expected_message = [
-            "ERROR: Could not load default manager config from '/some/bad/path', file does not"
-            " exist."
+            "ERROR: Could not load default config from '/some/bad/path', file does not exist."
         ]
         assert result.stderr.splitlines() == expected_message
         assert result.returncode == 1

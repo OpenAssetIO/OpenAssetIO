@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2025 The Foundry Visionmongers Ltd
+
+InheritParentConfig: true
+
+# - -readability-function-cognitive-complexity: Catch2 test macros
+#    trigger this.
+# - -bugprone-chained-comparison: (Clang-Tidy 18+) Catch2 CHECK macro
+#    triggers this.
+Checks: >
+    -readability-function-cognitive-complexity,
+    -bugprone-chained-comparison

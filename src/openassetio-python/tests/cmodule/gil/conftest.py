@@ -74,6 +74,22 @@ def a_threaded_logger_interface(mock_logger):
 
 
 @pytest.fixture
+def a_threaded_mock_ui_delegate_interface(mock_ui_delegate_interface):
+    """
+    Wrap in a C++ proxy UI delegate that asserts the Python GIL is
+    released before forwarding calls to mock_ui_delegate_interface in a
+    separate thread.
+
+    This is used to (indirectly) detect that Python binding API entry
+    points release the GIL before continuing on to the C++
+    implementation.
+    """
+    return _openassetio._testutils.gil.wrapInThreadedUIDelegateInterface(
+        mock_ui_delegate_interface
+    )
+
+
+@pytest.fixture
 def a_context():
     return Context()
 

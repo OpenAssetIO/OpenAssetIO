@@ -19,7 +19,7 @@ struct MockLogger : trompeloeil::mock_interface<openassetio::log::LoggerInterfac
 using trompeloeil::_;
 }  // namespace
 
-SCENARIO("Accessing the Python plugin system from C++") {
+SCENARIO("Accessing the Python manager plugin system from C++") {
   GIVEN("a logger") {
     // Release the GIL to ensure GIL-safe handling of Python import.
     const pybind11::gil_scoped_release gil{};

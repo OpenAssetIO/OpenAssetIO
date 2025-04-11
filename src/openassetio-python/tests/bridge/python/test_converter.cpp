@@ -24,6 +24,14 @@
 #include <openassetio/managerApi/HostSession.hpp>
 #include <openassetio/managerApi/ManagerInterface.hpp>
 #include <openassetio/trait/TraitsData.hpp>
+#include <openassetio/ui/hostApi/UIDelegate.hpp>
+#include <openassetio/ui/hostApi/UIDelegateFactory.hpp>
+#include <openassetio/ui/hostApi/UIDelegateImplementationFactoryInterface.hpp>
+#include <openassetio/ui/hostApi/UIDelegateRequestInterface.hpp>
+#include <openassetio/ui/hostApi/UIDelegateState.hpp>
+#include <openassetio/ui/managerApi/UIDelegateInterface.hpp>
+#include <openassetio/ui/managerApi/UIDelegateRequest.hpp>
+#include <openassetio/ui/managerApi/UIDelegateStateInterface.hpp>
 
 /*
  * The below tests exercise the to/from python converter functions.
@@ -264,7 +272,15 @@ using CastableClasses = std::tuple<
     log::SeverityFilter,
     managerApi::Host,
     managerApi::HostSession,
-    managerApi::ManagerInterface
+    managerApi::ManagerInterface,
+    ui::hostApi::UIDelegateImplementationFactoryInterface,
+    ui::hostApi::UIDelegateFactory,
+    ui::hostApi::UIDelegate,
+    ui::managerApi::UIDelegateInterface,
+    ui::managerApi::UIDelegateStateInterface,
+    ui::managerApi::UIDelegateRequest,
+    ui::hostApi::UIDelegateRequestInterface,
+    ui::hostApi::UIDelegateState
 >;
 // clang-format on
 }  // namespace
