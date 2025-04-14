@@ -28,7 +28,7 @@ import pytest
 import openassetio
 
 # Update this value each release
-openassetio_version_string = "v1.0.0-rc.1.0"
+openassetio_version_string = "v1.0.0-rc.2.0"
 
 
 @pytest.fixture(scope="module")

@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-v1.0.0-rc.x.x
+v1.0.0-rc.2.0
 ---------------
 
 _This release may break source compatibility for Python and C++ hosts,
