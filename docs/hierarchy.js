@@ -4,6 +4,9 @@ var hierarchy =
     [ "Manager::BatchElementErrorPolicyTag", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag.html", null ],
     [ "Context", "classopenassetio_1_1v1_1_1_context.html", null ],
     [ "CppPluginSystem", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html", null ],
+    [ "CppPluginSystemPlugin", null, [
+      [ "CppPluginSystemUIDelegatePlugin", "classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_plugin.html", null ]
+    ] ],
     [ "CppPluginSystemPlugin", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html", [
       [ "CppPluginSystemManagerPlugin", "classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html", null ]
     ] ],
@@ -54,6 +57,21 @@ var hierarchy =
       [ "FixtureAugmentedTestCase", "classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html", null ]
     ] ],
     [ "TraitsData", "classopenassetio_1_1v1_1_1trait_1_1_traits_data.html", null ],
+    [ "UIDelegate", "classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html", null ],
+    [ "UIDelegateFactory::UIDelegateDetail", "structopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory_1_1_u_i_delegate_detail.html", null ],
+    [ "UIDelegateFactory", "classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html", null ],
+    [ "UIDelegateImplementationFactoryInterface", "classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_implementation_factory_interface.html", [
+      [ "CppPluginSystemUIDelegateImplementationFactory", "classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_implementation_factory.html", null ],
+      [ "HybridPluginSystemUIDelegateImplementationFactory", "classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_hybrid_plugin_system_u_i_delegate_implementation_factory.html", null ]
+    ] ],
+    [ "UIDelegateInterface", "classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html", null ],
+    [ "UIDelegateInterface", null, [
+      [ "UIDelegateInterface", "classopenassetio_1_1ui_1_1manager_api_1_1_u_i_delegate_interface_1_1_u_i_delegate_interface.html", null ]
+    ] ],
+    [ "UIDelegateRequest", "classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_request.html", null ],
+    [ "UIDelegateRequestInterface", "classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_request_interface.html", null ],
+    [ "UIDelegateState", "classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_state.html", null ],
+    [ "UIDelegateStateInterface", "classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_state_interface.html", null ],
     [ "Manager::BatchElementErrorPolicyTag::Variant", "structopenassetio_1_1v1_1_1host_api_1_1_manager_1_1_batch_element_error_policy_tag_1_1_variant.html", null ],
     [ "FixtureAugmentedTestCase", null, [
       [ "Test_createChildState", "classopenassetio_1_1test_1_1manager_1_1api_compliance_suite_1_1_test__create_child_state.html", null ],
@@ -79,5 +97,11 @@ var hierarchy =
     ] ],
     [ "PythonPluginSystemPlugin", null, [
       [ "PythonPluginSystemManagerPlugin", "classopenassetio_1_1plugin_system_1_1_python_plugin_system_manager_plugin_1_1_python_plugin_system_manager_plugin.html", null ]
+    ] ],
+    [ "PythonPluginSystemPlugin", null, [
+      [ "PythonPluginSystemUIDelegatePlugin", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin_1_1_python_aaaeefde57ded7aeff62858541a1767f.html", null ]
+    ] ],
+    [ "UIDelegateImplementationFactoryInterface", null, [
+      [ "PythonPluginSystemUIDelegateImplementationFactory", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html", null ]
     ] ]
 ];

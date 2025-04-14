@@ -5,8 +5,8 @@ var indexSectionsWithContent =
   2: "os",
   3: "_abcdefghilmnoprstuw~",
   4: "acdefhiklmrst",
-  5: "abcdefhiklmprstv",
-  6: "acdeprst",
+  5: "abcdefhiklmprstuv",
+  6: "acdeprstu",
   7: "k",
   8: "acegnst"
 };

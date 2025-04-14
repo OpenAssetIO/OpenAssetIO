@@ -6,5 +6,7 @@ var searchData=
   ['cpppluginsystem',['CppPluginSystem',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html',1,'openassetio::v1::pluginSystem']]],
   ['cpppluginsystemmanagerimplementationfactory',['CppPluginSystemManagerImplementationFactory',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_implementation_factory.html',1,'openassetio::v1::pluginSystem']]],
   ['cpppluginsystemmanagerplugin',['CppPluginSystemManagerPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html',1,'openassetio::v1::pluginSystem']]],
-  ['cpppluginsystemplugin',['CppPluginSystemPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html',1,'openassetio::v1::pluginSystem']]]
+  ['cpppluginsystemplugin',['CppPluginSystemPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html',1,'openassetio::v1::pluginSystem']]],
+  ['cpppluginsystemuidelegateimplementationfactory',['CppPluginSystemUIDelegateImplementationFactory',['../classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_implementation_factory.html',1,'openassetio::v1::ui::pluginSystem']]],
+  ['cpppluginsystemuidelegateplugin',['CppPluginSystemUIDelegatePlugin',['../classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_plugin.html',1,'openassetio::v1::ui::pluginSystem']]]
 ];

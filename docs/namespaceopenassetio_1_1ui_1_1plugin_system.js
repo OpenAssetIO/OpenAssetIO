@@ -1,0 +1,5 @@
+var namespaceopenassetio_1_1ui_1_1plugin_system =
+[
+    [ "PythonPluginSystemUIDelegateImplementationFactory", "namespaceopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_factory.html", "namespaceopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_factory" ],
+    [ "PythonPluginSystemUIDelegatePlugin", "namespaceopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin.html", "namespaceopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin" ]
+];

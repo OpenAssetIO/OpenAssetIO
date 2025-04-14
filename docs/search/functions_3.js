@@ -2,7 +2,7 @@ var searchData=
 [
   ['castfrompyobject',['castFromPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#aabce31410223a8d5941005669434ed0b',1,'openassetio::v1::python::converter']]],
   ['casttopyobject',['castToPyObject',['../namespaceopenassetio_1_1v1_1_1python_1_1converter.html#acd4057ac2926074a2a4d3c5e91a4e2d8',1,'openassetio::v1::python::converter']]],
-  ['close',['close',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd',1,'openassetio::v1::managerApi::EntityReferencePagerInterface']]],
+  ['close',['close',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#a0cae593fd944cc2e08f4897c752c65fd',1,'openassetio::v1::managerApi::EntityReferencePagerInterface::close()'],['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html#a5ae591df94fc66ccb85cbb6565368bca',1,'openassetio::v1::ui::hostApi::UIDelegate::close()'],['../classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#a0cae593fd944cc2e08f4897c752c65fd',1,'openassetio::v1::ui::managerApi::UIDelegateInterface::close()']]],
   ['collectrequiredfixture',['collectRequiredFixture',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af697b52121107091a90add6e67f7ba36',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['collectrequiredfixtures',['collectRequiredFixtures',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#aa0edef6cc20e70b25b4478458f25a682',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
   ['contextfrompersistencetoken',['contextFromPersistenceToken',['../classopenassetio_1_1v1_1_1host_api_1_1_manager.html#afba52321fc9c4c2c7c2a87f037e8b5a0',1,'openassetio::v1::hostApi::Manager']]],
@@ -14,7 +14,10 @@ var searchData=
   ['createmanager',['createManager',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#a6b344482d80630d049d0f1f69bd5f5d5',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['createmanagerforinterface',['createManagerForInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_factory.html#aabfe5946b33e6973e7674307be7b7bcf',1,'openassetio::v1::hostApi::ManagerFactory']]],
   ['createpythonpluginsystemmanagerimplementationfactory',['createPythonPluginSystemManagerImplementationFactory',['../namespaceopenassetio_1_1v1_1_1python_1_1host_api.html#af9fa22c7c15ec353dc53ce7d6ee4be36',1,'openassetio::v1::python::hostApi']]],
+  ['createpythonpluginsystemuidelegateimplementationfactory',['createPythonPluginSystemUIDelegateImplementationFactory',['../namespaceopenassetio_1_1v1_1_1python_1_1ui_1_1host_api.html#a411e043712ea4b7daaba22ff06ef9759',1,'openassetio::v1::python::ui::hostApi']]],
   ['createstate',['createState',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#adffc166914014188f1df417d1e832e62',1,'openassetio::v1::managerApi::ManagerInterface']]],
   ['createtestcontext',['createTestContext',['../classopenassetio_1_1test_1_1manager_1_1harness_1_1_fixture_augmented_test_case.html#af15c8b879bc6def878c27be9f1a567b6',1,'openassetio::test::manager::harness::FixtureAugmentedTestCase']]],
+  ['createuidelegate',['createUIDelegate',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html#a695032c040166918e216841c424eb4b6',1,'openassetio::v1::ui::hostApi::UIDelegateFactory']]],
+  ['createuidelegateforinterface',['createUIDelegateForInterface',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html#a5d838dd71447bc72dd00989a5455ffae',1,'openassetio::v1::ui::hostApi::UIDelegateFactory']]],
   ['critical',['critical',['../classopenassetio_1_1v1_1_1log_1_1_logger_interface.html#a0144f67265558357e7ea17f5da008a50',1,'openassetio::v1::log::LoggerInterface']]]
 ];

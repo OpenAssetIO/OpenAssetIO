@@ -1,0 +1,6 @@
+var classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6 =
+[
+    [ "__init__", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html#ae9213238c75213f7803c02fc7e245216", null ],
+    [ "identifiers", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html#ac5a497055ee194e573cd76f9957782cb", null ],
+    [ "instantiate", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html#a89a52717920638af304c1ffb6e3fb660", null ]
+];

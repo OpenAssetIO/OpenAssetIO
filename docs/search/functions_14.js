@@ -2,6 +2,7 @@ var searchData=
 [
   ['_7ecpppluginsystemmanagerplugin',['~CppPluginSystemManagerPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_manager_plugin.html#add5c7ccc04ecb78d140f93549306aedc',1,'openassetio::v1::pluginSystem::CppPluginSystemManagerPlugin']]],
   ['_7ecpppluginsystemplugin',['~CppPluginSystemPlugin',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system_plugin.html#a641255cbab75d3fff9aa2a51db6dc7b6',1,'openassetio::v1::pluginSystem::CppPluginSystemPlugin']]],
+  ['_7ecpppluginsystemuidelegateplugin',['~CppPluginSystemUIDelegatePlugin',['../classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_plugin.html#a36604f182ac298e221d6c09ad24692aa',1,'openassetio::v1::ui::pluginSystem::CppPluginSystemUIDelegatePlugin']]],
   ['_7eentityreferencepager',['~EntityReferencePager',['../classopenassetio_1_1v1_1_1host_api_1_1_entity_reference_pager.html#a711e000681ebded2ab56046174f23f6f',1,'openassetio::v1::hostApi::EntityReferencePager']]],
   ['_7eentityreferencepagerinterface',['~EntityReferencePagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_entity_reference_pager_interface.html#afbafe12ce1b796e05da6763685663310',1,'openassetio::v1::managerApi::EntityReferencePagerInterface']]],
   ['_7efileurlpathconverter',['~FileUrlPathConverter',['../classopenassetio_1_1v1_1_1utils_1_1_file_url_path_converter.html#a5014ac42a49c8886b117faae5689a5f9',1,'openassetio::v1::utils::FileUrlPathConverter']]],
@@ -10,5 +11,13 @@ var searchData=
   ['_7emanagerimplementationfactoryinterface',['~ManagerImplementationFactoryInterface',['../classopenassetio_1_1v1_1_1host_api_1_1_manager_implementation_factory_interface.html#a3dc4cabb1a77acdcea122615522334a3',1,'openassetio::v1::hostApi::ManagerImplementationFactoryInterface']]],
   ['_7emanagerinterface',['~ManagerInterface',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a23f620c631306fbcb518c3eb1dcba92b',1,'openassetio::v1::managerApi::ManagerInterface']]],
   ['_7emanagerstatebase',['~ManagerStateBase',['../classopenassetio_1_1v1_1_1manager_api_1_1_manager_state_base.html#aa603bae45be2d2c732db4d5249baf69b',1,'openassetio::v1::managerApi::ManagerStateBase']]],
-  ['_7etraitsdata',['~TraitsData',['../classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0',1,'openassetio::v1::trait::TraitsData']]]
+  ['_7etraitsdata',['~TraitsData',['../classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#ac8debfaed6b94474bf94982e736e09f0',1,'openassetio::v1::trait::TraitsData']]],
+  ['_7euidelegate',['~UIDelegate',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html#a7182cadd0362629311bf7058ddfa5545',1,'openassetio::v1::ui::hostApi::UIDelegate']]],
+  ['_7euidelegatefactory',['~UIDelegateFactory',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html#ae628660ce1d002ad4c530c2da7dfa6a9',1,'openassetio::v1::ui::hostApi::UIDelegateFactory']]],
+  ['_7euidelegateimplementationfactoryinterface',['~UIDelegateImplementationFactoryInterface',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_implementation_factory_interface.html#a560c284d50e503841bf33aebb3f501ae',1,'openassetio::v1::ui::hostApi::UIDelegateImplementationFactoryInterface']]],
+  ['_7euidelegateinterface',['~UIDelegateInterface',['../classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#ad06ca6dddb394f2e4c3b742d2222fade',1,'openassetio::v1::ui::managerApi::UIDelegateInterface']]],
+  ['_7euidelegaterequest',['~UIDelegateRequest',['../classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_request.html#a12196e7a4c5afb6f414bbab16e6defea',1,'openassetio::v1::ui::managerApi::UIDelegateRequest']]],
+  ['_7euidelegaterequestinterface',['~UIDelegateRequestInterface',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_request_interface.html#a31e5bc4631782a75903c64273e7677e7',1,'openassetio::v1::ui::hostApi::UIDelegateRequestInterface']]],
+  ['_7euidelegatestate',['~UIDelegateState',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_state.html#a194cfef91571d33fe7678a7729a16730',1,'openassetio::v1::ui::hostApi::UIDelegateState']]],
+  ['_7euidelegatestateinterface',['~UIDelegateStateInterface',['../classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_state_interface.html#ab6812f28f554f2b787a66b38bae4c2ac',1,'openassetio::v1::ui::managerApi::UIDelegateStateInterface']]]
 ];

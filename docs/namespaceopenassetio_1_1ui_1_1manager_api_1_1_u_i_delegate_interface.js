@@ -1,0 +1,4 @@
+var namespaceopenassetio_1_1ui_1_1manager_api_1_1_u_i_delegate_interface =
+[
+    [ "UIDelegateInterface", "classopenassetio_1_1ui_1_1manager_api_1_1_u_i_delegate_interface_1_1_u_i_delegate_interface.html", "classopenassetio_1_1ui_1_1manager_api_1_1_u_i_delegate_interface_1_1_u_i_delegate_interface" ]
+];

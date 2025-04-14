@@ -112,7 +112,8 @@ var NAVTREE =
       [ "Specification", "glossary.html#Specification", null ],
       [ "Trait", "glossary.html#trait", null ],
       [ "Trait Set", "glossary.html#trait_set", null ],
-      [ "Trait View classes", "glossary.html#trait_views", null ]
+      [ "Trait View classes", "glossary.html#trait_views", null ],
+      [ "UI Delegate", "glossary.html#glossary_UI_Delegate", null ]
     ] ],
     [ "Stable Entity Resolution", "stable_resolution.html", [
       [ "Overview", "stable_resolution.html#stable_resolution_overview", null ],
@@ -154,8 +155,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aeb94be5902be798d51732b0a603d1a04",
-"functions_k.html"
+"classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa5b6518556c1565718132fd069929a07",
+"classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#a3d540a09e8284a66b904863de677def7",
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a5f81c5903a0f3e8115e7a8cea86a035b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

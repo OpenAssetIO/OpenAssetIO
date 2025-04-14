@@ -320,7 +320,14 @@ Trait Set</h1>
 <h1><a class="anchor" id="trait_views"></a>
 Trait View classes</h1>
 <p>The medium of exchange of <a class="el" href="glossary.html#trait">traits</a> is primarily the <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">TraitsData</a> class. This is a low-level dictionary-like structure. Typcially, the low-level interface provided by <code>TraitsData</code> will not be used directly. Instead, concrete view classes will be used, which wrap the <code>TraitsData</code>, and provide typed accessor and mutator methods. For example,</p>
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;url = LocatableContentTrait(traits_data).getLocation()</div></div><!-- fragment --><p>See the <a href="https://github.com/OpenAssetIO/OpenAssetIO-TraitGen">TraitGen project</a> and its usage in the <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation">MediaCreation trait library</a> for more details. </p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;url = LocatableContentTrait(traits_data).getLocation()</div></div><!-- fragment --><p>See the <a href="https://github.com/OpenAssetIO/OpenAssetIO-TraitGen">TraitGen project</a> and its usage in the <a href="https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation">MediaCreation trait library</a> for more details.</p>
+<h1><a class="anchor" id="glossary_UI_Delegate"></a>
+UI Delegate</h1>
+<p>UI delegation is an optional feature of OpenAssetIO that is useful in interactive applications. It allows an <a class="el" href="glossary.html#manager">manager</a> to augment and/or replace parts of the <a class="el" href="glossary.html#host">host</a>'s UI.</p>
+<p>A typical example would be to replace a file browser with an asset browser, but many other examples are possible.</p>
+<p>The UI delegation API is separate from the core OpenAssetIO API, but it's design philosophy follows a similar pattern, including how plugins are discovered, loaded and configured.</p>
+<p>The key function in the UI delegation API is <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html#a705d9c334c23ac3ef24a5cd54a1b6913">populateUI</a>. It is this single function that is called by the host to delegate all different kinds of UI. The function is heavily parametrised, in particular by UI-specific <a class="el" href="glossary.html#trait">traits</a>.</p>
+<p>By their nature, UI Delegate plugins are much more host-specific than their corresponding <a class="el" href="glossary.html#glossary_manager_plugin">Manager Plugin</a>. It is likely a separate plugin will be required per UI framework, if not per host, whereas the promise of managers is that a single plugin will work in any host. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.3.1-->

@@ -1,0 +1,4 @@
+var namespaceopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin =
+[
+    [ "PythonPluginSystemUIDelegatePlugin", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin_1_1_python_aaaeefde57ded7aeff62858541a1767f.html", "classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_plugin_1_1_python_aaaeefde57ded7aeff62858541a1767f" ]
+];

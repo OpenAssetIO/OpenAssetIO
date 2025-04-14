@@ -1,5 +1,22 @@
 var searchData=
 [
-  ['validationcallback',['ValidationCallback',['../classopenassetio_1_1v1_1_1plugin_system_1_1_cpp_plugin_system.html#a48e0eacd9784c4a210c6c7a29f7049b2',1,'openassetio::v1::pluginSystem::CppPluginSystem']]],
-  ['value',['Value',['../namespaceopenassetio_1_1v1_1_1trait_1_1property.html#a298a4c28432011f2e2f2946ed5afc38d',1,'openassetio::v1::trait::property']]]
+  ['uidelegateconstptr',['UIDelegateConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#adef650cbff7567f877251993133d48b1',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegatedetails',['UIDelegateDetails',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html#a9d4038da55475ff7289f0757280ea0dd',1,'openassetio::v1::ui::hostApi::UIDelegateFactory']]],
+  ['uidelegatefactoryconstptr',['UIDelegateFactoryConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a33c5d419c31c7856649186db6072712f',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegatefactoryptr',['UIDelegateFactoryPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a31455f90c92e5ae9df1b7eeb803c7b20',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegateimplementationfactoryinterfaceconstptr',['UIDelegateImplementationFactoryInterfaceConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a3bc647d395d32a41512ae42c35afc703',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegateimplementationfactoryinterfaceptr',['UIDelegateImplementationFactoryInterfacePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a5c3e4278aad6b658078a0c1bf595467e',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegateimplementationfactoryinterfaces',['UIDelegateImplementationFactoryInterfaces',['../classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_hybrid_plugin_system_u_i_delegate_implementation_factory.html#aa1d5b1cd8e5740fe39f9371a6620c5fd',1,'openassetio::v1::ui::pluginSystem::HybridPluginSystemUIDelegateImplementationFactory']]],
+  ['uidelegateinterfaceconstptr',['UIDelegateInterfaceConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#a458fc64ac088590eae437a7b8916b0ca',1,'openassetio::v1::ui::managerApi::UIDelegateInterfaceConstPtr()'],['../namespaceopenassetio_1_1v1_1_1manager_api.html#af582e6ce0e53a3ba62dff68dab296c7d',1,'openassetio::v1::managerApi::UIDelegateInterfaceConstPtr()']]],
+  ['uidelegateinterfaceptr',['UIDelegateInterfacePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#a7a5c7c3d56eca6ab21c15a565cd533fe',1,'openassetio::v1::ui::managerApi::UIDelegateInterfacePtr()'],['../namespaceopenassetio_1_1v1_1_1manager_api.html#a1b5f898bcc8b0d2870a542150dcfa86e',1,'openassetio::v1::managerApi::UIDelegateInterfacePtr()']]],
+  ['uidelegateptr',['UIDelegatePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#ac0944f4c31184fc39bd9b79e2db85b6c',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegaterequestconstptr',['UIDelegateRequestConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#ab1eae505af60e81d9f4e1ae06738290c',1,'openassetio::v1::ui::managerApi']]],
+  ['uidelegaterequestinterfaceconstptr',['UIDelegateRequestInterfaceConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a7b2783f87a14e981075b9ce1a4dafea5',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegaterequestinterfaceptr',['UIDelegateRequestInterfacePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#ad1f695bee78d912b03a270c0638cf8a3',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegaterequestptr',['UIDelegateRequestPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#a0577505098dd63bb2a13892ed1e8eb4f',1,'openassetio::v1::ui::managerApi']]],
+  ['uidelegatestateconstptr',['UIDelegateStateConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#a8f810981f64bdeef8f906fadaa614183',1,'openassetio::v1::ui::hostApi']]],
+  ['uidelegatestateinterfaceconstptr',['UIDelegateStateInterfaceConstPtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#a055b719902d3925ff19331a4bc683337',1,'openassetio::v1::ui::managerApi']]],
+  ['uidelegatestateinterfaceptr',['UIDelegateStateInterfacePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1manager_api.html#a13004469bd254a1ccefcbe5a258c7282',1,'openassetio::v1::ui::managerApi']]],
+  ['uidelegatestateptr',['UIDelegateStatePtr',['../namespaceopenassetio_1_1v1_1_1ui_1_1host_api.html#ad44e4419ac98cb26869d80856fd79b9a',1,'openassetio::v1::ui::hostApi']]],
+  ['updaterequestcallback',['UpdateRequestCallback',['../classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_state.html#adc96bf8e99b2419d11c94df93e830a25',1,'openassetio::v1::ui::hostApi::UIDelegateState::UpdateRequestCallback()'],['../classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_state_interface.html#a78ed5baf51b90fb76bd1c66a3e353c82',1,'openassetio::v1::ui::managerApi::UIDelegateStateInterface::UpdateRequestCallback()']]]
 ];

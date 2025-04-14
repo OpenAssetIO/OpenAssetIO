@@ -1,0 +1,4 @@
+<map id="UIDelegateImplementationFactoryInterface" name="UIDelegateImplementationFactoryInterface">
+<area shape="rect" id="node2" href="$classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_implementation_factory.html" title="A factory to manage CppPluginSystemUIDelegatePlugin derived plugins. " alt="" coords="261,5,470,47"/>
+<area shape="rect" id="node3" href="$classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_hybrid_plugin_system_u_i_delegate_implementation_factory.html" title="The hybrid UI Delegate plugin system composes one or more child plugin systems, and selects the first..." alt="" coords="252,71,479,112"/>
+</map>
