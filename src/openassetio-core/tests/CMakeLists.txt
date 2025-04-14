@@ -31,6 +31,7 @@ target_sources(openassetio-core-cpp-test-exe
     managerApi/HostTest.cpp
     managerApi/HostSessionTest.cpp
     managerApi/ManagerStateBaseTest.cpp
+    pluginSystem/CppPluginSystemTest.cpp
 )
 
 target_link_libraries(

@@ -50,10 +50,10 @@ class Test_CppPluginSystemManagerImplementationFactory_kModuleHookName:
 class Test_CppPluginSystemManagerImplementationFactory_lazy_scanning:
     def test_when_no_paths_then_warning_logged(self, mock_logger, monkeypatch):
         expected_msg = (
-            "No search paths specified, no plugins will load - check"
+            "CppPluginSystem: No search paths specified, no plugins will load - check"
             f" ${CppPluginSystemManagerImplementationFactory.kPluginEnvVar} is set"
         )
-        expected_severity = mock_logger.Severity.kWarning
+        expected_severity = mock_logger.Severity.kDebug
 
         monkeypatch.delenv(
             CppPluginSystemManagerImplementationFactory.kPluginEnvVar, raising=False

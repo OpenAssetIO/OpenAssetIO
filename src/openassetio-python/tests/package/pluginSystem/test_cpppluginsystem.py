@@ -40,8 +40,8 @@ class Test_CppPluginSystem_scan:
         a_plugin_system.scan("", a_plugin_path_env_var, "some_hook", noop)
 
         mock_logger.mock.log.assert_any_call(
-            mock_logger.Severity.kWarning,
-            "No search paths specified, no plugins will load - check"
+            mock_logger.Severity.kDebug,
+            "CppPluginSystem: No search paths specified, no plugins will load - check"
             f" ${a_plugin_path_env_var} is set",
         )
 

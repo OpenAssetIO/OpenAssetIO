@@ -155,14 +155,22 @@ void CppPluginSystem::scan(const std::string_view paths, const std::string_view 
   if (!paths.empty()) {
     scanPaths(paths);
   } else {
-    // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
-    const std::string_view pathsFromEnvVar = [maybePaths = std::getenv(pathsEnvVar.data())] {
-      return maybePaths == nullptr ? "" : maybePaths;
+    const std::string_view pathsFromEnvVar = [&] {
+      if (pathsEnvVar.empty()) {  // Defend against uninitialised string_view.
+        return "";
+      }
+      // NOLINTNEXTLINE(*-suspicious-stringview-data-usage)
+      const char* maybePaths = std::getenv(pathsEnvVar.data());
+      if (maybePaths == nullptr) {
+        return "";
+      }
+      return maybePaths;
     }();
 
     if (pathsFromEnvVar.empty()) {
-      logger_->warning(fmt::format(
-          "No search paths specified, no plugins will load - check ${} is set", pathsEnvVar));
+      logger_->debug(fmt::format(
+          "CppPluginSystem: No search paths specified, no plugins will load - check ${} is set",
+          pathsEnvVar));
     } else {
       scanPaths(pathsFromEnvVar);
     }
