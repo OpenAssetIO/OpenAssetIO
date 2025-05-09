@@ -2808,10 +2808,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * "ErrorCodes"). The callback will be called on the same thread
    * that initiated the call to `register`.
    *
-   * @throws std::out_of_range If @p entityReferences and
-   * @p entityTraitsDatas are not lists of the same length.
-   * Other exceptions may be raised for fatal runtime errors, for
-   * example server communication failure.
+   * @throws errors.InputValidationException If @p entityReferences
+   * and @p entityTraitsDatas are not lists of the same length. Other
+   * exceptions may be raised for fatal runtime errors, for example
+   * server communication failure.
    *
    * @throws errors.NotImplementedException Thrown when this method is
    * not implemented by the manager. Check that this method is
