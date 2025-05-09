@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2024 The Foundry Visionmongers Ltd
+// Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
 #include <cstdint>
 #include <memory>
@@ -35,9 +35,10 @@ enum class PathType : std::uint8_t {
  * an instance can be used to process any number of URLs/paths.
  *
  * Conversion of Windows UNC paths to file URLs is supported, including
- * `\\?\` device paths. However, conversion of file URLs back to Windows
- * paths only supports drive paths or standard UNC share paths, not
- * device paths.
+ * `\\?\` device paths. Conversion of file URLs back to Windows
+ * paths will prefer drive paths or standard UNC share paths, but will
+ * promote to a device path if the path is longer than the Windows
+ * MAX_PATH limit.
  *
  * Some corner cases that may be technically valid are not currently
  * supported, and will result in an exception if detected. E.g.
@@ -96,9 +97,9 @@ class OPENASSETIO_CORE_EXPORT FileUrlPathConverter {
   /**
    * Construct a path from a file URL.
    *
-   * Note that long Windows paths may exceed the Windows MAX_PATH limit.
-   * Working around this, e.g. by transforming the path to a UNC device
-   * path (`\\?\C:\` or `\\?\UNC\host\share`), is left up to the caller.
+   * Note that long Windows paths that exceed the Windows MAX_PATH limit
+   * will be returned as a UNC device path (`\\?\C:\` or
+   * `\\?\UNC\host\share`).
    *
    * @param fileUrl URL to convert.
    *
