@@ -4,7 +4,7 @@ Release Notes
 v1.0.0-rc.2.0
 ---------------
 
-_This release may break source compatibility for Python and C++ hosts,
+``_This release may break source compatibility for Python and C++ hosts,
 see breaking changes section for more details._
 
 ## Breaking changes
@@ -77,7 +77,7 @@ see breaking changes section for more details._
   occurs.
   [#1419](https://github.com/OpenAssetIO/OpenAssetIO/issues/1419)
 
-v1.0.0-rc.1.0
+``v1.0.0-rc.1.0
 ---------------
 
 _This release breaks binary compatibility with C++ hosts and managers.
