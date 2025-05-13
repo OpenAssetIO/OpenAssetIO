@@ -81,11 +81,12 @@ class BatchElementError final {
 
     /**
      * Error code used when the reference is valid, but the supplied
-     * @ref Context access is invalid for the operation. A common
-     * example of this would be resolving a read-only entity with a
-     * write access Context, or during @ref glossary_preflight or @ref
-     * glossary_register when the target entity s read-only and does not
-     * support updating.
+     * access mode is invalid for the operation.
+     *
+     * A common example of this would be resolving a read-only entity
+     * with a write access mode, or during @ref glossary_preflight or
+     * @ref glossary_register when the target entity s read-only and
+     * does not support updating.
      */
     kEntityAccessError = internal::errors::kBatchElementEntityAccessError,
 

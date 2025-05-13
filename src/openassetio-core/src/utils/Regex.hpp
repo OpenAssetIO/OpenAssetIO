@@ -20,12 +20,6 @@ namespace utils {
  * Regular expression compilation, matching and caching.
  *
  * Wraps PCRE2, using its JIT compilation and matching functions.
- *
- * Instances of this class are _not_ thread-safe. Use a separate
- * instance per thread.
- *
- * As well as the regex object itself, matches are cached for subsequent
- * querying.
  */
 class Regex {
  public:
