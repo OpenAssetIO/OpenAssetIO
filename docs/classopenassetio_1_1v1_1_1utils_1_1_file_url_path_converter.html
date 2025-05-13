@@ -156,7 +156,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Utility class for converting between file system paths and file URLs. </p>
 <p>The <a class="el" href="namespaceopenassetio_1_1v1_1_1utils.html#a8c57925aaac61cb19d63b999ca92f21a">PathType</a> argument allows POSIX hosts to process paths/URLs for Windows systems and vice versa.</p>
 <p>Construction of this class should not be considered cheap (internally, multiple regex patterns are compiled). Once constructed, an instance can be used to process any number of URLs/paths.</p>
-<p>Conversion of Windows UNC paths to file URLs is supported, including <code>\\?\</code> device paths. However, conversion of file URLs back to Windows paths only supports drive paths or standard UNC share paths, not device paths.</p>
+<p>Conversion of Windows UNC paths to file URLs is supported, including <code>\\?\</code> device paths. Conversion of file URLs back to Windows paths will prefer drive paths or standard UNC share paths, but will promote to a device path if the path is longer than the Windows MAX_PATH limit.</p>
 <p>Some corner cases that may be technically valid are not currently supported, and will result in an exception if detected. E.g.</p><ul>
 <li>Upward traversals (<code>..</code>) as path segments - these may be a security risk.</li>
 <li>Non-ASCII Windows server names.</li>
@@ -329,7 +329,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Construct a path from a file URL. </p>
-<p>Note that long Windows paths may exceed the Windows MAX_PATH limit. Working around this, e.g. by transforming the path to a UNC device path (<code>\\?\C:\</code> or <code>\\?\UNC\host\share</code>), is left up to the caller.</p>
+<p>Note that long Windows paths that exceed the Windows MAX_PATH limit will be returned as a UNC device path (<code>\\?\C:\</code> or <code>\\?\UNC\host\share</code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fileUrl</td><td>URL to convert.</td></tr>

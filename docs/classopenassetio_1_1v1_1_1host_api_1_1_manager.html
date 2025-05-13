@@ -3084,7 +3084,7 @@ There is no requirement to call this method before any other API interaction, th
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::out_of_range</td><td>If <code>entityReferences</code> and <code>entityTraitsDatas</code> are not lists of the same length. Other exceptions may be raised for fatal runtime errors, for example server communication failure.</td></tr>
+    <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>If <code>entityReferences</code> and <code>entityTraitsDatas</code> are not lists of the same length. Other exceptions may be raised for fatal runtime errors, for example server communication failure.</td></tr>
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_not_implemented_exception.html" title="Thrown whenever a procedure must abort due to not being implemented. ">errors.NotImplementedException</a></td><td>Thrown when this method is not implemented by the manager. Check that this method is implemented before use by calling <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a2bd80a1bd87bc7f72961a4b873c85860">hasCapability</a> with <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a462aeaee0a168c1943ac756e669a6e2ca4f438f653cfcf358804824c0e6554416">Capability::kPublishing</a>.</td></tr>
   </table>
   </dd>
