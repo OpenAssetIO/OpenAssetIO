@@ -5,7 +5,7 @@
 #include <catch2/catch.hpp>
 
 #include <openassetio/Context.hpp>
-#include <openassetio/typedefs.hpp>
+#include <openassetio/macros.hpp>
 
 OPENASSETIO_FWD_DECLARE(trait, TraitsData)
 OPENASSETIO_FWD_DECLARE(managerApi, ManagerStateBase)
