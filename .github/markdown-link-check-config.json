@@ -5,6 +5,9 @@
     },
     {
       "pattern": "^https://www.gnu.org"
+    },
+    {
+      "pattern": "^https://lists.aswf.io"
     }
   ]
 }
