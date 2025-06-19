@@ -4,8 +4,8 @@
 
 #include <catch2/catch.hpp>
 
+#include <openassetio/macros.hpp>
 #include <openassetio/managerApi/Host.hpp>
-#include <openassetio/typedefs.hpp>
 
 OPENASSETIO_FWD_DECLARE(hostApi, HostInterface)
 

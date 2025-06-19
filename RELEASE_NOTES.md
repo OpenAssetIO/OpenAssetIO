@@ -1,6 +1,18 @@
 Release Notes
 =============
 
+v1.0.0-rc.x
+---------------
+
+_This release remains source and binary compatible_
+
+## Improvements
+
+- Split common C++ macros from `typedefs.hpp` into a separate
+  zero-dependency `macros.hpp` header.
+  [#1437](https://github.com/OpenAssetIO/OpenAssetIO/issues/1437)
+
+
 v1.0.0-rc.2.0
 ---------------
 
