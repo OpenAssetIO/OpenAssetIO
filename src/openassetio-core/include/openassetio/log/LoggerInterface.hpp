@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2013-2025 The Foundry Visionmongers Ltd
+#pragma once
+
 #include <array>
 
 #include <openassetio/export.h>
 #include <openassetio/typedefs.hpp>
 
-#pragma once
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
