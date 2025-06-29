@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
-#pragma once
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
 /**
  * Defines PyRetainingSharedPtr, a custom `shared_ptr` that keeps the Python
  * instance alive whilst the associated C++ instance is alive.
@@ -10,6 +9,8 @@
  * The solution was inspired by
  * https://github.com/pybind/pybind11/issues/1546
  */
+#pragma once
+
 #include <functional>
 #include <memory>
 #include <type_traits>

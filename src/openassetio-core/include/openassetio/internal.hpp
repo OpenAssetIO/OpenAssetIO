@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2023-2025 The Foundry Visionmongers Ltd
 #pragma once
+
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
