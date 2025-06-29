@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2013-2024 The Foundry Visionmongers Ltd
+// Copyright 2013-2025 The Foundry Visionmongers Ltd
 /**
  * Comparison and stream operators to simplify asserting and reporting
  * of StringView instances during tests.
  */
 #pragma once
+
 #include <openassetio/c/StringView.h>
 #include <openassetio/c/namespace.h>
 

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright 2024-2025 The Foundry Visionmongers Ltd
 #pragma once
+
 #include <filesystem>
 #include <functional>
 #include <memory>

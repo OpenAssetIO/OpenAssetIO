@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2022 The Foundry Visionmongers Ltd
+// Copyright 2022-2025 The Foundry Visionmongers Ltd
+#pragma once
 
 #include <openassetio/export.h>
 #include <openassetio/log/LoggerInterface.hpp>
 
-#pragma once
 namespace openassetio {
 inline namespace OPENASSETIO_CORE_ABI_VERSION {
 namespace log {
