@@ -71,6 +71,12 @@ plugin allows OpenAssetIO entity references to be recognised within
 OTIO documents, and resolved to their file path when the document is
 loaded.
 
+### ComyUI OpenAssetIO nodes
+
+The [ComfyUI plugin](https://github.com/OpenAssetIO/OpenAssetIO-ComfyUI)
+adds custom nodes for ingest and publishing of assets via OpenAssetIO
+entity references, rather than file paths.
+
 ## External projects
 
 ### Nuke
@@ -79,6 +85,15 @@ loaded.
 industry-leading commercial compositing tool by Foundry. As of
 version [15.1](https://campaigns.foundry.com/products/nuke-family/whats-new),
 Nuke has built-in support for OpenAssetIO as a headline feature.
+
+### Katana AssetAPI shim plugin
+
+[Katana](https://www.foundry.com/products/katana) is a commercial look
+development and lighting tool by Foundry. It is natively asset-aware
+through its AssetAPI, which inspired the design of OpenAssetIO. The
+[KatanaOpenAssetIO](https://github.com/TheFoundryVisionmongers/KatanaOpenAssetIO)
+project adapts the Katana AssetAPI to the OpenAssetIO API, allowing
+OpenAssetIO manager plugins to be used within Katana.
 
 ### Ayon manager plugin
 
