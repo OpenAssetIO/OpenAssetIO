@@ -43,8 +43,8 @@ Trusted Committers. The steps are:
 We have a few golden rules for commits to release branches:
 
 - All code should follow the project coding standards.
-- `main` and maintenance branches should always be functional, once we
-  pass pre-release, they must always be release ready.
+- `main` and maintenance branches should always be functional, they must
+  always be release ready.
 - Commits should form meaningful atomic units of change. The build
   should never be (intentionally) broken between commits merged to
   release branches.
@@ -127,16 +127,17 @@ To make a new OpenAssetIO release, follow this procedure.
 
 - Create a work branch in a forked repository.
 - Update [`RELEASE_NOTES.md`](../../RELEASE_NOTES.md) version placeholder
-  to be the concrete release number. (For example, change v1.0.0-alpha.x
-  to v1.0.0-alpha.5).
+  to be the concrete release number. (For example, change v1.0.x
+  to v1.0.1).
 - Update version numbers in :
   - [pyproject.toml](../../src/openassetio-python/pyproject.toml)
     (under `[project]` section).
   - [version.hpp.in](../../cmake/templates/include/openassetio/version.hpp.in)
-    (for changes to/from pre-releases only, at the top).
+    (for changes to/from pre-releases only, append the pre-release tag
+    to `OPENASSETIO_VERSION_STRING`).
   - [test_version.py](../../src/openassetio-python/tests/package/test_version.py)
     (at the top).
-  - [CMakeLists.txt](../../CMakeLists.txt) 
+  - [CMakeLists.txt](../../CMakeLists.txt)
     (an argument to `project()`, no need to update for a pre-release
     increment).
 - If there is an ABI change (major release), update
@@ -169,8 +170,8 @@ To make a new OpenAssetIO release, follow this procedure.
 - Now the codebase is all set up, create a [new Release](https://github.com/OpenAssetIO/OpenAssetIO/releases/new)
   in GitHub.
   - Set the tag to be the version number with a `v` prefix, eg
-    `v1.0.0-alpha.5`, you should be creating a new tag.
-  - Set the title to be the same as the tag, eg `v1.0.0-alpha.5`.
+    `v1.0.1`, you should be creating a new tag.
+  - Set the title to be the same as the tag, eg `v1.0.1`.
   - Copy the release notes for this release into the description:
     - Do not include the version title.
     - Remove line wrapping from the release notes, each note
