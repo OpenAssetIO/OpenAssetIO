@@ -14,7 +14,7 @@ jobs:
         config:
           - os: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-22.04
     name: Python formatting
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -62,7 +62,7 @@ jobs:
   markdown-link-check:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
         # Suppress ftrack.com, which errors with http 520 when accessed
@@ -83,7 +83,7 @@ jobs:
         config:
           - os: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -129,7 +129,7 @@ jobs:
         config:
           - os: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
@@ -168,7 +168,7 @@ jobs:
       image: ghcr.io/openassetio/openassetio-build
 
     steps:
-      - uses: actions/checkout@v3 # Needs to be V3 because of GLIBC ver.
+      - uses: actions/checkout@v5 # Needs to be V3 because of GLIBC ver.
         with:
           path: src
 
