@@ -97,34 +97,10 @@ The documentation for OpenAssetIO can be found here: [https://docs.openassetio.o
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6046/badge)](https://bestpractices.coreinfrastructure.org/projects/6046)
 
-> **Important:** The project is currently in early beta stage and is
-> subject to change. Do not deploy the API in production critical
-> situations without careful thought.
+Roadmap details can be found [here](ROADMAP.md).
 
-We are currently working towards a v1.0.0 release. We are in the process
-of porting the core API from Python to C/C++.
-
-The library currently supports C++ and Python hosts talking to a Python
-manager. Completion of this phase will add support for C++ managers.
-
-The code is presented here in its current form to facilitate discussion
-and early-adopter testing. We actively encourage engagement in the
-[discussion](https://github.com/OpenAssetIO/OpenAssetIO/discussions)
-and to give feedback on current [Issues](https://github.com/OpenAssetIO/OpenAssetIO/issues)
-and [Pull Requests](https://github.com/OpenAssetIO/OpenAssetIO/pulls).
-
-We have been making some structural changes whilst migrating to this
-repository and removing some spurious/legacy concepts. There may well
-be some rough edges so bear with us whilst we get things ship-shape.
-
-Please see the [project board](https://github.com/orgs/OpenAssetIO/projects/1)
-for work in progress, as well as up-coming topics.
-
-- Complete core C/C++ API work
-- Define Traits for post-production in the [OpenAssetIO-MediaCreation](https://github.com/OpenAssetIO/OpenAssetIO-MediaCreation)
-  repository
-
-A more detailed roadmap is available [here](ROADMAP.md).
+We actively encourage engagement in the project. See various ways to
+get in touch [here](SUPPORT.md).
 
 ## Background
 
@@ -142,15 +118,22 @@ This project first began in 2013, taking inspiration from the production
 tested [Katana Asset API](https://learn.foundry.com/katana/4.0/Content/tg/asset_management_system_plugin_api/asset_management_system.html)
 to make it more suitable for a wider variety of uses. Modern pipelines
 are incredibly nuanced. Finding a common framework that brings value in
-this space is challenging to say the least. Prototypes built during the
-development of `OpenAssetIO` over the last few years have demonstrated
-significant developer and artist value.
+this space is challenging to say the least. Prototypes and early
+production use of `OpenAssetIO` over the last few years have
+demonstrated significant developer and artist value.
+
+For example, referencing assets by identity instead of path makes
+documents more portable and dynamic - identity is not platform specific
+and can change over time ("vLatest"); and additional metadata carried
+alongside (or instead of) a path allows DCC parameters to be driven
+by the asset management system (e.g. an image's colour space);
+publishing through an asset management system then allows the pipeline
+a chance to properly ingest assets - such as versioning and making
+available for review.
 
 We hope the API forms a practical starting point that addresses many
 real-world use cases, and as an industry, we can evolve the standard
-over time to support any additional requirements. We are currently
-investigating the relationship with [Ar 2.0](https://graphics.pixar.com/usd/docs/668045551.html),
-which appears to overlap with a subset of `OpenAssetIO`s concerns.
+over time to support any additional requirements.
 
 ## Getting started
 
@@ -162,14 +145,12 @@ Windows, macOS, and Linux are all supported platforms.
 
 ### Getting OpenAssetIO
 
-OpenAssetIO can be used either as a pure Python package, or as a
-hybrid package, which includes a core C++ component, as well as optional
-C and Python bindings.
+OpenAssetIO can be used either as a Python package, or as a C++ package
+with optional Python bindings.
 
 > **Note**
-> Currently, to create a non-python host or manager plugins, one must
-> use a hybrid package, which is only available via
-> [building from source](doc/BUILDING.md#building).
+> Currently, to create non-Python host integrations or manager plugins,
+> one must [build from source](doc/BUILDING.md#building).
 
 For pure Python projects, OpenAssetIO is available on PyPI, simply run:
 
@@ -188,26 +169,25 @@ For detailed instructions, see [building](doc/BUILDING.md).
 
 ## Getting involved
 
-> **Warning**
-> OpenAssetIO is a project used in business-critical workflows, and due
-> to this need to work stably and reliably, it is a project with rigid
-> standards.
->
-> Combined with its inherently abstract nature, it is a difficult project
-> for casual contribution. We are a small team, and welcome anyone
-> who can directly help contribute to the core tasks outlined in our
-> [roadmap](ROADMAP.md). We are however, at present, unable to
-> provide "good first tasks" or a gentle, guided, on-ramp for those new
-> to the problem space.
->
-> If you have a prevailing interest in the project, please reach out and
-> start a thread in the Discussions section. This helps us coordinate
-> work and approach to ensure we maintain the standards our users demand
-> of the project. We encourage you to [work with the TSC](https://github.com/OpenAssetIO/OpenAssetIO-WG)
-> before making any big changes or implementing new features.
+> **Note**
+> Contributions are very welcome, though the following is important to
+> bear in mind: Similarly to other ASWF projects, compatibility with
+> other software in VFX pipelines is important, and so stability and
+> reliability in the project is maintained by following strict
+> standards. Making a start on contributing to the core library can be
+> daunting at first. While the interfaces from a user perspective are
+> straightforward to use, the core implementation detail is inherently
+> abstract.
 
-- See the [contribution guide](doc/contributing/PROCESS.md)
-- Join our [working group](https://github.com/OpenAssetIO/OpenAssetIO-WG) meetings
+Contributions to the core tasks outlined in our [roadmap](ROADMAP.md)
+would be very welcome.
+
+If you're interested in the project, please [reach out](SUPPORT.md).
+Also,
+
+- See the [contribution guide](CONTRIBUTING.md)
+- Join our [working group](https://github.com/OpenAssetIO/OpenAssetIO-WG)
+  meetings
 
 > Maya&reg;, is a registered trademark of Autodesk, Inc., and/or its
 > subsidiaries and/or affiliates in the USA and/or other countries.
