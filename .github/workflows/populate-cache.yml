@@ -27,7 +27,7 @@ jobs:
           - os: windows-2022
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Bootstrap
       uses: ./.github/bootstrap_platform

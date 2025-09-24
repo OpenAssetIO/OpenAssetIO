@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Build and install (Docker)
       run: |
@@ -60,7 +60,7 @@ jobs:
         shell: ${{ matrix.config.shell }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Bootstrap
       uses: ./.github/bootstrap_platform
@@ -93,7 +93,7 @@ jobs:
         shell: bash
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Bootstrap
         uses: ./.github/bootstrap_platform
