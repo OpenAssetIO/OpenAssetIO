@@ -18,10 +18,10 @@ OPENASSETIO_DECLARE_PTR(Context)
  * The Context object is used to convey information about the calling
  * environment to a @ref manager.
  *
- * It holds additional information about the @ref host that may be
- * useful to the @ref manager. Optionally, it holds arbitrary, opaque
- * (to the host), serializable manager state, which can be used by the
- * manager plugin to tie together related calls.
+ * It holds additional information about the @ref glossary_host "host"
+ * that may be useful to the @ref manager. Optionally, it holds
+ * arbitrary, opaque (to the host), serializable manager state, which
+ * can be used by the manager plugin to tie together related calls.
  *
  * A Manager will also use this information to ensure it presents the
  * correct UI, or behavior.
@@ -41,19 +41,19 @@ class OPENASSETIO_CORE_EXPORT Context final {
   OPENASSETIO_ALIAS_PTR(Context)
 
   /**
-   * In many situations, the @ref trait_set of the desired @ref entity
-   * itself is not entirely sufficient information to realize many
-   * functions that a @ref manager wishes to implement. For example,
-   * when determining the final file path for an Image that is about
-   * to be published - knowing it came from a render catalog, rather
-   * than a 'Write node' from a comp tree could result in different
-   * behavior.
+   * In many situations, the @ref trait_set of the desired @ref
+   * glossary_entity "entity" itself is not entirely sufficient
+   * information to realize many functions that a @ref manager wishes to
+   * implement. For example, when determining the final file path for an
+   * Image that is about to be published - knowing it came from a render
+   * catalog, rather than a 'Write node' from a comp tree could result
+   * in different behavior.
    *
-   * The Locale uses a @fqref{trait.TraitsData} "TraitsData" to describe in
-   * more detail, what specific part of a @ref host is requesting an
-   * action. In the case of a file browser for example, it may also
-   * include information such as whether or not multi-selection is
-   * required.
+   * The Locale uses a @fqref{trait.TraitsData} "TraitsData" to describe
+   * in more detail, what specific part of a @ref glossary_host "host"
+   * is requesting an action. In the case of a file browser for example,
+   * it may also include information such as whether or not
+   * multi-selection is required.
    */
   trait::TraitsDataPtr locale;
 

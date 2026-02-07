@@ -27,9 +27,9 @@ OPENASSETIO_DECLARE_PTR(UIDelegateRequest)
  * Class encapsulating a @ref glossary_UI_Delegate request that may
  * change over time.
  *
- * The @ref host provides instances of this class to a UI delegate when
- * @ref UIDelegateInterface.populateUI "initiating a request" for UI
- * delegation, and when @ref
+ * The @ref glossary_host "host" provides instances of this class to a
+ * UI delegate when @ref UIDelegateInterface.populateUI "initiating a
+ * request" for UI delegation, and when @ref
  * UIDelegateStateInterface.updateRequestCallback
  * "updating an ongoing request".
  *
@@ -46,8 +46,8 @@ class OPENASSETIO_UI_EXPORT UIDelegateRequest final {
   using StateChangedCallback = std::function<void(UIDelegateStateInterfacePtr)>;
 
   /**
-   * Constructs a new UIDelegateRequest wrapping a @ref host
-   * implementation.
+   * Constructs a new UIDelegateRequest wrapping a @ref glossary_host
+   * "host" implementation.
    *
    * @note Instances of this class should not be constructed directly by
    * the host.

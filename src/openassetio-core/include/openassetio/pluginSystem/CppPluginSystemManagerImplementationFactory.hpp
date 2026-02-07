@@ -25,8 +25,9 @@ OPENASSETIO_DECLARE_PTR(CppPluginSystemManagerImplementationFactory)
  * A factory to manage @ref CppPluginSystemManagerPlugin derived
  * plugins.
  *
- * This class is not usually used directly by a @ref host, which instead
- * uses the @ref hostApi.ManagerFactory "ManagerFactory".
+ * This class is not usually used directly by a @ref glossary_host
+ * "host", which instead uses the @ref hostApi.ManagerFactory
+ * "ManagerFactory".
  *
  * The factory loads plugins found under paths specified in the
  * `OPENASSETIO_PLUGIN_PATH` env var.

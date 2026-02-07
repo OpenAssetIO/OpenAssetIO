@@ -15,9 +15,9 @@
 #
 """
 @namespace openassetio.hostApi.terminology
-This module provides utilities for a @ref host that simplify the
-integration of a @ref manager "manager's" custom terminology into its
-user-facing components.
+This module provides utilities for a @ref glossary_host "host" that
+simplify the integration of a @ref manager "manager's" custom
+terminology into its user-facing components.
 """
 
 ## @namespace openassetio.hostApi.terminology

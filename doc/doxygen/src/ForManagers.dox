@@ -14,18 +14,19 @@
  *   several discrete services, but within any OpenAssetIO session, it
  *   is represented though a singular @ref glossary_manager_plugin
  *
- * - The API is initialized and coordinated by a @ref host. The host may
- *   instantiate one or more managers.
+ * - The API is initialized and coordinated by a @ref glossary_host
+ *   "host". The host may instantiate one or more managers.
  *
- * - All interaction between the @ref host and a @ref manager occurs
- *   through the manager's implementation of the @ref ManagerInterface.
+ * - All interaction between the @ref glossary_host "host" and a @ref
+ *   manager occurs through the manager's implementation of the
+ *   @ref ManagerInterface.
  *
  * - A manager's implementation of the @ref ManagerInterface supplied
  *   through its @ref glossary_manager_plugin is wrapped in the
  *   @fqref{hostApi.Manager} "Manager" class before being made available
- *   to the @ref host. This is to allow for host session state
- *   management and other auditing/logging functionality. It also
- *   provides a degree of isolation against future API changes.
+ *   to the @ref glossary_host "host". This is to allow for host
+ *   session state management and other auditing/logging functionality.
+ *   It also provides a degree of isolation against future API changes.
  *
  * - Methods of the @ref ManagerInterface are required to be reentrant
  *   and thread-safe. The response to any method should only depend on
@@ -39,29 +40,31 @@
  *   long as they are suitably invalidated when upstream data changes.
  *
  * - The main currency in the interaction with a host is the @ref
- *   entity_reference. These are URIs that uniquely identify an @ref
- *   entity within the management system. The form of an entity reference
- *   is entirely determined by the manager. They are considered to be
- *   opaque handles by the host, even if they look like well-formed
- *   strings.
+ *   glossary_Entity_Reference "entity reference". These are URIs that
+ *   uniquely identify an @ref glossary_entity "entity" within the
+ *   management system. The form of an entity reference is entirely
+ *   determined by the manager. They are considered to be opaque handles
+ *   by the host, even if they look like well-formed strings.
  *
  * - The manager is expected to store and recall the properties of
  *   supported traits @fqref{managerApi.ManagerInterface.register_}
- *   "registered" to any given @ref entity_reference, and return this
- *   data from the relevant query methods when supplied the reference
- *   returned from the registration.
+ *   "registered" to any given @ref glossary_Entity_Reference
+ *   "entity reference", and return this data from the relevant query
+ *   methods when supplied the reference returned from the registration.
  *
- * - A @ref host may query other well-known or host-specific @ref
- *   trait "traits" to provide additional customization of behavior or
- *   the handling of data referenced by an @ref entity_reference. For
- *   example, determining the correct frame range and colorspace of an
- *   image sequence.
+ * - A @ref glossary_host "host" may query other well-known or
+ *   host-specific @ref trait "traits" to provide additional
+ *   customization of behavior or the handling of data referenced by
+ *   an @ref glossary_Entity_Reference "entity reference". For example,
+ *   determining the correct frame range and colorspace of an image
+ *   sequence.
  *
- * - The @ref Context supplied to a method can be used to understand the
- *   intentions and/or requirements of the caller, as well as to
- *   determine which part of an application is involved in the call.
- *   This can be used to help determine the correct values for @ref
- *   trait properties during @ref glossary_resolve.
+ * - The @ref glossary_Context "Context" supplied to a method can be
+ *   used to understand the intentions and/or requirements of the
+ *   caller, as well as to determine which part of an application is
+ *   involved in the call. This can be used to help determine the
+ *   correct values for @ref trait properties during @ref
+ *   glossary_resolve.
  *
  * - Many API calls are passed a @ref trait_set. They form a strong type
  *   mechanism, and must be respected as a filter predicate for
@@ -74,19 +77,20 @@
  *   majority of API calls. This should be used for *all* logging, and
  *   any generic host queries via the supplied
  *   @fqref{managerApi.Host} "Host" object. Managers may wish
- *   to use details of the @ref host obtained from this object to adapt
- *   their behavior if desired.
+ *   to use details of the @ref glossary_host "host" obtained from
+ *   this object to adapt their behavior if desired.
  *
  * - If a manager wants to support some kind of temporally stable
  *   resolution of @ref meta_version "Meta-versions" or similar,
  *   implement @fqref{managerApi.ManagerInterface.createState}
  *   "createState", and return some token that can be used as an anchor.
- *   A new token will be requested each time a @ref Context is made, and
- *   will then be available via @fqref{Context.managerState}
- *   "Context.managerState" in any call that receives a context. Hosts
- *   will take care of managing the lifetime of any given Context in
- *   terms that are meaningful for the user. Eg. the state token will be
- *   shared across distributed multi-host renders.
+ *   A new token will be requested each time a @ref glossary_Context
+ *   "Context" is made, and will then be available via
+ *   @fqref{Context.managerState} "Context.managerState" in any call
+ *   that receives a context. Hosts will take care of managing the
+ *   lifetime of any given Context in terms that are meaningful for the
+ *   user. Eg. the state token will be shared across distributed
+ *   multi-host renders.
  *
  * - If the host executes code from Python, then the Global Interpreter
  *   Lock (GIL) will be released before executing any C++ implementation
@@ -206,9 +210,9 @@
  *
  * - Implement the API methods grouped under
  *   @fqref{managerApi.ManagerInterface} "Related Entities" to return
- *   any appropriate @ref entity_reference "entity references" for the
- *   supplied relationship(s). Hosts may use these relationships to
- *   simplify common pipeline integration tasks. For example, loading
+ *   any appropriate @ref glossary_Entity_Reference "entity references"
+ *   for the supplied relationship(s). Hosts may use these relationships
+ *   to simplify common pipeline integration tasks. For example, loading
  *   multiple AOVs for a render, or determining data dependencies when
  *   transferring assets.
  * - Update your implementation of

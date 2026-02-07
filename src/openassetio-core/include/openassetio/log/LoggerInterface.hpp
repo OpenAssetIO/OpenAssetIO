@@ -13,7 +13,7 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  This namespace contains code relevant to message logging within the
  API.
 
- @ref host "Host" authors provide an implementation of @ref
+ @ref glossary_host "Host" authors provide an implementation of @ref
  LoggerInterface to a @ref manager to channel its messages. The API
  middleware also makes use of this logger to provide debugging
  information about use of the API at runtime.

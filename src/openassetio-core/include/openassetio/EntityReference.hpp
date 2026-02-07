@@ -13,8 +13,8 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
 /**
  * EntityReference forms a strongly typed wrapper around arbitrary
  * strings to ensure they have been validated by the target @ref manager
- * before being used as an @ref entity_reference in the various entity
- * related API calls.
+ * before being used as an @ref glossary_Entity_Reference
+ * "entity reference" in the various entity related API calls.
  *
  * It can be assumed that if
  * @fqref{hostApi.Manager.isEntityReferenceString}
@@ -22,9 +22,10 @@ inline namespace OPENASSETIO_CORE_ABI_VERSION {
  * EntityReference can be constructed from that string.
  *
  * @warning EntityReferences should not be constructed directly by the
- * @ref host, use the creation methods of the manager instead,
- * @fqref{hostApi.Manager.createEntityReference} "createEntityReference"
- * and @fqref{hostApi.Manager.createEntityReferenceIfValid}
+ * @ref glossary_host "host", use the creation methods of the manager
+ * instead, @fqref{hostApi.Manager.createEntityReference}
+ * "createEntityReference" and
+ * @fqref{hostApi.Manager.createEntityReferenceIfValid}
  * "createEntityReferenceIfValid".
  *
  * Note that this does not preclude the possibility of a malformed

@@ -13,8 +13,9 @@ namespace pluginSystem {
 OPENASSETIO_DECLARE_PTR(CppPluginSystemManagerPlugin)
 
 /**
- * Base class to be subclassed by plugins binding a @ref host to an @ref
- * asset_management_system.
+ * Base class to be subclassed by plugins binding a @ref glossary_host
+ * "host" to an @ref glossary_Asset_Management_System "Asset Management
+ * System".
  *
  * This is used by the dynamic plugin discovery mechanism to instantiate
  * the @ref managerApi.ManagerInterface "ManagerInterface"

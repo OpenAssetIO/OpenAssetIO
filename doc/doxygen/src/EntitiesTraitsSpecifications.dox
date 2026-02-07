@@ -2,17 +2,19 @@
  * @page entities_traits_and_specifications Entities, Traits and Specifications
  *
  * The concepts discussed on this page are key to understanding how
- * OpenAssetIO extends beyond the simple resolution of an @ref entity_reference
- * into a file path into first-class asset centric workflows.
+ * OpenAssetIO extends beyond the simple resolution of an
+ * @ref glossary_Entity_Reference "entity reference" into a file path
+ * into first-class asset centric workflows.
  *
  * @section Entities
  *
- * To recap, within OpenAssetIO, a @ref host communicates with an
- * @ref asset_management_system to query and manage the existence of
- * @ref entity "entities". An entity is a logical thing managed within
- * a pipeline or workflow by the asset manager. Within the Media and
- * Entertainment sector, this could be a shot, an image sequence, a 3D
- * model or a script.
+ * To recap, within OpenAssetIO, a @ref glossary_host "host"
+ * communicates with an @ref glossary_Asset_Management_System
+ * "Asset Management System" to query and manage the existence of
+ * @ref glossary_entity "entities". An entity is a logical thing
+ * managed within a pipeline or workflow by the asset manager.
+ * Within the Media and Entertainment sector, this could be a shot,
+ * an image sequence, a 3D model or a script.
  *
  * At its core OpenAssetIO has no detailed understanding of the
  * specifics of any given entity, only that:
@@ -22,11 +24,11 @@
  *  - They may (or may not) have multiple versions.
  *  - They may (or may not) have relationships to other entities.
  *
- * An @ref entity_reference is the token used to identify a specific
- * entity within the system. These references are (generally) in the
- * form of a <a
- * href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>. The
- * format of the reference itself is owned by the @ref manager and
+ * An @ref glossary_Entity_Reference "entity reference" is the token
+ * used to identify a specific entity within the system. These
+ * references are (generally) in the form of a <a
+ * href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>.
+ * The format of the reference itself is owned by the @ref manager and
  * conceptually, to the host, it is an opaque handle. Because of this
  * (and the fact that it is specifically only an identifier), no
  * concrete information about an entity can be determined from its
@@ -86,14 +88,15 @@
  *
  * @section entity_data Entity Data
  *
- * Every @ref trait associated with an @ref entity can define zero or more
- * key/value pairs of data (properties) that the entity (may) hold.
+ * Every @ref trait associated with an @ref glossary_entity "entity" can
+ * define zero or more key/value pairs of data (properties) that the
+ * entity (may) hold.
  *
- * Traits are the mechanism by which a @ref host requests specific data
- * about an entity at runtime. The @fqref{hostApi.Manager.resolve}
- * "resolve" method asks the manager to retrieve the data for a specific
- * set of traits for one or more @ref entity_reference
- * "entity references".
+ * Traits are the mechanism by which a @ref glossary_host "host"
+ * requests specific data about an entity at runtime. The
+ * @fqref{hostApi.Manager.resolve} "resolve" method asks the manager to
+ * retrieve the data for a specific set of traits for one or more @ref
+ * glossary_Entity_Reference "entity references".
  *
  * Continuing the example above, to determine the path to the character
  * model, the host would resolve the data for the `locatableContent`
@@ -106,11 +109,12 @@
  * fragile mechanisms such as extension-based mappings and brute-force
  * filesystem searches.
  *
- * The @ref Context passed to the API methods by the host plays an
- * important role during resolution. Its @ref locale property also makes
- * use of traits to specify details of the host environment. These may
- * affect the resolved _value_ of a trait property,  but must never
- * change the interpretation or format of that value.
+ * The @ref glossary_Context "Context" passed to the API methods by the
+ * host plays an important role during resolution. Its @ref locale
+ * property also makes use of traits to specify details of the host
+ * environment. These may affect the resolved _value_ of a trait
+ * property, but must never change the interpretation or format of that
+ * value.
  *
  * @note In many real-world production systems, entities are manageed
  * through distributed service-oriented platforms. The fact that a host
@@ -216,7 +220,7 @@
  * - The context @ref locale - to describe the specifics of the
  *   host environment calling the API.
  * - During @ref glossary_register and @ref glossary_resolve - to hold
- *   the data for an @ref entity.
+ *   the data for an @ref glossary_entity "entity".
  * - Describing Relationships - to define some connection between one or
  *   more entities.
  *
@@ -241,9 +245,9 @@
  * @subsection entity_specifications Entity Specifications
  *
  * Specifications used with @ref glossary_register and returned by @ref
- * glossary_resolve to hold @ref entity data are known as "entity
- * specifications". The @ref trait_set they define can also be used as a
- * shorthand for consistency when:
+ * glossary_resolve to hold @ref glossary_entity "entity" data are known
+ * as "entity specifications". The @ref trait_set they define can also
+ * be used as a shorthand for consistency when:
  *
  *  - A host wishes to know if a manager would like to be involved in
  *    reads or writes of a specific kind of data.
@@ -371,15 +375,15 @@
  *
  * @subsection specification_selection Picking Which Traits to Use
  *
- * As a @ref host, it is important to use the correct specifications and
- * traits when making calls to a @ref manager. This ensures the expected
- * type of entity is returned or registered. A manager must also
- * accurately describe any entities when requested. In order to
- * facilitate a common dialog between OpenAssetIO compatible systems,
- * the project provides a set of well-known specifications and traits
- * through industry-specific packages. Always use one of these where
- * possible as they are, by definition, also known to other tools in the
- * OpenAssetIO ecosystem.
+ * As a @ref glossary_host "host", it is important to use the correct
+ * specifications and traits when making calls to a @ref manager. This
+ * ensures the expected type of entity is returned or registered. A
+ * manager must also accurately describe any entities when requested.
+ * In order to facilitate a common dialog between OpenAssetIO compatible
+ * systems, the project provides a set of well-known specifications and
+ * traits through industry-specific packages. Always use one of these
+ * where possible as they are, by definition, also known to other tools
+ * in the OpenAssetIO ecosystem.
  *
  * Hosts and managers are also free to make their own specifications and
  * traits for their native types. For example, creating a new

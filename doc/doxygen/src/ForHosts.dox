@@ -3,16 +3,18 @@
  *
  * @section host_architecture Architecture Summary
  *
- * - In OpenAssetIO, a '@ref host' is an application, tool or script
- *   that makes use of the API to interact with an @ref asset_management_system.
+ * - In OpenAssetIO, a @ref glossary_host "host" is an application,
+ *   tool or script that makes use of the API to interact with an
+ *   @ref glossary_Asset_Management_System "Asset Management System".
  *   This could be anything from a simple pipeline script to a
  *   full-blown Digital Content Creation application. We use this term
  *   as the host is the thing responsible for 'hosting' the API, and
  *   instantiating one or more instances of the API classes that
  *   represent an asset management system.
  *
- * - Hosts interact with an @ref asset_management_system through an
- *   instance of the @fqref{hostApi.Manager} "Manager" class.
+ * - Hosts interact with an @ref glossary_Asset_Management_System
+ *   "Asset Management System" through an instance of the
+ *   @fqref{hostApi.Manager} "Manager" class.
  *   The @fqref{hostApi.ManagerFactory} "ManagerFactory" class is used
  *   to instantiate this instance for any given manager. The Manager
  *   class wraps the implementation of the API by a specific asset
@@ -32,28 +34,31 @@
  *   changes.
  *
  * - The main currency in the interactions with a @ref manager is the
- *   @ref entity_reference. These are URIs that uniquely identify an
- *   @ref entity within the management system. The form of an entity
- *   reference is entirely determined by the manager. They must be
- *   considered to be opaque handles by the host, even if they look like
- *   well-formed strings.
+ *   @ref glossary_Entity_Reference "entity reference". These are URIs
+ *   that uniquely identify an @ref glossary_entity "entity" within the
+ *   management system. The form of an entity reference is entirely
+ *   determined by the manager. They must be considered to be opaque
+ *   handles by the host, even if they look like well-formed strings.
  *
  * - Nearly all interactions with a @fqref{hostApi.Manager} "Manager"
- *   require an appropriately configured @ref Context. This tells the
- *   @ref asset_management_system about the intended actions of the
- *   host. For example, whether an @ref entity_reference is being @ref
- *   glossary_resolve "resolved" for read or for write.
+ *   require an appropriately configured @ref glossary_Context
+ *   "Context". This tells the @ref glossary_Asset_Management_System
+ *   "Asset Management System" about the intended actions of the host.
+ *   For example, whether an @ref glossary_Entity_Reference
+ *   "entity reference" is being @ref glossary_resolve "resolved" for
+ *   read or for write.
  *
  * - The lifetime of the Context can be carefully managed by the host
  *   to allow the manager to correlate and time-lock disparate API calls.
  *
  * - It's in the host's interest to provide as much information in the
- *   @ref Context and any @ref entity or @ref locale @ref Specification
- *   "Specifications" supplied to API calls as possible. For example,
- *   it is strongly advised to use or extend standard @ref locale
- *   "locales" depending on which part of a host is making API calls.
- *   This allows the manager to correctly filter assets or adapt its
- *   behavior as required.
+ *   @ref glossary_Context "Context" and any @ref glossary_entity
+ *   "entity" or @ref locale @ref Specification "Specifications"
+ *   supplied to API calls as possible. For example, it is strongly
+ *   advised to use or extend standard @ref locale "locales" depending
+ *   on which part of a host is making API calls. This allows the
+ *   manager to correctly filter assets or adapt its behavior as
+ *   required.
  *
  * - You should resolve an entity reference with the minimal set of @ref
  *   trait "traits" required, and use resulting data as the authoritative
@@ -122,18 +127,20 @@
  *   passing @fqref{hostApi.Manager.Capability.kResolution}
  *   "kResolution".
  *
- * - Create (and configure) a @ref Context as appropriate for calls to
- *   the API. Re-use context objects for all API calls that are related
- *   to the same user session or logical set of interactions. For
- *   example, one per document or working environment.
+ * - Create (and configure) a @ref glossary_Context "Context" as
+ *   appropriate for calls to the API. Re-use context objects for all
+ *   API calls that are related to the same user session or logical set
+ *   of interactions. For example, one per document or working
+ *   environment.
  *
  * - Ask the @ref manager if they support resolve for the relevant
  *   data by supplying its @ref trait_set to
  *   @fqref{hostApi.Manager.managementPolicy} "Manager.managementPolicy"
- *   with a @ref Context with `kRead` access, respecting the returned
- *   traits - this may be a subset if the manager is only capable of
- *   resolving some of an entity's traits. Note that management policy
- *   is runtime invariant for any given context/access/trait set.
+ *   with a @ref glossary_Context "Context" with `kRead` access,
+ *   respecting the returned traits - this may be a subset if the
+ *   manager is only capable of resolving some of an entity's traits.
+ *   Note that management policy is runtime invariant for any given
+ *   context/access/trait set.
  *
  * - Always check any suspected entity references with
  *   @fqref{hostApi.Manager.isEntityReferenceString}
@@ -142,7 +149,7 @@
  *
  * - If you support distributed processing provide a mechanism to
  *   @fqref{hostApi.Manager.persistenceTokenForContext} "persist" a @ref
- *   Context across processes.
+ *   glossary_Context "Context" across processes.
  *
  * - Provide means for users to 'de-assetize' documents to facilitate
  *   sharing outside of the assetized environment. This usually consists
@@ -185,15 +192,16 @@
  * @subsection host_todo_recommended Recommended
  *
  * - Present users with the ability to enable and select a @ref
- *   manager to use to interact with an @ref asset_management_system,
- *   storing applicable options, etc...
+ *   manager to use to interact with an @ref
+ *   glossary_Asset_Management_System "Asset Management System", storing
+ *   applicable options, etc...
  *
  * - @fqref{hostApi.Manager.isEntityReferenceString} "Test" and resolve
  *   any strings that may represent file system locations
  *   (@fqref{hostApi.Manager.resolve} "Manager.resolve")
  *
- * - Ensure the use of a correctly configured @ref Context for all
- *   calls to the API.
+ * - Ensure the use of a correctly configured @ref glossary_Context
+ *   "Context" for all calls to the API.
  *
  * - If a manager's @fqref{hostApi.Manager.managementPolicy}
  *   "managementPolicy" sets the WantsThumbnail trait, where possible,

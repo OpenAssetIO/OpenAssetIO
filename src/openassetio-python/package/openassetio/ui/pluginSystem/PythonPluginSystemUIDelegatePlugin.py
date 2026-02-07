@@ -31,7 +31,8 @@ __all__ = ["PythonPluginSystemUIDelegatePlugin"]
 class PythonPluginSystemUIDelegatePlugin(PythonPluginSystemPlugin):
     """
     This class represents the various derived classes that make up the
-    binding to a @ref asset_management_system.
+    binding to a @ref glossary_Asset_Management_System
+    "Asset Management System".
 
     It used by the dynamic plug-in discovery mechanism (@ref
     openassetio.pluginSystem.PythonPluginSystem) to instantiate the main

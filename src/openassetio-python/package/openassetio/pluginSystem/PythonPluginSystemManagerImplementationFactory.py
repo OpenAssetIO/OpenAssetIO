@@ -31,8 +31,9 @@ __all__ = [
 class PythonPluginSystemManagerImplementationFactory(ManagerImplementationFactoryInterface):
     """
     A Factory to manage @ref openassetio.pluginSystem.PythonPluginSystemManagerPlugin
-    derived plugins. Not usually used directly by a @ref host, which
-    instead uses the @fqref{hostApi.ManagerFactory} "ManagerFactory".
+    derived plugins. Not usually used directly by a @ref glossary_host
+    "host", which instead uses the @fqref{hostApi.ManagerFactory}
+    "ManagerFactory".
 
     The factory loads plugins from entry points registered within the
     `openassetio.manager_plugin` entry point group, as well as

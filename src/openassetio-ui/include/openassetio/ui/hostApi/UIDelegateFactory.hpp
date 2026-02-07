@@ -108,10 +108,10 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
   /**
    * Construct an instance of this class.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the UI delegate to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the UI delegate to query asset-related
+   * properties from the host.
    *
    * @param uiDelegateImplementationFactory The factory that will be
    * used to instantiate UI delegates. See, for example, @ref
@@ -177,10 +177,10 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    *
    * @param identifier Unique UI delegate identifier.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the UI delegate to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the UI delegate to query asset-related
+   * properties from the host.
    *
    * @param uiDelegateImplementationFactory The factory that will be
    * used to instantiate the UI delegate. See, for example, @ref
@@ -214,10 +214,10 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * -->const log::LoggerInterfacePtr&) "Alternative direct signature"
    * for more details.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the UI delegate to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the UI delegate to query asset-related
+   * properties from the host.
    *
    * @param uiDelegateImplementationFactory The factory that will be
    * used to instantiate UI delegates.
@@ -269,10 +269,10 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * `std::ifstream::open`</a>. Relative paths resolve to a
    * platform/environment-dependent location.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the UI delegate to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the UI delegate to query asset-related
+   * properties from the host.
    *
    * @param uiDelegateImplementationFactory The factory that will be
    * used to instantiate UI delegates.

@@ -98,10 +98,10 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
   /**
    * Construct an instance of this class.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the @ref manager to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the @ref manager to query asset-related
+   * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used to
    * instantiate managers. See, for example, @ref
@@ -168,10 +168,10 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    *
    * @param identifier Unique manager identifier.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the @ref manager to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the @ref manager to query asset-related
+   * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used to
    * instantiate the manager. See, for example, @ref
@@ -253,10 +253,10 @@ class OPENASSETIO_CORE_EXPORT ManagerFactory final {
    * `std::ifstream::open`</a>. Relative paths resolve to a
    * platform/environment-dependent location.
    *
-   * @param hostInterface The @ref host "host's" implementation of the
-   * `HostInterface` that uniquely identifies the host and provides
-   * common hooks for the @ref manager to query asset-related properties
-   * from the host.
+   * @param hostInterface The @ref glossary_host "host's" implementation
+   * of the `HostInterface` that uniquely identifies the host and
+   * provides common hooks for the @ref manager to query asset-related
+   * properties from the host.
    *
    * @param managerImplementationFactory The factory that will be used
    * to instantiate managers.

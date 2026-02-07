@@ -18,8 +18,8 @@ OPENASSETIO_DECLARE_PTR(HostSession)
 
 /**
  * The HostSession is a manager-facing class that represents a discrete
- * API session started by a @ref host in order to communicate with a
- * manager.
+ * API session started by a @ref glossary_host "host" in order to
+ * communicate with a manager.
  *
  * Any generalised API interactions a Manager may wish to make with a
  * Host should be performed through the HostSession instance supplied

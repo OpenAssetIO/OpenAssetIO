@@ -15,8 +15,8 @@ namespace ui::pluginSystem {
 OPENASSETIO_DECLARE_PTR(CppPluginSystemUIDelegatePlugin)
 
 /**
- * Base class to be subclassed by plugins binding a @ref host to a UI
- * delegate.
+ * Base class to be subclassed by plugins binding a @ref glossary_host
+ * "host" to a UI delegate.
  *
  * This is used by the dynamic plugin discovery mechanism to instantiate
  * the @ref ui.managerApi.UIDelegateInterface "UIDelegateInterface"

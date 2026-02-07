@@ -35,9 +35,9 @@ namespace ui::hostApi {
 OPENASSETIO_DECLARE_PTR(UIDelegate)
 
 /**
- * The UIDelegate is the @ref host facing representation of an @ref
- * asset_management_system "asset management system's" bespoke @ref
- * glossary_UI_Delegate.
+ * The UIDelegate is the @ref glossary_host "host" facing representation
+ * of an @ref glossary_Asset_Management_System "asset management
+ * system's" bespoke @ref glossary_UI_Delegate.
  *
  * UIDelegate instances shouldn't be directly constructed by the host.
  * An instance of the class for any given asset management system can be
