@@ -80,7 +80,7 @@ jobs:
           # Ensure .pyi stub tests won't be skipped
           OPENASSETIO_TEST_ENABLE_PYTHON_STUBGEN: 1
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: "openassetio-wheels-${{ matrix.config.os }}-${{ matrix.python-build }}"
           path: ./wheelhouse/*.whl
