@@ -39,7 +39,6 @@ from openassetio.test.manager.harness import (
     FixtureAugmentedTestCase,
 )
 
-
 #
 # Tests
 #
@@ -68,15 +67,13 @@ class Test_fixturesFromPyFile:
         valid = tempfile_with_contents(
             tmpdir,
             ".py",
-            inspect.cleandoc(
-                """
+            inspect.cleandoc("""
                                 from openassetio import constants
                                 fixtures = {
                                     'reference_prefix_field':
                                         constants.kInfoKey_EntityReferencesMatchPrefix
                                 }
-                                """
-            ),
+                                """),
         )
         expected_dict = {"reference_prefix_field": constants.kInfoKey_EntityReferencesMatchPrefix}
         assert fixturesFromPyFile(valid) == expected_dict
@@ -99,16 +96,14 @@ class Test_moduleFromFile:
         valid = tempfile_with_contents(
             tmpdir,
             ".py",
-            inspect.cleandoc(
-                """
+            inspect.cleandoc("""
                                 from openassetio import constants
                                 some_var = {
                                     'reference_prefix_field':
                                         constants.kInfoKey_EntityReferencesMatchPrefix
                                 }
                                 some_class = str
-                                """
-            ),
+                                """),
         )
         module = moduleFromFile(valid)
         assert module.some_var == {

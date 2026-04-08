@@ -26,7 +26,6 @@ Cases should be added for any of the following:
 
 import pytest
 
-
 # pylint: disable=invalid-name
 # pylint: disable=unused-import,import-outside-toplevel
 # pylint: disable=missing-class-docstring,missing-function-docstring

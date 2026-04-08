@@ -19,6 +19,7 @@
 Tests for the Python bindings of the UIDelegate and UIDelegateInterface
 classes.
 """
+
 from openassetio import constants
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 

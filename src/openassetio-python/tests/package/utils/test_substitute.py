@@ -16,6 +16,7 @@
 """
 Tests that cover the string token substitute utility.
 """
+
 # pylint: disable=missing-function-docstring,missing-class-docstring,
 # pylint: disable=invalid-name
 import re

@@ -17,6 +17,7 @@
 These tests check the structure of the PythonPluginSystemUIDelegatePlugin
 base class.
 """
+
 # pylint: disable=missing-class-docstring,invalid-name,missing-function-docstring
 import pytest
 

@@ -27,7 +27,6 @@ import traceback
 
 from ..errors import InputValidationException
 
-
 __all__ = ["PythonPluginSystem"]
 
 

@@ -35,7 +35,6 @@ from ...errors import ConfigurationException, InputValidationException
 from ... import hostApi
 from ... import trait
 
-
 __all__ = ["executeSuite", "fixturesFromPyFile", "moduleFromFile", "FixtureAugmentedTestCase"]
 
 

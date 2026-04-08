@@ -16,6 +16,7 @@
 """
 Testing that CppPluginSystem.* classes' methods release the GIL.
 """
+
 import os
 
 # pylint: disable=redefined-outer-name,protected-access
@@ -53,12 +54,10 @@ class Test_CppPluginSystem_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_cpp_plugin_system):
         a_cpp_plugin_system.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -132,12 +131,10 @@ class Test_CppPluginSystemManagerImplementationFactory_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_cpp_plugin_manager_impl_factory):
         a_cpp_plugin_manager_impl_factory.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -184,12 +181,10 @@ class Test_CppPluginSystemUIDelegateImplementationFactory_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_cpp_plugin_ui_impl_factory):
         a_cpp_plugin_ui_impl_factory.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

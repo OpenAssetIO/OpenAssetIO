@@ -30,7 +30,6 @@ from openassetio import errors
 from openassetio.log import ConsoleLogger
 from openassetio.pluginSystem import PythonPluginSystem, PythonPluginSystemPlugin
 
-
 # Entry point group used by the stub plugins in the `resources`
 # directory.
 PLUGIN_ENTRY_POINT_GROUP = "openassetio.manager_plugin"

@@ -17,6 +17,7 @@
 These tests check the functionality of the plugin system based
 ManagerImplementationFactoryInterface implementation.
 """
+
 # pylint: disable=unused-argument
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -30,7 +31,6 @@ import pytest
 from openassetio import errors
 from openassetio.hostApi import ManagerFactory
 from openassetio.pluginSystem import CppPluginSystemManagerImplementationFactory
-
 
 lib_ext = "so" if os.name == "posix" else "dll"
 

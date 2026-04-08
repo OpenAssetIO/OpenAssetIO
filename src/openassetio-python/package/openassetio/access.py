@@ -20,7 +20,6 @@ Provides access mode related constants for use in API functions.
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
-
 kAccessNames = _openassetio.access.kAccessNames
 PolicyAccess = _openassetio.access.PolicyAccess
 ResolveAccess = _openassetio.access.ResolveAccess

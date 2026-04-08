@@ -17,6 +17,7 @@
 Testing that EntityReferencePager/EntityReferencePagerInterface methods
 release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -46,12 +47,10 @@ class Test_EntityReferencePagerInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_entity_ref_pager_interface, a_host_session):
         a_threaded_entity_ref_pager_interface.{method}(a_host_session)
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -98,12 +97,10 @@ class Test_EntityReferencePager_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_entity_ref_pager):
         a_threaded_entity_ref_pager.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

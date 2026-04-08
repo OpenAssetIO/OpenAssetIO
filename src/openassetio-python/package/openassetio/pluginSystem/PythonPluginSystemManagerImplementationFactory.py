@@ -23,7 +23,6 @@ from ..hostApi import ManagerImplementationFactoryInterface
 
 from .PythonPluginSystem import PythonPluginSystem
 
-
 __all__ = [
     "PythonPluginSystemManagerImplementationFactory",
 ]

@@ -22,7 +22,6 @@ class.
 from ...pluginSystem.PythonPluginSystemPlugin import PythonPluginSystemPlugin
 from ...errors import NotImplementedException
 
-
 # As this is an abstract interface, these are expected
 # pylint: disable=unused-argument
 

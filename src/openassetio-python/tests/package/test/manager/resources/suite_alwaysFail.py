@@ -22,7 +22,6 @@ A test suite that always fails
 
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
-
 __all__ = []
 
 

@@ -16,6 +16,7 @@
 """
 Test CMake installed package
 """
+
 # pylint: disable=missing-function-docstring,invalid-name
 import os
 from importlib import metadata

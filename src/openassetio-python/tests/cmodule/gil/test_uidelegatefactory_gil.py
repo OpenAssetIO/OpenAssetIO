@@ -17,6 +17,7 @@
 Testing that UIDelegateFactory/UIDelegateImplementationFactoryInterface
 methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -49,12 +50,10 @@ class Test_UIDelegateImplementationFactoryInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_ui_delegate_impl_factory, mock_ui_delegate_impl_factory):
         a_threaded_ui_delegate_impl_factory.{method}()
-"""
-                )
+""")
 
         assert not unimplemented
 
@@ -92,8 +91,7 @@ class Test_UIDelegateFactory_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(
             self, a_ui_delegate_factory, mock_ui_delegate_impl_factory, mock_logger,
             mock_host_interface
@@ -101,8 +99,7 @@ class Test_UIDelegateFactory_gil:
         a_ui_delegate_factory.{method}(
                 mock_host_interface, a_threaded_ui_delegate_impl_factory, mock_logger
         )
-"""
-                )
+""")
 
         assert not unimplemented
 

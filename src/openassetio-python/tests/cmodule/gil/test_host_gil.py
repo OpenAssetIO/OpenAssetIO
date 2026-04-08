@@ -16,6 +16,7 @@
 """
 Testing that Host/HostInterface methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -45,12 +46,10 @@ class Test_HostInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_host_interface):
         a_threaded_host_interface.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -85,12 +84,10 @@ class Test_Host_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_host):
         a_threaded_host.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

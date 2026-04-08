@@ -17,6 +17,7 @@
 These tests check the functionality of the plugin system based
 UIDelegateImplementationFactoryInterface implementation.
 """
+
 # pylint: disable=unused-argument
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring

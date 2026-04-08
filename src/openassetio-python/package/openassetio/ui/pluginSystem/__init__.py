@@ -19,6 +19,7 @@ This module provides a plugin system that can be used to register and
 instantiate @ref glossary_UI_Delegate plugins from code that lives
 outside the openassetio package.
 """
+
 from ... import _openassetio  # pylint: disable=no-name-in-module
 
 from .PythonPluginSystemUIDelegatePlugin import PythonPluginSystemUIDelegatePlugin

@@ -20,7 +20,6 @@ Provides assorted utility functions to aid library use.
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
-
 PathType = _openassetio.utils.PathType
 
 FileUrlPathConverter = _openassetio.utils.FileUrlPathConverter

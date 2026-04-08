@@ -16,6 +16,7 @@
 These tests check the functionality of the hybrid
 HybridPluginSystemUIDelegateImplementationFactory implementation.
 """
+
 from unittest import mock
 
 import pytest

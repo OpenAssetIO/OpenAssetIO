@@ -16,6 +16,7 @@
 """
 Tests that cover the openassetio.access namespace.
 """
+
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 

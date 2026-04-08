@@ -20,7 +20,6 @@ Provides the core classes that facilitate message and progress logging.
 
 from . import _openassetio  # pylint: disable=no-name-in-module
 
-
 LoggerInterface = _openassetio.log.LoggerInterface
 ConsoleLogger = _openassetio.log.ConsoleLogger
 SeverityFilter = _openassetio.log.SeverityFilter

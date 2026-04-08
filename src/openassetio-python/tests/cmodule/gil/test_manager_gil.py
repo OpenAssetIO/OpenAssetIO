@@ -16,6 +16,7 @@
 """
 Testing that Manager methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,too-many-public-methods
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -55,12 +56,10 @@ class Test_Manager_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_manager, a_context):
         a_threaded_manager.{method}(a_context)
-"""
-                )
+""")
 
         assert unimplemented == []
 

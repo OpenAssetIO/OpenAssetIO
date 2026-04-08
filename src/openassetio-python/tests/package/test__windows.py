@@ -17,6 +17,7 @@
 Tests that cover the openassetio._windows module, for augmenting dll
 search paths.
 """
+
 # pylint: disable=invalid-name,redefined-outer-name
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import os
@@ -29,7 +30,6 @@ import pytest
 
 import openassetio
 from openassetio import _windows
-
 
 if os.name != "nt":
     pytest.skip("Windows specific tests", allow_module_level=True)

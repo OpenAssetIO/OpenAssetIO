@@ -20,5 +20,4 @@ Provides the classes related to traits and their data.
 
 from . import _openassetio  # pylint: disable=no-name-in-module
 
-
 TraitsData = _openassetio.trait.TraitsData

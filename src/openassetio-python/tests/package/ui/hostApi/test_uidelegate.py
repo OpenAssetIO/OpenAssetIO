@@ -3,6 +3,7 @@
 """
 Tests that cover the openassetio.ui.hostApi.UIDelegate class.
 """
+
 from unittest import mock
 
 # pylint: disable=missing-class-docstring,invalid-name,missing-function-docstring

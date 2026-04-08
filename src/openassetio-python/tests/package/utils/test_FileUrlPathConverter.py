@@ -16,6 +16,7 @@
 """
 Tests that cover the FileUrlPathConverter utility.
 """
+
 import collections
 import json
 import os
@@ -29,7 +30,6 @@ import pytest
 from openassetio import utils
 from openassetio.errors import InputValidationException
 from openassetio.utils import PathType
-
 
 URLMap = collections.namedtuple("URLMap", ("path_type", "path", "url"))
 

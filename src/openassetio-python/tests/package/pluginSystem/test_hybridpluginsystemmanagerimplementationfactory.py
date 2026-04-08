@@ -16,6 +16,7 @@
 These tests check the functionality of the hybrid
 HybridPluginSystemManagerImplementationFactory implementation.
 """
+
 import inspect
 import itertools
 from unittest import mock
