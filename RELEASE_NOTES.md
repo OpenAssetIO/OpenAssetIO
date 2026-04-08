@@ -12,6 +12,10 @@ _This release remains source and binary compatible_
   zero-dependency `macros.hpp` header.
   [#1437](https://github.com/OpenAssetIO/OpenAssetIO/issues/1437)
 
+- Added Python 3.12 to the CI build matrix (and hence deployment to
+  PyPI).
+  [#1492](https://github.com/OpenAssetIO/OpenAssetIO/pull/1492)
+
 v1.0.0-rc.2.0
 ---------------
 
