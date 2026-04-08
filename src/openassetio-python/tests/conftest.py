@@ -16,6 +16,7 @@
 """
 Shared fixtures/code for pytest cases.
 """
+
 # pylint: disable=missing-function-docstring,redefined-outer-name
 
 import collections

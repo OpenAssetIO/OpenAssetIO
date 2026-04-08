@@ -19,6 +19,7 @@ Tests for the SimpleCppManager.
 Note that SimpleCppManager is data-driven and tests assume a particular
 configuration. See resources/openassetio_config.toml.
 """
+
 import operator
 
 # pylint: disable=invalid-name,redefined-outer-name

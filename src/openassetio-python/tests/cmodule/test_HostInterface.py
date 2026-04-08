@@ -18,6 +18,7 @@
 """
 Tests for the Python bindings of the HostInterface class.
 """
+
 from openassetio import constants
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 

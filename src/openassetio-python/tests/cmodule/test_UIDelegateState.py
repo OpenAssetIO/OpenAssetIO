@@ -19,6 +19,7 @@
 Tests for the Python bindings of the UIDelegateRequest/State[Interface]
 classes.
 """
+
 import re
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module

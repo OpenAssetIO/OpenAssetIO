@@ -16,6 +16,7 @@
 """
 Tests that cover the openassetio.hostApi.Manager wrapper class.
 """
+
 import itertools
 from typing import Callable, Any
 

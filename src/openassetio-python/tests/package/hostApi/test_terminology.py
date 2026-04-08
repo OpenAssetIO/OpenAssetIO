@@ -25,7 +25,6 @@ import pytest
 import openassetio.hostApi.terminology as tgy
 from openassetio.hostApi import Manager
 
-
 all_terminology_keys = (
     tgy.kTerm_Asset,
     tgy.kTerm_Assets,

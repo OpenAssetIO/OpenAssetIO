@@ -16,6 +16,7 @@
 """
 Common test utils for our GIL handling behaviour
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring

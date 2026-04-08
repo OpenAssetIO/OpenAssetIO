@@ -16,6 +16,7 @@
 """
 Testing that UIDelegateInterface methods release the GIL.
 """
+
 from openassetio import Context
 from openassetio.trait import TraitsData
 from openassetio.ui.access import UIAccess
@@ -45,12 +46,10 @@ class Test_UIDelegateInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, mock_ui_delegate_interface, a_threaded_mock_ui_delegate_interface):
         a_threaded_mock_ui_delegate_interface.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

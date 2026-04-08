@@ -23,7 +23,6 @@ from ..hostApi import UIDelegateImplementationFactoryInterface
 
 from ...pluginSystem.PythonPluginSystem import PythonPluginSystem
 
-
 __all__ = [
     "PythonPluginSystemUIDelegateImplementationFactory",
 ]

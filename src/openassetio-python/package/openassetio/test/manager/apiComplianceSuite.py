@@ -29,6 +29,7 @@ The suite does not validate any specific business logic by checking the
 values API methods _may_ return in certain situations. This should be
 handled through additional suites local to the manager's implementation.
 """
+
 import copy
 import operator
 import weakref
@@ -47,7 +48,6 @@ from ...access import (
     EntityTraitsAccess,
 )
 from ...trait import TraitsData
-
 
 __all__ = []
 

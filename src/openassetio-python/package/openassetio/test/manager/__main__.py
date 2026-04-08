@@ -26,12 +26,10 @@ import sys
 
 from openassetio.test.manager import harness, apiComplianceSuite
 
-
 cmdline = argparse.ArgumentParser(
     prog="openassetio.test.manager",
     formatter_class=argparse.RawDescriptionHelpFormatter,
-    description=inspect.cleandoc(
-        """
+    description=inspect.cleandoc("""
                 The OpenAssetIO Manager test harness - A tool to validate a given
                 manager correctly implements the API interface.
 
@@ -73,8 +71,7 @@ cmdline = argparse.ArgumentParser(
 
                 NOTE: Fixture names should only contain alpha-numeric characters
                 and underscores.
-                """
-    ),
+                """),
 )
 
 cmdline.add_argument(

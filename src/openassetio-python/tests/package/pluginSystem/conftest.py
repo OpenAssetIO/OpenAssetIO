@@ -16,6 +16,7 @@
 """
 Helper fixtures for testing the Python plugin system
 """
+
 # pylint: disable=missing-function-docstring,redefined-outer-name
 # pylint: disable=invalid-name
 

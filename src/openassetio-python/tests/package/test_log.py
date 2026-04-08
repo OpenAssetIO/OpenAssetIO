@@ -24,7 +24,6 @@ import pytest
 
 import openassetio.log as lg
 
-
 # The logging mechanism is very much in flux right now, as we move away from
 # singleton/global loggers and to a per-session mechanism. Consequently we are
 # investing in minimal testing here until this has stabilised. Both the design

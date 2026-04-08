@@ -26,7 +26,6 @@ from openassetio.hostApi import Manager
 from openassetio.test import kTestHarnessTraitId, kCasePropertyKey
 from openassetio.test.manager.harness import FixtureAugmentedTestCase
 
-
 __all__ = []
 
 

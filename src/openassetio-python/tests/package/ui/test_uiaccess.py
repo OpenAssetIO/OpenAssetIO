@@ -16,6 +16,7 @@
 """
 Tests for the available values of the UI-specific access mode enum.
 """
+
 # pylint: disable=missing-class-docstring,invalid-name,missing-function-docstring
 
 from openassetio.ui.access import UIAccess

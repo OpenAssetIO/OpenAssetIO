@@ -27,7 +27,6 @@ import pytest
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 from openassetio import errors
 
-
 all_exceptions = (
     errors.OpenAssetIOException,
     errors.ConfigurationException,

@@ -16,6 +16,7 @@
 """
 Smoke test for .pyi stub files
 """
+
 # pylint: disable=missing-function-docstring,invalid-name
 # pylint: disable=redefined-outer-name
 import ast
@@ -25,7 +26,6 @@ import pathlib
 import pytest
 
 import openassetio
-
 
 expected_pyi_files = (
     "__init__.pyi",

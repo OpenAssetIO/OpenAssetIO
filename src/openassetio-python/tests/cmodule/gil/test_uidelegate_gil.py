@@ -16,6 +16,7 @@
 """
 Testing that UIDelegate methods release the GIL.
 """
+
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=invalid-name,redefined-outer-name
 import pytest
@@ -44,12 +45,10 @@ class Test_UIDelegate_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, mock_ui_delegate_interface, a_threaded_ui_delegate):
         a_threaded_ui_delegate.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

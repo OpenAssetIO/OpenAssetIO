@@ -21,7 +21,6 @@ A single-class module, providing the UIDelegateInterface class.
 from ... import constants
 from ... import _openassetio  # pylint: disable=no-name-in-module
 
-
 __all__ = ["UIDelegateInterface"]
 
 

@@ -18,6 +18,7 @@
 Private implementation classes for the manager test framework.
 @private
 """
+
 import unittest
 
 from openassetio import hostApi, log
@@ -29,7 +30,6 @@ from openassetio.pluginSystem import (
 from openassetio.trait import TraitsData
 from .. import kTestHarnessTraitId, kCasePropertyKey
 from ...errors import InputValidationException
-
 
 __all__ = ["createHarness"]
 

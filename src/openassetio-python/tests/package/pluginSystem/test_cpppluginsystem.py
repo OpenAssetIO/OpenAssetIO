@@ -29,7 +29,6 @@ import pytest
 from openassetio import errors
 from openassetio.pluginSystem import CppPluginSystem, CppPluginSystemPlugin
 
-
 lib_ext = "so" if os.name == "posix" else "dll"
 
 

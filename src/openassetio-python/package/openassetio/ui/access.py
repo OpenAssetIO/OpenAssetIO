@@ -20,5 +20,4 @@ Provides access mode related constants for use in UI functions.
 
 from openassetio import _openassetio  # pylint: disable=no-name-in-module
 
-
 UIAccess = _openassetio.ui.access.UIAccess

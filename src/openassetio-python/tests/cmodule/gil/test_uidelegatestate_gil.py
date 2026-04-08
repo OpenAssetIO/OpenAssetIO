@@ -16,6 +16,7 @@
 """
 Testing that UIDelegateState/Request[Interface] methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,too-many-public-methods
 # pylint: disable=invalid-name,c-extension-no-member,protected-access
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -45,12 +46,10 @@ class Test_UIDelegateRequestInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_ui_delegate_request_interface):
         a_threaded_ui_delegate_request_interface.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -85,12 +84,10 @@ class Test_UIDelegateStateInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_ui_delegate_state_interface):
         a_threaded_ui_delegate_state_interface.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -125,12 +122,10 @@ class Test_UIDelegateRequest_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_ui_delegate_request):
         a_threaded_ui_delegate_request.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 
@@ -165,12 +160,10 @@ class Test_UIDelegateState_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_ui_delegate_state):
         a_threaded_ui_delegate_state.{method}()
-"""
-                )
+""")
 
         assert unimplemented == []
 

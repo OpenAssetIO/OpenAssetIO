@@ -16,6 +16,7 @@
 """
 Testing that LoggerInterface methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -42,12 +43,10 @@ class Test_LoggerInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_logger_interface):
         a_threaded_logger_interface.{method}("")
-"""
-                )
+""")
 
         assert unimplemented == []
 

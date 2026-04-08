@@ -67,6 +67,7 @@ API documentation
 The documentation for OpenAssetIO can be found here:
    https://docs.openassetio.org/OpenAssetIO
 """
+
 import os
 
 # If Windows, we may need to wrangle DLL search paths.

@@ -7,6 +7,5 @@ Provides a test PythonPluginSystemPlugin implemented within a package.
 # pylint: disable=import-error
 from .PackagePlugin import PackagePlugin
 
-
 # pylint: disable=invalid-name
 openassetioPlugin = PackagePlugin

@@ -21,6 +21,7 @@ the default OpenAssetIO manager.
 Simply supply a set of traits and an entity reference, and the resulting
 data will be output in JSON form.
 """
+
 import argparse
 import json
 import sys
@@ -35,7 +36,6 @@ from openassetio.pluginSystem import (
     CppPluginSystemManagerImplementationFactory,
     HybridPluginSystemManagerImplementationFactory,
 )
-
 
 # pylint: disable=missing-function-docstring,no-self-use,invalid-name
 

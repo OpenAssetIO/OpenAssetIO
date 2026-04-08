@@ -21,6 +21,7 @@ delegation support for an asset management system.
 If you are a tool or application developer, see @ref
 openassetio.ui.hostApi
 """
+
 from ... import _openassetio  # pylint: disable=no-name-in-module
 
 from .UIDelegateInterface import UIDelegateInterface

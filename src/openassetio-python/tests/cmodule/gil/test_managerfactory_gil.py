@@ -17,6 +17,7 @@
 Testing that ManagerFactory/ManagerImplementationFactoryInterface
 methods release the GIL.
 """
+
 # pylint: disable=redefined-outer-name,protected-access
 # pylint: disable=invalid-name,c-extension-no-member
 # pylint: disable=missing-class-docstring,missing-function-docstring
@@ -48,12 +49,10 @@ class Test_ManagerImplementationFactoryInterface_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_manager_impl_factory, mock_manager_impl_factory):
         a_threaded_manager_impl_factory.{method}()
-"""
-                )
+""")
 
         assert not unimplemented
 
@@ -91,12 +90,10 @@ class Test_HybridPluginSystemManagerImplementationFactory_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(self, a_threaded_hybrid_impl_factory, mock_manager_impl_factory):
         a_threaded_hybrid_impl_factory.{method}()
-"""
-                )
+""")
 
         assert not unimplemented
 
@@ -148,8 +145,7 @@ class Test_ManagerFactory_gil:
         if unimplemented:
             print("\nSome test cases not implemented. Method templates can be found below:\n")
             for method in unimplemented:
-                print(
-                    f"""
+                print(f"""
     def test_{method}(
             self, a_threaded_manager_factory, mock_manager_impl_factory, mock_logger,
             mock_host_interface
@@ -157,8 +153,7 @@ class Test_ManagerFactory_gil:
         a_threaded_manager_factory.{method}(
                 mock_host_interface, a_threaded_manager_impl_factory, mock_logger
         )
-"""
-                )
+""")
 
         assert not unimplemented
 

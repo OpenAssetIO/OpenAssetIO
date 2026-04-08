@@ -16,6 +16,7 @@
 """
 Tests for the UIDelegateState middleware class.
 """
+
 # pylint: disable=missing-class-docstring,missing-function-docstring
 # pylint: disable=invalid-name,redefined-outer-name
 from unittest import mock
