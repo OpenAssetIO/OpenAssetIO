@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+v1.0.x
+------
+
+_This release remains source and binary compatible_
+
+## Improvements
+
+- Added Python 3.12 to the CI build matrix (and hence deployment to
+  PyPI).
+  [#1492](https://github.com/OpenAssetIO/OpenAssetIO/pull/1492)
+
 v1.0.0
 ------
 
@@ -11,10 +22,6 @@ _This release remains source and binary compatible_
 - Split common C++ macros from `typedefs.hpp` into a separate
   zero-dependency `macros.hpp` header.
   [#1437](https://github.com/OpenAssetIO/OpenAssetIO/issues/1437)
-
-- Added Python 3.12 to the CI build matrix (and hence deployment to
-  PyPI).
-  [#1492](https://github.com/OpenAssetIO/OpenAssetIO/pull/1492)
 
 v1.0.0-rc.2.0
 ---------------
