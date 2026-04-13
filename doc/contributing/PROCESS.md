@@ -140,6 +140,8 @@ To make a new OpenAssetIO release, follow this procedure.
   - [CMakeLists.txt](../../CMakeLists.txt)
     (an argument to `project()`, no need to update for a pre-release
     increment).
+  - [resources/abi](../../resources/abi)
+    (rename the XML ABI dump files to match the new version).
 - If there is an ABI change (major release), update
   `set(_core_abi_version X)` in
   [`src/openassetio-core/CMakeLists.txt`](../../src/openassetio-core/CMakeLists.txt)
