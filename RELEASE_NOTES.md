@@ -8,6 +8,12 @@ _This release remains source and binary compatible_
 
 ## Improvements
 
+- Added MacOS ARM wheels to the CI build matrix and removed MacOS Intel.
+  From this version onward, only MacOS ARM wheels will be published to
+  PyPI.
+  [#718](https://github.com/OpenAssetIO/OpenAssetIO/issues/718)
+  [#1480](https://github.com/OpenAssetIO/OpenAssetIO/issues/1480)
+
 - Added Python 3.12 to the CI build matrix (and hence deployment to
   PyPI).
   [#1492](https://github.com/OpenAssetIO/OpenAssetIO/pull/1492)
