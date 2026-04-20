@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+vX.X.X
+------
+
+_This release remains source and binary compatible_
+
+## Improvements
+
+- Added Python 3.13 to the CI build matrix (and hence deployment to
+  PyPI).
+  [#1487](https://github.com/OpenAssetIO/OpenAssetIO/issues/1487)
+
 v1.0.1
 ------
 

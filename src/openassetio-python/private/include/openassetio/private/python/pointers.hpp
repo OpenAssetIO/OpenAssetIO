@@ -10,6 +10,10 @@
 
 #include <openassetio/export.h>
 
+#if PY_VERSION_HEX < 0x030d0000  // Check if the python version is less than 3.13
+#define Py_IsFinalizing _Py_IsFinalizing
+#endif
+
 namespace py = pybind11;
 
 namespace openassetio {
@@ -47,9 +51,9 @@ Ptr createPyRetainingPtr(const py::object& pyInstance,
   // Custom deleter for shared_ptr below.
   const auto deleter = [](py::object* pyObjectPtr) {
     // Note: Technically we have a race condition here with
-    // _Py_IsFinalizing if multiple threads are involved, but that is a
+    // Py_IsFinalizing if multiple threads are involved, but that is a
     // corner case of a corner case, and difficult to solve.
-    if (_Py_IsFinalizing()) {
+    if (Py_IsFinalizing()) {
       // If the Python interpreter is gone, clear the internal PyObject*
       // so pybind11 won't attempt to clean it up.
       pyObjectPtr->release();

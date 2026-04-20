@@ -37,7 +37,8 @@ jobs:
           # prefix here so that it can also be used in the file name of
           # the uploaded archive (i.e. wildcard `*` is not allowed).
           # See https://cibuildwheel.readthedocs.io/en/stable/options/#build-skip
-        python-build: ['cp310', 'cp311', 'cp312']
+        python-build: ['cp310', 'cp311', 'cp312', 'cp313']
+
     defaults:
       run:
         # Annoyingly required here since `matrix` isn't available in the
