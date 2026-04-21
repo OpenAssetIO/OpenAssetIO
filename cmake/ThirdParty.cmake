@@ -117,7 +117,7 @@ if (OPENASSETIO_ENABLE_PYTHON)
         ${OPENASSETIO_PYTHON_VENV_EXE} -m pip install --upgrade
         # Pin core packages to give some basic reproducibility across
         # environments.
-        setuptools==49.0 pip==22.2.2
+        setuptools==82.0.1 pip==26.0.1
     )
 
     # Add a top-level Python environment creation convenience build
