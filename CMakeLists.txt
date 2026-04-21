@@ -68,7 +68,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 project(
     OpenAssetIO
-    VERSION 1.0.1
+    VERSION 1.0.2
     DESCRIPTION "An open-source interoperability standard for tools and content management systems\
  used in media production."
     HOMEPAGE_URL https://github.com/OpenAssetIO/OpenAssetIO
