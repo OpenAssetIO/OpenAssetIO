@@ -1,7 +1,7 @@
 Release Notes
 =============
 
-vX.X.X
+v1.0.2
 ------
 
 _This release remains source and binary compatible_
