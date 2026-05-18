@@ -51,6 +51,61 @@
  * and the systems that provide data coordination and version management
  * functionality.
  *
+ * @section intro_why Why OpenAssetIO matters
+ *
+ * OpenAssetIO is an open standard that helps creative tools and asset
+ * management systems work together more reliably.
+ *
+ * Instead of every studio or software vendor building custom
+ * integrations between tools, OpenAssetIO provides a shared language
+ * for exchanging asset information across a production pipeline.
+ *
+ * In practical terms, this can help:
+ *
+ * - Artists encounter fewer broken file references and manual relinking
+ *   steps, when using OpenAssetIO-enabled tools.
+ * - Studios reduce the amount of fragile pipeline glue code they need
+ *   to maintain.
+ * - Software vendors support asset-aware workflows without hard-coding
+ *   each customer's pipeline.
+ * - Asset management systems expose their data and workflows through a
+ *   common integration point.
+ * - Pipelines become easier to scale, migrate and evolve over time.
+ *
+ * OpenAssetIO is designed for media production pipelines, including
+ * VFX, animation, games, virtual production and post-production
+ * workflows.
+ *
+ * @section intro_personas Why different people should care
+ *
+ * - Artists should not need to understand storage layouts, file server
+ *   mounts or pipeline-specific path conventions to open a scene,
+ *   switch a version or publish work. OpenAssetIO-enabled tools can ask
+ *   the asset management system for the right data at the point it is
+ *   needed.
+ * - Pipeline TDs and developers can use OpenAssetIO as a common API for
+ *   resolution, publishing and relationship queries, rather than
+ *   duplicating this logic across DCC integrations, scripts and
+ *   automation tools.
+ * - Studios can reduce long-term integration risk by separating host
+ *   tools from the details of a particular asset management
+ *   implementation.
+ * - Software vendors get a shared interoperability target for
+ *   asset-aware workflows across many customer pipelines.
+ * - Asset management system developers can expose identity, resolution,
+ *   publishing and relationship workflows to any compatible
+ *   OpenAssetIO host.
+ *
+ * @section intro_not_what What OpenAssetIO is not
+ *
+ * OpenAssetIO is intentionally lightweight. It is not a database, asset
+ * manager, file format, pipeline framework, storage system or
+ * replacement for existing production tracking tools.
+ *
+ * Instead, OpenAssetIO acts as a bridge between tools and management
+ * systems. It standardizes how systems communicate, not how studios
+ * must organize their data.
+ *
  * @section intro_scope Scope
  *
  * The API covers the following areas:
