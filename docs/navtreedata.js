@@ -2,6 +2,9 @@ var NAVTREE =
 [
   [ "OpenAssetIO", "index.html", [
     [ "An Introduction", "index.html", [
+      [ "Why OpenAssetIO matters", "index.html#intro_why", null ],
+      [ "Why different people should care", "index.html#intro_personas", null ],
+      [ "What OpenAssetIO is not", "index.html#intro_not_what", null ],
       [ "Scope", "index.html#intro_scope", null ],
       [ "The Approach", "index.html#intro_approach", [
         [ "What is an Asset Management System", "index.html#intro_ams", null ],
@@ -157,7 +160,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "classopenassetio_1_1v1_1_1host_api_1_1_manager.html#aa5b6518556c1565718132fd069929a07",
 "classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#a3d540a09e8284a66b904863de677def7",
-"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a5f81c5903a0f3e8115e7a8cea86a035b"
+"stable_resolution.html#stable_resolution_manager_state_guidelines"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"stable_resolution.html#stable_resolution_manager_state_guidelines":[7,3],
+"stable_resolution.html#stable_resolution_overview":[7,0],
+"structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html":[11,0,0,4,0,1],
 "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a5f81c5903a0f3e8115e7a8cea86a035b":[11,0,0,4,0,1,0],
 "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#a9cf197ce3791c3f2d6403f705307f09b":[11,0,0,4,0,1,1],
 "structopenassetio_1_1v1_1_1errors_1_1_batch_element_exception.html#ac28efa16fb8062e271f8b7a373cc1734":[11,0,0,4,0,1,2],
