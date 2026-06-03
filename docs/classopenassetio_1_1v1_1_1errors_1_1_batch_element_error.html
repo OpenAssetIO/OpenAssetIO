@@ -166,7 +166,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Structure representing per-element batch operation errors. </p>
 <p>Many OpenAssetIO API functions take multiple inputs, i.e. a batch of elements, in order to allow the <a class="el" href="glossary.html#manager">manager</a> backend to optimise bulk queries. The results of such queries are usually returned element-by-element via a callback.</p>
 <p>It is possible for the whole batch to fail due to some catastrophic error, in which case a standard exception workflow is expected. Using HTTP status codes as an analogy, a client error (4xx) would likely correspond to a <code><a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a></code>, whereas a server error (5xx) would likely cause the whole batch to fail with an exception.</p>
-<p>However, it is also possible for a subset of elements in the batch to fail, whilst the remainder succeed. An exception workflow doesn't work so well here, and so every success callback is paired with an error callback, allowing per-element errors to be communicated back to the original caller (i.e. the <a class="el" href="glossary.html#host">host</a> application).</p>
+<p>However, it is also possible for a subset of elements in the batch to fail, whilst the remainder succeed. An exception workflow doesn't work so well here, and so every success callback is paired with an error callback, allowing per-element errors to be communicated back to the original caller (i.e. the <a class="el" href="glossary.html#glossary_host">host</a> application).</p>
 <p>The information for these per-element errors is bundled in instances of this simple <a class="el" href="classopenassetio_1_1v1_1_1errors_1_1_batch_element_error.html" title="Structure representing per-element batch operation errors. ">BatchElementError</a> structure for passing to error callbacks.</p>
 <p>This structure provides an error code, for control flow, and an error message, for more (human-readable) detail. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
@@ -198,7 +198,7 @@ Public Attributes</h2></td></tr>
 <p>In the case of a manager that uses standard URIs, then it could be that the scheme is that of another manager. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fa3d9264440ef3bdb0e9e98fd0373932bc"></a>kMalformedEntityReference&#160;</td><td class="fielddoc">
-<p>Error code used whenever an entity-based action is performed on a malformed <a class="el" href="glossary.html#entity_reference">Entity Reference</a>. </p>
+<p>Error code used whenever an entity-based action is performed on a malformed <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a>. </p>
 <p>Entity references are initially validated as part of constructing an <a class="el" href="classopenassetio_1_1v1_1_1_entity_reference.html">EntityReference</a> object. However, that is a naive check intended to validate the general format of a reference string is one belonging to the manager. It does not validate that all aspects of the reference are valid, as that may be situational, based on the target entity and the context of the API call.</p>
 <p>For example, assuming entity references are encoded as URIs, a <code>kMalformedEntityReference</code> could indicate that a required query parameters is missing for a given operation, or a supplied parameter is not relevant to that particular operation/entity. </p>
 </td></tr>
@@ -207,9 +207,9 @@ Public Attributes</h2></td></tr>
 <p>A common example of this would be resolving a read-only entity with a write access mode, or during <a class="el" href="glossary.html#glossary_preflight">preflight</a> or <a class="el" href="glossary.html#glossary_register">register</a> when the target entity s read-only and does not support updating. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05fa80f2d50dc7226b040e6623df81f896d5"></a>kEntityResolutionError&#160;</td><td class="fielddoc">
-<p>Error code used during <a class="el" href="glossary.html#glossary_resolve">entity resolution</a> when the reference itself is valid, but it is not possible to retrieve data for the referenced <a class="el" href="glossary.html#entity">entity</a>. </p>
+<p>Error code used during <a class="el" href="glossary.html#glossary_resolve">entity resolution</a> when the reference itself is valid, but it is not possible to retrieve data for the referenced <a class="el" href="glossary.html#glossary_entity">entity</a>. </p>
 <p>This could be because it does not exist, or some other entity-specific reason that this data cannot be resolved for a specific entity. This code should not be used if an entity does not have a requested trait - simply do not set that trait in the resulting data. Fatal runtime errors during resolution (eg: server connection errors) should be raised as exceptions, rather than per-entity errors.</p>
-<p>This code is also used during finalisation and any other entity-based operations on a valid <a class="el" href="glossary.html#entity_reference">Entity Reference</a> that fail for some reason. </p>
+<p>This code is also used during finalisation and any other entity-based operations on a valid <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a> that fail for some reason. </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a59e56af19e754a6aa26a612ebf91d05faa7f904a7638a74433784a7949bebf458"></a>kInvalidPreflightHint&#160;</td><td class="fielddoc">
 <p>Error code response from <a class="el" href="glossary.html#glossary_preflight">preflight</a> if the provided <a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html">traits data</a> hint holds insufficient or invalid information. </p>

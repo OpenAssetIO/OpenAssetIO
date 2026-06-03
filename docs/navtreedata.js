@@ -86,12 +86,12 @@ var NAVTREE =
       [ "Recommended Reading", "notes_for_managers.html#manager_reading", null ]
     ] ],
     [ "Glossary", "glossary.html", [
-      [ "Asset Management System", "glossary.html#asset_management_system", null ],
-      [ "Context", "glossary.html#Context", null ],
-      [ "Digital Content Creation tool (DCC)", "glossary.html#DCC", null ],
-      [ "entity", "glossary.html#entity", null ],
-      [ "Entity Reference", "glossary.html#entity_reference", null ],
-      [ "host", "glossary.html#host", null ],
+      [ "Asset Management System", "glossary.html#glossary_Asset_Management_System", null ],
+      [ "Context", "glossary.html#glossary_Context", null ],
+      [ "Digital Content Creation tool (DCC)", "glossary.html#glossary_DCC", null ],
+      [ "entity", "glossary.html#glossary_entity", null ],
+      [ "Entity Reference", "glossary.html#glossary_Entity_Reference", null ],
+      [ "host", "glossary.html#glossary_host", null ],
       [ "HostInterface", "glossary.html#HostInterface", null ],
       [ "locale", "glossary.html#locale", null ],
       [ "ManagerInterface", "glossary.html#ManagerInterface", null ],

@@ -108,17 +108,17 @@ $(document).ready(function(){initNavTree('entities_traits_and_specifications.htm
 <div class="title">Entities, Traits and Specifications </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The concepts discussed on this page are key to understanding how OpenAssetIO extends beyond the simple resolution of an <a class="el" href="glossary.html#entity_reference">Entity Reference</a> into a file path into first-class asset centric workflows.</p>
+<div class="textblock"><p>The concepts discussed on this page are key to understanding how OpenAssetIO extends beyond the simple resolution of an <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a> into a file path into first-class asset centric workflows.</p>
 <h1><a class="anchor" id="Entities"></a>
 Entities</h1>
-<p>To recap, within OpenAssetIO, a <a class="el" href="glossary.html#host">host</a> communicates with an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> to query and manage the existence of <a class="el" href="glossary.html#entity">entities</a>. An entity is a logical thing managed within a pipeline or workflow by the asset manager. Within the Media and Entertainment sector, this could be a shot, an image sequence, a 3D model or a script.</p>
+<p>To recap, within OpenAssetIO, a <a class="el" href="glossary.html#glossary_host">host</a> communicates with an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> to query and manage the existence of <a class="el" href="glossary.html#glossary_entity">entities</a>. An entity is a logical thing managed within a pipeline or workflow by the asset manager. Within the Media and Entertainment sector, this could be a shot, an image sequence, a 3D model or a script.</p>
 <p>At its core OpenAssetIO has no detailed understanding of the specifics of any given entity, only that:</p><ul>
 <li>Conceptually they may or may not exist.</li>
 <li>Entities conform to one or more <a class="el" href="glossary.html#trait">traits</a> that define what data is associated with the entity.</li>
 <li>They may (or may not) have multiple versions.</li>
 <li>They may (or may not) have relationships to other entities.</li>
 </ul>
-<p>An <a class="el" href="glossary.html#entity_reference">Entity Reference</a> is the token used to identify a specific entity within the system. These references are (generally) in the form of a <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>. The format of the reference itself is owned by the <a class="el" href="glossary.html#manager">manager</a> and conceptually, to the host, it is an opaque handle. Because of this (and the fact that it is specifically only an identifier), no concrete information about an entity can be determined from its reference alone.</p>
+<p>An <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a> is the token used to identify a specific entity within the system. These references are (generally) in the form of a <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a>. The format of the reference itself is owned by the <a class="el" href="glossary.html#manager">manager</a> and conceptually, to the host, it is an opaque handle. Because of this (and the fact that it is specifically only an identifier), no concrete information about an entity can be determined from its reference alone.</p>
 <p>OpenAssetIO's purpose is to define a standardized set of actions that can be performed to retrieve information about an entity from one of these opaque references, or to create new ones.</p>
 <h1><a class="anchor" id="Traits"></a>
 Traits</h1>
@@ -143,11 +143,11 @@ Traits</h1>
 <p>The manager doesn't need to check an extensive list of which entity types may be registered with data on disk - it just checks if any given entity has that specific trait.</p>
 <h1><a class="anchor" id="entity_data"></a>
 Entity Data</h1>
-<p>Every <a class="el" href="glossary.html#trait">Trait</a> associated with an <a class="el" href="glossary.html#entity">entity</a> can define zero or more key/value pairs of data (properties) that the entity (may) hold.</p>
-<p>Traits are the mechanism by which a <a class="el" href="glossary.html#host">host</a> requests specific data about an entity at runtime. The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3454b1b54fe1efde6469842c02ee34e4">resolve</a> method asks the manager to retrieve the data for a specific set of traits for one or more <a class="el" href="glossary.html#entity_reference">entity references</a>.</p>
+<p>Every <a class="el" href="glossary.html#trait">Trait</a> associated with an <a class="el" href="glossary.html#glossary_entity">entity</a> can define zero or more key/value pairs of data (properties) that the entity (may) hold.</p>
+<p>Traits are the mechanism by which a <a class="el" href="glossary.html#glossary_host">host</a> requests specific data about an entity at runtime. The <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_manager.html#a3454b1b54fe1efde6469842c02ee34e4">resolve</a> method asks the manager to retrieve the data for a specific set of traits for one or more <a class="el" href="glossary.html#glossary_Entity_Reference">entity references</a>.</p>
 <p>Continuing the example above, to determine the path to the character model, the host would resolve the data for the <code>locatableContent</code> trait, and read the <code>location</code> property to locate the data.</p>
 <p>A tool that displays EXR image sequences may resolve the <code>locatableContent</code>, <code>image</code>, <code>frameRange</code>, and <code>playback</code> traits. The data provided by the manager then being used to control the colorspace and frame range/rate used for playback. This avoids fragile mechanisms such as extension-based mappings and brute-force filesystem searches.</p>
-<p>The <a class="el" href="glossary.html#Context">Context</a> passed to the API methods by the host plays an important role during resolution. Its <a class="el" href="glossary.html#locale">locale</a> property also makes use of traits to specify details of the host environment. These may affect the resolved <em>value</em> of a trait property, but must never change the interpretation or format of that value.</p>
+<p>The <a class="el" href="glossary.html#glossary_Context">Context</a> passed to the API methods by the host plays an important role during resolution. Its <a class="el" href="glossary.html#locale">locale</a> property also makes use of traits to specify details of the host environment. These may affect the resolved <em>value</em> of a trait property, but must never change the interpretation or format of that value.</p>
 <dl class="section note"><dt>Note</dt><dd>In many real-world production systems, entities are manageed through distributed service-oriented platforms. The fact that a host must request the specific data for one or more concrete traits means that the manager does not have to worry about retrieving all possible data for any given entity. Host however, should be careful to only request traits they need at runtime, to avoid creating more work for the manager than is neccesary.</dd></dl>
 <h2><a class="anchor" id="entities_not_just_for_files"></a>
 Not Just for Files</h2>
@@ -178,7 +178,7 @@ Specifications</h1>
 <p>There are three notable uses of specifications within OpenAssetIO:</p>
 <ul>
 <li>The context <a class="el" href="glossary.html#locale">locale</a> - to describe the specifics of the host environment calling the API.</li>
-<li>During <a class="el" href="glossary.html#glossary_register">register</a> and <a class="el" href="glossary.html#glossary_resolve">resolve</a> - to hold the data for an <a class="el" href="glossary.html#entity">entity</a>.</li>
+<li>During <a class="el" href="glossary.html#glossary_register">register</a> and <a class="el" href="glossary.html#glossary_resolve">resolve</a> - to hold the data for an <a class="el" href="glossary.html#glossary_entity">entity</a>.</li>
 <li>Describing Relationships - to define some connection between one or more entities.</li>
 </ul>
 <h2><a class="anchor" id="locale_specifications"></a>
@@ -188,8 +188,7 @@ Locale Specifications</h2>
 <p>When used here, the specification's trait properties are used to convey not entity data, but information about the process environment. For example, the <code>usesUrls</code> trait defines that the host requires URLs instead of paths when addressing entity data not passed through the API.</p>
 <h2><a class="anchor" id="entity_specifications"></a>
 Entity Specifications</h2>
-<p>Specifications used with <a class="el" href="glossary.html#glossary_register">register</a> and returned by <a class="el" href="glossary.html#glossary_resolve">resolve</a> to hold <a class="el" href="glossary.html#entity">entity</a> data are known as "entity
-specifications". The <a class="el" href="glossary.html#trait_set">Trait Set</a> they define can also be used as a shorthand for consistency when:</p>
+<p>Specifications used with <a class="el" href="glossary.html#glossary_register">register</a> and returned by <a class="el" href="glossary.html#glossary_resolve">resolve</a> to hold <a class="el" href="glossary.html#glossary_entity">entity</a> data are known as "entity specifications". The <a class="el" href="glossary.html#trait_set">Trait Set</a> they define can also be used as a shorthand for consistency when:</p>
 <ul>
 <li>A host wishes to know if a manager would like to be involved in reads or writes of a specific kind of data.</li>
 <li>A host wishes to define which data to resolve for an entity.</li>
@@ -227,7 +226,7 @@ Mapping to Native Types</h1>
 <p>A manager may map the same traits to its own internal video format to ensure thumbnails and transcodes are generated for an entity, to be displayed in its browser as a preview.</p>
 <h2><a class="anchor" id="specification_selection"></a>
 Picking Which Traits to Use</h2>
-<p>As a <a class="el" href="glossary.html#host">host</a>, it is important to use the correct specifications and traits when making calls to a <a class="el" href="glossary.html#manager">manager</a>. This ensures the expected type of entity is returned or registered. A manager must also accurately describe any entities when requested. In order to facilitate a common dialog between OpenAssetIO compatible systems, the project provides a set of well-known specifications and traits through industry-specific packages. Always use one of these where possible as they are, by definition, also known to other tools in the OpenAssetIO ecosystem.</p>
+<p>As a <a class="el" href="glossary.html#glossary_host">host</a>, it is important to use the correct specifications and traits when making calls to a <a class="el" href="glossary.html#manager">manager</a>. This ensures the expected type of entity is returned or registered. A manager must also accurately describe any entities when requested. In order to facilitate a common dialog between OpenAssetIO compatible systems, the project provides a set of well-known specifications and traits through industry-specific packages. Always use one of these where possible as they are, by definition, also known to other tools in the OpenAssetIO ecosystem.</p>
 <p>Hosts and managers are also free to make their own specifications and traits for their native types. For example, creating a new specification by adding to the trait set of the <code>DocumentSpecification</code>, to represent a DCC tool's native file format. They should however, always use as many well-known traits as applicable. This ensures maximum compatibility with other tools.</p>
 <dl class="section warning"><dt>Warning</dt><dd>Trait IDs are simply strings, and so exist in a global namespace so care should be taken when defining new or local traits to avoid the potential of collisions.</dd></dl>
 <p>Any new tool, manager or vendor specific specifications and traits should be listed in the appropriate technical documentation supplied with the software.</p>

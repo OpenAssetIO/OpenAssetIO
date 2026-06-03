@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1trait_1_1_tr
 </div><!--header-->
 <div class="contents">
 
-<p>A transport-level container for data exchange between a <a class="el" href="glossary.html#host">host</a> and a <a class="el" href="glossary.html#manager">manager</a>.  
+<p>A transport-level container for data exchange between a <a class="el" href="glossary.html#glossary_host">host</a> and a <a class="el" href="glossary.html#manager">manager</a>.  
  <a href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html#details">More...</a></p>
 
 <p><code>#include &lt;TraitsData.hpp&gt;</code></p>
@@ -189,7 +189,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a721d366c9ac095bb1f1db79e3cc8839d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A transport-level container for data exchange between a <a class="el" href="glossary.html#host">host</a> and a <a class="el" href="glossary.html#manager">manager</a>. </p>
+<div class="textblock"><p>A transport-level container for data exchange between a <a class="el" href="glossary.html#glossary_host">host</a> and a <a class="el" href="glossary.html#manager">manager</a>. </p>
 <p>The <a class="el" href="glossary.html#Specification">Specification</a> system combines one or more <a class="el" href="glossary.html#trait">traits</a> into a <a class="el" href="glossary.html#trait_set">Trait Set</a> to classify concepts within the API. Traits may define a number of simple-typed properties, allowing them to be used to exchange data between interested parties.</p>
 <p>A key requirement of the traits system is to be fully run-time extensible. Additional specifications and traits can be defined as required by any particular API integration.</p>
 <p>This is accomplished by breaking the system into two components:</p><ul>
@@ -198,7 +198,7 @@ Static Public Member Functions</h2></td></tr>
 </ul>
 <p><a class="el" href="classopenassetio_1_1v1_1_1trait_1_1_traits_data.html" title="A transport-level container for data exchange between a host and a manager. ">TraitsData</a> is the transport-layer container that holds a <a class="el" href="glossary.html#trait_set">Trait Set</a>, and any values set for the properties of these traits. It has no semantic understanding of the data, providing simple "by name" set/get of traits and their properties.</p>
 <p>This allows easy serialization and exchange of this data between languages and sub-systems using the low-level introspection functionality provided by this class.</p>
-<p>As generic access to the container's data (based on "well-known-strings") is inherently unstable. Instances of this class should generally be wrapped in one of the specialized <a class="el" href="glossary.html#Specification">specification</a> or <a class="el" href="glossary.html#trait">Trait</a> derived "views" at runtime by a <a class="el" href="glossary.html#host">host</a> or <a class="el" href="glossary.html#manager">manager</a> to ensure consistent access to the correct keys.</p>
+<p>As generic access to the container's data (based on "well-known-strings") is inherently unstable. Instances of this class should generally be wrapped in one of the specialized <a class="el" href="glossary.html#Specification">specification</a> or <a class="el" href="glossary.html#trait">Trait</a> derived "views" at runtime by a <a class="el" href="glossary.html#glossary_host">host</a> or <a class="el" href="glossary.html#manager">manager</a> to ensure consistent access to the correct keys.</p>
 <p>Trait <a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html#ac4b8a879fc5994e3bcab46460bb043fc">property keys</a> are always strings. Property values are strings, integers, floating point, or booleans. Any of a trait's properties can be legitimately left unset - it is up to the consumer (host or manager, depending on the API method) to decide how this should be handled.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceopenassetio_1_1v1_1_1trait_1_1property.html" title="Type aliases for Trait properties within a TraitsData instance. ">trait::property</a> </dd>
 <dd>

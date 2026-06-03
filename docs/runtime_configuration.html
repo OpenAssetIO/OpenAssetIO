@@ -114,8 +114,8 @@ Overview</h1>
 <div align="center">
 <img src="inline_umlgraph_1.png" />
 </div>
-<p>An OpenAssetIO enabled tool or application is known as a <a class="el" href="glossary.html#host">Host</a> (as it "hosts" the API). Through the use of manager plugins, OpenAssetIO allows the host to communicate with one or more <a class="el" href="glossary.html#asset_management_system">Asset Management Systems</a>, called <a class="el" href="glossary.html#manager">Managers</a>.</p>
-<p>This page covers hows to configure OpenAssetIO so that the hosts you use (e.g. <a class="el" href="glossary.html#DCC">DCC tools</a>, applications and other scripts) use a specific manager of your choice to <a class="el" href="glossary.html#glossary_resolve">resolve</a> and potentially <a class="el" href="glossary.html#publish">publish</a> data.</p>
+<p>An OpenAssetIO enabled tool or application is known as a <a class="el" href="glossary.html#glossary_host">Host</a> (as it "hosts" the API). Through the use of manager plugins, OpenAssetIO allows the host to communicate with one or more <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management Systems</a>, called <a class="el" href="glossary.html#manager">Managers</a>.</p>
+<p>This page covers hows to configure OpenAssetIO so that the hosts you use (e.g. <a class="el" href="glossary.html#glossary_DCC">DCC tools</a>, applications and other scripts) use a specific manager of your choice to <a class="el" href="glossary.html#glossary_resolve">resolve</a> and potentially <a class="el" href="glossary.html#publish">publish</a> data.</p>
 <p>OpenAssetIO itself is usually built into any host that supports it, this means you don't normally need do to anything to ensure the API itself is present. The most common tasks in configuration are:</p>
 <ul>
 <li>Installing manager plugins and making them available to a host.</li>
@@ -156,7 +156,7 @@ Hybrid plugins</h2>
 <li>When the host requests a plugin with a particular identifier (via a <a class="el" href="runtime_configuration.html#host_default_config">config file</a> or otherwise), any plugin that matches the identifier, from any listed plugin system, is a candidate for API requests.</li>
 <li>When a specific API request is made, the highest priority plugin is used that supports the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html#a462aeaee0a168c1943ac756e669a6e2c">capability</a> associated with the API method.</li>
 </ul>
-<p>Note that the OpenAssetIO API is designed to be stateless. By this we mean that all data required to service an API request is provided with every API method invocation. In particular, the <a class="el" href="glossary.html#Context">Context</a> can be used by managers to coordinate higher-level state across API method invocations. This can enable data sharing between multiple constituent plugins of a hybrid plugin, without them requiring an explicit communication channel.</p>
+<p>Note that the OpenAssetIO API is designed to be stateless. By this we mean that all data required to service an API request is provided with every API method invocation. In particular, the <a class="el" href="glossary.html#glossary_Context">Context</a> can be used by managers to coordinate higher-level state across API method invocations. This can enable data sharing between multiple constituent plugins of a hybrid plugin, without them requiring an explicit communication channel.</p>
 <h1><a class="anchor" id="host_settings"></a>
 Host configuration</h1>
 <p>In order to make use of OpenAssetIO to manage data, the host needs to know which manager plugin it should use, and any associated settings that plugin many need (e.g. server configuration).</p>

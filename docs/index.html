@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>📇 Check out the <a href="https://github.com/OpenAssetIO/OpenAssetIO/">OpenAssetIO codebase</a></li>
 </ul>
 </dd></dl>
-<p>OpenAssetIO defines a common set of interactions between a <a class="el" href="glossary.html#host">host</a> of the API (eg: a Digital Content Creation tool or pipeline script) and an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a>.</p>
+<p>OpenAssetIO defines a common set of interactions between a <a class="el" href="glossary.html#glossary_host">host</a> of the API (eg: a Digital Content Creation tool or pipeline script) and an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a>.</p>
 <div align="center">
 <img src="inline_umlgraph_4.png" />
 </div>
@@ -163,24 +163,24 @@ Scope</h1>
 </ul>
 <h1><a class="anchor" id="intro_approach"></a>
 The Approach</h1>
-<p>Once we have a common standard, any <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> or <a class="el" href="glossary.html#host">host</a> implementing it can be considered to be compatible. This means that neither party needs to pay any particular attention to who it is talking to, unless they specifically desire to do so.</p>
+<p>Once we have a common standard, any <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> or <a class="el" href="glossary.html#glossary_host">host</a> implementing it can be considered to be compatible. This means that neither party needs to pay any particular attention to who it is talking to, unless they specifically desire to do so.</p>
 <p>Our hope is that a common baseline level of support for the key operations performed within multi-site production pipelines will greatly simplify integration and allow innovative new workflows to be developed. Bridging tool vendors, asset management system authors and facility pipelines.</p>
 <h2><a class="anchor" id="intro_ams"></a>
 What is an Asset Management System</h2>
-<p>We define an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> as a system that tracks, and potentially manages, the state and location of digital media. Within the Media and Entertainment sector, these are often known as assets. Within OpenAssetIO, we call anything managed by the system an <a class="el" href="glossary.html#entity">entity</a>.</p>
-<p>Within post-production, entities are often things like project, sequences, shots, clips, image sequences and 3d models that are used to produce final content. In the API, entities are referred to using an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</p>
+<p>We define an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> as a system that tracks, and potentially manages, the state and location of digital media. Within the Media and Entertainment sector, these are often known as assets. Within OpenAssetIO, we call anything managed by the system an <a class="el" href="glossary.html#glossary_entity">entity</a>.</p>
+<p>Within post-production, entities are often things like project, sequences, shots, clips, image sequences and 3d models that are used to produce final content. In the API, entities are referred to using an <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>We use the term "entity" in the API, rather than "asset" to avoid confusion. Asset is a very loaded term. Most systems we have encountered seem to use the term "asset" to refer to a sub-set of the data they manage. For example, a shot may not be considered to be an asset, but is an addressable entity as far as the API is concerned.</dd></dl>
 <h2><a class="anchor" id="intro_host"></a>
 What is a Host?</h2>
-<p>A <a class="el" href="glossary.html#host">host</a> is a tool, script or application that either consumes or produces data, that needs to be managed by an asset management system. We call it the "host" as it is responsible for hosting the API and making appropriate calls to one or more asset management systems as part of its operations.</p>
+<p>A <a class="el" href="glossary.html#glossary_host">host</a> is a tool, script or application that either consumes or produces data, that needs to be managed by an asset management system. We call it the "host" as it is responsible for hosting the API and making appropriate calls to one or more asset management systems as part of its operations.</p>
 <h1><a class="anchor" id="architecture_overview"></a>
 Architecture</h1>
 <dl class="section note"><dt>Note</dt><dd>This API does <em>not</em> define, specify or implement either the asset management system or the host, rather a set of generalized queries and actions and concepts that have been found to be common across the majority of known workflows and back-end implementations.</dd></dl>
-<p>Depending on whether you are reading this as a <a class="el" href="glossary.html#host">host</a> author, or as an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> integrator, it is worth understanding the high-level architecture of the system. After this, the documentation (and code base) is separated depending on your focus. The following (potentially confusing) diagram attempts to show a simplified version of the architecture as a UML Class Diagram:</p>
+<p>Depending on whether you are reading this as a <a class="el" href="glossary.html#glossary_host">host</a> author, or as an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> integrator, it is worth understanding the high-level architecture of the system. After this, the documentation (and code base) is separated depending on your focus. The following (potentially confusing) diagram attempts to show a simplified version of the architecture as a UML Class Diagram:</p>
 <div align="center">
 <img src="inline_umlgraph_5.png" />
 </div>
-<p>It attempts to show that the API is organized into two main namespaces - the <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html">hostApi</a> and <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html">managerApi</a>. Within each of these, you will find the components you need depending on whether you are adopting the API in a <a class="el" href="glossary.html#host">host</a> or providing support for a <a class="el" href="glossary.html#manager">manager</a> through a plugin.</p>
+<p>It attempts to show that the API is organized into two main namespaces - the <a class="el" href="namespaceopenassetio_1_1v1_1_1host_api.html">hostApi</a> and <a class="el" href="namespaceopenassetio_1_1v1_1_1manager_api.html">managerApi</a>. Within each of these, you will find the components you need depending on whether you are adopting the API in a <a class="el" href="glossary.html#glossary_host">host</a> or providing support for a <a class="el" href="glossary.html#manager">manager</a> through a plugin.</p>
 <p>The first step in any integration is to write an implementation of one of the two abstract interfaces defined by the API, illustrated in orange above - either the <a class="el" href="classopenassetio_1_1v1_1_1host_api_1_1_host_interface.html">HostInterface</a> or <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>.</p>
 <ul>
 <li>The asset management system implements the <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_manager_interface.html">ManagerInterface</a>. This is a thread-safe, reentrant interface that is the sole entry point for all interactions with the host.</li>
@@ -194,17 +194,17 @@ Architecture</h1>
 The Basic Design for a Host</h1>
 <p>A design goal of this API was for it to be (relatively) easy to retro-fit into an existing application or tool. In a minimal implementation, the host follows a few simple rules:</p>
 <ul>
-<li>Wherever a file path was stored, store an <a class="el" href="glossary.html#entity_reference">Entity Reference</a>.</li>
+<li>Wherever a file path was stored, store an <a class="el" href="glossary.html#glossary_Entity_Reference">entity reference</a>.</li>
 <li>Before the stored string is used, resolve it through OpenAssetIO and use the returned value instead.</li>
 <li>Involve the manager in creation of data through the <a class="el" href="examples.html#example_publishing_a_file">publishing</a> workflow.</li>
 </ul>
-<p>For this reason, OpenAssetIO has the concept of mapping an <a class="el" href="glossary.html#entity">entity</a> to one or more <a class="el" href="glossary.html#trait">traits</a> that contain meaningful data for someone wanting to consume the entity.</p>
+<p>For this reason, OpenAssetIO has the concept of mapping an <a class="el" href="glossary.html#glossary_entity">entity</a> to one or more <a class="el" href="glossary.html#trait">traits</a> that contain meaningful data for someone wanting to consume the entity.</p>
 <dl class="section note"><dt>Note</dt><dd>The API is by no means limited to just file paths, they form a sensible first step. Any string used in an application, can be asset managed in the same way.</dd></dl>
 <p>OpenAssetIO also allows arbitrary key/value pairs to be associated with an entity. This means other more complex data structures can be managed by the asset management system. The only prerequisite being that they can be sensibly encoded in a string and/or simple typed key/value pairs.</p>
 <p>A renderer for example, could query the correct file format, colorspace and compression options from the manager for the images it is about to create.</p>
 <h1><a class="anchor" id="manager_implementation_concept"></a>
 The Asset Manager's Commitment</h1>
-<p>OpenAssetIO was developed to make it possible for an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> to support any <a class="el" href="glossary.html#host">host</a> application without specific knowledge, and vice versa. This is achieved though the use of common specifications that define well-known traits and two simple rules for the manager:</p>
+<p>OpenAssetIO was developed to make it possible for an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> to support any <a class="el" href="glossary.html#glossary_host">host</a> application without specific knowledge, and vice versa. This is achieved though the use of common specifications that define well-known traits and two simple rules for the manager:</p>
 <ul>
 <li>Store and recall the set of traits (and their properties) registered for any given entity.</li>
 <li>Allow filtering by these traits when browsing, etc.</li>

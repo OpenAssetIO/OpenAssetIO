@@ -193,7 +193,7 @@ Static Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html" title="The UIDelegateFactory is the primary mechanism for querying for available UI Delegate plugins and con...">UIDelegateFactory</a> is the primary mechanism for querying for available <a class="el" href="glossary.html#glossary_UI_Delegate">UI Delegate</a> plugins and constructing instances of them. </p>
 <p>The underlying UI delegate implementation is constructed using the supplied <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_implementation_factory_interface.html">UIDelegateImplementationFactoryInterface</a> factory implementation.</p>
-<p>Hosts should never attempt to directly construct a <code><a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html" title="The UIDelegate is the host facing representation of an asset management system&#39;s bespoke UI Delegate...">UIDelegate</a></code> class or interact with the implementation factory directly. </p>
+<p>Hosts should never attempt to directly construct a <code><a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html" title="The UIDelegate is the host facing representation of an asset managementsystem&#39;s&quot; bespoke UI Delegate...">UIDelegate</a></code> class or interact with the implementation factory directly. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="ad26eb3b7e12e1880d3376367e673c2d2"></a>
 <div class="memitem">
@@ -414,7 +414,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">identifier</td><td>Unique UI delegate identifier.</td></tr>
-    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
+    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#glossary_host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
     <tr><td class="paramname">uiDelegateImplementationFactory</td><td>The factory that will be used to instantiate the UI delegate. See, for example, <a class="el" href="classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html">PythonPluginSystemUIDelegateImplementationFactory</a>.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the factory and instantiated <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a> instances.</td></tr>
   </table>
@@ -467,7 +467,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate_factory.html#a855e388b0964569f1741b7c2c7bf80d9">Alternative direct signature</a> for more details.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
+    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#glossary_host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
     <tr><td class="paramname">uiDelegateImplementationFactory</td><td>The factory that will be used to instantiate UI delegates.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the instantiated <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a> instances.</td></tr>
   </table>
@@ -535,7 +535,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">configPath</td><td>Path to the TOML config file, compatible with <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream/open"><code>std::ifstream::open</code></a>. Relative paths resolve to a platform/environment-dependent location.</td></tr>
-    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
+    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#glossary_host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
     <tr><td class="paramname">uiDelegateImplementationFactory</td><td>The factory that will be used to instantiate UI delegates.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the instantiated <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a> instances.</td></tr>
   </table>
@@ -612,7 +612,7 @@ Static Public Attributes</h2></td></tr>
 <p>Construct an instance of this class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
+    <tr><td class="paramname">hostInterface</td><td>The <a class="el" href="glossary.html#glossary_host">host's</a> implementation of the <code>HostInterface</code> that uniquely identifies the host and provides common hooks for the UI delegate to query asset-related properties from the host.</td></tr>
     <tr><td class="paramname">uiDelegateImplementationFactory</td><td>The factory that will be used to instantiate UI delegates. See, for example, <a class="el" href="classopenassetio_1_1ui_1_1plugin_system_1_1_python_plugin_system_u_i_delegate_implementation_fac257010e68f0e3441dd1d9c903bb2c7b6.html">PythonPluginSystemUIDelegateImplementationFactory</a>.</td></tr>
     <tr><td class="paramname">logger</td><td>The logger instance that will be used for all messaging from the factory and instantiated <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a> instances. </td></tr>
   </table>

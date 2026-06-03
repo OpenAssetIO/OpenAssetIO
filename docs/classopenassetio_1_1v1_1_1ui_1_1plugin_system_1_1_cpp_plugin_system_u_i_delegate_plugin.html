@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1ui_1_1plugin
 </div><!--header-->
 <div class="contents">
 
-<p>Base class to be subclassed by plugins binding a <a class="el" href="glossary.html#host">host</a> to a UI delegate.  
+<p>Base class to be subclassed by plugins binding a <a class="el" href="glossary.html#glossary_host">host</a> to a UI delegate.  
  <a href="classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_plugin.html#details">More...</a></p>
 
 <p><code>#include &lt;CppPluginSystemUIDelegatePlugin.hpp&gt;</code></p>
@@ -150,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af7a663d83639337b8e35892814825bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class to be subclassed by plugins binding a <a class="el" href="glossary.html#host">host</a> to a UI delegate. </p>
+<div class="textblock"><p>Base class to be subclassed by plugins binding a <a class="el" href="glossary.html#glossary_host">host</a> to a UI delegate. </p>
 <p>This is used by the dynamic plugin discovery mechanism to instantiate the <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html">UIDelegateInterface</a> implementation for the asset management system.</p>
 <p>Plugin authors must subclass this class and expose instances of it via a <a class="el" href="namespaceopenassetio_1_1v1_1_1plugin_system.html#a00f7f5d4fa14513e29e9c5a756ef1747">PluginFactory</a> function pointer, which is in turn exposed in the plugin binary by a top level C linkage <code>openassetioUIPlugin</code> function.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1ui_1_1plugin_system_1_1_cpp_plugin_system_u_i_delegate_implementation_factory.html" title="A factory to manage CppPluginSystemUIDelegatePlugin derived plugins. ">CppPluginSystemUIDelegateImplementationFactory</a> </dd></dl>

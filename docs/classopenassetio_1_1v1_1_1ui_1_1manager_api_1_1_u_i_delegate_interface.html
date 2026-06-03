@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('classopenassetio_1_1v1_1_1ui_1_1manage
 </div><!--header-->
 <div class="contents">
 
-<p>This interface binds the <a class="el" href="glossary.html#glossary_UI_Delegate">UI Delegate</a> of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO.  
+<p>This interface binds the <a class="el" href="glossary.html#glossary_UI_Delegate">UI Delegate</a> of an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> into OpenAssetIO.  
  <a href="classopenassetio_1_1v1_1_1ui_1_1manager_api_1_1_u_i_delegate_interface.html#details">More...</a></p>
 
 <p><code>#include &lt;UIDelegateInterface.hpp&gt;</code></p>
@@ -175,8 +175,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a174c31f54be81d5eb4548af5603d36e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This interface binds the <a class="el" href="glossary.html#glossary_UI_Delegate">UI Delegate</a> of an <a class="el" href="glossary.html#asset_management_system">Asset Management System</a> into OpenAssetIO. </p>
-<p>It is not called directly by a <a class="el" href="glossary.html#host">host</a>, but by the middleware that presents a more object-oriented model of this to the <a class="el" href="glossary.html#host">host</a> - namely, the <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a>.</p>
+<div class="textblock"><p>This interface binds the <a class="el" href="glossary.html#glossary_UI_Delegate">UI Delegate</a> of an <a class="el" href="glossary.html#glossary_Asset_Management_System">Asset Management System</a> into OpenAssetIO. </p>
+<p>It is not called directly by a <a class="el" href="glossary.html#glossary_host">host</a>, but by the middleware that presents a more object-oriented model of this to the <a class="el" href="glossary.html#glossary_host">host</a> - namely, the <a class="el" href="classopenassetio_1_1v1_1_1ui_1_1host_api_1_1_u_i_delegate.html">UIDelegate</a>.</p>
 <h2>Logging and Error Handling </h2>
 <p>The supplied <a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html">HostSession</a> object provides access to a logger that allow messages and progress to be reported back to the user. All logging should go through these methods otherwise it may not be correctly presented to the user. The loose term "user" also covers developers, who may need to see log output for debugging and other purposes.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classopenassetio_1_1v1_1_1manager_api_1_1_host_session.html#a75be492c7f5ebe638b5e204cfc6010dc">HostSession.logger</a> </dd>
