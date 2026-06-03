@@ -235,7 +235,8 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    *
    * @throws errors.ConfigurationException if there are errors occur
    * whilst loading the TOML file referenced by the @ref
-   * default_config_var env var.
+   * default_config_var env var, or if it is missing the
+   * `manager.identifier` field.
    */
   [[nodiscard]] static UIDelegatePtr defaultUIDelegateForInterface(
       const HostInterfacePtr& hostInterface,
@@ -286,7 +287,8 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * config file does not exist at the path provided in @p configPath.
    *
    * @throws errors.ConfigurationException if there are errors occur
-   * whilst loading the TOML file.
+   * whilst loading the TOML file, or if it is missing the
+   * `manager.identifier` field.
    */
   [[nodiscard]] static UIDelegatePtr defaultUIDelegateForInterface(
       std::string_view configPath, const HostInterfacePtr& hostInterface,

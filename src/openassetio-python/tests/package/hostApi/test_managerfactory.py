@@ -17,7 +17,7 @@
 Tests that cover the openassetio.hostApi.ManagerFactory class.
 """
 
-# pylint: disable=invalid-name,redefined-outer-name
+# pylint: disable=bad-option-value,invalid-name,redefined-outer-name,too-many-arguments,too-many-positional-arguments,duplicate-code
 # pylint: disable=missing-class-docstring,missing-function-docstring
 import os
 import pathlib
@@ -221,6 +221,32 @@ class Test_ManagerFactory_defaultManagerForInterface:
             else:
                 ManagerFactory.defaultManagerForInterface(
                     invalid_manager_config,
+                    mock_host_interface,
+                    mock_manager_implementation_factory,
+                    mock_logger,
+                )
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_missing_identifier_then_ConfigurationException_raised(
+        self,
+        use_env_var_for_config_file,
+        config_with_missing_identifier,
+        mock_manager_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        with pytest.raises(
+            errors.ConfigurationException,
+            match=r"Configuration file is missing 'identifier' field in its \[manager\] "
+            r"section at '.*'",
+        ):
+            if use_env_var_for_config_file:
+                ManagerFactory.defaultManagerForInterface(
+                    mock_host_interface, mock_manager_implementation_factory, mock_logger
+                )
+            else:
+                ManagerFactory.defaultManagerForInterface(
+                    config_with_missing_identifier,
                     mock_host_interface,
                     mock_manager_implementation_factory,
                     mock_logger,
@@ -586,6 +612,14 @@ def invalid_manager_config(monkeypatch, use_env_var_for_config_file):
 @pytest.fixture
 def config_with_invalid_property(resources_dir, monkeypatch, use_env_var_for_config_file):
     toml_path = os.path.join(resources_dir, "unsupported_value_type.toml")
+    if use_env_var_for_config_file:
+        monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
+    return toml_path
+
+
+@pytest.fixture
+def config_with_missing_identifier(resources_dir, monkeypatch, use_env_var_for_config_file):
+    toml_path = os.path.join(resources_dir, "missing_identifier.toml")
     if use_env_var_for_config_file:
         monkeypatch.setenv("OPENASSETIO_DEFAULT_CONFIG", toml_path)
     return toml_path

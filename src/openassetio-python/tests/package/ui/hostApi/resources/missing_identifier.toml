@@ -1,0 +1,4 @@
+[manager]
+# missing identifier here
+[ui.settings]
+a_string = "Hello"
