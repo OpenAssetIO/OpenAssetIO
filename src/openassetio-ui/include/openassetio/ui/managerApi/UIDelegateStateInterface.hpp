@@ -27,10 +27,11 @@ OPENASSETIO_DECLARE_PTR(UIDelegateStateInterface)
  * that may change over time.
  *
  * The UI Delegate is expected to subclass this class and implement its
- * methods. Instances are then be provided to a @ref host upon @ref
- * UIDelegateInterface.populateUI "initiating a request" for UI
- * delegation, and when @ref UIDelegateRequest.stateChangedCallback
- * "notifying the host of UI state changes".
+ * methods. Instances are then be provided to a @ref glossary_host
+ * "host" upon @ref UIDelegateInterface.populateUI "initiating a
+ * request" for UI delegation, and when @ref
+ * UIDelegateRequest.stateChangedCallback "notifying the host of UI
+ * state changes".
  *
  * This class also holds a callback, which the host can use to update
  * the parameters of the ongoing @ref UIDelegateRequest "request".

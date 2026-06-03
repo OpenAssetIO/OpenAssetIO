@@ -3,9 +3,10 @@
  *
  * @note This section is a work-in-progress. Over time we will add
  * flow diagrams for key operations that happen through the API, along
- * with more extensive sample implementations for both @ref host "hosts"
- * and @ref manager "managers". Currently it is limited to illustrating a
- * few common operations that a host of the API may perform.
+ * with more extensive sample implementations for both @ref
+ * glossary_host "hosts" and @ref manager "managers". Currently it is
+ * limited to illustrating a few common operations that a host of
+ * the API may perform.
  *
  * @warning At this stage, until we ship a sample manager
  * implementation, the code for later examples won't actually function.
@@ -13,8 +14,9 @@
  * @section examples_api_initialization Initializing the API in a Host
  *
  * This example covers the steps required to initialize the API within a
- * @ref host "'host'" tool, script or application that wishes to
- * interact with an @ref asset_management_system.
+ * @ref glossary_host "host" tool, script or application that wishes
+ * to interact with an @ref glossary_Asset_Management_System
+ * "Asset Management System".
  *
  * It makes use of the @ref openassetio.pluginSystem "Plugin System" to
  * discover available @ref
@@ -69,9 +71,10 @@
  * @section examples_picking_a_manager Setting up a Manager
  *
  * This example makes use of the newly initialized factory to show how
- * to construct and configure a specific manager (it assumes
- * that some example @ref asset_management_system has a plugin,
- * installed on @ref plugin_path_var).
+ * to construct and configure a specific manager (it assumes that some
+ * example @ref glossary_Asset_Management_System
+ * "Asset Management System" has a plugin, installed on
+ * @ref plugin_path_var).
  *
  * Check out <a style="font-weight:bold" href="https://github.com/OpenAssetIO/Template-OpenAssetIO-Manager-Python"
  * target="_blank">Python Manager Template</a> for an example
@@ -138,10 +141,11 @@
  *
  * @note The caller must convert a string to an @fqref{EntityReference}
  * "EntityReference" object in order to use any OpenAssetIO API that
- * expects an @ref entity_reference. There is more than one approach to
- * this. Below we rely on the exception thrown by
- * @fqref{hostApi.Manager.createEntityReference} "createEntityReference"
- * when given an invalid reference. Alternatively, we could use
+ * expects an @ref glossary_Entity_Reference "entity reference". There
+ * is more than one approach to this. Below we rely on the exception
+ * thrown by @fqref{hostApi.Manager.createEntityReference}
+ * "createEntityReference" when given an invalid reference.
+ * Alternatively, we could use
  * @fqref{hostApi.Manager.createEntityReferenceIfValid}
  * "createEntityReferenceIfValid" and test if the result is falsey.
  *
@@ -435,9 +439,10 @@
  *
  * @section example_generating_a_thumbnail Generating a Thumbnail During Publish
  *
- * This example demonstrates the correct handling in a @ref host of a
- * hypothetical WantsThumbnail trait if set by a @ref manager in its
- * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" response.
+ * This example demonstrates the correct handling in a @ref
+ * glossary_host "host" of a hypothetical WantsThumbnail trait if set by
+ * a @ref manager in its @fqref{hostApi.Manager.managementPolicy}
+ * "managementPolicy" response.
  *
  * It follows on from the preceding publishing example.
  *

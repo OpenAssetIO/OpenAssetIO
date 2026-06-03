@@ -18,9 +18,10 @@
      href="https://github.com/OpenAssetIO/OpenAssetIO/">OpenAssetIO
      codebase</a>
  *
- * OpenAssetIO defines a common set of interactions between a @ref host
- * of the API (eg: a Digital Content Creation tool or pipeline script)
- * and an @ref asset_management_system.
+ * OpenAssetIO defines a common set of interactions between a @ref
+ * glossary_host "host" of the API (eg: a Digital Content Creation tool
+ * or pipeline script) and an @ref glossary_Asset_Management_System
+ * "Asset Management System".
  *
  * @startuml
  * node Host {
@@ -124,10 +125,12 @@
  *
  * @section intro_approach The Approach
  *
- * Once we have a common standard, any @ref asset_management_system or
- * @ref host implementing it can be considered to be compatible. This
- * means that neither party needs to pay any particular attention to who
- * it is talking to, unless they specifically desire to do so.
+ * Once we have a common standard, any @ref
+ * glossary_Asset_Management_System "Asset Management System" or
+ * @ref glossary_host "host" implementing it can be considered to be
+ * compatible. This means that neither party needs to pay any particular
+ * attention to who it is talking to, unless they specifically desire
+ * to do so.
  *
  * Our hope is that a common baseline level of support for the key
  * operations performed within multi-site production pipelines will
@@ -137,16 +140,17 @@
  *
  * @subsection intro_ams What is an Asset Management System
  *
- * We define an @ref asset_management_system as a system that tracks,
- * and potentially manages, the state and location of digital media.
+ * We define an @ref glossary_Asset_Management_System
+ * "Asset Management System" as a system that tracks, and potentially
+ * manages, the state and location of digital media.
  * Within the Media and Entertainment sector, these are often known as
  * assets. Within OpenAssetIO, we call anything managed by the system an
- * @ref entity.
+ * @ref glossary_entity "entity".
  *
  * Within post-production, entities are often things like project,
  * sequences, shots, clips, image sequences and 3d models that are used
  * to produce final content. In the API, entities are referred to using
- * an @ref entity_reference.
+ * an @ref glossary_Entity_Reference "entity reference".
  *
  * @note We use the term "entity" in the API, rather than "asset" to
  * avoid confusion. Asset is a very loaded term. Most systems we have
@@ -157,11 +161,11 @@
  *
  * @subsection intro_host What is a Host?
  *
- * A @ref host is a tool, script or application that either consumes or
- * produces data, that needs to be managed by an asset management
- * system. We call it the "host" as it is responsible for hosting the
- * API and making appropriate calls to one or more asset management
- * systems as part of its operations.
+ * A @ref glossary_host "host" is a tool, script or application that
+ * either consumes or produces data, that needs to be managed by an
+ * asset management system. We call it the "host" as it is responsible
+ * for hosting the API and making appropriate calls to one or more asset
+ * management systems as part of its operations.
  *
  *
  * @section architecture_overview Architecture
@@ -171,12 +175,13 @@
  * queries and actions and concepts that have been found to be common
  * across the majority of known workflows and back-end implementations.
  *
- * Depending on whether you are reading this as a @ref host author, or
- * as an @ref asset_management_system integrator, it is worth
- * understanding the high-level architecture of the system. After this,
- * the documentation (and code base) is separated depending on your
- * focus. The following (potentially confusing) diagram attempts to show
- * a simplified version of the architecture as a UML Class Diagram:
+ * Depending on whether you are reading this as a @ref glossary_host
+ * "host" author, or as an @ref glossary_Asset_Management_System
+ * "Asset Management System" integrator, it is worth understanding the
+ * high-level architecture of the system. After this, the documentation
+ * (and code base) is separated depending on your focus. The following
+ * (potentially confusing) diagram attempts to show a simplified version
+ * of the architecture as a UML Class Diagram:
  *
  * @startuml
  * package openassetio.managerApi {
@@ -230,8 +235,8 @@
  * namespaces - the @fqref{hostApi} "hostApi" and
  * @fqref{managerApi} "managerApi". Within each of these, you will
  * find the components you need depending on whether you are adopting
- * the API in a @ref host or providing support for a @ref manager
- * through a plugin.
+ * the API in a @ref glossary_host "host" or providing support for a
+ * @ref manager through a plugin.
  *
  * The first step in any integration is to write an implementation of
  * one of the two abstract interfaces defined by the API, illustrated in
@@ -265,7 +270,8 @@
  * retro-fit into an existing application or tool. In a minimal
  * implementation, the host follows a few simple rules:
  *
- * - Wherever a file path was stored, store an @ref entity_reference.
+ * - Wherever a file path was stored, store an @ref
+ *   glossary_Entity_Reference "entity reference".
  *
  * - Before the stored string is used, resolve it through OpenAssetIO
  *   and use the returned value instead.
@@ -274,8 +280,8 @@
  *   @ref example_publishing_a_file "publishing" workflow.
  *
  * For this reason, OpenAssetIO has the concept of mapping an @ref
- * entity to one or more @ref trait "traits" that contain meaningful data
- * for someone wanting to consume the entity.
+ * glossary_entity "entity" to one or more @ref trait "traits" that
+ * contain meaningful data for someone wanting to consume the entity.
  *
  * @note The API is by no means limited to just file paths, they form a
  * sensible first step. Any string used in an application, can be
@@ -294,10 +300,11 @@
  * @section manager_implementation_concept The Asset Manager's Commitment
  *
  * OpenAssetIO was developed to make it possible for an
- * @ref asset_management_system to support any @ref host application
- * without specific knowledge, and vice versa. This is achieved though
- * the use of common specifications that define well-known traits and
- * two simple rules for the manager:
+ * @ref glossary_Asset_Management_System "Asset Management System" to
+ * support any @ref glossary_host "host" application without specific
+ * knowledge, and vice versa. This is achieved though the use of common
+ * specifications that define well-known traits and two simple rules for
+ * the manager:
  *
  * - Store and recall the set of traits (and their properties)
  *   registered for any given entity.

@@ -19,8 +19,8 @@ namespace trait {
 OPENASSETIO_DECLARE_PTR(TraitsData)
 
 /**
- * A transport-level container for data exchange between a @ref host and
- * a @ref manager.
+ * A transport-level container for data exchange between a @ref
+ * glossary_host "host" and a @ref manager.
  *
  * The @ref Specification system combines one or more @ref trait
  * "traits" into a @ref trait_set to classify concepts within the API.
@@ -49,8 +49,8 @@ OPENASSETIO_DECLARE_PTR(TraitsData)
  * "well-known-strings") is inherently unstable. Instances of this class
  * should generally be wrapped in one of the specialized @ref
  * Specification "specification" or @ref trait derived "views" at
- * runtime by a @ref host or @ref manager to ensure consistent access to
- * the correct keys.
+ * runtime by a @ref glossary_host "host" or @ref manager to ensure
+ * consistent access to the correct keys.
  *
  * Trait @ref trait::property::Key "property keys" are always strings.
  * Property values are strings, integers, floating point, or booleans.

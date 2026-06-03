@@ -24,11 +24,13 @@ OPENASSETIO_DECLARE_PTR(UIDelegateInterface)
 
 /**
  * This interface binds the @ref glossary_UI_Delegate of an @ref
- * asset_management_system into OpenAssetIO.
+ * glossary_Asset_Management_System "Asset Management System" into
+ * OpenAssetIO.
  *
- * It is not called directly by a @ref host, but by the middleware that
- * presents a more object-oriented model of this to the @ref host -
- * namely, the @fqref{ui.hostApi.UIDelegate} "UIDelegate".
+ * It is not called directly by a @ref glossary_host "host", but by the
+ * middleware that presents a more object-oriented model of this to the
+ * @ref glossary_host "host" - namely, the @fqref{ui.hostApi.UIDelegate}
+ * "UIDelegate".
  *
  * Logging and Error Handling
  * --------------------------

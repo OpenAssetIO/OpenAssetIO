@@ -38,8 +38,9 @@ OPENASSETIO_DECLARE_PTR(Manager)
 
 /**
  * The Manager is the Host facing representation of an @ref
- * asset_management_system. The Manager class shouldn't be directly
- * constructed by the host. An instance of the class for any given
+ * glossary_Asset_Management_System "Asset Management System".
+ * The Manager class shouldn't be directly constructed by the host.
+ * An instance of the class for any given
  * asset management system can be retrieved from a
  * @fqref{hostApi.ManagerFactory} "ManagerFactory", using the
  * @fqref{hostApi.ManagerFactory.createManager}
@@ -55,7 +56,8 @@ OPENASSETIO_DECLARE_PTR(Manager)
  * A Manager instance is the single point of interaction with an asset
  * management system. It provides methods to uniquely identify the
  * underlying implementation, querying and resolving @ref
- * entity_reference "entity references" and publishing new data.
+ * glossary_Entity_Reference "entity references" and publishing new
+ * data.
  *
  * The Manager API is threadsafe and can be called from multiple
  * threads concurrently.
@@ -75,8 +77,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @name Asset Management System Identification
    *
    * These functions provide general identity information about the @ref
-   * asset_management_system itself. These can all be called before
-   * @ref initialize has been called.
+   * glossary_Asset_Management_System "Asset Management System" itself.
+   * These can all be called before @ref initialize has been called.
    *
    * @{
    */
@@ -111,7 +113,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @name Asset Management System Information
    *
    * These functions provide general information about the @ref
-   * asset_management_system itself.
+   * glossary_Asset_Management_System "Asset Management System" itself.
    * @{
    */
 
@@ -146,8 +148,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
      */
     kCustomTerminology = internal::capability::manager::Capability::kCustomTerminology,
     /**
-     * Manager is capable of resolving @ref entity_reference into the
-     * data for one or more @ref trait "traits".
+     * Manager is capable of resolving @ref glossary_Entity_Reference
+     * "entity reference" into the data for one or more @ref trait
+     * "traits".
      *
      * This capability means the manager implements the following
      * methods:
@@ -155,8 +158,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
      */
     kResolution = internal::capability::manager::Capability::kResolution,
     /**
-     * Manager allows the host to create or update an @ref entity within
-     * the @ref asset_management_system.
+     * Manager allows the host to create or update an @ref
+     * glossary_entity "entity" within the @ref
+     * glossary_Asset_Management_System "Asset Management System".
      *
      * This capability means the manager implements the following
      * methods:
@@ -224,8 +228,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Returns other information that may be useful about this @ref
-   * asset_management_system.  This can contain arbitrary key/value
-   * pairs.For example:
+   * glossary_Asset_Management_System "Asset Management System".
+   * This can contain arbitrary key/value pairs. For example:
    *
    *     { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
    *
@@ -303,13 +307,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * If an exception is raised by this call, its is safe to assume
    * that a fatal error occurred, and this @ref
-   * asset_management_system is not available, and should be retried
-   * later.
+   * glossary_Asset_Management_System "Asset Management System" is not
+   * available, and should be retried later.
    *
    * If no exception is raised, it can be assumed that the @ref
-   * asset_management_system is ready. It is the implementations
-   * responsibility to deal with transient connection errors (if
-   * applicable) once initialized.
+   * glossary_Asset_Management_System "Asset Management System" is
+   * ready. It is the implementation's responsibility to deal with
+   * transient connection errors (if applicable) once initialized.
    *
    * The behavior of calling initialize() on an already initialized
    * Manager is to re-initialize the manager with any updated settings
@@ -373,7 +377,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * question is not managed by the manager, or it can't resolve a
    * required trait. Policy is runtime invariant and so only needs to be
    * checked once for any given set of inputs (which includes the
-   * @ref Context and its @ref locale).
+   * @ref glossary_Context "Context" and its @ref locale).
    *
    * When querying this API, each Trait Set should be composed of:
    *
@@ -556,9 +560,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   Str persistenceTokenForContext(const ContextPtr& context);
 
   /**
-   * Returns a @ref Context linked to a previous manager state, based
-   * on the supplied persistence token derived from @ref
-   * persistenceTokenForContext. This context, when used with API
+   * Returns a @ref glossary_Context "Context" linked to a previous
+   * manager state, based on the supplied persistence token derived from
+   * @ref persistenceTokenForContext. This context, when used with API
    * methods will be considered part of the same logical series of
    * actions.
    *
@@ -661,15 +665,16 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * through this method.
    *
    * Determines if the supplied string (in its entirety) matches the
-   * pattern of an @ref entity_reference.  It does not verify that it
-   * points to a valid entity in the system, simply that the pattern of
-   * the string is recognised by the manager.
+   * pattern of an @ref glossary_Entity_Reference "entity reference".
+   * It does not verify that it points to a valid entity in the system,
+   * simply that the pattern of the string is recognised by the manager.
    *
-   * If it returns `true`, the string is an @ref entity_reference and
-   * should be considered as a managed entity (or a future one).
-   * Consequently, it should be resolved before use. It also confirms
-   * that it can be passed to any other method that requires an @ref
-   * entity_reference.
+   * If it returns `true`, the string is an @ref
+   * glossary_Entity_Reference "entity reference" and should be
+   * considered as a managed entity (or a future one). Consequently, it
+   * should be resolved before use. It also confirms that it can be
+   * passed to any other method that requires an @ref
+   * glossary_Entity_Reference "entity reference".
    *
    * If `false`, this manager should no longer be involved in actions
    * relating to the string.
@@ -683,8 +688,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @param someString `str` The string to be inspected.
    *
    * @return `bool` `True` if the supplied token should be
-   * considered as an @ref entity_reference, `False` if the pattern
-   * is not recognised.
+   * considered as an @ref glossary_Entity_Reference "entity reference",
+   * `False` if the pattern is not recognised.
    *
    * @note This call does not verify an entity exits, just that the
    * format of the string is recognised. The call is notionally trivial
@@ -697,7 +702,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Create an @ref EntityReference object wrapping a given
-   * @ref entity_reference string.
+   * @ref glossary_Entity_Reference "entity reference" string.
    *
    * First validates that the given entity reference string is
    * meaningful for this manager via @ref isEntityReferenceString,
@@ -716,8 +721,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
 
   /**
    * Create an @ref EntityReference object wrapping a given
-   * @ref entity_reference string, if it is valid according to
-   * @ref isEntityReferenceString.
+   * @ref glossary_Entity_Reference "entity reference" string, if it is
+   * valid according to @ref isEntityReferenceString.
    *
    * @see @ref createEntityReference
    *
@@ -737,10 +742,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   using ExistsSuccessCallback = std::function<void(std::size_t, bool)>;
 
   /**
-   * Called to determine if each @ref entity_reference supplied
-   * points to an entity that exists in the @ref
-   * asset_management_system, and that they can be resolved into
-   * a meaningful string or otherwise queried.
+   * Called to determine if each @ref glossary_Entity_Reference
+   * "entity reference" supplied points to an entity that exists in the
+   * @ref glossary_Asset_Management_System "Asset Management System",
+   * and that they can be resolved into a meaningful string or otherwise
+   * queried.
    *
    * By 'exist' we mean 'is ready to be read'. For example,
    * entityExists may be called before attempting to read from a
@@ -790,8 +796,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                     const BatchElementErrorCallback& errorCallback);
 
   /**
-   * Determines if the supplied @ref entity_reference points to an
-   * entity that exists in the @ref asset_management_system.
+   * Determines if the supplied @ref glossary_Entity_Reference
+   * "entity reference" points to an entity that exists in the @ref
+   * glossary_Asset_Management_System "Asset Management System".
    *
    * See the documentation for the @ref
    * entityExists(const EntityReferences&, <!--
@@ -829,8 +836,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                     const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Determines if the supplied @ref entity_reference points to an
-   * entity that exists in the @ref asset_management_system.
+   * Determines if the supplied @ref glossary_Entity_Reference
+   * "entity reference" points to an entity that exists in the @ref
+   * glossary_Asset_Management_System "Asset Management System".
    *
    * See the documentation for the @ref
    * entityExists(const EntityReferences&, <!--
@@ -839,7 +847,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * details.
    *
    * If successful, the result is a boolean indicating the existence of
-   * the @ref entity.
+   * the @ref glossary_entity "entity".
    *
    * Otherwise, the result is populated with an error object detailing
    * the reason for the failure to check the existence of this
@@ -884,8 +892,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   using BoolAsUint = std::uint_fast8_t;
 
   /**
-   * Determines if each supplied @ref entity_reference points to an
-   * entity that exists in the @ref asset_management_system.
+   * Determines if each supplied @ref glossary_Entity_Reference
+   * "entity reference" points to an entity that exists in the @ref
+   * glossary_Asset_Management_System "Asset Management System".
    *
    * See documentation for the <!--
    * --> @ref entityExists(const EntityReferences&, <!--
@@ -925,8 +934,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       const BatchElementErrorPolicyTag::Exception& errorPolicyTag = {});
 
   /**
-   * Determines if each supplied @ref entity_reference points to an
-   * entity that exists in the @ref asset_management_system.
+   * Determines if each supplied @ref glossary_Entity_Reference
+   * "entity reference" points to an entity that exists in the @ref
+   * glossary_Asset_Management_System "Asset Management System".
    *
    * For successful references, the corresponding element of the result
    * is populated with a boolean indicating the existence of the entity.
@@ -972,14 +982,15 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   using EntityTraitsSuccessCallback = std::function<void(std::size_t, trait::TraitSet)>;
 
   /**
-   * Retrieve the @ref trait_set of one or more @ref entity "entities".
+   * Retrieve the @ref trait_set of one or more @ref glossary_entity
+   * "entities".
    *
    * For example, this may be used to validate that a user-provided
    * entity reference is appropriate for an operation.
    *
    * The trait set returned (via callback) for each @ref
-   * entity_reference varies according to the @p entityTraitsAccess
-   * access mode.
+   * glossary_Entity_Reference "entity reference" varies according to
+   * the @p entityTraitsAccess access mode.
    *
    * If @ref access.EntityTraitsAccess.kRead "kRead" is given, the
    * response will be an exhaustive trait set for the entity. This may
@@ -1032,7 +1043,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
                     const BatchElementErrorCallback& errorCallback);
 
   /**
-   * Retrieve the @ref trait_set of an @ref entity.
+   * Retrieve the @ref trait_set of an @ref glossary_entity "entity".
    *
    * See documentation for the <!--
    * --> @ref entityTraits(const EntityReferences&, <!--
@@ -1072,7 +1083,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @fqref{errors.BatchElementError} "BatchElementError".
    *
    * If successful, the result is populated with the trait set of the
-   * @ref entity.
+   * @ref glossary_entity "entity".
    *
    * Otherwise, the result is populated with an error object detailing
    * the reason for the failure to retrieve the traits this particular
@@ -1106,7 +1117,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
       const ContextConstPtr& context, const BatchElementErrorPolicyTag::Variant& errorPolicyTag);
 
   /**
-   * Retrieve the @ref trait_set of one or more @ref entity "entities".
+   * Retrieve the @ref trait_set of one or more @ref glossary_entity
+   * "entities".
    *
    * See documentation for the <!--
    * --> @ref entityTraits(const EntityReferences&, <!--
@@ -1144,7 +1156,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Provides either a populated @ref trait_set or a
    * @fqref{errors.BatchElementError} "BatchElementError" for each given
-   * @ref entity_reference.
+   * @ref glossary_Entity_Reference "entity reference".
    *
    * For successful references, the corresponding element of the result
    * is populated with its trait set.
@@ -1187,10 +1199,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * @name Entity Resolution
    *
-   * The concept of resolution is turning an @ref entity_reference into
-   * the data for one or more @ref trait "traits" that are meaningful to
-   * the situation. It could be a color space, a directory, a script or
-   * a frame range for an image sequence.
+   * The concept of resolution is turning an @ref
+   * glossary_Entity_Reference "entity reference" into the data for one
+   * or more @ref trait "traits" that are meaningful to the situation.
+   * It could be a color space, a directory, a script or a frame range
+   * for an image sequence.
    *
    * @{
    */
@@ -1202,7 +1215,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available property data for the requested set of traits for each
-   * given @ref entity_reference.
+   * given @ref glossary_Entity_Reference "entity reference".
    *
    * This call will block until all resolutions are complete and
    * callbacks have been called. Callbacks will be called on the
@@ -1215,9 +1228,9 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * caller to handle optional property values being missing in a
    * fashion appropriate to its intended use. The
    * @fqref{hostApi.Manager.managementPolicy} "managementPolicy" query
-   * can be used ahead of time with a read @ref Context to determine
-   * which specific traits any given manager supports resolving property
-   * data for.
+   * can be used ahead of time with a read @ref glossary_Context
+   * "Context" to determine which specific traits any given manager
+   * supports resolving property data for.
    *
    * To determine the @ref trait_set for a particular entity, use @ref
    * entityTraits. Note that this will give a complete trait set,
@@ -1294,7 +1307,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available data for the requested set of traits for the given @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
@@ -1346,7 +1359,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * If successful, the result is populated with the
    * available data for the requested set of traits for the given @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * Otherwise, the result is populated with an error object detailing
    * the reason for the failure to resolve this particular entity.
@@ -1393,7 +1406,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Provides a @fqref{trait.TraitsData} "TraitsData" populated with the
    * available data for the requested set of traits for each given @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref resolve(const EntityReferences&, <!--
@@ -1442,7 +1455,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Provides either a populated @fqref{trait.TraitsData} "TraitsData"
    * or a @fqref{errors.BatchElementError} "BatchElementError" for each
-   * given @ref entity_reference.
+   * given @ref glossary_Entity_Reference "entity reference".
    *
    * For successful references, the corresponding element of the result
    * is populated with the available data for the requested set of
@@ -1556,7 +1569,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Called to determine an @ref EntityReference considered to be a
    * sensible default for the given entity @ref trait_set
-   * "trait set" and @ref Context "context".
+   * "trait set" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
    * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
@@ -1604,7 +1617,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Called to determine an @ref EntityReference considered to be a
    * sensible default for the given entity @ref trait_set
-   * "trait set" and @ref Context "context".
+   * "trait set" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
    * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
@@ -1652,7 +1665,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Called to determine an @ref EntityReference considered to be a
    * sensible default for each of the given entity @ref trait_set
-   * "trait sets" and @ref Context "context".
+   * "trait sets" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
    * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
@@ -1700,7 +1713,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * Called to determine an @ref EntityReference considered to be a
    * sensible default for each of the given entity @ref trait_set
-   * "trait sets" and @ref Context "context".
+   * "trait sets" and @ref glossary_Context "context".
    *
    * See documentation for the <!--
    * --> @ref defaultEntityReference(const trait::TraitSets&, <!--
@@ -1809,7 +1822,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * to query other entities or organisational structure.
    *
    * When calling this method, you can expect to receive one result
-   * per @ref entity_reference provided.
+   * per @ref glossary_Entity_Reference "entity reference" provided.
    *
    * @note Consult the documentation for the relevant relationship
    * traits to determine if the order of entities in the inner lists
@@ -1819,8 +1832,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * will be returned for that entity, and no errors will be
    * raised.
    *
-   * @param entityReferences A list of @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReferences A list of @ref glossary_Entity_Reference
+   * "entity references" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -1891,8 +1904,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
-   * @param entityReference An @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReference An @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -1956,8 +1969,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Errors that are not specific to the entity relationship will be
    * thrown as an exception.
    *
-   * @param entityReference An @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReference An @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -2017,8 +2030,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
-   * @param entityReferences A list of @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReferences A list of @ref glossary_Entity_Reference
+   * "entity references" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -2084,8 +2097,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Errors that are not specific to an entity relationship will be
    * thrown as an exception, failing the whole batch.
    *
-   * @param entityReferences A list of @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReferences A list of @ref glossary_Entity_Reference
+   * "entity references" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -2145,8 +2158,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * If any relationship definition is unknown, then an empty list will
    * be returned for that relationship, and no errors will be raised.
    *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
+   * @param entityReference The @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationships for.
    *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
@@ -2222,8 +2235,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @fqref{errors.BatchElementException}
    * "BatchElementException"-derived error.
    *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
+   * @param entityReference The @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationships for.
    *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
@@ -2289,8 +2302,8 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * Errors that are not specific to an entity relationship will be
    * thrown as an exception, failing the whole batch.
    *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
+   * @param entityReference The @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationships for.
    *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
@@ -2337,24 +2350,26 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * @name Publishing
    *
    * The publishing functions allow the host to create or update an @ref
-   * entity within the @ref asset_management_system represented by the
-   * Manager. The API is designed to accommodate the broad variety of
-   * roles that different asset managers embody. Some are 'librarians'
-   * that simply catalog the locations of existing media. Others take an
-   * active role in both the temporary and long-term paths to items they
-   * manage.
+   * glossary_entity "entity" within the @ref
+   * glossary_Asset_Management_System "Asset Management System"
+   * represented by the Manager. The API is designed to accommodate the
+   * broad variety of roles that different asset managers embody. Some
+   * are 'librarians' that simply catalog the locations of existing
+   * media. Others take an active role in both the temporary and
+   * long-term paths to items they manage.
    *
    * There are two key components to publishing within this API.
    *
    * *1 - The Entity Reference*
    *
    * As with the other entry points in this API, it is assumed that an
-   * @ref entity_reference is known ahead of time. How this reference is
-   * determined is beyond the scope of this layer of the API, and
-   * functions exists in higher levels that combine browsing and
-   * publishing etc... Here, we simply assert that there must be a
-   * meaningful reference given the @fqref{trait.TraitsData}
-   * "TraitsData" of the entity that is being created or published.
+   * @ref glossary_Entity_Reference "entity reference" is known ahead
+   * of time. How this reference is determined is beyond the scope of
+   * this layer of the API, and functions exists in higher levels that
+   * combine browsing and publishing etc... Here, we simply assert that
+   * there must be a meaningful reference given the
+   * @fqref{trait.TraitsData} "TraitsData" of the entity that is being
+   * created or published.
    *
    * @note 'Meaningful' is best defined by the asset manager itself. For
    * example, in a system that versions each 'asset' by creating
@@ -2413,20 +2428,21 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * This call signals your intent as a host application to do some
    * work to create data in relation to each supplied @ref
-   * entity_reference. The entity does not need to exist yet (see
-   * @ref entity_reference) or it may be a parent entity that you are
+   * glossary_Entity_Reference "entity reference". The entity does not
+   * need to exist yet (see @ref glossary_Entity_Reference
+   * "entity reference") or it may be a parent entity that you are
    * about to create a child of or some other similar relationship
    * (it actually doesn't matter really, as this @ref
-   * entity_reference will ultimately have been determined by
-   * interaction with the Manager, and it will have returned you
-   * something meaningful).
+   * glossary_Entity_Reference "entity reference" will ultimately have
+   * been determined by interaction with the Manager, and it will have
+   * returned you something meaningful).
    *
    * It should be called before register_() if you are about to
    * create media or write to files. If the file or data already
    * exists, then preflight is not needed. It will return a working
-   * @ref entity_reference for each given entity, which can be
-   * resolved in order to determine a working path that the files
-   * should be written to.
+   * @ref glossary_Entity_Reference "entity reference" for each given
+   * entity, which can be resolved in order to determine a working path
+   * that the files should be written to.
    *
    * This call is designed to allow sanity checking, placeholder
    * creation or any other sundry preparatory actions to be carried
@@ -2445,10 +2461,10 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * required solely for classification. See @ref entityTraits docs for
    * more information.
    *
-   * @warning The working @ref entity_reference returned by this
-   * method should *always* be used in place of the original
-   * reference supplied to `preflight` for resolves prior to
-   * registration, and for the final call to @ref
+   * @warning The working @ref glossary_Entity_Reference
+   * "entity reference" returned by this method should *always* be used
+   * in place of the original reference supplied to `preflight` for
+   * resolves prior to registration, and for the final call to @ref
    * register_ itself. See @ref example_publishing_a_file.
    *
    * @param entityReferences The entity references to preflight prior
@@ -2499,7 +2515,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * This call signals your intent as a host application to do some
    * work to create data in relation to a supplied @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
@@ -2553,7 +2569,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * This call signals your intent as a host application to do some
    * work to create data in relation to a supplied @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
@@ -2608,7 +2624,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * This call signals your intent as a host application to do some
    * work to create data in relation to each supplied @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
@@ -2663,7 +2679,7 @@ class OPENASSETIO_CORE_EXPORT Manager final {
   /**
    * This call signals your intent as a host application to do some
    * work to create data in relation to each supplied @ref
-   * entity_reference.
+   * glossary_Entity_Reference "entity reference".
    *
    * See documentation for the <!--
    * --> @ref preflight(const EntityReferences&, <!--
@@ -2749,12 +2765,13 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    * required solely for classification. See @ref entityTraits docs for
    * more information.
    *
-   * As each @ref entity_reference has (ultimately) come from the
-   * manager (either in response to delegation of UI/etc... or as a
-   * return from another call), then it can be assumed that the
-   * Manager will understand what it means for you to call `register`
-   * on this reference with the supplied @fqref{trait.TraitsData}
-   * "TraitsData". The conceptual meaning of the call is:
+   * As each @ref glossary_Entity_Reference "entity reference" has
+   * (ultimately) come from the manager (either in response to
+   * delegation of UI/etc... or as a return from another call), then it
+   * can be assumed that the Manager will understand what it means for
+   * you to call `register` on this reference with the supplied
+   * @fqref{trait.TraitsData} "TraitsData". The conceptual meaning of
+   * the call is:
    *
    * "I have this reference you gave me, and I would like to register
    * a new entity to it with the traits I told you about before. I
@@ -2771,11 +2788,11 @@ class OPENASSETIO_CORE_EXPORT Manager final {
    *
    * @warning When registering traits that contain URLs or file paths
    * (for example the MediaCreation LocatableContent trait), it should
-   * never be assumed that the resulting @ref entity_reference will
-   * resolve to the same path. Managers may freely relocate, copy, move
-   * or rename data as part of registration. Data for other trait
-   * properties may also change if the entity has been otherwise
-   * modified by some other interaction with the manager.
+   * never be assumed that the resulting @ref glossary_Entity_Reference
+   * "entity reference" will resolve to the same path. Managers may
+   * freely relocate, copy, move or rename data as part of registration.
+   * Data for other trait properties may also change if the entity has
+   * been otherwise modified by some other interaction with the manager.
    *
    * @param entityReferences Entity references to register to.
    *

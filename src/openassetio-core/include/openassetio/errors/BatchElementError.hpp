@@ -34,7 +34,8 @@ namespace errors {
  * fail, whilst the remainder succeed. An exception workflow doesn't
  * work so well here, and so every success callback is paired with an
  * error callback, allowing per-element errors to be communicated back
- * to the original caller (i.e. the @ref host application).
+ * to the original caller (i.e. the @ref glossary_host "host"
+ * application).
  *
  * The information for these per-element errors is bundled in instances
  * of this simple BatchElementError structure for passing to error
@@ -62,7 +63,7 @@ class BatchElementError final {
 
     /**
      * Error code used whenever an entity-based action is performed on
-     * a malformed @ref entity_reference.
+     * a malformed @ref glossary_Entity_Reference "entity reference".
      *
      * Entity references are initially validated as part of constructing
      * an @fqref{EntityReference} "EntityReference" object. However,
@@ -93,7 +94,7 @@ class BatchElementError final {
     /**
      * Error code used during @ref glossary_resolve "entity resolution"
      * when the reference itself is valid, but it is not possible to
-     * retrieve data for the referenced @ref entity.
+     * retrieve data for the referenced @ref glossary_entity "entity".
      *
      * This could be because it does not exist, or some other
      * entity-specific reason that this data cannot be resolved for a
@@ -104,8 +105,8 @@ class BatchElementError final {
      * than per-entity errors.
      *
      * This code is also used during finalisation and any other
-     * entity-based operations on a valid @ref entity_reference that
-     * fail for some reason.
+     * entity-based operations on a valid @ref glossary_Entity_Reference
+     * "entity reference" that fail for some reason.
      */
     kEntityResolutionError = internal::errors::kBatchElementEntityResolutionError,
 

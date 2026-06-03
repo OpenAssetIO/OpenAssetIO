@@ -10,8 +10,8 @@
  * based framework that can be used stand-alone via the command line,
  * or extended with additional test suites for extra coverage.
  *
- * The harness acts as an OpenAssetIO @ref host. Two things are needed
- * to test any given codebase:
+ * The harness acts as an OpenAssetIO @ref glossary_host "host".
+ * Two things are needed to test any given codebase:
  *
  * - A @ref glossary_manager_plugin implementation for the manager to
  *   be tested.
@@ -20,10 +20,11 @@
  *
  * @subsection testing_manager_plugins_fixtures The Fixtures File
  *
- * OpenAssetIO only defines a set of methods that a @ref host can use
- * to communicate with a @ref manager. It does not dictate the specifics
- * of what constitutes valid inputs, or output from any given manager.
- * This is specific to its data model and implementation.
+ * OpenAssetIO only defines a set of methods that a @ref glossary_host
+ * "host" can use to communicate with a @ref manager. It does not
+ * dictate the specifics of what constitutes valid inputs, or output
+ * from any given manager. This is specific to its data model and
+ * implementation.
  *
  * Consequently the test harness needs to be supplied with valid
  * values to pass to methods such as

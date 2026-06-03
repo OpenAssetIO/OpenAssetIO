@@ -32,8 +32,8 @@ class PythonPluginSystemUIDelegateImplementationFactory(UIDelegateImplementation
     """
     A Factory to manage @ref
     openassetio.ui.pluginSystem.PythonPluginSystemUIDelegatePlugin
-    derived plugins. Not usually used directly by a @ref host, which
-    instead uses the @fqref{ui.hostApi.UIDelegateFactory}
+    derived plugins. Not usually used directly by a @ref glossary_host
+    "host", which instead uses the @fqref{ui.hostApi.UIDelegateFactory}
     "UIDelegateFactory".
 
     The factory loads plugins from entry points registered within the

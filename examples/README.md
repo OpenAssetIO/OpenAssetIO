@@ -71,7 +71,7 @@ plugin allows OpenAssetIO entity references to be recognised within
 OTIO documents, and resolved to their file path when the document is
 loaded.
 
-### ComyUI OpenAssetIO nodes
+### ComfyUI OpenAssetIO nodes
 
 The [ComfyUI plugin](https://github.com/OpenAssetIO/OpenAssetIO-ComfyUI)
 adds custom nodes for ingest and publishing of assets via OpenAssetIO

@@ -16,8 +16,9 @@ OPENASSETIO_DECLARE_PTR(HostInterface)
 
 /**
  * The HostInterface provides an abstraction of the 'caller of the
- * API'. Colloquially, we refer to this as the '@ref host'. This may be
- * a simple pipeline tool, or a full content creation application.
+ * API'. Colloquially, we refer to this as the @ref glossary_host
+ * "host". This may be a simple pipeline tool, or a full content
+ * creation application.
  *
  * The HostInterface provides a generic mechanism for a @ref manager to
  * query information about the identity of the host. In future, this

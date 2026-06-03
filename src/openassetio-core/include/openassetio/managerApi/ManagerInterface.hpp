@@ -36,16 +36,18 @@ namespace managerApi {
 OPENASSETIO_DECLARE_PTR(ManagerInterface)
 
 /**
- * This Interface binds a @ref asset_management_system into
- * OpenAssetIO. It is not called directly by a @ref host, but by the
- * middleware that presents a more object-oriented model of this to
- * the @ref host - namely, the @fqref{hostApi.Manager} "Manager".
+ * This Interface binds a @ref glossary_Asset_Management_System
+ * "Asset Management System" into OpenAssetIO. It is not called directly
+ * by a @ref glossary_host "host", but by the middleware that presents
+ * a more object-oriented model of this to the @ref glossary_host
+ * "host" - namely, the @fqref{hostApi.Manager} "Manager".
  *
  * It is structured around the following principles:
  *
  *   @li The currency of the API is either data, or an @ref
- *   entity_reference. objects should not be used to represent an @ref
- *   entity or its properties.
+ *   glossary_Entity_Reference "entity reference". Objects should
+ *   not be used to represent an @ref glossary_entity "entity"
+ *   or its properties.
  *
  *   @li The manager plugin is expected to be batch-first. That is,
  *   where relevant, methods expect lists as their primary input
@@ -178,8 +180,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @name Asset Management System Identification
    *
    * These functions provide hosts with general identity information
-   * about the @ref asset_management_system itself.These may all be
-   * called before @ref initialize has been called.
+   * about the @ref glossary_Asset_Management_System
+   * "Asset Management System" itself. These may all be called before
+   * @ref initialize has been called.
    *
    * @{
    */
@@ -226,7 +229,7 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @name Asset Management System Information
    *
    * These functions provide general information about the @ref
-   * asset_management_system itself.
+   * glossary_Asset_Management_System "Asset Management System" itself.
    * @{
    */
 
@@ -316,8 +319,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
      */
     kCustomTerminology = internal::capability::manager::Capability::kCustomTerminology,
     /**
-     * Manager is capable of resolving @ref entity_reference into the
-     * data for one or more @ref trait "traits",
+     * Manager is capable of resolving @ref glossary_Entity_Reference
+     * "entity reference" into the data for one or more @ref trait
+     * "traits",
      *
      * This capability means the manager implements the following
      * methods:
@@ -325,8 +329,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
      */
     kResolution = internal::capability::manager::Capability::kResolution,
     /**
-     * Manager allows the host to create or update an @ref entity within
-     * the @ref asset_management_system.
+     * Manager allows the host to create or update an @ref
+     * glossary_entity "entity" within the @ref
+     * glossary_Asset_Management_System "Asset Management System".
      *
      * This capability means the manager implements the following
      * methods:
@@ -405,8 +410,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
   /**
    * Returns other information that may be useful about this @ref
-   * asset_management_system. This can contain arbitrary key/value
-   * pairs. For example:
+   * glossary_Asset_Management_System "Asset Management System".
+   * This can contain arbitrary key/value pairs. For example:
    *
    *     { 'version' : '1.1v3', 'server' : 'assets.openassetio.org' }
    *
@@ -422,9 +427,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * this will be used by the API to optimize calls to
    * isEntityReferenceString when bridging between C/Python etc.
    * If this isn't supplied, then isEntityReferenceString will always be
-   * called to determine if a string is an @ref entity_reference or
-   * not. Note, not all invocations require this optimization, so
-   * @ref isEntityReferenceString should be implemented regardless.
+   * called to determine if a string is an @ref
+   * glossary_Entity_Reference "entity reference" or not. Note, not all
+   * invocations require this optimization, so @ref
+   * isEntityReferenceString should be implemented regardless.
    *
    *   @li @ref constants.kInfoKey_EntityReferencesMatchPrefix
    *
@@ -497,13 +503,13 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    *
    * If an exception is raised by this call, it signifies to the host
    * that a fatal error occurred, and this @ref
-   * asset_management_system is not available with the current
-   * settings.
+   * glossary_Asset_Management_System "Asset Management System" is not
+   * available with the current settings.
    *
    * If no exception is raised, it can be assumed that the @ref
-   * asset_management_system is ready. It is the implementations
-   * responsibility to deal with transient connection errors (if
-   * applicable) once initialized.
+   * glossary_Asset_Management_System "Asset Management System" is
+   * ready. It is the implementation's responsibility to deal with
+   * transient connection errors (if applicable) once initialized.
    *
    * If called on an already initialized instance, re-initialize with
    * any updated settings that are provided. If an error was raised
@@ -661,8 +667,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * Because the @ref ManagerInterface is effectively state-less. To
    * simplify error handling, and allow an implementation to know which
    * interactions are related, this API supports the concept of a @ref
-   * manager_state object. This is contained in every @ref Context and
-   * passed to relevant calls.
+   * manager_state object. This is contained in every @ref
+   * glossary_Context "Context" and passed to relevant calls.
    *
    * This mechanism may be used for a variety of purposes. For example,
    * it could ensure that queries are made from a coherent time stamp
@@ -679,7 +685,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * long as it can be uniquely represented by the object returned
    * from this function.
    *
-   * This method is called whenever a new @ref Context is made by a
+   * This method is called whenever a new @ref glossary_Context
+   * "Context" is made by a
    * @fqref{hostApi.Manager.createContext} "createContext". The return
    * is then stored in the newly created Context, and is consequently
    * available to all the API calls in the ManagerInterface that take a
@@ -718,7 +725,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Create a state that is a child of the supplied state.
    *
-   * This method is called whenever a child @ref Context is made by
+   * This method is called whenever a child @ref glossary_Context
+   * "Context" is made by
    * @fqref{hostApi.Manager.createChildContext} "createChildContext".
    * The return is then stored in the newly created Context, and is
    * consequently available to all the API calls in the ManagerInterface
@@ -841,7 +849,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
   /**
    * Determines if the supplied string (in its entirety) matches the
-   * pattern of a valid @ref entity_reference in your system.
+   * pattern of a valid @ref glossary_Entity_Reference
+   * "entity reference" in your system.
    *
    * It does not need to verify that it points to a valid entity in the
    * system, simply that the pattern of the string is recognised by this
@@ -852,9 +861,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @ref info() dictionary, so that calls to this method can be
    * circumvented by performing a (fast) string prefix check instead.
    *
-   * Return `True` if the string is an @ref entity_reference
-   * and should be considered usable with the other methods of this
-   * interface.
+   * Return `True` if the string is an @ref glossary_Entity_Reference
+   * "entity reference" and should be considered usable with the other
+   * methods of this interface.
    *
    * Return `False`, if this should no longer be involved in actions
    * relating to the string as it is not recognised.
@@ -872,8 +881,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @param hostSession HostSession The API session.
    *
    * @return `bool` `True` if the supplied string should be
-   * considered as an @ref entity_reference, `False` if the pattern is
-   * not recognised.
+   * considered as an @ref glossary_Entity_Reference "entity reference",
+   * `False` if the pattern is not recognised.
    *
    * @note This call should not verify an entity exits, just that the
    * format of the string is recognised as a potential entity reference
@@ -899,10 +908,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   using ExistsSuccessCallback = std::function<void(std::size_t, bool)>;
 
   /**
-   * Called to determine if each @ref entity_reference supplied
-   * points to an entity that exists in the @ref
-   * asset_management_system, and that they can be resolved into
-   * a meaningful string or otherwise queried.
+   * Called to determine if each @ref glossary_Entity_Reference
+   * "entity reference" supplied points to an entity that exists in the
+   * @ref glossary_Asset_Management_System "Asset Management System",
+   * and that they can be resolved into a meaningful string or otherwise
+   * queried.
    *
    * By 'exist' we mean 'is ready to be read'. For example,
    * entityExists may be called before attempting to read from a
@@ -961,14 +971,14 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
 
   /**
    * Provides the host with the @ref trait_set of one or more @ref
-   * entity "entities".
+   * glossary_entity "entities".
    *
    * For example, a host may use this to validate that a user-provided
    * entity reference is appropriate for an operation.
    *
    * The trait set returned (via callback) for each @ref
-   * entity_reference should vary according to the @p entityTraitsAccess
-   * access mode.
+   * glossary_Entity_Reference "entity reference" should vary according
+   * to the @p entityTraitsAccess access mode.
    *
    * If @ref access.EntityTraitsAccess.kRead "kRead" is given, respond
    * with the exhaustive trait set of the entity. Include traits whose
@@ -1035,10 +1045,11 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * @name Entity Reference Resolution
    *
-   * The concept of resolution is turning an @ref entity_reference into
-   * the data for one or more @ref trait "traits" that are meaningful to
-   * the situation. It could be a color space, a directory, a script or
-   * a frame range for an image sequence.
+   * The concept of resolution is turning an @ref
+   * glossary_Entity_Reference "entity reference" into the data for one
+   * or more @ref trait "traits" that are meaningful to the situation.
+   * It could be a color space, a directory, a script or a frame range
+   * for an image sequence.
    *
    * @{
    */
@@ -1051,7 +1062,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Provides the host with a @fqref{trait.TraitsData} "TraitsData"
    * populated with the available data for the properties of the
-   * requested set of traits for each given @ref entity_reference.
+   * requested set of traits for each given @ref
+   * glossary_Entity_Reference "entity reference".
    *
    * This call should block until all resolutions are complete and
    * callbacks have been called. Callbacks must be called on the
@@ -1283,8 +1295,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * default implementation returns an empty list for all
    * relationships.
    *
-   * @param entityReferences A list of @ref entity_reference to query
-   * the specified relationship for.
+   * @param entityReferences A list of @ref glossary_Entity_Reference
+   * "entity references" to query the specified relationship for.
    *
    * @param relationshipTraitsData The traits of the relationship to
    * query.
@@ -1360,8 +1372,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * default implementation returns an empty list for all
    * relationships.
    *
-   * @param entityReference The @ref entity_reference to query the
-   * specified relationships for.
+   * @param entityReference The @ref glossary_Entity_Reference
+   * "entity reference" to query the specified relationships for.
    *
    * @param relationshipTraitsDatas The traits of the relationships to
    * query.
@@ -1428,24 +1440,24 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * @name Publishing
    *
    * The publishing functions allow a host create or update entities
-   * within the @ref asset_management_system represented by this
-   * implementation. The API is designed to accommodate the broad
-   * variety of roles that different asset managers embody. Some are
-   * 'librarians' that simply catalog the locations of existing media.
-   * Others take an active role in both the temporary and long-term
-   * paths to items they manage.
+   * within the @ref glossary_Asset_Management_System
+   * "Asset Management System" represented by this implementation.
+   * The API is designed to accommodate the broad variety of roles that
+   * different asset managers embody. Some are 'librarians' that simply
+   * catalog the locations of existing media. Others take an active role
+   * in both the temporary and long-term paths to items they manage.
    *
    * There are two key components to publishing within this API.
    *
    * **1 - The Entity Reference**
    *
    * As with the other entry points in this API, it is assumed that an
-   * @ref entity_reference is known ahead of time. How this reference is
-   * determined is beyond the scope of this layer of the API, and
-   * functions exists in higher levels that combine browsing and
-   * publishing etc... Here, we simply assert that there must be a
-   * meaningful reference given the @ref trait_set of the entity that is
-   * being created or published.
+   * @ref glossary_Entity_Reference "entity reference" is known ahead of
+   * time. How this reference is determined is beyond the scope of this
+   * layer of the API, and functions exists in higher levels that
+   * combine browsing and publishing etc... Here, we simply assert that
+   * there must be a meaningful reference given the @ref trait_set of
+   * the entity that is being created or published.
    *
    * @note 'Meaningful' is best defined by the asset manager itself. For
    * example, in a system that versions each 'asset' by creating
@@ -1504,9 +1516,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   /**
    * Prepares for some work to be done to create data for the
    * referenced entity. The entity may not yet exist (@ref
-   * entity_reference). This call is designed to allow validation of
-   * the target reference, placeholder creation or any other sundry
-   * preparatory actions to be carried out.
+   * glossary_Entity_Reference "entity reference"). This call is
+   * designed to allow validation of the target reference, placeholder
+   * creation or any other sundry preparatory actions to be carried out.
    *
    * If this does not apply to the manager's workflow, then the
    * method can pass back the input reference once the target entity
@@ -1537,9 +1549,10 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * traits, they may solely aid in classification. See @ref
    * entityTraits docs for more information.
    *
-   * @param entityReferences An @ref entity_reference for each entity
-   * that it is desired to publish the forthcoming data to. See the
-   * notes in the API documentation for the specifics of this.
+   * @param entityReferences An @ref glossary_Entity_Reference
+   * "entity reference" for each entity that it is desired to publish
+   * the forthcoming data to. See the notes in the API documentation for
+   * the specifics of this.
    *
    * @param traitsHints @ref trait_set for each entity,
    * determining the type of entity to publish, complete with any
@@ -1609,7 +1622,8 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
   using RegisterSuccessCallback = std::function<void(std::size_t, EntityReference)>;
 
   /**
-   * Publish entities to the @ref asset_management_system.
+   * Publish entities to the @ref glossary_Asset_Management_System
+   * "Asset Management System".
    *
    * This instructs the implementation to ensure a valid entity exists
    * for each given reference and to persist the data provided in the
@@ -1648,14 +1662,15 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
    * traits, they may be used solely to aid in classification. See @ref
    * entityTraits docs for more information.
    *
-   * @param entityReferences  The @ref entity_reference of each entity
-   * to register_. It is up to the manager to ensure that this is
-   * meaningful, as it is most likely implementation specific. For
-   * example, if an entity with the traits of a 'Shot' specification is
-   * requested to be published to a reference that points to a
-   * 'Sequence' it makes sense to interpret this as a 'add a shot of
-   * this spec to the sequence'. For other types of entity, there may be
-   * different constraints on what makes sense.
+   * @param entityReferences  The @ref glossary_Entity_Reference
+   * "entity reference" of each entity to register_. It is up to the
+   * manager to ensure that this is meaningful, as it is most likely
+   * implementation specific. For example, if an entity with the traits
+   * of a 'Shot' specification is requested to be published to a
+   * reference that points to a 'Sequence' it makes sense to interpret
+   * this as a 'add a shot of this spec to the sequence'. For other
+   * types of entity, there may be different constraints on what makes
+   * sense.
    *
    * @param entityTraitsDatas The data for each entity (or 'asset') that
    * is being published. The implementation must persist the list of
@@ -1720,8 +1735,9 @@ class OPENASSETIO_CORE_EXPORT ManagerInterface {
  protected:
   /**
    * Create an @ref EntityReference object wrapping a given @ref
-   * entity_reference string. This should be used for all reference
-   * creation by a manager's implementation.
+   * glossary_Entity_Reference "entity reference" string. This
+   * should be used for all reference creation by a manager's
+   * implementation.
    *
    * No validation is performed as this method is only visible to the
    * manager implementation, and so it is assumed that its internal
