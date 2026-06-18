@@ -11,6 +11,9 @@
     },
     {
       "pattern": "^https://www.blender.org"
+    },
+    {
+      "pattern": "^https://en.cppreference.com"
     }
   ]
 }
