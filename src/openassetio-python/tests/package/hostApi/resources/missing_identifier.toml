@@ -1,0 +1,4 @@
+[manager]
+# missing identifier here
+[manager.settings]
+a_string = "Hello"

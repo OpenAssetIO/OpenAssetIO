@@ -115,7 +115,14 @@ inline std::pair<Identifier, InfoDictionary> identifierAndSettingsFromConfigFile
   } catch (const std::exception& exc) {
     throw errors::ConfigurationException{fmt::format("Error parsing config file. {}", exc.what())};
   }
-  const std::string_view identifier = config["manager"]["identifier"].value_or("");
+  const auto identifierNode = config["manager"]["identifier"];
+  if (!identifierNode) {
+    throw errors::ConfigurationException{
+        fmt::format("Configuration file is missing 'identifier' field in its "
+                    "[manager] section at '{}'",
+                    configPath.u8string())};
+  }
+  const std::string_view identifier = identifierNode.value_or(std::string_view{""});
 
   // Function to substitute ${config_dir} with the absolute,
   // canonicalised directory of the TOML config file.
