@@ -174,6 +174,10 @@ class FixtureAugmentedTestCase(unittest.TestCase):
     for each case.
     """
 
+    # Disable pytest auto-discovery for these classes - pytest 8.0.0+
+    # will collect this (base) class as a test case otherwise.
+    __test__ = False
+
     _manager: hostApi.Manager
     _locale: trait.TraitsData
 
