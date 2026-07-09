@@ -573,25 +573,40 @@ void registerManager(const py::module& mod) {
              const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
             return self.register_(entityReference, entityTraitsData, publishingAccess, context);
           },
-          py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+          py::arg("entityReferences"), py::arg("entityTraitsDatas").none(false),
           py::arg("publishAccess"), py::arg("context").none(false),
           py::call_guard<py::gil_scoped_release>{})
+
+.def(
+          "register",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& entityTraitsDatas,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
+            validateTraitsDatas(entityTraitsDatas);
+            return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context);
+          },
+          py::arg("entityReferences"), py::arg("entityTraitsDatas"),
+          py::arg("publishAccess"), py::arg("context").none(false),
+          py::call_guard<py::gil_scoped_release>{});
+
 .def("register",
            py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Exception&>(
                &Manager::register_),
-           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("entityReferences"), py::arg("entityTraitsDatas").none(false),
            py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
+
 .def("register",
            py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
                              access::PublishingAccess, const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
                &Manager::register_),
-           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("entityReferences"), py::arg("entityTraitsDatas").none(false),
            py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
+
 .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
@@ -605,6 +620,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("errorPolicyTag"),
           py::call_guard<py::gil_scoped_release>{})
+
 .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
@@ -618,6 +634,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("errorPolicyTag"),
           py::call_guard<py::gil_scoped_release>{})
+
 .def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
@@ -632,15 +649,4 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
           py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "register",
-          [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& entityTraitsDatas,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
-            validateTraitsDatas(entityTraitsDatas);
-            return self.register_(entityReferences, entityTraitsDatas, publishingAccess, context);
-          },
-          py::arg("entityReference"), py::arg("entityTraitsData").none(false),
-          py::arg("publishAccess"), py::arg("context").none(false),
-          py::call_guard<py::gil_scoped_release>{});
 }  // NOLINT(readability/fn_size)
