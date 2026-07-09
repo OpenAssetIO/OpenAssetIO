@@ -127,7 +127,7 @@ void registerManager(const py::module& mod) {
           },
           py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def(
           "defaultEntityReference",
           [](Manager& self, const trait::TraitSets& traitSets,
              const access::DefaultEntityAccess defaultEntityReferenceAccess,
@@ -136,7 +136,15 @@ void registerManager(const py::module& mod) {
           },
           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference",
+.def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSet&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("defaultEntityReference",
            py::overload_cast<const trait::TraitSet&, access::DefaultEntityAccess,
                              const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
@@ -144,7 +152,15 @@ void registerManager(const py::module& mod) {
            py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
            py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference",
+.def("defaultEntityReference",
+           py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::defaultEntityReference),
+           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("defaultEntityReference",
            py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
                              const ContextConstPtr&,
                              const Manager::BatchElementErrorPolicyTag::Variant&>(
@@ -152,7 +168,7 @@ void registerManager(const py::module& mod) {
            py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
            py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference",
+.def("defaultEntityReference",
            py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
                              const ContextConstPtr&,
                              const Manager::DefaultEntityReferenceSuccessCallback&,
@@ -160,22 +176,6 @@ void registerManager(const py::module& mod) {
                &Manager::defaultEntityReference),
            py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
            py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference",
-           py::overload_cast<const trait::TraitSet&, access::DefaultEntityAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::defaultEntityReference),
-           py::arg("traitSet"), py::arg("defaultEntityReferenceAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("defaultEntityReference",
-           py::overload_cast<const trait::TraitSets&, access::DefaultEntityAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::defaultEntityReference),
-           py::arg("traitSets"), py::arg("defaultEntityReferenceAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "entityExists",
@@ -227,29 +227,6 @@ void registerManager(const py::module& mod) {
                              const Manager::BatchElementErrorCallback&>(&Manager::entityExists),
            py::arg("entityReferences"), py::arg("context").none(false), py::arg("successCallback"),
            py::arg("errorCallback"), py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits",
-           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
-                             const ContextConstPtr&, const Manager::EntityTraitsSuccessCallback&,
-                             const Manager::BatchElementErrorCallback&>(&Manager::entityTraits),
-           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
-           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits",
-           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::entityTraits),
-           py::arg("entityReference"), py::arg("entityTraitsAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits",
-           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::entityTraits),
-           py::arg("entityReference"), py::arg("entityTraitsAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
       .def(
           "entityTraits",
           // Note: Technically we shouldn't need this overload, see
@@ -260,23 +237,7 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReference"), py::arg("entityTraitsAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits",
-           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::entityTraits),
-           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("entityTraits",
-           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::entityTraits),
-           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def(
           "entityTraits",
           // Note: Technically we shouldn't need this overload, see
           // similar comment for `resolve`.
@@ -286,33 +247,48 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+.def("entityTraits",
+           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::entityTraits),
+           py::arg("entityReference"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("entityTraits",
+           py::overload_cast<const EntityReference&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityTraits),
+           py::arg("entityReference"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("entityTraits",
+           py::overload_cast<const EntityReferences&, access::EntityTraitsAccess,
+                             const ContextConstPtr&, const Manager::EntityTraitsSuccessCallback&,
+                             const Manager::BatchElementErrorCallback&>(&Manager::entityTraits),
+           py::arg("entityReferences"), py::arg("entityTraitsAccess"),
+           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+           py::call_guard<py::gil_scoped_release>{})
       .def("hasCapability", &Manager::hasCapability, py::arg("capability"),
            py::call_guard<py::gil_scoped_release>{})
       .def("updateTerminology", &Manager::updateTerminology, py::arg("terms"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "resolve",
-          py::overload_cast<const EntityReferences&, const trait::TraitSet&, access::ResolveAccess,
-                            const ContextConstPtr&, const Manager::ResolveSuccessCallback&,
-                            const Manager::BatchElementErrorCallback&>(&Manager::resolve),
-          py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
-          py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
-          py::call_guard<py::gil_scoped_release>{})
-      .def("resolve",
-           py::overload_cast<const EntityReference&, const trait::TraitSet&, access::ResolveAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::resolve),
-           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("resolve",
-           py::overload_cast<const EntityReference&, const trait::TraitSet&, access::ResolveAccess,
-                             const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::resolve),
-           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
       .def(
           "resolve",
@@ -328,23 +304,7 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def("resolve",
-           py::overload_cast<const EntityReferences&, const trait::TraitSet&,
-                             access::ResolveAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::resolve),
-           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("resolve",
-           py::overload_cast<const EntityReferences&, const trait::TraitSet&,
-                             access::ResolveAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::resolve),
-           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def(
           "resolve",
           // Note: Technically we shouldn't need this overload, see
           // similar comment for other `resolve` overload.
@@ -355,16 +315,46 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
           py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def("getWithRelationship",
-           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
-                             access::RelationsAccess, const ContextConstPtr&,
-                             const Manager::RelationshipQuerySuccessCallback&,
-                             const Manager::BatchElementErrorCallback&, const trait::TraitSet&>(
-               &Manager::getWithRelationship),
-           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
-           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
-           py::arg("successCallback"), py::arg("errorCallback"),
-           py::arg("resultTraitSet") = trait::TraitSet{}, py::call_guard<py::gil_scoped_release>{})
+.def("resolve",
+           py::overload_cast<const EntityReference&, const trait::TraitSet&, access::ResolveAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::resolve),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("resolve",
+           py::overload_cast<const EntityReference&, const trait::TraitSet&, access::ResolveAccess,
+                             const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::resolve),
+           py::arg("entityReference"), py::arg("traitSet"), py::arg("resolveAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("resolve",
+           py::overload_cast<const EntityReferences&, const trait::TraitSet&,
+                             access::ResolveAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::resolve),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("resolve",
+           py::overload_cast<const EntityReferences&, const trait::TraitSet&,
+                             access::ResolveAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::resolve),
+           py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def(
+          "resolve",
+          py::overload_cast<const EntityReferences&, const trait::TraitSet&, access::ResolveAccess,
+                            const ContextConstPtr&, const Manager::ResolveSuccessCallback&,
+                            const Manager::BatchElementErrorCallback&>(&Manager::resolve),
+          py::arg("entityReferences"), py::arg("traitSet"), py::arg("resolveAccess"),
+          py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
+          py::call_guard<py::gil_scoped_release>{})
       .def(
           "getWithRelationship",
           // Note: Technically we shouldn't need this overload, see
@@ -379,7 +369,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReference"), py::arg("relationshipTraitsData").none(false),
           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
           py::arg("resultTraitSet"), py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def(
           "getWithRelationship",
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitsDataPtr& relationshipTraitsData, const std::size_t pageSize,
@@ -391,7 +381,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
           py::arg("resultTraitSet"), py::call_guard<py::gil_scoped_release>{})
-      .def("getWithRelationship",
+.def("getWithRelationship",
            py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
@@ -401,7 +391,7 @@ void registerManager(const py::module& mod) {
            py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("getWithRelationship",
+.def("getWithRelationship",
            py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
@@ -411,7 +401,7 @@ void registerManager(const py::module& mod) {
            py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("getWithRelationship",
+.def("getWithRelationship",
            py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
@@ -421,7 +411,7 @@ void registerManager(const py::module& mod) {
            py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
-      .def("getWithRelationship",
+.def("getWithRelationship",
            py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
                              access::RelationsAccess, const ContextConstPtr&,
                              const trait::TraitSet&,
@@ -431,7 +421,62 @@ void registerManager(const py::module& mod) {
            py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
            py::arg("resultTraitSet"), py::arg("errorPolicyTag"),
            py::call_guard<py::gil_scoped_release>{})
+.def("getWithRelationship",
+           py::overload_cast<const EntityReferences&, const trait::TraitsDataPtr&, std::size_t,
+                             access::RelationsAccess, const ContextConstPtr&,
+                             const Manager::RelationshipQuerySuccessCallback&,
+                             const Manager::BatchElementErrorCallback&, const trait::TraitSet&>(
+               &Manager::getWithRelationship),
+           py::arg("entityReferences"), py::arg("relationshipTraitsData").none(false),
+           py::arg("pageSize"), py::arg("relationsAccess"), py::arg("context").none(false),
+           py::arg("successCallback"), py::arg("errorCallback"),
+           py::arg("resultTraitSet") = trait::TraitSet{}, py::call_guard<py::gil_scoped_release>{})
       .def(
+          "getWithRelationships",
+          // Note: Technically we shouldn't need this overload, see
+          // similar comment for `resolve`.
+          [](Manager& self, const EntityReference& entityReference,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
+             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+             const trait::TraitSet& resultTraitSet) {
+            validateTraitsDatas(relationshipTraitsDatas);
+            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
+                                             relationsAccess, context, resultTraitSet);
+          },
+          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
+          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
+          py::call_guard<py::gil_scoped_release>{})
+.def(
+          "getWithRelationships",
+          [](Manager& self, const EntityReference& entityReference,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
+             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+             const trait::TraitSet& resultTraitSet,
+             const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
+            validateTraitsDatas(relationshipTraitsDatas);
+            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
+                                             relationsAccess, context, resultTraitSet,
+                                             errorPolicyTag);
+          },
+          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
+          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
+          py::arg("errorPolicyTag"), py::call_guard<py::gil_scoped_release>{})
+.def(
+          "getWithRelationships",
+          [](Manager& self, const EntityReference& entityReference,
+             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
+             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
+             const trait::TraitSet& resultTraitSet,
+             const Manager::BatchElementErrorPolicyTag::Variant& errorPolicyTag) {
+            validateTraitsDatas(relationshipTraitsDatas);
+            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
+                                             relationsAccess, context, resultTraitSet,
+                                             errorPolicyTag);
+          },
+          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
+          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
+          py::arg("errorPolicyTag"), py::call_guard<py::gil_scoped_release>{})
+.def(
           "getWithRelationships",
           [](Manager& self, const EntityReference& entityReference,
              const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
@@ -449,51 +494,65 @@ void registerManager(const py::module& mod) {
           py::arg("errorCallback"), py::arg("resultTraitSet") = trait::TraitSet{},
           py::call_guard<py::gil_scoped_release>{})
       .def(
-          "getWithRelationships",
-          // Note: Technically we shouldn't need this overload, see
-          // similar comment for `resolve`.
+          "preflight",
           [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
-             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const trait::TraitSet& resultTraitSet) {
-            validateTraitsDatas(relationshipTraitsDatas);
-            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
-                                             relationsAccess, context, resultTraitSet);
+             const trait::TraitsDataPtr& traitsHint,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
+            return self.preflight(entityReference, traitsHint, publishingAccess, context);
           },
-          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
-          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
+          py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+.def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, publishingAccess, context);
+          },
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
+          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
+.def("preflight",
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
+                             access::PublishingAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::preflight),
+           py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("preflight",
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
+                             access::PublishingAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::preflight),
+           py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
+           py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Exception& tag) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, publishingAccess, context, tag);
+          },
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
+          py::arg("context").none(false), py::arg("errorPolicyTag"),
           py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "getWithRelationships",
-          [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
-             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const trait::TraitSet& resultTraitSet,
-             const Manager::BatchElementErrorPolicyTag::Exception& errorPolicyTag) {
-            validateTraitsDatas(relationshipTraitsDatas);
-            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
-                                             relationsAccess, context, resultTraitSet,
-                                             errorPolicyTag);
+.def(
+          "preflight",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& traitsHints,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+             const Manager::BatchElementErrorPolicyTag::Variant& tag) {
+            validateTraitsDatas(traitsHints);
+            return self.preflight(entityReferences, traitsHints, publishingAccess, context, tag);
           },
-          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
-          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
-          py::arg("errorPolicyTag"), py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "getWithRelationships",
-          [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDatas& relationshipTraitsDatas, const std::size_t pageSize,
-             const access::RelationsAccess relationsAccess, const ContextConstPtr& context,
-             const trait::TraitSet& resultTraitSet,
-             const Manager::BatchElementErrorPolicyTag::Variant& errorPolicyTag) {
-            validateTraitsDatas(relationshipTraitsDatas);
-            return self.getWithRelationships(entityReference, relationshipTraitsDatas, pageSize,
-                                             relationsAccess, context, resultTraitSet,
-                                             errorPolicyTag);
-          },
-          py::arg("entityReference"), py::arg("relationshipTraitsDatas"), py::arg("pageSize"),
-          py::arg("relationsAccess"), py::arg("context").none(false), py::arg("resultTraitSet"),
-          py::arg("errorPolicyTag"), py::call_guard<py::gil_scoped_release>{})
-      .def(
+          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
+          py::arg("context").none(false), py::arg("errorPolicyTag"),
+          py::call_guard<py::gil_scoped_release>{})
+.def(
           "preflight",
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitsDatas& traitsHints,
@@ -507,96 +566,6 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
           py::call_guard<py::gil_scoped_release>{})
-      .def("preflight",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
-                             access::PublishingAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::preflight),
-           py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("preflight",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
-                             access::PublishingAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::preflight),
-           py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
-           py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "preflight",
-          [](Manager& self, const EntityReference& entityReference,
-             const trait::TraitsDataPtr& traitsHint,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
-            return self.preflight(entityReference, traitsHint, publishingAccess, context);
-          },
-          py::arg("entityReference"), py::arg("traitsHint").none(false), py::arg("publishAccess"),
-          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "preflight",
-          [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& traitsHints,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
-             const Manager::BatchElementErrorPolicyTag::Exception& tag) {
-            validateTraitsDatas(traitsHints);
-            return self.preflight(entityReferences, traitsHints, publishingAccess, context, tag);
-          },
-          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
-          py::arg("context").none(false), py::arg("errorPolicyTag"),
-          py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "preflight",
-          [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& traitsHints,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
-             const Manager::BatchElementErrorPolicyTag::Variant& tag) {
-            validateTraitsDatas(traitsHints);
-            return self.preflight(entityReferences, traitsHints, publishingAccess, context, tag);
-          },
-          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
-          py::arg("context").none(false), py::arg("errorPolicyTag"),
-          py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "preflight",
-          [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& traitsHints,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context) {
-            validateTraitsDatas(traitsHints);
-            return self.preflight(entityReferences, traitsHints, publishingAccess, context);
-          },
-          py::arg("entityReferences"), py::arg("traitsHints"), py::arg("publishAccess"),
-          py::arg("context").none(false), py::call_guard<py::gil_scoped_release>{})
-      .def(
-          "register",
-          [](Manager& self, const EntityReferences& entityReferences,
-             const trait::TraitsDatas& entityTraitsDatas,
-             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
-             const Manager::RegisterSuccessCallback& successCallback,
-             const Manager::BatchElementErrorCallback& errorCallback) {
-            validateTraitsDatas(entityTraitsDatas);
-            self.register_(entityReferences, entityTraitsDatas, publishingAccess, context,
-                           successCallback, errorCallback);
-          },
-          py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
-          py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
-          py::call_guard<py::gil_scoped_release>{})
-
-      .def("register",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
-                             access::PublishingAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Exception&>(
-               &Manager::register_),
-           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
-           py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
-      .def("register",
-           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
-                             access::PublishingAccess, const ContextConstPtr&,
-                             const Manager::BatchElementErrorPolicyTag::Variant&>(
-               &Manager::register_),
-           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
-           py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
-           py::call_guard<py::gil_scoped_release>{})
       .def(
           "register",
           [](Manager& self, const EntityReference& entityReference,
@@ -607,7 +576,23 @@ void registerManager(const py::module& mod) {
           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
           py::arg("publishAccess"), py::arg("context").none(false),
           py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def("register",
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
+                             access::PublishingAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Exception&>(
+               &Manager::register_),
+           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def("register",
+           py::overload_cast<const EntityReference&, const trait::TraitsDataPtr&,
+                             access::PublishingAccess, const ContextConstPtr&,
+                             const Manager::BatchElementErrorPolicyTag::Variant&>(
+               &Manager::register_),
+           py::arg("entityReference"), py::arg("entityTraitsData").none(false),
+           py::arg("publishAccess"), py::arg("context").none(false), py::arg("errorPolicyTag"),
+           py::call_guard<py::gil_scoped_release>{})
+.def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitsDatas& entityTraitsDatas,
@@ -620,7 +605,7 @@ void registerManager(const py::module& mod) {
           py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("errorPolicyTag"),
           py::call_guard<py::gil_scoped_release>{})
-      .def(
+.def(
           "register",
           [](Manager& self, const EntityReferences& entityReferences,
              const trait::TraitsDatas& entityTraitsDatas,
@@ -632,6 +617,20 @@ void registerManager(const py::module& mod) {
           },
           py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
           py::arg("context").none(false), py::arg("errorPolicyTag"),
+          py::call_guard<py::gil_scoped_release>{})
+.def(
+          "register",
+          [](Manager& self, const EntityReferences& entityReferences,
+             const trait::TraitsDatas& entityTraitsDatas,
+             const access::PublishingAccess publishingAccess, const ContextConstPtr& context,
+             const Manager::RegisterSuccessCallback& successCallback,
+             const Manager::BatchElementErrorCallback& errorCallback) {
+            validateTraitsDatas(entityTraitsDatas);
+            self.register_(entityReferences, entityTraitsDatas, publishingAccess, context,
+                           successCallback, errorCallback);
+          },
+          py::arg("entityReferences"), py::arg("entityTraitsDatas"), py::arg("publishAccess"),
+          py::arg("context").none(false), py::arg("successCallback"), py::arg("errorCallback"),
           py::call_guard<py::gil_scoped_release>{})
       .def(
           "register",
