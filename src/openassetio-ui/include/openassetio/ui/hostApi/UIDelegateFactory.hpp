@@ -226,8 +226,9 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * messaging from the instantiated @ref UIDelegate instances.
    *
    * @returns A default-configured UI delegate if @ref
-   * default_config_var is set, otherwise a nullptr if the var was not
-   * set.
+   * default_config_var is set and the configured identifier is available
+   * from the UI delegate factory. Returns nullptr if the var is not set
+   * or the configured identifier is not available.
    *
    * @throws errors.InputValidationException if there are errors if the
    * config file does not exist at the path provided in the @ref
@@ -281,7 +282,8 @@ class OPENASSETIO_UI_EXPORT UIDelegateFactory final {
    * @param logger The logger instance that will be used for all
    * messaging from the instantiated @ref UIDelegate instances.
    *
-   * @return A default-configured UI delegate.
+   * @return A default-configured UI delegate, or nullptr if the configured
+   * identifier is not available from the UI delegate factory.
    *
    * @throws errors.InputValidationException if there are errors if the
    * config file does not exist at the path provided in @p configPath.

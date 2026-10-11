@@ -155,6 +155,32 @@ class Test_UIDelegateFactory_defaultUIDelegateForInterface:
         )
 
     @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
+    def test_when_identifier_not_available_then_returns_none(
+        self,
+        use_env_var_for_config_file,
+        valid_ui_delegate_config,
+        mock_ui_delegate_implementation_factory,
+        mock_host_interface,
+        mock_logger,
+    ):
+        mock_ui_delegate_implementation_factory.mock.identifiers.return_value = []
+
+        if use_env_var_for_config_file:
+            ui_delegate = UIDelegateFactory.defaultUIDelegateForInterface(
+                mock_host_interface, mock_ui_delegate_implementation_factory, mock_logger
+            )
+        else:
+            ui_delegate = UIDelegateFactory.defaultUIDelegateForInterface(
+                valid_ui_delegate_config,
+                mock_host_interface,
+                mock_ui_delegate_implementation_factory,
+                mock_logger,
+            )
+
+        assert ui_delegate is None
+        mock_ui_delegate_implementation_factory.mock.instantiate.assert_not_called()
+
+    @pytest.mark.parametrize("use_env_var_for_config_file", [True, False])
     def test_when_non_existent_path_then_InputValidationException_raised(
         self,
         use_env_var_for_config_file,
@@ -572,6 +598,7 @@ def a_ui_delegate_factory(
 @pytest.fixture
 def mock_ui_delegate_implementation_factory(mock_logger, mock_ui_delegate_interface):
     factory = MockUIDelegateImplementationFactory(mock_logger)
+    factory.mock.identifiers.return_value = ["identifier.from.toml.file"]
     factory.mock.instantiate.return_value = mock_ui_delegate_interface
     return factory
 

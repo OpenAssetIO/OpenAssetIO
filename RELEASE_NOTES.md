@@ -1,6 +1,19 @@
 Release Notes
 =============
 
+v1.x.x
+---------------
+
+_This release may break source compatibility for Python and C++ hosts,
+see breaking changes section for more details._
+
+## Breaking changes
+
+- Modified `UIDelegateFactory.defaultUIDelegateForInterface` to return
+  `nullptr`/`None`, rather than throw `InputValidationException`, when a
+  manager plugin is configured without a corresponding UI delegate plugin.
+  [#1466](https://github.com/OpenAssetIO/OpenAssetIO/issues/1466)
+
 v1.0.2
 ------
 
