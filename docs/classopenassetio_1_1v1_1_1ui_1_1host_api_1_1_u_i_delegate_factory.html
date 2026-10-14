@@ -473,7 +473,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A default-configured UI delegate if <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> is set, otherwise a nullptr if the var was not set.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A default-configured UI delegate if <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> is set and the configured identifier is available from the UI delegate factory. Returns nullptr if the var is not set or the configured identifier is not available.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if there are errors if the config file does not exist at the path provided in the <a class="el" href="glossary.html#default_config_var">$OPENASSETIO_DEFAULT_CONFIG</a> env var.</td></tr>
@@ -541,7 +541,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A default-configured UI delegate.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A default-configured UI delegate, or nullptr if the configured identifier is not available from the UI delegate factory.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="structopenassetio_1_1v1_1_1errors_1_1_input_validation_exception.html" title="Thrown whenever the input to a public API function is invalid for the requested operation. ">errors.InputValidationException</a></td><td>if there are errors if the config file does not exist at the path provided in <code>configPath</code>.</td></tr>
