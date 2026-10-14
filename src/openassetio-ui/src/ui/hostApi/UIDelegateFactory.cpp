@@ -2,6 +2,7 @@
 // Copyright 2025 The Foundry Visionmongers Ltd
 #include <openassetio/ui/hostApi/UIDelegateFactory.hpp>
 
+#include <algorithm>
 #include <cstdlib>
 #include <memory>
 #include <string_view>
@@ -85,10 +86,17 @@ UIDelegatePtr UIDelegateFactory::defaultUIDelegateForInterface(
   const auto& [identifier, settings] =
       factory::identifierAndSettingsFromConfigFile(logger, configPath, "ui");
 
+  const Identifier uiDelegateIdentifier{identifier};
+  const Identifiers availableUIDelegates = uiDelegateImplementationFactory->identifiers();
+  if (std::find(availableUIDelegates.cbegin(), availableUIDelegates.cend(),
+                uiDelegateIdentifier) == availableUIDelegates.cend()) {
+    return nullptr;
+  }
+
   const HostSessionPtr hostSession = HostSession::make(Host::make(hostInterface), logger);
 
   const UIDelegatePtr uiDelegate = UIDelegate::make(
-      uiDelegateImplementationFactory->instantiate(Identifier(identifier)), hostSession);
+      uiDelegateImplementationFactory->instantiate(uiDelegateIdentifier), hostSession);
 
   uiDelegate->initialize(settings);
   return uiDelegate;

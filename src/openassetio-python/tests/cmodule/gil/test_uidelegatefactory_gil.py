@@ -150,6 +150,7 @@ class Test_UIDelegateFactory_gil:
         mock_ui_delegate_interface,
     ):
         mock_ui_delegate_impl_factory.mock.instantiate.return_value = mock_ui_delegate_interface
+        mock_ui_delegate_impl_factory.mock.identifiers.return_value = ["something"]
         config_path = tmp_path / "ui_delegate.toml"
         config_path.write_text('[manager]\nidentifier = "something"')
 
