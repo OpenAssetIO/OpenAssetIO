@@ -67,7 +67,7 @@ jobs:
         run: >
           ${{ matrix.config.preamble }}
 
-          cmake -S . -B build -G Ninja -DOPENASSETIO_ENABLE_SIMPLECPPMANAGER=ON
+          cmake -S . -B build -G Ninja -DOPENASSETIO_ENABLE_SIMPLECPPMANAGER=ON -DOPENASSETIO_TEST_CPP_PLUGINS_SUBDIR=lib/OpenAssetIO/plugins
           --install-prefix ${{ github.workspace }}/dist/${{ matrix.config.os }}${{ matrix.config.build-type }}
           --toolchain ${{ github.workspace }}/.conan/conan_paths.cmake
           -DCMAKE_BUILD_TYPE=${{matrix.config.build-type}}
