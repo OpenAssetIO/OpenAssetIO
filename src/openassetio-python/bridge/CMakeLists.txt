@@ -27,7 +27,10 @@ openassetio_set_default_target_properties(openassetio-python-bridge)
 # Set output artifact base filename.
 set_target_properties(openassetio-python-bridge PROPERTIES OUTPUT_NAME openassetio-python)
 # Add to the set of installable targets.
-install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(
+    TARGETS openassetio-python-bridge
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+)
 
 if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
     # "TARGET_PDB_FILE is allowed only for targets with linker created

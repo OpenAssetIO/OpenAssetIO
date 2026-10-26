@@ -43,6 +43,44 @@ if (BUILD_SHARED_LIBS)
         COMPONENT openassetio-python-distribution
     )
 endif ()
+# Install public headers into the Python distribution.
+install(
+    DIRECTORY "${PROJECT_SOURCE_DIR}/src/openassetio-core/include/openassetio"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT openassetio-python-distribution
+)
+
+install(
+    DIRECTORY "${PROJECT_SOURCE_DIR}/src/openassetio-python/bridge/include/openassetio"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT openassetio-python-distribution
+)
+
+install(
+    DIRECTORY "${PROJECT_SOURCE_DIR}/src/openassetio-ui/include/openassetio"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    COMPONENT openassetio-python-distribution
+)
+# Install generated public headers into the Python distribution.
+install(
+    FILES
+        "${PROJECT_BINARY_DIR}/include/openassetio/export.h"
+        "${PROJECT_BINARY_DIR}/include/openassetio/version.hpp"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/openassetio"
+    COMPONENT openassetio-python-distribution
+)
+
+install(
+    FILES "${PROJECT_BINARY_DIR}/include/openassetio/python/export.h"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/openassetio/python"
+    COMPONENT openassetio-python-distribution
+)
+
+install(
+    FILES "${PROJECT_BINARY_DIR}/include/openassetio/ui/export.h"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/openassetio/ui"
+    COMPONENT openassetio-python-distribution
+)
 
 
 #-----------------------------------------------------------------------
