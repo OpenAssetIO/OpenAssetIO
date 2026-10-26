@@ -25,6 +25,10 @@ _This release remains source and binary compatible_
   PyPI).
   [#1487](https://github.com/OpenAssetIO/OpenAssetIO/issues/1487)
 
+- Bundled C++ headers, libraries, and CMake package configuration files in the Python distribution,
+  allowing downstream C++ projects to use `find_package(OpenAssetIO)`.
+  [#1417](https://github.com/OpenAssetIO/OpenAssetIO/issues/1417)
+
 v1.0.1
 ------
 

@@ -12,6 +12,7 @@ install(
     ${_public_header_source_root}/openassetio
     DESTINATION
     ${CMAKE_INSTALL_INCLUDEDIR}
+    COMPONENT openassetio-python-distribution
 )
 
 
@@ -25,7 +26,11 @@ add_library(${PROJECT_NAME}::openassetio-ui ALIAS openassetio-ui)
 # Set good default target options.
 openassetio_set_default_target_properties(openassetio-ui)
 # Add to the set of installable targets.
-install(TARGETS openassetio-ui EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(
+    TARGETS openassetio-ui
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+    COMPONENT openassetio-python-distribution
+)
 
 if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
@@ -97,6 +102,7 @@ generate_export_header(
 install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/ui/export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/ui/
+    COMPONENT openassetio-python-distribution
 )
 
 #-----------------------------------------------------------------------

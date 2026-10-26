@@ -12,6 +12,7 @@ install(
     ${_public_header_source_root}/openassetio
     DESTINATION
     ${CMAKE_INSTALL_INCLUDEDIR}
+    COMPONENT openassetio-python-distribution
 )
 
 
@@ -27,7 +28,11 @@ openassetio_set_default_target_properties(openassetio-python-bridge)
 # Set output artifact base filename.
 set_target_properties(openassetio-python-bridge PROPERTIES OUTPUT_NAME openassetio-python)
 # Add to the set of installable targets.
-install(TARGETS openassetio-python-bridge EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(
+    TARGETS openassetio-python-bridge
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+    COMPONENT openassetio-python-distribution
+)
 
 if (WIN32 AND OPENASSETIO_ENABLE_PYTHON)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
@@ -91,4 +96,5 @@ generate_export_header(
 install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/python/export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/python/
+    COMPONENT openassetio-python-distribution
 )
