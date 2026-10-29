@@ -319,11 +319,13 @@ install(
     DESTINATION ${_config_install_dir}
     NAMESPACE ${PROJECT_NAME}::
     FILE ${PROJECT_NAME}Targets.cmake
+    COMPONENT openassetio-python-distribution
 )
 
 install(
     FILES "${_project_config_file}" "${_version_config_file}" "${_variables_config_file}"
     DESTINATION "${_config_install_dir}"
+    COMPONENT openassetio-python-distribution
 )
 
 

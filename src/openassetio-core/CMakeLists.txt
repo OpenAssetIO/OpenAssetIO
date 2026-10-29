@@ -20,6 +20,7 @@ install(
     ${_public_header_source_root}/openassetio
     DESTINATION
     ${CMAKE_INSTALL_INCLUDEDIR}
+    COMPONENT openassetio-python-distribution
 )
 
 
@@ -35,7 +36,11 @@ openassetio_set_default_target_properties(openassetio-core)
 # Set output artifact base filename.
 set_target_properties(openassetio-core PROPERTIES OUTPUT_NAME openassetio)
 # Add to the set of installable targets.
-install(TARGETS openassetio-core EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(
+    TARGETS openassetio-core
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+    COMPONENT openassetio-python-distribution
+)
 
 if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
@@ -136,6 +141,7 @@ generate_export_header(
 install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/
+    COMPONENT openassetio-python-distribution
 )
 
 #----------------------------------------------------------------------
@@ -147,6 +153,7 @@ configure_file(${PROJECT_SOURCE_DIR}/cmake/templates/include/openassetio/version
 install(
     FILES ${PROJECT_BINARY_DIR}/include/openassetio/version.hpp
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/openassetio/
+    COMPONENT openassetio-python-distribution
 )
 
 #-----------------------------------------------------------------------
