@@ -14,6 +14,12 @@ see breaking changes section for more details._
   manager plugin is configured without a corresponding UI delegate plugin.
   [#1466](https://github.com/OpenAssetIO/OpenAssetIO/issues/1466)
 
+## Improvements
+
+- Included the `SimpleCppManager` example plug`in in release artifacts,
+  installed under `lib/OpenAssetIO/plugins`.
+  [#1408](https://github.com/OpenAssetIO/OpenAssetIO/issues/1408)
+
 v1.0.2
 ------
 
