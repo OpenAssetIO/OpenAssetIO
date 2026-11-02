@@ -25,7 +25,10 @@ add_library(${PROJECT_NAME}::openassetio-ui ALIAS openassetio-ui)
 # Set good default target options.
 openassetio_set_default_target_properties(openassetio-ui)
 # Add to the set of installable targets.
-install(TARGETS openassetio-ui EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS)
+install(
+    TARGETS openassetio-ui
+    EXPORT ${PROJECT_NAME}_EXPORTED_TARGETS
+)
 
 if (WIN32)
     # "TARGET_PDB_FILE is allowed only for targets with linker created
