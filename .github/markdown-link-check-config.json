@@ -14,6 +14,9 @@
     },
     {
       "pattern": "^https://en.cppreference.com"
+    },
+    {
+      "pattern": "^https://academysoftwarefdn.slack.com"
     }
   ]
 }
